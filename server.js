@@ -475,14 +475,15 @@ var NA = {};
 
             // Create file render.
             mkpath(pathToSaveFile, function (error) {
-                var dataError = {};
+                var dataError = {},
+                doctype = (window.document.doctype) ? window.document.doctype.toString() : "";
 
                 dataError.templateRenderName = path.normalize(templateRenderName);
                 dataError.pathToSaveFile = path.normalize(pathToSaveFile);
 
                 if (error) throw error;
 
-                fs.writeFile(pathToSaveFileComplete, window.document.doctype.toString() + window.document.innerHTML, function (error) {
+                fs.writeFile(pathToSaveFileComplete, doctype + window.document.innerHTML, function (error) {
                     if (error) {
                         if (error.code === 'EISDIR') {
                             console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
