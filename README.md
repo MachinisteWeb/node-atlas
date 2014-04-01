@@ -2,7 +2,7 @@
 
 ## Avant-propos
 
-NodeAtlas est une application réalisée en JavaScript et tournant avec Node.js. Elle permet 3 choses :
+NodeAtlas est une application réalisée en JavaScript et tournant avec Node.js qui permet 3 choses :
 
 - Créer et maintenir un ensemble d'assets HTML/CSS/JavaScript pour les fournirs à des développeurs Back-end.
 - Créer et maintenir des sites multilingue sans Back-end.
