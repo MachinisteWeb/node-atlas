@@ -196,7 +196,7 @@ var NA = {};
 
      					data.render = '';
 
-    	            for (page in NA.webconfig.urlRewriting) {
+    	            for (var page in NA.webconfig.urlRewriting) {
     		            data.page = page;
 
     	                if (NA.webconfig.urlRewriting.hasOwnProperty(page)) {
