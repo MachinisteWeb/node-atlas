@@ -1,0 +1,46 @@
+{
+  "name": "NodeAtlas",
+  "version": "0.1.0",
+  "private": true,
+  "author": {
+    "name": "Bruno Lesieur",
+    "email": "bruno.lesieur@gmail.com",
+    "url": "http://www.haeresis.fr/"
+  },
+  "description": "NodeAtlas vous permet de créer et maintenir des Assets HTML ou sites multilingues simplement en Node.js.",
+  "contributors": [],
+  "keywords": [
+    "framework",
+    "node.js",
+    "mvc2",
+    "website",
+    "application"
+  ],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Haeresis/NodeAtlas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Haeresis/NodeAtlas/issues"
+  },
+  "scripts": {
+    "start": "server.js"
+  },
+  "dependencies": {
+    "connect": "",
+    "express": "",
+    "commander": "",
+    "open": "",
+    "ejs": "",
+    "mkpath": "",
+    "jsdom": "",
+    "uglify-js": "",
+    "clean-css": "",
+    "node-force-domain": ""
+  },
+  "engines": {
+    "node": ">=0.10.10"
+  },
+  "readmeFilename": "README.md"
+}
