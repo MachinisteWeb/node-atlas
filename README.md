@@ -24,13 +24,13 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - Fichier de config (Liste des page avec url Rewriting)
 - Partie Back-end possible (Controllers / Models) 
 - Support de BDD possible (MySql / MongoDB)
+- Support de Socket.IO possible
+- Support des variables de parse Body / Cookie / Session
 
 #### À venir 
-- Support de Socket.IO
-- Support des modules Express
+- Support d'une BDD de Session (ex: Redis) + key/secret
+- Support des modules Express possible
 - Migration Express 3.x vers Express 4.x
-- Support des variables de Session/Cookie
-- Support d'une BDD de Session (ex: Redis)
 - Auto Minification de Css/Js
 - Auto compression images
 - Injection automatique de feuille CSS en inline (pour les maquettes Email)
