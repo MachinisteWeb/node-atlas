@@ -362,7 +362,6 @@ var NA = {};
         publics.httpServer = express();
         publics.server = http.createServer(NA.httpServer);
 
-        // Execute custom configuration
         if (!commander.generate) {
 
             publics.httpServer.use(forceDomain({
@@ -395,8 +394,8 @@ var NA = {};
             } else {
                 atlasMiddlewares(NA);
             }
-        }
 
+        }
     };
 
     publics.httpServerPublicFiles = function () {
@@ -476,14 +475,20 @@ var NA = {};
             // Create file render.
             mkpath(pathToSaveFile, function (error) {
                 var dataError = {},
-                doctype = (window.document.doctype) ? window.document.doctype.toString() : "";
+                doctype = (window.document.doctype) ? window.document.doctype.toString() : "",
+
+                // If you try a more elegant way for avoid injection of <script class="jsdom" src="..."><\/script> after </body> tag, please, notify me !
+                innerHTML = window.document.innerHTML.replace(/<script class=.jsdom.+><\/script><\/html>/g, "</html>");
+
+                // If source is initialment not a HTML content, keep initial data content.
+                if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
 
                 dataError.templateRenderName = path.normalize(templateRenderName);
                 dataError.pathToSaveFile = path.normalize(pathToSaveFile);
 
                 if (error) throw error;
 
-                fs.writeFile(pathToSaveFileComplete, doctype + window.document.innerHTML, function (error) {
+                fs.writeFile(pathToSaveFileComplete, doctype + innerHTML, function (error) {
                     if (error) {
                         if (error.code === 'EISDIR') {
                             console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
@@ -575,13 +580,17 @@ var NA = {};
             
             currentVariation.languageCode = pageParameters.languageCode || NA.webconfig.languageCode;
             currentVariation.urlBasePath = NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "") + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' : '');
-            currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url;
+
+            currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + path;
+            if (request) { currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url; }
+
             currentVariation.filename = NA.variations.filename;
 
             // Opening variation file.
-            currentVariation.params = request.params;
+            if (request) { currentVariation.params = request.params; }
             currentVariation.common = privates.openVariation(NA.webconfig.commonVariation, currentVariation);
             currentVariation.specific = privates.openVariation(pageParameters.variation, currentVariation);
+            currentVariation.webconfig = NA.webconfig;
 
             // Execute custom PreRender part.
             // Common
@@ -622,14 +631,14 @@ var NA = {};
 		// Execute Get
 		if (getSupport) {
  			NA.httpServer.get(NA.webconfig.urlRelativeSubPath + path, function (request, response) {
- 				publics.render(path, options, request, response);
+ 				NA.render(path, options, request, response);
  			});
 		}
 
 		// Execute Post
 		if (postSupport) {
 	 		NA.httpServer.post(NA.webconfig.urlRelativeSubPath + path, function (request, response) {
-	 			publics.render(path, options, request, response);
+	 			NA.render(path, options, request, response);
 	 		});
 		} 		
 	};
@@ -654,7 +663,7 @@ var NA = {};
 
         if (commander.generate) {
             for (var currentUrl in NA.webconfig.urlRewriting) {
-                publics.render(currentUrl, NA.webconfig.urlRewriting);
+                NA.render(currentUrl, NA.webconfig.urlRewriting);
             }
         }     
     };

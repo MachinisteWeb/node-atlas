@@ -15,6 +15,29 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - Exemple de génération de d'asset HTML (En cours...)
 - Exemple de développement de site Node.js (En cours...)
 
+## Table des matière
+
+- Commencer avec NodeAtlas
+ - Ensemble de fichiers
+ - Configuration minimale
+ - Lancer le site avec NodeAtlas
+- Différentes configurations du webconfig.json
+ - Plusieurs pages
+ - Héberger des images, polices, CSS, JS, etc...
+ - Gérer des includes pour reprendre du code.
+ - Gérer des variations au sein d'un même template
+ - En standard
+  - Pour le multilingue
+  - Toutes les langues sur le même site
+  - A chaque langue sa configuration
+ - Utiliser NodeAtlas pour générer des assets HTML
+ - Utiliser NodeAtlas pour faire tourner un site (partie Back-end)
+ - Changer les paramètres d'url.
+ - Autoriser/Interdire les demandes GET/POST...
+ - Changer les chevrons <% %> du moteur de template
+ - Changer la source jQuery utilisée
+ - Changer l'url final des hosname et port d'écoute
+
 ### Roadmap d'avancement du développement
 
 #### Fait 
@@ -26,6 +49,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - Support de BDD possible (MySql / MongoDB)
 - Support de Socket.IO possible
 - Support des variables de parse Body / Cookie / Session
+- Support des variables de webconfig personnelles
 
 #### À venir 
 - Support d'une BDD de Session (ex: Redis) + key/secret
