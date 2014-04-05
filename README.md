@@ -15,8 +15,12 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - Exemple de génération de d'asset HTML (En cours...)
 - Exemple de développement de site Node.js (En cours...)
 
-## Table des matière
+### Table des matière
 
+- Avant-propos
+ - Exemple de réalisations avec NodeAtlas
+ - Table des matière
+ - Roadmap d'avancement du développement
 - Commencer avec NodeAtlas
  - Ensemble de fichiers
  - Configuration minimale
@@ -27,41 +31,39 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Gérer des includes pour reprendre du code.
  - Gérer des variations au sein d'un même template
  - En standard
-  - Pour le multilingue
-  - Toutes les langues sur le même site
-  - A chaque langue sa configuration
  - Utiliser NodeAtlas pour générer des assets HTML
  - Utiliser NodeAtlas pour faire tourner un site (partie Back-end)
  - Changer les paramètres d'url.
- - Autoriser/Interdire les demandes GET/POST...
+ - Créer ses propres variables de webconfig
+ - Autoriser/Interdire les demandes GET/POST
  - Changer les chevrons <% %> du moteur de template
  - Changer la source jQuery utilisée
  - Changer l'url final des hosname et port d'écoute
 
 ### Roadmap d'avancement du développement
 
-#### Fait 
-- Lancement d'un serveur Express
-- Génération live de maquette HTML
-- Génération complète de maquette HTML
-- Fichier de config (Liste des page avec url Rewriting)
-- Partie Back-end possible (Controllers / Models) 
-- Support de BDD possible (MySql / MongoDB)
-- Support de Socket.IO possible
-- Support des variables de parse Body / Cookie / Session
-- Support des variables de webconfig personnelles
+- Fait 
+ - Lancement d'un serveur Express
+ - Génération live de maquette HTML
+ - Génération complète de maquette HTML
+ - Fichier de config (Liste des page avec url Rewriting)
+ - Partie Back-end possible (Controllers / Models) 
+ - Support de BDD possible (MySql / MongoDB)
+ - Support de Socket.IO possible
+ - Support des variables de parse Body / Cookie / Session
+ - Support des variables de webconfig personnelles
 
-#### À venir 
-- Support d'une BDD de Session (ex: Redis) + key/secret
-- Support des modules Express possible
-- Migration Express 3.x vers Express 4.x
-- Auto Minification de Css/Js
-- Auto compression images
-- Injection automatique de feuille CSS en inline (pour les maquettes Email)
-- Aggregation de fichier CSS/JS pour les versions de site Prod.
-- Auto-monté via transfert FTP
-- Support Sass/Less
-- ...
+- À venir 
+ - Support d'une BDD de Session (ex: Redis) + key/secret
+ - Support des modules Express possible
+ - Migration Express 3.x vers Express 4.x
+ - Auto Minification de Css/Js
+ - Auto compression images
+ - Injection automatique de feuille CSS en inline (pour les maquettes Email)
+ - Aggregation de fichier CSS/JS pour les versions de site Prod.
+ - Auto-monté via transfert FTP
+ - Support Sass/Less
+ - ...
 
 ## Commencer avec NodeAtlas
 
@@ -86,7 +88,7 @@ Voici le fichier « /site-hello-world/templates/index.htm »
 		<title>Hello world</title>
 	</head>
 	<body>
-		<div>Ceci est un Hello World !
+		<div>Ceci est un Hello World !</div>
 	</body>
 </html>
 ```
@@ -1059,7 +1061,117 @@ Changer alors la configuration en ceci :
 
 pour accéder à : *https://127.0.0.1:7777/sub/folder/*
 
-### Autoriser/Interdire les demandes GET/POST...
+### Créer ses propres variables de webconfig
+
+Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
+
+1.« webconfig.json »
+```js
+{
+
+	"urlRewriting": {
+		"/": {
+			"template": "index.htm"
+		}
+	}, 
+	"_minified": ""
+}
+```
+
+2. « webconfig.prod.json »
+```js
+{
+	"urlRewriting": {
+		"/": {
+			"template": "index.htm"
+		}
+	}, 
+	"_minified": ".min"
+}
+```
+
+avec cet ensemble de fichier
+
+```
+assets/
+— stylesheets/
+—— common.css
+—— common.min.css
+— javascript/
+—— common.js
+—— common.min.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+```
+
+et « index.htm » contenant :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Hello world</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
+	</head>
+	<body>
+		<div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+		<script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
+	</body>
+</html>
+```
+
+En lançant (depuis le dossier du site) la commande :
+
+```
+\> node /path/to/node-atlas/directory/server.js
+```
+
+Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Hello world</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+	</head>
+	<body>
+		<div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+		<script type="text/javascript" src="javascript/common.js"></script>
+	</body>
+</html>
+```
+
+Cependant en lançant la commande :
+
+```
+\> node /path/to/node-atlas/directory/server.js --webconfig webconfig.test.json 
+```
+
+Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Hello world</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
+	</head>
+	<body>
+		<div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+		<script type="text/javascript" src="javascript/common.min.js"></script>
+	</body>
+</html>
+```
+
+*Note : Il vaut mieux préfixé ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
+
+### Autoriser/Interdire les demandes GET/POST
 
 Vous pouvez également manager la manière dont le serveur va répondre aux demande GET/POST pour une page donnée. Par exemple nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdir le GET).
 
