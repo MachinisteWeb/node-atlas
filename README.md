@@ -1065,10 +1065,10 @@ pour accéder à : *https://127.0.0.1:7777/sub/folder/*
 
 Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
 
-1.« webconfig.json »
+1. « webconfig.json »
+
 ```js
 {
-
 	"urlRewriting": {
 		"/": {
 			"template": "index.htm"
@@ -1079,6 +1079,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 ```
 
 2. « webconfig.prod.json »
+
 ```js
 {
 	"urlRewriting": {
@@ -1149,7 +1150,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 Cependant en lançant la commande :
 
 ```
-\> node /path/to/node-atlas/directory/server.js --webconfig webconfig.test.json 
+\> node /path/to/node-atlas/directory/server.js --webconfig webconfig.prod.json 
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
