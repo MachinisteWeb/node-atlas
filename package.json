@@ -31,7 +31,6 @@
   "scripts": {
     "start": "node-atlas.js"
   },
-  ""
   "dependencies": {
     "connect": "2.14.x",
     "express": "4.0.x",
