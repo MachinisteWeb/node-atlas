@@ -278,9 +278,10 @@ var NA = {};
             privates.loadListOfRequiredNpmModules();
             callback();
         } catch (exception) {
-            if (exception.code === 'MODULE_NOT_FOUND') {
+        	throw exception;
+            /*if (exception.code === 'MODULE_NOT_FOUND') {
                 privates.downloadAllModule(exception);
-            }
+            }*/
         }
     };
 
@@ -339,6 +340,7 @@ var NA = {};
     publics.startingHttpServer = function () {
         var express = NA.modules.express,
             commander = NA.modules.commander,
+            connect = NA.modules.connect,
             forceDomain = NA.modules.forceDomain,
             http = NA.modules.http,
             open = NA.modules.open;
@@ -371,11 +373,11 @@ var NA = {};
                 protocol: 'http' + ((NA.webconfig.httpSecure) ? 's' : '')
             }));
 
-            publics.httpServer.use(express.bodyParser());
+            publics.httpServer.use(connect.bodyParser());
 
-            publics.httpServer.use(express.cookieParser());
+            publics.httpServer.use(connect.cookieParser());
 
-            publics.httpServer.use(express.session({
+            publics.httpServer.use(connect.session({
                 store: NA.webconfig.session.sessionStore,
                 secret: NA.webconfig.session.secret,
                 key: NA.webconfig.session.key,
