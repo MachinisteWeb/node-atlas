@@ -29,7 +29,7 @@
     "url": "https://github.com/Haeresis/NodeAtlas/issues"
   },
   "scripts": {
-    "start": "server.js"
+    "start": "node-atlas.js"
   },
   ""
   "dependencies": {
