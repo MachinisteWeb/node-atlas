@@ -1,14 +1,19 @@
 {
-  "name": "NodeAtlas",
-  "version": "0.1.0",
-  "private": true,
-  "author": {
-    "name": "Bruno Lesieur",
-    "email": "bruno.lesieur@gmail.com",
-    "url": "http://www.haeresis.fr/"
-  },
+  "name": "node-atlas",
+  "preferGlobal": true,
+  "version": "0.10.0",
+  "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "NodeAtlas vous permet de créer et maintenir des Assets HTML ou sites multilingues simplement en Node.js.",
+  "scripts": {
+    "hello-world": "echo This is an Hello World"
+  },
+  "private": false,
   "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Haeresis/NodeAtlas.git"
+  },
+  "homepage": "https://github.com/Haeresis/NodeAtlas",
   "keywords": [
     "framework",
     "node.js",
@@ -16,10 +21,9 @@
     "website",
     "application"
   ],
-  "homepage": "",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Haeresis/NodeAtlas.git"
+  "license": {
+    "type": "GPLv2",
+    "url": "https://github.com/Haeresis/NodeAtlas/blob/master/LICENSE"
   },
   "bugs": {
     "url": "https://github.com/Haeresis/NodeAtlas/issues"
@@ -27,18 +31,25 @@
   "scripts": {
     "start": "server.js"
   },
+  ""
   "dependencies": {
-    "connect": "",
-    "express": "",
-    "commander": "",
-    "open": "",
-    "ejs": "",
-    "mkpath": "",
-    "jsdom": "",
-    "uglify-js": "",
-    "clean-css": "",
-    "node-force-domain": ""
+    "connect": "2.14.x",
+    "express": "4.0.x",
+    "commander": "2.2.x",
+    "open": "0.0.x",
+    "ejs": "1.0.x",
+    "mkpath": "0.1.x",
+    "jsdom": "0.10.x",
+    "uglify-js": "2.4.x",
+    "clean-css": "2.1.x",
+    "node-force-domain": "0.1.x"
   },
+  "main": "server",
+  "files": [
+    "languages/default.json",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=0.10.10"
   },
