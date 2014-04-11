@@ -68,6 +68,11 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 ## Installation
 
+Il y a deux solutions pour installer Node-Atlas :
+
+1. `npm install [-g] node-atlas`
+2. Clonner le répertoire depuis [github](https://github.com/Haeresis/NodeAtlas).
+
 ## Commencer avec NodeAtlas
 
 ### Ensemble de fichiers
