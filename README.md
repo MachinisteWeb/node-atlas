@@ -21,6 +21,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Exemple de réalisations avec NodeAtlas
  - Table des matière
  - Roadmap d'avancement du développement
+- Installation
 - Commencer avec NodeAtlas
  - Ensemble de fichiers
  - Configuration minimale
@@ -64,6 +65,8 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Auto-monté via transfert FTP
  - Support Sass/Less
  - ...
+
+## Installation
 
 ## Commencer avec NodeAtlas
 
