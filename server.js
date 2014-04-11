@@ -278,10 +278,9 @@ var NA = {};
             privates.loadListOfRequiredNpmModules();
             callback();
         } catch (exception) {
-        	throw exception;
-            /*if (exception.code === 'MODULE_NOT_FOUND') {
+            if (exception.code === 'MODULE_NOT_FOUND') {
                 privates.downloadAllModule(exception);
-            }*/
+            }
         }
     };
 
