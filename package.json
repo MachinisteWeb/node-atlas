@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.10.0",
+  "version": "0.10.1",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "NodeAtlas vous permet de créer et maintenir des Assets HTML ou sites multilingues simplement en Node.js.",
   "scripts": {
