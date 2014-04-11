@@ -52,11 +52,11 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Support de Socket.IO possible
  - Support des variables de parse Body / Cookie / Session
  - Support des variables de webconfig personnelles
+ - Migration Express 3.x vers Express 4.x
 
 - À venir 
  - Support d'une BDD de Session (ex: Redis) + key/secret
  - Support des modules Express possible
- - Migration Express 3.x vers Express 4.x
  - Auto Minification de Css/Js
  - Auto compression images
  - Injection automatique de feuille CSS en inline (pour les maquettes Email)
@@ -69,7 +69,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 ### Ensemble de fichiers
 
-Après avoir installer NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs :
+Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs :
 
 ```
 site-hello-world/
