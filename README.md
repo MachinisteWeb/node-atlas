@@ -1,5 +1,7 @@
 # node-atlas #
 
+Version : 0.10.3
+
 ## Avant-propos ##
 
 NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/). Elle permet trois choses :
@@ -44,6 +46,12 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Changer les chevrons <% %> du moteur de template
  - Changer la source jQuery utilisée
  - Changer l'url final des hosname et port d'écoute
+- Commandes de lancement
+ - --directory
+ - --webconfig
+ - --run
+ - --httpPort
+ - --generate
 
 
 
@@ -1376,4 +1384,65 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 		}
 	}
 }
+```
+
+
+
+
+
+## Commandes de lancement ##
+
+La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node /path/to/node-atlas/directory/node-atlas.js`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
+
+Chacune des commandes qui va suivre peut être couplée avec les autres de cette manière :
+
+\> node /path/to/node-atlas/directory/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
+
+
+
+### --directory ###
+
+Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous serra alors très utile.
+
+```
+\> node /path/to/node-atlas/directory/node-atlas.js --directory /path/to/your/website/directory/
+
+
+
+### --webconfig ###
+
+Par defaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez crée un autre fichier `webconfig.prod.json` dont le nom de dommaine est différent. Ou encore un `webconfig.fr-fr.json` avec des url et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
+
+```
+\> node /path/to/node-atlas/directory/node-atlas.js --webconfig webconfig.alternatif.json
+```
+
+
+
+### --run ###
+
+Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec `--generate` (voir plus loin).
+
+```
+\> node /path/to/node-atlas/directory/node-atlas.js --run
+```
+
+
+
+### --httpPort ###
+
+Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tout vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette command vous n'aurez pas besoin de couper vos site alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
+
+```
+\> node /path/to/node-atlas/directory/node-atlas.js --httpPort 7778
+```
+
+
+
+### --generate ###
+
+Si vous modifier un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs page, vous n'alllez pas recharger chaque page pour mettre à jour vos fichier de sortie. Il suffira alors d'utiliser `--generate`.
+
+```
+\> node /path/to/node-atlas/directory/node-atlas.js --generate
 ```
