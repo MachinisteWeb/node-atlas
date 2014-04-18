@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.10.3
+Version : 0.10.4
 
 ## Avant-propos ##
 
@@ -52,7 +52,9 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [--run](#--run)
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
-
+- [Faire tourner NodeAtlas sur server](#faire-tourner-nodeatlas-sur-server)
+ - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
+ - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
 
 
 ### Roadmap d'avancement du développement ###
@@ -1447,3 +1449,103 @@ Si vous modifier un élément dans votre fichier de variation commun ou même da
 ```
 \> node /path/to/node-atlas/directory/node-atlas.js --generate
 ```
+
+
+
+
+
+## Faire tourner NodeAtlas sur server ##
+
+### Dans un environnement Windows Server avec iisnode ###
+
+Dans un environnement Windows Server 2013 avec IIS8 il faut :
+
+1. Installer l’exécutable node.exe capable d’exécuter du code JavaScript.
+2. Installer le module IIS8 : Url Rewriting pour mapper les pages exécutées à une Url de sortie.
+3. Installer le module IIS8 : issnode pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/éteignage de site, etc...).
+
+Dans IIS8, créez un Website et créez une Application.
+
+Le contenu de votre application sera celui du site mélangé à celui de NodeAtlas. Cela signifie donc que ceci :
+
+```
+node-atlas/
+— node_modules/
+— languages/
+—— default.json
+— node-atlas.js
+site-hello-world/
+— assets/
+— templates/
+—— index.htm
+— webconfig.json
+```
+
+devient ceci :
+
+```
+site-hello-world/
+— node_modules/
+— languages/
+—— default.json
+— assets/
+— templates/
+—— index.htm
+— node-atlas.js
+— webconfig.json
+```
+
+Vous rajouterez à cet ensemble de fichier un fichier supplémentaire nommé `web.config` dont le contenu est le suivant :
+
+```xml
+<configuration>
+	<system.webServer>
+		<handlers>
+			<add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
+		</handlers>
+		<rewrite>
+			<rules>
+				<rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
+                     <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
+                </rule>
+                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">                    
+                    <match url="^node-atlas.js\/debug[\/]?" />
+                </rule>
+                <rule name="StaticContent">
+                     <action type="Rewrite" url="assets{REQUEST_URI}"/>
+                </rule>
+                <rule name="DynamicContent">
+                     <conditions>
+                          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="True"/>
+                     </conditions>
+                     <action type="Rewrite" url="node-atlas.js"/>
+                </rule>
+			</rules>
+		</rewrite>
+
+	</system.webServer>
+</configuration>
+```
+
+pour au final obtenir :
+
+```
+site-hello-world/
+— node_modules/
+— languages/
+—— default.json
+— assets/
+— templates/
+—— index.htm
+— node-atlas.js
+— webconfig.json
+— web.config
+```
+
+Il ne vous restera plus qu'à cliquer sur « Browse <url-of-site> » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.
+
+
+
+### Dans un environnement Unix avec forever ###
+
+**Prochainement**
