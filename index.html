@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.10.3</p>
+<p>Version : 0.10.4</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -101,6 +101,14 @@
 <li><a href="#--run">--run</a></li>
 <li><a href="#--httpport">--httpPort</a></li>
 <li><a href="#--generate">--generate</a></li>
+</ul>
+</li>
+<li>
+<a href="#faire-tourner-nodeatlas-sur-server">Faire tourner NodeAtlas sur server</a>
+
+<ul>
+<li><a href="#dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</a></li>
+<li><a href="#dans-un-environnement-unix-avec-forever">Dans un environnement Unix avec forever</a></li>
 </ul>
 </li>
 </ul><h3>
@@ -1418,6 +1426,99 @@ webconfig.prod.json
 
 <pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --generate
 </code></pre>
+
+<h2>
+<a name="faire-tourner-nodeatlas-sur-server" class="anchor" href="#faire-tourner-nodeatlas-sur-server"><span class="octicon octicon-link"></span></a>Faire tourner NodeAtlas sur server</h2>
+
+<h3>
+<a name="dans-un-environnement-windows-server-avec-iisnode" class="anchor" href="#dans-un-environnement-windows-server-avec-iisnode"><span class="octicon octicon-link"></span></a>Dans un environnement Windows Server avec iisnode</h3>
+
+<p>Dans un environnement Windows Server 2013 avec IIS8 il faut :</p>
+
+<ol>
+<li>Installer l’exécutable node.exe capable d’exécuter du code JavaScript.</li>
+<li>Installer le module IIS8 : Url Rewriting pour mapper les pages exécutées à une Url de sortie.</li>
+<li>Installer le module IIS8 : issnode pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/éteignage de site, etc...).</li>
+</ol><p>Dans IIS8, créez un Website et créez une Application.</p>
+
+<p>Le contenu de votre application sera celui du site mélangé à celui de NodeAtlas. Cela signifie donc que ceci :</p>
+
+<pre><code>node-atlas/
+— node_modules/
+— languages/
+—— default.json
+— node-atlas.js
+site-hello-world/
+— assets/
+— templates/
+—— index.htm
+— webconfig.json
+</code></pre>
+
+<p>devient ceci :</p>
+
+<pre><code>site-hello-world/
+— node_modules/
+— languages/
+—— default.json
+— assets/
+— templates/
+—— index.htm
+— node-atlas.js
+— webconfig.json
+</code></pre>
+
+<p>Vous rajouterez à cet ensemble de fichier un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;system.webServer&gt;</span>
+        <span class="nt">&lt;handlers&gt;</span>
+            <span class="nt">&lt;add</span> <span class="na">name=</span><span class="s">"iisnode"</span> <span class="na">path=</span><span class="s">"node-atlas.js"</span> <span class="na">verb=</span><span class="s">"*"</span> <span class="na">modules=</span><span class="s">"iisnode"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/handlers&gt;</span>
+        <span class="nt">&lt;rewrite&gt;</span>
+            <span class="nt">&lt;rules&gt;</span>
+                <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">"LogFile"</span> <span class="na">patternSyntax=</span><span class="s">"ECMAScript"</span> <span class="na">stopProcessing=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+                     <span class="nt">&lt;match</span> <span class="na">url=</span><span class="s">"^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/rule&gt;</span>
+                <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">"NodeInspector"</span> <span class="na">patternSyntax=</span><span class="s">"ECMAScript"</span> <span class="na">stopProcessing=</span><span class="s">"true"</span><span class="nt">&gt;</span>                    
+                    <span class="nt">&lt;match</span> <span class="na">url=</span><span class="s">"^node-atlas.js\/debug[\/]?"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/rule&gt;</span>
+                <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">"StaticContent"</span><span class="nt">&gt;</span>
+                     <span class="nt">&lt;action</span> <span class="na">type=</span><span class="s">"Rewrite"</span> <span class="na">url=</span><span class="s">"assets{REQUEST_URI}"</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/rule&gt;</span>
+                <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">"DynamicContent"</span><span class="nt">&gt;</span>
+                     <span class="nt">&lt;conditions&gt;</span>
+                          <span class="nt">&lt;add</span> <span class="na">input=</span><span class="s">"{REQUEST_FILENAME}"</span> <span class="na">matchType=</span><span class="s">"IsFile"</span> <span class="na">negate=</span><span class="s">"True"</span><span class="nt">/&gt;</span>
+                     <span class="nt">&lt;/conditions&gt;</span>
+                     <span class="nt">&lt;action</span> <span class="na">type=</span><span class="s">"Rewrite"</span> <span class="na">url=</span><span class="s">"node-atlas.js"</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/rule&gt;</span>
+            <span class="nt">&lt;/rules&gt;</span>
+        <span class="nt">&lt;/rewrite&gt;</span>
+
+    <span class="nt">&lt;/system.webServer&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+
+<p>pour au final obtenir :</p>
+
+<pre><code>site-hello-world/
+— node_modules/
+— languages/
+—— default.json
+— assets/
+— templates/
+—— index.htm
+— node-atlas.js
+— webconfig.json
+— web.config
+</code></pre>
+
+<p>Il ne vous restera plus qu'à cliquer sur « Browse  » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.</p>
+
+<h3>
+<a name="dans-un-environnement-unix-avec-forever" class="anchor" href="#dans-un-environnement-unix-avec-forever"><span class="octicon octicon-link"></span></a>Dans un environnement Unix avec forever</h3>
+
+<p><strong>Prochainement</strong></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
