@@ -1,26 +1,30 @@
-# node-atlas
+# node-atlas #
 
-## Avant-propos
+## Avant-propos ##
 
-NodeAtlas est une application réalisée en JavaScript et tournant avec Node.js qui permet 3 choses :
+NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/). Elle permet trois choses :
 
-- Créer et maintenir un ensemble d'assets HTML/CSS/JavaScript pour les fournirs à des développeurs Back-end.
-- Créer et maintenir des sites multilingue sans Back-end.
-- Développer des sites ou des applications Node.js multilingue de toute taille.
+- Créer et maintenir un ensemble d'assets HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.
+- Créer et maintenir des sites multilingues sans Back-end.
+- Développer des sites ou des applications Node.js multilingues de toutes tailles.
 
-### Exemple de réalisations avec NodeAtlas
 
-L'outil est encore en développement et je l'expérimente petit à petit avec mes propres site :
 
-- Exemple de génération de d'asset HTML (En cours...).
-- Exemple de simple site Node.js sans back-end (En cours...).
+### Exemples de réalisations avec NodeAtlas ###
+
+L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.
+
+- Exemple de génération d'asset HTML (En cours...).
+- Exemple de simple site Node.js sans Back-end (En cours...).
 - Exemple de développement de site Node.js (En cours...).
 
-### Table des matière
+
+
+### Table des matières ###
 
 - Avant-propos
  - Exemple de réalisations avec NodeAtlas
- - Table des matière
+ - Table des matières
  - Roadmap d'avancement du développement
 - Installation
 - Commencer avec NodeAtlas
@@ -29,10 +33,9 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Lancer le site avec NodeAtlas
 - Différentes configurations du webconfig.json
  - Plusieurs pages
- - Héberger des images, polices, CSS, JS, etc...
- - Gérer des includes pour reprendre du code.
+ - Héberger des images, polices, CSS, JS, etc.
+ - Gérer des inclusions pour éviter la redondance du code
  - Gérer des variations au sein d'un même template
- - En standard
  - Utiliser NodeAtlas pour générer des assets HTML
  - Utiliser NodeAtlas pour faire tourner un site (partie Back-end)
  - Changer les paramètres d'url.
@@ -42,18 +45,20 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Changer la source jQuery utilisée
  - Changer l'url final des hosname et port d'écoute
 
-### Roadmap d'avancement du développement
+
+
+### Roadmap d'avancement du développement ###
 
 - Fait 
  - Lancement d'un serveur Express
  - Génération live de maquette HTML
  - Génération complète de maquette HTML
- - Fichier de config (Liste des page avec url Rewriting)
+ - Fichier de configuration (Liste des pages avec Url Rewriting)
  - Partie Back-end possible (Controllers / Models) 
  - Support de BDD possible (MySql / MongoDB)
  - Support de Socket.IO possible
  - Support des variables de parse Body / Cookie / Session
- - Support des variables de webconfig personnelles
+ - Support des variables personnelles de webconfig
  - Migration Express 3.x vers Express 4.x
 
 - À venir 
@@ -61,24 +66,33 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Support des modules Express possible
  - Auto Minification de Css/Js
  - Auto compression images
- - Injection automatique de feuille CSS en inline (pour les maquettes Email)
- - Aggregation de fichier CSS/JS pour les versions de site Prod.
- - Auto-monté via transfert FTP
+ - Injection automatique de feuille CSS en style inline (pour les maquettes email)
+ - Aggregation de fichier CSS/JS pour les versions de site en production.
+ - Auto-déploiement via transfert FTP
  - Support Sass/Less
  - ...
 
-## Installation
+
+
+
+
+## Installation ##
 
 Il y a deux solutions pour installer Node-Atlas :
 
 1. `npm install node-atlas`
-2. Clonner le répertoire depuis [github](https://github.com/Haeresis/NodeAtlas).
+2. Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas).
 
-## Commencer avec NodeAtlas
 
-### Ensemble de fichiers
 
-Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs :
+
+
+## Commencer avec NodeAtlas ##
+
+### Ensemble de fichiers ###
+
+Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs comme la structure ci-dessous.
+
 
 ```
 site-hello-world/
@@ -87,7 +101,7 @@ site-hello-world/
 — webconfig.json
 ```
 
-Voici le fichier « /site-hello-world/templates/index.htm »
+Voici le fichier « /site-hello-world/templates/index.htm » :
 
 ```html
 <!DOCTYPE html>
@@ -102,11 +116,11 @@ Voici le fichier « /site-hello-world/templates/index.htm »
 </html>
 ```
 
-Et ci-après, le fichier « /site-hello-world/webconfig.json »
+et ci-après, le fichier « /site-hello-world/webconfig.json ».
 
-### Configuration minimale
+### Configuration minimale ###
 
-Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS hébergés par le site avec la configuration minimale du « webconfig.json » ci-dessous :
+Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS hébergés par le site avec la configuration minimale du « webconfig.json » ci-dessous.
 
 ```js
 {
@@ -120,29 +134,35 @@ Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS héberg
 
 *Note : vous pouvez inclure des images ou fichiers CSS/JS hébergés sur d'autres sites.*
 
-### Lancer le site avec NodeAtlas
 
-Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante :
+
+### Lancer le site avec NodeAtlas ###
+
+Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
 
 ```
-\> node /path/to/node-atlas/directory/server.js
+\> node /path/to/node-atlas/directory/node-atlas.js
 ```
 
 À votre première execution, NodeAtlas installera tous les « node_modules » nécéssaire à son fonctionnement.
 
-Ré-exécutez
+Ré-exécutez.
 
 ```
-\> node /path/to/node-atlas/directory/server.js
+\> node /path/to/node-atlas/directory/node-atlas.js
 ```
 
 Vous aurez alors accès à votre « Hello World » à la page : *http://localhost/* dans un navigateur.
 
-## Différentes configurations du webconfig.json
 
-### Plusieurs pages
 
-Ci-dessous un exemple de configuration  :
+
+
+## Différentes configurations du webconfig.json ##
+
+### Plusieurs pages ##
+
+Ci-dessous un exemple de configuration.
 
 ```js
 {
@@ -167,7 +187,7 @@ Ci-dessous un exemple de configuration  :
 }
 ```
 
-pour faire tourner cet ensemble de fichier :
+Pour faire tourner cet ensemble de fichier :
 
 ```
 templates/
@@ -179,12 +199,14 @@ webconfig.json
 
 aux adresses :
 
-* *http://localhost/* (répond à la racine)
-* *http://localhost/member.html* (ne répondra pas si demandé en POST)
-* *http://localhost/member-without-extension/* (ne répondra pas si demandé en GET)
-* *http://localhost/error.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404)
+- *http://localhost/* (répond à la racine)
+- *http://localhost/member.html* (ne répondra pas si demandée en POST)
+- *http://localhost/member-without-extension/* (ne répondra pas si demandée en GET)
+- *http://localhost/error.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404)
 
-### Héberger des images, polices, CSS, JS, etc...
+
+
+### Héberger des images, polices, CSS, JS, etc. ###
 
 Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :
 
@@ -217,16 +239,18 @@ webconfig.json
 
 vous aurez accès aux adresses :
 
-* *http://localhost/*
-* *http://localhost/stylesheets/common.css*
-* *http://localhost/javascript/common.js*
-* *http://localhost/media/images/logo.png*
+- *http://localhost/*
+- *http://localhost/stylesheets/common.css*
+- *http://localhost/javascript/common.js*
+- *http://localhost/media/images/logo.png*
 
-*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***assets/***. ***assetsRelativePath*** *est donc utile seulement pour changer de répertoire.*
+*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***assets/***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom du répertoire.*
 
-### Gérer des includes pour reprendre du code.
 
-Vous pouvez spliter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :
+
+### Gérer des inclusions pour éviter la redondance du code ###
+
+Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autres fragments de code :
 
 ```js
 {
@@ -309,16 +333,18 @@ webconfig.json
 
 vous aurez accès aux adresses :
 
-* *http://localhost/*
-* *http://localhost/liste-des-membres/*
+- *http://localhost/*
+- *http://localhost/liste-des-membres/*
 
-*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components/***. ***componentsRelativePath*** *est donc utile seulement pour changer de répertoire.*
+*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components/***. ***componentsRelativePath*** *est donc utile seulement pour changer le nomde répertoire.*
 
-### Gérer des variations au sein d'un même template
 
-#### En standard
 
-Il est possible avec le même template et les mêmes include de générer des pages au contenu différent (pratique en mode génération d'assets HTML). Activer les variations avec la configuration suivante :
+### Gérer des variations au sein d'un même template ###
+
+#### En standard ####
+
+Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (pratique en mode génération d'assets HTML). Activer les variations avec la configuration suivante :
 
 ```js
 {
@@ -431,16 +457,17 @@ webconfig.json
 
 vous aurez accès aux adresses :
 
-* *http://localhost/*
-* *http://localhost/liste-des-membres/*
+- *http://localhost/*
+- *http://localhost/liste-des-membres/*
 
-*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien* ***variations/***. ***variationsRelativePath*** *est donc utile seulement pour changer de répertoire.*
+*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien* ***variations/***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom de répertoire.*
 
-#### Pour le multilingue
 
-##### Toutes les langues sur le même site
+#### Pour le multilingue ####
 
-Sur le même principe, les variations peuvent être utilisée pour créer la même page mais dans des langues différentes :
+##### Toutes les langues sur le même site #####
+
+Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :
 
 ```js
 {
@@ -464,7 +491,7 @@ Sur le même principe, les variations peuvent être utilisée pour créer la mê
 }
 ```
 
-*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune car je n'ai pas précisé de* ***commonVariation***. *J'ai également totalement arbitrairement décidé de renommer mon dossier* ***variations/*** *en* ***languages/***.
+*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de* ***commonVariation***. *J'ai également totalement arbitrairement décidé de renommer mon dossier* ***variations/*** *en* ***languages/***.
 
 avec les fichiers suivants :
 
@@ -509,7 +536,9 @@ webconfig.json
 	<% include head.htm %>
 	
 	<select>
-		<option><%= specific.selectLabel %></option>
+		<% for (var i = 0; i < specific.selectLabel.length; i++) { %>
+		<option><%= specific.selectLabel[i] %></option>
+		<% } %>
 	</select>
 	
 	<% include foot.htm %>
@@ -532,13 +561,12 @@ webconfig.json
 
 ```js
 {
-	"languageCode": "en-gb",
-	"urlRewriting": {
-		"/": {
-			"template": "landing.htm",
-			"variation": "landing.json"
-		}
-	}
+	"titlePage": "Landing",
+	"classPage": "landing",
+	"selectLabel": [
+		"English",
+		"Français"
+	]
 }
 ```
 
@@ -564,13 +592,14 @@ webconfig.json
 
 vous aurez accès aux adresses :
 
-* *http://localhost/*
-* *http://localhost/home/*
-* *http://localhost/accueil/*
+- *http://localhost/*
+- *http://localhost/home/*
+- *http://localhost/accueil/*
 
-*Note : Par défaut c'est le* ***languageCode*** *racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le* ***languageCode****. *Il faut également savoir que dès que le site ou une page à un* ***languageCode*** *dans la configuration, ses fichier de variations doivent être placé dans un sous répertoire portant le nom du* ***languageCode***.
+*Note : Par défaut c'est le* ***languageCode*** *racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le* ***languageCode****. *Il faut également savoir que dès que le site ou une page à un* ***languageCode*** *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* ***languageCode***.
 
-##### A chaque langue sa configuration
+
+##### A chaque langue sa configuration #####
 
 Vous pouvez également décider de faire tourner chaque langue dans un « webconfig.json » différent. Avec l'ensemble de fichier suivant :
 
@@ -653,19 +682,22 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 et avoir accès aux adresses :
 
-* *http://localhost/*
-* *http://localhost:81/english/*
-* *http://localhost:81/english/*
-* *http://localhost:81/english/members-list/*
-* *http://localhost:82/francais/*
-* *http://localhost:82/francais/liste-des-membres/*
+- *http://localhost/*
+- *http://localhost:81/english/*
+- *http://localhost:81/english/*
+- *http://localhost:81/english/members-list/*
+- *http://localhost:82/francais/*
+- *http://localhost:82/francais/liste-des-membres/*
+
+*Note : il est possible de faire ensuite du reverse proxy pour ramener l'ensemble des url sur les ports autres que le port 80 sur le port 80.*
 
 
-### Utiliser NodeAtlas pour générer des assets HTML
 
-####Générer des assets HTML
+### Utiliser NodeAtlas pour générer des assets HTML###
 
-Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créer à chaque affichage de la page dans votre navigateur. Avec la configuration suivante :
+#### Générer des assets HTML ####
+
+Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créer à chaque affichage de la page dans votre navigateur.
 
 ```js
 {
@@ -704,29 +736,35 @@ webconfig.json
 }
 ```
 
-On peut créer les fichiers :
+on peut créer physiquement les assets :
 
 ```
 {
 generate/
-templates/
 — index.html
 — members/
 —— list.html
 — no/
 —— generate/
 ——— property <== Ceci est un fichier
+templates/
+— index.htm
+— members.htm
+webconfig.json
 }
 ```
 
-En ce rendant aux addresses :
+en ce rendant aux addresses :
 
-* *http://localhost/*
-* *http://localhost/liste-des-membres/*
+- *http://localhost/*
+- *http://localhost/liste-des-membres/*
 
-*Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generatesRelativePath/***. ***generatesRelativePath*** *est donc utile seulement pour changer de répertoire. De plus la génération s'enclenche quand on affiche la page uniquement parceque* ***autoGenerate*** *existe et est à* ***true***. *Sl'il est passé à* ***false*** *(ou enlevé) le seul moyen de générer toutes le site sera via la commande « node /path/to/node-atlas/directory/server.js --generate » qui génèrera toutes les page d'un coup.*
+La génération s'enclenche quand on affiche la page uniquement parceque ***autoGenerate*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node /path/to/node-atlas/directory/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.
 
-####Générer un site sans partie serveur
+*Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generatesRelativePath/***. ***generatesRelativePath*** *est donc utile seulement pour changer le nom répertoire.*
+
+
+#### Générer un site sans partie serveur ####
 
 Il est également possible de manager la création d'un site en simple page HTML avec la configuration suivante :
 
@@ -753,7 +791,6 @@ Il est également possible de manager la création d'un site en simple page HTML
 
 et l'ensemble de fichiers suivant :
 
-
 ```
 HTML/
 — stylesheets/
@@ -761,7 +798,7 @@ HTML/
 — javascript/
 —— common.js
 engine/
-— variation/
+— variations/
 —— fr-fr/
 ——— index.json
 —— en/
@@ -771,9 +808,9 @@ engine/
 — webconfig.json
 ```
 
-À l'adresse *http://localhost/* s'affichera la liste des pages composant votre site (grace à **indexPage** à **true**).
+À l'adresse *http://localhost/* s'affichera la liste des pages composant votre site (grâce à **indexPage** à **true**).
 
-Il ne restera plus qu'à, une fois votre traval terminé, admirer votre site HTML dans le dossier :
+Il ne restera plus qu'à, une fois votre travail terminé, admirer votre site HTML dans le dossier :
 
 ```
 HTML/
@@ -786,11 +823,13 @@ HTML/
 —— cv.html
 ```
 
-### Utiliser NodeAtlas pour faire tourner un site (partie Back-end)
 
-Vous pouvez soit utiliser un controlleur unique pour tout le site et/ou également des controlleur par template et variation.
 
-Pour le controlleur maître utilisez par exemple cette configuration :
+### Utiliser NodeAtlas pour faire tourner un site (partie Back-end) ###
+
+Vous pouvez soit utiliser un contrôlleur unique pour tout le site et/ou également des contrôlleurs par template et variation.
+
+Pour le contrôlleur maître, utilisez par exemple cette configuration :
 
 ```js
 {
@@ -819,6 +858,7 @@ controllers/
 — common.js
 models/
 — Article.js
+— Category.js
 templates/
 — index.htm
 — categories.htm
@@ -830,80 +870,140 @@ Et le fichier « common.js » contenant ceci par exemple :
 ```js
 var website = {};
 
-// Charger les modules de ce site web.
+// Loading modules for this website.
 (function (publics) {
+	"use strict";
 
-	// NA représente la variable NA du fichier server.js de NodeAtlas.
 	publics.loadModules = function (NA) {
-		NA.modules.mongoose = require(NA.nodeModulesPath + 'mongoose');
-		// NA.modules.nodeMysql = require(NA.nodeModulesPath + 'node-mysql');
-		// NA.modules.??? = require(NA.nodeModulesPath + '...');
-		// ...
-
-		// Utiliser le contenu de NA partout dans ce fichier.
-		publics.NA = NA;
+		var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
+		
+		NA.modules.connect = require(modulePath + 'connect');
+		NA.modules.cookie = require(modulePath + 'cookie');
+		NA.modules.mongoose = require(modulePath + 'mongoose');
+		NA.modules.socketio = require(modulePath + 'socket.io');
 
 		return NA;
 	};
 
 }(website));
 
-// Configurer des modules et autres actions avant la lancée du serveur.
+// Set configuration for this website.
 (function (publics) {
+	"use strict";
 
 	var privates = {};
 
-	publics.setConfigurations = function (NA) {
-		var mongoose = NA.modules.mongoose;
-		//var nodeMysql = NA.modules.nodeMysql;
+	publics.setConfigurations = function (NA, callback) {
+		var mongoose = NA.modules.mongoose,
+			socketio = NA.modules.socketio,
+			connect = NA.modules.connect;
 
-		// Création arbitraire de nouvelles propriétés à l'objet NA.
 		NA.backend = {};
 
 		privates.mongooseInitialization(mongoose, function (mongoose) {
-			// privates.mySqlInitialization(nodeMysql, function (nodeMysql) {
-			
-				privates.mongooseShemas(mongoose);
-				//...
-				
-				return NA;
-			// });
-		})
-		
+
+			privates.mongooseShemas(mongoose);
+
+			privates.socketIoInitialisation(socketio, NA, function (io) {
+
+				privates.socketIoEvents(io, NA);
+
+				callback(NA);					
+			});
+		});
 
 	};
 
+	privates.socketIoInitialisation = function (socketio, NA, callback) {
+		var io = socketio.listen(NA.server),
+			connect = NA.modules.connect,
+			cookie = NA.modules.cookie;
+
+		io.set('authorization', function (data, accept) {
+
+            // No cookie enable.
+            if (!data.headers.cookie) {
+                return accept('Session cookie required.', false);
+            }
+
+            // First parse the cookies into a half-formed object.
+            data.cookie = cookie.parse(data.headers.cookie);
+
+            // Next, verify the signature of the session cookie.
+            data.cookie = connect.utils.parseSignedCookies(data.cookie, NA.webconfig.session.secret);
+             
+            // save ourselves a copy of the sessionID.
+            data.sessionID = data.cookie[NA.webconfig.session.key];
+
+			// Accept cookie.
+            NA.webconfig.session.sessionStore.load(data.sessionID, function (error, session) {
+                if (error || !session) {
+                    accept("Error", false);
+                } else {
+                    data.session = session;
+                    accept(null, true);
+                }
+            });
+
+        });
+
+    	callback(io);		
+	};
+
 	privates.mongooseInitialization = function (mongoose, callback) {
+		mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
+  			if (error) {
+				throw error;
+  			};
+
+  			callback(mongoose);
+		});
 		
-		// ...
-		
-		callback(mongoose);
+		mongoose.connection.on('error', function (error) {
+	  		console.log('Mongoose default connection error: ' + error);
+		});
+
+		mongoose.connection.on('disconnected', function () {
+			console.log('Mongoose default connection disconnected');
+		});
+
+		process.on('SIGINT', function (error) {
+			mongoose.connection.close(function () {
+				console.log('Mongoose default connection disconnected through app termination');
+				process.exit(0);
+			});
+		});
+	};
+
+	privates.socketIoEvents = function (io, NA) {
+		var params = {};
+
+		params.io = io;
+		params.NA = NA;
+
+		require('./article').asynchrone(params);
 	};
 
 	privates.mongooseShemas = function (mongoose) {
 		publics.shemas = {};
 
 		publics.shemas.article = require('../models/Article');
+		publics.shemas.category = require('../models/Category');
+
 		mongoose.model('article', website.shemas.article, 'article');
-	};
-	
-	privates.mySqlInitialization = function (nodeMysql, callback) {
-		
-		// ...
-		
-		callback(nodeMysql);
+		mongoose.model('category', website.shemas.category, 'category');
 	};
 
 }(website));
 
 // PreRender
 (function (publics) {
+	"use strict";
 
 	publics.preRender = function (params, mainCallback) {
 		var variation = params.variation;
 
 		// Ici on modifie les variables de variations.
-		// ...
 		//console.log(params.variation);
 
 		mainCallback(variation);
@@ -913,12 +1013,12 @@ var website = {};
 
 // Render
 (function (publics) {
+	"use strict";
 
 	publics.render = function (params, mainCallback) {
 		var data = params.data;
 
 		// Ici on peut manipuler le DOM côté serveur avant retour client.
-		// ...
 		//console.log(params.data);
 
 		mainCallback(data);
@@ -932,7 +1032,7 @@ exports.preRender = website.preRender;
 exports.render = website.render;
 ```
 
-Au lieu de ce servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des controlleurs spécifique par page. La config précédente devient alors :
+Au lieu de ce servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des controlleurs spécifique par page. La configuration précédente devient alors :
 
 ```js
 {
@@ -967,6 +1067,7 @@ controllers/
 - categories.js
 models/
 — Article.js
+— Category.js
 templates/
 — index.htm
 — categories.htm
@@ -980,6 +1081,7 @@ var website = {};
 
 // PreRender
 (function (publics) {
+	"use strict";
 
 	var privates = {};
 
@@ -1004,12 +1106,13 @@ var website = {};
 
 // Render
 (function (publics) {
-
+	"use strict";
+	
 	publics.render = function (params, mainCallback) {
 		var data = params.data;
 
 		// Ici on peut manipuler le DOM côté serveur avant retour client.
-		// console.log(params.data);
+		//console.log(params.data);
 
 		mainCallback(data);
 	};
@@ -1020,7 +1123,11 @@ exports.preRender = website.preRender;
 exports.render = website.render;
 ```
 
-### Changer les paramètres d'url.
+*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js » alors toute la partie Back-end est désactivée.*
+
+
+
+### Changer les paramètres d'url ###
 
 Par défaut, si vous utilisez la configuration suivante :
 
@@ -1050,7 +1157,7 @@ cela est identique à utiliser celle-ci :
 }
 ```
 
-et vous pourrez accéder à l'url : *http://localhost/*
+et vous pourrez accéder à l'url : *http://localhost/*.
 
 Changer alors la configuration en ceci :
 
@@ -1070,7 +1177,9 @@ Changer alors la configuration en ceci :
 
 pour accéder à : *https://127.0.0.1:7777/sub/folder/*
 
-### Créer ses propres variables de webconfig
+
+
+### Créer ses propres variables de webconfig ###
 
 Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
 
@@ -1136,7 +1245,7 @@ et « index.htm » contenant :
 En lançant (depuis le dossier du site) la commande :
 
 ```
-\> node /path/to/node-atlas/directory/server.js
+\> node /path/to/node-atlas/directory/node-atlas.js
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
@@ -1179,11 +1288,13 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 </html>
 ```
 
-*Note : Il vaut mieux préfixé ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
+*Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
 
-### Autoriser/Interdire les demandes GET/POST
 
-Vous pouvez également manager la manière dont le serveur va répondre aux demande GET/POST pour une page donnée. Par exemple nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdir le GET).
+
+### Autoriser/Interdire les demandes GET/POST ###
+
+Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdir le GET).
 
 ```js
 {
@@ -1208,9 +1319,11 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 }
 ```
 
-*Note : Si rien n'est précisé,* ***getSupport*** et ***postSupport*** sont à ***true*** au niveau global et par page.
+*Note : Si rien n'est précisé,* ***getSupport*** *et* ***postSupport*** *sont à* ***true*** *au niveau global et par page.*
 
-### Changer les chevrons <% %> du moteur de template
+
+
+### Changer les chevrons <% %> du moteur de template ###
 
 Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% include head.htm %>***. Il serait possible de le faire avec ***{{ include head.htm }}*** avec la configuration ci-dessous :
 
@@ -1228,13 +1341,15 @@ Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% i
 
 *Note : Si rien n'est précisé,* ***templateEngineOpenPattern*** *et* ***templateEngineClosePattern*** *valent respectivement* ***<%*** *et* ***%>***.
 
-### Changer la source jQuery utilisée
+
+
+### Changer la source jQuery utilisée ###
 
 NodeAtlas utilise par défaut le fichier externe « http://code.jquery.com/jquery.js » pour manipuler le DOM. Vous pouvez changer celui-ci avec cette configuration :
 
 ```js
 {
-	"jQueryVersion": "http://code.jquery.com/jquery-1.9.0.js",
+	"jQueryVersion": "./assets/javascript/jquery-1.9.0.js",
 	"urlRewriting": {
 		"/": {
 			"template": "index.htm"
@@ -1243,9 +1358,11 @@ NodeAtlas utilise par défaut le fichier externe « http://code.jquery.com/jquer
 }
 ```
 
-### Changer l'url final des hosname et port d'écoute
 
-Il est possible de générer une url de visite différente des paramètres d'écoute demandé avec ***urlHostname*** et ***urlPort***. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci dessous :
+
+### Changer l'url final des hosname et port d'écoute ###
+
+Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec ***urlHostname*** et ***urlPort***. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci dessous :
 
 ```js
 {
