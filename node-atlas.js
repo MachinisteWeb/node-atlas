@@ -1,7 +1,37 @@
-/** Creation of Main Object */
+/*------------------------------------*\
+    $%SUMMARY
+\*------------------------------------*/
+/**
+ * SUMMARY........................It's me !
+ * NODE ATLAS OBJECT..............Creation of Main Object.
+ * CONFIGURATION..................Global configuration variables, command tool and webconfig. 
+ * GLOBAL FUNCTIONS...............Neutral functions used more once.
+ * NODE MODULES...................Functions used to load Node Modules.
+ * WEB SERVER.....................Functions used to run pages on http(s) protocol and use middlewares.
+ * FRONT-END PART.................Functions used for manage Front-end part.
+ * BACK-END PART..................Functions used for manage Back-end part.
+ * ASSETS GENERATION..............Functions used for create HTML assets.
+ * RUN............................Run all JavaScript.
+ */
+
+
+
+
+
+/*------------------------------------*\
+    $%NODE ATLAS OBJECT
+\*------------------------------------*/
+
 var NA = {};
 
-/** Function depending on application global var */
+
+
+
+
+/*------------------------------------*\
+    $%CONFIGURATION
+\*------------------------------------*/
+
 (function (publics) {
     "use strict";
 
@@ -48,6 +78,18 @@ var NA = {};
             .option(NA.appLabels.commander.httpPort.command, NA.appLabels.commander.httpPort.description, String)
             .option(NA.appLabels.commander.generate.command, NA.appLabels.commander.generate.description, String)
             .parse(process.argv);
+    };
+
+    publics.templateEngineConfiguration = function () {
+        var ejs = NA.modules.ejs;
+
+        publics.variations = {};
+
+        NA.variations.filename = NA.websitePhysicalPath + NA.webconfig.componentsRelativePath + "all-component.here";
+
+        // Set pattern for use EJS.
+        ejs.open = NA.webconfig.templateEngineOpenPattern || ejs.open;
+        ejs.close = NA.webconfig.templateEngineClosePattern || ejs.close;
     };
 
     publics.initWebconfig = function (callback) {
@@ -158,7 +200,14 @@ var NA = {};
 
 })(NA);
 
-/** Function globals */
+
+
+
+
+/*------------------------------------*\
+    $%GLOBAL FUNCTIONS
+\*------------------------------------*/
+
 (function (publics) {
     "use strict";
 
@@ -182,51 +231,14 @@ var NA = {};
 
 })(NA);
 
-/** Function depending on Templating */
-(function (publics) {
-    "use strict";
 
-    publics.emulatedIndexPage = function () {
-        var commander = NA.modules.commander;
 
-        if (!commander.generate) {
-            if (NA.webconfig.indexPage) {
-    	        NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
-    	            var data = {};
 
-     					data.render = '';
 
-    	            for (var page in NA.webconfig.urlRewriting) {
-    		            data.page = page;
+/*------------------------------------*\
+    $%NODE MODULES
+\*------------------------------------*/
 
-    	                if (NA.webconfig.urlRewriting.hasOwnProperty(page)) {
-    	                    data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; });
-    	                }
-    	            }
-
-    	            response.writeHead(200, NA.appLabels.emulatedIndexPage.charsetAndType);
-    	            response.write(NA.appLabels.emulatedIndexPage.data.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-    	            response.end();
-    	        });
-            }
-        }
-    };
-
-    publics.templateEngineConfiguration = function () {
-    	var ejs = NA.modules.ejs;
-
-    	publics.variations = {};
-
-    	NA.variations.filename = NA.websitePhysicalPath + NA.webconfig.componentsRelativePath + "all-component.here";
-
-    	// Set pattern for use EJS.
-        ejs.open = NA.webconfig.templateEngineOpenPattern || ejs.open;
-        ejs.close = NA.webconfig.templateEngineClosePattern || ejs.close;
-    };
-
-})(NA);
-
-/** Function depending on Node modules */
 (function (publics) {
     "use strict";
 
@@ -286,55 +298,18 @@ var NA = {};
 
 })(NA);
 
-/** Function depending on Back-end part */
+
+
+
+
+/*------------------------------------*\
+    $%WEB SERVER
+\*------------------------------------*/
+
 (function (publics) {
     "use strict";
 
     var privates = {};
-
-    privates.openController = function () {
-        NA.nodeModulesPath = NA.websitePhysicalPath + 'node_modules/';
-        if (typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
-            NA = NA.websiteController[NA.webconfig.commonController].loadModules(NA) || NA;
-        }
-    };
-
-    publics.loadListOfExternalModules = function (callback) {
-        publics.loadController(NA.webconfig.commonController, function () {
-            callback();
-        });
-    };
-
-    publics.loadController = function (controller, callback) {
-        var commonControllerPath = NA.websitePhysicalPath + NA.webconfig.controllersRelativePath + controller,
-            dataError = {};
-
-        if (typeof controller !== 'undefined') {
-            try {
-                NA.websiteController[controller] = require(commonControllerPath);
-                privates.openController();
-                callback();
-            } catch (exception) {
-                dataError.moduleError = exception.toString();
-                if (exception.code === 'MODULE_NOT_FOUND') {
-                    console.log(NA.appLabels.moduleNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                } else {
-                    throw exception;
-                }
-            }
-        } else {
-            callback();
-        }
-
-    };
-
-})(NA);
-
-/** Function depending on Http Server */
-(function (publics) {
-    "use strict";
-
-	var privates = {};
 
     publics.startingHttpServer = function () {
         var express = NA.modules.express,
@@ -400,7 +375,7 @@ var NA = {};
     };
 
     publics.httpServerPublicFiles = function () {
-    	var express = NA.modules.express,
+        var express = NA.modules.express,
             commander = NA.modules.commander;
 
         if (!commander.generate) {
@@ -408,53 +383,319 @@ var NA = {};
         }
     };
 
-	privates.openTemplate = function (pageParameters, templatesPath, callback) {
-		var fs = NA.modules.fs;
+    publics.response = function (request, response, data, pageParameters) {
+        response.writeHead(
+            pageParameters.statusCode || 200, 
+            pageParameters.mimeType || 'text/html'
+        );
 
-		fs.readFile(templatesPath, 'utf-8', function (error, data) {
-			var dataError = {};
+        response.write(data);
+        response.end();
+    };
 
-	        if (error) {
-	        	dataError.templatesPath = templatesPath;
-	        	if (typeof pageParameters.template === 'undefined') {
-					console.log(NA.appLabels.templateNotSet);
-	        	} else {
-	            	console.log(NA.appLabels.templateNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-	        	}
-	        } else {
-				callback(data);	
-	        }
-	   });
-	};
+    privates.request = function (path, options) {
+        var pageParameters = options[path],
+            getSupport = true,
+            postSupport = true;
 
-	privates.openVariation = function (variationName, currentVariation) {
-		var fs = NA.modules.fs,
-			dataError = {},
-			variationsPath,
-			languagePath = '';
+        // Manage GET / POST support for an url.
+        if (NA.webconfig.getSupport === false) { getSupport = false; }
+        if (pageParameters.getSupport === false) { getSupport = false; }
+        if (pageParameters.getSupport === true) { getSupport = true; }
+        if (NA.webconfig.postSupport === false) { postSupport = false; }
+        if (pageParameters.postSupport === false) { postSupport = false; }
+        if (pageParameters.postSupport === true) { postSupport = true; }
 
-			if (typeof currentVariation.languageCode !== 'undefined') { languagePath = currentVariation.languageCode + '/'; }
-			variationsPath = NA.websitePhysicalPath + NA.webconfig.variationsRelativePath + languagePath + variationName;
+        // Execute Get
+        if (getSupport) {
+            NA.httpServer.get(NA.webconfig.urlRelativeSubPath + path, function (request, response) {
+                NA.render(path, options, request, response);
+            });
+        }
 
-		if (typeof variationName !== 'undefined') {
-			dataError.variationsPath = variationsPath;
-			try {
-				return JSON.parse(fs.readFileSync(variationsPath, 'utf-8'));
-			} catch (exception) {
-				if (exception.code === 'ENOENT') {
-					console.log(NA.appLabels.variationNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-				} else if (exception.toString().indexOf('SyntaxError') !== -1) {
-					dataError.syntaxError = exception.toString();
-					console.log(NA.appLabels.variationSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-				} else {
-					console.log(exception);
-				}
-				return false;
-			}
-		}
-	};
+        // Execute Post
+        if (postSupport) {
+            NA.httpServer.post(NA.webconfig.urlRelativeSubPath + path, function (request, response) {
+                NA.render(path, options, request, response);
+            });
+        }       
+    };
 
-    privates.saveTemplateRender = function (data, templateRenderName) {
+    publics.urlRewritingPages = function () {
+        var commander = NA.modules.commander;
+        
+        if (!commander.generate) {       
+            for (var currentUrl in NA.webconfig.urlRewriting) {
+                privates.request(currentUrl, NA.webconfig.urlRewriting);
+            }
+        }
+    };
+
+})(NA);
+
+
+
+
+
+/*------------------------------------*\
+    $%FRONT-END PART
+\*------------------------------------*/
+
+(function (publics) {
+    "use strict";
+
+    var privates = {};
+
+    privates.openTemplate = function (pageParameters, templatesPath, callback) {
+        var fs = NA.modules.fs;
+
+        fs.readFile(templatesPath, 'utf-8', function (error, data) {
+            var dataError = {};
+
+            if (error) {
+                dataError.templatesPath = templatesPath;
+                if (typeof pageParameters.template === 'undefined') {
+                    console.log(NA.appLabels.templateNotSet);
+                } else {
+                    console.log(NA.appLabels.templateNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                }
+            } else {
+                callback(data); 
+            }
+       });
+    };
+
+    privates.openVariation = function (variationName, currentVariation) {
+        var fs = NA.modules.fs,
+            dataError = {},
+            variationsPath,
+            languagePath = '';
+
+            if (typeof currentVariation.languageCode !== 'undefined') { languagePath = currentVariation.languageCode + '/'; }
+            variationsPath = NA.websitePhysicalPath + NA.webconfig.variationsRelativePath + languagePath + variationName;
+
+        if (typeof variationName !== 'undefined') {
+            dataError.variationsPath = variationsPath;
+            try {
+                return JSON.parse(fs.readFileSync(variationsPath, 'utf-8'));
+            } catch (exception) {
+                if (exception.code === 'ENOENT') {
+                    console.log(NA.appLabels.variationNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                } else if (exception.toString().indexOf('SyntaxError') !== -1) {
+                    dataError.syntaxError = exception.toString();
+                    console.log(NA.appLabels.variationSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                } else {
+                    console.log(exception);
+                }
+                return false;
+            }
+        }
+    };
+
+    publics.render = function (path, options, request, response) {
+        var ejs = NA.modules.ejs,
+            pageParameters = options[path],
+            templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + pageParameters.template,
+            currentVariation = {},
+            templateRenderName;
+
+        publics.loadController(pageParameters.controller, function () {
+
+            // Execute custom PreRender part.
+            // Specific
+            function preRenderSpecific(currentVariation) {                
+                if (typeof NA.websiteController[pageParameters.controller] !== 'undefined' &&
+                    typeof NA.websiteController[pageParameters.controller].preRender !== 'undefined') {
+                        NA.websiteController[pageParameters.controller].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
+                            openTemplate(currentVariation);
+                        });
+                } else {
+                    openTemplate(currentVariation);      
+                }
+            }
+
+            // Execute custom Render part.
+            // Specific
+            function renderSpecific(data) {                
+                if (typeof NA.websiteController[pageParameters.controller] !== 'undefined' &&
+                    typeof NA.websiteController[pageParameters.controller].render !== 'undefined') {
+                        NA.websiteController[pageParameters.controller].render({ data: data, NA: NA, request: request, response: response }, function (data) {
+                            renderTemplate(data);
+                        });
+                } else {
+                    renderTemplate(data);      
+                }
+            }
+
+            // Opening template file.
+            function openTemplate(currentVariation) {                
+                privates.openTemplate(pageParameters, templatesPath, function (data) {
+
+                    // Generate final string Render.
+                    try {
+                       data = ejs.render(data, currentVariation);
+                    } catch (exception) {
+                        data = exception.toString();
+                    }
+
+                    // Execute custom Render part.
+                    // Common
+                    if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
+                        typeof NA.websiteController[NA.webconfig.commonController].render !== 'undefined') {
+                            NA.websiteController[NA.webconfig.commonController].render({ data: data, NA: NA, request: request, response: response }, function (data) {
+                                renderSpecific(data);
+                            });
+                    } else {
+                        renderSpecific(data);
+                    }
+               });
+            }
+
+            // Write file or/and send response.
+            function renderTemplate(data) {                
+
+                // Create file and CSS.
+                if (typeof response === 'undefined' || NA.webconfig.autoGenerate) {
+                    templateRenderName = pageParameters.generate || path;
+                    NA.saveTemplateRender(data, templateRenderName);
+                }
+
+                // Run page into browser.
+                if (typeof response !== 'undefined') {
+                    NA.response(request, response, data, pageParameters);
+                }
+            }
+            
+            currentVariation.languageCode = pageParameters.languageCode || NA.webconfig.languageCode;
+            currentVariation.urlBasePath = NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "") + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' : '');
+
+            currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + path;
+            if (request) { currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url; }
+
+            currentVariation.filename = NA.variations.filename;
+
+            // Opening variation file.
+            if (request) { currentVariation.params = request.params; }
+            currentVariation.common = privates.openVariation(NA.webconfig.commonVariation, currentVariation);
+            currentVariation.specific = privates.openVariation(pageParameters.variation, currentVariation);
+            currentVariation.webconfig = NA.webconfig;
+
+            // Execute custom PreRender part.
+            // Common
+            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
+                typeof NA.websiteController[NA.webconfig.commonController].preRender !== 'undefined') {
+                    NA.websiteController[NA.webconfig.commonController].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
+                        preRenderSpecific(currentVariation);
+                    });
+            } else {
+                preRenderSpecific(currentVariation);
+            }
+        });
+    };
+
+})(NA);
+
+
+
+
+
+/*------------------------------------*\
+    $%BACK-END PART
+\*------------------------------------*/
+
+(function (publics) {
+    "use strict";
+
+    var privates = {};
+
+    privates.openController = function () {
+        NA.nodeModulesPath = NA.websitePhysicalPath + 'node_modules/';
+        if (typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
+            NA = NA.websiteController[NA.webconfig.commonController].loadModules(NA) || NA;
+        }
+    };
+
+    publics.loadListOfExternalModules = function (callback) {
+        publics.loadController(NA.webconfig.commonController, function () {
+            callback();
+        });
+    };
+
+    publics.loadController = function (controller, callback) {
+        var commonControllerPath = NA.websitePhysicalPath + NA.webconfig.controllersRelativePath + controller,
+            dataError = {};
+
+        if (typeof controller !== 'undefined') {
+            try {
+                NA.websiteController[controller] = require(commonControllerPath);
+                privates.openController();
+                callback();
+            } catch (exception) {
+                dataError.moduleError = exception.toString();
+                if (exception.code === 'MODULE_NOT_FOUND') {
+                    console.log(NA.appLabels.moduleNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                } else {
+                    throw exception;
+                }
+            }
+        } else {
+            callback();
+        }
+
+    };
+
+})(NA);
+
+
+
+
+
+/*------------------------------------*\
+    $%ASSETS GENERATION
+\*------------------------------------*/
+
+(function (publics) {
+
+    publics.urlGeneratingPages = function () {
+        var commander = NA.modules.commander;
+
+        if (commander.generate) {
+            for (var currentUrl in NA.webconfig.urlRewriting) {
+                NA.render(currentUrl, NA.webconfig.urlRewriting);
+            }
+        }     
+    };
+
+    publics.emulatedIndexPage = function () {
+        var commander = NA.modules.commander;
+
+        if (!commander.generate) {
+            if (NA.webconfig.indexPage) {
+
+                console.log(NA.webconfig.indexPage);
+
+                NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
+                    var data = {};
+
+                        data.render = '';
+
+                    for (var page in NA.webconfig.urlRewriting) {
+                        data.page = page;
+
+                        if (NA.webconfig.urlRewriting.hasOwnProperty(page)) {
+                            data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; });
+                        }
+                    }
+
+                    response.writeHead(200, NA.appLabels.emulatedIndexPage.charsetAndType);
+                    response.write(NA.appLabels.emulatedIndexPage.data.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    response.end();
+                });
+            }
+        }
+    };
+
+    NA.saveTemplateRender = function (data, templateRenderName) {
         var fs = NA.modules.fs,
             jsdom = NA.modules.jsdom,
             mkpath = NA.modules.mkpath,
@@ -505,173 +746,16 @@ var NA = {};
         });
     };
 
-    publics.render = function (path, options, request, response) {
-    	var ejs = NA.modules.ejs,
-    		pageParameters = options[path],
-    		templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + pageParameters.template,
-    		currentVariation = {},
-            templateRenderName;
-
-        publics.loadController(pageParameters.controller, function () {
-
-			// Execute custom PreRender part.
-            // Specific
-            function preRenderSpecific(currentVariation) {                
-                if (typeof NA.websiteController[pageParameters.controller] !== 'undefined' &&
-                    typeof NA.websiteController[pageParameters.controller].preRender !== 'undefined') {
-                        NA.websiteController[pageParameters.controller].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
-                            openTemplate(currentVariation);
-                        });
-                } else {
-                    openTemplate(currentVariation);      
-                }
-            }
-
-            // Execute custom Render part.
-            // Specific
-            function renderSpecific(data) {                
-                if (typeof NA.websiteController[pageParameters.controller] !== 'undefined' &&
-                    typeof NA.websiteController[pageParameters.controller].render !== 'undefined') {
-                        NA.websiteController[pageParameters.controller].render({ data: data, NA: NA, request: request, response: response }, function (data) {
-                            renderTemplate(data);
-                        });
-                } else {
-                    renderTemplate(data);      
-                }
-            }
-
-            // Opening template file.
-            function openTemplate(currentVariation) {                
-                privates.openTemplate(pageParameters, templatesPath, function (data) {
-
-                    // Generate final string Render.
-                    try {
-                       data = ejs.render(data, currentVariation);
-                    } catch (exception) {
-                        data = exception.toString();
-                    }
-
-                    // Execute custom Render part.
-		            // Common
-		            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-		                typeof NA.websiteController[NA.webconfig.commonController].render !== 'undefined') {
-		                    NA.websiteController[NA.webconfig.commonController].render({ data: data, NA: NA, request: request, response: response }, function (data) {
-		                        renderSpecific(data);
-		                    });
-		            } else {
-		                renderSpecific(data);
-		            }
-               });
-            }
-
-        	// Write file or/and send response.
-            function renderTemplate(data) {                
-
-        		// Create file and CSS.
-                if (typeof response === 'undefined' || NA.webconfig.autoGenerate) {
-                    templateRenderName = pageParameters.generate || path;
-                    privates.saveTemplateRender(data, templateRenderName);
-                }
-
-                // Run page into browser.
-                if (typeof response !== 'undefined') {
-                    privates.response(request, response, data, pageParameters);
-                }
-            }
-            
-            currentVariation.languageCode = pageParameters.languageCode || NA.webconfig.languageCode;
-            currentVariation.urlBasePath = NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "") + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' : '');
-
-            currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + path;
-            if (request) { currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url; }
-
-            currentVariation.filename = NA.variations.filename;
-
-            // Opening variation file.
-            if (request) { currentVariation.params = request.params; }
-            currentVariation.common = privates.openVariation(NA.webconfig.commonVariation, currentVariation);
-            currentVariation.specific = privates.openVariation(pageParameters.variation, currentVariation);
-            currentVariation.webconfig = NA.webconfig;
-
-            // Execute custom PreRender part.
-            // Common
-            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-                typeof NA.websiteController[NA.webconfig.commonController].preRender !== 'undefined') {
-                    NA.websiteController[NA.webconfig.commonController].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
-                        preRenderSpecific(currentVariation);
-                    });
-            } else {
-                preRenderSpecific(currentVariation);
-            }
-        });
-	};
-
-    privates.response = function (request, response, data, pageParameters) {
-        response.writeHead(
-            pageParameters.statusCode || 200, 
-            pageParameters.mimeType || 'text/html'
-        );
-
-        response.write(data);
-        response.end();
-    };
-
-    privates.request = function (path, options) {
-		var pageParameters = options[path],
-			getSupport = true,
-			postSupport = true;
-
-		// Manage GET / POST support for an url.
-		if (NA.webconfig.getSupport === false) { getSupport = false; }
-		if (pageParameters.getSupport === false) { getSupport = false; }
-		if (pageParameters.getSupport === true) { getSupport = true; }
-		if (NA.webconfig.postSupport === false) { postSupport = false; }
-		if (pageParameters.postSupport === false) { postSupport = false; }
-		if (pageParameters.postSupport === true) { postSupport = true; }
-
-		// Execute Get
-		if (getSupport) {
- 			NA.httpServer.get(NA.webconfig.urlRelativeSubPath + path, function (request, response) {
- 				NA.render(path, options, request, response);
- 			});
-		}
-
-		// Execute Post
-		if (postSupport) {
-	 		NA.httpServer.post(NA.webconfig.urlRelativeSubPath + path, function (request, response) {
-	 			NA.render(path, options, request, response);
-	 		});
-		} 		
-	};
-
-    publics.urlRewritingPages = function () {
-        var commander = NA.modules.commander;
-        
-        if (!commander.generate) {       
-        	for (var currentUrl in NA.webconfig.urlRewriting) {
-                privates.request(currentUrl, NA.webconfig.urlRewriting);
-            }
-        }
-    };
-
 })(NA);
 
-/** Function depending on Generating Html Asset */
-(function (publics) {
 
-    publics.urlGeneratingPages = function () {
-        var commander = NA.modules.commander;
 
-        if (commander.generate) {
-            for (var currentUrl in NA.webconfig.urlRewriting) {
-                NA.render(currentUrl, NA.webconfig.urlRewriting);
-            }
-        }     
-    };
 
-})(NA);
 
-/** Starting Application */
+/*------------------------------------*\
+    $%RUN
+\*------------------------------------*/
+
 NA.loadListOfNativeModules();
 NA.initGlobalVar();
 NA.moduleRequired(function () {
@@ -682,8 +766,8 @@ NA.moduleRequired(function () {
         	NA.startingHttpServer();
         	NA.templateEngineConfiguration(); 
         	NA.urlRewritingPages();
-        	NA.httpServerPublicFiles();
         	NA.emulatedIndexPage();
+            NA.httpServerPublicFiles();
             NA.urlGeneratingPages();
         });
     });

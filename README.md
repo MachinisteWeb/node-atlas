@@ -12,8 +12,9 @@ NodeAtlas est une application réalisée en JavaScript et tournant avec Node.js 
 
 L'outil est encore en développement et je l'expérimente petit à petit avec mes propres site :
 
-- Exemple de génération de d'asset HTML (En cours...)
-- Exemple de développement de site Node.js (En cours...)
+- Exemple de génération de d'asset HTML (En cours...).
+- Exemple de simple site Node.js sans back-end (En cours...).
+- Exemple de développement de site Node.js (En cours...).
 
 ### Table des matière
 
@@ -70,7 +71,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 Il y a deux solutions pour installer Node-Atlas :
 
-1. `npm install [-g] node-atlas`
+1. `npm install node-atlas`
 2. Clonner le répertoire depuis [github](https://github.com/Haeresis/NodeAtlas).
 
 ## Commencer avec NodeAtlas

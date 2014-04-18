@@ -3,7 +3,7 @@
   "preferGlobal": true,
   "version": "0.10.1",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
-  "description": "NodeAtlas vous permet de créer et maintenir des Assets HTML ou sites multilingues simplement en Node.js.",
+  "description": "NodeAtlas allow you to create and manage HTML assets or create multilungual websites/webapps easily with Node.js.",
   "scripts": {
     "hello-world": "echo This is an Hello World"
   },
@@ -16,7 +16,7 @@
   "homepage": "https://github.com/Haeresis/NodeAtlas",
   "keywords": [
     "framework",
-    "node.js",
+    "asset",
     "mvc2",
     "website",
     "application"
