@@ -25,7 +25,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 ### Table des matières ###
 
 - Avant-propos
- - Exemple de réalisations avec NodeAtlas
+ - [Exemple de réalisations avec NodeAtlas](#exemples-de-r%C3%A9alisations-avec-nodeatlas)
  - Table des matières
  - Roadmap d'avancement du développement
 - Installation
@@ -1396,8 +1396,9 @@ La façon la plus simple de lancer NodeAtlas est de se positionner dans le répe
 
 Chacune des commandes qui va suivre peut être couplée avec les autres de cette manière :
 
+```
 \> node /path/to/node-atlas/directory/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
-
+```
 
 
 ### --directory ###
@@ -1406,7 +1407,7 @@ Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou es
 
 ```
 \> node /path/to/node-atlas/directory/node-atlas.js --directory /path/to/your/website/directory/
-
+```
 
 
 ### --webconfig ###
