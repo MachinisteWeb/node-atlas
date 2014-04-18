@@ -1,0 +1,1364 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>NodeAtlas by Haeresis</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>NodeAtlas</h1>
+        <p>NodeAtlas vous permet de créer et maintenir des Assets HTML ou sites multilingues simplement en Node.js</p>
+
+        <p class="view"><a href="https://github.com/Haeresis/NodeAtlas">View the Project on GitHub <small>Haeresis/NodeAtlas</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Haeresis/NodeAtlas/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Haeresis/NodeAtlas/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Haeresis/NodeAtlas">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
+
+<h2>
+<a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
+
+<p>NodeAtlas est une application réalisée en JavaScript et tournant avec <a href="http://nodejs.org/">Node.js</a>. Elle permet trois choses :</p>
+
+<ul>
+<li>Créer et maintenir un ensemble d'assets HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.</li>
+<li>Créer et maintenir des sites multilingues sans Back-end.</li>
+<li>Développer des sites ou des applications Node.js multilingues de toutes tailles.</li>
+</ul><h3>
+<a name="exemples-de-r%C3%A9alisations-avec-nodeatlas" class="anchor" href="#exemples-de-r%C3%A9alisations-avec-nodeatlas"><span class="octicon octicon-link"></span></a>Exemples de réalisations avec NodeAtlas</h3>
+
+<p>L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.</p>
+
+<ul>
+<li>Exemple de génération d'asset HTML (En cours...).</li>
+<li>Exemple de simple site Node.js sans Back-end (En cours...).</li>
+<li>Exemple de développement de site Node.js (En cours...).</li>
+</ul><h3>
+<a name="table-des-mati%C3%A8res" class="anchor" href="#table-des-mati%C3%A8res"><span class="octicon octicon-link"></span></a>Table des matières</h3>
+
+<ul>
+<li>Avant-propos
+
+<ul>
+<li>Exemple de réalisations avec NodeAtlas</li>
+<li>Table des matières</li>
+<li>Roadmap d'avancement du développement</li>
+</ul>
+</li>
+<li>Installation</li>
+<li>Commencer avec NodeAtlas
+
+<ul>
+<li>Ensemble de fichiers</li>
+<li>Configuration minimale</li>
+<li>Lancer le site avec NodeAtlas</li>
+</ul>
+</li>
+<li>Différentes configurations du webconfig.json
+
+<ul>
+<li>Plusieurs pages</li>
+<li>Héberger des images, polices, CSS, JS, etc.</li>
+<li>Gérer des inclusions pour éviter la redondance du code</li>
+<li>Gérer des variations au sein d'un même template</li>
+<li>Utiliser NodeAtlas pour générer des assets HTML</li>
+<li>Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</li>
+<li>Changer les paramètres d'url.</li>
+<li>Créer ses propres variables de webconfig</li>
+<li>Autoriser/Interdire les demandes GET/POST</li>
+<li>Changer les chevrons &lt;% %&gt; du moteur de template</li>
+<li>Changer la source jQuery utilisée</li>
+<li>Changer l'url final des hosname et port d'écoute</li>
+</ul>
+</li>
+</ul><h3>
+<a name="roadmap-davancement-du-d%C3%A9veloppement" class="anchor" href="#roadmap-davancement-du-d%C3%A9veloppement"><span class="octicon octicon-link"></span></a>Roadmap d'avancement du développement</h3>
+
+<ul>
+<li>
+<p>Fait </p>
+
+<ul>
+<li>Lancement d'un serveur Express</li>
+<li>Génération live de maquette HTML</li>
+<li>Génération complète de maquette HTML</li>
+<li>Fichier de configuration (Liste des pages avec Url Rewriting)</li>
+<li>Partie Back-end possible (Controllers / Models) </li>
+<li>Support de BDD possible (MySql / MongoDB)</li>
+<li>Support de Socket.IO possible</li>
+<li>Support des variables de parse Body / Cookie / Session</li>
+<li>Support des variables personnelles de webconfig</li>
+<li>Migration Express 3.x vers Express 4.x</li>
+</ul>
+</li>
+<li>
+<p>À venir </p>
+
+<ul>
+<li>Support d'une BDD de Session (ex: Redis) + key/secret</li>
+<li>Support des modules Express possible</li>
+<li>Auto Minification de Css/Js</li>
+<li>Auto compression images</li>
+<li>Injection automatique de feuille CSS en style inline (pour les maquettes email)</li>
+<li>Aggregation de fichier CSS/JS pour les versions de site en production.</li>
+<li>Auto-déploiement via transfert FTP</li>
+<li>Support Sass/Less</li>
+<li>...</li>
+</ul>
+</li>
+</ul><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Il y a deux solutions pour installer Node-Atlas :</p>
+
+<ol>
+<li><code>npm install node-atlas</code></li>
+<li>Cloner le répertoire depuis <a href="https://github.com/Haeresis/NodeAtlas">GitHub</a>.</li>
+</ol><h2>
+<a name="commencer-avec-nodeatlas" class="anchor" href="#commencer-avec-nodeatlas"><span class="octicon octicon-link"></span></a>Commencer avec NodeAtlas</h2>
+
+<h3>
+<a name="ensemble-de-fichiers" class="anchor" href="#ensemble-de-fichiers"><span class="octicon octicon-link"></span></a>Ensemble de fichiers</h3>
+
+<p>Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs comme la structure ci-dessous.</p>
+
+<pre><code>site-hello-world/
+— templates/
+—— index.htm
+— webconfig.json
+</code></pre>
+
+<p>Voici le fichier « /site-hello-world/templates/index.htm » :</p>
+
+<div class="highlight highlight-html"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"fr-fr"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Hello world<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div&gt;</span>Ceci est un Hello World !<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p>et ci-après, le fichier « /site-hello-world/webconfig.json ».</p>
+
+<h3>
+<a name="configuration-minimale" class="anchor" href="#configuration-minimale"><span class="octicon octicon-link"></span></a>Configuration minimale</h3>
+
+<p>Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS hébergés par le site avec la configuration minimale du « webconfig.json » ci-dessous.</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>Note : vous pouvez inclure des images ou fichiers CSS/JS hébergés sur d'autres sites.</em></p>
+
+<h3>
+<a name="lancer-le-site-avec-nodeatlas" class="anchor" href="#lancer-le-site-avec-nodeatlas"><span class="octicon octicon-link"></span></a>Lancer le site avec NodeAtlas</h3>
+
+<p>Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js
+</code></pre>
+
+<p>À votre première execution, NodeAtlas installera tous les « node_modules » nécéssaire à son fonctionnement.</p>
+
+<p>Ré-exécutez.</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js
+</code></pre>
+
+<p>Vous aurez alors accès à votre « Hello World » à la page : <em>http://localhost/</em> dans un navigateur.</p>
+
+<h2>
+<a name="diff%C3%A9rentes-configurations-du-webconfigjson" class="anchor" href="#diff%C3%A9rentes-configurations-du-webconfigjson"><span class="octicon octicon-link"></span></a>Différentes configurations du webconfig.json</h2>
+
+<h3>
+<a name="plusieurs-pages" class="anchor" href="#plusieurs-pages"><span class="octicon octicon-link"></span></a>Plusieurs pages</h3>
+
+<p>Ci-dessous un exemple de configuration.</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/member.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"member.htm"</span>
+            <span class="s2">"postSupport"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"/member-without-extension/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"member.htm"</span>
+            <span class="s2">"getSupport"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span> 
+        <span class="s2">"/error.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"error.htm"</span><span class="p">,</span>
+            <span class="s2">"statusCode"</span><span class="o">:</span> <span class="mi">404</span><span class="p">,</span>
+            <span class="s2">"mimeType"</span><span class="o">:</span> <span class="s2">"text/plain"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Pour faire tourner cet ensemble de fichier :</p>
+
+<pre><code>templates/
+— index.htm
+— member.htm
+— error.htm
+webconfig.json
+</code></pre>
+
+<p>aux adresses :</p>
+
+<ul>
+<li>
+<em>http://localhost/</em> (répond à la racine)</li>
+<li>
+<em>http://localhost/member.html</em> (ne répondra pas si demandée en POST)</li>
+<li>
+<em>http://localhost/member-without-extension/</em> (ne répondra pas si demandée en GET)</li>
+<li>
+<em>http://localhost/error.html</em> (renvoi du contenu plein texte (sans balise) avec une erreur 404)</li>
+</ul><h3>
+<a name="h%C3%A9berger-des-images-polices-css-js-etc" class="anchor" href="#h%C3%A9berger-des-images-polices-css-js-etc"><span class="octicon octicon-link"></span></a>Héberger des images, polices, CSS, JS, etc.</h3>
+
+<p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"assetsRelativePath"</span><span class="o">:</span> <span class="s2">"assets/"</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et cet ensemble de fichier :</p>
+
+<pre><code>assets/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+— media/
+—— images/
+——— logo.png
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>vous aurez accès aux adresses :</p>
+
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/stylesheets/common.css</em></li>
+<li><em>http://localhost/javascript/common.js</em></li>
+<li><em>http://localhost/media/images/logo.png</em></li>
+</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>assets/</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom du répertoire.</em></p>
+
+<h3>
+<a name="g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code" class="anchor" href="#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code"><span class="octicon octicon-link"></span></a>Gérer des inclusions pour éviter la redondance du code</h3>
+
+<p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autres fragments de code :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"componentsRelativePath"</span><span class="o">:</span> <span class="s2">"components/"</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>avec les fichiers suivants :</p>
+
+<pre><code>assets/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+components/
+— head.htm
+— foot.htm
+templates/
+— index.htm
+— members.htm
+webconfig.json
+</code></pre>
+
+<p><em>components/head.htm</em></p>
+
+<div class="highlight highlight-html"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"fr-fr"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Hello world<span class="nt">&lt;/title&gt;</span>
+
+        <span class="nt">&lt;link</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"stylesheets/common.css"</span> <span class="na">media=</span><span class="s">"all"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+</pre></div>
+
+<p><em>components/foot.htm</em></p>
+
+<div class="highlight highlight-html"><pre>        <span class="nt">&lt;script </span><span class="na">async</span> <span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"javascript/common.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p><em>templates/index.htm</em></p>
+
+<div class="highlight highlight-html"><pre>    <span class="err">&lt;</span>% include head.htm %&gt;
+
+    <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Bienvenue<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span>C'est la page d'accueil.<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="err">&lt;</span>% include foot.htm %&gt;
+</pre></div>
+
+<p><em>templates/members.htm</em></p>
+
+<div class="highlight highlight-html"><pre>    <span class="err">&lt;</span>% include head.htm %&gt;
+
+    <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Liste des members<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span>C'est la page des membres<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="err">&lt;</span>% include foot.htm %&gt;
+</pre></div>
+
+<p>vous aurez accès aux adresses :</p>
+
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em></li>
+</ul><p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nomde répertoire.</em></p>
+
+<h3>
+<a name="g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template" class="anchor" href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template"><span class="octicon octicon-link"></span></a>Gérer des variations au sein d'un même template</h3>
+
+<h4>
+<a name="en-standard" class="anchor" href="#en-standard"><span class="octicon octicon-link"></span></a>En standard</h4>
+
+<p>Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (pratique en mode génération d'assets HTML). Activer les variations avec la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"commonVariation"</span><span class="o">:</span> <span class="s2">"common.json"</span><span class="p">,</span>
+    <span class="s2">"variationsRelativePath"</span><span class="o">:</span> <span class="s2">"variations/"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"template.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"index.json"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"template.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"members.json"</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>avec les fichiers suivants :</p>
+
+<pre><code>assets/
+— stylesheets/
+—— common.css
+—— home.css
+—— members.css
+— javascript/
+—— common.js
+—— home.js
+—— members.js
+components/
+— head.htm
+— foot.htm
+variations/
+— common.json
+— index.json
+— members.json
+templates/
+— template.htm
+webconfig.json
+</code></pre>
+
+<p><em>components/head.htm</em></p>
+
+<div class="highlight highlight-html"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"fr-fr"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span><span class="err">&lt;</span>%= specific.titlePage %&gt;<span class="nt">&lt;/title&gt;</span>
+
+        <span class="nt">&lt;link</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"stylesheets/&lt;%= common.classCssCommon %&gt;.css"</span> <span class="na">media=</span><span class="s">"all"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"stylesheets/&lt;%= specific.classPage %&gt;.css"</span> <span class="na">media=</span><span class="s">"all"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body</span> <span class="na">class=</span><span class="s">"&lt;%= specific.classPage %&gt;"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<p><em>components/foot.htm</em></p>
+
+<div class="highlight highlight-html"><pre>        <span class="nt">&lt;script </span><span class="na">async</span> <span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"javascript/&lt;%= common.classJsCommon %&gt;.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p><em>templates/template.htm</em></p>
+
+<div class="highlight highlight-html"><pre>    <span class="err">&lt;</span>% include head.htm %&gt;
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span><span class="err">&lt;</span>%= common.titleWebsite %&gt;<span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;h1&gt;</span><span class="err">&lt;</span>%= specific.titlePage %&gt;<span class="nt">&lt;/h1&gt;</span>
+        <span class="err">&lt;</span>%- specific.content %&gt;
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="err">&lt;</span>% include foot.htm %&gt;
+</pre></div>
+
+<p><em>variations/common.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"titleWebsite"</span><span class="o">:</span> <span class="s2">"Titre du site"</span><span class="p">,</span>
+    <span class="s2">"classCssCommon"</span><span class="o">:</span> <span class="s2">"common"</span><span class="p">,</span>
+    <span class="s2">"classJsCommon"</span><span class="o">:</span> <span class="s2">"common"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>variations/index.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"titlePage"</span><span class="o">:</span> <span class="s2">"Bienvenue"</span><span class="p">,</span>
+    <span class="s2">"classPage"</span><span class="o">:</span> <span class="s2">"index"</span><span class="p">,</span>
+    <span class="s2">"content"</span><span class="o">:</span> <span class="s2">"&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>variations/members.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"titlePage"</span><span class="o">:</span> <span class="s2">"Liste des members"</span><span class="p">,</span>
+    <span class="s2">"classPage"</span><span class="o">:</span> <span class="s2">"members"</span><span class="p">,</span>
+    <span class="s2">"content"</span><span class="o">:</span> <span class="s2">"&lt;p&gt;C'est la page des membres&lt;/p&gt;"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>vous aurez accès aux adresses :</p>
+
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em></li>
+</ul><p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom de répertoire.</em></p>
+
+<h4>
+<a name="pour-le-multilingue" class="anchor" href="#pour-le-multilingue"><span class="octicon octicon-link"></span></a>Pour le multilingue</h4>
+
+<h5>
+<a name="toutes-les-langues-sur-le-m%C3%AAme-site" class="anchor" href="#toutes-les-langues-sur-le-m%C3%AAme-site"><span class="octicon octicon-link"></span></a>Toutes les langues sur le même site</h5>
+
+<p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"en-gb"</span><span class="p">,</span>
+    <span class="s2">"variationsRelativePath"</span><span class="o">:</span> <span class="s2">"languages/"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"landing.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"landing.json"</span>
+        <span class="p">},</span>
+        <span class="s2">"/home/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"home.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"home.json"</span>
+        <span class="p">},</span>
+        <span class="s2">"/accueil/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"home.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"home.json"</span><span class="p">,</span>
+            <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"fr-fr"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de</em> <strong><em>commonVariation</em></strong>. <em>J'ai également totalement arbitrairement décidé de renommer mon dossier</em> <strong><em>variations/</em></strong> <em>en</em> <strong><em>languages/</em></strong>.</p>
+
+<p>avec les fichiers suivants :</p>
+
+<pre><code>components/
+— head.htm
+— foot.htm
+languages/
+— en-gb
+—— landing.json
+—— home.json
+— fr-fr
+—— home.json
+templates/
+— landing.htm
+— home.htm
+webconfig.json
+</code></pre>
+
+<p><em>components/head.htm</em></p>
+
+<div class="highlight highlight-html"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"&lt;%= languageCode %&gt;"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span><span class="err">&lt;</span>%= specific.titlePage %&gt;<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body</span> <span class="na">class=</span><span class="s">"&lt;%= specific.classPage %&gt;"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<p><em>components/foot.htm</em></p>
+
+<div class="highlight highlight-html"><pre>    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p><em>templates/landing.htm</em></p>
+
+<div class="highlight highlight-html"><pre>    <span class="err">&lt;</span>% include head.htm %&gt;
+
+    <span class="nt">&lt;select&gt;</span>
+        <span class="err">&lt;</span>% for (var i = 0; i <span class="nt">&lt; specific.selectLabel.length</span><span class="err">;</span> <span class="na">i</span><span class="err">++)</span> <span class="err">{</span> <span class="err">%</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option&gt;</span><span class="err">&lt;</span>%= specific.selectLabel[i] %&gt;<span class="nt">&lt;/option&gt;</span>
+        <span class="err">&lt;</span>% } %&gt;
+    <span class="nt">&lt;/select&gt;</span>
+
+    <span class="err">&lt;</span>% include foot.htm %&gt;
+</pre></div>
+
+<p><em>templates/home.htm</em></p>
+
+<div class="highlight highlight-html"><pre>    <span class="err">&lt;</span>% include head.htm %&gt;
+
+    <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;h1&gt;</span><span class="err">&lt;</span>%= specific.titlePage %&gt;<span class="nt">&lt;/h1&gt;</span>
+        <span class="err">&lt;</span>%- specific.content %&gt;
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="err">&lt;</span>% include foot.htm %&gt;
+</pre></div>
+
+<p><em>languages/en-gb/landing.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"titlePage"</span><span class="o">:</span> <span class="s2">"Landing"</span><span class="p">,</span>
+    <span class="s2">"classPage"</span><span class="o">:</span> <span class="s2">"landing"</span><span class="p">,</span>
+    <span class="s2">"selectLabel"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">"English"</span><span class="p">,</span>
+        <span class="s2">"Français"</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>languages/en-gb/home.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"titlePage"</span><span class="o">:</span> <span class="s2">"Welcome"</span><span class="p">,</span>
+    <span class="s2">"classPage"</span><span class="o">:</span> <span class="s2">"home"</span><span class="p">,</span>
+    <span class="s2">"content"</span><span class="o">:</span> <span class="s2">"&lt;p&gt;This is a home page.&lt;/p&gt;"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>languages/fr-fr/home.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"titlePage"</span><span class="o">:</span> <span class="s2">"Bienvenue"</span><span class="p">,</span>
+    <span class="s2">"classPage"</span><span class="o">:</span> <span class="s2">"home"</span><span class="p">,</span>
+    <span class="s2">"content"</span><span class="o">:</span> <span class="s2">"&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>vous aurez accès aux adresses :</p>
+
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/home/</em></li>
+<li><em>http://localhost/accueil/</em></li>
+</ul><p><em>Note : Par défaut c'est le</em> <strong><em>languageCode</em></strong> <em>racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le</em> <strong><em>languageCode*</em></strong>. <em>Il faut également savoir que dès que le site ou une page à un</em> <strong><em>languageCode</em></strong> <em>dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du</em> <strong><em>languageCode</em></strong>.</p>
+
+<h5>
+<a name="a-chaque-langue-sa-configuration" class="anchor" href="#a-chaque-langue-sa-configuration"><span class="octicon octicon-link"></span></a>A chaque langue sa configuration</h5>
+
+<p>Vous pouvez également décider de faire tourner chaque langue dans un « webconfig.json » différent. Avec l'ensemble de fichier suivant :</p>
+
+<pre><code>components/
+— head.htm
+— foot.htm
+variations/
+— en-gb
+—— landing.json
+—— home.json
+—— members.json
+— fr-fr
+—— home.json
+—— members.json
+templates/
+— landing.htm
+— home.htm
+— members.htm
+webconfig.json
+webconfig.en-gb.json
+webconfig.fr-fr.json
+</code></pre>
+
+<p>vous pourriez avoir les « webconfig.json » suivant :</p>
+
+<p><em>webconfig.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"en-gb"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"landing.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"landing.json"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>webconfig.en-gb.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">81</span><span class="p">,</span>
+    <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">"/english"</span><span class="p">,</span>
+    <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"en-gb"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"home.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"home.json"</span>
+        <span class="p">},</span> 
+        <span class="s2">"/members-list/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"members.json"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>webconfig.fr-fr.json</em></p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">82</span><span class="p">,</span>
+    <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">"/francais"</span><span class="p">,</span>
+    <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"fr-fr"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"home.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"home.json"</span>
+        <span class="p">},</span> 
+        <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"members.json"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et avoir accès aux adresses :</p>
+
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost:81/english/</em></li>
+<li><em>http://localhost:81/english/</em></li>
+<li><em>http://localhost:81/english/members-list/</em></li>
+<li><em>http://localhost:82/francais/</em></li>
+<li><em>http://localhost:82/francais/liste-des-membres/</em></li>
+</ul><p><em>Note : il est possible de faire ensuite du reverse proxy pour ramener l'ensemble des url sur les ports autres que le port 80 sur le port 80.</em></p>
+
+<h3>
+<a name="utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html" class="anchor" href="#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html"><span class="octicon octicon-link"></span></a>Utiliser NodeAtlas pour générer des assets HTML</h3>
+
+<h4>
+<a name="g%C3%A9n%C3%A9rer-des-assets-html" class="anchor" href="#g%C3%A9n%C3%A9rer-des-assets-html"><span class="octicon octicon-link"></span></a>Générer des assets HTML</h4>
+
+<p>Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créer à chaque affichage de la page dans votre navigateur.</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"autoGenerate"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"generatesRelativePath"</span><span class="o">:</span> <span class="s2">"generate/"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
+            <span class="s2">"generate"</span><span class="o">:</span> <span class="s2">"/index.html"</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span><span class="p">,</span>
+            <span class="s2">"generate"</span><span class="o">:</span> <span class="s2">"/members/list.html"</span>
+        <span class="p">},</span>
+        <span class="s2">"/no/generate/property/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et l'ensemble de fichiers suivant :</p>
+
+<pre><code>{
+assets/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+generate/
+templates/
+— index.htm
+— members.htm
+webconfig.json
+}
+</code></pre>
+
+<p>on peut créer physiquement les assets :</p>
+
+<pre><code>{
+generate/
+— index.html
+— members/
+—— list.html
+— no/
+—— generate/
+——— property &lt;== Ceci est un fichier
+templates/
+— index.htm
+— members.htm
+webconfig.json
+}
+</code></pre>
+
+<p>en ce rendant aux addresses :</p>
+
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em></li>
+</ul><p>La génération s'enclenche quand on affiche la page uniquement parceque <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node /path/to/node-atlas/directory/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.</p>
+
+<p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generatesRelativePath/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom répertoire.</em></p>
+
+<h4>
+<a name="g%C3%A9n%C3%A9rer-un-site-sans-partie-serveur" class="anchor" href="#g%C3%A9n%C3%A9rer-un-site-sans-partie-serveur"><span class="octicon octicon-link"></span></a>Générer un site sans partie serveur</h4>
+
+<p>Il est également possible de manager la création d'un site en simple page HTML avec la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"fr-fr"</span><span class="p">,</span>
+    <span class="s2">"indexPage"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"autoGenerate"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"generatesRelativePath"</span><span class="o">:</span> <span class="s2">"../HTML/"</span><span class="p">,</span>
+    <span class="s2">"assetsRelativePath"</span><span class="o">:</span> <span class="s2">"../HTML/"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/cv.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"index.json"</span>
+        <span class="p">},</span>
+        <span class="s2">"/en/cv.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"index.json"</span><span class="p">,</span>
+            <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"en"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et l'ensemble de fichiers suivant :</p>
+
+<pre><code>HTML/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+engine/
+— variations/
+—— fr-fr/
+——— index.json
+—— en/
+——— index.json
+— templates/
+—— index.htm
+— webconfig.json
+</code></pre>
+
+<p>À l'adresse <em>http://localhost/</em> s'affichera la liste des pages composant votre site (grâce à <strong>indexPage</strong> à <strong>true</strong>).</p>
+
+<p>Il ne restera plus qu'à, une fois votre travail terminé, admirer votre site HTML dans le dossier :</p>
+
+<pre><code>HTML/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+— cv.html
+— en/
+—— cv.html
+</code></pre>
+
+<h3>
+<a name="utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end" class="anchor" href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end"><span class="octicon octicon-link"></span></a>Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</h3>
+
+<p>Vous pouvez soit utiliser un contrôlleur unique pour tout le site et/ou également des contrôlleurs par template et variation.</p>
+
+<p>Pour le contrôlleur maître, utilisez par exemple cette configuration :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"commonController"</span><span class="o">:</span> <span class="s2">"common.js"</span><span class="p">,</span>
+    <span class="s2">"controllersRelativePath"</span><span class="o">:</span> <span class="s2">"controllers/"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"index.json"</span>
+        <span class="p">},</span>
+        <span class="s2">"/categories/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"categories.htm"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"categories.json"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>avec cet ensemble de fichier</p>
+
+<pre><code>variations/
+— index.json
+— categories.json
+controllers/
+— common.js
+models/
+— Article.js
+— Category.js
+templates/
+— index.htm
+— categories.htm
+webconfig.json
+</code></pre>
+
+<p>Et le fichier « common.js » contenant ceci par exemple :</p>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="c1">// Loading modules for this website.</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">"use strict"</span><span class="p">;</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">loadModules</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">NA</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">modulePath</span> <span class="o">=</span> <span class="p">(</span><span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">_needModulePath</span><span class="p">)</span> <span class="o">?</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">nodeModulesPath</span> <span class="o">:</span> <span class="s1">''</span><span class="p">;</span>
+
+        <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">connect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s1">'connect'</span><span class="p">);</span>
+        <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s1">'cookie'</span><span class="p">);</span>
+        <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s1">'mongoose'</span><span class="p">);</span>
+        <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">socketio</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s1">'socket.io'</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">NA</span><span class="p">;</span>
+    <span class="p">};</span>
+
+<span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+
+<span class="c1">// Set configuration for this website.</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">"use strict"</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">privates</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">setConfigurations</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">NA</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">mongoose</span><span class="p">,</span>
+            <span class="nx">socketio</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">socketio</span><span class="p">,</span>
+            <span class="nx">connect</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">connect</span><span class="p">;</span>
+
+        <span class="nx">NA</span><span class="p">.</span><span class="nx">backend</span> <span class="o">=</span> <span class="p">{};</span>
+
+        <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseInitialization</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseShemas</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">);</span>
+
+            <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoInitialisation</span><span class="p">(</span><span class="nx">socketio</span><span class="p">,</span> <span class="nx">NA</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">io</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoEvents</span><span class="p">(</span><span class="nx">io</span><span class="p">,</span> <span class="nx">NA</span><span class="p">);</span>
+
+                <span class="nx">callback</span><span class="p">(</span><span class="nx">NA</span><span class="p">);</span>                   
+            <span class="p">});</span>
+        <span class="p">});</span>
+
+    <span class="p">};</span>
+
+    <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoInitialisation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">socketio</span><span class="p">,</span> <span class="nx">NA</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">socketio</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">NA</span><span class="p">.</span><span class="nx">server</span><span class="p">),</span>
+            <span class="nx">connect</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">connect</span><span class="p">,</span>
+            <span class="nx">cookie</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
+
+        <span class="nx">io</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'authorization'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">accept</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="c1">// No cookie enable.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">cookie</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">accept</span><span class="p">(</span><span class="s1">'Session cookie required.'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="c1">// First parse the cookies into a half-formed object.</span>
+            <span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">cookie</span><span class="p">);</span>
+
+            <span class="c1">// Next, verify the signature of the session cookie.</span>
+            <span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">connect</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseSignedCookies</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span><span class="p">,</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">secret</span><span class="p">);</span>
+
+            <span class="c1">// save ourselves a copy of the sessionID.</span>
+            <span class="nx">data</span><span class="p">.</span><span class="nx">sessionID</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span><span class="p">[</span><span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">key</span><span class="p">];</span>
+
+            <span class="c1">// Accept cookie.</span>
+            <span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">sessionStore</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">sessionID</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">||</span> <span class="o">!</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">accept</span><span class="p">(</span><span class="s2">"Error"</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nx">data</span><span class="p">.</span><span class="nx">session</span> <span class="o">=</span> <span class="nx">session</span><span class="p">;</span>
+                    <span class="nx">accept</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+
+        <span class="p">});</span>
+
+        <span class="nx">callback</span><span class="p">(</span><span class="nx">io</span><span class="p">);</span>       
+    <span class="p">};</span>
+
+    <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseInitialization</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">'mongodb://127.0.0.1:27017/blog'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+            <span class="p">};</span>
+
+            <span class="nx">callback</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection error: '</span> <span class="o">+</span> <span class="nx">error</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'disconnected'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection disconnected'</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'SIGINT'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection disconnected through app termination'</span><span class="p">);</span>
+                <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+
+    <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoEvents</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">io</span><span class="p">,</span> <span class="nx">NA</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{};</span>
+
+        <span class="nx">params</span><span class="p">.</span><span class="nx">io</span> <span class="o">=</span> <span class="nx">io</span><span class="p">;</span>
+        <span class="nx">params</span><span class="p">.</span><span class="nx">NA</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">;</span>
+
+        <span class="nx">require</span><span class="p">(</span><span class="s1">'./article'</span><span class="p">).</span><span class="nx">asynchrone</span><span class="p">(</span><span class="nx">params</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseShemas</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span> <span class="o">=</span> <span class="p">{};</span>
+
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">article</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../models/Article'</span><span class="p">);</span>
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">category</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../models/Category'</span><span class="p">);</span>
+
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'article'</span><span class="p">,</span> <span class="nx">website</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">article</span><span class="p">,</span> <span class="s1">'article'</span><span class="p">);</span>
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="nx">website</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">category</span><span class="p">,</span> <span class="s1">'category'</span><span class="p">);</span>
+    <span class="p">};</span>
+
+<span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+
+<span class="c1">// PreRender</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">"use strict"</span><span class="p">;</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">variation</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">variation</span><span class="p">;</span>
+
+        <span class="c1">// Ici on modifie les variables de variations.</span>
+        <span class="c1">//console.log(params.variation);</span>
+
+        <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">variation</span><span class="p">);</span>
+    <span class="p">};</span>
+
+<span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+
+<span class="c1">// Render</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">"use strict"</span><span class="p">;</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+
+        <span class="c1">// Ici on peut manipuler le DOM côté serveur avant retour client.</span>
+        <span class="c1">//console.log(params.data);</span>
+
+        <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+<span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">loadModules</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">loadModules</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">setConfigurations</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">setConfigurations</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">preRender</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">render</span><span class="p">;</span>
+</pre></div>
+
+<p>Au lieu de ce servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des controlleurs spécifique par page. La configuration précédente devient alors :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"commonController"</span><span class="o">:</span> <span class="s2">"common.js"</span><span class="p">,</span>
+    <span class="s2">"controllersRelativePath"</span><span class="o">:</span> <span class="s2">"controllers/"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
+            <span class="s2">"controller"</span><span class="o">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"index.json"</span>
+        <span class="p">},</span>
+        <span class="s2">"/categories/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"categories.htm"</span><span class="p">,</span>
+            <span class="s2">"controller"</span><span class="o">:</span> <span class="s2">"categories.js"</span><span class="p">,</span>
+            <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"categories.json"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>avec cet ensemble de fichier</p>
+
+<pre><code>variations/
+— index.json
+— categories.json
+controllers/
+— modules/
+—— list-of-article.js/
+— common.js
+- index.js
+- categories.js
+models/
+— Article.js
+— Category.js
+templates/
+— index.htm
+— categories.htm
+webconfig.json
+</code></pre>
+
+<p>avec par exemple un fichier index.js comme celui-ci :</p>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="c1">// PreRender</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">"use strict"</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">privates</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="nx">privates</span><span class="p">.</span><span class="nx">listOfArticles</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./modules/list-of-articles'</span><span class="p">);</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">variation</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">variation</span><span class="p">,</span>
+            <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">mongoose</span><span class="p">,</span>
+            <span class="nx">Article</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'article'</span><span class="p">);</span>
+
+        <span class="nx">variation</span><span class="p">.</span><span class="nx">backend</span> <span class="o">=</span> <span class="p">{};</span>
+
+        <span class="nx">privates</span><span class="p">.</span><span class="nx">listOfArticles</span><span class="p">(</span><span class="nx">Article</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">listOfArticles</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="nx">variation</span><span class="p">.</span><span class="nx">backend</span><span class="p">.</span><span class="nx">articles</span> <span class="o">=</span> <span class="nx">listOfArticles</span><span class="p">;</span>
+
+            <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">variation</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+
+<span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+
+<span class="c1">// Render</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">"use strict"</span><span class="p">;</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+
+        <span class="c1">// Ici on peut manipuler le DOM côté serveur avant retour client.</span>
+        <span class="c1">//console.log(params.data);</span>
+
+        <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+<span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">preRender</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">render</span><span class="p">;</span>
+</pre></div>
+
+<p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js » alors toute la partie Back-end est désactivée.</em></p>
+
+<h3>
+<a name="changer-les-param%C3%A8tres-durl" class="anchor" href="#changer-les-param%C3%A8tres-durl"><span class="octicon octicon-link"></span></a>Changer les paramètres d'url</h3>
+
+<p>Par défaut, si vous utilisez la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>cela est identique à utiliser celle-ci :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"localhost"</span><span class="p">,</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et vous pourrez accéder à l'url : <em>http://localhost/</em>.</p>
+
+<p>Changer alors la configuration en ceci :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"127.0.0.1"</span><span class="p">,</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">"/sub/folder"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>pour accéder à : <em><a href="https://127.0.0.1:7777/sub/folder/">https://127.0.0.1:7777/sub/folder/</a></em></p>
+
+<h3>
+<a name="cr%C3%A9er-ses-propres-variables-de-webconfig" class="anchor" href="#cr%C3%A9er-ses-propres-variables-de-webconfig"><span class="octicon octicon-link"></span></a>Créer ses propres variables de webconfig</h3>
+
+<p>Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :</p>
+
+<ol>
+<li>« webconfig.json »</li>
+</ol><div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">},</span> 
+    <span class="s2">"_minified"</span><span class="o">:</span> <span class="s2">""</span>
+<span class="p">}</span>
+</pre></div>
+
+<ol>
+<li>« webconfig.prod.json »</li>
+</ol><div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">},</span> 
+    <span class="s2">"_minified"</span><span class="o">:</span> <span class="s2">".min"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>avec cet ensemble de fichier</p>
+
+<pre><code>assets/
+— stylesheets/
+—— common.css
+—— common.min.css
+— javascript/
+—— common.js
+—— common.min.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+</code></pre>
+
+<p>et « index.htm » contenant :</p>
+
+<div class="highlight highlight-html"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"fr-fr"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Hello world<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"stylesheets/common&lt;%= webconfig._minified %&gt;.css"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div&gt;</span>Ceci est un test de récupération de ressources minifiées/non-minifiées.<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"javascript/common&lt;%= webconfig._minified %&gt;.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p>En lançant (depuis le dossier du site) la commande :</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js
+</code></pre>
+
+<p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :</p>
+
+<div class="highlight highlight-html"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"fr-fr"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Hello world<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"stylesheets/common.css"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div&gt;</span>Ceci est un test de récupération de ressources minifiées/non-minifiées.<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"javascript/common.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p>Cependant en lançant la commande :</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/server.js --webconfig webconfig.prod.json 
+</code></pre>
+
+<p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :</p>
+
+<div class="highlight highlight-html"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"fr-fr"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Hello world<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"stylesheets/common.min.css"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div&gt;</span>Ceci est un test de récupération de ressources minifiées/non-minifiées.<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"javascript/common.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p>
+
+<h3>
+<a name="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
+
+<p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdir le GET).</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"getSupport"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"postSupport"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/rediger-commentaire/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"write-com.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/commentaire-sauvegarde/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"save-com.htm"</span><span class="p">,</span>
+            <span class="s2">"getSupport"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">"postSupport"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>Note : Si rien n'est précisé,</em> <strong><em>getSupport</em></strong> <em>et</em> <strong><em>postSupport</em></strong> <em>sont à</em> <strong><em>true</em></strong> <em>au niveau global et par page.</em></p>
+
+<h3>
+<a name="changer-les-chevrons---du-moteur-de-template" class="anchor" href="#changer-les-chevrons---du-moteur-de-template"><span class="octicon octicon-link"></span></a>Changer les chevrons &lt;% %&gt; du moteur de template</h3>
+
+<p>Par exemple, pour inclure une partie de fichier on utilise l'instruction <strong><em>&lt;% include head.htm %&gt;</em></strong>. Il serait possible de le faire avec <strong><em>{{ include head.htm }}</em></strong> avec la configuration ci-dessous :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"templateEngineOpenPattern"</span><span class="o">:</span> <span class="s2">"{{"</span><span class="p">,</span>
+    <span class="s2">"templateEngineClosePattern"</span><span class="o">:</span> <span class="s2">"}}"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>Note : Si rien n'est précisé,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>et</em> <strong><em>templateEngineClosePattern</em></strong> <em>valent respectivement</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
+
+<h3>
+<a name="changer-la-source-jquery-utilis%C3%A9e" class="anchor" href="#changer-la-source-jquery-utilis%C3%A9e"><span class="octicon octicon-link"></span></a>Changer la source jQuery utilisée</h3>
+
+<p>NodeAtlas utilise par défaut le fichier externe « <a href="http://code.jquery.com/jquery.js">http://code.jquery.com/jquery.js</a> » pour manipuler le DOM. Vous pouvez changer celui-ci avec cette configuration :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"jQueryVersion"</span><span class="o">:</span> <span class="s2">"./assets/javascript/jquery-1.9.0.js"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="changer-lurl-final-des-hosname-et-port-d%C3%A9coute" class="anchor" href="#changer-lurl-final-des-hosname-et-port-d%C3%A9coute"><span class="octicon octicon-link"></span></a>Changer l'url final des hosname et port d'écoute</h3>
+
+<p>Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci dessous :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"127.0.0.1"</span><span class="p">,</span>
+    <span class="s2">"urlPort"</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">"urlHostname"</span><span class="o">:</span> <span class="s2">"localhost"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
