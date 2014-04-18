@@ -31,6 +31,8 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
+<p>Version : 0.10.3</p>
+
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
 
@@ -53,38 +55,52 @@
 <a name="table-des-mati%C3%A8res" class="anchor" href="#table-des-mati%C3%A8res"><span class="octicon octicon-link"></span></a>Table des matières</h3>
 
 <ul>
-<li>Avant-propos
+<li>
+<a href="#avant-propos">Avant-propos</a>
 
 <ul>
-<li>Exemple de réalisations avec NodeAtlas</li>
-<li>Table des matières</li>
-<li>Roadmap d'avancement du développement</li>
+<li><a href="#exemples-de-r%C3%A9alisations-avec-nodeatlas">Exemple de réalisations avec NodeAtlas</a></li>
+<li><a href="#table-des-mati%C3%A8res">Table des matières</a></li>
+<li><a href="#roadmap-davancement-du-d%C3%A9veloppement">Roadmap d'avancement du développement</a></li>
 </ul>
 </li>
-<li>Installation</li>
-<li>Commencer avec NodeAtlas
+<li><a href="#installation">Installation</a></li>
+<li>
+<a href="#commencer-avec-nodeatlas">Commencer avec NodeAtlas</a>
 
 <ul>
-<li>Ensemble de fichiers</li>
-<li>Configuration minimale</li>
-<li>Lancer le site avec NodeAtlas</li>
+<li><a href="#ensemble-de-fichiers">Ensemble de fichiers</a></li>
+<li><a href="#configuration-minimale">Configuration minimale</a></li>
+<li><a href="#lancer-le-site-avec-nodeatlas">Lancer le site avec NodeAtlas</a></li>
 </ul>
 </li>
-<li>Différentes configurations du webconfig.json
+<li>
+<a href="#diff%C3%A9rentes-configurations-du-webconfigjson">Différentes configurations du webconfig.json</a>
 
 <ul>
-<li>Plusieurs pages</li>
-<li>Héberger des images, polices, CSS, JS, etc.</li>
-<li>Gérer des inclusions pour éviter la redondance du code</li>
-<li>Gérer des variations au sein d'un même template</li>
-<li>Utiliser NodeAtlas pour générer des assets HTML</li>
-<li>Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</li>
-<li>Changer les paramètres d'url.</li>
-<li>Créer ses propres variables de webconfig</li>
-<li>Autoriser/Interdire les demandes GET/POST</li>
-<li>Changer les chevrons &lt;% %&gt; du moteur de template</li>
-<li>Changer la source jQuery utilisée</li>
-<li>Changer l'url final des hosname et port d'écoute</li>
+<li><a href="#plusieurs-pages">Plusieurs pages</a></li>
+<li><a href="#h%C3%A9berger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</a></li>
+<li><a href="#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code">Gérer des inclusions pour éviter la redondance du code</a></li>
+<li><a href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template">Gérer des variations au sein d'un même template</a></li>
+<li><a href="#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html">Utiliser NodeAtlas pour générer des assets HTML</a></li>
+<li><a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</a></li>
+<li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url.</a></li>
+<li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
+<li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
+<li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
+<li><a href="#changer-la-source-jquery-utilis%C3%A9e">Changer la source jQuery utilisée</a></li>
+<li><a href="#changer-lurl-final-des-hosname-et-port-d%C3%A9coute">Changer l'url final des hosname et port d'écoute</a></li>
+</ul>
+</li>
+<li>
+<a href="#commandes-de-lancement">Commandes de lancement</a>
+
+<ul>
+<li><a href="#--directory">--directory</a></li>
+<li><a href="#--webconfig">--webconfig</a></li>
+<li><a href="#--run">--run</a></li>
+<li><a href="#--httpport">--httpPort</a></li>
+<li><a href="#--generate">--generate</a></li>
 </ul>
 </li>
 </ul><h3>
@@ -1352,6 +1368,56 @@ webconfig.prod.json
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+
+<h2>
+<a name="commandes-de-lancement" class="anchor" href="#commandes-de-lancement"><span class="octicon octicon-link"></span></a>Commandes de lancement</h2>
+
+<p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node /path/to/node-atlas/directory/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
+
+<p>Chacune des commandes qui va suivre peut être couplée avec les autres de cette manière :</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
+</code></pre>
+
+<h3>
+<a name="--directory" class="anchor" href="#--directory"><span class="octicon octicon-link"></span></a>--directory</h3>
+
+<p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous serra alors très utile.</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --directory /path/to/your/website/directory/
+</code></pre>
+
+<h3>
+<a name="--webconfig" class="anchor" href="#--webconfig"><span class="octicon octicon-link"></span></a>--webconfig</h3>
+
+<p>Par defaut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu'en plus de ce fichier vous ayez crée un autre fichier <code>webconfig.prod.json</code> dont le nom de dommaine est différent. Ou encore un <code>webconfig.fr-fr.json</code> avec des url et des variations dans une autre langue. Plutôt que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --webconfig webconfig.alternatif.json
+</code></pre>
+
+<h3>
+<a name="--run" class="anchor" href="#--run"><span class="octicon octicon-link"></span></a>--run</h3>
+
+<p>Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec <code>--generate</code> (voir plus loin).</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --run
+</code></pre>
+
+<h3>
+<a name="--httpport" class="anchor" href="#--httpport"><span class="octicon octicon-link"></span></a>--httpPort</h3>
+
+<p>Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tout vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette command vous n'aurez pas besoin de couper vos site alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --httpPort 7778
+</code></pre>
+
+<h3>
+<a name="--generate" class="anchor" href="#--generate"><span class="octicon octicon-link"></span></a>--generate</h3>
+
+<p>Si vous modifier un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs page, vous n'alllez pas recharger chaque page pour mettre à jour vos fichier de sortie. Il suffira alors d'utiliser <code>--generate</code>.</p>
+
+<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --generate
+</code></pre>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
