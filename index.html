@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.10.6 (Beta)</p>
+<p>Version : 0.10.7 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -109,6 +109,7 @@
 <ul>
 <li><a href="#dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</a></li>
 <li><a href="#dans-un-environnement-unix-avec-forever">Dans un environnement Unix avec forever</a></li>
+<li><a href="#proxatlas">ProxAtlas</a></li>
 </ul>
 </li>
 </ul><h3>
@@ -129,6 +130,7 @@
 <li>Support des variables de parse Body / Cookie / Session</li>
 <li>Support des variables personnelles de webconfig</li>
 <li>Migration Express 3.x vers Express 4.x</li>
+<li>Exemple de reverse-proxy pour plusieurs instances sur port 80</li>
 </ul>
 </li>
 <li>
@@ -205,14 +207,14 @@
 
 <p>Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
 </code></pre>
 
 <p>À votre première execution, NodeAtlas installera tous les « node_modules » nécéssaire à son fonctionnement.</p>
 
 <p>Ré-exécutez.</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
 </code></pre>
 
 <p>Vous aurez alors accès à votre « Hello World » à la page : <em>http://localhost/</em> dans un navigateur.</p>
@@ -789,7 +791,7 @@ webconfig.json
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p>La génération s'enclenche quand on affiche la page uniquement parceque <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node */path/to/*node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.</p>
+</ul><p>La génération s'enclenche quand on affiche la page uniquement parceque <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.</p>
 
 <p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generatesRelativePath/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom répertoire.</em></p>
 
@@ -1255,7 +1257,7 @@ webconfig.prod.json
 
 <p>En lançant (depuis le dossier du site) la commande :</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
 </code></pre>
 
 <p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :</p>
@@ -1276,7 +1278,7 @@ webconfig.prod.json
 
 <p>Cependant en lançant la commande :</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/server.js --webconfig webconfig.prod.json 
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/server.js --webconfig webconfig.prod.json 
 </code></pre>
 
 <p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :</p>
@@ -1380,11 +1382,11 @@ webconfig.prod.json
 <h2>
 <a name="commandes-de-lancement" class="anchor" href="#commandes-de-lancement"><span class="octicon octicon-link"></span></a>Commandes de lancement</h2>
 
-<p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node */path/to/*node-atlas/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
+<p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
 
 <p>Chacune des commandes qui va suivre peut être couplée avec les autres de cette manière :</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
 </code></pre>
 
 <h3>
@@ -1392,7 +1394,7 @@ webconfig.prod.json
 
 <p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous serra alors très utile.</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --directory */path/to/*your/website/directory/
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/&gt;
 </code></pre>
 
 <h3>
@@ -1400,7 +1402,7 @@ webconfig.prod.json
 
 <p>Par defaut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu'en plus de ce fichier vous ayez crée un autre fichier <code>webconfig.prod.json</code> dont le nom de dommaine est différent. Ou encore un <code>webconfig.fr-fr.json</code> avec des url et des variations dans une autre langue. Plutôt que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --webconfig webconfig.alternatif.json
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --webconfig webconfig.alternatif.json
 </code></pre>
 
 <h3>
@@ -1408,7 +1410,7 @@ webconfig.prod.json
 
 <p>Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec <code>--generate</code> (voir plus loin).</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --run
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --run
 </code></pre>
 
 <h3>
@@ -1416,7 +1418,7 @@ webconfig.prod.json
 
 <p>Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tout vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette command vous n'aurez pas besoin de couper vos site alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --httpPort 7778
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --httpPort 7778
 </code></pre>
 
 <h3>
@@ -1424,7 +1426,7 @@ webconfig.prod.json
 
 <p>Si vous modifier un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs page, vous n'alllez pas recharger chaque page pour mettre à jour vos fichier de sortie. Il suffira alors d'utiliser <code>--generate</code>.</p>
 
-<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --generate
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --generate
 </code></pre>
 
 <h2>
@@ -1548,7 +1550,7 @@ site-hello-world/
 
 <p>Pous lancer un site en continue il faut utiliser la commande :</p>
 
-<pre><code>\&gt; forever start */path/to/*node-atlas/node-atlas.js --directory */path/to/your/website/directory/*
+<pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/&gt;
 </code></pre>
 
 <p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code> puis utiliser la commande :</p>
@@ -1598,7 +1600,7 @@ site-hello-world/
 
 <p>que vous pouvez lancer avec :</p>
 
-<pre><code>\&gt; forever start */path/to/*node-atlas/prox-atlas/prox-atlas.js
+<pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/prox-atlas/prox-atlas.js
 </code></pre>
       </section>
       <footer>
