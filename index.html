@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.10.4</p>
+<p>Version : 0.10.5 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -1436,10 +1436,13 @@ webconfig.prod.json
 <p>Dans un environnement Windows Server 2013 avec IIS8 il faut :</p>
 
 <ol>
-<li>Installer l’exécutable node.exe capable d’exécuter du code JavaScript.</li>
-<li>Installer le module IIS8 : Url Rewriting pour mapper les pages exécutées à une Url de sortie.</li>
-<li>Installer le module IIS8 : issnode pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/éteignage de site, etc...).</li>
-</ol><p>Dans IIS8, créez un Website et créez une Application.</p>
+<li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
+<li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
+<li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/éteignage de site, etc...).</li>
+</ol><h4>
+<a name="cr%C3%A9er-une-application" class="anchor" href="#cr%C3%A9er-une-application"><span class="octicon octicon-link"></span></a>Créer une application</h4>
+
+<p>Dans IIS8, créez un Website et créez une Application.</p>
 
 <p>Le contenu de votre application sera celui du site mélangé à celui de NodeAtlas. Cela signifie donc que ceci :</p>
 
@@ -1515,10 +1518,166 @@ site-hello-world/
 
 <p>Il ne vous restera plus qu'à cliquer sur « Browse  » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.</p>
 
+<h4>
+<a name="webconfig-exemple" class="anchor" href="#webconfig-exemple"><span class="octicon octicon-link"></span></a>webconfig exemple</h4>
+
+<p>Un webconfig exemple pour une production :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlPort"</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"www.example.fr"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</pre></div>
+
 <h3>
 <a name="dans-un-environnement-unix-avec-forever" class="anchor" href="#dans-un-environnement-unix-avec-forever"><span class="octicon octicon-link"></span></a>Dans un environnement Unix avec forever</h3>
 
-<p><strong>Prochainement</strong></p>
+<p>Il faut pour cela :</p>
+
+<ol>
+<li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
+<li>Installer le <a href="https://github.com/nodejitsu/forever">CLI tool forever</a> pour manager vos sites en continue.</li>
+<li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
+</ol><h4>
+<a name="quelques-commandes-forever" class="anchor" href="#quelques-commandes-forever"><span class="octicon octicon-link"></span></a>Quelques commandes forever</h4>
+
+<p>Pous lancer un site en continue il faut utiliser la commande :</p>
+
+<pre><code>\&gt; forever start /path/to/node-atlas/directory/node-atlas.js --directory /path/to/your/website/directory/
+</code></pre>
+
+<p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code> puis utiliser la commande :</p>
+
+<pre><code>\&gt; forever stop &lt;uid&gt;
+</code></pre>
+
+<p>ou  est l'<strong>uid</strong> du site qui tourne.</p>
+
+<h4>
+<a name="webconfig-exemple-1" class="anchor" href="#webconfig-exemple-1"><span class="octicon octicon-link"></span></a>webconfig exemple</h4>
+
+<p>Un webconfig exemple pour une production :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlPort"</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"www.example.fr"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</pre></div>
+
+<h4>
+<a name="proxatlas" class="anchor" href="#proxatlas"><span class="octicon octicon-link"></span></a>ProxAtlas</h4>
+
+<p>Vous pouvez par exemple :</p>
+
+<ul>
+<li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
+<li>et en plus lancer un server apache sur le port 81 </li>
+</ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec un script de reverse proxy tel que ProxAtlas par exemple.</p>
+
+<p>Faites tourner divers sites avec ce moteur de reverse proxy :</p>
+
+<p><strong>prox-atlas/prox-atlas.js</strong></p>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">PA</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">privates</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">catchError</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'uncaughtException'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">loadModules</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">modules</span> <span class="o">=</span> <span class="p">{};</span>
+
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">httpProxy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http-proxy'</span><span class="p">);</span>
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">websites</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./config.json'</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">privates</span><span class="p">.</span><span class="nx">redirectingPort</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="nx">PA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">httpProxy</span><span class="p">.</span><span class="nx">createProxyServer</span><span class="p">({}),</span>
+            <span class="nx">websites</span> <span class="o">=</span> <span class="nx">PA</span><span class="p">.</span><span class="nx">websites</span><span class="p">,</span>
+            <span class="nx">finding</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">target</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">websites</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span> <span class="o">===</span> <span class="nx">websites</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">hostname</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">finding</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="nx">target</span> <span class="o">=</span> <span class="s1">'http'</span> <span class="o">+</span> <span class="p">((</span><span class="nx">websites</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">httpSecure</span><span class="p">)</span> <span class="o">?</span> <span class="s1">'s'</span> <span class="o">:</span> <span class="s1">''</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'://'</span> <span class="o">+</span> <span class="nx">websites</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">hostname</span> <span class="o">+</span> <span class="s1">':'</span> <span class="o">+</span> <span class="nx">websites</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">port</span><span class="p">;</span>
+                <span class="nx">proxy</span><span class="p">.</span><span class="nx">web</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">target</span><span class="o">:</span> <span class="nx">target</span>
+                <span class="p">});</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Redirection vers : '</span> <span class="o">+</span> <span class="nx">target</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">finding</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="p">{</span><span class="s2">"Content-Type"</span><span class="o">:</span> <span class="s2">"text/plain"</span><span class="p">});</span>
+            <span class="nx">response</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'Serveur Eringan : cette page n\'existe pas'</span><span class="p">);</span>
+            <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Redirection vers rien... : '</span><span class="o">+</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">listeningPort</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">PA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">http</span><span class="p">;</span>
+
+        <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="nx">privates</span><span class="p">.</span><span class="nx">redirectingPort</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+
+        <span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+    <span class="p">};</span>
+
+<span class="p">})(</span><span class="nx">PA</span><span class="p">);</span>
+
+<span class="nx">PA</span><span class="p">.</span><span class="nx">loadModules</span><span class="p">();</span>
+<span class="nx">PA</span><span class="p">.</span><span class="nx">listeningPort</span><span class="p">();</span>
+<span class="nx">PA</span><span class="p">.</span><span class="nx">catchError</span><span class="p">();</span>
+</pre></div>
+
+<p>et cette configuration associée :</p>
+
+<p><strong>prox-atlas/config.json</strong></p>
+
+<div class="highlight highlight-js"><pre><span class="p">[{</span>
+    <span class="s2">"hostname"</span><span class="o">:</span> <span class="s2">"phpmyadmin.example.com"</span><span class="p">,</span>
+    <span class="s2">"port"</span><span class="o">:</span> <span class="s2">"81"</span><span class="p">,</span>
+    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">},</span> <span class="p">{</span>
+    <span class="s2">"hostname"</span><span class="o">:</span> <span class="s2">"www.example.fr"</span><span class="p">,</span>
+    <span class="s2">"port"</span><span class="o">:</span> <span class="s2">"7777"</span><span class="p">,</span>
+    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">},</span> <span class="p">{</span>
+    <span class="s2">"hostname"</span><span class="o">:</span> <span class="s2">"foo.example.com"</span><span class="p">,</span>
+    <span class="s2">"port"</span><span class="o">:</span> <span class="s2">"7778"</span><span class="p">,</span>
+    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">},</span> <span class="p">{</span>
+    <span class="s2">"hostname"</span><span class="o">:</span> <span class="s2">"www.other-exemple.name"</span><span class="p">,</span>
+    <span class="s2">"port"</span><span class="o">:</span> <span class="s2">"7779"</span><span class="p">,</span>
+    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">}]</span>
+</pre></div>
+
+<p>que vous pouvez lancer avec :</p>
+
+<pre><code>\&gt; forever start /path/to/prox-atlas/directory/prox-atlas.js
+</code></pre>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
