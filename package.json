@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.10.5",
+  "version": "0.10.6",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "NodeAtlas allow you to create and manage HTML assets or create multilungual websites/webapps easily with Node.js.",
   "scripts": {
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "https://github.com/Haeresis/NodeAtlas.git"
   },
-  "homepage": "https://github.com/Haeresis/NodeAtlas",
+  "homepage": "https://haeresis.github.io/NodeAtlas",
   "keywords": [
     "framework",
     "asset",
