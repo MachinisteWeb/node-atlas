@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.10.6 (Beta)
+Version : 0.10.7 (Beta)
 
 ## Avant-propos ##
 
@@ -55,6 +55,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Faire tourner NodeAtlas sur server](#faire-tourner-nodeatlas-sur-server)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
+ - [ProxAtlas](#proxatlas)
 
 
 ### Roadmap d'avancement du développement ###
@@ -70,6 +71,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Support des variables de parse Body / Cookie / Session
  - Support des variables personnelles de webconfig
  - Migration Express 3.x vers Express 4.x
+ - Exemple de reverse-proxy pour plusieurs instances sur port 80
 
 - À venir 
  - Support d'une BDD de Session (ex: Redis) + key/secret
@@ -151,7 +153,7 @@ Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS héberg
 Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js
+\> node </path/to/>node-atlas/node-atlas.js
 ```
 
 À votre première execution, NodeAtlas installera tous les « node_modules » nécéssaire à son fonctionnement.
@@ -159,7 +161,7 @@ Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ »
 Ré-exécutez.
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js
+\> node </path/to/>node-atlas/node-atlas.js
 ```
 
 Vous aurez alors accès à votre « Hello World » à la page : *http://localhost/* dans un navigateur.
@@ -769,7 +771,7 @@ en ce rendant aux addresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-La génération s'enclenche quand on affiche la page uniquement parceque ***autoGenerate*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node */path/to/*node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.
+La génération s'enclenche quand on affiche la page uniquement parceque ***autoGenerate*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.
 
 *Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generatesRelativePath/***. ***generatesRelativePath*** *est donc utile seulement pour changer le nom répertoire.*
 
@@ -1255,7 +1257,7 @@ et « index.htm » contenant :
 En lançant (depuis le dossier du site) la commande :
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js
+\> node </path/to/>node-atlas/node-atlas.js
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
@@ -1278,7 +1280,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 Cependant en lançant la commande :
 
 ```
-\> node */path/to/*node-atlas/server.js --webconfig webconfig.prod.json 
+\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json 
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
@@ -1394,12 +1396,12 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 ## Commandes de lancement ##
 
-La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node */path/to/*node-atlas/node-atlas.js`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
+La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node </path/to/>node-atlas/node-atlas.js`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
 
 Chacune des commandes qui va suivre peut être couplée avec les autres de cette manière :
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
+\> node </path/to/>node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
 ```
 
 
@@ -1408,7 +1410,7 @@ Chacune des commandes qui va suivre peut être couplée avec les autres de cette
 Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous serra alors très utile.
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js --directory */path/to/*your/website/directory/
+\> node </path/to/>node-atlas/node-atlas.js --directory </path/to/your/website/directory/>
 ```
 
 
@@ -1417,7 +1419,7 @@ Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou es
 Par defaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez crée un autre fichier `webconfig.prod.json` dont le nom de dommaine est différent. Ou encore un `webconfig.fr-fr.json` avec des url et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js --webconfig webconfig.alternatif.json
+\> node </path/to/>node-atlas/node-atlas.js --webconfig webconfig.alternatif.json
 ```
 
 
@@ -1427,7 +1429,7 @@ Par defaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu
 Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec `--generate` (voir plus loin).
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js --run
+\> node </path/to/>node-atlas/node-atlas.js --run
 ```
 
 
@@ -1437,7 +1439,7 @@ Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le sit
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tout vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette command vous n'aurez pas besoin de couper vos site alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js --httpPort 7778
+\> node </path/to/>node-atlas/node-atlas.js --httpPort 7778
 ```
 
 
@@ -1447,7 +1449,7 @@ Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tou
 Si vous modifier un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs page, vous n'alllez pas recharger chaque page pour mettre à jour vos fichier de sortie. Il suffira alors d'utiliser `--generate`.
 
 ```
-\> node */path/to/*node-atlas/node-atlas.js --generate
+\> node </path/to/>node-atlas/node-atlas.js --generate
 ```
 
 
@@ -1578,7 +1580,7 @@ Il faut pour cela :
 Pous lancer un site en continue il faut utiliser la commande :
 
 ```
-\> forever start */path/to/*node-atlas/node-atlas.js --directory */path/to/your/website/directory/*
+\> forever start </path/to/>node-atlas/node-atlas.js --directory </path/to/your/website/directory/>
 ```
 
 Pour le stopper, il faut repérer son **uid** avec la commande `forever list` puis utiliser la commande :
@@ -1633,5 +1635,5 @@ et cette configuration associée :
 que vous pouvez lancer avec :
 
 ```
-\> forever start */path/to/*node-atlas/prox-atlas/prox-atlas.js
+\> forever start </path/to/>node-atlas/prox-atlas/prox-atlas.js
 ```
