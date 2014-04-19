@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.10.4
+Version : 0.10.5 (Beta)
 
 ## Avant-propos ##
 
@@ -1460,9 +1460,11 @@ Si vous modifier un élément dans votre fichier de variation commun ou même da
 
 Dans un environnement Windows Server 2013 avec IIS8 il faut :
 
-1. Installer l’exécutable node.exe capable d’exécuter du code JavaScript.
-2. Installer le module IIS8 : Url Rewriting pour mapper les pages exécutées à une Url de sortie.
-3. Installer le module IIS8 : issnode pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/éteignage de site, etc...).
+1. Installer l’[exécutable node.exe](http://nodejs.org/download/) capable d’exécuter du code JavaScript.
+2. Installer [le module IIS8 UrlRewrite](http://www.iis.net/downloads/microsoft/url-rewrite) pour mapper les pages exécutées à une Url de sortie.
+3. Installer [le module IIS8 issnode](https://github.com/tjanczuk/iisnode/downloads) pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/éteignage de site, etc...).
+
+#### Créer une application ####
 
 Dans IIS8, créez un Website et créez une Application.
 
@@ -1544,8 +1546,169 @@ site-hello-world/
 
 Il ne vous restera plus qu'à cliquer sur « Browse <url-of-site> » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.
 
+#### webconfig exemple ####
+
+Un webconfig exemple pour une production :
+
+```js
+{
+ 	"urlPort": 80,
+	"httpPort": 7777,
+	"httpHostname": "www.example.fr",
+	"urlRewriting": {
+		...
+	}
+}
+
+```
+
 
 
 ### Dans un environnement Unix avec forever ###
 
-**Prochainement**
+Il faut pour cela :
+
+1. Installer l’[exécutable node.exe](http://nodejs.org/download/) capable d’exécuter du code JavaScript.
+2. Installer le [CLI tool forever](https://github.com/nodejitsu/forever) pour manager vos sites en continue.
+3. Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.
+
+
+#### Quelques commandes forever ####
+
+Pous lancer un site en continue il faut utiliser la commande :
+
+```
+\> forever start /path/to/node-atlas/directory/node-atlas.js --directory /path/to/your/website/directory/
+```
+
+Pour le stopper, il faut repérer son **uid** avec la commande `forever list` puis utiliser la commande :
+
+```
+\> forever stop <uid>
+```
+
+ou <uid> est l'**uid** du site qui tourne.
+
+
+#### webconfig exemple ####
+
+Un webconfig exemple pour une production :
+
+```js
+{
+ 	"urlPort": 80,
+	"httpPort": 7777,
+	"httpHostname": "www.example.fr",
+	"urlRewriting": {
+		...
+	}
+}
+
+```
+
+#### ProxAtlas ####
+
+Vous pouvez par exemple :
+
+- lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,
+- et en plus lancer un server apache sur le port 81 
+
+et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec un script de reverse proxy tel que ProxAtlas par exemple.
+
+Faites tourner divers sites avec ce moteur de reverse proxy :
+
+**prox-atlas/prox-atlas.js**
+
+```js
+var PA = {};
+
+(function (publics) {
+
+	var privates = {};
+
+	publics.catchError = function () {
+		process.on('uncaughtException', function (error) {
+		    console.log(error);
+		});
+	};
+
+	publics.loadModules = function () {
+		publics.modules = {};
+
+		publics.modules.httpProxy = require('http-proxy');
+		publics.modules.http = require('http');
+
+		publics.websites = require('./config.json');
+	};
+
+	privates.redirectingPort = function (request, response) {
+		var proxy = PA.modules.httpProxy.createProxyServer({}),
+			websites = PA.websites,
+			finding = false,
+			target;
+
+		for (var i = 0; i < websites.length; i++) {
+			if (request.headers.host === websites[i].hostname) {
+				finding = true;
+				target = 'http' + ((websites[i].httpSecure) ? 's' : '') + '://' + websites[i].hostname + ':' + websites[i].port;
+				proxy.web(request, response, {
+					target: target
+				});
+				console.log('Redirection vers : ' + target);
+			}
+		}
+
+		if (!finding) {
+			response.writeHead(404, {"Content-Type": "text/plain"});
+			response.write('Serveur Eringan : cette page n\'existe pas');
+			response.end();
+			console.log('Redirection vers rien... : '+ request.headers.host);
+		}
+	};
+
+	publics.listeningPort = function () {
+		var http = PA.modules.http;
+
+		http.createServer(function (request, response) {
+
+			privates.redirectingPort(request, response);
+
+		}).listen(80);
+	};
+
+})(PA);
+
+PA.loadModules();
+PA.listeningPort();
+PA.catchError();
+```
+
+et cette configuration associée :
+
+**prox-atlas/config.json**
+
+```js
+[{
+	"hostname": "phpmyadmin.example.com",
+	"port": "81",
+	"httpSecure": false
+}, {
+	"hostname": "www.example.fr",
+	"port": "7777",
+	"httpSecure": false
+}, {
+	"hostname": "foo.example.com",
+	"port": "7778",
+	"httpSecure": false
+}, {
+	"hostname": "www.other-exemple.name",
+	"port": "7779",
+	"httpSecure": true
+}]
+```
+
+que vous pouvez lancer avec :
+
+```
+\> forever start /path/to/prox-atlas/directory/prox-atlas.js
+```
