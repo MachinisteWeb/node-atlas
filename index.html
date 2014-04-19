@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.10.5 (Beta)</p>
+<p>Version : 0.10.6 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -205,14 +205,14 @@
 
 <p>Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js
 </code></pre>
 
 <p>À votre première execution, NodeAtlas installera tous les « node_modules » nécéssaire à son fonctionnement.</p>
 
 <p>Ré-exécutez.</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js
 </code></pre>
 
 <p>Vous aurez alors accès à votre « Hello World » à la page : <em>http://localhost/</em> dans un navigateur.</p>
@@ -789,7 +789,7 @@ webconfig.json
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p>La génération s'enclenche quand on affiche la page uniquement parceque <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node /path/to/node-atlas/directory/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.</p>
+</ul><p>La génération s'enclenche quand on affiche la page uniquement parceque <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node */path/to/*node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.</p>
 
 <p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generatesRelativePath/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom répertoire.</em></p>
 
@@ -1255,7 +1255,7 @@ webconfig.prod.json
 
 <p>En lançant (depuis le dossier du site) la commande :</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js
 </code></pre>
 
 <p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :</p>
@@ -1276,7 +1276,7 @@ webconfig.prod.json
 
 <p>Cependant en lançant la commande :</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/server.js --webconfig webconfig.prod.json 
+<pre><code>\&gt; node */path/to/*node-atlas/server.js --webconfig webconfig.prod.json 
 </code></pre>
 
 <p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :</p>
@@ -1380,11 +1380,11 @@ webconfig.prod.json
 <h2>
 <a name="commandes-de-lancement" class="anchor" href="#commandes-de-lancement"><span class="octicon octicon-link"></span></a>Commandes de lancement</h2>
 
-<p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node /path/to/node-atlas/directory/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
+<p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node */path/to/*node-atlas/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
 
 <p>Chacune des commandes qui va suivre peut être couplée avec les autres de cette manière :</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
 </code></pre>
 
 <h3>
@@ -1392,7 +1392,7 @@ webconfig.prod.json
 
 <p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous serra alors très utile.</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --directory /path/to/your/website/directory/
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --directory */path/to/*your/website/directory/
 </code></pre>
 
 <h3>
@@ -1400,7 +1400,7 @@ webconfig.prod.json
 
 <p>Par defaut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu'en plus de ce fichier vous ayez crée un autre fichier <code>webconfig.prod.json</code> dont le nom de dommaine est différent. Ou encore un <code>webconfig.fr-fr.json</code> avec des url et des variations dans une autre langue. Plutôt que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --webconfig webconfig.alternatif.json
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --webconfig webconfig.alternatif.json
 </code></pre>
 
 <h3>
@@ -1408,7 +1408,7 @@ webconfig.prod.json
 
 <p>Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec <code>--generate</code> (voir plus loin).</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --run
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --run
 </code></pre>
 
 <h3>
@@ -1416,7 +1416,7 @@ webconfig.prod.json
 
 <p>Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tout vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette command vous n'aurez pas besoin de couper vos site alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --httpPort 7778
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --httpPort 7778
 </code></pre>
 
 <h3>
@@ -1424,7 +1424,7 @@ webconfig.prod.json
 
 <p>Si vous modifier un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs page, vous n'alllez pas recharger chaque page pour mettre à jour vos fichier de sortie. Il suffira alors d'utiliser <code>--generate</code>.</p>
 
-<pre><code>\&gt; node /path/to/node-atlas/directory/node-atlas.js --generate
+<pre><code>\&gt; node */path/to/*node-atlas/node-atlas.js --generate
 </code></pre>
 
 <h2>
@@ -1548,7 +1548,7 @@ site-hello-world/
 
 <p>Pous lancer un site en continue il faut utiliser la commande :</p>
 
-<pre><code>\&gt; forever start /path/to/node-atlas/directory/node-atlas.js --directory /path/to/your/website/directory/
+<pre><code>\&gt; forever start */path/to/*node-atlas/node-atlas.js --directory */path/to/your/website/directory/*
 </code></pre>
 
 <p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code> puis utiliser la commande :</p>
@@ -1574,109 +1574,31 @@ site-hello-world/
 
 </pre></div>
 
-<h4>
-<a name="proxatlas" class="anchor" href="#proxatlas"><span class="octicon octicon-link"></span></a>ProxAtlas</h4>
+<p>Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessible sur le port 80.</p>
+
+<h3>
+<a name="proxatlas" class="anchor" href="#proxatlas"><span class="octicon octicon-link"></span></a>ProxAtlas</h3>
+
+<p>ProxAtlas est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers site NodeAtlas (avec d'autres type de site) ensemble sur le même port (le 80).</p>
 
 <p>Vous pouvez par exemple :</p>
 
 <ul>
 <li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
 <li>et en plus lancer un server apache sur le port 81 </li>
-</ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec un script de reverse proxy tel que ProxAtlas par exemple.</p>
+</ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec ProxAtlas par exemple.</p>
 
 <p>Faites tourner divers sites avec ce moteur de reverse proxy :</p>
 
-<p><strong>prox-atlas/prox-atlas.js</strong></p>
-
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">PA</span> <span class="o">=</span> <span class="p">{};</span>
-
-<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="kd">var</span> <span class="nx">privates</span> <span class="o">=</span> <span class="p">{};</span>
-
-    <span class="nx">publics</span><span class="p">.</span><span class="nx">catchError</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'uncaughtException'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-        <span class="p">});</span>
-    <span class="p">};</span>
-
-    <span class="nx">publics</span><span class="p">.</span><span class="nx">loadModules</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">publics</span><span class="p">.</span><span class="nx">modules</span> <span class="o">=</span> <span class="p">{};</span>
-
-        <span class="nx">publics</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">httpProxy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http-proxy'</span><span class="p">);</span>
-        <span class="nx">publics</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
-
-        <span class="nx">publics</span><span class="p">.</span><span class="nx">websites</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./config.json'</span><span class="p">);</span>
-    <span class="p">};</span>
-
-    <span class="nx">privates</span><span class="p">.</span><span class="nx">redirectingPort</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="nx">PA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">httpProxy</span><span class="p">.</span><span class="nx">createProxyServer</span><span class="p">({}),</span>
-            <span class="nx">websites</span> <span class="o">=</span> <span class="nx">PA</span><span class="p">.</span><span class="nx">websites</span><span class="p">,</span>
-            <span class="nx">finding</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-            <span class="nx">target</span><span class="p">;</span>
-
-        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">websites</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span> <span class="o">===</span> <span class="nx">websites</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">hostname</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">finding</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-                <span class="nx">target</span> <span class="o">=</span> <span class="s1">'http'</span> <span class="o">+</span> <span class="p">((</span><span class="nx">websites</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">httpSecure</span><span class="p">)</span> <span class="o">?</span> <span class="s1">'s'</span> <span class="o">:</span> <span class="s1">''</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'://'</span> <span class="o">+</span> <span class="nx">websites</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">hostname</span> <span class="o">+</span> <span class="s1">':'</span> <span class="o">+</span> <span class="nx">websites</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">port</span><span class="p">;</span>
-                <span class="nx">proxy</span><span class="p">.</span><span class="nx">web</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="p">{</span>
-                    <span class="nx">target</span><span class="o">:</span> <span class="nx">target</span>
-                <span class="p">});</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Redirection vers : '</span> <span class="o">+</span> <span class="nx">target</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">finding</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="p">{</span><span class="s2">"Content-Type"</span><span class="o">:</span> <span class="s2">"text/plain"</span><span class="p">});</span>
-            <span class="nx">response</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'Serveur Eringan : cette page n\'existe pas'</span><span class="p">);</span>
-            <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Redirection vers rien... : '</span><span class="o">+</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
-
-    <span class="nx">publics</span><span class="p">.</span><span class="nx">listeningPort</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">PA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">http</span><span class="p">;</span>
-
-        <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-
-            <span class="nx">privates</span><span class="p">.</span><span class="nx">redirectingPort</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
-
-        <span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
-    <span class="p">};</span>
-
-<span class="p">})(</span><span class="nx">PA</span><span class="p">);</span>
-
-<span class="nx">PA</span><span class="p">.</span><span class="nx">loadModules</span><span class="p">();</span>
-<span class="nx">PA</span><span class="p">.</span><span class="nx">listeningPort</span><span class="p">();</span>
-<span class="nx">PA</span><span class="p">.</span><span class="nx">catchError</span><span class="p">();</span>
-</pre></div>
+<p><strong>node-atlas/prox-atlas/prox-atlas.js</strong></p>
 
 <p>et cette configuration associée :</p>
 
-<p><strong>prox-atlas/config.json</strong></p>
-
-<div class="highlight highlight-js"><pre><span class="p">[{</span>
-    <span class="s2">"hostname"</span><span class="o">:</span> <span class="s2">"phpmyadmin.example.com"</span><span class="p">,</span>
-    <span class="s2">"port"</span><span class="o">:</span> <span class="s2">"81"</span><span class="p">,</span>
-    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">},</span> <span class="p">{</span>
-    <span class="s2">"hostname"</span><span class="o">:</span> <span class="s2">"www.example.fr"</span><span class="p">,</span>
-    <span class="s2">"port"</span><span class="o">:</span> <span class="s2">"7777"</span><span class="p">,</span>
-    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">},</span> <span class="p">{</span>
-    <span class="s2">"hostname"</span><span class="o">:</span> <span class="s2">"foo.example.com"</span><span class="p">,</span>
-    <span class="s2">"port"</span><span class="o">:</span> <span class="s2">"7778"</span><span class="p">,</span>
-    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">},</span> <span class="p">{</span>
-    <span class="s2">"hostname"</span><span class="o">:</span> <span class="s2">"www.other-exemple.name"</span><span class="p">,</span>
-    <span class="s2">"port"</span><span class="o">:</span> <span class="s2">"7779"</span><span class="p">,</span>
-    <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">true</span>
-<span class="p">}]</span>
-</pre></div>
+<p><strong>node-atlas/prox-atlas/config.json</strong> (configurez la votre)</p>
 
 <p>que vous pouvez lancer avec :</p>
 
-<pre><code>\&gt; forever start /path/to/prox-atlas/directory/prox-atlas.js
+<pre><code>\&gt; forever start */path/to/*node-atlas/prox-atlas/prox-atlas.js
 </code></pre>
       </section>
       <footer>
