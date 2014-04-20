@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.10.4",
+  "version": "0.10.7",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "NodeAtlas allow you to create and manage HTML assets or create multilungual websites/webapps easily with Node.js.",
   "scripts": {
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "https://github.com/Haeresis/NodeAtlas.git"
   },
-  "homepage": "https://github.com/Haeresis/NodeAtlas",
+  "homepage": "https://haeresis.github.io/NodeAtlas",
   "keywords": [
     "framework",
     "asset",
@@ -32,22 +32,24 @@
     "start": "node-atlas.js"
   },
   "dependencies": {
-    "connect": "2.14.x",
-    "express": "4.0.x",
-    "commander": "2.2.x",
-    "open": "0.0.x",
-    "ejs": "1.0.x",
-    "mkpath": "0.1.x",
-    "jsdom": "0.10.x",
-    "uglify-js": "2.4.x",
     "clean-css": "2.1.x",
-    "node-force-domain": "0.1.x"
+    "commander": "2.2.x",
+    "connect": "2.14.x",
+    "ejs": "1.0.x",
+    "express": "4.0.x",
+    "jsdom": "0.10.x",
+    "mkpath": "0.1.x",
+    "node-force-domain": "0.1.x",
+    "open": "0.0.x",
+    "uglify-js": "2.4.x"
   },
   "main": "server",
   "files": [
     "languages/default.json",
-    "README.md",
-    "LICENSE"
+    "prox-atlas/config.json",
+    "prox-atlas/prox-atlas.js",
+    "LICENSE",
+    "README.md"
   ],
   "engines": {
     "node": ">=0.10.10"

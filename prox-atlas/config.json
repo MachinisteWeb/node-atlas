@@ -1,0 +1,21 @@
+[{
+	"hostname": "phpmyadmin.example.com",
+	"port": "81",
+	"httpSecure": false
+}, {
+	"hostname": "webmail.example.com",
+	"port": "81",
+	"httpSecure": false
+}, {
+	"hostname": "www.example.fr",
+	"port": "7777",
+	"httpSecure": false
+}, {
+	"hostname": "www.example.org",
+	"port": "7778",
+	"httpSecure": false
+}, {
+	"hostname": "www.example.name",
+	"port": "7779",
+	"httpSecure": true
+}]
