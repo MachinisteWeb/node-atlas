@@ -1615,7 +1615,7 @@ Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessib
 
 ### ProxAtlas ###
 
-ProxAtlas est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers site NodeAtlas (avec d'autres type de site) ensemble sur le même port (le 80).
+ProxAtlas est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).
 
 Vous pouvez par exemple :
 
