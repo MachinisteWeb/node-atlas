@@ -45,7 +45,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer la source jQuery utilisée](#changer-la-source-jquery-utilis%C3%A9e)
- - [Changer l'url final des hosname et port d'écoute](#changer-lurl-final-des-hosname-et-port-d%C3%A9coute)
+ - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
 - [Commandes de lancement](#commandes-de-lancement)
  - [--directory](#--directory)
  - [--webconfig](#--webconfig)
@@ -77,7 +77,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Auto Minification de Css/Js
  - Auto compression images
  - Injection automatique de feuille CSS en style inline (pour les maquettes email)
- - Aggregation de fichier CSS/JS pour les versions de site en production.
+ - Agrégation de fichier CSS/JS pour les versions de site en production.
  - Auto-déploiement via transfert FTP
  - Support Sass/Less
  - ...
@@ -154,7 +154,7 @@ Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ »
 \> node /path/to/node-atlas/directory/node-atlas.js
 ```
 
-À votre première execution, NodeAtlas installera tous les « node_modules » nécéssaire à son fonctionnement.
+À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement.
 
 Ré-exécutez.
 
@@ -231,7 +231,7 @@ Vous pouvez également héberger tout un tas de fichier sur votre site dans un d
 }
 ```
 
-et cet ensemble de fichier :
+et cet ensemble de fichiers :
 
 ```
 assets/
@@ -260,7 +260,7 @@ vous aurez accès aux adresses :
 
 ### Gérer des inclusions pour éviter la redondance du code ###
 
-Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autres fragments de code :
+Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :
 
 ```js
 {
@@ -346,7 +346,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components/***. ***componentsRelativePath*** *est donc utile seulement pour changer le nomde répertoire.*
+*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components/***. ***componentsRelativePath*** *est donc utile seulement pour changer le nom de répertoire.*
 
 
 
@@ -699,7 +699,7 @@ et avoir accès aux adresses :
 - *http://localhost:82/francais/*
 - *http://localhost:82/francais/liste-des-membres/*
 
-*Note : il est possible de faire ensuite du reverse proxy pour ramener l'ensemble des url sur les ports autres que le port 80 sur le port 80.*
+*Note : il est possible de faire ensuite du reverse proxy pour ramener l'ensemble des urls sur les ports autres que le port 80 sur le port 80.*
 
 
 
@@ -707,7 +707,7 @@ et avoir accès aux adresses :
 
 #### Générer des assets HTML ####
 
-Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créer à chaque affichage de la page dans votre navigateur.
+Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.
 
 ```js
 {
@@ -764,12 +764,12 @@ webconfig.json
 }
 ```
 
-en ce rendant aux addresses :
+en se rendant aux adresses :
 
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-La génération s'enclenche quand on affiche la page uniquement parceque ***autoGenerate*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node /path/to/node-atlas/directory/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.
+La génération s'enclenche quand on affiche la page uniquement parce que ***autoGenerate*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node /path/to/node-atlas/directory/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
 
 *Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generatesRelativePath/***. ***generatesRelativePath*** *est donc utile seulement pour changer le nom répertoire.*
 
@@ -818,7 +818,7 @@ engine/
 — webconfig.json
 ```
 
-À l'adresse *http://localhost/* s'affichera la liste des pages composant votre site (grâce à **indexPage** à **true**).
+À l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **indexPage** à **true**).
 
 Il ne restera plus qu'à, une fois votre travail terminé, admirer votre site HTML dans le dossier :
 
@@ -837,9 +837,9 @@ HTML/
 
 ### Utiliser NodeAtlas pour faire tourner un site (partie Back-end) ###
 
-Vous pouvez soit utiliser un contrôlleur unique pour tout le site et/ou également des contrôlleurs par template et variation.
+Vous pouvez soit utiliser un contrôleur unique pour tout le site et/ou également des contrôleurs par template et variation.
 
-Pour le contrôlleur maître, utilisez par exemple cette configuration :
+Pour le contrôleur maître, utilisez par exemple cette configuration :
 
 ```js
 {
@@ -1042,7 +1042,7 @@ exports.preRender = website.preRender;
 exports.render = website.render;
 ```
 
-Au lieu de ce servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des controlleurs spécifique par page. La configuration précédente devient alors :
+Au lieu de se servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :
 
 ```js
 {
@@ -1169,7 +1169,7 @@ cela est identique à utiliser celle-ci :
 
 et vous pourrez accéder à l'url : *http://localhost/*.
 
-Changer alors la configuration en ceci :
+Changez alors la configuration en ceci :
 
 ```js
 {
@@ -1219,7 +1219,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 }
 ```
 
-avec cet ensemble de fichier
+avec cet ensemble de fichiers
 
 ```
 assets/
@@ -1304,7 +1304,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 ### Autoriser/Interdire les demandes GET/POST ###
 
-Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdir le GET).
+Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).
 
 ```js
 {
@@ -1370,9 +1370,9 @@ NodeAtlas utilise par défaut le fichier externe « http://code.jquery.com/jquer
 
 
 
-### Changer l'url final des hosname et port d'écoute ###
+### Changer l'url final des hostname et port d'écoute ###
 
-Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec ***urlHostname*** et ***urlPort***. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci dessous :
+Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec ***urlHostname*** et ***urlPort***. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
 
 ```js
 {
@@ -1396,7 +1396,7 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node /path/to/node-atlas/directory/node-atlas.js`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
 
-Chacune des commandes qui va suivre peut être couplée avec les autres de cette manière :
+Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
 
 ```
 \> node /path/to/node-atlas/directory/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
@@ -1405,7 +1405,7 @@ Chacune des commandes qui va suivre peut être couplée avec les autres de cette
 
 ### --directory ###
 
-Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous serra alors très utile.
+Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous sera alors très utile.
 
 ```
 \> node /path/to/node-atlas/directory/node-atlas.js --directory /path/to/your/website/directory/
@@ -1414,7 +1414,7 @@ Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou es
 
 ### --webconfig ###
 
-Par defaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez crée un autre fichier `webconfig.prod.json` dont le nom de dommaine est différent. Ou encore un `webconfig.fr-fr.json` avec des url et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
+Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
 ```
 \> node /path/to/node-atlas/directory/node-atlas.js --webconfig webconfig.alternatif.json
@@ -1434,7 +1434,7 @@ Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le sit
 
 ### --httpPort ###
 
-Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tout vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette command vous n'aurez pas besoin de couper vos site alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
+Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
 
 ```
 \> node /path/to/node-atlas/directory/node-atlas.js --httpPort 7778
@@ -1444,7 +1444,7 @@ Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tou
 
 ### --generate ###
 
-Si vous modifier un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs page, vous n'alllez pas recharger chaque page pour mettre à jour vos fichier de sortie. Il suffira alors d'utiliser `--generate`.
+Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser `--generate`.
 
 ```
 \> node /path/to/node-atlas/directory/node-atlas.js --generate
@@ -1454,7 +1454,7 @@ Si vous modifier un élément dans votre fichier de variation commun ou même da
 
 
 
-## Faire tourner NodeAtlas sur server ##
+## Faire tourner NodeAtlas sur serveur ##
 
 ### Dans un environnement Windows Server avec iisnode ###
 
@@ -1462,7 +1462,7 @@ Dans un environnement Windows Server 2013 avec IIS8 il faut :
 
 1. Installer l’exécutable node.exe capable d’exécuter du code JavaScript.
 2. Installer le module IIS8 : Url Rewriting pour mapper les pages exécutées à une Url de sortie.
-3. Installer le module IIS8 : issnode pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/éteignage de site, etc...).
+3. Installer le module IIS8 : issnode pour lire des web.config et manager des sites via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).
 
 Dans IIS8, créez un Website et créez une Application.
 
@@ -1495,7 +1495,7 @@ site-hello-world/
 — webconfig.json
 ```
 
-Vous rajouterez à cet ensemble de fichier un fichier supplémentaire nommé `web.config` dont le contenu est le suivant :
+Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé `web.config` dont le contenu est le suivant :
 
 ```xml
 <configuration>
