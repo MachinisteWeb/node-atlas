@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.10.7 (Beta)</p>
+<p>Version : 0.10.8 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -89,7 +89,7 @@
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
 <li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
 <li><a href="#changer-la-source-jquery-utilis%C3%A9e">Changer la source jQuery utilisée</a></li>
-<li><a href="#changer-lurl-final-des-hosname-et-port-d%C3%A9coute">Changer l'url final des hosname et port d'écoute</a></li>
+<li><a href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute">Changer l'url final des hostname et port d'écoute</a></li>
 </ul>
 </li>
 <li>
@@ -142,7 +142,7 @@
 <li>Auto Minification de Css/Js</li>
 <li>Auto compression images</li>
 <li>Injection automatique de feuille CSS en style inline (pour les maquettes email)</li>
-<li>Aggregation de fichier CSS/JS pour les versions de site en production.</li>
+<li>Agrégation de fichier CSS/JS pour les versions de site en production.</li>
 <li>Auto-déploiement via transfert FTP</li>
 <li>Support Sass/Less</li>
 <li>...</li>
@@ -210,7 +210,7 @@
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
 </code></pre>
 
-<p>À votre première execution, NodeAtlas installera tous les « node_modules » nécéssaire à son fonctionnement.</p>
+<p>À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement.</p>
 
 <p>Ré-exécutez.</p>
 
@@ -284,7 +284,7 @@ webconfig.json
 <span class="p">}</span>
 </pre></div>
 
-<p>et cet ensemble de fichier :</p>
+<p>et cet ensemble de fichiers :</p>
 
 <pre><code>assets/
 — stylesheets/
@@ -311,7 +311,7 @@ webconfig.json
 <h3>
 <a name="g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code" class="anchor" href="#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code"><span class="octicon octicon-link"></span></a>Gérer des inclusions pour éviter la redondance du code</h3>
 
-<p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autres fragments de code :</p>
+<p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"componentsRelativePath"</span><span class="o">:</span> <span class="s2">"components/"</span>
@@ -391,7 +391,7 @@ webconfig.json
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nomde répertoire.</em></p>
+</ul><p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom de répertoire.</em></p>
 
 <h3>
 <a name="g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template" class="anchor" href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template"><span class="octicon octicon-link"></span></a>Gérer des variations au sein d'un même template</h3>
@@ -724,7 +724,7 @@ webconfig.fr-fr.json
 <li><em>http://localhost:81/english/members-list/</em></li>
 <li><em>http://localhost:82/francais/</em></li>
 <li><em>http://localhost:82/francais/liste-des-membres/</em></li>
-</ul><p><em>Note : il est possible de faire ensuite du reverse proxy pour ramener l'ensemble des url sur les ports autres que le port 80 sur le port 80.</em></p>
+</ul><p><em>Note : il est possible de faire ensuite du reverse proxy pour ramener l'ensemble des urls sur les ports autres que le port 80 sur le port 80.</em></p>
 
 <h3>
 <a name="utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html" class="anchor" href="#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html"><span class="octicon octicon-link"></span></a>Utiliser NodeAtlas pour générer des assets HTML</h3>
@@ -732,7 +732,7 @@ webconfig.fr-fr.json
 <h4>
 <a name="g%C3%A9n%C3%A9rer-des-assets-html" class="anchor" href="#g%C3%A9n%C3%A9rer-des-assets-html"><span class="octicon octicon-link"></span></a>Générer des assets HTML</h4>
 
-<p>Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créer à chaque affichage de la page dans votre navigateur.</p>
+<p>Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"autoGenerate"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -786,12 +786,12 @@ webconfig.json
 }
 </code></pre>
 
-<p>en ce rendant aux addresses :</p>
+<p>en se rendant aux adresses :</p>
 
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p>La génération s'enclenche quand on affiche la page uniquement parceque <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.</p>
+</ul><p>La génération s'enclenche quand on affiche la page uniquement parce que <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.</p>
 
 <p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generatesRelativePath/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom répertoire.</em></p>
 
@@ -838,7 +838,7 @@ engine/
 — webconfig.json
 </code></pre>
 
-<p>À l'adresse <em>http://localhost/</em> s'affichera la liste des pages composant votre site (grâce à <strong>indexPage</strong> à <strong>true</strong>).</p>
+<p>À l'adresse <em>http://localhost/</em> s'affichera la liste des pages composants votre site (grâce à <strong>indexPage</strong> à <strong>true</strong>).</p>
 
 <p>Il ne restera plus qu'à, une fois votre travail terminé, admirer votre site HTML dans le dossier :</p>
 
@@ -855,9 +855,9 @@ engine/
 <h3>
 <a name="utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end" class="anchor" href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end"><span class="octicon octicon-link"></span></a>Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</h3>
 
-<p>Vous pouvez soit utiliser un contrôlleur unique pour tout le site et/ou également des contrôlleurs par template et variation.</p>
+<p>Vous pouvez soit utiliser un contrôleur unique pour tout le site et/ou également des contrôleurs par template et variation.</p>
 
-<p>Pour le contrôlleur maître, utilisez par exemple cette configuration :</p>
+<p>Pour le contrôleur maître, utilisez par exemple cette configuration :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"commonController"</span><span class="o">:</span> <span class="s2">"common.js"</span><span class="p">,</span>
@@ -1057,7 +1057,7 @@ webconfig.json
 <span class="nx">exports</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">render</span><span class="p">;</span>
 </pre></div>
 
-<p>Au lieu de ce servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des controlleurs spécifique par page. La configuration précédente devient alors :</p>
+<p>Au lieu de se servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"commonController"</span><span class="o">:</span> <span class="s2">"common.js"</span><span class="p">,</span>
@@ -1178,7 +1178,7 @@ webconfig.json
 
 <p>et vous pourrez accéder à l'url : <em>http://localhost/</em>.</p>
 
-<p>Changer alors la configuration en ceci :</p>
+<p>Changez alors la configuration en ceci :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"127.0.0.1"</span><span class="p">,</span>
@@ -1224,7 +1224,7 @@ webconfig.json
 <span class="p">}</span>
 </pre></div>
 
-<p>avec cet ensemble de fichier</p>
+<p>avec cet ensemble de fichiers</p>
 
 <pre><code>assets/
 — stylesheets/
@@ -1302,7 +1302,7 @@ webconfig.prod.json
 <h3>
 <a name="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
 
-<p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdir le GET).</p>
+<p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"getSupport"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -1362,9 +1362,9 @@ webconfig.prod.json
 </pre></div>
 
 <h3>
-<a name="changer-lurl-final-des-hosname-et-port-d%C3%A9coute" class="anchor" href="#changer-lurl-final-des-hosname-et-port-d%C3%A9coute"><span class="octicon octicon-link"></span></a>Changer l'url final des hosname et port d'écoute</h3>
+<a name="changer-lurl-final-des-hostname-et-port-d%C3%A9coute" class="anchor" href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute"><span class="octicon octicon-link"></span></a>Changer l'url final des hostname et port d'écoute</h3>
 
-<p>Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci dessous :</p>
+<p>Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
@@ -1384,7 +1384,7 @@ webconfig.prod.json
 
 <p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
 
-<p>Chacune des commandes qui va suivre peut être couplée avec les autres de cette manière :</p>
+<p>Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :</p>
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
 </code></pre>
@@ -1392,7 +1392,7 @@ webconfig.prod.json
 <h3>
 <a name="--directory" class="anchor" href="#--directory"><span class="octicon octicon-link"></span></a>--directory</h3>
 
-<p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier ou est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous serra alors très utile.</p>
+<p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous sera alors très utile.</p>
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/&gt;
 </code></pre>
@@ -1400,7 +1400,7 @@ webconfig.prod.json
 <h3>
 <a name="--webconfig" class="anchor" href="#--webconfig"><span class="octicon octicon-link"></span></a>--webconfig</h3>
 
-<p>Par defaut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu'en plus de ce fichier vous ayez crée un autre fichier <code>webconfig.prod.json</code> dont le nom de dommaine est différent. Ou encore un <code>webconfig.fr-fr.json</code> avec des url et des variations dans une autre langue. Plutôt que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p>
+<p>Par défaut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier <code>webconfig.prod.json</code> dont le nom de domaine est différent. Ou encore un <code>webconfig.fr-fr.json</code> avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p>
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --webconfig webconfig.alternatif.json
 </code></pre>
@@ -1416,7 +1416,7 @@ webconfig.prod.json
 <h3>
 <a name="--httpport" class="anchor" href="#--httpport"><span class="octicon octicon-link"></span></a>--httpPort</h3>
 
-<p>Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tout vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette command vous n'aurez pas besoin de couper vos site alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.</p>
+<p>Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.</p>
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --httpPort 7778
 </code></pre>
@@ -1424,13 +1424,13 @@ webconfig.prod.json
 <h3>
 <a name="--generate" class="anchor" href="#--generate"><span class="octicon octicon-link"></span></a>--generate</h3>
 
-<p>Si vous modifier un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs page, vous n'alllez pas recharger chaque page pour mettre à jour vos fichier de sortie. Il suffira alors d'utiliser <code>--generate</code>.</p>
+<p>Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser <code>--generate</code>.</p>
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --generate
 </code></pre>
 
 <h2>
-<a name="faire-tourner-nodeatlas-sur-server" class="anchor" href="#faire-tourner-nodeatlas-sur-server"><span class="octicon octicon-link"></span></a>Faire tourner NodeAtlas sur server</h2>
+<a name="faire-tourner-nodeatlas-sur-serveur" class="anchor" href="#faire-tourner-nodeatlas-sur-serveur"><span class="octicon octicon-link"></span></a>Faire tourner NodeAtlas sur serveur</h2>
 
 <h3>
 <a name="dans-un-environnement-windows-server-avec-iisnode" class="anchor" href="#dans-un-environnement-windows-server-avec-iisnode"><span class="octicon octicon-link"></span></a>Dans un environnement Windows Server avec iisnode</h3>
@@ -1440,7 +1440,7 @@ webconfig.prod.json
 <ol>
 <li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
-<li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/éteignage de site, etc...).</li>
+<li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).</li>
 </ol><h4>
 <a name="cr%C3%A9er-une-application" class="anchor" href="#cr%C3%A9er-une-application"><span class="octicon octicon-link"></span></a>Créer une application</h4>
 
@@ -1473,7 +1473,7 @@ site-hello-world/
 — webconfig.json
 </code></pre>
 
-<p>Vous rajouterez à cet ensemble de fichier un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p>
+<p>Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p>
 
 <div class="highlight highlight-xml"><pre><span class="nt">&lt;configuration&gt;</span>
     <span class="nt">&lt;system.webServer&gt;</span>
@@ -1581,7 +1581,7 @@ site-hello-world/
 <h3>
 <a name="proxatlas" class="anchor" href="#proxatlas"><span class="octicon octicon-link"></span></a>ProxAtlas</h3>
 
-<p>ProxAtlas est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers site NodeAtlas (avec d'autres type de site) ensemble sur le même port (le 80).</p>
+<p>ProxAtlas est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).</p>
 
 <p>Vous pouvez par exemple :</p>
 
