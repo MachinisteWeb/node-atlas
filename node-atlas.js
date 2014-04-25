@@ -396,7 +396,8 @@ var NA = {};
     privates.request = function (path, options) {
         var pageParameters = options[path],
             getSupport = true,
-            postSupport = true;
+            postSupport = true,
+            objectPath = NA.webconfig.urlRelativeSubPath + path;
 
         // Manage GET / POST support for an url.
         if (NA.webconfig.getSupport === false) { getSupport = false; }
@@ -406,16 +407,24 @@ var NA = {};
         if (pageParameters.postSupport === false) { postSupport = false; }
         if (pageParameters.postSupport === true) { postSupport = true; }
 
+        if (pageParameters.regExp) {
+            if (typeof pageParameters.regExp === 'string') {
+                objectPath = new RegExp(objectPath, pageParameters.regExp);
+            } else {
+                objectPath = new RegExp(objectPath);
+            }
+        }
+
         // Execute Get
         if (getSupport) {
-            NA.httpServer.get(NA.webconfig.urlRelativeSubPath + path, function (request, response) {
+            NA.httpServer.get(objectPath, function (request, response) {
                 NA.render(path, options, request, response);
             });
         }
 
         // Execute Post
         if (postSupport) {
-            NA.httpServer.post(NA.webconfig.urlRelativeSubPath + path, function (request, response) {
+            NA.httpServer.post(objectPath, function (request, response) {
                 NA.render(path, options, request, response);
             });
         }       

@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.10.8 (Beta)
+Version : 0.11.0 (Beta)
 
 ## Avant-propos ##
 
@@ -42,6 +42,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
  - [Changer les paramètres d'url.](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
+ - [Gérer l'UrlRewriting](#g%C3%A9rer-lurlrewriting)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer la source jQuery utilisée](#changer-la-source-jquery-utilis%C3%A9e)
@@ -1301,6 +1302,107 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 ```
 
 *Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
+
+
+
+### Gérer l'UrlRewriting ###
+
+Bien que vous puissiez paramétrer des url statique, vous pouvez également paramétrer une écoute d'url dynamique !
+
+#### Standard ###
+
+Avec la configuration suivante :
+
+```js
+{
+	"urlRewriting": {
+		"/liste-des-membres/:member/": {
+			"template": "members.htm"
+		},
+		"/liste-des-membres/": {
+			"template": "members.htm"
+		},
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+vous pourrez accéder à :
+
+- *https://localhost/*
+- *https://localhost/liste-des-membres/*
+- *https://localhost/liste-des-membres/toto/*
+- *https://localhost/liste-des-membres/bob-eponge99/*
+- *https://localhost/liste-des-membres/node-atlas/*
+- *https://localhost/liste-des-membres/etc/*
+
+et récupérer les valeurs de `:member` dans le `preRender` (common et specific).
+
+```js
+exports.preRender = function (params, mainCallback) {
+	var variation = params.variation;
+
+	console.log(variation.params.member); 
+	// \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+
+	mainCallback(variation);
+}
+```
+
+Les règles de création d'url dynamique sont celles de [Express.js](http://expressjs.com/4x/api.html#req.params).
+
+#### Expressions Régulières ###
+
+Vous pouvez également activer les expressions régulières pour un chemin précis avec `regExp`. Si celui-ci vaut `true`, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si `regExp` est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).
+
+Voyez la configuration suivante :
+
+```js
+{
+	"urlRewriting": {
+		"/liste-des-membres/([-a-z0-9]+)/?": {
+			"template": "members.htm",
+			"regExp": "g"
+		},
+		"/liste-des-membres/?": {
+			"template": "members.htm",
+			"regExp": true
+		},
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+vous pourrez accéder à :
+
+- *https://localhost/*
+- *https://localhost/liste-des-membres/* _(ou *https://localhost/liste-des-membres*)_
+- *https://localhost/liste-des-membres/toto/* _(ou *https://localhost/liste-des-membres/toto*)_
+- *https://localhost/liste-des-membres/bob-eponge99/* _(ou *https://localhost/liste-des-membres/bob-eponge99*)_
+- *https://localhost/liste-des-membres/node-atlas/* _(ou *https://localhost/liste-des-membres/node-atlas*)_
+- *https://localhost/liste-des-membres/etc/* _(ou *https://localhost/liste-des-membres/etc*)_
+
+et récupérer les valeurs de `([-a-z0-9]+)` dans le `preRender` (common et specific).
+
+```js
+exports.preRender = function (params, mainCallback) {
+	var variation = params.variation;
+
+	if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
+	// variation.params[1] pour le deuxième match, etc...
+
+	console.log(variation.params.member); 
+	// \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+
+	mainCallback(variation);
+}
+```
+
+Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
 
 
 
