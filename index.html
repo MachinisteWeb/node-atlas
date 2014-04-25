@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.12.0 (Beta)</p>
+<p>Version : 0.13.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -88,6 +88,7 @@
 <li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
 <li><a href="#g%C3%A9rer-lurlrewriting">Gérer l'UrlRewriting</a></li>
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
+<li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
 <li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
 <li><a href="#changer-la-source-jquery-utilis%C3%A9e">Changer la source jQuery utilisée</a></li>
@@ -1329,12 +1330,12 @@ webconfig.prod.json
 <p>vous pourrez accéder à :</p>
 
 <ul>
-<li><em>https://localhost/</em></li>
-<li><em>https://localhost/liste-des-membres/</em></li>
-<li><em>https://localhost/liste-des-membres/toto/</em></li>
-<li><em>https://localhost/liste-des-membres/bob-eponge99/</em></li>
-<li><em>https://localhost/liste-des-membres/node-atlas/</em></li>
-<li><em>https://localhost/liste-des-membres/etc/</em></li>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em></li>
+<li><em>http://localhost/liste-des-membres/toto/</em></li>
+<li><em>http://localhost/liste-des-membres/bob-eponge99/</em></li>
+<li><em>http://localhost/liste-des-membres/node-atlas/</em></li>
+<li><em>http://localhost/liste-des-membres/etc/</em></li>
 </ul><p>et récupérer les valeurs de <code>:member</code> dans le <code>preRender</code> (common et specific).</p>
 
 <div class="highlight highlight-js"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
@@ -1376,21 +1377,21 @@ webconfig.prod.json
 <p>vous pourrez accéder à :</p>
 
 <ul>
-<li><em>https://localhost/</em></li>
+<li><em>http://localhost/</em></li>
 <li>
-<em>https://localhost/liste-des-membres/</em> <em>(ou <em>https://localhost/liste-des-membres</em>)</em>
+<em>http://localhost/liste-des-membres/</em> <em>(ou <em>https://localhost/liste-des-membres</em>)</em>
 </li>
 <li>
-<em>https://localhost/liste-des-membres/toto/</em> <em>(ou <em>https://localhost/liste-des-membres/toto</em>)</em>
+<em>http://localhost/liste-des-membres/toto/</em> <em>(ou <em>https://localhost/liste-des-membres/toto</em>)</em>
 </li>
 <li>
-<em>https://localhost/liste-des-membres/bob-eponge99/</em> <em>(ou <em>https://localhost/liste-des-membres/bob-eponge99</em>)</em>
+<em>http://localhost/liste-des-membres/bob-eponge99/</em> <em>(ou <em>https://localhost/liste-des-membres/bob-eponge99</em>)</em>
 </li>
 <li>
-<em>https://localhost/liste-des-membres/node-atlas/</em> <em>(ou <em>https://localhost/liste-des-membres/node-atlas</em>)</em>
+<em>http://localhost/liste-des-membres/node-atlas/</em> <em>(ou <em>https://localhost/liste-des-membres/node-atlas</em>)</em>
 </li>
 <li>
-<em>https://localhost/liste-des-membres/etc/</em> <em>(ou <em>https://localhost/liste-des-membres/etc</em>)</em>
+<em>http://localhost/liste-des-membres/etc/</em> <em>(ou <em>https://localhost/liste-des-membres/etc</em>)</em>
 </li>
 </ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>preRender</code> (common et specific).</p>
 
@@ -1439,10 +1440,98 @@ webconfig.prod.json
 <p>vous pourrez accéder à :</p>
 
 <ul>
-<li><em>https://localhost/cette-page-n-existe-pas.html</em></li>
-<li><em>https://localhost/elle/non/plus/</em></li>
-<li><em>https://localhost/etc</em></li>
+<li><em>http://localhost/cette-page-n-existe-pas.html</em></li>
+<li><em>http://localhost/elle/non/plus/</em></li>
+<li><em>http://localhost/etc</em></li>
 </ul><h3>
+<a name="g%C3%A9rer-les-redirections" class="anchor" href="#g%C3%A9rer-les-redirections"><span class="octicon octicon-link"></span></a>Gérer les redirections</h3>
+
+<p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p>
+
+<h4>
+<a name="en-statique" class="anchor" href="#en-statique"><span class="octicon octicon-link"></span></a>En statique</h4>
+
+<p>Voyez l'exemple ci-dessous :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"redirect"</span><span class="o">:</span> <span class="s2">"/liste-des-membres/"</span><span class="p">,</span>
+            <span class="s2">"statusCode"</span><span class="o">:</span> <span class="mi">301</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"/aller-sur-node-atlas/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"redirect"</span><span class="o">:</span> <span class="s2">"http://haeresis.github.io/NodeAtlas/"</span><span class="p">,</span>
+            <span class="s2">"statusCode"</span><span class="o">:</span> <span class="mi">302</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Vous serrez redirigé :</p>
+
+<ul>
+<li>sur <code>http://localhost/liste-des-membres/</code> quand vous accèderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection permanente</em>.</li>
+<li>sur <code>http://haeresis.github.io/NodeAtlas/</code> quand vous accèderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection temporaire</em>.</li>
+</ul><h4>
+<a name="en-dynamique" class="anchor" href="#en-dynamique"><span class="octicon octicon-link"></span></a>En dynamique</h4>
+
+<p>Voyez l'exemple ci-dessous :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/liste-des-membres/:member/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/:member"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"redirect"</span><span class="o">:</span> <span class="s2">"/membres/:member/"</span>
+            <span class="s2">"statusCode"</span><span class="o">:</span> <span class="mi">301</span>
+        <span class="p">},</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Vous serrez redirigé sur <code>http://localhost/liste-des-membres/haeresis/</code> quand vous accèderez à <code>http://localhost/liste-des-membres/haeresis</code> avec une entête <em>redirection permanente</em>.</p>
+
+<h4>
+<a name="avec-expressions-r%C3%A9guli%C3%A8res" class="anchor" href="#avec-expressions-r%C3%A9guli%C3%A8res"><span class="octicon octicon-link"></span></a>Avec expressions régulières</h4>
+
+<p>Voyez l'exemple ci-dessous :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/membres/([-a-z0-9]+)/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span><span class="p">,</span>
+            <span class="s2">"regExp"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/([-a-z0-9]+)/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"redirect"</span><span class="o">:</span> <span class="s2">"/membres/$0$/"</span>
+            <span class="s2">"statusCode"</span><span class="o">:</span> <span class="mi">301</span><span class="p">,</span>
+            <span class="s2">"regExp"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Vous serrez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accèderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p>
+
+<p>Pour le second <em>match</em> utilisez $1$, pour le troisième $2$, etc.</p>
+
+<h3>
 <a name="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
 
 <p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p>
