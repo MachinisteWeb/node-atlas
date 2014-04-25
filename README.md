@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.12.0 (Beta)
+Version : 0.13.0 (Beta)
 
 ## Avant-propos ##
 
@@ -44,6 +44,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer l'UrlRewriting](#g%C3%A9rer-lurlrewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
+ - [Gérer les redirections](#g%C3%A9rer-les-redirections)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer la source jQuery utilisée](#changer-la-source-jquery-utilis%C3%A9e)
@@ -1332,12 +1333,12 @@ Avec la configuration suivante :
 
 vous pourrez accéder à :
 
-- *https://localhost/*
-- *https://localhost/liste-des-membres/*
-- *https://localhost/liste-des-membres/toto/*
-- *https://localhost/liste-des-membres/bob-eponge99/*
-- *https://localhost/liste-des-membres/node-atlas/*
-- *https://localhost/liste-des-membres/etc/*
+- *http://localhost/*
+- *http://localhost/liste-des-membres/*
+- *http://localhost/liste-des-membres/toto/*
+- *http://localhost/liste-des-membres/bob-eponge99/*
+- *http://localhost/liste-des-membres/node-atlas/*
+- *http://localhost/liste-des-membres/etc/*
 
 et récupérer les valeurs de `:member` dans le `preRender` (common et specific).
 
@@ -1380,12 +1381,12 @@ Voyez la configuration suivante :
 
 vous pourrez accéder à :
 
-- *https://localhost/*
-- *https://localhost/liste-des-membres/* _(ou *https://localhost/liste-des-membres*)_
-- *https://localhost/liste-des-membres/toto/* _(ou *https://localhost/liste-des-membres/toto*)_
-- *https://localhost/liste-des-membres/bob-eponge99/* _(ou *https://localhost/liste-des-membres/bob-eponge99*)_
-- *https://localhost/liste-des-membres/node-atlas/* _(ou *https://localhost/liste-des-membres/node-atlas*)_
-- *https://localhost/liste-des-membres/etc/* _(ou *https://localhost/liste-des-membres/etc*)_
+- *http://localhost/*
+- *http://localhost/liste-des-membres/* _(ou *https://localhost/liste-des-membres*)_
+- *http://localhost/liste-des-membres/toto/* _(ou *https://localhost/liste-des-membres/toto*)_
+- *http://localhost/liste-des-membres/bob-eponge99/* _(ou *https://localhost/liste-des-membres/bob-eponge99*)_
+- *http://localhost/liste-des-membres/node-atlas/* _(ou *https://localhost/liste-des-membres/node-atlas*)_
+- *http://localhost/liste-des-membres/etc/* _(ou *https://localhost/liste-des-membres/etc*)_
 
 et récupérer les valeurs de `([-a-z0-9]+)` dans le `preRender` (common et specific).
 
@@ -1436,9 +1437,98 @@ Voyez l'exemple ci-dessous :
 
 vous pourrez accéder à :
 
-- *https://localhost/cette-page-n-existe-pas.html*
-- *https://localhost/elle/non/plus/*
-- *https://localhost/etc*
+- *http://localhost/cette-page-n-existe-pas.html*
+- *http://localhost/elle/non/plus/*
+- *http://localhost/etc*
+
+
+
+### Gérer les redirections ###
+
+Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre `redirect`.
+
+#### En statique ####
+
+Voyez l'exemple ci-dessous :
+
+```js
+{
+	"urlRewriting": {
+		"/liste-des-membres/": {
+			"template": "members.htm"
+		},
+		"/liste-des-membres": {
+			"redirect": "/liste-des-membres/",
+			"statusCode": 301,
+		},
+		"/aller-sur-node-atlas/": {
+			"redirect": "http://haeresis.github.io/NodeAtlas/",
+			"statusCode": 302,
+		},
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+Vous serrez redirigé :
+
+- sur `http://localhost/liste-des-membres/` quand vous accèderez à `http://localhost/liste-des-membres` avec une entête _redirection permanente_.
+- sur `http://haeresis.github.io/NodeAtlas/` quand vous accèderez à `http://localhost/liste-des-membres` avec une entête _redirection temporaire_.
+
+#### En dynamique ####
+
+Voyez l'exemple ci-dessous :
+
+```js
+{
+	"urlRewriting": {
+		"/liste-des-membres/:member/": {
+			"template": "members.htm"
+		},
+		"/liste-des-membres/:member": {
+			"redirect": "/membres/:member/"
+			"statusCode": 301
+		},
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+Vous serrez redirigé sur `http://localhost/liste-des-membres/haeresis/` quand vous accèderez à `http://localhost/liste-des-membres/haeresis` avec une entête _redirection permanente_.
+
+#### Avec expressions régulières ####
+
+Voyez l'exemple ci-dessous :
+
+```js
+{
+	"urlRewriting": {
+		"/membres/([-a-z0-9]+)/": {
+			"template": "members.htm",
+			"regExp": true
+		},
+		"/liste-des-membres/([-a-z0-9]+)/": {
+			"redirect": "/membres/$0$/"
+			"statusCode": 301,
+			"regExp": true
+		},
+		"/liste-des-membres/": {
+			"template": "members.htm"
+		},
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+Vous serrez redirigé sur `http://localhost/membres/haeresis/` quand vous accèderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
+
+Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
 
 
 

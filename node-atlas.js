@@ -399,6 +399,22 @@ var NA = {};
             postSupport = true,
             objectPath = NA.webconfig.urlRelativeSubPath + path;
 
+        function redirect(optionsPath, request, response) {
+            var location;
+
+            if (optionsPath.regExp) {
+                location = optionsPath.redirect.replace(/\$([0-9]+)\$/g, function (regex, matches) { return request.params[matches]; });
+            } else {
+                location = optionsPath.redirect.replace(/\:([a-z0-9]+)/g, function (regex, matches) { return request.params[matches]; });
+            }
+
+            response.writeHead(optionsPath.statusCode, {
+                Location: location
+            });
+
+            response.end();
+        }
+
         // Manage GET / POST support for an url.
         if (NA.webconfig.getSupport === false) { getSupport = false; }
         if (pageParameters.getSupport === false) { getSupport = false; }
@@ -418,14 +434,22 @@ var NA = {};
         // Execute Get
         if (getSupport) {
             NA.httpServer.get(objectPath, function (request, response) {
-                NA.render(path, options, request, response);
+                if (options[path].redirect && options[path].statusCode) {
+                    redirect(options[path], request, response);
+                } else {
+                    NA.render(path, options, request, response);
+                }
             });
         }
 
         // Execute Post
         if (postSupport) {
             NA.httpServer.post(objectPath, function (request, response) {
-                NA.render(path, options, request, response);
+                if (options[path].redirect && options[path].statusCode) {
+                    redirect(options[path], request, response);
+                } else {
+                    NA.render(path, options, request, response);
+                }
             });
         }
     };
