@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.10.8 (Beta)</p>
+<p>Version : 0.11.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -86,6 +86,7 @@
 <li><a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</a></li>
 <li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url.</a></li>
 <li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
+<li><a href="#g%C3%A9rer-lurlrewriting">Gérer l'UrlRewriting</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
 <li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
 <li><a href="#changer-la-source-jquery-utilis%C3%A9e">Changer la source jQuery utilisée</a></li>
@@ -1298,6 +1299,114 @@ webconfig.prod.json
 </pre></div>
 
 <p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p>
+
+<h3>
+<a name="g%C3%A9rer-lurlrewriting" class="anchor" href="#g%C3%A9rer-lurlrewriting"><span class="octicon octicon-link"></span></a>Gérer l'UrlRewriting</h3>
+
+<p>Bien que vous puissiez paramétrer des url statique, vous pouvez également paramétrer une écoute d'url dynamique !</p>
+
+<h4>
+<a name="standard" class="anchor" href="#standard"><span class="octicon octicon-link"></span></a>Standard</h4>
+
+<p>Avec la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/liste-des-membres/:member/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>vous pourrez accéder à :</p>
+
+<ul>
+<li><em>https://localhost/</em></li>
+<li><em>https://localhost/liste-des-membres/</em></li>
+<li><em>https://localhost/liste-des-membres/toto/</em></li>
+<li><em>https://localhost/liste-des-membres/bob-eponge99/</em></li>
+<li><em>https://localhost/liste-des-membres/node-atlas/</em></li>
+<li><em>https://localhost/liste-des-membres/etc/</em></li>
+</ul><p>et récupérer les valeurs de <code>:member</code> dans le <code>preRender</code> (common et specific).</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">variation</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">variation</span><span class="p">;</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">variation</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">member</span><span class="p">);</span> 
+    <span class="c1">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.</span>
+
+    <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">variation</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Les règles de création d'url dynamique sont celles de <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p>
+
+<h4>
+<a name="expressions-r%C3%A9guli%C3%A8res" class="anchor" href="#expressions-r%C3%A9guli%C3%A8res"><span class="octicon octicon-link"></span></a>Expressions Régulières</h4>
+
+<p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si <code>regExp</code> est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).</p>
+
+<p>Voyez la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/liste-des-membres/([-a-z0-9]+)/?"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span><span class="p">,</span>
+            <span class="s2">"regExp"</span><span class="o">:</span> <span class="s2">"g"</span>
+        <span class="p">},</span>
+        <span class="s2">"/liste-des-membres/?"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span><span class="p">,</span>
+            <span class="s2">"regExp"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>vous pourrez accéder à :</p>
+
+<ul>
+<li><em>https://localhost/</em></li>
+<li>
+<em>https://localhost/liste-des-membres/</em> <em>(ou <em>https://localhost/liste-des-membres</em>)</em>
+</li>
+<li>
+<em>https://localhost/liste-des-membres/toto/</em> <em>(ou <em>https://localhost/liste-des-membres/toto</em>)</em>
+</li>
+<li>
+<em>https://localhost/liste-des-membres/bob-eponge99/</em> <em>(ou <em>https://localhost/liste-des-membres/bob-eponge99</em>)</em>
+</li>
+<li>
+<em>https://localhost/liste-des-membres/node-atlas/</em> <em>(ou <em>https://localhost/liste-des-membres/node-atlas</em>)</em>
+</li>
+<li>
+<em>https://localhost/liste-des-membres/etc/</em> <em>(ou <em>https://localhost/liste-des-membres/etc</em>)</em>
+</li>
+</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>preRender</code> (common et specific).</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">variation</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">variation</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">variation</span><span class="p">.</span><span class="nx">params</span> <span class="o">&amp;&amp;</span> <span class="nx">variation</span><span class="p">.</span><span class="nx">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span> <span class="nx">variation</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">member</span> <span class="o">=</span> <span class="nx">variation</span><span class="p">.</span><span class="nx">params</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="p">}</span>
+    <span class="c1">// variation.params[1] pour le deuxième match, etc...</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">variation</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">member</span><span class="p">);</span> 
+    <span class="c1">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.</span>
+
+    <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">variation</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Les règles de création d'url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p>
 
 <h3>
 <a name="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
