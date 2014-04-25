@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.13.0 (Beta)
+Version : 0.13.1 (Beta)
 
 ## Avant-propos ##
 
@@ -1475,7 +1475,7 @@ Voyez l'exemple ci-dessous :
 Vous serrez redirigé :
 
 - sur `http://localhost/liste-des-membres/` quand vous accèderez à `http://localhost/liste-des-membres` avec une entête _redirection permanente_.
-- sur `http://haeresis.github.io/NodeAtlas/` quand vous accèderez à `http://localhost/liste-des-membres` avec une entête _redirection temporaire_.
+- sur `http://haeresis.github.io/NodeAtlas/` quand vous accèderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
 
 #### En dynamique ####
 
