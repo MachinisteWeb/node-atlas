@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.13.1 (Beta)
+Version : 0.13.2 (Beta)
 
 ## Avant-propos ##
 
@@ -1309,7 +1309,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 ### Gérer l'UrlRewriting ###
 
-Bien que vous puissiez paramétrer des url statique, vous pouvez également paramétrer une écoute d'url dynamique !
+Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamique !
 
 #### Standard ###
 
@@ -1410,7 +1410,7 @@ Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp J
 
 ### Gérer les pages inexistantes ###
 
-Pour afficher une page personalisée quand une ressources n'est pas trouvée il faut :
+Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :
 
 1. Préparer une page 404.
 2. Remplir le paramètre `pageNotFound` avec comme `value` la `key` de la page 404 préparée.
@@ -1472,10 +1472,10 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serrez redirigé :
+Vous serez redirigé :
 
-- sur `http://localhost/liste-des-membres/` quand vous accèderez à `http://localhost/liste-des-membres` avec une entête _redirection permanente_.
-- sur `http://haeresis.github.io/NodeAtlas/` quand vous accèderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
+- sur `http://localhost/liste-des-membres/` quand vous accéderez à `http://localhost/liste-des-membres` avec une entête _redirection permanente_.
+- sur `http://haeresis.github.io/NodeAtlas/` quand vous accéderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
 
 #### En dynamique ####
 
@@ -1498,7 +1498,7 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serrez redirigé sur `http://localhost/liste-des-membres/haeresis/` quand vous accèderez à `http://localhost/liste-des-membres/haeresis` avec une entête _redirection permanente_.
+Vous serez redirigé sur `http://localhost/liste-des-membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis` avec une entête _redirection permanente_.
 
 #### Avec expressions régulières ####
 
@@ -1526,7 +1526,7 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serrez redirigé sur `http://localhost/membres/haeresis/` quand vous accèderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
+Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
 
 Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
 
