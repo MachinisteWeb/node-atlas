@@ -427,7 +427,18 @@ var NA = {};
             NA.httpServer.post(objectPath, function (request, response) {
                 NA.render(path, options, request, response);
             });
-        }       
+        }
+    };
+
+    publics.pageNotFound = function () {
+        if (NA.webconfig.pageNotFound && NA.webconfig.urlRewriting[NA.webconfig.pageNotFound]) {
+            NA.httpServer.get("*", function (request, response) {
+                NA.render(NA.webconfig.pageNotFound, NA.webconfig.urlRewriting, request, response);
+            });
+            NA.httpServer.post("*", function (request, response) {
+                NA.render(NA.webconfig.pageNotFound, NA.webconfig.urlRewriting, request, response);
+            });
+        }
     };
 
     publics.urlRewritingPages = function () {
@@ -777,6 +788,7 @@ NA.moduleRequired(function () {
         	NA.urlRewritingPages();
         	NA.emulatedIndexPage();
             NA.httpServerPublicFiles();
+            NA.pageNotFound();
             NA.urlGeneratingPages();
         });
     });

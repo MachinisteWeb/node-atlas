@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.11.0 (Beta)
+Version : 0.12.0 (Beta)
 
 ## Avant-propos ##
 
@@ -43,6 +43,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Changer les paramètres d'url.](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer l'UrlRewriting](#g%C3%A9rer-lurlrewriting)
+ - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer la source jQuery utilisée](#changer-la-source-jquery-utilis%C3%A9e)
@@ -1403,6 +1404,41 @@ exports.preRender = function (params, mainCallback) {
 ```
 
 Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+
+
+
+### Gérer les pages inexistantes ###
+
+Pour afficher une page personalisée quand une ressources n'est pas trouvée il faut :
+
+1. Préparer une page 404.
+2. Remplir le paramètre `pageNotFound` avec comme `value` la `key` de la page 404 préparée.
+
+Voyez l'exemple ci-dessous :
+
+```js
+{
+	"pageNotFound": "/pages-inexistantes/",
+	"urlRewriting": {
+		"/pages-inexistantes/": {
+			"template": "error.htm",
+			"statusCode": 404
+		},
+		"/liste-des-membres/": {
+			"template": "members.htm"
+		},
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+vous pourrez accéder à :
+
+- *https://localhost/cette-page-n-existe-pas.html*
+- *https://localhost/elle/non/plus/*
+- *https://localhost/etc*
 
 
 
