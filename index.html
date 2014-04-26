@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.13.1 (Beta)</p>
+<p>Version : 0.13.2 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -1305,7 +1305,7 @@ webconfig.prod.json
 <h3>
 <a name="g%C3%A9rer-lurlrewriting" class="anchor" href="#g%C3%A9rer-lurlrewriting"><span class="octicon octicon-link"></span></a>Gérer l'UrlRewriting</h3>
 
-<p>Bien que vous puissiez paramétrer des url statique, vous pouvez également paramétrer une écoute d'url dynamique !</p>
+<p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamique !</p>
 
 <h4>
 <a name="standard" class="anchor" href="#standard"><span class="octicon octicon-link"></span></a>Standard</h4>
@@ -1413,7 +1413,7 @@ webconfig.prod.json
 <h3>
 <a name="g%C3%A9rer-les-pages-inexistantes" class="anchor" href="#g%C3%A9rer-les-pages-inexistantes"><span class="octicon octicon-link"></span></a>Gérer les pages inexistantes</h3>
 
-<p>Pour afficher une page personalisée quand une ressources n'est pas trouvée il faut :</p>
+<p>Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :</p>
 
 <ol>
 <li>Préparer une page 404.</li>
@@ -1473,11 +1473,11 @@ webconfig.prod.json
 <span class="p">}</span>
 </pre></div>
 
-<p>Vous serrez redirigé :</p>
+<p>Vous serez redirigé :</p>
 
 <ul>
-<li>sur <code>http://localhost/liste-des-membres/</code> quand vous accèderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection permanente</em>.</li>
-<li>sur <code>http://haeresis.github.io/NodeAtlas/</code> quand vous accèderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
+<li>sur <code>http://localhost/liste-des-membres/</code> quand vous accéderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection permanente</em>.</li>
+<li>sur <code>http://haeresis.github.io/NodeAtlas/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
 </ul><h4>
 <a name="en-dynamique" class="anchor" href="#en-dynamique"><span class="octicon octicon-link"></span></a>En dynamique</h4>
 
@@ -1499,7 +1499,7 @@ webconfig.prod.json
 <span class="p">}</span>
 </pre></div>
 
-<p>Vous serrez redirigé sur <code>http://localhost/liste-des-membres/haeresis/</code> quand vous accèderez à <code>http://localhost/liste-des-membres/haeresis</code> avec une entête <em>redirection permanente</em>.</p>
+<p>Vous serez redirigé sur <code>http://localhost/liste-des-membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis</code> avec une entête <em>redirection permanente</em>.</p>
 
 <h4>
 <a name="avec-expressions-r%C3%A9guli%C3%A8res" class="anchor" href="#avec-expressions-r%C3%A9guli%C3%A8res"><span class="octicon octicon-link"></span></a>Avec expressions régulières</h4>
@@ -1527,7 +1527,7 @@ webconfig.prod.json
 <span class="p">}</span>
 </pre></div>
 
-<p>Vous serrez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accèderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p>
+<p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p>
 
 <p>Pour le second <em>match</em> utilisez $1$, pour le troisième $2$, etc.</p>
 
