@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.13.2 (Beta)</p>
+<p>Version : 0.14.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -106,6 +106,7 @@
 <li><a href="#--generate">--generate</a></li>
 </ul>
 </li>
+<li><a href="#nodeatlas-comme-module-npm">NodeAtlas comme module npm</a></li>
 <li>
 <a href="#faire-tourner-nodeatlas-sur-server">Faire tourner NodeAtlas sur server</a>
 
@@ -134,6 +135,7 @@
 <li>Support des variables personnelles de webconfig</li>
 <li>Migration Express 3.x vers Express 4.x</li>
 <li>Exemple de reverse-proxy pour plusieurs instances sur port 80</li>
+<li>Lancer NodeAtlas avec un require() depuis un fichier de code.</li>
 </ul>
 </li>
 <li>
@@ -154,11 +156,17 @@
 </ul><h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Il y a deux solutions pour installer Node-Atlas :</p>
+<p>Il y a plusieurs solutions pour installer Node-Atlas :</p>
 
 <ol>
-<li><code>npm install node-atlas</code></li>
-<li>Cloner le répertoire depuis <a href="https://github.com/Haeresis/NodeAtlas">GitHub</a>.</li>
+<li><p>Télécharger NodeAtlas depuis le site officiel <a href="https://haeresis.github.com/NodeAtlas/">NodeAtlas</a>.
+<em>Une fois téléchargé, dézippez <strong>NodeAtlas</strong> dans le dossier qui vous conviendra.</em></p></li>
+<li><p><code>npm install node-atlas</code>
+<em>Ceci installera <strong>NodeAtlas</strong> dans le dossier <code>node_modules/node-atlas</code> du dossier d'execution de la commande.</em></p></li>
+<li><p><code>npm install -g node-atlas</code>
+<em>Ceci installera <strong>NodeAtlas</strong> dans le dossier <code>node_modules/node-atlas</code> global.</em></p></li>
+<li><p>Cloner le répertoire depuis <a href="https://github.com/Haeresis/NodeAtlas/">GitHub</a>.
+<em>Ceci installera <strong>NodeAtlas</strong> dans le dossier d'accueil du clonage.</em></p></li>
 </ol><h2>
 <a name="commencer-avec-nodeatlas" class="anchor" href="#commencer-avec-nodeatlas"><span class="octicon octicon-link"></span></a>Commencer avec NodeAtlas</h2>
 
@@ -208,12 +216,15 @@
 <h3>
 <a name="lancer-le-site-avec-nodeatlas" class="anchor" href="#lancer-le-site-avec-nodeatlas"><span class="octicon octicon-link"></span></a>Lancer le site avec NodeAtlas</h3>
 
+<h4>
+<a name="%C3%80-la-ligne-de-commande" class="anchor" href="#%C3%80-la-ligne-de-commande"><span class="octicon octicon-link"></span></a>À la ligne de commande</h4>
+
 <p>Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.</p>
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
 </code></pre>
 
-<p>À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement.</p>
+<p>À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement (si vous avez téléchargé hors npm).</p>
 
 <p>Ré-exécutez.</p>
 
@@ -221,6 +232,21 @@
 </code></pre>
 
 <p>Vous aurez alors accès à votre « Hello World » à la page : <em>http://localhost/</em> dans un navigateur.</p>
+
+<h4>
+<a name="via-un-fichier-javascript" class="anchor" href="#via-un-fichier-javascript"><span class="octicon octicon-link"></span></a>Via un fichier JavaScript</h4>
+
+<p>Vous pouvez également utiliser NodeAtlas comme un module npm.</p>
+
+<p><em>app.js</em></p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">nodeAtlas</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-atlas"</span><span class="p">);</span>
+
+<span class="nx">nodeAtlas</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+</pre></div>
+
+<pre><code>\&gt; node app.js
+</code></pre>
 
 <h2>
 <a name="diff%C3%A9rentes-configurations-du-webconfigjson" class="anchor" href="#diff%C3%A9rentes-configurations-du-webconfigjson"><span class="octicon octicon-link"></span></a>Différentes configurations du webconfig.json</h2>
@@ -1659,6 +1685,29 @@ webconfig.prod.json
 <p>Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser <code>--generate</code>.</p>
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --generate
+</code></pre>
+
+<h2>
+<a name="nodeatlas-comme-module-npm" class="anchor" href="#nodeatlas-comme-module-npm"><span class="octicon octicon-link"></span></a>NodeAtlas comme module npm</h2>
+
+<p>Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :</p>
+
+<p><em>app.js</em></p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">nodeAtlas</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-atlas"</span><span class="p">);</span>
+
+<span class="nx">nodeAtlas</span>
+    <span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+        <span class="nx">directory</span><span class="o">:</span> <span class="s2">"&lt;/path/to/your/website/directory/&gt;"</span><span class="p">,</span>
+        <span class="nx">webconfig</span><span class="o">:</span> <span class="s2">"webconfig.alternatif.json"</span><span class="p">,</span>
+        <span class="nx">run</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">httpPort</span><span class="o">:</span> <span class="mi">7778</span><span class="p">,</span>
+        <span class="nx">generate</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+</pre></div>
+
+<pre><code>\&gt; node app.js
 </code></pre>
 
 <h2>
