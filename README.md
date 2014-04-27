@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.13.2 (Beta)
+Version : 0.14.0 (Beta)
 
 ## Avant-propos ##
 
@@ -55,7 +55,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [--run](#--run)
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
-- [NodeAtlas comme module npm](nodeatlas-comme-module-npm)
+- [NodeAtlas comme module npm](#nodeatlas-comme-module-npm)
 - [Faire tourner NodeAtlas sur server](#faire-tourner-nodeatlas-sur-server)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
