@@ -55,6 +55,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [--run](#--run)
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
+- [NodeAtlas comme module npm](nodeatlas-comme-module-npm)
 - [Faire tourner NodeAtlas sur server](#faire-tourner-nodeatlas-sur-server)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
@@ -75,6 +76,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Support des variables personnelles de webconfig
  - Migration Express 3.x vers Express 4.x
  - Exemple de reverse-proxy pour plusieurs instances sur port 80
+ - Lancer NodeAtlas avec un require() depuis un fichier de code.
 
 - À venir 
  - Support d'une BDD de Session (ex: Redis) + key/secret
@@ -93,10 +95,19 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 ## Installation ##
 
-Il y a deux solutions pour installer Node-Atlas :
+Il y a plusieurs solutions pour installer Node-Atlas :
 
-1. `npm install node-atlas`
-2. Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas).
+1. Télécharger NodeAtlas depuis le site officiel [NodeAtlas](https://haeresis.github.com/NodeAtlas/).
+   _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
+
+2. `npm install node-atlas`
+   _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'execution de la commande._
+
+3. `npm install -g node-atlas`
+   _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` global._
+
+4. Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas/).
+   _Ceci installera **NodeAtlas** dans le dossier d'accueil du clonage._
 
 
 
@@ -153,13 +164,15 @@ Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS héberg
 
 ### Lancer le site avec NodeAtlas ###
 
+#### À la ligne de commande ####
+
 Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
 
 ```
 \> node </path/to/>node-atlas/node-atlas.js
 ```
 
-À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement.
+À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement (si vous avez téléchargé hors npm).
 
 Ré-exécutez.
 
@@ -168,6 +181,23 @@ Ré-exécutez.
 ```
 
 Vous aurez alors accès à votre « Hello World » à la page : *http://localhost/* dans un navigateur.
+
+
+#### Via un fichier JavaScript ####
+
+Vous pouvez également utiliser NodeAtlas comme un module npm.
+
+*app.js*
+
+```javascript
+var nodeAtlas = require("node-atlas");
+
+nodeAtlas.init();
+```
+
+```
+\> node app.js
+```
 
 
 
@@ -1678,6 +1708,33 @@ Si vous modifiez un élément dans votre fichier de variation commun ou même da
 
 ```
 \> node </path/to/>node-atlas/node-atlas.js --generate
+```
+
+
+
+
+## NodeAtlas comme module npm ##
+
+Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :
+
+*app.js*
+
+```javascript
+var nodeAtlas = require("node-atlas");
+
+nodeAtlas
+	.config({
+		directory: "</path/to/your/website/directory/>",
+		webconfig: "webconfig.alternatif.json",
+		run: true,
+		httpPort: 7778,
+		generate: true
+	})
+	.init();
+```
+
+```
+\> node app.js
 ```
 
 

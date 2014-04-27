@@ -11,7 +11,8 @@
  * FRONT-END PART.................Functions used for manage Front-end part.
  * BACK-END PART..................Functions used for manage Back-end part.
  * ASSETS GENERATION..............Functions used for create HTML assets.
- * RUN............................Run all JavaScript.
+ * INIT...........................Run all JavaScript.
+ * RUN............................Starting program.
  */
 
 
@@ -53,15 +54,20 @@ var NA = {};
     		path = NA.modules.path,
             regex = new RegExp(path.sep + '$', 'g');
 
+        if (commander.directory) { NA.configuration.directory = commander.directory; }
+
         try {
-            if (typeof commander.directory !== 'string') {
+            if (typeof NA.configuration.directory !== 'string') {
                 publics.websitePhysicalPath = process.cwd() + path.sep
             } else {
-                publics.websitePhysicalPath = commander.directory.replace(regex, '') + path.sep
+                publics.websitePhysicalPath = NA.configuration.directory.replace(regex, '') + path.sep
             }
             
             publics.webconfigName = 'webconfig.json';
-            if (commander.webconfig) { NA.webconfigName = commander.webconfig; }
+
+			if (commander.webconfig) { NA.configuration.webconfig = commander.webconfig; }
+
+            if (NA.configuration.webconfig) { NA.webconfigName = NA.configuration.webconfig; }
         } catch (exception) {
             console.log(exception);
         }
@@ -71,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.0.1')
+            .version('0.14.0')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -186,7 +192,10 @@ var NA = {};
 
         // Change listening port.
 		NA.webconfig.httpPort = process.env.PORT || NA.webconfig.httpPort || 80;
-		if (commander.port) { NA.webconfig.httpPort = commander.port; }
+
+		if (commander.httpPort) { NA.configuration.httpPort = commander.httpPort; }
+
+		if (NA.configuration.httpPort) { NA.webconfig.httpPort = NA.configuration.httpPort; }
 
         // Change hostname and port into website url
         NA.webconfig.urlPort = NA.webconfig.urlPort || NA.webconfig.httpPort;
@@ -331,14 +340,18 @@ var NA = {};
                 console.log(NA.appLabels.isRunning.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
             });
 
-            if (commander.run) { open(NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "")); }
+			if (commander.run) { NA.configuration.run = commander.run; }
+
+            if (NA.configuration.run) { open(NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "")); }
         
         }
 
         publics.httpServer = express();
         publics.server = http.createServer(NA.httpServer);
 
-        if (!commander.generate) {
+        if (commander.generate) { NA.configuration.generate = commander.generate; }
+
+        if (!NA.configuration.generate) {
 
             publics.httpServer.use(forceDomain({
                 hostname: NA.webconfig.urlHostname,
@@ -378,7 +391,9 @@ var NA = {};
         var express = NA.modules.express,
             commander = NA.modules.commander;
 
-        if (!commander.generate) {
+        if (commander.generate) { NA.configuration.generate = commander.generate; }
+
+        if (!NA.configuration.generate) {
             NA.httpServer.use(NA.webconfig.urlRelativeSubPath, express["static"](NA.websitePhysicalPath + NA.webconfig.assetsRelativePath));
         }
     };
@@ -467,8 +482,10 @@ var NA = {};
 
     publics.urlRewritingPages = function () {
         var commander = NA.modules.commander;
+
+        if (commander.generate) { NA.configuration.generate = commander.generate; }
         
-        if (!commander.generate) {       
+        if (!NA.configuration.generate) {       
             for (var currentUrl in NA.webconfig.urlRewriting) {
                 privates.request(currentUrl, NA.webconfig.urlRewriting);
             }
@@ -703,7 +720,9 @@ var NA = {};
     publics.urlGeneratingPages = function () {
         var commander = NA.modules.commander;
 
-        if (commander.generate) {
+        if (commander.generate) { NA.configuration.generate = commander.generate; }
+
+        if (NA.configuration.generate) {
             for (var currentUrl in NA.webconfig.urlRewriting) {
                 NA.render(currentUrl, NA.webconfig.urlRewriting);
             }
@@ -713,7 +732,9 @@ var NA = {};
     publics.emulatedIndexPage = function () {
         var commander = NA.modules.commander;
 
-        if (!commander.generate) {
+        if (commander.generate) { NA.configuration.generate = commander.generate; }
+
+        if (!NA.configuration.generate) {
             if (NA.webconfig.indexPage) {
 
                 console.log(NA.webconfig.indexPage);
@@ -797,23 +818,56 @@ var NA = {};
 
 
 /*------------------------------------*\
+    $%INIT
+\*------------------------------------*/
+
+(function (publics) {
+    "use strict";
+
+    publics.configuration = {};
+
+    publics.config = function (config) {
+    	var config = config || {};
+
+		NA.configuration = config;
+
+    	return NA;
+    };
+
+    publics.init = function () {
+		NA.loadListOfNativeModules();
+		NA.initGlobalVar();
+		NA.moduleRequired(function () {
+		    NA.lineCommandConfiguration();
+		    NA.initGlobalVarRequiredNpmModules();
+		    NA.initWebconfig(function () {
+		        NA.loadListOfExternalModules(function () {        
+		        	NA.startingHttpServer();
+		        	NA.templateEngineConfiguration(); 
+		        	NA.urlRewritingPages();
+		        	NA.emulatedIndexPage();
+		            NA.httpServerPublicFiles();
+		            NA.pageNotFound();
+		            NA.urlGeneratingPages();
+		        });
+		    });
+		});
+    };
+
+})(NA);
+
+
+
+/*------------------------------------*\
     $%RUN
 \*------------------------------------*/
 
-NA.loadListOfNativeModules();
-NA.initGlobalVar();
-NA.moduleRequired(function () {
-    NA.lineCommandConfiguration();
-    NA.initGlobalVarRequiredNpmModules();
-    NA.initWebconfig(function () {
-        NA.loadListOfExternalModules(function () {        
-        	NA.startingHttpServer();
-        	NA.templateEngineConfiguration(); 
-        	NA.urlRewritingPages();
-        	NA.emulatedIndexPage();
-            NA.httpServerPublicFiles();
-            NA.pageNotFound();
-            NA.urlGeneratingPages();
-        });
-    });
-});
+// With command tools.
+
+if (require.main === module) {
+	NA.init();
+}
+
+// With require.
+
+module.exports = NA;
