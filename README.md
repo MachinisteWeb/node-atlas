@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.0 (Beta)
+Version : 0.14.1 (Beta)
 
 ## Avant-propos ##
 
@@ -17,7 +17,7 @@ NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js
 L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.
 
 - Exemple de génération d'asset HTML (En cours...).
-- Exemple de simple site Node.js sans Back-end (En cours...).
+- [Exemple de simple site Node.js sans Back-end](https://github.com/Haeresis/ResumeAtlas/).
 - Exemple de développement de site Node.js (En cours...).
 
 
@@ -98,16 +98,16 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 Il y a plusieurs solutions pour installer Node-Atlas :
 
 1. Télécharger NodeAtlas depuis le site officiel [NodeAtlas](https://haeresis.github.com/NodeAtlas/).
-   _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
+_Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
 
 2. `npm install node-atlas`
-   _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'execution de la commande._
+_Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'execution de la commande._
 
 3. `npm install -g node-atlas`
-   _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` global._
+_Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` global._
 
 4. Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas/).
-   _Ceci installera **NodeAtlas** dans le dossier d'accueil du clonage._
+_Ceci installera **NodeAtlas** dans le dossier d'accueil du clonage._
 
 
 
