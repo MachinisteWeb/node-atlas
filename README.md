@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.1 (Beta)
+Version : 0.14.2 (Beta)
 
 ## Avant-propos ##
 
@@ -910,77 +910,118 @@ templates/
 webconfig.json
 ```
 
-Et le fichier « common.js » contenant ceci par exemple :
+Et le fichier « common.js » contenant par exemple :
+
+- De quoi charger des modules supplémentaires à NodeAtlas.
+- De quoi configurer les modules supplémentaires.
 
 ```js
+// Création d'un objet global au fichier.
 var website = {};
 
-// Loading modules for this website.
+
+
+/**********************/
+/* Chargement modules */
+/**********************/
+
 (function (publics) {
 	"use strict";
 
+	// Chargement des modules pour ce site dans l'objet NodeAtlas.
 	publics.loadModules = function (NA) {
+		// Gestion de l'accès aux modules s'il ne sont pas dans « node_modules ».
 		var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
 		
+		// Associations de chaque module pour y avoir accès partout.
 		NA.modules.connect = require(modulePath + 'connect');
 		NA.modules.cookie = require(modulePath + 'cookie');
 		NA.modules.mongoose = require(modulePath + 'mongoose');
 		NA.modules.socketio = require(modulePath + 'socket.io');
 
+		// Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
 		return NA;
 	};
 
 }(website));
 
-// Set configuration for this website.
+
+
+/*****************************/
+/* Configuration des modules */
+/*****************************/
+
 (function (publics) {
 	"use strict";
 
 	var privates = {};
 
-	publics.setConfigurations = function (NA, callback) {
-		var mongoose = NA.modules.mongoose,
-			socketio = NA.modules.socketio,
-			connect = NA.modules.connect;
+	// Exemple d'utilisation de MongoDB et Mongoose.
+	privates.mongooseInitialization = function (mongoose, callback) {
+		// Connexion à la base « blog ».
+		mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
+  			if (error) {
+				throw error;
+  			};
 
-		NA.backend = {};
-
-		privates.mongooseInitialization(mongoose, function (mongoose) {
-
-			privates.mongooseShemas(mongoose);
-
-			privates.socketIoInitialisation(socketio, NA, function (io) {
-
-				privates.socketIoEvents(io, NA);
-
-				callback(NA);					
-			});
+			// Suite.
+  			callback(mongoose);
+		});
+		
+		// Gestion de connexion.
+		mongoose.connection.on('error', function (error) {
+	  		console.log('Mongoose default connection error: ' + error);
 		});
 
+		// Gestion des déconnexion.
+		mongoose.connection.on('disconnected', function () {
+			console.log('Mongoose default connection disconnected');
+		});
+		process.on('SIGINT', function (error) {
+			mongoose.connection.close(function () {
+				console.log('Mongoose default connection disconnected through app termination');
+				process.exit(0);
+			});
+		});
 	};
 
+	// Mise à disposition des Schémas Mongoose.
+	privates.mongooseShemas = function (mongoose) {
+		publics.shemas = {};
+
+		// Chargement des Schémas.
+		publics.shemas.article = require('../models/Article');
+		publics.shemas.category = require('../models/Category');
+
+		// Mise à disposition des Schémas.
+		mongoose.model('article', website.shemas.article, 'article');
+		mongoose.model('category', website.shemas.category, 'category');
+	};
+
+	// Exemple d'utilisation de Socket.IO.
 	privates.socketIoInitialisation = function (socketio, NA, callback) {
 		var io = socketio.listen(NA.server),
 			connect = NA.modules.connect,
 			cookie = NA.modules.cookie;
 
+		// Synchronisation des Sessions avec Socket.IO.
 		io.set('authorization', function (data, accept) {
 
-            // No cookie enable.
+            // Fallback si les cookies ne sont pas gérés.
             if (!data.headers.cookie) {
                 return accept('Session cookie required.', false);
             }
 
-            // First parse the cookies into a half-formed object.
+            // Transformation du cookie en Objet cookie.
             data.cookie = cookie.parse(data.headers.cookie);
 
-            // Next, verify the signature of the session cookie.
+            // Vérification de la signature du cookie.
             data.cookie = connect.utils.parseSignedCookies(data.cookie, NA.webconfig.session.secret);
              
-            // save ourselves a copy of the sessionID.
+            // Sauver nous même une copie de la Session.
             data.sessionID = data.cookie[NA.webconfig.session.key];
 
-			// Accept cookie.
+			// Accepter le cookie.
             NA.webconfig.session.sessionStore.load(data.sessionID, function (error, session) {
                 if (error || !session) {
                     accept("Error", false);
@@ -992,84 +1033,97 @@ var website = {};
 
         });
 
+		// Suite.
     	callback(io);		
 	};
 
-	privates.mongooseInitialization = function (mongoose, callback) {
-		mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
-  			if (error) {
-				throw error;
-  			};
-
-  			callback(mongoose);
-		});
-		
-		mongoose.connection.on('error', function (error) {
-	  		console.log('Mongoose default connection error: ' + error);
-		});
-
-		mongoose.connection.on('disconnected', function () {
-			console.log('Mongoose default connection disconnected');
-		});
-
-		process.on('SIGINT', function (error) {
-			mongoose.connection.close(function () {
-				console.log('Mongoose default connection disconnected through app termination');
-				process.exit(0);
-			});
-		});
-	};
-
+	// Ajout d'évênements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
 	privates.socketIoEvents = function (io, NA) {
 		var params = {};
 
 		params.io = io;
 		params.NA = NA;
 
-		require('./article').asynchrone(params);
+		// Évênements pour la page article (voir exemple dans le fichier d'après).
+		require('./index').asynchrone(params);
 	};
 
-	privates.mongooseShemas = function (mongoose) {
-		publics.shemas = {};
+	// Configuration de tous les modules
+	publics.setConfigurations = function (NA, callback) {
+		var mongoose = NA.modules.mongoose,
+			socketio = NA.modules.socketio,
+			connect = NA.modules.connect;
 
-		publics.shemas.article = require('../models/Article');
-		publics.shemas.category = require('../models/Category');
+		// Initialisation de Mongoose.
+		privates.mongooseInitialization(mongoose, function (mongoose) {
 
-		mongoose.model('article', website.shemas.article, 'article');
-		mongoose.model('category', website.shemas.category, 'category');
+			// Injection de Schémas dans Mongoose.
+			privates.mongooseShemas(mongoose);
+
+			// Initialisation de Socket IO.
+			privates.socketIoInitialisation(socketio, NA, function (io) {
+
+				// Écoute d'action Socket IO.
+				privates.socketIoEvents(io, NA);
+
+				// Ré-injection do l'objet « NodeAtlas » surchargé dans le moteur.
+				callback(NA);					
+			});
+		});
+
 	};
 
 }(website));
 
-// PreRender
+
+
+/*******************************/
+/* Interception des Variations */
+/*******************************/
+
 (function (publics) {
 	"use strict";
 
+	// On intervient juste avant l'assemblage complet EJS.
 	publics.preRender = function (params, mainCallback) {
 		var variation = params.variation;
 
 		// Ici on modifie les variables de variations.
-		//console.log(params.variation);
+		// voir exemple dans le fichier d'après.
 
+		// On ré-injecte les modifications.
 		mainCallback(variation);
 	};
 
 }(website));
 
-// Render
+
+
+/**********************************************************/
+/* Interception dela sortie HTML pour jQuery côté serveur */
+/**********************************************************/
+
 (function (publics) {
 	"use strict";
 
+	// On intervient juste avant le renvoi HTML auprès du client (response).
 	publics.render = function (params, mainCallback) {
 		var data = params.data;
 
 		// Ici on peut manipuler le DOM côté serveur avant retour client.
-		//console.log(params.data);
+		// voir exemple dans le fichier d'après.
 
+		// On ré-injecte les modifications.
 		mainCallback(data);
 	};
 
 }(website));
+
+
+
+/**************************************************************/
+/* Mise à dispositions des fonctionr pour le moteur NodeAtlas */
+/**************************************************************/
 
 exports.loadModules = website.loadModules;
 exports.setConfigurations = website.setConfigurations;
@@ -1119,53 +1173,166 @@ templates/
 webconfig.json
 ```
 
-avec par exemple un fichier index.js comme celui-ci :
+avec un fichier « index.js » contenant par exemple :
+
+- De quoi modifier les variations dynamiquement avant affichage.
+- De quoi faire des modifications jQuery côté serveur.
+- De quoi faire des échanges asynchrones avec Socket.IO.
 
 ```js
 var website = {};
+website.index = {};
 
-// PreRender
+
+
+/*******************************/
+/* Interception des Variations */
+/*******************************/
+
 (function (publics) {
 	"use strict";
 
 	var privates = {};
 
+	// On charge une fonction ou un ensemble de fonctions.
 	privates.listOfArticles = require('./modules/list-of-articles');
 
+	// On intervient juste avant l'assemblage complet EJS.
 	publics.preRender = function (params, mainCallback) {
 		var variation = params.variation,
 			mongoose = params.NA.modules.mongoose,
 			Article = mongoose.model('article');
 
-		variation.backend = {};
+
+		// Interception possible de toutes les variables de « variation/common.js ».
+		console.log(variation.common.title); // Renvoi le titre stocké dans « variation/common.js ».
+		variation.common.title = "Nouveau title"; // Redéfini un titre.
+		console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via « <%= common.title ». 
+
+		// Interception possible de toutes les variables de « variation/index.js » (car on est dans le spécific « index.js »).
+		variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via « <%= specific.title ».
+		variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « <%= specific.newProperty ».
+
+		// Création d'un nouvel ensemble de variation dynamique pour les templates.
+		variation.backend = {}; // Accessible via « <%= backend.<propriétés> %> ».
 
 		privates.listOfArticles(Article, function (listOfArticles) {
 
-			variation.backend.articles = listOfArticles;
+			// Disponibilité des données des articles côté template derrière
+			variation.backend.articles = listOfArticles; // « <%= backend.articles.<propriétés> %> ».
 
+			// On ré-injecte les modifications.
 			mainCallback(variation);
 		});
 	};
 
-}(website));
+}(website.index));
 
-// Render
+
+
+/***********************************************************/
+/* Interception de la sortie HTML pour jQuery côté serveur */
+/***********************************************************/
+
 (function (publics) {
 	"use strict";
 	
+	// On intervient juste avant le renvoi HTML auprès du client (response).
 	publics.render = function (params, mainCallback) {
-		var data = params.data;
+		var data = params.data,
+			NA = params.NA,
+			jsdom = NA.modules.jsdom; // Récupération de jsdom pour parcourir le DOM avec jQuery.
 
-		// Ici on peut manipuler le DOM côté serveur avant retour client.
-		//console.log(params.data);
+		// On charge le fichier jQuery défini dans le moteur, mais on peut utiliser une autre version.
+		jsdom.env(data, [NA.webconfig.jQueryVersion], function (error, window) {
+			var $ = window.$;
 
-		mainCallback(data);
+			// Après tous les h2 de la sortie HTML « data »,
+			$("h2").each(function (i) {
+				var $this = $(this);
+
+				// ... on créé une div,
+				$this.after(
+					// ... on injecte le contenu du h2 dans la div,
+					$("<div>").html($this.html())
+				)
+				// ... et supprime le h2.
+				$this.remove();
+			});
+
+			// On re-créer une nouvelle sortie HTML avec nos modifications.
+			data = window.document.doctype.toString() + window.document.innerHTML.replace(/<script class=.jsdom.+><\/script><\/html>/g, "</html>"); // (Si vous connaissez un moyen plus élégant d'enlever ce script ajouté automatiquement « <script class=.jsdom.+><\/script><\/html> », faites moi signe !)
+
+			// On ré-injecte les modifications.
+			mainCallback(data);
+		});
 	};
 
-}(website));
+}(website.index));
 
-exports.preRender = website.preRender;
-exports.render = website.render;
+
+
+/***********************************************/
+/* Gestion des évênements Socket.IO asynchrone */
+/***********************************************/
+
+(function (publics) {
+	"use strict";
+
+	var privates = {};
+
+	// Intégralité des actions Websocket possible pour ce template.
+	publics.asynchrone = function (params) {
+		var io = params.io,
+			mongoose = params.NA.modules.mongoose,
+			marked = params.NA.modules.marked,
+			Article = mongoose.model('article'),
+			renderer = new marked.Renderer();
+
+		// Dès qu'on a un lien valide entre le client et notre back,
+		io.sockets.on('connection', function (socket) {
+			var sessionID = socket.handshake.sessionID,
+				session = socket.handshake.session;
+
+			// ... resté à l'écoute de la demande « create-article-button »,
+			socket.on('create-article-button', function (data) {
+
+				// ... et répondre à cette demande en créant un nouvelle article si elle vient
+				// avec les information envoyées via « data ».
+				var article = new Article({
+					_id: mongoose.Types.ObjectId(),
+					title: data.title,
+					urn: data.urn,
+				});
+
+				// Si l'utilisateur est connecté.
+				if (session.account) {
+
+					/ ... on créer sauve article en base.
+					article.save(function (error) {
+						if (error) { 
+							throw error;
+						}
+
+						// Et on répond à tous les clients avec un jeu de donnée dans data.
+						io.sockets.emit('create-article-button', data);
+					});
+				}
+			});
+  		});
+	};
+
+}(website.index));
+
+
+
+/***********************************************************/
+/* Interception de la sortie HTML pour jQuery côté serveur */
+/***********************************************************/
+
+exports.preRender = website.index.preRender;
+exports.render = website.index.render;
+exports.asynchrone = website.index.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
 ```
 
 *Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js » alors toute la partie Back-end est désactivée.*
