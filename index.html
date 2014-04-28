@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.14.1 (Beta)</p>
+<p>Version : 0.14.2 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -921,76 +921,117 @@ templates/
 webconfig.json
 </code></pre>
 
-<p>Et le fichier « common.js » contenant ceci par exemple :</p>
+<p>Et le fichier « common.js » contenant par exemple :</p>
 
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
+<ul>
+<li>De quoi charger des modules supplémentaires à NodeAtlas.</li>
+<li>De quoi configurer les modules supplémentaires.</li>
+</ul><div class="highlight highlight-js"><pre><span class="c1">// Création d'un objet global au fichier.</span>
+<span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
 
-<span class="c1">// Loading modules for this website.</span>
+
+
+<span class="cm">/**********************/</span>
+<span class="cm">/* Chargement modules */</span>
+<span class="cm">/**********************/</span>
+
 <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
     <span class="s2">"use strict"</span><span class="p">;</span>
 
+    <span class="c1">// Chargement des modules pour ce site dans l'objet NodeAtlas.</span>
     <span class="nx">publics</span><span class="p">.</span><span class="nx">loadModules</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">NA</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Gestion de l'accès aux modules s'il ne sont pas dans « node_modules ».</span>
         <span class="kd">var</span> <span class="nx">modulePath</span> <span class="o">=</span> <span class="p">(</span><span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">_needModulePath</span><span class="p">)</span> <span class="o">?</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">nodeModulesPath</span> <span class="o">:</span> <span class="s1">''</span><span class="p">;</span>
 
+        <span class="c1">// Associations de chaque module pour y avoir accès partout.</span>
         <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">connect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s1">'connect'</span><span class="p">);</span>
         <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s1">'cookie'</span><span class="p">);</span>
         <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s1">'mongoose'</span><span class="p">);</span>
         <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">socketio</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s1">'socket.io'</span><span class="p">);</span>
 
+        <span class="c1">// Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.</span>
         <span class="k">return</span> <span class="nx">NA</span><span class="p">;</span>
     <span class="p">};</span>
 
 <span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
 
-<span class="c1">// Set configuration for this website.</span>
+
+
+<span class="cm">/*****************************/</span>
+<span class="cm">/* Configuration des modules */</span>
+<span class="cm">/*****************************/</span>
+
 <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
     <span class="s2">"use strict"</span><span class="p">;</span>
 
     <span class="kd">var</span> <span class="nx">privates</span> <span class="o">=</span> <span class="p">{};</span>
 
-    <span class="nx">publics</span><span class="p">.</span><span class="nx">setConfigurations</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">NA</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">mongoose</span><span class="p">,</span>
-            <span class="nx">socketio</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">socketio</span><span class="p">,</span>
-            <span class="nx">connect</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">connect</span><span class="p">;</span>
+    <span class="c1">// Exemple d'utilisation de MongoDB et Mongoose.</span>
+    <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseInitialization</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Connexion à la base « blog ».</span>
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">'mongodb://127.0.0.1:27017/blog'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+            <span class="p">};</span>
 
-        <span class="nx">NA</span><span class="p">.</span><span class="nx">backend</span> <span class="o">=</span> <span class="p">{};</span>
-
-        <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseInitialization</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">)</span> <span class="p">{</span>
-
-            <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseShemas</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">);</span>
-
-            <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoInitialisation</span><span class="p">(</span><span class="nx">socketio</span><span class="p">,</span> <span class="nx">NA</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">io</span><span class="p">)</span> <span class="p">{</span>
-
-                <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoEvents</span><span class="p">(</span><span class="nx">io</span><span class="p">,</span> <span class="nx">NA</span><span class="p">);</span>
-
-                <span class="nx">callback</span><span class="p">(</span><span class="nx">NA</span><span class="p">);</span>                   
-            <span class="p">});</span>
+            <span class="c1">// Suite.</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">);</span>
         <span class="p">});</span>
 
+        <span class="c1">// Gestion de connexion.</span>
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection error: '</span> <span class="o">+</span> <span class="nx">error</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="c1">// Gestion des déconnexion.</span>
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'disconnected'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection disconnected'</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'SIGINT'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection disconnected through app termination'</span><span class="p">);</span>
+                <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
     <span class="p">};</span>
 
+    <span class="c1">// Mise à disposition des Schémas Mongoose.</span>
+    <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseShemas</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span> <span class="o">=</span> <span class="p">{};</span>
+
+        <span class="c1">// Chargement des Schémas.</span>
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">article</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../models/Article'</span><span class="p">);</span>
+        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">category</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../models/Category'</span><span class="p">);</span>
+
+        <span class="c1">// Mise à disposition des Schémas.</span>
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'article'</span><span class="p">,</span> <span class="nx">website</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">article</span><span class="p">,</span> <span class="s1">'article'</span><span class="p">);</span>
+        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="nx">website</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">category</span><span class="p">,</span> <span class="s1">'category'</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Exemple d'utilisation de Socket.IO.</span>
     <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoInitialisation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">socketio</span><span class="p">,</span> <span class="nx">NA</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">socketio</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">NA</span><span class="p">.</span><span class="nx">server</span><span class="p">),</span>
             <span class="nx">connect</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">connect</span><span class="p">,</span>
             <span class="nx">cookie</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
 
+        <span class="c1">// Synchronisation des Sessions avec Socket.IO.</span>
         <span class="nx">io</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'authorization'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">accept</span><span class="p">)</span> <span class="p">{</span>
 
-            <span class="c1">// No cookie enable.</span>
+            <span class="c1">// Fallback si les cookies ne sont pas gérés.</span>
             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">cookie</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="nx">accept</span><span class="p">(</span><span class="s1">'Session cookie required.'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
             <span class="p">}</span>
 
-            <span class="c1">// First parse the cookies into a half-formed object.</span>
+            <span class="c1">// Transformation du cookie en Objet cookie.</span>
             <span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">cookie</span><span class="p">);</span>
 
-            <span class="c1">// Next, verify the signature of the session cookie.</span>
+            <span class="c1">// Vérification de la signature du cookie.</span>
             <span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">connect</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseSignedCookies</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span><span class="p">,</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">secret</span><span class="p">);</span>
 
-            <span class="c1">// save ourselves a copy of the sessionID.</span>
+            <span class="c1">// Sauver nous même une copie de la Session.</span>
             <span class="nx">data</span><span class="p">.</span><span class="nx">sessionID</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span><span class="p">[</span><span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">key</span><span class="p">];</span>
 
-            <span class="c1">// Accept cookie.</span>
+            <span class="c1">// Accepter le cookie.</span>
             <span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">sessionStore</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">sessionID</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">||</span> <span class="o">!</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nx">accept</span><span class="p">(</span><span class="s2">"Error"</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
@@ -1002,84 +1043,97 @@ webconfig.json
 
         <span class="p">});</span>
 
+        <span class="c1">// Suite.</span>
         <span class="nx">callback</span><span class="p">(</span><span class="nx">io</span><span class="p">);</span>       
     <span class="p">};</span>
 
-    <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseInitialization</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">'mongodb://127.0.0.1:27017/blog'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
-            <span class="p">};</span>
-
-            <span class="nx">callback</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">);</span>
-        <span class="p">});</span>
-
-        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection error: '</span> <span class="o">+</span> <span class="nx">error</span><span class="p">);</span>
-        <span class="p">});</span>
-
-        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'disconnected'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection disconnected'</span><span class="p">);</span>
-        <span class="p">});</span>
-
-        <span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'SIGINT'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Mongoose default connection disconnected through app termination'</span><span class="p">);</span>
-                <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-            <span class="p">});</span>
-        <span class="p">});</span>
-    <span class="p">};</span>
-
+    <span class="c1">// Ajout d'évênements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).</span>
     <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoEvents</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">io</span><span class="p">,</span> <span class="nx">NA</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{};</span>
 
         <span class="nx">params</span><span class="p">.</span><span class="nx">io</span> <span class="o">=</span> <span class="nx">io</span><span class="p">;</span>
         <span class="nx">params</span><span class="p">.</span><span class="nx">NA</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">;</span>
 
-        <span class="nx">require</span><span class="p">(</span><span class="s1">'./article'</span><span class="p">).</span><span class="nx">asynchrone</span><span class="p">(</span><span class="nx">params</span><span class="p">);</span>
+        <span class="c1">// Évênements pour la page article (voir exemple dans le fichier d'après).</span>
+        <span class="nx">require</span><span class="p">(</span><span class="s1">'./index'</span><span class="p">).</span><span class="nx">asynchrone</span><span class="p">(</span><span class="nx">params</span><span class="p">);</span>
     <span class="p">};</span>
 
-    <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseShemas</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="c1">// Configuration de tous les modules</span>
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">setConfigurations</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">NA</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">mongoose</span><span class="p">,</span>
+            <span class="nx">socketio</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">socketio</span><span class="p">,</span>
+            <span class="nx">connect</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">connect</span><span class="p">;</span>
 
-        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">article</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../models/Article'</span><span class="p">);</span>
-        <span class="nx">publics</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">category</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../models/Category'</span><span class="p">);</span>
+        <span class="c1">// Initialisation de Mongoose.</span>
+        <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseInitialization</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mongoose</span><span class="p">)</span> <span class="p">{</span>
 
-        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'article'</span><span class="p">,</span> <span class="nx">website</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">article</span><span class="p">,</span> <span class="s1">'article'</span><span class="p">);</span>
-        <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="nx">website</span><span class="p">.</span><span class="nx">shemas</span><span class="p">.</span><span class="nx">category</span><span class="p">,</span> <span class="s1">'category'</span><span class="p">);</span>
+            <span class="c1">// Injection de Schémas dans Mongoose.</span>
+            <span class="nx">privates</span><span class="p">.</span><span class="nx">mongooseShemas</span><span class="p">(</span><span class="nx">mongoose</span><span class="p">);</span>
+
+            <span class="c1">// Initialisation de Socket IO.</span>
+            <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoInitialisation</span><span class="p">(</span><span class="nx">socketio</span><span class="p">,</span> <span class="nx">NA</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">io</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="c1">// Écoute d'action Socket IO.</span>
+                <span class="nx">privates</span><span class="p">.</span><span class="nx">socketIoEvents</span><span class="p">(</span><span class="nx">io</span><span class="p">,</span> <span class="nx">NA</span><span class="p">);</span>
+
+                <span class="c1">// Ré-injection do l'objet « NodeAtlas » surchargé dans le moteur.</span>
+                <span class="nx">callback</span><span class="p">(</span><span class="nx">NA</span><span class="p">);</span>                   
+            <span class="p">});</span>
+        <span class="p">});</span>
+
     <span class="p">};</span>
 
 <span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
 
-<span class="c1">// PreRender</span>
+
+
+<span class="cm">/*******************************/</span>
+<span class="cm">/* Interception des Variations */</span>
+<span class="cm">/*******************************/</span>
+
 <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
     <span class="s2">"use strict"</span><span class="p">;</span>
 
+    <span class="c1">// On intervient juste avant l'assemblage complet EJS.</span>
     <span class="nx">publics</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">variation</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">variation</span><span class="p">;</span>
 
         <span class="c1">// Ici on modifie les variables de variations.</span>
-        <span class="c1">//console.log(params.variation);</span>
+        <span class="c1">// voir exemple dans le fichier d'après.</span>
 
+        <span class="c1">// On ré-injecte les modifications.</span>
         <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">variation</span><span class="p">);</span>
     <span class="p">};</span>
 
 <span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
 
-<span class="c1">// Render</span>
+
+
+<span class="cm">/**********************************************************/</span>
+<span class="cm">/* Interception dela sortie HTML pour jQuery côté serveur */</span>
+<span class="cm">/**********************************************************/</span>
+
 <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
     <span class="s2">"use strict"</span><span class="p">;</span>
 
+    <span class="c1">// On intervient juste avant le renvoi HTML auprès du client (response).</span>
     <span class="nx">publics</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
 
         <span class="c1">// Ici on peut manipuler le DOM côté serveur avant retour client.</span>
-        <span class="c1">//console.log(params.data);</span>
+        <span class="c1">// voir exemple dans le fichier d'après.</span>
 
+        <span class="c1">// On ré-injecte les modifications.</span>
         <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
     <span class="p">};</span>
 
 <span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+
+
+
+<span class="cm">/**************************************************************/</span>
+<span class="cm">/* Mise à dispositions des fonctionr pour le moteur NodeAtlas */</span>
+<span class="cm">/**************************************************************/</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">loadModules</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">loadModules</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">setConfigurations</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">setConfigurations</span><span class="p">;</span>
@@ -1127,52 +1181,165 @@ templates/
 webconfig.json
 </code></pre>
 
-<p>avec par exemple un fichier index.js comme celui-ci :</p>
+<p>avec un fichier « index.js » contenant par exemple :</p>
 
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
+<ul>
+<li>De quoi modifier les variations dynamiquement avant affichage.</li>
+<li>De quoi faire des modifications jQuery côté serveur.</li>
+<li>De quoi faire des échanges asynchrones avec Socket.IO.</li>
+</ul><div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">website</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="p">{};</span>
 
-<span class="c1">// PreRender</span>
+
+
+<span class="cm">/*******************************/</span>
+<span class="cm">/* Interception des Variations */</span>
+<span class="cm">/*******************************/</span>
+
 <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
     <span class="s2">"use strict"</span><span class="p">;</span>
 
     <span class="kd">var</span> <span class="nx">privates</span> <span class="o">=</span> <span class="p">{};</span>
 
+    <span class="c1">// On charge une fonction ou un ensemble de fonctions.</span>
     <span class="nx">privates</span><span class="p">.</span><span class="nx">listOfArticles</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./modules/list-of-articles'</span><span class="p">);</span>
 
+    <span class="c1">// On intervient juste avant l'assemblage complet EJS.</span>
     <span class="nx">publics</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">variation</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">variation</span><span class="p">,</span>
             <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">mongoose</span><span class="p">,</span>
             <span class="nx">Article</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'article'</span><span class="p">);</span>
 
-        <span class="nx">variation</span><span class="p">.</span><span class="nx">backend</span> <span class="o">=</span> <span class="p">{};</span>
+
+        <span class="c1">// Interception possible de toutes les variables de « variation/common.js ».</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">variation</span><span class="p">.</span><span class="nx">common</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// Renvoi le titre stocké dans « variation/common.js ».</span>
+        <span class="nx">variation</span><span class="p">.</span><span class="nx">common</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">"Nouveau title"</span><span class="p">;</span> <span class="c1">// Redéfini un titre.</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">variation</span><span class="p">.</span><span class="nx">common</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// Renvoi « Nouveau title » et est accessible côté template via « &lt;%= common.title ». </span>
+
+        <span class="c1">// Interception possible de toutes les variables de « variation/index.js » (car on est dans le spécific « index.js »).</span>
+        <span class="nx">variation</span><span class="p">.</span><span class="nx">specific</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">"Nouveau title"</span><span class="p">;</span> <span class="c1">// Redéfini un titre qui est accessible côté template via « &lt;%= specific.title ».</span>
+        <span class="nx">variation</span><span class="p">.</span><span class="nx">specific</span><span class="p">.</span><span class="nx">newProperty</span> <span class="o">=</span> <span class="s2">"Nouvelle propriété"</span><span class="p">;</span> <span class="c1">// Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « &lt;%= specific.newProperty ».</span>
+
+        <span class="c1">// Création d'un nouvel ensemble de variation dynamique pour les templates.</span>
+        <span class="nx">variation</span><span class="p">.</span><span class="nx">backend</span> <span class="o">=</span> <span class="p">{};</span> <span class="c1">// Accessible via « &lt;%= backend.&lt;propriétés&gt; %&gt; ».</span>
 
         <span class="nx">privates</span><span class="p">.</span><span class="nx">listOfArticles</span><span class="p">(</span><span class="nx">Article</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">listOfArticles</span><span class="p">)</span> <span class="p">{</span>
 
-            <span class="nx">variation</span><span class="p">.</span><span class="nx">backend</span><span class="p">.</span><span class="nx">articles</span> <span class="o">=</span> <span class="nx">listOfArticles</span><span class="p">;</span>
+            <span class="c1">// Disponibilité des données des articles côté template derrière</span>
+            <span class="nx">variation</span><span class="p">.</span><span class="nx">backend</span><span class="p">.</span><span class="nx">articles</span> <span class="o">=</span> <span class="nx">listOfArticles</span><span class="p">;</span> <span class="c1">// « &lt;%= backend.articles.&lt;propriétés&gt; %&gt; ».</span>
 
+            <span class="c1">// On ré-injecte les modifications.</span>
             <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">variation</span><span class="p">);</span>
         <span class="p">});</span>
     <span class="p">};</span>
 
-<span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+<span class="p">}(</span><span class="nx">website</span><span class="p">.</span><span class="nx">index</span><span class="p">));</span>
 
-<span class="c1">// Render</span>
+
+
+<span class="cm">/***********************************************************/</span>
+<span class="cm">/* Interception de la sortie HTML pour jQuery côté serveur */</span>
+<span class="cm">/***********************************************************/</span>
+
 <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
     <span class="s2">"use strict"</span><span class="p">;</span>
 
+    <span class="c1">// On intervient juste avant le renvoi HTML auprès du client (response).</span>
     <span class="nx">publics</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span>
+            <span class="nx">NA</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">NA</span><span class="p">,</span>
+            <span class="nx">jsdom</span> <span class="o">=</span> <span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">jsdom</span><span class="p">;</span> <span class="c1">// Récupération de jsdom pour parcourir le DOM avec jQuery.</span>
 
-        <span class="c1">// Ici on peut manipuler le DOM côté serveur avant retour client.</span>
-        <span class="c1">//console.log(params.data);</span>
+        <span class="c1">// On charge le fichier jQuery défini dans le moteur, mais on peut utiliser une autre version.</span>
+        <span class="nx">jsdom</span><span class="p">.</span><span class="nx">env</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">[</span><span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">jQueryVersion</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">$</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">$</span><span class="p">;</span>
 
-        <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+            <span class="c1">// Après tous les h2 de la sortie HTML « data »,</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">"h2"</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">$this</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+                <span class="c1">// ... on créé une div,</span>
+                <span class="nx">$this</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span>
+                    <span class="c1">// ... on injecte le contenu du h2 dans la div,</span>
+                    <span class="nx">$</span><span class="p">(</span><span class="s2">"&lt;div&gt;"</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">$this</span><span class="p">.</span><span class="nx">html</span><span class="p">())</span>
+                <span class="p">)</span>
+                <span class="c1">// ... et supprime le h2.</span>
+                <span class="nx">$this</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+            <span class="p">});</span>
+
+            <span class="c1">// On re-créer une nouvelle sortie HTML avec nos modifications.</span>
+            <span class="nx">data</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">doctype</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/&lt;script class=.jsdom.+&gt;&lt;\/script&gt;&lt;\/html&gt;/g</span><span class="p">,</span> <span class="s2">"&lt;/html&gt;"</span><span class="p">);</span> <span class="c1">// (Si vous connaissez un moyen plus élégant d'enlever ce script ajouté automatiquement « &lt;script class=.jsdom.+&gt;&lt;\/script&gt;&lt;\/html&gt; », faites moi signe !)</span>
+
+            <span class="c1">// On ré-injecte les modifications.</span>
+            <span class="nx">mainCallback</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">});</span>
     <span class="p">};</span>
 
-<span class="p">}(</span><span class="nx">website</span><span class="p">));</span>
+<span class="p">}(</span><span class="nx">website</span><span class="p">.</span><span class="nx">index</span><span class="p">));</span>
 
-<span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">preRender</span><span class="p">;</span>
-<span class="nx">exports</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">render</span><span class="p">;</span>
+
+
+<span class="cm">/***********************************************/</span>
+<span class="cm">/* Gestion des évênements Socket.IO asynchrone */</span>
+<span class="cm">/***********************************************/</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">publics</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">"use strict"</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">privates</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="c1">// Intégralité des actions Websocket possible pour ce template.</span>
+    <span class="nx">publics</span><span class="p">.</span><span class="nx">asynchrone</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">io</span><span class="p">,</span>
+            <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">mongoose</span><span class="p">,</span>
+            <span class="nx">marked</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">NA</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">marked</span><span class="p">,</span>
+            <span class="nx">Article</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">'article'</span><span class="p">),</span>
+            <span class="nx">renderer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">marked</span><span class="p">.</span><span class="nx">Renderer</span><span class="p">();</span>
+
+        <span class="c1">// Dès qu'on a un lien valide entre le client et notre back,</span>
+        <span class="nx">io</span><span class="p">.</span><span class="nx">sockets</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connection'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">sessionID</span> <span class="o">=</span> <span class="nx">socket</span><span class="p">.</span><span class="nx">handshake</span><span class="p">.</span><span class="nx">sessionID</span><span class="p">,</span>
+                <span class="nx">session</span> <span class="o">=</span> <span class="nx">socket</span><span class="p">.</span><span class="nx">handshake</span><span class="p">.</span><span class="nx">session</span><span class="p">;</span>
+
+            <span class="c1">// ... resté à l'écoute de la demande « create-article-button »,</span>
+            <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'create-article-button'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="c1">// ... et répondre à cette demande en créant un nouvelle article si elle vient</span>
+                <span class="c1">// avec les information envoyées via « data ».</span>
+                <span class="kd">var</span> <span class="nx">article</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Article</span><span class="p">({</span>
+                    <span class="nx">_id</span><span class="o">:</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span><span class="p">(),</span>
+                    <span class="nx">title</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span>
+                    <span class="nx">urn</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">urn</span><span class="p">,</span>
+                <span class="p">});</span>
+
+                <span class="c1">// Si l'utilisateur est connecté.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">account</span><span class="p">)</span> <span class="p">{</span>
+
+                    <span class="err">/ ... on créer sauve article en base.</span>
+                    <span class="nx">article</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span> 
+                            <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+                        <span class="p">}</span>
+
+                        <span class="c1">// Et on répond à tous les clients avec un jeu de donnée dans data.</span>
+                        <span class="nx">io</span><span class="p">.</span><span class="nx">sockets</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'create-article-button'</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+
+<span class="p">}(</span><span class="nx">website</span><span class="p">.</span><span class="nx">index</span><span class="p">));</span>
+
+
+
+<span class="cm">/***********************************************************/</span>
+<span class="cm">/* Interception de la sortie HTML pour jQuery côté serveur */</span>
+<span class="cm">/***********************************************************/</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">index</span><span class="p">.</span><span class="nx">preRender</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">index</span><span class="p">.</span><span class="nx">render</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">asynchrone</span> <span class="o">=</span> <span class="nx">website</span><span class="p">.</span><span class="nx">index</span><span class="p">.</span><span class="nx">asynchrone</span><span class="p">;</span> <span class="c1">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span>
 </pre></div>
 
 <p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js » alors toute la partie Back-end est désactivée.</em></p>
