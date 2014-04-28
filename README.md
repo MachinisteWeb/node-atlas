@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.2 (Beta)
+Version : 0.14.3 (Beta)
 
 ## Avant-propos ##
 
@@ -18,7 +18,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 - Exemple de génération d'asset HTML (En cours...).
 - [Exemple de simple site Node.js sans Back-end](https://github.com/Haeresis/ResumeAtlas/).
-- Exemple de développement de site Node.js (En cours...).
+- [Exemple de développement de site Node.js](https://github.com/Haeresis/BlogAtlas/).
 
 
 
