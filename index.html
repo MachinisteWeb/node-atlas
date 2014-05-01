@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.14.3 (Beta)</p>
+<p>Version : 0.14.4 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -1220,6 +1220,14 @@ webconfig.json
         <span class="c1">// Interception possible de toutes les variables de « variation/index.js » (car on est dans le spécific « index.js »).</span>
         <span class="nx">variation</span><span class="p">.</span><span class="nx">specific</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">"Nouveau title"</span><span class="p">;</span> <span class="c1">// Redéfini un titre qui est accessible côté template via « &lt;%= specific.title ».</span>
         <span class="nx">variation</span><span class="p">.</span><span class="nx">specific</span><span class="p">.</span><span class="nx">newProperty</span> <span class="o">=</span> <span class="s2">"Nouvelle propriété"</span><span class="p">;</span> <span class="c1">// Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « &lt;%= specific.newProperty ».</span>
+
+        <span class="c1">// Interception possible de la configuration de la page courante.</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">variation</span><span class="p">.</span><span class="nx">pageUrlRewriting</span><span class="p">)</span> <span class="c1">// Retourne « / » pour « index », « /categories/ » pour categories, etc.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="cm">/* test de non existance */</span><span class="p">)</span> <span class="p">{</span> 
+            <span class="nx">variation</span><span class="p">.</span><span class="nx">pageParameters</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span> <span class="c1">// La page sera en 404.</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">variation</span><span class="p">.</span><span class="nx">pageParameters</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span> <span class="c1">// La page sera en 200.</span>
+        <span class="p">}</span>
 
         <span class="c1">// Création d'un nouvel ensemble de variation dynamique pour les templates.</span>
         <span class="nx">variation</span><span class="p">.</span><span class="nx">backend</span> <span class="o">=</span> <span class="p">{};</span> <span class="c1">// Accessible via « &lt;%= backend.&lt;propriétés&gt; %&gt; ».</span>
