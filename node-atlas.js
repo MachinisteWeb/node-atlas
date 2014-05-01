@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.14.3')
+            .version('0.14.4')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -398,10 +398,10 @@ var NA = {};
         }
     };
 
-    publics.response = function (request, response, data, pageParameters) {
+    publics.response = function (request, response, data, pageParameters, currentVariation) {
         response.writeHead(
-            pageParameters.statusCode || 200, 
-            pageParameters.mimeType || 'text/html'
+            currentVariation.pageParameters.statusCode || pageParameters.statusCode || 200, 
+            currentVariation.pageParameters.mimeType || pageParameters.mimeType || 'text/html'
         );
 
         response.write(data);
@@ -577,14 +577,14 @@ var NA = {};
 
             // Execute custom Render part.
             // Specific
-            function renderSpecific(data) {                
+            function renderSpecific(data, currentVariation) {                
                 if (typeof NA.websiteController[pageParameters.controller] !== 'undefined' &&
                     typeof NA.websiteController[pageParameters.controller].render !== 'undefined') {
                         NA.websiteController[pageParameters.controller].render({ data: data, NA: NA, request: request, response: response }, function (data) {
-                            renderTemplate(data);
+                            renderTemplate(data, currentVariation);
                         });
                 } else {
-                    renderTemplate(data);      
+                    renderTemplate(data, currentVariation);      
                 }
             }
 
@@ -604,16 +604,16 @@ var NA = {};
                     if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
                         typeof NA.websiteController[NA.webconfig.commonController].render !== 'undefined') {
                             NA.websiteController[NA.webconfig.commonController].render({ data: data, NA: NA, request: request, response: response }, function (data) {
-                                renderSpecific(data);
+                                renderSpecific(data, currentVariation);
                             });
                     } else {
-                        renderSpecific(data);
+                        renderSpecific(data, currentVariation);
                     }
                });
             }
 
             // Write file or/and send response.
-            function renderTemplate(data) {                
+            function renderTemplate(data, currentVariation) {                
 
                 // Create file and CSS.
                 if (typeof response === 'undefined' || NA.webconfig.autoGenerate) {
@@ -623,7 +623,7 @@ var NA = {};
 
                 // Run page into browser.
                 if (typeof response !== 'undefined') {
-                    NA.response(request, response, data, pageParameters);
+                    NA.response(request, response, data, pageParameters, currentVariation);
                 }
             }
             
@@ -639,6 +639,8 @@ var NA = {};
             if (request) { currentVariation.params = request.params; }
             currentVariation.common = privates.openVariation(NA.webconfig.commonVariation, currentVariation);
             currentVariation.specific = privates.openVariation(pageParameters.variation, currentVariation);
+            currentVariation.pageParameters = pageParameters;
+            currentVariation.pageUrlRewriting = path;
             currentVariation.webconfig = NA.webconfig;
 
             // Execute custom PreRender part.

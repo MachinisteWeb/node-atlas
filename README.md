@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.3 (Beta)
+Version : 0.14.4 (Beta)
 
 ## Avant-propos ##
 
@@ -1212,6 +1212,14 @@ website.index = {};
 		// Interception possible de toutes les variables de « variation/index.js » (car on est dans le spécific « index.js »).
 		variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via « <%= specific.title ».
 		variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « <%= specific.newProperty ».
+
+		// Interception possible de la configuration de la page courante.
+		console.log(variation.pageUrlRewriting) // Retourne « / » pour « index », « /categories/ » pour categories, etc.
+		if (/* test de non existance */) { 
+			variation.pageParameters.statusCode = 404; // La page sera en 404.
+		} else {
+			variation.pageParameters.statusCode = 200; // La page sera en 200.
+		}
 
 		// Création d'un nouvel ensemble de variation dynamique pour les templates.
 		variation.backend = {}; // Accessible via « <%= backend.<propriétés> %> ».
