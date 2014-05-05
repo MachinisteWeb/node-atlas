@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.4 (Beta)
+Version : 0.14.5 (Beta)
 
 ## Avant-propos ##
 

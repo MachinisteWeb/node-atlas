@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.14.4')
+            .version('0.14.5')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -126,7 +126,7 @@ var NA = {};
 		}
 
         // Change listening hostname.
-        NA.webconfig.httpHostname = process.env.IP_ADDRESS || NA.webconfig.httpHostname || 'localhost';
+        NA.webconfig.httpHostname = NA.webconfig.httpHostname || process.env.IP_ADDRESS || 'localhost';
 
         // Language and variable variation folder in function of languages.
 		if (typeof NA.webconfig.variationsRelativePath !== 'undefined') {
@@ -268,6 +268,7 @@ var NA = {};
         publics.modules.express = require('express');
         publics.modules.connect = require('connect');
         publics.modules.commander = require('commander');
+        publics.modules.compress = require('compression');
         publics.modules.open = require('open');
         publics.modules.ejs = require('ejs');
         publics.modules.mkpath = require('mkpath');
@@ -323,6 +324,7 @@ var NA = {};
     publics.startingHttpServer = function () {
         var express = NA.modules.express,
             commander = NA.modules.commander,
+            compress = NA.modules.compress,
             connect = NA.modules.connect,
             forceDomain = NA.modules.forceDomain,
             http = NA.modules.http,
@@ -332,7 +334,7 @@ var NA = {};
 
             publics = NA;
 
-            NA.server.listen(NA.webconfig.httpPort, NA.webconfig.httpHostname, function () {
+            NA.server.listen(NA.webconfig.httpPort, function () {
                 var data = {};
 
                 data.httpPort = NA.webconfig.httpPort;
@@ -346,25 +348,27 @@ var NA = {};
         
         }
 
-        publics.httpServer = express();
-        publics.server = http.createServer(NA.httpServer);
+        NA.httpServer = express();
+        NA.server = http.createServer(NA.httpServer);
 
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 
         if (!NA.configuration.generate) {
 
-            publics.httpServer.use(forceDomain({
+            NA.httpServer.use(compress());
+
+            NA.httpServer.use(forceDomain({
                 hostname: NA.webconfig.urlHostname,
                 port: NA.webconfig.urlPort,
                 type: 'permanent',
                 protocol: 'http' + ((NA.webconfig.httpSecure) ? 's' : '')
             }));
 
-            publics.httpServer.use(connect.bodyParser());
+            NA.httpServer.use(connect.bodyParser());
 
-            publics.httpServer.use(connect.cookieParser());
+            NA.httpServer.use(connect.cookieParser());
 
-            publics.httpServer.use(connect.session({
+            NA.httpServer.use(connect.session({
                 store: NA.webconfig.session.sessionStore,
                 secret: NA.webconfig.session.secret,
                 key: NA.webconfig.session.key,
@@ -394,15 +398,21 @@ var NA = {};
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 
         if (!NA.configuration.generate) {
-            NA.httpServer.use(NA.webconfig.urlRelativeSubPath, express["static"](NA.websitePhysicalPath + NA.webconfig.assetsRelativePath));
+            NA.httpServer.use(NA.webconfig.urlRelativeSubPath, express["static"](NA.websitePhysicalPath + NA.webconfig.assetsRelativePath, { maxAge: 86400000 * 30 }));
         }
     };
 
     publics.response = function (request, response, data, pageParameters, currentVariation) {
-        response.writeHead(
-            currentVariation.pageParameters.statusCode || pageParameters.statusCode || 200, 
-            currentVariation.pageParameters.mimeType || pageParameters.mimeType || 'text/html'
-        );
+        var charset = currentVariation.pageParameters.charset || pageParameters.charset || 'utf-8',
+            statusCode = currentVariation.pageParameters.statusCode || pageParameters.statusCode || 200,
+            contentType = currentVariation.pageParameters.mimeType || pageParameters.mimeType || 'text/html',
+            others = {
+                /*'Content-Length': data.length,*/
+                'Content-Type': contentType
+            };
+
+        response.charset = charset;
+        response.writeHead(statusCode, others);
 
         response.write(data);
         response.end();
@@ -738,8 +748,6 @@ var NA = {};
 
         if (!NA.configuration.generate) {
             if (NA.webconfig.indexPage) {
-
-                console.log(NA.webconfig.indexPage);
 
                 NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
                     var data = {};
