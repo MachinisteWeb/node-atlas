@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.14.5",
+  "version": "0.14.6",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "NodeAtlas allow you to create and manage HTML assets or create multilungual websites/webapps easily with Node.js.",
   "scripts": {
@@ -48,8 +48,6 @@
   "main": "server",
   "files": [
     "languages/default.json",
-    "prox-atlas/config.json",
-    "prox-atlas/prox-atlas.js",
     "LICENSE",
     "README.md"
   ],

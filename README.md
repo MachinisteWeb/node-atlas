@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.5 (Beta)
+Version : 0.14.6 (Beta)
 
 ## Avant-propos ##
 
@@ -59,7 +59,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Faire tourner NodeAtlas sur server](#faire-tourner-nodeatlas-sur-server)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
- - [ProxAtlas](#proxatlas)
+ - [Proxy](#proxy)
 
 
 ### Roadmap d'avancement du développement ###
@@ -2073,27 +2073,49 @@ Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessib
 
 
 
-### ProxAtlas ###
+### Proxy ###
 
-ProxAtlas est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).
+#### Bouncy ####
+
+Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).
 
 Vous pouvez par exemple :
 
 - lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,
 - et en plus lancer un server apache sur le port 81 
 
-et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec ProxAtlas par exemple.
+et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.
 
-Faites tourner divers sites avec ce moteur de reverse proxy :
+Voici un exemple de configuration avec Bouncy :
 
-**node-atlas/prox-atlas/prox-atlas.js**
+**global-server.js**
 
-et cette configuration associée :
+```javascript
+var bouncy = require('bouncy');
 
-**node-atlas/prox-atlas/config.json** (configurez la votre)
+var server = bouncy(function (request, response, bounce) {
+    if (request.headers.host === 'beep.example.com') {
+        bounce(7777);
+    }
+    else if (request.headers.host === 'blup.example.com') {
+        bounce(7776);
+    }
+    else if (request.headers.host === 'boop.example.com') {
+        bounce(81);
+    }
+    else {
+        response.statusCode = 404;
+        response.end('no such host');
+    }
+});
+
+server.listen(80);
+```
 
 que vous pouvez lancer avec :
 
 ```
-\> forever start </path/to/>node-atlas/prox-atlas/prox-atlas.js
+\> forever start </path/to/>global-server.js
 ```
+
+[Plus d'informations sur Bouncy](https://github.com/substack/bouncy)
