@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.14.5 (Beta)</p>
+<p>Version : 0.14.6 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -115,7 +115,7 @@
 <ul>
 <li><a href="#dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</a></li>
 <li><a href="#dans-un-environnement-unix-avec-forever">Dans un environnement Unix avec forever</a></li>
-<li><a href="#proxatlas">ProxAtlas</a></li>
+<li><a href="#proxy">Proxy</a></li>
 </ul>
 </li>
 </ul><h3>
@@ -2037,29 +2037,51 @@ site-hello-world/
 <p>Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessible sur le port 80.</p>
 
 <h3>
-<a name="proxatlas" class="anchor" href="#proxatlas"><span class="octicon octicon-link"></span></a>ProxAtlas</h3>
+<a name="proxy" class="anchor" href="#proxy"><span class="octicon octicon-link"></span></a>Proxy</h3>
 
-<p>ProxAtlas est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).</p>
+<h4>
+<a name="bouncy" class="anchor" href="#bouncy"><span class="octicon octicon-link"></span></a>Bouncy</h4>
+
+<p>Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).</p>
 
 <p>Vous pouvez par exemple :</p>
 
 <ul>
 <li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
 <li>et en plus lancer un server apache sur le port 81 </li>
-</ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec ProxAtlas par exemple.</p>
+</ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p>
 
-<p>Faites tourner divers sites avec ce moteur de reverse proxy :</p>
+<p>Voici un exemple de configuration avec Bouncy :</p>
 
-<p><strong>node-atlas/prox-atlas/prox-atlas.js</strong></p>
+<p><strong>global-server.js</strong></p>
 
-<p>et cette configuration associée :</p>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">bouncy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'bouncy'</span><span class="p">);</span>
 
-<p><strong>node-atlas/prox-atlas/config.json</strong> (configurez la votre)</p>
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">bouncy</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">bounce</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span> <span class="o">===</span> <span class="s1">'beep.example.com'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">bounce</span><span class="p">(</span><span class="mi">7777</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span> <span class="o">===</span> <span class="s1">'blup.example.com'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">bounce</span><span class="p">(</span><span class="mi">7776</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span> <span class="o">===</span> <span class="s1">'boop.example.com'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">bounce</span><span class="p">(</span><span class="mi">81</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'no such host'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+</pre></div>
 
 <p>que vous pouvez lancer avec :</p>
 
-<pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/prox-atlas/prox-atlas.js
+<pre><code>\&gt; forever start &lt;/path/to/&gt;global-server.js
 </code></pre>
+
+<p><a href="https://github.com/substack/bouncy">Plus d'informations sur Bouncy</a></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
