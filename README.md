@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.6 (Beta)
+Version : 0.14.7 (Beta)
 
 ## Avant-propos ##
 
@@ -97,16 +97,16 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 Il y a plusieurs solutions pour installer Node-Atlas :
 
-1. Télécharger NodeAtlas depuis le site officiel [NodeAtlas](https://haeresis.github.com/NodeAtlas/).
+- Télécharger NodeAtlas depuis le site officiel [NodeAtlas](https://haeresis.github.com/NodeAtlas/).
 _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
 
-2. `npm install node-atlas`
+- `npm install node-atlas`
 _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'execution de la commande._
 
-3. `npm install -g node-atlas`
+- `npm install -g node-atlas`
 _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` global._
 
-4. Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas/).
+- Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas/).
 _Ceci installera **NodeAtlas** dans le dossier d'accueil du clonage._
 
 

@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.14.6')
+            .version('0.14.7')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -290,6 +290,8 @@ var NA = {};
 
                     // Kill current process
                     process.kill(process.pid);
+                } else {
+                    console.log(error);
                 }
             });
         });
@@ -323,6 +325,7 @@ var NA = {};
 
     publics.startingHttpServer = function () {
         var express = NA.modules.express,
+            favicon = NA.modules.favicon,
             commander = NA.modules.commander,
             compress = NA.modules.compress,
             connect = NA.modules.connect,
@@ -794,7 +797,7 @@ var NA = {};
                 var dataError = {},
                 doctype = (window.document.doctype) ? window.document.doctype.toString() : "",
 
-                // If you try a more elegant way for avoid injection of <script class="jsdom" src="..."><\/script> after </body> tag, please, notify me !
+                // If you find a more elegant way for avoid injection of <script class="jsdom" src="..."><\/script> after </body> tag, please, notify me !
                 innerHTML = window.document.innerHTML.replace(/<script class=.jsdom.+><\/script><\/html>/g, "</html>");
 
                 // If source is initialment not a HTML content, keep initial data content.
