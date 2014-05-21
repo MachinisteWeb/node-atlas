@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.14.7 (Beta)</p>
+<p>Version : 0.14.8 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -118,6 +118,7 @@
 <li><a href="#proxy">Proxy</a></li>
 </ul>
 </li>
+<li><a href="#a-propos-de-l-architecture-de-nodeatlas">À propos de l'architecture de NodeAtlas</a></li>
 </ul><h3>
 <a name="roadmap-davancement-du-d%C3%A9veloppement" class="anchor" href="#roadmap-davancement-du-d%C3%A9veloppement"><span class="octicon octicon-link"></span></a>Roadmap d'avancement du développement</h3>
 
@@ -2082,6 +2083,15 @@ site-hello-world/
 </code></pre>
 
 <p><a href="https://github.com/substack/bouncy">Plus d'informations sur Bouncy</a></p>
+
+<h2>
+<a name="%C3%80-propos-de-larchitecture-de-nodeatlas" class="anchor" href="#%C3%80-propos-de-larchitecture-de-nodeatlas"><span class="octicon octicon-link"></span></a>À propos de l'architecture de NodeAtlas</h2>
+
+<p>NodeAtlas est fait de tel sorte que l'objet <code>NA</code> contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.</p>
+
+<p>Tous les messages d'erreurs se trouvent dans <code>/languages/default.json</code>. Si vous souhaitez les modifier, il suffit de dupliquer le fichier <code>default.json</code> et de le renommer en <code>fr-fr.json</code>, et de modifier la langue de l'original.</p>
+
+<p>Pour finir <a href="http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/">l'appoche publics/privates de l'architecture est expliqué dans cette article</a>.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
