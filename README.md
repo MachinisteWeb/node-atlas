@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.7 (Beta)
+Version : 0.14.8 (Beta)
 
 ## Avant-propos ##
 
@@ -60,6 +60,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
  - [Proxy](#proxy)
+- [À propos de l'architecture de NodeAtlas](#a-propos-de-l-architecture-de-nodeatlas)
 
 
 ### Roadmap d'avancement du développement ###
@@ -2119,3 +2120,15 @@ que vous pouvez lancer avec :
 ```
 
 [Plus d'informations sur Bouncy](https://github.com/substack/bouncy)
+
+
+
+
+
+## À propos de l'architecture de NodeAtlas ##
+
+NodeAtlas est fait de tel sorte que l'objet `NA` contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.
+
+Tous les messages d'erreurs se trouvent dans `/languages/default.json`. Si vous souhaitez les modifier, il suffit de dupliquer le fichier `default.json` et de le renommer en `fr-fr.json`, et de modifier la langue de l'original.
+
+Pour finir [l'appoche publics/privates de l'architecture est expliqué dans cette article](http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/).
