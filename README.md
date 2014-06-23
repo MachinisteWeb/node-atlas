@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.14.8 (Beta)
+Version : 0.15.0 (Beta)
 
 ## Avant-propos ##
 
@@ -44,7 +44,8 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer l'UrlRewriting](#g%C3%A9rer-lurlrewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
- - [Gérer les redirections](#g%C3%A9rer-les-redirections)
+ - [Gérer les redirections](#minifier-les-css-js)
+ - [Minifier les CSS/JS](#g%C3%A9rer-les-redirections)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer la source jQuery utilisée](#changer-la-source-jquery-utilis%C3%A9e)
@@ -1735,6 +1736,136 @@ Voyez l'exemple ci-dessous :
 Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
 
 Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
+
+
+
+### Minifier les CSS/JS ###
+
+Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaité. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut qu'un Bundle existe dans le Webconfig.
+
+Avec la configuration suivante :
+
+```js
+{
+	"bundles": {
+		"javascript": {
+			"files": {
+				"javascript/boot.min.js": [
+					"javascript/modernizr.js",
+					"javascript/yepnot.js",
+					"javascript/html5Shiv.js"
+				],
+				"javascript/framework.min.js": [
+					"javascript/jquery.js",
+					"javascript/jquery-ui.js",
+					"javascript/prettify.js",
+					"javascript/prettify/run_prettify.js"
+				],
+				"javascript/common.min.js": [
+					"javascript/components/extended-format-date.js",
+					"javascript/common.js"
+				]
+			}
+		},
+		"stylesheets": {
+			"files": {
+				"stylesheets/common.min.css": [
+					"stylesheets/common.css",
+					"stylesheets/common-min780.css",
+					"stylesheets/common-min1160.css"
+				]
+			}
+		}
+	},
+	"urlRewriting": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+et l'ensemble de fichier suivant :
+
+```
+assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+webconfig.json
+```
+
+vous obtiendrez les nouveau fichiers suivant :
+
+```
+assets/
+— stylesheets
+—— stylesheets/common.min.css
+— javascript
+—— javascript/boot.min.js
+—— javascript/framework.min.js
+—— javascript/common.min.js
+templates/
+— index.htm
+webconfig.json
+```
+
+Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés `enable: false` dans chaque type de Bundle.
+
+```js
+{
+	"bundles": {
+		"javascript": {
+			"enable": false,
+			"files": {
+				"javascript/boot.min.js": [
+					"javascript/modernizr.js",
+					"javascript/yepnot.js",
+					"javascript/html5Shiv.js"
+				],
+				"javascript/framework.min.js": [
+					"javascript/jquery.js",
+					"javascript/jquery-ui.js",
+					"javascript/prettify.js",
+					"javascript/prettify/run_prettify.js"
+				],
+				"javascript/common.min.js": [
+					"javascript/components/extended-format-date.js",
+					"javascript/common.js"
+				]
+			}
+		},
+		"stylesheets": {
+			"enable": false,
+			"files": {
+				"stylesheets/common.min.css": [
+					"stylesheets/common.css",
+					"stylesheets/common-min780.css",
+					"stylesheets/common-min1160.css"
+				]
+			}
+		}
+	},
+	"urlRewriting": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
 
 
 

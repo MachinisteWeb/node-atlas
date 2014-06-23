@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.14.8",
+  "version": "0.15.0",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "NodeAtlas allow you to create and manage HTML assets or create multilungual websites/webapps easily with Node.js.",
   "scripts": {
@@ -32,7 +32,7 @@
     "start": "node-atlas.js"
   },
   "dependencies": {
-    "clean-css": "2.1.x",
+    "clean-css": "2.2.x",
     "commander": "2.2.x",
     "connect": "2.14.x",
     "ejs": "1.0.x",

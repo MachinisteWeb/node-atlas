@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.14.8')
+            .version('0.15.0')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -275,6 +275,7 @@ var NA = {};
         publics.modules.jsdom = require('jsdom');
         publics.modules.uglifyJs = require('uglify-js');
         publics.modules.cleanCss = require('clean-css');
+
         publics.modules.forceDomain = require('node-force-domain');
     };
 
@@ -562,6 +563,53 @@ var NA = {};
                     console.log(exception);
                 }
                 return false;
+            }
+        }
+    };
+
+    publics.cssMinification = function () {
+        var bundles = NA.webconfig.bundles,
+            cleanCss = NA.modules.cleanCss,
+            fs = NA.modules.fs,
+            enable = true,
+            output = "";
+
+        if (bundles && bundles.stylesheets && typeof bundles.stylesheets.enable === 'boolean') {
+            enable = bundles.stylesheets.enable;
+        }
+
+        if (bundles && bundles.stylesheets && bundles.stylesheets.files && enable) {
+            for (var compressedFile in bundles.stylesheets.files) {
+                for (var i = 0; i < bundles.stylesheets.files[compressedFile].length; i++) {
+                    output += fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + bundles.stylesheets.files[compressedFile][i], 'utf-8');
+                }
+
+                output = new cleanCss().minify(output);
+                fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile, output);
+                output = "";
+            }
+        }
+    };
+
+    publics.jsObfuscation = function () {
+        var bundles = NA.webconfig.bundles,
+            uglifyJs = NA.modules.uglifyJs,
+            fs = NA.modules.fs,
+            enable = true,
+            output = "";
+
+        if (bundles && bundles.javascript && typeof bundles.javascript.enable === 'boolean') {
+            enable = bundles.javascript.enable;
+        }
+
+        if (bundles && bundles.javascript && bundles.javascript.files && enable) {
+            for (var compressedFile in bundles.javascript.files) {
+                for (var i = 0; i < bundles.javascript.files[compressedFile].length; i++) {
+                    output += uglifyJs.minify(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + bundles.javascript.files[compressedFile][i], 'utf-8').code;
+                }
+
+                fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile, output);
+                output = "";
             }
         }
     };
@@ -854,7 +902,9 @@ var NA = {};
 		    NA.lineCommandConfiguration();
 		    NA.initGlobalVarRequiredNpmModules();
 		    NA.initWebconfig(function () {
-		        NA.loadListOfExternalModules(function () {        
+		        NA.loadListOfExternalModules(function () {
+                    NA.cssMinification();
+                    NA.jsObfuscation();       
 		        	NA.startingHttpServer();
 		        	NA.templateEngineConfiguration(); 
 		        	NA.urlRewritingPages();
