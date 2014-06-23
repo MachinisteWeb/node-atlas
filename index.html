@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.14.8 (Beta)</p>
+<p>Version : 0.15.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -90,7 +90,8 @@
 <li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
 <li><a href="#g%C3%A9rer-lurlrewriting">Gérer l'UrlRewriting</a></li>
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
-<li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
+<li><a href="#minifier-les-css-js">Gérer les redirections</a></li>
+<li><a href="#g%C3%A9rer-les-redirections">Minifier les CSS/JS</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
 <li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
 <li><a href="#changer-la-source-jquery-utilis%C3%A9e">Changer la source jQuery utilisée</a></li>
@@ -1734,6 +1735,131 @@ webconfig.prod.json
 <p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p>
 
 <p>Pour le second <em>match</em> utilisez $1$, pour le troisième $2$, etc.</p>
+
+<h3>
+<a name="minifier-les-cssjs" class="anchor" href="#minifier-les-cssjs"><span class="octicon octicon-link"></span></a>Minifier les CSS/JS</h3>
+
+<p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaité. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut qu'un Bundle existe dans le Webconfig.</p>
+
+<p>Avec la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"bundles"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"javascript"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"files"</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">"javascript/boot.min.js"</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/modernizr.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/yepnot.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/html5Shiv.js"</span>
+                <span class="p">],</span>
+                <span class="s2">"javascript/framework.min.js"</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/jquery.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/jquery-ui.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/prettify.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/prettify/run_prettify.js"</span>
+                <span class="p">],</span>
+                <span class="s2">"javascript/common.min.js"</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/components/extended-format-date.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/common.js"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">"stylesheets"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"files"</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">"stylesheets/common.min.css"</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s2">"stylesheets/common.css"</span><span class="p">,</span>
+                    <span class="s2">"stylesheets/common-min780.css"</span><span class="p">,</span>
+                    <span class="s2">"stylesheets/common-min1160.css"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et l'ensemble de fichier suivant :</p>
+
+<pre><code>assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>vous obtiendrez les nouveau fichiers suivant :</p>
+
+<pre><code>assets/
+— stylesheets
+—— stylesheets/common.min.css
+— javascript
+—— javascript/boot.min.js
+—— javascript/framework.min.js
+—— javascript/common.min.js
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés <code>enable: false</code> dans chaque type de Bundle.</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"bundles"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"javascript"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"enable"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">"files"</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">"javascript/boot.min.js"</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/modernizr.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/yepnot.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/html5Shiv.js"</span>
+                <span class="p">],</span>
+                <span class="s2">"javascript/framework.min.js"</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/jquery.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/jquery-ui.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/prettify.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/prettify/run_prettify.js"</span>
+                <span class="p">],</span>
+                <span class="s2">"javascript/common.min.js"</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/components/extended-format-date.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/common.js"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">"stylesheets"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"enable"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">"files"</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">"stylesheets/common.min.css"</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s2">"stylesheets/common.css"</span><span class="p">,</span>
+                    <span class="s2">"stylesheets/common-min780.css"</span><span class="p">,</span>
+                    <span class="s2">"stylesheets/common-min1160.css"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>
 <a name="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
