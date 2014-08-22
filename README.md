@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.15.1 (Beta)
+Version : 0.16.0 (Beta)
 
 ## Avant-propos ##
 
@@ -50,6 +50,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer la source jQuery utilisée](#changer-la-source-jquery-utilis%C3%A9e)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
+ - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
 - [Commandes de lancement](#commandes-de-lancement)
  - [--directory](#--directory)
  - [--webconfig](#--webconfig)
@@ -1954,6 +1955,112 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 	}
 }
 ```
+
+
+
+### Générer les urls dynamiquement ###
+
+#### Les chemins relatifs ####
+
+Il est possible que les chemins créer à partir de votre url soit interpréter comme des sous-dossier qui n'ont en réalité aucune existance réel. Cela à pour conséquance de rendre l'adresse `<img src="media/images/example.jpg" />` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `<img src="../media/images/example.jpg" />`).
+
+Pour ne plus avoir à ce soucier de l'accès aux ressources peut importe l'url qui est demandée, il suffit de transformer toutes les urls relative tel que :
+
+```
+<link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+<!-- ... -->
+<img src="media/images/example.jpg" />
+<!-- ... -->
+<script type="text/javascript" src="javascript/common.js"></script>
+```
+
+en url absolue avec la variable `<%%>` comme ci-dessous :
+
+```
+<link rel="stylesheet" type="text/css" href="<%= urlBasePath %>stylesheets/common.css" />
+<!-- ... -->
+<img src="<%= urlBasePath %>media/images/example.jpg" />
+<!-- ... -->
+<script type="text/javascript" src="<%= urlBasePath %>javascript/common.js"></script>
+```
+
+
+#### Les chemins des templates ####
+
+En utilisant le webconfig suivant :
+
+```js
+{
+	"urlRewriting": {
+		"/index.html": {
+			"template": "index.htm"
+		},
+		"/contact.html": {
+			"template": "contact.htm"
+		}
+	}
+}
+```
+
+ainsi que le template `index.htm` correspondant
+
+```html
+<!-- ... -->
+<a href="http://localhost/index.html">Lien vers l'accueil</a>
+<a href="http://localhost/contact.html">Lien pour nous contacter</a>
+<!-- ... -->
+```
+
+je serais obliger de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :
+
+```js
+{
+	"httpPort": 7777,
+	"urlRewriting": {
+		"/home.html": {
+			"template": "index.htm"
+		},
+		"/contact-us.html": {
+			"template": "contact.htm"
+		}
+	}
+}
+```
+
+me contraindrait à modifier le template précédent comme suit :
+
+```html
+<!-- ... -->
+<a href="http://localhost:7777/home.html">Lien vers l'accueil</a>
+<a href="http://localhost:7777/contact-us.html">Lien pour nous contacter</a>
+<!-- ... -->
+```
+
+Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant sont chemin dans la propriété `url`.
+
+Avec le webconfig suivant :
+
+```js
+{
+	"urlRewriting": {
+		"index": {
+			"url": "/index.html",
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+je peux à présent écrire le lien dans le template de manière dynamique :
+
+```html
+<!-- ... -->
+<a href="<%= urlBasePath %><%= webconfig.urlRewriting.home.url.slice(1) %>">Lien vers l'accueil</a>
+<a href="<%= urlBasePath %><%= webconfig.urlRewriting.contact.url.slice(1) %>">Lien pour nous contacter</a>
+<!-- ... -->
+```
+
+*Note : `.slice(1)` permet de supprimer facilement le double `/` pour une url plus élégante*
 
 
 

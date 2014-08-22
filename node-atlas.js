@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.15.1')
+            .version('0.16.0')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -426,7 +426,14 @@ var NA = {};
         var pageParameters = options[path],
             getSupport = true,
             postSupport = true,
-            objectPath = NA.webconfig.urlRelativeSubPath + path;
+            currentPath = path,
+            objectPath;
+
+        if (pageParameters.url) {
+            currentPath = pageParameters.url;
+        }
+
+        objectPath = NA.webconfig.urlRelativeSubPath + currentPath;
 
         function redirect(optionsPath, request, response) {
             var location;
@@ -619,7 +626,12 @@ var NA = {};
             pageParameters = options[path],
             templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + pageParameters.template,
             currentVariation = {},
-            templateRenderName;
+            templateRenderName,
+            currentPath = path;
+
+        if (pageParameters.url) {
+            currentPath = pageParameters.url;
+        }
 
         publics.loadController(pageParameters.controller, function () {
 
@@ -674,11 +686,10 @@ var NA = {};
             }
 
             // Write file or/and send response.
-            function renderTemplate(data, currentVariation) {                
-
+            function renderTemplate(data, currentVariation) {
                 // Create file and CSS.
                 if (typeof response === 'undefined' || NA.webconfig.autoGenerate) {
-                    templateRenderName = pageParameters.generate || path;
+                    templateRenderName = pageParameters.generate || currentPath;
                     NA.saveTemplateRender(data, templateRenderName);
                 }
 
@@ -691,7 +702,7 @@ var NA = {};
             currentVariation.languageCode = pageParameters.languageCode || NA.webconfig.languageCode;
             currentVariation.urlBasePath = NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "") + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' : '');
 
-            currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + path;
+            currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + currentPath;
             if (request) { currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url; }
 
             currentVariation.filename = NA.variations.filename;
@@ -701,7 +712,7 @@ var NA = {};
             currentVariation.common = privates.openVariation(NA.webconfig.commonVariation, currentVariation);
             currentVariation.specific = privates.openVariation(pageParameters.variation, currentVariation);
             currentVariation.pageParameters = pageParameters;
-            currentVariation.pageUrlRewriting = path;
+            currentVariation.pageUrlRewriting = currentPath;
             currentVariation.webconfig = NA.webconfig;
 
             // Execute custom PreRender part.
@@ -806,7 +817,11 @@ var NA = {};
                         data.render = '';
 
                     for (var page in NA.webconfig.urlRewriting) {
+
                         data.page = page;
+                        if (NA.webconfig.urlRewriting[page].url) {
+                            data.page = NA.webconfig.urlRewriting[page].url;
+                        }
 
                         if (NA.webconfig.urlRewriting.hasOwnProperty(page)) {
                             data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; });
