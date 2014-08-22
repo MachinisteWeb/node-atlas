@@ -1962,9 +1962,9 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 #### Les chemins relatifs ####
 
-Il est possible que les chemins créer à partir de votre url soit interpréter comme des sous-dossier qui n'ont en réalité aucune existance réel. Cela à pour conséquance de rendre l'adresse `<img src="media/images/example.jpg" />` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `<img src="../media/images/example.jpg" />`).
+Il est possible que les chemins crées à partir de votre url soit interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse `<img src="media/images/example.jpg" />` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `<img src="../media/images/example.jpg" />`).
 
-Pour ne plus avoir à ce soucier de l'accès aux ressources peut importe l'url qui est demandée, il suffit de transformer toutes les urls relative tel que :
+Pour ne plus avoir à ce soucier de l'accès aux ressources peut importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :
 
 ```
 <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
@@ -1974,7 +1974,7 @@ Pour ne plus avoir à ce soucier de l'accès aux ressources peut importe l'url q
 <script type="text/javascript" src="javascript/common.js"></script>
 ```
 
-en url absolue avec la variable `<%%>` comme ci-dessous :
+en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 
 ```
 <link rel="stylesheet" type="text/css" href="<%= urlBasePath %>stylesheets/common.css" />
@@ -2011,7 +2011,7 @@ ainsi que le template `index.htm` correspondant
 <!-- ... -->
 ```
 
-je serais obliger de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :
+je serais obligé de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :
 
 ```js
 {
@@ -2046,6 +2046,10 @@ Avec le webconfig suivant :
 		"index": {
 			"url": "/index.html",
 			"template": "index.htm"
+		},
+		"contact": {
+			"url": "/contact.html",
+			"template": "contact.htm"
 		}
 	}
 }
@@ -2060,7 +2064,7 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 <!-- ... -->
 ```
 
-*Note : `.slice(1)` permet de supprimer facilement le double `/` pour une url plus élégante*
+*Note : `.slice(1)` permet de supprimer facilement le double `/` pour une url plus élégante.*
 
 
 
