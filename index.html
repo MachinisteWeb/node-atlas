@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.15.1 (Beta)</p>
+<p>Version : 0.16.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -96,6 +96,7 @@
 <li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
 <li><a href="#changer-la-source-jquery-utilis%C3%A9e">Changer la source jQuery utilisée</a></li>
 <li><a href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute">Changer l'url final des hostname et port d'écoute</a></li>
+<li><a href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement">Générer les urls dynamiquement</a></li>
 </ul>
 </li>
 <li>
@@ -1940,6 +1941,108 @@ webconfig.json
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+
+<h3>
+<a name="g%C3%A9n%C3%A9rer-les-urls-dynamiquement" class="anchor" href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement"><span class="octicon octicon-link"></span></a>Générer les urls dynamiquement</h3>
+
+<h4>
+<a name="les-chemins-relatifs" class="anchor" href="#les-chemins-relatifs"><span class="octicon octicon-link"></span></a>Les chemins relatifs</h4>
+
+<p>Il est possible que les chemins crées à partir de votre url soit interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse <code>&lt;img src="media/images/example.jpg" /&gt;</code> initialement accessible depuis un template affiché à <strong>http://localhost</strong><code>impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt</code><img src="../media/images/example.jpg">`).</p>
+
+<p>Pour ne plus avoir à ce soucier de l'accès aux ressources peut importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p>
+
+<pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
+&lt;!-- ... --&gt;
+&lt;img src="media/images/example.jpg" /&gt;
+&lt;!-- ... --&gt;
+&lt;script type="text/javascript" src="javascript/common.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>en urls absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p>
+
+<pre><code>&lt;link rel="stylesheet" type="text/css" href="&lt;%= urlBasePath %&gt;stylesheets/common.css" /&gt;
+&lt;!-- ... --&gt;
+&lt;img src="&lt;%= urlBasePath %&gt;media/images/example.jpg" /&gt;
+&lt;!-- ... --&gt;
+&lt;script type="text/javascript" src="&lt;%= urlBasePath %&gt;javascript/common.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h4>
+<a name="les-chemins-des-templates" class="anchor" href="#les-chemins-des-templates"><span class="octicon octicon-link"></span></a>Les chemins des templates</h4>
+
+<p>En utilisant le webconfig suivant :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/index.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/contact.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"contact.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>ainsi que le template <code>index.htm</code> correspondant</p>
+
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://localhost/index.html"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://localhost/contact.html"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
+<span class="c">&lt;!-- ... --&gt;</span>
+</pre></div>
+
+<p>je serais obligé de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/home.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"/contact-us.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"contact.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>me contraindrait à modifier le template précédent comme suit :</p>
+
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://localhost:7777/home.html"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://localhost:7777/contact-us.html"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
+<span class="c">&lt;!-- ... --&gt;</span>
+</pre></div>
+
+<p>Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant sont chemin dans la propriété <code>url</code>.</p>
+
+<p>Avec le webconfig suivant :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"index"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"/index.html"</span><span class="p">,</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">},</span>
+        <span class="s2">"contact"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"/contact.html"</span><span class="p">,</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"contact.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>je peux à présent écrire le lien dans le template de manière dynamique :</p>
+
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;&lt;%= webconfig.urlRewriting.home.url.slice(1) %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;&lt;%= webconfig.urlRewriting.contact.url.slice(1) %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
+<span class="c">&lt;!-- ... --&gt;</span>
+</pre></div>
+
+<p><em>Note : <code>.slice(1)</code> permet de supprimer facilement le double <code>/</code> pour une url plus élégante.</em></p>
 
 <h2>
 <a name="commandes-de-lancement" class="anchor" href="#commandes-de-lancement"><span class="octicon octicon-link"></span></a>Commandes de lancement</h2>
