@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.16.0 (Beta)
+Version : 0.16.1 (Beta)
 
 ## Avant-propos ##
 
@@ -80,14 +80,13 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Migration Express 3.x vers Express 4.x
  - Exemple de reverse-proxy pour plusieurs instances sur port 80
  - Lancer NodeAtlas avec un require() depuis un fichier de code.
+ - Auto Minification de Css/Js
+ - Agrégation de fichier CSS/JS pour les versions de site en production.
 
 - À venir 
  - Support d'une BDD de Session (ex: Redis) + key/secret
- - Support des modules Express possible
- - Auto Minification de Css/Js
  - Auto compression images
  - Injection automatique de feuille CSS en style inline (pour les maquettes email)
- - Agrégation de fichier CSS/JS pour les versions de site en production.
  - Auto-déploiement via transfert FTP
  - Support Sass/Less
  - ...
