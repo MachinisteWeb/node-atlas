@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.17.0 (Beta)
+Version : 0.17.1 (Beta)
 
 ## Avant-propos ##
 
@@ -48,7 +48,6 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Minifier les CSS/JS](#g%C3%A9rer-les-redirections)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
- - [Changer la source jQuery utilisée](#changer-la-source-jquery-utilis%C3%A9e)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
  - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
 - [Commandes de lancement](#commandes-de-lancement)
@@ -1917,23 +1916,6 @@ Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% i
 ```
 
 *Note : Si rien n'est précisé,* ***templateEngineOpenPattern*** *et* ***templateEngineClosePattern*** *valent respectivement* ***<%*** *et* ***%>***.
-
-
-
-### Changer la source jQuery utilisée ###
-
-NodeAtlas utilise par défaut le fichier externe « http://code.jquery.com/jquery.js » pour manipuler le DOM. Vous pouvez changer celui-ci avec cette configuration :
-
-```js
-{
-	"jQueryVersion": "./assets/javascript/jquery-1.9.0.js",
-	"urlRewriting": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
-}
-```
 
 
 

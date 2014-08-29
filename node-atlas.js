@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.17.0')
+            .version('0.17.1')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -200,9 +200,6 @@ var NA = {};
         // Change hostname and port into website url
         NA.webconfig.urlPort = NA.webconfig.urlPort || NA.webconfig.httpPort;
         NA.webconfig.urlHostname = NA.webconfig.urlHostname || NA.webconfig.httpHostname;
-
-        // For use jQuery server-side.
-        NA.webconfig.jQueryVersion = NA.webconfig.jQueryVersion || 'http://code.jquery.com/jquery.js';
 
 		NA.webconfig.urlWithoutFileName = 'http' + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + NA.webconfig.urlHostname + ((NA.webconfig.urlPort !== 80) ? ':' + NA.webconfig.urlPort : '') + '/';
     };
