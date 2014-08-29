@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.16.1')
+            .version('0.17.0')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -272,7 +272,7 @@ var NA = {};
         publics.modules.open = require('open');
         publics.modules.ejs = require('ejs');
         publics.modules.mkpath = require('mkpath');
-        publics.modules.jsdom = require('jsdom');
+        publics.modules.cheerio = require('cheerio');
         publics.modules.uglifyJs = require('uglify-js');
         publics.modules.cleanCss = require('clean-css');
 
@@ -690,6 +690,7 @@ var NA = {};
                 // Create file and CSS.
                 if (typeof response === 'undefined' || NA.webconfig.autoGenerate) {
                     templateRenderName = pageParameters.generate || currentPath;
+
                     NA.saveTemplateRender(data, templateRenderName);
                 }
 
@@ -838,55 +839,54 @@ var NA = {};
 
     NA.saveTemplateRender = function (data, templateRenderName) {
         var fs = NA.modules.fs,
-            jsdom = NA.modules.jsdom,
+            cheerio = NA.modules.cheerio,
             mkpath = NA.modules.mkpath,
             path = NA.modules.path,
             pathToSaveFileComplete = NA.websitePhysicalPath + NA.webconfig.generatesRelativePath + templateRenderName,
-            pathToSaveFile = path.dirname(pathToSaveFileComplete);
+            pathToSaveFile = path.dirname(pathToSaveFileComplete),
+            $ = cheerio.load(data),
+            deeper,
+            newBase = "";
 
-        jsdom.env(data, [NA.webconfig.jQueryVersion], function (error, window) {
-            var $ = window.$,
-                deeper = templateRenderName.split('/').length - 2,
-                newBase = "";
+        deeper = templateRenderName.split('/').length - 1;
+        console.log(templateRenderName[0]);
+        if (templateRenderName[0] === '/') {
+            deeper = templateRenderName.split('/').length - 2;
+        }
 
-            for (var i = 0; i < deeper; i++) {
-                newBase += '../';
-            }
+        for (var i = 0; i < deeper; i++) {
+            newBase += '../';
+        }
 
-            $("base").attr("href", newBase);
+        $("base").attr("href", newBase);
 
-            // Create file render.
-            mkpath(pathToSaveFile, function (error) {
-                var dataError = {},
-                doctype = (window.document.doctype) ? window.document.doctype.toString() : "",
+        // Create file render.
+        mkpath(pathToSaveFile, function (error) {
+            var dataError = {},
+                innerHTML = $.html();
 
-                // If you find a more elegant way for avoid injection of <script class="jsdom" src="..."><\/script> after </body> tag, please, notify me !
-                innerHTML = window.document.innerHTML.replace(/<script class=.jsdom.+><\/script><\/html>/g, "</html>");
+            // If source is initialment not a HTML content, keep initial data content.
+            if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
 
-                // If source is initialment not a HTML content, keep initial data content.
-                if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
+            dataError.templateRenderName = path.normalize(templateRenderName);
+            dataError.pathToSaveFile = path.normalize(pathToSaveFile);
 
-                dataError.templateRenderName = path.normalize(templateRenderName);
-                dataError.pathToSaveFile = path.normalize(pathToSaveFile);
+            if (error) throw error;
 
-                if (error) throw error;
-
-                fs.writeFile(pathToSaveFileComplete, doctype + innerHTML, function (error) {
-                    if (error) {
-                        if (error.code === 'EISDIR') {
-                            console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                        } else {
-                            throw error;
-                        }
+            fs.writeFile(pathToSaveFileComplete, innerHTML, function (error) {
+                if (error) {
+                    if (error.code === 'EISDIR') {
+                        console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                    } else {
+                        throw error;
                     }
+                }
 
-                    console.log(NA.appLabels.templateGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                });
-
+                console.log(NA.appLabels.templateGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
             });
+
         });
     };
-
 })(NA);
 
 
