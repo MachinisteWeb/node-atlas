@@ -104,11 +104,11 @@ Il y a plusieurs solutions pour installer Node-Atlas :
 
    **Lancez au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/node-atlas.js`, pour installer les _node_modules_.**
 
-- `npm install node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans un projet)
+- `npm install node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans un projet).
 
    _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'execution de la commande._
 
-- `npm install -g node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans beaucoup de projet)
+- `npm install -g node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans beaucoup de projet).
 
    _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` global._
 
