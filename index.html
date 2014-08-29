@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.17.0 (Beta)</p>
+<p>Version : 0.17.1 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -94,7 +94,6 @@
 <li><a href="#g%C3%A9rer-les-redirections">Minifier les CSS/JS</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
 <li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
-<li><a href="#changer-la-source-jquery-utilis%C3%A9e">Changer la source jQuery utilisée</a></li>
 <li><a href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute">Changer l'url final des hostname et port d'écoute</a></li>
 <li><a href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement">Générer les urls dynamiquement</a></li>
 </ul>
@@ -1907,21 +1906,6 @@ webconfig.json
 </pre></div>
 
 <p><em>Note : Si rien n'est précisé,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>et</em> <strong><em>templateEngineClosePattern</em></strong> <em>valent respectivement</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
-
-<h3>
-<a name="changer-la-source-jquery-utilis%C3%A9e" class="anchor" href="#changer-la-source-jquery-utilis%C3%A9e"><span class="octicon octicon-link"></span></a>Changer la source jQuery utilisée</h3>
-
-<p>NodeAtlas utilise par défaut le fichier externe « <a href="http://code.jquery.com/jquery.js">http://code.jquery.com/jquery.js</a> » pour manipuler le DOM. Vous pouvez changer celui-ci avec cette configuration :</p>
-
-<div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"jQueryVersion"</span><span class="o">:</span> <span class="s2">"./assets/javascript/jquery-1.9.0.js"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
 
 <h3>
 <a name="changer-lurl-final-des-hostname-et-port-d%C3%A9coute" class="anchor" href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute"><span class="octicon octicon-link"></span></a>Changer l'url final des hostname et port d'écoute</h3>
