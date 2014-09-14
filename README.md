@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.18.0 (Beta)
+Version : 0.18.1 (Beta)
 
 ## Avant-propos ##
 
@@ -1918,10 +1918,10 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 
 NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :
 
-- Key `nodeatlas.sid`
-- Secret `1234567890bépo`
+- Key : `nodeatlas.sid`
+- Secret : `1234567890bépo`
 
-qui permette à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.
+qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.
 
 Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de `webconfig.json` suivant :
 
