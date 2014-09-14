@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.17.2 (Beta)</p>
+<p>Version : 0.18.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -93,6 +93,7 @@
 <li><a href="#minifier-les-css-js">Gérer les redirections</a></li>
 <li><a href="#g%C3%A9rer-les-redirections">Minifier les CSS/JS</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
+<li><a href="#changer-les-param%C3%A8tres-de-session">Changer les paramètres de Session</a></li>
 <li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
 <li><a href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute">Changer l'url final des hostname et port d'écoute</a></li>
 <li><a href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement">Générer les urls dynamiquement</a></li>
@@ -276,6 +277,7 @@
 <p>Ci-dessous un exemple de configuration.</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"templatesRelativePath"</span><span class="o">:</span> <span class="s2">"templates/"</span><span class="p">,</span>
     <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
@@ -317,7 +319,9 @@ webconfig.json
 <em>http://localhost/member-without-extension/</em> (ne répondra pas si demandée en GET)</li>
 <li>
 <em>http://localhost/error.html</em> (renvoi du contenu plein texte (sans balise) avec une erreur 404)</li>
-</ul><h3>
+</ul><p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+
+<h3>
 <a name="h%C3%A9berger-des-images-polices-css-js-etc" class="anchor" href="#h%C3%A9berger-des-images-polices-css-js-etc"><span class="octicon octicon-link"></span></a>Héberger des images, polices, CSS, JS, etc.</h3>
 
 <p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p>
@@ -354,7 +358,7 @@ webconfig.json
 <li><em>http://localhost/stylesheets/common.css</em></li>
 <li><em>http://localhost/javascript/common.js</em></li>
 <li><em>http://localhost/media/images/logo.png</em></li>
-</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>assets/</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom du répertoire.</em></p>
+</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>assets/</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
 <a name="g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code" class="anchor" href="#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code"><span class="octicon octicon-link"></span></a>Gérer des inclusions pour éviter la redondance du code</h3>
@@ -439,7 +443,7 @@ webconfig.json
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom de répertoire.</em></p>
+</ul><p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
 
 <h3>
 <a name="g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template" class="anchor" href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template"><span class="octicon octicon-link"></span></a>Gérer des variations au sein d'un même template</h3>
@@ -555,7 +559,7 @@ webconfig.json
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom de répertoire.</em></p>
+</ul><p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
 
 <h4>
 <a name="pour-le-multilingue" class="anchor" href="#pour-le-multilingue"><span class="octicon octicon-link"></span></a>Pour le multilingue</h4>
@@ -841,7 +845,7 @@ webconfig.json
 <li><em>http://localhost/liste-des-membres/</em></li>
 </ul><p>La génération s'enclenche quand on affiche la page uniquement parce que <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.</p>
 
-<p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generatesRelativePath/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom répertoire.</em></p>
+<p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generates/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p>
 
 <h4>
 <a name="g%C3%A9n%C3%A9rer-un-site-sans-partie-serveur" class="anchor" href="#g%C3%A9n%C3%A9rer-un-site-sans-partie-serveur"><span class="octicon octicon-link"></span></a>Générer un site sans partie serveur</h4>
@@ -1050,7 +1054,7 @@ webconfig.json
             <span class="nx">data</span><span class="p">.</span><span class="nx">sessionID</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cookie</span><span class="p">[</span><span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">key</span><span class="p">];</span>
 
             <span class="c1">// Accepter le cookie.</span>
-            <span class="nx">NA</span><span class="p">.</span><span class="nx">webconfig</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">sessionStore</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">sessionID</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">NA</span><span class="p">.</span><span class="nx">sessionStore</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">sessionID</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">||</span> <span class="o">!</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nx">accept</span><span class="p">(</span><span class="s2">"Error"</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
                 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1906,6 +1910,55 @@ webconfig.json
 <p><em>Note : Si rien n'est précisé,</em> <strong><em>getSupport</em></strong> <em>et</em> <strong><em>postSupport</em></strong> <em>sont à</em> <strong><em>true</em></strong> <em>au niveau global et par page.</em></p>
 
 <h3>
+<a name="changer-les-param%C3%A8tres-de-session" class="anchor" href="#changer-les-param%C3%A8tres-de-session"><span class="octicon octicon-link"></span></a>Changer les paramètres de Session</h3>
+
+<h4>
+<a name="cl%C3%A9-et-secret" class="anchor" href="#cl%C3%A9-et-secret"><span class="octicon octicon-link"></span></a>Clé et Secret</h4>
+
+<p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p>
+
+<ul>
+<li>Key <code>nodeatlas.sid</code>
+</li>
+<li>Secret <code>1234567890bépo</code>
+</li>
+</ul><p>qui permette à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p>
+
+<p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="nx">sessionKey</span><span class="o">:</span> <span class="s2">"clé personnelle"</span><span class="p">,</span>
+    <span class="nx">sessionSecret</span><span class="o">:</span> <span class="s2">"secret personnel"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>NodeAtlas utilise également un objes de stockage mémoire (MemoryStore) qui stoques les informations dans la RAM du serveur.</p>
+
+<h4>
+<a name="autres-param%C3%A8tres" class="anchor" href="#autres-param%C3%A8tres"><span class="octicon octicon-link"></span></a>Autres paramètres</h4>
+
+<p>Il est possible de changer l'intégralité des paramètres des sessions (sauf le MemoryStore) en utilisant la configuration de <code>webconfig.json</code> suivante :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="nx">session</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">key</span><span class="o">:</span> <span class="s2">"clé personnelle"</span><span class="p">,</span>
+        <span class="nx">secret</span><span class="o">:</span> <span class="s2">"secret personnel"</span><span class="p">,</span>
+        <span class="nx">cookie</span><span class="o">:</span> <span class="p">{</span> 
+            <span class="nx">path</span><span class="o">:</span> <span class="s1">'/'</span><span class="p">,</span> 
+            <span class="nx">httpOnly</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> 
+            <span class="nx">secure</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> 
+            <span class="nx">maxAge</span><span class="o">:</span> <span class="kc">null</span>
+        <span class="p">},</span>
+        <span class="p">...,</span>
+        <span class="p">...,</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>L'intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p>
+
+<h3>
 <a name="changer-les-chevrons---du-moteur-de-template" class="anchor" href="#changer-les-chevrons---du-moteur-de-template"><span class="octicon octicon-link"></span></a>Changer les chevrons &lt;% %&gt; du moteur de template</h3>
 
 <p>Par exemple, pour inclure une partie de fichier on utilise l'instruction <strong><em>&lt;% include head.htm %&gt;</em></strong>. Il serait possible de le faire avec <strong><em>{{ include head.htm }}</em></strong> avec la configuration ci-dessous :</p>
@@ -1920,6 +1973,8 @@ webconfig.json
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+
+<p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
 
 <p><em>Note : Si rien n'est précisé,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>et</em> <strong><em>templateEngineClosePattern</em></strong> <em>valent respectivement</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
 
