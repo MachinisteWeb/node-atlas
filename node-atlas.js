@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.17.2')
+            .version('0.18.0')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -178,17 +178,6 @@ var NA = {};
         }
 
         // Session Initialisation.
-        if (typeof NA.webconfig.session !== 'undefined') {
-            // Custom Session will be Here.
-            NA.webconfig.session.sessionStore = new connect.session.MemoryStore();
-            (NA.webconfig.session.secret) ? NA.webconfig.session.secret : '1234567890bépo'; 
-            (NA.webconfig.session.key) ? NA.webconfig.session.key : 'nodeatlas.sid'; 
-        } else {
-            NA.webconfig.session = {};
-            NA.webconfig.session.sessionStore = new connect.session.MemoryStore();
-            NA.webconfig.session.secret = '1234567890bépo';
-            NA.webconfig.session.key = 'nodeatlas.sid';
-        }
 
         // Change listening port.
 		NA.webconfig.httpPort = process.env.PORT || NA.webconfig.httpPort || 80;
@@ -263,6 +252,9 @@ var NA = {};
 
     privates.loadListOfRequiredNpmModules = function () {
         publics.modules.express = require('express');
+        publics.modules.session = require('express-session');
+        publics.modules.bodyParser = require('body-parser');
+        publics.modules.cookieParser = require('cookie-parser');
         publics.modules.connect = require('connect');
         publics.modules.commander = require('commander');
         publics.modules.compress = require('compression');
@@ -327,9 +319,13 @@ var NA = {};
             commander = NA.modules.commander,
             compress = NA.modules.compress,
             connect = NA.modules.connect,
+            session = NA.modules.session,
+            bodyParser = NA.modules.bodyParser,
+            cookieParser = NA.modules.cookieParser,
             forceDomain = NA.modules.forceDomain,
             http = NA.modules.http,
-            open = NA.modules.open;
+            open = NA.modules.open,
+            optionSession = {};
 
         function atlasMiddlewares(NA) {
 
@@ -365,20 +361,25 @@ var NA = {};
                 protocol: 'http' + ((NA.webconfig.httpSecure) ? 's' : '')
             }));
 
-            NA.httpServer.use(connect.bodyParser());
+            NA.httpServer.use(bodyParser.urlencoded({ extended: true }));
+            NA.httpServer.use(bodyParser.json());
+            NA.httpServer.use(cookieParser());
 
-            NA.httpServer.use(connect.cookieParser());
+            // Session management
+            NA.sessionStore = new session.MemoryStore();
 
-            NA.httpServer.use(connect.session({
-                store: NA.webconfig.session.sessionStore,
-                secret: NA.webconfig.session.secret,
-                key: NA.webconfig.session.key,
-                cookie: {
-                    'path': '/',
-                    'httpOnly': true,
-                    maxAge: 60 * 60 * 1000
-                }
-            }));
+            optionSession.key = NA.webconfig.sessionKey || 'nodeatlas.sid',
+            optionSession.secret = NA.webconfig.sessionSecret || '1234567890bépo',
+            optionSession.saveUninitialized = true,
+            optionSession.resave = true
+            if (NA.webconfig.session) {
+                optionSession = NA.webconfig.session;
+            }
+            optionSession.store = NA.sessionStore;
+
+            NA.webconfig.session = optionSession;
+
+            NA.httpServer.use(session(optionSession));
 
             if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
                 typeof NA.websiteController[NA.webconfig.commonController].setConfigurations !== 'undefined') {

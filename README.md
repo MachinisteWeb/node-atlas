@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.17.2 (Beta)
+Version : 0.18.0 (Beta)
 
 ## Avant-propos ##
 
@@ -47,6 +47,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer les redirections](#minifier-les-css-js)
  - [Minifier les CSS/JS](#g%C3%A9rer-les-redirections)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
+ - [Changer les paramètres de Session](#changer-les-param%C3%A8tres-de-session)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
  - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
@@ -220,6 +221,7 @@ Ci-dessous un exemple de configuration.
 
 ```js
 {
+	"templatesRelativePath": "templates/",
 	"urlRewriting": {
 		"/": {
 			"template": "index.htm"
@@ -257,6 +259,9 @@ aux adresses :
 - *http://localhost/member.html* (ne répondra pas si demandée en POST)
 - *http://localhost/member-without-extension/* (ne répondra pas si demandée en GET)
 - *http://localhost/error.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404)
+
+*Note : Si* ***templatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***templates/***. ***templatesRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+
 
 
 
@@ -298,7 +303,7 @@ vous aurez accès aux adresses :
 - *http://localhost/javascript/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***assets/***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom du répertoire.*
+*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***assets/***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -390,7 +395,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components/***. ***componentsRelativePath*** *est donc utile seulement pour changer le nom de répertoire.*
+*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components/***. ***componentsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
 
@@ -514,7 +519,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien* ***variations/***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom de répertoire.*
+*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien* ***variations/***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
 #### Pour le multilingue ####
@@ -815,7 +820,7 @@ en se rendant aux adresses :
 
 La génération s'enclenche quand on affiche la page uniquement parce que ***autoGenerate*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
 
-*Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generatesRelativePath/***. ***generatesRelativePath*** *est donc utile seulement pour changer le nom répertoire.*
+*Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generates/***. ***generatesRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
 
 
 #### Générer un site sans partie serveur ####
@@ -1031,7 +1036,7 @@ var website = {};
             data.sessionID = data.cookie[NA.webconfig.session.key];
 
 			// Accepter le cookie.
-            NA.webconfig.session.sessionStore.load(data.sessionID, function (error, session) {
+            NA.sessionStore.load(data.sessionID, function (error, session) {
                 if (error || !session) {
                     accept("Error", false);
                 } else {
@@ -1907,6 +1912,54 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 
 
 
+### Changer les paramètres de Session ###
+
+#### Clé et Secret ####
+
+NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :
+
+- Key `nodeatlas.sid`
+- Secret `1234567890bépo`
+
+qui permette à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.
+
+Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de `webconfig.json` suivant :
+
+```js
+{
+	sessionKey: "clé personnelle",
+	sessionSecret: "secret personnel"
+}
+```
+
+NodeAtlas utilise également un objes de stockage mémoire (MemoryStore) qui stoques les informations dans la RAM du serveur.
+
+#### Autres paramètres ####
+
+Il est possible de changer l'intégralité des paramètres des sessions (sauf le MemoryStore) en utilisant la configuration de `webconfig.json` suivante :
+
+```js
+{
+	session: {
+		key: "clé personnelle",
+		secret: "secret personnel",
+		cookie: { 
+			path: '/', 
+			httpOnly: true, 
+			secure: false, 
+			maxAge: null
+		},
+		...,
+		...,
+		...
+	}
+}
+```
+
+L'intégralité de la configuration possible se trouve sur la documentation du module [express-session](https://github.com/expressjs/session).
+
+
+
 ### Changer les chevrons <% %> du moteur de template ###
 
 Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% include head.htm %>***. Il serait possible de le faire avec ***{{ include head.htm }}*** avec la configuration ci-dessous :
@@ -1922,6 +1975,8 @@ Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% i
 	}
 }
 ```
+
+Pour tout savoir sur les possibilités du moteur de template consulter la documentation [ejs](https://github.com/visionmedia/ejs)
 
 *Note : Si rien n'est précisé,* ***templateEngineOpenPattern*** *et* ***templateEngineClosePattern*** *valent respectivement* ***<%*** *et* ***%>***.
 
