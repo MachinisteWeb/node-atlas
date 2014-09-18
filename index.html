@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.18.2 (Beta)</p>
+<p>Version : 0.19.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -92,8 +92,9 @@
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
 <li><a href="#minifier-les-css-js">Gérer les redirections</a></li>
 <li><a href="#g%C3%A9rer-les-redirections">Minifier les CSS/JS</a></li>
+<li><a href="#changer-les-param%C3%A8tres-des-sessions">Changer les paramètres des Sessions</a></li>
+<li><a href="#stockage-externe-des-sessions">Stockage externe des Sessions</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
-<li><a href="#changer-les-param%C3%A8tres-de-session">Changer les paramètres de Session</a></li>
 <li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
 <li><a href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute">Changer l'url final des hostname et port d'écoute</a></li>
 <li><a href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement">Générer les urls dynamiquement</a></li>
@@ -1910,7 +1911,7 @@ webconfig.json
 <p><em>Note : Si rien n'est précisé,</em> <strong><em>getSupport</em></strong> <em>et</em> <strong><em>postSupport</em></strong> <em>sont à</em> <strong><em>true</em></strong> <em>au niveau global et par page.</em></p>
 
 <h3>
-<a name="changer-les-param%C3%A8tres-de-session" class="anchor" href="#changer-les-param%C3%A8tres-de-session"><span class="octicon octicon-link"></span></a>Changer les paramètres de Session</h3>
+<a name="changer-les-param%C3%A8tres-des-sessions" class="anchor" href="#changer-les-param%C3%A8tres-des-sessions"><span class="octicon octicon-link"></span></a>Changer les paramètres des Sessions</h3>
 
 <h4>
 <a name="cl%C3%A9-et-secret" class="anchor" href="#cl%C3%A9-et-secret"><span class="octicon octicon-link"></span></a>Clé et Secret</h4>
@@ -1957,6 +1958,87 @@ webconfig.json
 </pre></div>
 
 <p>L'intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p>
+
+<h3>
+<a name="stockage-externe-des-sessions" class="anchor" href="#stockage-externe-des-sessions"><span class="octicon octicon-link"></span></a>Stockage externe des Sessions</h3>
+
+<p>Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p>
+
+<p>Pour résoudre ce soucis, il convient de prendre en charge l'enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p>
+
+<p>Pour cela il suffit d'utiliser la fonction <code>setSessions</code> dans le fichier <code>controllers/common.js</code> de la <a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">partie Back-end</a>.</p>
+
+<h4>
+<a name="session-g%C3%A9r%C3%A9es-avec-redis" class="anchor" href="#session-g%C3%A9r%C3%A9es-avec-redis"><span class="octicon octicon-link"></span></a>Session gérées avec Redis</h4>
+
+<p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans Redis en local.</p>
+
+<pre><code>var website = {};
+
+(function (publics) {
+    "use strict";
+
+    publics.loadModules = function (NA) {
+        var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
+
+        NA.modules.RedisStore = require(modulePath + 'connect-redis');
+
+        return NA;
+    };
+
+    publics.setSessions = function (NA, callback) {
+        var session = NA.modules.session,
+            RedisStore = NA.modules.RedisStore(session);
+
+        NA.sessionStore = new RedisStore();
+
+        callback(NA);
+    };  
+
+}(website));
+
+exports.loadModules = website.loadModules;
+exports.setSessions = website.setSessions;
+</code></pre>
+
+<p>Plus d'informations sur <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a>.</p>
+
+<h4>
+<a name="session-g%C3%A9r%C3%A9es-avec-mongodb" class="anchor" href="#session-g%C3%A9r%C3%A9es-avec-mongodb"><span class="octicon octicon-link"></span></a>Session gérées avec MongoDB</h4>
+
+<p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans la database <code>sessions</code> d'une MongoDB locale.</p>
+
+<pre><code>var website = {};
+
+(function (publics) {
+    "use strict";
+
+    publics.loadModules = function (NA) {
+        var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
+
+        NA.modules.MongoStore = require(modulePath + 'connect-mongo');
+
+        return NA;
+    };
+
+    publics.setSessions = function (NA, callback) {
+        var session = NA.modules.session,
+            MongoStore = NA.modules.MongoStore(session);
+
+        NA.sessionStore = new MongoStore({
+            db: 'sessions'
+        });
+
+        callback(NA);
+    };  
+
+}(website));
+
+exports.loadModules = website.loadModules;
+exports.setSessions = website.setSessions;
+</code></pre>
+
+<p>Plus d'informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p>
 
 <h3>
 <a name="changer-les-chevrons---du-moteur-de-template" class="anchor" href="#changer-les-chevrons---du-moteur-de-template"><span class="octicon octicon-link"></span></a>Changer les chevrons &lt;% %&gt; du moteur de template</h3>
