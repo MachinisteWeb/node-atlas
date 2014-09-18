@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.18.1')
+            .version('0.18.2')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -699,7 +699,8 @@ var NA = {};
             }
             
             currentVariation.languageCode = pageParameters.languageCode || NA.webconfig.languageCode;
-            currentVariation.urlBasePath = NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "") + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' : '');
+            currentVariation.urlBasePathSlice = NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "");
+            currentVariation.urlBasePath = currentVariation.urlBasePathSlice + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' : '');
 
             currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + currentPath;
             if (request) { currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url; }

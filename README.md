@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.18.1 (Beta)
+Version : 0.18.2 (Beta)
 
 ## Avant-propos ##
 
@@ -2004,11 +2004,11 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 ### Générer les urls dynamiquement ###
 
-#### Les chemins relatifs ####
+#### Les chemins relatifs en absolue ####
 
-Il est possible que les chemins crées à partir de votre url soit interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse `<img src="media/images/example.jpg" />` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `<img src="../media/images/example.jpg" />`).
+Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse `<img src="media/images/example.jpg" />` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `<img src="../media/images/example.jpg" />`).
 
-Pour ne plus avoir à ce soucier de l'accès aux ressources peut importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :
+Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :
 
 ```
 <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
@@ -2028,6 +2028,33 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 <script type="text/javascript" src="<%= urlBasePath %>javascript/common.js"></script>
 ```
 
+À noter que dans le cas de la configuration suivante :
+
+```js
+{
+	"urlRewriting": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+`urlBasePath` retourne `http://localhost/` alors que dans celle-ci :
+
+```js
+{
+	"httpPort": 7777,
+    "urlRelativeSubPath": "/sub/folder",
+	"urlRewriting": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+`urlBasePath` retourne `http://localhost:7777/sub/folder/`.
 
 #### Les chemins des templates ####
 
@@ -2101,16 +2128,38 @@ Avec le webconfig suivant :
 
 je peux à présent écrire le lien dans le template de manière dynamique :
 
-```html
+1. comme suit
+
+   ```html
 <!-- ... -->
 <a href="<%= urlBasePath %><%= webconfig.urlRewriting.home.url.slice(1) %>">Lien vers l'accueil</a>
 <a href="<%= urlBasePath %><%= webconfig.urlRewriting.contact.url.slice(1) %>">Lien pour nous contacter</a>
 <!-- ... -->
 ```
 
-*Note : `.slice(1)` permet de supprimer facilement le double `/` pour une url plus élégante.*
+   *Note : `.slice(1)` permet de supprimer facilement le double `/` pour une url fonctionnelle.*
 
+2. ou comme suit
 
+   ```html
+<!-- ... -->
+<a href="<%= urlBasePath %>.<%= webconfig.urlRewriting.home.url %>">Lien vers l'accueil</a>
+<a href="<%= urlBasePath %>.<%= webconfig.urlRewriting.contact.url %>">Lien pour nous contacter</a>
+<!-- ... -->
+```
+
+   *Note : Cela donnerait par exemple `http://localhost/./home.html`, ce qui est une url fonctionnelle.*
+
+3. ou comme suit
+
+   ```html
+<!-- ... -->
+<a href="<%= urlBasePathSlice %><%= webconfig.urlRewriting.home.url %>">Lien vers l'accueil</a>
+<a href="<%= urlBasePathSlice %><%= webconfig.urlRewriting.contact.url %>">Lien pour nous contacter</a>
+<!-- ... -->
+```
+
+   *Note : `urlBasePathSlice` renvoyant `http://localhost` au lieu de  `http://localhost/` ou encore `http://localhost:7777/sub/folder` au lieu de `http://localhost:7777/sub/folder/`.*
 
 
 
