@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.18.1 (Beta)</p>
+<p>Version : 0.18.2 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -2000,11 +2000,11 @@ webconfig.json
 <a name="g%C3%A9n%C3%A9rer-les-urls-dynamiquement" class="anchor" href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement"><span class="octicon octicon-link"></span></a>Générer les urls dynamiquement</h3>
 
 <h4>
-<a name="les-chemins-relatifs" class="anchor" href="#les-chemins-relatifs"><span class="octicon octicon-link"></span></a>Les chemins relatifs</h4>
+<a name="les-chemins-relatifs-en-absolue" class="anchor" href="#les-chemins-relatifs-en-absolue"><span class="octicon octicon-link"></span></a>Les chemins relatifs en absolue</h4>
 
-<p>Il est possible que les chemins crées à partir de votre url soit interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse <code>&lt;img src="media/images/example.jpg" /&gt;</code> initialement accessible depuis un template affiché à <strong>http://localhost</strong><code>impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt</code><img src="../media/images/example.jpg">`).</p>
+<p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse <code>&lt;img src="media/images/example.jpg" /&gt;</code> initialement accessible depuis un template affiché à <strong>http://localhost</strong><code>impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt</code><img src="../media/images/example.jpg">`).</p>
 
-<p>Pour ne plus avoir à ce soucier de l'accès aux ressources peut importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p>
+<p>Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p>
 
 <pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
 &lt;!-- ... --&gt;
@@ -2021,6 +2021,32 @@ webconfig.json
 &lt;!-- ... --&gt;
 &lt;script type="text/javascript" src="&lt;%= urlBasePath %&gt;javascript/common.js"&gt;&lt;/script&gt;
 </code></pre>
+
+<p>À noter que dans le cas de la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><code>urlBasePath</code> retourne <code>http://localhost/</code> alors que dans celle-ci :</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">"/sub/folder"</span><span class="p">,</span>
+    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><code>urlBasePath</code> retourne <code>http://localhost:7777/sub/folder/</code>.</p>
 
 <h4>
 <a name="les-chemins-des-templates" class="anchor" href="#les-chemins-des-templates"><span class="octicon octicon-link"></span></a>Les chemins des templates</h4>
@@ -2090,15 +2116,41 @@ webconfig.json
 
 <p>je peux à présent écrire le lien dans le template de manière dynamique :</p>
 
+<ol>
+<li>
+<p>comme suit</p>
+
 <div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
 <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;&lt;%= webconfig.urlRewriting.home.url.slice(1) %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
 <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;&lt;%= webconfig.urlRewriting.contact.url.slice(1) %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
 <span class="c">&lt;!-- ... --&gt;</span>
 </pre></div>
 
-<p><em>Note : <code>.slice(1)</code> permet de supprimer facilement le double <code>/</code> pour une url plus élégante.</em></p>
+<p><em>Note : <code>.slice(1)</code> permet de supprimer facilement le double <code>/</code> pour une url fonctionnelle.</em></p>
+</li>
+<li>
+<p>ou comme suit</p>
 
-<h2>
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;.&lt;%= webconfig.urlRewriting.home.url %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;.&lt;%= webconfig.urlRewriting.contact.url %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
+<span class="c">&lt;!-- ... --&gt;</span>
+</pre></div>
+
+<p><em>Note : Cela donnerait par exemple <code>http://localhost/./home.html</code>, ce qui est une url fonctionnelle.</em></p>
+</li>
+<li>
+<p>ou comme suit</p>
+
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.urlRewriting.home.url %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.urlRewriting.contact.url %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
+<span class="c">&lt;!-- ... --&gt;</span>
+</pre></div>
+
+<p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de  <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
+</li>
+</ol><h2>
 <a name="commandes-de-lancement" class="anchor" href="#commandes-de-lancement"><span class="octicon octicon-link"></span></a>Commandes de lancement</h2>
 
 <p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
