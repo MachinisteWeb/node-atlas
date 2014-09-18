@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.18.2 (Beta)
+Version : 0.19.0 (Beta)
 
 ## Avant-propos ##
 
@@ -46,8 +46,9 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#minifier-les-css-js)
  - [Minifier les CSS/JS](#g%C3%A9rer-les-redirections)
+ - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
+ - [Stockage externe des Sessions](#stockage-externe-des-sessions)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
- - [Changer les paramètres de Session](#changer-les-param%C3%A8tres-de-session)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
  - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
@@ -1912,7 +1913,7 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 
 
 
-### Changer les paramètres de Session ###
+### Changer les paramètres des Sessions ###
 
 #### Clé et Secret ####
 
@@ -1957,6 +1958,89 @@ Il est possible de changer l'intégralité des paramètres des sessions (sauf le
 ```
 
 L'intégralité de la configuration possible se trouve sur la documentation du module [express-session](https://github.com/expressjs/session).
+
+
+
+### Stockage externe des Sessions ###
+
+Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.
+
+Pour résoudre ce soucis, il convient de prendre en charge l'enregistrement des sessions via une base No SQL tel que `Redis` ou `MongoBD`.
+
+Pour cela il suffit d'utiliser la fonction `setSessions` dans le fichier `controllers/common.js` de la [partie Back-end](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end).
+
+#### Session gérées avec Redis ####
+
+Implémenter le code suivant dans `controllers/common.js` pour stocker vos sessions dans Redis en local.
+
+```
+var website = {};
+
+(function (publics) {
+	"use strict";
+
+	publics.loadModules = function (NA) {
+		var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
+
+		NA.modules.RedisStore = require(modulePath + 'connect-redis');
+
+		return NA;
+	};
+
+	publics.setSessions = function (NA, callback) {
+        var session = NA.modules.session,
+        	RedisStore = NA.modules.RedisStore(session);
+        
+        NA.sessionStore = new RedisStore();
+
+		callback(NA);
+	};	
+
+}(website));
+
+exports.loadModules = website.loadModules;
+exports.setSessions = website.setSessions;
+```
+
+Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-redis).
+
+
+#### Session gérées avec MongoDB ####
+
+Implémenter le code suivant dans `controllers/common.js` pour stocker vos sessions dans la database `sessions` d'une MongoDB locale.
+
+```
+var website = {};
+
+(function (publics) {
+	"use strict";
+
+	publics.loadModules = function (NA) {
+		var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
+
+		NA.modules.MongoStore = require(modulePath + 'connect-mongo');
+
+		return NA;
+	};
+
+	publics.setSessions = function (NA, callback) {
+        var session = NA.modules.session,
+        	MongoStore = NA.modules.MongoStore(session);
+        
+        NA.sessionStore = new MongoStore({
+			db: 'sessions'
+	    });
+
+		callback(NA);
+	};	
+
+}(website));
+
+exports.loadModules = website.loadModules;
+exports.setSessions = website.setSessions;
+```
+
+Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mongo).
 
 
 

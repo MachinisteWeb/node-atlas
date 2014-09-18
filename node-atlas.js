@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.18.2')
+            .version('0.19.0')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -327,6 +327,24 @@ var NA = {};
             open = NA.modules.open,
             optionSession = {};
 
+        function atlasSessions(NA) {
+
+            publics = NA;
+
+            optionSession.store = NA.sessionStore;
+            NA.webconfig.session = optionSession;
+            NA.httpServer.use(session(optionSession));
+
+            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
+                typeof NA.websiteController[NA.webconfig.commonController].setConfigurations !== 'undefined') {
+                    NA.websiteController[NA.webconfig.commonController].setConfigurations(NA, function (NA) {
+                        atlasMiddlewares(NA);
+                    });
+            } else {
+                atlasMiddlewares(NA);
+            }
+        }
+
         function atlasMiddlewares(NA) {
 
             publics = NA;
@@ -365,9 +383,6 @@ var NA = {};
             NA.httpServer.use(bodyParser.json());
             NA.httpServer.use(cookieParser());
 
-            // Session management
-            NA.sessionStore = new session.MemoryStore();
-
             optionSession.key = NA.webconfig.sessionKey || 'nodeatlas.sid',
             optionSession.secret = NA.webconfig.sessionSecret || '1234567890bépo',
             optionSession.saveUninitialized = true,
@@ -375,21 +390,17 @@ var NA = {};
             if (NA.webconfig.session) {
                 optionSession = NA.webconfig.session;
             }
-            optionSession.store = NA.sessionStore;
 
-            NA.webconfig.session = optionSession;
-
-            NA.httpServer.use(session(optionSession));
+            NA.sessionStore = new session.MemoryStore();
 
             if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-                typeof NA.websiteController[NA.webconfig.commonController].setConfigurations !== 'undefined') {
-                    NA.websiteController[NA.webconfig.commonController].setConfigurations(NA, function (NA) {
-                        atlasMiddlewares(NA);
+                typeof NA.websiteController[NA.webconfig.commonController].setSessions !== 'undefined') {
+                    NA.websiteController[NA.webconfig.commonController].setSessions(NA, function (NA) {
+                        atlasSessions(NA);
                     });
             } else {
-                atlasMiddlewares(NA);
+                atlasSessions(NA);
             }
-
         }
     };
 
