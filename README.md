@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.19.0 (Beta)
+Version : 0.19.1 (Beta)
 
 ## Avant-propos ##
 
@@ -69,27 +69,31 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 ### Roadmap d'avancement du développement ###
 
 - Fait 
- - Lancement d'un serveur Express
- - Génération live de maquette HTML
- - Génération complète de maquette HTML
- - Fichier de configuration (Liste des pages avec Url Rewriting)
- - Partie Back-end possible (Controllers / Models) 
- - Support de BDD possible (MySql / MongoDB)
- - Support de Socket.IO possible
- - Support des variables de parse Body / Cookie / Session
- - Support des variables personnelles de webconfig
- - Migration Express 3.x vers Express 4.x
- - Exemple de reverse-proxy pour plusieurs instances sur port 80
+ - Lancement d'un serveur Express.
+ - Génération live de maquette HTML.
+ - Génération complète de maquette HTML.
+ - Fichier de configuration (Liste des pages avec Url Rewriting).
+ - Support d'une partie Back-end possible (Controllers / Models).
+ - Exemple d'utilisation de BDD possible (MySql / MongoDB / etc.).
+ - Support des Sessions.
+ - Exemple de Socket.IO avec Handshake.
+ - Support des middlewares de Express.
+ - Support des variables personnelles de webconfig.
+ - Migration Express 3.x vers Express 4.x.
+ - Migration Connect 2.x vers Connect 3.x.
+ - Exemple de reverse-proxy pour plusieurs instances sur port 80.
  - Lancer NodeAtlas avec un require() depuis un fichier de code.
- - Auto Minification de Css/Js
- - Agrégation de fichier CSS/JS pour les versions de site en production.
+ - Installer automatiquement NodeAtlas depuis npm.
+ - Minification de CSS/JS à la génération.
+ - Agrégation de fichier CSS/JS via des Bundles.
+ - Support d'une BDD de Session (Redis / MongoDB).
 
 - À venir 
- - Support d'une BDD de Session (ex: Redis) + key/secret
- - Auto compression images
- - Injection automatique de feuille CSS en style inline (pour les maquettes email)
- - Auto-déploiement via transfert FTP
- - Support Sass/Less
+ - Compression des images.
+ - Exemple de Socket.IO 1.0 avec Handshake.
+ - Support Sass/Less.
+ - Injection automatique de feuille CSS en style inline (pour les maquettes email).
+ - Auto-déploiement via transfert (S)FTP.
  - ...
 
 
