@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.19.0 (Beta)</p>
+<p>Version : 0.20.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -84,6 +84,7 @@
 <li><a href="#h%C3%A9berger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</a></li>
 <li><a href="#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code">Gérer des inclusions pour éviter la redondance du code</a></li>
 <li><a href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template">Gérer des variations au sein d'un même template</a></li>
+<li><a href="#g%C3%A9rer-le-multilingue">Gérer le multilingue</a></li>
 <li><a href="#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html">Utiliser NodeAtlas pour générer des assets HTML</a></li>
 <li><a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</a></li>
 <li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url.</a></li>
@@ -130,31 +131,35 @@
 <p>Fait </p>
 
 <ul>
-<li>Lancement d'un serveur Express</li>
-<li>Génération live de maquette HTML</li>
-<li>Génération complète de maquette HTML</li>
-<li>Fichier de configuration (Liste des pages avec Url Rewriting)</li>
-<li>Partie Back-end possible (Controllers / Models) </li>
-<li>Support de BDD possible (MySql / MongoDB)</li>
-<li>Support de Socket.IO possible</li>
-<li>Support des variables de parse Body / Cookie / Session</li>
-<li>Support des variables personnelles de webconfig</li>
-<li>Migration Express 3.x vers Express 4.x</li>
-<li>Exemple de reverse-proxy pour plusieurs instances sur port 80</li>
+<li>Lancement d'un serveur Express.</li>
+<li>Génération live de maquette HTML.</li>
+<li>Génération complète de maquette HTML.</li>
+<li>Fichier de configuration (Liste des pages avec Url Rewriting).</li>
+<li>Support d'une partie Back-end possible (Controllers / Models).</li>
+<li>Exemple d'utilisation de BDD possible (MySql / MongoDB / etc.).</li>
+<li>Support des Sessions.</li>
+<li>Exemple de Socket.IO avec Handshake.</li>
+<li>Support des middlewares de Express.</li>
+<li>Support des variables personnelles de webconfig.</li>
+<li>Migration Express 3.x vers Express 4.x.</li>
+<li>Migration Connect 2.x vers Connect 3.x.</li>
+<li>Exemple de reverse-proxy pour plusieurs instances sur port 80.</li>
 <li>Lancer NodeAtlas avec un require() depuis un fichier de code.</li>
-<li>Auto Minification de Css/Js</li>
-<li>Agrégation de fichier CSS/JS pour les versions de site en production.</li>
+<li>Installer automatiquement NodeAtlas depuis npm.</li>
+<li>Minification de CSS/JS à la génération.</li>
+<li>Agrégation de fichier CSS/JS via des Bundles.</li>
+<li>Support d'une BDD de Session (Redis / MongoDB).</li>
 </ul>
 </li>
 <li>
 <p>À venir </p>
 
 <ul>
-<li>Support d'une BDD de Session (ex: Redis) + key/secret</li>
-<li>Auto compression images</li>
-<li>Injection automatique de feuille CSS en style inline (pour les maquettes email)</li>
-<li>Auto-déploiement via transfert FTP</li>
-<li>Support Sass/Less</li>
+<li>Compression des images.</li>
+<li>Exemple de Socket.IO 1.0 avec Handshake.</li>
+<li>Support Sass/Less.</li>
+<li>Injection automatique de feuille CSS en style inline (pour les maquettes email).</li>
+<li>Auto-déploiement via transfert (S)FTP.</li>
 <li>...</li>
 </ul>
 </li>
@@ -449,9 +454,6 @@ webconfig.json
 <h3>
 <a name="g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template" class="anchor" href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template"><span class="octicon octicon-link"></span></a>Gérer des variations au sein d'un même template</h3>
 
-<h4>
-<a name="en-standard" class="anchor" href="#en-standard"><span class="octicon octicon-link"></span></a>En standard</h4>
-
 <p>Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (pratique en mode génération d'assets HTML). Activer les variations avec la configuration suivante :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
@@ -562,11 +564,11 @@ webconfig.json
 <li><em>http://localhost/liste-des-membres/</em></li>
 </ul><p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
 
-<h4>
-<a name="pour-le-multilingue" class="anchor" href="#pour-le-multilingue"><span class="octicon octicon-link"></span></a>Pour le multilingue</h4>
+<h3>
+<a name="g%C3%A9rer-le-multilingue" class="anchor" href="#g%C3%A9rer-le-multilingue"><span class="octicon octicon-link"></span></a>Gérer le multilingue</h3>
 
-<h5>
-<a name="toutes-les-langues-sur-le-m%C3%AAme-site" class="anchor" href="#toutes-les-langues-sur-le-m%C3%AAme-site"><span class="octicon octicon-link"></span></a>Toutes les langues sur le même site</h5>
+<h4>
+<a name="toutes-les-langues-sur-le-m%C3%AAme-site" class="anchor" href="#toutes-les-langues-sur-le-m%C3%AAme-site"><span class="octicon octicon-link"></span></a>Toutes les langues sur le même site</h4>
 
 <p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :</p>
 
@@ -599,8 +601,8 @@ webconfig.json
 — head.htm
 — foot.htm
 languages/
+— landing.json
 — en-gb
-—— landing.json
 —— home.json
 — fr-fr
 —— home.json
@@ -652,7 +654,7 @@ webconfig.json
     <span class="err">&lt;</span>% include foot.htm %&gt;
 </pre></div>
 
-<p><em>languages/en-gb/landing.json</em></p>
+<p><em>languages/landing.json</em></p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"titlePage"</span><span class="o">:</span> <span class="s2">"Landing"</span><span class="p">,</span>
@@ -690,8 +692,34 @@ webconfig.json
 <li><em>http://localhost/accueil/</em></li>
 </ul><p><em>Note : Par défaut c'est le</em> <strong><em>languageCode</em></strong> <em>racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le</em> <strong><em>languageCode*</em></strong>. <em>Il faut également savoir que dès que le site ou une page à un</em> <strong><em>languageCode</em></strong> <em>dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du</em> <strong><em>languageCode</em></strong>.</p>
 
-<h5>
-<a name="a-chaque-langue-sa-configuration" class="anchor" href="#a-chaque-langue-sa-configuration"><span class="octicon octicon-link"></span></a>A chaque langue sa configuration</h5>
+<h4>
+<a name="utiliser-seulement-les-variations-avec-le-multilingue-actif" class="anchor" href="#utiliser-seulement-les-variations-avec-le-multilingue-actif"><span class="octicon octicon-link"></span></a>Utiliser seulement les variations avec le multilingue actif</h4>
+
+<p>Vous avez peut-être constaté dans l'exemple précédent que le fichier <code>landing.json</code> n'était pas dans le dossier <code>en-gb/</code> ou <code>fr-fr/</code>. Cela est tout à fait possible et signifie qu'il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.</p>
+
+<p>Aussi, quand un <code>languageCode</code> est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y ai pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans multilingue).</p>
+
+<p>Cela va vous permettre par exemple de manager la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :</p>
+
+<pre><code>...
+variations/
+— common.json
+— home.json
+— fr-fr
+—— common.json
+—— home.json
+...
+</code></pre>
+
+<p>vous pouvez </p>
+
+<ul>
+<li>gérer la version <code>en-gb</code> directement à la racine de <code>variations/</code> (comme NodeAtlas ne trouve rien dans <code>en-gb</code> il utilise alors les valeurs des fichiers racines) et</li>
+<li>gérer la version <code>fr-fr</code> dans le dossier <code>fr-fr/</code>,</li>
+</ul><p>ainsi, si une phrase n'est pas encore traduite dans un fichier <code>fr-fr</code>, au lieu de renvoyer une erreur, NodeAtlas renverra la version racine, soit la version <code>en-gb</code>.</p>
+
+<h4>
+<a name="%C3%80-chaque-langue-sa-configuration" class="anchor" href="#%C3%80-chaque-langue-sa-configuration"><span class="octicon octicon-link"></span></a>À chaque langue sa configuration</h4>
 
 <p>Vous pouvez également décider de faire tourner chaque langue dans un « webconfig.json » différent. Avec l'ensemble de fichier suivant :</p>
 
@@ -699,8 +727,8 @@ webconfig.json
 — head.htm
 — foot.htm
 variations/
+— landing.json
 — en-gb
-—— landing.json
 —— home.json
 —— members.json
 — fr-fr
@@ -720,7 +748,6 @@ webconfig.fr-fr.json
 <p><em>webconfig.json</em></p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"en-gb"</span><span class="p">,</span>
     <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"landing.htm"</span><span class="p">,</span>
@@ -777,9 +804,16 @@ webconfig.fr-fr.json
 <li><em>http://localhost:81/english/members-list/</em></li>
 <li><em>http://localhost:82/francais/</em></li>
 <li><em>http://localhost:82/francais/liste-des-membres/</em></li>
-</ul><p><em>Note : il est possible de faire ensuite du reverse proxy pour ramener l'ensemble des urls sur les ports autres que le port 80 sur le port 80.</em></p>
+</ul><p>Il est ensuite possible de faire du reverse proxy avec <a href="#proxy">Bouncy</a> (par exemple) pour ramener l'ensemble des urls sur le port 80 afin d'obtenir :</p>
 
-<h3>
+<ul>
+<li><em><a href="http://www.website.ext/">http://www.website.ext/</a></em></li>
+<li><em><a href="http://www.website.ext/english/">http://www.website.ext/english/</a></em></li>
+<li><em><a href="http://www.website.ext/english/">http://www.website.ext/english/</a></em></li>
+<li><em><a href="http://www.website.ext/english/members-list/">http://www.website.ext/english/members-list/</a></em></li>
+<li><em><a href="http://www.website.ext/francais/">http://www.website.ext/francais/</a></em></li>
+<li><em><a href="http://www.website.ext/francais/liste-des-membres/">http://www.website.ext/francais/liste-des-membres/</a></em></li>
+</ul><h3>
 <a name="utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html" class="anchor" href="#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html"><span class="octicon octicon-link"></span></a>Utiliser NodeAtlas pour générer des assets HTML</h3>
 
 <h4>
