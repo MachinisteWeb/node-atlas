@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.19.1')
+            .version('0.20.0')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -255,6 +255,7 @@ var NA = {};
         publics.modules.session = require('express-session');
         publics.modules.bodyParser = require('body-parser');
         publics.modules.cookieParser = require('cookie-parser');
+        publics.modules.extend = require('extend');
         publics.modules.connect = require('connect');
         publics.modules.commander = require('commander');
         publics.modules.compress = require('compression');
@@ -556,13 +557,15 @@ var NA = {};
        });
     };
 
-    privates.openVariation = function (variationName, currentVariation) {
+    privates.openVariation = function (variationName, languageCode) {
         var fs = NA.modules.fs,
             dataError = {},
             variationsPath,
-            languagePath = '';
+            languagePath;
 
-            if (typeof currentVariation.languageCode !== 'undefined') { languagePath = currentVariation.languageCode + '/'; }
+            if (languageCode) { languagePath = languageCode + '/'; }
+            if (!languageCode) { languagePath = ''; }
+
             variationsPath = NA.websitePhysicalPath + NA.webconfig.variationsRelativePath + languagePath + variationName;
 
         if (typeof variationName !== 'undefined') {
@@ -632,6 +635,7 @@ var NA = {};
 
     publics.render = function (path, options, request, response) {
         var ejs = NA.modules.ejs,
+            extend = NA.modules.extend,
             pageParameters = options[path],
             templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + pageParameters.template,
             currentVariation = {},
@@ -720,8 +724,19 @@ var NA = {};
 
             // Opening variation file.
             if (request) { currentVariation.params = request.params; }
-            currentVariation.common = privates.openVariation(NA.webconfig.commonVariation, currentVariation);
-            currentVariation.specific = privates.openVariation(pageParameters.variation, currentVariation);
+
+
+
+            currentVariation.common = privates.openVariation(NA.webconfig.commonVariation, currentVariation.languageCode);
+            if (currentVariation.languageCode) {
+                currentVariation.common = extend(true, privates.openVariation(NA.webconfig.commonVariation), currentVariation.common);
+            }
+
+            currentVariation.specific = privates.openVariation(pageParameters.variation, currentVariation.languageCode);
+            if (currentVariation.languageCode) {
+                currentVariation.specific = extend(true, privates.openVariation(pageParameters.variation), currentVariation.specific);
+            }
+
             currentVariation.pageParameters = pageParameters;
             currentVariation.pageUrlRewriting = currentPath;
             currentVariation.webconfig = NA.webconfig;

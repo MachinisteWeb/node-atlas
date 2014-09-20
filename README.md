@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.19.1 (Beta)
+Version : 0.20.0 (Beta)
 
 ## Avant-propos ##
 
@@ -38,6 +38,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Héberger des images, polices, CSS, JS, etc.](#h%C3%A9berger-des-images-polices-css-js-etc)
  - [Gérer des inclusions pour éviter la redondance du code](#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code)
  - [Gérer des variations au sein d'un même template](#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template)
+ - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
  - [Utiliser NodeAtlas pour générer des assets HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html)
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
  - [Changer les paramètres d'url.](#changer-les-param%C3%A8tres-durl)
@@ -406,8 +407,6 @@ vous aurez accès aux adresses :
 
 ### Gérer des variations au sein d'un même template ###
 
-#### En standard ####
-
 Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (pratique en mode génération d'assets HTML). Activer les variations avec la configuration suivante :
 
 ```js
@@ -527,9 +526,10 @@ vous aurez accès aux adresses :
 *Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien* ***variations/***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
-#### Pour le multilingue ####
 
-##### Toutes les langues sur le même site #####
+### Gérer le multilingue ###
+
+#### Toutes les langues sur le même site ####
 
 Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :
 
@@ -564,8 +564,8 @@ components/
 — head.htm
 — foot.htm
 languages/
+— landing.json
 — en-gb
-—— landing.json
 —— home.json
 — fr-fr
 —— home.json
@@ -621,7 +621,7 @@ webconfig.json
 	<% include foot.htm %>
 ```
 
-*languages/en-gb/landing.json*
+*languages/landing.json*
 
 ```js
 {
@@ -663,7 +663,34 @@ vous aurez accès aux adresses :
 *Note : Par défaut c'est le* ***languageCode*** *racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le* ***languageCode****. *Il faut également savoir que dès que le site ou une page à un* ***languageCode*** *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* ***languageCode***.
 
 
-##### A chaque langue sa configuration #####
+#### Utiliser seulement les variations avec le multilingue actif ####
+
+Vous avez peut-être constaté dans l'exemple précédent que le fichier `landing.json` n'était pas dans le dossier `en-gb/` ou `fr-fr/`. Cela est tout à fait possible et signifie qu'il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.
+
+Aussi, quand un `languageCode` est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y ai pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans multilingue).
+
+Cela va vous permettre par exemple de manager la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :
+
+```
+...
+variations/
+— common.json
+— home.json
+— fr-fr
+—— common.json
+—— home.json
+...
+```
+
+vous pouvez 
+
+- gérer la version `en-gb` directement à la racine de `variations/` (comme NodeAtlas ne trouve rien dans `en-gb` il utilise alors les valeurs des fichiers racines) et
+- gérer la version `fr-fr` dans le dossier `fr-fr/`,
+
+ainsi, si une phrase n'est pas encore traduite dans un fichier `fr-fr`, au lieu de renvoyer une erreur, NodeAtlas renverra la version racine, soit la version `en-gb`.
+
+
+#### À chaque langue sa configuration ####
 
 Vous pouvez également décider de faire tourner chaque langue dans un « webconfig.json » différent. Avec l'ensemble de fichier suivant :
 
@@ -672,8 +699,8 @@ components/
 — head.htm
 — foot.htm
 variations/
+— landing.json
 — en-gb
-—— landing.json
 —— home.json
 —— members.json
 — fr-fr
@@ -694,7 +721,6 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 ```js
 {
-	"languageCode": "en-gb",
 	"urlRewriting": {
 		"/": {
 			"template": "landing.htm",
@@ -753,7 +779,14 @@ et avoir accès aux adresses :
 - *http://localhost:82/francais/*
 - *http://localhost:82/francais/liste-des-membres/*
 
-*Note : il est possible de faire ensuite du reverse proxy pour ramener l'ensemble des urls sur les ports autres que le port 80 sur le port 80.*
+Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exemple) pour ramener l'ensemble des urls sur le port 80 afin d'obtenir :
+
+- *http://www.website.ext/*
+- *http://www.website.ext/english/*
+- *http://www.website.ext/english/*
+- *http://www.website.ext/english/members-list/*
+- *http://www.website.ext/francais/*
+- *http://www.website.ext/francais/liste-des-membres/*
 
 
 
