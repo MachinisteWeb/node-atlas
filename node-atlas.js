@@ -432,6 +432,22 @@ var NA = {};
         response.end();
     };
 
+    privates.redirect = function (optionsPath, request, response) {
+        var location;
+
+        if (optionsPath.regExp) {
+            location = optionsPath.redirect.replace(/\$([0-9]+)\$/g, function (regex, matches) { return request.params[matches]; });
+        } else {
+            location = optionsPath.redirect.replace(/\:([a-z0-9]+)/g, function (regex, matches) { return request.params[matches]; });
+        }
+
+        response.writeHead(optionsPath.statusCode, {
+            Location: location
+        });
+
+        response.end();
+    };
+
     privates.request = function (path, options) {
         var pageParameters = options[path],
             getSupport = true,
@@ -444,22 +460,6 @@ var NA = {};
         }
 
         objectPath = NA.webconfig.urlRelativeSubPath + currentPath;
-
-        function redirect(optionsPath, request, response) {
-            var location;
-
-            if (optionsPath.regExp) {
-                location = optionsPath.redirect.replace(/\$([0-9]+)\$/g, function (regex, matches) { return request.params[matches]; });
-            } else {
-                location = optionsPath.redirect.replace(/\:([a-z0-9]+)/g, function (regex, matches) { return request.params[matches]; });
-            }
-
-            response.writeHead(optionsPath.statusCode, {
-                Location: location
-            });
-
-            response.end();
-        }
 
         // Manage GET / POST support for an url.
         if (NA.webconfig.getSupport === false) { getSupport = false; }
@@ -481,7 +481,7 @@ var NA = {};
         if (getSupport) {
             NA.httpServer.get(objectPath, function (request, response) {
                 if (options[path].redirect && options[path].statusCode) {
-                    redirect(options[path], request, response);
+                    privates.redirect(options[path], request, response);
                 } else {
                     NA.render(path, options, request, response);
                 }
@@ -492,7 +492,7 @@ var NA = {};
         if (postSupport) {
             NA.httpServer.post(objectPath, function (request, response) {
                 if (options[path].redirect && options[path].statusCode) {
-                    redirect(options[path], request, response);
+                    privates.redirect(options[path], request, response);
                 } else {
                     NA.render(path, options, request, response);
                 }
@@ -502,11 +502,26 @@ var NA = {};
 
     publics.pageNotFound = function () {
         if (NA.webconfig.pageNotFound && NA.webconfig.urlRewriting[NA.webconfig.pageNotFound]) {
+            var pageNotFound = NA.webconfig.urlRewriting[NA.webconfig.pageNotFound],
+                pageNotFoundUrl = NA.webconfig.pageNotFound;
+
+            if (pageNotFound.url) {
+                pageNotFoundUrl = pageNotFound.url;
+            }
+
             NA.httpServer.get("*", function (request, response) {
-                NA.render(NA.webconfig.pageNotFound, NA.webconfig.urlRewriting, request, response);
-            });
+                if (pageNotFound.redirect && pageNotFound.statusCode) {
+                    privates.redirect(pageNotFound, request, response);
+                } else {
+                    NA.render(pageNotFoundUrl, NA.webconfig.urlRewriting, request, response);
+                }
+            })
             NA.httpServer.post("*", function (request, response) {
-                NA.render(NA.webconfig.pageNotFound, NA.webconfig.urlRewriting, request, response);
+                if (pageNotFound.redirect && pageNotFound.statusCode) {
+                    privates.redirect(pageNotFound, request, response);
+                } else {
+                    NA.render(pageNotFoundUrl, NA.webconfig.urlRewriting, request, response);
+                }
             });
         }
     };
