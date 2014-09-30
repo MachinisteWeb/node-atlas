@@ -472,8 +472,10 @@ var NA = {};
         if (pageParameters.regExp) {
             if (typeof pageParameters.regExp === 'string') {
                 objectPath = new RegExp(objectPath, pageParameters.regExp);
+                console.log(objectPath);
             } else {
                 objectPath = new RegExp(objectPath);
+                console.log(objectPath);
             }
         }
 
@@ -889,7 +891,6 @@ var NA = {};
             newBase = "";
 
         deeper = templateRenderName.split('/').length - 1;
-        console.log(templateRenderName[0]);
         if (templateRenderName[0] === '/') {
             deeper = templateRenderName.split('/').length - 2;
         }
