@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.20.1 (Beta)
+Version : 0.20.2 (Beta)
 
 ## Avant-propos ##
 
@@ -16,9 +16,10 @@ NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js
 
 L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.
 
-- Exemple de génération d'asset HTML (En cours...).
-- [Exemple de simple site Node.js sans Back-end](https://github.com/Haeresis/ResumeAtlas/).
-- [Exemple de développement de site Node.js](https://github.com/Haeresis/BlogAtlas/).
+- Génération et maintenance de maquette HTML (En cours...).
+- [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
+- [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
+- [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
 
 
 
