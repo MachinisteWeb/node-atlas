@@ -77,7 +77,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.20.2')
+            .version('0.20.3')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -365,6 +365,7 @@ var NA = {};
         }
 
         NA.httpServer = express();
+        NA.httpServer.enable('strict routing');
         NA.server = http.createServer(NA.httpServer);
 
         if (commander.generate) { NA.configuration.generate = commander.generate; }
