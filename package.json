@@ -48,7 +48,7 @@
     "open": "0.0.5",
     "uglify-js": "2.4.15"
   },
-  "main": "server",
+  "main": "lib/node-atlas.js",
   "files": [
     "languages/default.json",
     "LICENSE",
