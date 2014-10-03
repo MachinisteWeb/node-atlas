@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.21.0",
+  "version": "0.21.1",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.",
   "scripts": {
@@ -50,10 +50,10 @@
   },
   "main": "lib/node-atlas.js",
   "files": [
+    "lib/node-atlas.js",
     "languages/default.json",
     "LICENSE",
-    "README.md",
-    "node-atlas.js"
+    "README.md"
   ],
   "engines": {
     "node": ">=0.10.10"
