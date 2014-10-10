@@ -47,7 +47,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer l'UrlRewriting](#g%C3%A9rer-lurlrewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
- - [Minifier les CSS/JS](#minifier-les-css-js)
+ - [Minifier les CSS/JS](#minifier-les-cssjs)
  - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
