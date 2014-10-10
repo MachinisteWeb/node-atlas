@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.21.2 (Beta)</p>
+<p>Version : 0.21.3 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -42,7 +42,9 @@
 <li>Créer et maintenir un ensemble d'assets HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.</li>
 <li>Créer et maintenir des sites multilingues sans Back-end.</li>
 <li>Développer des sites ou des applications Node.js multilingues de toutes tailles.</li>
-</ul><h3>
+</ul>
+
+<h3>
 <a name="exemples-de-r%C3%A9alisations-avec-nodeatlas" class="anchor" href="#exemples-de-r%C3%A9alisations-avec-nodeatlas"><span class="octicon octicon-link"></span></a>Exemples de réalisations avec NodeAtlas</h3>
 
 <p>L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.</p>
@@ -55,7 +57,9 @@
 <a href="https://github.com/Haeresis/BookAtlas/">Site Node.js avec Websocket et PopState</a>.</li>
 <li>
 <a href="https://github.com/Haeresis/BlogAtlas/">Site Node.js avec base MongoDB et Redis</a>.</li>
-</ul><h3>
+</ul>
+
+<h3>
 <a name="table-des-mati%C3%A8res" class="anchor" href="#table-des-mati%C3%A8res"><span class="octicon octicon-link"></span></a>Table des matières</h3>
 
 <ul>
@@ -93,8 +97,8 @@
 <li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
 <li><a href="#g%C3%A9rer-lurlrewriting">Gérer l'UrlRewriting</a></li>
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
-<li><a href="#minifier-les-css-js">Gérer les redirections</a></li>
-<li><a href="#g%C3%A9rer-les-redirections">Minifier les CSS/JS</a></li>
+<li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
+<li><a href="#minifier-les-css-js">Minifier les CSS/JS</a></li>
 <li><a href="#changer-les-param%C3%A8tres-des-sessions">Changer les paramètres des Sessions</a></li>
 <li><a href="#stockage-externe-des-sessions">Stockage externe des Sessions</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
@@ -125,7 +129,9 @@
 </ul>
 </li>
 <li><a href="#a-propos-de-l-architecture-de-nodeatlas">À propos de l'architecture de NodeAtlas</a></li>
-</ul><h3>
+</ul>
+
+<h3>
 <a name="roadmap-davancement-du-d%C3%A9veloppement" class="anchor" href="#roadmap-davancement-du-d%C3%A9veloppement"><span class="octicon octicon-link"></span></a>Roadmap d'avancement du développement</h3>
 
 <ul>
@@ -165,7 +171,9 @@
 <li>...</li>
 </ul>
 </li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>Il y a plusieurs solutions pour installer Node-Atlas :</p>
@@ -195,7 +203,9 @@
 
 <p><strong>Lancez au moins une fois NodeAtlas à la ligne de commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, pour installer les <em>node_modules</em>.</strong></p>
 </li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="commencer-avec-nodeatlas" class="anchor" href="#commencer-avec-nodeatlas"><span class="octicon octicon-link"></span></a>Commencer avec NodeAtlas</h2>
 
 <h3>
@@ -327,7 +337,9 @@ webconfig.json
 <em>http://localhost/member-without-extension/</em> (ne répondra pas si demandée en GET)</li>
 <li>
 <em>http://localhost/error.html</em> (renvoi du contenu plein texte (sans balise) avec une erreur 404)</li>
-</ul><p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+</ul>
+
+<p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
 <a name="h%C3%A9berger-des-images-polices-css-js-etc" class="anchor" href="#h%C3%A9berger-des-images-polices-css-js-etc"><span class="octicon octicon-link"></span></a>Héberger des images, polices, CSS, JS, etc.</h3>
@@ -366,7 +378,9 @@ webconfig.json
 <li><em>http://localhost/stylesheets/common.css</em></li>
 <li><em>http://localhost/javascript/common.js</em></li>
 <li><em>http://localhost/media/images/logo.png</em></li>
-</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>assets/</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+</ul>
+
+<p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>assets/</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
 <a name="g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code" class="anchor" href="#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code"><span class="octicon octicon-link"></span></a>Gérer des inclusions pour éviter la redondance du code</h3>
@@ -451,7 +465,9 @@ webconfig.json
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
+</ul>
+
+<p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
 
 <h3>
 <a name="g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template" class="anchor" href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template"><span class="octicon octicon-link"></span></a>Gérer des variations au sein d'un même template</h3>
@@ -564,7 +580,9 @@ webconfig.json
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
+</ul>
+
+<p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
 
 <h3>
 <a name="g%C3%A9rer-le-multilingue" class="anchor" href="#g%C3%A9rer-le-multilingue"><span class="octicon octicon-link"></span></a>Gérer le multilingue</h3>
@@ -692,7 +710,9 @@ webconfig.json
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/home/</em></li>
 <li><em>http://localhost/accueil/</em></li>
-</ul><p><em>Note : Par défaut c'est le</em> <strong><em>languageCode</em></strong> <em>racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le</em> <strong><em>languageCode*</em></strong>. <em>Il faut également savoir que dès que le site ou une page à un</em> <strong><em>languageCode</em></strong> <em>dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du</em> <strong><em>languageCode</em></strong>.</p>
+</ul>
+
+<p><em>Note : Par défaut c'est le</em> <strong><em>languageCode</em></strong> <em>racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le</em> <strong><em>languageCode*</em></strong>. <em>Il faut également savoir que dès que le site ou une page à un</em> <strong><em>languageCode</em></strong> <em>dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du</em> <strong><em>languageCode</em></strong>.</p>
 
 <h4>
 <a name="utiliser-seulement-les-variations-avec-le-multilingue-actif" class="anchor" href="#utiliser-seulement-les-variations-avec-le-multilingue-actif"><span class="octicon octicon-link"></span></a>Utiliser seulement les variations avec le multilingue actif</h4>
@@ -718,7 +738,9 @@ variations/
 <ul>
 <li>gérer la version <code>en-gb</code> directement à la racine de <code>variations/</code> (comme NodeAtlas ne trouve rien dans <code>en-gb</code> il utilise alors les valeurs des fichiers racines) et</li>
 <li>gérer la version <code>fr-fr</code> dans le dossier <code>fr-fr/</code>,</li>
-</ul><p>ainsi, si une phrase n'est pas encore traduite dans un fichier <code>fr-fr</code>, au lieu de renvoyer une erreur, NodeAtlas renverra la version racine, soit la version <code>en-gb</code>.</p>
+</ul>
+
+<p>ainsi, si une phrase n'est pas encore traduite dans un fichier <code>fr-fr</code>, au lieu de renvoyer une erreur, NodeAtlas renverra la version racine, soit la version <code>en-gb</code>.</p>
 
 <h4>
 <a name="%C3%80-chaque-langue-sa-configuration" class="anchor" href="#%C3%80-chaque-langue-sa-configuration"><span class="octicon octicon-link"></span></a>À chaque langue sa configuration</h4>
@@ -806,7 +828,9 @@ webconfig.fr-fr.json
 <li><em>http://localhost:81/english/members-list/</em></li>
 <li><em>http://localhost:82/francais/</em></li>
 <li><em>http://localhost:82/francais/liste-des-membres/</em></li>
-</ul><p>Il est ensuite possible de faire du reverse proxy avec <a href="#proxy">Bouncy</a> (par exemple) pour ramener l'ensemble des urls sur le port 80 afin d'obtenir :</p>
+</ul>
+
+<p>Il est ensuite possible de faire du reverse proxy avec <a href="#proxy">Bouncy</a> (par exemple) pour ramener l'ensemble des urls sur le port 80 afin d'obtenir :</p>
 
 <ul>
 <li><em><a href="http://www.website.ext/">http://www.website.ext/</a></em></li>
@@ -815,7 +839,9 @@ webconfig.fr-fr.json
 <li><em><a href="http://www.website.ext/english/members-list/">http://www.website.ext/english/members-list/</a></em></li>
 <li><em><a href="http://www.website.ext/francais/">http://www.website.ext/francais/</a></em></li>
 <li><em><a href="http://www.website.ext/francais/liste-des-membres/">http://www.website.ext/francais/liste-des-membres/</a></em></li>
-</ul><h3>
+</ul>
+
+<h3>
 <a name="utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html" class="anchor" href="#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html"><span class="octicon octicon-link"></span></a>Utiliser NodeAtlas pour générer des assets HTML</h3>
 
 <h4>
@@ -880,7 +906,9 @@ webconfig.json
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/liste-des-membres/</em></li>
-</ul><p>La génération s'enclenche quand on affiche la page uniquement parce que <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.</p>
+</ul>
+
+<p>La génération s'enclenche quand on affiche la page uniquement parce que <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.</p>
 
 <p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generates/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p>
 
@@ -985,7 +1013,9 @@ webconfig.json
 <ul>
 <li>De quoi charger des modules supplémentaires à NodeAtlas.</li>
 <li>De quoi configurer les modules supplémentaires.</li>
-</ul><div class="highlight highlight-js"><pre><span class="c1">// Création d'un objet global au fichier.</span>
+</ul>
+
+<div class="highlight highlight-js"><pre><span class="c1">// Création d'un objet global au fichier.</span>
 <span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
 
 
@@ -1246,7 +1276,9 @@ webconfig.json
 <li>De quoi modifier les variations dynamiquement avant affichage.</li>
 <li>De quoi faire des modifications jQuery côté serveur.</li>
 <li>De quoi faire des échanges asynchrones avec Socket.IO.</li>
-</ul><div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
+</ul>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">website</span> <span class="o">=</span> <span class="p">{};</span>
 <span class="nx">website</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="p">{};</span>
 
 
@@ -1466,7 +1498,9 @@ webconfig.json
 
 <ol>
 <li>« webconfig.json »</li>
-</ol><div class="highlight highlight-js"><pre><span class="p">{</span>
+</ol>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
@@ -1478,7 +1512,9 @@ webconfig.json
 
 <ol>
 <li>« webconfig.prod.json »</li>
-</ol><div class="highlight highlight-js"><pre><span class="p">{</span>
+</ol>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
@@ -1597,7 +1633,9 @@ webconfig.prod.json
 <li><em>http://localhost/liste-des-membres/bob-eponge99/</em></li>
 <li><em>http://localhost/liste-des-membres/node-atlas/</em></li>
 <li><em>http://localhost/liste-des-membres/etc/</em></li>
-</ul><p>et récupérer les valeurs de <code>:member</code> dans le <code>preRender</code> (common et specific).</p>
+</ul>
+
+<p>et récupérer les valeurs de <code>:member</code> dans le <code>preRender</code> (common et specific).</p>
 
 <div class="highlight highlight-js"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">variation</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">variation</span><span class="p">;</span>
@@ -1654,7 +1692,9 @@ webconfig.prod.json
 <li>
 <em>http://localhost/liste-des-membres/etc/</em> <em>(ou <em>https://localhost/liste-des-membres/etc</em>)</em>
 </li>
-</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>preRender</code> (common et specific).</p>
+</ul>
+
+<p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>preRender</code> (common et specific).</p>
 
 <div class="highlight highlight-js"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">preRender</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">mainCallback</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">variation</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">variation</span><span class="p">;</span>
@@ -1679,7 +1719,9 @@ webconfig.prod.json
 <ol>
 <li>Préparer une page 404.</li>
 <li>Remplir le paramètre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 préparée.</li>
-</ol><p>Voyez l'exemple ci-dessous :</p>
+</ol>
+
+<p>Voyez l'exemple ci-dessous :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"pageNotFound"</span><span class="o">:</span> <span class="s2">"/pages-inexistantes/"</span><span class="p">,</span>
@@ -1704,7 +1746,9 @@ webconfig.prod.json
 <li><em>http://localhost/cette-page-n-existe-pas.html</em></li>
 <li><em>http://localhost/elle/non/plus/</em></li>
 <li><em>http://localhost/etc</em></li>
-</ul><h3>
+</ul>
+
+<h3>
 <a name="g%C3%A9rer-les-redirections" class="anchor" href="#g%C3%A9rer-les-redirections"><span class="octicon octicon-link"></span></a>Gérer les redirections</h3>
 
 <p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p>
@@ -1739,7 +1783,9 @@ webconfig.prod.json
 <ul>
 <li>sur <code>http://localhost/liste-des-membres/</code> quand vous accéderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection permanente</em>.</li>
 <li>sur <code>http://haeresis.github.io/NodeAtlas/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
-</ul><h4>
+</ul>
+
+<h4>
 <a name="en-dynamique" class="anchor" href="#en-dynamique"><span class="octicon octicon-link"></span></a>En dynamique</h4>
 
 <p>Voyez l'exemple ci-dessous :</p>
@@ -1959,7 +2005,9 @@ webconfig.json
 </li>
 <li>Secret : <code>1234567890bépo</code>
 </li>
-</ul><p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p>
+</ul>
+
+<p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p>
 
 <p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p>
 
@@ -2268,7 +2316,9 @@ exports.setSessions = website.setSessions;
 
 <p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de  <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
-</ol><h2>
+</ol>
+
+<h2>
 <a name="commandes-de-lancement" class="anchor" href="#commandes-de-lancement"><span class="octicon octicon-link"></span></a>Commandes de lancement</h2>
 
 <p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
@@ -2353,7 +2403,9 @@ exports.setSessions = website.setSessions;
 <li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
 <li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).</li>
-</ol><h4>
+</ol>
+
+<h4>
 <a name="cr%C3%A9er-une-application" class="anchor" href="#cr%C3%A9er-une-application"><span class="octicon octicon-link"></span></a>Créer une application</h4>
 
 <p>Dans IIS8, créez un Website et créez une Application.</p>
@@ -2457,7 +2509,9 @@ site-hello-world/
 <li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer le <a href="https://github.com/nodejitsu/forever">CLI tool forever</a> pour manager vos sites en continue.</li>
 <li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
-</ol><h4>
+</ol>
+
+<h4>
 <a name="quelques-commandes-forever" class="anchor" href="#quelques-commandes-forever"><span class="octicon octicon-link"></span></a>Quelques commandes forever</h4>
 
 <p>Pous lancer un site en continue il faut utiliser la commande :</p>
@@ -2503,7 +2557,9 @@ site-hello-world/
 <ul>
 <li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
 <li>et en plus lancer un server apache sur le port 81 </li>
-</ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p>
+</ul>
+
+<p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p>
 
 <p>Voici un exemple de configuration avec Bouncy :</p>
 
