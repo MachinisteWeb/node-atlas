@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.21.2",
+  "version": "0.21.3",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.",
   "scripts": {

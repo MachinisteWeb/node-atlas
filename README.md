@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.21.2 (Beta)
+Version : 0.21.3 (Beta)
 
 ## Avant-propos ##
 
@@ -46,8 +46,8 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer l'UrlRewriting](#g%C3%A9rer-lurlrewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
- - [Gérer les redirections](#minifier-les-css-js)
- - [Minifier les CSS/JS](#g%C3%A9rer-les-redirections)
+ - [Gérer les redirections](#g%C3%A9rer-les-redirections)
+ - [Minifier les CSS/JS](#minifier-les-css-js)
  - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
