@@ -38,6 +38,19 @@ var NA = {};
 
 	var privates = {};
 
+    publics.lineCommandConfiguration = function () {
+        var commander = NA.modules.commander;
+
+        commander
+            .version('0.22.0')
+            .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
+            .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
+            .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
+            .option(NA.appLabels.commander.httpPort.command, NA.appLabels.commander.httpPort.description, String)
+            .option(NA.appLabels.commander.generate.command, NA.appLabels.commander.generate.description)
+            .parse(process.argv);
+    };
+
     publics.initGlobalVar = function () {
         try {
             publics.appLanguage = 'default';
@@ -73,19 +86,6 @@ var NA = {};
         }
     };
 
-    publics.lineCommandConfiguration = function () {
-        var commander = NA.modules.commander;
-
-        commander
-            .version('0.21.4')
-            .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
-            .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
-            .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
-            .option(NA.appLabels.commander.httpPort.command, NA.appLabels.commander.httpPort.description, String)
-            .option(NA.appLabels.commander.generate.command, NA.appLabels.commander.generate.description, String)
-            .parse(process.argv);
-    };
-
     publics.templateEngineConfiguration = function () {
         var ejs = NA.modules.ejs;
 
@@ -99,9 +99,23 @@ var NA = {};
     };
 
     publics.initWebconfig = function (callback) {
+        // Webconfig based website...
         NA.ifFileExist(NA.websitePhysicalPath, NA.webconfigName, function () {
         	privates.improveWebconfigBase();
             callback();
+        // ... or static website.
+        }, function () {
+            var http = NA.modules.http,
+                commander = NA.modules.commander,
+                express = NA.modules.express;
+
+            NA.httpServer = express();
+            NA.httpServer.enable('strict routing');
+            NA.server = http.createServer(NA.httpServer);
+            NA.server.listen(commander.httpPort || 80, function () {
+                console.log(NA.appLabels.publicMode);
+            });
+            NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
         });
     };
 
@@ -177,8 +191,6 @@ var NA = {};
             NA.webconfig.urlRelativeSubPath = '';
         }
 
-        // Session Initialisation.
-
         // Change listening port.
 		NA.webconfig.httpPort = process.env.PORT || NA.webconfig.httpPort || 80;
 
@@ -206,7 +218,7 @@ var NA = {};
 (function (publics) {
     "use strict";
 
-    publics.ifFileExist = function (physicalPath, fileName, callback) {
+    publics.ifFileExist = function (physicalPath, fileName, callback, fallback) {
         var fs = NA.modules.fs;
 
         fs.stat(physicalPath + fileName, function (error) {
@@ -217,10 +229,10 @@ var NA = {};
 
             if (error && error.code === 'ENOENT') {
                 console.log(NA.appLabels.ifFileExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-                process.kill(process.pid);
+                fallback();
+            } else {
+                callback();
             }
-
-            callback();
         });
     };
 
@@ -265,7 +277,6 @@ var NA = {};
         publics.modules.cheerio = require('cheerio');
         publics.modules.uglifyJs = require('uglify-js');
         publics.modules.cleanCss = require('clean-css');
-
         publics.modules.forceDomain = require('node-force-domain');
     };
 
@@ -278,13 +289,13 @@ var NA = {};
             execute('npm --prefix ' + NA.serverPhysicalPath + ' install -l', function (error, stdout, stderr) {
                 if (!error) {
                     console.log(NA.appLabels.downloadAllModule.installationDone + " " + NA.appLabels.downloadAllModule.restartRequired);
-
-                    // Kill current process
                     process.kill(process.pid);
                 } else {
                     console.log(error);
                 }
             });
+        }, function () {
+            process.kill(process.pid);
         });
     };
 
@@ -295,6 +306,8 @@ var NA = {};
         } catch (exception) {
             if (exception.code === 'MODULE_NOT_FOUND') {
                 privates.downloadAllModule(exception);
+            } else {
+                console.log(exception);
             }
         }
     };

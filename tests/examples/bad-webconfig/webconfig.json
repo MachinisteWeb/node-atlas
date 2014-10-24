@@ -1,0 +1,7 @@
+{
+	"urlRewriting": {
+		"/": {
+			"template": "index.html"
+		}
+	}
+}

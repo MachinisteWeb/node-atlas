@@ -5,7 +5,8 @@
 		"installationDone": "Tous les modules ont été correctement installé.",
 		"restartRequired": "Vous pouvez redémarrer l'application."
 	},
-	"ifFileExist": "Pas de fichier « %fileName% » trouvé dans le répertoire « %physicalPath% ».",
+	"ifFileExist": "Pas de fichier « %fileName%  » trouvé dans le répertoire « %physicalPath% ».",
+	"publicMode": "NodeAtlas c'est donc lancer en mode « Simple Serveur Web ».",
 	"isRunning": "Votre site NodeAtlas est lancé sur le port %httpPort%.",
 	"templateNotFound": "Le fichier de template « %templatesPath% » n'a pas pu être ouvert.",
 	"moduleNotFound": "Le module demandé n'a pas été trouvé : « %moduleError% ».",
@@ -29,7 +30,7 @@
 			"description": "Spécifier un nom alternatif pour le « webconfig.json »."
 		},
 		"httpPort": {
-			"command": "-p, --port <httpPort>",
+			"command": "-p, --httpPort <httpPort>",
 			"description": "Spécifier un port d'exécution alternatif à celui du « webconfig.json »."
 		},
 		"generate": {

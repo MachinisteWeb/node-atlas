@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.21.4 (Beta)
+Version : 0.22.0 (Beta)
 
 ## Avant-propos ##
 
@@ -61,6 +61,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
 - [NodeAtlas comme module npm](#nodeatlas-comme-module-npm)
+- [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
 - [Faire tourner NodeAtlas sur server](#faire-tourner-nodeatlas-sur-server)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
@@ -89,6 +90,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Minification de CSS/JS à la génération.
  - Agrégation de fichier CSS/JS via des Bundles.
  - Support d'une BDD de Session (Redis / MongoDB).
+ - Lancement rapide sans « webconfig » juste en tant que simple serveur web.
 
 - À venir 
  - Compression des images.
@@ -2369,6 +2371,43 @@ nodeAtlas
 ```
 \> node app.js
 ```
+
+
+
+
+
+## NodeAtlas comme simple serveur web ##
+
+Si NodeAtlas ne trouve pas le « webconfig.json » ou le `--webconfig` que vous lui aurez indiqué, il se lancera en mode « Simple Serveur Web » ou « Public ».
+
+**Ce mode est pratique pour tester très rapidement que NodeAtlas est correctement installé ou pour créer des petits exemples HTML qui ont besoin d'un serveur web pour fonctionner (retours AJAX, iframe embarquée, etc.).**
+
+Pour bien comprendre ce que cela signifie : s'il existe un quelconque fichier dans le répertoire d'où NodeAtlas a été lancé, il sera renvoyé par requête HTTP si ont le réclame via son chemin d'accès.
+
+Par exemple, en lançant NodeAtlas dans le répertoire `site-hello-world`
+
+```
+site-hello-world/
+— templates/
+—— index.htm
+— webconfig.json
+```
+
+en exécutant la commande 
+
+```
+\> node </path/to/>node-atlas/node-atlas.js
+```
+
+ou même la commande
+
+```
+\> node </path/to/>node-atlas/node-atlas.js --webconfig webconfig.not-exist.json
+```
+
+le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
+
+*Note : seul les commandes --webconfig et --httpPort fonctionne dans ce mode.*
 
 
 
