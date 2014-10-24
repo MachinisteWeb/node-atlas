@@ -42,7 +42,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.22.0')
+            .version('0.22.1')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -112,7 +112,7 @@ var NA = {};
             NA.httpServer = express();
             NA.httpServer.enable('strict routing');
             NA.server = http.createServer(NA.httpServer);
-            NA.server.listen(commander.httpPort || 80, function () {
+            NA.server.listen(commander.httpPort || NA.configuration.httpPort || 80, function () {
                 console.log(NA.appLabels.publicMode);
             });
             NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
