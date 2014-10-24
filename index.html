@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.21.4 (Beta)</p>
+<p>Version : 0.22.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -119,6 +119,7 @@
 </ul>
 </li>
 <li><a href="#nodeatlas-comme-module-npm">NodeAtlas comme module npm</a></li>
+<li><a href="#nodeatlas-comme-simple-serveur-web">NodeAtlas comme simple serveur web</a></li>
 <li>
 <a href="#faire-tourner-nodeatlas-sur-server">Faire tourner NodeAtlas sur server</a>
 
@@ -157,6 +158,7 @@
 <li>Minification de CSS/JS à la génération.</li>
 <li>Agrégation de fichier CSS/JS via des Bundles.</li>
 <li>Support d'une BDD de Session (Redis / MongoDB).</li>
+<li>Lancement rapide sans « webconfig » juste en tant que simple serveur web.</li>
 </ul>
 </li>
 <li>
@@ -2390,6 +2392,37 @@ exports.setSessions = website.setSessions;
 
 <pre><code>\&gt; node app.js
 </code></pre>
+
+<h2>
+<a name="nodeatlas-comme-simple-serveur-web" class="anchor" href="#nodeatlas-comme-simple-serveur-web"><span class="octicon octicon-link"></span></a>NodeAtlas comme simple serveur web</h2>
+
+<p>Si NodeAtlas ne trouve pas le « webconfig.json » ou le <code>--webconfig</code> que vous lui aurez indiqué, il se lancera en mode « Simple Serveur Web » ou « Public ».</p>
+
+<p><strong>Ce mode est pratique pour tester très rapidement que NodeAtlas est correctement installé ou pour créer des petits exemples HTML qui ont besoin d'un serveur web pour fonctionner (retours AJAX, iframe embarquée, etc.).</strong></p>
+
+<p>Pour bien comprendre ce que cela signifie : s'il existe un quelconque fichier dans le répertoire d'où NodeAtlas a été lancé, il sera renvoyé par requête HTTP si ont le réclame via son chemin d'accès.</p>
+
+<p>Par exemple, en lançant NodeAtlas dans le répertoire <code>site-hello-world</code></p>
+
+<pre><code>site-hello-world/
+— templates/
+—— index.htm
+— webconfig.json
+</code></pre>
+
+<p>en exécutant la commande </p>
+
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
+</code></pre>
+
+<p>ou même la commande</p>
+
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --webconfig webconfig.not-exist.json
+</code></pre>
+
+<p>le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.</p>
+
+<p><em>Note : seul les commandes --webconfig et --httpPort fonctionne dans ce mode.</em></p>
 
 <h2>
 <a name="faire-tourner-nodeatlas-sur-serveur" class="anchor" href="#faire-tourner-nodeatlas-sur-serveur"><span class="octicon octicon-link"></span></a>Faire tourner NodeAtlas sur serveur</h2>
