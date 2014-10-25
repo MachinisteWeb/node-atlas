@@ -31,7 +31,7 @@
         <h1>
 <a name="node-atlas" class="anchor" href="#node-atlas"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.22.1 (Beta)</p>
+<p>Version : 0.23.0 (Beta)</p>
 
 <h2>
 <a name="avant-propos" class="anchor" href="#avant-propos"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -50,7 +50,8 @@
 <p>L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.</p>
 
 <ul>
-<li>Génération et maintenance de maquette HTML (En cours...).</li>
+<li>
+<a href="https://github.com/Haeresis/ResumeAtlas/">Génération et maintenance de maquette HTML</a>.</li>
 <li>
 <a href="https://github.com/Haeresis/ResumeAtlas/">Maintenance de site HTML (sans Back-end)</a>.</li>
 <li>
@@ -95,7 +96,7 @@
 <li><a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</a></li>
 <li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url.</a></li>
 <li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
-<li><a href="#g%C3%A9rer-lurlrewriting">Gérer l'UrlRewriting</a></li>
+<li><a href="#g%C3%A9rer-le-routage">Gérer le routage (Url Rewriting)</a></li>
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
 <li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
 <li><a href="#minifier-les-cssjs">Minifier les CSS/JS</a></li>
@@ -159,6 +160,8 @@
 <li>Agrégation de fichier CSS/JS via des Bundles.</li>
 <li>Support d'une BDD de Session (Redis / MongoDB).</li>
 <li>Lancement rapide sans « webconfig » juste en tant que simple serveur web.</li>
+<li>Routage partagé via un fichier externe.</li>
+<li>Bundle partagé via un fichier externe.</li>
 </ul>
 </li>
 <li>
@@ -240,10 +243,10 @@
 <h3>
 <a name="configuration-minimale" class="anchor" href="#configuration-minimale"><span class="octicon octicon-link"></span></a>Configuration minimale</h3>
 
-<p>Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS hébergés par le site avec la configuration minimale du « webconfig.json » ci-dessous.</p>
+<p>Vous pouvez faire tourner une page simple avec la configuration minimale du « webconfig.json » ci-dessous</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -251,7 +254,10 @@
 <span class="p">}</span>
 </pre></div>
 
-<p><em>Note : vous pouvez inclure des images ou fichiers CSS/JS hébergés sur d'autres sites.</em></p>
+<p>équivalente à</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span> <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span> <span class="s2">"/"</span><span class="o">:</span> <span class="s2">"index.htm"</span> <span class="p">}</span> <span class="p">}</span>
+</pre></div>
 
 <h3>
 <a name="lancer-le-site-avec-nodeatlas" class="anchor" href="#lancer-le-site-avec-nodeatlas"><span class="octicon octicon-link"></span></a>Lancer le site avec NodeAtlas</h3>
@@ -298,7 +304,7 @@
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"templatesRelativePath"</span><span class="o">:</span> <span class="s2">"templates/"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">},</span>
@@ -309,7 +315,10 @@
         <span class="s2">"/member-without-extension/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"member.htm"</span>
             <span class="s2">"getSupport"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="p">},</span> 
+        <span class="p">},</span>
+        <span class="s2">"about.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"about.htm"</span>
+        <span class="p">},</span>
         <span class="s2">"/error.html"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"error.htm"</span><span class="p">,</span>
             <span class="s2">"statusCode"</span><span class="o">:</span> <span class="mi">404</span><span class="p">,</span>
@@ -344,13 +353,54 @@ webconfig.json
 <p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
+<a name="raccourci-de-template" class="anchor" href="#raccourci-de-template"><span class="octicon octicon-link"></span></a>Raccourci de template</h3>
+
+<p>La configuration ci-dessous est équivalente à la configuration de la section juste au dessus </p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"templatesRelativePath"</span><span class="o">:</span> <span class="s2">"templates/"</span><span class="p">,</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"/"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
+        <span class="s2">"/member.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"member.htm"</span>
+            <span class="s2">"postSupport"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"/member-without-extension/"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"member.htm"</span>
+            <span class="s2">"getSupport"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"about.html"</span><span class="o">:</span> <span class="s2">"about.htm"</span><span class="p">,</span>
+        <span class="s2">"/error.html"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"error.htm"</span><span class="p">,</span>
+            <span class="s2">"statusCode"</span><span class="o">:</span> <span class="mi">404</span><span class="p">,</span>
+            <span class="s2">"mimeType"</span><span class="o">:</span> <span class="s2">"text/plain"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>car</p>
+
+<div class="highlight highlight-js"><pre><span class="s2">"about.html"</span><span class="o">:</span> <span class="s2">"about.htm"</span><span class="p">,</span>
+</pre></div>
+
+<p>est un raccourci de </p>
+
+<div class="highlight highlight-js"><pre><span class="s2">"about.html"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"about.htm"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Évidemment ce raccourci ne sert que si <code>template</code> est le seul paramètre à déclarer de la route.</p>
+
+<h3>
 <a name="h%C3%A9berger-des-images-polices-css-js-etc" class="anchor" href="#h%C3%A9berger-des-images-polices-css-js-etc"><span class="octicon octicon-link"></span></a>Héberger des images, polices, CSS, JS, etc.</h3>
 
 <p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"assetsRelativePath"</span><span class="o">:</span> <span class="s2">"assets/"</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -391,7 +441,7 @@ webconfig.json
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"componentsRelativePath"</span><span class="o">:</span> <span class="s2">"components/"</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">},</span>
@@ -479,7 +529,7 @@ webconfig.json
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"commonVariation"</span><span class="o">:</span> <span class="s2">"common.json"</span><span class="p">,</span>
     <span class="s2">"variationsRelativePath"</span><span class="o">:</span> <span class="s2">"variations/"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"template.htm"</span><span class="p">,</span>
             <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"index.json"</span><span class="p">,</span>
@@ -597,7 +647,7 @@ webconfig.json
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"en-gb"</span><span class="p">,</span>
     <span class="s2">"variationsRelativePath"</span><span class="o">:</span> <span class="s2">"languages/"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"landing.htm"</span><span class="p">,</span>
             <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"landing.json"</span>
@@ -774,7 +824,7 @@ webconfig.fr-fr.json
 <p><em>webconfig.json</em></p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"landing.htm"</span><span class="p">,</span>
             <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"landing.json"</span>
@@ -789,7 +839,7 @@ webconfig.fr-fr.json
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">81</span><span class="p">,</span>
     <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">"/english"</span><span class="p">,</span>
     <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"en-gb"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"home.htm"</span><span class="p">,</span>
             <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"home.json"</span>
@@ -808,7 +858,7 @@ webconfig.fr-fr.json
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">82</span><span class="p">,</span>
     <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">"/francais"</span><span class="p">,</span>
     <span class="s2">"languageCode"</span><span class="o">:</span> <span class="s2">"fr-fr"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"home.htm"</span><span class="p">,</span>
             <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"home.json"</span>
@@ -854,7 +904,7 @@ webconfig.fr-fr.json
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"autoGenerate"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="s2">"generatesRelativePath"</span><span class="o">:</span> <span class="s2">"generate/"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
             <span class="s2">"generate"</span><span class="o">:</span> <span class="s2">"/index.html"</span>
@@ -925,7 +975,7 @@ webconfig.json
     <span class="s2">"autoGenerate"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="s2">"generatesRelativePath"</span><span class="o">:</span> <span class="s2">"../HTML/"</span><span class="p">,</span>
     <span class="s2">"assetsRelativePath"</span><span class="o">:</span> <span class="s2">"../HTML/"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/cv.html"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
             <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"index.json"</span>
@@ -981,7 +1031,7 @@ engine/
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"commonController"</span><span class="o">:</span> <span class="s2">"common.js"</span><span class="p">,</span>
     <span class="s2">"controllersRelativePath"</span><span class="o">:</span> <span class="s2">"controllers/"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
             <span class="s2">"variation"</span><span class="o">:</span> <span class="s2">"index.json"</span>
@@ -1237,7 +1287,7 @@ webconfig.json
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"commonController"</span><span class="o">:</span> <span class="s2">"common.js"</span><span class="p">,</span>
     <span class="s2">"controllersRelativePath"</span><span class="o">:</span> <span class="s2">"controllers/"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span><span class="p">,</span>
             <span class="s2">"controller"</span><span class="o">:</span> <span class="s2">"index.js"</span><span class="p">,</span>
@@ -1314,7 +1364,7 @@ webconfig.json
         <span class="nx">variation</span><span class="p">.</span><span class="nx">specific</span><span class="p">.</span><span class="nx">newProperty</span> <span class="o">=</span> <span class="s2">"Nouvelle propriété"</span><span class="p">;</span> <span class="c1">// Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « &lt;%= specific.newProperty ».</span>
 
         <span class="c1">// Interception possible de la configuration de la page courante.</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">variation</span><span class="p">.</span><span class="nx">pageUrlRewriting</span><span class="p">)</span> <span class="c1">// Retourne « / » pour « index », « /categories/ » pour categories, etc.</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">variation</span><span class="p">.</span><span class="nx">pageRoutes</span><span class="p">)</span> <span class="c1">// Retourne « / » pour « index », « /categories/ » pour categories, etc.</span>
         <span class="k">if</span> <span class="p">(</span><span class="cm">/* test de non existance */</span><span class="p">)</span> <span class="p">{</span> 
             <span class="nx">variation</span><span class="p">.</span><span class="nx">pageParameters</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span> <span class="c1">// La page sera en 404.</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1451,7 +1501,7 @@ webconfig.json
 <p>Par défaut, si vous utilisez la configuration suivante :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -1466,7 +1516,7 @@ webconfig.json
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
     <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -1483,7 +1533,7 @@ webconfig.json
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
     <span class="s2">"httpSecure"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">"/sub/folder"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -1503,7 +1553,7 @@ webconfig.json
 </ol>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -1517,7 +1567,7 @@ webconfig.json
 </ol>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -1602,7 +1652,7 @@ webconfig.prod.json
 <p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p>
 
 <h3>
-<a name="g%C3%A9rer-lurlrewriting" class="anchor" href="#g%C3%A9rer-lurlrewriting"><span class="octicon octicon-link"></span></a>Gérer l'UrlRewriting</h3>
+<a name="g%C3%A9rer-le-routage-url-rewriting" class="anchor" href="#g%C3%A9rer-le-routage-url-rewriting"><span class="octicon octicon-link"></span></a>Gérer le routage (Url Rewriting)</h3>
 
 <p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamique !</p>
 
@@ -1612,7 +1662,7 @@ webconfig.prod.json
 <p>Avec la configuration suivante :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/liste-des-membres/:member/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
         <span class="p">},</span>
@@ -1659,7 +1709,7 @@ webconfig.prod.json
 <p>Voyez la configuration suivante :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/liste-des-membres/([-a-z0-9]+)/?"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span><span class="p">,</span>
             <span class="s2">"regExp"</span><span class="o">:</span> <span class="s2">"g"</span>
@@ -1713,6 +1763,85 @@ webconfig.prod.json
 
 <p>Les règles de création d'url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p>
 
+<h4>
+<a name="routage-dans-un-fichier-partag%C3%A9" class="anchor" href="#routage-dans-un-fichier-partag%C3%A9"><span class="octicon octicon-link"></span></a>Routage dans un fichier partagé</h4>
+
+<p>Afin de ne pas ré-écrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier <code>routes.json</code>. </p>
+
+<p>Par exemple :</p>
+
+<p>L'ensemble de fichier suivant</p>
+
+<pre><code>templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+</code></pre>
+
+<p>avec <code>webconfig.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"httpPort"</span><span class="p">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="nt">"routes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"/"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"template"</span><span class="p">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et avec <code>webconfig.prod.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"httpPort"</span><span class="p">:</span> <span class="mi">7776</span><span class="p">,</span>
+    <span class="nt">"httpHostname"</span><span class="p">:</span> <span class="s2">"blog.lesieur.name"</span><span class="p">,</span>
+    <span class="nt">"urlPort"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="nt">"routes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"/"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"template"</span><span class="p">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>pourrait devenir l'ensemble de fichier suivant </p>
+
+<pre><code>templates/
+— index.htm
+routes.json
+webconfig.json
+webconfig.prod.json
+</code></pre>
+
+<p>avec <code>webconfig.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"httpPort"</span><span class="p">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="nt">"routes"</span><span class="p">:</span> <span class="s2">"routes.json"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>avec <code>webconfig.prod.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"httpPort"</span><span class="p">:</span> <span class="mi">7776</span><span class="p">,</span>
+    <span class="nt">"httpHostname"</span><span class="p">:</span> <span class="s2">"blog.lesieur.name"</span><span class="p">,</span>
+    <span class="nt">"urlPort"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="nt">"routes"</span><span class="p">:</span> <span class="s2">"routes.json"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et <code>routes.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"/"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"template"</span><span class="p">:</span> <span class="s2">"index.htm"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>Note : Vous pouvez vous créer plusieurs fichier de route comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d'eux dans un ensemble de webconfig paramètrer pour faire tourner un site dans diverses langues.</em></p>
+
 <h3>
 <a name="g%C3%A9rer-les-pages-inexistantes" class="anchor" href="#g%C3%A9rer-les-pages-inexistantes"><span class="octicon octicon-link"></span></a>Gérer les pages inexistantes</h3>
 
@@ -1727,7 +1856,7 @@ webconfig.prod.json
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"pageNotFound"</span><span class="o">:</span> <span class="s2">"/pages-inexistantes/"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/pages-inexistantes/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"error.htm"</span><span class="p">,</span>
             <span class="s2">"statusCode"</span><span class="o">:</span> <span class="mi">404</span>
@@ -1761,7 +1890,7 @@ webconfig.prod.json
 <p>Voyez l'exemple ci-dessous :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/liste-des-membres/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
         <span class="p">},</span>
@@ -1793,7 +1922,7 @@ webconfig.prod.json
 <p>Voyez l'exemple ci-dessous :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/liste-des-membres/:member/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span>
         <span class="p">},</span>
@@ -1816,7 +1945,7 @@ webconfig.prod.json
 <p>Voyez l'exemple ci-dessous :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/membres/([-a-z0-9]+)/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"members.htm"</span><span class="p">,</span>
             <span class="s2">"regExp"</span><span class="o">:</span> <span class="kc">true</span>
@@ -1844,6 +1973,9 @@ webconfig.prod.json
 <a name="minifier-les-cssjs" class="anchor" href="#minifier-les-cssjs"><span class="octicon octicon-link"></span></a>Minifier les CSS/JS</h3>
 
 <p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaité. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut qu'un Bundle existe dans le Webconfig.</p>
+
+<h4>
+<a name="cr%C3%A9er-des-bundles" class="anchor" href="#cr%C3%A9er-des-bundles"><span class="octicon octicon-link"></span></a>Créer des Bundles</h4>
 
 <p>Avec la configuration suivante :</p>
 
@@ -1878,7 +2010,7 @@ webconfig.prod.json
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">},</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -1922,6 +2054,9 @@ templates/
 webconfig.json
 </code></pre>
 
+<h4>
+<a name="d%C3%A9sactiver-des-bundles" class="anchor" href="#d%C3%A9sactiver-des-bundles"><span class="octicon octicon-link"></span></a>Désactiver des Bundles</h4>
+
 <p>Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés <code>enable: false</code> dans chaque type de Bundle.</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
@@ -1957,13 +2092,223 @@ webconfig.json
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">},</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+
+<h4>
+<a name="bundles-dans-un-fichier-partag%C3%A9" class="anchor" href="#bundles-dans-un-fichier-partag%C3%A9"><span class="octicon octicon-link"></span></a>Bundles dans un fichier partagé</h4>
+
+<p>Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>. </p>
+
+<p>Par exemple :</p>
+
+<p>L'ensemble de fichier suivant</p>
+
+<pre><code>assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+</code></pre>
+
+<p>avec <code>webconfig.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"httpPort"</span><span class="p">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="nt">"bundles"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"javascript"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"enable"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">"files"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">"javascript/boot.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/modernizr.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/yepnot.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/html5Shiv.js"</span>
+                <span class="p">],</span>
+                <span class="nt">"javascript/framework.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/jquery.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/jquery-ui.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/prettify.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/prettify/run_prettify.js"</span>
+                <span class="p">],</span>
+                <span class="nt">"javascript/common.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/components/extended-format-date.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/common.js"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">"stylesheets"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"enable"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">"files"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">"stylesheets/common.min.css"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"stylesheets/common.css"</span><span class="p">,</span>
+                    <span class="s2">"stylesheets/common-min780.css"</span><span class="p">,</span>
+                    <span class="s2">"stylesheets/common-min1160.css"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">"routes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"/"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"template"</span><span class="p">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et avec <code>webconfig.prod.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"httpPort"</span><span class="p">:</span> <span class="mi">7776</span><span class="p">,</span>
+    <span class="nt">"httpHostname"</span><span class="p">:</span> <span class="s2">"blog.lesieur.name"</span><span class="p">,</span>
+    <span class="nt">"urlPort"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="nt">"bundles"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"javascript"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"enable"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">"files"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">"javascript/boot.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/modernizr.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/yepnot.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/html5Shiv.js"</span>
+                <span class="p">],</span>
+                <span class="nt">"javascript/framework.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/jquery.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/jquery-ui.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/prettify.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/prettify/run_prettify.js"</span>
+                <span class="p">],</span>
+                <span class="nt">"javascript/common.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"javascript/components/extended-format-date.js"</span><span class="p">,</span>
+                    <span class="s2">"javascript/common.js"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">"stylesheets"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"enable"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">"files"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">"stylesheets/common.min.css"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"stylesheets/common.css"</span><span class="p">,</span>
+                    <span class="s2">"stylesheets/common-min780.css"</span><span class="p">,</span>
+                    <span class="s2">"stylesheets/common-min1160.css"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">"routes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"/"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"template"</span><span class="p">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>pourrait devenir l'ensemble de fichier suivant </p>
+
+<pre><code>assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+bundles.json
+webconfig.json
+webconfig.prod.json
+</code></pre>
+
+<p>avec <code>webconfig.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"httpPort"</span><span class="p">:</span> <span class="mi">7777</span><span class="p">,</span>
+    <span class="nt">"bundles"</span><span class="p">:</span> <span class="s2">"bundles.json"</span><span class="p">,</span>
+    <span class="nt">"routes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"/"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"template"</span><span class="p">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>avec <code>webconfig.prod.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"httpPort"</span><span class="p">:</span> <span class="mi">7776</span><span class="p">,</span>
+    <span class="nt">"httpHostname"</span><span class="p">:</span> <span class="s2">"blog.lesieur.name"</span><span class="p">,</span>
+    <span class="nt">"urlPort"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="nt">"bundles"</span><span class="p">:</span> <span class="s2">"bundles.json"</span><span class="p">,</span>
+    <span class="nt">"routes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"/"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"template"</span><span class="p">:</span> <span class="s2">"index.htm"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>et <code>bundles.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+    <span class="nt">"javascript"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"enable"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">"files"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"javascript/boot.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"javascript/modernizr.js"</span><span class="p">,</span>
+                <span class="s2">"javascript/yepnot.js"</span><span class="p">,</span>
+                <span class="s2">"javascript/html5Shiv.js"</span>
+            <span class="p">],</span>
+            <span class="nt">"javascript/framework.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"javascript/jquery.js"</span><span class="p">,</span>
+                <span class="s2">"javascript/jquery-ui.js"</span><span class="p">,</span>
+                <span class="s2">"javascript/prettify.js"</span><span class="p">,</span>
+                <span class="s2">"javascript/prettify/run_prettify.js"</span>
+            <span class="p">],</span>
+            <span class="nt">"javascript/common.min.js"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"javascript/components/extended-format-date.js"</span><span class="p">,</span>
+                <span class="s2">"javascript/common.js"</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">"stylesheets"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"enable"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">"files"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"stylesheets/common.min.css"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"stylesheets/common.css"</span><span class="p">,</span>
+                <span class="s2">"stylesheets/common-min780.css"</span><span class="p">,</span>
+                <span class="s2">"stylesheets/common-min1160.css"</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><em>Note : cette fois il est possible de désactiver les Bundles en ne les incluant pas dans le <code>webconfig</code> en question.</em></p>
 
 <h3>
 <a name="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
@@ -1973,7 +2318,7 @@ webconfig.json
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"getSupport"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="s2">"postSupport"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">},</span>
@@ -2134,7 +2479,7 @@ exports.setSessions = website.setSessions;
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"templateEngineOpenPattern"</span><span class="o">:</span> <span class="s2">"{{"</span><span class="p">,</span>
     <span class="s2">"templateEngineClosePattern"</span><span class="o">:</span> <span class="s2">"}}"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -2156,7 +2501,7 @@ exports.setSessions = website.setSessions;
     <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"127.0.0.1"</span><span class="p">,</span>
     <span class="s2">"urlPort"</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
     <span class="s2">"urlHostname"</span><span class="o">:</span> <span class="s2">"localhost"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -2193,7 +2538,7 @@ exports.setSessions = website.setSessions;
 <p>À noter que dans le cas de la configuration suivante :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -2206,7 +2551,7 @@ exports.setSessions = website.setSessions;
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
     <span class="s2">"urlRelativeSubPath"</span><span class="o">:</span> <span class="s2">"/sub/folder"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">}</span>
@@ -2222,7 +2567,7 @@ exports.setSessions = website.setSessions;
 <p>En utilisant le webconfig suivant :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/index.html"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">},</span>
@@ -2245,7 +2590,7 @@ exports.setSessions = website.setSessions;
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"/home.html"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
         <span class="p">},</span>
@@ -2269,7 +2614,7 @@ exports.setSessions = website.setSessions;
 <p>Avec le webconfig suivant :</p>
 
 <div class="highlight highlight-js"><pre><span class="p">{</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"index"</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"/index.html"</span><span class="p">,</span>
             <span class="s2">"template"</span><span class="o">:</span> <span class="s2">"index.htm"</span>
@@ -2289,8 +2634,8 @@ exports.setSessions = website.setSessions;
 <p>comme suit</p>
 
 <div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
-<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;&lt;%= webconfig.urlRewriting.home.url.slice(1) %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
-<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;&lt;%= webconfig.urlRewriting.contact.url.slice(1) %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;&lt;%= webconfig.routes.home.url.slice(1) %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;&lt;%= webconfig.routes.contact.url.slice(1) %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
 <span class="c">&lt;!-- ... --&gt;</span>
 </pre></div>
 
@@ -2300,8 +2645,8 @@ exports.setSessions = website.setSessions;
 <p>ou comme suit</p>
 
 <div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
-<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;.&lt;%= webconfig.urlRewriting.home.url %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
-<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;.&lt;%= webconfig.urlRewriting.contact.url %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;.&lt;%= webconfig.routes.home.url %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePath %&gt;.&lt;%= webconfig.routes.contact.url %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
 <span class="c">&lt;!-- ... --&gt;</span>
 </pre></div>
 
@@ -2311,8 +2656,8 @@ exports.setSessions = website.setSessions;
 <p>ou comme suit</p>
 
 <div class="highlight highlight-html"><pre><span class="c">&lt;!-- ... --&gt;</span>
-<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.urlRewriting.home.url %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
-<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.urlRewriting.contact.url %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.routes.home.url %&gt;"</span><span class="nt">&gt;</span>Lien vers l'accueil<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.routes.contact.url %&gt;"</span><span class="nt">&gt;</span>Lien pour nous contacter<span class="nt">&lt;/a&gt;</span>
 <span class="c">&lt;!-- ... --&gt;</span>
 </pre></div>
 
@@ -2526,7 +2871,7 @@ site-hello-world/
     <span class="s2">"urlPort"</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
     <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"www.example.fr"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="p">...</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -2568,7 +2913,7 @@ site-hello-world/
     <span class="s2">"urlPort"</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
     <span class="s2">"httpPort"</span><span class="o">:</span> <span class="mi">7777</span><span class="p">,</span>
     <span class="s2">"httpHostname"</span><span class="o">:</span> <span class="s2">"www.example.fr"</span><span class="p">,</span>
-    <span class="s2">"urlRewriting"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"routes"</span><span class="o">:</span> <span class="p">{</span>
         <span class="p">...</span>
     <span class="p">}</span>
 <span class="p">}</span>
