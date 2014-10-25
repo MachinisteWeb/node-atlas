@@ -11,7 +11,7 @@
 	"templateNotFound": "Le fichier de template « %templatesPath% » n'a pas pu être ouvert.",
 	"moduleNotFound": "Le module demandé n'a pas été trouvé : « %moduleError% ».",
 	"variationNotFound": "Le fichier de variation « %variationsPath% » n'a pas pu être ouvert.",
-	"webconfigSyntaxError": "Le fichier « webconfig.json » a une erreur de syntaxe : « %syntaxError% ».",
+	"webconfigSyntaxError": "Le fichier « %fileName% » a une erreur de syntaxe : « %syntaxError% ».",
 	"variationSyntaxError": "Le fichier de variation « %variationsPath% » a une erreur de syntaxe : « %syntaxError% ».",
 	"templateGenerate": "Le fichier « %templateRenderName% » a été généré dans « %pathToSaveFile% » !",
 	"templateNotGenerate": "Impossible d'enregistrer le fichier « %templateRenderName% » dans le dossier « %pathToSaveFile% ».",

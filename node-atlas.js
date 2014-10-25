@@ -42,7 +42,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.22.1')
+            .version('0.23.0')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -127,17 +127,33 @@ var NA = {};
             regex = new RegExp(path.sep + '$', 'g'),
             data = {};
 
-		try {
-        	publics.webconfig = JSON.parse(fs.readFileSync(NA.websitePhysicalPath + NA.webconfigName, 'utf-8'));
-		} catch (exception) {
-			if (exception.toString().indexOf('SyntaxError') !== -1) {
-				data.syntaxError = exception.toString();
-				console.log(NA.appLabels.webconfigSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-			} else {
-				console.log(exception);
-			}
-            process.kill(process.pid);
-		}
+        function openConfiguration(configName) {
+            try {
+                return JSON.parse(fs.readFileSync(NA.websitePhysicalPath + configName, 'utf-8'));
+            } catch (exception) {
+                if (exception.toString().indexOf('SyntaxError') !== -1) {
+                    data.syntaxError = exception.toString();
+                    data.fileName = configName;
+                    console.log(NA.appLabels.webconfigSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                } else {
+                    console.log(exception);
+                }
+                process.kill(process.pid);
+            }
+        }
+
+        // Load Webconfig.
+        publics.webconfig = openConfiguration(NA.webconfigName);
+
+        // Load external Routes.
+        if (typeof publics.webconfig.routes === 'string') {
+            publics.webconfig.routes = openConfiguration(publics.webconfig.routes);
+        }
+
+        // Load external Bundles.
+        if (typeof publics.webconfig.bundles === 'string') {
+            publics.webconfig.bundles = openConfiguration(publics.webconfig.bundles);
+        }
 
         // Change listening hostname.
         NA.webconfig.httpHostname = NA.webconfig.httpHostname || process.env.IP_ADDRESS || 'localhost';
@@ -517,8 +533,8 @@ var NA = {};
     };
 
     publics.pageNotFound = function () {
-        if (NA.webconfig.pageNotFound && NA.webconfig.urlRewriting[NA.webconfig.pageNotFound]) {
-            var pageNotFound = NA.webconfig.urlRewriting[NA.webconfig.pageNotFound],
+        if (NA.webconfig.pageNotFound && NA.webconfig.routes[NA.webconfig.pageNotFound]) {
+            var pageNotFound = NA.webconfig.routes[NA.webconfig.pageNotFound],
                 pageNotFoundUrl = NA.webconfig.pageNotFound;
 
             if (pageNotFound.url) {
@@ -529,27 +545,27 @@ var NA = {};
                 if (pageNotFound.redirect && pageNotFound.statusCode) {
                     privates.redirect(pageNotFound, request, response);
                 } else {
-                    NA.render(pageNotFoundUrl, NA.webconfig.urlRewriting, request, response);
+                    NA.render(pageNotFoundUrl, NA.webconfig.routes, request, response);
                 }
             })
             NA.httpServer.post("*", function (request, response) {
                 if (pageNotFound.redirect && pageNotFound.statusCode) {
                     privates.redirect(pageNotFound, request, response);
                 } else {
-                    NA.render(pageNotFoundUrl, NA.webconfig.urlRewriting, request, response);
+                    NA.render(pageNotFoundUrl, NA.webconfig.routes, request, response);
                 }
             });
         }
     };
 
-    publics.urlRewritingPages = function () {
+    publics.routesPages = function () {
         var commander = NA.modules.commander;
 
         if (commander.generate) { NA.configuration.generate = commander.generate; }
         
         if (!NA.configuration.generate) {       
-            for (var currentUrl in NA.webconfig.urlRewriting) {
-                privates.request(currentUrl, NA.webconfig.urlRewriting);
+            for (var currentUrl in NA.webconfig.routes) {
+                privates.request(currentUrl, NA.webconfig.routes);
             }
         }
     };
@@ -604,15 +620,17 @@ var NA = {};
             try {
                 return JSON.parse(fs.readFileSync(variationsPath, 'utf-8'));
             } catch (exception) {
-                if (exception.code === 'ENOENT') {
-                    console.log(NA.appLabels.variationNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                } else if (exception.toString().indexOf('SyntaxError') !== -1) {
-                    dataError.syntaxError = exception.toString();
-                    console.log(NA.appLabels.variationSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                } else {
-                    console.log(exception);
+                if (!languageCode) {
+                    if (exception.code === 'ENOENT') {
+                        console.log(NA.appLabels.variationNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                    } else if (exception.toString().indexOf('SyntaxError') !== -1) {
+                        dataError.syntaxError = exception.toString();
+                        console.log(NA.appLabels.variationSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                    } else {
+                        console.log(exception);
+                    }
+                    return false;
                 }
-                return false;
             }
         }
     };
@@ -668,11 +686,22 @@ var NA = {};
         var ejs = NA.modules.ejs,
             extend = NA.modules.extend,
             pageParameters = options[path],
-            templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + pageParameters.template,
+            templatesPath,
             currentVariation = {},
             templateRenderName,
             currentPath = path;
 
+        // Inject template shortcut to template.
+        if (typeof pageParameters === 'string') {
+            // templatesPath is just use like temp var in this if statement.
+            templatesPath = pageParameters;
+            pageParameters = {}
+            pageParameters.template = templatesPath;
+        }
+
+        templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + pageParameters.template;
+
+        // Deport url extension to currentPath.
         if (pageParameters.url) {
             currentPath = pageParameters.url;
         }
@@ -854,8 +883,8 @@ var NA = {};
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 
         if (NA.configuration.generate) {
-            for (var currentUrl in NA.webconfig.urlRewriting) {
-                NA.render(currentUrl, NA.webconfig.urlRewriting);
+            for (var currentUrl in NA.webconfig.routes) {
+                NA.render(currentUrl, NA.webconfig.routes);
             }
         }     
     };
@@ -873,14 +902,14 @@ var NA = {};
 
                         data.render = '';
 
-                    for (var page in NA.webconfig.urlRewriting) {
+                    for (var page in NA.webconfig.routes) {
 
                         data.page = page;
-                        if (NA.webconfig.urlRewriting[page].url) {
-                            data.page = NA.webconfig.urlRewriting[page].url;
+                        if (NA.webconfig.routes[page].url) {
+                            data.page = NA.webconfig.routes[page].url;
                         }
 
-                        if (NA.webconfig.urlRewriting.hasOwnProperty(page)) {
+                        if (NA.webconfig.routes.hasOwnProperty(page)) {
                             data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; });
                         }
                     }
@@ -977,7 +1006,7 @@ var NA = {};
                     NA.jsObfuscation();       
 		        	NA.startingHttpServer();
 		        	NA.templateEngineConfiguration(); 
-		        	NA.urlRewritingPages();
+		        	NA.routesPages();
 		        	NA.emulatedIndexPage();
 		            NA.httpServerPublicFiles();
 		            NA.pageNotFound();

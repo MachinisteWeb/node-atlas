@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.22.1 (Beta)
+Version : 0.23.0 (Beta)
 
 ## Avant-propos ##
 
@@ -16,7 +16,7 @@ NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js
 
 L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.
 
-- Génération et maintenance de maquette HTML (En cours...).
+- [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
 - [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
@@ -44,7 +44,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
  - [Changer les paramètres d'url.](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
- - [Gérer l'UrlRewriting](#g%C3%A9rer-lurlrewriting)
+ - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
@@ -91,6 +91,8 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Agrégation de fichier CSS/JS via des Bundles.
  - Support d'une BDD de Session (Redis / MongoDB).
  - Lancement rapide sans « webconfig » juste en tant que simple serveur web.
+ - Routage partagé via un fichier externe.
+ - Bundle partagé via un fichier externe.
 
 - À venir 
  - Compression des images.
@@ -165,11 +167,11 @@ et ci-après, le fichier « /site-hello-world/webconfig.json ».
 
 ### Configuration minimale ###
 
-Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS hébergés par le site avec la configuration minimale du « webconfig.json » ci-dessous.
+Vous pouvez faire tourner une page simple avec la configuration minimale du « webconfig.json » ci-dessous
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -177,7 +179,11 @@ Vous pouvez faire tourner une page simple sans images ou fichiers CSS/JS héberg
 }
 ```
 
-*Note : vous pouvez inclure des images ou fichiers CSS/JS hébergés sur d'autres sites.*
+équivalente à
+
+```js
+{ "routes": { "/": "index.htm" } }
+```
 
 
 
@@ -224,14 +230,14 @@ nodeAtlas.init();
 
 ## Différentes configurations du webconfig.json ##
 
-### Plusieurs pages ##
+### Plusieurs pages ###
 
 Ci-dessous un exemple de configuration.
 
 ```js
 {
 	"templatesRelativePath": "templates/",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		},
@@ -242,7 +248,10 @@ Ci-dessous un exemple de configuration.
 		"/member-without-extension/": {
 			"template": "member.htm"
 			"getSupport": false,
-		}, 
+		},
+		"about.html": {
+			"template": "about.htm"
+		},
 		"/error.html": {
 			"template": "error.htm",
 			"statusCode": 404,
@@ -273,6 +282,50 @@ aux adresses :
 
 
 
+### Raccourci de template ###
+
+La configuration ci-dessous est équivalente à la configuration de la section juste au dessus 
+
+```js
+{
+	"templatesRelativePath": "templates/",
+	"routes": {
+		"/": "index.htm",
+		"/member.html": {
+			"template": "member.htm"
+			"postSupport": false,
+		},
+		"/member-without-extension/": {
+			"template": "member.htm"
+			"getSupport": false,
+		},
+		"about.html": "about.htm",
+		"/error.html": {
+			"template": "error.htm",
+			"statusCode": 404,
+			"mimeType": "text/plain"
+		}
+	}
+}
+```
+
+car
+
+```js
+"about.html": "about.htm",
+```
+
+est un raccourci de 
+
+```js
+"about.html": {
+	"template": "about.htm"
+}
+```
+
+Évidemment ce raccourci ne sert que si `template` est le seul paramètre à déclarer de la route.
+
+
 
 ### Héberger des images, polices, CSS, JS, etc. ###
 
@@ -281,7 +334,7 @@ Vous pouvez également héberger tout un tas de fichier sur votre site dans un d
 ```js
 {
 	"assetsRelativePath": "assets/"
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -323,7 +376,7 @@ Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant 
 ```js
 {
 	"componentsRelativePath": "components/"
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		},
@@ -416,7 +469,7 @@ Il est possible avec le même template et les mêmes includes de générer des p
 {
 	"commonVariation": "common.json",
 	"variationsRelativePath": "variations/",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "template.htm",
 			"variation": "index.json",
@@ -540,7 +593,7 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 {
 	"languageCode": "en-gb",
 	"variationsRelativePath": "languages/",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "landing.htm",
 			"variation": "landing.json"
@@ -724,7 +777,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "landing.htm",
 			"variation": "landing.json"
@@ -740,7 +793,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 	"httpPort": 81,
 	"urlRelativeSubPath": "/english",
 	"languageCode": "en-gb",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "home.htm",
 			"variation": "home.json"
@@ -760,7 +813,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 	"httpPort": 82,
 	"urlRelativeSubPath": "/francais",
 	"languageCode": "fr-fr",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "home.htm",
 			"variation": "home.json"
@@ -803,7 +856,7 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
 {
 	"autoGenerate": true,
 	"generatesRelativePath": "generate/",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm",
 			"generate": "/index.html"
@@ -875,7 +928,7 @@ Il est également possible de manager la création d'un site en simple page HTML
 	"autoGenerate": true,
 	"generatesRelativePath": "../HTML/",
 	"assetsRelativePath": "../HTML/",
-	"urlRewriting": {
+	"routes": {
 		"/cv.html": {
 			"template": "index.htm",
 			"variation": "index.json"
@@ -935,7 +988,7 @@ Pour le contrôleur maître, utilisez par exemple cette configuration :
 {
  	"commonController": "common.js",
  	"controllersRelativePath": "controllers/",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm",
 			"variation": "index.json"
@@ -1192,7 +1245,7 @@ Au lieu de se servir de preRender et render dans le fichier common.js effectif p
 {
  	"commonController": "common.js",
  	"controllersRelativePath": "controllers/",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm",
 			"controller": "index.js",
@@ -1269,7 +1322,7 @@ website.index = {};
 		variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « <%= specific.newProperty ».
 
 		// Interception possible de la configuration de la page courante.
-		console.log(variation.pageUrlRewriting) // Retourne « / » pour « index », « /categories/ » pour categories, etc.
+		console.log(variation.pageRoutes) // Retourne « / » pour « index », « /categories/ » pour categories, etc.
 		if (/* test de non existance */) { 
 			variation.pageParameters.statusCode = 404; // La page sera en 404.
 		} else {
@@ -1408,7 +1461,7 @@ Par défaut, si vous utilisez la configuration suivante :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -1424,7 +1477,7 @@ cela est identique à utiliser celle-ci :
 	"httpPort": 80,
 	"httpSecure": false,
 	"urlRelativeSubPath": "",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -1442,7 +1495,7 @@ Changez alors la configuration en ceci :
 	"httpPort": 7777,
 	"httpSecure": true,
 	"urlRelativeSubPath": "/sub/folder",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -1462,7 +1515,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -1475,7 +1528,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -1567,7 +1620,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 
 
-### Gérer l'UrlRewriting ###
+### Gérer le routage (Url Rewriting) ###
 
 Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamique !
 
@@ -1577,7 +1630,7 @@ Avec la configuration suivante :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/liste-des-membres/:member/": {
 			"template": "members.htm"
 		},
@@ -1623,7 +1676,7 @@ Voyez la configuration suivante :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/liste-des-membres/([-a-z0-9]+)/?": {
 			"template": "members.htm",
 			"regExp": "g"
@@ -1666,6 +1719,91 @@ exports.preRender = function (params, mainCallback) {
 
 Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
 
+#### Routage dans un fichier partagé ####
+
+Afin de ne pas ré-écrire une longue liste de route dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `routes.json`. 
+
+Par exemple :
+
+L'ensemble de fichier suivant
+
+```
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+```
+
+avec `webconfig.json`
+
+```json
+{
+	"httpPort": 7777,
+	"routes": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+et avec `webconfig.prod.json`
+
+```json
+{
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+ 	"urlPort": 80,
+	"routes": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+pourrait devenir l'ensemble de fichier suivant 
+
+```
+templates/
+— index.htm
+routes.json
+webconfig.json
+webconfig.prod.json
+```
+
+avec `webconfig.json`
+
+```json
+{
+	"httpPort": 7777,
+	"routes": "routes.json"
+}
+```
+
+avec `webconfig.prod.json`
+
+```json
+{
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+ 	"urlPort": 80,
+	"routes": "routes.json"
+}
+```
+
+et `routes.json`
+
+```json
+{
+	"/": {
+		"template": "index.htm"
+	}
+}
+```
+
+*Note : Vous pouvez vous créer plusieurs fichier de route comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramètrer pour faire tourner un site dans diverses langues.*
+
 
 
 ### Gérer les pages inexistantes ###
@@ -1680,7 +1818,7 @@ Voyez l'exemple ci-dessous :
 ```js
 {
 	"pageNotFound": "/pages-inexistantes/",
-	"urlRewriting": {
+	"routes": {
 		"/pages-inexistantes/": {
 			"template": "error.htm",
 			"statusCode": 404
@@ -1713,7 +1851,7 @@ Voyez l'exemple ci-dessous :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/liste-des-membres/": {
 			"template": "members.htm"
 		},
@@ -1743,7 +1881,7 @@ Voyez l'exemple ci-dessous :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/liste-des-membres/:member/": {
 			"template": "members.htm"
 		},
@@ -1766,7 +1904,7 @@ Voyez l'exemple ci-dessous :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/membres/([-a-z0-9]+)/": {
 			"template": "members.htm",
 			"regExp": true
@@ -1795,6 +1933,8 @@ Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
 ### Minifier les CSS/JS ###
 
 Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaité. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut qu'un Bundle existe dans le Webconfig.
+
+#### Créer des Bundles ####
 
 Avec la configuration suivante :
 
@@ -1830,7 +1970,7 @@ Avec la configuration suivante :
 			}
 		}
 	},
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -1876,6 +2016,8 @@ templates/
 webconfig.json
 ```
 
+#### Désactiver des Bundles ####
+
 Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés `enable: false` dans chaque type de Bundle.
 
 ```js
@@ -1912,13 +2054,229 @@ Il est également possible de ne pas executer la minification au démarage d'un 
 			}
 		}
 	},
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
 	}
 }
 ```
+
+#### Bundles dans un fichier partagé ####
+
+Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`. 
+
+Par exemple :
+
+L'ensemble de fichier suivant
+
+```
+assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+```
+
+avec `webconfig.json`
+
+```json
+{
+	"httpPort": 7777,
+	"bundles": {
+		"javascript": {
+			"enable": false,
+			"files": {
+				"javascript/boot.min.js": [
+					"javascript/modernizr.js",
+					"javascript/yepnot.js",
+					"javascript/html5Shiv.js"
+				],
+				"javascript/framework.min.js": [
+					"javascript/jquery.js",
+					"javascript/jquery-ui.js",
+					"javascript/prettify.js",
+					"javascript/prettify/run_prettify.js"
+				],
+				"javascript/common.min.js": [
+					"javascript/components/extended-format-date.js",
+					"javascript/common.js"
+				]
+			}
+		},
+		"stylesheets": {
+			"enable": false,
+			"files": {
+				"stylesheets/common.min.css": [
+					"stylesheets/common.css",
+					"stylesheets/common-min780.css",
+					"stylesheets/common-min1160.css"
+				]
+			}
+		}
+	},
+	"routes": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+et avec `webconfig.prod.json`
+
+```json
+{
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+ 	"urlPort": 80,
+ 	"bundles": {
+		"javascript": {
+			"enable": false,
+			"files": {
+				"javascript/boot.min.js": [
+					"javascript/modernizr.js",
+					"javascript/yepnot.js",
+					"javascript/html5Shiv.js"
+				],
+				"javascript/framework.min.js": [
+					"javascript/jquery.js",
+					"javascript/jquery-ui.js",
+					"javascript/prettify.js",
+					"javascript/prettify/run_prettify.js"
+				],
+				"javascript/common.min.js": [
+					"javascript/components/extended-format-date.js",
+					"javascript/common.js"
+				]
+			}
+		},
+		"stylesheets": {
+			"enable": false,
+			"files": {
+				"stylesheets/common.min.css": [
+					"stylesheets/common.css",
+					"stylesheets/common-min780.css",
+					"stylesheets/common-min1160.css"
+				]
+			}
+		}
+	},
+	"routes": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+pourrait devenir l'ensemble de fichier suivant 
+
+```
+assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+bundles.json
+webconfig.json
+webconfig.prod.json
+```
+
+avec `webconfig.json`
+
+```json
+{
+	"httpPort": 7777,
+	"bundles": "bundles.json",
+	"routes": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+avec `webconfig.prod.json`
+
+```json
+{
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+ 	"urlPort": 80,
+ 	"bundles": "bundles.json",
+	"routes": {
+		"/": {
+			"template": "index.htm"
+		}
+	}
+}
+```
+
+et `bundles.json`
+
+```json
+{
+	"javascript": {
+		"enable": false,
+		"files": {
+			"javascript/boot.min.js": [
+				"javascript/modernizr.js",
+				"javascript/yepnot.js",
+				"javascript/html5Shiv.js"
+			],
+			"javascript/framework.min.js": [
+				"javascript/jquery.js",
+				"javascript/jquery-ui.js",
+				"javascript/prettify.js",
+				"javascript/prettify/run_prettify.js"
+			],
+			"javascript/common.min.js": [
+				"javascript/components/extended-format-date.js",
+				"javascript/common.js"
+			]
+		}
+	},
+	"stylesheets": {
+		"enable": false,
+		"files": {
+			"stylesheets/common.min.css": [
+				"stylesheets/common.css",
+				"stylesheets/common-min780.css",
+				"stylesheets/common-min1160.css"
+			]
+		}
+	}
+}
+```
+
+*Note : cette fois il est possible de désactiver les Bundles en ne les incluant pas dans le `webconfig` en question.*
 
 
 
@@ -1930,7 +2288,7 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 {
 	"getSupport": true,
 	"postSupport": false,
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		},
@@ -2092,7 +2450,7 @@ Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% i
 {
 	"templateEngineOpenPattern": "{{",
 	"templateEngineClosePattern": "}}",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -2116,7 +2474,7 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 	"httpHostname": "127.0.0.1",
 	"urlPort": 80,
 	"urlHostname": "localhost",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -2156,7 +2514,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -2170,7 +2528,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 {
 	"httpPort": 7777,
     "urlRelativeSubPath": "/sub/folder",
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.htm"
 		}
@@ -2186,7 +2544,7 @@ En utilisant le webconfig suivant :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"/index.html": {
 			"template": "index.htm"
 		},
@@ -2211,7 +2569,7 @@ je serais obligé de changer mon lien dans le template si je change le port d'é
 ```js
 {
 	"httpPort": 7777,
-	"urlRewriting": {
+	"routes": {
 		"/home.html": {
 			"template": "index.htm"
 		},
@@ -2237,7 +2595,7 @@ Avec le webconfig suivant :
 
 ```js
 {
-	"urlRewriting": {
+	"routes": {
 		"index": {
 			"url": "/index.html",
 			"template": "index.htm"
@@ -2256,8 +2614,8 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 
    ```html
 <!-- ... -->
-<a href="<%= urlBasePath %><%= webconfig.urlRewriting.home.url.slice(1) %>">Lien vers l'accueil</a>
-<a href="<%= urlBasePath %><%= webconfig.urlRewriting.contact.url.slice(1) %>">Lien pour nous contacter</a>
+<a href="<%= urlBasePath %><%= webconfig.routes.home.url.slice(1) %>">Lien vers l'accueil</a>
+<a href="<%= urlBasePath %><%= webconfig.routes.contact.url.slice(1) %>">Lien pour nous contacter</a>
 <!-- ... -->
 ```
 
@@ -2267,8 +2625,8 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 
    ```html
 <!-- ... -->
-<a href="<%= urlBasePath %>.<%= webconfig.urlRewriting.home.url %>">Lien vers l'accueil</a>
-<a href="<%= urlBasePath %>.<%= webconfig.urlRewriting.contact.url %>">Lien pour nous contacter</a>
+<a href="<%= urlBasePath %>.<%= webconfig.routes.home.url %>">Lien vers l'accueil</a>
+<a href="<%= urlBasePath %>.<%= webconfig.routes.contact.url %>">Lien pour nous contacter</a>
 <!-- ... -->
 ```
 
@@ -2278,8 +2636,8 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 
    ```html
 <!-- ... -->
-<a href="<%= urlBasePathSlice %><%= webconfig.urlRewriting.home.url %>">Lien vers l'accueil</a>
-<a href="<%= urlBasePathSlice %><%= webconfig.urlRewriting.contact.url %>">Lien pour nous contacter</a>
+<a href="<%= urlBasePathSlice %><%= webconfig.routes.home.url %>">Lien vers l'accueil</a>
+<a href="<%= urlBasePathSlice %><%= webconfig.routes.contact.url %>">Lien pour nous contacter</a>
 <!-- ... -->
 ```
 
@@ -2514,7 +2872,7 @@ Un webconfig exemple pour une production :
  	"urlPort": 80,
 	"httpPort": 7777,
 	"httpHostname": "www.example.fr",
-	"urlRewriting": {
+	"routes": {
 		...
 	}
 }
@@ -2558,7 +2916,7 @@ Un webconfig exemple pour une production :
  	"urlPort": 80,
 	"httpPort": 7777,
 	"httpHostname": "www.example.fr",
-	"urlRewriting": {
+	"routes": {
 		...
 	}
 }

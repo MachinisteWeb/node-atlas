@@ -1,5 +1,5 @@
 {
-	"urlRewriting": {
+	"routes": {
 		"/": {
 			"template": "index.html"
 		}
