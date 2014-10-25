@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.23.0 (Beta)
+Version : 0.23. (Beta)
 
 ## Avant-propos ##
 
@@ -20,6 +20,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
+- [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
 
 
 
