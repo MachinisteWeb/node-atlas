@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.23. (Beta)
+Version : 0.23.2 (Beta)
 
 ## Avant-propos ##
 
@@ -2766,7 +2766,7 @@ ou même la commande
 
 le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
 
-*Note : seul les commandes --webconfig et --httpPort fonctionne dans ce mode.*
+*Note : seul les commandes `--webconfig`, `--run`, `--directory` et `--httpPort` fonctionnent dans ce mode.*
 
 
 

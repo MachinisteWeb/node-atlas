@@ -36,13 +36,11 @@ var NA = {};
 (function (publics) {
     "use strict";
 
-	var privates = {};
-
     publics.lineCommandConfiguration = function () {
         var commander = NA.modules.commander;
 
         commander
-            .version('0.23.1')
+            .version('0.23.2')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -101,58 +99,32 @@ var NA = {};
     publics.initWebconfig = function (callback) {
         // Webconfig based website...
         NA.ifFileExist(NA.websitePhysicalPath, NA.webconfigName, function () {
-        	privates.improveWebconfigBase();
+        	NA.improveWebconfigBase();
             callback();
         // ... or static website.
         }, function () {
-            var http = NA.modules.http,
-                commander = NA.modules.commander,
-                express = NA.modules.express;
-
-            NA.httpServer = express();
-            NA.httpServer.enable('strict routing');
-            NA.server = http.createServer(NA.httpServer);
-            NA.server.listen(commander.httpPort || NA.configuration.httpPort || 80, function () {
-                console.log(NA.appLabels.publicMode);
-            });
-            NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
+            NA.simpleWebServer();
         });
     };
 
-    privates.improveWebconfigBase = function () {
-    	var fs = NA.modules.fs,
-    		commander = NA.modules.commander,
+    publics.improveWebconfigBase = function () {
+    	var commander = NA.modules.commander,
             connect = NA.modules.connect,
     		path = NA.modules.path,
             regex = new RegExp(path.sep + '$', 'g'),
             data = {};
 
-        function openConfiguration(configName) {
-            try {
-                return JSON.parse(fs.readFileSync(NA.websitePhysicalPath + configName, 'utf-8'));
-            } catch (exception) {
-                if (exception.toString().indexOf('SyntaxError') !== -1) {
-                    data.syntaxError = exception.toString();
-                    data.fileName = configName;
-                    console.log(NA.appLabels.webconfigSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-                } else {
-                    console.log(exception);
-                }
-                process.kill(process.pid);
-            }
-        }
-
         // Load Webconfig.
-        publics.webconfig = openConfiguration(NA.webconfigName);
+        publics.webconfig = NA.openConfiguration(NA.webconfigName);
 
         // Load external Routes.
         if (typeof publics.webconfig.routes === 'string') {
-            publics.webconfig.routes = openConfiguration(publics.webconfig.routes);
+            publics.webconfig.routes = NA.openConfiguration(publics.webconfig.routes);
         }
 
         // Load external Bundles.
         if (typeof publics.webconfig.bundles === 'string') {
-            publics.webconfig.bundles = openConfiguration(publics.webconfig.bundles);
+            publics.webconfig.bundles = NA.openConfiguration(publics.webconfig.bundles);
         }
 
         // Change listening hostname.
@@ -234,6 +206,23 @@ var NA = {};
 (function (publics) {
     "use strict";
 
+    publics.openConfiguration = function (configName) {
+        var fs = NA.modules.fs;
+
+        try {
+            return JSON.parse(fs.readFileSync(NA.websitePhysicalPath + configName, 'utf-8'));
+        } catch (exception) {
+            if (exception.toString().indexOf('SyntaxError') !== -1) {
+                data.syntaxError = exception.toString();
+                data.fileName = configName;
+                console.log(NA.appLabels.webconfigSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+            } else {
+                console.log(exception);
+            }
+            process.kill(process.pid);
+        }
+    };
+
     publics.ifFileExist = function (physicalPath, fileName, callback, fallback) {
         var fs = NA.modules.fs;
 
@@ -265,8 +254,6 @@ var NA = {};
 (function (publics) {
     "use strict";
 
-    var privates = {};
-
     publics.loadListOfNativeModules = function () {
         var modules = {};
 
@@ -278,7 +265,7 @@ var NA = {};
         publics.modules = modules;
     };
 
-    privates.loadListOfRequiredNpmModules = function () {
+    publics.loadListOfRequiredNpmModules = function () {
         publics.modules.express = require('express');
         publics.modules.session = require('express-session');
         publics.modules.bodyParser = require('body-parser');
@@ -296,7 +283,7 @@ var NA = {};
         publics.modules.forceDomain = require('node-force-domain');
     };
 
-    privates.downloadAllModule = function (exception) {
+    publics.downloadAllModule = function (exception) {
         var execute = NA.modules.child_process.exec;
 
         NA.ifFileExist(NA.serverPhysicalPath, 'package.json', function () {
@@ -317,11 +304,11 @@ var NA = {};
 
     publics.moduleRequired = function (callback) {
         try {
-            privates.loadListOfRequiredNpmModules();
+            NA.loadListOfRequiredNpmModules();
             callback();
         } catch (exception) {
             if (exception.code === 'MODULE_NOT_FOUND') {
-                privates.downloadAllModule(exception);
+                NA.downloadAllModule(exception);
             } else {
                 console.log(exception);
             }
@@ -341,7 +328,25 @@ var NA = {};
 (function (publics) {
     "use strict";
 
-    var privates = {};
+    publics.simpleWebServer = function () {
+        var commander = NA.modules.commander,
+            http = NA.modules.http,
+            commander = NA.modules.commander,
+            express = NA.modules.express,
+            open = NA.modules.open;
+
+        NA.httpServer = express();
+        NA.httpServer.enable('strict routing');
+        NA.server = http.createServer(NA.httpServer);
+        NA.server.listen(commander.httpPort || NA.configuration.httpPort || 80, function () {
+            console.log(NA.appLabels.publicMode);
+        });
+        NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
+
+        commander.httpPort = commander.httpPort || 80;
+
+        if (commander.run) { open('http://localhost' + ((commander.httpPort !== 80) ? ':' + commander.httpPort : '') + '/'); }
+    };
 
     publics.startingHttpServer = function () {
         var express = NA.modules.express,
@@ -462,7 +467,7 @@ var NA = {};
         response.end();
     };
 
-    privates.redirect = function (optionsPath, request, response) {
+    publics.redirect = function (optionsPath, request, response) {
         var location;
 
         if (optionsPath.regExp) {
@@ -478,7 +483,7 @@ var NA = {};
         response.end();
     };
 
-    privates.request = function (path, options) {
+    publics.request = function (path, options) {
         var pageParameters = options[path],
             getSupport = true,
             postSupport = true,
@@ -513,7 +518,7 @@ var NA = {};
         if (getSupport) {
             NA.httpServer.get(objectPath, function (request, response) {
                 if (options[path].redirect && options[path].statusCode) {
-                    privates.redirect(options[path], request, response);
+                    NA.redirect(options[path], request, response);
                 } else {
                     NA.render(path, options, request, response);
                 }
@@ -524,7 +529,7 @@ var NA = {};
         if (postSupport) {
             NA.httpServer.post(objectPath, function (request, response) {
                 if (options[path].redirect && options[path].statusCode) {
-                    privates.redirect(options[path], request, response);
+                    NA.redirect(options[path], request, response);
                 } else {
                     NA.render(path, options, request, response);
                 }
@@ -543,14 +548,14 @@ var NA = {};
 
             NA.httpServer.get("*", function (request, response) {
                 if (pageNotFound.redirect && pageNotFound.statusCode) {
-                    privates.redirect(pageNotFound, request, response);
+                    NA.redirect(pageNotFound, request, response);
                 } else {
                     NA.render(pageNotFoundUrl, NA.webconfig.routes, request, response);
                 }
             })
             NA.httpServer.post("*", function (request, response) {
                 if (pageNotFound.redirect && pageNotFound.statusCode) {
-                    privates.redirect(pageNotFound, request, response);
+                    NA.redirect(pageNotFound, request, response);
                 } else {
                     NA.render(pageNotFoundUrl, NA.webconfig.routes, request, response);
                 }
@@ -565,7 +570,7 @@ var NA = {};
         
         if (!NA.configuration.generate) {       
             for (var currentUrl in NA.webconfig.routes) {
-                privates.request(currentUrl, NA.webconfig.routes);
+                NA.request(currentUrl, NA.webconfig.routes);
             }
         }
     };
@@ -583,9 +588,7 @@ var NA = {};
 (function (publics) {
     "use strict";
 
-    var privates = {};
-
-    privates.openTemplate = function (pageParameters, templatesPath, callback) {
+    publics.openTemplate = function (pageParameters, templatesPath, callback) {
         var fs = NA.modules.fs;
 
         fs.readFile(templatesPath, 'utf-8', function (error, data) {
@@ -604,7 +607,7 @@ var NA = {};
        });
     };
 
-    privates.openVariation = function (variationName, languageCode) {
+    publics.openVariation = function (variationName, languageCode) {
         var fs = NA.modules.fs,
             dataError = {},
             variationsPath,
@@ -706,7 +709,7 @@ var NA = {};
             currentPath = pageParameters.url;
         }
 
-        publics.loadController(pageParameters.controller, function () {
+        NA.loadController(pageParameters.controller, function () {
 
             // Execute custom PreRender part.
             // Specific
@@ -736,7 +739,7 @@ var NA = {};
 
             // Opening template file.
             function openTemplate(currentVariation) {                
-                privates.openTemplate(pageParameters, templatesPath, function (data) {
+                NA.openTemplate(pageParameters, templatesPath, function (data) {
 
                     // Generate final string Render.
                     try {
@@ -787,14 +790,14 @@ var NA = {};
 
 
 
-            currentVariation.common = privates.openVariation(NA.webconfig.commonVariation, currentVariation.languageCode);
+            currentVariation.common = NA.openVariation(NA.webconfig.commonVariation, currentVariation.languageCode);
             if (currentVariation.languageCode) {
-                currentVariation.common = extend(true, privates.openVariation(NA.webconfig.commonVariation), currentVariation.common);
+                currentVariation.common = extend(true, NA.openVariation(NA.webconfig.commonVariation), currentVariation.common);
             }
 
-            currentVariation.specific = privates.openVariation(pageParameters.variation, currentVariation.languageCode);
+            currentVariation.specific = NA.openVariation(pageParameters.variation, currentVariation.languageCode);
             if (currentVariation.languageCode) {
-                currentVariation.specific = extend(true, privates.openVariation(pageParameters.variation), currentVariation.specific);
+                currentVariation.specific = extend(true, NA.openVariation(pageParameters.variation), currentVariation.specific);
             }
 
             currentVariation.pageParameters = pageParameters;
@@ -827,9 +830,7 @@ var NA = {};
 (function (publics) {
     "use strict";
 
-    var privates = {};
-
-    privates.openController = function () {
+    publics.openController = function () {
         NA.nodeModulesPath = NA.websitePhysicalPath + 'node_modules/';
         if (typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
             NA = NA.websiteController[NA.webconfig.commonController].loadModules(NA) || NA;
@@ -837,7 +838,7 @@ var NA = {};
     };
 
     publics.loadListOfExternalModules = function (callback) {
-        publics.loadController(NA.webconfig.commonController, function () {
+        NA.loadController(NA.webconfig.commonController, function () {
             callback();
         });
     };
@@ -849,7 +850,7 @@ var NA = {};
         if (typeof controller !== 'undefined') {
             try {
                 NA.websiteController[controller] = require(commonControllerPath);
-                privates.openController();
+                NA.openController();
                 callback();
             } catch (exception) {
                 dataError.moduleError = exception.toString();
@@ -922,7 +923,7 @@ var NA = {};
         }
     };
 
-    NA.saveTemplateRender = function (data, templateRenderName) {
+    publics.saveTemplateRender = function (data, templateRenderName) {
         var fs = NA.modules.fs,
             cheerio = NA.modules.cheerio,
             mkpath = NA.modules.mkpath,
@@ -971,6 +972,7 @@ var NA = {};
 
         });
     };
+
 })(NA);
 
 
