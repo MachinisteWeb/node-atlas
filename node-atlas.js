@@ -40,7 +40,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.23.2')
+            .version('0.23.3')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -89,6 +89,7 @@ var NA = {};
 
         publics.variations = {};
 
+        NA.variations.pathname = NA.websitePhysicalPath + NA.webconfig.componentsRelativePath;
         NA.variations.filename = NA.websitePhysicalPath + NA.webconfig.componentsRelativePath + "all-component.here";
 
         // Set pattern for use EJS.
@@ -742,10 +743,14 @@ var NA = {};
                 NA.openTemplate(pageParameters, templatesPath, function (data) {
 
                     // Generate final string Render.
+                    currentVariation.filename = currentVariation.pathname + pageParameters.template;
                     try {
                        data = ejs.render(data, currentVariation);
                     } catch (exception) {
-                        data = exception.toString();
+                        data = exception.toString()
+                            .replace(/[\n]/g, "<br>")
+                            .replace(/    /g, "<span style='display:inline-block;width:32px'></span>")
+                            .replace(/ >> /g, "<span style='display:inline-block;width:32px'>&gt;&gt;</span>");
                     }
 
                     // Execute custom Render part.
@@ -783,12 +788,11 @@ var NA = {};
             currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + currentPath;
             if (request) { currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url; }
 
+            currentVariation.pathname = NA.variations.pathname;
             currentVariation.filename = NA.variations.filename;
 
             // Opening variation file.
             if (request) { currentVariation.params = request.params; }
-
-
 
             currentVariation.common = NA.openVariation(NA.webconfig.commonVariation, currentVariation.languageCode);
             if (currentVariation.languageCode) {
