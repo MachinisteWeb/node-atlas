@@ -40,7 +40,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-            .version('0.23.3')
+            .version('0.23.4')
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
@@ -478,7 +478,7 @@ var NA = {};
         }
 
         response.writeHead(optionsPath.statusCode, {
-            Location: location
+            Location: NA.webconfig.urlRelativeSubPath + location
         });
 
         response.end();
