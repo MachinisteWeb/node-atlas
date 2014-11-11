@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.23.4 (Beta)
+Version : 0.23.5 (Beta)
 
 ## Avant-propos ##
 
@@ -83,8 +83,9 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Exemple de Socket.IO avec Handshake.
  - Support des middlewares de Express.
  - Support des variables personnelles de webconfig.
- - Migration Express 3.x vers Express 4.x.
  - Migration Connect 2.x vers Connect 3.x.
+ - Migration Express 3.x vers Express 4.x.
+ - Retrait de Connect 3.x.
  - Exemple de reverse-proxy pour plusieurs instances sur port 80.
  - Lancer NodeAtlas avec un require() depuis un fichier de code.
  - Installer automatiquement NodeAtlas depuis npm.

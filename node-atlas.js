@@ -1,7 +1,23 @@
 /*------------------------------------*\
+    $%ABOUT
+\*------------------------------------*/
+
+/**
+ * @fileOverview Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
+ * @author <a href="mailto:bruno.lesieur@gmail.com">Bruno Lesieur</a>
+ * @version 0.23.5
+ */
+
+
+
+
+
+/*------------------------------------*\
     $%SUMMARY
 \*------------------------------------*/
+
 /**
+ * ABOUT..........................Informations about NodeAtlas.
  * SUMMARY........................It's me !
  * NODE ATLAS OBJECT..............Creation of Main Object.
  * CONFIGURATION..................Global configuration variables, command tool and webconfig. 
@@ -23,6 +39,10 @@
     $%NODE ATLAS OBJECT
 \*------------------------------------*/
 
+/**
+ * The main object that contains all API variables of NodeAtlas.
+ * @type {Object}
+ */
 var NA = {};
 
 
@@ -33,25 +53,60 @@ var NA = {};
     $%CONFIGURATION
 \*------------------------------------*/
 
+/**
+ * Closure group for define Configuration Functions.
+ * @param  {Object} publics Allow you to add publics methods to NA object.
+ */
 (function (publics) {
     "use strict";
 
+    /**
+     * Set line command options usable when NodeAtlas is executed in a command line tool.
+     */
     publics.lineCommandConfiguration = function () {
+        /**
+         * Instance of node_modules `commander`.
+         * @type {Object}
+         */
         var commander = NA.modules.commander;
 
         commander
-            .version('0.23.4')
+            /** Version of NodeAtlas currently in use with `--version` option. */
+            .version('0.23.5')
+
+            /** Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
+
+            /** Target the directory in which website and NodeAtlas will be running. */
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
+            
+            /** Change name of JSON file used as the webconfig file. */
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
+
+            /** Change the port that runs the NodeAtlas website. */
             .option(NA.appLabels.commander.httpPort.command, NA.appLabels.commander.httpPort.description, String)
+            
+            /** Minify all files and re-create all HTML assets into generates folder. */
             .option(NA.appLabels.commander.generate.command, NA.appLabels.commander.generate.description)
             .parse(process.argv);
     };
 
+    /**
+     * Set main variables for application and language error messages.
+     */
     publics.initGlobalVar = function () {
         try {
+            /**
+             * Name of file contains language error messages. Name of file is without extension.
+             * @type {String}
+             * @default "default"
+             */
             publics.appLanguage = 'default';
+
+            /**
+             * Return OS absolute path which contains webconfig and website.
+             * @type {String}
+             */
             publics.serverPhysicalPath = process.argv[1].replace(/[-a-zA-Z0-9_]+(\.js)?$/g, "");
             publics.appLabels = require('./languages/' + publics.appLanguage + '.json');
             publics.websiteController = [];
@@ -110,7 +165,6 @@ var NA = {};
 
     publics.improveWebconfigBase = function () {
     	var commander = NA.modules.commander,
-            connect = NA.modules.connect,
     		path = NA.modules.path,
             regex = new RegExp(path.sep + '$', 'g'),
             data = {};
@@ -272,7 +326,6 @@ var NA = {};
         publics.modules.bodyParser = require('body-parser');
         publics.modules.cookieParser = require('cookie-parser');
         publics.modules.extend = require('extend');
-        publics.modules.connect = require('connect');
         publics.modules.commander = require('commander');
         publics.modules.compress = require('compression');
         publics.modules.open = require('open');
@@ -354,7 +407,6 @@ var NA = {};
             favicon = NA.modules.favicon,
             commander = NA.modules.commander,
             compress = NA.modules.compress,
-            connect = NA.modules.connect,
             session = NA.modules.session,
             bodyParser = NA.modules.bodyParser,
             cookieParser = NA.modules.cookieParser,
