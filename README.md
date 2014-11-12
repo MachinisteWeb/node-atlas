@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.24.1 (Beta)
+Version : 0.24.2 (Beta)
 
 ## Avant-propos ##
 
@@ -2491,7 +2491,7 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 #### Les chemins relatifs en absolue ####
 
-Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse `<img src="media/images/example.jpg" />` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `<img src="../media/images/example.jpg" />`).
+Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse `media/images/example.jpg` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `../media/images/example.jpg`).
 
 Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :
 

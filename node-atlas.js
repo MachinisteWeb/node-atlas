@@ -5,7 +5,7 @@
 /**
  * @fileOverview Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author <a href="mailto:bruno.lesieur@gmail.com">Bruno Lesieur</a>
- * @version 0.24.1
+ * @version 0.24.2
  */
 
 
@@ -76,7 +76,7 @@ var NA = {};
 
         commander
             /** Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.24.1')
+            .version('0.24.2')
 
             /** Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
