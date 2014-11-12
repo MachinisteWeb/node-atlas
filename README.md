@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.24.2 (Beta)
+Version : 0.24.3 (Beta)
 
 ## Avant-propos ##
 
@@ -1045,7 +1045,6 @@ var website = {};
 		var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
 		
 		// Associations de chaque module pour y avoir accès partout.
-		NA.modules.connect = require(modulePath + 'connect');
 		NA.modules.cookie = require(modulePath + 'cookie');
 		NA.modules.mongoose = require(modulePath + 'mongoose');
 		NA.modules.socketio = require(modulePath + 'socket.io');
@@ -1081,16 +1080,16 @@ var website = {};
 		
 		// Gestion de connexion.
 		mongoose.connection.on('error', function (error) {
-	  		console.log('Mongoose default connection error: ' + error);
+	  		console.log('Erreur pour la connexion par défaut à Mongoose: ' + error);
 		});
 
 		// Gestion des déconnexion.
 		mongoose.connection.on('disconnected', function () {
-			console.log('Mongoose default connection disconnected');
+			console.log('Connexion par défaut à Mongoose déconnectée.');
 		});
 		process.on('SIGINT', function (error) {
 			mongoose.connection.close(function () {
-				console.log('Mongoose default connection disconnected through app termination');
+				console.log('Connexion par défaut à Mongoose déconnectée en raison de l\'arrêt de l\'app termination');
 				process.exit(0);
 			});
 		});
@@ -1111,41 +1110,42 @@ var website = {};
 
 	// Exemple d'utilisation de Socket.IO.
 	privates.socketIoInitialisation = function (socketio, NA, callback) {
-		var io = socketio.listen(NA.server),
-			connect = NA.modules.connect,
-			cookie = NA.modules.cookie;
+    	var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io' } : undefined,
+			io = socketio(NA.server, optionIo),
+			cookie = NA.modules.cookie,
+			cookieParser = NA.modules.cookieParser;
 
 		// Synchronisation des Sessions avec Socket.IO.
-		io.set('authorization', function (data, accept) {
+		io.use(function(socket, next) {
+			var handshakeData = socket.request;
 
-            // Fallback si les cookies ne sont pas gérés.
-            if (!data.headers.cookie) {
-                return accept('Session cookie required.', false);
+			// Fallback si les cookies ne sont pas gérés.
+			if (!handshakeData.headers.cookie) {
+                return next(new Error('Cookie de session requis.'));
             }
 
-            // Transformation du cookie en Objet cookie.
-            data.cookie = cookie.parse(data.headers.cookie);
+			// Transformation de la String cookie en Objet JSON.
+            handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
 
-            // Vérification de la signature du cookie.
-            data.cookie = connect.utils.parseSignedCookies(data.cookie, NA.webconfig.session.secret);
-             
-            // Sauver nous même une copie de la Session.
-            data.sessionID = data.cookie[NA.webconfig.session.key];
+			// Vérification de la signature du cookie.
+            handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
+
+            // Garder à porté l'ID de Session.
+    		handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
 
 			// Accepter le cookie.
-            NA.sessionStore.load(data.sessionID, function (error, session) {
+			NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
                 if (error || !session) {
-                    accept("Error", false);
+                	return next(new Error('Aucune session récupérée.'));
                 } else {
-                    data.session = session;
-                    accept(null, true);
+                    handshakeData.session = session;           			
+                    next();
                 }
             });
-
-        });
+		});
 
 		// Suite.
-    	callback(io);		
+    	callback(io);
 	};
 
 	// Ajout d'évênements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
