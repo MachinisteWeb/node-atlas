@@ -5,7 +5,7 @@
 /**
  * @fileOverview Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author <a href="mailto:bruno.lesieur@gmail.com">Bruno Lesieur</a>
- * @version 0.24.0
+ * @version 0.24.1
  */
 
 
@@ -76,7 +76,7 @@ var NA = {};
 
         commander
             /** Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.23.5')
+            .version('0.24.1')
 
             /** Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -1171,13 +1171,27 @@ var NA = {};
     $%ASSETS GENERATION
 \*------------------------------------*/
 
+/**
+ * Closure group for define Assets Generation Functions.
+ * @type {Function}
+ * @param {Object} publics Allow you to add publics methods to NA object.
+ */
 (function (publics) {
 
+    /**
+     * Open all pages for generate render into `generatesRelativePath`.
+     * @public
+     * @alias urlGeneratingPages
+     * @memberOf NA
+     * @type {Function}
+     */
     publics.urlGeneratingPages = function () {
         var commander = NA.modules.commander;
 
+        /** `generate` manually setted value with `NA.config`. */
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 
+        /** Generation only if is configured to « true » in `generate` */
         if (NA.configuration.generate) {
             for (var currentUrl in NA.webconfig.routes) {
                 NA.render(currentUrl, NA.webconfig.routes);
@@ -1185,19 +1199,31 @@ var NA = {};
         }     
     };
 
+    /**
+     * Create a « Overview » page to « / » url with all of page accessible via links.
+     * @public
+     * @alias emulatedIndexPage
+     * @memberOf NA
+     * @type {Function}
+     */
     publics.emulatedIndexPage = function () {
         var commander = NA.modules.commander;
 
+        /** `generate` manually setted value with `NA.config`. */
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 
+        /** Only if server was started... */
         if (!NA.configuration.generate) {
+            /** ...and `indexPage` is set to « true ». */
             if (NA.webconfig.indexPage) {
 
+                /** Create a new path to « / ». Erase the route to « / » defined into `routes`. */
                 NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
                     var data = {};
 
                         data.render = '';
 
+                    /** List all routes... */
                     for (var page in NA.webconfig.routes) {
 
                         data.page = page;
@@ -1210,6 +1236,7 @@ var NA = {};
                         }
                     }
 
+                    /** ...and provide a page. */
                     response.writeHead(200, NA.appLabels.emulatedIndexPage.charsetAndType);
                     response.write(NA.appLabels.emulatedIndexPage.data.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     response.end();
@@ -1218,6 +1245,13 @@ var NA = {};
         }
     };
 
+    /**
+     * Generate a template into an HTML file in folder `generatesRelativePath`.
+     * @public
+     * @alias saveTemplateRender
+     * @memberOf NA
+     * @type {Function}
+     */
     publics.saveTemplateRender = function (data, templateRenderName) {
         var fs = NA.modules.fs,
             cheerio = NA.modules.cheerio,
@@ -1229,23 +1263,29 @@ var NA = {};
             deeper,
             newBase = "";
 
+        /** 
+         * If a <base> markup exist, calculation of
+         * relative placement of page under root folder...
+         */
         deeper = templateRenderName.split('/').length - 1;
         if (templateRenderName[0] === '/') {
             deeper = templateRenderName.split('/').length - 2;
         }
 
+        /** ...and creation of path for all resources */
         for (var i = 0; i < deeper; i++) {
             newBase += '../';
         }
 
+        /** ...and set new base */
         $("base").attr("href", newBase);
 
-        // Create file render.
+        /** Create file render. */
         mkpath(pathToSaveFile, function (error) {
             var dataError = {},
                 innerHTML = $.html();
 
-            // If source is initialment not a HTML content, keep initial data content.
+            /** If source is not a HTML format, keep initial data format. */
             if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
 
             dataError.templateRenderName = path.normalize(templateRenderName);
@@ -1253,6 +1293,7 @@ var NA = {};
 
             if (error) throw error;
 
+            /** Write file */
             fs.writeFile(pathToSaveFileComplete, innerHTML, function (error) {
                 if (error) {
                     if (error.code === 'EISDIR') {
@@ -1317,14 +1358,16 @@ var NA = {};
 
 
 
+
+
 /*------------------------------------*\
     $%RUN
 \*------------------------------------*/
 
-// With command tools.
+/** With command tools. */
 if (require.main === module) {
 	NA.init();
 }
 
-// With require.
+/** With require. */
 module.exports = NA;
