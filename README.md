@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.23.5 (Beta)
+Version : 0.24.0 (Beta)
 
 ## Avant-propos ##
 
@@ -97,6 +97,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Bundle partagé via un fichier externe.
 
 - À venir 
+ - Documentation de l'API (documentation JSDoc du fichier node-atlas.js)
  - Compression des images.
  - Exemple de Socket.IO 1.0 avec Handshake.
  - Support Sass/Less.
