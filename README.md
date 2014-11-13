@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.24.3 (Beta)
+Version : 0.24.4 (Beta)
 
 ## Avant-propos ##
 
@@ -30,6 +30,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Exemple de réalisations avec NodeAtlas](#exemples-de-r%C3%A9alisations-avec-nodeatlas)
  - [Table des matières](#table-des-mati%C3%A8res)
  - [Roadmap d'avancement du développement](#roadmap-davancement-du-d%C3%A9veloppement)
+ - [Documentation](#documentation)
 - [Installation](#installation)
 - [Commencer avec NodeAtlas](#commencer-avec-nodeatlas)
  - [Ensemble de fichiers](#ensemble-de-fichiers)
@@ -70,6 +71,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [À propos de l'architecture de NodeAtlas](#a-propos-de-l-architecture-de-nodeatlas)
 
 
+
 ### Roadmap d'avancement du développement ###
 
 - Fait 
@@ -104,6 +106,14 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Injection automatique de feuille CSS en style inline (pour les maquettes email).
  - Auto-déploiement via transfert (S)FTP.
  - ...
+
+
+
+### Documentation ###
+
+En complément de ce README (Fr), vous avez également accès au,
+- [Explications de code](https://haeresis.github.com/NodeAtlas/doc/) (En) et au,
+- [détail des fonctions publiques de l'objet NA](https://haeresis.github.com/NodeAtlas/doc/) (En).
 
 
 

@@ -4,8 +4,9 @@
 
 /**
  * @fileOverview Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
- * @author <a href="mailto:bruno.lesieur@gmail.com">Bruno Lesieur</a>
- * @version 0.24.3
+ * @author {@link http://www.lesieur.name/ Bruno Lesieur}
+ * @version 0.24.4
+ * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  */
 
 
@@ -58,8 +59,8 @@ var NA = {};
 
 /**
  * Closure group for define Configuration Functions.
- * @type {Function}
- * @param {Object} publics Allow you to add publics methods to NA object.
+ * @function
+ * @param {Object} publics - Allow you to add publics methods to NA object.
  */
 (function (publics) {
     "use strict";
@@ -67,16 +68,15 @@ var NA = {};
     /**
      * Set line command options usable when NodeAtlas is executed in a command line tool.
      * @public
-     * @alias lineCommandConfiguration
+     * @function lineCommandConfiguration
      * @memberOf NA
-     * @type {Function}
      */
     publics.lineCommandConfiguration = function () {
         var commander = NA.modules.commander;
 
         commander
             /** Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.24.3')
+            .version('0.24.4')
 
             /** Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -98,9 +98,8 @@ var NA = {};
     /**
      * Set main variables for application and language error messages.
      * @public
-     * @alias initGlobalVar
+     * @function initGlobalVar
      * @memberOf NA
-     * @type {Function}
      */
     publics.initGlobalVar = function () {
         try {
@@ -108,8 +107,8 @@ var NA = {};
              * Name of file contains language error messages. Name of file is without extension.
              * @public
              * @alias appLanguage
-             * @memberOf NA
              * @type {String}
+             * @memberOf NA
              * @default "default"
              */
             publics.appLanguage = 'default';
@@ -118,8 +117,8 @@ var NA = {};
              * OS absolute path which contains NodeAtlas folder.
              * @public
              * @alias serverPhysicalPath
-             * @memberOf NA
              * @type {String}
+             * @memberOf NA
              * @default Folder where NodeAtlas is running.
              */
             publics.serverPhysicalPath = process.argv[1].replace(/[-a-zA-Z0-9_]+(\.js)?$/g, "");
@@ -128,8 +127,8 @@ var NA = {};
              * Contain all Labels finded into `NA.appLanguage` file.
              * @public
              * @alias appLabels
-             * @memberOf NA
              * @type {String}
+             * @memberOf NA
              */
             publics.appLabels = require('./languages/' + publics.appLanguage + '.json');
 
@@ -137,15 +136,18 @@ var NA = {};
              * Contain all functions of controllers both common and specific.
              * @public
              * @alias websiteController
+             * @type {Array.<Object>}
              * @memberOf NA
-             * @type {Object[]}
              * @example // Functions for common controller if `commonController` value is "common.json".
              * NA.websiteController["common.json"].setConfigurations(...);
              * NA.websiteController["common.json"].loadModules(...);
              * NA.websiteController["common.json"].setSessions(...);
              * NA.websiteController["common.json"].preRender(...);
              * NA.websiteController["common.json"].render(...);
-             * ...
+             * 
+             * // Functions for specific controller if a route `controller` value is "index.json".
+             * NA.websiteController["index.json"].preRender(...);
+             * NA.websiteController["index.json"].render(...);
              */
             publics.websiteController = [];
         } catch (exception) {
@@ -156,9 +158,8 @@ var NA = {};
     /**
      * Set main variables for webconfig.
      * @public
-     * @alias initGlobalVarRequiredNpmModules
+     * @function initGlobalVarRequiredNpmModules
      * @memberOf NA
-     * @type {Function}
      */
     publics.initGlobalVarRequiredNpmModules = function () {
         var commander = NA.modules.commander,
@@ -176,8 +177,8 @@ var NA = {};
                  * OS absolute path which contains webconfig and website.
                  * @public
                  * @alias websitePhysicalPath
-                 * @memberOf NA
                  * @type {String}
+                 * @memberOf NA
                  * @default Folder where NodeAtlas execute website or `--directory` value.
                  */
                 publics.websitePhysicalPath = process.cwd() + path.sep
@@ -190,8 +191,8 @@ var NA = {};
              * Name of the webconfig used for run website.
              * @public
              * @alias webconfigName
-             * @memberOf NA
              * @type {String}
+             * @memberOf NA
              * @default "webconfig.json".
              */ 
             publics.webconfigName = 'webconfig.json';
@@ -209,9 +210,8 @@ var NA = {};
     /**
      * Set configuration of template engine (EJS module).
      * @public
-     * @alias templateEngineConfiguration
+     * @function templateEngineConfiguration
      * @memberOf NA
-     * @type {Function}
      */
     publics.templateEngineConfiguration = function () {
         var ejs = NA.modules.ejs;
@@ -221,8 +221,8 @@ var NA = {};
          * @namespace NA.variations
          * @public
          * @alias variations
-         * @memberOf NA
          * @type {Object}
+         * @memberOf NA
          */
         publics.variations = {};
 
@@ -230,8 +230,8 @@ var NA = {};
          * OS absolute directory for template engine's file included with `include` statement.
          * @public
          * @alias pathname
-         * @memberOf NA.variations
          * @type {String}
+         * @memberOf NA.variations
          * @default The `NA.websitePhysicalPath` value with webconfig `componentsRelativePath` after.
          */
         NA.variations.pathname = NA.websitePhysicalPath + NA.webconfig.componentsRelativePath;
@@ -240,8 +240,8 @@ var NA = {};
          * Same as `NA.variations.pathname` with arbitrary value setted after. This value will be represent current page generated for all page generated with template engine.
          * @public
          * @alias filename
-         * @memberOf NA.variations
          * @type {String}
+         * @memberOf NA.variations
          * @default Arbitrarily setted to "all-component.here".
          */
         NA.variations.filename = NA.variations.pathname + "all-component.here";
@@ -255,15 +255,19 @@ var NA = {};
      * Decide to run a « Simple Web Server » or a « With Weconfig Server » depending to webconfig opening success. 
      * If webconfig is correctly openned, the `NA.improveWebconfigBase` and `callback` function will be run, else, just `NA.simpleWebServer` will be run.
      * @public
-     * @alias initWebconfig
+     * @function initWebconfig
      * @memberOf NA
-     * @type {Function}
-     * @param {Function} callback Calling next processus if webconfig opening is a success.
+     * @param {initWebconfig~callback} callback - Calling next processus if webconfig opening is a success.
      */
     publics.initWebconfig = function (callback) {
         /** Webconfig based website... */
         NA.ifFileExist(NA.websitePhysicalPath, NA.webconfigName, function () {
         	NA.improveWebconfigBase();
+
+            /**
+             * Next step !
+             * @callback initWebconfig~callback
+             */
             callback();
         /** ... or static website. */
         }, function () {
@@ -274,9 +278,8 @@ var NA = {};
     /**
      * Set all default webconfig's value into `NA.webconfig`.
      * @public
-     * @alias improveWebconfigBase
+     * @function improveWebconfigBase
      * @memberOf NA
-     * @type {Function}
      */
     publics.improveWebconfigBase = function () {
     	var commander = NA.modules.commander,
@@ -289,8 +292,8 @@ var NA = {};
          * @namespace NA.webconfig
          * @public
          * @alias webconfig
-         * @memberOf NA
          * @type {Object}
+         * @memberOf NA
          */
         publics.webconfig = NA.openConfiguration(NA.webconfigName);
 
@@ -300,8 +303,8 @@ var NA = {};
              * Contain all routes to JSON format.
              * @public
              * @alias routes
-             * @memberOf NA.webconfig
              * @type {Object}
+             * @memberOf NA.webconfig
              * @default The webconfig's property `routes`.
              */
             publics.webconfig.routes = NA.openConfiguration(publics.webconfig.routes);
@@ -313,8 +316,8 @@ var NA = {};
              * Contain bundle configuration for CSS and JS minification to JSON format.
              * @public
              * @alias bundles
-             * @memberOf NA.webconfig
              * @type {Object}
+             * @memberOf NA.webconfig
              * @default The webconfig's property `bundles`.
              */
             publics.webconfig.bundles = NA.openConfiguration(publics.webconfig.bundles);
@@ -326,8 +329,8 @@ var NA = {};
              * Language and variable variation folder depending of languages.
              * @public
              * @alias variationsRelativePath
-             * @memberOf NA.webconfig
              * @type {String}
+             * @memberOf NA.webconfig
              * @default "variations/".
              */
             NA.webconfig.variationsRelativePath = NA.webconfig.variationsRelativePath.replace(regex, '') + path.sep;
@@ -341,8 +344,8 @@ var NA = {};
              * Controller folder for Back-end.
              * @public
              * @alias controllersRelativePath
-             * @memberOf NA.webconfig
              * @type {String}
+             * @memberOf NA.webconfig
              * @default "controllers/".
              */
             NA.webconfig.controllersRelativePath = NA.webconfig.controllersRelativePath.replace(regex, '') + path.sep;
@@ -357,8 +360,8 @@ var NA = {};
              * Template folder for template engine.
              * @public
              * @alias templatesRelativePath
-             * @memberOf NA.webconfig
              * @type {String}
+             * @memberOf NA.webconfig
              * @default "templates/".
              */
             NA.webconfig.templatesRelativePath = NA.webconfig.templatesRelativePath.replace(regex, '') + path.sep;
@@ -372,8 +375,8 @@ var NA = {};
              * Default folder for template engine include file or controller components.
              * @public
              * @alias componentsRelativePath
-             * @memberOf NA.webconfig
              * @type {String}
+             * @memberOf NA.webconfig
              * @default "components/".
              */
             NA.webconfig.componentsRelativePath = NA.webconfig.componentsRelativePath.replace(regex, '') + path.sep;
@@ -387,8 +390,8 @@ var NA = {};
              * Folder for public file like image, CSS or JS.
              * @public
              * @alias assetsRelativePath
-             * @memberOf NA.webconfig
              * @type {String}
+             * @memberOf NA.webconfig
              * @default "assets/".
              */
             NA.webconfig.assetsRelativePath = NA.webconfig.assetsRelativePath.replace(regex, '') + path.sep;
@@ -402,8 +405,8 @@ var NA = {};
              * HTML asset generation Folder.
              * @public
              * @alias generatesRelativePath
-             * @memberOf NA.webconfig
              * @type {String}
+             * @memberOf NA.webconfig
              * @default "generates/".
              */
             NA.webconfig.generatesRelativePath = NA.webconfig.generatesRelativePath.replace(regex, '') + path.sep;
@@ -418,8 +421,8 @@ var NA = {};
              * Adding subfolder to original url.
              * @public
              * @alias urlRelativeSubPath
-             * @memberOf NA.webconfig
              * @type {String}
+             * @memberOf NA.webconfig
              * @default Empty.
              * @example
              * // If `NA.webconfig.urlRelativeSubPath` is setted to "example/"
@@ -434,8 +437,8 @@ var NA = {};
          * Server listening port.
          * @public
          * @alias httpPort
-         * @memberOf NA.webconfig
          * @type {String}
+         * @memberOf NA.webconfig
          * @default 80, or `process.env.PORT` if setted, or the webconfig's property `httpPort`.
          */
 		NA.webconfig.httpPort = NA.webconfig.httpPort || process.env.PORT || 80;
@@ -450,8 +453,8 @@ var NA = {};
          * Url access port.
          * @public
          * @alias urlPort
-         * @memberOf NA.webconfig
          * @type {String}
+         * @memberOf NA.webconfig
          * @default `NA.webconfig.httpPort`.
          */
         NA.webconfig.urlPort = NA.webconfig.urlPort || NA.webconfig.httpPort;
@@ -460,8 +463,8 @@ var NA = {};
          * Server listening hostname by http (for reverse proxy).
          * @public
          * @alias httpHostname
-         * @memberOf NA.webconfig
          * @type {String}
+         * @memberOf NA.webconfig
          * @default "localhost", or `process.env.IP_ADDRESS` if setted, or the webconfig's property `httpHostname`.
          */
         NA.webconfig.httpHostname = NA.webconfig.httpHostname || process.env.IP_ADDRESS || 'localhost';
@@ -470,8 +473,8 @@ var NA = {};
          * Url access hostname by http (for reverse proxy).
          * @public
          * @alias urlHostname
-         * @memberOf NA.webconfig
          * @type {String}
+         * @memberOf NA.webconfig
          * @default `NA.webconfig.httpHostname`.
          */     
         NA.webconfig.urlHostname = NA.webconfig.urlHostname || NA.webconfig.httpHostname;
@@ -481,8 +484,8 @@ var NA = {};
          * This value does not contain `NA.webconfig.urlRelativeSubPath`.
          * @public
          * @alias urlWithoutFileName
-         * @memberOf NA.webconfig
          * @type {String}
+         * @memberOf NA.webconfig
          */        
 		NA.webconfig.urlWithoutFileName = 'http' + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + NA.webconfig.urlHostname + ((NA.webconfig.urlPort !== 80) ? ':' + NA.webconfig.urlPort : '') + '/';
     };
@@ -497,29 +500,57 @@ var NA = {};
     $%GLOBAL FUNCTIONS
 \*------------------------------------*/
 
+/**
+ * Closure group for define Global Functions.
+ * @function
+ * @param {Object} publics - Allow you to add publics methods to NA object.
+ */
 (function (publics) {
     "use strict";
 
+    /**
+     * Read a JSON file and return a literal Object else kill process.
+     * @public
+     * @function openConfiguration
+     * @memberOf NA
+     * @param {String} configName - File name (on file path + name in relative). Base folder is the folder where is `webconfig.json`.
+     * @return {Object} - Literal object of JSON file.
+     */  
     publics.openConfiguration = function (configName) {
         var fs = NA.modules.fs;
 
         try {
+            /** If file is a correct JSON file, return a literal Object file's content. */
             return JSON.parse(fs.readFileSync(NA.websitePhysicalPath + configName, 'utf-8'));
         } catch (exception) {
             if (exception.toString().indexOf('SyntaxError') !== -1) {
+                /** If the file is a JSON file, but contain a Syntax error. */
                 data.syntaxError = exception.toString();
                 data.fileName = configName;
                 console.log(NA.appLabels.webconfigSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
             } else {
+                /** Other errors. */
                 console.log(exception);
             }
+            /** In case of error, kill current process. */
             process.kill(process.pid);
         }
     };
 
+    /**
+     * Read a file and allow a success callback or fallback in case of failure.
+     * @public
+     * @function ifFileExist
+     * @memberOf NA
+     * @param {String} physicalPath - Absolute OS path to a filename.
+     * @param {String} fileName - Name of file.
+     * @param {ifFileExist~callback} callback - Executed if file was correctly opened.
+     * @param {ifFileExist~fallback} fallback - Executed if something was wrong with file.
+     */  
     publics.ifFileExist = function (physicalPath, fileName, callback, fallback) {
         var fs = NA.modules.fs;
 
+        /** Check if file exist */
         fs.stat(physicalPath + fileName, function (error) {
             var data = {
                 physicalPath: physicalPath,
@@ -528,8 +559,18 @@ var NA = {};
 
             if (error && error.code === 'ENOENT') {
                 console.log(NA.appLabels.ifFileExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+
+                /**
+                 * If file do not exist, bad next step...
+                 * @callback ifFileExist~fallback
+                 */
                 fallback();
             } else {
+
+                /**
+                 * If file exist, good next step !
+                 * @callback ifFileExist~callback
+                 */
                 callback();
             }
         });
@@ -545,62 +586,262 @@ var NA = {};
     $%NODE MODULES
 \*------------------------------------*/
 
+/**
+ * Closure group for define Node Modules Functions.
+ * @function
+ * @param {Object} publics Allow you to add publics methods to NA object.
+ */
 (function (publics) {
     "use strict";
 
+    /**
+     * Add native node.js module to `NA.modules`.
+     * @public
+     * @function loadListOfNativeModules
+     * @memberOf NA
+     */ 
     publics.loadListOfNativeModules = function () {
         var modules = {};
 
+        /**
+         * Allow you to create children process.
+         * @public
+         * @alias child_process
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link http://nodejs.org/api/child_process.html Child Process}
+         */ 
         modules.child_process = require('child_process');
+
+        /**
+         * Allow you to manage files.
+         * @public
+         * @alias fs
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link http://nodejs.org/api/fs.html File System}
+         */ 
         modules.fs = require('fs');
+
+        /**
+         * Allow you to handle and to transform file paths.
+         * @public
+         * @alias path
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link http://nodejs.org/api/path.html Path}
+         */ 
         modules.path = require('path');
+
+        /**
+         * Allow you to use many features of the HTTP protocol.
+         * @public
+         * @alias http
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link http://nodejs.org/api/http.html HTTP}
+         */ 
         modules.http = require('http');
 
+        /**
+         * List of modules callable into NodeAtlas and website based on NodeAtlas.
+         * @namespace NA.modules
+         * @public
+         * @type {Object}
+         * @alias modules
+         * @memberOf NA
+         */ 
         publics.modules = modules;
     };
 
+    /**
+     * Add npm module to `NA.modules`.
+     * @public
+     * @function loadListOfRequiredNpmModules
+     * @memberOf NA
+     */
     publics.loadListOfRequiredNpmModules = function () {
+
+        /**
+         * An advanced web server.
+         * @public
+         * @function express
+         * @memberOf NA.modules
+         * @see {@link http://expressjs.com/ Express.js}
+         */
         publics.modules.express = require('express');
+
+        /**
+         * Manage session with express.
+         * @public
+         * @function session
+         * @memberOf NA.modules
+         * @see {@link https://github.com/expressjs/session express-session}
+         */
         publics.modules.session = require('express-session');
+
+        /**
+         * Parse HTML for POST methods.
+         * @public
+         * @function bodyParser
+         * @memberOf NA.modules
+         * @see {@link https://github.com/expressjs/body-parser body-parser}
+         */
         publics.modules.bodyParser = require('body-parser');
+
+        /**
+         * Parse Cookies for keep connection.
+         * @public
+         * @function cookieParser
+         * @memberOf NA.modules
+         * @see {@link https://github.com/expressjs/cookie-parser cookie-parser}
+         */
         publics.modules.cookieParser = require('cookie-parser');
+
+        /**
+         * An implementation of heritage.
+         * @public
+         * @function extend
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/extend extend}
+         */
         publics.modules.extend = require('extend');
+
+        /**
+         * A command tool for run NodeAtlas in command prompt.
+         * @public
+         * @alias commander
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link https://github.com/tj/commander.js commander.js}
+         */
         publics.modules.commander = require('commander');
+
+        /**
+         * Compress code before send it to the client.
+         * @public
+         * @function compress
+         * @memberOf NA.modules
+         * @see {@link https://github.com/expressjs/compression compression}
+         */
         publics.modules.compress = require('compression');
+
+        /**
+         * Open a file or url in the user's preferred application.
+         * @public
+         * @function open
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/open open}
+         */
         publics.modules.open = require('open');
+
+        /**
+         * EJS cleans the HTML out of your JavaScript with client side templates.
+         * @public
+         * @alias ejs
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link http://www.embeddedjs.com/ EJS}
+         */
         publics.modules.ejs = require('ejs');
+
+        /**
+         * Make all directories in a path, like mkdir -p.
+         * @public
+         * @function mkpath
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/mkpath mkpath}
+         */
         publics.modules.mkpath = require('mkpath');
+
+        /**
+         * Tiny, fast, and elegant implementation of core jQuery designed specifically for the server.
+         * @public
+         * @function cheerio
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/cheerio cheerio}
+         */
         publics.modules.cheerio = require('cheerio');
+
+        /**
+         * UglifyJS is a JavaScript parser, minifier, compressor or beautifier toolkit.
+         * @public
+         * @alias uglifyJs
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link https://github.com/mishoo/UglifyJS2 UglifyJS2}
+         */
         publics.modules.uglifyJs = require('uglify-js');
+
+        /**
+         * A fast, efficient, and well tested CSS minifier for node.js.
+         * @public
+         * @function cleanCss
+         * @memberOf NA.modules
+         * @see {@link https://github.com/jakubpawlowicz/clean-css clean-css}
+         */
         publics.modules.cleanCss = require('clean-css');
+
+        /**
+         * Is a middleware for Epxpress that redirects any requests to a default domain.
+         * @public
+         * @function forceDomain
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/node-force-domain node-force-domain}
+         */
         publics.modules.forceDomain = require('node-force-domain');
     };
 
+    /**
+     * Download all packet like `npm install` based on package.json if a module is not founded.
+     * @public
+     * @function downloadAllModule
+     * @memberOf NA
+     * @param {Object} exception - Allow to know if a module is not founded.
+     */
     publics.downloadAllModule = function (exception) {
         var execute = NA.modules.child_process.exec;
 
+        /** Test if package.json is present for obtain list of module and version. */
         NA.ifFileExist(NA.serverPhysicalPath, 'package.json', function () {
             console.log(NA.appLabels.downloadAllModule.moduleNotExist + " " + NA.appLabels.downloadAllModule.downloadStarting + "(" + exception + ")");
 
+            /** Execute an npm command to install all modules not founded. */
             execute('npm --prefix ' + NA.serverPhysicalPath + ' install -l', function (error, stdout, stderr) {
                 if (!error) {
                     console.log(NA.appLabels.downloadAllModule.installationDone + " " + NA.appLabels.downloadAllModule.restartRequired);
+                    /** It's ok, killing process and restarting manually now. */
                     process.kill(process.pid);
                 } else {
+                    /** It's not ok explain the error. */
                     console.log(error);
                 }
             });
         }, function () {
+            /** No package.json ? We kill the process. */
             process.kill(process.pid);
         });
     };
 
+    /**
+     * Load modules or install modules.
+     * @public
+     * @function moduleRequired
+     * @memberOf NA
+     * @param {moduleRequired~callback} callback - Run next steps if all module are correctly loaded.
+     */
     publics.moduleRequired = function (callback) {
         try {
             NA.loadListOfRequiredNpmModules();
+
+            /** 
+             * Next step after loading of module.
+             * @callback moduleRequired~callback
+             */
             callback();
         } catch (exception) {
             if (exception.code === 'MODULE_NOT_FOUND') {
+                /** If a module is not found, download it */
                 NA.downloadAllModule(exception);
             } else {
                 console.log(exception);
@@ -1173,7 +1414,7 @@ var NA = {};
 
 /**
  * Closure group for define Assets Generation Functions.
- * @type {Function}
+ * @function
  * @param {Object} publics Allow you to add publics methods to NA object.
  */
 (function (publics) {
@@ -1181,9 +1422,8 @@ var NA = {};
     /**
      * Open all pages for generate render into `generatesRelativePath`.
      * @public
-     * @alias urlGeneratingPages
+     * @function urlGeneratingPages
      * @memberOf NA
-     * @type {Function}
      */
     publics.urlGeneratingPages = function () {
         var commander = NA.modules.commander;
@@ -1204,7 +1444,7 @@ var NA = {};
      * @public
      * @alias emulatedIndexPage
      * @memberOf NA
-     * @type {Function}
+     * @function
      */
     publics.emulatedIndexPage = function () {
         var commander = NA.modules.commander;
@@ -1250,7 +1490,7 @@ var NA = {};
      * @public
      * @alias saveTemplateRender
      * @memberOf NA
-     * @type {Function}
+     * @function
      */
     publics.saveTemplateRender = function (data, templateRenderName) {
         var fs = NA.modules.fs,
