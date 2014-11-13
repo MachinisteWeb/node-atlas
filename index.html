@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.24.4 (Beta)</p>
+<p>Version : 0.24.5 (Beta)</p>
 
 <h2>
 <a id="avant-propos" class="anchor" href="#avant-propos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -1063,13 +1063,15 @@ webconfig.json
 
     <span class="pl-c"><span class="pl-pdc">//</span> Chargement des modules pour ce site dans l'objet NodeAtlas.</span>
     <span class="pl-sc">publics</span>.<span class="pl-enf">loadModules</span> <span class="pl-ko">=</span> <span class="pl-s">function</span> (<span class="pl-vpf">NA</span>) {
-        <span class="pl-c"><span class="pl-pdc">//</span> Gestion de l'accès aux modules s'il ne sont pas dans « node_modules ».</span>
-        <span class="pl-s">var</span> modulePath <span class="pl-ko">=</span> (NA.webconfig._needModulePath) <span class="pl-ko">?</span> NA.nodeModulesPath <span class="pl-ko">:</span> <span class="pl-s1"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>;
-
         <span class="pl-c"><span class="pl-pdc">//</span> Associations de chaque module pour y avoir accès partout.</span>
-        NA.modules.cookie <span class="pl-ko">=</span> <span class="pl-sf">require</span>(modulePath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>cookie<span class="pl-pds">'</span></span>);
-        NA.modules.mongoose <span class="pl-ko">=</span> <span class="pl-sf">require</span>(modulePath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
-        NA.modules.socketio <span class="pl-ko">=</span> <span class="pl-sf">require</span>(modulePath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>socket.io<span class="pl-pds">'</span></span>);
+        NA.modules.cookie <span class="pl-ko">=</span> <span class="pl-sf">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>cookie<span class="pl-pds">'</span></span>);
+        NA.modules.mongoose <span class="pl-ko">=</span> <span class="pl-sf">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
+
+        <span class="pl-c"><span class="pl-pdc">//</span> Aller chercher un module spécifiquement dans le `node_modules` du site web.</span>
+        NA.modules.socketio <span class="pl-ko">=</span> <span class="pl-sf">require</span>(NA.websiteModulesPath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>socket.io<span class="pl-pds">'</span></span>);
+
+        <span class="pl-c"><span class="pl-pdc">//</span> Aller chercher un module spécifiquement dans le `node_modules` du moteur NodeAtlas.</span>
+        NA.modules.socketio <span class="pl-ko">=</span> <span class="pl-sf">require</span>(NA.nodeAtlasModulesPath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>ejs.io<span class="pl-pds">'</span></span>);
 
         <span class="pl-c"><span class="pl-pdc">//</span> Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.</span>
         <span class="pl-k">return</span> NA;
@@ -1184,8 +1186,7 @@ webconfig.json
     <span class="pl-c"><span class="pl-pdc">//</span> Configuration de tous les modules</span>
     <span class="pl-sc">publics</span>.<span class="pl-enf">setConfigurations</span> <span class="pl-ko">=</span> <span class="pl-s">function</span> (<span class="pl-vpf">NA</span>, <span class="pl-vpf">callback</span>) {
         <span class="pl-s">var</span> mongoose <span class="pl-ko">=</span> NA.modules.mongoose,
-            socketio <span class="pl-ko">=</span> NA.modules.socketio,
-            connect <span class="pl-ko">=</span> NA.modules.connect;
+            socketio <span class="pl-ko">=</span> NA.modules.socketio;
 
         <span class="pl-c"><span class="pl-pdc">//</span> Initialisation de Mongoose.</span>
         privates.mongooseInitialization(mongoose, <span class="pl-s">function</span> (<span class="pl-vpf">mongoose</span>) {
@@ -1429,8 +1430,8 @@ website.index <span class="pl-ko">=</span> {};
 
         <span class="pl-c"><span class="pl-pdc">//</span> Dès qu'on a un lien valide entre le client et notre back,</span>
         io.sockets.on(<span class="pl-s1"><span class="pl-pds">'</span>connection<span class="pl-pds">'</span></span>, <span class="pl-s">function</span> (<span class="pl-vpf">socket</span>) {
-            <span class="pl-s">var</span> sessionID <span class="pl-ko">=</span> socket.handshake.sessionID,
-                session <span class="pl-ko">=</span> socket.handshake.session;
+            <span class="pl-s">var</span> sessionID <span class="pl-ko">=</span> socket.request.sessionID,
+                session <span class="pl-ko">=</span> socket.request.session;
 
             <span class="pl-c"><span class="pl-pdc">//</span> ... resté à l'écoute de la demande « create-article-button »,</span>
             socket.on(<span class="pl-s1"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, <span class="pl-s">function</span> (<span class="pl-vpf">data</span>) {
@@ -1472,7 +1473,7 @@ exports.preRender <span class="pl-ko">=</span> website.index.preRender;
 exports.render <span class="pl-ko">=</span> website.index.render;
 exports.asynchrone <span class="pl-ko">=</span> website.index.asynchrone; <span class="pl-c"><span class="pl-pdc">//</span> Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
 
-<p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js » alors toute la partie Back-end est désactivée.</em></p>
+<p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers/</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
 <a id="changer-les-paramètres-durl" class="anchor" href="#changer-les-param%C3%A8tres-durl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changer les paramètres d'url</h3>
@@ -2358,9 +2359,7 @@ webconfig.prod.json
     "use strict";
 
     publics.loadModules = function (NA) {
-        var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
-
-        NA.modules.RedisStore = require(modulePath + 'connect-redis');
+        NA.modules.RedisStore = require('connect-redis');
 
         return NA;
     };
@@ -2393,9 +2392,7 @@ exports.setSessions = website.setSessions;
     "use strict";
 
     publics.loadModules = function (NA) {
-        var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
-
-        NA.modules.MongoStore = require(modulePath + 'connect-mongo');
+        NA.modules.MongoStore = require('connect-mongo');
 
         return NA;
     };
