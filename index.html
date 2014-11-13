@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.24.2 (Beta)</p>
+<p>Version : 0.24.4 (Beta)</p>
 
 <h2>
 <a id="avant-propos" class="anchor" href="#avant-propos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -73,6 +73,7 @@
 <li><a href="#exemples-de-r%C3%A9alisations-avec-nodeatlas">Exemple de réalisations avec NodeAtlas</a></li>
 <li><a href="#table-des-mati%C3%A8res">Table des matières</a></li>
 <li><a href="#roadmap-davancement-du-d%C3%A9veloppement">Roadmap d'avancement du développement</a></li>
+<li><a href="#documentation">Documentation</a></li>
 </ul>
 </li>
 <li><a href="#installation">Installation</a></li>
@@ -180,6 +181,18 @@
 <li>...</li>
 </ul>
 </li>
+</ul>
+
+<h3>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h3>
+
+<p>En complément de ce README (Fr), vous avez également accès au,</p>
+
+<ul>
+<li>
+<a href="https://haeresis.github.com/NodeAtlas/doc/">Explications de code</a> (En) et au,</li>
+<li>
+<a href="https://haeresis.github.com/NodeAtlas/doc/">détail des fonctions publiques de l'objet NA</a> (En).</li>
 </ul>
 
 <h2>
@@ -1054,7 +1067,6 @@ webconfig.json
         <span class="pl-s">var</span> modulePath <span class="pl-ko">=</span> (NA.webconfig._needModulePath) <span class="pl-ko">?</span> NA.nodeModulesPath <span class="pl-ko">:</span> <span class="pl-s1"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>;
 
         <span class="pl-c"><span class="pl-pdc">//</span> Associations de chaque module pour y avoir accès partout.</span>
-        NA.modules.connect <span class="pl-ko">=</span> <span class="pl-sf">require</span>(modulePath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>connect<span class="pl-pds">'</span></span>);
         NA.modules.cookie <span class="pl-ko">=</span> <span class="pl-sf">require</span>(modulePath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>cookie<span class="pl-pds">'</span></span>);
         NA.modules.mongoose <span class="pl-ko">=</span> <span class="pl-sf">require</span>(modulePath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
         NA.modules.socketio <span class="pl-ko">=</span> <span class="pl-sf">require</span>(modulePath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>socket.io<span class="pl-pds">'</span></span>);
@@ -1090,16 +1102,16 @@ webconfig.json
 
         <span class="pl-c"><span class="pl-pdc">//</span> Gestion de connexion.</span>
         mongoose.connection.on(<span class="pl-s1"><span class="pl-pds">'</span>error<span class="pl-pds">'</span></span>, <span class="pl-s">function</span> (<span class="pl-vpf">error</span>) {
-            console<span class="pl-sf">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Mongoose default connection error: <span class="pl-pds">'</span></span> <span class="pl-ko">+</span> error);
+            console<span class="pl-sf">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Erreur pour la connexion par défaut à Mongoose: <span class="pl-pds">'</span></span> <span class="pl-ko">+</span> error);
         });
 
         <span class="pl-c"><span class="pl-pdc">//</span> Gestion des déconnexion.</span>
         mongoose.connection.on(<span class="pl-s1"><span class="pl-pds">'</span>disconnected<span class="pl-pds">'</span></span>, <span class="pl-s">function</span> () {
-            console<span class="pl-sf">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Mongoose default connection disconnected<span class="pl-pds">'</span></span>);
+            console<span class="pl-sf">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Connexion par défaut à Mongoose déconnectée.<span class="pl-pds">'</span></span>);
         });
         process.on(<span class="pl-s1"><span class="pl-pds">'</span>SIGINT<span class="pl-pds">'</span></span>, <span class="pl-s">function</span> (<span class="pl-vpf">error</span>) {
             mongoose.connection.<span class="pl-sf">close</span>(<span class="pl-s">function</span> () {
-                console<span class="pl-sf">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Mongoose default connection disconnected through app termination<span class="pl-pds">'</span></span>);
+                console<span class="pl-sf">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Connexion par défaut à Mongoose déconnectée en raison de l<span class="pl-cce">\'</span>arrêt de l<span class="pl-cce">\'</span>app termination<span class="pl-pds">'</span></span>);
                 process.exit(<span class="pl-cn">0</span>);
             });
         });
@@ -1120,41 +1132,42 @@ webconfig.json
 
     <span class="pl-c"><span class="pl-pdc">//</span> Exemple d'utilisation de Socket.IO.</span>
     <span class="pl-sc">privates</span>.<span class="pl-enf">socketIoInitialisation</span> <span class="pl-ko">=</span> <span class="pl-s">function</span> (<span class="pl-vpf">socketio</span>, <span class="pl-vpf">NA</span>, <span class="pl-vpf">callback</span>) {
-        <span class="pl-s">var</span> io <span class="pl-ko">=</span> socketio.listen(NA.server),
-            connect <span class="pl-ko">=</span> NA.modules.connect,
-            cookie <span class="pl-ko">=</span> NA.modules.cookie;
+        <span class="pl-s">var</span> optionIo <span class="pl-ko">=</span> (NA.webconfig.urlRelativeSubPath) <span class="pl-ko">?</span> { path<span class="pl-ko">:</span> NA.webconfig.urlRelativeSubPath <span class="pl-ko">+</span> <span class="pl-s1"><span class="pl-pds">'</span>/socket.io<span class="pl-pds">'</span></span> } <span class="pl-ko">:</span> <span class="pl-c1">undefined</span>,
+            io <span class="pl-ko">=</span> socketio(NA.server, optionIo),
+            cookie <span class="pl-ko">=</span> NA.modules.cookie,
+            cookieParser <span class="pl-ko">=</span> NA.modules.cookieParser;
 
         <span class="pl-c"><span class="pl-pdc">//</span> Synchronisation des Sessions avec Socket.IO.</span>
-        io.set(<span class="pl-s1"><span class="pl-pds">'</span>authorization<span class="pl-pds">'</span></span>, <span class="pl-s">function</span> (<span class="pl-vpf">data</span>, <span class="pl-vpf">accept</span>) {
+        io.use(<span class="pl-s">function</span>(<span class="pl-vpf">socket</span>, <span class="pl-vpf">next</span>) {
+            <span class="pl-s">var</span> handshakeData <span class="pl-ko">=</span> socket.request;
 
             <span class="pl-c"><span class="pl-pdc">//</span> Fallback si les cookies ne sont pas gérés.</span>
-            <span class="pl-k">if</span> (<span class="pl-ko">!</span>data.headers.cookie) {
-                <span class="pl-k">return</span> accept(<span class="pl-s1"><span class="pl-pds">'</span>Session cookie required.<span class="pl-pds">'</span></span>, <span class="pl-c1">false</span>);
+            <span class="pl-k">if</span> (<span class="pl-ko">!</span>handshakeData.headers.cookie) {
+                <span class="pl-k">return</span> next(<span class="pl-ko">new</span> <span class="pl-enti">Error</span>(<span class="pl-s1"><span class="pl-pds">'</span>Cookie de session requis.<span class="pl-pds">'</span></span>));
             }
 
-            <span class="pl-c"><span class="pl-pdc">//</span> Transformation du cookie en Objet cookie.</span>
-            data.cookie <span class="pl-ko">=</span> cookie.<span class="pl-sf">parse</span>(data.headers.cookie);
+            <span class="pl-c"><span class="pl-pdc">//</span> Transformation de la String cookie en Objet JSON.</span>
+            handshakeData.cookie <span class="pl-ko">=</span> cookie.<span class="pl-sf">parse</span>(handshakeData.headers.cookie);
 
             <span class="pl-c"><span class="pl-pdc">//</span> Vérification de la signature du cookie.</span>
-            data.cookie <span class="pl-ko">=</span> connect.utils.parseSignedCookies(data.cookie, NA.webconfig.session.secret);
+            handshakeData.cookie <span class="pl-ko">=</span> cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
 
-            <span class="pl-c"><span class="pl-pdc">//</span> Sauver nous même une copie de la Session.</span>
-            data.sessionID <span class="pl-ko">=</span> data.cookie[NA.webconfig.session.key];
+            <span class="pl-c"><span class="pl-pdc">//</span> Garder à porté l'ID de Session.</span>
+            handshakeData.sessionID <span class="pl-ko">=</span> handshakeData.cookie[NA.webconfig.session.key];
 
             <span class="pl-c"><span class="pl-pdc">//</span> Accepter le cookie.</span>
-            NA.sessionStore.<span class="pl-sf">load</span>(data.sessionID, <span class="pl-s">function</span> (<span class="pl-vpf">error</span>, <span class="pl-vpf">session</span>) {
+            NA.sessionStore.<span class="pl-sf">load</span>(handshakeData.sessionID, <span class="pl-s">function</span> (<span class="pl-vpf">error</span>, <span class="pl-vpf">session</span>) {
                 <span class="pl-k">if</span> (error <span class="pl-ko">||</span> <span class="pl-ko">!</span>session) {
-                    accept(<span class="pl-s1"><span class="pl-pds">"</span>Error<span class="pl-pds">"</span></span>, <span class="pl-c1">false</span>);
+                    <span class="pl-k">return</span> next(<span class="pl-ko">new</span> <span class="pl-enti">Error</span>(<span class="pl-s1"><span class="pl-pds">'</span>Aucune session récupérée.<span class="pl-pds">'</span></span>));
                 } <span class="pl-k">else</span> {
-                    data.session <span class="pl-ko">=</span> session;
-                    accept(<span class="pl-c1">null</span>, <span class="pl-c1">true</span>);
+                    handshakeData.session <span class="pl-ko">=</span> session;                    
+                    next();
                 }
             });
-
         });
 
         <span class="pl-c"><span class="pl-pdc">//</span> Suite.</span>
-        callback(io);       
+        callback(io);
     };
 
     <span class="pl-c"><span class="pl-pdc">//</span> Ajout d'évênements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).</span>
