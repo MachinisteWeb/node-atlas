@@ -65,6 +65,8 @@
             
             <span class="subtitle">Methods</span>
             
+                <li data-name="NA.downloadAllModule"><a href="NA.html#downloadAllModule">downloadAllModule</a></li>
+            
                 <li data-name="NA.emulatedIndexPage"><a href="NA.html#emulatedIndexPage">emulatedIndexPage</a></li>
             
                 <li data-name="NA.ifFileExist"><a href="NA.html#ifFileExist">ifFileExist</a></li>
@@ -80,6 +82,10 @@
                 <li data-name="NA.lineCommandConfiguration"><a href="NA.html#lineCommandConfiguration">lineCommandConfiguration</a></li>
             
                 <li data-name="NA.loadListOfNativeModules"><a href="NA.html#loadListOfNativeModules">loadListOfNativeModules</a></li>
+            
+                <li data-name="NA.loadListOfRequiredNpmModules"><a href="NA.html#loadListOfRequiredNpmModules">loadListOfRequiredNpmModules</a></li>
+            
+                <li data-name="NA.moduleRequired"><a href="NA.html#moduleRequired">moduleRequired</a></li>
             
                 <li data-name="NA.openConfiguration"><a href="NA.html#openConfiguration">openConfiguration</a></li>
             
@@ -108,17 +114,47 @@
             
                 <li data-name="NA.modules.child_process"><a href="NA.modules.html#child_process">child_process</a></li>
             
+                <li data-name="NA.modules.commander"><a href="NA.modules.html#commander">commander</a></li>
+            
+                <li data-name="NA.modules.ejs"><a href="NA.modules.html#ejs">ejs</a></li>
+            
                 <li data-name="NA.modules.fs"><a href="NA.modules.html#fs">fs</a></li>
             
                 <li data-name="NA.modules.http"><a href="NA.modules.html#http">http</a></li>
             
                 <li data-name="NA.modules.path"><a href="NA.modules.html#path">path</a></li>
             
+                <li data-name="NA.modules.uglifyJs"><a href="NA.modules.html#uglifyJs">uglifyJs</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
             </ul>
             <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="NA.modules.bodyParser"><a href="NA.modules.html#bodyParser">bodyParser</a></li>
+            
+                <li data-name="NA.modules.cheerio"><a href="NA.modules.html#cheerio">cheerio</a></li>
+            
+                <li data-name="NA.modules.cleanCss"><a href="NA.modules.html#cleanCss">cleanCss</a></li>
+            
+                <li data-name="NA.modules.compress"><a href="NA.modules.html#compress">compress</a></li>
+            
+                <li data-name="NA.modules.cookieParser"><a href="NA.modules.html#cookieParser">cookieParser</a></li>
+            
+                <li data-name="NA.modules.express"><a href="NA.modules.html#express">express</a></li>
+            
+                <li data-name="NA.modules.extend"><a href="NA.modules.html#extend">extend</a></li>
+            
+                <li data-name="NA.modules.forceDomain"><a href="NA.modules.html#forceDomain">forceDomain</a></li>
+            
+                <li data-name="NA.modules.mkpath"><a href="NA.modules.html#mkpath">mkpath</a></li>
+            
+                <li data-name="NA.modules.open"><a href="NA.modules.html#open">open</a></li>
+            
+                <li data-name="NA.modules.session"><a href="NA.modules.html#session">session</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -870,48 +906,194 @@ var NA = {};
         publics.modules = modules;
     };
 
+    /**
+     * Add npm module to `NA.modules`.
+     * @public
+     * @function loadListOfRequiredNpmModules
+     * @memberOf NA
+     */
     publics.loadListOfRequiredNpmModules = function () {
+
+        /**
+         * An advanced web server.
+         * @public
+         * @function express
+         * @memberOf NA.modules
+         * @see {@link http://expressjs.com/ Express.js}
+         */
         publics.modules.express = require('express');
+
+        /**
+         * Manage session with express.
+         * @public
+         * @function session
+         * @memberOf NA.modules
+         * @see {@link https://github.com/expressjs/session express-session}
+         */
         publics.modules.session = require('express-session');
+
+        /**
+         * Parse HTML for POST methods.
+         * @public
+         * @function bodyParser
+         * @memberOf NA.modules
+         * @see {@link https://github.com/expressjs/body-parser body-parser}
+         */
         publics.modules.bodyParser = require('body-parser');
+
+        /**
+         * Parse Cookies for keep connection.
+         * @public
+         * @function cookieParser
+         * @memberOf NA.modules
+         * @see {@link https://github.com/expressjs/cookie-parser cookie-parser}
+         */
         publics.modules.cookieParser = require('cookie-parser');
+
+        /**
+         * An implementation of heritage.
+         * @public
+         * @function extend
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/extend extend}
+         */
         publics.modules.extend = require('extend');
+
+        /**
+         * A command tool for run NodeAtlas in command prompt.
+         * @public
+         * @alias commander
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link https://github.com/tj/commander.js commander.js}
+         */
         publics.modules.commander = require('commander');
+
+        /**
+         * Compress code before send it to the client.
+         * @public
+         * @function compress
+         * @memberOf NA.modules
+         * @see {@link https://github.com/expressjs/compression compression}
+         */
         publics.modules.compress = require('compression');
+
+        /**
+         * Open a file or url in the user's preferred application.
+         * @public
+         * @function open
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/open open}
+         */
         publics.modules.open = require('open');
+
+        /**
+         * EJS cleans the HTML out of your JavaScript with client side templates.
+         * @public
+         * @alias ejs
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link http://www.embeddedjs.com/ EJS}
+         */
         publics.modules.ejs = require('ejs');
+
+        /**
+         * Make all directories in a path, like mkdir -p.
+         * @public
+         * @function mkpath
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/mkpath mkpath}
+         */
         publics.modules.mkpath = require('mkpath');
+
+        /**
+         * Tiny, fast, and elegant implementation of core jQuery designed specifically for the server.
+         * @public
+         * @function cheerio
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/cheerio cheerio}
+         */
         publics.modules.cheerio = require('cheerio');
+
+        /**
+         * UglifyJS is a JavaScript parser, minifier, compressor or beautifier toolkit.
+         * @public
+         * @alias uglifyJs
+         * @type {Object}
+         * @memberOf NA.modules
+         * @see {@link https://github.com/mishoo/UglifyJS2 UglifyJS2}
+         */
         publics.modules.uglifyJs = require('uglify-js');
+
+        /**
+         * A fast, efficient, and well tested CSS minifier for node.js.
+         * @public
+         * @function cleanCss
+         * @memberOf NA.modules
+         * @see {@link https://github.com/jakubpawlowicz/clean-css clean-css}
+         */
         publics.modules.cleanCss = require('clean-css');
+
+        /**
+         * Is a middleware for Epxpress that redirects any requests to a default domain.
+         * @public
+         * @function forceDomain
+         * @memberOf NA.modules
+         * @see {@link https://www.npmjs.org/package/node-force-domain node-force-domain}
+         */
         publics.modules.forceDomain = require('node-force-domain');
     };
 
+    /**
+     * Download all packet like `npm install` based on package.json if a module is not founded.
+     * @public
+     * @function downloadAllModule
+     * @memberOf NA
+     * @param {Object} exception - Allow to know if a module is not founded.
+     */
     publics.downloadAllModule = function (exception) {
         var execute = NA.modules.child_process.exec;
 
+        /** Test if package.json is present for obtain list of module and version. */
         NA.ifFileExist(NA.serverPhysicalPath, 'package.json', function () {
             console.log(NA.appLabels.downloadAllModule.moduleNotExist + " " + NA.appLabels.downloadAllModule.downloadStarting + "(" + exception + ")");
 
+            /** Execute an npm command to install all modules not founded. */
             execute('npm --prefix ' + NA.serverPhysicalPath + ' install -l', function (error, stdout, stderr) {
                 if (!error) {
                     console.log(NA.appLabels.downloadAllModule.installationDone + " " + NA.appLabels.downloadAllModule.restartRequired);
+                    /** It's ok, killing process and restarting manually now. */
                     process.kill(process.pid);
                 } else {
+                    /** It's not ok explain the error. */
                     console.log(error);
                 }
             });
         }, function () {
+            /** No package.json ? We kill the process. */
             process.kill(process.pid);
         });
     };
 
+    /**
+     * Load modules or install modules.
+     * @public
+     * @function moduleRequired
+     * @memberOf NA
+     * @param {moduleRequired~callback} callback - Run next steps if all module are correctly loaded.
+     */
     publics.moduleRequired = function (callback) {
         try {
             NA.loadListOfRequiredNpmModules();
+
+            /** 
+             * Next step after loading of module.
+             * @callback moduleRequired~callback
+             */
             callback();
         } catch (exception) {
             if (exception.code === 'MODULE_NOT_FOUND') {
+                /** If a module is not found, download it */
                 NA.downloadAllModule(exception);
             } else {
                 console.log(exception);
@@ -1692,7 +1874,7 @@ module.exports = NA;</code></pre>
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Thu Nov 13 2014 11:06:04 GMT+0100 (Paris, Madrid)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Thu Nov 13 2014 12:11:43 GMT+0100 (Paris, Madrid)
         </footer>
     </div>
 </div>
