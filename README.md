@@ -2392,9 +2392,7 @@ var website = {};
 	"use strict";
 
 	publics.loadModules = function (NA) {
-		var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
-
-		NA.modules.RedisStore = require(modulePath + 'connect-redis');
+		NA.modules.RedisStore = require('connect-redis');
 
 		return NA;
 	};
@@ -2428,9 +2426,7 @@ var website = {};
 	"use strict";
 
 	publics.loadModules = function (NA) {
-		var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
-
-		NA.modules.MongoStore = require(modulePath + 'connect-mongo');
+		NA.modules.MongoStore = require('connect-mongo');
 
 		return NA;
 	};
