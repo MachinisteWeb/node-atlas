@@ -5,7 +5,7 @@
 /**
  * @fileOverview Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.24.4
+ * @version 0.24.5
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  */
 
@@ -76,7 +76,7 @@ var NA = {};
 
         commander
             /** Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.24.4')
+            .version('0.24.5')
 
             /** Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -164,7 +164,7 @@ var NA = {};
     publics.initGlobalVarRequiredNpmModules = function () {
         var commander = NA.modules.commander,
     		path = NA.modules.path,
-            regex = new RegExp(path.sep + '$', 'g');
+            regex = new RegExp(path.sep + path.sep + '?$', 'g');
 
         /** `websitePhysicalPath` Manually setted value with `NA.config`. */
         if (commander.directory) { NA.configuration.directory = commander.directory; }
@@ -284,7 +284,7 @@ var NA = {};
     publics.improveWebconfigBase = function () {
     	var commander = NA.modules.commander,
     		path = NA.modules.path,
-            regex = new RegExp(path.sep + '$', 'g'),
+            regex = new RegExp(path.sep + path.sep + '?$', 'g'),
             data = {};
 
         /**
@@ -1367,7 +1367,9 @@ var NA = {};
     "use strict";
 
     publics.openController = function () {
-        NA.nodeModulesPath = NA.websitePhysicalPath + 'node_modules/';
+        publics.nodeAtlasModulesPath = NA.websitePhysicalPath + 'node_modules/';
+        publics.websiteModulesPath = NA.serverPhysicalPath + 'node_modules/';
+
         if (typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
             NA = NA.websiteController[NA.webconfig.commonController].loadModules(NA) || NA;
         }

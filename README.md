@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.24.4 (Beta)
+Version : 0.24.5 (Beta)
 
 ## Avant-propos ##
 
@@ -1051,13 +1051,15 @@ var website = {};
 
 	// Chargement des modules pour ce site dans l'objet NodeAtlas.
 	publics.loadModules = function (NA) {
-		// Gestion de l'accès aux modules s'il ne sont pas dans « node_modules ».
-		var modulePath = (NA.webconfig._needModulePath) ? NA.nodeModulesPath : '';
-		
 		// Associations de chaque module pour y avoir accès partout.
-		NA.modules.cookie = require(modulePath + 'cookie');
-		NA.modules.mongoose = require(modulePath + 'mongoose');
-		NA.modules.socketio = require(modulePath + 'socket.io');
+		NA.modules.cookie = require('cookie');
+		NA.modules.mongoose = require('mongoose');
+
+		// Aller chercher un module spécifiquement dans le `node_modules` du site web.
+		NA.modules.socketio = require(NA.websiteModulesPath + 'socket.io');
+
+		// Aller chercher un module spécifiquement dans le `node_modules` du moteur NodeAtlas.
+		NA.modules.socketio = require(NA.nodeAtlasModulesPath + 'ejs.io');
 
 		// Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
 		return NA;
@@ -1172,8 +1174,7 @@ var website = {};
 	// Configuration de tous les modules
 	publics.setConfigurations = function (NA, callback) {
 		var mongoose = NA.modules.mongoose,
-			socketio = NA.modules.socketio,
-			connect = NA.modules.connect;
+			socketio = NA.modules.socketio;
 
 		// Initialisation de Mongoose.
 		privates.mongooseInitialization(mongoose, function (mongoose) {
@@ -1420,8 +1421,8 @@ website.index = {};
 
 		// Dès qu'on a un lien valide entre le client et notre back,
 		io.sockets.on('connection', function (socket) {
-			var sessionID = socket.handshake.sessionID,
-				session = socket.handshake.session;
+			var sessionID = socket.request.sessionID,
+				session = socket.request.session;
 
 			// ... resté à l'écoute de la demande « create-article-button »,
 			socket.on('create-article-button', function (data) {
@@ -1464,7 +1465,7 @@ exports.render = website.index.render;
 exports.asynchrone = website.index.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
 ```
 
-*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js » alors toute la partie Back-end est désactivée.*
+*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien* ***controllers/***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
