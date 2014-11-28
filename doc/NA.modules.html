@@ -17,7 +17,7 @@
     
     
     <script>
-    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{}};
     </script>
     
 
@@ -49,11 +49,13 @@
             
                 <li data-name="NA.appLanguage"><a href="NA.html#appLanguage">appLanguage</a></li>
             
+                <li data-name="NA.configuration"><a href="NA.html#configuration">configuration</a></li>
+            
                 <li data-name="NA.serverPhysicalPath"><a href="NA.html#serverPhysicalPath">serverPhysicalPath</a></li>
             
-                <li data-name="NA.webconfigName"><a href="NA.html#webconfigName">webconfigName</a></li>
+                <li data-name="NA.sessionStore"><a href="NA.html#sessionStore">sessionStore</a></li>
             
-                <li data-name="NA.websiteController"><a href="NA.html#websiteController">websiteController</a></li>
+                <li data-name="NA.webconfigName"><a href="NA.html#webconfigName">webconfigName</a></li>
             
                 <li data-name="NA.websitePhysicalPath"><a href="NA.html#websitePhysicalPath">websitePhysicalPath</a></li>
             
@@ -65,13 +67,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li data-name="NA.cssMinification"><a href="NA.html#cssMinification">cssMinification</a></li>
+            
                 <li data-name="NA.downloadAllModule"><a href="NA.html#downloadAllModule">downloadAllModule</a></li>
             
                 <li data-name="NA.emulatedIndexPage"><a href="NA.html#emulatedIndexPage">emulatedIndexPage</a></li>
             
+                <li data-name="NA.httpServer"><a href="NA.html#httpServer">httpServer</a></li>
+            
+                <li data-name="NA.httpServerPublicFiles"><a href="NA.html#httpServerPublicFiles">httpServerPublicFiles</a></li>
+            
                 <li data-name="NA.ifFileExist"><a href="NA.html#ifFileExist">ifFileExist</a></li>
             
                 <li data-name="NA.improveWebconfigBase"><a href="NA.html#improveWebconfigBase">improveWebconfigBase</a></li>
+            
+                <li data-name="NA.init"><a href="NA.html#init">init</a></li>
             
                 <li data-name="NA.initGlobalVar"><a href="NA.html#initGlobalVar">initGlobalVar</a></li>
             
@@ -79,7 +89,13 @@
             
                 <li data-name="NA.initWebconfig"><a href="NA.html#initWebconfig">initWebconfig</a></li>
             
+                <li data-name="NA.jsObfuscation"><a href="NA.html#jsObfuscation">jsObfuscation</a></li>
+            
                 <li data-name="NA.lineCommandConfiguration"><a href="NA.html#lineCommandConfiguration">lineCommandConfiguration</a></li>
+            
+                <li data-name="NA.loadController"><a href="NA.html#loadController">loadController</a></li>
+            
+                <li data-name="NA.loadListOfExternalModules"><a href="NA.html#loadListOfExternalModules">loadListOfExternalModules</a></li>
             
                 <li data-name="NA.loadListOfNativeModules"><a href="NA.html#loadListOfNativeModules">loadListOfNativeModules</a></li>
             
@@ -89,7 +105,29 @@
             
                 <li data-name="NA.openConfiguration"><a href="NA.html#openConfiguration">openConfiguration</a></li>
             
+                <li data-name="NA.openTemplate"><a href="NA.html#openTemplate">openTemplate</a></li>
+            
+                <li data-name="NA.openVariation"><a href="NA.html#openVariation">openVariation</a></li>
+            
+                <li data-name="NA.pageNotFound"><a href="NA.html#pageNotFound">pageNotFound</a></li>
+            
+                <li data-name="NA.redirect"><a href="NA.html#redirect">redirect</a></li>
+            
+                <li data-name="NA.render"><a href="NA.html#render">render</a></li>
+            
+                <li data-name="NA.response"><a href="NA.html#response">response</a></li>
+            
+                <li data-name="NA.routesPages"><a href="NA.html#routesPages">routesPages</a></li>
+            
+                <li data-name="NA.routesPages"><a href="NA.html#routesPages">routesPages</a></li>
+            
                 <li data-name="NA.saveTemplateRender"><a href="NA.html#saveTemplateRender">saveTemplateRender</a></li>
+            
+                <li data-name="NA.server"><a href="NA.html#server">server</a></li>
+            
+                <li data-name="NA.simpleWebServer"><a href="NA.html#simpleWebServer">simpleWebServer</a></li>
+            
+                <li data-name="NA.startingHttpServer"><a href="NA.html#startingHttpServer">startingHttpServer</a></li>
             
                 <li data-name="NA.templateEngineConfiguration"><a href="NA.html#templateEngineConfiguration">templateEngineConfiguration</a></li>
             
@@ -202,7 +240,11 @@
             
                 <li data-name="NA.webconfig.assetsRelativePath"><a href="NA.webconfig.html#assetsRelativePath">assetsRelativePath</a></li>
             
+                <li data-name="NA.webconfig.autoGenerate"><a href="NA.webconfig.html#autoGenerate">autoGenerate</a></li>
+            
                 <li data-name="NA.webconfig.bundles"><a href="NA.webconfig.html#bundles">bundles</a></li>
+            
+                <li data-name="NA.webconfig.commonVariation"><a href="NA.webconfig.html#commonVariation">commonVariation</a></li>
             
                 <li data-name="NA.webconfig.componentsRelativePath"><a href="NA.webconfig.html#componentsRelativePath">componentsRelativePath</a></li>
             
@@ -210,11 +252,33 @@
             
                 <li data-name="NA.webconfig.generatesRelativePath"><a href="NA.webconfig.html#generatesRelativePath">generatesRelativePath</a></li>
             
+                <li data-name="NA.webconfig.getSupport"><a href="NA.webconfig.html#getSupport">getSupport</a></li>
+            
                 <li data-name="NA.webconfig.httpHostname"><a href="NA.webconfig.html#httpHostname">httpHostname</a></li>
             
                 <li data-name="NA.webconfig.httpPort"><a href="NA.webconfig.html#httpPort">httpPort</a></li>
             
+                <li data-name="NA.webconfig.httpSecure"><a href="NA.webconfig.html#httpSecure">httpSecure</a></li>
+            
+                <li data-name="NA.webconfig.indexPage"><a href="NA.webconfig.html#indexPage">indexPage</a></li>
+            
+                <li data-name="NA.webconfig.languageCode"><a href="NA.webconfig.html#languageCode">languageCode</a></li>
+            
+                <li data-name="NA.webconfig.pageNotFound"><a href="NA.webconfig.html#pageNotFound">pageNotFound</a></li>
+            
+                <li data-name="NA.webconfig.postSupport"><a href="NA.webconfig.html#postSupport">postSupport</a></li>
+            
                 <li data-name="NA.webconfig.routes"><a href="NA.webconfig.html#routes">routes</a></li>
+            
+                <li data-name="NA.webconfig.session"><a href="NA.webconfig.html#session">session</a></li>
+            
+                <li data-name="NA.webconfig.sessionKey"><a href="NA.webconfig.html#sessionKey">sessionKey</a></li>
+            
+                <li data-name="NA.webconfig.sessionSecret"><a href="NA.webconfig.html#sessionSecret">sessionSecret</a></li>
+            
+                <li data-name="NA.webconfig.templateEngineClosePattern"><a href="NA.webconfig.html#templateEngineClosePattern">templateEngineClosePattern</a></li>
+            
+                <li data-name="NA.webconfig.templateEngineOpenPattern"><a href="NA.webconfig.html#templateEngineOpenPattern">templateEngineOpenPattern</a></li>
             
                 <li data-name="NA.webconfig.templatesRelativePath"><a href="NA.webconfig.html#templatesRelativePath">templatesRelativePath</a></li>
             
@@ -227,6 +291,135 @@
                 <li data-name="NA.webconfig.urlWithoutFileName"><a href="NA.webconfig.html#urlWithoutFileName">urlWithoutFileName</a></li>
             
                 <li data-name="NA.webconfig.variationsRelativePath"><a href="NA.webconfig.html#variationsRelativePath">variationsRelativePath</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="NA.websiteController[]">
+            <span class="title">
+                <a href="NA.websiteController%255B%255D.html">NA.websiteController[]</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="NA.websiteController[].loadModules"><a href="NA.websiteController%25255B%25255D.html#loadModules">loadModules</a></li>
+            
+                <li data-name="NA.websiteController[].preRender"><a href="NA.websiteController%25255B%25255D.html#preRender">preRender</a></li>
+            
+                <li data-name="NA.websiteController[].render"><a href="NA.websiteController%25255B%25255D.html#render">render</a></li>
+            
+                <li data-name="NA.websiteController[].setConfigurations"><a href="NA.websiteController%25255B%25255D.html#setConfigurations">setConfigurations</a></li>
+            
+                <li data-name="NA.websiteController[].setSessions"><a href="NA.websiteController%25255B%25255D.html#setSessions">setSessions</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="NA#currentRouteParameters">
+            <span class="title">
+                <a href="NA_currentRouteParameters.html">NA#currentRouteParameters</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="NA#currentRouteParameters.charset"><a href="NA_currentRouteParameters.html#charset">charset</a></li>
+            
+                <li data-name="NA#currentRouteParameters.controller"><a href="NA_currentRouteParameters.html#controller">controller</a></li>
+            
+                <li data-name="NA#currentRouteParameters.generate"><a href="NA_currentRouteParameters.html#generate">generate</a></li>
+            
+                <li data-name="NA#currentRouteParameters.getSupport"><a href="NA_currentRouteParameters.html#getSupport">getSupport</a></li>
+            
+                <li data-name="NA#currentRouteParameters.languageCode"><a href="NA_currentRouteParameters.html#languageCode">languageCode</a></li>
+            
+                <li data-name="NA#currentRouteParameters.mimeType"><a href="NA_currentRouteParameters.html#mimeType">mimeType</a></li>
+            
+                <li data-name="NA#currentRouteParameters.postSupport"><a href="NA_currentRouteParameters.html#postSupport">postSupport</a></li>
+            
+                <li data-name="NA#currentRouteParameters.redirect"><a href="NA_currentRouteParameters.html#redirect">redirect</a></li>
+            
+                <li data-name="NA#currentRouteParameters.regExp"><a href="NA_currentRouteParameters.html#regExp">regExp</a></li>
+            
+                <li data-name="NA#currentRouteParameters.statusCode"><a href="NA_currentRouteParameters.html#statusCode">statusCode</a></li>
+            
+                <li data-name="NA#currentRouteParameters.template"><a href="NA_currentRouteParameters.html#template">template</a></li>
+            
+                <li data-name="NA#currentRouteParameters.url"><a href="NA_currentRouteParameters.html#url">url</a></li>
+            
+                <li data-name="NA#currentRouteParameters.variation"><a href="NA_currentRouteParameters.html#variation">variation</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="NA#currentVariation">
+            <span class="title">
+                <a href="NA_currentVariation.html">NA#currentVariation</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="NA#currentVariation.common"><a href="NA_currentVariation.html#common">common</a></li>
+            
+                <li data-name="NA#currentVariation.currentRouteParameters"><a href="NA_currentVariation.html#currentRouteParameters">currentRouteParameters</a></li>
+            
+                <li data-name="NA#currentVariation.filename"><a href="NA_currentVariation.html#filename">filename</a></li>
+            
+                <li data-name="NA#currentVariation.languageCode"><a href="NA_currentVariation.html#languageCode">languageCode</a></li>
+            
+                <li data-name="NA#currentVariation.pageRoute"><a href="NA_currentVariation.html#pageRoute">pageRoute</a></li>
+            
+                <li data-name="NA#currentVariation.params"><a href="NA_currentVariation.html#params">params</a></li>
+            
+                <li data-name="NA#currentVariation.pathname"><a href="NA_currentVariation.html#pathname">pathname</a></li>
+            
+                <li data-name="NA#currentVariation.specific"><a href="NA_currentVariation.html#specific">specific</a></li>
+            
+                <li data-name="NA#currentVariation.urlBasePath"><a href="NA_currentVariation.html#urlBasePath">urlBasePath</a></li>
+            
+                <li data-name="NA#currentVariation.urlBasePathSlice"><a href="NA_currentVariation.html#urlBasePathSlice">urlBasePathSlice</a></li>
+            
+                <li data-name="NA#currentVariation.urlPath"><a href="NA_currentVariation.html#urlPath">urlPath</a></li>
+            
+                <li data-name="NA#currentVariation.webconfig"><a href="NA_currentVariation.html#webconfig">webconfig</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -265,7 +458,7 @@
     
     
         
-            <div class="description">List of modules callable into NodeAtlas and website based on NodeAtlas.</div>
+            <div class="description"><p>List of modules callable into NodeAtlas and website based on NodeAtlas.</p></div>
         
         
         
@@ -323,7 +516,7 @@
 <dd>
     
     <div class="description">
-        Allow you to create children process.
+        <p>Allow you to create children process.</p>
     </div>
     
     
@@ -375,7 +568,7 @@
 <dd>
     
     <div class="description">
-        A command tool for run NodeAtlas in command prompt.
+        <p>A command tool for run NodeAtlas in command prompt.</p>
     </div>
     
     
@@ -427,7 +620,7 @@
 <dd>
     
     <div class="description">
-        EJS cleans the HTML out of your JavaScript with client side templates.
+        <p>EJS cleans the HTML out of your JavaScript with client side templates.</p>
     </div>
     
     
@@ -479,7 +672,7 @@
 <dd>
     
     <div class="description">
-        Allow you to manage files.
+        <p>Allow you to manage files.</p>
     </div>
     
     
@@ -531,7 +724,7 @@
 <dd>
     
     <div class="description">
-        Allow you to use many features of the HTTP protocol.
+        <p>Allow you to use many features of the HTTP protocol.</p>
     </div>
     
     
@@ -583,7 +776,7 @@
 <dd>
     
     <div class="description">
-        Allow you to handle and to transform file paths.
+        <p>Allow you to handle and to transform file paths.</p>
     </div>
     
     
@@ -635,7 +828,7 @@
 <dd>
     
     <div class="description">
-        UglifyJS is a JavaScript parser, minifier, compressor or beautifier toolkit.
+        <p>UglifyJS is a JavaScript parser, minifier, compressor or beautifier toolkit.</p>
     </div>
     
     
@@ -692,7 +885,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line683">line 683</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 731
         </div>
         
     </div>
@@ -703,7 +896,7 @@
     
     
     <div class="description">
-        Parse HTML for POST methods.
+        <p>Parse HTML for POST methods.</p>
     </div>
     
 
@@ -770,7 +963,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line757">line 757</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 805
         </div>
         
     </div>
@@ -781,7 +974,7 @@
     
     
     <div class="description">
-        Tiny, fast, and elegant implementation of core jQuery designed specifically for the server.
+        <p>Tiny, fast, and elegant implementation of core jQuery designed specifically for the server.</p>
     </div>
     
 
@@ -848,7 +1041,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line776">line 776</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 824
         </div>
         
     </div>
@@ -859,7 +1052,7 @@
     
     
     <div class="description">
-        A fast, efficient, and well tested CSS minifier for node.js.
+        <p>A fast, efficient, and well tested CSS minifier for node.js.</p>
     </div>
     
 
@@ -926,7 +1119,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line720">line 720</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 768
         </div>
         
     </div>
@@ -937,7 +1130,7 @@
     
     
     <div class="description">
-        Compress code before send it to the client.
+        <p>Compress code before send it to the client.</p>
     </div>
     
 
@@ -1004,7 +1197,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line692">line 692</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 740
         </div>
         
     </div>
@@ -1015,7 +1208,7 @@
     
     
     <div class="description">
-        Parse Cookies for keep connection.
+        <p>Parse Cookies for keep connection.</p>
     </div>
     
 
@@ -1082,7 +1275,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line665">line 665</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 713
         </div>
         
     </div>
@@ -1093,7 +1286,7 @@
     
     
     <div class="description">
-        An advanced web server.
+        <p>An advanced web server.</p>
     </div>
     
 
@@ -1160,7 +1353,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line701">line 701</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 749
         </div>
         
     </div>
@@ -1171,7 +1364,7 @@
     
     
     <div class="description">
-        An implementation of heritage.
+        <p>An implementation of heritage.</p>
     </div>
     
 
@@ -1238,7 +1431,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line785">line 785</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 833
         </div>
         
     </div>
@@ -1249,7 +1442,7 @@
     
     
     <div class="description">
-        Is a middleware for Epxpress that redirects any requests to a default domain.
+        <p>Is a middleware for Epxpress that redirects any requests to a default domain.</p>
     </div>
     
 
@@ -1316,7 +1509,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line748">line 748</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 796
         </div>
         
     </div>
@@ -1327,7 +1520,7 @@
     
     
     <div class="description">
-        Make all directories in a path, like mkdir -p.
+        <p>Make all directories in a path, like mkdir -p.</p>
     </div>
     
 
@@ -1394,7 +1587,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line729">line 729</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 777
         </div>
         
     </div>
@@ -1405,7 +1598,7 @@
     
     
     <div class="description">
-        Open a file or url in the user's preferred application.
+        <p>Open a file or url in the user's preferred application.</p>
     </div>
     
 
@@ -1472,7 +1665,7 @@
     
         
         <div class="tag-source">
-            <a href="C__nodejs_NodeAtlas_node-atlas.js.html">C:/nodejs/NodeAtlas/node-atlas.js</a>, <a href="C__nodejs_NodeAtlas_node-atlas.js.html#line674">line 674</a>
+            C:/nodejs/NodeAtlas/node-atlas.js, line 722
         </div>
         
     </div>
@@ -1483,7 +1676,7 @@
     
     
     <div class="description">
-        Manage session with express.
+        <p>Manage session with express.</p>
     </div>
     
 
@@ -1556,7 +1749,7 @@
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Thu Nov 13 2014 12:11:43 GMT+0100 (Paris, Madrid)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Fri Nov 28 2014 16:17:36 GMT+0100 (Paris, Madrid)
         </footer>
     </div>
 </div>

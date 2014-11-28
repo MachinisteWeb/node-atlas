@@ -17,7 +17,7 @@
     
     
     <script>
-    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{}};
     </script>
     
 
@@ -49,11 +49,13 @@
             
                 <li data-name="NA.appLanguage"><a href="NA.html#appLanguage">appLanguage</a></li>
             
+                <li data-name="NA.configuration"><a href="NA.html#configuration">configuration</a></li>
+            
                 <li data-name="NA.serverPhysicalPath"><a href="NA.html#serverPhysicalPath">serverPhysicalPath</a></li>
             
-                <li data-name="NA.webconfigName"><a href="NA.html#webconfigName">webconfigName</a></li>
+                <li data-name="NA.sessionStore"><a href="NA.html#sessionStore">sessionStore</a></li>
             
-                <li data-name="NA.websiteController"><a href="NA.html#websiteController">websiteController</a></li>
+                <li data-name="NA.webconfigName"><a href="NA.html#webconfigName">webconfigName</a></li>
             
                 <li data-name="NA.websitePhysicalPath"><a href="NA.html#websitePhysicalPath">websitePhysicalPath</a></li>
             
@@ -65,13 +67,21 @@
             
             <span class="subtitle">Methods</span>
             
+                <li data-name="NA.cssMinification"><a href="NA.html#cssMinification">cssMinification</a></li>
+            
                 <li data-name="NA.downloadAllModule"><a href="NA.html#downloadAllModule">downloadAllModule</a></li>
             
                 <li data-name="NA.emulatedIndexPage"><a href="NA.html#emulatedIndexPage">emulatedIndexPage</a></li>
             
+                <li data-name="NA.httpServer"><a href="NA.html#httpServer">httpServer</a></li>
+            
+                <li data-name="NA.httpServerPublicFiles"><a href="NA.html#httpServerPublicFiles">httpServerPublicFiles</a></li>
+            
                 <li data-name="NA.ifFileExist"><a href="NA.html#ifFileExist">ifFileExist</a></li>
             
                 <li data-name="NA.improveWebconfigBase"><a href="NA.html#improveWebconfigBase">improveWebconfigBase</a></li>
+            
+                <li data-name="NA.init"><a href="NA.html#init">init</a></li>
             
                 <li data-name="NA.initGlobalVar"><a href="NA.html#initGlobalVar">initGlobalVar</a></li>
             
@@ -79,7 +89,13 @@
             
                 <li data-name="NA.initWebconfig"><a href="NA.html#initWebconfig">initWebconfig</a></li>
             
+                <li data-name="NA.jsObfuscation"><a href="NA.html#jsObfuscation">jsObfuscation</a></li>
+            
                 <li data-name="NA.lineCommandConfiguration"><a href="NA.html#lineCommandConfiguration">lineCommandConfiguration</a></li>
+            
+                <li data-name="NA.loadController"><a href="NA.html#loadController">loadController</a></li>
+            
+                <li data-name="NA.loadListOfExternalModules"><a href="NA.html#loadListOfExternalModules">loadListOfExternalModules</a></li>
             
                 <li data-name="NA.loadListOfNativeModules"><a href="NA.html#loadListOfNativeModules">loadListOfNativeModules</a></li>
             
@@ -89,7 +105,29 @@
             
                 <li data-name="NA.openConfiguration"><a href="NA.html#openConfiguration">openConfiguration</a></li>
             
+                <li data-name="NA.openTemplate"><a href="NA.html#openTemplate">openTemplate</a></li>
+            
+                <li data-name="NA.openVariation"><a href="NA.html#openVariation">openVariation</a></li>
+            
+                <li data-name="NA.pageNotFound"><a href="NA.html#pageNotFound">pageNotFound</a></li>
+            
+                <li data-name="NA.redirect"><a href="NA.html#redirect">redirect</a></li>
+            
+                <li data-name="NA.render"><a href="NA.html#render">render</a></li>
+            
+                <li data-name="NA.response"><a href="NA.html#response">response</a></li>
+            
+                <li data-name="NA.routesPages"><a href="NA.html#routesPages">routesPages</a></li>
+            
+                <li data-name="NA.routesPages"><a href="NA.html#routesPages">routesPages</a></li>
+            
                 <li data-name="NA.saveTemplateRender"><a href="NA.html#saveTemplateRender">saveTemplateRender</a></li>
+            
+                <li data-name="NA.server"><a href="NA.html#server">server</a></li>
+            
+                <li data-name="NA.simpleWebServer"><a href="NA.html#simpleWebServer">simpleWebServer</a></li>
+            
+                <li data-name="NA.startingHttpServer"><a href="NA.html#startingHttpServer">startingHttpServer</a></li>
             
                 <li data-name="NA.templateEngineConfiguration"><a href="NA.html#templateEngineConfiguration">templateEngineConfiguration</a></li>
             
@@ -202,7 +240,11 @@
             
                 <li data-name="NA.webconfig.assetsRelativePath"><a href="NA.webconfig.html#assetsRelativePath">assetsRelativePath</a></li>
             
+                <li data-name="NA.webconfig.autoGenerate"><a href="NA.webconfig.html#autoGenerate">autoGenerate</a></li>
+            
                 <li data-name="NA.webconfig.bundles"><a href="NA.webconfig.html#bundles">bundles</a></li>
+            
+                <li data-name="NA.webconfig.commonVariation"><a href="NA.webconfig.html#commonVariation">commonVariation</a></li>
             
                 <li data-name="NA.webconfig.componentsRelativePath"><a href="NA.webconfig.html#componentsRelativePath">componentsRelativePath</a></li>
             
@@ -210,11 +252,33 @@
             
                 <li data-name="NA.webconfig.generatesRelativePath"><a href="NA.webconfig.html#generatesRelativePath">generatesRelativePath</a></li>
             
+                <li data-name="NA.webconfig.getSupport"><a href="NA.webconfig.html#getSupport">getSupport</a></li>
+            
                 <li data-name="NA.webconfig.httpHostname"><a href="NA.webconfig.html#httpHostname">httpHostname</a></li>
             
                 <li data-name="NA.webconfig.httpPort"><a href="NA.webconfig.html#httpPort">httpPort</a></li>
             
+                <li data-name="NA.webconfig.httpSecure"><a href="NA.webconfig.html#httpSecure">httpSecure</a></li>
+            
+                <li data-name="NA.webconfig.indexPage"><a href="NA.webconfig.html#indexPage">indexPage</a></li>
+            
+                <li data-name="NA.webconfig.languageCode"><a href="NA.webconfig.html#languageCode">languageCode</a></li>
+            
+                <li data-name="NA.webconfig.pageNotFound"><a href="NA.webconfig.html#pageNotFound">pageNotFound</a></li>
+            
+                <li data-name="NA.webconfig.postSupport"><a href="NA.webconfig.html#postSupport">postSupport</a></li>
+            
                 <li data-name="NA.webconfig.routes"><a href="NA.webconfig.html#routes">routes</a></li>
+            
+                <li data-name="NA.webconfig.session"><a href="NA.webconfig.html#session">session</a></li>
+            
+                <li data-name="NA.webconfig.sessionKey"><a href="NA.webconfig.html#sessionKey">sessionKey</a></li>
+            
+                <li data-name="NA.webconfig.sessionSecret"><a href="NA.webconfig.html#sessionSecret">sessionSecret</a></li>
+            
+                <li data-name="NA.webconfig.templateEngineClosePattern"><a href="NA.webconfig.html#templateEngineClosePattern">templateEngineClosePattern</a></li>
+            
+                <li data-name="NA.webconfig.templateEngineOpenPattern"><a href="NA.webconfig.html#templateEngineOpenPattern">templateEngineOpenPattern</a></li>
             
                 <li data-name="NA.webconfig.templatesRelativePath"><a href="NA.webconfig.html#templatesRelativePath">templatesRelativePath</a></li>
             
@@ -227,6 +291,135 @@
                 <li data-name="NA.webconfig.urlWithoutFileName"><a href="NA.webconfig.html#urlWithoutFileName">urlWithoutFileName</a></li>
             
                 <li data-name="NA.webconfig.variationsRelativePath"><a href="NA.webconfig.html#variationsRelativePath">variationsRelativePath</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="NA.websiteController[]">
+            <span class="title">
+                <a href="NA.websiteController%255B%255D.html">NA.websiteController[]</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="NA.websiteController[].loadModules"><a href="NA.websiteController%25255B%25255D.html#loadModules">loadModules</a></li>
+            
+                <li data-name="NA.websiteController[].preRender"><a href="NA.websiteController%25255B%25255D.html#preRender">preRender</a></li>
+            
+                <li data-name="NA.websiteController[].render"><a href="NA.websiteController%25255B%25255D.html#render">render</a></li>
+            
+                <li data-name="NA.websiteController[].setConfigurations"><a href="NA.websiteController%25255B%25255D.html#setConfigurations">setConfigurations</a></li>
+            
+                <li data-name="NA.websiteController[].setSessions"><a href="NA.websiteController%25255B%25255D.html#setSessions">setSessions</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="NA#currentRouteParameters">
+            <span class="title">
+                <a href="NA_currentRouteParameters.html">NA#currentRouteParameters</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="NA#currentRouteParameters.charset"><a href="NA_currentRouteParameters.html#charset">charset</a></li>
+            
+                <li data-name="NA#currentRouteParameters.controller"><a href="NA_currentRouteParameters.html#controller">controller</a></li>
+            
+                <li data-name="NA#currentRouteParameters.generate"><a href="NA_currentRouteParameters.html#generate">generate</a></li>
+            
+                <li data-name="NA#currentRouteParameters.getSupport"><a href="NA_currentRouteParameters.html#getSupport">getSupport</a></li>
+            
+                <li data-name="NA#currentRouteParameters.languageCode"><a href="NA_currentRouteParameters.html#languageCode">languageCode</a></li>
+            
+                <li data-name="NA#currentRouteParameters.mimeType"><a href="NA_currentRouteParameters.html#mimeType">mimeType</a></li>
+            
+                <li data-name="NA#currentRouteParameters.postSupport"><a href="NA_currentRouteParameters.html#postSupport">postSupport</a></li>
+            
+                <li data-name="NA#currentRouteParameters.redirect"><a href="NA_currentRouteParameters.html#redirect">redirect</a></li>
+            
+                <li data-name="NA#currentRouteParameters.regExp"><a href="NA_currentRouteParameters.html#regExp">regExp</a></li>
+            
+                <li data-name="NA#currentRouteParameters.statusCode"><a href="NA_currentRouteParameters.html#statusCode">statusCode</a></li>
+            
+                <li data-name="NA#currentRouteParameters.template"><a href="NA_currentRouteParameters.html#template">template</a></li>
+            
+                <li data-name="NA#currentRouteParameters.url"><a href="NA_currentRouteParameters.html#url">url</a></li>
+            
+                <li data-name="NA#currentRouteParameters.variation"><a href="NA_currentRouteParameters.html#variation">variation</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="NA#currentVariation">
+            <span class="title">
+                <a href="NA_currentVariation.html">NA#currentVariation</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="NA#currentVariation.common"><a href="NA_currentVariation.html#common">common</a></li>
+            
+                <li data-name="NA#currentVariation.currentRouteParameters"><a href="NA_currentVariation.html#currentRouteParameters">currentRouteParameters</a></li>
+            
+                <li data-name="NA#currentVariation.filename"><a href="NA_currentVariation.html#filename">filename</a></li>
+            
+                <li data-name="NA#currentVariation.languageCode"><a href="NA_currentVariation.html#languageCode">languageCode</a></li>
+            
+                <li data-name="NA#currentVariation.pageRoute"><a href="NA_currentVariation.html#pageRoute">pageRoute</a></li>
+            
+                <li data-name="NA#currentVariation.params"><a href="NA_currentVariation.html#params">params</a></li>
+            
+                <li data-name="NA#currentVariation.pathname"><a href="NA_currentVariation.html#pathname">pathname</a></li>
+            
+                <li data-name="NA#currentVariation.specific"><a href="NA_currentVariation.html#specific">specific</a></li>
+            
+                <li data-name="NA#currentVariation.urlBasePath"><a href="NA_currentVariation.html#urlBasePath">urlBasePath</a></li>
+            
+                <li data-name="NA#currentVariation.urlBasePathSlice"><a href="NA_currentVariation.html#urlBasePathSlice">urlBasePathSlice</a></li>
+            
+                <li data-name="NA#currentVariation.urlPath"><a href="NA_currentVariation.html#urlPath">urlPath</a></li>
+            
+                <li data-name="NA#currentVariation.webconfig"><a href="NA_currentVariation.html#webconfig">webconfig</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -265,7 +458,7 @@
     
     
         
-            <div class="description">Contain Webconfig file to JSON format.</div>
+            <div class="description"><p>Contain Webconfig file to JSON format.</p></div>
         
         
         
@@ -315,7 +508,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="assetsRelativePath"><span class="type-signature static">static</span>NA.webconfig.assetsRelativePath<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="assetsRelativePath"><span class="type-signature static">static</span>NA.webconfig.assetsRelativePath<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -323,7 +516,7 @@
 <dd>
     
     <div class="description">
-        Folder for public file like image, CSS or JS.
+        <p>Folder for public file like image, CSS or JS.</p>
     </div>
     
     
@@ -363,7 +556,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="bundles"><span class="type-signature static">static</span>NA.webconfig.bundles<span class="type-signature type object">Object</span> </h4>
+        <h4 class="name" id="autoGenerate"><span class="type-signature static">static</span>NA.webconfig.autoGenerate<span class="type-signature type boolean">boolean</span> </h4>
     </div>
     
     
@@ -371,7 +564,7 @@
 <dd>
     
     <div class="description">
-        Contain bundle configuration for CSS and JS minification to JSON format.
+        <p>Allow NodeAtlas to generate real file into <code>NA.webconfig.generatesRelativePath</code> directory if set to true.</p>
     </div>
     
     
@@ -393,7 +586,7 @@
     
     
     <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy"><li>The webconfig's property `bundles`.</li></ul></dd>
+    <dd class="tag-default"><ul class="dummy"><li>false.</li></ul></dd>
     
     
     
@@ -411,7 +604,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="componentsRelativePath"><span class="type-signature static">static</span>NA.webconfig.componentsRelativePath<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="bundles"><span class="type-signature static">static</span>NA.webconfig.bundles<span class="type-signature type object">Object</span> </h4>
     </div>
     
     
@@ -419,7 +612,366 @@
 <dd>
     
     <div class="description">
-        Default folder for template engine include file or controller components.
+        <p>Contain bundle configuration for CSS and JS minification to JSON format.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>bundles</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>The Bundles object.</p>
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>javascript</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>The Bundles configuration for Javascript.</p>
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>files</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>Each object name represent an output file and each property of object represent an input file.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>enable</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>No JavaScript minification if set to false.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>stylesheets</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>The Bundles configuration for CSS.</p>
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>files</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>Each object name represent an output file and each property of object represent an input file.</p></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>enable</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"><p>No CSS minification if set to false.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>{   "javascript": {       "files": {           "javascript/framework.min.js": [               "javascript/modernizr.js",               "javascript/jquery.js",               "javascript/prettify.js",               "javascript/prettify/run_prettify.js"           ],           "javascript/common.min.js": [               "javascript/components/extended-format-date.js",               "javascript/common.js"           ]       }   },   "stylesheets": {       "files": {           "stylesheets/common.min.css": [               "stylesheets/common.css",               "stylesheets/common-min780.css",               "stylesheets/common-min1160.css"           ]       }   }}</code></pre>
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="commonVariation"><span class="type-signature static">static</span>NA.webconfig.commonVariation<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Name of file for <code>common</code> variation.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="componentsRelativePath"><span class="type-signature static">static</span>NA.webconfig.componentsRelativePath<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Default folder for template engine include file or controller components.</p>
     </div>
     
     
@@ -459,7 +1011,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="controllersRelativePath"><span class="type-signature static">static</span>NA.webconfig.controllersRelativePath<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="controllersRelativePath"><span class="type-signature static">static</span>NA.webconfig.controllersRelativePath<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -467,7 +1019,7 @@
 <dd>
     
     <div class="description">
-        Controller folder for Back-end.
+        <p>Controller folder for Back-end.</p>
     </div>
     
     
@@ -507,7 +1059,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="generatesRelativePath"><span class="type-signature static">static</span>NA.webconfig.generatesRelativePath<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="generatesRelativePath"><span class="type-signature static">static</span>NA.webconfig.generatesRelativePath<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -515,7 +1067,7 @@
 <dd>
     
     <div class="description">
-        HTML asset generation Folder.
+        <p>HTML asset generation Folder.</p>
     </div>
     
     
@@ -555,7 +1107,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="httpHostname"><span class="type-signature static">static</span>NA.webconfig.httpHostname<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="getSupport"><span class="type-signature static">static</span>NA.webconfig.getSupport<span class="type-signature type boolean">boolean</span> </h4>
     </div>
     
     
@@ -563,7 +1115,55 @@
 <dd>
     
     <div class="description">
-        Server listening hostname by http (for reverse proxy).
+        <p>Allow you to avoid or authorize GET response for all page.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>true</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="httpHostname"><span class="type-signature static">static</span>NA.webconfig.httpHostname<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Server listening hostname by http (for reverse proxy).</p>
     </div>
     
     
@@ -603,7 +1203,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="httpPort"><span class="type-signature static">static</span>NA.webconfig.httpPort<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="httpPort"><span class="type-signature static">static</span>NA.webconfig.httpPort<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -611,7 +1211,7 @@
 <dd>
     
     <div class="description">
-        Server listening port.
+        <p>Server listening port.</p>
     </div>
     
     
@@ -651,6 +1251,240 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="httpSecure"><span class="type-signature static">static</span>NA.webconfig.httpSecure<span class="type-signature type boolean">boolean</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Define is site is running with HTTP(S) protocol.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="indexPage"><span class="type-signature static">static</span>NA.webconfig.indexPage<span class="type-signature type boolean">boolean</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Allow NodeAtlas to create a root page with link to all routes for development if set to true.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>false.</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="languageCode"><span class="type-signature static">static</span>NA.webconfig.languageCode<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Represent the global and main language code for website.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>No language code if not setted.</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="pageNotFound"><span class="type-signature static">static</span>NA.webconfig.pageNotFound<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Represent route to use if no route match in all route.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="postSupport"><span class="type-signature static">static</span>NA.webconfig.postSupport<span class="type-signature type boolean">boolean</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Allow you to avoid or authorize POST response for all page.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>true</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="routes"><span class="type-signature static">static</span>NA.webconfig.routes<span class="type-signature type object">Object</span> </h4>
     </div>
     
@@ -659,7 +1493,7 @@
 <dd>
     
     <div class="description">
-        Contain all routes to JSON format.
+        <p>Contain all routes to JSON format.</p>
     </div>
     
     
@@ -699,7 +1533,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="templatesRelativePath"><span class="type-signature static">static</span>NA.webconfig.templatesRelativePath<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="session"><span class="type-signature static">static</span>NA.webconfig.session<span class="type-signature type object">Object</span> </h4>
     </div>
     
     
@@ -707,7 +1541,252 @@
 <dd>
     
     <div class="description">
-        Template folder for template engine.
+        <p>Use a more complexe session cookie options.
+Replace <code>NA.webconfig.sessionKey</code> and <code>NA.webconfig.sessionSecret</code> if set.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://github.com/expressjs/session">Session Middleware</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="sessionKey"><span class="type-signature static">static</span>NA.webconfig.sessionKey<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Name for Session cookie of connected user.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>'nodeatlas.sid'.</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="sessionSecret"><span class="type-signature static">static</span>NA.webconfig.sessionSecret<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Secret for Session cookie of connected user.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>'1234567890bépo'.</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="templateEngineClosePattern"><span class="type-signature static">static</span>NA.webconfig.templateEngineClosePattern<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Set close bracket for use EJS.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>'%>'.</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="templateEngineOpenPattern"><span class="type-signature static">static</span>NA.webconfig.templateEngineOpenPattern<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Set open bracket for use EJS.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>'<%'.</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="templatesRelativePath"><span class="type-signature static">static</span>NA.webconfig.templatesRelativePath<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Template folder for template engine.</p>
     </div>
     
     
@@ -747,7 +1826,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="urlHostname"><span class="type-signature static">static</span>NA.webconfig.urlHostname<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="urlHostname"><span class="type-signature static">static</span>NA.webconfig.urlHostname<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -755,7 +1834,7 @@
 <dd>
     
     <div class="description">
-        Url access hostname by http (for reverse proxy).
+        <p>Url access hostname by http (for reverse proxy).</p>
     </div>
     
     
@@ -795,7 +1874,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="urlPort"><span class="type-signature static">static</span>NA.webconfig.urlPort<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="urlPort"><span class="type-signature static">static</span>NA.webconfig.urlPort<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -803,7 +1882,7 @@
 <dd>
     
     <div class="description">
-        Url access port.
+        <p>Url access port.</p>
     </div>
     
     
@@ -843,7 +1922,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="urlRelativeSubPath"><span class="type-signature static">static</span>NA.webconfig.urlRelativeSubPath<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="urlRelativeSubPath"><span class="type-signature static">static</span>NA.webconfig.urlRelativeSubPath<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -851,7 +1930,7 @@
 <dd>
     
     <div class="description">
-        Adding subfolder to original url.
+        <p>Adding subfolder to original url.</p>
     </div>
     
     
@@ -899,7 +1978,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="urlWithoutFileName"><span class="type-signature static">static</span>NA.webconfig.urlWithoutFileName<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="urlWithoutFileName"><span class="type-signature static">static</span>NA.webconfig.urlWithoutFileName<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -907,7 +1986,8 @@
 <dd>
     
     <div class="description">
-        Website http(s) url generate depending of `NA.webconfig.httpSecure`, `NA.webconfig.urlHostname` and `NA.webconfig.urlPort`.This value does not contain `NA.webconfig.urlRelativeSubPath`.
+        <p>Website http(s) url generate depending of <code>NA.webconfig.httpSecure</code>, <code>NA.webconfig.urlHostname</code> and <code>NA.webconfig.urlPort</code>.
+This value does not contain <code>NA.webconfig.urlRelativeSubPath</code>.</p>
     </div>
     
     
@@ -944,7 +2024,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="variationsRelativePath"><span class="type-signature static">static</span>NA.webconfig.variationsRelativePath<span class="type-signature type string">String</span> </h4>
+        <h4 class="name" id="variationsRelativePath"><span class="type-signature static">static</span>NA.webconfig.variationsRelativePath<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -952,7 +2032,7 @@
 <dd>
     
     <div class="description">
-        Language and variable variation folder depending of languages.
+        <p>Language and variable variation folder depending of languages.</p>
     </div>
     
     
@@ -1007,7 +2087,7 @@
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Thu Nov 13 2014 12:11:43 GMT+0100 (Paris, Madrid)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Fri Nov 28 2014 16:17:36 GMT+0100 (Paris, Madrid)
         </footer>
     </div>
 </div>
