@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.24.5 (Beta)
+Version : 0.25.0 (Beta)
 
 ## Avant-propos ##
 
@@ -166,13 +166,13 @@ Voici le fichier « /site-hello-world/templates/index.htm » :
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-	</head>
-	<body>
-		<div>Ceci est un Hello World !</div>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+    </head>
+    <body>
+        <div>Ceci est un Hello World !</div>
+    </body>
 </html>
 ```
 
@@ -184,11 +184,11 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 ```js
 {
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -249,28 +249,28 @@ Ci-dessous un exemple de configuration.
 
 ```js
 {
-	"templatesRelativePath": "templates/",
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		},
-		"/member.html": {
-			"template": "member.htm"
-			"postSupport": false,
-		},
-		"/member-without-extension/": {
-			"template": "member.htm"
-			"getSupport": false,
-		},
-		"about.html": {
-			"template": "about.htm"
-		},
-		"/error.html": {
-			"template": "error.htm",
-			"statusCode": 404,
-			"mimeType": "text/plain"
-		}
-	}
+    "templatesRelativePath": "templates/",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        },
+        "/member.html": {
+            "template": "member.htm"
+            "postSupport": false,
+        },
+        "/member-without-extension/": {
+            "template": "member.htm"
+            "getSupport": false,
+        },
+        "about.html": {
+            "template": "about.htm"
+        },
+        "/error.html": {
+            "template": "error.htm",
+            "statusCode": 404,
+            "mimeType": "text/plain"
+        }
+    }
 }
 ```
 
@@ -301,24 +301,24 @@ La configuration ci-dessous est équivalente à la configuration de la section j
 
 ```js
 {
-	"templatesRelativePath": "templates/",
-	"routes": {
-		"/": "index.htm",
-		"/member.html": {
-			"template": "member.htm"
-			"postSupport": false,
-		},
-		"/member-without-extension/": {
-			"template": "member.htm"
-			"getSupport": false,
-		},
-		"about.html": "about.htm",
-		"/error.html": {
-			"template": "error.htm",
-			"statusCode": 404,
-			"mimeType": "text/plain"
-		}
-	}
+    "templatesRelativePath": "templates/",
+    "routes": {
+        "/": "index.htm",
+        "/member.html": {
+            "template": "member.htm"
+            "postSupport": false,
+        },
+        "/member-without-extension/": {
+            "template": "member.htm"
+            "getSupport": false,
+        },
+        "about.html": "about.htm",
+        "/error.html": {
+            "template": "error.htm",
+            "statusCode": 404,
+            "mimeType": "text/plain"
+        }
+    }
 }
 ```
 
@@ -332,7 +332,7 @@ est un raccourci de
 
 ```js
 "about.html": {
-	"template": "about.htm"
+    "template": "about.htm"
 }
 ```
 
@@ -346,12 +346,12 @@ Vous pouvez également héberger tout un tas de fichier sur votre site dans un d
 
 ```js
 {
-	"assetsRelativePath": "assets/"
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "assetsRelativePath": "assets/"
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -388,15 +388,15 @@ Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant 
 
 ```js
 {
-	"componentsRelativePath": "components/"
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		},
-		"/liste-des-membres/": {
-			"template": "members.htm"
-		}
-	}
+    "componentsRelativePath": "components/"
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        },
+        "/liste-des-membres/": {
+            "template": "members.htm"
+        }
+    }
 }
 ```
 
@@ -422,47 +422,47 @@ webconfig.json
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
 
-		<link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" />
-	</head>
-	<body>
+        <link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" />
+    </head>
+    <body>
 ```
 
 *components/foot.htm*
 
 ```html
-		<script async type="text/javascript" src="javascript/common.js"></script>
-	</body>
+        <script async type="text/javascript" src="javascript/common.js"></script>
+    </body>
 </html>
 ```
 
 *templates/index.htm*
 
 ```html
-	<% include head.htm %>
-	
-	<div>
-		<h1>Bienvenue</h1>
-		<p>C'est la page d'accueil.</p>
-	</div>
-	
-	<% include foot.htm %>
+    <% include head.htm %>
+    
+    <div>
+        <h1>Bienvenue</h1>
+        <p>C'est la page d'accueil.</p>
+    </div>
+    
+    <% include foot.htm %>
 ```
 
 *templates/members.htm*
 
 ```html
-	<% include head.htm %>
-	
-	<div>
-		<h1>Liste des members</h1>
-		<p>C'est la page des membres</p>
-	</div>
-	
-	<% include foot.htm %>
+    <% include head.htm %>
+    
+    <div>
+        <h1>Liste des members</h1>
+        <p>C'est la page des membres</p>
+    </div>
+    
+    <% include foot.htm %>
 ```
 
 vous aurez accès aux adresses :
@@ -480,18 +480,18 @@ Il est possible avec le même template et les mêmes includes de générer des p
 
 ```js
 {
-	"commonVariation": "common.json",
-	"variationsRelativePath": "variations/",
-	"routes": {
-		"/": {
-			"template": "template.htm",
-			"variation": "index.json",
-		},
-		"/liste-des-membres/": {
-			"template": "template.htm",
-			"variation": "members.json",
-		}
-	}
+    "commonVariation": "common.json",
+    "variationsRelativePath": "variations/",
+    "routes": {
+        "/": {
+            "template": "template.htm",
+            "variation": "index.json",
+        },
+        "/liste-des-membres/": {
+            "template": "template.htm",
+            "variation": "members.json",
+        }
+    }
 }
 ```
 
@@ -524,46 +524,46 @@ webconfig.json
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title><%= specific.titlePage %></title>
+    <head>
+        <meta charset="utf-8" />
+        <title><%= specific.titlePage %></title>
 
-		<link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
-	</head>
-	<body class="<%= specific.classPage %>">
+        <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
+    </head>
+    <body class="<%= specific.classPage %>">
 ```
 
 *components/foot.htm*
 
 ```html
-		<script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
-	</body>
+        <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
+    </body>
 </html>
 ```
 
 *templates/template.htm*
 
 ```html
-	<% include head.htm %>
-	
-	<div class="title"><%= common.titleWebsite %></div>
-	
-	<div>
-		<h1><%= specific.titlePage %></h1>
-		<%- specific.content %>
-	</div>
-	
-	<% include foot.htm %>
+    <% include head.htm %>
+    
+    <div class="title"><%= common.titleWebsite %></div>
+    
+    <div>
+        <h1><%= specific.titlePage %></h1>
+        <%- specific.content %>
+    </div>
+    
+    <% include foot.htm %>
 ```
 
 *variations/common.json*
 
 ```js
 {
-	"titleWebsite": "Titre du site",
-	"classCssCommon": "common",
-	"classJsCommon": "common"
+    "titleWebsite": "Titre du site",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
 }
 ```
 
@@ -571,9 +571,9 @@ webconfig.json
 
 ```js
 {
-	"titlePage": "Bienvenue",
-	"classPage": "index",
-	"content": "<p>C'est la page d'accueil.</p>"
+    "titlePage": "Bienvenue",
+    "classPage": "index",
+    "content": "<p>C'est la page d'accueil.</p>"
 }
 ```
 
@@ -581,9 +581,9 @@ webconfig.json
 
 ```js
 {
-	"titlePage": "Liste des members",
-	"classPage": "members",
-	"content": "<p>C'est la page des membres</p>"
+    "titlePage": "Liste des members",
+    "classPage": "members",
+    "content": "<p>C'est la page des membres</p>"
 }
 ```
 
@@ -604,23 +604,23 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 
 ```js
 {
-	"languageCode": "en-gb",
-	"variationsRelativePath": "languages/",
-	"routes": {
-		"/": {
-			"template": "landing.htm",
-			"variation": "landing.json"
-		},
-		"/home/": {
-			"template": "home.htm",
-			"variation": "home.json"
-		},
-		"/accueil/": {
-			"template": "home.htm",
-			"variation": "home.json",
-			"languageCode": "fr-fr"
-		}
-	}
+    "languageCode": "en-gb",
+    "variationsRelativePath": "languages/",
+    "routes": {
+        "/": {
+            "template": "landing.htm",
+            "variation": "landing.json"
+        },
+        "/home/": {
+            "template": "home.htm",
+            "variation": "home.json"
+        },
+        "/accueil/": {
+            "template": "home.htm",
+            "variation": "home.json",
+            "languageCode": "fr-fr"
+        }
+    }
 }
 ```
 
@@ -649,57 +649,57 @@ webconfig.json
 ```html
 <!DOCTYPE html>
 <html lang="<%= languageCode %>">
-	<head>
-		<meta charset="utf-8" />
-		<title><%= specific.titlePage %></title>
-	</head>
-	<body class="<%= specific.classPage %>">
+    <head>
+        <meta charset="utf-8" />
+        <title><%= specific.titlePage %></title>
+    </head>
+    <body class="<%= specific.classPage %>">
 ```
 
 *components/foot.htm*
 
 ```html
-	</body>
+    </body>
 </html>
 ```
 
 *templates/landing.htm*
 
 ```html
-	<% include head.htm %>
-	
-	<select>
-		<% for (var i = 0; i < specific.selectLabel.length; i++) { %>
-		<option><%= specific.selectLabel[i] %></option>
-		<% } %>
-	</select>
-	
-	<% include foot.htm %>
+    <% include head.htm %>
+    
+    <select>
+        <% for (var i = 0; i < specific.selectLabel.length; i++) { %>
+        <option><%= specific.selectLabel[i] %></option>
+        <% } %>
+    </select>
+    
+    <% include foot.htm %>
 ```
 
 *templates/home.htm*
 
 ```html
-	<% include head.htm %>
-	
-	<div>
-		<h1><%= specific.titlePage %></h1>
-		<%- specific.content %>
-	</div>
-	
-	<% include foot.htm %>
+    <% include head.htm %>
+    
+    <div>
+        <h1><%= specific.titlePage %></h1>
+        <%- specific.content %>
+    </div>
+    
+    <% include foot.htm %>
 ```
 
 *languages/landing.json*
 
 ```js
 {
-	"titlePage": "Landing",
-	"classPage": "landing",
-	"selectLabel": [
-		"English",
-		"Français"
-	]
+    "titlePage": "Landing",
+    "classPage": "landing",
+    "selectLabel": [
+        "English",
+        "Français"
+    ]
 }
 ```
 
@@ -707,9 +707,9 @@ webconfig.json
 
 ```js
 {
-	"titlePage": "Welcome",
-	"classPage": "home",
-	"content": "<p>This is a home page.</p>"
+    "titlePage": "Welcome",
+    "classPage": "home",
+    "content": "<p>This is a home page.</p>"
 }
 ```
 
@@ -717,9 +717,9 @@ webconfig.json
 
 ```js
 {
-	"titlePage": "Bienvenue",
-	"classPage": "home",
-	"content": "<p>C'est la page d'accueil.</p>"
+    "titlePage": "Bienvenue",
+    "classPage": "home",
+    "content": "<p>C'est la page d'accueil.</p>"
 }
 ```
 
@@ -790,12 +790,12 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 ```js
 {
-	"routes": {
-		"/": {
-			"template": "landing.htm",
-			"variation": "landing.json"
-		}
-	}
+    "routes": {
+        "/": {
+            "template": "landing.htm",
+            "variation": "landing.json"
+        }
+    }
 }
 ```
 
@@ -803,19 +803,19 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 ```js
 {
-	"httpPort": 81,
-	"urlRelativeSubPath": "/english",
-	"languageCode": "en-gb",
-	"routes": {
-		"/": {
-			"template": "home.htm",
-			"variation": "home.json"
-		}, 
-		"/members-list/": {
-			"template": "members.htm",
-			"variation": "members.json"
-		}
-	}
+    "httpPort": 81,
+    "urlRelativeSubPath": "/english",
+    "languageCode": "en-gb",
+    "routes": {
+        "/": {
+            "template": "home.htm",
+            "variation": "home.json"
+        }, 
+        "/members-list/": {
+            "template": "members.htm",
+            "variation": "members.json"
+        }
+    }
 }
 ```
 
@@ -823,19 +823,19 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 ```js
 {
-	"httpPort": 82,
-	"urlRelativeSubPath": "/francais",
-	"languageCode": "fr-fr",
-	"routes": {
-		"/": {
-			"template": "home.htm",
-			"variation": "home.json"
-		}, 
-		"/liste-des-membres/": {
-			"template": "members.htm",
-			"variation": "members.json"
-		}
-	}
+    "httpPort": 82,
+    "urlRelativeSubPath": "/francais",
+    "languageCode": "fr-fr",
+    "routes": {
+        "/": {
+            "template": "home.htm",
+            "variation": "home.json"
+        }, 
+        "/liste-des-membres/": {
+            "template": "members.htm",
+            "variation": "members.json"
+        }
+    }
 }
 ```
 
@@ -867,21 +867,21 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
 
 ```js
 {
-	"autoGenerate": true,
-	"generatesRelativePath": "generate/",
-	"routes": {
-		"/": {
-			"template": "index.htm",
-			"generate": "/index.html"
-		},
-		"/liste-des-membres/": {
-			"template": "members.htm",
-			"generate": "/members/list.html"
-		},
-		"/no/generate/property/": {
-			"template": "members.htm"
-		}
-	}
+    "autoGenerate": true,
+    "generatesRelativePath": "generate/",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "generate": "/index.html"
+        },
+        "/liste-des-membres/": {
+            "template": "members.htm",
+            "generate": "/members/list.html"
+        },
+        "/no/generate/property/": {
+            "template": "members.htm"
+        }
+    }
 }
 ```
 
@@ -936,22 +936,22 @@ Il est également possible de manager la création d'un site en simple page HTML
 
 ```js
 {
-	"languageCode": "fr-fr",
-	"indexPage": true,
-	"autoGenerate": true,
-	"generatesRelativePath": "../HTML/",
-	"assetsRelativePath": "../HTML/",
-	"routes": {
-		"/cv.html": {
-			"template": "index.htm",
-			"variation": "index.json"
-		},
-		"/en/cv.html": {
-			"template": "index.htm",
-			"variation": "index.json",
-			"languageCode": "en"
-		}
-	}
+    "languageCode": "fr-fr",
+    "indexPage": true,
+    "autoGenerate": true,
+    "generatesRelativePath": "../HTML/",
+    "assetsRelativePath": "../HTML/",
+    "routes": {
+        "/cv.html": {
+            "template": "index.htm",
+            "variation": "index.json"
+        },
+        "/en/cv.html": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "languageCode": "en"
+        }
+    }
 }
 ```
 
@@ -999,18 +999,18 @@ Pour le contrôleur maître, utilisez par exemple cette configuration :
 
 ```js
 {
- 	"commonController": "common.js",
- 	"controllersRelativePath": "controllers/",
-	"routes": {
-		"/": {
-			"template": "index.htm",
-			"variation": "index.json"
-		},
-		"/categories/": {
-			"template": "categories.htm",
-			"variation": "categories.json"
-		}
-	}
+    "commonController": "common.js",
+    "controllersRelativePath": "controllers/",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json"
+        },
+        "/categories/": {
+            "template": "categories.htm",
+            "variation": "categories.json"
+        }
+    }
 }
 ```
 
@@ -1047,23 +1047,23 @@ var website = {};
 /**********************/
 
 (function (publics) {
-	"use strict";
+    "use strict";
 
-	// Chargement des modules pour ce site dans l'objet NodeAtlas.
-	publics.loadModules = function (NA) {
-		// Associations de chaque module pour y avoir accès partout.
-		NA.modules.cookie = require('cookie');
-		NA.modules.mongoose = require('mongoose');
+    // Chargement des modules pour ce site dans l'objet NodeAtlas.
+    publics.loadModules = function (NA) {
+        // Associations de chaque module pour y avoir accès partout.
+        NA.modules.cookie = require('cookie');
+        NA.modules.mongoose = require('mongoose');
 
-		// Aller chercher un module spécifiquement dans le `node_modules` du site web.
-		NA.modules.socketio = require(NA.websiteModulesPath + 'socket.io');
+        // Aller chercher un module spécifiquement dans le `node_modules` du site web.
+        NA.modules.socketio = require(NA.websiteModulesPath + 'socket.io');
 
-		// Aller chercher un module spécifiquement dans le `node_modules` du moteur NodeAtlas.
-		NA.modules.socketio = require(NA.nodeAtlasModulesPath + 'ejs.io');
+        // Aller chercher un module spécifiquement dans le `node_modules` du moteur NodeAtlas.
+        NA.modules.socketio = require(NA.nodeAtlasModulesPath + 'ejs.io');
 
-		// Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
-		return NA;
-	};
+        // Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
+        return NA;
+    };
 
 }(website));
 
@@ -1074,126 +1074,126 @@ var website = {};
 /*****************************/
 
 (function (publics) {
-	"use strict";
+    "use strict";
 
-	var privates = {};
+    var privates = {};
 
-	// Exemple d'utilisation de MongoDB et Mongoose.
-	privates.mongooseInitialization = function (mongoose, callback) {
-		// Connexion à la base « blog ».
-		mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
-  			if (error) {
-				throw error;
-  			};
+    // Exemple d'utilisation de MongoDB et Mongoose.
+    privates.mongooseInitialization = function (mongoose, callback) {
+        // Connexion à la base « blog ».
+        mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
+            if (error) {
+                throw error;
+            };
 
-			// Suite.
-  			callback(mongoose);
-		});
-		
-		// Gestion de connexion.
-		mongoose.connection.on('error', function (error) {
-	  		console.log('Erreur pour la connexion par défaut à Mongoose: ' + error);
-		});
+            // Suite.
+            callback(mongoose);
+        });
+        
+        // Gestion de connexion.
+        mongoose.connection.on('error', function (error) {
+            console.log('Erreur pour la connexion par défaut à Mongoose: ' + error);
+        });
 
-		// Gestion des déconnexion.
-		mongoose.connection.on('disconnected', function () {
-			console.log('Connexion par défaut à Mongoose déconnectée.');
-		});
-		process.on('SIGINT', function (error) {
-			mongoose.connection.close(function () {
-				console.log('Connexion par défaut à Mongoose déconnectée en raison de l\'arrêt de l\'app termination');
-				process.exit(0);
-			});
-		});
-	};
+        // Gestion des déconnexion.
+        mongoose.connection.on('disconnected', function () {
+            console.log('Connexion par défaut à Mongoose déconnectée.');
+        });
+        process.on('SIGINT', function (error) {
+            mongoose.connection.close(function () {
+                console.log('Connexion par défaut à Mongoose déconnectée en raison de l\'arrêt de l\'app termination');
+                process.exit(0);
+            });
+        });
+    };
 
-	// Mise à disposition des Schémas Mongoose.
-	privates.mongooseShemas = function (mongoose) {
-		publics.shemas = {};
+    // Mise à disposition des Schémas Mongoose.
+    privates.mongooseShemas = function (mongoose) {
+        publics.shemas = {};
 
-		// Chargement des Schémas.
-		publics.shemas.article = require('../models/Article');
-		publics.shemas.category = require('../models/Category');
+        // Chargement des Schémas.
+        publics.shemas.article = require('../models/Article');
+        publics.shemas.category = require('../models/Category');
 
-		// Mise à disposition des Schémas.
-		mongoose.model('article', website.shemas.article, 'article');
-		mongoose.model('category', website.shemas.category, 'category');
-	};
+        // Mise à disposition des Schémas.
+        mongoose.model('article', website.shemas.article, 'article');
+        mongoose.model('category', website.shemas.category, 'category');
+    };
 
-	// Exemple d'utilisation de Socket.IO.
-	privates.socketIoInitialisation = function (socketio, NA, callback) {
-    	var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io' } : undefined,
-			io = socketio(NA.server, optionIo),
-			cookie = NA.modules.cookie,
-			cookieParser = NA.modules.cookieParser;
+    // Exemple d'utilisation de Socket.IO.
+    privates.socketIoInitialisation = function (socketio, NA, callback) {
+        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io' } : undefined,
+            io = socketio(NA.server, optionIo),
+            cookie = NA.modules.cookie,
+            cookieParser = NA.modules.cookieParser;
 
-		// Synchronisation des Sessions avec Socket.IO.
-		io.use(function(socket, next) {
-			var handshakeData = socket.request;
+        // Synchronisation des Sessions avec Socket.IO.
+        io.use(function(socket, next) {
+            var handshakeData = socket.request;
 
-			// Fallback si les cookies ne sont pas gérés.
-			if (!handshakeData.headers.cookie) {
+            // Fallback si les cookies ne sont pas gérés.
+            if (!handshakeData.headers.cookie) {
                 return next(new Error('Cookie de session requis.'));
             }
 
-			// Transformation de la String cookie en Objet JSON.
+            // Transformation de la String cookie en Objet JSON.
             handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
 
-			// Vérification de la signature du cookie.
+            // Vérification de la signature du cookie.
             handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
 
             // Garder à porté l'ID de Session.
-    		handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
+            handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
 
-			// Accepter le cookie.
-			NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
+            // Accepter le cookie.
+            NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
                 if (error || !session) {
-                	return next(new Error('Aucune session récupérée.'));
+                    return next(new Error('Aucune session récupérée.'));
                 } else {
-                    handshakeData.session = session;           			
+                    handshakeData.session = session;                    
                     next();
                 }
             });
-		});
+        });
 
-		// Suite.
-    	callback(io);
-	};
+        // Suite.
+        callback(io);
+    };
 
-	// Ajout d'évênements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
-	privates.socketIoEvents = function (io, NA) {
-		var params = {};
+    // Ajout d'évênements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
+    privates.socketIoEvents = function (io, NA) {
+        var params = {};
 
-		params.io = io;
-		params.NA = NA;
+        params.io = io;
+        params.NA = NA;
 
-		// Évênements pour la page article (voir exemple dans le fichier d'après).
-		require('./index').asynchrone(params);
-	};
+        // Évênements pour la page article (voir exemple dans le fichier d'après).
+        require('./index').asynchrone(params);
+    };
 
-	// Configuration de tous les modules
-	publics.setConfigurations = function (NA, callback) {
-		var mongoose = NA.modules.mongoose,
-			socketio = NA.modules.socketio;
+    // Configuration de tous les modules
+    publics.setConfigurations = function (NA, callback) {
+        var mongoose = NA.modules.mongoose,
+            socketio = NA.modules.socketio;
 
-		// Initialisation de Mongoose.
-		privates.mongooseInitialization(mongoose, function (mongoose) {
+        // Initialisation de Mongoose.
+        privates.mongooseInitialization(mongoose, function (mongoose) {
 
-			// Injection de Schémas dans Mongoose.
-			privates.mongooseShemas(mongoose);
+            // Injection de Schémas dans Mongoose.
+            privates.mongooseShemas(mongoose);
 
-			// Initialisation de Socket IO.
-			privates.socketIoInitialisation(socketio, NA, function (io) {
+            // Initialisation de Socket IO.
+            privates.socketIoInitialisation(socketio, NA, function (io) {
 
-				// Écoute d'action Socket IO.
-				privates.socketIoEvents(io, NA);
+                // Écoute d'action Socket IO.
+                privates.socketIoEvents(io, NA);
 
-				// Ré-injection do l'objet « NodeAtlas » surchargé dans le moteur.
-				callback(NA);					
-			});
-		});
+                // Ré-injection do l'objet « NodeAtlas » surchargé dans le moteur.
+                callback(NA);                   
+            });
+        });
 
-	};
+    };
 
 }(website));
 
@@ -1204,18 +1204,18 @@ var website = {};
 /*******************************/
 
 (function (publics) {
-	"use strict";
+    "use strict";
 
-	// On intervient juste avant l'assemblage complet EJS.
-	publics.preRender = function (params, mainCallback) {
-		var variation = params.variation;
+    // On intervient juste avant l'assemblage complet EJS.
+    publics.preRender = function (params, mainCallback) {
+        var variation = params.variation;
 
-		// Ici on modifie les variables de variations.
-		// voir exemple dans le fichier d'après.
+        // Ici on modifie les variables de variations.
+        // voir exemple dans le fichier d'après.
 
-		// On ré-injecte les modifications.
-		mainCallback(variation);
-	};
+        // On ré-injecte les modifications.
+        mainCallback(variation);
+    };
 
 }(website));
 
@@ -1226,18 +1226,18 @@ var website = {};
 /**********************************************************/
 
 (function (publics) {
-	"use strict";
+    "use strict";
 
-	// On intervient juste avant le renvoi HTML auprès du client (response).
-	publics.render = function (params, mainCallback) {
-		var data = params.data;
+    // On intervient juste avant le renvoi HTML auprès du client (response).
+    publics.render = function (params, mainCallback) {
+        var data = params.data;
 
-		// Ici on peut manipuler le DOM côté serveur avant retour client.
-		// voir exemple dans le fichier d'après.
+        // Ici on peut manipuler le DOM côté serveur avant retour client.
+        // voir exemple dans le fichier d'après.
 
-		// On ré-injecte les modifications.
-		mainCallback(data);
-	};
+        // On ré-injecte les modifications.
+        mainCallback(data);
+    };
 
 }(website));
 
@@ -1257,20 +1257,20 @@ Au lieu de se servir de preRender et render dans le fichier common.js effectif p
 
 ```js
 {
- 	"commonController": "common.js",
- 	"controllersRelativePath": "controllers/",
-	"routes": {
-		"/": {
-			"template": "index.htm",
-			"controller": "index.js",
-			"variation": "index.json"
-		},
-		"/categories/": {
-			"template": "categories.htm",
-			"controller": "categories.js",
-			"variation": "categories.json"
-		}
-	}
+    "commonController": "common.js",
+    "controllersRelativePath": "controllers/",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "controller": "index.js",
+            "variation": "index.json"
+        },
+        "/categories/": {
+            "template": "categories.htm",
+            "controller": "categories.js",
+            "variation": "categories.json"
+        }
+    }
 }
 ```
 
@@ -1312,49 +1312,49 @@ website.index = {};
 /*******************************/
 
 (function (publics) {
-	"use strict";
+    "use strict";
 
-	var privates = {};
+    var privates = {};
 
-	// On charge une fonction ou un ensemble de fonctions.
-	privates.listOfArticles = require('./modules/list-of-articles');
+    // On charge une fonction ou un ensemble de fonctions.
+    privates.listOfArticles = require('./modules/list-of-articles');
 
-	// On intervient juste avant l'assemblage complet EJS.
-	publics.preRender = function (params, mainCallback) {
-		var variation = params.variation,
-			mongoose = params.NA.modules.mongoose,
-			Article = mongoose.model('article');
+    // On intervient juste avant l'assemblage complet EJS.
+    publics.preRender = function (params, mainCallback) {
+        var variation = params.variation,
+            mongoose = params.NA.modules.mongoose,
+            Article = mongoose.model('article');
 
 
-		// Interception possible de toutes les variables de « variation/common.js ».
-		console.log(variation.common.title); // Renvoi le titre stocké dans « variation/common.js ».
-		variation.common.title = "Nouveau title"; // Redéfini un titre.
-		console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via « <%= common.title ». 
+        // Interception possible de toutes les variables de « variation/common.js ».
+        console.log(variation.common.title); // Renvoi le titre stocké dans « variation/common.js ».
+        variation.common.title = "Nouveau title"; // Redéfini un titre.
+        console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via « <%= common.title ». 
 
-		// Interception possible de toutes les variables de « variation/index.js » (car on est dans le spécific « index.js »).
-		variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via « <%= specific.title ».
-		variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « <%= specific.newProperty ».
+        // Interception possible de toutes les variables de « variation/index.js » (car on est dans le spécific « index.js »).
+        variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via « <%= specific.title ».
+        variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « <%= specific.newProperty ».
 
-		// Interception possible de la configuration de la page courante.
-		console.log(variation.pageRoutes) // Retourne « / » pour « index », « /categories/ » pour categories, etc.
-		if (/* test de non existance */) { 
-			variation.pageParameters.statusCode = 404; // La page sera en 404.
-		} else {
-			variation.pageParameters.statusCode = 200; // La page sera en 200.
-		}
+        // Interception possible de la configuration de la page courante.
+        console.log(variation.pageRoutes) // Retourne « / » pour « index », « /categories/ » pour categories, etc.
+        if (/* test de non existance */) { 
+            variation.currentRouteParameters.statusCode = 404; // La page sera en 404.
+        } else {
+            variation.currentRouteParameters.statusCode = 200; // La page sera en 200.
+        }
 
-		// Création d'un nouvel ensemble de variation dynamique pour les templates.
-		variation.backend = {}; // Accessible via « <%= backend.<propriétés> %> ».
+        // Création d'un nouvel ensemble de variation dynamique pour les templates.
+        variation.backend = {}; // Accessible via « <%= backend.<propriétés> %> ».
 
-		privates.listOfArticles(Article, function (listOfArticles) {
+        privates.listOfArticles(Article, function (listOfArticles) {
 
-			// Disponibilité des données des articles côté template derrière
-			variation.backend.articles = listOfArticles; // « <%= backend.articles.<propriétés> %> ».
+            // Disponibilité des données des articles côté template derrière
+            variation.backend.articles = listOfArticles; // « <%= backend.articles.<propriétés> %> ».
 
-			// On ré-injecte les modifications.
-			mainCallback(variation);
-		});
-	};
+            // On ré-injecte les modifications.
+            mainCallback(variation);
+        });
+    };
 
 }(website.index));
 
@@ -1365,38 +1365,38 @@ website.index = {};
 /***********************************************************/
 
 (function (publics) {
-	"use strict";
-	
-	// On intervient juste avant le renvoi HTML auprès du client (response).
-	publics.render = function (params, mainCallback) {
-		var data = params.data,
-			NA = params.NA,
-			jsdom = NA.modules.jsdom; // Récupération de jsdom pour parcourir le DOM avec jQuery.
+    "use strict";
+    
+    // On intervient juste avant le renvoi HTML auprès du client (response).
+    publics.render = function (params, mainCallback) {
+        var data = params.data,
+            NA = params.NA,
+            jsdom = NA.modules.jsdom; // Récupération de jsdom pour parcourir le DOM avec jQuery.
 
-		// On charge le fichier jQuery défini dans le moteur, mais on peut utiliser une autre version.
-		jsdom.env(data, [NA.webconfig.jQueryVersion], function (error, window) {
-			var $ = window.$;
+        // On charge le fichier jQuery défini dans le moteur, mais on peut utiliser une autre version.
+        jsdom.env(data, [NA.webconfig.jQueryVersion], function (error, window) {
+            var $ = window.$;
 
-			// Après tous les h2 de la sortie HTML « data »,
-			$("h2").each(function (i) {
-				var $this = $(this);
+            // Après tous les h2 de la sortie HTML « data »,
+            $("h2").each(function (i) {
+                var $this = $(this);
 
-				// ... on créé une div,
-				$this.after(
-					// ... on injecte le contenu du h2 dans la div,
-					$("<div>").html($this.html())
-				)
-				// ... et supprime le h2.
-				$this.remove();
-			});
+                // ... on créé une div,
+                $this.after(
+                    // ... on injecte le contenu du h2 dans la div,
+                    $("<div>").html($this.html())
+                )
+                // ... et supprime le h2.
+                $this.remove();
+            });
 
-			// On re-créer une nouvelle sortie HTML avec nos modifications.
-			data = window.document.doctype.toString() + window.document.innerHTML.replace(/<script class=.jsdom.+><\/script><\/html>/g, "</html>"); // (Si vous connaissez un moyen plus élégant d'enlever ce script ajouté automatiquement « <script class=.jsdom.+><\/script><\/html> », faites moi signe !)
+            // On re-créer une nouvelle sortie HTML avec nos modifications.
+            data = window.document.doctype.toString() + window.document.innerHTML.replace(/<script class=.jsdom.+><\/script><\/html>/g, "</html>"); // (Si vous connaissez un moyen plus élégant d'enlever ce script ajouté automatiquement « <script class=.jsdom.+><\/script><\/html> », faites moi signe !)
 
-			// On ré-injecte les modifications.
-			mainCallback(data);
-		});
-	};
+            // On ré-injecte les modifications.
+            mainCallback(data);
+        });
+    };
 
 }(website.index));
 
@@ -1407,50 +1407,50 @@ website.index = {};
 /***********************************************/
 
 (function (publics) {
-	"use strict";
+    "use strict";
 
-	var privates = {};
+    var privates = {};
 
-	// Intégralité des actions Websocket possible pour ce template.
-	publics.asynchrone = function (params) {
-		var io = params.io,
-			mongoose = params.NA.modules.mongoose,
-			marked = params.NA.modules.marked,
-			Article = mongoose.model('article'),
-			renderer = new marked.Renderer();
+    // Intégralité des actions Websocket possible pour ce template.
+    publics.asynchrone = function (params) {
+        var io = params.io,
+            mongoose = params.NA.modules.mongoose,
+            marked = params.NA.modules.marked,
+            Article = mongoose.model('article'),
+            renderer = new marked.Renderer();
 
-		// Dès qu'on a un lien valide entre le client et notre back,
-		io.sockets.on('connection', function (socket) {
-			var sessionID = socket.request.sessionID,
-				session = socket.request.session;
+        // Dès qu'on a un lien valide entre le client et notre back,
+        io.sockets.on('connection', function (socket) {
+            var sessionID = socket.request.sessionID,
+                session = socket.request.session;
 
-			// ... resté à l'écoute de la demande « create-article-button »,
-			socket.on('create-article-button', function (data) {
+            // ... resté à l'écoute de la demande « create-article-button »,
+            socket.on('create-article-button', function (data) {
 
-				// ... et répondre à cette demande en créant un nouvelle article si elle vient
-				// avec les information envoyées via « data ».
-				var article = new Article({
-					_id: mongoose.Types.ObjectId(),
-					title: data.title,
-					urn: data.urn,
-				});
+                // ... et répondre à cette demande en créant un nouvelle article si elle vient
+                // avec les information envoyées via « data ».
+                var article = new Article({
+                    _id: mongoose.Types.ObjectId(),
+                    title: data.title,
+                    urn: data.urn,
+                });
 
-				// Si l'utilisateur est connecté.
-				if (session.account) {
+                // Si l'utilisateur est connecté.
+                if (session.account) {
 
-					/ ... on créer sauve article en base.
-					article.save(function (error) {
-						if (error) { 
-							throw error;
-						}
+                    / ... on créer sauve article en base.
+                    article.save(function (error) {
+                        if (error) { 
+                            throw error;
+                        }
 
-						// Et on répond à tous les clients avec un jeu de donnée dans data.
-						io.sockets.emit('create-article-button', data);
-					});
-				}
-			});
-  		});
-	};
+                        // Et on répond à tous les clients avec un jeu de donnée dans data.
+                        io.sockets.emit('create-article-button', data);
+                    });
+                }
+            });
+        });
+    };
 
 }(website.index));
 
@@ -1475,11 +1475,11 @@ Par défaut, si vous utilisez la configuration suivante :
 
 ```js
 {
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1487,15 +1487,15 @@ cela est identique à utiliser celle-ci :
 
 ```js
 {
-	"httpHostname": "localhost",
-	"httpPort": 80,
-	"httpSecure": false,
-	"urlRelativeSubPath": "",
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpHostname": "localhost",
+    "httpPort": 80,
+    "httpSecure": false,
+    "urlRelativeSubPath": "",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1505,15 +1505,15 @@ Changez alors la configuration en ceci :
 
 ```js
 {
-	"httpHostname": "127.0.0.1",
-	"httpPort": 7777,
-	"httpSecure": true,
-	"urlRelativeSubPath": "/sub/folder",
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpHostname": "127.0.0.1",
+    "httpPort": 7777,
+    "httpSecure": true,
+    "urlRelativeSubPath": "/sub/folder",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1529,12 +1529,12 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 
 ```js
 {
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}, 
-	"_minified": ""
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }, 
+    "_minified": ""
 }
 ```
 
@@ -1542,12 +1542,12 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 
 ```js
 {
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}, 
-	"_minified": ".min"
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }, 
+    "_minified": ".min"
 }
 ```
 
@@ -1572,15 +1572,15 @@ et « index.htm » contenant :
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-		<link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
-	</head>
-	<body>
-		<div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-		<script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
+    </head>
+    <body>
+        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
+    </body>
 </html>
 ```
 
@@ -1595,15 +1595,15 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-		<link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
-	</head>
-	<body>
-		<div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-		<script type="text/javascript" src="javascript/common.js"></script>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+    </head>
+    <body>
+        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <script type="text/javascript" src="javascript/common.js"></script>
+    </body>
 </html>
 ```
 
@@ -1618,15 +1618,15 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-		<link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
-	</head>
-	<body>
-		<div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-		<script type="text/javascript" src="javascript/common.min.js"></script>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
+    </head>
+    <body>
+        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <script type="text/javascript" src="javascript/common.min.js"></script>
+    </body>
 </html>
 ```
 
@@ -1644,17 +1644,17 @@ Avec la configuration suivante :
 
 ```js
 {
-	"routes": {
-		"/liste-des-membres/:member/": {
-			"template": "members.htm"
-		},
-		"/liste-des-membres/": {
-			"template": "members.htm"
-		},
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/liste-des-membres/:member/": {
+            "template": "members.htm"
+        },
+        "/liste-des-membres/": {
+            "template": "members.htm"
+        },
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1671,12 +1671,12 @@ et récupérer les valeurs de `:member` dans le `preRender` (common et specific)
 
 ```js
 exports.preRender = function (params, mainCallback) {
-	var variation = params.variation;
+    var variation = params.variation;
 
-	console.log(variation.params.member); 
-	// \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+    console.log(variation.params.member); 
+    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
 
-	mainCallback(variation);
+    mainCallback(variation);
 }
 ```
 
@@ -1690,19 +1690,19 @@ Voyez la configuration suivante :
 
 ```js
 {
-	"routes": {
-		"/liste-des-membres/([-a-z0-9]+)/?": {
-			"template": "members.htm",
-			"regExp": "g"
-		},
-		"/liste-des-membres/?": {
-			"template": "members.htm",
-			"regExp": true
-		},
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/liste-des-membres/([-a-z0-9]+)/?": {
+            "template": "members.htm",
+            "regExp": "g"
+        },
+        "/liste-des-membres/?": {
+            "template": "members.htm",
+            "regExp": true
+        },
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1719,15 +1719,15 @@ et récupérer les valeurs de `([-a-z0-9]+)` dans le `preRender` (common et spec
 
 ```js
 exports.preRender = function (params, mainCallback) {
-	var variation = params.variation;
+    var variation = params.variation;
 
-	if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
-	// variation.params[1] pour le deuxième match, etc...
+    if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
+    // variation.params[1] pour le deuxième match, etc...
 
-	console.log(variation.params.member); 
-	// \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+    console.log(variation.params.member); 
+    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
 
-	mainCallback(variation);
+    mainCallback(variation);
 }
 ```
 
@@ -1752,12 +1752,12 @@ avec `webconfig.json`
 
 ```json
 {
-	"httpPort": 7777,
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpPort": 7777,
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1765,14 +1765,14 @@ et avec `webconfig.prod.json`
 
 ```json
 {
-	"httpPort": 7776,
-	"httpHostname": "blog.lesieur.name",
- 	"urlPort": 80,
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1790,8 +1790,8 @@ avec `webconfig.json`
 
 ```json
 {
-	"httpPort": 7777,
-	"routes": "routes.json"
+    "httpPort": 7777,
+    "routes": "routes.json"
 }
 ```
 
@@ -1799,10 +1799,10 @@ avec `webconfig.prod.json`
 
 ```json
 {
-	"httpPort": 7776,
-	"httpHostname": "blog.lesieur.name",
- 	"urlPort": 80,
-	"routes": "routes.json"
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "routes": "routes.json"
 }
 ```
 
@@ -1810,9 +1810,9 @@ et `routes.json`
 
 ```json
 {
-	"/": {
-		"template": "index.htm"
-	}
+    "/": {
+        "template": "index.htm"
+    }
 }
 ```
 
@@ -1831,19 +1831,19 @@ Voyez l'exemple ci-dessous :
 
 ```js
 {
-	"pageNotFound": "/pages-inexistantes/",
-	"routes": {
-		"/pages-inexistantes/": {
-			"template": "error.htm",
-			"statusCode": 404
-		},
-		"/liste-des-membres/": {
-			"template": "members.htm"
-		},
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "pageNotFound": "/pages-inexistantes/",
+    "routes": {
+        "/pages-inexistantes/": {
+            "template": "error.htm",
+            "statusCode": 404
+        },
+        "/liste-des-membres/": {
+            "template": "members.htm"
+        },
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1865,22 +1865,22 @@ Voyez l'exemple ci-dessous :
 
 ```js
 {
-	"routes": {
-		"/liste-des-membres/": {
-			"template": "members.htm"
-		},
-		"/liste-des-membres": {
-			"redirect": "/liste-des-membres/",
-			"statusCode": 301,
-		},
-		"/aller-sur-node-atlas/": {
-			"redirect": "http://haeresis.github.io/NodeAtlas/",
-			"statusCode": 302,
-		},
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/liste-des-membres/": {
+            "template": "members.htm"
+        },
+        "/liste-des-membres": {
+            "redirect": "/liste-des-membres/",
+            "statusCode": 301,
+        },
+        "/aller-sur-node-atlas/": {
+            "redirect": "http://haeresis.github.io/NodeAtlas/",
+            "statusCode": 302,
+        },
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1895,18 +1895,18 @@ Voyez l'exemple ci-dessous :
 
 ```js
 {
-	"routes": {
-		"/liste-des-membres/:member/": {
-			"template": "members.htm"
-		},
-		"/liste-des-membres/:member": {
-			"redirect": "/membres/:member/"
-			"statusCode": 301
-		},
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/liste-des-membres/:member/": {
+            "template": "members.htm"
+        },
+        "/liste-des-membres/:member": {
+            "redirect": "/membres/:member/"
+            "statusCode": 301
+        },
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1918,23 +1918,23 @@ Voyez l'exemple ci-dessous :
 
 ```js
 {
-	"routes": {
-		"/membres/([-a-z0-9]+)/": {
-			"template": "members.htm",
-			"regExp": true
-		},
-		"/liste-des-membres/([-a-z0-9]+)/": {
-			"redirect": "/membres/$0$/"
-			"statusCode": 301,
-			"regExp": true
-		},
-		"/liste-des-membres/": {
-			"template": "members.htm"
-		},
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/membres/([-a-z0-9]+)/": {
+            "template": "members.htm",
+            "regExp": true
+        },
+        "/liste-des-membres/([-a-z0-9]+)/": {
+            "redirect": "/membres/$0$/"
+            "statusCode": 301,
+            "regExp": true
+        },
+        "/liste-des-membres/": {
+            "template": "members.htm"
+        },
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -1954,41 +1954,41 @@ Avec la configuration suivante :
 
 ```js
 {
-	"bundles": {
-		"javascript": {
-			"files": {
-				"javascript/boot.min.js": [
-					"javascript/modernizr.js",
-					"javascript/yepnot.js",
-					"javascript/html5Shiv.js"
-				],
-				"javascript/framework.min.js": [
-					"javascript/jquery.js",
-					"javascript/jquery-ui.js",
-					"javascript/prettify.js",
-					"javascript/prettify/run_prettify.js"
-				],
-				"javascript/common.min.js": [
-					"javascript/components/extended-format-date.js",
-					"javascript/common.js"
-				]
-			}
-		},
-		"stylesheets": {
-			"files": {
-				"stylesheets/common.min.css": [
-					"stylesheets/common.css",
-					"stylesheets/common-min780.css",
-					"stylesheets/common-min1160.css"
-				]
-			}
-		}
-	},
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "bundles": {
+        "javascript": {
+            "files": {
+                "javascript/boot.min.js": [
+                    "javascript/modernizr.js",
+                    "javascript/yepnot.js",
+                    "javascript/html5Shiv.js"
+                ],
+                "javascript/framework.min.js": [
+                    "javascript/jquery.js",
+                    "javascript/jquery-ui.js",
+                    "javascript/prettify.js",
+                    "javascript/prettify/run_prettify.js"
+                ],
+                "javascript/common.min.js": [
+                    "javascript/components/extended-format-date.js",
+                    "javascript/common.js"
+                ]
+            }
+        },
+        "stylesheets": {
+            "files": {
+                "stylesheets/common.min.css": [
+                    "stylesheets/common.css",
+                    "stylesheets/common-min780.css",
+                    "stylesheets/common-min1160.css"
+                ]
+            }
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2036,43 +2036,43 @@ Il est également possible de ne pas executer la minification au démarage d'un 
 
 ```js
 {
-	"bundles": {
-		"javascript": {
-			"enable": false,
-			"files": {
-				"javascript/boot.min.js": [
-					"javascript/modernizr.js",
-					"javascript/yepnot.js",
-					"javascript/html5Shiv.js"
-				],
-				"javascript/framework.min.js": [
-					"javascript/jquery.js",
-					"javascript/jquery-ui.js",
-					"javascript/prettify.js",
-					"javascript/prettify/run_prettify.js"
-				],
-				"javascript/common.min.js": [
-					"javascript/components/extended-format-date.js",
-					"javascript/common.js"
-				]
-			}
-		},
-		"stylesheets": {
-			"enable": false,
-			"files": {
-				"stylesheets/common.min.css": [
-					"stylesheets/common.css",
-					"stylesheets/common-min780.css",
-					"stylesheets/common-min1160.css"
-				]
-			}
-		}
-	},
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "bundles": {
+        "javascript": {
+            "enable": false,
+            "files": {
+                "javascript/boot.min.js": [
+                    "javascript/modernizr.js",
+                    "javascript/yepnot.js",
+                    "javascript/html5Shiv.js"
+                ],
+                "javascript/framework.min.js": [
+                    "javascript/jquery.js",
+                    "javascript/jquery-ui.js",
+                    "javascript/prettify.js",
+                    "javascript/prettify/run_prettify.js"
+                ],
+                "javascript/common.min.js": [
+                    "javascript/components/extended-format-date.js",
+                    "javascript/common.js"
+                ]
+            }
+        },
+        "stylesheets": {
+            "enable": false,
+            "files": {
+                "stylesheets/common.min.css": [
+                    "stylesheets/common.css",
+                    "stylesheets/common-min780.css",
+                    "stylesheets/common-min1160.css"
+                ]
+            }
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2110,44 +2110,44 @@ avec `webconfig.json`
 
 ```json
 {
-	"httpPort": 7777,
-	"bundles": {
-		"javascript": {
-			"enable": false,
-			"files": {
-				"javascript/boot.min.js": [
-					"javascript/modernizr.js",
-					"javascript/yepnot.js",
-					"javascript/html5Shiv.js"
-				],
-				"javascript/framework.min.js": [
-					"javascript/jquery.js",
-					"javascript/jquery-ui.js",
-					"javascript/prettify.js",
-					"javascript/prettify/run_prettify.js"
-				],
-				"javascript/common.min.js": [
-					"javascript/components/extended-format-date.js",
-					"javascript/common.js"
-				]
-			}
-		},
-		"stylesheets": {
-			"enable": false,
-			"files": {
-				"stylesheets/common.min.css": [
-					"stylesheets/common.css",
-					"stylesheets/common-min780.css",
-					"stylesheets/common-min1160.css"
-				]
-			}
-		}
-	},
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpPort": 7777,
+    "bundles": {
+        "javascript": {
+            "enable": false,
+            "files": {
+                "javascript/boot.min.js": [
+                    "javascript/modernizr.js",
+                    "javascript/yepnot.js",
+                    "javascript/html5Shiv.js"
+                ],
+                "javascript/framework.min.js": [
+                    "javascript/jquery.js",
+                    "javascript/jquery-ui.js",
+                    "javascript/prettify.js",
+                    "javascript/prettify/run_prettify.js"
+                ],
+                "javascript/common.min.js": [
+                    "javascript/components/extended-format-date.js",
+                    "javascript/common.js"
+                ]
+            }
+        },
+        "stylesheets": {
+            "enable": false,
+            "files": {
+                "stylesheets/common.min.css": [
+                    "stylesheets/common.css",
+                    "stylesheets/common-min780.css",
+                    "stylesheets/common-min1160.css"
+                ]
+            }
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2155,46 +2155,46 @@ et avec `webconfig.prod.json`
 
 ```json
 {
-	"httpPort": 7776,
-	"httpHostname": "blog.lesieur.name",
- 	"urlPort": 80,
- 	"bundles": {
-		"javascript": {
-			"enable": false,
-			"files": {
-				"javascript/boot.min.js": [
-					"javascript/modernizr.js",
-					"javascript/yepnot.js",
-					"javascript/html5Shiv.js"
-				],
-				"javascript/framework.min.js": [
-					"javascript/jquery.js",
-					"javascript/jquery-ui.js",
-					"javascript/prettify.js",
-					"javascript/prettify/run_prettify.js"
-				],
-				"javascript/common.min.js": [
-					"javascript/components/extended-format-date.js",
-					"javascript/common.js"
-				]
-			}
-		},
-		"stylesheets": {
-			"enable": false,
-			"files": {
-				"stylesheets/common.min.css": [
-					"stylesheets/common.css",
-					"stylesheets/common-min780.css",
-					"stylesheets/common-min1160.css"
-				]
-			}
-		}
-	},
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "bundles": {
+        "javascript": {
+            "enable": false,
+            "files": {
+                "javascript/boot.min.js": [
+                    "javascript/modernizr.js",
+                    "javascript/yepnot.js",
+                    "javascript/html5Shiv.js"
+                ],
+                "javascript/framework.min.js": [
+                    "javascript/jquery.js",
+                    "javascript/jquery-ui.js",
+                    "javascript/prettify.js",
+                    "javascript/prettify/run_prettify.js"
+                ],
+                "javascript/common.min.js": [
+                    "javascript/components/extended-format-date.js",
+                    "javascript/common.js"
+                ]
+            }
+        },
+        "stylesheets": {
+            "enable": false,
+            "files": {
+                "stylesheets/common.min.css": [
+                    "stylesheets/common.css",
+                    "stylesheets/common-min780.css",
+                    "stylesheets/common-min1160.css"
+                ]
+            }
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2227,13 +2227,13 @@ avec `webconfig.json`
 
 ```json
 {
-	"httpPort": 7777,
-	"bundles": "bundles.json",
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpPort": 7777,
+    "bundles": "bundles.json",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2241,15 +2241,15 @@ avec `webconfig.prod.json`
 
 ```json
 {
-	"httpPort": 7776,
-	"httpHostname": "blog.lesieur.name",
- 	"urlPort": 80,
- 	"bundles": "bundles.json",
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "bundles": "bundles.json",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2257,36 +2257,36 @@ et `bundles.json`
 
 ```json
 {
-	"javascript": {
-		"enable": false,
-		"files": {
-			"javascript/boot.min.js": [
-				"javascript/modernizr.js",
-				"javascript/yepnot.js",
-				"javascript/html5Shiv.js"
-			],
-			"javascript/framework.min.js": [
-				"javascript/jquery.js",
-				"javascript/jquery-ui.js",
-				"javascript/prettify.js",
-				"javascript/prettify/run_prettify.js"
-			],
-			"javascript/common.min.js": [
-				"javascript/components/extended-format-date.js",
-				"javascript/common.js"
-			]
-		}
-	},
-	"stylesheets": {
-		"enable": false,
-		"files": {
-			"stylesheets/common.min.css": [
-				"stylesheets/common.css",
-				"stylesheets/common-min780.css",
-				"stylesheets/common-min1160.css"
-			]
-		}
-	}
+    "javascript": {
+        "enable": false,
+        "files": {
+            "javascript/boot.min.js": [
+                "javascript/modernizr.js",
+                "javascript/yepnot.js",
+                "javascript/html5Shiv.js"
+            ],
+            "javascript/framework.min.js": [
+                "javascript/jquery.js",
+                "javascript/jquery-ui.js",
+                "javascript/prettify.js",
+                "javascript/prettify/run_prettify.js"
+            ],
+            "javascript/common.min.js": [
+                "javascript/components/extended-format-date.js",
+                "javascript/common.js"
+            ]
+        }
+    },
+    "stylesheets": {
+        "enable": false,
+        "files": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    }
 }
 ```
 
@@ -2300,24 +2300,24 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 
 ```js
 {
-	"getSupport": true,
-	"postSupport": false,
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		},
-		"/liste-des-membres/": {
-			"template": "members.htm"
-		},
-		"/rediger-commentaire/": {
-			"template": "write-com.htm"
-		},
-		"/commentaire-sauvegarde/": {
-			"template": "save-com.htm",
-			"getSupport": false,
-			"postSupport": true
-		}
-	}
+    "getSupport": true,
+    "postSupport": false,
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        },
+        "/liste-des-membres/": {
+            "template": "members.htm"
+        },
+        "/rediger-commentaire/": {
+            "template": "write-com.htm"
+        },
+        "/commentaire-sauvegarde/": {
+            "template": "save-com.htm",
+            "getSupport": false,
+            "postSupport": true
+        }
+    }
 }
 ```
 
@@ -2340,8 +2340,8 @@ Il est possible de modifier ses paramètres par défaut (et même obligatoire po
 
 ```js
 {
-	sessionKey: "clé personnelle",
-	sessionSecret: "secret personnel"
+    sessionKey: "clé personnelle",
+    sessionSecret: "secret personnel"
 }
 ```
 
@@ -2353,19 +2353,19 @@ Il est possible de changer l'intégralité des paramètres des sessions (sauf le
 
 ```js
 {
-	session: {
-		key: "clé personnelle",
-		secret: "secret personnel",
-		cookie: { 
-			path: '/', 
-			httpOnly: true, 
-			secure: false, 
-			maxAge: null
-		},
-		...,
-		...,
-		...
-	}
+    "session": {
+        "key": "clé personnelle",
+        "secret": "secret personnel",
+        "cookie": { 
+            "path": '/', 
+            "httpOnly": true, 
+            "secure": false, 
+            "maxAge": null
+        },
+        ...,
+        ...,
+        ...
+    }
 }
 ```
 
@@ -2389,22 +2389,22 @@ Implémenter le code suivant dans `controllers/common.js` pour stocker vos sessi
 var website = {};
 
 (function (publics) {
-	"use strict";
+    "use strict";
 
-	publics.loadModules = function (NA) {
-		NA.modules.RedisStore = require('connect-redis');
+    publics.loadModules = function (NA) {
+        NA.modules.RedisStore = require('connect-redis');
 
-		return NA;
-	};
+        return NA;
+    };
 
-	publics.setSessions = function (NA, callback) {
+    publics.setSessions = function (NA, callback) {
         var session = NA.modules.session,
-        	RedisStore = NA.modules.RedisStore(session);
+            RedisStore = NA.modules.RedisStore(session);
         
         NA.sessionStore = new RedisStore();
 
-		callback(NA);
-	};	
+        callback(NA);
+    };  
 
 }(website));
 
@@ -2423,24 +2423,24 @@ Implémenter le code suivant dans `controllers/common.js` pour stocker vos sessi
 var website = {};
 
 (function (publics) {
-	"use strict";
+    "use strict";
 
-	publics.loadModules = function (NA) {
-		NA.modules.MongoStore = require('connect-mongo');
+    publics.loadModules = function (NA) {
+        NA.modules.MongoStore = require('connect-mongo');
 
-		return NA;
-	};
+        return NA;
+    };
 
-	publics.setSessions = function (NA, callback) {
+    publics.setSessions = function (NA, callback) {
         var session = NA.modules.session,
-        	MongoStore = NA.modules.MongoStore(session);
+            MongoStore = NA.modules.MongoStore(session);
         
         NA.sessionStore = new MongoStore({
-			db: 'sessions'
-	    });
+            db: 'sessions'
+        });
 
-		callback(NA);
-	};	
+        callback(NA);
+    };  
 
 }(website));
 
@@ -2458,13 +2458,13 @@ Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% i
 
 ```js
 {
-	"templateEngineOpenPattern": "{{",
-	"templateEngineClosePattern": "}}",
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "templateEngineOpenPattern": "{{",
+    "templateEngineClosePattern": "}}",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2480,15 +2480,15 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 ```js
 {
-	"httpPort": 7777,
-	"httpHostname": "127.0.0.1",
-	"urlPort": 80,
-	"urlHostname": "localhost",
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "httpPort": 7777,
+    "httpHostname": "127.0.0.1",
+    "urlPort": 80,
+    "urlHostname": "localhost",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2524,11 +2524,11 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 
 ```js
 {
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2536,13 +2536,13 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 
 ```js
 {
-	"httpPort": 7777,
+    "httpPort": 7777,
     "urlRelativeSubPath": "/sub/folder",
-	"routes": {
-		"/": {
-			"template": "index.htm"
-		}
-	}
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
 }
 ```
 
@@ -2554,14 +2554,14 @@ En utilisant le webconfig suivant :
 
 ```js
 {
-	"routes": {
-		"/index.html": {
-			"template": "index.htm"
-		},
-		"/contact.html": {
-			"template": "contact.htm"
-		}
-	}
+    "routes": {
+        "/index.html": {
+            "template": "index.htm"
+        },
+        "/contact.html": {
+            "template": "contact.htm"
+        }
+    }
 }
 ```
 
@@ -2578,15 +2578,15 @@ je serais obligé de changer mon lien dans le template si je change le port d'é
 
 ```js
 {
-	"httpPort": 7777,
-	"routes": {
-		"/home.html": {
-			"template": "index.htm"
-		},
-		"/contact-us.html": {
-			"template": "contact.htm"
-		}
-	}
+    "httpPort": 7777,
+    "routes": {
+        "/home.html": {
+            "template": "index.htm"
+        },
+        "/contact-us.html": {
+            "template": "contact.htm"
+        }
+    }
 }
 ```
 
@@ -2605,16 +2605,16 @@ Avec le webconfig suivant :
 
 ```js
 {
-	"routes": {
-		"index": {
-			"url": "/index.html",
-			"template": "index.htm"
-		},
-		"contact": {
-			"url": "/contact.html",
-			"template": "contact.htm"
-		}
-	}
+    "routes": {
+        "index": {
+            "url": "/index.html",
+            "template": "index.htm"
+        },
+        "contact": {
+            "url": "/contact.html",
+            "template": "contact.htm"
+        }
+    }
 }
 ```
 
@@ -2726,14 +2726,14 @@ Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configur
 var nodeAtlas = require("node-atlas");
 
 nodeAtlas
-	.config({
-		directory: "</path/to/your/website/directory/>",
-		webconfig: "webconfig.alternatif.json",
-		run: true,
-		httpPort: 7778,
-		generate: true
-	})
-	.init();
+    .config({
+        directory: "</path/to/your/website/directory/>",
+        webconfig: "webconfig.alternatif.json",
+        run: true,
+        httpPort: 7778,
+        generate: true
+    })
+    .init();
 ```
 
 ```
@@ -2828,13 +2828,13 @@ Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé `
 
 ```xml
 <configuration>
-	<system.webServer>
-		<handlers>
-			<add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
-		</handlers>
-		<rewrite>
-			<rules>
-				<rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
+    <system.webServer>
+        <handlers>
+            <add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
+        </handlers>
+        <rewrite>
+            <rules>
+                <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
                      <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
                 </rule>
                 <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">                    
@@ -2849,10 +2849,10 @@ Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé `
                      </conditions>
                      <action type="Rewrite" url="node-atlas.js"/>
                 </rule>
-			</rules>
-		</rewrite>
+            </rules>
+        </rewrite>
 
-	</system.webServer>
+    </system.webServer>
 </configuration>
 ```
 
@@ -2879,12 +2879,12 @@ Un webconfig exemple pour une production :
 
 ```js
 {
- 	"urlPort": 80,
-	"httpPort": 7777,
-	"httpHostname": "www.example.fr",
-	"routes": {
-		...
-	}
+    "urlPort": 80,
+    "httpPort": 7777,
+    "httpHostname": "www.example.fr",
+    "routes": {
+        ...
+    }
 }
 
 ```
@@ -2923,12 +2923,12 @@ Un webconfig exemple pour une production :
 
 ```js
 {
- 	"urlPort": 80,
-	"httpPort": 7777,
-	"httpHostname": "www.example.fr",
-	"routes": {
-		...
-	}
+    "urlPort": 80,
+    "httpPort": 7777,
+    "httpHostname": "www.example.fr",
+    "routes": {
+        ...
+    }
 }
 
 ```

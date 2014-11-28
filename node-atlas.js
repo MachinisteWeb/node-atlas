@@ -3,9 +3,9 @@
 \*------------------------------------*/
 
 /**
- * @fileOverview Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
+ * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.24.5
+ * @version 0.25.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  */
 
@@ -76,7 +76,7 @@ var NA = {};
 
         commander
             /** Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.24.5')
+            .version('0.25.0')
 
             /** Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -107,7 +107,7 @@ var NA = {};
              * Name of file contains language error messages. Name of file is without extension.
              * @public
              * @alias appLanguage
-             * @type {String}
+             * @type {string}
              * @memberOf NA
              * @default "default"
              */
@@ -117,7 +117,7 @@ var NA = {};
              * OS absolute path which contains NodeAtlas folder.
              * @public
              * @alias serverPhysicalPath
-             * @type {String}
+             * @type {string}
              * @memberOf NA
              * @default Folder where NodeAtlas is running.
              */
@@ -127,13 +127,14 @@ var NA = {};
              * Contain all Labels finded into `NA.appLanguage` file.
              * @public
              * @alias appLabels
-             * @type {String}
+             * @type {string}
              * @memberOf NA
              */
             publics.appLabels = require('./languages/' + publics.appLanguage + '.json');
 
             /**
              * Contain all functions of controllers both common and specific.
+             * @namespace websiteController[]
              * @public
              * @alias websiteController
              * @type {Array.<Object>}
@@ -177,7 +178,7 @@ var NA = {};
                  * OS absolute path which contains webconfig and website.
                  * @public
                  * @alias websitePhysicalPath
-                 * @type {String}
+                 * @type {string}
                  * @memberOf NA
                  * @default Folder where NodeAtlas execute website or `--directory` value.
                  */
@@ -191,7 +192,7 @@ var NA = {};
              * Name of the webconfig used for run website.
              * @public
              * @alias webconfigName
-             * @type {String}
+             * @type {string}
              * @memberOf NA
              * @default "webconfig.json".
              */ 
@@ -218,7 +219,7 @@ var NA = {};
 
         /**
          * Container for all variations usable into template engine.
-         * @namespace NA.variations
+         * @namespace variations
          * @public
          * @alias variations
          * @type {Object}
@@ -230,7 +231,7 @@ var NA = {};
          * OS absolute directory for template engine's file included with `include` statement.
          * @public
          * @alias pathname
-         * @type {String}
+         * @type {string}
          * @memberOf NA.variations
          * @default The `NA.websitePhysicalPath` value with webconfig `componentsRelativePath` after.
          */
@@ -240,14 +241,30 @@ var NA = {};
          * Same as `NA.variations.pathname` with arbitrary value setted after. This value will be represent current page generated for all page generated with template engine.
          * @public
          * @alias filename
-         * @type {String}
+         * @type {string}
          * @memberOf NA.variations
          * @default Arbitrarily setted to "all-component.here".
          */
         NA.variations.filename = NA.variations.pathname + "all-component.here";
 
-        /** Set brackets for use EJS. */
+        /**
+         * Set open bracket for use EJS.
+         * @public
+         * @alias templateEngineOpenPattern
+         * @type {string}
+         * @memberOf NA.webconfig
+         * @default '<%'.
+         */
         ejs.open = NA.webconfig.templateEngineOpenPattern || ejs.open;
+
+        /**
+         * Set close bracket for use EJS.
+         * @public
+         * @alias templateEngineClosePattern
+         * @type {string}
+         * @memberOf NA.webconfig
+         * @default '%>'.
+         */
         ejs.close = NA.webconfig.templateEngineClosePattern || ejs.close;
     };
 
@@ -318,7 +335,38 @@ var NA = {};
              * @alias bundles
              * @type {Object}
              * @memberOf NA.webconfig
-             * @default The webconfig's property `bundles`.
+             * @property {Object} bundles                    - The Bundles object.
+             * @property {Object} bundles.javascript         - The Bundles configuration for Javascript.
+             * @property {Object} bundles.javascript.files   - Each object name represent an output file and each property of object represent an input file.
+             * @property {boolean} bundles.javascript.enable  - No JavaScript minification if set to false.
+             * @property {Object} bundles.stylesheets        - The Bundles configuration for CSS.
+             * @property {Object} bundles.stylesheets.files  - Each object name represent an output file and each property of object represent an input file.
+             * @property {boolean} bundles.stylesheets.enable - No CSS minification if set to false.
+             * @example {
+             *     "javascript": {
+             *         "files": {
+             *             "javascript/framework.min.js": [
+             *                 "javascript/modernizr.js",
+             *                 "javascript/jquery.js",
+             *                 "javascript/prettify.js",
+             *                 "javascript/prettify/run_prettify.js"
+             *             ],
+             *             "javascript/common.min.js": [
+             *                 "javascript/components/extended-format-date.js",
+             *                 "javascript/common.js"
+             *             ]
+             *         }
+             *     },
+             *     "stylesheets": {
+             *         "files": {
+             *             "stylesheets/common.min.css": [
+             *                 "stylesheets/common.css",
+             *                 "stylesheets/common-min780.css",
+             *                 "stylesheets/common-min1160.css"
+             *             ]
+             *         }
+             *     }
+             * }
              */
             publics.webconfig.bundles = NA.openConfiguration(publics.webconfig.bundles);
         }
@@ -329,7 +377,7 @@ var NA = {};
              * Language and variable variation folder depending of languages.
              * @public
              * @alias variationsRelativePath
-             * @type {String}
+             * @type {string}
              * @memberOf NA.webconfig
              * @default "variations/".
              */
@@ -344,7 +392,7 @@ var NA = {};
              * Controller folder for Back-end.
              * @public
              * @alias controllersRelativePath
-             * @type {String}
+             * @type {string}
              * @memberOf NA.webconfig
              * @default "controllers/".
              */
@@ -360,7 +408,7 @@ var NA = {};
              * Template folder for template engine.
              * @public
              * @alias templatesRelativePath
-             * @type {String}
+             * @type {string}
              * @memberOf NA.webconfig
              * @default "templates/".
              */
@@ -375,7 +423,7 @@ var NA = {};
              * Default folder for template engine include file or controller components.
              * @public
              * @alias componentsRelativePath
-             * @type {String}
+             * @type {string}
              * @memberOf NA.webconfig
              * @default "components/".
              */
@@ -390,7 +438,7 @@ var NA = {};
              * Folder for public file like image, CSS or JS.
              * @public
              * @alias assetsRelativePath
-             * @type {String}
+             * @type {string}
              * @memberOf NA.webconfig
              * @default "assets/".
              */
@@ -405,7 +453,7 @@ var NA = {};
              * HTML asset generation Folder.
              * @public
              * @alias generatesRelativePath
-             * @type {String}
+             * @type {string}
              * @memberOf NA.webconfig
              * @default "generates/".
              */
@@ -421,7 +469,7 @@ var NA = {};
              * Adding subfolder to original url.
              * @public
              * @alias urlRelativeSubPath
-             * @type {String}
+             * @type {string}
              * @memberOf NA.webconfig
              * @default Empty.
              * @example
@@ -437,7 +485,7 @@ var NA = {};
          * Server listening port.
          * @public
          * @alias httpPort
-         * @type {String}
+         * @type {string}
          * @memberOf NA.webconfig
          * @default 80, or `process.env.PORT` if setted, or the webconfig's property `httpPort`.
          */
@@ -453,7 +501,7 @@ var NA = {};
          * Url access port.
          * @public
          * @alias urlPort
-         * @type {String}
+         * @type {string}
          * @memberOf NA.webconfig
          * @default `NA.webconfig.httpPort`.
          */
@@ -463,7 +511,7 @@ var NA = {};
          * Server listening hostname by http (for reverse proxy).
          * @public
          * @alias httpHostname
-         * @type {String}
+         * @type {string}
          * @memberOf NA.webconfig
          * @default "localhost", or `process.env.IP_ADDRESS` if setted, or the webconfig's property `httpHostname`.
          */
@@ -473,7 +521,7 @@ var NA = {};
          * Url access hostname by http (for reverse proxy).
          * @public
          * @alias urlHostname
-         * @type {String}
+         * @type {string}
          * @memberOf NA.webconfig
          * @default `NA.webconfig.httpHostname`.
          */     
@@ -484,7 +532,7 @@ var NA = {};
          * This value does not contain `NA.webconfig.urlRelativeSubPath`.
          * @public
          * @alias urlWithoutFileName
-         * @type {String}
+         * @type {string}
          * @memberOf NA.webconfig
          */        
 		NA.webconfig.urlWithoutFileName = 'http' + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + NA.webconfig.urlHostname + ((NA.webconfig.urlPort !== 80) ? ':' + NA.webconfig.urlPort : '') + '/';
@@ -513,7 +561,7 @@ var NA = {};
      * @public
      * @function openConfiguration
      * @memberOf NA
-     * @param {String} configName - File name (on file path + name in relative). Base folder is the folder where is `webconfig.json`.
+     * @param {string} configName - File name (on file path + name in relative). Base folder is the folder where is `webconfig.json`.
      * @return {Object} - Literal object of JSON file.
      */  
     publics.openConfiguration = function (configName) {
@@ -542,8 +590,8 @@ var NA = {};
      * @public
      * @function ifFileExist
      * @memberOf NA
-     * @param {String} physicalPath - Absolute OS path to a filename.
-     * @param {String} fileName - Name of file.
+     * @param {string} physicalPath - Absolute OS path to a filename.
+     * @param {string} fileName - Name of file.
      * @param {ifFileExist~callback} callback - Executed if file was correctly opened.
      * @param {ifFileExist~fallback} fallback - Executed if something was wrong with file.
      */  
@@ -859,9 +907,20 @@ var NA = {};
     $%WEB SERVER
 \*------------------------------------*/
 
+/**
+ * Closure group for define Web Server Functions.
+ * @function
+ * @param {Object} publics Allow you to add publics methods to NA object.
+ */
 (function (publics) {
     "use strict";
 
+    /**
+     * Run NodeAtlas with targeted directory (without webconfig) as a « public » directory.
+     * @public
+     * @function simpleWebServer
+     * @memberOf NA
+     */
     publics.simpleWebServer = function () {
         var commander = NA.modules.commander,
             http = NA.modules.http,
@@ -869,12 +928,17 @@ var NA = {};
             express = NA.modules.express,
             open = NA.modules.open;
 
-        NA.httpServer = express();
-        NA.httpServer.enable('strict routing');
-        NA.server = http.createServer(NA.httpServer);
+        /** Configure the server and... */
+        publics.httpServer = express();
+        publics.httpServer.enable('strict routing');
+        publics.server = http.createServer(NA.httpServer);
+
+        /** ...listen HTTP request... */
         NA.server.listen(commander.httpPort || NA.configuration.httpPort || 80, function () {
             console.log(NA.appLabels.publicMode);
         });
+
+        /** ...from « public » directory. */
         NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
 
         commander.httpPort = commander.httpPort || 80;
@@ -882,6 +946,12 @@ var NA = {};
         if (commander.run) { open('http://localhost' + ((commander.httpPort !== 80) ? ':' + commander.httpPort : '') + '/'); }
     };
 
+    /**
+     * Start a real NodeAtlas Server.
+     * @public
+     * @function startingHttpServer
+     * @memberOf NA
+     */
     publics.startingHttpServer = function () {
         var express = NA.modules.express,
             favicon = NA.modules.favicon,
@@ -893,30 +963,71 @@ var NA = {};
             forceDomain = NA.modules.forceDomain,
             http = NA.modules.http,
             open = NA.modules.open,
-            optionSession = {};
+            optionSession = {},
 
+            /**
+             * Define is site is running with HTTP(S) protocol.
+             * @public
+             * @alias httpSecure
+             * @type {boolean}
+             * @memberOf NA.webconfig
+             */ 
+            httpSecure = NA.webconfig.httpSecure;
+
+        /**
+         * Next step after session configuration.
+         * @private
+         * @function startingHttpServer~atlasSessions
+         * @param {Object} NA - The NodeAtlas object with new modifications.
+         */
         function atlasSessions(NA) {
 
             publics = NA;
 
             optionSession.store = NA.sessionStore;
             NA.webconfig.session = optionSession;
+
+            /** Create a cookie Session. */
             NA.httpServer.use(session(optionSession));
 
+            /** Use the `NA.websiteController[<commonController>].setConfigurations(...)` function if set... */
             if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
                 typeof NA.websiteController[NA.webconfig.commonController].setConfigurations !== 'undefined') {
-                    NA.websiteController[NA.webconfig.commonController].setConfigurations(NA, function (NA) {
+
+                    /**
+                     * Define this function for configure all modules of your application. Only for `common` controller file.
+                     * @function setConfigurations
+                     * @memberOf NA.websiteController[]
+                     * @param {Object} NA - NodeAtlas object for used `NA.modules` object.
+                     * @param {setConfigurations~callback} callback - Next steps after configuration is done.
+                     */
+                    NA.websiteController[NA.webconfig.commonController].setConfigurations(NA, 
+
+                    /**
+                     * Next steps after configuration is done.
+                     * @callback setConfigurations~callback
+                     * @param {Object} NA - Return NodeAtlas object with modification.
+                     */
+                    function (NA) {
                         atlasMiddlewares(NA);
                     });
+            /** ...else, just continue. */
             } else {
                 atlasMiddlewares(NA);
             }
         }
 
+        /**
+         * Next step after configuration of modules and middlewares.
+         * @private
+         * @function startingHttpServer~atlasMiddlewares
+         * @param {Object} NA - The NodeAtlas object with new modifications.
+         */  
         function atlasMiddlewares(NA) {
 
             publics = NA;
 
+            /** Listen HTTP request... */
             NA.server.listen(NA.webconfig.httpPort, function () {
                 var data = {};
 
@@ -931,48 +1042,130 @@ var NA = {};
         
         }
 
-        NA.httpServer = express();
+        /**
+         * A simple HTTP server.
+         * @public
+         * @function httpServer
+         * @memberOf NA
+         */
+        publics.httpServer = express();
+
+        /** Server is case sensitive and slash sensitive. */
         NA.httpServer.enable('strict routing');
-        NA.server = http.createServer(NA.httpServer);
+
+        /**
+         * The global HTTP server.
+         * @public
+         * @function server
+         * @memberOf NA
+         */
+        publics.server = http.createServer(NA.httpServer);
 
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 
+        /** NodeAtlas as Node.js Website. */
         if (!NA.configuration.generate) {
 
+            /** Use gzip and others client-server data compression. */
             NA.httpServer.use(compress());
 
+            /** Force utilisation of www and avoid using the original port in address. */
             NA.httpServer.use(forceDomain({
                 hostname: NA.webconfig.urlHostname,
                 port: NA.webconfig.urlPort,
                 type: 'permanent',
-                protocol: 'http' + ((NA.webconfig.httpSecure) ? 's' : '')
+                protocol: 'http' + ((httpSecure) ? 's' : '')
             }));
 
+            /** Allow you to parse the GET/POST data format. */
             NA.httpServer.use(bodyParser.urlencoded({ extended: true }));
+
+            /** Allow you to parse the JSON data format. */
             NA.httpServer.use(bodyParser.json());
+
+            /** Allow you to parse the Cookie data format. */
             NA.httpServer.use(cookieParser());
 
+            /**
+             * Name for Session cookie of connected user.
+             * @public
+             * @alias sessionKey
+             * @type {string}
+             * @memberOf NA.webconfig
+             * @default 'nodeatlas.sid'.
+             */
             optionSession.key = NA.webconfig.sessionKey || 'nodeatlas.sid',
+
+            /**
+             * Secret for Session cookie of connected user.
+             * @public
+             * @alias sessionSecret
+             * @type {string}
+             * @memberOf NA.webconfig
+             * @default '1234567890bépo'.
+             */
             optionSession.secret = NA.webconfig.sessionSecret || '1234567890bépo',
             optionSession.saveUninitialized = true,
             optionSession.resave = true
+
             if (NA.webconfig.session) {
+
+                /**
+                 * Use a more complexe session cookie options.
+                 * Replace `NA.webconfig.sessionKey` and `NA.webconfig.sessionSecret` if set.
+                 * @public
+                 * @alias session
+                 * @type {Object}
+                 * @memberOf NA.webconfig
+                 * @see {@link https://github.com/expressjs/session Session Middleware}
+                 */        
                 optionSession = NA.webconfig.session;
             }
 
-            NA.sessionStore = new session.MemoryStore();
+            /**
+             * A default session loaded with `NA.webconfig.sessionKey` and `NA.webconfig.sessionSecret` or `NA.webconfig.sessionKey` and `NA.webconfig.session`.
+             * @public
+             * @alias sessionStore
+             * @type {Object}
+             * @memberOf NA
+             * @see {@link https://github.com/expressjs/session Session Middleware}
+             */    
+            publics.sessionStore = new session.MemoryStore();
 
+            /** Use the `NA.websiteController[<commonController>].setSessions(...)` function if set... */
             if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
                 typeof NA.websiteController[NA.webconfig.commonController].setSessions !== 'undefined') {
-                    NA.websiteController[NA.webconfig.commonController].setSessions(NA, function (NA) {
+
+                    /**
+                     * Define this function for configure sessions of application. Only for `common` controller file.
+                     * @function setSessions
+                     * @memberOf NA.websiteController[]
+                     * @param {Object} NA - NodeAtlas object for used `NA.session` object.
+                     * @param {setSessions~callback} callback - Next steps after configuration is done.
+                     */
+                    NA.websiteController[NA.webconfig.commonController].setSessions(NA, 
+
+                    /**
+                     * Next steps after set session is done.
+                     * @callback setSessions~callback
+                     * @param {Object} NA - Return NodeAtlas object with modification.
+                     */
+                    function (NA) {
                         atlasSessions(NA);
                     });
+            /** ...else, just continue. */
             } else {
                 atlasSessions(NA);
             }
         }
     };
 
+    /**
+     * Set the public directory for asset like CSS/JS and media.
+     * @public
+     * @function httpServerPublicFiles
+     * @memberOf NA
+     */ 
     publics.httpServerPublicFiles = function () {
         var express = NA.modules.express,
             commander = NA.modules.commander;
@@ -984,125 +1177,297 @@ var NA = {};
         }
     };
 
-    publics.response = function (request, response, data, pageParameters, currentVariation) {
-        var charset = currentVariation.pageParameters.charset || pageParameters.charset || 'utf-8',
-            statusCode = currentVariation.pageParameters.statusCode || pageParameters.statusCode || 200,
-            contentType = currentVariation.pageParameters.mimeType || pageParameters.mimeType || 'text/html',
+    /**
+     * Send HTML result to the client.
+     * @public
+     * @function response
+     * @memberOf NA
+     * @param {Object} request - Initial request.
+     * @param {Object} response - Initial response.
+     * @param {string} data - HTML DOM ready for sending.
+     * @param {string} currentRouteParameters - Parameters set into `routes[<currentRoute>]`.
+     * @param {string} currentVariation - Variations for the current page.
+     */ 
+    publics.response = function (request, response, data, currentRouteParameters, currentVariation) {
+
+            /**
+             * Charset use for render of this page.
+             * @public
+             * @alias charset
+             * @type {string}
+             * @memberOf NA#currentRouteParameters
+             * @default 'utf-8'
+             */
+        var charset = currentVariation.currentRouteParameters.charset || currentRouteParameters.charset || 'utf-8',
+
+            /**
+             * Status Code use for respond with this page.
+             * @public
+             * @alias statusCode
+             * @type {number}
+             * @memberOf NA#currentRouteParameters
+             * @default 200
+             */
+            statusCode = currentVariation.currentRouteParameters.statusCode || currentRouteParameters.statusCode || 200,
+
+            /**
+             * Content Type use for respond with this page.
+             * @public
+             * @alias mimeType
+             * @type {string}
+             * @memberOf NA#currentRouteParameters
+             * @default 'text/html'
+             */
+            contentType = currentVariation.currentRouteParameters.mimeType || currentRouteParameters.mimeType || 'text/html',
             others = {
                 /*'Content-Length': data.length,*/
                 'Content-Type': contentType
             };
 
+        /** Set/Send headers */
         response.charset = charset;
         response.writeHead(statusCode, others);
 
+        /** Set/Send body */
         response.write(data);
         response.end();
     };
 
-    publics.redirect = function (optionsPath, request, response) {
+    /**
+     * Redirect a page to an other page if option page is set for that.
+     * @public
+     * @function redirect
+     * @memberOf NA
+     * @param {Object} currentRouteParameters - All information associate with the redirection.
+     * @param {Object} request - Initial request.
+     * @param {Object} response - Initial response.
+     */ 
+    publics.redirect = function (currentRouteParameters, request, response) {
         var location;
 
-        if (optionsPath.regExp) {
-            location = optionsPath.redirect.replace(/\$([0-9]+)\$/g, function (regex, matches) { return request.params[matches]; });
+        /** Re-inject param into redirected url if is replaced by regex. */
+        if (currentRouteParameters.regExp) {
+
+            /**
+             * Represent route to redirect if current route matched.
+             * @public
+             * @alias redirect
+             * @type {string}
+             * @memberOf NA#currentRouteParameters
+             */    
+            location = currentRouteParameters.redirect.replace(/\$([0-9]+)\$/g, function (regex, matches) { return request.params[matches]; });
+        /** Or by standard selector. */
         } else {
-            location = optionsPath.redirect.replace(/\:([a-z0-9]+)/g, function (regex, matches) { return request.params[matches]; });
+            location = currentRouteParameters.redirect.replace(/\:([a-z0-9]+)/g, function (regex, matches) { return request.params[matches]; });
         }
 
-        response.writeHead(optionsPath.statusCode, {
+        /** Set status and new location. */
+        response.writeHead(currentRouteParameters.statusCode, {
             Location: NA.webconfig.urlRelativeSubPath + location
         });
 
+        /** No more data. */
         response.end();
     };
 
+    /**
+     * Listen a specific request.
+     * @public
+     * @function routesPages
+     * @memberOf NA
+     * @param {string} path - The url listening.
+     * @param {Object} options - Option associate to this url.
+     */ 
     publics.request = function (path, options) {
-        var pageParameters = options[path],
+        var currentRouteParameters = options[path],
             getSupport = true,
             postSupport = true,
             currentPath = path,
             objectPath;
 
-        if (pageParameters.url) {
-            currentPath = pageParameters.url;
+        /** Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
+        if (currentRouteParameters.url) {
+
+            /**
+             * If setted, replace « The url listening ». « The url listening. » become a « key » value.
+             * @public
+             * @alias url
+             * @type {string}
+             * @memberOf NA#currentRouteParameters
+             */
+            currentPath = currentRouteParameters.url;
         }
 
+        /** Adding of subfolder before url listening. */
         objectPath = NA.webconfig.urlRelativeSubPath + currentPath;
 
-        // Manage GET / POST support for an url.
-        if (NA.webconfig.getSupport === false) { getSupport = false; }
-        if (pageParameters.getSupport === false) { getSupport = false; }
-        if (pageParameters.getSupport === true) { getSupport = true; }
-        if (NA.webconfig.postSupport === false) { postSupport = false; }
-        if (pageParameters.postSupport === false) { postSupport = false; }
-        if (pageParameters.postSupport === true) { postSupport = true; }
+        /** Manage GET / POST support for an url. */
 
-        if (pageParameters.regExp) {
-            if (typeof pageParameters.regExp === 'string') {
-                objectPath = new RegExp(objectPath, pageParameters.regExp);
-                console.log(objectPath);
+        if (
+            /**
+             * Allow you to avoid or authorize GET response for all page.
+             * @public
+             * @alias getSupport
+             * @type {boolean}
+             * @memberOf NA.webconfig
+             * @default true
+             */
+            NA.webconfig.getSupport === false
+        ) { getSupport = false; }
+
+        if (
+            /**
+             * Allow you to avoid or authorize GET response for current page.
+             * @public
+             * @alias getSupport
+             * @type {boolean}
+             * @memberOf NA#currentRouteParameters
+             * @default true
+             */
+            currentRouteParameters.getSupport === false
+        ) { getSupport = false; }
+        if (currentRouteParameters.getSupport === true) { getSupport = true; }
+
+        if (
+            /**
+             * Allow you to avoid or authorize POST response for all page.
+             * @public
+             * @alias postSupport
+             * @type {boolean}
+             * @memberOf NA.webconfig
+             * @default true
+             */
+            NA.webconfig.postSupport === false
+        ) { postSupport = false; }
+
+        if (
+            /**
+             * Allow you to avoid or authorize POST response for current page.
+             * @public
+             * @alias postSupport
+             * @type {boolean}
+             * @memberOf NA#currentRouteParameters
+             * @default true
+             */
+            currentRouteParameters.postSupport === false
+        ) { postSupport = false; }
+        if (currentRouteParameters.postSupport === true) { postSupport = true; }
+
+        /** Allow you to use regex into your url route... */
+        if (
+            /**
+             * Use RegExp expression as selector for route url If setted to true.
+             * Same if is a string but string represent option like "g".
+             * @public
+             * @alias regExp
+             * @type {string|boolean}
+             * @default false
+             * @memberOf NA#currentRouteParameters 
+             */
+            currentRouteParameters.regExp
+        ) {
+            /** ...with options... */
+            if (typeof currentRouteParameters.regExp === 'string') {
+                objectPath = new RegExp(objectPath, currentRouteParameters.regExp);
+            /** ...or not... */
             } else {
                 objectPath = new RegExp(objectPath);
-                console.log(objectPath);
             }
         }
 
-        // Execute Get
+        /** Execute Get Request */
         if (getSupport) {
             NA.httpServer.get(objectPath, function (request, response) {
+                /** Verify if route is a redirection... */
                 if (options[path].redirect && options[path].statusCode) {
+                    /** ...and if is it, redirect... */
                     NA.redirect(options[path], request, response);
                 } else {
+                    /** ...else execute render... */
                     NA.render(path, options, request, response);
                 }
             });
         }
 
-        // Execute Post
+        /** Execute Post Request */
         if (postSupport) {
             NA.httpServer.post(objectPath, function (request, response) {
+                /** Verify if route is a redirection... */
                 if (options[path].redirect && options[path].statusCode) {
+                     /** ...and if is it, redirect... */
                     NA.redirect(options[path], request, response);
                 } else {
+                    /** ...else execute render... */
                     NA.render(path, options, request, response);
                 }
             });
         }
     };
 
+    /**
+     * Define a page to display when no url match in route or in `NA.httpServerPublicFiles` directory.
+     * @public
+     * @function pageNotFound
+     * @memberOf NA
+     */ 
     publics.pageNotFound = function () {
         if (NA.webconfig.pageNotFound && NA.webconfig.routes[NA.webconfig.pageNotFound]) {
             var pageNotFound = NA.webconfig.routes[NA.webconfig.pageNotFound],
+
+                /**
+                 * Represent route to use if no route match in all route.
+                 * @public
+                 * @alias pageNotFound
+                 * @type {string}
+                 * @memberOf NA.webconfig
+                 */  
                 pageNotFoundUrl = NA.webconfig.pageNotFound;
 
+            /** Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
             if (pageNotFound.url) {
                 pageNotFoundUrl = pageNotFound.url;
             }
 
+            /** Match all Get Request */
             NA.httpServer.get("*", function (request, response) {
+                /** Verify if route for `pageNotFound` is a redirection... */
                 if (pageNotFound.redirect && pageNotFound.statusCode) {
+                    /** ...and if is it, redirect... */
                     NA.redirect(pageNotFound, request, response);
                 } else {
+                    /** ...else execute render... */
                     NA.render(pageNotFoundUrl, NA.webconfig.routes, request, response);
                 }
             })
+            /** Match all Post Request */
             NA.httpServer.post("*", function (request, response) {
+                /** Verify if route for `pageNotFound` is a redirection... */
                 if (pageNotFound.redirect && pageNotFound.statusCode) {
+                    /** ...and if is it, redirect... */
                     NA.redirect(pageNotFound, request, response);
                 } else {
+                    /** ...else execute render... */
                     NA.render(pageNotFoundUrl, NA.webconfig.routes, request, response);
                 }
             });
         }
     };
 
+    /**
+     * Crawl all route and execute each file with a request is emit by client.
+     * @public
+     * @function routesPages
+     * @memberOf NA
+     */ 
     publics.routesPages = function () {
         var commander = NA.modules.commander;
 
         if (commander.generate) { NA.configuration.generate = commander.generate; }
         
-        if (!NA.configuration.generate) {       
+        if (!NA.configuration.generate) {   
+            /** For each `webconfig.routes`. */    
             for (var currentUrl in NA.webconfig.routes) {
+                /** Listen request */
                 NA.request(currentUrl, NA.webconfig.routes);
             }
         }
@@ -1118,10 +1483,25 @@ var NA = {};
     $%FRONT-END PART
 \*------------------------------------*/
 
+
+/**
+ * Closure group for define Front-end Part Functions.
+ * @function
+ * @param {Object} publics Allow you to add publics methods to NA object.
+ */
 (function (publics) {
     "use strict";
 
-    publics.openTemplate = function (pageParameters, templatesPath, callback) {
+    /**
+     * Open a temlpate file.
+     * @public
+     * @function openTemplate
+     * @memberOf NA
+     * @param {Object} currentRouteParameters - Parameters set into `routes[<currentRoute>]`.
+     * @param {Object} templatesPath - Path to template file.
+     * @param {openTemplate~callback} callback - Next steps after opening file.
+     */ 
+    publics.openTemplate = function (currentRouteParameters, templatesPath, callback) {
         var fs = NA.modules.fs;
 
         fs.readFile(templatesPath, 'utf-8', function (error, data) {
@@ -1129,33 +1509,52 @@ var NA = {};
 
             if (error) {
                 dataError.templatesPath = templatesPath;
-                if (typeof pageParameters.template === 'undefined') {
+                if (typeof currentRouteParameters.template === 'undefined') {
                     console.log(NA.appLabels.templateNotSet);
                 } else {
                     console.log(NA.appLabels.templateNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                 }
             } else {
+
+                /**
+                 * Next steps after opening file.
+                 * @callback openTemplate~callback
+                 * @param {string} data - All HTML data from template.
+                 */
                 callback(data); 
             }
        });
     };
 
+    /**
+     * Open a variation file.
+     * @public
+     * @function openVariation
+     * @memberOf NA
+     * @param {string} variationName - Name of JSON file.
+     * @param {string} languageCode - Current language for this variation.
+     * @returns {Object|boolean} - Return all data from JSON or false if an error occured.
+     */ 
     publics.openVariation = function (variationName, languageCode) {
         var fs = NA.modules.fs,
             dataError = {},
             variationsPath,
             languagePath;
 
+            /** Know if variation must be open language subdirectory in first place or not. */
             if (languageCode) { languagePath = languageCode + '/'; }
             if (!languageCode) { languagePath = ''; }
 
+            /** Find the correct path for variations. */
             variationsPath = NA.websitePhysicalPath + NA.webconfig.variationsRelativePath + languagePath + variationName;
 
         if (typeof variationName !== 'undefined') {
             dataError.variationsPath = variationsPath;
             try {
+                /** Return the variations variable into an object. */
                 return JSON.parse(fs.readFileSync(variationsPath, 'utf-8'));
             } catch (exception) {
+                /** Explain errors. */
                 if (!languageCode) {
                     if (exception.code === 'ENOENT') {
                         console.log(NA.appLabels.variationNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
@@ -1171,6 +1570,12 @@ var NA = {};
         }
     };
 
+    /**
+     * Engine for minification and concatenation of all files with a Bundle configuration.
+     * @public
+     * @function cssMinification
+     * @memberOf NA
+     */ 
     publics.cssMinification = function () {
         var bundles = NA.webconfig.bundles,
             cleanCss = NA.modules.cleanCss,
@@ -1178,10 +1583,12 @@ var NA = {};
             enable = true,
             output = "";
 
+        /** Verify if bundle is okay and if engine must start. */
         if (bundles && bundles.stylesheets && typeof bundles.stylesheets.enable === 'boolean') {
             enable = bundles.stylesheets.enable;
         }
 
+        /** Star engine. */
         if (bundles && bundles.stylesheets && bundles.stylesheets.files && enable) {
             for (var compressedFile in bundles.stylesheets.files) {
                 for (var i = 0; i < bundles.stylesheets.files[compressedFile].length; i++) {
@@ -1195,6 +1602,12 @@ var NA = {};
         }
     };
 
+    /**
+     * Engine for obfuscation and concatenation of all files with a Bundle configuration.
+     * @public
+     * @function jsObfuscation
+     * @memberOf NA
+     */ 
     publics.jsObfuscation = function () {
         var bundles = NA.webconfig.bundles,
             uglifyJs = NA.modules.uglifyJs,
@@ -1202,10 +1615,12 @@ var NA = {};
             enable = true,
             output = "";
 
+        /** Verify if bundle is okay and if engine must start. */
         if (bundles && bundles.javascript && typeof bundles.javascript.enable === 'boolean') {
             enable = bundles.javascript.enable;
         }
 
+        /** Star engine. */
         if (bundles && bundles.javascript && bundles.javascript.files && enable) {
             for (var compressedFile in bundles.javascript.files) {
                 for (var i = 0; i < bundles.javascript.files[compressedFile].length; i++) {
@@ -1218,135 +1633,401 @@ var NA = {};
         }
     };
 
+    /**
+     * Generate the HTML output for send to client.
+     * @public
+     * @function render
+     * @memberOf NA
+     * @param {string} path - The url listening.
+     * @param {Object} options - Option associate to this url.
+     * @param {Object} request - Initial request.
+     * @param {Object} response - Initial response.
+     */ 
     publics.render = function (path, options, request, response) {
         var ejs = NA.modules.ejs,
             extend = NA.modules.extend,
-            pageParameters = options[path],
+
+            /**
+             * All parameters from a specific page.
+             * @namespace #currentRouteParameters
+             * @memberOf NA
+             */
+            currentRouteParameters = options[path],
             templatesPath,
+
+            /**
+             * All variation for a specific page.
+             * @namespace #currentVariation
+             * @memberOf NA
+             */
             currentVariation = {},
             templateRenderName,
             currentPath = path;
 
-        // Inject template shortcut to template.
-        if (typeof pageParameters === 'string') {
-            // templatesPath is just use like temp var in this if statement.
-            templatesPath = pageParameters;
-            pageParameters = {}
-            pageParameters.template = templatesPath;
+        /** Inject template shortcut to template. */
+        if (typeof currentRouteParameters === 'string') {
+            /** templatesPath is just use like temp var in this if statement. */
+            templatesPath = currentRouteParameters;
+            currentRouteParameters = {}
+
+            /**
+             * This is the file name of template used for render of page behind the route.
+             * @public
+             * @alias template
+             * @type {string}
+             * @memberOf NA#currentRouteParameters
+             */
+            currentRouteParameters.template = templatesPath;
         }
 
-        templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + pageParameters.template;
+        /** Generate the server path to the template file. */
+        templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + currentRouteParameters.template;
 
-        // Deport url extension to currentPath.
-        if (pageParameters.url) {
-            currentPath = pageParameters.url;
+        /** Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
+        if (currentRouteParameters.url) {
+            currentPath = currentRouteParameters.url;
         }
 
-        NA.loadController(pageParameters.controller, function () {
+        /** Loading the controller file if `currentRouteParameters.controller` exist. */
+        NA.loadController(
 
-            // Execute custom PreRender part.
-            // Specific
+            /**
+             * This is the file name of specific controller used for back-end part of this page.
+             * @public
+             * @alias controller
+             * @type {string}
+             * @memberOf NA#currentRouteParameters
+             */
+            currentRouteParameters.controller, 
+        function () {
+
+            /**
+             * Next step after PreRender part.
+             * @private
+             * @function NA.render~preRenderSpecific
+             * @param {Object} currentVariation - Variations for the current page.
+             */
             function preRenderSpecific(currentVariation) {                
-                if (typeof NA.websiteController[pageParameters.controller] !== 'undefined' &&
-                    typeof NA.websiteController[pageParameters.controller].preRender !== 'undefined') {
-                        NA.websiteController[pageParameters.controller].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
+                if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &&
+                    typeof NA.websiteController[currentRouteParameters.controller].preRender !== 'undefined') {
+                        /** Use the `NA.websiteController[<controller>].preRender(...)` function if set... */
+                        NA.websiteController[currentRouteParameters.controller].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
                             openTemplate(currentVariation);
                         });
                 } else {
+                    /** ...else, just continue. */
                     openTemplate(currentVariation);      
                 }
             }
 
-            // Execute custom Render part.
-            // Specific
+            /**
+             * Next step after Render part.
+             * @private
+             * @function NA.render~renderSpecific
+             * @param {string} data - DOM Generated.
+             * @param {Object} currentVariation - Variations for the current page.
+             */
             function renderSpecific(data, currentVariation) {                
-                if (typeof NA.websiteController[pageParameters.controller] !== 'undefined' &&
-                    typeof NA.websiteController[pageParameters.controller].render !== 'undefined') {
-                        NA.websiteController[pageParameters.controller].render({ data: data, NA: NA, request: request, response: response }, function (data) {
+                if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &&
+                    typeof NA.websiteController[currentRouteParameters.controller].render !== 'undefined') {
+                        /** Use the `NA.websiteController[<controller>].preRender(...)` function if set... */
+                        NA.websiteController[currentRouteParameters.controller].render({ data: data, NA: NA, request: request, response: response }, function (data) {
                             renderTemplate(data, currentVariation);
                         });
                 } else {
+                    /** ...else, just continue. */
                     renderTemplate(data, currentVariation);      
                 }
             }
 
-            // Opening template file.
-            function openTemplate(currentVariation) {                
-                NA.openTemplate(pageParameters, templatesPath, function (data) {
+            /**
+             * Opening template file.
+             * @private
+             * @function NA.render~openTemplate
+             * @param {Object} currentVariation - Variations for the current page.
+             */
+            function openTemplate(currentVariation) {  
 
-                    // Generate final string Render.
-                    currentVariation.filename = currentVariation.pathname + pageParameters.template;
+                /** Open the template file */              
+                NA.openTemplate(currentRouteParameters, templatesPath, function (data) {
+
+                    /** Set the file currently in use. */
+                    currentVariation.filename = currentVariation.pathname + currentRouteParameters.template;
+
                     try {
+                        /** Transform ejs data and inject incduded file. */
                        data = ejs.render(data, currentVariation);
                     } catch (exception) {
+                        /** Make error more readable. */
                         data = exception.toString()
                             .replace(/[\n]/g, "<br>")
                             .replace(/    /g, "<span style='display:inline-block;width:32px'></span>")
                             .replace(/ >> /g, "<span style='display:inline-block;width:32px'>&gt;&gt;</span>");
                     }
 
-                    // Execute custom Render part.
-                    // Common
+                    /** Use the `NA.websiteController[<commonController>].render(...)` function if set... */
                     if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
                         typeof NA.websiteController[NA.webconfig.commonController].render !== 'undefined') {
-                            NA.websiteController[NA.webconfig.commonController].render({ data: data, NA: NA, request: request, response: response }, function (data) {
+
+                            /**
+                             * Define this function for intercept DOM and modify it with jQuery for example. Both `common` and `specific` controller.
+                             * @function render
+                             * @memberOf NA.websiteController[]
+                             * @param {Object} params            - Collection of property.
+                             * @param {string} params.data       - DOM of current page.
+                             * @param {Object} params.NA         - NodeAtlas object.
+                             * @param {Object} params.request    - Initial request.
+                             * @param {Object} params.response   - Initial response.
+                             * @param {render~callback} callback - Next steps after configuration is done.
+                             */
+                            NA.websiteController[NA.webconfig.commonController].render({ data: data, NA: NA, request: request, response: response },
+
+                            /**
+                             * Next steps after render is done.
+                             * @callback render~callback
+                             * @param {string} data - DOM with modifications.
+                             */
+                            function (data) {
                                 renderSpecific(data, currentVariation);
                             });
+                    /** ...else, just continue. */
                     } else {
                         renderSpecific(data, currentVariation);
                     }
                });
             }
 
-            // Write file or/and send response.
+            /**
+             * Write file or/and send response.
+             * @private
+             * @function NA.render~renderTemplate
+             * @param {string} data - HTML DOM ready for sending.
+             * @param {Object} currentVariation - Variations for the current page.
+             */
             function renderTemplate(data, currentVariation) {
-                // Create file and CSS.
-                if (typeof response === 'undefined' || NA.webconfig.autoGenerate) {
-                    templateRenderName = pageParameters.generate || currentPath;
+                /** Create the file for asset mode */
+                if (
+                    typeof response === 'undefined' || 
+
+                    /**
+                     * Allow NodeAtlas to generate real file into `NA.webconfig.generatesRelativePath` directory if set to true.
+                     * @public
+                     * @alias autoGenerate
+                     * @type {boolean}
+                     * @memberOf NA.webconfig
+                     * @default false.
+                     */
+                    NA.webconfig.autoGenerate
+                ) {
+
+                    /**
+                     * Output name of file generate if `NA.webconfig.autoGenerate` is set to true.
+                     * @public
+                     * @alias generate
+                     * @type {string}
+                     * @memberOf NA#currentRouteParameters
+                     */
+                    templateRenderName = currentRouteParameters.generate || currentPath;
 
                     NA.saveTemplateRender(data, templateRenderName);
                 }
 
-                // Run page into browser.
+                /** Run page into browser. */
                 if (typeof response !== 'undefined') {
-                    NA.response(request, response, data, pageParameters, currentVariation);
+                    NA.response(request, response, data, currentRouteParameters, currentVariation);
                 }
             }
             
-            currentVariation.languageCode = pageParameters.languageCode || NA.webconfig.languageCode;
-            currentVariation.urlBasePathSlice = NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "");
-            currentVariation.urlBasePath = currentVariation.urlBasePathSlice + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' : '');
+            /**
+             * Expose the current language code for the page if setted else expose the global if setted.
+             * @public
+             * @alias languageCode
+             * @type {string}
+             * @memberOf NA#currentVariation
+             * @default No language code if not setted.
+             */
+            currentVariation.languageCode = 
 
+                /**
+                 * Represent the language code for this page.
+                 * @public
+                 * @alias languageCode
+                 * @type {string}
+                 * @memberOf NA#currentRouteParameters
+                 * @default No language code if not setted.
+                 */
+                currentRouteParameters.languageCode || 
+
+                /**
+                 * Represent the global and main language code for website.
+                 * @public
+                 * @alias languageCode
+                 * @type {string}
+                 * @memberOf NA.webconfig
+                 * @default No language code if not setted.
+                 */
+                NA.webconfig.languageCode;
+
+            /**
+             * Idem as `NA.variation.urlBasePath` without "/" at the end.
+             * @public
+             * @alias urlBasePathSlice
+             * @type {string}
+             * @memberOf NA#currentVariation
+             * @example http://localhost:7777/subpath
+             * https://www.example.here
+             */
+            currentVariation.urlBasePathSlice = NA.webconfig.urlWithoutFileName.replace(/\/$/g, "") + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "").replace(/\/$/g, "") : '');
+
+            /**
+             * Expose the current URL of page with `NA.webconfig.urlWithoutFileName` and `NA.webconfig.urlRelativeSubPath`.
+             * @public
+             * @alias urlBasePath
+             * @type {string}
+             * @memberOf NA#currentVariation
+             * @example http://localhost:7777/subpath/
+             * https://www.example.here/
+             */
+            currentVariation.urlBasePath = currentVariation.urlBasePathSlice + '/';
+
+            /**
+             * Expose the current URL of page with `NA.webconfig.urlBasePath` and the current page route.
+             * @public
+             * @alias urlPath
+             * @type {string}
+             * @memberOf NA#currentVariation
+             * @example http://localhost:7777/subpath/example.html  (if current route is '/example.html')
+             * https://www.example.here/example/this/ (if current route is '/example/this/')
+             */
             currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + currentPath;
             if (request) { currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url; }
 
+            /**
+             * Same as `NA.variations.pathname`.
+             * @public
+             * @alias pathname
+             * @type {string}
+             * @memberOf NA#currentVariation
+             */
             currentVariation.pathname = NA.variations.pathname;
+
+            /**
+             * Same as `NA.variations.filename`.
+             * @public
+             * @alias filename
+             * @type {string}
+             * @memberOf NA#currentVariation
+             */
             currentVariation.filename = NA.variations.filename;
 
-            // Opening variation file.
-            if (request) { currentVariation.params = request.params; }
+            if (request) { 
 
+                /**
+                 * Expose list of selector used into page.
+                 * @public
+                 * @alias params
+                 * @type {string}
+                 * @memberOf NA#currentVariation
+                 * @example If current route is '/example/:selector/'
+                 * At http://localhost/example/test/ the value of `NA.variations#params` is
+                 * { "selector": "test" }
+                 */
+                currentVariation.params = request.params; 
+            }
+
+            /**
+             * Name of file for `common` variation.
+             * @public
+             * @alias commonVariation
+             * @type {string}
+             * @memberOf NA.webconfig
+             */
             currentVariation.common = NA.openVariation(NA.webconfig.commonVariation, currentVariation.languageCode);
             if (currentVariation.languageCode) {
+
+                /**
+                 * Expose all JSON data from `commonVariation` file.
+                 * @public
+                 * @alias common
+                 * @type {Object}
+                 * @memberOf NA#currentVariation
+                 */
                 currentVariation.common = extend(true, NA.openVariation(NA.webconfig.commonVariation), currentVariation.common);
             }
 
-            currentVariation.specific = NA.openVariation(pageParameters.variation, currentVariation.languageCode);
+            /**
+             * Name of file for `specific` variation.
+             * @public
+             * @alias variation
+             * @type {string}
+             * @memberOf NA#currentRouteParameters
+             */
+            currentVariation.specific = NA.openVariation(currentRouteParameters.variation, currentVariation.languageCode);
             if (currentVariation.languageCode) {
-                currentVariation.specific = extend(true, NA.openVariation(pageParameters.variation), currentVariation.specific);
+
+                /**
+                 * Expose all JSON data from `routes[<currentRoute>].variation` file.
+                 * @public
+                 * @alias specific
+                 * @type {Object}
+                 * @memberOf NA#currentVariation
+                 */
+                currentVariation.specific = extend(true, NA.openVariation(currentRouteParameters.variation), currentVariation.specific);
             }
 
-            currentVariation.pageParameters = pageParameters;
-            currentVariation.pageUrlRewriting = currentPath;
+            /**
+             * Expose all data from `routes[<currentRoute>]` object from webconfig.
+             * @public
+             * @alias currentRouteParameters
+             * @type {Object}
+             * @memberOf NA#currentVariation
+             */
+            currentVariation.currentRouteParameters = currentRouteParameters;
+
+            /**
+             * Expose all data from `<currentRoute>` sitring from `routes` from webconfig.
+             * @public
+             * @alias pageRoute
+             * @type {Object}
+             * @memberOf NA#currentVariation
+             */
+            currentVariation.pageRoute = currentPath;
+
+            /**
+             * Expose all webconfig values.
+             * @public
+             * @alias webconfig
+             * @type {Object}
+             * @memberOf NA#currentVariation
+             */
             currentVariation.webconfig = NA.webconfig;
 
-            // Execute custom PreRender part.
-            // Common
+            /** Use the `NA.websiteController[<commonController>].preRender(...)` function if set... */
             if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
                 typeof NA.websiteController[NA.webconfig.commonController].preRender !== 'undefined') {
-                    NA.websiteController[NA.webconfig.commonController].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
+
+                    /**
+                     * Define this function for intercept Variation object and modify it. Both `common` and `specific` controller.
+                     * @function preRender
+                     * @memberOf NA.websiteController[]
+                     * @param {Object} params               - Collection of property.
+                     * @param {string} params.variation     - Variation object of current page.
+                     * @param {Object} params.NA            - NodeAtlas object.
+                     * @param {Object} params.request       - Initial request.
+                     * @param {Object} params.response      - Initial response.
+                     * @param {preRender~callback} callback - Next steps after configuration is done.
+                     */
+                    NA.websiteController[NA.webconfig.commonController].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, 
+
+                    /**
+                     * Next steps after preRender is done.
+                     * @callback preRender~callback
+                     * @param {Object} currentVariation - Variation object with new values.
+                     */
+                    function (currentVariation) {
                         preRenderSpecific(currentVariation);
                     });
+            /** ...else, just continue. */
             } else {
                 preRenderSpecific(currentVariation);
             }
@@ -1363,33 +2044,71 @@ var NA = {};
     $%BACK-END PART
 \*------------------------------------*/
 
+/**
+ * Closure group for define Back-end Part Functions.
+ * @function
+ * @param {Object} publics Allow you to add publics methods to NA object.
+ */
 (function (publics) {
     "use strict";
 
-    publics.openController = function () {
-        publics.nodeAtlasModulesPath = NA.websitePhysicalPath + 'node_modules/';
-        publics.websiteModulesPath = NA.serverPhysicalPath + 'node_modules/';
-
-        if (typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
-            NA = NA.websiteController[NA.webconfig.commonController].loadModules(NA) || NA;
-        }
-    };
-
+    /**
+     * Load the modules adding by the website.
+     * @public
+     * @function loadListOfExternalModules
+     * @memberOf NA.
+     * @param {loadListOfExternalModules~callback} callback - Next steps after loading of additional modules.
+     */
     publics.loadListOfExternalModules = function (callback) {
         NA.loadController(NA.webconfig.commonController, function () {
+            publics.nodeAtlasModulesPath = NA.websitePhysicalPath + 'node_modules/';
+            publics.websiteModulesPath = NA.serverPhysicalPath + 'node_modules/';
+
+            /** Use the `NA.websiteController[<commonController>].loadModules(...)` function if set... */
+            if (typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
+
+                /**
+                 * Define this function for adding npm module into `NA.modules` of application. Only for `common` controller file.
+                 * @function loadModules
+                 * @memberOf NA.websiteController[]
+                 * @param {Object} NA - NodeAtlas object for used `NA.session` object.
+                 * @return {Object} Return NodeAtlas object with modification.
+                 */
+                NA = NA.websiteController[NA.webconfig.commonController].loadModules(NA) || NA;
+            }
+
+            /**
+             * Next step !
+             * @callback loadListOfExternalModules~callback
+             */
             callback();
         });
     };
 
+    /**
+     * Load a controller file.
+     * @public
+     * @function loadController
+     * @memberOf NA.
+     * @param {string} controller - The name of controller file we want to load.
+     * @param {loadController~callback} callback - Next steps after controller loading.
+     */
     publics.loadController = function (controller, callback) {
         var commonControllerPath = NA.websitePhysicalPath + NA.webconfig.controllersRelativePath + controller,
             dataError = {};
 
+        /** If a controller is required. Loading of this controller... */
         if (typeof controller !== 'undefined') {
+            /** Open controller and load it */
             try {
                 NA.websiteController[controller] = require(commonControllerPath);
-                NA.openController();
+
+                /**
+                 * Next step !
+                 * @callback loadController~callback
+                 */
                 callback();
+            /** In case of error. */
             } catch (exception) {
                 dataError.moduleError = exception.toString();
                 if (exception.code === 'MODULE_NOT_FOUND') {
@@ -1399,6 +2118,7 @@ var NA = {};
                 }
             }
         } else {
+            /** ...else, continue without loading. */
             callback();
         }
 
@@ -1444,9 +2164,8 @@ var NA = {};
     /**
      * Create a « Overview » page to « / » url with all of page accessible via links.
      * @public
-     * @alias emulatedIndexPage
+     * @function emulatedIndexPage
      * @memberOf NA
-     * @function
      */
     publics.emulatedIndexPage = function () {
         var commander = NA.modules.commander;
@@ -1457,7 +2176,18 @@ var NA = {};
         /** Only if server was started... */
         if (!NA.configuration.generate) {
             /** ...and `indexPage` is set to « true ». */
-            if (NA.webconfig.indexPage) {
+            if (
+
+                /**
+                 * Allow NodeAtlas to create a root page with link to all routes for development if set to true.
+                 * @public
+                 * @alias indexPage
+                 * @type {boolean}
+                 * @memberOf NA.webconfig
+                 * @default false.
+                 */
+                NA.webconfig.indexPage
+            ) {
 
                 /** Create a new path to « / ». Erase the route to « / » defined into `routes`. */
                 NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
@@ -1490,9 +2220,8 @@ var NA = {};
     /**
      * Generate a template into an HTML file in folder `generatesRelativePath`.
      * @public
-     * @alias saveTemplateRender
+     * @function saveTemplateRender
      * @memberOf NA
-     * @function
      */
     publics.saveTemplateRender = function (data, templateRenderName) {
         var fs = NA.modules.fs,
@@ -1561,11 +2290,36 @@ var NA = {};
     $%INIT
 \*------------------------------------*/
 
+/**
+ * Closure group for define Init Functions.
+ * @function
+ * @param {Object} publics Allow you to add publics methods to NA object.
+ */
 (function (publics) {
     "use strict";
 
+    /**
+     * Object contain configuration.
+     * @public
+     * @alias configuration
+     * @type {Object}
+     * @memberOf NA
+     */
     publics.configuration = {};
 
+
+    /**
+     * Allow you to set `NA.configuration` with chaining.
+     * @public
+     * @function config
+     * @memberOf NA
+     * * @example nodeAtlas
+     *    .config({
+     *        webconfig: "webconfig.alternatif.json",
+     *        httpPort: 7778,
+     *        generate: true
+     *    }).init();
+     */
     publics.config = function (config) {
     	var config = config || {};
 
@@ -1574,6 +2328,12 @@ var NA = {};
     	return NA;
     };
 
+    /**
+     * Main controller for Start NodeAtlas.
+     * @public
+     * @function init
+     * @memberOf NA
+     */
     publics.init = function () {
 		NA.loadListOfNativeModules();
 		NA.initGlobalVar();
@@ -1606,10 +2366,10 @@ var NA = {};
     $%RUN
 \*------------------------------------*/
 
-/** With command tools. */
+/** Run script with command tools. */
 if (require.main === module) {
 	NA.init();
 }
 
-/** With require. */
+/** Run script with require as a npm module. */
 module.exports = NA;
