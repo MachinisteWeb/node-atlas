@@ -399,13 +399,13 @@
             
                 <li data-name="NA#currentVariation.common"><a href="NA_currentVariation.html#common">common</a></li>
             
+                <li data-name="NA#currentVariation.currentRoute"><a href="NA_currentVariation.html#currentRoute">currentRoute</a></li>
+            
                 <li data-name="NA#currentVariation.currentRouteParameters"><a href="NA_currentVariation.html#currentRouteParameters">currentRouteParameters</a></li>
             
                 <li data-name="NA#currentVariation.filename"><a href="NA_currentVariation.html#filename">filename</a></li>
             
                 <li data-name="NA#currentVariation.languageCode"><a href="NA_currentVariation.html#languageCode">languageCode</a></li>
-            
-                <li data-name="NA#currentVariation.pageRoute"><a href="NA_currentVariation.html#pageRoute">pageRoute</a></li>
             
                 <li data-name="NA#currentVariation.params"><a href="NA_currentVariation.html#params">params</a></li>
             
@@ -457,6 +457,2061 @@
 
 
 
+    <section>
+        <article class="readme"><h1>node-atlas</h1><p>Version : 0.25.0 (Beta)</p>
+<p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
+<h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
+<ul>
+<li>Create and maintain a set of assets HTML / CSS / JavaScript to provide them to back-end developers.</li>
+<li>Create and maintain multilingual sites with no Back-end.</li>
+<li>Develop websites or multilingual Node.js applications of all sizes.</li>
+</ul>
+<h3>Examples of websites with NodeAtlas</h3><p>The tool is still in development and I experience it slowly with my own websites.</p>
+<ul>
+<li><a href="https://github.com/Haeresis/ResumeAtlas/">Generating and HTML template maintenance</a>.</li>
+<li><a href="https://github.com/Haeresis/ResumeAtlas/">HTML website maintenance (no Back-end)</a>.</li>
+<li><a href="https://github.com/Haeresis/BookAtlas/">Node.js website with Websocket and PopState</a>.</li>
+<li><a href="https://github.com/Haeresis/BlogAtlas/">Node.js website with MongoDB database and Redis</a>.</li>
+<li><a href="https://github.com/Haeresis/SimpleAtlas/">Simple web server for a file</a>.</li>
+</ul>
+<h3>Table of Contents</h3><ul>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#examples of websites with nodeatlas">Examples of websites with NodeAtlas</a></li>
+<li><a href="#table of contents">Table of Contents</a></li>
+<li><a href="#roadmap of development progress">Roadmap of Development Progress</a></li>
+<li><a href="#documentation">Documentation</a></li>
+</ul>
+</li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#start with nodeatlas">Start with NodeAtlas</a><ul>
+<li><a href="#fileset">Fileset</a></li>
+<li><a href="#minimum requirements">Minimum Requirements</a></li>
+<li><a href="#run the site with nodeatlas">Run the site with NodeAtlas</a></li>
+</ul>
+</li>
+<li><a href="#different configurations of webconfig.json">Different configurations of webconfig.json</a><ul>
+<li><a href="#more one page">More one page</a></li>
+<li><a href="#template-shortcut">Template shortcut</a></li>
+<li><a href="#host images fonts css js etc">Host images, fonts, CSS, JS, etc.</a></li>
+<li><a href="#manage inclusions to avoid redundancy code">Manage inclusions to avoid redundancy code</a></li>
+<li><a href="#manage variations within the same template">Manage variations within the same template</a></li>
+<li><a href="#manage multilingual">Manage Multilingual</a></li>
+<li><a href="#nodeatlas use to generate html assets">NodeAtlas use to generate HTML assets</a></li>
+<li><a href="#use nodeatlas to run a website back-end part">Use NodeAtlas to run a website (Back-end Part)</a></li>
+<li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url.</a></li>
+<li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
+<li><a href="#g%C3%A9rer-le-routage">Gérer le routage (Url Rewriting)</a></li>
+<li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
+<li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
+<li><a href="#minifier-les-cssjs">Minifier les CSS/JS</a></li>
+<li><a href="#changer-les-param%C3%A8tres-des-sessions">Changer les paramètres des Sessions</a></li>
+<li><a href="#stockage-externe-des-sessions">Stockage externe des Sessions</a></li>
+<li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
+<li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
+<li><a href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute">Changer l'url final des hostname et port d'écoute</a></li>
+<li><a href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement">Générer les urls dynamiquement</a></li>
+</ul>
+</li>
+<li><a href="#commandes-de-lancement">Commandes de lancement</a><ul>
+<li><a href="#--directory">--directory</a></li>
+<li><a href="#--webconfig">--webconfig</a></li>
+<li><a href="#--run">--run</a></li>
+<li><a href="#--httpport">--httpPort</a></li>
+<li><a href="#--generate">--generate</a></li>
+</ul>
+</li>
+<li><a href="#nodeatlas-as-npm-module">NodeAtlas as npm module</a></li>
+<li><a href="#nodeatlas-comme-simple-serveur-web">NodeAtlas comme simple serveur web</a></li>
+<li><a href="#faire-tourner-nodeatlas-sur-server">Faire tourner NodeAtlas sur server</a><ul>
+<li><a href="#dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</a></li>
+<li><a href="#dans-un-environnement-unix-avec-forever">Dans un environnement Unix avec forever</a></li>
+<li><a href="#proxy">Proxy</a></li>
+</ul>
+</li>
+<li><a href="#a-propos-de-l-architecture-de-nodeatlas">À propos de l'architecture de NodeAtlas</a></li>
+</ul>
+<h3>Roadmap of Development Progress</h3><ul>
+<li><p>Done</p>
+<ul>
+<li>Express server used.</li>
+<li>HTML mock-Generation live.</li>
+<li>Full HTML Generation.</li>
+<li>Configuration file (pages with URL Rewriting list).</li>
+<li>Support of a part as possible Back-end (Controllers / Models).</li>
+<li>Example of possible database (MySql / MongoDB / etc.).</li>
+<li>Support Sessions.</li>
+<li>Example of Socket.IO with handshake.</li>
+<li>Support Express middleware.</li>
+<li>Support personal variables webconfig.</li>
+<li>Connect 2.x Migration to Connect 3.x.</li>
+<li>Migration 3.x Express to Express 4.x.</li>
+<li>Removing Connect 3.x.</li>
+<li>Reverse-proxy Example for multiple instances on port 80.</li>
+<li>Start with a NodeAtlas require() from a code file.</li>
+<li>Install automatically NodeAtlas from npm.</li>
+<li>Minification CSS / JS to generation.</li>
+<li>Aggregation CSS / JS file via Bundles.</li>
+<li>Support of a BDD session (Redis / MongoDB).</li>
+<li>Quick Launch without &quot;webconfig&quot; just as a simple web server.</li>
+<li>Routing shared via an external file.</li>
+<li>Bundle shared via an external file.</li>
+<li>Documentation of the API (JSDoc documentation node-atlas.js file)</li>
+<li>Example of Socket.IO 1.0 with Handshake.</li>
+</ul>
+</li>
+<li><p>Coming soon</p>
+<ul>
+<li>Translation of README.md file in English.</li>
+<li>Image compression.</li>
+<li>Support Sass / Less.</li>
+<li>Automatic injection inline CSS stylesheet (for email models).</li>
+<li>Self-deployment via transfer (S) FTP.</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<h3>Documentation</h3><p>In addition to this README, you also have access to,</p>
+<ul>
+<li><a href="https://haeresis.github.com/NodeAtlas/doc/">Code Explanation</a> and,</li>
+<li><a href="https://haeresis.github.com/NodeAtlas/doc/">Details of public function in the NA object</a>.</li>
+</ul>
+<h2>Installation</h2><p>There are several ways to install Node-Atlas:</p>
+<ul>
+<li><p>Download NodeAtlas from the official repository <a href="https://haeresis.github.com/NodeAtlas">NodeAtlas</a>.</p>
+<p> <em>Once downloaded, unzip <strong>NodeAtlas</strong> in the folder that will suit you.</em></p>
+<p> <strong>Start at least once NodeAtlas with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the <em>node_modules</em>.</strong></p>
+</li>
+<li><p><code>npm install node-atlas</code> (recommended for <a href="#nodeatlas-as-npm-module">use as a module</a> in a project).</p>
+<p> <em>This will install <strong>NodeAtlas</strong> in the <code>node_modules/node-atlas</code> directory of the execution of the command.</em></p>
+</li>
+<li><p><code>npm install -g node-atlas</code> (recommended for <a href="#nodeatlas-as-npm-module">use as a module</a> in large amount of project).</p>
+<p> <em>This will install <strong>NodeAtlas</strong> in the global <code>node_modules/node-atlas</code>.</em></p>
+</li>
+<li><p>Clone the directory from <a href="https://github.com/Haeresis/NodeAtlas/">GitHub</a>.</p>
+<p> <em>This will install <strong>NodeAtlas</strong> in cloning home folder.</em></p>
+<p> <strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the <em>node_modules</em>.</strong></p>
+</li>
+</ul>
+<h2>Start with NodeAtlas</h2><h3>Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.</p>
+<pre class="prettyprint source"><code>site-hello-world/
+— templates/
+—— index.htm
+— webconfig.json</code></pre><p>Here is the &quot;/site-hello-world/templates/index.htm&quot; file:</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>Hello world&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div>This is a Hello World!&lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><p>and following, the &quot;/site-hello-world/webconfig.json&quot; file.</p>
+<h3>Minimum Requirements</h3><p>You can turn a simple page with minimal configuration &quot;webconfig.json&quot; below</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>equivalent to</p>
+<pre class="prettyprint source lang-js"><code>{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }</code></pre><h3>Run the site with NodeAtlas</h3><h4>With a command line</h4><p>Position yourself with the prompt console in the folder &quot;/Site-hello-world/&quot; and run the following command.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>In your first run, NodeAtlas install all the &quot;node_modules&quot; necessary for running (if you downloaded out of npm).</p>
+<p>Rerun.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>You will have access to your &quot;Hello World&quot; to the page: <em>http://localhost/</em> in a browser.</p>
+<h4>Via a JavaScript file</h4><p>You can also use NodeAtlas as a npm module.</p>
+<p><em>server.js</em></p>
+<pre class="prettyprint source lang-javascript"><code>var nodeAtlas = require(&quot;node-atlas&quot;);
+
+nodeAtlas.init();</code></pre><pre class="prettyprint source"><code>\> node app.js</code></pre><h2>Different configurations of webconfig.json</h2><h3>More one page</h3><p>Below is a sample configuration.</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;templatesRelativePath&quot;: &quot;templates/&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        },
+        &quot;/member.html&quot;: {
+            &quot;template&quot;: &quot;member.htm&quot;
+            &quot;postSupport&quot;: false,
+        },
+        &quot;/member-without-extension/&quot;: {
+            &quot;template&quot;: &quot;member.htm&quot;
+            &quot;getSupport&quot;: false,
+        },
+        &quot;about.html&quot;: {
+            &quot;template&quot;: &quot;about.htm&quot;
+        },
+        &quot;/error.html&quot;: {
+            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;statusCode&quot;: 404,
+            &quot;mimeType&quot;: &quot;text/plain&quot;
+        }
+    }
+}</code></pre><p>To run this set of file:</p>
+<pre class="prettyprint source"><code>templates/
+— index.htm
+— member.htm
+— error.htm
+webconfig.json</code></pre><p>with the addresses:</p>
+<ul>
+<li><em>http://localhost/</em> (responds to the root)</li>
+<li><em>http://localhost/member.html</em> (will not respond if is POST requested)</li>
+<li><em>http://localhost/member-without-extension/</em> (will not respond if is GET requested)</li>
+<li><em>http://localhost/error.html</em> (return of the plain-text content (without markup) with a 404)</li>
+</ul>
+<p><em>Note : If</em> <strong><em>templatesRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, template folder is</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<h3>Template shortcut</h3><p>The configuration below is equivalent to the configuration section just above</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;templatesRelativePath&quot;: &quot;templates/&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;,
+        &quot;/member.html&quot;: {
+            &quot;template&quot;: &quot;member.htm&quot;
+            &quot;postSupport&quot;: false,
+        },
+        &quot;/member-without-extension/&quot;: {
+            &quot;template&quot;: &quot;member.htm&quot;
+            &quot;getSupport&quot;: false,
+        },
+        &quot;about.html&quot;: &quot;about.htm&quot;,
+        &quot;/error.html&quot;: {
+            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;statusCode&quot;: 404,
+            &quot;mimeType&quot;: &quot;text/plain&quot;
+        }
+    }
+}</code></pre><p>because</p>
+<pre class="prettyprint source lang-js"><code>&quot;about.html&quot;: &quot;about.htm&quot;,</code></pre><p>is a shortcut for</p>
+<pre class="prettyprint source lang-js"><code>&quot;about.html&quot;: {
+    &quot;template&quot;: &quot;about.htm&quot;
+}</code></pre><p>Obviously this shortcut is used only if <code>template</code> is the only parameter to declare in the route.</p>
+<h3>Host images, fonts, CSS, JS, etc.</h3><p>You can also host any file on your site in a public folder. For example, with this configuration:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;assetsRelativePath&quot;: &quot;assets/&quot;
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>and this set of files:</p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+— media/
+—— images/
+——— logo.png
+templates/
+— index.htm
+webconfig.json</code></pre><p>you will have access to the addresses:</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/stylesheets/common.css</em></li>
+<li><em>http://localhost/javascript/common.js</em></li>
+<li><em>http://localhost/media/images/logo.png</em></li>
+</ul>
+<p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default public folder is</em> <strong><em>assets/</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<h3>Manage inclusions to avoid redundancy code</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;componentsRelativePath&quot;: &quot;components/&quot;
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        },
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        }
+    }
+}</code></pre><p>with the following files:</p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+components/
+— head.htm
+— foot.htm
+templates/
+— index.htm
+— members.htm
+webconfig.json</code></pre><p><em>components/head.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>Hello world&lt;/title>
+
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot; media=&quot;all&quot; />
+    &lt;/head>
+    &lt;body></code></pre><p><em>components/foot.htm</em></p>
+<pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p><em>templates/index.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+
+    &lt;div>
+        &lt;h1>Welcome&lt;/h1>
+        &lt;p>This is the home page.&lt;/p>
+    &lt;/div>
+
+    &lt;% include foot.htm %></code></pre><p><em>templates/members.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+
+    &lt;div>
+        &lt;h1>List of members&lt;/h1>
+        &lt;p>It is the Members page.&lt;/p>
+    &lt;/div>
+
+    &lt;% include foot.htm %></code></pre><p>you will have access to the addresses:</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em></li>
+</ul>
+<p><em>Note : If</em> <strong><em>componentsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default include folder is</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<h3>Manage variations within the same template</h3><p>It is possible with the same template and the same includes, generating pages with different content (useful in generation HTML assets mode). Activate the variations with the following configuration:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variationsRelativePath&quot;: &quot;variations/&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;template.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+        },
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;template.htm&quot;,
+            &quot;variation&quot;: &quot;members.json&quot;,
+        }
+    }
+}</code></pre><p>with the following files:</p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets/
+—— common.css
+—— home.css
+—— members.css
+— javascript/
+—— common.js
+—— home.js
+—— members.js
+components/
+— head.htm
+— foot.htm
+variations/
+— common.json
+— index.json
+— members.json
+templates/
+— template.htm
+webconfig.json</code></pre><p><em>components/head.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>&lt;%= specific.titlePage %>&lt;/title>
+
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= common.classCssCommon %>.css&quot; media=&quot;all&quot; />
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %>.css&quot; media=&quot;all&quot; />
+    &lt;/head>
+    &lt;body class=&quot;&lt;%= specific.classPage %>&quot;></code></pre><p><em>components/foot.htm</em></p>
+<pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %>.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p><em>templates/template.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+
+    &lt;div class=&quot;title&quot;>&lt;%= common.titleWebsite %>&lt;/div>
+
+    &lt;div>
+        &lt;h1>&lt;%= specific.titlePage %>&lt;/h1>
+        &lt;%- specific.content %>
+    &lt;/div>
+
+    &lt;% include foot.htm %></code></pre><p><em>variations/common.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titleWebsite&quot;: &quot;Website title&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}</code></pre><p><em>variations/index.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p>This is the home page.&lt;/p>&quot;
+}</code></pre><p><em>variations/members.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;List of members&quot;,
+    &quot;classPage&quot;: &quot;members&quot;,
+    &quot;content&quot;: &quot;&lt;p>It is the Members page.&lt;/p>&quot;
+}</code></pre><p>you will have access to the addresses:</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em></li>
+</ul>
+<p><em>Note : If</em> <strong><em>variationsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default variations folder is</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<h3>Manage Multilingual</h3><h4>All languages on the same site</h4><p>On the same principle, the variations can be used to create the same page, but in different languages:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;languageCode&quot;: &quot;en-gb&quot;,
+    &quot;variationsRelativePath&quot;: &quot;languages/&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;landing.htm&quot;,
+            &quot;variation&quot;: &quot;landing.json&quot;
+        },
+        &quot;/home/&quot;: {
+            &quot;template&quot;: &quot;home.htm&quot;,
+            &quot;variation&quot;: &quot;home.json&quot;
+        },
+        &quot;/accueil/&quot;: {
+            &quot;template&quot;: &quot;home.htm&quot;,
+            &quot;variation&quot;: &quot;home.json&quot;,
+            &quot;languageCode&quot;: &quot;fr-fr&quot;
+        }
+    }
+}</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify</em> <strong><em>commonVariation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations/</em></strong> <em>to</em> <strong><em>languages/</em></strong>.</p>
+<p>with the following files:</p>
+<pre class="prettyprint source"><code>components/
+— head.htm
+— foot.htm
+languages/
+— landing.json
+— en-gb
+—— home.json
+— fr-fr
+—— home.json
+templates/
+— landing.htm
+— home.htm
+webconfig.json</code></pre><p><em>components/head.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;&lt;%= languageCode %>&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>&lt;%= specific.titlePage %>&lt;/title>
+    &lt;/head>
+    &lt;body class=&quot;&lt;%= specific.classPage %>&quot;></code></pre><p><em>components/foot.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;/body>
+&lt;/html></code></pre><p><em>templates/landing.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+
+    &lt;select>
+        &lt;% for (var i = 0; i &lt; specific.selectLabel.length; i++) { %>
+        &lt;option>&lt;%= specific.selectLabel[i] %>&lt;/option>
+        &lt;% } %>
+    &lt;/select>
+
+    &lt;% include foot.htm %></code></pre><p><em>templates/home.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+
+    &lt;div>
+        &lt;h1>&lt;%= specific.titlePage %>&lt;/h1>
+        &lt;%- specific.content %>
+    &lt;/div>
+
+    &lt;% include foot.htm %></code></pre><p><em>languages/landing.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;Landing&quot;,
+    &quot;classPage&quot;: &quot;landing&quot;,
+    &quot;selectLabel&quot;: [
+        &quot;English&quot;,
+        &quot;Français&quot;
+    ]
+}</code></pre><p><em>languages/en-gb/home.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;home&quot;,
+    &quot;content&quot;: &quot;&lt;p>This is a home page.&lt;/p>&quot;
+}</code></pre><p><em>languages/fr-fr/home.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;classPage&quot;: &quot;home&quot;,
+    &quot;content&quot;: &quot;&lt;p>C'est la page d'accueil.&lt;/p>&quot;
+}</code></pre><p>you will have access to the addresses:</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/home/</em></li>
+<li><em>http://localhost/accueil/</em></li>
+</ul>
+<p><em>Note : By default is the</em> <strong><em>languageCode</em></strong> <em>root that determines the display language of the wesite. However, specifically by page language, we can be changed also the</em> <strong><em>languageCode*</em></strong>. <em>You should also know that once the site or page has a</em> <strong><em>languageCode</em></strong> <em>in the configuration, variations files must be placed in a subdirectory named with the</em> <strong><em>languageCode</em></strong>.</p>
+<h4>Use only changes with the active multilingual</h4><p>You may have noticed in the previous example that the <code>landing.json</code> file was not in the <code>en-gb/</code> or <code>fr-fr/</code>. This is quite possible and means that will be used in languages that do not have it in their file.</p>
+<p>Also, when a <code>languageCode</code> is specified, NodeAtlas seek first hand the value in the corresponding folder file. If it was not there, so he went to fetch the parent folder (the one used as standard for variations without multilingual).</p>
+<p>This will allow you, for example, to manage master language directly in the variation folder. So with the following example:</p>
+<pre class="prettyprint source"><code>...
+variations/
+— common.json
+— home.json
+— fr-fr
+—— common.json
+—— home.json
+...</code></pre><p>you can</p>
+<ul>
+<li>manage the version <code>en-gb</code> directly to the root of <code>variations/</code> (as NodeAtlas find nothing in<code>en-gb</code> then it uses the values of the root files) and</li>
+<li>manage the <code>fr-fr</code> release in the<code>fr-fr /</code>,</li>
+</ul>
+<p>thus, if a sentence has not yet translated into a file <code>fr-fr</code>, instead of returning an error, NodeAtlas return the root version or the version<code>en-gb</code>.</p>
+<h4>Each language has its configuration</h4><p>You can also choose to configure each language in a &quot;webconfig.json&quot; different. With the following set of file:</p>
+<pre class="prettyprint source"><code>components/
+— head.htm
+— foot.htm
+variations/
+— landing.json
+— en-gb
+—— home.json
+—— members.json
+— fr-fr
+—— home.json
+—— members.json
+templates/
+— landing.htm
+— home.htm
+— members.htm
+webconfig.json
+webconfig.en-gb.json
+webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:</p>
+<p><em>webconfig.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;landing.htm&quot;,
+            &quot;variation&quot;: &quot;landing.json&quot;
+        }
+    }
+}</code></pre><p><em>webconfig.en-gb.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;httpPort&quot;: 81,
+    &quot;urlRelativeSubPath&quot;: &quot;/english&quot;,
+    &quot;languageCode&quot;: &quot;en-gb&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;home.htm&quot;,
+            &quot;variation&quot;: &quot;home.json&quot;
+        }, 
+        &quot;/members-list/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;variation&quot;: &quot;members.json&quot;
+        }
+    }
+}</code></pre><p><em>webconfig.fr-fr.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;httpPort&quot;: 82,
+    &quot;urlRelativeSubPath&quot;: &quot;/francais&quot;,
+    &quot;languageCode&quot;: &quot;fr-fr&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;home.htm&quot;,
+            &quot;variation&quot;: &quot;home.json&quot;
+        }, 
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;variation&quot;: &quot;members.json&quot;
+        }
+    }
+}</code></pre><p>and have access to addresses:</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost:81/english/</em></li>
+<li><em>http://localhost:81/english/</em></li>
+<li><em>http://localhost:81/english/members-list/</em></li>
+<li><em>http://localhost:82/francais/</em></li>
+<li><em>http://localhost:82/francais/liste-des-membres/</em></li>
+</ul>
+<p>It is then possible to reverse proxy with <a href="#proxy">Bouncy</a> (for example) to bring all urls on port 80 to obtain:</p>
+<ul>
+<li><em>http://www.website.ext/</em></li>
+<li><em>http://www.website.ext/english/</em></li>
+<li><em>http://www.website.ext/english/</em></li>
+<li><em>http://www.website.ext/english/members-list/</em></li>
+<li><em>http://www.website.ext/francais/</em></li>
+<li><em>http://www.website.ext/francais/liste-des-membres/</em></li>
+</ul>
+<h3>NodeAtlas use to generate HTML assets</h3><h4>Generate HTML assets</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;autoGenerate&quot;: true,
+    &quot;generatesRelativePath&quot;: &quot;generate/&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;generate&quot;: &quot;/index.html&quot;
+        },
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;generate&quot;: &quot;/members/list.html&quot;
+        },
+        &quot;/no/generate/property/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        }
+    }
+}</code></pre><p>and the following set of files:</p>
+<pre class="prettyprint source"><code>{
+assets/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+generate/
+templates/
+— index.htm
+— members.htm
+webconfig.json
+}</code></pre><p>can physically create assets:</p>
+<pre class="prettyprint source"><code>{
+generate/
+— index.html
+— members/
+—— list.html
+— no/
+—— generate/
+——— property &lt;== Ceci est un fichier
+templates/
+— index.htm
+— members.htm
+webconfig.json
+}</code></pre><p>by going to the address:</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em></li>
+</ul>
+<p>The generation starts when displaying the page if <strong><em>autoGenerate</em></strong> exist and if it is <strong><em>true</em></strong>. If it is passed <strong><em>false</em></strong> (or removed) the only way to generate all the pages of the website will be via the command <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> will generate all pages once. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).</p>
+<p><em>Note : If</em> <strong><em>generatesRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default generates folder is</em> <strong><em>generates/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<h4>Generate website without server side</h4><p>You can also manager a simple HTML website page with the following configuration:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;languageCode&quot;: &quot;fr-fr&quot;,
+    &quot;indexPage&quot;: true,
+    &quot;autoGenerate&quot;: true,
+    &quot;generatesRelativePath&quot;: &quot;../HTML/&quot;,
+    &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
+    &quot;routes&quot;: {
+        &quot;/cv.html&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        },
+        &quot;/en/cv.html&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;languageCode&quot;: &quot;en&quot;
+        }
+    }
+}</code></pre><p>and the following set of files:</p>
+<pre class="prettyprint source"><code>HTML/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+engine/
+— variations/
+—— fr-fr/
+——— index.json
+—— en/
+——— index.json
+— templates/
+—— index.htm
+— webconfig.json</code></pre><p>To address <em>http://localhost/</em> will show a list of pages your site components (with <strong>indexPage</strong> set to <strong>true</strong>).</p>
+<p>It will do more than, once your work is done, enjoy your HTML site in the folder:</p>
+<pre class="prettyprint source"><code>HTML/
+— stylesheets/
+—— common.css
+— javascript/
+—— common.js
+— cv.html
+— en/
+—— cv.html</code></pre><h3>Use NodeAtlas to run a website (Back-end Part)</h3><p>You can either use a single controller for the whole site and/or also by controllers template and variation.</p>
+<p>For the master controller, use this configuration example:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controllersRelativePath&quot;: &quot;controllers/&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        },
+        &quot;/categories/&quot;: {
+            &quot;template&quot;: &quot;categories.htm&quot;,
+            &quot;variation&quot;: &quot;categories.json&quot;
+        }
+    }
+}</code></pre><p>with this set of files</p>
+<pre class="prettyprint source"><code>variations/
+— index.json
+— categories.json
+controllers/
+— common.js
+models/
+— Article.js
+— Category.js
+templates/
+— index.htm
+— categories.htm
+webconfig.json</code></pre><p>And &quot;common.js&quot; file containing e.g.:</p>
+<ul>
+<li>Things for load additional modules NodeAtlas.</li>
+<li>Things for configure additional modules.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>// Creating a global object for file.
+var website = {};
+
+
+
+/*******************/
+/* Loading modules */
+/*******************/
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    // Load modules for this site in the NodeAtlas object.
+    publics.loadModules = function (NA) {
+        // Associations of each module to access it anywhere.
+        NA.modules.cookie = require('cookie');
+        NA.modules.mongoose = require('mongoose');
+
+        // Go for a specific module in the `node_modules` website.
+        NA.modules.socketio = require(NA.websiteModulesPath + 'socket.io');
+
+        // Go for a specific module in the `node_modules` NodeAtlas the engine.
+        NA.modules.ejs = require(NA.nodeAtlasModulesPath + 'ejs.io');
+
+        // Re-injection of the object &quot;NodeAtlas&quot; overloaded the motor.
+        return NA;
+    };
+
+}(website));
+
+
+
+/***********************/
+/* Configuring Modules */
+/***********************/
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    var privates = {};
+
+    // Example of using MongoDB and Mongoose.
+    privates.mongooseInitialization = function (mongoose, callback) {
+        // &quot;blog&quot; database connection.
+        mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
+            if (error) {
+                console.log(&quot;Database '&quot; + address + &quot;' is not accessible.&quot;);
+                process.kill(process.pid);
+            };
+
+            // Next.
+            callback(mongoose);
+        });
+
+        // Connection Management.
+        mongoose.connection.on('error', function (error) {
+            console.log('Error to connect by default Mongoose: ' + error);
+        });
+
+        // Disconnection Management.
+        mongoose.connection.on('disconnected', function () {
+            console.log('Disconnection of Mongoose.');
+        });
+        process.on('SIGINT', function (error) {
+            mongoose.connection.close(function () {
+                console.log('Disconnection of Mongoose because of app termination');
+                process.exit(0);
+            });
+        });
+    };
+
+    // Mongoose Schemas Management.
+    privates.mongooseSchemas = function (mongoose) {
+        publics.schema = {};
+
+        // Load Schemas.
+        publics.schema.article = require('../models/Article');
+        publics.schema.category = require('../models/Category');
+
+        // Expose Schemas.
+        mongoose.model('article', website.schema.article, 'article');
+        mongoose.model('category', website.schema.category, 'category');
+    };
+
+    // Example using Socket.IO.
+    privates.socketIoInitialisation = function (socketio, NA, callback) {
+        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io' } : undefined,
+            io = socketio(NA.server, optionIo),
+            cookie = NA.modules.cookie,
+            cookieParser = NA.modules.cookieParser;
+
+        // Synchronizing sessions with Socket.IO.
+        io.use(function(socket, next) {
+            var handshakeData = socket.request;
+
+            // Fallback if cookies are not supported.
+            if (!handshakeData.headers.cookie) {
+                return next(new Error('Session cookie required.'));
+            }
+
+            // Transformation of the cookie String to JSON object.
+            handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
+
+            // Verification of the signature of the cookie.
+            handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
+
+            // Keep worn the Session ID.
+            handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
+
+            // Accept the cookie.
+            NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
+                if (error || !session) {
+                    return next(new Error('No recovered session.'));
+                } else {
+                    handshakeData.session = session;                    
+                    next();
+                }
+            });
+        });
+
+        // Next.
+        callback(io);
+    };
+
+    // Adding listener for a specific controller &quot;index.js&quot; (see example in the next file).
+    privates.socketIoEvents = function (io, NA) {
+        var params = {};
+
+        params.io = io;
+        params.NA = NA;
+
+        // Event for the index page (see example in the next file).
+        require('./index').asynchrone(params);
+    };
+
+    // Configuration of all modules.
+    publics.setConfigurations = function (NA, callback) {
+        var mongoose = NA.modules.mongoose,
+            socketio = NA.modules.socketio;
+
+        // Initialize Mongoose.
+        privates.mongooseInitialization(mongoose, function (mongoose) {
+
+            // Schemas injection into Mongoose.
+            privates.mongooseSchemas(mongoose);
+
+            // Initialize Socket IO.
+            privates.socketIoInitialisation(socketio, NA, function (io) {
+
+                // Socket IO listening.
+                privates.socketIoEvents(io, NA);
+
+                // Re-injection of the object &quot;NodeAtlas&quot; overloaded the motor.
+                callback(NA);                   
+            });
+        });
+
+    };
+
+}(website));
+
+
+
+/****************************/
+/* Variations interception. */
+/****************************/
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    // It occurs just before the complete assembly EJS.
+    publics.preRender = function (params, mainCallback) {
+        var variation = params.variation;
+
+        // Here variations variables are modified.
+        // see example in the file after.
+
+        // We re-injects the changes.
+        mainCallback(variation);
+    };
+
+}(website));
+
+
+
+/**********************************************************/
+/* Interception of the HTML output for server-side jQuery */
+/**********************************************************/
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    // It comes just before the HTML response to the client.
+    publics.render = function (params, mainCallback) {
+        var data = params.data;
+
+        // Here one can manipulate the DOM before response to the client.
+        // see example in the file after.
+
+        // We re-injects the changes.
+        mainCallback(data);
+    };
+
+}(website));
+
+
+
+/********************************************/
+/* Expose function for the NodeAtlas engine */
+/********************************************/
+
+exports.loadModules = website.loadModules;
+exports.setConfigurations = website.setConfigurations;
+exports.preRender = website.preRender;
+exports.render = website.render;</code></pre><p>Instead of using <code>preRender</code> and <code>render</code> in the file common.js effective for the whole website page, you can use specific controllers page. The previous configuration becomes:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controllersRelativePath&quot;: &quot;controllers/&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        },
+        &quot;/categories/&quot;: {
+            &quot;template&quot;: &quot;categories.htm&quot;,
+            &quot;controller&quot;: &quot;categories.js&quot;,
+            &quot;variation&quot;: &quot;categories.json&quot;
+        }
+    }
+}</code></pre><p>with this set of files:</p>
+<pre class="prettyprint source"><code>variations/
+— index.json
+— categories.json
+controllers/
+— modules/
+—— list-of-article.js/
+— common.js
+- index.js
+- categories.js
+models/
+— Article.js
+— Category.js
+templates/
+— index.htm
+— categories.htm
+webconfig.json</code></pre><p>with a &quot;index.js&quot; file containing, for example:</p>
+<ul>
+<li>Things for dynamically change the front display.</li>
+<li>Things for changes on the server side with jQuery.</li>
+<li>Things for asynchronous exchanges with Socket.IO.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>var website = {};
+
+
+
+/***************************/
+/* Variations Interception */
+/***************************/
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    var privates = {};
+
+    // Charging a function or set of functions.
+    privates.listOfArticles = require('./modules/list-of-articles');
+
+    // It occurs just before the complete assembly EJS.
+    publics.preRender = function (params, mainCallback) {
+        var variation = params.variation,
+            mongoose = params.NA.modules.mongoose,
+            Article = mongoose.model('article');
+
+
+        // Can intercept all the variables of &quot;variations/common.js&quot;.
+        console.log(variation.common.title); // Return title stored in « variations/common.js ».
+        variation.common.title = &quot;New Title&quot;; // Set title.
+        console.log(variation.common.title); // Return &quot;New Title&quot; and is accessible in template side via `&lt;%= common.title %>`. 
+
+        // Can intercept all the variables of &quot;variations/index.js&quot; (because this file correspond to specific &quot;index.js&quot;).
+        variation.specific.title = &quot;New Title&quot;; // Return &quot;New Title&quot; and is accessible in template side via `&lt;%= specific.title %>`. 
+        variation.specific.newProperty = &quot;New Property&quot;; // Defined a property does not exist in the original variation file that is accessible in template side via « &lt;%= specific.newProperty ».
+
+        // Can intercept the configuration of the current page
+        console.log(variation.currentRoute) // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
+
+        // A test is made on a variable created in the webconfig.
+        if (variation.webconfig._websiteIsClosed) {
+            // The page is a 404.
+            variation.currentRouteParameters.statusCode = 404;
+        } else {
+            // The page is a 200.
+            variation.currentRouteParameters.statusCode = 200;
+        }
+
+        // Création d'un nouvel ensemble de variation dynamique pour les templates.
+        variation.backend = {}; // Accessible via « &lt;%= backend.&lt;propriétés> %> ».
+
+        privates.listOfArticles(Article, function (listOfArticles) {
+
+            // Disponibilité des données des articles côté template derrière
+            variation.backend.articles = listOfArticles; // « &lt;%= backend.articles.&lt;propriétés> %> ».
+
+            // On ré-injecte les modifications.
+            mainCallback(variation);
+        });
+    };
+
+}(website));
+
+
+
+/***********************************************************/
+/* Interception de la sortie HTML pour jQuery côté serveur */
+/***********************************************************/
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    // On intervient juste avant le renvoi HTML auprès du client (response).
+    publics.render = function (params, mainCallback) {
+        var data = params.data,
+            NA = params.NA,
+            jsdom = NA.modules.jsdom; // Récupération de jsdom pour parcourir le DOM avec jQuery.
+
+        // On charge le fichier jQuery défini dans le moteur, mais on peut utiliser une autre version.
+        jsdom.env(data, [NA.webconfig.jQueryVersion], function (error, window) {
+            var $ = window.$;
+
+            // Après tous les h2 de la sortie HTML « data »,
+            $(&quot;h2&quot;).each(function (i) {
+                var $this = $(this);
+
+                // ... on créé une div,
+                $this.after(
+                    // ... on injecte le contenu du h2 dans la div,
+                    $(&quot;&lt;div>&quot;).html($this.html())
+                )
+                // ... et supprime le h2.
+                $this.remove();
+            });
+
+            // On re-créer une nouvelle sortie HTML avec nos modifications.
+            data = window.document.doctype.toString() + window.document.innerHTML.replace(/&lt;script class=.jsdom.+>&lt;\/script>&lt;\/html>/g, &quot;&lt;/html>&quot;); // (Si vous connaissez un moyen plus élégant d'enlever ce script ajouté automatiquement « &lt;script class=.jsdom.+>&lt;\/script>&lt;\/html> », faites moi signe !)
+
+            // On ré-injecte les modifications.
+            mainCallback(data);
+        });
+    };
+
+}(website));
+
+
+
+/***********************************************/
+/* Gestion des évênements Socket.IO asynchrone */
+/***********************************************/
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    var privates = {};
+
+    // Intégralité des actions Websocket possible pour ce template.
+    publics.asynchrone = function (params) {
+        var io = params.io,
+            mongoose = params.NA.modules.mongoose,
+            marked = params.NA.modules.marked,
+            Article = mongoose.model('article'),
+            renderer = new marked.Renderer();
+
+        // Dès qu'on a un lien valide entre le client et notre back,
+        io.sockets.on('connection', function (socket) {
+            var sessionID = socket.request.sessionID,
+                session = socket.request.session;
+
+            // ... resté à l'écoute de la demande « create-article-button »,
+            socket.on('create-article-button', function (data) {
+
+                // ... et répondre à cette demande en créant un nouvelle article si elle vient
+                // avec les information envoyées via « data ».
+                var article = new Article({
+                    _id: mongoose.Types.ObjectId(),
+                    title: data.title,
+                    urn: data.urn,
+                });
+
+                // Si l'utilisateur est connecté.
+                if (session.account) {
+
+                    / ... on créer sauve article en base.
+                    article.save(function (error) {
+                        if (error) { 
+                            throw error;
+                        }
+
+                        // Et on répond à tous les clients avec un jeu de donnée dans data.
+                        io.sockets.emit('create-article-button', data);
+                    });
+                }
+            });
+        });
+    };
+
+}(website));
+
+
+
+/***********************************************************/
+/* Interception de la sortie HTML pour jQuery côté serveur */
+/***********************************************************/
+
+exports.preRender = website.preRender;
+exports.render = website.render;
+exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</code></pre><p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers/</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+<h3>Changer les paramètres d'url</h3><p>Par défaut, si vous utilisez la configuration suivante :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>cela est identique à utiliser celle-ci :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;httpHostname&quot;: &quot;localhost&quot;,
+    &quot;httpPort&quot;: 80,
+    &quot;httpSecure&quot;: false,
+    &quot;urlRelativeSubPath&quot;: &quot;&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>et vous pourrez accéder à l'url : <em>http://localhost/</em>.</p>
+<p>Changez alors la configuration en ceci :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
+    &quot;httpPort&quot;: 7777,
+    &quot;httpSecure&quot;: true,
+    &quot;urlRelativeSubPath&quot;: &quot;/sub/folder&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>pour accéder à : <em>https://127.0.0.1:7777/sub/folder/</em></p>
+<h3>Créer ses propres variables de webconfig</h3><p>Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :</p>
+<ol>
+<li>« webconfig.json »</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }, 
+    &quot;_minified&quot;: &quot;&quot;
+}</code></pre><ol>
+<li>« webconfig.prod.json »</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }, 
+    &quot;_minified&quot;: &quot;.min&quot;
+}</code></pre><p>avec cet ensemble de fichiers</p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets/
+—— common.css
+—— common.min.css
+— javascript/
+—— common.js
+—— common.min.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json</code></pre><p>et « index.htm » contenant :</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>Hello world&lt;/title>
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common&lt;%= webconfig._minified %>.css&quot; />
+    &lt;/head>
+    &lt;body>
+        &lt;div>Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div>
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common&lt;%= webconfig._minified %>.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p>En lançant (depuis le dossier du site) la commande :</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>Hello world&lt;/title>
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; />
+    &lt;/head>
+    &lt;body>
+        &lt;div>Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div>
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p>Cependant en lançant la commande :</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/server.js --webconfig webconfig.prod.json</code></pre><p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>Hello world&lt;/title>
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.min.css&quot; />
+    &lt;/head>
+    &lt;body>
+        &lt;div>Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div>
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.min.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p>
+<h3>Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamique !</p>
+<h4>Standard</h4><p>Avec la configuration suivante :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/liste-des-membres/:member/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        },
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        },
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>vous pourrez accéder à :</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em></li>
+<li><em>http://localhost/liste-des-membres/toto/</em></li>
+<li><em>http://localhost/liste-des-membres/bob-eponge99/</em></li>
+<li><em>http://localhost/liste-des-membres/node-atlas/</em></li>
+<li><em>http://localhost/liste-des-membres/etc/</em></li>
+</ul>
+<p>et récupérer les valeurs de <code>:member</code> dans le <code>preRender</code> (common et specific).</p>
+<pre class="prettyprint source lang-js"><code>exports.preRender = function (params, mainCallback) {
+    var variation = params.variation;
+
+    console.log(variation.params.member); 
+    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+
+    mainCallback(variation);
+}</code></pre><p>Les règles de création d'url dynamique sont celles de <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p>
+<h4>Expressions Régulières</h4><p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si <code>regExp</code> est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).</p>
+<p>Voyez la configuration suivante :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/liste-des-membres/([-a-z0-9]+)/?&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;regExp&quot;: &quot;g&quot;
+        },
+        &quot;/liste-des-membres/?&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;regExp&quot;: true
+        },
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>vous pourrez accéder à :</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/liste-des-membres/</em> <em>(ou <em>https://localhost/liste-des-membres</em>)</em></li>
+<li><em>http://localhost/liste-des-membres/toto/</em> <em>(ou <em>https://localhost/liste-des-membres/toto</em>)</em></li>
+<li><em>http://localhost/liste-des-membres/bob-eponge99/</em> <em>(ou <em>https://localhost/liste-des-membres/bob-eponge99</em>)</em></li>
+<li><em>http://localhost/liste-des-membres/node-atlas/</em> <em>(ou <em>https://localhost/liste-des-membres/node-atlas</em>)</em></li>
+<li><em>http://localhost/liste-des-membres/etc/</em> <em>(ou <em>https://localhost/liste-des-membres/etc</em>)</em></li>
+</ul>
+<p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>preRender</code> (common et specific).</p>
+<pre class="prettyprint source lang-js"><code>exports.preRender = function (params, mainCallback) {
+    var variation = params.variation;
+
+    if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
+    // variation.params[1] pour le deuxième match, etc...
+
+    console.log(variation.params.member); 
+    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+
+    mainCallback(variation);
+}</code></pre><p>Les règles de création d'url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p>
+<h4>Routage dans un fichier partagé</h4><p>Afin de ne pas ré-écrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier <code>routes.json</code>. </p>
+<p>Par exemple :</p>
+<p>L'ensemble de fichier suivant</p>
+<pre class="prettyprint source"><code>templates/
+— index.htm
+webconfig.json
+webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>et avec <code>webconfig.prod.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>pourrait devenir l'ensemble de fichier suivant </p>
+<pre class="prettyprint source"><code>templates/
+— index.htm
+routes.json
+webconfig.json
+webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;routes&quot;: &quot;routes.json&quot;
+}</code></pre><p>avec <code>webconfig.prod.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;routes&quot;: &quot;routes.json&quot;
+}</code></pre><p>et <code>routes.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;/&quot;: {
+        &quot;template&quot;: &quot;index.htm&quot;
+    }
+}</code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichier de route comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d'eux dans un ensemble de webconfig paramètrer pour faire tourner un site dans diverses langues.</em></p>
+<h3>Gérer les pages inexistantes</h3><p>Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :</p>
+<ol>
+<li>Préparer une page 404.</li>
+<li>Remplir le paramètre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 préparée.</li>
+</ol>
+<p>Voyez l'exemple ci-dessous :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;pageNotFound&quot;: &quot;/pages-inexistantes/&quot;,
+    &quot;routes&quot;: {
+        &quot;/pages-inexistantes/&quot;: {
+            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;statusCode&quot;: 404
+        },
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        },
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>vous pourrez accéder à :</p>
+<ul>
+<li><em>http://localhost/cette-page-n-existe-pas.html</em></li>
+<li><em>http://localhost/elle/non/plus/</em></li>
+<li><em>http://localhost/etc</em></li>
+</ul>
+<h3>Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p>
+<h4>En statique</h4><p>Voyez l'exemple ci-dessous :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        },
+        &quot;/liste-des-membres&quot;: {
+            &quot;redirect&quot;: &quot;/liste-des-membres/&quot;,
+            &quot;statusCode&quot;: 301,
+        },
+        &quot;/aller-sur-node-atlas/&quot;: {
+            &quot;redirect&quot;: &quot;http://haeresis.github.io/NodeAtlas/&quot;,
+            &quot;statusCode&quot;: 302,
+        },
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>Vous serez redirigé :</p>
+<ul>
+<li>sur <code>http://localhost/liste-des-membres/</code> quand vous accéderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection permanente</em>.</li>
+<li>sur <code>http://haeresis.github.io/NodeAtlas/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
+</ul>
+<h4>En dynamique</h4><p>Voyez l'exemple ci-dessous :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/liste-des-membres/:member/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        },
+        &quot;/liste-des-membres/:member&quot;: {
+            &quot;redirect&quot;: &quot;/membres/:member/&quot;
+            &quot;statusCode&quot;: 301
+        },
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>Vous serez redirigé sur <code>http://localhost/liste-des-membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis</code> avec une entête <em>redirection permanente</em>.</p>
+<h4>Avec expressions régulières</h4><p>Voyez l'exemple ci-dessous :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/membres/([-a-z0-9]+)/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;regExp&quot;: true
+        },
+        &quot;/liste-des-membres/([-a-z0-9]+)/&quot;: {
+            &quot;redirect&quot;: &quot;/membres/$0$/&quot;
+            &quot;statusCode&quot;: 301,
+            &quot;regExp&quot;: true
+        },
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        },
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p>
+<p>Pour le second <em>match</em> utilisez $1$, pour le troisième $2$, etc.</p>
+<h3>Minifier les CSS/JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaité. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut qu'un Bundle existe dans le Webconfig.</p>
+<h4>Créer des Bundles</h4><p>Avec la configuration suivante :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;bundles&quot;: {
+        &quot;javascript&quot;: {
+            &quot;files&quot;: {
+                &quot;javascript/boot.min.js&quot;: [
+                    &quot;javascript/modernizr.js&quot;,
+                    &quot;javascript/yepnot.js&quot;,
+                    &quot;javascript/html5Shiv.js&quot;
+                ],
+                &quot;javascript/framework.min.js&quot;: [
+                    &quot;javascript/jquery.js&quot;,
+                    &quot;javascript/jquery-ui.js&quot;,
+                    &quot;javascript/prettify.js&quot;,
+                    &quot;javascript/prettify/run_prettify.js&quot;
+                ],
+                &quot;javascript/common.min.js&quot;: [
+                    &quot;javascript/components/extended-format-date.js&quot;,
+                    &quot;javascript/common.js&quot;
+                ]
+            }
+        },
+        &quot;stylesheets&quot;: {
+            &quot;files&quot;: {
+                &quot;stylesheets/common.min.css&quot;: [
+                    &quot;stylesheets/common.css&quot;,
+                    &quot;stylesheets/common-min780.css&quot;,
+                    &quot;stylesheets/common-min1160.css&quot;
+                ]
+            }
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>et l'ensemble de fichier suivant :</p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+webconfig.json</code></pre><p>vous obtiendrez les nouveau fichiers suivant :</p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets
+—— stylesheets/common.min.css
+— javascript
+—— javascript/boot.min.js
+—— javascript/framework.min.js
+—— javascript/common.min.js
+templates/
+— index.htm
+webconfig.json</code></pre><h4>Désactiver des Bundles</h4><p>Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés <code>enable: false</code> dans chaque type de Bundle.</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;bundles&quot;: {
+        &quot;javascript&quot;: {
+            &quot;enable&quot;: false,
+            &quot;files&quot;: {
+                &quot;javascript/boot.min.js&quot;: [
+                    &quot;javascript/modernizr.js&quot;,
+                    &quot;javascript/yepnot.js&quot;,
+                    &quot;javascript/html5Shiv.js&quot;
+                ],
+                &quot;javascript/framework.min.js&quot;: [
+                    &quot;javascript/jquery.js&quot;,
+                    &quot;javascript/jquery-ui.js&quot;,
+                    &quot;javascript/prettify.js&quot;,
+                    &quot;javascript/prettify/run_prettify.js&quot;
+                ],
+                &quot;javascript/common.min.js&quot;: [
+                    &quot;javascript/components/extended-format-date.js&quot;,
+                    &quot;javascript/common.js&quot;
+                ]
+            }
+        },
+        &quot;stylesheets&quot;: {
+            &quot;enable&quot;: false,
+            &quot;files&quot;: {
+                &quot;stylesheets/common.min.css&quot;: [
+                    &quot;stylesheets/common.css&quot;,
+                    &quot;stylesheets/common-min780.css&quot;,
+                    &quot;stylesheets/common-min1160.css&quot;
+                ]
+            }
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><h4>Bundles dans un fichier partagé</h4><p>Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>. </p>
+<p>Par exemple :</p>
+<p>L'ensemble de fichier suivant</p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;bundles&quot;: {
+        &quot;javascript&quot;: {
+            &quot;enable&quot;: false,
+            &quot;files&quot;: {
+                &quot;javascript/boot.min.js&quot;: [
+                    &quot;javascript/modernizr.js&quot;,
+                    &quot;javascript/yepnot.js&quot;,
+                    &quot;javascript/html5Shiv.js&quot;
+                ],
+                &quot;javascript/framework.min.js&quot;: [
+                    &quot;javascript/jquery.js&quot;,
+                    &quot;javascript/jquery-ui.js&quot;,
+                    &quot;javascript/prettify.js&quot;,
+                    &quot;javascript/prettify/run_prettify.js&quot;
+                ],
+                &quot;javascript/common.min.js&quot;: [
+                    &quot;javascript/components/extended-format-date.js&quot;,
+                    &quot;javascript/common.js&quot;
+                ]
+            }
+        },
+        &quot;stylesheets&quot;: {
+            &quot;enable&quot;: false,
+            &quot;files&quot;: {
+                &quot;stylesheets/common.min.css&quot;: [
+                    &quot;stylesheets/common.css&quot;,
+                    &quot;stylesheets/common-min780.css&quot;,
+                    &quot;stylesheets/common-min1160.css&quot;
+                ]
+            }
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>et avec <code>webconfig.prod.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;bundles&quot;: {
+        &quot;javascript&quot;: {
+            &quot;enable&quot;: false,
+            &quot;files&quot;: {
+                &quot;javascript/boot.min.js&quot;: [
+                    &quot;javascript/modernizr.js&quot;,
+                    &quot;javascript/yepnot.js&quot;,
+                    &quot;javascript/html5Shiv.js&quot;
+                ],
+                &quot;javascript/framework.min.js&quot;: [
+                    &quot;javascript/jquery.js&quot;,
+                    &quot;javascript/jquery-ui.js&quot;,
+                    &quot;javascript/prettify.js&quot;,
+                    &quot;javascript/prettify/run_prettify.js&quot;
+                ],
+                &quot;javascript/common.min.js&quot;: [
+                    &quot;javascript/components/extended-format-date.js&quot;,
+                    &quot;javascript/common.js&quot;
+                ]
+            }
+        },
+        &quot;stylesheets&quot;: {
+            &quot;enable&quot;: false,
+            &quot;files&quot;: {
+                &quot;stylesheets/common.min.css&quot;: [
+                    &quot;stylesheets/common.css&quot;,
+                    &quot;stylesheets/common-min780.css&quot;,
+                    &quot;stylesheets/common-min1160.css&quot;
+                ]
+            }
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>pourrait devenir l'ensemble de fichier suivant </p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+— javascript
+—— javascript/modernizr.js
+—— javascript/yepnot.js
+—— javascript/html5Shiv.js
+—— javascript/jquery.js
+—— javascript/jquery-ui.js
+—— javascript/prettify.js
+—— javascript/prettify/run_prettify.js
+—— javascript/components/extended-format-date.js
+—— javascript/common.js
+templates/
+— index.htm
+bundles.json
+webconfig.json
+webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;bundles&quot;: &quot;bundles.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>avec <code>webconfig.prod.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;bundles&quot;: &quot;bundles.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>et <code>bundles.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;javascript&quot;: {
+        &quot;enable&quot;: false,
+        &quot;files&quot;: {
+            &quot;javascript/boot.min.js&quot;: [
+                &quot;javascript/modernizr.js&quot;,
+                &quot;javascript/yepnot.js&quot;,
+                &quot;javascript/html5Shiv.js&quot;
+            ],
+            &quot;javascript/framework.min.js&quot;: [
+                &quot;javascript/jquery.js&quot;,
+                &quot;javascript/jquery-ui.js&quot;,
+                &quot;javascript/prettify.js&quot;,
+                &quot;javascript/prettify/run_prettify.js&quot;
+            ],
+            &quot;javascript/common.min.js&quot;: [
+                &quot;javascript/components/extended-format-date.js&quot;,
+                &quot;javascript/common.js&quot;
+            ]
+        }
+    },
+    &quot;stylesheets&quot;: {
+        &quot;enable&quot;: false,
+        &quot;files&quot;: {
+            &quot;stylesheets/common.min.css&quot;: [
+                &quot;stylesheets/common.css&quot;,
+                &quot;stylesheets/common-min780.css&quot;,
+                &quot;stylesheets/common-min1160.css&quot;
+            ]
+        }
+    }
+}</code></pre><p><em>Note : cette fois il est possible de désactiver les Bundles en ne les incluant pas dans le <code>webconfig</code> en question.</em></p>
+<h3>Autoriser/Interdire les demandes GET/POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;getSupport&quot;: true,
+    &quot;postSupport&quot;: false,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        },
+        &quot;/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;
+        },
+        &quot;/rediger-commentaire/&quot;: {
+            &quot;template&quot;: &quot;write-com.htm&quot;
+        },
+        &quot;/commentaire-sauvegarde/&quot;: {
+            &quot;template&quot;: &quot;save-com.htm&quot;,
+            &quot;getSupport&quot;: false,
+            &quot;postSupport&quot;: true
+        }
+    }
+}</code></pre><p><em>Note : Si rien n'est précisé,</em> <strong><em>getSupport</em></strong> <em>et</em> <strong><em>postSupport</em></strong> <em>sont à</em> <strong><em>true</em></strong> <em>au niveau global et par page.</em></p>
+<h3>Changer les paramètres des Sessions</h3><h4>Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p>
+<ul>
+<li>Key : <code>nodeatlas.sid</code></li>
+<li>Secret : <code>1234567890bépo</code></li>
+</ul>
+<p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p>
+<p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p>
+<pre class="prettyprint source lang-js"><code>{
+    sessionKey: &quot;clé personnelle&quot;,
+    sessionSecret: &quot;secret personnel&quot;
+}</code></pre><p>NodeAtlas utilise également un objes de stockage mémoire (MemoryStore) qui stoques les informations dans la RAM du serveur.</p>
+<h4>Autres paramètres</h4><p>Il est possible de changer l'intégralité des paramètres des sessions (sauf le MemoryStore) en utilisant la configuration de <code>webconfig.json</code> suivante :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;session&quot;: {
+        &quot;key&quot;: &quot;clé personnelle&quot;,
+        &quot;secret&quot;: &quot;secret personnel&quot;,
+        &quot;cookie&quot;: { 
+            &quot;path&quot;: '/', 
+            &quot;httpOnly&quot;: true, 
+            &quot;secure&quot;: false, 
+            &quot;maxAge&quot;: null
+        },
+        ...,
+        ...,
+        ...
+    }
+}</code></pre><p>L'intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p>
+<h3>Stockage externe des Sessions</h3><p>Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p>
+<p>Pour résoudre ce soucis, il convient de prendre en charge l'enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p>
+<p>Pour cela il suffit d'utiliser la fonction <code>setSessions</code> dans le fichier <code>controllers/common.js</code> de la <a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">partie Back-end</a>.</p>
+<h4>Session gérées avec Redis</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans Redis en local.</p>
+<pre class="prettyprint source"><code>var website = {};
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    publics.loadModules = function (NA) {
+        NA.modules.RedisStore = require('connect-redis');
+
+        return NA;
+    };
+
+    publics.setSessions = function (NA, callback) {
+        var session = NA.modules.session,
+            RedisStore = NA.modules.RedisStore(session);
+
+        NA.sessionStore = new RedisStore();
+
+        callback(NA);
+    };  
+
+}(website));
+
+exports.loadModules = website.loadModules;
+exports.setSessions = website.setSessions;</code></pre><p>Plus d'informations sur <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a>.</p>
+<h4>Session gérées avec MongoDB</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans la database <code>sessions</code> d'une MongoDB locale.</p>
+<pre class="prettyprint source"><code>var website = {};
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    publics.loadModules = function (NA) {
+        NA.modules.MongoStore = require('connect-mongo');
+
+        return NA;
+    };
+
+    publics.setSessions = function (NA, callback) {
+        var session = NA.modules.session,
+            MongoStore = NA.modules.MongoStore(session);
+
+        NA.sessionStore = new MongoStore({
+            db: 'sessions'
+        });
+
+        callback(NA);
+    };  
+
+}(website));
+
+exports.loadModules = website.loadModules;
+exports.setSessions = website.setSessions;</code></pre><p>Plus d'informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p>
+<h3>Changer les chevrons &lt;% %&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l'instruction <strong><em>&lt;% include head.htm %&gt;</em></strong>. Il serait possible de le faire avec <strong><em>{{ include head.htm }}</em></strong> avec la configuration ci-dessous :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;templateEngineOpenPattern&quot;: &quot;{{&quot;,
+    &quot;templateEngineClosePattern&quot;: &quot;}}&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
+<p><em>Note : Si rien n'est précisé,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>et</em> <strong><em>templateEngineClosePattern</em></strong> <em>valent respectivement</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
+<h3>Changer l'url final des hostname et port d'écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;urlHostname&quot;: &quot;localhost&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><h3>Générer les urls dynamiquement</h3><h4>Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong>http://localhost</strong><code>impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt</code>../media/images/example.jpg`).</p>
+<p>Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p>
+<pre class="prettyprint source"><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; />
+&lt;!-- ... -->
+&lt;img src=&quot;media/images/example.jpg&quot; />
+&lt;!-- ... -->
+&lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;>&lt;/script></code></pre><p>en urls absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p>
+<pre class="prettyprint source"><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&lt;%= urlBasePath %>stylesheets/common.css&quot; />
+&lt;!-- ... -->
+&lt;img src=&quot;&lt;%= urlBasePath %>media/images/example.jpg&quot; />
+&lt;!-- ... -->
+&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;%= urlBasePath %>javascript/common.js&quot;>&lt;/script></code></pre><p>À noter que dans le cas de la configuration suivante :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p><code>urlBasePath</code> retourne <code>http://localhost/</code> alors que dans celle-ci :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;urlRelativeSubPath&quot;: &quot;/sub/folder&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p><code>urlBasePath</code> retourne <code>http://localhost:7777/sub/folder/</code>.</p>
+<h4>Les chemins des templates</h4><p>En utilisant le webconfig suivant :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;/index.html&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        },
+        &quot;/contact.html&quot;: {
+            &quot;template&quot;: &quot;contact.htm&quot;
+        }
+    }
+}</code></pre><p>ainsi que le template <code>index.htm</code> correspondant</p>
+<pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
+&lt;a href=&quot;http://localhost/index.html&quot;>Lien vers l'accueil&lt;/a>
+&lt;a href=&quot;http://localhost/contact.html&quot;>Lien pour nous contacter&lt;/a>
+&lt;!-- ... --></code></pre><p>je serais obligé de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;routes&quot;: {
+        &quot;/home.html&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        },
+        &quot;/contact-us.html&quot;: {
+            &quot;template&quot;: &quot;contact.htm&quot;
+        }
+    }
+}</code></pre><p>me contraindrait à modifier le template précédent comme suit :</p>
+<pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
+&lt;a href=&quot;http://localhost:7777/home.html&quot;>Lien vers l'accueil&lt;/a>
+&lt;a href=&quot;http://localhost:7777/contact-us.html&quot;>Lien pour nous contacter&lt;/a>
+&lt;!-- ... --></code></pre><p>Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant sont chemin dans la propriété <code>url</code>.</p>
+<p>Avec le webconfig suivant :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;routes&quot;: {
+        &quot;index&quot;: {
+            &quot;url&quot;: &quot;/index.html&quot;,
+            &quot;template&quot;: &quot;index.htm&quot;
+        },
+        &quot;contact&quot;: {
+            &quot;url&quot;: &quot;/contact.html&quot;,
+            &quot;template&quot;: &quot;contact.htm&quot;
+        }
+    }
+}</code></pre><p>je peux à présent écrire le lien dans le template de manière dynamique :</p>
+<ol>
+<li><p>comme suit</p>
+<pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
+&lt;a href=&quot;&lt;%= urlBasePath %>&lt;%= webconfig.routes.home.url.slice(1) %>&quot;>Lien vers l'accueil&lt;/a>
+&lt;a href=&quot;&lt;%= urlBasePath %>&lt;%= webconfig.routes.contact.url.slice(1) %>&quot;>Lien pour nous contacter&lt;/a>
+&lt;!-- ... --></code></pre><p><em>Note : <code>.slice(1)</code> permet de supprimer facilement le double <code>/</code> pour une url fonctionnelle.</em></p>
+</li>
+<li><p>ou comme suit</p>
+<pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
+&lt;a href=&quot;&lt;%= urlBasePath %>.&lt;%= webconfig.routes.home.url %>&quot;>Lien vers l'accueil&lt;/a>
+&lt;a href=&quot;&lt;%= urlBasePath %>.&lt;%= webconfig.routes.contact.url %>&quot;>Lien pour nous contacter&lt;/a>
+&lt;!-- ... --></code></pre><p><em>Note : Cela donnerait par exemple <code>http://localhost/./home.html</code>, ce qui est une url fonctionnelle.</em></p>
+</li>
+<li><p>ou comme suit</p>
+<pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
+&lt;a href=&quot;&lt;%= urlBasePathSlice %>&lt;%= webconfig.routes.home.url %>&quot;>Lien vers l'accueil&lt;/a>
+&lt;a href=&quot;&lt;%= urlBasePathSlice %>&lt;%= webconfig.routes.contact.url %>&quot;>Lien pour nous contacter&lt;/a>
+&lt;!-- ... --></code></pre><p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de  <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
+</li>
+</ol>
+<h2>Commandes de lancement</h2><p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
+<p>Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run</code></pre><h3>--directory</h3><p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous sera alors très utile.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><h3>--webconfig</h3><p>Par défaut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier <code>webconfig.prod.json</code> dont le nom de domaine est différent. Ou encore un <code>webconfig.fr-fr.json</code> avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --webconfig webconfig.alternatif.json</code></pre><h3>--run</h3><p>Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec <code>--generate</code> (voir plus loin).</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --run</code></pre><h3>--httpPort</h3><p>Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --httpPort 7778</code></pre><h3>--generate</h3><p>Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser <code>--generate</code>.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --generate</code></pre><h2>NodeAtlas as npm module</h2><p>Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :</p>
+<p><em>app.js</em></p>
+<pre class="prettyprint source lang-javascript"><code>var nodeAtlas = require(&quot;node-atlas&quot;);
+
+nodeAtlas
+    .config({
+        directory: &quot;&lt;/path/to/your/website/directory/>&quot;,
+        webconfig: &quot;webconfig.alternatif.json&quot;,
+        run: true,
+        httpPort: 7778,
+        generate: true
+    })
+    .init();</code></pre><pre class="prettyprint source"><code>\> node app.js</code></pre><h2>NodeAtlas comme simple serveur web</h2><p>Si NodeAtlas ne trouve pas le « webconfig.json » ou le <code>--webconfig</code> que vous lui aurez indiqué, il se lancera en mode « Simple Serveur Web » ou « Public ».</p>
+<p><strong>Ce mode est pratique pour tester très rapidement que NodeAtlas est correctement installé ou pour créer des petits exemples HTML qui ont besoin d'un serveur web pour fonctionner (retours AJAX, iframe embarquée, etc.).</strong></p>
+<p>Pour bien comprendre ce que cela signifie : s'il existe un quelconque fichier dans le répertoire d'où NodeAtlas a été lancé, il sera renvoyé par requête HTTP si ont le réclame via son chemin d'accès.</p>
+<p>Par exemple, en lançant NodeAtlas dans le répertoire <code>site-hello-world</code></p>
+<pre class="prettyprint source"><code>site-hello-world/
+— templates/
+—— index.htm
+— webconfig.json</code></pre><p>en exécutant la commande </p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>ou même la commande</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --webconfig webconfig.not-exist.json</code></pre><p>le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.</p>
+<p><em>Note : seul les commandes <code>--webconfig</code>, <code>--run</code>, <code>--directory</code> et <code>--httpPort</code> fonctionnent dans ce mode.</em></p>
+<h2>Faire tourner NodeAtlas sur serveur</h2><h3>Dans un environnement Windows Server avec iisnode</h3><p>Dans un environnement Windows Server 2013 avec IIS8 il faut :</p>
+<ol>
+<li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
+<li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
+<li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).</li>
+</ol>
+<h4>Créer une application</h4><p>Dans IIS8, créez un Website et créez une Application.</p>
+<p>Le contenu de votre application sera celui du site mélangé à celui de NodeAtlas. Cela signifie donc que ceci :</p>
+<pre class="prettyprint source"><code>node-atlas/
+— node_modules/
+— languages/
+—— default.json
+— node-atlas.js
+site-hello-world/
+— assets/
+— templates/
+—— index.htm
+— webconfig.json</code></pre><p>devient ceci :</p>
+<pre class="prettyprint source"><code>site-hello-world/
+— node_modules/
+— languages/
+—— default.json
+— assets/
+— templates/
+—— index.htm
+— node-atlas.js
+— webconfig.json</code></pre><p>Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p>
+<pre class="prettyprint source lang-xml"><code>&lt;configuration>
+    &lt;system.webServer>
+        &lt;handlers>
+            &lt;add name=&quot;iisnode&quot; path=&quot;node-atlas.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; />
+        &lt;/handlers>
+        &lt;rewrite>
+            &lt;rules>
+                &lt;rule name=&quot;LogFile&quot; patternSyntax=&quot;ECMAScript&quot; stopProcessing=&quot;true&quot;>
+                     &lt;match url=&quot;^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$&quot;/>
+                &lt;/rule>
+                &lt;rule name=&quot;NodeInspector&quot; patternSyntax=&quot;ECMAScript&quot; stopProcessing=&quot;true&quot;>                    
+                    &lt;match url=&quot;^node-atlas.js\/debug[\/]?&quot; />
+                &lt;/rule>
+                &lt;rule name=&quot;StaticContent&quot;>
+                     &lt;action type=&quot;Rewrite&quot; url=&quot;assets{REQUEST_URI}&quot;/>
+                &lt;/rule>
+                &lt;rule name=&quot;DynamicContent&quot;>
+                     &lt;conditions>
+                          &lt;add input=&quot;{REQUEST_FILENAME}&quot; matchType=&quot;IsFile&quot; negate=&quot;True&quot;/>
+                     &lt;/conditions>
+                     &lt;action type=&quot;Rewrite&quot; url=&quot;node-atlas.js&quot;/>
+                &lt;/rule>
+            &lt;/rules>
+        &lt;/rewrite>
+
+    &lt;/system.webServer>
+&lt;/configuration></code></pre><p>pour au final obtenir :</p>
+<pre class="prettyprint source"><code>site-hello-world/
+— node_modules/
+— languages/
+—— default.json
+— assets/
+— templates/
+—— index.htm
+— node-atlas.js
+— webconfig.json
+— web.config</code></pre><p>Il ne vous restera plus qu'à cliquer sur « Browse <url-of-site> » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.</p>
+<h4>webconfig exemple</h4><p>Un webconfig exemple pour une production :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;urlPort&quot;: 80,
+    &quot;httpPort&quot;: 7777,
+    &quot;httpHostname&quot;: &quot;www.example.fr&quot;,
+    &quot;routes&quot;: {
+        ...
+    }
+}</code></pre><h3>Dans un environnement Unix avec forever</h3><p>Il faut pour cela :</p>
+<ol>
+<li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
+<li>Installer le <a href="https://github.com/nodejitsu/forever">CLI tool forever</a> pour manager vos sites en continue.</li>
+<li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
+</ol>
+<h4>Quelques commandes forever</h4><p>Pous lancer un site en continue il faut utiliser la commande :</p>
+<pre class="prettyprint source"><code>\> forever start &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code> puis utiliser la commande :</p>
+<pre class="prettyprint source"><code>\> forever stop &lt;uid></code></pre><p>ou <uid> est l'<strong>uid</strong> du site qui tourne.</p>
+<h4>webconfig exemple</h4><p>Un webconfig exemple pour une production :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;urlPort&quot;: 80,
+    &quot;httpPort&quot;: 7777,
+    &quot;httpHostname&quot;: &quot;www.example.fr&quot;,
+    &quot;routes&quot;: {
+        ...
+    }
+}</code></pre><p>Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessible sur le port 80.</p>
+<h3>Proxy</h3><h4>Bouncy</h4><p>Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).</p>
+<p>Vous pouvez par exemple :</p>
+<ul>
+<li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
+<li>et en plus lancer un server apache sur le port 81 </li>
+</ul>
+<p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p>
+<p>Voici un exemple de configuration avec Bouncy :</p>
+<p><strong>global-server.js</strong></p>
+<pre class="prettyprint source lang-javascript"><code>var bouncy = require('bouncy');
+
+var server = bouncy(function (request, response, bounce) {
+    if (request.headers.host === 'beep.example.com') {
+        bounce(7777);
+    }
+    else if (request.headers.host === 'blup.example.com') {
+        bounce(7776);
+    }
+    else if (request.headers.host === 'boop.example.com') {
+        bounce(81);
+    }
+    else {
+        response.statusCode = 404;
+        response.end('no such host');
+    }
+});
+
+server.listen(80);</code></pre><p>que vous pouvez lancer avec :</p>
+<pre class="prettyprint source"><code>\> forever start &lt;/path/to/>global-server.js</code></pre><p><a href="https://github.com/substack/bouncy">Plus d'informations sur Bouncy</a></p>
+<h2>À propos de l'architecture de NodeAtlas</h2><p>NodeAtlas est fait de tel sorte que l'objet <code>NA</code> contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.</p>
+<p>Tous les messages d'erreurs se trouvent dans <code>/languages/default.json</code>. Si vous souhaitez les modifier, il suffit de dupliquer le fichier <code>default.json</code> et de le renommer en <code>fr-fr.json</code>, et de modifier la langue de l'original.</p>
+<p>Pour finir <a href="http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/">l'appoche publics/privates de l'architecture est expliqué dans cette article</a>.</p></article>
+    </section>
+
 
 
 
@@ -487,7 +2542,7 @@
         
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.25.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.25.1</li></ul></dd>
     
     
     
@@ -552,7 +2607,7 @@
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Fri Nov 28 2014 16:25:56 GMT+0100 (Paris, Madrid)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Sat Nov 29 2014 12:05:22 GMT+0100 (Paris, Madrid)
         </footer>
     </div>
 </div>
