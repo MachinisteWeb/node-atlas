@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.25.0
+ * @version 0.25.1
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  */
 
@@ -76,7 +76,7 @@ var NA = {};
 
         commander
             /** Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.25.0')
+            .version('0.25.1')
 
             /** Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -1987,11 +1987,11 @@ var NA = {};
             /**
              * Expose all data from `<currentRoute>` sitring from `routes` from webconfig.
              * @public
-             * @alias pageRoute
-             * @type {Object}
+             * @alias currentRoute
+             * @type {string}
              * @memberOf NA#currentVariation
              */
-            currentVariation.pageRoute = currentPath;
+            currentVariation.currentRoute = currentPath;
 
             /**
              * Expose all webconfig values.

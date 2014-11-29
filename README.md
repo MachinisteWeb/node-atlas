@@ -2,6 +2,10 @@
 
 Version : 0.25.0 (Beta)
 
+**For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
+
+
+
 ## Avant-propos ##
 
 NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/). Elle permet trois choses :
@@ -38,6 +42,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Lancer le site avec NodeAtlas](#lancer-le-site-avec-nodeatlas)
 - [Différentes configurations du webconfig.json](#diff%C3%A9rentes-configurations-du-webconfigjson)
  - [Plusieurs pages](#plusieurs-pages)
+ - [Raccourci de template](#raccourci-de-template)
  - [Héberger des images, polices, CSS, JS, etc.](#h%C3%A9berger-des-images-polices-css-js-etc)
  - [Gérer des inclusions pour éviter la redondance du code](#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code)
  - [Gérer des variations au sein d'un même template](#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template)
@@ -97,11 +102,12 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Lancement rapide sans « webconfig » juste en tant que simple serveur web.
  - Routage partagé via un fichier externe.
  - Bundle partagé via un fichier externe.
-
-- À venir 
  - Documentation de l'API (documentation JSDoc du fichier node-atlas.js)
- - Compression des images.
  - Exemple de Socket.IO 1.0 avec Handshake.
+
+- À venir
+ - Traduction du fichier README.md en anglais.
+ - Compression des images.
  - Support Sass/Less.
  - Injection automatique de feuille CSS en style inline (pour les maquettes email).
  - Auto-déploiement via transfert (S)FTP.
@@ -123,11 +129,11 @@ En complément de ce README (Fr), vous avez également accès au,
 
 Il y a plusieurs solutions pour installer Node-Atlas :
 
-- Télécharger NodeAtlas depuis le site officiel [NodeAtlas](https://haeresis.github.com/NodeAtlas/).
+- Télécharger NodeAtlas depuis le site officiel [NodeAtlas](https://github.com/Haeresis/NodeAtlas).
 
    _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
 
-   **Lancez au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/node-atlas.js`, pour installer les _node_modules_.**
+   **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/node-atlas.js`, pour installer les _node_modules_.**
 
 - `npm install node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans un projet).
 
@@ -225,7 +231,7 @@ Vous aurez alors accès à votre « Hello World » à la page : *http://localhos
 
 Vous pouvez également utiliser NodeAtlas comme un module npm.
 
-*app.js*
+*server.js*
 
 ```javascript
 var nodeAtlas = require("node-atlas");
@@ -291,7 +297,7 @@ aux adresses :
 - *http://localhost/member-without-extension/* (ne répondra pas si demandée en GET)
 - *http://localhost/error.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404)
 
-*Note : Si* ***templatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***templates/***. ***templatesRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***templatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des templates est bien* ***templates/***. ***templatesRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -459,7 +465,7 @@ webconfig.json
     
     <div>
         <h1>Liste des members</h1>
-        <p>C'est la page des membres</p>
+        <p>C'est la page des membres.</p>
     </div>
     
     <% include foot.htm %>
@@ -476,7 +482,7 @@ vous aurez accès aux adresses :
 
 ### Gérer des variations au sein d'un même template ###
 
-Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (pratique en mode génération d'assets HTML). Activer les variations avec la configuration suivante :
+Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (utile en mode génération d'assets HTML). Activer les variations avec la configuration suivante :
 
 ```js
 {
@@ -581,9 +587,9 @@ webconfig.json
 
 ```js
 {
-    "titlePage": "Liste des members",
+    "titlePage": "Liste des membres",
     "classPage": "members",
-    "content": "<p>C'est la page des membres</p>"
+    "content": "<p>C'est la page des membres.</p>"
 }
 ```
 
@@ -859,7 +865,7 @@ Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exe
 
 
 
-### Utiliser NodeAtlas pour générer des assets HTML###
+### Utiliser NodeAtlas pour générer des assets HTML ###
 
 #### Générer des assets HTML ####
 
@@ -1059,7 +1065,7 @@ var website = {};
         NA.modules.socketio = require(NA.websiteModulesPath + 'socket.io');
 
         // Aller chercher un module spécifiquement dans le `node_modules` du moteur NodeAtlas.
-        NA.modules.socketio = require(NA.nodeAtlasModulesPath + 'ejs.io');
+        NA.modules.ejs = require(NA.nodeAtlasModulesPath + 'ejs.io');
 
         // Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
         return NA;
@@ -1083,7 +1089,8 @@ var website = {};
         // Connexion à la base « blog ».
         mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
             if (error) {
-                throw error;
+                console.log("La base '" + address + "' n'est pas accessible.");
+                process.kill(process.pid);
             };
 
             // Suite.
@@ -1092,32 +1099,32 @@ var website = {};
         
         // Gestion de connexion.
         mongoose.connection.on('error', function (error) {
-            console.log('Erreur pour la connexion par défaut à Mongoose: ' + error);
+            console.log('Erreur pour la connexion par défaut à Mongoose : ' + error);
         });
 
         // Gestion des déconnexion.
         mongoose.connection.on('disconnected', function () {
-            console.log('Connexion par défaut à Mongoose déconnectée.');
+            console.log('Déconnexion de Mongoose.');
         });
         process.on('SIGINT', function (error) {
             mongoose.connection.close(function () {
-                console.log('Connexion par défaut à Mongoose déconnectée en raison de l\'arrêt de l\'app termination');
+                console.log("Déconnexion de Mongoose en raison de l'arrêt de l'app.");
                 process.exit(0);
             });
         });
     };
 
     // Mise à disposition des Schémas Mongoose.
-    privates.mongooseShemas = function (mongoose) {
-        publics.shemas = {};
+    privates.mongooseSchemas = function (mongoose) {
+        publics.schema = {};
 
         // Chargement des Schémas.
-        publics.shemas.article = require('../models/Article');
-        publics.shemas.category = require('../models/Category');
+        publics.schema.article = require('../models/Article');
+        publics.schema.category = require('../models/Category');
 
         // Mise à disposition des Schémas.
-        mongoose.model('article', website.shemas.article, 'article');
-        mongoose.model('category', website.shemas.category, 'category');
+        mongoose.model('article', website.schema.article, 'article');
+        mongoose.model('category', website.schema.category, 'category');
     };
 
     // Exemple d'utilisation de Socket.IO.
@@ -1167,11 +1174,11 @@ var website = {};
         params.io = io;
         params.NA = NA;
 
-        // Évênements pour la page article (voir exemple dans le fichier d'après).
+        // Évênements pour la page index (voir exemple dans le fichier d'après).
         require('./index').asynchrone(params);
     };
 
-    // Configuration de tous les modules
+    // Configuration de tous les modules.
     publics.setConfigurations = function (NA, callback) {
         var mongoose = NA.modules.mongoose,
             socketio = NA.modules.socketio;
@@ -1180,7 +1187,7 @@ var website = {};
         privates.mongooseInitialization(mongoose, function (mongoose) {
 
             // Injection de Schémas dans Mongoose.
-            privates.mongooseShemas(mongoose);
+            privates.mongooseSchemas(mongoose);
 
             // Initialisation de Socket IO.
             privates.socketIoInitialisation(socketio, NA, function (io) {
@@ -1188,7 +1195,7 @@ var website = {};
                 // Écoute d'action Socket IO.
                 privates.socketIoEvents(io, NA);
 
-                // Ré-injection do l'objet « NodeAtlas » surchargé dans le moteur.
+                // Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
                 callback(NA);                   
             });
         });
@@ -1221,9 +1228,9 @@ var website = {};
 
 
 
-/**********************************************************/
-/* Interception dela sortie HTML pour jQuery côté serveur */
-/**********************************************************/
+/***********************************************************/
+/* Interception de la sortie HTML pour jQuery côté serveur */
+/***********************************************************/
 
 (function (publics) {
     "use strict";
@@ -1244,7 +1251,7 @@ var website = {};
 
 
 /**************************************************************/
-/* Mise à dispositions des fonctionr pour le moteur NodeAtlas */
+/* Mise à dispositions des fonction pour le moteur NodeAtlas */
 /**************************************************************/
 
 exports.loadModules = website.loadModules;
@@ -1253,7 +1260,7 @@ exports.preRender = website.preRender;
 exports.render = website.render;
 ```
 
-Au lieu de se servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :
+Au lieu de se servir de `preRender` et `render` dans le fichier common.js effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :
 
 ```js
 {
@@ -1303,7 +1310,6 @@ avec un fichier « index.js » contenant par exemple :
 
 ```js
 var website = {};
-website.index = {};
 
 
 
@@ -1326,21 +1332,25 @@ website.index = {};
             Article = mongoose.model('article');
 
 
-        // Interception possible de toutes les variables de « variation/common.js ».
-        console.log(variation.common.title); // Renvoi le titre stocké dans « variation/common.js ».
+        // Interception possible de toutes les variables de « variations/common.js ».
+        console.log(variation.common.title); // Renvoi le titre stocké dans « variations/common.js ».
         variation.common.title = "Nouveau title"; // Redéfini un titre.
-        console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via « <%= common.title ». 
+        console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via `<%= common.title %>`. 
 
-        // Interception possible de toutes les variables de « variation/index.js » (car on est dans le spécific « index.js »).
-        variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via « <%= specific.title ».
-        variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « <%= specific.newProperty ».
+        // Interception possible de toutes les variables de « variations/index.js » (car on est dans le spécific « index.js »).
+        variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via `<%= specific.title %>`.
+        variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via `<%= specific.newProperty %>`.
 
         // Interception possible de la configuration de la page courante.
-        console.log(variation.pageRoutes) // Retourne « / » pour « index », « /categories/ » pour categories, etc.
-        if (/* test de non existance */) { 
-            variation.currentRouteParameters.statusCode = 404; // La page sera en 404.
+        console.log(variation.currentRoute) // Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.
+
+        // On test une variable créer de toute pièce dans le webconfig.
+        if (variation.webconfig._websiteIsClosed) { 
+            // La page sera en 404.
+            variation.currentRouteParameters.statusCode = 404;
         } else {
-            variation.currentRouteParameters.statusCode = 200; // La page sera en 200.
+            // La page sera en 200.
+            variation.currentRouteParameters.statusCode = 200;
         }
 
         // Création d'un nouvel ensemble de variation dynamique pour les templates.
@@ -1356,7 +1366,7 @@ website.index = {};
         });
     };
 
-}(website.index));
+}(website));
 
 
 
@@ -1398,7 +1408,7 @@ website.index = {};
         });
     };
 
-}(website.index));
+}(website));
 
 
 
@@ -1452,7 +1462,7 @@ website.index = {};
         });
     };
 
-}(website.index));
+}(website));
 
 
 
@@ -1460,9 +1470,9 @@ website.index = {};
 /* Interception de la sortie HTML pour jQuery côté serveur */
 /***********************************************************/
 
-exports.preRender = website.index.preRender;
-exports.render = website.index.render;
-exports.asynchrone = website.index.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
+exports.preRender = website.preRender;
+exports.render = website.render;
+exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
 ```
 
 *Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien* ***controllers/***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
