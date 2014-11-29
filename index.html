@@ -31,7 +31,9 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.25.0 (Beta)</p>
+<p>Version : 0.25.1 (Beta)</p>
+
+<p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
 <h2>
 <a id="avant-propos" class="anchor" href="#avant-propos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Avant-propos</h2>
@@ -91,6 +93,7 @@
 
 <ul>
 <li><a href="#plusieurs-pages">Plusieurs pages</a></li>
+<li><a href="#raccourci-de-template">Raccourci de template</a></li>
 <li><a href="#h%C3%A9berger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</a></li>
 <li><a href="#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code">Gérer des inclusions pour éviter la redondance du code</a></li>
 <li><a href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template">Gérer des variations au sein d'un même template</a></li>
@@ -166,15 +169,16 @@
 <li>Lancement rapide sans « webconfig » juste en tant que simple serveur web.</li>
 <li>Routage partagé via un fichier externe.</li>
 <li>Bundle partagé via un fichier externe.</li>
+<li>Documentation de l'API (documentation JSDoc du fichier node-atlas.js)</li>
+<li>Exemple de Socket.IO 1.0 avec Handshake.</li>
 </ul>
 </li>
 <li>
-<p>À venir </p>
+<p>À venir</p>
 
 <ul>
-<li>Documentation de l'API (documentation JSDoc du fichier node-atlas.js)</li>
+<li>Traduction du fichier README.md en anglais.</li>
 <li>Compression des images.</li>
-<li>Exemple de Socket.IO 1.0 avec Handshake.</li>
 <li>Support Sass/Less.</li>
 <li>Injection automatique de feuille CSS en style inline (pour les maquettes email).</li>
 <li>Auto-déploiement via transfert (S)FTP.</li>
@@ -202,11 +206,11 @@
 
 <ul>
 <li>
-<p>Télécharger NodeAtlas depuis le site officiel <a href="https://haeresis.github.com/NodeAtlas/">NodeAtlas</a>.</p>
+<p>Télécharger NodeAtlas depuis le site officiel <a href="https://github.com/Haeresis/NodeAtlas">NodeAtlas</a>.</p>
 
 <p><em>Une fois téléchargé, dézippez <strong>NodeAtlas</strong> dans le dossier qui vous conviendra.</em></p>
 
-<p><strong>Lancez au moins une fois NodeAtlas à la ligne de commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, pour installer les <em>node_modules</em>.</strong></p>
+<p><strong>Lancer au moins une fois NodeAtlas à la ligne de commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, pour installer les <em>node_modules</em>.</strong></p>
 </li>
 <li>
 <p><code>npm install node-atlas</code> (recommandé pour un <a href="#nodeatlas-comme-module-npm">usage sous forme de module</a> dans un projet).</p>
@@ -298,7 +302,7 @@
 
 <p>Vous pouvez également utiliser NodeAtlas comme un module npm.</p>
 
-<p><em>app.js</em></p>
+<p><em>server.js</em></p>
 
 <div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> nodeAtlas <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>);
 
@@ -362,7 +366,7 @@ webconfig.json
 <em>http://localhost/error.html</em> (renvoi du contenu plein texte (sans balise) avec une erreur 404)</li>
 </ul>
 
-<p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+<p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des templates est bien</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
 <a id="raccourci-de-template" class="anchor" href="#raccourci-de-template" aria-hidden="true"><span class="octicon octicon-link"></span></a>Raccourci de template</h3>
@@ -510,7 +514,7 @@ webconfig.json
 
     &lt;<span class="pl-ent">div</span>&gt;
         &lt;<span class="pl-ent">h1</span>&gt;Liste des members&lt;/<span class="pl-ent">h1</span>&gt;
-        &lt;<span class="pl-ent">p</span>&gt;C'est la page des membres&lt;/<span class="pl-ent">p</span>&gt;
+        &lt;<span class="pl-ent">p</span>&gt;C'est la page des membres.&lt;/<span class="pl-ent">p</span>&gt;
     &lt;/<span class="pl-ent">div</span>&gt;
 
     &lt;% include foot.htm %&gt;</pre></div>
@@ -527,7 +531,7 @@ webconfig.json
 <h3>
 <a id="gérer-des-variations-au-sein-dun-même-template" class="anchor" href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gérer des variations au sein d'un même template</h3>
 
-<p>Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (pratique en mode génération d'assets HTML). Activer les variations avec la configuration suivante :</p>
+<p>Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (utile en mode génération d'assets HTML). Activer les variations avec la configuration suivante :</p>
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>commonVariation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>common.json<span class="pl-pds">"</span></span>,
@@ -618,9 +622,9 @@ webconfig.json
 <p><em>variations/members.json</em></p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s1"><span class="pl-pds">"</span>titlePage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>Liste des members<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>titlePage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>Liste des membres<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>classPage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members<span class="pl-pds">"</span></span>,
-    <span class="pl-s1"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>&lt;p&gt;C'est la page des membres&lt;/p&gt;<span class="pl-pds">"</span></span>
+    <span class="pl-s1"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>&lt;p&gt;C'est la page des membres.&lt;/p&gt;<span class="pl-pds">"</span></span>
 }</pre></div>
 
 <p>vous aurez accès aux adresses :</p>
@@ -1071,7 +1075,7 @@ webconfig.json
         NA.modules.socketio <span class="pl-k">=</span> <span class="pl-s3">require</span>(NA.websiteModulesPath <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span>socket.io<span class="pl-pds">'</span></span>);
 
         <span class="pl-c">// Aller chercher un module spécifiquement dans le `node_modules` du moteur NodeAtlas.</span>
-        NA.modules.socketio <span class="pl-k">=</span> <span class="pl-s3">require</span>(NA.nodeAtlasModulesPath <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span>ejs.io<span class="pl-pds">'</span></span>);
+        NA.modules.ejs <span class="pl-k">=</span> <span class="pl-s3">require</span>(NA.nodeAtlasModulesPath <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span>ejs.io<span class="pl-pds">'</span></span>);
 
         <span class="pl-c">// Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.</span>
         <span class="pl-k">return</span> NA;
@@ -1095,7 +1099,8 @@ webconfig.json
         <span class="pl-c">// Connexion à la base « blog ».</span>
         mongoose.connect(<span class="pl-s1"><span class="pl-pds">'</span>mongodb://127.0.0.1:27017/blog<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">error</span>) {
             <span class="pl-k">if</span> (error) {
-                <span class="pl-k">throw</span> error;
+                <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>La base '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> address <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">"</span>' n'est pas accessible.<span class="pl-pds">"</span></span>);
+                <span class="pl-sv">process</span>.kill(<span class="pl-sv">process</span>.pid);
             };
 
             <span class="pl-c">// Suite.</span>
@@ -1104,32 +1109,32 @@ webconfig.json
 
         <span class="pl-c">// Gestion de connexion.</span>
         mongoose.connection.on(<span class="pl-s1"><span class="pl-pds">'</span>error<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">error</span>) {
-            <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Erreur pour la connexion par défaut à Mongoose: <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
+            <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Erreur pour la connexion par défaut à Mongoose : <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
         });
 
         <span class="pl-c">// Gestion des déconnexion.</span>
         mongoose.connection.on(<span class="pl-s1"><span class="pl-pds">'</span>disconnected<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> () {
-            <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Connexion par défaut à Mongoose déconnectée.<span class="pl-pds">'</span></span>);
+            <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Déconnexion de Mongoose.<span class="pl-pds">'</span></span>);
         });
         <span class="pl-sv">process</span>.on(<span class="pl-s1"><span class="pl-pds">'</span>SIGINT<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">error</span>) {
             mongoose.connection.<span class="pl-s3">close</span>(<span class="pl-st">function</span> () {
-                <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Connexion par défaut à Mongoose déconnectée en raison de l<span class="pl-cce">\'</span>arrêt de l<span class="pl-cce">\'</span>app termination<span class="pl-pds">'</span></span>);
+                <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>Déconnexion de Mongoose en raison de l'arrêt de l'app.<span class="pl-pds">"</span></span>);
                 <span class="pl-sv">process</span>.exit(<span class="pl-c1">0</span>);
             });
         });
     };
 
     <span class="pl-c">// Mise à disposition des Schémas Mongoose.</span>
-    <span class="pl-s3">privates</span>.<span class="pl-en">mongooseShemas</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">mongoose</span>) {
-        publics.shemas <span class="pl-k">=</span> {};
+    <span class="pl-s3">privates</span>.<span class="pl-en">mongooseSchemas</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">mongoose</span>) {
+        publics.schema <span class="pl-k">=</span> {};
 
         <span class="pl-c">// Chargement des Schémas.</span>
-        publics.shemas.article <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>../models/Article<span class="pl-pds">'</span></span>);
-        publics.shemas.category <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>../models/Category<span class="pl-pds">'</span></span>);
+        publics.schema.article <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>../models/Article<span class="pl-pds">'</span></span>);
+        publics.schema.category <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>../models/Category<span class="pl-pds">'</span></span>);
 
         <span class="pl-c">// Mise à disposition des Schémas.</span>
-        mongoose.model(<span class="pl-s1"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>, website.shemas.article, <span class="pl-s1"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
-        mongoose.model(<span class="pl-s1"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>, website.shemas.category, <span class="pl-s1"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>);
+        mongoose.model(<span class="pl-s1"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>, website.schema.article, <span class="pl-s1"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
+        mongoose.model(<span class="pl-s1"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>, website.schema.category, <span class="pl-s1"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>);
     };
 
     <span class="pl-c">// Exemple d'utilisation de Socket.IO.</span>
@@ -1179,11 +1184,11 @@ webconfig.json
         params.io <span class="pl-k">=</span> io;
         params.NA <span class="pl-k">=</span> NA;
 
-        <span class="pl-c">// Évênements pour la page article (voir exemple dans le fichier d'après).</span>
+        <span class="pl-c">// Évênements pour la page index (voir exemple dans le fichier d'après).</span>
         <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>./index<span class="pl-pds">'</span></span>).asynchrone(params);
     };
 
-    <span class="pl-c">// Configuration de tous les modules</span>
+    <span class="pl-c">// Configuration de tous les modules.</span>
     <span class="pl-s3">publics</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">NA</span>, <span class="pl-vpf">callback</span>) {
         <span class="pl-s">var</span> mongoose <span class="pl-k">=</span> NA.modules.mongoose,
             socketio <span class="pl-k">=</span> NA.modules.socketio;
@@ -1192,7 +1197,7 @@ webconfig.json
         privates.mongooseInitialization(mongoose, <span class="pl-st">function</span> (<span class="pl-vpf">mongoose</span>) {
 
             <span class="pl-c">// Injection de Schémas dans Mongoose.</span>
-            privates.mongooseShemas(mongoose);
+            privates.mongooseSchemas(mongoose);
 
             <span class="pl-c">// Initialisation de Socket IO.</span>
             privates.socketIoInitialisation(socketio, NA, <span class="pl-st">function</span> (<span class="pl-vpf">io</span>) {
@@ -1200,7 +1205,7 @@ webconfig.json
                 <span class="pl-c">// Écoute d'action Socket IO.</span>
                 privates.socketIoEvents(io, NA);
 
-                <span class="pl-c">// Ré-injection do l'objet « NodeAtlas » surchargé dans le moteur.</span>
+                <span class="pl-c">// Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.</span>
                 callback(NA);                   
             });
         });
@@ -1233,9 +1238,9 @@ webconfig.json
 
 
 
-<span class="pl-c">/**********************************************************/</span>
-<span class="pl-c">/* Interception dela sortie HTML pour jQuery côté serveur */</span>
-<span class="pl-c">/**********************************************************/</span>
+<span class="pl-c">/***********************************************************/</span>
+<span class="pl-c">/* Interception de la sortie HTML pour jQuery côté serveur */</span>
+<span class="pl-c">/***********************************************************/</span>
 
 (<span class="pl-st">function</span> (<span class="pl-vpf">publics</span>) {
     <span class="pl-s1"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
@@ -1256,7 +1261,7 @@ webconfig.json
 
 
 <span class="pl-c">/**************************************************************/</span>
-<span class="pl-c">/* Mise à dispositions des fonctionr pour le moteur NodeAtlas */</span>
+<span class="pl-c">/* Mise à dispositions des fonction pour le moteur NodeAtlas */</span>
 <span class="pl-c">/**************************************************************/</span>
 
 <span class="pl-sv">exports</span>.loadModules <span class="pl-k">=</span> website.loadModules;
@@ -1264,7 +1269,7 @@ webconfig.json
 <span class="pl-sv">exports</span>.preRender <span class="pl-k">=</span> website.preRender;
 <span class="pl-sv">exports</span>.render <span class="pl-k">=</span> website.render;</pre></div>
 
-<p>Au lieu de se servir de preRender et render dans le fichier common.js effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :</p>
+<p>Au lieu de se servir de <code>preRender</code> et <code>render</code> dans le fichier common.js effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :</p>
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
@@ -1312,7 +1317,6 @@ webconfig.json
 </ul>
 
 <div class="highlight highlight-js"><pre><span class="pl-s">var</span> website <span class="pl-k">=</span> {};
-website.<span class="pl-sc">index</span> <span class="pl-k">=</span> {};
 
 
 
@@ -1335,21 +1339,25 @@ website.<span class="pl-sc">index</span> <span class="pl-k">=</span> {};
             Article <span class="pl-k">=</span> mongoose.model(<span class="pl-s1"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
 
 
-        <span class="pl-c">// Interception possible de toutes les variables de « variation/common.js ».</span>
-        <span class="pl-en">console</span><span class="pl-s3">.log</span>(variation.common.<span class="pl-sc">title</span>); <span class="pl-c">// Renvoi le titre stocké dans « variation/common.js ».</span>
+        <span class="pl-c">// Interception possible de toutes les variables de « variations/common.js ».</span>
+        <span class="pl-en">console</span><span class="pl-s3">.log</span>(variation.common.<span class="pl-sc">title</span>); <span class="pl-c">// Renvoi le titre stocké dans « variations/common.js ».</span>
         variation.common.<span class="pl-sc">title</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre.</span>
-        <span class="pl-en">console</span><span class="pl-s3">.log</span>(variation.common.<span class="pl-sc">title</span>); <span class="pl-c">// Renvoi « Nouveau title » et est accessible côté template via « &lt;%= common.title ». </span>
+        <span class="pl-en">console</span><span class="pl-s3">.log</span>(variation.common.<span class="pl-sc">title</span>); <span class="pl-c">// Renvoi « Nouveau title » et est accessible côté template via `&lt;%= common.title %&gt;`. </span>
 
-        <span class="pl-c">// Interception possible de toutes les variables de « variation/index.js » (car on est dans le spécific « index.js »).</span>
-        variation.specific.<span class="pl-sc">title</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre qui est accessible côté template via « &lt;%= specific.title ».</span>
-        variation.specific.newProperty <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>Nouvelle propriété<span class="pl-pds">"</span></span>; <span class="pl-c">// Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via « &lt;%= specific.newProperty ».</span>
+        <span class="pl-c">// Interception possible de toutes les variables de « variations/index.js » (car on est dans le spécific « index.js »).</span>
+        variation.specific.<span class="pl-sc">title</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre qui est accessible côté template via `&lt;%= specific.title %&gt;`.</span>
+        variation.specific.newProperty <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>Nouvelle propriété<span class="pl-pds">"</span></span>; <span class="pl-c">// Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via `&lt;%= specific.newProperty %&gt;`.</span>
 
         <span class="pl-c">// Interception possible de la configuration de la page courante.</span>
-        <span class="pl-en">console</span><span class="pl-s3">.log</span>(variation.pageRoutes) <span class="pl-c">// Retourne « / » pour « index », « /categories/ » pour categories, etc.</span>
-        <span class="pl-k">if</span> (<span class="pl-c">/* test de non existance */</span>) { 
-            variation.currentRouteParameters.statusCode <span class="pl-k">=</span> <span class="pl-c1">404</span>; <span class="pl-c">// La page sera en 404.</span>
+        <span class="pl-en">console</span><span class="pl-s3">.log</span>(variation.currentRoute) <span class="pl-c">// Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.</span>
+
+        <span class="pl-c">// On test une variable créer de toute pièce dans le webconfig.</span>
+        <span class="pl-k">if</span> (variation.webconfig._websiteIsClosed) { 
+            <span class="pl-c">// La page sera en 404.</span>
+            variation.currentRouteParameters.statusCode <span class="pl-k">=</span> <span class="pl-c1">404</span>;
         } <span class="pl-k">else</span> {
-            variation.currentRouteParameters.statusCode <span class="pl-k">=</span> <span class="pl-c1">200</span>; <span class="pl-c">// La page sera en 200.</span>
+            <span class="pl-c">// La page sera en 200.</span>
+            variation.currentRouteParameters.statusCode <span class="pl-k">=</span> <span class="pl-c1">200</span>;
         }
 
         <span class="pl-c">// Création d'un nouvel ensemble de variation dynamique pour les templates.</span>
@@ -1365,7 +1373,7 @@ website.<span class="pl-sc">index</span> <span class="pl-k">=</span> {};
         });
     };
 
-}(website.<span class="pl-sc">index</span>));
+}(website));
 
 
 
@@ -1407,7 +1415,7 @@ website.<span class="pl-sc">index</span> <span class="pl-k">=</span> {};
         });
     };
 
-}(website.<span class="pl-sc">index</span>));
+}(website));
 
 
 
@@ -1461,7 +1469,7 @@ website.<span class="pl-sc">index</span> <span class="pl-k">=</span> {};
         });
     };
 
-}(website.<span class="pl-sc">index</span>));
+}(website));
 
 
 
@@ -1469,9 +1477,9 @@ website.<span class="pl-sc">index</span> <span class="pl-k">=</span> {};
 <span class="pl-c">/* Interception de la sortie HTML pour jQuery côté serveur */</span>
 <span class="pl-c">/***********************************************************/</span>
 
-<span class="pl-sv">exports</span>.preRender <span class="pl-k">=</span> website.<span class="pl-sc">index</span>.preRender;
-<span class="pl-sv">exports</span>.render <span class="pl-k">=</span> website.<span class="pl-sc">index</span>.render;
-<span class="pl-sv">exports</span>.asynchrone <span class="pl-k">=</span> website.<span class="pl-sc">index</span>.asynchrone; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
+<span class="pl-sv">exports</span>.preRender <span class="pl-k">=</span> website.preRender;
+<span class="pl-sv">exports</span>.render <span class="pl-k">=</span> website.render;
+<span class="pl-sv">exports</span>.asynchrone <span class="pl-k">=</span> website.asynchrone; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
 
 <p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers/</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
