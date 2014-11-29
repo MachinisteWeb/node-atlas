@@ -1985,11 +1985,12 @@ var NA = {};
             currentVariation.currentRouteParameters = currentRouteParameters;
 
             /**
-             * Expose all data from `<currentRoute>` sitring from `routes` from webconfig.
+             * Expose route of current page from current webconfig `routes`.
              * @public
              * @alias currentRoute
              * @type {string}
              * @memberOf NA#currentVariation
+             * @example /categories/:category/
              */
             currentVariation.currentRoute = currentPath;
 
