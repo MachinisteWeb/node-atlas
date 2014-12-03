@@ -96,8 +96,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.25.3 (Beta)</p>
-<p>THIS FILE IS STILL IN TRADUCTION...</p>
+        <article><h1>node-atlas</h1><p>Version : 0.25.4 (Beta)</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -147,11 +146,11 @@
 <li><a href="#change settings of sessions">Change settings of Sessions</a></li>
 <li><a href="#external storage sessions">External Storage Sessions</a></li>
 <li><a href="#Changing the template engine brackets -">Changing the template engine brackets &lt;% %&gt;</a></li>
-<li><a href="#change the end of the url hostname and listen port">Change the end of the url hostname and listen port</a></li>
+<li><a href="#change the url hostname and listening port">Change the url hostname and listening port</a></li>
 <li><a href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement">Générer les urls dynamiquement</a></li>
 </ul>
 </li>
-<li><a href="#commandes-de-lancement">Commandes de lancement</a><ul>
+<li><a href="#running commands">Running commands</a><ul>
 <li><a href="#--directory">--directory</a></li>
 <li><a href="#--webconfig">--webconfig</a></li>
 <li><a href="#--run">--run</a></li>
@@ -160,14 +159,14 @@
 </ul>
 </li>
 <li><a href="#nodeatlas-as-npm-module">NodeAtlas as npm module</a></li>
-<li><a href="#nodeatlas-comme-simple-serveur-web">NodeAtlas comme simple serveur web</a></li>
-<li><a href="#faire-tourner-nodeatlas-sur-server">Faire tourner NodeAtlas sur server</a><ul>
-<li><a href="#dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</a></li>
-<li><a href="#dans-un-environnement-unix-avec-forever">Dans un environnement Unix avec forever</a></li>
+<li><a href="#nodeatlas as a simple web server">NodeAtlas as a simple web server</a></li>
+<li><a href="#running nodeatlas on online server">Running NodeAtlas on online server</a><ul>
+<li><a href="#in a windows server environment with iisnode">In a Windows Server environment with iisnode</a></li>
+<li><a href="#in a unix environment with forever">In a Unix environment with forever</a></li>
 <li><a href="#proxy">Proxy</a></li>
 </ul>
 </li>
-<li><a href="#a-propos-de-l-architecture-de-nodeatlas">À propos de l'architecture de NodeAtlas</a></li>
+<li><a href="#a-propos-de-l-architecture-de-nodeatlas">About architecture NodeAtlas</a></li>
 </ul>
 <h3>Roadmap of Development Progress</h3><ul>
 <li><p>Done</p>
@@ -1891,8 +1890,7 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
     }
 }</code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
 <p><em>Note : If nothing is set,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>and</em> <strong><em>templateEngineClosePattern</em></strong> <em>are set to</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
-<h3>Change the end of the url hostname and listen port</h3><p>Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
-It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p>
+<h3>Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
@@ -1903,25 +1901,25 @@ It is possible to generate a different url listening other port with <strong><em
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><h3>Générer les urls dynamiquement</h3><h4>Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong>http://localhost</strong><code>impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt</code>../media/images/example.jpg`).</p>
-<p>Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p>
+}</code></pre><h3>Generate urls dynamically</h3><h4>Relative paths in absolute</h4><p>It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong>http://localhost</strong><code>impossible to reach when the template is displayed to address **http://localhost/sub-directory/** (because the path should be</code>../media/images/example.jpg`).</p>
+<p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the urls such as:</p>
 <pre class="prettyprint source"><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; />
 &lt;!-- ... -->
 &lt;img src=&quot;media/images/example.jpg&quot; />
 &lt;!-- ... -->
-&lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;>&lt;/script></code></pre><p>en urls absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p>
+&lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;>&lt;/script></code></pre><p>in absolute urls with variable <code>urlBasePath</code> as below:</p>
 <pre class="prettyprint source"><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&lt;%= urlBasePath %>stylesheets/common.css&quot; />
 &lt;!-- ... -->
 &lt;img src=&quot;&lt;%= urlBasePath %>media/images/example.jpg&quot; />
 &lt;!-- ... -->
-&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;%= urlBasePath %>javascript/common.js&quot;>&lt;/script></code></pre><p>À noter que dans le cas de la configuration suivante :</p>
+&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;%= urlBasePath %>javascript/common.js&quot;>&lt;/script></code></pre><p>Note that in the case of the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p><code>urlBasePath</code> retourne <code>http://localhost/</code> alors que dans celle-ci :</p>
+}</code></pre><p><code>urlBasePath</code> return <code>http://localhost/</code> while in this configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;urlRelativeSubPath&quot;: &quot;/sub/folder&quot;,
@@ -1930,8 +1928,8 @@ It is possible to generate a different url listening other port with <strong><em
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p><code>urlBasePath</code> retourne <code>http://localhost:7777/sub/folder/</code>.</p>
-<h4>Les chemins des templates</h4><p>En utilisant le webconfig suivant :</p>
+}</code></pre><p><code>urlBasePath</code> return <code>http://localhost:7777/sub/folder/</code>.</p>
+<h4>The paths of templates</h4><p>Using the following webconfig:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/index.html&quot;: {
@@ -1941,11 +1939,11 @@ It is possible to generate a different url listening other port with <strong><em
             &quot;template&quot;: &quot;contact.htm&quot;
         }
     }
-}</code></pre><p>ainsi que le template <code>index.htm</code> correspondant</p>
+}</code></pre><p>and the corresponding template</p>
 <pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
-&lt;a href=&quot;http://localhost/index.html&quot;>Lien vers l'accueil&lt;/a>
-&lt;a href=&quot;http://localhost/contact.html&quot;>Lien pour nous contacter&lt;/a>
-&lt;!-- ... --></code></pre><p>je serais obligé de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :</p>
+&lt;a href=&quot;http://localhost/index.html&quot;>Link to home&lt;/a>
+&lt;a href=&quot;http://localhost/contact.html&quot;>Link to contact&lt;/a>
+&lt;!-- ... --></code></pre><p>I'd have to change my link in the template if I change the listening port or if I change the path of the url. The following configuration changes:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;routes&quot;: {
@@ -1958,10 +1956,10 @@ It is possible to generate a different url listening other port with <strong><em
     }
 }</code></pre><p>me contraindrait à modifier le template précédent comme suit :</p>
 <pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
-&lt;a href=&quot;http://localhost:7777/home.html&quot;>Lien vers l'accueil&lt;/a>
-&lt;a href=&quot;http://localhost:7777/contact-us.html&quot;>Lien pour nous contacter&lt;/a>
-&lt;!-- ... --></code></pre><p>Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant sont chemin dans la propriété <code>url</code>.</p>
-<p>Avec le webconfig suivant :</p>
+&lt;a href=&quot;http://localhost:7777/home.html&quot;>Link to home&lt;/a>
+&lt;a href=&quot;http://localhost:7777/contact-us.html&quot;>Link to contact&lt;/a>
+&lt;!-- ... --></code></pre><p>You can solve this problem by giving a key to a specific path and deporting are way in the <code>url</code> property.</p>
+<p>With the followinh webconfig:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;index&quot;: {
@@ -1973,35 +1971,35 @@ It is possible to generate a different url listening other port with <strong><em
             &quot;template&quot;: &quot;contact.htm&quot;
         }
     }
-}</code></pre><p>je peux à présent écrire le lien dans le template de manière dynamique :</p>
+}</code></pre><p>I can now write the link in the dynamic template:</p>
 <ol>
-<li><p>comme suit</p>
+<li><p>as follows</p>
 <pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
-&lt;a href=&quot;&lt;%= urlBasePath %>&lt;%= webconfig.routes.home.url.slice(1) %>&quot;>Lien vers l'accueil&lt;/a>
-&lt;a href=&quot;&lt;%= urlBasePath %>&lt;%= webconfig.routes.contact.url.slice(1) %>&quot;>Lien pour nous contacter&lt;/a>
-&lt;!-- ... --></code></pre><p><em>Note : <code>.slice(1)</code> permet de supprimer facilement le double <code>/</code> pour une url fonctionnelle.</em></p>
+&lt;a href=&quot;&lt;%= urlBasePath %>&lt;%= webconfig.routes.home.url.slice(1) %>&quot;>Link to home&lt;/a>
+&lt;a href=&quot;&lt;%= urlBasePath %>&lt;%= webconfig.routes.contact.url.slice(1) %>&quot;>Link to contact&lt;/a>
+&lt;!-- ... --></code></pre><p><em>Note : <code>.slice(1)</code> makes it easy to remove the dual <code>/</code> for standard url.</em></p>
+</li>
+<li><p>or as follows</p>
+<pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
+&lt;a href=&quot;&lt;%= urlBasePath %>.&lt;%= webconfig.routes.home.url %>&quot;>Link to home&lt;/a>
+&lt;a href=&quot;&lt;%= urlBasePath %>.&lt;%= webconfig.routes.contact.url %>&quot;>Link to contact&lt;/a>
+&lt;!-- ... --></code></pre><p><em>Note : This would, for example <code>http://localhost/./home.html</code>, which is a standard url.</em></p>
 </li>
 <li><p>ou comme suit</p>
 <pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
-&lt;a href=&quot;&lt;%= urlBasePath %>.&lt;%= webconfig.routes.home.url %>&quot;>Lien vers l'accueil&lt;/a>
-&lt;a href=&quot;&lt;%= urlBasePath %>.&lt;%= webconfig.routes.contact.url %>&quot;>Lien pour nous contacter&lt;/a>
-&lt;!-- ... --></code></pre><p><em>Note : Cela donnerait par exemple <code>http://localhost/./home.html</code>, ce qui est une url fonctionnelle.</em></p>
-</li>
-<li><p>ou comme suit</p>
-<pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
-&lt;a href=&quot;&lt;%= urlBasePathSlice %>&lt;%= webconfig.routes.home.url %>&quot;>Lien vers l'accueil&lt;/a>
-&lt;a href=&quot;&lt;%= urlBasePathSlice %>&lt;%= webconfig.routes.contact.url %>&quot;>Lien pour nous contacter&lt;/a>
-&lt;!-- ... --></code></pre><p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de  <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
+&lt;a href=&quot;&lt;%= urlBasePathSlice %>&lt;%= webconfig.routes.home.url %>&quot;>Link to home&lt;/a>
+&lt;a href=&quot;&lt;%= urlBasePathSlice %>&lt;%= webconfig.routes.contact.url %>&quot;>Link to contact&lt;/a>
+&lt;!-- ... --></code></pre><p><em>Note : <code>urlBasePathSlice</code> return <code>http://localhost</code> in place of <code>http://localhost/</code> or <code>http://localhost:7777/sub/folder</code> in place of <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
 </ol>
-<h2>Commandes de lancement</h2><p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p>
-<p>Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run</code></pre><h3>--directory</h3><p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous sera alors très utile.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><h3>--webconfig</h3><p>Par défaut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier <code>webconfig.prod.json</code> dont le nom de domaine est différent. Ou encore un <code>webconfig.fr-fr.json</code> avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --webconfig webconfig.alternatif.json</code></pre><h3>--run</h3><p>Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec <code>--generate</code> (voir plus loin).</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --run</code></pre><h3>--httpPort</h3><p>Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --httpPort 7778</code></pre><h3>--generate</h3><p>Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser <code>--generate</code>.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --generate</code></pre><h2>NodeAtlas as npm module</h2><p>Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :</p>
+<h2>Running commands</h2><p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. However there are options to launch more than launch the site.</p>
+<p>Each of the commands that follow can be coupled with other like this:</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --run</code></pre><h3>--directory</h3><p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--directory</code> command will be very useful.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><h3>--webconfig</h3><p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --webconfig webconfig.alternatif.json</code></pre><h3>--run</h3><p>This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with <code>--generate</code> (see below).</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --run</code></pre><h3>--httpPort</h3><p>You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --httpPort 7778</code></pre><h3>--generate</h3><p>If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --generate</code></pre><h2>NodeAtlas as npm module</h2><p>If you start NodeAtlas via JavaScript code, you can also configure the launch:</p>
 <p><em>app.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>var nodeAtlas = require(&quot;node-atlas&quot;);
 
@@ -2013,25 +2011,25 @@ nodeAtlas
         httpPort: 7778,
         generate: true
     })
-    .init();</code></pre><pre class="prettyprint source"><code>\> node app.js</code></pre><h2>NodeAtlas comme simple serveur web</h2><p>Si NodeAtlas ne trouve pas le « webconfig.json » ou le <code>--webconfig</code> que vous lui aurez indiqué, il se lancera en mode « Simple Serveur Web » ou « Public ».</p>
-<p><strong>Ce mode est pratique pour tester très rapidement que NodeAtlas est correctement installé ou pour créer des petits exemples HTML qui ont besoin d'un serveur web pour fonctionner (retours AJAX, iframe embarquée, etc.).</strong></p>
-<p>Pour bien comprendre ce que cela signifie : s'il existe un quelconque fichier dans le répertoire d'où NodeAtlas a été lancé, il sera renvoyé par requête HTTP si ont le réclame via son chemin d'accès.</p>
-<p>Par exemple, en lançant NodeAtlas dans le répertoire <code>site-hello-world</code></p>
+    .init();</code></pre><pre class="prettyprint source"><code>\> node app.js</code></pre><h2>NodeAtlas as a simple web server</h2><p>If NodeAtlas can not find the &quot;webconfig.json&quot; or <code>--webconfig</code> you have specify, it will run in either &quot;Simple Web Server&quot; or &quot;Public&quot; mode.</p>
+<p><strong>This mode is useful for testing very quickly that NodeAtlas is installed properly or to create small HTML examples that need to run a web server (AJAX returns, embedded iframe, etc.).</strong></p>
+<p>To understand what this means: if there is any file in the directory where NodeAtlas was launched, it will be returned by HTTP request so have the demands via its path.</p>
+<p>For example, by launching NodeAtlas in the <code>site-hello-world</code> folder</p>
 <pre class="prettyprint source"><code>site-hello-world/
 — templates/
 —— index.htm
-— webconfig.json</code></pre><p>en exécutant la commande </p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>ou même la commande</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --webconfig webconfig.not-exist.json</code></pre><p>le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.</p>
-<p><em>Note : seul les commandes <code>--webconfig</code>, <code>--run</code>, <code>--directory</code> et <code>--httpPort</code> fonctionnent dans ce mode.</em></p>
-<h2>Faire tourner NodeAtlas sur serveur</h2><h3>Dans un environnement Windows Server avec iisnode</h3><p>Dans un environnement Windows Server 2013 avec IIS8 il faut :</p>
+— webconfig.json</code></pre><p>by running the command</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>or even the command</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --webconfig webconfig.not-exist.json</code></pre><p>the server will run in &quot;Simple Web Server&quot; mode and file &quot;http://localhost/webconfig.json&quot; or &quot;http://localhost/templates/webconfig.htm&quot; will be available as the browser could refer as a simple web server.</p>
+<p><em>Note : only commands <code>--webconfig</code>, <code>--run</code>, <code>--directory</code> and <code>--httpPort</code> work in this mode.</em></p>
+<h2>Running NodeAtlas on online server</h2><h3>In a Windows Server environment with iisnode</h3><p>In a Windows Server 2013 environment with IIS8 the requirements are:</p>
 <ol>
-<li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
-<li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
-<li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).</li>
+<li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
+<li>Install <a href="http://www.iis.net/downloads/microsoft/url-rewrite">the IIS8 UrlRewrite module</a> to map pages executed to an output URL.</li>
+<li>Install <a href="https://github.com/tjanczuk/iisnode/downloads">the IIS8 issnode module</a> to read web.config and to manage the website (IIS Application Pool Management, start/stop website, etc...).</li>
 </ol>
-<h4>Créer une application</h4><p>Dans IIS8, créez un Website et créez une Application.</p>
-<p>Le contenu de votre application sera celui du site mélangé à celui de NodeAtlas. Cela signifie donc que ceci :</p>
+<h4>Create application</h4><p>In IIS8, create a web site and create an Application.</p>
+<p>The content of your application will be the site mixed with that of NodeAtlas. So that means this:</p>
 <pre class="prettyprint source"><code>node-atlas/
 — node_modules/
 — languages/
@@ -2041,7 +2039,7 @@ site-hello-world/
 — assets/
 — templates/
 —— index.htm
-— webconfig.json</code></pre><p>devient ceci :</p>
+— webconfig.json</code></pre><p>becomes this:</p>
 <pre class="prettyprint source"><code>site-hello-world/
 — node_modules/
 — languages/
@@ -2050,7 +2048,7 @@ site-hello-world/
 — templates/
 —— index.htm
 — node-atlas.js
-— webconfig.json</code></pre><p>Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p>
+— webconfig.json</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p>
 <pre class="prettyprint source lang-xml"><code>&lt;configuration>
     &lt;system.webServer>
         &lt;handlers>
@@ -2077,7 +2075,7 @@ site-hello-world/
         &lt;/rewrite>
 
     &lt;/system.webServer>
-&lt;/configuration></code></pre><p>pour au final obtenir :</p>
+&lt;/configuration></code></pre><p>to obtain:</p>
 <pre class="prettyprint source"><code>site-hello-world/
 — node_modules/
 — languages/
@@ -2087,41 +2085,42 @@ site-hello-world/
 —— index.htm
 — node-atlas.js
 — webconfig.json
-— web.config</code></pre><p>Il ne vous restera plus qu'à cliquer sur « Browse <url-of-site> » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.</p>
-<h4>webconfig exemple</h4><p>Un webconfig exemple pour une production :</p>
+— web.config</code></pre><p>It will just have to click on &quot;Browse <url-of-Site>&quot; in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</p>
+<h4>webconfig example</h4><p>An example for a production webconfig:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;urlPort&quot;: 80,
     &quot;httpPort&quot;: 7777,
-    &quot;httpHostname&quot;: &quot;www.example.fr&quot;,
+    &quot;httpHostname&quot;: &quot;www.example.com&quot;,
     &quot;routes&quot;: {
         ...
     }
-}</code></pre><h3>Dans un environnement Unix avec forever</h3><p>Il faut pour cela :</p>
+}</code></pre><h3>In a Unix environment with forever</h3><p>This requires:</p>
 <ol>
-<li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
-<li>Installer le <a href="https://github.com/nodejitsu/forever">CLI tool forever</a> pour manager vos sites en continue.</li>
-<li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
+<li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
+<li>Install <a href="https://github.com/nodejitsu/forever">the CLI tool forever</a> manager for your websites continuously (start, stop, restart, etc.).</li>
+<li>Running in addition of your websites a reverse-proxy running on port 80 for all applications.</li>
 </ol>
-<h4>Quelques commandes forever</h4><p>Pous lancer un site en continue il faut utiliser la commande :</p>
-<pre class="prettyprint source"><code>\> forever start &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code> puis utiliser la commande :</p>
-<pre class="prettyprint source"><code>\> forever stop &lt;uid></code></pre><p>ou <uid> est l'<strong>uid</strong> du site qui tourne.</p>
-<h4>webconfig exemple</h4><p>Un webconfig exemple pour une production :</p>
+<h4>Some forever commands</h4><p>To manage a new website in continues to be used the command:</p>
+<pre class="prettyprint source"><code>\> forever start &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command </p>
+<pre class="prettyprint source"><code>\> forever list</code></pre><p>and then use the command:</p>
+<pre class="prettyprint source"><code>\> forever stop &lt;uid></code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p>
+<h4>webconfig example</h4><p>An example for a production webconfig:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;urlPort&quot;: 80,
     &quot;httpPort&quot;: 7777,
-    &quot;httpHostname&quot;: &quot;www.example.fr&quot;,
+    &quot;httpHostname&quot;: &quot;www.example.com&quot;,
     &quot;routes&quot;: {
         ...
     }
-}</code></pre><p>Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessible sur le port 80.</p>
-<h3>Proxy</h3><h4>Bouncy</h4><p>Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).</p>
-<p>Vous pouvez par exemple :</p>
+}</code></pre><p>You will then use a reverse proxy to make your site accessible on port 80.</p>
+<h3>Proxy</h3><h4>Bouncy</h4><p>Bouncy is an example of reverse-proxy that you can use to run various NodeAtlas websites (with other types of websites) together on the same port (80).</p>
+<p>You can for example:</p>
 <ul>
-<li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
-<li>et en plus lancer un server apache sur le port 81 </li>
+<li>run 3 Node.js apps on ports 7777, 7778 and 7779 with forever,</li>
+<li>and besides launching a apache server on port 81 </li>
 </ul>
-<p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p>
-<p>Voici un exemple de configuration avec Bouncy :</p>
+<p>and make all your websites accessible behind domain names on port 80 with Bouncy example.</p>
+<p>Here is a sample configuration with Bouncy:</p>
 <p><strong>global-server.js</strong></p>
 <pre class="prettyprint source lang-javascript"><code>var bouncy = require('bouncy');
 
@@ -2141,11 +2140,11 @@ var server = bouncy(function (request, response, bounce) {
     }
 });
 
-server.listen(80);</code></pre><p>que vous pouvez lancer avec :</p>
-<pre class="prettyprint source"><code>\> forever start &lt;/path/to/>global-server.js</code></pre><p><a href="https://github.com/substack/bouncy">Plus d'informations sur Bouncy</a></p>
-<h2>À propos de l'architecture de NodeAtlas</h2><p>NodeAtlas est fait de tel sorte que l'objet <code>NA</code> contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.</p>
-<p>Tous les messages d'erreurs se trouvent dans <code>/languages/default.json</code>. Si vous souhaitez les modifier, il suffit de dupliquer le fichier <code>default.json</code> et de le renommer en <code>fr-fr.json</code>, et de modifier la langue de l'original.</p>
-<p>Pour finir <a href="http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/">l'appoche publics/privates de l'architecture est expliqué dans cette article</a>.</p></article>
+server.listen(80);</code></pre><p>and you can start with:</p>
+<pre class="prettyprint source"><code>\> forever start &lt;/path/to/>global-server.js</code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p>
+<h2>About NodeAtlas API</h2><p>NodeAtlas is made of such a way that the <code>NA</code> object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.</p>
+<p>All error messages in <code>/languages/default.json</code>. If you want to change, simply duplicate the <code>default.json</code> file and rename it to <code>fr-fr.json</code> and change the language of the original.</p>
+<p>Finally <a href="http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/">appoche the public/privates architecture is explained in this article</a> (FR).</p></article>
     </section>
 
 
@@ -2182,7 +2181,7 @@ server.listen(80);</code></pre><p>que vous pouvez lancer avec :</p>
 	<dt class="tag-version">Version:</dt>
 	<dd class="tag-version">
 		<ul class="dummy">
-			<li>0.25.3</li>
+			<li>0.25.4</li>
 		</ul>
 	</dd>
 	
@@ -2263,7 +2262,7 @@ server.listen(80);</code></pre><p>que vous pouvez lancer avec :</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a>
-		on 2014-12-03T12:05:50+01:00 using the <a
+		on 2014-12-03T16:54:56+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
