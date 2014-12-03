@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.3 (Beta)
+Version : 0.25.4 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -71,7 +71,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [--generate](#--generate)
 - [NodeAtlas comme module npm](#nodeatlas-comme-module-npm)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
-- [Faire tourner NodeAtlas sur server](#faire-tourner-nodeatlas-sur-server)
+- [Faire tourner NodeAtlas sur serveur](#faire-tourner-nodeatlas-sur-server)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
  - [Proxy](#proxy)
@@ -2659,7 +2659,7 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 <!-- ... -->
 ```
 
-   *Note : `urlBasePathSlice` renvoyant `http://localhost` au lieu de  `http://localhost/` ou encore `http://localhost:7777/sub/folder` au lieu de `http://localhost:7777/sub/folder/`.*
+   *Note : `urlBasePathSlice` renvoyant `http://localhost` au lieu de `http://localhost/` ou encore `http://localhost:7777/sub/folder` au lieu de `http://localhost:7777/sub/folder/`.*
 
 
 
@@ -2670,7 +2670,7 @@ La façon la plus simple de lancer NodeAtlas est de se positionner dans le répe
 Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
+\> node </path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --run
 ```
 
 
@@ -2795,7 +2795,7 @@ le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http:/
 
 Dans un environnement Windows Server 2013 avec IIS8 il faut :
 
-1. Installer l’[exécutable node.exe](http://nodejs.org/download/) capable d’exécuter du code JavaScript.
+1. Installer [l’exécutable node.exe](http://nodejs.org/download/) capable d’exécuter du code JavaScript.
 2. Installer [le module IIS8 UrlRewrite](http://www.iis.net/downloads/microsoft/url-rewrite) pour mapper les pages exécutées à une Url de sortie.
 3. Installer [le module IIS8 issnode](https://github.com/tjanczuk/iisnode/downloads) pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).
 
@@ -2903,26 +2903,32 @@ Un webconfig exemple pour une production :
 
 Il faut pour cela :
 
-1. Installer l’[exécutable node.exe](http://nodejs.org/download/) capable d’exécuter du code JavaScript.
-2. Installer le [CLI tool forever](https://github.com/nodejitsu/forever) pour manager vos sites en continue.
+1. Installer [l’exécutable node.exe](http://nodejs.org/download/) capable d’exécuter du code JavaScript.
+2. Installer [le CLI tool forever](https://github.com/nodejitsu/forever) pour manager vos sites en continue (démarrage, arrêt, redémarrage, etc.).
 3. Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.
 
 
 #### Quelques commandes forever ####
 
-Pous lancer un site en continue il faut utiliser la commande :
+Pour manager un nouveau site en continue il faut utiliser la commande :
 
 ```
 \> forever start </path/to/>node-atlas/node-atlas.js --directory </path/to/your/website/directory/>
 ```
 
-Pour le stopper, il faut repérer son **uid** avec la commande `forever list` puis utiliser la commande :
+Pour le stopper, il faut repérer son **uid** avec la commande `forever list`
+
+```
+\> forever list
+```
+
+puis utiliser la commande :
 
 ```
 \> forever stop <uid>
 ```
 
-ou <uid> est l'**uid** du site qui tourne.
+ou `<uid>` est l'**uid** du site qui tourne.
 
 
 #### webconfig exemple ####
