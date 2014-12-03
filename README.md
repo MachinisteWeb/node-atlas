@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.2 (Beta)
+Version : 0.25.3 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -57,9 +57,9 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
+ - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
- - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
  - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
@@ -1954,7 +1954,7 @@ Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
 
 ### Minifier les CSS/JS ###
 
-Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaité. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut qu'un Bundle existe dans le Webconfig.
+Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut qu'un Bundle existe dans le Webconfig.
 
 #### Créer des Bundles ####
 
@@ -2023,7 +2023,7 @@ templates/
 webconfig.json
 ```
 
-vous obtiendrez les nouveau fichiers suivant :
+vous obtiendrez les nouveaux fichiers suivant :
 
 ```
 assets/
@@ -2353,7 +2353,7 @@ Il est possible de modifier ses paramètres par défaut (et même obligatoire po
 }
 ```
 
-NodeAtlas utilise également un objes de stockage mémoire (MemoryStore) qui stoques les informations dans la RAM du serveur.
+NodeAtlas utilise également un objet de stockage mémoire (MemoryStore) qui stoques les informations dans la RAM du serveur.
 
 #### Autres paramètres ####
 
