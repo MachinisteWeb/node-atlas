@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.25.3 (Beta)</p>
+<p>Version : 0.25.4 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -128,7 +128,7 @@
 <li><a href="#nodeatlas-comme-module-npm">NodeAtlas comme module npm</a></li>
 <li><a href="#nodeatlas-comme-simple-serveur-web">NodeAtlas comme simple serveur web</a></li>
 <li>
-<a href="#faire-tourner-nodeatlas-sur-server">Faire tourner NodeAtlas sur server</a>
+<a href="#faire-tourner-nodeatlas-sur-server">Faire tourner NodeAtlas sur serveur</a>
 
 <ul>
 <li><a href="#dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</a></li>
@@ -2598,7 +2598,7 @@ exports.setSessions = website.setSessions;
 &lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s1"><span class="pl-pds">"</span>&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.routes.contact.url %&gt;<span class="pl-pds">"</span></span>&gt;Lien pour nous contacter&lt;/<span class="pl-ent">a</span>&gt;
 <span class="pl-c">&lt;!-- ... --&gt;</span></pre></div>
 
-<p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de  <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
+<p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
 </ol>
 
@@ -2609,7 +2609,7 @@ exports.setSessions = website.setSessions;
 
 <p>Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory /hello-world/  --webconfig config.fr-fr.js --httpPort 80 --run
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --run
 </code></pre>
 
 <h3>
@@ -2714,7 +2714,7 @@ nodeAtlas
 <p>Dans un environnement Windows Server 2013 avec IIS8 il faut :</p>
 
 <ol>
-<li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
+<li>Installer <a href="http://nodejs.org/download/">l’exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
 <li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).</li>
 </ol>
@@ -2818,25 +2818,30 @@ site-hello-world/
 <p>Il faut pour cela :</p>
 
 <ol>
-<li>Installer l’<a href="http://nodejs.org/download/">exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
-<li>Installer le <a href="https://github.com/nodejitsu/forever">CLI tool forever</a> pour manager vos sites en continue.</li>
+<li>Installer <a href="http://nodejs.org/download/">l’exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
+<li>Installer <a href="https://github.com/nodejitsu/forever">le CLI tool forever</a> pour manager vos sites en continue (démarrage, arrêt, redémarrage, etc.).</li>
 <li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
 </ol>
 
 <h4>
 <a id="quelques-commandes-forever" class="anchor" href="#quelques-commandes-forever" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quelques commandes forever</h4>
 
-<p>Pous lancer un site en continue il faut utiliser la commande :</p>
+<p>Pour manager un nouveau site en continue il faut utiliser la commande :</p>
 
 <pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/&gt;
 </code></pre>
 
-<p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code> puis utiliser la commande :</p>
+<p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code></p>
+
+<pre><code>\&gt; forever list
+</code></pre>
+
+<p>puis utiliser la commande :</p>
 
 <pre><code>\&gt; forever stop &lt;uid&gt;
 </code></pre>
 
-<p>ou  est l'<strong>uid</strong> du site qui tourne.</p>
+<p>ou <code>&lt;uid&gt;</code> est l'<strong>uid</strong> du site qui tourne.</p>
 
 <h4>
 <a id="webconfig-exemple-1" class="anchor" href="#webconfig-exemple-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>webconfig exemple</h4>
