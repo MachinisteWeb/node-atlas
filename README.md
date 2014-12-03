@@ -6,6 +6,8 @@ Version : 0.25.1 (Beta)
 
 
 
+
+
 ## Avant-propos ##
 
 NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/). Elle permet trois choses :
@@ -49,7 +51,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
  - [Utiliser NodeAtlas pour générer des assets HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html)
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
- - [Changer les paramètres d'url.](#changer-les-param%C3%A8tres-durl)
+ - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
@@ -1250,9 +1252,9 @@ var website = {};
 
 
 
-/**************************************************************/
+/*************************************************************/
 /* Mise à dispositions des fonction pour le moteur NodeAtlas */
-/**************************************************************/
+/*************************************************************/
 
 exports.loadModules = website.loadModules;
 exports.setConfigurations = website.setConfigurations;
@@ -1354,11 +1356,11 @@ var website = {};
         }
 
         // Création d'un nouvel ensemble de variation dynamique pour les templates.
-        variation.backend = {}; // Accessible via « <%= backend.<propriétés> %> ».
+        variation.backend = {}; // Propriétés accessibles via « <%= backend.<propriétés> %> ».p
 
         privates.listOfArticles(Article, function (listOfArticles) {
 
-            // Disponibilité des données des articles côté template derrière
+            // Disponibilité des données des articles côté template.
             variation.backend.articles = listOfArticles; // « <%= backend.articles.<propriétés> %> ».
 
             // On ré-injecte les modifications.
@@ -1381,31 +1383,27 @@ var website = {};
     publics.render = function (params, mainCallback) {
         var data = params.data,
             NA = params.NA,
-            jsdom = NA.modules.jsdom; // Récupération de jsdom pour parcourir le DOM avec jQuery.
+            cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
+            $ = cheerio.load(data); // On charge les données pour les manipuler comme un DOM.
+            
+        // Après tous les h2 de la sortie HTML « data »,
+        $("h2").each(function (i) {
+            var $this = $(this);
 
-        // On charge le fichier jQuery défini dans le moteur, mais on peut utiliser une autre version.
-        jsdom.env(data, [NA.webconfig.jQueryVersion], function (error, window) {
-            var $ = window.$;
-
-            // Après tous les h2 de la sortie HTML « data »,
-            $("h2").each(function (i) {
-                var $this = $(this);
-
-                // ... on créé une div,
-                $this.after(
-                    // ... on injecte le contenu du h2 dans la div,
-                    $("<div>").html($this.html())
-                )
-                // ... et supprime le h2.
-                $this.remove();
-            });
-
-            // On re-créer une nouvelle sortie HTML avec nos modifications.
-            data = window.document.doctype.toString() + window.document.innerHTML.replace(/<script class=.jsdom.+><\/script><\/html>/g, "</html>"); // (Si vous connaissez un moyen plus élégant d'enlever ce script ajouté automatiquement « <script class=.jsdom.+><\/script><\/html> », faites moi signe !)
-
-            // On ré-injecte les modifications.
-            mainCallback(data);
+            // ...on créé une div,
+            $this.after(
+                // ... on injecte le contenu du h2 dans la div,
+                $("<div>").html($this.html())
+            )
+            // ...et supprime le h2.
+            $this.remove();
         });
+
+        // On re-créer une nouvelle sortie HTML avec nos modifications.
+        data = $.html()
+
+        // On ré-injecte les modifications.
+        mainCallback(data);
     };
 
 }(website));
@@ -1429,15 +1427,15 @@ var website = {};
             Article = mongoose.model('article'),
             renderer = new marked.Renderer();
 
-        // Dès qu'on a un lien valide entre le client et notre back,
+        // Dès qu'on a un lien valide entre le client et notre back...
         io.sockets.on('connection', function (socket) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session;
 
-            // ... resté à l'écoute de la demande « create-article-button »,
+            // ...rester à l'écoute de la demande « create-article-button »...
             socket.on('create-article-button', function (data) {
 
-                // ... et répondre à cette demande en créant un nouvelle article si elle vient
+                // ...et répondre à cette demande en créant un nouvelle article si elle vient
                 // avec les information envoyées via « data ».
                 var article = new Article({
                     _id: mongoose.Types.ObjectId(),
@@ -1448,7 +1446,7 @@ var website = {};
                 // Si l'utilisateur est connecté.
                 if (session.account) {
 
-                    / ... on créer sauve article en base.
+                    / ...on sauve l'article en base.
                     article.save(function (error) {
                         if (error) { 
                             throw error;
@@ -1466,9 +1464,9 @@ var website = {};
 
 
 
-/***********************************************************/
-/* Interception de la sortie HTML pour jQuery côté serveur */
-/***********************************************************/
+/*************************************************************/
+/* Mise à dispositions des fonction pour le moteur NodeAtlas */
+/*************************************************************/
 
 exports.preRender = website.preRender;
 exports.render = website.render;
@@ -1646,7 +1644,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 ### Gérer le routage (Url Rewriting) ###
 
-Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamique !
+Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamiques !
 
 #### Standard ###
 
