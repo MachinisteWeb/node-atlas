@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.2 (Beta)
+Version : 0.25.3 (Beta)
 
 THIS FILE IS STILL IN TRADUCTION...
 
@@ -50,18 +50,18 @@ The tool is still in development and I experience it slowly with my own websites
  - [Manage variations within the same template](#manage variations within the same template)
  - [Manage Multilingual](#manage multilingual)
  - [NodeAtlas use to generate HTML assets](#nodeatlas use to generate html assets)
- - [Use NodeAtlas to run a website (Back-end Part)](#use nodeatlas to run a website back-end part)
+ - [Use NodeAtlas to run a website (Back-end Part)](#use-nodeatlas-to-run-a-website-back-end-part)
  - [Change the url parameters](#change the url parameters)
  - [Create your own webconfig variables](#create your own webconfig variables)
  - [Manage routing (URL Rewriting)](#manage routing url rewriting)
- - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
- - [Gérer les redirections](#g%C3%A9rer-les-redirections)
- - [Minifier les CSS/JS](#minifier-les-cssjs)
- - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
- - [Stockage externe des Sessions](#stockage-externe-des-sessions)
- - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
- - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
- - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
+ - [Manage a page not found](#manage a page not found)
+ - [Manage redirects](#manage redirects)
+ - [Minify CSS/JS](#minify cssjs)
+ - [Allow/Disallow GET/POST requests](#allowdisallow getpost requests)
+ - [Change settings of Sessions](#change settings of sessions)
+ - [External Storage Sessions](#external storage sessions)
+ - [Changing the template engine brackets <% %>](#Changing the template engine brackets -)
+ - [Change the end of the url hostname and listen port](#change the end of the url hostname and listen port)
  - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
 - [Commandes de lancement](#commandes-de-lancement)
  - [--directory](#--directory)
@@ -1828,20 +1828,20 @@ and `routes.json`
 
 
 
-### Gérer les pages inexistantes ###
+### Manage a page not found ###
 
-Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :
+To display a custom page when a resource is not found you must:
 
-1. Préparer une page 404.
-2. Remplir le paramètre `pageNotFound` avec comme `value` la `key` de la page 404 préparée.
+1. Prepare a 404 page.
+2. Fill the parameter with `pageNotFound` with the following `value` : `key` of the prepared 404 page.
 
-Voyez l'exemple ci-dessous :
+See the example below:
 
 ```js
 {
-    "pageNotFound": "/pages-inexistantes/",
+    "pageNotFound": "/not-found-page/",
     "routes": {
-        "/pages-inexistantes/": {
+        "/not-found-page/": {
             "template": "error.htm",
             "statusCode": 404
         },
@@ -1855,21 +1855,21 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-vous pourrez accéder à :
+you can access to:
 
-- *http://localhost/cette-page-n-existe-pas.html*
-- *http://localhost/elle/non/plus/*
+- *http://localhost/this-page-do-not-exist.html*
+- *http://localhost/this/page/either/*
 - *http://localhost/etc*
 
 
 
-### Gérer les redirections ###
+### Manage redirects ###
 
-Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre `redirect`.
+To go to a different address (redirect 301 or 302) when you get to a url you must use the `redirect` parameter.
 
-#### En statique ####
+#### Static ####
 
-Voyez l'exemple ci-dessous :
+See the example below:
 
 ```js
 {
@@ -1881,7 +1881,7 @@ Voyez l'exemple ci-dessous :
             "redirect": "/list-of-members/",
             "statusCode": 301,
         },
-        "/aller-sur-node-atlas/": {
+        "/go-to-node-atlas/": {
             "redirect": "http://haeresis.github.io/NodeAtlas/",
             "statusCode": 302,
         },
@@ -1892,14 +1892,14 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serez redirigé :
+You will be redirected:
 
-- sur `http://localhost/list-of-members/` quand vous accéderez à `http://localhost/list-of-members` avec une entête _redirection permanente_.
-- sur `http://haeresis.github.io/NodeAtlas/` quand vous accéderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
+- to `http://localhost/list-of-members/` when you access `http://localhost/list-of-members` with a header _permanent redirect_.
+- to `http://haeresis.github.io/NodeAtlas/` when you access `http://localhost/go-to-node-atlas/` with a header _temporary redirect_.
 
-#### En dynamique ####
+#### Dynamic ####
 
-Voyez l'exemple ci-dessous :
+See the example below:
 
 ```js
 {
@@ -1918,11 +1918,11 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serez redirigé sur `http://localhost/list-of-members/haeresis/` quand vous accéderez à `http://localhost/list-of-members/haeresis` avec une entête _redirection permanente_.
+You will be redirected to `http://localhost/list-of-members/haeresis/` when you access to `http://localhost/list-of-members/haeresis` with a header _permanent redirect_.
 
-#### Avec expressions régulières ####
+#### With regular expressions ####
 
-Voyez l'exemple ci-dessous :
+See the example below:
 
 ```js
 {
@@ -1946,19 +1946,19 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/list-of-members/haeresis/` avec une entête _redirection permanente_.
+You will be redirected to `http://localhost/list-of-members/haeresis/` when you access to `http://localhost/list-of-members/haeresis` with a header _permanent redirect_.
 
-Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
+For the second *match* use $1$, the third $2#, etc.
 
 
 
-### Minifier les CSS/JS ###
+### Minify CSS/JS ###
 
-Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaité. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut qu'un Bundle existe dans le Webconfig.
+You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the `--generate` command if a Bundle exists in the Webconfig.
 
-#### Créer des Bundles ####
+#### Creating Bundles ####
 
-Avec la configuration suivante :
+With the following configuration:
 
 ```js
 {
@@ -2000,7 +2000,7 @@ Avec la configuration suivante :
 }
 ```
 
-et l'ensemble de fichier suivant :
+and the following set of file:
 
 ```
 assets/
@@ -2023,7 +2023,7 @@ templates/
 webconfig.json
 ```
 
-vous obtiendrez les nouveau fichiers suivant :
+you will get the following new files:
 
 ```
 assets/
@@ -2038,9 +2038,9 @@ templates/
 webconfig.json
 ```
 
-#### Désactiver des Bundles ####
+#### Disable Bundles ####
 
-Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés `enable: false` dans chaque type de Bundle.
+It is also possible to not execute the minification when start a website with NodeAtlas with `enable` properties set to `false` in each type of Bundle.
 
 ```js
 {
@@ -2084,13 +2084,13 @@ Il est également possible de ne pas executer la minification au démarage d'un 
 }
 ```
 
-#### Bundles dans un fichier partagé ####
+#### Bundles in a shared file ####
 
-Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`. 
+In order to not re-write a long Bundles configuration list in `webconfig.json` file to your development environment and` webconfig.prod.json` to your production environment, you can group routes in a file of your choice. By convention, the name is `bundles.json` file.
 
-Par exemple :
+For example:
 
-L'ensemble de fichier suivant
+The following set of file
 
 ```
 assets/
@@ -2114,7 +2114,7 @@ webconfig.json
 webconfig.prod.json
 ```
 
-avec `webconfig.json`
+with `webconfig.json`
 
 ```json
 {
@@ -2159,7 +2159,7 @@ avec `webconfig.json`
 }
 ```
 
-et avec `webconfig.prod.json`
+and with `webconfig.prod.json`
 
 ```json
 {
@@ -2206,7 +2206,7 @@ et avec `webconfig.prod.json`
 }
 ```
 
-pourrait devenir l'ensemble de fichier suivant 
+could be the following set of file
 
 ```
 assets/
@@ -2231,7 +2231,7 @@ webconfig.json
 webconfig.prod.json
 ```
 
-avec `webconfig.json`
+with `webconfig.json`
 
 ```json
 {
@@ -2245,7 +2245,7 @@ avec `webconfig.json`
 }
 ```
 
-avec `webconfig.prod.json`
+with `webconfig.prod.json`
 
 ```json
 {
@@ -2261,7 +2261,7 @@ avec `webconfig.prod.json`
 }
 ```
 
-et `bundles.json`
+and `bundles.json`
 
 ```json
 {
@@ -2298,13 +2298,13 @@ et `bundles.json`
 }
 ```
 
-*Note : cette fois il est possible de désactiver les Bundles en ne les incluant pas dans le `webconfig` en question.*
+*Note : this time it is possible to disable Bundles by not including them in the `webconfig`.*
 
 
 
-### Autoriser/Interdire les demandes GET/POST ###
+### Allow/Disallow GET/POST requests ###
 
-Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).
+You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).
 
 ```js
 {
@@ -2317,10 +2317,10 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
         "/list-of-members/": {
             "template": "members.htm"
         },
-        "/rediger-commentaire/": {
+        "/write-comment/": {
             "template": "write-com.htm"
         },
-        "/commentaire-sauvegarde/": {
+        "/save-comment/": {
             "template": "save-com.htm",
             "getSupport": false,
             "postSupport": true
@@ -2329,41 +2329,41 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 }
 ```
 
-*Note : Si rien n'est précisé,* ***getSupport*** *et* ***postSupport*** *sont à* ***true*** *au niveau global et par page.*
+*Note : If nothing is set,* ***getSupport*** *and* ***postSupport*** *are set to* ***true*** *in  global webconfig and by route.*
 
 
 
-### Changer les paramètres des Sessions ###
+### Change settings of Sessions ###
 
-#### Clé et Secret ####
+#### Key and Secret ####
 
-NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :
+NodeAtlas itself manages sessions stored on the server as initial settings:
 
 - Key : `nodeatlas.sid`
 - Secret : `1234567890bépo`
 
-qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.
+that allow customers to stay connected through the pages to a single set of personal server side variable.
 
-Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de `webconfig.json` suivant :
+It is possible to change the default settings (and even compulsory for productions sites) with the parameters of `webconfig.json` following:
 
 ```js
 {
-    sessionKey: "clé personnelle",
-    sessionSecret: "secret personnel"
+    sessionKey: "personal key",
+    sessionSecret: "personal secret"
 }
 ```
 
-NodeAtlas utilise également un objes de stockage mémoire (MemoryStore) qui stoques les informations dans la RAM du serveur.
+NodeAtlas also employs a memory storage object (MemoryStore) stoques that the information in the RAM of the server.
 
-#### Autres paramètres ####
+#### Other Parameters ####
 
-Il est possible de changer l'intégralité des paramètres des sessions (sauf le MemoryStore) en utilisant la configuration de `webconfig.json` suivante :
+It is possible to change all the parameters of the sessions (except MemoryStore) using the configuration of next `webconfig.json`:
 
 ```js
 {
     "session": {
-        "key": "clé personnelle",
-        "secret": "secret personnel",
+        "key": "personal key",
+        "secret": "personal secret",
         "cookie": { 
             "path": '/', 
             "httpOnly": true, 
@@ -2377,21 +2377,21 @@ Il est possible de changer l'intégralité des paramètres des sessions (sauf le
 }
 ```
 
-L'intégralité de la configuration possible se trouve sur la documentation du module [express-session](https://github.com/expressjs/session).
+The entirety of the possible configuration is located on the module documentation [express-session](https://github.com/expressjs/session).
 
 
 
-### Stockage externe des Sessions ###
+### External Storage Sessions ###
 
-Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.
+By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.
 
-Pour résoudre ce soucis, il convient de prendre en charge l'enregistrement des sessions via une base No SQL tel que `Redis` ou `MongoBD`.
+To address this concern, it should support the recording sessions via a base No SQL such as `Redis` or `MongoBD`.
 
-Pour cela il suffit d'utiliser la fonction `setSessions` dans le fichier `controllers/common.js` de la [partie Back-end](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end).
+You just have to use the `setSessions` function in` controllers/common.js` of [partie Back-end](#use-nodeatlas-to-run-a-website-back-end-part).
 
-#### Session gérées avec Redis ####
+#### Session managed with Redis ####
 
-Implémenter le code suivant dans `controllers/common.js` pour stocker vos sessions dans Redis en local.
+Implement the following code in `controllers/common.js` to store your sessions in a local Redis.
 
 ```
 var website = {};
@@ -2420,12 +2420,12 @@ exports.loadModules = website.loadModules;
 exports.setSessions = website.setSessions;
 ```
 
-Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-redis).
+More information to [connect-redis](https://www.npmjs.org/package/connect-redis) page.
 
 
-#### Session gérées avec MongoDB ####
+#### Session managed with MongoDB ####
 
-Implémenter le code suivant dans `controllers/common.js` pour stocker vos sessions dans la database `sessions` d'une MongoDB locale.
+Implement the following code in `controllers/common.js` to store sessions in the database `sessions` of a local MongoDB.
 
 ```
 var website = {};
@@ -2456,13 +2456,13 @@ exports.loadModules = website.loadModules;
 exports.setSessions = website.setSessions;
 ```
 
-Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mongo).
+More information to [connect-redis](https://www.npmjs.org/package/connect-mongo) page.
 
 
 
-### Changer les chevrons <% %> du moteur de template ###
+### Changing the template engine brackets <% %> ###
 
-Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% include head.htm %>***. Il serait possible de le faire avec ***{{ include head.htm }}*** avec la configuration ci-dessous :
+For example, to include part of a file instruction is used ***<% include head.htm %>***. It would be possible to do it with ***{{ include head.htm }}*** with the configuration below:
 
 ```js
 {
@@ -2476,15 +2476,16 @@ Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% i
 }
 ```
 
-Pour tout savoir sur les possibilités du moteur de template consulter la documentation [ejs](https://github.com/visionmedia/ejs)
+Learn all about the possibilities of the template engine consult the documentation [ejs](https://github.com/visionmedia/ejs)
 
-*Note : Si rien n'est précisé,* ***templateEngineOpenPattern*** *et* ***templateEngineClosePattern*** *valent respectivement* ***<%*** *et* ***%>***.
+*Note : If nothing is set,* ***templateEngineOpenPattern*** *and* ***templateEngineClosePattern*** *are set to* ***<%*** *et* ***%>***.
 
 
 
-### Changer l'url final des hostname et port d'écoute ###
+### Change the end of the url hostname and listen port ###
 
 Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec ***urlHostname*** et ***urlPort***. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
+It is possible to generate a different url listening other port with ***urlHostname*** *** and ***urlPort***. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:
 
 ```js
 {

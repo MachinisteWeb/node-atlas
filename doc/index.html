@@ -96,7 +96,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.25.2 (Beta)</p>
+        <article><h1>node-atlas</h1><p>Version : 0.25.3 (Beta)</p>
 <p>THIS FILE IS STILL IN TRADUCTION...</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
@@ -136,18 +136,18 @@
 <li><a href="#manage variations within the same template">Manage variations within the same template</a></li>
 <li><a href="#manage multilingual">Manage Multilingual</a></li>
 <li><a href="#nodeatlas use to generate html assets">NodeAtlas use to generate HTML assets</a></li>
-<li><a href="#use nodeatlas to run a website back-end part">Use NodeAtlas to run a website (Back-end Part)</a></li>
+<li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
 <li><a href="#change the url parameters">Change the url parameters</a></li>
 <li><a href="#create your own webconfig variables">Create your own webconfig variables</a></li>
 <li><a href="#manage routing url rewriting">Manage routing (URL Rewriting)</a></li>
-<li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
-<li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
-<li><a href="#minifier-les-cssjs">Minifier les CSS/JS</a></li>
-<li><a href="#changer-les-param%C3%A8tres-des-sessions">Changer les paramètres des Sessions</a></li>
-<li><a href="#stockage-externe-des-sessions">Stockage externe des Sessions</a></li>
-<li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
-<li><a href="#changer-les-chevrons---du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</a></li>
-<li><a href="#changer-lurl-final-des-hostname-et-port-d%C3%A9coute">Changer l'url final des hostname et port d'écoute</a></li>
+<li><a href="#manage a page not found">Manage a page not found</a></li>
+<li><a href="#manage redirects">Manage redirects</a></li>
+<li><a href="#minify cssjs">Minify CSS/JS</a></li>
+<li><a href="#allowdisallow getpost requests">Allow/Disallow GET/POST requests</a></li>
+<li><a href="#change settings of sessions">Change settings of Sessions</a></li>
+<li><a href="#external storage sessions">External Storage Sessions</a></li>
+<li><a href="#Changing the template engine brackets -">Changing the template engine brackets &lt;% %&gt;</a></li>
+<li><a href="#change the end of the url hostname and listen port">Change the end of the url hostname and listen port</a></li>
 <li><a href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement">Générer les urls dynamiquement</a></li>
 </ul>
 </li>
@@ -1410,16 +1410,16 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         &quot;template&quot;: &quot;index.htm&quot;
     }
 }</code></pre><p><em>Note : You can create multiple route file as <code>routes.en.json</code> and <code>routes.fr.json</code> and associate each of them in a set of webconfig parameterize to run a website in various languages.</em></p>
-<h3>Gérer les pages inexistantes</h3><p>Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :</p>
+<h3>Manage a page not found</h3><p>To display a custom page when a resource is not found you must:</p>
 <ol>
-<li>Préparer une page 404.</li>
-<li>Remplir le paramètre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 préparée.</li>
+<li>Prepare a 404 page.</li>
+<li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
 </ol>
-<p>Voyez l'exemple ci-dessous :</p>
+<p>See the example below:</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;pageNotFound&quot;: &quot;/pages-inexistantes/&quot;,
+    &quot;pageNotFound&quot;: &quot;/not-found-page/&quot;,
     &quot;routes&quot;: {
-        &quot;/pages-inexistantes/&quot;: {
+        &quot;/not-found-page/&quot;: {
             &quot;template&quot;: &quot;error.htm&quot;,
             &quot;statusCode&quot;: 404
         },
@@ -1430,14 +1430,14 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>vous pourrez accéder à :</p>
+}</code></pre><p>you can access to:</p>
 <ul>
-<li><em>http://localhost/cette-page-n-existe-pas.html</em></li>
-<li><em>http://localhost/elle/non/plus/</em></li>
+<li><em>http://localhost/this-page-do-not-exist.html</em></li>
+<li><em>http://localhost/this/page/either/</em></li>
 <li><em>http://localhost/etc</em></li>
 </ul>
-<h3>Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p>
-<h4>En statique</h4><p>Voyez l'exemple ci-dessous :</p>
+<h3>Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p>
+<h4>Static</h4><p>See the example below:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/list-of-members/&quot;: {
@@ -1447,7 +1447,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;redirect&quot;: &quot;/list-of-members/&quot;,
             &quot;statusCode&quot;: 301,
         },
-        &quot;/aller-sur-node-atlas/&quot;: {
+        &quot;/go-to-node-atlas/&quot;: {
             &quot;redirect&quot;: &quot;http://haeresis.github.io/NodeAtlas/&quot;,
             &quot;statusCode&quot;: 302,
         },
@@ -1455,12 +1455,12 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>Vous serez redirigé :</p>
+}</code></pre><p>You will be redirected:</p>
 <ul>
-<li>sur <code>http://localhost/list-of-members/</code> quand vous accéderez à <code>http://localhost/list-of-members</code> avec une entête <em>redirection permanente</em>.</li>
-<li>sur <code>http://haeresis.github.io/NodeAtlas/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
+<li>to <code>http://localhost/list-of-members/</code> when you access <code>http://localhost/list-of-members</code> with a header <em>permanent redirect</em>.</li>
+<li>to <code>http://haeresis.github.io/NodeAtlas/</code> when you access <code>http://localhost/go-to-node-atlas/</code> with a header <em>temporary redirect</em>.</li>
 </ul>
-<h4>En dynamique</h4><p>Voyez l'exemple ci-dessous :</p>
+<h4>Dynamic</h4><p>See the example below:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/list-of-members/:member/&quot;: {
@@ -1474,8 +1474,8 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>Vous serez redirigé sur <code>http://localhost/list-of-members/haeresis/</code> quand vous accéderez à <code>http://localhost/list-of-members/haeresis</code> avec une entête <em>redirection permanente</em>.</p>
-<h4>Avec expressions régulières</h4><p>Voyez l'exemple ci-dessous :</p>
+}</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p>
+<h4>With regular expressions</h4><p>See the example below:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/membres/([-a-z0-9]+)/&quot;: {
@@ -1494,10 +1494,10 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/list-of-members/haeresis/</code> avec une entête <em>redirection permanente</em>.</p>
-<p>Pour le second <em>match</em> utilisez $1$, pour le troisième $2$, etc.</p>
-<h3>Minifier les CSS/JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaité. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut qu'un Bundle existe dans le Webconfig.</p>
-<h4>Créer des Bundles</h4><p>Avec la configuration suivante :</p>
+}</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p>
+<p>For the second <em>match</em> use $1$, the third $2#, etc.</p>
+<h3>Minify CSS/JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p>
+<h4>Creating Bundles</h4><p>With the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
@@ -1534,7 +1534,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>et l'ensemble de fichier suivant :</p>
+}</code></pre><p>and the following set of file:</p>
 <pre class="prettyprint source"><code>assets/
 — stylesheets
 —— common.css
@@ -1552,7 +1552,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 —— javascript/common.js
 templates/
 — index.htm
-webconfig.json</code></pre><p>vous obtiendrez les nouveau fichiers suivant :</p>
+webconfig.json</code></pre><p>you will get the following new files:</p>
 <pre class="prettyprint source"><code>assets/
 — stylesheets
 —— stylesheets/common.min.css
@@ -1562,7 +1562,7 @@ webconfig.json</code></pre><p>vous obtiendrez les nouveau fichiers suivant :</p>
 —— javascript/common.min.js
 templates/
 — index.htm
-webconfig.json</code></pre><h4>Désactiver des Bundles</h4><p>Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés <code>enable: false</code> dans chaque type de Bundle.</p>
+webconfig.json</code></pre><h4>Disable Bundles</h4><p>It is also possible to not execute the minification when start a website with NodeAtlas with <code>enable</code> properties set to <code>false</code> in each type of Bundle.</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
@@ -1601,9 +1601,9 @@ webconfig.json</code></pre><h4>Désactiver des Bundles</h4><p>Il est également 
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><h4>Bundles dans un fichier partagé</h4><p>Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>. </p>
-<p>Par exemple :</p>
-<p>L'ensemble de fichier suivant</p>
+}</code></pre><h4>Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p>
+<p>For example:</p>
+<p>The following set of file</p>
 <pre class="prettyprint source"><code>assets/
 — stylesheets
 —— common.css
@@ -1622,7 +1622,7 @@ webconfig.json</code></pre><h4>Désactiver des Bundles</h4><p>Il est également 
 templates/
 — index.htm
 webconfig.json
-webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
+webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: {
@@ -1662,7 +1662,7 @@ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>et avec <code>webconfig.prod.json</code></p>
+}</code></pre><p>and with <code>webconfig.prod.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7776,
     &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
@@ -1704,7 +1704,7 @@ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>pourrait devenir l'ensemble de fichier suivant </p>
+}</code></pre><p>could be the following set of file</p>
 <pre class="prettyprint source"><code>assets/
 — stylesheets
 —— common.css
@@ -1724,7 +1724,7 @@ templates/
 — index.htm
 bundles.json
 webconfig.json
-webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
+webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: &quot;bundles.json&quot;,
@@ -1733,7 +1733,7 @@ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>avec <code>webconfig.prod.json</code></p>
+}</code></pre><p>with <code>webconfig.prod.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7776,
     &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
@@ -1744,7 +1744,7 @@ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>et <code>bundles.json</code></p>
+}</code></pre><p>and <code>bundles.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;javascript&quot;: {
         &quot;enable&quot;: false,
@@ -1776,8 +1776,8 @@ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
             ]
         }
     }
-}</code></pre><p><em>Note : cette fois il est possible de désactiver les Bundles en ne les incluant pas dans le <code>webconfig</code> en question.</em></p>
-<h3>Autoriser/Interdire les demandes GET/POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p>
+}</code></pre><p><em>Note : this time it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p>
+<h3>Allow/Disallow GET/POST requests</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;getSupport&quot;: true,
     &quot;postSupport&quot;: false,
@@ -1788,32 +1788,32 @@ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
         &quot;/list-of-members/&quot;: {
             &quot;template&quot;: &quot;members.htm&quot;
         },
-        &quot;/rediger-commentaire/&quot;: {
+        &quot;/write-comment/&quot;: {
             &quot;template&quot;: &quot;write-com.htm&quot;
         },
-        &quot;/commentaire-sauvegarde/&quot;: {
+        &quot;/save-comment/&quot;: {
             &quot;template&quot;: &quot;save-com.htm&quot;,
             &quot;getSupport&quot;: false,
             &quot;postSupport&quot;: true
         }
     }
-}</code></pre><p><em>Note : Si rien n'est précisé,</em> <strong><em>getSupport</em></strong> <em>et</em> <strong><em>postSupport</em></strong> <em>sont à</em> <strong><em>true</em></strong> <em>au niveau global et par page.</em></p>
-<h3>Changer les paramètres des Sessions</h3><h4>Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p>
+}</code></pre><p><em>Note : If nothing is set,</em> <strong><em>getSupport</em></strong> <em>and</em> <strong><em>postSupport</em></strong> <em>are set to</em> <strong><em>true</em></strong> <em>in  global webconfig and by route.</em></p>
+<h3>Change settings of Sessions</h3><h4>Key and Secret</h4><p>NodeAtlas itself manages sessions stored on the server as initial settings:</p>
 <ul>
 <li>Key : <code>nodeatlas.sid</code></li>
 <li>Secret : <code>1234567890bépo</code></li>
 </ul>
-<p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p>
-<p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p>
+<p>that allow customers to stay connected through the pages to a single set of personal server side variable.</p>
+<p>It is possible to change the default settings (and even compulsory for productions sites) with the parameters of <code>webconfig.json</code> following:</p>
 <pre class="prettyprint source lang-js"><code>{
-    sessionKey: &quot;clé personnelle&quot;,
-    sessionSecret: &quot;secret personnel&quot;
-}</code></pre><p>NodeAtlas utilise également un objes de stockage mémoire (MemoryStore) qui stoques les informations dans la RAM du serveur.</p>
-<h4>Autres paramètres</h4><p>Il est possible de changer l'intégralité des paramètres des sessions (sauf le MemoryStore) en utilisant la configuration de <code>webconfig.json</code> suivante :</p>
+    sessionKey: &quot;personal key&quot;,
+    sessionSecret: &quot;personal secret&quot;
+}</code></pre><p>NodeAtlas also employs a memory storage object (MemoryStore) stoques that the information in the RAM of the server.</p>
+<h4>Other Parameters</h4><p>It is possible to change all the parameters of the sessions (except MemoryStore) using the configuration of next <code>webconfig.json</code>:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;session&quot;: {
-        &quot;key&quot;: &quot;clé personnelle&quot;,
-        &quot;secret&quot;: &quot;secret personnel&quot;,
+        &quot;key&quot;: &quot;personal key&quot;,
+        &quot;secret&quot;: &quot;personal secret&quot;,
         &quot;cookie&quot;: { 
             &quot;path&quot;: '/', 
             &quot;httpOnly&quot;: true, 
@@ -1824,11 +1824,11 @@ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
         ...,
         ...
     }
-}</code></pre><p>L'intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p>
-<h3>Stockage externe des Sessions</h3><p>Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p>
-<p>Pour résoudre ce soucis, il convient de prendre en charge l'enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p>
-<p>Pour cela il suffit d'utiliser la fonction <code>setSessions</code> dans le fichier <code>controllers/common.js</code> de la <a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">partie Back-end</a>.</p>
-<h4>Session gérées avec Redis</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans Redis en local.</p>
+}</code></pre><p>The entirety of the possible configuration is located on the module documentation <a href="https://github.com/expressjs/session">express-session</a>.</p>
+<h3>External Storage Sessions</h3><p>By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.</p>
+<p>To address this concern, it should support the recording sessions via a base No SQL such as <code>Redis</code> or <code>MongoBD</code>.</p>
+<p>You just have to use the <code>setSessions</code> function in<code>controllers/common.js</code> of <a href="#use-nodeatlas-to-run-a-website-back-end-part">partie Back-end</a>.</p>
+<h4>Session managed with Redis</h4><p>Implement the following code in <code>controllers/common.js</code> to store your sessions in a local Redis.</p>
 <pre class="prettyprint source"><code>var website = {};
 
 (function (publics) {
@@ -1852,8 +1852,8 @@ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p>
 }(website));
 
 exports.loadModules = website.loadModules;
-exports.setSessions = website.setSessions;</code></pre><p>Plus d'informations sur <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a>.</p>
-<h4>Session gérées avec MongoDB</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans la database <code>sessions</code> d'une MongoDB locale.</p>
+exports.setSessions = website.setSessions;</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a> page.</p>
+<h4>Session managed with MongoDB</h4><p>Implement the following code in <code>controllers/common.js</code> to store sessions in the database <code>sessions</code> of a local MongoDB.</p>
 <pre class="prettyprint source"><code>var website = {};
 
 (function (publics) {
@@ -1879,8 +1879,8 @@ exports.setSessions = website.setSessions;</code></pre><p>Plus d'informations su
 }(website));
 
 exports.loadModules = website.loadModules;
-exports.setSessions = website.setSessions;</code></pre><p>Plus d'informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p>
-<h3>Changer les chevrons &lt;% %&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l'instruction <strong><em>&lt;% include head.htm %&gt;</em></strong>. Il serait possible de le faire avec <strong><em>{{ include head.htm }}</em></strong> avec la configuration ci-dessous :</p>
+exports.setSessions = website.setSessions;</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p>
+<h3>Changing the template engine brackets &lt;% %&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;% include head.htm %&gt;</em></strong>. It would be possible to do it with <strong><em>{{ include head.htm }}</em></strong> with the configuration below:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;templateEngineOpenPattern&quot;: &quot;{{&quot;,
     &quot;templateEngineClosePattern&quot;: &quot;}}&quot;,
@@ -1889,9 +1889,10 @@ exports.setSessions = website.setSessions;</code></pre><p>Plus d'informations su
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
-<p><em>Note : Si rien n'est précisé,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>et</em> <strong><em>templateEngineClosePattern</em></strong> <em>valent respectivement</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
-<h3>Changer l'url final des hostname et port d'écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p>
+}</code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
+<p><em>Note : If nothing is set,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>and</em> <strong><em>templateEngineClosePattern</em></strong> <em>are set to</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
+<h3>Change the end of the url hostname and listen port</h3><p>Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
+It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
@@ -2181,7 +2182,7 @@ server.listen(80);</code></pre><p>que vous pouvez lancer avec :</p>
 	<dt class="tag-version">Version:</dt>
 	<dd class="tag-version">
 		<ul class="dummy">
-			<li>0.25.2</li>
+			<li>0.25.3</li>
 		</ul>
 	</dd>
 	
@@ -2262,7 +2263,7 @@ server.listen(80);</code></pre><p>que vous pouvez lancer avec :</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a>
-		on 2014-12-03T10:57:25+01:00 using the <a
+		on 2014-12-03T12:05:50+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
