@@ -120,8 +120,8 @@ The tool is still in development and I experience it slowly with my own websites
 ### Documentation ###
 
 In addition to this README, you also have access to,
-- [Code Explanation](https://haeresis.github.com/NodeAtlas/doc/) and,
-- [Details of public function in the NA object](https://haeresis.github.com/NodeAtlas/doc/).
+- [Code Explanation](https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js) and,
+- [Details of public function in the NA object](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html).
 
 
 
@@ -3009,4 +3009,4 @@ NodeAtlas is made of such a way that the `NA` object contains all the functions 
 
 All error messages in `/languages/default.json`. If you want to change, simply duplicate the `default.json` file and rename it to `fr-fr.json` and change the language of the original.
 
-Finally [appoche the public/privates architecture is explained in this article](http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/) (FR).
+Finally [appoche the public/privates architecture is explained in this article](http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/) (Fr).
