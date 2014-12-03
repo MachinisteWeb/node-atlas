@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.1 (Beta)
+Version : 0.25.2 (Beta)
 
 THIS FILE IS STILL IN TRADUCTION...
 
@@ -51,9 +51,9 @@ The tool is still in development and I experience it slowly with my own websites
  - [Manage Multilingual](#manage multilingual)
  - [NodeAtlas use to generate HTML assets](#nodeatlas use to generate html assets)
  - [Use NodeAtlas to run a website (Back-end Part)](#use nodeatlas to run a website back-end part)
- - [Changer les paramètres d'url.](#changer-les-param%C3%A8tres-durl)
- - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
- - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage)
+ - [Change the url parameters](#change the url parameters)
+ - [Create your own webconfig variables](#create your own webconfig variables)
+ - [Manage routing (URL Rewriting)](#manage routing url rewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
@@ -401,7 +401,7 @@ You can segment your HTML codes to not repeat the redundant code such "head" par
         "/": {
             "template": "index.htm"
         },
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "members.htm"
         }
     }
@@ -476,7 +476,7 @@ webconfig.json
 you will have access to the addresses:
 
 - *http://localhost/*
-- *http://localhost/liste-des-membres/*
+- *http://localhost/list-of-members/*
 
 *Note : If* ***componentsRelativePath*** *is not present in "webconfig.js", default include folder is* ***components/***. ***componentsRelativePath*** *is useful only to change the name/path of directory.*
 
@@ -495,7 +495,7 @@ It is possible with the same template and the same includes, generating pages wi
             "template": "template.htm",
             "variation": "index.json",
         },
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "template.htm",
             "variation": "members.json",
         }
@@ -598,7 +598,7 @@ webconfig.json
 you will have access to the addresses:
 
 - *http://localhost/*
-- *http://localhost/liste-des-membres/*
+- *http://localhost/list-of-members/*
 
 *Note : If* ***variationsRelativePath*** *is not present in "webconfig.js", default variations folder is* ***variations/***. ***variationsRelativePath*** *is useful only to change the name/path of directory.*
 
@@ -839,7 +839,7 @@ you could have "webconfig.json» next:
             "template": "home.htm",
             "variation": "home.json"
         }, 
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "members.htm",
             "variation": "members.json"
         }
@@ -854,7 +854,7 @@ and have access to addresses:
 - *http://localhost:81/english/*
 - *http://localhost:81/english/members-list/*
 - *http://localhost:82/francais/*
-- *http://localhost:82/francais/liste-des-membres/*
+- *http://localhost:82/francais/list-of-members/*
 
 It is then possible to reverse proxy with [Bouncy](#proxy) (for example) to bring all urls on port 80 to obtain:
 
@@ -863,7 +863,7 @@ It is then possible to reverse proxy with [Bouncy](#proxy) (for example) to brin
 - *http://www.website.ext/english/*
 - *http://www.website.ext/english/members-list/*
 - *http://www.website.ext/francais/*
-- *http://www.website.ext/francais/liste-des-membres/*
+- *http://www.website.ext/francais/list-of-members/*
 
 
 
@@ -882,7 +882,7 @@ With the following configuration it is possible to generate HTML rendering asset
             "template": "index.htm",
             "generate": "/index.html"
         },
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "members.htm",
             "generate": "/members/list.html"
         },
@@ -931,7 +931,7 @@ webconfig.json
 by going to the address:
 
 - *http://localhost/*
-- *http://localhost/liste-des-membres/*
+- *http://localhost/list-of-members/*
 
 The generation starts when displaying the page if ***autoGenerate*** exist and if it is ***true***. If it is passed ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/server.js --generate` will generate all pages once. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
 
@@ -1355,15 +1355,15 @@ var website = {};
             variation.currentRouteParameters.statusCode = 200;
         }
 
-        // Création d'un nouvel ensemble de variation dynamique pour les templates.
-        variation.backend = {}; // Accessible via « <%= backend.<propriétés> %> ».
+        // Creating a new set of dynamic variation for templates.
+        variation.backend = {}; // Properties available through « <%= backend.<properties> %> ».
 
         privates.listOfArticles(Article, function (listOfArticles) {
 
-            // Disponibilité des données des articles côté template derrière
-            variation.backend.articles = listOfArticles; // « <%= backend.articles.<propriétés> %> ».
+            // Availability of data items for client-side.
+            variation.backend.articles = listOfArticles; // « <%= backend.articles.<properties> %> ».
 
-            // On ré-injecte les modifications.
+            // We re-injects the changes.
             mainCallback(variation);
         });
     };
@@ -1372,58 +1372,54 @@ var website = {};
 
 
 
-/***********************************************************/
-/* Interception de la sortie HTML pour jQuery côté serveur */
-/***********************************************************/
+/**********************************************************/
+/* Interception of the HTML output for server-side jQuery */
+/**********************************************************/
 
 (function (publics) {
     "use strict";
     
-    // On intervient juste avant le renvoi HTML auprès du client (response).
+    // It comes just before the HTML response to the client.
     publics.render = function (params, mainCallback) {
         var data = params.data,
             NA = params.NA,
-            jsdom = NA.modules.jsdom; // Récupération de jsdom pour parcourir le DOM avec jQuery.
+            cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
+            $ = cheerio.load(data); // It loads data to manipulate as a DOM.
 
-        // On charge le fichier jQuery défini dans le moteur, mais on peut utiliser une autre version.
-        jsdom.env(data, [NA.webconfig.jQueryVersion], function (error, window) {
-            var $ = window.$;
+        // After all HTML h2 output "data".
+        $("h2").each(function (i) {
+            var $this = $(this);
 
-            // Après tous les h2 de la sortie HTML « data »,
-            $("h2").each(function (i) {
-                var $this = $(this);
-
-                // ... on créé une div,
-                $this.after(
-                    // ... on injecte le contenu du h2 dans la div,
-                    $("<div>").html($this.html())
-                )
-                // ... et supprime le h2.
-                $this.remove();
-            });
-
-            // On re-créer une nouvelle sortie HTML avec nos modifications.
-            data = window.document.doctype.toString() + window.document.innerHTML.replace(/<script class=.jsdom.+><\/script><\/html>/g, "</html>"); // (Si vous connaissez un moyen plus élégant d'enlever ce script ajouté automatiquement « <script class=.jsdom.+><\/script><\/html> », faites moi signe !)
-
-            // On ré-injecte les modifications.
-            mainCallback(data);
+            // ...we created a div,
+            $this.after(
+                // ... on injecte le contenu du h2 dans la div,
+                $("<div>").html($this.html())
+            )
+            // ...and deletes the h2.
+            $this.remove();
         });
+
+        // We re-create a new HTML output with our changes.
+        data = $.html()
+
+        // We re-injects the changes.
+        mainCallback(data);
     };
 
 }(website));
 
 
 
-/***********************************************/
-/* Gestion des évênements Socket.IO asynchrone */
-/***********************************************/
+/********************************************/
+/* Asynchronous Events Management Socket.IO */
+/********************************************/
 
 (function (publics) {
     "use strict";
 
     var privates = {};
 
-    // Intégralité des actions Websocket possible pour ce template.
+    // All Websocket action possible for this template.
     publics.asynchrone = function (params) {
         var io = params.io,
             mongoose = params.NA.modules.mongoose,
@@ -1431,32 +1427,32 @@ var website = {};
             Article = mongoose.model('article'),
             renderer = new marked.Renderer();
 
-        // Dès qu'on a un lien valide entre le client et notre back,
+        // Once we have a valid connection between the client and our back-end...
         io.sockets.on('connection', function (socket) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session;
 
-            // ... resté à l'écoute de la demande « create-article-button »,
+            // ...stay tuned on the "create-item-button" demand...
             socket.on('create-article-button', function (data) {
 
-                // ... et répondre à cette demande en créant un nouvelle article si elle vient
-                // avec les information envoyées via « data ».
+                // ...and respond to this demand by creating a new item if it comes
+                // with the information sent via "data".
                 var article = new Article({
                     _id: mongoose.Types.ObjectId(),
                     title: data.title,
                     urn: data.urn,
                 });
 
-                // Si l'utilisateur est connecté.
+                // If the user is connected.
                 if (session.account) {
 
-                    / ... on créer sauve article en base.
+                    / ...we save the article into database.
                     article.save(function (error) {
                         if (error) { 
                             throw error;
                         }
 
-                        // Et on répond à tous les clients avec un jeu de donnée dans data.
+                        // And responds to all customers with a set of data in data.
                         io.sockets.emit('create-article-button', data);
                     });
                 }
@@ -1468,22 +1464,22 @@ var website = {};
 
 
 
-/***********************************************************/
-/* Interception de la sortie HTML pour jQuery côté serveur */
-/***********************************************************/
+/********************************************/
+/* Expose function for the NodeAtlas engine */
+/********************************************/
 
 exports.preRender = website.preRender;
 exports.render = website.render;
-exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
+exports.asynchrone = website.asynchrone; // Used not by "NodeAtlas" but with "common.js" (see previous file).
 ```
 
-*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien* ***controllers/***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : If* ***controllersRelativePath*** *is not present in "webconfig.js", default controller folder is* ***controllers/***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
-### Changer les paramètres d'url ###
+### Change the url parameters ###
 
-Par défaut, si vous utilisez la configuration suivante :
+By default, if you use the following configuration:
 
 ```js
 {
@@ -1495,7 +1491,7 @@ Par défaut, si vous utilisez la configuration suivante :
 }
 ```
 
-cela est identique à utiliser celle-ci :
+This is the same to using it:
 
 ```js
 {
@@ -1511,9 +1507,9 @@ cela est identique à utiliser celle-ci :
 }
 ```
 
-et vous pourrez accéder à l'url : *http://localhost/*.
+and you will be access to the url: *http://localhost/*.
 
-Changez alors la configuration en ceci :
+Then change the configuration to this:
 
 ```js
 {
@@ -1529,15 +1525,15 @@ Changez alors la configuration en ceci :
 }
 ```
 
-pour accéder à : *https://127.0.0.1:7777/sub/folder/*
+for access to : *https://127.0.0.1:7777/sub/folder/*
 
 
 
-### Créer ses propres variables de webconfig ###
+### Create your own webconfig variables ###
 
-Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
+Imagine two webconfigs in which we create our own variables as follows:
 
-1. « webconfig.json »
+1. "webconfig.json"
 
 ```js
 {
@@ -1550,7 +1546,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 }
 ```
 
-2. « webconfig.prod.json »
+2. "webconfig.prod.json"
 
 ```js
 {
@@ -1563,7 +1559,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 }
 ```
 
-avec cet ensemble de fichiers
+with this set of files
 
 ```
 assets/
@@ -1579,7 +1575,7 @@ webconfig.json
 webconfig.prod.json
 ```
 
-et « index.htm » contenant :
+and "index.htm" containing:
 
 ```html
 <!DOCTYPE html>
@@ -1590,19 +1586,19 @@ et « index.htm » contenant :
         <link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
     </head>
     <body>
-        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <div>This is a test to get a file minify/unminify.</div>
         <script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
     </body>
 </html>
 ```
 
-En lançant (depuis le dossier du site) la commande :
+To run (since the site folder) the the command:
 
 ```
 \> node </path/to/>node-atlas/node-atlas.js
 ```
 
-Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
+We will have to address "http://localhost/" the following output with non-minified files:
 
 ```html
 <!DOCTYPE html>
@@ -1613,19 +1609,19 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
         <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
     </head>
     <body>
-        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <div>This is a test to get a file minify/unminify.</div>
         <script type="text/javascript" src="javascript/common.js"></script>
     </body>
 </html>
 ```
 
-Cependant en lançant la commande :
+However, running the command:
 
 ```
 \> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json 
 ```
 
-Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
+We will have to address "http://localhost/" the following output with minified files:
 
 ```html
 <!DOCTYPE html>
@@ -1636,31 +1632,31 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
         <link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
     </head>
     <body>
-        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <div>This is a test to get a file minify/unminify.</div>
         <script type="text/javascript" src="javascript/common.min.js"></script>
     </body>
 </html>
 ```
 
-*Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
+*Note : It is better to prefix his personal variables with "_" to avoid conflicts with existing or future configuration variables.*
 
 
 
-### Gérer le routage (Url Rewriting) ###
+### Manage routing (URL Rewriting) ###
 
-Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamique !
+Although you can configure static urls, you can also set of dynamic url!
 
 #### Standard ###
 
-Avec la configuration suivante :
+With the following configuration:
 
 ```js
 {
     "routes": {
-        "/liste-des-membres/:member/": {
+        "/list-of-members/:member/": {
             "template": "members.htm"
         },
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "members.htm"
         },
         "/": {
@@ -1670,44 +1666,44 @@ Avec la configuration suivante :
 }
 ```
 
-vous pourrez accéder à :
+you can access:
 
 - *http://localhost/*
-- *http://localhost/liste-des-membres/*
-- *http://localhost/liste-des-membres/toto/*
-- *http://localhost/liste-des-membres/bob-eponge99/*
-- *http://localhost/liste-des-membres/node-atlas/*
-- *http://localhost/liste-des-membres/etc/*
+- *http://localhost/list-of-members/*
+- *http://localhost/list-of-members/toto/*
+- *http://localhost/list-of-members/bob-eponge99/*
+- *http://localhost/list-of-members/node-atlas/*
+- *http://localhost/list-of-members/etc/*
 
-et récupérer les valeurs de `:member` dans le `preRender` (common et specific).
+and retrieve the `:member` value in` preRender` (common and specific).
 
 ```js
 exports.preRender = function (params, mainCallback) {
     var variation = params.variation;
 
     console.log(variation.params.member); 
-    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+    // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
     mainCallback(variation);
 }
 ```
 
-Les règles de création d'url dynamique sont celles de [Express.js](http://expressjs.com/4x/api.html#req.params).
+Dynamic url creation rules are those of [Express.js](http://expressjs.com/4x/api.html#req.params).
 
-#### Expressions Régulières ###
+#### Regular Expressions ###
 
-Vous pouvez également activer les expressions régulières pour un chemin précis avec `regExp`. Si celui-ci vaut `true`, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si `regExp` est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).
+You can also enable regular expressions to a specific path with `regExp`. If it is `true`, the previous profile no longer works and you pass in Regular Expression mode. If `regExp` is a string, it acts as a flag (g, i, m or y).
 
-Voyez la configuration suivante :
+See the following configuration:
 
 ```js
 {
     "routes": {
-        "/liste-des-membres/([-a-z0-9]+)/?": {
+        "/list-of-members/([-a-z0-9]+)/?": {
             "template": "members.htm",
             "regExp": "g"
         },
-        "/liste-des-membres/?": {
+        "/list-of-members/?": {
             "template": "members.htm",
             "regExp": true
         },
@@ -1718,40 +1714,40 @@ Voyez la configuration suivante :
 }
 ```
 
-vous pourrez accéder à :
+you can access:
 
 - *http://localhost/*
-- *http://localhost/liste-des-membres/* _(ou *https://localhost/liste-des-membres*)_
-- *http://localhost/liste-des-membres/toto/* _(ou *https://localhost/liste-des-membres/toto*)_
-- *http://localhost/liste-des-membres/bob-eponge99/* _(ou *https://localhost/liste-des-membres/bob-eponge99*)_
-- *http://localhost/liste-des-membres/node-atlas/* _(ou *https://localhost/liste-des-membres/node-atlas*)_
-- *http://localhost/liste-des-membres/etc/* _(ou *https://localhost/liste-des-membres/etc*)_
+- *http://localhost/list-of-members/* _(ou *https://localhost/list-of-members*)_
+- *http://localhost/list-of-members/toto/* _(ou *https://localhost/list-of-members/toto*)_
+- *http://localhost/list-of-members/bob-eponge99/* _(ou *https://localhost/list-of-members/bob-eponge99*)_
+- *http://localhost/list-of-members/node-atlas/* _(ou *https://localhost/list-of-members/node-atlas*)_
+- *http://localhost/list-of-members/etc/* _(ou *https://localhost/list-of-members/etc*)_
 
-et récupérer les valeurs de `([-a-z0-9]+)` dans le `preRender` (common et specific).
+and retrieve the `([-a-z0-9] +) value in the` `preRender` (common and specific).
 
 ```js
 exports.preRender = function (params, mainCallback) {
     var variation = params.variation;
 
     if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
-    // variation.params[1] pour le deuxième match, etc...
+    // variation.params[1] for second match, etc...
 
     console.log(variation.params.member); 
-    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+    // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
     mainCallback(variation);
 }
 ```
 
-Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+The rules for creating dynamic url with `regExp` are those of [RegExpJavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
 
-#### Routage dans un fichier partagé ####
+#### Routing in a shared file ####
 
-Afin de ne pas ré-écrire une longue liste de route dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `routes.json`. 
+In order to not rewrite a long route list in `webconfig.json` file to your development environment and` webconfig.prod.json` to your production environment, you can group route in a file of your choice. By convention, the name is `routes.json` file.
 
-Par exemple :
+For example:
 
-L'ensemble de fichier suivant
+The following set of file
 
 ```
 templates/
@@ -1760,7 +1756,7 @@ webconfig.json
 webconfig.prod.json
 ```
 
-avec `webconfig.json`
+with `webconfig.json`
 
 ```json
 {
@@ -1773,7 +1769,7 @@ avec `webconfig.json`
 }
 ```
 
-et avec `webconfig.prod.json`
+and with `webconfig.prod.json`
 
 ```json
 {
@@ -1788,7 +1784,7 @@ et avec `webconfig.prod.json`
 }
 ```
 
-pourrait devenir l'ensemble de fichier suivant 
+could be the following set of file
 
 ```
 templates/
@@ -1798,7 +1794,7 @@ webconfig.json
 webconfig.prod.json
 ```
 
-avec `webconfig.json`
+with `webconfig.json`
 
 ```json
 {
@@ -1807,7 +1803,7 @@ avec `webconfig.json`
 }
 ```
 
-avec `webconfig.prod.json`
+with `webconfig.prod.json`
 
 ```json
 {
@@ -1818,7 +1814,7 @@ avec `webconfig.prod.json`
 }
 ```
 
-et `routes.json`
+and `routes.json`
 
 ```json
 {
@@ -1828,7 +1824,7 @@ et `routes.json`
 }
 ```
 
-*Note : Vous pouvez vous créer plusieurs fichier de route comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramètrer pour faire tourner un site dans diverses langues.*
+*Note : You can create multiple route file as `routes.en.json` and `routes.fr.json` and associate each of them in a set of webconfig parameterize to run a website in various languages.*
 
 
 
@@ -1849,7 +1845,7 @@ Voyez l'exemple ci-dessous :
             "template": "error.htm",
             "statusCode": 404
         },
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "members.htm"
         },
         "/": {
@@ -1878,11 +1874,11 @@ Voyez l'exemple ci-dessous :
 ```js
 {
     "routes": {
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "members.htm"
         },
-        "/liste-des-membres": {
-            "redirect": "/liste-des-membres/",
+        "/list-of-members": {
+            "redirect": "/list-of-members/",
             "statusCode": 301,
         },
         "/aller-sur-node-atlas/": {
@@ -1898,7 +1894,7 @@ Voyez l'exemple ci-dessous :
 
 Vous serez redirigé :
 
-- sur `http://localhost/liste-des-membres/` quand vous accéderez à `http://localhost/liste-des-membres` avec une entête _redirection permanente_.
+- sur `http://localhost/list-of-members/` quand vous accéderez à `http://localhost/list-of-members` avec une entête _redirection permanente_.
 - sur `http://haeresis.github.io/NodeAtlas/` quand vous accéderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
 
 #### En dynamique ####
@@ -1908,10 +1904,10 @@ Voyez l'exemple ci-dessous :
 ```js
 {
     "routes": {
-        "/liste-des-membres/:member/": {
+        "/list-of-members/:member/": {
             "template": "members.htm"
         },
-        "/liste-des-membres/:member": {
+        "/list-of-members/:member": {
             "redirect": "/membres/:member/"
             "statusCode": 301
         },
@@ -1922,7 +1918,7 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serez redirigé sur `http://localhost/liste-des-membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis` avec une entête _redirection permanente_.
+Vous serez redirigé sur `http://localhost/list-of-members/haeresis/` quand vous accéderez à `http://localhost/list-of-members/haeresis` avec une entête _redirection permanente_.
 
 #### Avec expressions régulières ####
 
@@ -1935,12 +1931,12 @@ Voyez l'exemple ci-dessous :
             "template": "members.htm",
             "regExp": true
         },
-        "/liste-des-membres/([-a-z0-9]+)/": {
+        "/list-of-members/([-a-z0-9]+)/": {
             "redirect": "/membres/$0$/"
             "statusCode": 301,
             "regExp": true
         },
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "members.htm"
         },
         "/": {
@@ -1950,7 +1946,7 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
+Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/list-of-members/haeresis/` avec une entête _redirection permanente_.
 
 Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
 
@@ -2318,7 +2314,7 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
         "/": {
             "template": "index.htm"
         },
-        "/liste-des-membres/": {
+        "/list-of-members/": {
             "template": "members.htm"
         },
         "/rediger-commentaire/": {
