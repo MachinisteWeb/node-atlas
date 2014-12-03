@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.25.1 (Beta)</p>
+<p>Version : 0.25.2 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -100,7 +100,7 @@
 <li><a href="#g%C3%A9rer-le-multilingue">Gérer le multilingue</a></li>
 <li><a href="#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html">Utiliser NodeAtlas pour générer des assets HTML</a></li>
 <li><a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</a></li>
-<li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url.</a></li>
+<li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url</a></li>
 <li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
 <li><a href="#g%C3%A9rer-le-routage">Gérer le routage (Url Rewriting)</a></li>
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
@@ -1260,9 +1260,9 @@ webconfig.json
 
 
 
-<span class="pl-c">/**************************************************************/</span>
+<span class="pl-c">/*************************************************************/</span>
 <span class="pl-c">/* Mise à dispositions des fonction pour le moteur NodeAtlas */</span>
-<span class="pl-c">/**************************************************************/</span>
+<span class="pl-c">/*************************************************************/</span>
 
 <span class="pl-sv">exports</span>.loadModules <span class="pl-k">=</span> website.loadModules;
 <span class="pl-sv">exports</span>.setConfigurations <span class="pl-k">=</span> website.setConfigurations;
@@ -1361,11 +1361,11 @@ webconfig.json
         }
 
         <span class="pl-c">// Création d'un nouvel ensemble de variation dynamique pour les templates.</span>
-        variation.backend <span class="pl-k">=</span> {}; <span class="pl-c">// Accessible via « &lt;%= backend.&lt;propriétés&gt; %&gt; ».</span>
+        variation.backend <span class="pl-k">=</span> {}; <span class="pl-c">// Propriétés accessibles via « &lt;%= backend.&lt;propriétés&gt; %&gt; ».p</span>
 
         privates.listOfArticles(Article, <span class="pl-st">function</span> (<span class="pl-vpf">listOfArticles</span>) {
 
-            <span class="pl-c">// Disponibilité des données des articles côté template derrière</span>
+            <span class="pl-c">// Disponibilité des données des articles côté template.</span>
             variation.backend.articles <span class="pl-k">=</span> listOfArticles; <span class="pl-c">// « &lt;%= backend.articles.&lt;propriétés&gt; %&gt; ».</span>
 
             <span class="pl-c">// On ré-injecte les modifications.</span>
@@ -1388,31 +1388,27 @@ webconfig.json
     <span class="pl-s3">publics</span>.<span class="pl-en">render</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
         <span class="pl-s">var</span> data <span class="pl-k">=</span> params.<span class="pl-sc">data</span>,
             NA <span class="pl-k">=</span> params.NA,
-            jsdom <span class="pl-k">=</span> NA.modules.jsdom; <span class="pl-c">// Récupération de jsdom pour parcourir le DOM avec jQuery.</span>
+            cheerio <span class="pl-k">=</span> NA.modules.cheerio, <span class="pl-c">// Récupération de jsdom pour parcourir le DOM avec jQuery.</span>
+            $ <span class="pl-k">=</span> cheerio.<span class="pl-s3">load</span>(data); <span class="pl-c">// On charge les données pour les manipuler comme un DOM.</span>
 
-        <span class="pl-c">// On charge le fichier jQuery défini dans le moteur, mais on peut utiliser une autre version.</span>
-        jsdom.env(data, [NA.webconfig.jQueryVersion], <span class="pl-st">function</span> (<span class="pl-vpf">error</span>, <span class="pl-vpf">window</span>) {
-            <span class="pl-s">var</span> $ <span class="pl-k">=</span> <span class="pl-s3">window</span>.$;
+        <span class="pl-c">// Après tous les h2 de la sortie HTML « data »,</span>
+        $(<span class="pl-s1"><span class="pl-pds">"</span>h2<span class="pl-pds">"</span></span>).each(<span class="pl-st">function</span> (<span class="pl-vpf">i</span>) {
+            <span class="pl-s">var</span> $<span class="pl-v">this</span> <span class="pl-k">=</span> $(<span class="pl-v">this</span>);
 
-            <span class="pl-c">// Après tous les h2 de la sortie HTML « data »,</span>
-            $(<span class="pl-s1"><span class="pl-pds">"</span>h2<span class="pl-pds">"</span></span>).each(<span class="pl-st">function</span> (<span class="pl-vpf">i</span>) {
-                <span class="pl-s">var</span> $<span class="pl-v">this</span> <span class="pl-k">=</span> $(<span class="pl-v">this</span>);
-
-                <span class="pl-c">// ... on créé une div,</span>
-                $<span class="pl-v">this</span>.after(
-                    <span class="pl-c">// ... on injecte le contenu du h2 dans la div,</span>
-                    $(<span class="pl-s1"><span class="pl-pds">"</span>&lt;div&gt;<span class="pl-pds">"</span></span>).html($<span class="pl-v">this</span>.html())
-                )
-                <span class="pl-c">// ... et supprime le h2.</span>
-                $<span class="pl-v">this</span>.<span class="pl-s3">remove</span>();
-            });
-
-            <span class="pl-c">// On re-créer une nouvelle sortie HTML avec nos modifications.</span>
-            data <span class="pl-k">=</span> <span class="pl-s3">window</span>.<span class="pl-s3">document</span>.<span class="pl-sc">doctype</span>.<span class="pl-s3">toString</span>() <span class="pl-k">+</span> <span class="pl-s3">window</span>.<span class="pl-s3">document</span>.innerHTML.<span class="pl-s3">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>&lt;script class=<span class="pl-c1">.</span>jsdom<span class="pl-c1">.</span><span class="pl-k">+</span>&gt;&lt;<span class="pl-cce">\/</span>script&gt;&lt;<span class="pl-cce">\/</span>html&gt;<span class="pl-pds">/</span>g</span>, <span class="pl-s1"><span class="pl-pds">"</span>&lt;/html&gt;<span class="pl-pds">"</span></span>); <span class="pl-c">// (Si vous connaissez un moyen plus élégant d'enlever ce script ajouté automatiquement « &lt;script class=.jsdom.+&gt;&lt;\/script&gt;&lt;\/html&gt; », faites moi signe !)</span>
-
-            <span class="pl-c">// On ré-injecte les modifications.</span>
-            mainCallback(data);
+            <span class="pl-c">// ...on créé une div,</span>
+            $<span class="pl-v">this</span>.after(
+                <span class="pl-c">// ... on injecte le contenu du h2 dans la div,</span>
+                $(<span class="pl-s1"><span class="pl-pds">"</span>&lt;div&gt;<span class="pl-pds">"</span></span>).html($<span class="pl-v">this</span>.html())
+            )
+            <span class="pl-c">// ...et supprime le h2.</span>
+            $<span class="pl-v">this</span>.<span class="pl-s3">remove</span>();
         });
+
+        <span class="pl-c">// On re-créer une nouvelle sortie HTML avec nos modifications.</span>
+        data <span class="pl-k">=</span> $.html()
+
+        <span class="pl-c">// On ré-injecte les modifications.</span>
+        mainCallback(data);
     };
 
 }(website));
@@ -1436,15 +1432,15 @@ webconfig.json
             Article <span class="pl-k">=</span> mongoose.model(<span class="pl-s1"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>),
             renderer <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">marked.Renderer</span>();
 
-        <span class="pl-c">// Dès qu'on a un lien valide entre le client et notre back,</span>
+        <span class="pl-c">// Dès qu'on a un lien valide entre le client et notre back...</span>
         io.sockets.on(<span class="pl-s1"><span class="pl-pds">'</span>connection<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">socket</span>) {
             <span class="pl-s">var</span> sessionID <span class="pl-k">=</span> socket.request.sessionID,
                 session <span class="pl-k">=</span> socket.request.session;
 
-            <span class="pl-c">// ... resté à l'écoute de la demande « create-article-button »,</span>
+            <span class="pl-c">// ...rester à l'écoute de la demande « create-article-button »...</span>
             socket.on(<span class="pl-s1"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-vpf">data</span>) {
 
-                <span class="pl-c">// ... et répondre à cette demande en créant un nouvelle article si elle vient</span>
+                <span class="pl-c">// ...et répondre à cette demande en créant un nouvelle article si elle vient</span>
                 <span class="pl-c">// avec les information envoyées via « data ».</span>
                 <span class="pl-s">var</span> article <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Article</span>({
                     _id<span class="pl-k">:</span> mongoose.Types.ObjectId(),
@@ -1455,31 +1451,31 @@ webconfig.json
                 <span class="pl-c">// Si l'utilisateur est connecté.</span>
                 <span class="pl-k">if</span> (session.account) {
 
-                    / ... on créer sauve article en base.
-                    article.save(<span class="pl-st">function</span> (<span class="pl-vpf">error</span>) {
-                        <span class="pl-k">if</span> (error) { 
-                            <span class="pl-k">throw</span> error;
-                        }
-
-                        <span class="pl-c">// Et on répond à tous les clients avec un jeu de donnée dans data.</span>
-                        io.sockets.emit(<span class="pl-s1"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, data);
-                    });
-                }
-            });
-        });
-    };
-
-}(website));
-
-
-
-<span class="pl-c">/***********************************************************/</span>
-<span class="pl-c">/* Interception de la sortie HTML pour jQuery côté serveur */</span>
-<span class="pl-c">/***********************************************************/</span>
-
-<span class="pl-sv">exports</span>.preRender <span class="pl-k">=</span> website.preRender;
-<span class="pl-sv">exports</span>.render <span class="pl-k">=</span> website.render;
-<span class="pl-sv">exports</span>.asynchrone <span class="pl-k">=</span> website.asynchrone; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
+                    / ...on sauve l<span class="pl-s1"><span class="pl-pds">'</span>article en base.</span>
+<span class="pl-s1">                    article.save(function (error) {</span>
+<span class="pl-s1">                        if (error) { </span>
+<span class="pl-s1">                            throw error;</span>
+<span class="pl-s1">                        }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                        // Et on répond à tous les clients avec un jeu de donnée dans data.</span>
+<span class="pl-s1">                        io.sockets.emit(<span class="pl-pds">'</span></span>create<span class="pl-k">-</span>article<span class="pl-k">-</span>button<span class="pl-s1"><span class="pl-pds">'</span>, data);</span>
+<span class="pl-s1">                    });</span>
+<span class="pl-s1">                }</span>
+<span class="pl-s1">            });</span>
+<span class="pl-s1">        });</span>
+<span class="pl-s1">    };</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">}(website));</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"></span>
+<span class="pl-s1">/*************************************************************/</span>
+<span class="pl-s1">/* Mise à dispositions des fonction pour le moteur NodeAtlas */</span>
+<span class="pl-s1">/*************************************************************/</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">exports.preRender = website.preRender;</span>
+<span class="pl-s1">exports.render = website.render;</span>
+<span class="pl-s1">exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
 
 <p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers/</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
@@ -1634,7 +1630,7 @@ webconfig.prod.json
 <h3>
 <a id="gérer-le-routage-url-rewriting" class="anchor" href="#g%C3%A9rer-le-routage-url-rewriting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gérer le routage (Url Rewriting)</h3>
 
-<p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamique !</p>
+<p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamiques !</p>
 
 <h4>
 <a id="standard" class="anchor" href="#standard" aria-hidden="true"><span class="octicon octicon-link"></span></a>Standard</h4>
