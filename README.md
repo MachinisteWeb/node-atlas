@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.4 (Beta)
+Version : 0.25.5 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -120,8 +120,8 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 ### Documentation ###
 
 En complément de ce README (Fr), vous avez également accès au,
-- [Explications de code](https://haeresis.github.com/NodeAtlas/doc/) (En) et au,
-- [détail des fonctions publiques de l'objet NA](https://haeresis.github.com/NodeAtlas/doc/) (En).
+- [Explications de code](https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js) (En) et au,
+- [détail des fonctions publiques de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html) (En).
 
 
 
@@ -2462,18 +2462,58 @@ Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mo
 
 ### Changer les chevrons <% %> du moteur de template ###
 
-Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% include head.htm %>***. Il serait possible de le faire avec ***{{ include head.htm }}*** avec la configuration ci-dessous :
+Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% include head.htm %>***. Il serait possible de le faire avec ***<?js include head.htm ?>*** avec la configuration ci-dessous :
 
 ```js
 {
-    "templateEngineOpenPattern": "{{",
-    "templateEngineClosePattern": "}}",
+    "templateEngineOpenPattern": "<?js",
+    "templateEngineClosePattern": "?>",
     "routes": {
         "/": {
             "template": "index.htm"
         }
     }
 }
+```
+
+Voyez l'exemple dans les fichiers ci-dessous :
+
+*components/head.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title><?js= specific.titlePage ?></title>
+
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?js= common.classCssCommon ?>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?js= specific.classPage ?>.css" media="all" />
+    </head>
+    <body class="<?js= specific.classPage ?>">
+```
+
+*components/foot.htm*
+
+```html
+        <script async type="text/javascript" src="javascript/<?js= common.classJsCommon ?>.js"></script>
+    </body>
+</html>
+```
+
+*templates/template.htm*
+
+```html
+    <?js include head.htm ?>
+    
+    <div class="title"><?js= common.titleWebsite ?></div>
+    
+    <div>
+        <h1><?js= specific.titlePage ?></h1>
+        <?js- specific.content ?>
+    </div>
+    
+    <?js include foot.htm ?>
 ```
 
 Pour tout savoir sur les possibilités du moteur de template consulter la documentation [ejs](https://github.com/visionmedia/ejs)
