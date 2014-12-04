@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.25.4 (Beta)</p>
+<p>Version : 0.25.5 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -194,9 +194,9 @@
 
 <ul>
 <li>
-<a href="https://haeresis.github.com/NodeAtlas/doc/">Explications de code</a> (En) et au,</li>
+<a href="https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js">Explications de code</a> (En) et au,</li>
 <li>
-<a href="https://haeresis.github.com/NodeAtlas/doc/">détail des fonctions publiques de l'objet NA</a> (En).</li>
+<a href="http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html">détail des fonctions publiques de l'objet NA</a> (En).</li>
 </ul>
 
 <h2>
@@ -2423,17 +2423,51 @@ exports.setSessions = website.setSessions;
 <h3>
 <a id="changer-les-chevrons---du-moteur-de-template" class="anchor" href="#changer-les-chevrons---du-moteur-de-template" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changer les chevrons &lt;% %&gt; du moteur de template</h3>
 
-<p>Par exemple, pour inclure une partie de fichier on utilise l'instruction <strong><em>&lt;% include head.htm %&gt;</em></strong>. Il serait possible de le faire avec <strong><em>{{ include head.htm }}</em></strong> avec la configuration ci-dessous :</p>
+<p>Par exemple, pour inclure une partie de fichier on utilise l'instruction <strong><em>&lt;% include head.htm %&gt;</em></strong>. Il serait possible de le faire avec <strong><em>&lt;?js include head.htm ?&gt;</em></strong> avec la configuration ci-dessous :</p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s1"><span class="pl-pds">"</span>templateEngineOpenPattern<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>{{<span class="pl-pds">"</span></span>,
-    <span class="pl-s1"><span class="pl-pds">"</span>templateEngineClosePattern<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>}}<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>templateEngineOpenPattern<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>&lt;?js<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>templateEngineClosePattern<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>?&gt;<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
         }
     }
 }</pre></div>
+
+<p>Voyez l'exemple dans les fichiers ci-dessous :</p>
+
+<p><em>components/head.htm</em></p>
+
+<div class="highlight highlight-html"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s1"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s1"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;&lt;?js= specific.titlePage ?&gt;&lt;/<span class="pl-ent">title</span>&gt;
+
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s1"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s1"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s1"><span class="pl-pds">"</span>stylesheets/&lt;?js= common.classCssCommon ?&gt;.css<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s1"><span class="pl-pds">"</span>all<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s1"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s1"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s1"><span class="pl-pds">"</span>stylesheets/&lt;?js= specific.classPage ?&gt;.css<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s1"><span class="pl-pds">"</span>all<span class="pl-pds">"</span></span> /&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span> <span class="pl-e">class</span>=<span class="pl-s1"><span class="pl-pds">"</span>&lt;?js= specific.classPage ?&gt;<span class="pl-pds">"</span></span>&gt;</pre></div>
+
+<p><em>components/foot.htm</em></p>
+
+<div class="highlight highlight-html"><pre><span class="pl-s2">        &lt;<span class="pl-ent">script</span> <span class="pl-e">async</span> <span class="pl-e">type</span>=<span class="pl-s1"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>javascript/&lt;?js= common.classJsCommon ?&gt;.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><em>templates/template.htm</em></p>
+
+<div class="highlight highlight-html"><pre>    &lt;?js include head.htm ?&gt;
+
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s1"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;?js= common.titleWebsite ?&gt;&lt;/<span class="pl-ent">div</span>&gt;
+
+    &lt;<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">h1</span>&gt;&lt;?js= specific.titlePage ?&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+        &lt;?js- specific.content ?&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+
+    &lt;?js include foot.htm ?&gt;</pre></div>
 
 <p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
 
