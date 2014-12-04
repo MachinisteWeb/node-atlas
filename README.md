@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.4 (Beta)
+Version : 0.25.5 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -33,47 +33,47 @@ The tool is still in development and I experience it slowly with my own websites
 ### Table of Contents ###
 
 - [Overview](#overview)
- - [Examples of websites with NodeAtlas](#examples of websites with nodeatlas)
- - [Table of Contents](#table of contents)
- - [Roadmap of Development Progress](#roadmap of development progress)
+ - [Examples of websites with NodeAtlas](#examples-of-websites-with-nodeatlas)
+ - [Table of Contents](#table-of-contents)
+ - [Roadmap of Development Progress](#roadmap-of-development-progress)
  - [Documentation](#documentation)
 - [Installation](#installation)
-- [Start with NodeAtlas](#start with nodeatlas)
+- [Start with NodeAtlas](#start-with-nodeatlas)
  - [Fileset](#fileset)
- - [Minimum Requirements](#minimum requirements)
- - [Run the site with NodeAtlas](#run the site with nodeatlas)
-- [Different configurations of webconfig.json](#different configurations of webconfig.json)
- - [More one page](#more one page)
+ - [Minimum Requirements](#minimum-requirements)
+ - [Run the site with NodeAtlas](#run-the-site-with-nodeatlas)
+- [Different configurations of webconfig.json](#different-configurations-of-webconfig.json)
+ - [More one page](#more-one-page)
  - [Template shortcut](#template-shortcut)
- - [Host images, fonts, CSS, JS, etc.](#host images fonts css js etc)
- - [Manage inclusions to avoid redundancy code](#manage inclusions to avoid redundancy code)
- - [Manage variations within the same template](#manage variations within the same template)
- - [Manage Multilingual](#manage multilingual)
- - [NodeAtlas use to generate HTML assets](#nodeatlas use to generate html assets)
+ - [Host images, fonts, CSS, JS, etc.](#host-images-fonts-css-js-etc)
+ - [Manage inclusions to avoid redundancy code](#manage-inclusions-to-avoid-redundancy-code)
+ - [Manage variations within the same template](#manage-variations-within-the-same-template)
+ - [Manage Multilingual](#manage-multilingual)
+ - [NodeAtlas use to generate HTML assets](#nodeatlas-use-to-generate-html-assets)
  - [Use NodeAtlas to run a website (Back-end Part)](#use-nodeatlas-to-run-a-website-back-end-part)
- - [Change the url parameters](#change the url parameters)
- - [Create your own webconfig variables](#create your own webconfig variables)
- - [Manage routing (URL Rewriting)](#manage routing url rewriting)
- - [Manage a page not found](#manage a page not found)
- - [Manage redirects](#manage redirects)
- - [Minify CSS/JS](#minify cssjs)
- - [Allow/Disallow GET/POST requests](#allowdisallow getpost requests)
- - [Change settings of Sessions](#change settings of sessions)
- - [External Storage Sessions](#external storage sessions)
- - [Changing the template engine brackets <% %>](#Changing the template engine brackets -)
- - [Change the url hostname and listening port](#change the url hostname and listening port)
- - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
-- [Running commands](#running commands)
+ - [Change the url parameters](#change-the-url-parameters)
+ - [Create your own webconfig variables](#create-your-own-webconfig-variables)
+ - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
+ - [Manage a page not found](#manage-a-page-not-found)
+ - [Manage redirects](#manage-redirects)
+ - [Minify CSS/JS](#minify-cssjs)
+ - [Allow/Disallow GET/POST requests](#allowdisallow-getpost-requests)
+ - [Change settings of Sessions](#change-settings-of-sessions)
+ - [External Storage Sessions](#external-storage-sessions)
+ - [Changing the template engine brackets <% %>](#Changing-the-template-engine-brackets--)
+ - [Change the url hostname and listening port](#change-the-url-hostname-and-listening-port)
+ - [Generate urls dynamically](#generate-urls-dynamically)
+- [Running commands](#running-commands)
  - [--directory](#--directory)
  - [--webconfig](#--webconfig)
  - [--run](#--run)
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
 - [NodeAtlas as npm module](#nodeatlas-as-npm-module)
-- [NodeAtlas as a simple web server](#nodeatlas as a simple web server)
-- [Running NodeAtlas on online server](#running nodeatlas on online server)
- - [In a Windows Server environment with iisnode](#in a windows server environment with iisnode)
- - [In a Unix environment with forever](#in a unix environment with forever)
+- [NodeAtlas as a simple web server](#nodeatlas-as-a-simple-web-server)
+- [Running NodeAtlas on online server](#running-nodeatlas-on-online-server)
+ - [In a Windows Server environment with iisnode](#in-a-windows-server-environment-with-iisnode)
+ - [In a Unix environment with forever](#in-a-unix-environment-with-forever)
  - [Proxy](#proxy)
 - [About architecture NodeAtlas](#a-propos-de-l-architecture-de-nodeatlas)
 
@@ -2462,18 +2462,58 @@ More information to [connect-redis](https://www.npmjs.org/package/connect-mongo)
 
 ### Changing the template engine brackets <% %> ###
 
-For example, to include part of a file instruction is used ***<% include head.htm %>***. It would be possible to do it with ***{{ include head.htm }}*** with the configuration below:
+For example, to include part of a file instruction is used ***<% include head.htm %>***. It would be possible to do it with ***<?js include head.htm ?>*** with the configuration below:
 
 ```js
 {
-    "templateEngineOpenPattern": "{{",
-    "templateEngineClosePattern": "}}",
+    "templateEngineOpenPattern": "<?js",
+    "templateEngineClosePattern": "?>",
     "routes": {
         "/": {
             "template": "index.htm"
         }
     }
 }
+```
+
+See the exemple in files below:
+
+*components/head.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title><?js= specific.titlePage ?></title>
+
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?js= common.classCssCommon ?>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?js= specific.classPage ?>.css" media="all" />
+    </head>
+    <body class="<?js= specific.classPage ?>">
+```
+
+*components/foot.htm*
+
+```html
+        <script async type="text/javascript" src="javascript/<?js= common.classJsCommon ?>.js"></script>
+    </body>
+</html>
+```
+
+*templates/template.htm*
+
+```html
+    <?js include head.htm ?>
+    
+    <div class="title"><?js= common.titleWebsite ?></div>
+    
+    <div>
+        <h1><?js= specific.titlePage ?></h1>
+        <?js- specific.content ?>
+    </div>
+    
+    <?js include foot.htm ?>
 ```
 
 Learn all about the possibilities of the template engine consult the documentation [ejs](https://github.com/visionmedia/ejs)

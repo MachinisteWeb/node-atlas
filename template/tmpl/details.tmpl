@@ -106,7 +106,7 @@ var self = this;
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<?js= self.linkto(meta.shortpath) ?><?js if (this.navOptions.linenums) {?>,
+				<?js= self.linkto(meta.shortpath, meta.shortpath.replace("C:/nodejs/NodeAtlas/", "")) ?><?js if (this.navOptions.linenums) {?>,
 				 <?js= self.linkto(meta.shortpath, 'line ' + meta.lineno, null, 'sunlight-1-line-' + meta.lineno) ?><?js } ?>
 			</li>
 		</ul>

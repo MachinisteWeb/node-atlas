@@ -28,31 +28,45 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
-							<a href="NA.html">NA</a>
+							<a href="node-atlas-NA.html">node-atlas~NA</a>
 						</li>
 						
 						<li>
-							<a href="NA.modules.html">NA.modules</a>
+							<a href="node-atlas-NA.modules.html">node-atlas~NA.modules</a>
 						</li>
 						
 						<li>
-							<a href="NA.variations.html">NA.variations</a>
+							<a href="node-atlas-NA.variations.html">node-atlas~NA.variations</a>
 						</li>
 						
 						<li>
-							<a href="NA.webconfig.html">NA.webconfig</a>
+							<a href="node-atlas-NA.webconfig.html">node-atlas~NA.webconfig</a>
 						</li>
 						
 						<li>
-							<a href="NA.websiteController%255B%255D.html">NA.websiteController[]</a>
+							<a href="node-atlas-NA.websiteController%255B%255D.html">node-atlas~NA.websiteController[]</a>
 						</li>
 						
 						<li>
-							<a href="NA_currentRouteParameters.html">NA#currentRouteParameters</a>
+							<a href="node-atlas-NA_currentRouteParameters.html">node-atlas~NA#currentRouteParameters</a>
 						</li>
 						
 						<li>
-							<a href="NA_currentVariation.html">NA#currentVariation</a>
+							<a href="node-atlas-NA_currentVariation.html">node-atlas~NA#currentVariation</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="module-node-atlas.html">node-atlas</a>
 						</li>
 						
 
@@ -96,7 +110,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.25.4 (Beta)</p>
+        <article><h1>node-atlas</h1><p>Version : 0.25.5 (Beta)</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -114,43 +128,43 @@
 </ul>
 <h3>Table of Contents</h3><ul>
 <li><a href="#overview">Overview</a><ul>
-<li><a href="#examples of websites with nodeatlas">Examples of websites with NodeAtlas</a></li>
-<li><a href="#table of contents">Table of Contents</a></li>
-<li><a href="#roadmap of development progress">Roadmap of Development Progress</a></li>
+<li><a href="#examples-of-websites-with-nodeatlas">Examples of websites with NodeAtlas</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#roadmap-of-development-progress">Roadmap of Development Progress</a></li>
 <li><a href="#documentation">Documentation</a></li>
 </ul>
 </li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#start with nodeatlas">Start with NodeAtlas</a><ul>
+<li><a href="#start-with-nodeatlas">Start with NodeAtlas</a><ul>
 <li><a href="#fileset">Fileset</a></li>
-<li><a href="#minimum requirements">Minimum Requirements</a></li>
-<li><a href="#run the site with nodeatlas">Run the site with NodeAtlas</a></li>
+<li><a href="#minimum-requirements">Minimum Requirements</a></li>
+<li><a href="#run-the-site-with-nodeatlas">Run the site with NodeAtlas</a></li>
 </ul>
 </li>
-<li><a href="#different configurations of webconfig.json">Different configurations of webconfig.json</a><ul>
-<li><a href="#more one page">More one page</a></li>
+<li><a href="#different-configurations-of-webconfig.json">Different configurations of webconfig.json</a><ul>
+<li><a href="#more-one-page">More one page</a></li>
 <li><a href="#template-shortcut">Template shortcut</a></li>
-<li><a href="#host images fonts css js etc">Host images, fonts, CSS, JS, etc.</a></li>
-<li><a href="#manage inclusions to avoid redundancy code">Manage inclusions to avoid redundancy code</a></li>
-<li><a href="#manage variations within the same template">Manage variations within the same template</a></li>
-<li><a href="#manage multilingual">Manage Multilingual</a></li>
-<li><a href="#nodeatlas use to generate html assets">NodeAtlas use to generate HTML assets</a></li>
+<li><a href="#host-images-fonts-css-js-etc">Host images, fonts, CSS, JS, etc.</a></li>
+<li><a href="#manage-inclusions-to-avoid-redundancy-code">Manage inclusions to avoid redundancy code</a></li>
+<li><a href="#manage-variations-within-the-same-template">Manage variations within the same template</a></li>
+<li><a href="#manage-multilingual">Manage Multilingual</a></li>
+<li><a href="#nodeatlas-use-to-generate-html-assets">NodeAtlas use to generate HTML assets</a></li>
 <li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
-<li><a href="#change the url parameters">Change the url parameters</a></li>
-<li><a href="#create your own webconfig variables">Create your own webconfig variables</a></li>
-<li><a href="#manage routing url rewriting">Manage routing (URL Rewriting)</a></li>
-<li><a href="#manage a page not found">Manage a page not found</a></li>
-<li><a href="#manage redirects">Manage redirects</a></li>
-<li><a href="#minify cssjs">Minify CSS/JS</a></li>
-<li><a href="#allowdisallow getpost requests">Allow/Disallow GET/POST requests</a></li>
-<li><a href="#change settings of sessions">Change settings of Sessions</a></li>
-<li><a href="#external storage sessions">External Storage Sessions</a></li>
-<li><a href="#Changing the template engine brackets -">Changing the template engine brackets &lt;% %&gt;</a></li>
-<li><a href="#change the url hostname and listening port">Change the url hostname and listening port</a></li>
-<li><a href="#g%C3%A9n%C3%A9rer-les-urls-dynamiquement">Générer les urls dynamiquement</a></li>
+<li><a href="#change-the-url-parameters">Change the url parameters</a></li>
+<li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
+<li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
+<li><a href="#manage-a-page-not-found">Manage a page not found</a></li>
+<li><a href="#manage-redirects">Manage redirects</a></li>
+<li><a href="#minify-cssjs">Minify CSS/JS</a></li>
+<li><a href="#allowdisallow-getpost-requests">Allow/Disallow GET/POST requests</a></li>
+<li><a href="#change-settings-of-sessions">Change settings of Sessions</a></li>
+<li><a href="#external-storage-sessions">External Storage Sessions</a></li>
+<li><a href="#Changing-the-template-engine-brackets--">Changing the template engine brackets &lt;% %&gt;</a></li>
+<li><a href="#change-the-url-hostname-and-listening-port">Change the url hostname and listening port</a></li>
+<li><a href="#generate-urls-dynamically">Generate urls dynamically</a></li>
 </ul>
 </li>
-<li><a href="#running commands">Running commands</a><ul>
+<li><a href="#running-commands">Running commands</a><ul>
 <li><a href="#--directory">--directory</a></li>
 <li><a href="#--webconfig">--webconfig</a></li>
 <li><a href="#--run">--run</a></li>
@@ -159,10 +173,10 @@
 </ul>
 </li>
 <li><a href="#nodeatlas-as-npm-module">NodeAtlas as npm module</a></li>
-<li><a href="#nodeatlas as a simple web server">NodeAtlas as a simple web server</a></li>
-<li><a href="#running nodeatlas on online server">Running NodeAtlas on online server</a><ul>
-<li><a href="#in a windows server environment with iisnode">In a Windows Server environment with iisnode</a></li>
-<li><a href="#in a unix environment with forever">In a Unix environment with forever</a></li>
+<li><a href="#nodeatlas-as-a-simple-web-server">NodeAtlas as a simple web server</a></li>
+<li><a href="#running-nodeatlas-on-online-server">Running NodeAtlas on online server</a><ul>
+<li><a href="#in-a-windows-server-environment-with-iisnode">In a Windows Server environment with iisnode</a></li>
+<li><a href="#in-a-unix-environment-with-forever">In a Unix environment with forever</a></li>
 <li><a href="#proxy">Proxy</a></li>
 </ul>
 </li>
@@ -210,8 +224,8 @@
 </ul>
 <h3>Documentation</h3><p>In addition to this README, you also have access to,</p>
 <ul>
-<li><a href="https://haeresis.github.com/NodeAtlas/doc/">Code Explanation</a> and,</li>
-<li><a href="https://haeresis.github.com/NodeAtlas/doc/">Details of public function in the NA object</a>.</li>
+<li><a href="https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js">Code Explanation</a> and,</li>
+<li><a href="http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html">Details of public function in the NA object</a>.</li>
 </ul>
 <h2>Installation</h2><p>There are several ways to install Node-Atlas:</p>
 <ul>
@@ -1879,16 +1893,40 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 
 exports.loadModules = website.loadModules;
 exports.setSessions = website.setSessions;</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p>
-<h3>Changing the template engine brackets &lt;% %&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;% include head.htm %&gt;</em></strong>. It would be possible to do it with <strong><em>{{ include head.htm }}</em></strong> with the configuration below:</p>
+<h3>Changing the template engine brackets &lt;% %&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;% include head.htm %&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;?js include head.htm ?&gt;</em></strong> with the configuration below:</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;templateEngineOpenPattern&quot;: &quot;{{&quot;,
-    &quot;templateEngineClosePattern&quot;: &quot;}}&quot;,
+    &quot;templateEngineOpenPattern&quot;: &quot;&lt;?js&quot;,
+    &quot;templateEngineClosePattern&quot;: &quot;?>&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
+}</code></pre><p>See the exemple in files below:</p>
+<p><em>components/head.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>&lt;?js= specific.titlePage ?>&lt;/title>
+
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?js= common.classCssCommon ?>.css&quot; media=&quot;all&quot; />
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?js= specific.classPage ?>.css&quot; media=&quot;all&quot; />
+    &lt;/head>
+    &lt;body class=&quot;&lt;?js= specific.classPage ?>&quot;></code></pre><p><em>components/foot.htm</em></p>
+<pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?js= common.classJsCommon ?>.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p><em>templates/template.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;?js include head.htm ?>
+
+    &lt;div class=&quot;title&quot;>&lt;?js= common.titleWebsite ?>&lt;/div>
+
+    &lt;div>
+        &lt;h1>&lt;?js= specific.titlePage ?>&lt;/h1>
+        &lt;?js- specific.content ?>
+    &lt;/div>
+
+    &lt;?js include foot.htm ?></code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
 <p><em>Note : If nothing is set,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>and</em> <strong><em>templateEngineClosePattern</em></strong> <em>are set to</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
 <h3>Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p>
 <pre class="prettyprint source lang-js"><code>{
@@ -2144,112 +2182,11 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <pre class="prettyprint source"><code>\> forever start &lt;/path/to/>global-server.js</code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p>
 <h2>About NodeAtlas API</h2><p>NodeAtlas is made of such a way that the <code>NA</code> object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.</p>
 <p>All error messages in <code>/languages/default.json</code>. If you want to change, simply duplicate the <code>default.json</code> file and rename it to <code>fr-fr.json</code> and change the language of the original.</p>
-<p>Finally <a href="http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/">appoche the public/privates architecture is explained in this article</a> (FR).</p></article>
+<p>Finally <a href="http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/">appoche the public/privates architecture is explained in this article</a> (Fr).</p></article>
     </section>
 
 
 
-
-
-
-
-
-	<h1 class="page-title">Index</h1>
-<section>
-
-<header>
-    <h2>
-    node-atlas.js
-    </h2>
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-
-    
-        
-            <div class="description"><p>NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.</p></div>
-        
-
-        
-<dl class="details">
-	
-
-	
-	<dt class="tag-version">Version:</dt>
-	<dd class="tag-version">
-		<ul class="dummy">
-			<li>0.25.4</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-author">Author:</dt>
-	<dd class="tag-author">
-		<ul>
-			<li><a href="http://www.lesieur.name/">Bruno Lesieur</a></li>
-			</ul>
-	</dd>
-	
-
-	
-
-	
-	<dt class="tag-license">License:</dt>
-	<dd class="tag-license">
-		<ul class="dummy">
-			<li><a href="https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/">GNU GENERAL PUBLIC LICENSE Version 2</a></li>
-		</ul>
-	</dd>
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
 
 
 
@@ -2259,10 +2196,18 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 				<div class="clearfix"></div>
 				<footer>
 					
+					This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a>
+					<br />
+					
+					
+		<span class="copyright">
+		<a href="https://www.npmjs.org/package/node-atlas">This project is a npm module</a>
+		</span>
+					<br />
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a>
-		on 2014-12-03T16:54:56+01:00 using the <a
+		on 2014-12-04T12:00:34+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
@@ -2329,7 +2274,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 			} );
 
 			Sunlight.highlightAll( {
-				lineNumbers : false,
+				lineNumbers : true,
 				showMenu : true,
 				enableDoclinks : true
 			} );

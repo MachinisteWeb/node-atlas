@@ -30,18 +30,18 @@ var globalUrl = helper.getUniqueFilename( 'global' );
 var indexUrl = helper.getUniqueFilename( 'index' );
 
 var navOptions = {
-	systemName            : conf.systemName || "NodeAtlas",
-	navType               : conf.navType || "vertical",
-	footer                : conf.footer || "",
-	copyright             : conf.copyright || "",
-	theme                 : conf.theme || "simplex",
-	syntaxTheme           : conf.syntaxTheme || "default",
-	linenums              : conf.linenums,
-	collapseSymbols       : conf.collapseSymbols || false,
+	systemName            : "NodeAtlas",
+	navType               : "vertical",
+	footer                : 'This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a>',
+	copyright             : '<a href="https://www.npmjs.org/package/node-atlas">This project is a npm module</a>',
+	theme                 : "simplex",
+	syntaxTheme           : "default",
+	linenums              : true,
+	collapseSymbols       : false,
 	inverseNav            : conf.inverseNav,
-	outputSourceFiles     : conf.outputSourceFiles === true,
-	sourceRootPath        : conf.sourceRootPath,
-	outputSourcePath      : conf.outputSourcePath,
+	outputSourceFiles     : true,
+	sourceRootPath        : false,
+	outputSourcePath      : false,
 	dateFormat            : conf.dateFormat,
 	analytics             : conf.analytics || null,
 	highlightTutorialCode : conf.highlightTutorialCode
@@ -282,17 +282,6 @@ function buildNav( members ) {
 
 	var seen = {};
 	var nav = navigationMaster;
-	if ( members.modules.length ) {
-
-		members.modules.forEach( function ( m ) {
-			if ( !hasOwnProp.call( seen, m.longname ) ) {
-
-				nav.module.members.push( linkto( m.longname, m.longname.replace("module:", "") ) );
-			}
-			seen[m.longname] = true;
-		} );
-	}
-
 	if ( members.externals.length ) {
 
 		members.externals.forEach( function ( e ) {
@@ -338,6 +327,17 @@ function buildNav( members ) {
 			seen[n.longname] = true;
 		} );
 
+	}
+
+	if ( members.modules.length ) {
+
+		members.modules.forEach( function ( m ) {
+			if ( !hasOwnProp.call( seen, m.longname ) ) {
+
+				nav.module.members.push( linkto( m.longname, m.longname.replace("module:", "") ) );
+			}
+			seen[m.longname] = true;
+		} );
 	}
 
 	if ( members.mixins.length ) {
