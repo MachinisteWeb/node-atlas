@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.25.5
+ * @version 0.25.6
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires express
@@ -92,7 +92,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.25.5')
+            .version('0.25.6')
 
             /* Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -2082,7 +2082,8 @@ var NA = {};
             publics.websiteModulesPath = NA.serverPhysicalPath + 'node_modules/';
 
             /* Use the `NA.websiteController[<commonController>].loadModules(...)` function if set... */
-            if (typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
+            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
+                typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
 
                 /**
                  * Define this function for adding npm module into `NA.modules` of application. Only for `common` controller file.
