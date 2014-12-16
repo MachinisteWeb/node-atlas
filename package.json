@@ -1,9 +1,9 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.25.7",
+  "version": "0.25.8",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
-  "description": "Framework to create MVC2 or Only-Front-end website easily.",
+  "description": "Create MVC2 or Front-end-based websites easily.",
   "private": false,
   "contributors": ["Tommy Pater <syals@shadelys.com>"],
   "repository": {
