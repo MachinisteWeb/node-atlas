@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.6 (Beta)
+Version : 0.25.8 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
