@@ -1,9 +1,9 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.25.6",
+  "version": "0.25.7",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
-  "description": "Node Atlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.",
+  "description": "Framework to create MVC2 or Only-Front-end website easily.",
   "private": false,
   "contributors": ["Tommy Pater <syals@shadelys.com>"],
   "repository": {
@@ -20,10 +20,7 @@
     "url rewriting",
     "multilingual website"
   ],
-  "license": {
-    "type": "GPLv2",
-    "url": "https://github.com/Haeresis/NodeAtlas/LICENSE"
-  },
+  "license": "GPLv2",
   "bugs": {
     "url": "https://github.com/Haeresis/NodeAtlas/issues"
   },
