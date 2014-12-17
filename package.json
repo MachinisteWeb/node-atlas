@@ -1,11 +1,14 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.25.8",
+  "version": "0.26.2",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "Create MVC2 or Front-end-based websites easily.",
   "private": false,
-  "contributors": ["Tommy Pater <syals@shadelys.com>"],
+  "contributors": [{
+    "name": "Tommy Pater",
+    "email": "syals@shadelys.com"
+  }],
   "repository": {
     "type": "git",
     "url": "https://github.com/Haeresis/NodeAtlas.git"
@@ -25,7 +28,7 @@
     "url": "https://github.com/Haeresis/NodeAtlas/issues"
   },
   "scripts": {
-    "start": "node-atlas.js"
+    "install": "node scripts/install.js"
   },
   "dependencies": {
     "body-parser": "1.8.1",
@@ -46,12 +49,15 @@
   "main": "node-atlas.js",
   "files": [
     "languages/default.json",
+    "scripts/install.js",
     "LICENSE",
     "README.md",
-    "node-atlas.js"
+    "node-atlas.js",
+    "nodeatlas",
+    "nodeatlas.cmd"
   ],
   "engines": {
-    "node": ">=0.10.10"
+    "node": ">=0.10"
   },
   "readmeFilename": "README.md"
 }

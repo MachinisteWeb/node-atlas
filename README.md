@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.8 (Beta)
+Version : 0.26.2 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -106,9 +106,10 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Bundle partagé via un fichier externe.
  - Documentation de l'API (documentation JSDoc du fichier node-atlas.js)
  - Exemple de Socket.IO 1.0 avec Handshake.
+ - Traduction du fichier README.md en anglais.
+ - Créer une commande `nodeatlas` en installation globale.
 
 - À venir
- - Traduction du fichier README.md en anglais.
  - Compression des images.
  - Support Sass/Less.
  - Injection automatique de feuille CSS en style inline (pour les maquettes email).
@@ -141,7 +142,7 @@ Il y a plusieurs solutions pour installer Node-Atlas :
 
    _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'execution de la commande._
 
-- `npm install -g node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans beaucoup de projet).
+- `npm install -g node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans beaucoup de projet ou pour un usage à la ligne de commande).
 
    _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` global._
 
@@ -210,7 +211,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 ### Lancer le site avec NodeAtlas ###
 
-#### À la ligne de commande ####
+#### À la ligne de commande en appelant le script ####
 
 Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
 
@@ -226,7 +227,16 @@ Ré-exécutez.
 \> node </path/to/>node-atlas/node-atlas.js
 ```
 
-Vous aurez alors accès à votre « Hello World » à la page : *http://localhost/* dans un navigateur.
+
+#### Avec un executable sur votre OS ####
+
+**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez également utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/>node-atlas/node-atlas.js`.
+
+Placez-vous toujours avec votre invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
+
+```
+\> nodeatlas
+```
 
 
 #### Via un fichier JavaScript ####
