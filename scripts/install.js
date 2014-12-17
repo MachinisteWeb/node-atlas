@@ -13,10 +13,11 @@ var path = require('path'),
 	appLabels = require('../languages/default.json'),
 	dirsName = __dirname.split(path.sep),
 	unixSource = path.resolve(__dirname, '..') + path.sep + 'nodeatlas',
-	unixTarget = path.resolve(__dirname, '..') + path.sep + 'nodeatlas.cmd',
-	windowsSource = path.resolve(__dirname, '..', '..', '..') + path.sep + 'nodeatlas',
-	windowsTarget = path.resolve(__dirname, '..', '..', '..') + path.sep + 'nodeatlas.cmd';
+	windowsSource = path.resolve(__dirname, '..') + path.sep + 'nodeatlas.cmd',
+	unixTarget,
+	windowsTarget;
 
+/* Copy function. */
 function copyFile(source, target) {
 	var callbackCalled = false,
   		read = fs.createReadStream(source),
@@ -35,8 +36,20 @@ function copyFile(source, target) {
   	} });
 }
 
+/* Copy on Windows environment and look-alike installation of npm. */
 if (dirsName.length - 4 > 0 && dirsName[dirsName.length - 4] === 'npm') {
-	copyFile(unixSource, windowsSource);
-	copyFile(unixTarget, windowsTarget);
+	unixTarget = path.resolve(__dirname, '..', '..', '..') + path.sep + 'nodeatlas';
+	windowsTarget = path.resolve(__dirname, '..', '..', '..') + path.sep + 'nodeatlas.cmd';
+	copyFile(windowsSource, windowsTarget);
+	copyFile(unixSource, unixTarget);
+	console.log(appLabels.downloadAllModule.installShortcutsDone);
+}
+
+/* Copy on Unix environment and look-alike installation of npm. */
+if (dirsName.length - 4 > 0 && dirsName[dirsName.length - 4] === 'lib') {
+	unixTarget = path.resolve(__dirname, '..', '..', '..','..','bin') + path.sep + 'nodeatlas';
+	windowsTarget = path.resolve(__dirname, '..', '..', '..','..','bin') + path.sep + 'nodeatlas.cmd';
+	copyFile(unixSource, unixTarget);
+	copyFile(windowsSource, windowsTarget);
 	console.log(appLabels.downloadAllModule.installShortcutsDone);
 }
