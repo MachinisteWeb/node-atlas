@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.26.2 (Beta)
+Version : 0.27.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -107,7 +107,7 @@ The tool is still in development and I experience it slowly with my own websites
  - Documentation of the API (JSDoc documentation node-atlas.js file)
  - Example of Socket.IO 1.0 with Handshake.
  - Translation of README.md file in English.
- - Create a globale command `nodeatlas` with global installation.
+ - Create a global command `nodeatlas` with global installation.
 
 - Coming soon
  - Image compression.
@@ -3059,6 +3059,6 @@ and you can start with:
 
 NodeAtlas is made of such a way that the `NA` object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.
 
-All error messages in `/languages/default.json`. If you want to change, simply duplicate the `default.json` file and rename it to `fr-fr.json` and change the language of the original.
+All error messages are in `/languages/default.json`. If you want to change language, simply replace content of `default.json` file (currently the same of `en-gb`) with the content of `fr-fr.json` or others file translated by you.
 
-Finally [appoche the public/privates architecture is explained in this article](http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/) (Fr).
+Finally [the public/privates architecture is explained in this article](http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/) (Fr).
