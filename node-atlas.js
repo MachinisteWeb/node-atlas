@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.26.2
+ * @version 0.27.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires express
@@ -92,7 +92,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.26.2')
+            .version('0.27.0')
 
             /* Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -105,7 +105,7 @@ var NA = {};
 
             /* Change the port that runs the NodeAtlas website. */
             .option(NA.appLabels.commander.httpPort.command, NA.appLabels.commander.httpPort.description, String)
-            
+
             /* Minify all files and re-create all HTML assets into generates folder. */
             .option(NA.appLabels.commander.generate.command, NA.appLabels.commander.generate.description)
             .parse(process.argv);
@@ -896,6 +896,8 @@ var NA = {};
      * @param {moduleRequired~callback} callback - Run next steps if all module are correctly loaded.
      */
     publics.moduleRequired = function (callback) {
+        var commander;
+
         try {
             NA.loadListOfRequiredNpmModules();
 
@@ -953,6 +955,18 @@ var NA = {};
         /* ...listen HTTP request... */
         NA.server.listen(commander.httpPort || NA.configuration.httpPort || 80, function () {
             console.log(NA.appLabels.publicMode);
+        });
+
+        /* Catch error. */
+        NA.server.on('error', function (error) {
+            var data = {};
+
+            data.httpPort = commander.httpPort || NA.configuration.httpPort || 80;
+
+            console.log(NA.appLabels.portAlreadyListened.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+
+            /* In case of error, kill current process. */
+            process.kill(process.pid);
         });
 
         /* ...from « public » directory. */
@@ -1051,6 +1065,18 @@ var NA = {};
                 data.httpPort = NA.webconfig.httpPort;
 
                 console.log(NA.appLabels.isRunning.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+            });
+
+            /* Catch error. */
+            NA.server.on('error', function (error) {
+                var data = {};
+
+                data.httpPort = commander.httpPort || NA.configuration.httpPort || 80;
+
+                console.log(NA.appLabels.portAlreadyListened.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+
+                /* In case of error, kill current process. */
+                process.kill(process.pid);
             });
 
 			if (commander.run) { NA.configuration.run = commander.run; }

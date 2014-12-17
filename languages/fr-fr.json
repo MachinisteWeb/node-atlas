@@ -1,0 +1,48 @@
+{
+	"downloadAllModule": {
+		"moduleNotExist": "Tous les modules Node.js nécéssaire à l'application ne sont pas installés.",
+		"downloadStarting": "Téléchargement de tous les modules en cour...",
+		"installationDone": "Tous les modules ont été correctement installé.",
+		"restartRequired": "Vous pouvez redémarrer l'application.",
+		"installShortcutsDone": "La commande `nodeatlas` est maintenant disponible en tant que raccourci pour `node <path/to/>node-atlas.js`."
+	},
+	"ifFileExist": "Pas de fichier « %fileName%  » trouvé dans le répertoire « %physicalPath% ».",
+	"publicMode": "NodeAtlas c'est donc lancer en mode « Simple Serveur Web ».",
+	"isRunning": "Votre site NodeAtlas est lancé sur le port %httpPort%.",
+	"templateNotFound": "Le fichier de template « %templatesPath% » n'a pas pu être ouvert.",
+	"moduleNotFound": "Le module demandé n'a pas été trouvé : « %moduleError% ».",
+	"variationNotFound": "Le fichier de variation « %variationsPath% » n'a pas pu être ouvert.",
+	"webconfigSyntaxError": "Le fichier « %fileName% » a une erreur de syntaxe : « %syntaxError% ».",
+	"variationSyntaxError": "Le fichier de variation « %variationsPath% » a une erreur de syntaxe : « %syntaxError% ».",
+	"templateGenerate": "Le fichier « %templateRenderName% » a été généré dans « %pathToSaveFile% » !",
+	"templateNotGenerate": "Impossible d'enregistrer le fichier « %templateRenderName% » dans le dossier « %pathToSaveFile% ».",
+	"templateNotSet": "Aucun fichier de template n'a été défini.",
+	"portAlreadyListened": "NodeAtlas c'est arrêté car le port %httpPort% est déjà écouté par une autre application.",
+	"commander": {
+		"directory" : {
+			"command": "-d, --directory <path>",
+			"description": "Spécifier un chemin physique pour lancer le site. (Le chemin vers le « webconfig.json »)."
+		},
+		"run": {
+			"command": "-r, --run",
+			"description": "Ouvrir automatiquement le site dans un navigateur."
+		},
+		"webconfig": {
+			"command": "-w, --webconfig <webconfigName>",
+			"description": "Spécifier un nom alternatif pour le « webconfig.json »."
+		},
+		"httpPort": {
+			"command": "-p, --httpPort <httpPort>",
+			"description": "Spécifier un port d'exécution alternatif à celui du « webconfig.json »."
+		},
+		"generate": {
+			"command": "-g, --generate",
+			"description": "Lancer la minification des ressources et la création des assets Html."
+		}
+	},
+	"emulatedIndexPage": {
+		"charsetAndType": { "Content-Type": "text/html", "Charset": "utf-8" },
+		"data": "<!DOCTYPE html><html><head><title>Liste des Assets Html</title></head><body><ul>%render%</ul></body></html>",
+		"line": "<li><a href='.%page%' title='.%page%'>.%page%</a></li>"
+	}
+}

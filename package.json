@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.26.2",
+  "version": "0.27.0",
   "author": "Bruno Lesieur <bruno.lesieur@gmail.com>",
   "description": "Create MVC2 or Front-end-based websites easily.",
   "private": false,
@@ -49,6 +49,8 @@
   "main": "node-atlas.js",
   "files": [
     "languages/default.json",
+    "languages/en-gb.json",
+    "languages/fr-fr.json",
     "scripts/install.js",
     "LICENSE",
     "README.md",

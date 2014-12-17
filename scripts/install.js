@@ -5,11 +5,12 @@
  * files to
  * - `.../npm/nodeatlas` and
  * - `.../npm/nodeatlas.cmd`
+ * for allow users to use `nodeatlas` command in prompt console.
  */
-	
 
 var path = require('path'),
 	fs = require('fs'),
+	appLabels = require('../languages/default.json'),
 	dirsName = __dirname.split(path.sep),
 	unixSource = path.resolve(__dirname, '..') + path.sep + 'nodeatlas',
 	unixTarget = path.resolve(__dirname, '..') + path.sep + 'nodeatlas.cmd',
@@ -37,5 +38,5 @@ function copyFile(source, target) {
 if (dirsName.length - 4 > 0 && dirsName[dirsName.length - 4] === 'npm') {
 	copyFile(unixSource, windowsSource);
 	copyFile(unixTarget, windowsTarget);
-	console.log("nodeatlas command is avaiable as a shortcut for `node path/to/node-atlas.js`.");
+	console.log(appLabels.downloadAllModule.installShortcutsDone);
 }
