@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.25.8 (Beta)
+Version : 0.26.2 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -106,9 +106,10 @@ The tool is still in development and I experience it slowly with my own websites
  - Bundle shared via an external file.
  - Documentation of the API (JSDoc documentation node-atlas.js file)
  - Example of Socket.IO 1.0 with Handshake.
+ - Translation of README.md file in English.
+ - Create a globale command `nodeatlas` with global installation.
 
 - Coming soon
- - Translation of README.md file in English.
  - Image compression.
  - Support Sass / Less.
  - Automatic injection inline CSS stylesheet (for email models).
@@ -141,7 +142,7 @@ There are several ways to install Node-Atlas:
 
    _This will install **NodeAtlas** in the `node_modules/node-atlas` directory of the execution of the command._
 
-- `npm install -g node-atlas` (recommended for [use as a module](#nodeatlas-as-npm-module) in large amount of project).
+- `npm install -g node-atlas` (recommended for [use as a module](#nodeatlas-as-npm-module) in large amount of project or for a command line utilisation).
 
    _This will install **NodeAtlas** in the global `node_modules/node-atlas`._
 
@@ -227,6 +228,17 @@ Rerun.
 ```
 
 You will have access to your "Hello World" to the page: *http://localhost/* in a browser.
+
+
+#### With an executable on your OS ####
+
+**If you have installed NodeAtlas with `npm install -g node-atlas`** you can also use the `nodeatlas` command. `nodeatlas` is a shortcut for `node </path/to/>node-atlas/node-atlas.js`.
+
+Position yourself with the prompt console in the folder « /site-hello-world/ » and run the following command.
+
+```
+\> nodeatlas
+```
 
 
 #### Via a JavaScript file ####
