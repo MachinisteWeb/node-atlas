@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.25.8 (Beta)</p>
+<p>Version : 0.26.2 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -171,13 +171,14 @@
 <li>Bundle partagé via un fichier externe.</li>
 <li>Documentation de l'API (documentation JSDoc du fichier node-atlas.js)</li>
 <li>Exemple de Socket.IO 1.0 avec Handshake.</li>
+<li>Traduction du fichier README.md en anglais.</li>
+<li>Créer une commande <code>nodeatlas</code> en installation globale.</li>
 </ul>
 </li>
 <li>
 <p>À venir</p>
 
 <ul>
-<li>Traduction du fichier README.md en anglais.</li>
 <li>Compression des images.</li>
 <li>Support Sass/Less.</li>
 <li>Injection automatique de feuille CSS en style inline (pour les maquettes email).</li>
@@ -218,7 +219,7 @@
 <p><em>Ceci installera <strong>NodeAtlas</strong> dans le dossier <code>node_modules/node-atlas</code> du dossier d'execution de la commande.</em></p>
 </li>
 <li>
-<p><code>npm install -g node-atlas</code> (recommandé pour un <a href="#nodeatlas-comme-module-npm">usage sous forme de module</a> dans beaucoup de projet).</p>
+<p><code>npm install -g node-atlas</code> (recommandé pour un <a href="#nodeatlas-comme-module-npm">usage sous forme de module</a> dans beaucoup de projet ou pour un usage à la ligne de commande).</p>
 
 <p><em>Ceci installera <strong>NodeAtlas</strong> dans le dossier <code>node_modules/node-atlas</code> global.</em></p>
 </li>
@@ -281,7 +282,7 @@
 <a id="lancer-le-site-avec-nodeatlas" class="anchor" href="#lancer-le-site-avec-nodeatlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lancer le site avec NodeAtlas</h3>
 
 <h4>
-<a id="À-la-ligne-de-commande" class="anchor" href="#%C3%80-la-ligne-de-commande" aria-hidden="true"><span class="octicon octicon-link"></span></a>À la ligne de commande</h4>
+<a id="À-la-ligne-de-commande-en-appelant-le-script" class="anchor" href="#%C3%80-la-ligne-de-commande-en-appelant-le-script" aria-hidden="true"><span class="octicon octicon-link"></span></a>À la ligne de commande en appelant le script</h4>
 
 <p>Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.</p>
 
@@ -295,7 +296,15 @@
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
 </code></pre>
 
-<p>Vous aurez alors accès à votre « Hello World » à la page : <em>http://localhost/</em> dans un navigateur.</p>
+<h4>
+<a id="avec-un-executable-sur-votre-os" class="anchor" href="#avec-un-executable-sur-votre-os" aria-hidden="true"><span class="octicon octicon-link"></span></a>Avec un executable sur votre OS</h4>
+
+<p><strong>Si vous avez installé NodeAtlas avec <code>npm install -g node-atlas</code></strong> vous pouvez également utiliser la commande <code>nodeatlas</code>. <code>nodeatlas</code> est un raccourci de <code>node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>.</p>
+
+<p>Placez-vous toujours avec votre invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.</p>
+
+<pre><code>\&gt; nodeatlas
+</code></pre>
 
 <h4>
 <a id="via-un-fichier-javascript" class="anchor" href="#via-un-fichier-javascript" aria-hidden="true"><span class="octicon octicon-link"></span></a>Via un fichier JavaScript</h4>
