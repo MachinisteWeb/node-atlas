@@ -110,7 +110,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.27.2 (Beta)</p>
+        <article><h1>node-atlas</h1><p>Version : 0.28.0 (Beta)</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -1578,46 +1578,7 @@ webconfig.json</code></pre><p>you will get the following new files:</p>
 —— javascript/common.min.js
 templates/
 — index.htm
-webconfig.json</code></pre><h4>Disable Bundles</h4><p>It is also possible to not execute the minification when start a website with NodeAtlas with <code>enable</code> properties set to <code>false</code> in each type of Bundle.</p>
-<pre class="prettyprint source lang-js"><code>{
-    &quot;bundles&quot;: {
-        &quot;javascript&quot;: {
-            &quot;enable&quot;: false,
-            &quot;files&quot;: {
-                &quot;javascript/boot.min.js&quot;: [
-                    &quot;javascript/modernizr.js&quot;,
-                    &quot;javascript/yepnot.js&quot;,
-                    &quot;javascript/html5Shiv.js&quot;
-                ],
-                &quot;javascript/framework.min.js&quot;: [
-                    &quot;javascript/jquery.js&quot;,
-                    &quot;javascript/jquery-ui.js&quot;,
-                    &quot;javascript/prettify.js&quot;,
-                    &quot;javascript/prettify/run_prettify.js&quot;
-                ],
-                &quot;javascript/common.min.js&quot;: [
-                    &quot;javascript/components/extended-format-date.js&quot;,
-                    &quot;javascript/common.js&quot;
-                ]
-            }
-        },
-        &quot;stylesheets&quot;: {
-            &quot;enable&quot;: false,
-            &quot;files&quot;: {
-                &quot;stylesheets/common.min.css&quot;: [
-                    &quot;stylesheets/common.css&quot;,
-                    &quot;stylesheets/common-min780.css&quot;,
-                    &quot;stylesheets/common-min1160.css&quot;
-                ]
-            }
-        }
-    },
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
-        }
-    }
-}</code></pre><h4>Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p>
+webconfig.json</code></pre><h4>Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p>
 <p>For example:</p>
 <p>The following set of file</p>
 <pre class="prettyprint source"><code>assets/
@@ -1643,7 +1604,6 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
-            &quot;enable&quot;: false,
             &quot;files&quot;: {
                 &quot;javascript/boot.min.js&quot;: [
                     &quot;javascript/modernizr.js&quot;,
@@ -1663,7 +1623,6 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             }
         },
         &quot;stylesheets&quot;: {
-            &quot;enable&quot;: false,
             &quot;files&quot;: {
                 &quot;stylesheets/common.min.css&quot;: [
                     &quot;stylesheets/common.css&quot;,
@@ -1685,7 +1644,6 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
     &quot;urlPort&quot;: 80,
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
-            &quot;enable&quot;: false,
             &quot;files&quot;: {
                 &quot;javascript/boot.min.js&quot;: [
                     &quot;javascript/modernizr.js&quot;,
@@ -1705,7 +1663,6 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             }
         },
         &quot;stylesheets&quot;: {
-            &quot;enable&quot;: false,
             &quot;files&quot;: {
                 &quot;stylesheets/common.min.css&quot;: [
                     &quot;stylesheets/common.css&quot;,
@@ -1763,7 +1720,6 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 }</code></pre><p>and <code>bundles.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;javascript&quot;: {
-        &quot;enable&quot;: false,
         &quot;files&quot;: {
             &quot;javascript/boot.min.js&quot;: [
                 &quot;javascript/modernizr.js&quot;,
@@ -1783,7 +1739,6 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     },
     &quot;stylesheets&quot;: {
-        &quot;enable&quot;: false,
         &quot;files&quot;: {
             &quot;stylesheets/common.min.css&quot;: [
                 &quot;stylesheets/common.css&quot;,
@@ -1792,7 +1747,89 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             ]
         }
     }
-}</code></pre><p><em>Note : this time it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p>
+}</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p>
+<h4>Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>&quot;stylesheetsBundlesEnable&quot;: &quot;false&quot;</code> et `&quot;javascriptBundlesEnable&quot;: &quot;false&quot;`` for each type of Bundle.</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;stylesheetsBundlesEnable&quot;: &quot;false&quot;,
+    &quot;javascriptBundlesEnable&quot;: &quot;false&quot;,
+    &quot;bundles&quot;: {
+        &quot;javascript&quot;: {
+            &quot;enable&quot;: false,
+            &quot;files&quot;: {
+                &quot;javascript/boot.min.js&quot;: [
+                    &quot;javascript/modernizr.js&quot;,
+                    &quot;javascript/yepnot.js&quot;,
+                    &quot;javascript/html5Shiv.js&quot;
+                ],
+                &quot;javascript/framework.min.js&quot;: [
+                    &quot;javascript/jquery.js&quot;,
+                    &quot;javascript/jquery-ui.js&quot;,
+                    &quot;javascript/prettify.js&quot;,
+                    &quot;javascript/prettify/run_prettify.js&quot;
+                ],
+                &quot;javascript/common.min.js&quot;: [
+                    &quot;javascript/components/extended-format-date.js&quot;,
+                    &quot;javascript/common.js&quot;
+                ]
+            }
+        },
+        &quot;stylesheets&quot;: {
+            &quot;enable&quot;: false,
+            &quot;files&quot;: {
+                &quot;stylesheets/common.min.css&quot;: [
+                    &quot;stylesheets/common.css&quot;,
+                    &quot;stylesheets/common-min780.css&quot;,
+                    &quot;stylesheets/common-min1160.css&quot;
+                ]
+            }
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p><em>Note : if your bundle is in shared file, you could desactivated it also without the <code>&quot;bundles&quot;: &quot;bundles.json&quot;</code>. Just remove it.</em></p>
+<h4>Re-generate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: &quot;false&quot;</code> et `&quot;javascriptBundlesBeforeResponse&quot;: &quot;false&quot;`` for each type of Bundle.</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;stylesheetsBundlesBeforeResponse&quot;: &quot;false&quot;,
+    &quot;javascriptBundlesBeforeResponse&quot;: &quot;false&quot;,
+    &quot;bundles&quot;: {
+        &quot;javascript&quot;: {
+            &quot;files&quot;: {
+                &quot;javascript/boot.min.js&quot;: [
+                    &quot;javascript/modernizr.js&quot;,
+                    &quot;javascript/yepnot.js&quot;,
+                    &quot;javascript/html5Shiv.js&quot;
+                ],
+                &quot;javascript/framework.min.js&quot;: [
+                    &quot;javascript/jquery.js&quot;,
+                    &quot;javascript/jquery-ui.js&quot;,
+                    &quot;javascript/prettify.js&quot;,
+                    &quot;javascript/prettify/run_prettify.js&quot;
+                ],
+                &quot;javascript/common.min.js&quot;: [
+                    &quot;javascript/components/extended-format-date.js&quot;,
+                    &quot;javascript/common.js&quot;
+                ]
+            }
+        },
+        &quot;stylesheets&quot;: {
+            &quot;files&quot;: {
+                &quot;stylesheets/common.min.css&quot;: [
+                    &quot;stylesheets/common.css&quot;,
+                    &quot;stylesheets/common-min780.css&quot;,
+                    &quot;stylesheets/common-min1160.css&quot;
+                ]
+            }
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p>
 <h3>Allow/Disallow GET/POST requests</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;getSupport&quot;: true,
@@ -2210,7 +2247,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2014-12-17T17:49:15+01:00 using the <a
+		on 2014-12-18T15:55:09+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
