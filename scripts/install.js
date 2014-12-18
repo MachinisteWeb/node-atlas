@@ -17,7 +17,6 @@ var path = require('path'),
 	unixTarget,
 	windowsTarget;
 
-/* Copy function. */
 function copyFile(source, target) {
 	var callbackCalled = false,
   		read = fs.createReadStream(source),
@@ -36,7 +35,6 @@ function copyFile(source, target) {
   	} });
 }
 
-/* Copy on Windows environment and look-alike installation of npm. */
 if (dirsName.length - 4 > 0 && dirsName[dirsName.length - 4] === 'npm') {
 	unixTarget = path.resolve(__dirname, '..', '..', '..') + path.sep + 'nodeatlas';
 	windowsTarget = path.resolve(__dirname, '..', '..', '..') + path.sep + 'nodeatlas.cmd';
@@ -45,10 +43,9 @@ if (dirsName.length - 4 > 0 && dirsName[dirsName.length - 4] === 'npm') {
 	console.log(appLabels.downloadAllModule.installShortcutsDone);
 }
 
-/* Copy on Unix environment and look-alike installation of npm. */
 if (dirsName.length - 4 > 0 && dirsName[dirsName.length - 4] === 'lib') {
 	unixTarget = path.resolve(__dirname, '..', '..', '..','..','bin') + path.sep + 'nodeatlas';
-	windowsTarget = path.resolve(__dirname, '..', '..', '..','..','bin') + path.sep + 'nodeatlas.cmd';
+	windowsTarget = path.resolve(__dirname, '..', '..', '..','bin') + path.sep + 'nodeatlas.cmd';
 	copyFile(unixSource, unixTarget);
 	copyFile(windowsSource, windowsTarget);
 	console.log(appLabels.downloadAllModule.installShortcutsDone);

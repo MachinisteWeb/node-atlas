@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.27.2 (Beta)
+Version : 0.28.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -2048,52 +2048,6 @@ templates/
 webconfig.json
 ```
 
-#### Désactiver des Bundles ####
-
-Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés `enable: false` dans chaque type de Bundle.
-
-```js
-{
-    "bundles": {
-        "javascript": {
-            "enable": false,
-            "files": {
-                "javascript/boot.min.js": [
-                    "javascript/modernizr.js",
-                    "javascript/yepnot.js",
-                    "javascript/html5Shiv.js"
-                ],
-                "javascript/framework.min.js": [
-                    "javascript/jquery.js",
-                    "javascript/jquery-ui.js",
-                    "javascript/prettify.js",
-                    "javascript/prettify/run_prettify.js"
-                ],
-                "javascript/common.min.js": [
-                    "javascript/components/extended-format-date.js",
-                    "javascript/common.js"
-                ]
-            }
-        },
-        "stylesheets": {
-            "enable": false,
-            "files": {
-                "stylesheets/common.min.css": [
-                    "stylesheets/common.css",
-                    "stylesheets/common-min780.css",
-                    "stylesheets/common-min1160.css"
-                ]
-            }
-        }
-    },
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    }
-}
-```
-
 #### Bundles dans un fichier partagé ####
 
 Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`. 
@@ -2131,7 +2085,6 @@ avec `webconfig.json`
     "httpPort": 7777,
     "bundles": {
         "javascript": {
-            "enable": false,
             "files": {
                 "javascript/boot.min.js": [
                     "javascript/modernizr.js",
@@ -2151,7 +2104,6 @@ avec `webconfig.json`
             }
         },
         "stylesheets": {
-            "enable": false,
             "files": {
                 "stylesheets/common.min.css": [
                     "stylesheets/common.css",
@@ -2178,7 +2130,6 @@ et avec `webconfig.prod.json`
     "urlPort": 80,
     "bundles": {
         "javascript": {
-            "enable": false,
             "files": {
                 "javascript/boot.min.js": [
                     "javascript/modernizr.js",
@@ -2198,7 +2149,6 @@ et avec `webconfig.prod.json`
             }
         },
         "stylesheets": {
-            "enable": false,
             "files": {
                 "stylesheets/common.min.css": [
                     "stylesheets/common.css",
@@ -2276,7 +2226,6 @@ et `bundles.json`
 ```json
 {
     "javascript": {
-        "enable": false,
         "files": {
             "javascript/boot.min.js": [
                 "javascript/modernizr.js",
@@ -2296,7 +2245,6 @@ et `bundles.json`
         }
     },
     "stylesheets": {
-        "enable": false,
         "files": {
             "stylesheets/common.min.css": [
                 "stylesheets/common.css",
@@ -2308,7 +2256,103 @@ et `bundles.json`
 }
 ```
 
-*Note : cette fois il est possible de désactiver les Bundles en ne les incluant pas dans le `webconfig` en question.*
+*Note : il est possible de désactiver les Bundles en ne les incluant pas dans le `webconfig` en question.*
+
+#### Désactiver des Bundles ####
+
+Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés `"stylesheetsBundlesEnable": "false"` et `"javascriptBundlesEnable": "false"` pour chaque type de Bundle.
+
+```js
+{
+    "stylesheetsBundlesEnable": "false",
+    "javascriptBundlesEnable": "false",
+    "bundles": {
+        "javascript": {
+            "files": {
+                "javascript/boot.min.js": [
+                    "javascript/modernizr.js",
+                    "javascript/yepnot.js",
+                    "javascript/html5Shiv.js"
+                ],
+                "javascript/framework.min.js": [
+                    "javascript/jquery.js",
+                    "javascript/jquery-ui.js",
+                    "javascript/prettify.js",
+                    "javascript/prettify/run_prettify.js"
+                ],
+                "javascript/common.min.js": [
+                    "javascript/components/extended-format-date.js",
+                    "javascript/common.js"
+                ]
+            }
+        },
+        "stylesheets": {
+            "files": {
+                "stylesheets/common.min.css": [
+                    "stylesheets/common.css",
+                    "stylesheets/common-min780.css",
+                    "stylesheets/common-min1160.css"
+                ]
+            }
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+*Note : si vos bundles sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne `"bundles": "bundles.json"`.*
+
+#### Ré-généré les Bundles avant chaque rendu de page ####
+
+De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'il soit régénéré avant chaque affichage de page avec les propriétés `"stylesheetsBundlesBeforeResponse": "true"` et `"javascriptBundlesBeforeResponse": "true"` pour chaque type de Bundle.
+
+```js
+{
+    "stylesheetsBundlesBeforeResponse": "false",
+    "javascriptBundlesBeforeResponse": "false",
+    "bundles": {
+        "javascript": {
+            "files": {
+                "javascript/boot.min.js": [
+                    "javascript/modernizr.js",
+                    "javascript/yepnot.js",
+                    "javascript/html5Shiv.js"
+                ],
+                "javascript/framework.min.js": [
+                    "javascript/jquery.js",
+                    "javascript/jquery-ui.js",
+                    "javascript/prettify.js",
+                    "javascript/prettify/run_prettify.js"
+                ],
+                "javascript/common.min.js": [
+                    "javascript/components/extended-format-date.js",
+                    "javascript/common.js"
+                ]
+            }
+        },
+        "stylesheets": {
+            "files": {
+                "stylesheets/common.min.css": [
+                    "stylesheets/common.css",
+                    "stylesheets/common-min780.css",
+                    "stylesheets/common-min1160.css"
+                ]
+            }
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+*Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.*
 
 
 

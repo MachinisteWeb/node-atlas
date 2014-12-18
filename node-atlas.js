@@ -5,9 +5,10 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.27.2
+ * @version 0.28.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
+ * @requires async
  * @requires express
  * @requires express-session
  * @requires body-parser
@@ -92,7 +93,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.27.2')
+            .version('0.28.0')
 
             /* Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -181,7 +182,7 @@ var NA = {};
      */
     publics.initGlobalVarRequiredNpmModules = function () {
         var commander = NA.modules.commander,
-    		path = NA.modules.path,
+            path = NA.modules.path,
             regex = new RegExp(path.sep + path.sep + '?$', 'g');
 
         /* `websitePhysicalPath` Manually setted value with `NA.config`. */
@@ -296,7 +297,7 @@ var NA = {};
     publics.initWebconfig = function (callback) {
         /* Webconfig based website... */
         NA.ifFileExist(NA.websitePhysicalPath, NA.webconfigName, function () {
-        	NA.improveWebconfigBase();
+            NA.improveWebconfigBase();
 
             /**
              * Next step !
@@ -316,8 +317,8 @@ var NA = {};
      * @memberOf node-atlas~NA
      */
     publics.improveWebconfigBase = function () {
-    	var commander = NA.modules.commander,
-    		path = NA.modules.path,
+        var commander = NA.modules.commander,
+            path = NA.modules.path,
             regex = new RegExp(path.sep + path.sep + '?$', 'g'),
             data = {};
 
@@ -419,7 +420,7 @@ var NA = {};
         }
 
         /* Path to template. */
-		if (typeof NA.webconfig.templatesRelativePath !== 'undefined') {
+        if (typeof NA.webconfig.templatesRelativePath !== 'undefined') {
 
             /**
              * Template folder for template engine.
@@ -434,7 +435,7 @@ var NA = {};
             NA.webconfig.templatesRelativePath = 'templates/';
         }
 
-		if (typeof NA.webconfig.componentsRelativePath !== 'undefined') {
+        if (typeof NA.webconfig.componentsRelativePath !== 'undefined') {
 
             /**
              * Default folder for template engine include file or controller components.
@@ -449,7 +450,7 @@ var NA = {};
             NA.webconfig.componentsRelativePath = 'components/';
         }
 
-		if (typeof NA.webconfig.assetsRelativePath !== 'undefined') {
+        if (typeof NA.webconfig.assetsRelativePath !== 'undefined') {
 
             /**
              * Folder for public file like image, CSS or JS.
@@ -506,13 +507,13 @@ var NA = {};
          * @memberOf node-atlas~NA.webconfig
          * @default 80, or `process.env.PORT` if setted, or the webconfig's property `httpPort`.
          */
-		NA.webconfig.httpPort = NA.webconfig.httpPort || process.env.PORT || 80;
+        NA.webconfig.httpPort = NA.webconfig.httpPort || process.env.PORT || 80;
 
         /* `httpPort` manually setted value with `--httpPort`. */
-		if (commander.httpPort) { NA.configuration.httpPort = commander.httpPort; }
+        if (commander.httpPort) { NA.configuration.httpPort = commander.httpPort; }
 
         /* `httpPort` manually setted value with `NA.config`. */
-		if (NA.configuration.httpPort) { NA.webconfig.httpPort = NA.configuration.httpPort; }
+        if (NA.configuration.httpPort) { NA.webconfig.httpPort = NA.configuration.httpPort; }
 
         /**
          * Url access port.
@@ -552,7 +553,7 @@ var NA = {};
          * @type {string}
          * @memberOf node-atlas~NA.webconfig
          */        
-		NA.webconfig.urlWithoutFileName = 'http' + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + NA.webconfig.urlHostname + ((NA.webconfig.urlPort !== 80) ? ':' + NA.webconfig.urlPort : '') + '/';
+        NA.webconfig.urlWithoutFileName = 'http' + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + NA.webconfig.urlHostname + ((NA.webconfig.urlPort !== 80) ? ':' + NA.webconfig.urlPort : '') + '/';
     };
 
 })(NA);
@@ -572,6 +573,42 @@ var NA = {};
  */
 (function (publics) {
     "use strict";
+
+    /**
+     * Clone Object A into B and the purpose is : change A not affect B.
+     * @public
+     * @function clone
+     * @memberOf node-atlas~NA
+     * @param {Object} object - The A object.
+     * @return {Object} - Return the B object.
+     */ 
+    publics.clone = function (object) {
+        var copy;
+
+        /* Handle the 3 simple types, and null or undefined */
+        if (null == object || "objectect" != typeof object) return object;
+
+        /* Handle Date */
+        if (object instanceof Date) {
+            copy = new Date();
+            copy.setTime(object.getTime());
+            return copy;
+        }
+
+        /* Handle Array */
+        if (object instanceof Array) {
+            return object.slice(0);
+        }
+
+        /* Handle Object */
+        if (object instanceof Object) {
+            copy = {};
+            for (var attr in object) {
+                if (object.hasOwnProperty(attr)) copy[attr] = clone(object[attr]);
+            }
+            return copy;
+        }
+    };
 
     /**
      * Read a JSON file and return a literal Object else kill process.
@@ -726,6 +763,16 @@ var NA = {};
      * @memberOf node-atlas~NA
      */
     publics.loadListOfRequiredNpmModules = function () {
+
+        /**
+         * Higher-order functions and common patterns for asynchronous code.
+         * @public
+         * @alias async
+         * @type {Object}
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/async async}
+         */ 
+        publics.modules.async = require('async');
 
         /**
          * An advanced web server.
@@ -1079,7 +1126,7 @@ var NA = {};
                 process.kill(process.pid);
             });
 
-			if (commander.run) { NA.configuration.run = commander.run; }
+            if (commander.run) { NA.configuration.run = commander.run; }
 
             if (NA.configuration.run) { open(NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "")); }
         
@@ -1617,30 +1664,60 @@ var NA = {};
      * @public
      * @function cssMinification
      * @memberOf node-atlas~NA
+     * @callback cssMinification~callback callback - Next step after minification and concatenation of all CSS.
      */ 
-    publics.cssMinification = function () {
+    publics.cssMinification = function (callback) {
         var bundles = NA.webconfig.bundles,
             cleanCss = NA.modules.cleanCss,
+            async = NA.modules.async,
+            path = NA.modules.path,
             fs = NA.modules.fs,
-            enable = true,
-            output = "";
+            enable = false,
+            output = "",
+            data = {},
+            allCssMinified = [];
 
         /* Verify if bundle is okay and if engine must start. */
-        if (bundles && bundles.stylesheets && typeof bundles.stylesheets.enable === 'boolean') {
-            enable = bundles.stylesheets.enable;
+        enable = (NA.configuration.generate || NA.webconfig.stylesheetsBundlesBeforeResponse);
+        if (typeof NA.webconfig.stylesheetsBundlesEnable === 'boolean') {
+            enable = NA.webconfig.stylesheetsBundlesEnable;
         }
 
         /* Star engine. */
         if (bundles && bundles.stylesheets && bundles.stylesheets.files && enable) {
-            for (var compressedFile in bundles.stylesheets.files) {
-                for (var i = 0; i < bundles.stylesheets.files[compressedFile].length; i++) {
-                    output += fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + bundles.stylesheets.files[compressedFile][i], 'utf-8');
-                }
 
-                output = new cleanCss().minify(output);
-                fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile, output);
-                output = "";
+            for (var compressedFile in bundles.stylesheets.files) {
+                allCssMinified.push(compressedFile);
             }
+
+            async.each(allCssMinified, function (compressedFile, firstCallback) {
+
+                async.map(bundles.stylesheets.files[compressedFile], function (sourceFile, secondCallback) {
+                    secondCallback(null, fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + sourceFile, 'utf-8'));
+                }, function(error, results) {
+                    for (var i = 0; i < results.length; i++) {
+                        output += results[i];
+                    }
+
+                    output = new cleanCss().minify(output);
+                    fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile, output);
+                    data.pathName = path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile);
+                    console.log(NA.appLabels.cssGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    output = "";
+
+                    firstCallback();
+                });
+
+            }, function(error) {
+
+                /**
+                 * Next steps after minification and concatenation are done.
+                 * @callback cssMinification~callback
+                 */
+                if (callback) callback();
+            });
+        } else {
+            if (callback) callback();
         }
     };
 
@@ -1649,29 +1726,59 @@ var NA = {};
      * @public
      * @function jsObfuscation
      * @memberOf node-atlas~NA
+     * @callback jsObfuscation~callback callback - Next step after obfuscation and concatenation of all CSS.
      */ 
-    publics.jsObfuscation = function () {
+    publics.jsObfuscation = function (callback) {
         var bundles = NA.webconfig.bundles,
             uglifyJs = NA.modules.uglifyJs,
+            async = NA.modules.async,
+            path = NA.modules.path,
             fs = NA.modules.fs,
-            enable = true,
-            output = "";
+            enable = false,
+            output = "",
+            data = {},
+            allJsMinified = [];
 
         /* Verify if bundle is okay and if engine must start. */
-        if (bundles && bundles.javascript && typeof bundles.javascript.enable === 'boolean') {
-            enable = bundles.javascript.enable;
+        enable = (NA.configuration.generate || NA.webconfig.javascriptBundlesBeforeResponse);
+        if (typeof NA.webconfig.javascriptBundlesEnable === 'boolean') {
+            enable = NA.webconfig.javascriptBundlesEnable;
         }
 
         /* Star engine. */
         if (bundles && bundles.javascript && bundles.javascript.files && enable) {
-            for (var compressedFile in bundles.javascript.files) {
-                for (var i = 0; i < bundles.javascript.files[compressedFile].length; i++) {
-                    output += uglifyJs.minify(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + bundles.javascript.files[compressedFile][i], 'utf-8').code;
-                }
 
-                fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile, output);
-                output = "";
+            for (var compressedFile in bundles.javascript.files) {
+                allJsMinified.push(compressedFile);
             }
+
+            async.each(allJsMinified, function (compressedFile, firstCallback) {
+
+                async.map(bundles.javascript.files[compressedFile], function (sourceFile, secondCallback) {
+                    secondCallback(null, uglifyJs.minify(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + sourceFile, 'utf-8').code);
+                }, function(error, results) {
+                    for (var i = 0; i < results.length; i++) {
+                        output += results[i];
+                    }
+
+                    fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile, output);
+                    data.pathName = path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile);
+                    console.log(NA.appLabels.jsGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    output = "";
+
+                    firstCallback();
+                });
+
+            }, function(error) {
+
+                /**
+                 * Next steps after obfuscation and concatenation are done.
+                 * @callback jsObfuscation~callback
+                 */
+                if (callback) callback();
+            });
+        } else {
+            if (callback) callback();
         }
     };
 
@@ -1847,6 +1954,8 @@ var NA = {};
              * @param {Object} currentVariation - Variations for the current page.
              */
             function renderTemplate(data, currentVariation) {
+                var async = NA.modules.async;
+
                 /* Create the file for asset mode */
                 if (
                     typeof response === 'undefined' || 
@@ -1876,7 +1985,13 @@ var NA = {};
 
                 /* Run page into browser. */
                 if (typeof response !== 'undefined') {
-                    NA.response(request, response, data, currentRouteParameters, currentVariation);
+                    /* Compression of CSS and JS if required. */
+                    async.parallel([
+                        NA.cssMinification,
+                        NA.jsObfuscation
+                    ], function () {
+                        NA.response(request, response, data, currentRouteParameters, currentVariation);
+                    });
                 }
             }
             
@@ -2192,17 +2307,37 @@ var NA = {};
      * @memberOf node-atlas~NA
      */
     publics.urlGeneratingPages = function () {
-        var commander = NA.modules.commander;
+        var commander = NA.modules.commander,
+            fs = NA.modules.fs,
+            async = NA.modules.async,
+            path = NA.modules.path,
+            data = {};
 
         /* `generate` manually setted value with `NA.config`. */
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 
-        /* Generation only if is configured to « true » in `generate` */
+        /* Generation only if is configured to « true » in `generate` or set co command line. */
         if (NA.configuration.generate) {
-            for (var currentUrl in NA.webconfig.routes) {
-                NA.render(currentUrl, NA.webconfig.routes);
-            }
-        }     
+
+            /* Generate all HTML files. */
+            fs.exists(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath, function (exists) {
+                if (exists) {
+                    for (var currentUrl in NA.webconfig.routes) {
+                        NA.render(currentUrl, NA.webconfig.routes);
+                    }
+                } else {
+                    data.templatePath = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath);
+                    console.log(NA.appLabels.templateDirectoryNotExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                }
+            });
+
+            /* Generate all minified CSS and JS files. */
+            async.parallel([
+                NA.cssMinification,
+                NA.jsObfuscation
+            ]); 
+        }
+
     };
 
     /**
@@ -2303,8 +2438,7 @@ var NA = {};
             /* If source is not a HTML format, keep initial data format. */
             if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
 
-            dataError.templateRenderName = path.normalize(templateRenderName);
-            dataError.pathToSaveFile = path.normalize(pathToSaveFile);
+            dataError.pathName = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath + templateRenderName);
 
             if (error) throw error;
 
@@ -2365,11 +2499,11 @@ var NA = {};
      *    }).init();
      */
     publics.config = function (config) {
-    	var config = config || {};
+        var config = config || {};
 
-		NA.configuration = config;
+        NA.configuration = config;
 
-    	return NA;
+        return NA;
     };
 
     /**
@@ -2379,25 +2513,23 @@ var NA = {};
      * @memberOf node-atlas~NA
      */
     publics.init = function () {
-		NA.loadListOfNativeModules();
-		NA.initGlobalVar();
-		NA.moduleRequired(function () {
-		    NA.lineCommandConfiguration();
-		    NA.initGlobalVarRequiredNpmModules();
-		    NA.initWebconfig(function () {
-		        NA.loadListOfExternalModules(function () {
-                    NA.cssMinification();
-                    NA.jsObfuscation();       
-		        	NA.startingHttpServer();
-		        	NA.templateEngineConfiguration(); 
-		        	NA.routesPages();
-		        	NA.emulatedIndexPage();
-		            NA.httpServerPublicFiles();
-		            NA.pageNotFound();
-		            NA.urlGeneratingPages();
-		        });
-		    });
-		});
+        NA.loadListOfNativeModules();
+        NA.initGlobalVar();
+        NA.moduleRequired(function () {
+            NA.lineCommandConfiguration();
+            NA.initGlobalVarRequiredNpmModules();
+            NA.initWebconfig(function () {
+                NA.loadListOfExternalModules(function () {      
+                    NA.startingHttpServer();
+                    NA.templateEngineConfiguration(); 
+                    NA.routesPages();
+                    NA.emulatedIndexPage();
+                    NA.httpServerPublicFiles();
+                    NA.pageNotFound();
+                    NA.urlGeneratingPages();
+                });
+            });
+        });
     };
 
 })(NA);
@@ -2412,7 +2544,7 @@ var NA = {};
 
 /* Run script with command tools. */
 if (require.main === module) {
-	NA.init();
+    NA.init();
 }
 
 /* Run script with require as a npm module. */

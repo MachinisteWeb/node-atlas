@@ -14,9 +14,12 @@
 	"variationNotFound": "Le fichier de variation « %variationsPath% » n'a pas pu être ouvert.",
 	"webconfigSyntaxError": "Le fichier « %fileName% » a une erreur de syntaxe : « %syntaxError% ».",
 	"variationSyntaxError": "Le fichier de variation « %variationsPath% » a une erreur de syntaxe : « %syntaxError% ».",
-	"templateGenerate": "Le fichier « %templateRenderName% » a été généré dans « %pathToSaveFile% » !",
-	"templateNotGenerate": "Impossible d'enregistrer le fichier « %templateRenderName% » dans le dossier « %pathToSaveFile% ».",
+	"templateGenerate": "HTML : Le fichier « %pathName% » a été généré !",
+	"cssGenerate": "CSS : Le fichier minifié « %pathName% » a été généré !",
+	"jsGenerate": "JS : Le fichier offusqué « %pathName% » a été généré !",
+	"templateNotGenerate": "Impossible d'enregistrer le fichier « %pathName% ».",
 	"templateNotSet": "Aucun fichier de template n'a été défini.",
+	"templateDirectoryNotExist": "HTML : Il n'y aucun dossier « %templatePath% » existant. Aucune génération.",
 	"portAlreadyListened": "NodeAtlas c'est arrêté car le port %httpPort% est déjà écouté par une autre application.",
 	"commander": {
 		"directory" : {
