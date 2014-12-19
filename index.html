@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.28.0 (Beta)</p>
+<p>Version : 0.29.0 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -106,6 +106,7 @@
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
 <li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
 <li><a href="#minifier-les-cssjs">Minifier les CSS/JS</a></li>
+<li><a href="#generer-les-css-avec-less">Générer les CSS avec Less</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
 <li><a href="#changer-les-param%C3%A8tres-des-sessions">Changer les paramètres des Sessions</a></li>
 <li><a href="#stockage-externe-des-sessions">Stockage externe des Sessions</a></li>
@@ -173,6 +174,7 @@
 <li>Exemple de Socket.IO 1.0 avec Handshake.</li>
 <li>Traduction du fichier README.md en anglais.</li>
 <li>Créer une commande <code>nodeatlas</code> en installation globale.</li>
+<li>Support Less.</li>
 </ul>
 </li>
 <li>
@@ -180,7 +182,6 @@
 
 <ul>
 <li>Compression des images.</li>
-<li>Support Sass/Less.</li>
 <li>Injection automatique de feuille CSS en style inline (pour les maquettes email).</li>
 <li>Auto-déploiement via transfert (S)FTP.</li>
 <li>...</li>
@@ -2317,6 +2318,58 @@ webconfig.prod.json
 }</pre></div>
 
 <p><em>Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.</em></p>
+
+<h3>
+<a id="générer-les-css-avec-less" class="anchor" href="#g%C3%A9n%C3%A9rer-les-css-avec-less" aria-hidden="true"><span class="octicon octicon-link"></span></a>Générer les CSS avec Less</h3>
+
+<p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l'opération effectuée, on renvoi le CSS demandée.</p>
+
+<p>Avec la structure suivante :</p>
+
+<pre><code>assets/
+— stylesheets
+less/
+- common.less
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>ainsi que le webconfig suivante :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>less<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>sourceRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>less/<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>destinationRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>assets/stylesheets/<span class="pl-pds">"</span></span>
+    },
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p>et le contenu suivant dans :</p>
+
+<p><em>templates/index.htm</em></p>
+
+<div class="highlight highlight-html"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s1"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s1"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Less Test&lt;/<span class="pl-ent">title</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s1"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">p</span>&gt;Test&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><em>less/common.less</em></p>
+
+<div class="highlight highlight-css"><pre><span class="pl-ent">p</span> {
+    <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-c1">#f00</span>;
+}</pre></div>
+
+<p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p>
 
 <h3>
 <a id="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost" aria-hidden="true"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
