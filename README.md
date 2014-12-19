@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.29.0 (Beta)
+Version : 0.30.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -2370,8 +2370,7 @@ With the following structure:
 ```
 assets/
 — stylesheets
-less/
-- common.less
+—— common.less
 templates/
 — index.htm
 webconfig.json
@@ -2381,10 +2380,7 @@ and the following webconfig:
 
 ```js
 {
-    "less": {
-        "sourceRelativePath": "less/",
-        "destinationRelativePath": "assets/stylesheets/"
-    },
+    "enableLess": true,
     "routes": {
         "/": "index.htm"
     }
@@ -2409,7 +2405,7 @@ and the following content in:
 </html>
 ```
 
-*less/common.less*
+*assets/stylesheets/common.less*
 
 ```css
 p {
