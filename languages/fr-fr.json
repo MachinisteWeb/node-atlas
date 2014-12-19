@@ -6,7 +6,7 @@
 		"restartRequired": "Vous pouvez redémarrer l'application.",
 		"installShortcutsDone": "La commande `nodeatlas` est maintenant disponible en tant que raccourci pour `node <path/to/>node-atlas.js`."
 	},
-	"ifFileExist": "Pas de fichier « %fileName%  » trouvé dans le répertoire « %physicalPath% ».",
+	"ifFileExist": "Pas de fichier « %pathName%  » trouvé.",
 	"publicMode": "NodeAtlas c'est donc lancer en mode « Simple Serveur Web ».",
 	"isRunning": "Votre site NodeAtlas est lancé sur le port %httpPort%.",
 	"templateNotFound": "Le fichier de template « %templatesPath% » n'a pas pu être ouvert.",
@@ -15,6 +15,7 @@
 	"webconfigSyntaxError": "Le fichier « %fileName% » a une erreur de syntaxe : « %syntaxError% ».",
 	"variationSyntaxError": "Le fichier de variation « %variationsPath% » a une erreur de syntaxe : « %syntaxError% ».",
 	"templateGenerate": "HTML : Le fichier « %pathName% » a été généré !",
+	"lessGenerate": "Less : The file « %pathName% » a été généré !",
 	"cssGenerate": "CSS : Le fichier minifié « %pathName% » a été généré !",
 	"jsGenerate": "JS : Le fichier offusqué « %pathName% » a été généré !",
 	"templateNotGenerate": "Impossible d'enregistrer le fichier « %pathName% ».",

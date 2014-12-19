@@ -5,24 +5,25 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.28.0
+ * @version 0.29.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
- * @requires express
- * @requires express-session
  * @requires body-parser
- * @requires cookie-parser
- * @requires extend
+ * @requires cheerio
+ * @requires clean-css
  * @requires commander
  * @requires compression
- * @requires open
+ * @requires cookie-parser
  * @requires ejs
+ * @requires express
+ * @requires express-session
+ * @requires extend
+ * @requires less
  * @requires mkpath
- * @requires cheerio
- * @requires uglify-js
- * @requires clean-css
  * @requires node-force-domain
+ * @requires open
+ * @requires uglify-js
  */
 
 
@@ -93,7 +94,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.28.0')
+            .version('0.29.0')
 
             /* Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -619,7 +620,8 @@ var NA = {};
      * @return {Object} - Literal object of JSON file.
      */  
     publics.openConfiguration = function (configName) {
-        var fs = NA.modules.fs;
+        var fs = NA.modules.fs,
+            data = {};
 
         try {
             /* If file is a correct JSON file, return a literal Object file's content. */
@@ -650,13 +652,13 @@ var NA = {};
      * @param {ifFileExist~fallback} fallback - Executed if something was wrong with file.
      */  
     publics.ifFileExist = function (physicalPath, fileName, callback, fallback) {
-        var fs = NA.modules.fs;
+        var fs = NA.modules.fs,
+            path = NA.modules.path;
 
         /* Check if file exist */
         fs.stat(physicalPath + fileName, function (error) {
             var data = {
-                physicalPath: physicalPath,
-                fileName: fileName
+                pathName: path.normalize(physicalPath + fileName)
             }
 
             if (error && error.code === 'ENOENT') {
@@ -902,6 +904,16 @@ var NA = {};
          * @see {@link https://www.npmjs.org/package/node-force-domain node-force-domain}
          */
         publics.modules.forceDomain = require('node-force-domain');
+
+        /**
+         * This is the JavaScript, official, stable version of Less.
+         * @public
+         * @alias less
+         * @type {Object}
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/less less}
+         */ 
+        publics.modules.less = require('less');
     };
 
     /**
@@ -1042,7 +1054,7 @@ var NA = {};
             http = NA.modules.http,
             open = NA.modules.open,
             optionSession = {},
-
+            
             /**
              * Define is site is running with HTTP(S) protocol.
              * @public
@@ -1175,6 +1187,9 @@ var NA = {};
 
             /* Allow you to parse the Cookie data format. */
             NA.httpServer.use(cookieParser());
+
+            /* Generate Less on the fly in development phase. */
+            NA.generateLess();
 
             /**
              * Name for Session cookie of connected user.
@@ -1779,6 +1794,52 @@ var NA = {};
             });
         } else {
             if (callback) callback();
+        }
+    };
+
+    /**
+     * Generate Less on the fly.
+     * @public
+     * @function generateLess
+     * @memberOf node-atlas~NA
+     */ 
+    publics.generateLess = function () {
+        var less = NA.modules.less,
+            path = NA.modules.path,
+            fs = NA.modules.fs;
+            
+        if (NA.webconfig.less && NA.webconfig.less.sourceRelativePath && NA.webconfig.less.destinationRelativePath) {
+            NA.httpServer.use(function(req, res, next) {
+                var cssFile,
+                    lessFile,
+                    enable = true;
+
+                if (/\.css$/.exec(req.url)) {
+                    cssFile = path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + req.url);
+                    cssFile = cssFile.replace(path.normalize(NA.websitePhysicalPath + NA.webconfig.less.destinationRelativePath), '');
+                    lessFile = cssFile.replace(/\.css$/g, '.less')
+
+                    NA.ifFileExist(
+                        NA.websitePhysicalPath + NA.webconfig.less.sourceRelativePath,
+                        lessFile, 
+                    function () {
+                        var data = {
+                            pathName: path.normalize(NA.websitePhysicalPath + NA.webconfig.less.destinationRelativePath + cssFile)
+                        }
+
+                        less.render(fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.less.sourceRelativePath + lessFile, 'utf-8'), function (error, output) {
+                            fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.less.destinationRelativePath + cssFile, output.css);
+                            console.log(NA.appLabels.lessGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                            next();
+                        });
+                    }, function () {
+                        next();
+                    });
+
+                } else {
+                    next();
+                }
+            });
         }
     };
 

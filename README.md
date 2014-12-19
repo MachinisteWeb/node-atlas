@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.28.0 (Beta)
+Version : 0.29.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -57,6 +57,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
+ - [Générer les CSS avec Less](#generer-les-css-avec-less)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
@@ -108,10 +109,10 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Exemple de Socket.IO 1.0 avec Handshake.
  - Traduction du fichier README.md en anglais.
  - Créer une commande `nodeatlas` en installation globale.
+ - Support Less.
 
 - À venir
  - Compression des images.
- - Support Sass/Less.
  - Injection automatique de feuille CSS en style inline (pour les maquettes email).
  - Auto-déploiement via transfert (S)FTP.
  - ...
@@ -2353,6 +2354,66 @@ De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez
 ```
 
 *Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.*
+
+
+
+### Générer les CSS avec Less ###
+
+Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l'opération effectuée, on renvoi le CSS demandée.
+
+Avec la structure suivante :
+
+```
+assets/
+— stylesheets
+less/
+- common.less
+templates/
+— index.htm
+webconfig.json
+```
+
+ainsi que le webconfig suivante :
+
+```js
+{
+    "less": {
+        "sourceRelativePath": "less/",
+        "destinationRelativePath": "assets/stylesheets/"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+et le contenu suivant dans :
+
+*templates/index.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Less Test</title>
+        <link rel="stylesheet" href="stylesheets/common.css">
+    </head>
+    <body>
+        <p>Test</p>
+    </body>
+</html>
+```
+
+*less/common.less*
+
+```css
+p {
+    color: #f00;
+}
+```
+
+vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `http://localhost/` ou `http://localhost/stylesheets/common.css`.
 
 
 
