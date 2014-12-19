@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.30.0 (Beta)</p>
+<p>Version : 0.30.1 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -62,6 +62,8 @@
 <a href="https://github.com/Haeresis/BlogAtlas/">Site Node.js avec base MongoDB et Redis</a>.</li>
 <li>
 <a href="https://github.com/Haeresis/SimpleAtlas/">Simple Serveur Web pour un dossier</a>.</li>
+<li>
+<a href="https://github.com/Haeresis/LessAtlas/">Utilisation du préprocesseur Less pour du Bootstrap non invasif dans le HTML</a>.</li>
 </ul>
 
 <h3>
@@ -2366,6 +2368,31 @@ webconfig.json
 }</pre></div>
 
 <p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p>
+
+<h4>
+<a id="source-map-et-minification" class="anchor" href="#source-map-et-minification" aria-hidden="true"><span class="octicon octicon-link"></span></a>Source Map et Minification</h4>
+
+<p>Par défaut, dans l'exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiqué qu'elle ligne du fichier <code>.less</code> a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.</p>
+
+<p>Cela se désactive avec <code>enableLess.sourceMap</code> à <code>false</code> :</p>
+
+<pre><code>    "enableLess": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre>
+
+<p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p>
+
+<pre><code>    "enableLess": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre>
 
 <h3>
 <a id="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost" aria-hidden="true"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
