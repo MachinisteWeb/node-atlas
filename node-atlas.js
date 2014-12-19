@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.30.0
+ * @version 0.30.1
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -94,7 +94,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.30.0')
+            .version('0.30.1')
 
             /* Automaticly run default browser with `--run` options. */
             .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
@@ -357,10 +357,8 @@ var NA = {};
              * @property {Object} bundles                    - The Bundles object.
              * @property {Object} bundles.javascript         - The Bundles configuration for Javascript.
              * @property {Object} bundles.javascript.files   - Each object name represent an output file and each property of object represent an input file.
-             * @property {boolean} bundles.javascript.enable  - No JavaScript minification if set to false.
              * @property {Object} bundles.stylesheets        - The Bundles configuration for CSS.
              * @property {Object} bundles.stylesheets.files  - Each object name represent an output file and each property of object represent an input file.
-             * @property {boolean} bundles.stylesheets.enable - No CSS minification if set to false.
              * @example {
              *     "javascript": {
              *         "files": {
@@ -1189,9 +1187,27 @@ var NA = {};
             /* Allow you to parse the Cookie data format. */
             NA.httpServer.use(cookieParser());
 
-            /* Generate Less on the fly in development phase. */
-            if (NA.webconfig.enableLess) {
-                NA.httpServer.use(lessMiddleware(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath));
+            if (
+
+                /**
+                 * Enable Less preprocessor.
+                 * @public
+                 * @alias enableLess
+                 * @type {boolean|Object}
+                 * @memberOf node-atlas~NA.webconfig
+                 * @default false.
+                 * @property {boolean} compress  - Minify the Less file.
+                 * @property {boolean} sourceMap - Create a sourceMap file for development.
+                 */
+                NA.webconfig.enableLess
+            ) {
+                /* Generate Less on the fly during the development phase. */
+                NA.httpServer.use(lessMiddleware(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath, {
+                    compiler: {
+                        compress: (NA.webconfig.enableLess && NA.webconfig.enableLess.compress) || false,
+                        sourceMap: (NA.webconfig.enableLess && NA.webconfig.enableLess.sourceMap) || true
+                    }
+                }));
             }
 
             /**
@@ -1696,8 +1712,28 @@ var NA = {};
             allCssMinified = [];
 
         /* Verify if bundle is okay and if engine must start. */
-        enable = (NA.configuration.generate || NA.webconfig.stylesheetsBundlesBeforeResponse);
+        enable = (NA.configuration.generate || 
+
+            /**
+             * CSS minification before each HTML response.
+             * @public
+             * @alias stylesheetsBundlesBeforeResponse
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default false
+             */
+            NA.webconfig.stylesheetsBundlesBeforeResponse);
+
         if (typeof NA.webconfig.stylesheetsBundlesEnable === 'boolean') {
+
+            /**
+             * No CSS minification if set to false.
+             * @public
+             * @alias stylesheetsBundlesEnable
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default true
+             */
             enable = NA.webconfig.stylesheetsBundlesEnable;
         }
 
@@ -1758,8 +1794,28 @@ var NA = {};
             allJsMinified = [];
 
         /* Verify if bundle is okay and if engine must start. */
-        enable = (NA.configuration.generate || NA.webconfig.javascriptBundlesBeforeResponse);
+        enable = (NA.configuration.generate || 
+
+            /**
+             * JavaScript obfuscation before each HTML response.
+             * @public
+             * @alias javascriptBundlesBeforeResponse
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default false
+             */
+            NA.webconfig.javascriptBundlesBeforeResponse);
+
         if (typeof NA.webconfig.javascriptBundlesEnable === 'boolean') {
+
+            /**
+             * No JavaScript obfuscation if set to false.
+             * @public
+             * @alias javascriptBundlesEnable
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default true
+             */
             enable = NA.webconfig.javascriptBundlesEnable;
         }
 
