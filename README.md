@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.30.0 (Beta)
+Version : 0.30.1 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -27,6 +27,7 @@ The tool is still in development and I experience it slowly with my own websites
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
+- [CSS-driven Bootstrap usagi with Less preprocessor](https://github.com/Haeresis/LessAtlas/).
 
 
 
@@ -2414,6 +2415,31 @@ p {
 
 you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
 
+#### Source Map and Minification ####
+
+By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in `.less`  file has generated the CSS property of the item you have selected in your debugger.
+
+Disable this with `enableLess.sourceMap` to `false`:
+
+```
+    "enableLess": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+```
+
+You can also generate CSS files already minify with:
+
+```
+    "enableLess": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+```
 
 
 ### Allow/Disallow GET/POST requests ###
