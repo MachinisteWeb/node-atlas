@@ -57,6 +57,7 @@ The tool is still in development and I experience it slowly with my own websites
  - [Manage a page not found](#manage-a-page-not-found)
  - [Manage redirects](#manage-redirects)
  - [Minify CSS/JS](#minify-cssjs)
+ - [CSS generation with Less](#css-generation-with-less)
  - [Allow/Disallow GET/POST requests](#allowdisallow-getpost-requests)
  - [Change settings of Sessions](#change-settings-of-sessions)
  - [External Storage Sessions](#external-storage-sessions)
@@ -108,12 +109,12 @@ The tool is still in development and I experience it slowly with my own websites
  - Example of Socket.IO 1.0 with Handshake.
  - Translation of README.md file in English.
  - Create a global command `nodeatlas` with global installation.
+ - Less support.
 
 - Coming soon
  - Image compression.
- - Support Sass / Less.
  - Automatic injection inline CSS stylesheet (for email models).
- - Self-deployment via transfer (S) FTP.
+ - Self-deployment via transfer (S)FTP.
  - ...
 
 
@@ -2357,6 +2358,65 @@ For test your page with minified files, you can ask it to be regenerated before 
 ```
 
 *Note : this is not recommanded for production environment because it's slowed responses pages.*
+
+
+
+### CSS generation with Less ###
+
+You can use the preprocessor Less to create your CSS. The operation is as follows: whenever a CSS request is made, if a Less equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.
+
+With the following structure:
+
+```
+assets/
+— stylesheets
+less/
+- common.less
+templates/
+— index.htm
+webconfig.json
+```
+
+and the following webconfig:
+
+```js
+{
+    "less": {
+        "sourceRelativePath": "less/",
+        "destinationRelativePath": "assets/stylesheets/"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+and the following content in:
+
+*templates/index.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Less Test</title>
+        <link rel="stylesheet" href="stylesheets/common.css">
+    </head>
+    <body>
+        <p>Test</p>
+    </body>
+</html>
+```
+
+*less/common.less*
+
+```css
+p {
+    color: #f00;
+}
+
+you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
 
 
 
