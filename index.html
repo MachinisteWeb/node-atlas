@@ -1,37 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>NodeAtlas by Haeresis</title>
+    <meta name="description" content="NodeAtlas : NodeAtlas vous permet de créer et maintenir des Assets HTML ou sites multilingues simplement en Node.js">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>NodeAtlas</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>NodeAtlas</h1>
-        <p>NodeAtlas vous permet de créer et maintenir des Assets HTML ou sites multilingues simplement en Node.js</p>
 
-        <p class="view"><a href="https://github.com/Haeresis/NodeAtlas">View the Project on GitHub <small>Haeresis/NodeAtlas</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Haeresis/NodeAtlas">View on GitHub</a>
 
+          <h1 id="project_title">NodeAtlas</h1>
+          <h2 id="project_tagline">NodeAtlas vous permet de créer et maintenir des Assets HTML ou sites multilingues simplement en Node.js</h2>
 
-        <ul>
-          <li><a href="https://github.com/Haeresis/NodeAtlas/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/Haeresis/NodeAtlas/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/Haeresis/NodeAtlas">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Haeresis/NodeAtlas/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Haeresis/NodeAtlas/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.29.0 (Beta)</p>
+<p>Version : 0.30.0 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -2328,8 +2331,7 @@ webconfig.prod.json
 
 <pre><code>assets/
 — stylesheets
-less/
-- common.less
+—— common.less
 templates/
 — index.htm
 webconfig.json
@@ -2338,10 +2340,7 @@ webconfig.json
 <p>ainsi que le webconfig suivante :</p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s1"><span class="pl-pds">"</span>less<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s1"><span class="pl-pds">"</span>sourceRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>less/<span class="pl-pds">"</span></span>,
-        <span class="pl-s1"><span class="pl-pds">"</span>destinationRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>assets/stylesheets/<span class="pl-pds">"</span></span>
-    },
+    <span class="pl-s1"><span class="pl-pds">"</span>enableLess<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
     }
@@ -2363,7 +2362,7 @@ webconfig.json
     &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
-<p><em>less/common.less</em></p>
+<p><em>assets/stylesheets/common.less</em></p>
 
 <div class="highlight highlight-css"><pre><span class="pl-ent">p</span> {
     <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-c1">#f00</span>;
@@ -3056,12 +3055,16 @@ server.listen(<span class="pl-c1">80</span>);</pre></div>
 
 <p>Pour finir <a href="http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/">l'appoche publics/privates de l'architecture est expliqué dans cette article</a>.</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">NodeAtlas maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -3072,6 +3075,7 @@ server.listen(<span class="pl-c1">80</span>);</pre></div>
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
+
 
   </body>
 </html>
