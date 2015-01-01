@@ -289,7 +289,7 @@ Below is a sample configuration.
         },
         "/error.html": {
             "template": "error.htm",
-            "statusCode": 404,
+            "statusCode": "404",
             "mimeType": "text/plain"
         }
     }
@@ -337,7 +337,7 @@ The configuration below is equivalent to the configuration section just above
         "about.html": "about.htm",
         "/error.html": {
             "template": "error.htm",
-            "statusCode": 404,
+            "statusCode": "404",
             "mimeType": "text/plain"
         }
     }
@@ -1719,7 +1719,7 @@ See the following configuration:
         },
         "/list-of-members/?": {
             "template": "members.htm",
-            "regExp": true
+            "regExp": "true"
         },
         "/": {
             "template": "index.htm"
@@ -1857,7 +1857,7 @@ See the example below:
     "routes": {
         "/not-found-page/": {
             "template": "error.htm",
-            "statusCode": 404
+            "statusCode": "404"
         },
         "/list-of-members/": {
             "template": "members.htm"
@@ -1881,6 +1881,8 @@ you can access to:
 
 To go to a different address (redirect 301 or 302) when you get to a url you must use the `redirect` parameter.
 
+*Note : if you don't set `statusCode`, no redirect will be executed. The `statusCode` is mandatory for redirection.*
+
 #### Static ####
 
 See the example below:
@@ -1893,11 +1895,11 @@ See the example below:
         },
         "/list-of-members": {
             "redirect": "/list-of-members/",
-            "statusCode": 301,
+            "statusCode": "301",
         },
         "/go-to-node-atlas/": {
             "redirect": "http://haeresis.github.io/NodeAtlas/",
-            "statusCode": 302,
+            "statusCode": "302",
         },
         "/": {
             "template": "index.htm"
@@ -1923,7 +1925,7 @@ See the example below:
         },
         "/list-of-members/:member": {
             "redirect": "/membres/:member/"
-            "statusCode": 301
+            "statusCode": "301"
         },
         "/": {
             "template": "index.htm"
@@ -1947,8 +1949,8 @@ See the example below:
         },
         "/list-of-members/([-a-z0-9]+)/": {
             "redirect": "/membres/$0$/"
-            "statusCode": 301,
-            "regExp": true
+            "statusCode": "301",
+            "regExp": "true"
         },
         "/list-of-members/": {
             "template": "members.htm"
