@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.30.1 (Beta)
+Version : 0.30.2 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -27,7 +27,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
-- [Utilisation du préprocesseur Less pour du Bootstrap non invasif dans le HTML](https://github.com/Haeresis/LessAtlas/).
+- [Utilisation du préprocesseur Less pour des Framework non invasif dans le HTML](https://github.com/Haeresis/LessAtlas/).
 
 
 
@@ -54,11 +54,11 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
  - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
- - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage)
+ - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
- - [Générer les CSS avec Less](#generer-les-css-avec-less)
+ - [Générer les CSS avec Less](#g%C3%A9n%C3%A9rer-les-css-avec-less)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
@@ -73,11 +73,11 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [--generate](#--generate)
 - [NodeAtlas comme module npm](#nodeatlas-comme-module-npm)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
-- [Faire tourner NodeAtlas sur serveur](#faire-tourner-nodeatlas-sur-server)
+- [Faire tourner NodeAtlas sur serveur](#faire-tourner-nodeatlas-sur-serveur)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
  - [Proxy](#proxy)
-- [À propos de l'architecture de NodeAtlas](#a-propos-de-l-architecture-de-nodeatlas)
+- [À propos de l'architecture de NodeAtlas](#%C3%80-propos-de-larchitecture-de-nodeatlas)
 
 
 
@@ -287,7 +287,7 @@ Ci-dessous un exemple de configuration.
         },
         "/error.html": {
             "template": "error.htm",
-            "statusCode": 404,
+            "statusCode": "404",
             "mimeType": "text/plain"
         }
     }
@@ -335,7 +335,7 @@ La configuration ci-dessous est équivalente à la configuration de la section j
         "about.html": "about.htm",
         "/error.html": {
             "template": "error.htm",
-            "statusCode": 404,
+            "statusCode": "404",
             "mimeType": "text/plain"
         }
     }
@@ -1458,7 +1458,7 @@ var website = {};
                 // Si l'utilisateur est connecté.
                 if (session.account) {
 
-                    / ...on sauve l'article en base.
+                    // ...on sauve l'article en base.
                     article.save(function (error) {
                         if (error) { 
                             throw error;
@@ -1717,7 +1717,7 @@ Voyez la configuration suivante :
         },
         "/liste-des-membres/?": {
             "template": "members.htm",
-            "regExp": true
+            "regExp": "true"
         },
         "/": {
             "template": "index.htm"
@@ -1855,7 +1855,7 @@ Voyez l'exemple ci-dessous :
     "routes": {
         "/pages-inexistantes/": {
             "template": "error.htm",
-            "statusCode": 404
+            "statusCode": "404"
         },
         "/liste-des-membres/": {
             "template": "members.htm"
@@ -1879,6 +1879,8 @@ vous pourrez accéder à :
 
 Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre `redirect`.
 
+*Note : si vous ne précisez pas un `statusCode`, la redirection ne se fera pas. Le `statusCode` est obligatoire.*
+
 #### En statique ####
 
 Voyez l'exemple ci-dessous :
@@ -1891,11 +1893,11 @@ Voyez l'exemple ci-dessous :
         },
         "/liste-des-membres": {
             "redirect": "/liste-des-membres/",
-            "statusCode": 301,
+            "statusCode": "301",
         },
         "/aller-sur-node-atlas/": {
             "redirect": "http://haeresis.github.io/NodeAtlas/",
-            "statusCode": 302,
+            "statusCode": "302",
         },
         "/": {
             "template": "index.htm"
@@ -1921,7 +1923,7 @@ Voyez l'exemple ci-dessous :
         },
         "/liste-des-membres/:member": {
             "redirect": "/membres/:member/"
-            "statusCode": 301
+            "statusCode": "301"
         },
         "/": {
             "template": "index.htm"
@@ -1941,12 +1943,12 @@ Voyez l'exemple ci-dessous :
     "routes": {
         "/membres/([-a-z0-9]+)/": {
             "template": "members.htm",
-            "regExp": true
+            "regExp": "true"
         },
         "/liste-des-membres/([-a-z0-9]+)/": {
             "redirect": "/membres/$0$/"
-            "statusCode": 301,
-            "regExp": true
+            "statusCode": "301",
+            "regExp": "true"
         },
         "/liste-des-membres/": {
             "template": "members.htm"
@@ -2308,7 +2310,7 @@ Il est également possible de ne pas executer la minification au démarage d'un 
 
 *Note : si vos bundles sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne `"bundles": "bundles.json"`.*
 
-#### Ré-généré les Bundles avant chaque rendu de page ####
+#### Ré-générer les Bundles avant chaque rendu de page ####
 
 De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'il soit régénéré avant chaque affichage de page avec les propriétés `"stylesheetsBundlesBeforeResponse": "true"` et `"javascriptBundlesBeforeResponse": "true"` pour chaque type de Bundle.
 
