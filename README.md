@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.30.1 (Beta)
+Version : 0.30.2 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -27,7 +27,7 @@ The tool is still in development and I experience it slowly with my own websites
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
-- [CSS-driven Bootstrap usagi with Less preprocessor](https://github.com/Haeresis/LessAtlas/).
+- [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
 
 
 
@@ -1460,7 +1460,7 @@ var website = {};
                 // If the user is connected.
                 if (session.account) {
 
-                    / ...we save the article into database.
+                    // ...we save the article into database.
                     article.save(function (error) {
                         if (error) { 
                             throw error;

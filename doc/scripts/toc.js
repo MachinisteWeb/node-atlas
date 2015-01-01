@@ -52,7 +52,7 @@ $.fn.toc = function(options) {
     var ul = $('<ul/>');
     headings.each(function(i, heading) {
       var $h = $(heading);
-      headingOffsets.push($h.offset().top - opts.highlightOffset);
+      headingOffsets.push($h.offset().top - opts.highlightOffset + 80);
 
       //add anchor
       var anchor = $('<span/>').attr('id', opts.anchorName(i, heading, opts.prefix)).insertBefore($h);
