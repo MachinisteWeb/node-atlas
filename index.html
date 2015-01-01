@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.30.1 (Beta)</p>
+<p>Version : 0.30.2 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -63,7 +63,7 @@
 <li>
 <a href="https://github.com/Haeresis/SimpleAtlas/">Simple Serveur Web pour un dossier</a>.</li>
 <li>
-<a href="https://github.com/Haeresis/LessAtlas/">Utilisation du préprocesseur Less pour du Bootstrap non invasif dans le HTML</a>.</li>
+<a href="https://github.com/Haeresis/LessAtlas/">Utilisation du préprocesseur Less pour des Framework non invasif dans le HTML</a>.</li>
 </ul>
 
 <h3>
@@ -104,11 +104,11 @@
 <li><a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</a></li>
 <li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url</a></li>
 <li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
-<li><a href="#g%C3%A9rer-le-routage">Gérer le routage (Url Rewriting)</a></li>
+<li><a href="#g%C3%A9rer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</a></li>
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
 <li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
 <li><a href="#minifier-les-cssjs">Minifier les CSS/JS</a></li>
-<li><a href="#generer-les-css-avec-less">Générer les CSS avec Less</a></li>
+<li><a href="#g%C3%A9n%C3%A9rer-les-css-avec-less">Générer les CSS avec Less</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
 <li><a href="#changer-les-param%C3%A8tres-des-sessions">Changer les paramètres des Sessions</a></li>
 <li><a href="#stockage-externe-des-sessions">Stockage externe des Sessions</a></li>
@@ -131,7 +131,7 @@
 <li><a href="#nodeatlas-comme-module-npm">NodeAtlas comme module npm</a></li>
 <li><a href="#nodeatlas-comme-simple-serveur-web">NodeAtlas comme simple serveur web</a></li>
 <li>
-<a href="#faire-tourner-nodeatlas-sur-server">Faire tourner NodeAtlas sur serveur</a>
+<a href="#faire-tourner-nodeatlas-sur-serveur">Faire tourner NodeAtlas sur serveur</a>
 
 <ul>
 <li><a href="#dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</a></li>
@@ -139,7 +139,7 @@
 <li><a href="#proxy">Proxy</a></li>
 </ul>
 </li>
-<li><a href="#a-propos-de-l-architecture-de-nodeatlas">À propos de l'architecture de NodeAtlas</a></li>
+<li><a href="#%C3%80-propos-de-larchitecture-de-nodeatlas">À propos de l'architecture de NodeAtlas</a></li>
 </ul>
 
 <h3>
@@ -350,7 +350,7 @@ nodeAtlas.init();</pre></div>
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/error.html<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">404</span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>,
             <span class="pl-s1"><span class="pl-pds">"</span>mimeType<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>text/plain<span class="pl-pds">"</span></span>
         }
     }
@@ -400,7 +400,7 @@ webconfig.json
         <span class="pl-s1"><span class="pl-pds">"</span>about.html<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>about.htm<span class="pl-pds">"</span></span>,
         <span class="pl-s1"><span class="pl-pds">"</span>/error.html<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">404</span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>,
             <span class="pl-s1"><span class="pl-pds">"</span>mimeType<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>text/plain<span class="pl-pds">"</span></span>
         }
     }
@@ -1463,31 +1463,31 @@ webconfig.json
                 <span class="pl-c">// Si l'utilisateur est connecté.</span>
                 <span class="pl-k">if</span> (session.account) {
 
-                    / ...on sauve l<span class="pl-s1"><span class="pl-pds">'</span>article en base.</span>
-<span class="pl-s1">                    article.save(function (error) {</span>
-<span class="pl-s1">                        if (error) { </span>
-<span class="pl-s1">                            throw error;</span>
-<span class="pl-s1">                        }</span>
-<span class="pl-s1"></span>
-<span class="pl-s1">                        // Et on répond à tous les clients avec un jeu de donnée dans data.</span>
-<span class="pl-s1">                        io.sockets.emit(<span class="pl-pds">'</span></span>create<span class="pl-k">-</span>article<span class="pl-k">-</span>button<span class="pl-s1"><span class="pl-pds">'</span>, data);</span>
-<span class="pl-s1">                    });</span>
-<span class="pl-s1">                }</span>
-<span class="pl-s1">            });</span>
-<span class="pl-s1">        });</span>
-<span class="pl-s1">    };</span>
-<span class="pl-s1"></span>
-<span class="pl-s1">}(website));</span>
-<span class="pl-s1"></span>
-<span class="pl-s1"></span>
-<span class="pl-s1"></span>
-<span class="pl-s1">/*************************************************************/</span>
-<span class="pl-s1">/* Mise à dispositions des fonction pour le moteur NodeAtlas */</span>
-<span class="pl-s1">/*************************************************************/</span>
-<span class="pl-s1"></span>
-<span class="pl-s1">exports.preRender = website.preRender;</span>
-<span class="pl-s1">exports.render = website.render;</span>
-<span class="pl-s1">exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
+                    <span class="pl-c">// ...on sauve l'article en base.</span>
+                    article.save(<span class="pl-st">function</span> (<span class="pl-vpf">error</span>) {
+                        <span class="pl-k">if</span> (error) { 
+                            <span class="pl-k">throw</span> error;
+                        }
+
+                        <span class="pl-c">// Et on répond à tous les clients avec un jeu de donnée dans data.</span>
+                        io.sockets.emit(<span class="pl-s1"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, data);
+                    });
+                }
+            });
+        });
+    };
+
+}(website));
+
+
+
+<span class="pl-c">/*************************************************************/</span>
+<span class="pl-c">/* Mise à dispositions des fonction pour le moteur NodeAtlas */</span>
+<span class="pl-c">/*************************************************************/</span>
+
+<span class="pl-sv">exports</span>.preRender <span class="pl-k">=</span> website.preRender;
+<span class="pl-sv">exports</span>.render <span class="pl-k">=</span> website.render;
+<span class="pl-sv">exports</span>.asynchrone <span class="pl-k">=</span> website.asynchrone; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
 
 <p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers/</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
@@ -1702,7 +1702,7 @@ webconfig.prod.json
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres/?<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>regExp<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>
+            <span class="pl-s1"><span class="pl-pds">"</span>regExp<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
@@ -1838,7 +1838,7 @@ webconfig.prod.json
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">"</span>/pages-inexistantes/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">404</span>
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>
@@ -1862,6 +1862,8 @@ webconfig.prod.json
 
 <p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p>
 
+<p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p>
+
 <h4>
 <a id="en-statique" class="anchor" href="#en-statique" aria-hidden="true"><span class="octicon octicon-link"></span></a>En statique</h4>
 
@@ -1874,11 +1876,11 @@ webconfig.prod.json
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>redirect<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres/<span class="pl-pds">"</span></span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">301</span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>301<span class="pl-pds">"</span></span>,
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/aller-sur-node-atlas/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>redirect<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>http://haeresis.github.io/NodeAtlas/<span class="pl-pds">"</span></span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">302</span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>302<span class="pl-pds">"</span></span>,
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
@@ -1905,7 +1907,7 @@ webconfig.prod.json
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres/:member<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>redirect<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>/membres/:member/<span class="pl-pds">"</span></span>
-            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">301</span>
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>301<span class="pl-pds">"</span></span>
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
@@ -1924,12 +1926,12 @@ webconfig.prod.json
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">"</span>/membres/([-a-z0-9]+)/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>regExp<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>
+            <span class="pl-s1"><span class="pl-pds">"</span>regExp<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres/([-a-z0-9]+)/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>redirect<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>/membres/$0$/<span class="pl-pds">"</span></span>
-            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">301</span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>regExp<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>301<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>regExp<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>
@@ -2275,7 +2277,7 @@ webconfig.prod.json
 <p><em>Note : si vos bundles sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne <code>"bundles": "bundles.json"</code>.</em></p>
 
 <h4>
-<a id="ré-généré-les-bundles-avant-chaque-rendu-de-page" class="anchor" href="#r%C3%A9-g%C3%A9n%C3%A9r%C3%A9-les-bundles-avant-chaque-rendu-de-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ré-généré les Bundles avant chaque rendu de page</h4>
+<a id="ré-générer-les-bundles-avant-chaque-rendu-de-page" class="anchor" href="#r%C3%A9-g%C3%A9n%C3%A9rer-les-bundles-avant-chaque-rendu-de-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ré-générer les Bundles avant chaque rendu de page</h4>
 
 <p>De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'il soit régénéré avant chaque affichage de page avec les propriétés <code>"stylesheetsBundlesBeforeResponse": "true"</code> et <code>"javascriptBundlesBeforeResponse": "true"</code> pour chaque type de Bundle.</p>
 
