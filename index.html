@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.31.0 (Beta)</p>
+<p>Version : 0.32.0 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -1236,7 +1236,7 @@ webconfig.json
     <span class="pl-s1"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
 
     <span class="pl-c">// On intervient juste avant l'assemblage complet EJS.</span>
-    <span class="pl-s3">publics</span>.<span class="pl-en">preRender</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
+    <span class="pl-s3">publics</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
         <span class="pl-s">var</span> variation <span class="pl-k">=</span> params.variation;
 
         <span class="pl-c">// Ici on modifie les variables de variations.</span>
@@ -1258,14 +1258,14 @@ webconfig.json
     <span class="pl-s1"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
 
     <span class="pl-c">// On intervient juste avant le renvoi HTML auprès du client (response).</span>
-    <span class="pl-s3">publics</span>.<span class="pl-en">render</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
-        <span class="pl-s">var</span> data <span class="pl-k">=</span> params.<span class="pl-sc">data</span>;
+    <span class="pl-s3">publics</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
+        <span class="pl-s">var</span> dom <span class="pl-k">=</span> params.dom;
 
         <span class="pl-c">// Ici on peut manipuler le DOM côté serveur avant retour client.</span>
         <span class="pl-c">// voir exemple dans le fichier d'après.</span>
 
         <span class="pl-c">// On ré-injecte les modifications.</span>
-        mainCallback(data);
+        mainCallback(dom);
     };
 
 }(website));
@@ -1278,10 +1278,10 @@ webconfig.json
 
 <span class="pl-sv">exports</span>.loadModules <span class="pl-k">=</span> website.loadModules;
 <span class="pl-sv">exports</span>.setConfigurations <span class="pl-k">=</span> website.setConfigurations;
-<span class="pl-sv">exports</span>.preRender <span class="pl-k">=</span> website.preRender;
-<span class="pl-sv">exports</span>.render <span class="pl-k">=</span> website.render;</pre></div>
+<span class="pl-sv">exports</span>.changeVariation <span class="pl-k">=</span> website.changeVariation;
+<span class="pl-sv">exports</span>.changeDom <span class="pl-k">=</span> website.changeDom;</pre></div>
 
-<p>Au lieu de se servir de <code>preRender</code> et <code>render</code> dans le fichier common.js effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :</p>
+<p>Au lieu de se servir de <code>changeVariation</code> et <code>changeDom</code> dans le fichier <code>common.js</code> effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :</p>
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
@@ -1345,7 +1345,7 @@ webconfig.json
     privates.listOfArticles <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>./modules/list-of-articles<span class="pl-pds">'</span></span>);
 
     <span class="pl-c">// On intervient juste avant l'assemblage complet EJS.</span>
-    <span class="pl-s3">publics</span>.<span class="pl-en">preRender</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
+    <span class="pl-s3">publics</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
         <span class="pl-s">var</span> variation <span class="pl-k">=</span> params.variation,
             mongoose <span class="pl-k">=</span> params.NA.modules.mongoose,
             Article <span class="pl-k">=</span> mongoose.model(<span class="pl-s1"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
@@ -1397,13 +1397,13 @@ webconfig.json
     <span class="pl-s1"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
 
     <span class="pl-c">// On intervient juste avant le renvoi HTML auprès du client (response).</span>
-    <span class="pl-s3">publics</span>.<span class="pl-en">render</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
-        <span class="pl-s">var</span> data <span class="pl-k">=</span> params.<span class="pl-sc">data</span>,
+    <span class="pl-s3">publics</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
+        <span class="pl-s">var</span> dom <span class="pl-k">=</span> params.dom,
             NA <span class="pl-k">=</span> params.NA,
             cheerio <span class="pl-k">=</span> NA.modules.cheerio, <span class="pl-c">// Récupération de jsdom pour parcourir le DOM avec jQuery.</span>
-            $ <span class="pl-k">=</span> cheerio.<span class="pl-s3">load</span>(data); <span class="pl-c">// On charge les données pour les manipuler comme un DOM.</span>
+            $ <span class="pl-k">=</span> cheerio.<span class="pl-s3">load</span>(dom); <span class="pl-c">// On charge les données pour les manipuler comme un DOM.</span>
 
-        <span class="pl-c">// Après tous les h2 de la sortie HTML « data »,</span>
+        <span class="pl-c">// Après tous les h2 de la sortie HTML « dom »,</span>
         $(<span class="pl-s1"><span class="pl-pds">"</span>h2<span class="pl-pds">"</span></span>).each(<span class="pl-st">function</span> (<span class="pl-vpf">i</span>) {
             <span class="pl-s">var</span> $<span class="pl-v">this</span> <span class="pl-k">=</span> $(<span class="pl-v">this</span>);
 
@@ -1417,10 +1417,10 @@ webconfig.json
         });
 
         <span class="pl-c">// On re-créer une nouvelle sortie HTML avec nos modifications.</span>
-        data <span class="pl-k">=</span> $.html()
+        dom <span class="pl-k">=</span> $.html()
 
         <span class="pl-c">// On ré-injecte les modifications.</span>
-        mainCallback(data);
+        mainCallback(dom);
     };
 
 }(website));
@@ -1485,8 +1485,8 @@ webconfig.json
 <span class="pl-c">/* Mise à dispositions des fonction pour le moteur NodeAtlas */</span>
 <span class="pl-c">/*************************************************************/</span>
 
-<span class="pl-sv">exports</span>.preRender <span class="pl-k">=</span> website.preRender;
-<span class="pl-sv">exports</span>.render <span class="pl-k">=</span> website.render;
+<span class="pl-sv">exports</span>.changeVariation <span class="pl-k">=</span> website.changeVariation;
+<span class="pl-sv">exports</span>.changeDom <span class="pl-k">=</span> website.changeDom;
 <span class="pl-sv">exports</span>.asynchrone <span class="pl-k">=</span> website.asynchrone; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
 
 <p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers/</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
@@ -1674,9 +1674,9 @@ webconfig.prod.json
 <li><em>http://localhost/liste-des-membres/etc/</em></li>
 </ul>
 
-<p>et récupérer les valeurs de <code>:member</code> dans le <code>preRender</code> (common et specific).</p>
+<p>et récupérer les valeurs de <code>:member</code> dans le <code>changeVariation</code> (common et specific).</p>
 
-<div class="highlight highlight-js"><pre><span class="pl-s3">exports</span>.<span class="pl-en">preRender</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
+<div class="highlight highlight-js"><pre><span class="pl-s3">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
     <span class="pl-s">var</span> variation <span class="pl-k">=</span> params.variation;
 
     <span class="pl-en">console</span><span class="pl-s3">.log</span>(variation.params.member); 
@@ -1731,9 +1731,9 @@ webconfig.prod.json
 </li>
 </ul>
 
-<p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>preRender</code> (common et specific).</p>
+<p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariation</code> (common et specific).</p>
 
-<div class="highlight highlight-js"><pre><span class="pl-s3">exports</span>.<span class="pl-en">preRender</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
+<div class="highlight highlight-js"><pre><span class="pl-s3">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-st">function</span> (<span class="pl-vpf">params</span>, <span class="pl-vpf">mainCallback</span>) {
     <span class="pl-s">var</span> variation <span class="pl-k">=</span> params.variation;
 
     <span class="pl-k">if</span> (variation.params <span class="pl-k">&amp;&amp;</span> variation.params[<span class="pl-c1">0</span>]) { variation.params.member <span class="pl-k">=</span> variation.params[<span class="pl-c1">0</span>]; }
