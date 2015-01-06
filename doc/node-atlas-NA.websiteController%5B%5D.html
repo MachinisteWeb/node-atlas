@@ -152,7 +152,7 @@
         
             <h3>Example</h3>
             
-    <pre class="sunlight-highlight-javascript">// Functions for common controller if `commonController` value is &quot;common.json&quot;.NA.websiteController[&quot;common.json&quot;].setConfigurations(...);NA.websiteController[&quot;common.json&quot;].loadModules(...);NA.websiteController[&quot;common.json&quot;].setSessions(...);NA.websiteController[&quot;common.json&quot;].preRender(...);NA.websiteController[&quot;common.json&quot;].render(...);// Functions for specific controller if a route `controller` value is &quot;index.json&quot;.NA.websiteController[&quot;index.json&quot;].preRender(...);NA.websiteController[&quot;index.json&quot;].render(...);</pre>
+    <pre class="sunlight-highlight-javascript">// Functions for common controller if `commonController` value is &quot;common.json&quot;.NA.websiteController[&quot;common.json&quot;].setConfigurations(...);NA.websiteController[&quot;common.json&quot;].loadModules(...);NA.websiteController[&quot;common.json&quot;].setSessions(...);NA.websiteController[&quot;common.json&quot;].changeVariation(...);NA.websiteController[&quot;common.json&quot;].changeDom(...);// Functions for specific controller if a route `controller` value is &quot;index.json&quot;.NA.websiteController[&quot;index.json&quot;].changeVariation(...);NA.websiteController[&quot;index.json&quot;].changeDom(...);</pre>
 
 
         
@@ -177,7 +177,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="loadModules"><span class="type-signature">&lt;static> </span>loadModules<span class="signature">(NA)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="changeDom"><span class="type-signature">&lt;static> </span>changeDom<span class="signature">(params, callback)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -185,7 +185,7 @@
     
     
     <div class="description">
-        Define this function for adding npm module into `NA.modules` of application. Only for `common` controller file.
+        Define this function for intercept DOM and modify it with jQuery for example. Both `common` and `specific` controller.
     </div>
     
 
@@ -219,6 +219,71 @@
 
         <tr>
             
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Collection of property.
+                <h6>Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>dom</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">DOM of current page.</td>
+        </tr>
+
+	
+
+        <tr>
+            
                 <td class="name"><code>NA</code></td>
             
 
@@ -235,7 +300,83 @@
 
             
 
-            <td class="description last">NodeAtlas object for used `NA.session` object.</td>
+            <td class="description last">NodeAtlas object.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Initial request.</td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Initial response.</td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+            </td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="changeDom.html#callback">changeDom~callback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Next steps after configuration is done.</td>
         </tr>
 
 	
@@ -272,7 +413,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-2304">line 2304</a>
+				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1998">line 1998</a>
 			</li>
 		</ul>
 	</dd>
@@ -295,29 +436,6 @@
     
     
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Return NodeAtlas object with modification.
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
     
     
 </dd>
@@ -325,7 +443,7 @@
         
             
 <dt>
-    <h4 class="name" id="preRender"><span class="type-signature">&lt;static> </span>preRender<span class="signature">(params, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="changeVariation"><span class="type-signature">&lt;static> </span>changeVariation<span class="signature">(params, callback)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -514,7 +632,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="preRender.html#callback">preRender~callback</a></span>
+<span class="param-type"><a href="changeVariation.html#callback">changeVariation~callback</a></span>
 
 
             
@@ -561,7 +679,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-2242">line 2242</a>
+				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-2244">line 2244</a>
 			</li>
 		</ul>
 	</dd>
@@ -591,7 +709,7 @@
         
             
 <dt>
-    <h4 class="name" id="render"><span class="type-signature">&lt;static> </span>render<span class="signature">(params, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="loadModules"><span class="type-signature">&lt;static> </span>loadModules<span class="signature">(NA)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
     
 </dt>
@@ -599,7 +717,7 @@
     
     
     <div class="description">
-        Define this function for intercept DOM and modify it with jQuery for example. Both `common` and `specific` controller.
+        Define this function for adding npm module into `NA.modules` of application. Only for `common` controller file.
     </div>
     
 
@@ -633,71 +751,6 @@
 
         <tr>
             
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Collection of property.
-                <h6>Properties</h6>
-                
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">DOM of current page.</td>
-        </tr>
-
-	
-
-        <tr>
-            
                 <td class="name"><code>NA</code></td>
             
 
@@ -714,83 +767,7 @@
 
             
 
-            <td class="description last">NodeAtlas object.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>request</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Initial request.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>response</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Initial response.</td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-            </td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="render.html#callback">render~callback</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Next steps after configuration is done.</td>
+            <td class="description last">NodeAtlas object for used `NA.session` object.</td>
         </tr>
 
 	
@@ -827,7 +804,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1996">line 1996</a>
+				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-2306">line 2306</a>
 			</li>
 		</ul>
 	</dd>
@@ -850,6 +827,29 @@
     
     
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Return NodeAtlas object with modification.
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Object</span>
+
+
+	</dd>
+</dl>
+
+
+        
     
     
 </dd>
@@ -975,7 +975,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1088">line 1088</a>
+				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1089">line 1089</a>
 			</li>
 		</ul>
 	</dd>
@@ -1123,7 +1123,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1264">line 1264</a>
+				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1266">line 1266</a>
 			</li>
 		</ul>
 	</dd>
@@ -1179,7 +1179,7 @@
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-01-06T13:29:21+01:00 using the <a
+		on 2015-01-06T17:19:35+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
