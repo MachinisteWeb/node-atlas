@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.30.2 (Beta)</p>
+<p>Version : 0.31.0 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -123,7 +123,7 @@
 <ul>
 <li><a href="#--directory">--directory</a></li>
 <li><a href="#--webconfig">--webconfig</a></li>
-<li><a href="#--run">--run</a></li>
+<li><a href="#--browse">--browse</a></li>
 <li><a href="#--httpport">--httpPort</a></li>
 <li><a href="#--generate">--generate</a></li>
 </ul>
@@ -318,9 +318,9 @@
 
 <div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> nodeAtlas <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>);
 
-nodeAtlas.init();</pre></div>
+nodeAtlas.run();</pre></div>
 
-<pre><code>\&gt; node app.js
+<pre><code>\&gt; node server.js
 </code></pre>
 
 <h2>
@@ -2773,11 +2773,11 @@ exports.setSessions = website.setSessions;
 
 <p>Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --run
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
 </code></pre>
 
 <h3>
-<a id="--directory" class="anchor" href="#--directory" aria-hidden="true"><span class="octicon octicon-link"></span></a>--directory</h3>
+<a id="--directory-" class="anchor" href="#--directory-" aria-hidden="true"><span class="octicon octicon-link"></span></a>--directory </h3>
 
 <p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous sera alors très utile.</p>
 
@@ -2785,7 +2785,7 @@ exports.setSessions = website.setSessions;
 </code></pre>
 
 <h3>
-<a id="--webconfig" class="anchor" href="#--webconfig" aria-hidden="true"><span class="octicon octicon-link"></span></a>--webconfig</h3>
+<a id="--webconfig-" class="anchor" href="#--webconfig-" aria-hidden="true"><span class="octicon octicon-link"></span></a>--webconfig </h3>
 
 <p>Par défaut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier <code>webconfig.prod.json</code> dont le nom de domaine est différent. Ou encore un <code>webconfig.fr-fr.json</code> avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p>
 
@@ -2793,15 +2793,20 @@ exports.setSessions = website.setSessions;
 </code></pre>
 
 <h3>
-<a id="--run" class="anchor" href="#--run" aria-hidden="true"><span class="octicon octicon-link"></span></a>--run</h3>
+<a id="--browse-subpath" class="anchor" href="#--browse-subpath" aria-hidden="true"><span class="octicon octicon-link"></span></a>--browse [subpath]</h3>
 
 <p>Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec <code>--generate</code> (voir plus loin).</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --run
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --browse
+</code></pre>
+
+<p>Vous pouvez également cibler une page précise en ajoutant la fin de l'url.</p>
+
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --browse index.html
 </code></pre>
 
 <h3>
-<a id="--httpport" class="anchor" href="#--httpport" aria-hidden="true"><span class="octicon octicon-link"></span></a>--httpPort</h3>
+<a id="--httpport-" class="anchor" href="#--httpport-" aria-hidden="true"><span class="octicon octicon-link"></span></a>--httpPort </h3>
 
 <p>Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.</p>
 
@@ -2821,21 +2826,17 @@ exports.setSessions = website.setSessions;
 
 <p>Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :</p>
 
-<p><em>app.js</em></p>
+<p><em>server.js</em></p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> nodeAtlas <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>);
+<div class="highlight highlight-javascript"><pre><span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>).run({
+    directory<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>&lt;/path/to/your/website/directory/&gt;<span class="pl-pds">"</span></span>,
+    webconfig<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>webconfig.alternatif.json<span class="pl-pds">"</span></span>,
+    browse<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    httpPort<span class="pl-k">:</span> <span class="pl-c1">7778</span>,
+    generate<span class="pl-k">:</span> <span class="pl-c1">true</span>
+});</pre></div>
 
-nodeAtlas
-    .config({
-        directory<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>&lt;/path/to/your/website/directory/&gt;<span class="pl-pds">"</span></span>,
-        webconfig<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>webconfig.alternatif.json<span class="pl-pds">"</span></span>,
-        run<span class="pl-k">:</span> <span class="pl-c1">true</span>,
-        httpPort<span class="pl-k">:</span> <span class="pl-c1">7778</span>,
-        generate<span class="pl-k">:</span> <span class="pl-c1">true</span>
-    })
-    .init();</pre></div>
-
-<pre><code>\&gt; node app.js
+<pre><code>\&gt; node server.js
 </code></pre>
 
 <h2>
@@ -2867,7 +2868,7 @@ nodeAtlas
 
 <p>le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.</p>
 
-<p><em>Note : seul les commandes <code>--webconfig</code>, <code>--run</code>, <code>--directory</code> et <code>--httpPort</code> fonctionnent dans ce mode.</em></p>
+<p><em>Note : seul les commandes <code>--webconfig</code>, <code>--browse</code>, <code>--directory</code> et <code>--httpPort</code> fonctionnent dans ce mode.</em></p>
 
 <h2>
 <a id="faire-tourner-nodeatlas-sur-serveur" class="anchor" href="#faire-tourner-nodeatlas-sur-serveur" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faire tourner NodeAtlas sur serveur</h2>
