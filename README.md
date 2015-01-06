@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.30.2 (Beta)
+Version : 0.31.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -68,7 +68,7 @@ The tool is still in development and I experience it slowly with my own websites
 - [Running commands](#running-commands)
  - [--directory](#--directory)
  - [--webconfig](#--webconfig)
- - [--run](#--run)
+ - [--browse](#--browse)
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
 - [NodeAtlas as npm module](#nodeatlas-as-npm-module)
@@ -252,11 +252,11 @@ You can also use NodeAtlas as a npm module.
 ```javascript
 var nodeAtlas = require("node-atlas");
 
-nodeAtlas.init();
+nodeAtlas.run();
 ```
 
 ```
-\> node app.js
+\> node server.js
 ```
 
 
@@ -2852,7 +2852,7 @@ The easiest way to start is to position NodeAtlas in the directory hosting your 
 Each of the commands that follow can be coupled with other like this:
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --run
+\> node </path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
 ```
 
 
@@ -2875,12 +2875,19 @@ By default, NodeAtlas will read your `webconfig.json` file. It is possible that 
 
 
 
-### --run ###
+### --browse ###
 
 This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with `--generate` (see below).
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --run
+\> node </path/to/>node-atlas/node-atlas.js --browse
+```
+
+You could also targeted a specific page with the end of url.
+
+
+```
+\> node </path/to/>node-atlas/node-atlas.js --browse index.html
 ```
 
 
@@ -2910,24 +2917,21 @@ If you change an item in your common variation file or even your template compon
 
 If you start NodeAtlas via JavaScript code, you can also configure the launch:
 
-*app.js*
+*server.js*
 
 ```javascript
-var nodeAtlas = require("node-atlas");
+require("node-atlas").run({
+    directory: "</path/to/your/website/directory/>",
+    webconfig: "webconfig.alternatif.json",
+    browse: true,
+    httpPort: 7778,
+    generate: true
+});
 
-nodeAtlas
-    .config({
-        directory: "</path/to/your/website/directory/>",
-        webconfig: "webconfig.alternatif.json",
-        run: true,
-        httpPort: 7778,
-        generate: true
-    })
-    .init();
 ```
 
 ```
-\> node app.js
+\> server app.js
 ```
 
 
@@ -2965,7 +2969,7 @@ or even the command
 
 the server will run in "Simple Web Server" mode and file "http://localhost/webconfig.json" or "http://localhost/templates/webconfig.htm" will be available as the browser could refer as a simple web server.
 
-*Note : only commands `--webconfig`, `--run`, `--directory` and `--httpPort` work in this mode.*
+*Note : only commands `--webconfig`, `--browse`, `--directory` and `--httpPort` work in this mode.*
 
 
 
