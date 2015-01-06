@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.31.0 (Beta)
+Version : 0.32.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -1228,7 +1228,7 @@ var website = {};
     "use strict";
 
     // On intervient juste avant l'assemblage complet EJS.
-    publics.preRender = function (params, mainCallback) {
+    publics.changeVariation = function (params, mainCallback) {
         var variation = params.variation;
 
         // Ici on modifie les variables de variations.
@@ -1250,14 +1250,14 @@ var website = {};
     "use strict";
 
     // On intervient juste avant le renvoi HTML auprès du client (response).
-    publics.render = function (params, mainCallback) {
-        var data = params.data;
+    publics.changeDom = function (params, mainCallback) {
+        var dom = params.dom;
 
         // Ici on peut manipuler le DOM côté serveur avant retour client.
         // voir exemple dans le fichier d'après.
 
         // On ré-injecte les modifications.
-        mainCallback(data);
+        mainCallback(dom);
     };
 
 }(website));
@@ -1270,11 +1270,11 @@ var website = {};
 
 exports.loadModules = website.loadModules;
 exports.setConfigurations = website.setConfigurations;
-exports.preRender = website.preRender;
-exports.render = website.render;
+exports.changeVariation = website.changeVariation;
+exports.changeDom = website.changeDom;
 ```
 
-Au lieu de se servir de `preRender` et `render` dans le fichier common.js effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :
+Au lieu de se servir de `changeVariation` et `changeDom` dans le fichier `common.js` effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :
 
 ```js
 {
@@ -1340,7 +1340,7 @@ var website = {};
     privates.listOfArticles = require('./modules/list-of-articles');
 
     // On intervient juste avant l'assemblage complet EJS.
-    publics.preRender = function (params, mainCallback) {
+    publics.changeVariation = function (params, mainCallback) {
         var variation = params.variation,
             mongoose = params.NA.modules.mongoose,
             Article = mongoose.model('article');
@@ -1392,13 +1392,13 @@ var website = {};
     "use strict";
     
     // On intervient juste avant le renvoi HTML auprès du client (response).
-    publics.render = function (params, mainCallback) {
-        var data = params.data,
+    publics.changeDom = function (params, mainCallback) {
+        var dom = params.dom,
             NA = params.NA,
             cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
-            $ = cheerio.load(data); // On charge les données pour les manipuler comme un DOM.
+            $ = cheerio.load(dom); // On charge les données pour les manipuler comme un DOM.
             
-        // Après tous les h2 de la sortie HTML « data »,
+        // Après tous les h2 de la sortie HTML « dom »,
         $("h2").each(function (i) {
             var $this = $(this);
 
@@ -1412,10 +1412,10 @@ var website = {};
         });
 
         // On re-créer une nouvelle sortie HTML avec nos modifications.
-        data = $.html()
+        dom = $.html()
 
         // On ré-injecte les modifications.
-        mainCallback(data);
+        mainCallback(dom);
     };
 
 }(website));
@@ -1480,8 +1480,8 @@ var website = {};
 /* Mise à dispositions des fonction pour le moteur NodeAtlas */
 /*************************************************************/
 
-exports.preRender = website.preRender;
-exports.render = website.render;
+exports.changeVariation = website.changeVariation;
+exports.changeDom = website.changeDom;
 exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
 ```
 
@@ -1687,10 +1687,10 @@ vous pourrez accéder à :
 - *http://localhost/liste-des-membres/node-atlas/*
 - *http://localhost/liste-des-membres/etc/*
 
-et récupérer les valeurs de `:member` dans le `preRender` (common et specific).
+et récupérer les valeurs de `:member` dans le `changeVariation` (common et specific).
 
 ```js
-exports.preRender = function (params, mainCallback) {
+exports.changeVariation = function (params, mainCallback) {
     var variation = params.variation;
 
     console.log(variation.params.member); 
@@ -1735,10 +1735,10 @@ vous pourrez accéder à :
 - *http://localhost/liste-des-membres/node-atlas/* _(ou *https://localhost/liste-des-membres/node-atlas*)_
 - *http://localhost/liste-des-membres/etc/* _(ou *https://localhost/liste-des-membres/etc*)_
 
-et récupérer les valeurs de `([-a-z0-9]+)` dans le `preRender` (common et specific).
+et récupérer les valeurs de `([-a-z0-9]+)` dans le `changeVariation` (common et specific).
 
 ```js
-exports.preRender = function (params, mainCallback) {
+exports.changeVariation = function (params, mainCallback) {
     var variation = params.variation;
 
     if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }

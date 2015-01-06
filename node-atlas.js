@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.31.0
+ * @version 0.32.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -94,7 +94,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.31.0')
+            .version('0.32.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -162,12 +162,12 @@ var NA = {};
              * NA.websiteController["common.json"].setConfigurations(...);
              * NA.websiteController["common.json"].loadModules(...);
              * NA.websiteController["common.json"].setSessions(...);
-             * NA.websiteController["common.json"].preRender(...);
-             * NA.websiteController["common.json"].render(...);
+             * NA.websiteController["common.json"].changeVariation(...);
+             * NA.websiteController["common.json"].changeDom(...);
              * 
              * // Functions for specific controller if a route `controller` value is "index.json".
-             * NA.websiteController["index.json"].preRender(...);
-             * NA.websiteController["index.json"].render(...);
+             * NA.websiteController["index.json"].changeVariation(...);
+             * NA.websiteController["index.json"].changeDom(...);
              */
             publics.websiteController = [];
         } catch (exception) {
@@ -1003,7 +1003,8 @@ var NA = {};
             commander = NA.modules.commander,
             express = NA.modules.express,
             path = NA.modules.path,
-            open = NA.modules.open;
+            open = NA.modules.open,
+            httpPort = commander.httpPort || NA.configuration.httpPort || NA.webconfig.httpPort || 80;
 
         /* Configure the server and... */
         publics.httpServer = express();
@@ -1011,7 +1012,7 @@ var NA = {};
         publics.server = http.createServer(NA.httpServer);
 
         /* ...listen HTTP request... */
-        NA.server.listen(commander.httpPort || NA.configuration.httpPort || 80, function () {
+        NA.server.listen(httpPort, function () {
             console.log(NA.appLabels.publicMode);
         });
 
@@ -1019,7 +1020,7 @@ var NA = {};
         NA.server.on('error', function (error) {
             var data = {};
 
-            data.httpPort = commander.httpPort || NA.configuration.httpPort || 80;
+            data.httpPort = httpPort;
 
             console.log(NA.appLabels.portAlreadyListened.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
 
@@ -1115,11 +1116,12 @@ var NA = {};
          * @param {Object} NA - The NodeAtlas object with new modifications.
          */  
         function atlasMiddlewares(NA) {
+            var httpPort = commander.httpPort || NA.configuration.httpPort || NA.webconfig.httpPort || 80;
 
             publics = NA;
 
             /* Listen HTTP request... */
-            NA.server.listen(NA.webconfig.httpPort, function () {
+            NA.server.listen(httpPort, function () {
                 var data = {};
 
                 data.httpPort = NA.webconfig.httpPort;
@@ -1131,7 +1133,7 @@ var NA = {};
             NA.server.on('error', function (error) {
                 var data = {};
 
-                data.httpPort = commander.httpPort || NA.configuration.httpPort || 80;
+                data.httpPort = httpPort;
 
                 console.log(NA.appLabels.portAlreadyListened.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
 
@@ -1928,14 +1930,14 @@ var NA = {};
             /**
              * Next step after PreRender part.
              * @private
-             * @function NA.render~preRenderSpecific
+             * @function NA.render~changeVariationSpecific
              * @param {Object} currentVariation - Variations for the current page.
              */
-            function preRenderSpecific(currentVariation) {                
+            function changeVariationSpecific(currentVariation) {                
                 if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &&
-                    typeof NA.websiteController[currentRouteParameters.controller].preRender !== 'undefined') {
-                        /* Use the `NA.websiteController[<controller>].preRender(...)` function if set... */
-                        NA.websiteController[currentRouteParameters.controller].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
+                    typeof NA.websiteController[currentRouteParameters.controller].changeVariation !== 'undefined') {
+                        /* Use the `NA.websiteController[<controller>].changeVariation(...)` function if set... */
+                        NA.websiteController[currentRouteParameters.controller].changeVariation({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
                             openTemplate(currentVariation);
                         });
                 } else {
@@ -1947,15 +1949,15 @@ var NA = {};
             /**
              * Next step after Render part.
              * @private
-             * @function NA.render~renderSpecific
-             * @param {string} data - DOM Generated.
+             * @function NA.render~changeDomSpecific
+             * @param {string} dom - DOM Generated.
              * @param {Object} currentVariation - Variations for the current page.
              */
-            function renderSpecific(data, currentVariation) {                
+            function changeDomSpecific(data, currentVariation) {                
                 if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &&
-                    typeof NA.websiteController[currentRouteParameters.controller].render !== 'undefined') {
-                        /** Use the `NA.websiteController[<controller>].preRender(...)` function if set... */
-                        NA.websiteController[currentRouteParameters.controller].render({ data: data, NA: NA, request: request, response: response }, function (data) {
+                    typeof NA.websiteController[currentRouteParameters.controller].changeDom !== 'undefined') {
+                        /** Use the `NA.websiteController[<controller>].changeVariation(...)` function if set... */
+                        NA.websiteController[currentRouteParameters.controller].changeDom({ dom: data, NA: NA, request: request, response: response }, function (data) {
                             renderTemplate(data, currentVariation);
                         });
                 } else {
@@ -1989,34 +1991,34 @@ var NA = {};
                             .replace(/ >> /g, "<span style='display:inline-block;width:32px'>&gt;&gt;</span>");
                     }
 
-                    /* Use the `NA.websiteController[<commonController>].render(...)` function if set... */
+                    /* Use the `NA.websiteController[<commonController>].changeDom(...)` function if set... */
                     if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-                        typeof NA.websiteController[NA.webconfig.commonController].render !== 'undefined') {
+                        typeof NA.websiteController[NA.webconfig.commonController].changeDom !== 'undefined') {
 
                             /**
                              * Define this function for intercept DOM and modify it with jQuery for example. Both `common` and `specific` controller.
-                             * @function render
+                             * @function changeDom
                              * @memberOf node-atlas~NA.websiteController[]
                              * @param {Object} params            - Collection of property.
-                             * @param {string} params.data       - DOM of current page.
+                             * @param {string} params.dom        - DOM of current page.
                              * @param {Object} params.NA         - NodeAtlas object.
                              * @param {Object} params.request    - Initial request.
                              * @param {Object} params.response   - Initial response.
-                             * @param {render~callback} callback - Next steps after configuration is done.
+                             * @param {changeDom~callback} callback - Next steps after configuration is done.
                              */
-                            NA.websiteController[NA.webconfig.commonController].render({ data: data, NA: NA, request: request, response: response },
+                            NA.websiteController[NA.webconfig.commonController].changeDom({ dom: data, NA: NA, request: request, response: response },
 
                             /**
-                             * Next steps after render is done.
-                             * @callback render~callback
+                             * Next steps after changeDom is done.
+                             * @callback changeDom~callback
                              * @param {string} data - DOM with modifications.
                              */
                             function (data) {
-                                renderSpecific(data, currentVariation);
+                                changeDomSpecific(data, currentVariation);
                             });
                     /* ...else, just continue. */
                     } else {
-                        renderSpecific(data, currentVariation);
+                        changeDomSpecific(data, currentVariation);
                     }
                });
             }
@@ -2235,34 +2237,34 @@ var NA = {};
              */
             currentVariation.webconfig = NA.webconfig;
 
-            /* Use the `NA.websiteController[<commonController>].preRender(...)` function if set... */
+            /* Use the `NA.websiteController[<commonController>].changeVariation(...)` function if set... */
             if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-                typeof NA.websiteController[NA.webconfig.commonController].preRender !== 'undefined') {
+                typeof NA.websiteController[NA.webconfig.commonController].changeVariation !== 'undefined') {
 
                     /**
                      * Define this function for intercept Variation object and modify it. Both `common` and `specific` controller.
-                     * @function preRender
+                     * @function changeVariation
                      * @memberOf node-atlas~NA.websiteController[]
                      * @param {Object} params               - Collection of property.
                      * @param {string} params.variation     - Variation object of current page.
                      * @param {Object} params.NA            - NodeAtlas object.
                      * @param {Object} params.request       - Initial request.
                      * @param {Object} params.response      - Initial response.
-                     * @param {preRender~callback} callback - Next steps after configuration is done.
+                     * @param {changeVariation~callback} callback - Next steps after configuration is done.
                      */
-                    NA.websiteController[NA.webconfig.commonController].preRender({ variation: currentVariation, NA: NA, request: request, response: response }, 
+                    NA.websiteController[NA.webconfig.commonController].changeVariation({ variation: currentVariation, NA: NA, request: request, response: response }, 
 
                     /**
-                     * Next steps after preRender is done.
-                     * @callback preRender~callback
+                     * Next steps after changeVariation is done.
+                     * @callback changeVariation~callback
                      * @param {Object} currentVariation - Variation object with new values.
                      */
                     function (currentVariation) {
-                        preRenderSpecific(currentVariation);
+                        changeVariationSpecific(currentVariation);
                     });
             /* ...else, just continue. */
             } else {
-                preRenderSpecific(currentVariation);
+                changeVariationSpecific(currentVariation);
             }
         });
     };
