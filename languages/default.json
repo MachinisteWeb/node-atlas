@@ -27,8 +27,8 @@
 			"command": "-d, --directory <path>",
 			"description": "Specify a physical path to start the site. (The path to the 'webconfig.json')."
 		},
-		"run": {
-			"command": "-r, --run",
+		"browse": {
+			"command": "-b, --browse [subpath]",
 			"description": "Automatically open the site in a browser."
 		},
 		"webconfig": {

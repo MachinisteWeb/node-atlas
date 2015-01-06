@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.30.2 (Beta)
+Version : 0.31.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -68,7 +68,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Commandes de lancement](#commandes-de-lancement)
  - [--directory](#--directory)
  - [--webconfig](#--webconfig)
- - [--run](#--run)
+ - [--browse](#--browse)
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
 - [NodeAtlas comme module npm](#nodeatlas-comme-module-npm)
@@ -250,11 +250,11 @@ Vous pouvez également utiliser NodeAtlas comme un module npm.
 ```javascript
 var nodeAtlas = require("node-atlas");
 
-nodeAtlas.init();
+nodeAtlas.run();
 ```
 
 ```
-\> node app.js
+\> node server.js
 ```
 
 
@@ -2850,11 +2850,11 @@ La façon la plus simple de lancer NodeAtlas est de se positionner dans le répe
 Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --run
+\> node </path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
 ```
 
 
-### --directory ###
+### --directory <path> ###
 
 Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous sera alors très utile.
 
@@ -2863,7 +2863,7 @@ Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où e
 ```
 
 
-### --webconfig ###
+### --webconfig <webconfigName> ###
 
 Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
@@ -2873,17 +2873,25 @@ Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible q
 
 
 
-### --run ###
+### --browse [subpath] ###
 
 Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec `--generate` (voir plus loin).
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --run
+\> node </path/to/>node-atlas/node-atlas.js --browse
+```
+
+Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
+
+
+```
+\> node </path/to/>node-atlas/node-atlas.js --browse index.html
 ```
 
 
 
-### --httpPort ###
+
+### --httpPort <httpPort> ###
 
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
 
@@ -2908,24 +2916,20 @@ Si vous modifiez un élément dans votre fichier de variation commun ou même da
 
 Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :
 
-*app.js*
+*server.js*
 
 ```javascript
-var nodeAtlas = require("node-atlas");
-
-nodeAtlas
-    .config({
-        directory: "</path/to/your/website/directory/>",
-        webconfig: "webconfig.alternatif.json",
-        run: true,
-        httpPort: 7778,
-        generate: true
-    })
-    .init();
+require("node-atlas").run({
+    directory: "</path/to/your/website/directory/>",
+    webconfig: "webconfig.alternatif.json",
+    browse: true,
+    httpPort: 7778,
+    generate: true
+});
 ```
 
 ```
-\> node app.js
+\> node server.js
 ```
 
 
@@ -2963,7 +2967,7 @@ ou même la commande
 
 le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
 
-*Note : seul les commandes `--webconfig`, `--run`, `--directory` et `--httpPort` fonctionnent dans ce mode.*
+*Note : seul les commandes `--webconfig`, `--browse`, `--directory` et `--httpPort` fonctionnent dans ce mode.*
 
 
 

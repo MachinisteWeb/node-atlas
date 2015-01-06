@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.30.2
+ * @version 0.31.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -94,10 +94,10 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.30.2')
+            .version('0.31.0')
 
-            /* Automaticly run default browser with `--run` options. */
-            .option(NA.appLabels.commander.run.command, NA.appLabels.commander.run.description)
+            /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
+            .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
 
             /* Target the directory in which website and NodeAtlas will be running. */
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
@@ -1002,6 +1002,7 @@ var NA = {};
             http = NA.modules.http,
             commander = NA.modules.commander,
             express = NA.modules.express,
+            path = NA.modules.path,
             open = NA.modules.open;
 
         /* Configure the server and... */
@@ -1031,7 +1032,7 @@ var NA = {};
 
         commander.httpPort = commander.httpPort || 80;
 
-        if (commander.run) { open('http://localhost' + ((commander.httpPort !== 80) ? ':' + commander.httpPort : '') + '/'); }
+        if (commander.browse) { open(path.normalize('http://localhost' + ((commander.httpPort !== 80) ? ':' + commander.httpPort : '') + '/' + ((typeof commander.browse === 'string') ? commander.browse : ""))); }
     };
 
     /**
@@ -1052,6 +1053,7 @@ var NA = {};
             forceDomain = NA.modules.forceDomain,
             http = NA.modules.http,
             open = NA.modules.open,
+            path = NA.modules.path,
             optionSession = {},
             
             /**
@@ -1137,10 +1139,9 @@ var NA = {};
                 process.kill(process.pid);
             });
 
-            if (commander.run) { NA.configuration.run = commander.run; }
+            if (commander.browse) { NA.configuration.browse = commander.browse; }
 
-            if (NA.configuration.run) { open(NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "")); }
-        
+            if (NA.configuration.browse) { open(path.normalize(NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath + ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))); }
         }
 
         /**
@@ -2565,12 +2566,13 @@ var NA = {};
      * @public
      * @function config
      * @memberOf node-atlas~NA
-     * * @example nodeAtlas
-     *    .config({
+     * @example require('node-atlas').config({
      *        webconfig: "webconfig.alternatif.json",
      *        httpPort: 7778,
-     *        generate: true
-     *    }).init();
+     *        generate: true,
+     *        browse: true
+     * }).init();
+     * @return {Object} - the NA object for chained functions.
      */
     publics.config = function (config) {
         var config = config || {};
@@ -2585,6 +2587,8 @@ var NA = {};
      * @public
      * @function init
      * @memberOf node-atlas~NA
+     * @example require('node-atlas').init();
+     * @return {Object} - the NA object for chained functions.
      */
     publics.init = function () {
         NA.loadListOfNativeModules();
@@ -2604,7 +2608,29 @@ var NA = {};
                 });
             });
         });
+
+        return NA;
     };
+
+    /**
+     * Execute both NA.config() and NA.init() functions.
+     * @public
+     * @function run
+     * @memberOf node-atlas~NA
+     * @example require('node-atlas').run({
+     *        webconfig: "webconfig.alternatif.json",
+     *        httpPort: 7778,
+     *        generate: true
+     * });
+     * @return {Object} - the NA object for chained functions.
+
+     */
+    publics.run = function (config) {
+        NA.config(config);
+        NA.init();
+
+        return NA;
+    }
 
 })(NA);
 
