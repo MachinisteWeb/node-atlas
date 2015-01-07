@@ -51,6 +51,7 @@
     "mkpath": "0.1.0",
     "node-force-domain": "0.1.0",
     "open": "0.0.5",
+    "traverse-directory": "0.3.0",
     "uglify-js": "2.4.15"
   },
   "main": "node-atlas.js",

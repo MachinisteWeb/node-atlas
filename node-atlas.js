@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.32.0
+ * @version 0.33.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -94,7 +94,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.32.0')
+            .version('0.33.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -912,6 +912,16 @@ var NA = {};
          * @see {@link https://www.npmjs.com/package/less-middleware less-middleware}
          */ 
         publics.modules.lessMiddleware = require('less-middleware');
+
+        /**
+         * Clone directories using copy/symlink.
+         * @public
+         * @function traverseDirectory
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/traverse-directory traverse-directory}
+         */ 
+        publics.modules.traverseDirectory = require('traverse-directory');
+
     };
 
     /**
@@ -2388,7 +2398,11 @@ var NA = {};
             fs = NA.modules.fs,
             async = NA.modules.async,
             path = NA.modules.path,
-            data = {};
+            traverseDirectory = publics.modules.traverseDirectory,
+            data = {},
+            sourcePath = path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath),
+            destinationPath = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath),
+            traverse;
 
         /* `generate` manually setted value with `NA.config`. */
         if (commander.generate) { NA.configuration.generate = commander.generate; }
@@ -2412,7 +2426,28 @@ var NA = {};
             async.parallel([
                 NA.cssMinification,
                 NA.jsObfuscation
-            ]); 
+            ], function () {
+
+                /* Copy all content of `assetsRelativePath` into `generatesRelativePath` */
+                if (sourcePath !== destinationPath) {
+                    traverse = new traverseDirectory(
+                      sourcePath,
+                      destinationPath
+                    );
+
+                    traverse.directory(function(source, target, next) {
+                        next(traverseDirectory.copydir, source, target);
+                    });
+
+                    traverse.file(function(source, target, next) {
+                        next(traverseDirectory.copyfile, source, target);
+                    });
+
+                    traverse.run(function(err) {
+                        console.log(NA.appLabels.assetsCopy);
+                    });
+                }
+            });
         }
 
     };

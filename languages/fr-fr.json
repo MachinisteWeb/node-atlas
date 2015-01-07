@@ -18,6 +18,7 @@
 	"lessGenerate": "Less : The file « %pathName% » a été généré !",
 	"cssGenerate": "CSS : Le fichier minifié « %pathName% » a été généré !",
 	"jsGenerate": "JS : Le fichier offusqué « %pathName% » a été généré !",
+	"assetsCopy": "Assets : Tout le contenu de `assetsRelativePath` a été copié dans le dossier `generatesRelativePath`.",
 	"templateNotGenerate": "Impossible d'enregistrer le fichier « %pathName% ».",
 	"templateNotSet": "Aucun fichier de template n'a été défini.",
 	"templateDirectoryNotExist": "HTML : Il n'y aucun dossier « %templatePath% » existant. Aucune génération.",

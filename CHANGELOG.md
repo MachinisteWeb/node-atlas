@@ -1,4 +1,16 @@
-## 0.32.0 (2015-01-06) ##
+## 0.33.0 ##
+
+Features:
+
+- With `--generate` command, all `assetsRelativePath` content will be copied into `generatesRelativePath` if this two path are different.
+
+Documentation:
+
+- Update with new information.
+
+
+
+## 0.32.0 ##
 
 Features:
 
@@ -16,7 +28,7 @@ Documentation:
 
 
 
-## 0.31.0 (2015-01-06) ##
+## 0.31.0 ##
 
 Features:
 
@@ -29,7 +41,7 @@ Documentation:
 
 
 
-## 0.30.0 (2015-01-06) ##
+## 0.30.0 ##
 
 Information:
 
