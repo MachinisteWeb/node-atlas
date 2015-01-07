@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.32.0 (Beta)
+Version : 0.33.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -890,7 +890,7 @@ With the following configuration it is possible to generate HTML rendering asset
 ```js
 {
     "autoGenerate": true,
-    "generatesRelativePath": "generate/",
+    "generatesRelativePath": "generates/",
     "routes": {
         "/": {
             "template": "index.htm",
@@ -916,7 +916,7 @@ assets/
 —— common.css
 — javascript/
 —— common.js
-generate/
+generates/
 templates/
 — index.htm
 — members.htm
@@ -928,12 +928,12 @@ can physically create assets:
 
 ```
 {
-generate/
+generates/
 — index.html
 — members/
 —— list.html
 — no/
-—— generate/
+—— generates/
 ——— property <== Ceci est un fichier
 templates/
 — index.htm
@@ -948,6 +948,8 @@ by going to the address:
 - *http://localhost/list-of-members/*
 
 The generation starts when displaying the page if ***autoGenerate*** exist and if it is ***true***. If it is passed ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/server.js --generate` will generate all pages once. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
+
+Also with ` --generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `generatesRelativePath` if both folder does not have the same path. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
 
 *Note : If* ***generatesRelativePath*** *is not present in "webconfig.js", default generates folder is* ***generates/***. ***generatesRelativePath*** *is useful only to change the name/path of directory.*
 
@@ -2904,7 +2906,7 @@ You will not be bored to change your listening port on your projects and sometim
 
 ### --generate ###
 
-If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use `--generate`.
+If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use `--generate`. This command will copy the entire contents of the folder `assetsRelativePath` into `generatesRelativePath` if their path is different.
 
 ```
 \> node </path/to/>node-atlas/node-atlas.js --generate
