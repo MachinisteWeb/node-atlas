@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.33.3 (Beta)
+Version : 0.34.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -58,6 +58,7 @@ The tool is still in development and I experience it slowly with my own websites
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a page not found](#manage-a-page-not-found)
  - [Manage redirects](#manage-redirects)
+ - [Run Website with HTTPs](#run-website-with-https)
  - [Minify CSS/JS](#minify-cssjs)
  - [CSS generation with Less](#css-generation-with-less)
  - [Allow/Disallow GET/POST requests](#allowdisallow-getpost-requests)
@@ -112,6 +113,7 @@ The tool is still in development and I experience it slowly with my own websites
  - Translation of README.md file in English.
  - Create a global command `nodeatlas` with global installation.
  - Less support.
+ - HTTPs support (WSs support too).
 
 - Coming soon
  - Image compression.
@@ -2015,6 +2017,38 @@ You will be redirected to `http://localhost/list-of-members/haeresis/` when you 
 
 For the second *match* use $1$, the third $2#, etc.
 
+
+
+### Run Website with HTTPs ###
+
+It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a `security` folder in which to place your `server.key` and `server.crt` file to supply the protocol.
+Just use the following configuration:
+
+```js
+{
+    "httpSecure": true,
+    "httpSecureRelativeKeyPath": "security/server.key"
+    "httpSecureRelativeCertificatePath": "security/server.crt"
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+Alternatively , if your two Key and Certificate files have the same name, use this configuration:
+
+```js
+{
+    "httpSecure": "security/server",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
 
 
 ### Minify CSS/JS ###
