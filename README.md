@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.33.1 (Beta)
+Version : 0.33.2 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -26,6 +26,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
+- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EtitAtlas/).
 - [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
 - [Utilisation du préprocesseur Less pour des Framework non invasif dans le HTML](https://github.com/Haeresis/LessAtlas/).
 
@@ -1844,6 +1845,8 @@ et `routes.json`
 
 ### Gérer les pages inexistantes ###
 
+#### Écouter toutes les urls, même les adresses du dossier `assetsRelativePath` ####
+
 Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :
 
 1. Préparer une page 404.
@@ -1855,15 +1858,15 @@ Voyez l'exemple ci-dessous :
 {
     "pageNotFound": "/pages-inexistantes/",
     "routes": {
-        "/pages-inexistantes/": {
-            "template": "error.htm",
-            "statusCode": "404"
-        },
         "/liste-des-membres/": {
             "template": "members.htm"
         },
         "/": {
             "template": "index.htm"
+        },
+        "/pages-inexistantes/": {
+            "template": "error.htm",
+            "statusCode": "404"
         }
     }
 }
@@ -1875,7 +1878,49 @@ vous pourrez accéder à :
 - *http://localhost/elle/non/plus/*
 - *http://localhost/etc*
 
+#### Page d'erreur multilingue ####
 
+Il vous suffit de créer une nouvelle route finissant par `*` dans la langue souhaitée.
+
+Voyez l'exemple ci-dessous :
+
+```js
+{
+    "pageNotFound": "/pages-inexistantes/",
+    "languageCode": "fr-fr",
+    "routes": {
+        "/liste-des-membres/": {
+            "template": "members.htm",
+            "variation": "members.json"
+        },
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json"
+        },
+        "/pages-inexistantes/": {
+            "template": "error.htm",
+            "variation": "error.json",
+            "statusCode": "404"
+        },
+        "/english/list-of-members/": {
+            "template": "members.htm",
+            "languageCode": "en-gb",
+            "variation": "members.json"
+        },
+        "/english/": {
+            "template": "index.htm",
+            "languageCode": "en-gb",
+            "variation": "index.json"
+        },
+        "/english/*": {
+            "template": "error.htm",
+            "languageCode": "en-gb",
+            "variation": "error.json",
+            "statusCode": "404"
+        }
+    }
+}
+```
 
 ### Gérer les redirections ###
 

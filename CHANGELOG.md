@@ -1,3 +1,12 @@
+## 0.33.2 ##
+
+Documentation:
+
+- New website example.
+- Example for multilingual 404 page.
+
+
+
 ## 0.33.1 ##
 
 Bugfixes:
