@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.33.3 (Beta)</p>
+<p>Version : 0.34.0 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -109,6 +109,7 @@
 <li><a href="#g%C3%A9rer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</a></li>
 <li><a href="#g%C3%A9rer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
 <li><a href="#g%C3%A9rer-les-redirections">Gérer les redirections</a></li>
+<li><a href="#faire-tourner-le-site-en-https">Faire tourner le site en HTTPs</a></li>
 <li><a href="#minifier-les-cssjs">Minifier les CSS/JS</a></li>
 <li><a href="#g%C3%A9n%C3%A9rer-les-css-avec-less">Générer les CSS avec Less</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
@@ -179,6 +180,7 @@
 <li>Traduction du fichier README.md en anglais.</li>
 <li>Créer une commande <code>nodeatlas</code> en installation globale.</li>
 <li>Support Less.</li>
+<li>Support HTTPs (WSs aussi).</li>
 </ul>
 </li>
 <li>
@@ -300,6 +302,8 @@
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
 </code></pre>
+
+<p>Vous aurez accès à votre « Hello World » à la page <em>http://localhost/</em> dans un navigateur.</p>
 
 <h4>
 <a id="avec-un-executable-sur-votre-os" class="anchor" href="#avec-un-executable-sur-votre-os" aria-hidden="true"><span class="octicon octicon-link"></span></a>Avec un executable sur votre OS</h4>
@@ -1996,6 +2000,35 @@ webconfig.prod.json
 <p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p>
 
 <p>Pour le second <em>match</em> utilisez $1$, pour le troisième $2$, etc.</p>
+
+<h3>
+<a id="faire-tourner-le-site-en-https" class="anchor" href="#faire-tourner-le-site-en-https" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faire tourner le site en HTTPs</h3>
+
+<p>Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier <code>security</code> dans lequel vous allez placer vos fichier <code>server.key</code> et <code>server.crt</code> afin d'alimenter le protocol.</p>
+
+<p>Il ne vous reste plus qu'à utiliser la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>httpSecure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>httpSecureRelativeKeyPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>security/server.key<span class="pl-pds">"</span></span>
+    <span class="pl-s1"><span class="pl-pds">"</span>httpSecureRelativeCertificatePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>security/server.crt<span class="pl-pds">"</span></span>
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration : </p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>httpSecure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>security/server<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
 
 <h3>
 <a id="minifier-les-cssjs" class="anchor" href="#minifier-les-cssjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Minifier les CSS/JS</h3>
