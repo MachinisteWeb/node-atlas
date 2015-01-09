@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.33.3
+ * @version 0.34.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -94,7 +94,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.33.3')
+            .version('0.34.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -506,7 +506,7 @@ var NA = {};
          * @memberOf node-atlas~NA.webconfig
          * @default 80, or `process.env.PORT` if setted, or the webconfig's property `httpPort`.
          */
-        NA.webconfig.httpPort = NA.webconfig.httpPort || process.env.PORT || 80;
+        NA.webconfig.httpPort = NA.webconfig.httpPort || process.env.PORT || ((NA.webconfig.httpSecure) ? 443 : 80);
 
         /* `httpPort` manually setted value with `--httpPort`. */
         if (commander.httpPort) { NA.configuration.httpPort = commander.httpPort; }
@@ -545,6 +545,24 @@ var NA = {};
         NA.webconfig.urlHostname = NA.webconfig.urlHostname || NA.webconfig.httpHostname;
 
         /**
+         * Define the path to the Private Key for HTTPs.
+         * @public
+         * @alias httpSecureRelativeKeyPath
+         * @type {string}
+         * @memberOf node-atlas~NA.webconfig
+         */ 
+        NA.webconfig.httpSecureRelativeKeyPath = NA.webconfig.httpSecureRelativeKeyPath || (typeof NA.webconfig.httpSecure === 'string') ? NA.webconfig.httpSecure + '.key' : undefined;
+
+        /**
+         * Define the path to the Certificate for HTTPs.
+         * @public
+         * @alias httpSecureRelativeCertificatePath
+         * @type {string}
+         * @memberOf node-atlas~NA.webconfig
+         */ 
+        NA.webconfig.httpSecureRelativeCertificatePath = NA.webconfig.httpSecureRelativeCertificatePath || (typeof NA.webconfig.httpSecure === 'string') ? NA.webconfig.httpSecure + '.crt' : undefined;
+
+        /**
          * Website http(s) url generate depending of `NA.webconfig.httpSecure`, `NA.webconfig.urlHostname` and `NA.webconfig.urlPort`.
          * This value does not contain `NA.webconfig.urlRelativeSubPath`.
          * @public
@@ -552,7 +570,7 @@ var NA = {};
          * @type {string}
          * @memberOf node-atlas~NA.webconfig
          */        
-        NA.webconfig.urlWithoutFileName = 'http' + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + NA.webconfig.urlHostname + ((NA.webconfig.urlPort !== 80) ? ':' + NA.webconfig.urlPort : '') + '/';
+        NA.webconfig.urlWithoutFileName = 'http' + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + NA.webconfig.urlHostname + ((NA.webconfig.urlPort !== ((NA.webconfig.httpSecure) ? 443 : 80)) ? ':' + NA.webconfig.urlPort : '') + '/';
     };
 
 })(NA);
@@ -744,6 +762,16 @@ var NA = {};
          * @see {@link http://nodejs.org/api/http.html HTTP}
          */ 
         modules.http = require('http');
+
+        /**
+         * Allow you to use many features of the HTTPs protocol.
+         * @public
+         * @alias http
+         * @type {Object}
+         * @memberOf node-atlas~NA.modules
+         * @see {@link http://nodejs.org/api/https.html HTTPs}
+         */ 
+        modules.https = require('https');
 
         /**
          * List of modules callable into NodeAtlas and website based on NodeAtlas.
@@ -1014,7 +1042,7 @@ var NA = {};
             express = NA.modules.express,
             path = NA.modules.path,
             open = NA.modules.open,
-            httpPort = commander.httpPort || NA.configuration.httpPort || NA.webconfig.httpPort || 80;
+            httpPort = commander.httpPort || NA.configuration.httpPort || NA.webconfig.httpPort || ((NA.webconfig.httpSecure) ? 443 : 80);
 
         /* Configure the server and... */
         publics.httpServer = express();
@@ -1041,9 +1069,9 @@ var NA = {};
         /* ...from « public » directory. */
         NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
 
-        commander.httpPort = commander.httpPort || 80;
+        commander.httpPort = commander.httpPort || ((NA.webconfig.httpSecure) ? 443 : 80);
 
-        if (commander.browse) { open(path.normalize('http://localhost' + ((commander.httpPort !== 80) ? ':' + commander.httpPort : '') + '/' + ((typeof commander.browse === 'string') ? commander.browse : ""))); }
+        if (commander.browse) { open(path.normalize('http://localhost' + ((commander.httpPort !== ((NA.webconfig.httpSecure) ? 443 : 80)) ? ':' + commander.httpPort : '') + '/' + ((typeof commander.browse === 'string') ? commander.browse : ""))); }
     };
 
     /**
@@ -1059,10 +1087,12 @@ var NA = {};
             compress = NA.modules.compress,
             lessMiddleware = NA.modules.lessMiddleware,
             session = NA.modules.session,
+            fs = NA.modules.fs,
             bodyParser = NA.modules.bodyParser,
             cookieParser = NA.modules.cookieParser,
             forceDomain = NA.modules.forceDomain,
             http = NA.modules.http,
+            https = NA.modules.https,
             open = NA.modules.open,
             path = NA.modules.path,
             optionSession = {},
@@ -1126,11 +1156,11 @@ var NA = {};
          * @param {Object} NA - The NodeAtlas object with new modifications.
          */  
         function atlasMiddlewares(NA) {
-            var httpPort = commander.httpPort || NA.configuration.httpPort || NA.webconfig.httpPort || 80;
+            var httpPort = commander.httpPort || NA.configuration.httpPort || NA.webconfig.httpPort || ((NA.webconfig.httpSecure) ? 443 : 80);
 
             publics = NA;
 
-            /* Listen HTTP request... */
+            /* Listen HTTP(s) request... */
             NA.server.listen(httpPort, function () {
                 var data = {};
 
@@ -1167,13 +1197,24 @@ var NA = {};
         /** Server is case sensitive and slash sensitive. */
         NA.httpServer.enable('strict routing');
 
-        /**
-         * The global HTTP server.
-         * @public
-         * @function server
-         * @memberOf node-atlas~NA
-         */
-        publics.server = http.createServer(NA.httpServer);
+
+        if (!NA.webconfig.httpSecure) {
+
+            /**
+             * The global HTTP server.
+             * @public
+             * @function server
+             * @memberOf node-atlas~NA
+             */
+            publics.server = http.createServer(NA.httpServer);
+        } else {
+            
+            /* HTTPs version for a website. */
+            publics.server = https.createServer({
+                key: fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.httpSecureRelativeKeyPath, 'utf-8'), 
+                cert: fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.httpSecureRelativeCertificatePath, 'utf-8')
+            }, NA.httpServer);
+        }
 
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 

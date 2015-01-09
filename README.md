@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.33.3 (Beta)
+Version : 0.34.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -58,6 +58,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
+ - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
  - [Générer les CSS avec Less](#g%C3%A9n%C3%A9rer-les-css-avec-less)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
@@ -112,6 +113,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Traduction du fichier README.md en anglais.
  - Créer une commande `nodeatlas` en installation globale.
  - Support Less.
+ - Support HTTPs (WSs aussi).
 
 - À venir
  - Compression des images.
@@ -229,6 +231,8 @@ Ré-exécutez.
 ```
 \> node </path/to/>node-atlas/node-atlas.js
 ```
+
+Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur.
 
 
 #### Avec un executable sur votre OS ####
@@ -2010,6 +2014,40 @@ Voyez l'exemple ci-dessous :
 Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
 
 Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
+
+
+
+### Faire tourner le site en HTTPs ###
+
+Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier `security` dans lequel vous allez placer vos fichier `server.key` et `server.crt` afin d'alimenter le protocol.
+
+Il ne vous reste plus qu'à utiliser la configuration suivante :
+
+```js
+{
+    "httpSecure": true,
+    "httpSecureRelativeKeyPath": "security/server.key"
+    "httpSecureRelativeCertificatePath": "security/server.crt"
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration : 
+
+```js
+{
+    "httpSecure": "security/server",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
 
 
 

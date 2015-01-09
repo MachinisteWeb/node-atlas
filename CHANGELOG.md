@@ -1,3 +1,15 @@
+## 0.34.0 ##
+
+Features:
+
+- Easilly support HTTPs protocol (and WSs prococol) with webconfig.
+
+Documentation:
+
+- Explain how to activate HTTPs.
+
+
+
 ## 0.33.3 ##
 
 Documentation:
