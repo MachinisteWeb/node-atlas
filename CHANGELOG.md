@@ -1,3 +1,11 @@
+## 0.33.1 ##
+
+Bugfixes:
+
+- The error page of `pageNotFound` was never matched if the `url` property was used. It's fixed.
+
+
+
 ## 0.33.0 ##
 
 Features:
