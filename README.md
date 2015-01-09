@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.33.2 (Beta)
+Version : 0.33.3 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -26,7 +26,7 @@ The tool is still in development and I experience it slowly with my own websites
 - [HTML website maintenance (no Back-end)](https://github.com/Haeresis/ResumeAtlas/).
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
-- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EtitAtlas/).
+- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
 - [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
 
