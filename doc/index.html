@@ -110,7 +110,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.33.1 (Beta)</p>
+        <article><h1>node-atlas</h1><p>Version : 0.33.2 (Beta)</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -124,6 +124,7 @@
 <li><a href="https://github.com/Haeresis/ResumeAtlas/">HTML website maintenance (no Back-end)</a>.</li>
 <li><a href="https://github.com/Haeresis/BookAtlas/">Node.js website with Websocket and PopState</a>.</li>
 <li><a href="https://github.com/Haeresis/BlogAtlas/">Node.js website with MongoDB database and Redis</a>.</li>
+<li><a href="https://github.com/Haeresis/EtitAtlas/">Node.js example of content filling in real time without Back-office</a>.</li>
 <li><a href="https://github.com/Haeresis/SimpleAtlas/">Simple web server for a file</a>.</li>
 <li><a href="https://github.com/Haeresis/LessAtlas/">CSS-driven usage with Less preprocessor with CSS Framework</a>.</li>
 </ul>
@@ -1429,7 +1430,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         &quot;template&quot;: &quot;index.htm&quot;
     }
 }</code></pre><p><em>Note : You can create multiple route file as <code>routes.en.json</code> and <code>routes.fr.json</code> and associate each of them in a set of webconfig parameterize to run a website in various languages.</em></p>
-<h3>Manage a page not found</h3><p>To display a custom page when a resource is not found you must:</p>
+<h3>Manage a page not found</h3><h4>Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p>
 <ol>
 <li>Prepare a 404 page.</li>
 <li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
@@ -1438,15 +1439,15 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;pageNotFound&quot;: &quot;/not-found-page/&quot;,
     &quot;routes&quot;: {
-        &quot;/not-found-page/&quot;: {
-            &quot;template&quot;: &quot;error.htm&quot;,
-            &quot;statusCode&quot;: &quot;404&quot;
-        },
         &quot;/list-of-members/&quot;: {
             &quot;template&quot;: &quot;members.htm&quot;
         },
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
+        },
+        &quot;/not-found-page/&quot;: {
+            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;statusCode&quot;: &quot;404&quot;
         }
     }
 }</code></pre><p>you can access to:</p>
@@ -1455,7 +1456,43 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <li><em>http://localhost/this/page/either/</em></li>
 <li><em>http://localhost/etc</em></li>
 </ul>
-<h3>Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p>
+<h4>Multilingual Error Page</h4><p>For this, just create a new route with <code>*</code> at the end with the languageCode.</p>
+<p>See below :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;pageNotFound&quot;: &quot;/not-found-page/&quot;,
+    &quot;languageCode&quot;: &quot;en-gb&quot;,
+    &quot;routes&quot;: {
+        &quot;/list-of-members/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;variation&quot;: &quot;members.json&quot;
+        },
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        },
+        &quot;/not-found-page/&quot;: {
+            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;variation&quot;: &quot;error.json&quot;,
+            &quot;statusCode&quot;: &quot;404&quot;
+        },
+        &quot;/francais/liste-des-membres/&quot;: {
+            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;languageCode&quot;: &quot;fr-fr&quot;,
+            &quot;variation&quot;: &quot;members.json&quot;
+        },
+        &quot;/francais/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;languageCode&quot;: &quot;fr-fr&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        },
+        &quot;/francais/*&quot;: {
+            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;languageCode&quot;: &quot;fr-fr&quot;,
+            &quot;variation&quot;: &quot;error.json&quot;,
+            &quot;statusCode&quot;: &quot;404&quot;
+        }
+    }
+}</code></pre><h3>Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p>
 <p><em>Note : if you don't set <code>statusCode</code>, no redirect will be executed. The <code>statusCode</code> is mandatory for redirection.</em></p>
 <h4>Static</h4><p>See the example below:</p>
 <pre class="prettyprint source lang-js"><code>{
@@ -2301,7 +2338,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-01-09T09:56:21+01:00 using the <a
+		on 2015-01-09T10:37:43+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>

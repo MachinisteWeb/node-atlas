@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.33.1 (Beta)
+Version : 0.33.2 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -26,6 +26,7 @@ The tool is still in development and I experience it slowly with my own websites
 - [HTML website maintenance (no Back-end)](https://github.com/Haeresis/ResumeAtlas/).
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
+- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EtitAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
 - [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
 
@@ -1846,6 +1847,8 @@ and `routes.json`
 
 ### Manage a page not found ###
 
+#### Listen all urls, and also file provide by `assetsRelativePath` ####
+
 To display a custom page when a resource is not found you must:
 
 1. Prepare a 404 page.
@@ -1857,15 +1860,15 @@ See the example below:
 {
     "pageNotFound": "/not-found-page/",
     "routes": {
-        "/not-found-page/": {
-            "template": "error.htm",
-            "statusCode": "404"
-        },
         "/list-of-members/": {
             "template": "members.htm"
         },
         "/": {
             "template": "index.htm"
+        },
+        "/not-found-page/": {
+            "template": "error.htm",
+            "statusCode": "404"
         }
     }
 }
@@ -1876,6 +1879,50 @@ you can access to:
 - *http://localhost/this-page-do-not-exist.html*
 - *http://localhost/this/page/either/*
 - *http://localhost/etc*
+
+#### Multilingual Error Page ####
+
+For this, just create a new route with `*` at the end with the languageCode.
+
+See below :
+
+```js
+{
+    "pageNotFound": "/not-found-page/",
+    "languageCode": "en-gb",
+    "routes": {
+        "/list-of-members/": {
+            "template": "members.htm",
+            "variation": "members.json"
+        },
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json"
+        },
+        "/not-found-page/": {
+            "template": "error.htm",
+            "variation": "error.json",
+            "statusCode": "404"
+        },
+        "/francais/liste-des-membres/": {
+            "template": "members.htm",
+            "languageCode": "fr-fr",
+            "variation": "members.json"
+        },
+        "/francais/": {
+            "template": "index.htm",
+            "languageCode": "fr-fr",
+            "variation": "index.json"
+        },
+        "/francais/*": {
+            "template": "error.htm",
+            "languageCode": "fr-fr",
+            "variation": "error.json",
+            "statusCode": "404"
+        }
+    }
+}
+```
 
 
 
