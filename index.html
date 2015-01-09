@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.33.1 (Beta)</p>
+<p>Version : 0.33.2 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -60,6 +60,8 @@
 <a href="https://github.com/Haeresis/BookAtlas/">Site Node.js avec Websocket et PopState</a>.</li>
 <li>
 <a href="https://github.com/Haeresis/BlogAtlas/">Site Node.js avec base MongoDB et Redis</a>.</li>
+<li>
+<a href="https://github.com/Haeresis/EtitAtlas/">Exemple Node.js de modification de contenu live sans Back-office</a>.</li>
 <li>
 <a href="https://github.com/Haeresis/SimpleAtlas/">Simple Serveur Web pour un dossier</a>.</li>
 <li>
@@ -1826,6 +1828,10 @@ webconfig.prod.json
 <h3>
 <a id="gérer-les-pages-inexistantes" class="anchor" href="#g%C3%A9rer-les-pages-inexistantes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gérer les pages inexistantes</h3>
 
+<h4>
+<a id="Écouter-toutes-les-urls-même-les-adresses-du-dossier-assetsrelativepath" class="anchor" href="#%C3%89couter-toutes-les-urls-m%C3%AAme-les-adresses-du-dossier-assetsrelativepath" aria-hidden="true"><span class="octicon octicon-link"></span></a>Écouter toutes les urls, même les adresses du dossier <code>assetsRelativePath</code>
+</h4>
+
 <p>Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :</p>
 
 <ol>
@@ -1838,15 +1844,15 @@ webconfig.prod.json
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>pageNotFound<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>/pages-inexistantes/<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s1"><span class="pl-pds">"</span>/pages-inexistantes/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>
-        },
         <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>
         },
         <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s1"><span class="pl-pds">"</span>/pages-inexistantes/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>
         }
     }
 }</pre></div>
@@ -1858,6 +1864,49 @@ webconfig.prod.json
 <li><em>http://localhost/elle/non/plus/</em></li>
 <li><em>http://localhost/etc</em></li>
 </ul>
+
+<h4>
+<a id="page-derreur-multilingue" class="anchor" href="#page-derreur-multilingue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Page d'erreur multilingue</h4>
+
+<p>Il vous suffit de créer une nouvelle route finissant par <code>*</code> dans la langue souhaitée.</p>
+
+<p>Voyez l'exemple ci-dessous :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>pageNotFound<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>/pages-inexistantes/<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/liste-des-membres/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.json<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s1"><span class="pl-pds">"</span>/pages-inexistantes/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s1"><span class="pl-pds">"</span>/english/list-of-members/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>en-gb<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>members.json<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s1"><span class="pl-pds">"</span>/english/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>en-gb<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s1"><span class="pl-pds">"</span>/english/*<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>en-gb<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>error.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>404<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
 
 <h3>
 <a id="gérer-les-redirections" class="anchor" href="#g%C3%A9rer-les-redirections" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gérer les redirections</h3>
