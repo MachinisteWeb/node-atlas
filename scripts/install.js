@@ -30,8 +30,12 @@ function copyFile(source, target) {
         next(traverseDirectory.copyfile, source, target);
     });
 
-    traverse.run(function(err) {
+    traverse.run(function(error) {
+        if (error) console.log(error);
         console.log(appLabels.downloadAllModule.installShortcutsDone);
+    });
+
+    traverse.on('complete', function () {
         execute('chmod 755 ' + target + 'nodeatlas', function(error, stdout, stderr) {
             if (error) console.log(error);
         });
