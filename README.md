@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.34.0 (Beta)
+Version : 0.34.9 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 

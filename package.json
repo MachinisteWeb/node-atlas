@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.34.0",
+  "version": "0.34.11",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -60,12 +60,12 @@
     "languages/en-gb.json",
     "languages/fr-fr.json",
     "scripts/install.js",
+    "commands/nodeatlas",
+    "commands/nodeatlas.cmd",
     "LICENSE",
     "README.md",
     "CHANGELOG.md",
-    "node-atlas.js",
-    "nodeatlas",
-    "nodeatlas.cmd"
+    "node-atlas.js"
   ],
   "engines": {
     "node": ">=0.10"

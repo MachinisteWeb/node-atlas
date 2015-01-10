@@ -1,3 +1,51 @@
+## 0.34.11 ##
+
+Bugfixes:
+
+- Allow utilisation of `nodeatlas` command on linux and MacOS. Tests.
+
+
+
+## 0.34.5 ##
+
+Bugfixes:
+
+- Because of HTTPs implementation, Simple Server Mode return an error. It's fixed.
+
+
+
+## 0.34.4 ##
+
+Bugfixes:
+
+- Because of HTTPs implementation, Simple Server Mode return an error. Tests.
+
+
+
+## 0.34.3 ##
+
+Bugfixes:
+
+- Because of HTTPs implementation, Simple Server Mode return an error. Tests.
+
+
+
+## 0.34.2 ##
+
+Bugfixes:
+
+- Insert commands directory.
+
+
+
+## 0.34.1 ##
+
+Bugfixes:
+
+- npm debug for install.js.
+
+
+
 ## 0.34.0 ##
 
 Features:

@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.34.0
+ * @version 0.34.9
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -23,6 +23,7 @@
  * @requires mkpath
  * @requires node-force-domain
  * @requires open
+ * @requires traverse-directory
  * @requires uglify-js
  */
 
@@ -94,7 +95,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.34.0')
+            .version('0.34.9')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -1042,7 +1043,7 @@ var NA = {};
             express = NA.modules.express,
             path = NA.modules.path,
             open = NA.modules.open,
-            httpPort = commander.httpPort || NA.configuration.httpPort || NA.webconfig.httpPort || ((NA.webconfig.httpSecure) ? 443 : 80);
+            httpPort = commander.httpPort || NA.configuration.httpPort || 80;
 
         /* Configure the server and... */
         publics.httpServer = express();
@@ -1069,9 +1070,9 @@ var NA = {};
         /* ...from « public » directory. */
         NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
 
-        commander.httpPort = commander.httpPort || ((NA.webconfig.httpSecure) ? 443 : 80);
+        commander.httpPort = commander.httpPort || 80;
 
-        if (commander.browse) { open(path.normalize('http://localhost' + ((commander.httpPort !== ((NA.webconfig.httpSecure) ? 443 : 80)) ? ':' + commander.httpPort : '') + '/' + ((typeof commander.browse === 'string') ? commander.browse : ""))); }
+        if (commander.browse) { open(path.normalize('http://localhost' + ((commander.httpPort !== 80) ? ':' + commander.httpPort : '') + '/' + ((typeof commander.browse === 'string') ? commander.browse : ""))); }
     };
 
     /**

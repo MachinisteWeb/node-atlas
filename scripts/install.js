@@ -1,7 +1,7 @@
 /**
  * This script move
- * - `.../npm/node_modules/node-atlas/nodeatlas` and
- * - `.../npm/node_modules/node-atlas/nodeatlas.cmd`
+ * - `.../npm/node_modules/node-atlas/commands/nodeatlas` and
+ * - `.../npm/node_modules/node-atlas/commands/nodeatlas.cmd`
  * files to
  * - `.../npm/nodeatlas` and
  * - `.../npm/nodeatlas.cmd`
@@ -9,44 +9,41 @@
  */
 
 var path = require('path'),
-	fs = require('fs'),
+    execute = require('child_process').exec,
+	traverseDirectory = require('../node_modules/traverse-directory'),
 	appLabels = require('../languages/default.json'),
 	dirsName = __dirname.split(path.sep),
-	unixSource = path.resolve(__dirname, '..') + path.sep + 'nodeatlas',
-	windowsSource = path.resolve(__dirname, '..') + path.sep + 'nodeatlas.cmd',
-	unixTarget,
-	windowsTarget;
+	source = path.resolve(__dirname, '..') + path.sep + 'commands' + path.sep,
+	target;
 
 function copyFile(source, target) {
-	var callbackCalled = false,
-  		read = fs.createReadStream(source),
-  		write = fs.createWriteStream(target);
+	var traverse = new traverseDirectory(
+      source,
+      target
+    );
 
-	read.pipe(write);
+    traverse.directory(function(source, target, next) {
+        next(traverseDirectory.copydir, source, target);
+    });
 
-  	read.on("error", function(err) { if (err) {
-		console.log(err);
-	} });
-  	write.on("error", function(err) { if (err) {
-		console.log(err);
-  	} });
-  	write.on("close", function(ex) { if (ex) {
-		console.log(ex);
-  	} });
+    traverse.file(function(source, target, next) {
+        next(traverseDirectory.copyfile, source, target);
+    });
+
+    traverse.run(function(err) {
+        console.log(appLabels.downloadAllModule.installShortcutsDone);
+        execute('chmod 755 ' + target + 'nodeatlas', function(error, stdout, stderr) {
+            if (error) console.log(error);
+        });
+    });
 }
 
 if (dirsName.length - 4 > 0 && dirsName[dirsName.length - 4] === 'npm') {
-	unixTarget = path.resolve(__dirname, '..', '..', '..') + path.sep + 'nodeatlas';
-	windowsTarget = path.resolve(__dirname, '..', '..', '..') + path.sep + 'nodeatlas.cmd';
-	copyFile(windowsSource, windowsTarget);
-	copyFile(unixSource, unixTarget);
-	console.log(appLabels.downloadAllModule.installShortcutsDone);
+	target = path.resolve(__dirname, '..', '..', '..') + path.sep;
+	copyFile(source, target);
 }
 
 if (dirsName.length - 4 > 0 && dirsName[dirsName.length - 4] === 'lib') {
-	unixTarget = path.resolve(__dirname, '..', '..', '..','..','bin') + path.sep + 'nodeatlas';
-	windowsTarget = path.resolve(__dirname, '..', '..', '..','bin') + path.sep + 'nodeatlas.cmd';
-	copyFile(unixSource, unixTarget);
-	copyFile(windowsSource, windowsTarget);
-	console.log(appLabels.downloadAllModule.installShortcutsDone);
+    target = path.resolve(__dirname, '..', '..', '..', '..', 'bin') + path.sep;
+    copyFile(source, target);
 }
