@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.35.2 (Beta)
+Version : 0.36.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -955,6 +955,8 @@ The generation starts when displaying the page if ***htmlGenerateBeforeResponse*
 
 Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `generatesRelativePath` if both folder does not have the same path, and if `generatesRelativePath` exist. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
 
+You could desactivate the HTML generation, even if a directory `generatesRelativePath` exist in the système file, with `htmlGenerateEnable` à `false`.
+
 *Note : If* ***generatesRelativePath*** *is not present in "webconfig.js", default generates folder is* ***generates/***. ***generatesRelativePath*** *is useful only to change the name/path of directory.*
 
 
@@ -965,7 +967,7 @@ You can also manager a simple HTML website page with the following configuration
 ```js
 {
     "languageCode": "fr-fr",
-    "indexPage": true,
+    "enableIndex": true,
     "htmlGenerateBeforeResponse": "true",
     "generatesRelativePath": "../HTML/",
     "assetsRelativePath": "../HTML/",
@@ -1002,7 +1004,7 @@ engine/
 — webconfig.json
 ```
 
-To address *http://localhost/* will show a list of pages your site components (with **indexPage** set to **true**).
+To address *http://localhost/* will show a list of pages your site components (with **enableIndex** set to **true**).
 
 It will do more than, once your work is done, enjoy your HTML site in the folder:
 
