@@ -98,7 +98,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.34.188
+ * @version 0.35.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -112,6 +112,7 @@
  * @requires express
  * @requires express-session
  * @requires extend
+ * @requires image-min
  * @requires less-middleware
  * @requires mkpath
  * @requires node-force-domain
@@ -188,7 +189,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.34.18')
+            .version('0.35.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -448,38 +449,53 @@ var NA = {};
              * @alias bundles
              * @type {Object}
              * @memberOf node-atlas~NA.webconfig
-             * @property {Object} bundles                    - The Bundles object.
-             * @property {Object} bundles.javascript         - The Bundles configuration for Javascript.
-             * @property {Object} bundles.javascript.files   - Each object name represent an output file and each property of object represent an input file.
-             * @property {Object} bundles.stylesheets        - The Bundles configuration for CSS.
-             * @property {Object} bundles.stylesheets.files  - Each object name represent an output file and each property of object represent an input file.
+             * @property {Object} bundles              - The Bundles object.
+             * @property {Object} bundles.javascript   - Each object name represent an output javascript file and each property of object represent an input file.
+             * @property {Object} bundles.stylesheets  - Each object name represent an output stylesheets file and each property of object represent an input file.
              * @example {
              *     "javascript": {
-             *         "files": {
-             *             "javascript/framework.min.js": [
-             *                 "javascript/modernizr.js",
-             *                 "javascript/jquery.js",
-             *                 "javascript/prettify.js",
-             *                 "javascript/prettify/run_prettify.js"
-             *             ],
-             *             "javascript/common.min.js": [
-             *                 "javascript/components/extended-format-date.js",
-             *                 "javascript/common.js"
-             *             ]
-             *         }
+             *         "javascript/framework.min.js": [
+             *             "javascript/modernizr.js",
+             *             "javascript/jquery.js",
+             *             "javascript/prettify.js",
+             *             "javascript/prettify/run_prettify.js"
+             *         ],
+             *         "javascript/common.min.js": [
+             *             "javascript/components/extended-format-date.js",
+             *             "javascript/common.js"
+             *         ]
              *     },
              *     "stylesheets": {
-             *         "files": {
-             *             "stylesheets/common.min.css": [
-             *                 "stylesheets/common.css",
-             *                 "stylesheets/common-min780.css",
-             *                 "stylesheets/common-min1160.css"
-             *             ]
-             *         }
+             *         "stylesheets/common.min.css": [
+             *             "stylesheets/common.css",
+             *             "stylesheets/common-min780.css",
+             *             "stylesheets/common-min1160.css"
+             *         ]
              *     }
              * }
              */
             publics.webconfig.bundles = NA.openConfiguration(publics.webconfig.bundles);
+        }
+
+        if (typeof publics.webconfig.optimizations === 'string') {
+
+            /**
+             * Contain optimizations configuration for Images optimizations.
+             * @public
+             * @alias optimizations
+             * @type {Object}
+             * @memberOf node-atlas~NA.webconfig
+             * @property {Object} optimizations          - The Bundles object.
+             * @property {Object} optimizations.images   - Each object name represent an output image file and object value represent an input file.
+             * @example {
+             *     "images": {
+             *         "media/images/example.min.png": "media/images/example.png",
+             *         "media/images/example.min.jpg": "media/images/example.jpg",
+             *         "media/images/example.min.gif": "media/images/example.gif"
+             *     }
+             * }
+             */
+            publics.webconfig.optimizations = NA.openConfiguration(publics.webconfig.optimizations);
         }
 
         if (typeof NA.webconfig.variationsRelativePath !== 'undefined') {
@@ -940,6 +956,15 @@ var NA = {};
          * @see {@link https://www.npmjs.org/package/extend extend}
          */
         publics.modules.extend = require('extend');
+
+        /**
+         * Minify GIF, JPEG and PNG images.
+         * @public
+         * @function image-min
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/image-min image-min}
+         */
+        publics.modules.imageMin = require('image-min');
 
         /**
          * A command tool for run NodeAtlas in command prompt.
@@ -1861,35 +1886,35 @@ var NA = {};
              * CSS minification before each HTML response.
              * @public
              * @alias stylesheetsBundlesBeforeResponse
-             * @type {boolean}
+             * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default false
+             * @default 'false'
              */
-            NA.webconfig.stylesheetsBundlesBeforeResponse);
+            (NA.webconfig.stylesheetsBundlesBeforeResponse === 'true'));
 
-        if (typeof NA.webconfig.stylesheetsBundlesEnable === 'boolean') {
+        if (NA.webconfig.stylesheetsBundlesEnable === 'false') {
 
             /**
              * No CSS minification if set to false.
              * @public
              * @alias stylesheetsBundlesEnable
-             * @type {boolean}
+             * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default true
+             * @default 'true'
              */
-            enable = NA.webconfig.stylesheetsBundlesEnable;
+            enable = false;
         }
 
         /* Star engine. */
-        if (bundles &amp;&amp; bundles.stylesheets &amp;&amp; bundles.stylesheets.files &amp;&amp; enable) {
+        if (bundles &amp;&amp; bundles.stylesheets &amp;&amp; bundles.stylesheets &amp;&amp; enable) {
 
-            for (var compressedFile in bundles.stylesheets.files) {
+            for (var compressedFile in bundles.stylesheets) {
                 allCssMinified.push(compressedFile);
             }
 
             async.each(allCssMinified, function (compressedFile, firstCallback) {
 
-                async.map(bundles.stylesheets.files[compressedFile], function (sourceFile, secondCallback) {
+                async.map(bundles.stylesheets[compressedFile], function (sourceFile, secondCallback) {
                     secondCallback(null, fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + sourceFile, 'utf-8'));
                 }, function(error, results) {
                     for (var i = 0; i &lt; results.length; i++) {
@@ -1904,6 +1929,85 @@ var NA = {};
 
                     firstCallback();
                 });
+
+            }, function(error) {
+
+                /**
+                 * Next steps after minification and concatenation are done.
+                 * @callback cssMinification~callback
+                 */
+                if (callback) callback();
+            });
+        } else {
+            if (callback) callback();
+        }
+    };
+
+ /**
+     * Engine for optimization of all images with a Bundle configuration.
+     * @public
+     * @function imgOptimization
+     * @memberOf node-atlas~NA
+     * @callback imgOptimization~callback callback - Next step after optimization of all Images.
+     */ 
+    publics.imgOptimization = function (callback) {
+        var optimizations = NA.webconfig.optimizations,
+            imageMin = NA.modules.imageMin,
+            async = NA.modules.async,
+            path = NA.modules.path,
+            fs = NA.modules.fs,
+            enable = false,
+            output = "",
+            data = {},
+            allImgMinified = [];
+
+        /* Verify if bundle is okay and if engine must start. */
+        enable = (NA.configuration.generate || 
+
+            /**
+             * Images optimization before each HTML response.
+             * @public
+             * @alias imagesOptimizationsBeforeResponse
+             * @type {string}
+             * @memberOf node-atlas~NA.webconfig
+             * @default 'false'
+             */
+            (NA.webconfig.imagesOptimizationsBeforeResponse === 'true'));
+
+        if (NA.webconfig.imagesOptimizationsEnable === 'false') {
+
+            /**
+             * No Images minification if set to false.
+             * @public
+             * @alias imagesOptimizationsEnable
+             * @type {string}
+             * @memberOf node-atlas~NA.webconfig
+             * @default 'true'
+             */
+            enable = false;
+        }
+
+        /* Star engine. */
+        if (optimizations &amp;&amp; optimizations.images &amp;&amp; enable) {
+
+            for (var compressedFile in optimizations.images) {
+                allImgMinified.push(compressedFile);
+            }
+
+            async.each(allImgMinified, function (compressedFile, firstCallback) {
+
+                var source = fs.createReadStream(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + optimizations.images[compressedFile]),
+                    output = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile,
+                    ext = path.extname(source.path);
+
+                source
+                    .pipe(imageMin({ ext: ext }))
+                    .pipe(fs.createWriteStream(output));
+
+                data.pathName = path.normalize(output);
+                console.log(NA.appLabels.imgGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+
+                firstCallback();
 
             }, function(error) {
 
@@ -1943,35 +2047,35 @@ var NA = {};
              * JavaScript obfuscation before each HTML response.
              * @public
              * @alias javascriptBundlesBeforeResponse
-             * @type {boolean}
+             * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default false
+             * @default 'false'
              */
-            NA.webconfig.javascriptBundlesBeforeResponse);
+            (NA.webconfig.javascriptBundlesBeforeResponse === 'true'));
 
-        if (typeof NA.webconfig.javascriptBundlesEnable === 'boolean') {
+        if (NA.webconfig.javascriptBundlesEnable === 'false') {
 
             /**
              * No JavaScript obfuscation if set to false.
              * @public
              * @alias javascriptBundlesEnable
-             * @type {boolean}
+             * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default true
+             * @default 'true'
              */
-            enable = NA.webconfig.javascriptBundlesEnable;
+            enable = false;
         }
 
         /* Star engine. */
-        if (bundles &amp;&amp; bundles.javascript &amp;&amp; bundles.javascript.files &amp;&amp; enable) {
+        if (bundles &amp;&amp; bundles.javascript &amp;&amp; bundles.javascript &amp;&amp; enable) {
 
-            for (var compressedFile in bundles.javascript.files) {
+            for (var compressedFile in bundles.javascript) {
                 allJsMinified.push(compressedFile);
             }
 
             async.each(allJsMinified, function (compressedFile, firstCallback) {
 
-                async.map(bundles.javascript.files[compressedFile], function (sourceFile, secondCallback) {
+                async.map(bundles.javascript[compressedFile], function (sourceFile, secondCallback) {
                     secondCallback(null, uglifyJs.minify(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + sourceFile, 'utf-8').code);
                 }, function(error, results) {
                     for (var i = 0; i &lt; results.length; i++) {
@@ -2180,16 +2284,16 @@ var NA = {};
                     /**
                      * Allow NodeAtlas to generate real file into `NA.webconfig.generatesRelativePath` directory if set to true.
                      * @public
-                     * @alias autoGenerate
-                     * @type {boolean}
+                     * @alias htmlGenerateBeforeResponse
+                     * @type {string}
                      * @memberOf node-atlas~NA.webconfig
-                     * @default false.
+                     * @default 'false'.
                      */
-                    NA.webconfig.autoGenerate
+                    (NA.webconfig.htmlGenerateBeforeResponse === 'true')
                 ) {
 
                     /**
-                     * Output name of file generate if `NA.webconfig.autoGenerate` is set to true.
+                     * Output name of file generate if `NA.webconfig.htmlGenerateBeforeResponse` is set to true.
                      * @public
                      * @alias generate
                      * @type {string}
@@ -2202,10 +2306,11 @@ var NA = {};
 
                 /* Run page into browser. */
                 if (typeof response !== 'undefined') {
-                    /* Compression of CSS and JS if required. */
+                    /* Compression of CSS, JS and Images if required. */
                     async.parallel([
                         NA.cssMinification,
-                        NA.jsObfuscation
+                        NA.jsObfuscation,
+                        NA.imgOptimization
                     ], function () {
                         NA.response(request, response, data, currentRouteParameters, currentVariation);
                     });
@@ -2552,10 +2657,11 @@ var NA = {};
                 }
             });
 
-            /* Generate all minified CSS and JS files. */
+            /* Generate all minified CSS, JS and Images files. */
             async.parallel([
                 NA.cssMinification,
-                NA.jsObfuscation
+                NA.jsObfuscation,
+                NA.imgOptimization
             ], function () {
 
                 /* Copy all content of `assetsRelativePath` into `generatesRelativePath` */
@@ -2839,7 +2945,7 @@ module.exports = NA;</pre>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-01-10T15:53:22+01:00 using the <a
+		on 2015-01-12T14:31:59+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>

@@ -110,7 +110,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.34.18 (Beta)</p>
+        <article><h1>node-atlas</h1><p>Version : 0.35.0 (Beta)</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -160,6 +160,7 @@
 <li><a href="#run-website-with-https">Run Website with HTTPs</a></li>
 <li><a href="#minify-cssjs">Minify CSS/JS</a></li>
 <li><a href="#css-generation-with-less">CSS generation with Less</a></li>
+<li><a href="#optimize-images-files">Optimize Images files</a></li>
 <li><a href="#allowdisallow-getpost-requests">Allow/Disallow GET/POST requests</a></li>
 <li><a href="#change-settings-of-sessions">Change settings of Sessions</a></li>
 <li><a href="#external-storage-sessions">External Storage Sessions</a></li>
@@ -217,11 +218,11 @@
 <li>Create a global command <code>nodeatlas</code> with global installation.</li>
 <li>Less support.</li>
 <li>HTTPs support (WSs support too).</li>
+<li>Image compression.</li>
 </ul>
 </li>
 <li><p>Coming soon</p>
 <ul>
-<li>Image compression.</li>
 <li>Automatic injection inline CSS stylesheet (for email models).</li>
 <li>Self-deployment via transfer (S)FTP.</li>
 <li>...</li>
@@ -683,7 +684,7 @@ webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:<
 </ul>
 <h3>NodeAtlas use to generate HTML assets</h3><h4>Generate HTML assets</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;autoGenerate&quot;: true,
+    &quot;htmlGenerateBeforeResponse&quot;: &quot;true&quot;,
     &quot;generatesRelativePath&quot;: &quot;generates/&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -728,14 +729,14 @@ webconfig.json
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/list-of-members/</em></li>
 </ul>
-<p>The generation starts when displaying the page if <strong><em>autoGenerate</em></strong> exist and if it is <strong><em>true</em></strong>. If it is passed <strong><em>false</em></strong> (or removed) the only way to generate all the pages of the website will be via the command <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> will generate all pages once. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).</p>
+<p>The generation starts when displaying the page if <strong><em>htmlGenerateBeforeResponse</em></strong> exist and if it is <strong><em>true</em></strong>. If it is passed <strong><em>false</em></strong> (or removed) the only way to generate all the pages of the website will be via the command <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> will generate all pages once. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).</p>
 <p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>generatesRelativePath</code> if both folder does not have the same path. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p>
 <p><em>Note : If</em> <strong><em>generatesRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default generates folder is</em> <strong><em>generates/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h4>Generate website without server side</h4><p>You can also manager a simple HTML website page with the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;indexPage&quot;: true,
-    &quot;autoGenerate&quot;: true,
+    &quot;htmlGenerateBeforeResponse&quot;: &quot;true&quot;,
     &quot;generatesRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;routes&quot;: {
@@ -1579,32 +1580,28 @@ Just use the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
-            &quot;files&quot;: {
-                &quot;javascript/boot.min.js&quot;: [
-                    &quot;javascript/modernizr.js&quot;,
-                    &quot;javascript/yepnot.js&quot;,
-                    &quot;javascript/html5Shiv.js&quot;
-                ],
-                &quot;javascript/framework.min.js&quot;: [
-                    &quot;javascript/jquery.js&quot;,
-                    &quot;javascript/jquery-ui.js&quot;,
-                    &quot;javascript/prettify.js&quot;,
-                    &quot;javascript/prettify/run_prettify.js&quot;
-                ],
-                &quot;javascript/common.min.js&quot;: [
-                    &quot;javascript/components/extended-format-date.js&quot;,
-                    &quot;javascript/common.js&quot;
-                ]
-            }
+            &quot;javascript/boot.min.js&quot;: [
+                &quot;javascript/modernizr.js&quot;,
+                &quot;javascript/yepnot.js&quot;,
+                &quot;javascript/html5Shiv.js&quot;
+            ],
+            &quot;javascript/framework.min.js&quot;: [
+                &quot;javascript/jquery.js&quot;,
+                &quot;javascript/jquery-ui.js&quot;,
+                &quot;javascript/prettify.js&quot;,
+                &quot;javascript/prettify/run_prettify.js&quot;
+            ],
+            &quot;javascript/common.min.js&quot;: [
+                &quot;javascript/components/extended-format-date.js&quot;,
+                &quot;javascript/common.js&quot;
+            ]
         },
         &quot;stylesheets&quot;: {
-            &quot;files&quot;: {
-                &quot;stylesheets/common.min.css&quot;: [
-                    &quot;stylesheets/common.css&quot;,
-                    &quot;stylesheets/common-min780.css&quot;,
-                    &quot;stylesheets/common-min1160.css&quot;
-                ]
-            }
+            &quot;stylesheets/common.min.css&quot;: [
+                &quot;stylesheets/common.css&quot;,
+                &quot;stylesheets/common-min780.css&quot;,
+                &quot;stylesheets/common-min1160.css&quot;
+            ]
         }
     },
     &quot;routes&quot;: {
@@ -1614,50 +1611,62 @@ Just use the following configuration:</p>
     }
 }</code></pre><p>and the following set of file:</p>
 <pre class="prettyprint source"><code>assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 webconfig.json</code></pre><p>you will get the following new files:</p>
 <pre class="prettyprint source"><code>assets/
 — stylesheets
-—— stylesheets/common.min.css
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+—— common.min.css               &lt;= new file
 — javascript
-—— javascript/boot.min.js
-—— javascript/framework.min.js
-—— javascript/common.min.js
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
+—— javascript/boot.min.js       &lt;= new file
+—— javascript/framework.min.js  &lt;= new file
+—— javascript/common.min.js     &lt;= new file
 templates/
 — index.htm
 webconfig.json</code></pre><h4>Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p>
 <p>For example:</p>
 <p>The following set of file</p>
 <pre class="prettyprint source"><code>assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 webconfig.json
@@ -1666,32 +1675,28 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
-            &quot;files&quot;: {
-                &quot;javascript/boot.min.js&quot;: [
-                    &quot;javascript/modernizr.js&quot;,
-                    &quot;javascript/yepnot.js&quot;,
-                    &quot;javascript/html5Shiv.js&quot;
-                ],
-                &quot;javascript/framework.min.js&quot;: [
-                    &quot;javascript/jquery.js&quot;,
-                    &quot;javascript/jquery-ui.js&quot;,
-                    &quot;javascript/prettify.js&quot;,
-                    &quot;javascript/prettify/run_prettify.js&quot;
-                ],
-                &quot;javascript/common.min.js&quot;: [
-                    &quot;javascript/components/extended-format-date.js&quot;,
-                    &quot;javascript/common.js&quot;
-                ]
-            }
+            &quot;javascript/boot.min.js&quot;: [
+                &quot;javascript/modernizr.js&quot;,
+                &quot;javascript/yepnot.js&quot;,
+                &quot;javascript/html5Shiv.js&quot;
+            ],
+            &quot;javascript/framework.min.js&quot;: [
+                &quot;javascript/jquery.js&quot;,
+                &quot;javascript/jquery-ui.js&quot;,
+                &quot;javascript/prettify.js&quot;,
+                &quot;javascript/prettify/run_prettify.js&quot;
+            ],
+            &quot;javascript/common.min.js&quot;: [
+                &quot;javascript/components/extended-format-date.js&quot;,
+                &quot;javascript/common.js&quot;
+            ]
         },
         &quot;stylesheets&quot;: {
-            &quot;files&quot;: {
-                &quot;stylesheets/common.min.css&quot;: [
-                    &quot;stylesheets/common.css&quot;,
-                    &quot;stylesheets/common-min780.css&quot;,
-                    &quot;stylesheets/common-min1160.css&quot;
-                ]
-            }
+            &quot;stylesheets/common.min.css&quot;: [
+                &quot;stylesheets/common.css&quot;,
+                &quot;stylesheets/common-min780.css&quot;,
+                &quot;stylesheets/common-min1160.css&quot;
+            ]
         }
     },
     &quot;routes&quot;: {
@@ -1706,32 +1711,28 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
     &quot;urlPort&quot;: 80,
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
-            &quot;files&quot;: {
-                &quot;javascript/boot.min.js&quot;: [
-                    &quot;javascript/modernizr.js&quot;,
-                    &quot;javascript/yepnot.js&quot;,
-                    &quot;javascript/html5Shiv.js&quot;
-                ],
-                &quot;javascript/framework.min.js&quot;: [
-                    &quot;javascript/jquery.js&quot;,
-                    &quot;javascript/jquery-ui.js&quot;,
-                    &quot;javascript/prettify.js&quot;,
-                    &quot;javascript/prettify/run_prettify.js&quot;
-                ],
-                &quot;javascript/common.min.js&quot;: [
-                    &quot;javascript/components/extended-format-date.js&quot;,
-                    &quot;javascript/common.js&quot;
-                ]
-            }
+            &quot;javascript/boot.min.js&quot;: [
+                &quot;javascript/modernizr.js&quot;,
+                &quot;javascript/yepnot.js&quot;,
+                &quot;javascript/html5Shiv.js&quot;
+            ],
+            &quot;javascript/framework.min.js&quot;: [
+                &quot;javascript/jquery.js&quot;,
+                &quot;javascript/jquery-ui.js&quot;,
+                &quot;javascript/prettify.js&quot;,
+                &quot;javascript/prettify/run_prettify.js&quot;
+            ],
+            &quot;javascript/common.min.js&quot;: [
+                &quot;javascript/components/extended-format-date.js&quot;,
+                &quot;javascript/common.js&quot;
+            ]
         },
         &quot;stylesheets&quot;: {
-            &quot;files&quot;: {
-                &quot;stylesheets/common.min.css&quot;: [
-                    &quot;stylesheets/common.css&quot;,
-                    &quot;stylesheets/common-min780.css&quot;,
-                    &quot;stylesheets/common-min1160.css&quot;
-                ]
-            }
+            &quot;stylesheets/common.min.css&quot;: [
+                &quot;stylesheets/common.css&quot;,
+                &quot;stylesheets/common-min780.css&quot;,
+                &quot;stylesheets/common-min1160.css&quot;
+            ]
         }
     },
     &quot;routes&quot;: {
@@ -1741,20 +1742,20 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
     }
 }</code></pre><p>could be the following set of file</p>
 <pre class="prettyprint source"><code>assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 bundles.json
@@ -1782,7 +1783,36 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 }</code></pre><p>and <code>bundles.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;javascript&quot;: {
-        &quot;files&quot;: {
+        &quot;javascript/boot.min.js&quot;: [
+            &quot;javascript/modernizr.js&quot;,
+            &quot;javascript/yepnot.js&quot;,
+            &quot;javascript/html5Shiv.js&quot;
+        ],
+        &quot;javascript/framework.min.js&quot;: [
+            &quot;javascript/jquery.js&quot;,
+            &quot;javascript/jquery-ui.js&quot;,
+            &quot;javascript/prettify.js&quot;,
+            &quot;javascript/prettify/run_prettify.js&quot;
+        ],
+        &quot;javascript/common.min.js&quot;: [
+            &quot;javascript/components/extended-format-date.js&quot;,
+            &quot;javascript/common.js&quot;
+        ]
+    },
+    &quot;stylesheets&quot;: {
+        &quot;stylesheets/common.min.css&quot;: [
+            &quot;stylesheets/common.css&quot;,
+            &quot;stylesheets/common-min780.css&quot;,
+            &quot;stylesheets/common-min1160.css&quot;
+        ]
+    }
+}</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p>
+<h4>Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>&quot;stylesheetsBundlesEnable&quot;: &quot;false&quot;</code> et `&quot;javascriptBundlesEnable&quot;: &quot;false&quot;`` for each type of Bundle.</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;stylesheetsBundlesEnable&quot;: &quot;false&quot;,
+    &quot;javascriptBundlesEnable&quot;: &quot;false&quot;,
+    &quot;bundles&quot;: {
+        &quot;javascript&quot;: {
             &quot;javascript/boot.min.js&quot;: [
                 &quot;javascript/modernizr.js&quot;,
                 &quot;javascript/yepnot.js&quot;,
@@ -1798,52 +1828,13 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
                 &quot;javascript/components/extended-format-date.js&quot;,
                 &quot;javascript/common.js&quot;
             ]
-        }
-    },
-    &quot;stylesheets&quot;: {
-        &quot;files&quot;: {
+        },
+        &quot;stylesheets&quot;: {
             &quot;stylesheets/common.min.css&quot;: [
                 &quot;stylesheets/common.css&quot;,
                 &quot;stylesheets/common-min780.css&quot;,
                 &quot;stylesheets/common-min1160.css&quot;
             ]
-        }
-    }
-}</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p>
-<h4>Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>&quot;stylesheetsBundlesEnable&quot;: &quot;false&quot;</code> et `&quot;javascriptBundlesEnable&quot;: &quot;false&quot;`` for each type of Bundle.</p>
-<pre class="prettyprint source lang-js"><code>{
-    &quot;stylesheetsBundlesEnable&quot;: &quot;false&quot;,
-    &quot;javascriptBundlesEnable&quot;: &quot;false&quot;,
-    &quot;bundles&quot;: {
-        &quot;javascript&quot;: {
-            &quot;enable&quot;: false,
-            &quot;files&quot;: {
-                &quot;javascript/boot.min.js&quot;: [
-                    &quot;javascript/modernizr.js&quot;,
-                    &quot;javascript/yepnot.js&quot;,
-                    &quot;javascript/html5Shiv.js&quot;
-                ],
-                &quot;javascript/framework.min.js&quot;: [
-                    &quot;javascript/jquery.js&quot;,
-                    &quot;javascript/jquery-ui.js&quot;,
-                    &quot;javascript/prettify.js&quot;,
-                    &quot;javascript/prettify/run_prettify.js&quot;
-                ],
-                &quot;javascript/common.min.js&quot;: [
-                    &quot;javascript/components/extended-format-date.js&quot;,
-                    &quot;javascript/common.js&quot;
-                ]
-            }
-        },
-        &quot;stylesheets&quot;: {
-            &quot;enable&quot;: false,
-            &quot;files&quot;: {
-                &quot;stylesheets/common.min.css&quot;: [
-                    &quot;stylesheets/common.css&quot;,
-                    &quot;stylesheets/common-min780.css&quot;,
-                    &quot;stylesheets/common-min1160.css&quot;
-                ]
-            }
         }
     },
     &quot;routes&quot;: {
@@ -1858,32 +1849,28 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
     &quot;javascriptBundlesBeforeResponse&quot;: &quot;false&quot;,
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
-            &quot;files&quot;: {
-                &quot;javascript/boot.min.js&quot;: [
-                    &quot;javascript/modernizr.js&quot;,
-                    &quot;javascript/yepnot.js&quot;,
-                    &quot;javascript/html5Shiv.js&quot;
-                ],
-                &quot;javascript/framework.min.js&quot;: [
-                    &quot;javascript/jquery.js&quot;,
-                    &quot;javascript/jquery-ui.js&quot;,
-                    &quot;javascript/prettify.js&quot;,
-                    &quot;javascript/prettify/run_prettify.js&quot;
-                ],
-                &quot;javascript/common.min.js&quot;: [
-                    &quot;javascript/components/extended-format-date.js&quot;,
-                    &quot;javascript/common.js&quot;
-                ]
-            }
+            &quot;javascript/boot.min.js&quot;: [
+                &quot;javascript/modernizr.js&quot;,
+                &quot;javascript/yepnot.js&quot;,
+                &quot;javascript/html5Shiv.js&quot;
+            ],
+            &quot;javascript/framework.min.js&quot;: [
+                &quot;javascript/jquery.js&quot;,
+                &quot;javascript/jquery-ui.js&quot;,
+                &quot;javascript/prettify.js&quot;,
+                &quot;javascript/prettify/run_prettify.js&quot;
+            ],
+            &quot;javascript/common.min.js&quot;: [
+                &quot;javascript/components/extended-format-date.js&quot;,
+                &quot;javascript/common.js&quot;
+            ]
         },
         &quot;stylesheets&quot;: {
-            &quot;files&quot;: {
-                &quot;stylesheets/common.min.css&quot;: [
-                    &quot;stylesheets/common.css&quot;,
-                    &quot;stylesheets/common-min780.css&quot;,
-                    &quot;stylesheets/common-min1160.css&quot;
-                ]
-            }
+            &quot;stylesheets/common.min.css&quot;: [
+                &quot;stylesheets/common.css&quot;,
+                &quot;stylesheets/common-min780.css&quot;,
+                &quot;stylesheets/common-min1160.css&quot;
+            ]
         }
     },
     &quot;routes&quot;: {
@@ -1941,12 +1928,161 @@ You can also generate CSS files already minify with:</code></pre><pre class="pre
     &quot;/&quot;: &quot;index.htm&quot;
 }</code></pre><pre class="prettyprint source"><code>
 
-### Allow/Disallow GET/POST requests ###
 
-You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).
+### Optimize Images files ###
+
+You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course you can do as much as you want. The optimization files is execute every time you start NodeAtlas either as a server or via the `--generate` command if an Optimization exists in the Webconfig.
+
+#### Creating Optimizations ####
+
+With the following configuration:
 
 ```js
 {
+    &quot;optimizations&quot;: {
+        &quot;images&quot;: {
+            &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
+            &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
+            &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>and the following set of file:</p>
+<pre class="prettyprint source"><code>assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+webconfig.json</code></pre><p>you will get the following new files:</p>
+<pre class="prettyprint source"><code>assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+——— example.min.png    &lt;= new file
+——— example.min.jpg    &lt;= new file
+——— example.min.gif    &lt;= new file
+templates/
+— index.htm
+webconfig.json</code></pre><h4>Optimizations in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p>
+<p>For example:</p>
+<p>The following set of file</p>
+<pre class="prettyprint source"><code>assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;optimizations&quot;: {
+        &quot;images&quot;: {
+            &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
+            &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
+            &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>and with <code>webconfig.prod.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;optimizations&quot;: {
+        &quot;images&quot;: {
+            &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
+            &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
+            &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>could be the following set of file</p>
+<pre class="prettyprint source"><code>assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+bundles.json
+webconfig.json
+webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7777,
+    &quot;optimizations&quot;: &quot;optimizations.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>with <code>webconfig.prod.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;optimizations&quot;: &quot;optimizations.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>and <code>optimizations.json</code></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
+    &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
+    &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+}</code></pre><p><em>Note : it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p>
+<h4>Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>&quot;imagesOptimizationsEnable&quot;: &quot;false&quot;</code>.</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;imagesOptimizationsEnable&quot;: &quot;false&quot;,
+    &quot;images&quot;: {
+        &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
+        &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
+        &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p><em>Note : if your optimizations is in shared file, you could desactivated it also without the <code>&quot;optimizations&quot;: &quot;optimizations.json&quot;</code>. Just remove it.</em></p>
+<h4>Re-generate Optimizations before each Page Response</h4><p>You can ask files to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: &quot;false&quot;</code> et `&quot;javascriptBundlesBeforeResponse&quot;: &quot;false&quot;`` for each type of Bundle.</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;imagesOptimizationsBeforeResponse&quot;: &quot;false&quot;,
+    &quot;images&quot;: {
+        &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
+        &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
+        &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p>
+<h3>Allow/Disallow GET/POST requests</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p>
+<pre class="prettyprint source lang-js"><code>{
     &quot;getSupport&quot;: true,
     &quot;postSupport&quot;: false,
     &quot;routes&quot;: {
@@ -2359,7 +2495,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-01-10T15:53:22+01:00 using the <a
+		on 2015-01-12T14:31:59+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
