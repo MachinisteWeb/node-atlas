@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.34.18 (Beta)
+Version : 0.35.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -61,6 +61,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
  - [Générer les CSS avec Less](#g%C3%A9n%C3%A9rer-les-css-avec-less)
+ - [Optimiser les Images](#optimiser-les-images)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
@@ -114,9 +115,9 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Créer une commande `nodeatlas` en installation globale.
  - Support Less.
  - Support HTTPs (WSs aussi).
+ - Compression des images.
 
 - À venir
- - Compression des images.
  - Injection automatique de feuille CSS en style inline (pour les maquettes email).
  - Auto-déploiement via transfert (S)FTP.
  - ...
@@ -892,7 +893,7 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
 
 ```js
 {
-    "autoGenerate": true,
+    "htmlGenerateBeforeResponse": "true",
     "generatesRelativePath": "generates/",
     "routes": {
         "/": {
@@ -950,7 +951,7 @@ en se rendant aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-La génération s'enclenche quand on affiche la page uniquement parce que ***autoGenerate*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
+La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerateBeforeResponse*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
 
 De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `generatesRelativePath` si les deux dossier n'ont pas un chemin identique. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
 
@@ -965,7 +966,7 @@ Il est également possible de manager la création d'un site en simple page HTML
 {
     "languageCode": "fr-fr",
     "indexPage": true,
-    "autoGenerate": true,
+    "htmlGenerateBeforeResponse": "true",
     "generatesRelativePath": "../HTML/",
     "assetsRelativePath": "../HTML/",
     "routes": {
@@ -2053,7 +2054,7 @@ Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et
 
 ### Minifier les CSS/JS ###
 
-Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut qu'un Bundle existe dans le Webconfig.
+Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La gérération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut qu'un Bundle existe dans le Webconfig.
 
 #### Créer des Bundles ####
 
@@ -2063,32 +2064,28 @@ Avec la configuration suivante :
 {
     "bundles": {
         "javascript": {
-            "files": {
-                "javascript/boot.min.js": [
-                    "javascript/modernizr.js",
-                    "javascript/yepnot.js",
-                    "javascript/html5Shiv.js"
-                ],
-                "javascript/framework.min.js": [
-                    "javascript/jquery.js",
-                    "javascript/jquery-ui.js",
-                    "javascript/prettify.js",
-                    "javascript/prettify/run_prettify.js"
-                ],
-                "javascript/common.min.js": [
-                    "javascript/components/extended-format-date.js",
-                    "javascript/common.js"
-                ]
-            }
+            "javascript/boot.min.js": [
+                "javascript/modernizr.js",
+                "javascript/yepnot.js",
+                "javascript/html5Shiv.js"
+            ],
+            "javascript/framework.min.js": [
+                "javascript/jquery.js",
+                "javascript/jquery-ui.js",
+                "javascript/prettify.js",
+                "javascript/prettify/run_prettify.js"
+            ],
+            "javascript/common.min.js": [
+                "javascript/components/extended-format-date.js",
+                "javascript/common.js"
+            ]
         },
         "stylesheets": {
-            "files": {
-                "stylesheets/common.min.css": [
-                    "stylesheets/common.css",
-                    "stylesheets/common-min780.css",
-                    "stylesheets/common-min1160.css"
-                ]
-            }
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
         }
     },
     "routes": {
@@ -2103,20 +2100,20 @@ et l'ensemble de fichier suivant :
 
 ```
 assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 webconfig.json
@@ -2126,12 +2123,24 @@ vous obtiendrez les nouveaux fichiers suivant :
 
 ```
 assets/
-— stylesheets
-—— stylesheets/common.min.css
-— javascript
-—— javascript/boot.min.js
-—— javascript/framework.min.js
-—— javascript/common.min.js
+— stylesheets/
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+—— common.min.css     <= nouveau fichier
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
+—— boot.min.js        <= nouveau fichier
+—— framework.min.js   <= nouveau fichier
+—— common.min.js      <= nouveau fichier
 templates/
 — index.htm
 webconfig.json
@@ -2139,7 +2148,7 @@ webconfig.json
 
 #### Bundles dans un fichier partagé ####
 
-Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`. 
+Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`. 
 
 Par exemple :
 
@@ -2147,20 +2156,20 @@ L'ensemble de fichier suivant
 
 ```
 assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 webconfig.json
@@ -2174,32 +2183,28 @@ avec `webconfig.json`
     "httpPort": 7777,
     "bundles": {
         "javascript": {
-            "files": {
-                "javascript/boot.min.js": [
-                    "javascript/modernizr.js",
-                    "javascript/yepnot.js",
-                    "javascript/html5Shiv.js"
-                ],
-                "javascript/framework.min.js": [
-                    "javascript/jquery.js",
-                    "javascript/jquery-ui.js",
-                    "javascript/prettify.js",
-                    "javascript/prettify/run_prettify.js"
-                ],
-                "javascript/common.min.js": [
-                    "javascript/components/extended-format-date.js",
-                    "javascript/common.js"
-                ]
-            }
+            "javascript/boot.min.js": [
+                "javascript/modernizr.js",
+                "javascript/yepnot.js",
+                "javascript/html5Shiv.js"
+            ],
+            "javascript/framework.min.js": [
+                "javascript/jquery.js",
+                "javascript/jquery-ui.js",
+                "javascript/prettify.js",
+                "javascript/prettify/run_prettify.js"
+            ],
+            "javascript/common.min.js": [
+                "javascript/components/extended-format-date.js",
+                "javascript/common.js"
+            ]
         },
         "stylesheets": {
-            "files": {
-                "stylesheets/common.min.css": [
-                    "stylesheets/common.css",
-                    "stylesheets/common-min780.css",
-                    "stylesheets/common-min1160.css"
-                ]
-            }
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
         }
     },
     "routes": {
@@ -2219,32 +2224,28 @@ et avec `webconfig.prod.json`
     "urlPort": 80,
     "bundles": {
         "javascript": {
-            "files": {
-                "javascript/boot.min.js": [
-                    "javascript/modernizr.js",
-                    "javascript/yepnot.js",
-                    "javascript/html5Shiv.js"
-                ],
-                "javascript/framework.min.js": [
-                    "javascript/jquery.js",
-                    "javascript/jquery-ui.js",
-                    "javascript/prettify.js",
-                    "javascript/prettify/run_prettify.js"
-                ],
-                "javascript/common.min.js": [
-                    "javascript/components/extended-format-date.js",
-                    "javascript/common.js"
-                ]
-            }
+            "javascript/boot.min.js": [
+                "javascript/modernizr.js",
+                "javascript/yepnot.js",
+                "javascript/html5Shiv.js"
+            ],
+            "javascript/framework.min.js": [
+                "javascript/jquery.js",
+                "javascript/jquery-ui.js",
+                "javascript/prettify.js",
+                "javascript/prettify/run_prettify.js"
+            ],
+            "javascript/common.min.js": [
+                "javascript/components/extended-format-date.js",
+                "javascript/common.js"
+            ]
         },
         "stylesheets": {
-            "files": {
-                "stylesheets/common.min.css": [
-                    "stylesheets/common.css",
-                    "stylesheets/common-min780.css",
-                    "stylesheets/common-min1160.css"
-                ]
-            }
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
         }
     },
     "routes": {
@@ -2259,20 +2260,20 @@ pourrait devenir l'ensemble de fichier suivant
 
 ```
 assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 bundles.json
@@ -2315,32 +2316,28 @@ et `bundles.json`
 ```json
 {
     "javascript": {
-        "files": {
-            "javascript/boot.min.js": [
-                "javascript/modernizr.js",
-                "javascript/yepnot.js",
-                "javascript/html5Shiv.js"
-            ],
-            "javascript/framework.min.js": [
-                "javascript/jquery.js",
-                "javascript/jquery-ui.js",
-                "javascript/prettify.js",
-                "javascript/prettify/run_prettify.js"
-            ],
-            "javascript/common.min.js": [
-                "javascript/components/extended-format-date.js",
-                "javascript/common.js"
-            ]
-        }
+        "javascript/boot.min.js": [
+            "javascript/modernizr.js",
+            "javascript/yepnot.js",
+            "javascript/html5Shiv.js"
+        ],
+        "javascript/framework.min.js": [
+            "javascript/jquery.js",
+            "javascript/jquery-ui.js",
+            "javascript/prettify.js",
+            "javascript/prettify/run_prettify.js"
+        ],
+        "javascript/common.min.js": [
+            "javascript/components/extended-format-date.js",
+            "javascript/common.js"
+        ]
     },
     "stylesheets": {
-        "files": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
+        "stylesheets/common.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/common-min780.css",
+            "stylesheets/common-min1160.css"
+        ]
     }
 }
 ```
@@ -2357,32 +2354,28 @@ Il est également possible de ne pas executer la minification au démarage d'un 
     "javascriptBundlesEnable": "false",
     "bundles": {
         "javascript": {
-            "files": {
-                "javascript/boot.min.js": [
-                    "javascript/modernizr.js",
-                    "javascript/yepnot.js",
-                    "javascript/html5Shiv.js"
-                ],
-                "javascript/framework.min.js": [
-                    "javascript/jquery.js",
-                    "javascript/jquery-ui.js",
-                    "javascript/prettify.js",
-                    "javascript/prettify/run_prettify.js"
-                ],
-                "javascript/common.min.js": [
-                    "javascript/components/extended-format-date.js",
-                    "javascript/common.js"
-                ]
-            }
+            "javascript/boot.min.js": [
+                "javascript/modernizr.js",
+                "javascript/yepnot.js",
+                "javascript/html5Shiv.js"
+            ],
+            "javascript/framework.min.js": [
+                "javascript/jquery.js",
+                "javascript/jquery-ui.js",
+                "javascript/prettify.js",
+                "javascript/prettify/run_prettify.js"
+            ],
+            "javascript/common.min.js": [
+                "javascript/components/extended-format-date.js",
+                "javascript/common.js"
+            ]
         },
         "stylesheets": {
-            "files": {
-                "stylesheets/common.min.css": [
-                    "stylesheets/common.css",
-                    "stylesheets/common-min780.css",
-                    "stylesheets/common-min1160.css"
-                ]
-            }
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
         }
     },
     "routes": {
@@ -2397,7 +2390,7 @@ Il est également possible de ne pas executer la minification au démarage d'un 
 
 #### Ré-générer les Bundles avant chaque rendu de page ####
 
-De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'il soit régénéré avant chaque affichage de page avec les propriétés `"stylesheetsBundlesBeforeResponse": "true"` et `"javascriptBundlesBeforeResponse": "true"` pour chaque type de Bundle.
+De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés `"stylesheetsBundlesBeforeResponse": "true"` et `"javascriptBundlesBeforeResponse": "true"` pour chaque type de Bundle.
 
 ```js
 {
@@ -2405,32 +2398,28 @@ De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez
     "javascriptBundlesBeforeResponse": "false",
     "bundles": {
         "javascript": {
-            "files": {
-                "javascript/boot.min.js": [
-                    "javascript/modernizr.js",
-                    "javascript/yepnot.js",
-                    "javascript/html5Shiv.js"
-                ],
-                "javascript/framework.min.js": [
-                    "javascript/jquery.js",
-                    "javascript/jquery-ui.js",
-                    "javascript/prettify.js",
-                    "javascript/prettify/run_prettify.js"
-                ],
-                "javascript/common.min.js": [
-                    "javascript/components/extended-format-date.js",
-                    "javascript/common.js"
-                ]
-            }
+            "javascript/boot.min.js": [
+                "javascript/modernizr.js",
+                "javascript/yepnot.js",
+                "javascript/html5Shiv.js"
+            ],
+            "javascript/framework.min.js": [
+                "javascript/jquery.js",
+                "javascript/jquery-ui.js",
+                "javascript/prettify.js",
+                "javascript/prettify/run_prettify.js"
+            ],
+            "javascript/common.min.js": [
+                "javascript/components/extended-format-date.js",
+                "javascript/common.js"
+            ]
         },
         "stylesheets": {
-            "files": {
-                "stylesheets/common.min.css": [
-                    "stylesheets/common.css",
-                    "stylesheets/common-min780.css",
-                    "stylesheets/common-min1160.css"
-                ]
-            }
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
         }
     },
     "routes": {
@@ -2524,6 +2513,231 @@ Vous pouvez également générer des fichiers CSS déjà minifiés avec :
         "/": "index.htm"
     }
 ```
+
+
+
+### Optimiser les Images ###
+
+Vous pouvez automatiquement optimiser les images que vous aller utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut que des Optimizations existe dans le Webconfig.
+
+#### Créer des Optimizations ####
+
+Avec la configuration suivante :
+
+```js
+{
+    "optimizations": {
+        "images": {
+            "media/images/example.min.png": "media/images/example.png",
+            "media/images/example.min.jpg": "media/images/example.jpg",
+            "media/images/example.min.gif": "media/images/example.gif"
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+et l'ensemble de fichier suivant :
+
+```
+assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+webconfig.json
+```
+
+vous obtiendrez les nouveaux fichiers suivant :
+
+```
+assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+——— example.min.png    <= nouveau fichier
+——— example.min.jpg    <= nouveau fichier
+——— example.min.gif    <= nouveau fichier
+templates/
+— index.htm
+webconfig.json
+```
+
+#### Optimizations dans un fichier partagé ####
+
+Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`. 
+
+Par exemple :
+
+L'ensemble de fichier suivant
+
+```
+assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+```
+
+avec `webconfig.json`
+
+```json
+{
+    "httpPort": 7777,
+    "optimizations": {
+        "images": {
+            "media/images/example.min.png": "media/images/example.png",
+            "media/images/example.min.jpg": "media/images/example.jpg",
+            "media/images/example.min.gif": "media/images/example.gif"
+        }
+    }
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+et avec `webconfig.prod.json`
+
+```json
+{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "optimizations": {
+        "images": {
+            "media/images/example.min.png": "media/images/example.png",
+            "media/images/example.min.jpg": "media/images/example.jpg",
+            "media/images/example.min.gif": "media/images/example.gif"
+        }
+    }
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+pourrait devenir l'ensemble de fichier suivant 
+
+```
+assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+optimizations.json
+webconfig.json
+webconfig.prod.json
+```
+
+avec `webconfig.json`
+
+```json
+{
+    "httpPort": 7777,
+    "optimizations": "optimizations.json",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+avec `webconfig.prod.json`
+
+```json
+{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "optimizations": "optimizations.json",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+et `optimizations.json`
+
+```json
+{
+    "images": {
+        "media/images/example.min.png": "media/images/example.png",
+        "media/images/example.min.jpg": "media/images/example.jpg",
+        "media/images/example.min.gif": "media/images/example.gif"
+    }
+}
+```
+
+*Note : il est possible de désactiver les Optimizations en ne les incluant pas dans le `webconfig` en question.*
+
+#### Désactiver des Optimizations ####
+
+Il est également possible de ne pas executer l'optimisation au démarage d'un site web avec NodeAtlas avec les propriétés `"imagesOptimizationsEnable": "false"`.
+
+```js
+{
+    "imagesOptimizationsEnable": "false",
+    "images": {
+        "media/images/example.min.png": "media/images/example.png",
+        "media/images/example.min.jpg": "media/images/example.jpg",
+        "media/images/example.min.gif": "media/images/example.gif"
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+*Note : si vos optimizations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne `"optimizations": "optimizations.json"`.*
+
+#### Ré-générer les Optimizations avant chaque rendu de page ####
+
+Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés `"imagesOptimizationsBeforeResponse": "true"`.
+
+```js
+{
+    "imagesOptimizationsBeforeResponse": "false",
+    "images": {
+        "media/images/example.min.png": "media/images/example.png",
+        "media/images/example.min.jpg": "media/images/example.jpg",
+        "media/images/example.min.gif": "media/images/example.gif"
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+*Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.*
 
 
 

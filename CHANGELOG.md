@@ -1,3 +1,20 @@
+## 0.35.0 ##
+
+Features:
+
+- Optimization of images.
+- `autoGenerate` become `htmlGenerateBeforeResponse`
+
+Bugfixes:
+
+- Conflict with "true" and true in the webconfig for javascriptBundlesEnable, stylesheetsBundlesEnable, javascriptBundlesBeforeResponse, stylesheetsBundlesBeforeResponse and autoGenerate.
+
+Documentation:
+
+- Explain how to activate Optimizations.
+
+
+
 ## 0.34.18 ##
 
 Bugfixes:
