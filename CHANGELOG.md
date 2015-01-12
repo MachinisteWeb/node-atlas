@@ -1,3 +1,16 @@
+## 0.36.0 ##
+
+Features:
+
+- Allow you to desactivate HTML generation even if a `generatesRelativePath` directory exist.
+- `indexPage` property become `enableIndex`.
+
+Documentation:
+
+- Add precision for htmlGenerateEnable feature.
+
+
+
 ## 0.35.2 ##
 
 Bugfixes:

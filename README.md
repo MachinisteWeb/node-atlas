@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.35.2 (Beta)
+Version : 0.36.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -955,6 +955,8 @@ La génération s'enclenche quand on affiche la page uniquement parce que ***htm
 
 De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `generatesRelativePath` si les deux dossier n'ont pas un chemin identique, et que `generatesRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
 
+Vous pouvez également désactiver la génération, même si un dossier `generatesRelativePath` existe dans les dossiers, avec `htmlGenerateEnable` à `false`.
+
 *Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generates/***. ***generatesRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
 
 
@@ -965,7 +967,7 @@ Il est également possible de manager la création d'un site en simple page HTML
 ```js
 {
     "languageCode": "fr-fr",
-    "indexPage": true,
+    "enableIndex": true,
     "htmlGenerateBeforeResponse": "true",
     "generatesRelativePath": "../HTML/",
     "assetsRelativePath": "../HTML/",
@@ -1002,7 +1004,7 @@ engine/
 — webconfig.json
 ```
 
-À l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **indexPage** à **true**).
+À l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **enableIndex** à **true**).
 
 Il ne restera plus qu'à, une fois votre travail terminé, admirer votre site HTML dans le dossier :
 

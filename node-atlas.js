@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.35.2
+ * @version 0.36.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -2182,11 +2182,7 @@ var NA = {};
              * @param {Object} currentVariation - Variations for the current page.
              */
             function renderTemplate(data, currentVariation) {
-                var async = NA.modules.async;
-
-                /* Create the file for asset mode */
-                if (
-                    typeof response === 'undefined' || 
+                var async = NA.modules.async,
 
                     /**
                      * Allow NodeAtlas to generate real file into `NA.webconfig.generatesRelativePath` directory if set to true.
@@ -2196,8 +2192,11 @@ var NA = {};
                      * @memberOf node-atlas~NA.webconfig
                      * @default false.
                      */
-                    NA.webconfig.htmlGenerateBeforeResponse
-                ) {
+                    htmlGenerateBeforeResponse = NA.webconfig.htmlGenerateBeforeResponse,
+                    htmlGenerateEnable = (typeof NA.webconfig.htmlGenerateEnable === 'boolean') ? NA.webconfig.htmlGenerateEnable : true;
+
+                /* Create the file for asset mode */
+                if (typeof response === 'undefined' || (htmlGenerateBeforeResponse && htmlGenerateEnable)) {
 
                     /**
                      * Output name of file generate if `NA.webconfig.htmlGenerateBeforeResponse` is set to true.
@@ -2544,7 +2543,22 @@ var NA = {};
             data = {},
             sourcePath = path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath),
             destinationPath = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath),
-            traverse;
+            traverse,
+            htmlGenerateEnable = true;
+
+        /* Avoid copy of `assetsRelativePath` into `generatesRelativePath` even if generatesRelativePath directory exist. */
+        if (typeof NA.webconfig.htmlGenerateEnable === 'boolean') {
+
+            /**
+             * Disable HTML generate mechanism.
+             * @public
+             * @alias htmlGenerateEnable
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default false.
+             */
+            htmlGenerateEnable = NA.webconfig.htmlGenerateEnable;
+        }
 
         /* `generate` manually setted value with `NA.config`. */
         if (commander.generate) { NA.configuration.generate = commander.generate; }
@@ -2553,16 +2567,18 @@ var NA = {};
         if (NA.configuration.generate) {
 
             /* Generate all HTML files. */
-            fs.exists(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath, function (exists) {
-                if (exists) {
-                    for (var currentUrl in NA.webconfig.routes) {
-                        NA.render(currentUrl, NA.webconfig.routes);
+            if (htmlGenerateEnable) {
+                fs.exists(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath, function (exists) {
+                    if (exists) {
+                        for (var currentUrl in NA.webconfig.routes) {
+                            NA.render(currentUrl, NA.webconfig.routes);
+                        }
+                    } else {
+                        data.templatePath = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath);
+                        console.log(NA.appLabels.templateDirectoryNotExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     }
-                } else {
-                    data.templatePath = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath);
-                    console.log(NA.appLabels.templateDirectoryNotExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-                }
-            });
+                });
+            }
 
             /* Generate all minified CSS, JS and Images files. */
             async.parallel([
@@ -2572,7 +2588,7 @@ var NA = {};
             ], function () {
 
                 /* Copy all content of `assetsRelativePath` into `generatesRelativePath` */
-                if (sourcePath !== destinationPath && fs.existsSync(destinationPath)) {
+                if (sourcePath !== destinationPath && htmlGenerateEnable && fs.existsSync(destinationPath)) {
                     traverse = new traverseDirectory(
                       sourcePath,
                       destinationPath
@@ -2609,18 +2625,18 @@ var NA = {};
 
         /* Only if server was started... */
         if (!NA.configuration.generate) {
-            /* ...and `indexPage` is set to « true ». */
+            /* ...and `enableIndex` is set to « true ». */
             if (
 
                 /**
                  * Allow NodeAtlas to create a root page with link to all routes for development if set to true.
                  * @public
-                 * @alias indexPage
+                 * @alias enableIndex
                  * @type {boolean}
                  * @memberOf node-atlas~NA.webconfig
                  * @default false.
                  */
-                NA.webconfig.indexPage
+                NA.webconfig.enableIndex
             ) {
 
                 /* Create a new path to « / ». Erase the route to « / » defined into `routes`. */
