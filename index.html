@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.34.18 (Beta)</p>
+<p>Version : 0.35.0 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -112,6 +112,7 @@
 <li><a href="#faire-tourner-le-site-en-https">Faire tourner le site en HTTPs</a></li>
 <li><a href="#minifier-les-cssjs">Minifier les CSS/JS</a></li>
 <li><a href="#g%C3%A9n%C3%A9rer-les-css-avec-less">Générer les CSS avec Less</a></li>
+<li><a href="#optimiser-les-images">Optimiser les Images</a></li>
 <li><a href="#autoriserinterdire-les-demandes-getpost">Autoriser/Interdire les demandes GET/POST</a></li>
 <li><a href="#changer-les-param%C3%A8tres-des-sessions">Changer les paramètres des Sessions</a></li>
 <li><a href="#stockage-externe-des-sessions">Stockage externe des Sessions</a></li>
@@ -181,13 +182,13 @@
 <li>Créer une commande <code>nodeatlas</code> en installation globale.</li>
 <li>Support Less.</li>
 <li>Support HTTPs (WSs aussi).</li>
+<li>Compression des images.</li>
 </ul>
 </li>
 <li>
 <p>À venir</p>
 
 <ul>
-<li>Compression des images.</li>
 <li>Injection automatique de feuille CSS en style inline (pour les maquettes email).</li>
 <li>Auto-déploiement via transfert (S)FTP.</li>
 <li>...</li>
@@ -909,7 +910,7 @@ webconfig.fr-fr.json
 <p>Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.</p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s1"><span class="pl-pds">"</span>autoGenerate<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>htmlGenerateBeforeResponse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>generatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>generates/<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -966,7 +967,7 @@ webconfig.json
 <li><em>http://localhost/liste-des-membres/</em></li>
 </ul>
 
-<p>La génération s'enclenche quand on affiche la page uniquement parce que <strong><em>autoGenerate</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.</p>
+<p>La génération s'enclenche quand on affiche la page uniquement parce que <strong><em>htmlGenerateBeforeResponse</em></strong> existe et est à <strong><em>true</em></strong>. S'il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.</p>
 
 <p>De plus avec <code>--generate</code>, l'intégralité du dossier <code>assetsRelativePath</code> (dossier des fichiers publiques) sera copié dans le dossier <code>generatesRelativePath</code> si les deux dossier n'ont pas un chemin identique. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).</p>
 
@@ -980,7 +981,7 @@ webconfig.json
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>indexPage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
-    <span class="pl-s1"><span class="pl-pds">"</span>autoGenerate<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>htmlGenerateBeforeResponse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>generatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>../HTML/<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>assetsRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>../HTML/<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -2033,7 +2034,7 @@ webconfig.prod.json
 <h3>
 <a id="minifier-les-cssjs" class="anchor" href="#minifier-les-cssjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Minifier les CSS/JS</h3>
 
-<p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La gérération des fichiers ce fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut qu'un Bundle existe dans le Webconfig.</p>
+<p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La gérération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut qu'un Bundle existe dans le Webconfig.</p>
 
 <h4>
 <a id="créer-des-bundles" class="anchor" href="#cr%C3%A9er-des-bundles" aria-hidden="true"><span class="octicon octicon-link"></span></a>Créer des Bundles</h4>
@@ -2043,32 +2044,28 @@ webconfig.prod.json
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>bundles<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">"</span>javascript<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
+            ]
         },
         <span class="pl-s1"><span class="pl-pds">"</span>stylesheets<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
+            ]
         }
     },
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -2081,20 +2078,20 @@ webconfig.prod.json
 <p>et l'ensemble de fichier suivant :</p>
 
 <pre><code>assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 webconfig.json
@@ -2103,12 +2100,24 @@ webconfig.json
 <p>vous obtiendrez les nouveaux fichiers suivant :</p>
 
 <pre><code>assets/
-— stylesheets
-—— stylesheets/common.min.css
-— javascript
-—— javascript/boot.min.js
-—— javascript/framework.min.js
-—— javascript/common.min.js
+— stylesheets/
+—— common.css
+—— common-min780.css
+—— common-min1160.css
+—— common.min.css     &lt;= nouveau fichier
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
+—— boot.min.js        &lt;= nouveau fichier
+—— framework.min.js   &lt;= nouveau fichier
+—— common.min.js      &lt;= nouveau fichier
 templates/
 — index.htm
 webconfig.json
@@ -2117,27 +2126,27 @@ webconfig.json
 <h4>
 <a id="bundles-dans-un-fichier-partagé" class="anchor" href="#bundles-dans-un-fichier-partag%C3%A9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bundles dans un fichier partagé</h4>
 
-<p>Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>. </p>
+<p>Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>. </p>
 
 <p>Par exemple :</p>
 
 <p>L'ensemble de fichier suivant</p>
 
 <pre><code>assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 webconfig.json
@@ -2150,32 +2159,28 @@ webconfig.prod.json
     <span class="pl-s1"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span>: <span class="pl-c1">7777</span>,
     <span class="pl-s1"><span class="pl-pds">"</span>bundles<span class="pl-pds">"</span></span>: {
         <span class="pl-s1"><span class="pl-pds">"</span>javascript<span class="pl-pds">"</span></span>: {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span>: {
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span>: [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span>: [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span>: [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span>: [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span>: [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span>: [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
+            ]
         },
         <span class="pl-s1"><span class="pl-pds">"</span>stylesheets<span class="pl-pds">"</span></span>: {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span>: {
-                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span>: [
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span>: [
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
+            ]
         }
     },
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
@@ -2193,32 +2198,28 @@ webconfig.prod.json
     <span class="pl-s1"><span class="pl-pds">"</span>urlPort<span class="pl-pds">"</span></span>: <span class="pl-c1">80</span>,
     <span class="pl-s1"><span class="pl-pds">"</span>bundles<span class="pl-pds">"</span></span>: {
         <span class="pl-s1"><span class="pl-pds">"</span>javascript<span class="pl-pds">"</span></span>: {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span>: {
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span>: [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span>: [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span>: [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span>: [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span>: [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span>: [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
+            ]
         },
         <span class="pl-s1"><span class="pl-pds">"</span>stylesheets<span class="pl-pds">"</span></span>: {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span>: {
-                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span>: [
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span>: [
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
+            ]
         }
     },
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
@@ -2231,20 +2232,20 @@ webconfig.prod.json
 <p>pourrait devenir l'ensemble de fichier suivant </p>
 
 <pre><code>assets/
-— stylesheets
+— stylesheets/
 —— common.css
 —— common-min780.css
 —— common-min1160.css
-— javascript
-—— javascript/modernizr.js
-—— javascript/yepnot.js
-—— javascript/html5Shiv.js
-—— javascript/jquery.js
-—— javascript/jquery-ui.js
-—— javascript/prettify.js
-—— javascript/prettify/run_prettify.js
-—— javascript/components/extended-format-date.js
-—— javascript/common.js
+— javascript/
+—— modernizr.js
+—— yepnot.js
+—— html5Shiv.js
+—— jquery.js
+—— jquery-ui.js
+—— prettify.js
+—— prettify/run_prettify.js
+—— components/extended-format-date.js
+—— common.js
 templates/
 — index.htm
 bundles.json
@@ -2282,32 +2283,28 @@ webconfig.prod.json
 
 <div class="highlight highlight-json"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>javascript<span class="pl-pds">"</span></span>: {
-        <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span>: {
-            <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span>: [
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
-            ],
-            <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span>: [
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
-            ],
-            <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span>: [
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
-            ]
-        }
+        <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span>: [
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
+        ],
+        <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span>: [
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
+        ],
+        <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span>: [
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
+        ]
     },
     <span class="pl-s1"><span class="pl-pds">"</span>stylesheets<span class="pl-pds">"</span></span>: {
-        <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span>: {
-            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span>: [
-                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
-                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
-                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
-            ]
-        }
+        <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span>: [
+            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
+        ]
     }
 }</pre></div>
 
@@ -2323,32 +2320,28 @@ webconfig.prod.json
     <span class="pl-s1"><span class="pl-pds">"</span>javascriptBundlesEnable<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>bundles<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">"</span>javascript<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
+            ]
         },
         <span class="pl-s1"><span class="pl-pds">"</span>stylesheets<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
+            ]
         }
     },
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -2363,39 +2356,35 @@ webconfig.prod.json
 <h4>
 <a id="ré-générer-les-bundles-avant-chaque-rendu-de-page" class="anchor" href="#r%C3%A9-g%C3%A9n%C3%A9rer-les-bundles-avant-chaque-rendu-de-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ré-générer les Bundles avant chaque rendu de page</h4>
 
-<p>De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'il soit régénéré avant chaque affichage de page avec les propriétés <code>"stylesheetsBundlesBeforeResponse": "true"</code> et <code>"javascriptBundlesBeforeResponse": "true"</code> pour chaque type de Bundle.</p>
+<p>De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés <code>"stylesheetsBundlesBeforeResponse": "true"</code> et <code>"javascriptBundlesBeforeResponse": "true"</code> pour chaque type de Bundle.</p>
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>stylesheetsBundlesBeforeResponse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>javascriptBundlesBeforeResponse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>bundles<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s1"><span class="pl-pds">"</span>javascript<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
-                ],
-                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/boot.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/modernizr.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/yepnot.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/html5Shiv.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/framework.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/jquery-ui.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/prettify/run_prettify.js<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/components/extended-format-date.js<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>
+            ]
         },
         <span class="pl-s1"><span class="pl-pds">"</span>stylesheets<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s1"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
-                    <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
-                ]
-            }
+            <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min780.css<span class="pl-pds">"</span></span>,
+                <span class="pl-s1"><span class="pl-pds">"</span>stylesheets/common-min1160.css<span class="pl-pds">"</span></span>
+            ]
         }
     },
     <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -2479,6 +2468,214 @@ webconfig.json
         "/": "index.htm"
     }
 </code></pre>
+
+<h3>
+<a id="optimiser-les-images" class="anchor" href="#optimiser-les-images" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimiser les Images</h3>
+
+<p>Vous pouvez automatiquement optimiser les images que vous aller utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut que des Optimizations existe dans le Webconfig.</p>
+
+<h4>
+<a id="créer-des-optimizations" class="anchor" href="#cr%C3%A9er-des-optimizations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Créer des Optimizations</h4>
+
+<p>Avec la configuration suivante :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+        }
+    },
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>et l'ensemble de fichier suivant :</p>
+
+<pre><code>assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>vous obtiendrez les nouveaux fichiers suivant :</p>
+
+<pre><code>assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+——— example.min.png    &lt;= nouveau fichier
+——— example.min.jpg    &lt;= nouveau fichier
+——— example.min.gif    &lt;= nouveau fichier
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<h4>
+<a id="optimizations-dans-un-fichier-partagé" class="anchor" href="#optimizations-dans-un-fichier-partag%C3%A9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimizations dans un fichier partagé</h4>
+
+<p>Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>optimizations.json</code>. </p>
+
+<p>Par exemple :</p>
+
+<p>L'ensemble de fichier suivant</p>
+
+<pre><code>assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+</code></pre>
+
+<p>avec <code>webconfig.json</code></p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span>: <span class="pl-c1">7777</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span>: {
+        <span class="pl-s1"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span>: {
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+        }
+    }
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-ii">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>: {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>et avec <code>webconfig.prod.json</code></p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span>: <span class="pl-c1">7776</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>blog.lesieur.name<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>urlPort<span class="pl-pds">"</span></span>: <span class="pl-c1">80</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span>: {
+        <span class="pl-s1"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span>: {
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+        }
+    }
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-ii">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>: {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>pourrait devenir l'ensemble de fichier suivant </p>
+
+<pre><code>assets/
+— media/
+—— images/
+——— example.png
+——— example.jpg
+——— example.gif
+templates/
+— index.htm
+optimizations.json
+webconfig.json
+webconfig.prod.json
+</code></pre>
+
+<p>avec <code>webconfig.json</code></p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span>: <span class="pl-c1">7777</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>optimizations.json<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>: {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>avec <code>webconfig.prod.json</code></p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span>: <span class="pl-c1">7776</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>blog.lesieur.name<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>urlPort<span class="pl-pds">"</span></span>: <span class="pl-c1">80</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>optimizations.json<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>: {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>et <code>optimizations.json</code></p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span>: {
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p><em>Note : il est possible de désactiver les Optimizations en ne les incluant pas dans le <code>webconfig</code> en question.</em></p>
+
+<h4>
+<a id="désactiver-des-optimizations" class="anchor" href="#d%C3%A9sactiver-des-optimizations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Désactiver des Optimizations</h4>
+
+<p>Il est également possible de ne pas executer l'optimisation au démarage d'un site web avec NodeAtlas avec les propriétés <code>"imagesOptimizationsEnable": "false"</code>.</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>imagesOptimizationsEnable<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+    },
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p><em>Note : si vos optimizations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne <code>"optimizations": "optimizations.json"</code>.</em></p>
+
+<h4>
+<a id="ré-générer-les-optimizations-avant-chaque-rendu-de-page" class="anchor" href="#r%C3%A9-g%C3%A9n%C3%A9rer-les-optimizations-avant-chaque-rendu-de-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ré-générer les Optimizations avant chaque rendu de page</h4>
+
+<p>Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés <code>"imagesOptimizationsBeforeResponse": "true"</code>.</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>imagesOptimizationsBeforeResponse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+    },
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p><em>Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.</em></p>
 
 <h3>
 <a id="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost" aria-hidden="true"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
