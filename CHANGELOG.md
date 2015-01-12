@@ -1,3 +1,15 @@
+## 0.35.1 ##
+
+Bugfixes:
+
+- Avoid copy of `assetsRelativePath` into `generatesRelativePath` if `generatesRelativePath` do not exist.
+
+Documentation:
+
+- Add precision for generation of HTML asset.
+
+
+
 ## 0.35.0 ##
 
 Features:

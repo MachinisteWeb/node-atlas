@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.35.0 (Beta)
+Version : 0.35.1 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -951,9 +951,9 @@ en se rendant aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerateBeforeResponse*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
+La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerateBeforeResponse*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup uniquement si le dossier de `generatesRelativePath` existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
 
-De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `generatesRelativePath` si les deux dossier n'ont pas un chemin identique. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
+De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `generatesRelativePath` si les deux dossier n'ont pas un chemin identique, et que `generatesRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
 
 *Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generates/***. ***generatesRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
 
