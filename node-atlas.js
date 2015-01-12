@@ -2196,7 +2196,7 @@ var NA = {};
                      * @memberOf node-atlas~NA.webconfig
                      * @default false.
                      */
-                    (NA.webconfig.htmlGenerateBeforeResponse === true)
+                    NA.webconfig.htmlGenerateBeforeResponse
                 ) {
 
                     /**
