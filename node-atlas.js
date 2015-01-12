@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.35.1
+ * @version 0.35.2
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -96,7 +96,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.35.1')
+            .version('0.36.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -1793,23 +1793,23 @@ var NA = {};
              * CSS minification before each HTML response.
              * @public
              * @alias stylesheetsBundlesBeforeResponse
-             * @type {string}
+             * @type {boolean}
              * @memberOf node-atlas~NA.webconfig
-             * @default 'false'
+             * @default false
              */
-            (NA.webconfig.stylesheetsBundlesBeforeResponse === 'true'));
+            NA.webconfig.stylesheetsBundlesBeforeResponse);
 
-        if (NA.webconfig.stylesheetsBundlesEnable === 'false') {
+        if (typeof NA.webconfig.stylesheetsBundlesEnable === 'boolean') {
 
             /**
              * No CSS minification if set to false.
              * @public
              * @alias stylesheetsBundlesEnable
-             * @type {string}
+             * @type {boolean}
              * @memberOf node-atlas~NA.webconfig
-             * @default 'true'
+             * @default true
              */
-            enable = false;
+            enable = NA.webconfig.stylesheetsBundlesEnable;
         }
 
         /* Star engine. */
@@ -1875,23 +1875,23 @@ var NA = {};
              * Images optimization before each HTML response.
              * @public
              * @alias imagesOptimizationsBeforeResponse
-             * @type {string}
+             * @type {boolean}
              * @memberOf node-atlas~NA.webconfig
-             * @default 'false'
+             * @default false
              */
-            (NA.webconfig.imagesOptimizationsBeforeResponse === 'true'));
+            NA.webconfig.imagesOptimizationsBeforeResponse);
 
-        if (NA.webconfig.imagesOptimizationsEnable === 'false') {
+        if (typeof NA.webconfig.imagesOptimizationsEnable === 'boolean') {
 
             /**
              * No Images minification if set to false.
              * @public
              * @alias imagesOptimizationsEnable
-             * @type {string}
+             * @type {boolean}
              * @memberOf node-atlas~NA.webconfig
-             * @default 'true'
+             * @default true
              */
-            enable = false;
+            enable = NA.webconfig.imagesOptimizationsEnable;
         }
 
         /* Star engine. */
@@ -1954,23 +1954,23 @@ var NA = {};
              * JavaScript obfuscation before each HTML response.
              * @public
              * @alias javascriptBundlesBeforeResponse
-             * @type {string}
+             * @type {boolean}
              * @memberOf node-atlas~NA.webconfig
-             * @default 'false'
+             * @default false
              */
-            (NA.webconfig.javascriptBundlesBeforeResponse === 'true'));
+            NA.webconfig.javascriptBundlesBeforeResponse);
 
-        if (NA.webconfig.javascriptBundlesEnable === 'false') {
+        if (typeof NA.webconfig.javascriptBundlesEnable === 'boolean') {
 
             /**
              * No JavaScript obfuscation if set to false.
              * @public
              * @alias javascriptBundlesEnable
-             * @type {string}
+             * @type {boolean}
              * @memberOf node-atlas~NA.webconfig
-             * @default 'true'
+             * @default true
              */
-            enable = false;
+            enable = NA.webconfig.javascriptBundlesEnable;
         }
 
         /* Star engine. */
@@ -2192,11 +2192,11 @@ var NA = {};
                      * Allow NodeAtlas to generate real file into `NA.webconfig.generatesRelativePath` directory if set to true.
                      * @public
                      * @alias htmlGenerateBeforeResponse
-                     * @type {string}
+                     * @type {boolean}
                      * @memberOf node-atlas~NA.webconfig
-                     * @default 'false'.
+                     * @default false.
                      */
-                    (NA.webconfig.htmlGenerateBeforeResponse === 'true')
+                    (NA.webconfig.htmlGenerateBeforeResponse === true)
                 ) {
 
                     /**

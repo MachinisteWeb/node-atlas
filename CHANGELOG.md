@@ -1,3 +1,11 @@
+## 0.35.2 ##
+
+Bugfixes:
+
+- Bad type for javascriptBundlesEnable, stylesheetsBundlesEnable, javascriptBundlesBeforeResponse, stylesheetsBundlesBeforeResponse and autoGenerate. Setted to boolean, not string.
+
+
+
 ## 0.35.1 ##
 
 Bugfixes:

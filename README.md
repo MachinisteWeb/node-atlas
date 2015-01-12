@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.35.1 (Beta)
+Version : 0.35.2 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -293,7 +293,7 @@ Ci-dessous un exemple de configuration.
         },
         "/error.html": {
             "template": "error.htm",
-            "statusCode": "404",
+            "statusCode": 404,
             "mimeType": "text/plain"
         }
     }
@@ -341,7 +341,7 @@ La configuration ci-dessous est équivalente à la configuration de la section j
         "about.html": "about.htm",
         "/error.html": {
             "template": "error.htm",
-            "statusCode": "404",
+            "statusCode": 404,
             "mimeType": "text/plain"
         }
     }
@@ -1871,7 +1871,7 @@ Voyez l'exemple ci-dessous :
         },
         "/pages-inexistantes/": {
             "template": "error.htm",
-            "statusCode": "404"
+            "statusCode": 404
         }
     }
 }
@@ -1905,7 +1905,7 @@ Voyez l'exemple ci-dessous :
         "/pages-inexistantes/": {
             "template": "error.htm",
             "variation": "error.json",
-            "statusCode": "404"
+            "statusCode": 404
         },
         "/english/list-of-members/": {
             "template": "members.htm",
@@ -1921,7 +1921,7 @@ Voyez l'exemple ci-dessous :
             "template": "error.htm",
             "languageCode": "en-gb",
             "variation": "error.json",
-            "statusCode": "404"
+            "statusCode": 404
         }
     }
 }
@@ -1945,11 +1945,11 @@ Voyez l'exemple ci-dessous :
         },
         "/liste-des-membres": {
             "redirect": "/liste-des-membres/",
-            "statusCode": "301",
+            "statusCode": 301,
         },
         "/aller-sur-node-atlas/": {
             "redirect": "http://haeresis.github.io/NodeAtlas/",
-            "statusCode": "302",
+            "statusCode": 302,
         },
         "/": {
             "template": "index.htm"
@@ -1975,7 +1975,7 @@ Voyez l'exemple ci-dessous :
         },
         "/liste-des-membres/:member": {
             "redirect": "/membres/:member/"
-            "statusCode": "301"
+            "statusCode": 301
         },
         "/": {
             "template": "index.htm"
@@ -1999,7 +1999,7 @@ Voyez l'exemple ci-dessous :
         },
         "/liste-des-membres/([-a-z0-9]+)/": {
             "redirect": "/membres/$0$/"
-            "statusCode": "301",
+            "statusCode": 301,
             "regExp": "true"
         },
         "/liste-des-membres/": {
