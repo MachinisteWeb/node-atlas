@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.35.0 (Beta)
+Version : 0.35.1 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -951,9 +951,9 @@ by going to the address:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-The generation starts when displaying the page if ***htmlGenerateBeforeResponse*** exist and if it is ***true***. If it is passed ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/server.js --generate` will generate all pages once. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
+The generation starts when displaying the page if ***htmlGenerateBeforeResponse*** exist and if it is ***true***. If it is passed ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/server.js --generate` will generate all pages once if `generatesRelativePath` exist. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
 
-Also with ` --generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `generatesRelativePath` if both folder does not have the same path. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
+Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `generatesRelativePath` if both folder does not have the same path, and if `generatesRelativePath` exist. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
 
 *Note : If* ***generatesRelativePath*** *is not present in "webconfig.js", default generates folder is* ***generates/***. ***generatesRelativePath*** *is useful only to change the name/path of directory.*
 
