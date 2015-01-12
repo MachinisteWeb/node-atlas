@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.35.2 (Beta)</p>
+<p>Version : 0.36.0 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -971,6 +971,8 @@ webconfig.json
 
 <p>De plus avec <code>--generate</code>, l'intégralité du dossier <code>assetsRelativePath</code> (dossier des fichiers publiques) sera copié dans le dossier <code>generatesRelativePath</code> si les deux dossier n'ont pas un chemin identique, et que <code>generatesRelativePath</code> existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).</p>
 
+<p>Vous pouvez également désactiver la génération, même si un dossier <code>generatesRelativePath</code> existe dans les dossiers, avec <code>htmlGenerateEnable</code> à <code>false</code>.</p>
+
 <p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generates/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p>
 
 <h4>
@@ -980,7 +982,7 @@ webconfig.json
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s1"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>,
-    <span class="pl-s1"><span class="pl-pds">"</span>indexPage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>enableIndex<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
     <span class="pl-s1"><span class="pl-pds">"</span>htmlGenerateBeforeResponse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>generatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>../HTML/<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>assetsRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>../HTML/<span class="pl-pds">"</span></span>,
@@ -1015,7 +1017,7 @@ engine/
 — webconfig.json
 </code></pre>
 
-<p>À l'adresse <em>http://localhost/</em> s'affichera la liste des pages composants votre site (grâce à <strong>indexPage</strong> à <strong>true</strong>).</p>
+<p>À l'adresse <em>http://localhost/</em> s'affichera la liste des pages composants votre site (grâce à <strong>enableIndex</strong> à <strong>true</strong>).</p>
 
 <p>Il ne restera plus qu'à, une fois votre travail terminé, admirer votre site HTML dans le dossier :</p>
 
