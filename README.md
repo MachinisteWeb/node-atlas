@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.36.0 (Beta)
+Version : 0.37.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -2988,6 +2988,23 @@ It is possible to generate a different url listening other port with ***urlHostn
 
 ```js
 {
+    "httpPort": 7777,
+    "httpHostname": "127.0.0.1",
+    "urlPort": 80,
+    "urlHostname": "localhost",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+It's also possible to avoid other enter url. Also if `www.localhost` or `localhost:7777` are enter into url area, it's `localhost` for the user :
+
+```js
+{
+    "enableForceDomain": true,
     "httpPort": 7777,
     "httpHostname": "127.0.0.1",
     "urlPort": 80,
