@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.36.0 (Beta)
+Version : 0.37.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -2969,6 +2969,23 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 ```js
 {
+    "httpPort": 7777,
+    "httpHostname": "127.0.0.1",
+    "urlPort": 80,
+    "urlHostname": "localhost",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+Il est également possible de faire en sorte qu'aucune autre url ne puisse être tapé. Ainsi si on réclame `www.localhost` ou `localhost:7777` c'est bien sur `localhost` que sera le visiteur :
+
+```js
+{
+    "enableForceDomain": true,
     "httpPort": 7777,
     "httpHostname": "127.0.0.1",
     "urlPort": 80,

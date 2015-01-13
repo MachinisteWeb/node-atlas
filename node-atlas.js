@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.36.0
+ * @version 0.37.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -15,6 +15,7 @@
  * @requires commander
  * @requires compression
  * @requires cookie-parser
+ * @requires css-parse
  * @requires ejs
  * @requires express
  * @requires express-session
@@ -96,7 +97,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.36.0')
+            .version('0.37.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -912,6 +913,15 @@ var NA = {};
         publics.modules.ejs = require('ejs');
 
         /**
+         * CSS parser.
+         * @public
+         * @function cssParse
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/css-parse css-parse}
+         */
+        publics.modules.cssParse = require('css-parse');
+
+        /**
          * Make all directories in a path, like mkdir -p.
          * @public
          * @function mkpath
@@ -1117,6 +1127,16 @@ var NA = {};
             bodyParser = NA.modules.bodyParser,
             cookieParser = NA.modules.cookieParser,
             forceDomain = NA.modules.forceDomain,
+
+            /**
+             * Force address and port if extra 'www' or 'port' is enter in browser url bar.
+             * @public
+             * @alias enableForceDomain
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default false.
+             */
+            enableForceDomain = NA.webconfig.enableForceDomain,
             http = NA.modules.http,
             https = NA.modules.https,
             open = NA.modules.open,
@@ -1250,13 +1270,15 @@ var NA = {};
             /* Use gzip and others client-server data compression. */
             NA.httpServer.use(compress());
 
-            /* Force utilisation of www and avoid using the original port in address. */
-            NA.httpServer.use(forceDomain({
-                hostname: NA.webconfig.urlHostname,
-                port: NA.webconfig.urlPort,
-                type: 'permanent',
-                protocol: 'http' + ((httpSecure) ? 's' : '')
-            }));
+            /* Force utilisation of www and avoid using the original port in address. Necessary without reverse proxy. */
+            if (enableForceDomain) {
+                NA.httpServer.use(forceDomain({
+                    hostname: NA.webconfig.urlHostname,
+                    port: NA.webconfig.urlPort,
+                    type: 'permanent',
+                    protocol: 'http' + ((httpSecure) ? 's' : '')
+                }));
+            }
 
             /* Allow you to parse the GET/POST data format. */
             NA.httpServer.use(bodyParser.urlencoded({ extended: true }));
@@ -1431,6 +1453,11 @@ var NA = {};
         /* Set/Send headers */
         response.charset = charset;
         response.writeHead(statusCode, others);
+
+        /* Inject CSS into DOM */
+        if (NA.webconfig.injectCss || currentRouteParameters.injectCss) {
+            data = NA.injectCss(data, currentRouteParameters.injectCss);
+        }
 
         /* Set/Send body */
         response.write(data);
@@ -1767,6 +1794,66 @@ var NA = {};
             }
         }
     };
+
+    /**
+     * Inject the content of a stylesheets file into a DOM.
+     * @public
+     * @function injectCss
+     * @memberOf node-atlas~NA
+     * @param {string} dom - The ouptput HTML.
+     */ 
+    publics.injectCss = function (dom, specific) {
+        var cheerio = NA.modules.cheerio,
+            cssParse = NA.modules.cssParse,
+            path = NA.modules.path,
+            allCssFiles = [],
+            $ = cheerio.load(dom),
+            inject = true;
+
+        /* Add common injections. */
+        if (typeof NA.webconfig.injectCss === 'string') {
+            allCssFiles.push(NA.webconfig.injectCss);
+        } else {
+            for (var i = 0, l = NA.webconfig.injectCss.length; i < l; i++) {
+                allCssFiles.push(NA.webconfig.injectCss[i]);
+            }
+        }
+
+        /* Add specific injections. */
+        if (specific) {     
+            if (typeof specific === 'string') {
+                for (var i = 0, l = NA.webconfig.injectCss.length; i < l; i++) {
+                    if (path.normalize(specific) === path.normalize(NA.webconfig.injectCss[i])) {
+                        inject = false;
+                    }
+                }
+                if (inject) {
+                    allCssFiles.push(specific);
+                }
+            } else {
+                for (var j = 0, l = specific.length; j < l; j++) {
+                    for (var i = 0, l = NA.webconfig.injectCss.length; i < l; i++) {
+                        if (path.normalize(specific[j]) === path.normalize(NA.webconfig.injectCss[i])) {
+                            inject = false;
+                        }
+                    }
+                    if (inject) {
+                        allCssFiles.push(specific[j]);
+                    }
+                    inject = true;
+                }
+            }
+        }
+
+        /*  Work in progress
+        console.log(allCssFiles);
+
+        $("body").css({
+            "margin": "100px"
+        });*/
+
+        return $.html();
+    }
 
     /**
      * Engine for minification and concatenation of all files with a Bundle configuration.
