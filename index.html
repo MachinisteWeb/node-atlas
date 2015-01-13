@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.36.0 (Beta)</p>
+<p>Version : 0.37.0 (Beta)</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -2892,6 +2892,21 @@ exports.setSessions = website.setSessions;
 <p>Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p>
 
 <div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">7777</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>urlPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">80</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>urlHostname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s1"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>Il est également possible de faire en sorte qu'aucune autre url ne puisse être tapé. Ainsi si on réclame <code>www.localhost</code> ou <code>localhost:7777</code> c'est bien sur <code>localhost</code> que sera le visiteur :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s1"><span class="pl-pds">"</span>enableForceDomain<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
     <span class="pl-s1"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">7777</span>,
     <span class="pl-s1"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,
     <span class="pl-s1"><span class="pl-pds">"</span>urlPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">80</span>,
