@@ -110,7 +110,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.37.0 (Beta)</p>
+        <article><h1>node-atlas</h1><p>Version : 0.38.0 (Beta)</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -161,6 +161,7 @@
 <li><a href="#minify-cssjs">Minify CSS/JS</a></li>
 <li><a href="#css-generation-with-less">CSS generation with Less</a></li>
 <li><a href="#optimize-images-files">Optimize Images files</a></li>
+<li><a href="#css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</a></li>
 <li><a href="#allowdisallow-getpost-requests">Allow/Disallow GET/POST requests</a></li>
 <li><a href="#change-settings-of-sessions">Change settings of Sessions</a></li>
 <li><a href="#external-storage-sessions">External Storage Sessions</a></li>
@@ -221,11 +222,13 @@
 <li>Image compression.</li>
 </ul>
 </li>
-<li><p>Coming soon</p>
+<li><p>Coming soon and I need your help !</p>
 <ul>
-<li>Automatic injection inline CSS stylesheet (for email models).</li>
-<li>Self-deployment via transfer (S)FTP.</li>
-<li>...</li>
+<li>Global tests on multiple projects.</li>
+<li>Re-read and tests on README fr.</li>
+<li>Enhancement of README en.</li>
+<li>Create a NodeAtlas website EN/FR dedicated to NodeAtlas.</li>
+<li>Update to 1.0.0.</li>
 </ul>
 </li>
 </ul>
@@ -684,7 +687,7 @@ webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:<
 </ul>
 <h3>NodeAtlas use to generate HTML assets</h3><h4>Generate HTML assets</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;htmlGenerateBeforeResponse&quot;: &quot;true&quot;,
+    &quot;htmlGenerateBeforeResponse&quot;: true,
     &quot;generatesRelativePath&quot;: &quot;generates/&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -737,7 +740,7 @@ webconfig.json
 <pre class="prettyprint source lang-js"><code>{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;enableIndex&quot;: true,
-    &quot;htmlGenerateBeforeResponse&quot;: &quot;true&quot;,
+    &quot;htmlGenerateBeforeResponse&quot;: true,
     &quot;generatesRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;routes&quot;: {
@@ -1362,7 +1365,7 @@ webconfig.prod.json</code></pre><p>and &quot;index.htm&quot; containing:</p>
         },
         &quot;/list-of-members/?&quot;: {
             &quot;template&quot;: &quot;members.htm&quot;,
-            &quot;regExp&quot;: &quot;true&quot;
+            &quot;regExp&quot;: true
         },
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -1546,7 +1549,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         &quot;/list-of-members/([-a-z0-9]+)/&quot;: {
             &quot;redirect&quot;: &quot;/membres/$0$/&quot;
             &quot;statusCode&quot;: 301,
-            &quot;regExp&quot;: &quot;true&quot;
+            &quot;regExp&quot;: true
         },
         &quot;/list-of-members/&quot;: {
             &quot;template&quot;: &quot;members.htm&quot;
@@ -1808,10 +1811,10 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         ]
     }
 }</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p>
-<h4>Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>&quot;stylesheetsBundlesEnable&quot;: &quot;false&quot;</code> et `&quot;javascriptBundlesEnable&quot;: &quot;false&quot;`` for each type of Bundle.</p>
+<h4>Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>&quot;stylesheetsBundlesEnable&quot;: false</code> et `&quot;javascriptBundlesEnable&quot;: false`` for each type of Bundle.</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;stylesheetsBundlesEnable&quot;: &quot;false&quot;,
-    &quot;javascriptBundlesEnable&quot;: &quot;false&quot;,
+    &quot;stylesheetsBundlesEnable&quot;: false,
+    &quot;javascriptBundlesEnable&quot;: false,
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
             &quot;javascript/boot.min.js&quot;: [
@@ -1844,10 +1847,10 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p><em>Note : if your bundle is in shared file, you could desactivated it also without the <code>&quot;bundles&quot;: &quot;bundles.json&quot;</code>. Just remove it.</em></p>
-<h4>Re-generate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: &quot;false&quot;</code> et `&quot;javascriptBundlesBeforeResponse&quot;: &quot;false&quot;`` for each type of Bundle.</p>
+<h4>Re-generate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: false</code> et `&quot;javascriptBundlesBeforeResponse&quot;: false`` for each type of Bundle.</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;stylesheetsBundlesBeforeResponse&quot;: &quot;false&quot;,
-    &quot;javascriptBundlesBeforeResponse&quot;: &quot;false&quot;,
+    &quot;stylesheetsBundlesBeforeResponse&quot;: false,
+    &quot;javascriptBundlesBeforeResponse&quot;: false,
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
             &quot;javascript/boot.min.js&quot;: [
@@ -1908,38 +1911,23 @@ webconfig.json</code></pre><p>and the following webconfig:</p>
 &lt;/html></code></pre><p><em>assets/stylesheets/common.less</em></p>
 <pre class="prettyprint source lang-css"><code>p {
     color: #f00;
-}
-
-you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
-
-#### Source Map and Minification ####
-
-By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in `.less`  file has generated the CSS property of the item you have selected in your debugger.
-
-Disable this with `enableLess.sourceMap` to `false`:</code></pre><pre class="prettyprint source"><code>&quot;enableLess&quot;: {
-    &quot;sourceMap&quot;: false
-},
-&quot;routes&quot;: {
-    &quot;/&quot;: &quot;index.htm&quot;
-}</code></pre><pre class="prettyprint source"><code>
-You can also generate CSS files already minify with:</code></pre><pre class="prettyprint source"><code>&quot;enableLess&quot;: {
-    &quot;compress&quot;: true
-},
-&quot;routes&quot;: {
-    &quot;/&quot;: &quot;index.htm&quot;
-}</code></pre><pre class="prettyprint source"><code>
-
-
-### Optimize Images files ###
-
-You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course you can do as much as you want. The optimization files is execute every time you start NodeAtlas either as a server or via the `--generate` command if an Optimization exists in the Webconfig.
-
-#### Creating Optimizations ####
-
-With the following configuration:
-
-```js
-{
+}</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p>
+<h4>Source Map and Minification</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.less</code>  file has generated the CSS property of the item you have selected in your debugger.</p>
+<p>Disable this with <code>enableLess.sourceMap</code> to <code>false</code>:</p>
+<pre class="prettyprint source"><code>    &quot;enableLess&quot;: {
+        &quot;sourceMap&quot;: false
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }</code></pre><p>You can also generate CSS files already minify with:</p>
+<pre class="prettyprint source"><code>    &quot;enableLess&quot;: {
+        &quot;compress&quot;: true
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }</code></pre><h3>Optimize Images files</h3><p>You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course you can do as much as you want. The optimization files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if an Optimization exists in the Webconfig.</p>
+<h4>Creating Optimizations</h4><p>With the following configuration:</p>
+<pre class="prettyprint source lang-js"><code>{
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
             &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
@@ -2050,13 +2038,15 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
     }
 }</code></pre><p>and <code>optimizations.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
-    &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
-    &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
-    &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+    &quot;images&quot;: {
+        &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
+        &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
+        &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+    }
 }</code></pre><p><em>Note : it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p>
-<h4>Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>&quot;imagesOptimizationsEnable&quot;: &quot;false&quot;</code>.</p>
+<h4>Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>&quot;imagesOptimizationsEnable&quot;: false</code>.</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;imagesOptimizationsEnable&quot;: &quot;false&quot;,
+    &quot;imagesOptimizationsEnable&quot;: false,
     &quot;images&quot;: {
         &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
         &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
@@ -2068,9 +2058,9 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p><em>Note : if your optimizations is in shared file, you could desactivated it also without the <code>&quot;optimizations&quot;: &quot;optimizations.json&quot;</code>. Just remove it.</em></p>
-<h4>Re-generate Optimizations before each Page Response</h4><p>You can ask files to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: &quot;false&quot;</code> et `&quot;javascriptBundlesBeforeResponse&quot;: &quot;false&quot;`` for each type of Bundle.</p>
+<h4>Re-generate Optimizations before each Page Response</h4><p>You can ask files to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: false</code> et `&quot;javascriptBundlesBeforeResponse&quot;: false`` for each type of Bundle.</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;imagesOptimizationsBeforeResponse&quot;: &quot;false&quot;,
+    &quot;imagesOptimizationsBeforeResponse&quot;: false,
     &quot;images&quot;: {
         &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
         &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
@@ -2082,7 +2072,85 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p>
-<h3>Allow/Disallow GET/POST requests</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p>
+<h3>CSS Inline Injection for Manage Email Assets</h3><p>When you create templates for sending email newsletters, or even simple message, you can not attach stylesheet. The only way is to write the CSS instructions in the template within the <code>style</code> markup attribute.</p>
+<h4>Specific Injection</h4><p>With <code>injectCss</code>, simply design your template as usual via a stylesheet and NodeAtlas inject each rendering styles in the attribute <code>style</code>. It will do more than generate templates.</p>
+<p>With for example the following configuration:</p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;email.htm&quot;,
+            &quot;generate&quot;: &quot;welcome.html&quot;,
+            &quot;injectCss&quot;: &quot;stylesheets/email.css&quot;
+        }
+    }
+}</code></pre><p>and the following set of files:</p>
+<pre class="prettyprint source"><code>generates/
+assets/
+— stylesheets/
+—— email.css
+templates/
+— email.htm</code></pre><p>whose contents are :</p>
+<p><strong>stylesheets/common.css</strong></p>
+<pre class="prettyprint source lang-css"><code>body {
+    color: #f00;
+}</code></pre><p><strong>templates/email.htm*</strong></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;UTF-8&quot;>
+        &lt;title>Email&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;p>This is a template email.&lt;/p>        
+    &lt;/body>
+&lt;/html></code></pre><p>output will be, with the command <code>node &lt;/path/to/&gt;node-atlas/node-atlas.js --generate</code>, all following file:</p>
+<pre class="prettyprint source"><code>generates/
+— welcome.html    &lt;= template email generate !
+assets/
+— stylesheets/
+—— email.css
+templates/
+— email.htm</code></pre><p>with as content for <code>generates/welcome.html</code></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;UTF-8&quot;>
+        &lt;title>Email&lt;/title>
+    &lt;/head>
+    &lt;body style=&quot;color: #f00;&quot;>
+        &lt;p>This is a template email.&lt;/p>        
+    &lt;/body>
+&lt;/html></code></pre><p>This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.</p>
+<h4>Global Injection</h4><p>It is possible to use <code>injectCss</code> as global mechanism for all pages.</p>
+<pre class="prettyprint source lang-json"><code>    &quot;injectCss&quot;: &quot;stylesheets/email.css&quot;
+    &quot;routes&quot;: {
+        &quot;/welcome/&quot;: {
+            &quot;template&quot;: &quot;email-a.htm&quot;,
+            &quot;generate&quot;: &quot;welcome.html&quot;
+        },
+        &quot;/good-bye/&quot;: {
+            &quot;template&quot;: &quot;email-b.htm&quot;,
+            &quot;generate&quot;: &quot;good-bye.html&quot;
+        }
+    }</code></pre><p>ainsi les deux pages <code>welcome</code> et <code>good-bye</code> contiendront chacune <code>&lt;body style=&quot;color: #f00;&quot;&gt;</code>.</p>
+<h4>Multiple Injection</h4><p>It's possible to :</p>
+<ul>
+<li>Attach global and specific files in same time.</li>
+<li>Attach more one CSS file by <code>injectCss</code> property.</li>
+</ul>
+<pre class="prettyprint source lang-json"><code>    &quot;injectCss&quot;: [&quot;stylesheets/reset.css&quot;, &quot;stylesheets/email.css&quot;]
+    &quot;routes&quot;: {
+        &quot;/welcome/&quot;: {
+            &quot;template&quot;: &quot;email-a.htm&quot;,
+            &quot;generate&quot;: &quot;welcome.html&quot;,
+            &quot;injectCss&quot;: &quot;/stylesheets/welcome.css&quot;
+        },
+        &quot;/good-bye/&quot;: {
+            &quot;template&quot;: &quot;email-b.htm&quot;,
+            &quot;generate&quot;: &quot;good-bye.html&quot;,
+            &quot;injectCss&quot;: [&quot;stylesheets/good-bye.css&quot;, &quot;/stylesheets/others.css&quot;]
+        }
+    }</code></pre><h3>Allow/Disallow GET/POST requests</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;getSupport&quot;: true,
     &quot;postSupport&quot;: false,
@@ -2406,7 +2474,7 @@ site-hello-world/
                 &lt;/rule>
                 &lt;rule name=&quot;DynamicContent&quot;>
                      &lt;conditions>
-                          &lt;add input=&quot;{REQUEST_FILENAME}&quot; matchType=&quot;IsFile&quot; negate=&quot;True&quot;/>
+                          &lt;add input=&quot;{REQUEST_FILENAME}&quot; matchType=&quot;IsFile&quot; negate=&quot;true&quot;/>
                      &lt;/conditions>
                      &lt;action type=&quot;Rewrite&quot; url=&quot;node-atlas.js&quot;/>
                 &lt;/rule>
@@ -2508,7 +2576,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-01-13T15:17:14+01:00 using the <a
+		on 2015-01-14T10:58:40+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>

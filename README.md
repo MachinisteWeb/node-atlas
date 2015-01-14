@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.37.0 (Beta)
+Version : 0.38.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -62,6 +62,7 @@ The tool is still in development and I experience it slowly with my own websites
  - [Minify CSS/JS](#minify-cssjs)
  - [CSS generation with Less](#css-generation-with-less)
  - [Optimize Images files](#optimize-images-files)
+ - [CSS Inline Injection for Manage Email Assets](#css-inline-injection-for-manage-email-assets)
  - [Allow/Disallow GET/POST requests](#allowdisallow-getpost-requests)
  - [Change settings of Sessions](#change-settings-of-sessions)
  - [External Storage Sessions](#external-storage-sessions)
@@ -117,10 +118,12 @@ The tool is still in development and I experience it slowly with my own websites
  - HTTPs support (WSs support too).
  - Image compression.
 
-- Coming soon
- - Automatic injection inline CSS stylesheet (for email models).
- - Self-deployment via transfer (S)FTP.
- - ...
+- Coming soon and I need your help !
+ - Global tests on multiple projects.
+ - Re-read and tests on README fr.
+ - Enhancement of README en.
+ - Create a NodeAtlas website EN/FR dedicated to NodeAtlas.
+ - Update to 1.0.0.
 
 
 
@@ -893,7 +896,7 @@ With the following configuration it is possible to generate HTML rendering asset
 
 ```js
 {
-    "htmlGenerateBeforeResponse": "true",
+    "htmlGenerateBeforeResponse": true,
     "generatesRelativePath": "generates/",
     "routes": {
         "/": {
@@ -968,7 +971,7 @@ You can also manager a simple HTML website page with the following configuration
 {
     "languageCode": "fr-fr",
     "enableIndex": true,
-    "htmlGenerateBeforeResponse": "true",
+    "htmlGenerateBeforeResponse": true,
     "generatesRelativePath": "../HTML/",
     "assetsRelativePath": "../HTML/",
     "routes": {
@@ -1727,7 +1730,7 @@ See the following configuration:
         },
         "/list-of-members/?": {
             "template": "members.htm",
-            "regExp": "true"
+            "regExp": true
         },
         "/": {
             "template": "index.htm"
@@ -2004,7 +2007,7 @@ See the example below:
         "/list-of-members/([-a-z0-9]+)/": {
             "redirect": "/membres/$0$/"
             "statusCode": 301,
-            "regExp": "true"
+            "regExp": true
         },
         "/list-of-members/": {
             "template": "members.htm"
@@ -2348,12 +2351,12 @@ and `bundles.json`
 
 #### Disable Bundles ####
 
-It is also possible to not execute the minification when run a website with NodeAtlas with `"stylesheetsBundlesEnable": "false"` et `"javascriptBundlesEnable": "false"`` for each type of Bundle.
+It is also possible to not execute the minification when run a website with NodeAtlas with `"stylesheetsBundlesEnable": false` et `"javascriptBundlesEnable": false`` for each type of Bundle.
 
 ```js
 {
-    "stylesheetsBundlesEnable": "false",
-    "javascriptBundlesEnable": "false",
+    "stylesheetsBundlesEnable": false,
+    "javascriptBundlesEnable": false,
     "bundles": {
         "javascript": {
             "javascript/boot.min.js": [
@@ -2392,12 +2395,12 @@ It is also possible to not execute the minification when run a website with Node
 
 #### Re-generate Bundles before each Page Response ####
 
-For test your page with minified files, you can ask it to be regenerated before each page response with `"stylesheetsBundlesBeforeResponse": "false"` et `"javascriptBundlesBeforeResponse": "false"`` for each type of Bundle.
+For test your page with minified files, you can ask it to be regenerated before each page response with `"stylesheetsBundlesBeforeResponse": false` et `"javascriptBundlesBeforeResponse": false`` for each type of Bundle.
 
 ```js
 {
-    "stylesheetsBundlesBeforeResponse": "false",
-    "javascriptBundlesBeforeResponse": "false",
+    "stylesheetsBundlesBeforeResponse": false,
+    "javascriptBundlesBeforeResponse": false,
     "bundles": {
         "javascript": {
             "javascript/boot.min.js": [
@@ -2486,6 +2489,7 @@ and the following content in:
 p {
     color: #f00;
 }
+```
 
 you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
 
@@ -2686,9 +2690,11 @@ and `optimizations.json`
 
 ```json
 {
-    "media/images/example.min.png": "media/images/example.png",
-    "media/images/example.min.jpg": "media/images/example.jpg",
-    "media/images/example.min.gif": "media/images/example.gif"
+    "images": {
+        "media/images/example.min.png": "media/images/example.png",
+        "media/images/example.min.jpg": "media/images/example.jpg",
+        "media/images/example.min.gif": "media/images/example.gif"
+    }
 }
 ```
 
@@ -2696,11 +2702,11 @@ and `optimizations.json`
 
 #### Disable Optimizations ####
 
-It is also possible to not execute the optimization when run a website with NodeAtlas with `"imagesOptimizationsEnable": "false"`.
+It is also possible to not execute the optimization when run a website with NodeAtlas with `"imagesOptimizationsEnable": false`.
 
 ```js
 {
-    "imagesOptimizationsEnable": "false",
+    "imagesOptimizationsEnable": false,
     "images": {
         "media/images/example.min.png": "media/images/example.png",
         "media/images/example.min.jpg": "media/images/example.jpg",
@@ -2718,11 +2724,11 @@ It is also possible to not execute the optimization when run a website with Node
 
 #### Re-generate Optimizations before each Page Response ####
 
-You can ask files to be regenerated before each page response with `"stylesheetsBundlesBeforeResponse": "false"` et `"javascriptBundlesBeforeResponse": "false"`` for each type of Bundle.
+You can ask files to be regenerated before each page response with `"stylesheetsBundlesBeforeResponse": false` et `"javascriptBundlesBeforeResponse": false`` for each type of Bundle.
 
 ```js
 {
-    "imagesOptimizationsBeforeResponse": "false",
+    "imagesOptimizationsBeforeResponse": false,
     "images": {
         "media/images/example.min.png": "media/images/example.png",
         "media/images/example.min.jpg": "media/images/example.jpg",
@@ -2740,25 +2746,134 @@ You can ask files to be regenerated before each page response with `"stylesheets
 
 
 
+### CSS Inline Injection for Manage Email Assets ###
 
+When you create templates for sending email newsletters, or even simple message, you can not attach stylesheet. The only way is to write the CSS instructions in the template within the `style` markup attribute.
 
+#### Specific Injection ####
 
+With `injectCss`, simply design your template as usual via a stylesheet and NodeAtlas inject each rendering styles in the attribute `style`. It will do more than generate templates.
 
+With for example the following configuration:
 
+```json
+{
+    "routes": {
+        "/": {
+            "template": "email.htm",
+            "generate": "welcome.html",
+            "injectCss": "stylesheets/email.css"
+        }
+    }
+}
+```
 
+and the following set of files:
 
+```
+generates/
+assets/
+— stylesheets/
+—— email.css
+templates/
+— email.htm
+```
 
+whose contents are :
 
+**stylesheets/common.css**
 
+```css 
+body {
+    color: #f00;
+}
+```
 
+**templates/email.htm***
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Email</title>
+    </head>
+    <body>
+        <p>This is a template email.</p>        
+    </body>
+</html>
+```
 
+output will be, with the command `node </path/to/>node-atlas/node-atlas.js --generate`, all following file:
 
+```
+generates/
+— welcome.html    <= template email generate !
+assets/
+— stylesheets/
+—— email.css
+templates/
+— email.htm
+```
 
+with as content for `generates/welcome.html`
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Email</title>
+    </head>
+    <body style="color: #f00;">
+        <p>This is a template email.</p>        
+    </body>
+</html>
+```
 
+This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.
 
+#### Global Injection ####
 
+It is possible to use `injectCss` as global mechanism for all pages.
+
+```json
+    "injectCss": "stylesheets/email.css"
+    "routes": {
+        "/welcome/": {
+            "template": "email-a.htm",
+            "generate": "welcome.html"
+        },
+        "/good-bye/": {
+            "template": "email-b.htm",
+            "generate": "good-bye.html"
+        }
+    }
+```
+
+ainsi les deux pages `welcome` et `good-bye` contiendront chacune `<body style="color: #f00;">`.
+
+#### Multiple Injection ####
+
+It's possible to :
+- Attach global and specific files in same time.
+- Attach more one CSS file by `injectCss` property.
+
+```json
+    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"]
+    "routes": {
+        "/welcome/": {
+            "template": "email-a.htm",
+            "generate": "welcome.html",
+            "injectCss": "/stylesheets/welcome.css"
+        },
+        "/good-bye/": {
+            "template": "email-b.htm",
+            "generate": "good-bye.html",
+            "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
+        }
+    }
+```
 
 
 
@@ -3374,7 +3489,7 @@ You will add to this set of files, additional file named `web.config` whose cont
                 </rule>
                 <rule name="DynamicContent">
                      <conditions>
-                          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="True"/>
+                          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true"/>
                      </conditions>
                      <action type="Rewrite" url="node-atlas.js"/>
                 </rule>
