@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.38.0 (Beta)
+Version : 0.38.1 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -248,6 +248,8 @@ Position yourself with the prompt console in the folder « /site-hello-world/ »
 ```
 \> nodeatlas
 ```
+
+*Note : *if the `nodeatlas` command do not work on unix OS after installation, it's probably because of right problem. If you are root, the command `chown -R root:root /usr/local/bin/` before re-execuse `npm install -g node-atlas` command will fix issue, else, use the command `sudo npm install -g node-atlas`.*
 
 
 #### Via a JavaScript file ####
