@@ -1,3 +1,33 @@
+## 0.38.3 ##
+
+Bugfixes:
+
+- Install `nodeatlas` command without problem on Unix system with `postinstall`. It's fixed.
+
+Documentation:
+
+- Add precision for `nodeatlas` command.
+
+
+
+## 0.38.2 ##
+
+Bugfixes:
+
+- Install `nodeatlas` command without problem on Unix system with `postinstall`. Tests.
+
+
+
+
+## 0.38.1 ##
+
+Bugfixes:
+
+- In SimpleWebServer, `browse` option with NA.run() do not start browser. It's fixed.
+
+
+
+
 ## 0.38.0 ##
 
 Features:

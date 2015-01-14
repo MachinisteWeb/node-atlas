@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.38.0
+ * @version 0.38.3
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.38.0')
+            .version('0.38.3')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -1105,9 +1105,9 @@ var NA = {};
         /* ...from « public » directory. */
         NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
 
-        commander.httpPort = commander.httpPort || 80;
-
-        if (commander.browse) { open(path.normalize('http://localhost' + ((commander.httpPort !== 80) ? ':' + commander.httpPort : '') + '/' + ((typeof commander.browse === 'string') ? commander.browse : ""))); }
+        if (commander.browse) { NA.configuration.browse = commander.browse; }
+        
+        if (NA.configuration.browse) { open(path.normalize('http://localhost' + ((httpPort !== 80) ? ':' + httpPort : '') + '/' + ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))); }
     };
 
     /**
