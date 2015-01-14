@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.37.0 (Beta)
+Version : 0.38.0 (Beta)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -62,6 +62,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Minifier les CSS/JS](#minifier-les-cssjs)
  - [Générer les CSS avec Less](#g%C3%A9n%C3%A9rer-les-css-avec-less)
  - [Optimiser les Images](#optimiser-les-images)
+ - [Injecter du CSS inline pour maintenir des assets Email](#injecter-du-css-inline-pour-maintenir-des-assets-email)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
@@ -116,11 +117,14 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Support Less.
  - Support HTTPs (WSs aussi).
  - Compression des images.
-
-- À venir
  - Injection automatique de feuille CSS en style inline (pour les maquettes email).
- - Auto-déploiement via transfert (S)FTP.
- - ...
+
+- À venir et avec votre aide !
+ - Tests globaux sur divers projets.
+ - Relecture et tests du README fr.
+ - Amélioration du README en.
+ - Création d'un site EN/FR dédié au projet avec NodeAtlas.
+ - Passage en 1.0.0.
 
 
 
@@ -893,7 +897,7 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
 
 ```js
 {
-    "htmlGenerateBeforeResponse": "true",
+    "htmlGenerateBeforeResponse": true,
     "generatesRelativePath": "generates/",
     "routes": {
         "/": {
@@ -968,7 +972,7 @@ Il est également possible de manager la création d'un site en simple page HTML
 {
     "languageCode": "fr-fr",
     "enableIndex": true,
-    "htmlGenerateBeforeResponse": "true",
+    "htmlGenerateBeforeResponse": true,
     "generatesRelativePath": "../HTML/",
     "assetsRelativePath": "../HTML/",
     "routes": {
@@ -1727,7 +1731,7 @@ Voyez la configuration suivante :
         },
         "/liste-des-membres/?": {
             "template": "members.htm",
-            "regExp": "true"
+            "regExp": true
         },
         "/": {
             "template": "index.htm"
@@ -1997,12 +2001,12 @@ Voyez l'exemple ci-dessous :
     "routes": {
         "/membres/([-a-z0-9]+)/": {
             "template": "members.htm",
-            "regExp": "true"
+            "regExp": true
         },
         "/liste-des-membres/([-a-z0-9]+)/": {
             "redirect": "/membres/$0$/"
             "statusCode": 301,
-            "regExp": "true"
+            "regExp": true
         },
         "/liste-des-membres/": {
             "template": "members.htm"
@@ -2348,12 +2352,12 @@ et `bundles.json`
 
 #### Désactiver des Bundles ####
 
-Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés `"stylesheetsBundlesEnable": "false"` et `"javascriptBundlesEnable": "false"` pour chaque type de Bundle.
+Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés `"stylesheetsBundlesEnable": false` et `"javascriptBundlesEnable": false` pour chaque type de Bundle.
 
 ```js
 {
-    "stylesheetsBundlesEnable": "false",
-    "javascriptBundlesEnable": "false",
+    "stylesheetsBundlesEnable": false,
+    "javascriptBundlesEnable": false,
     "bundles": {
         "javascript": {
             "javascript/boot.min.js": [
@@ -2392,12 +2396,12 @@ Il est également possible de ne pas executer la minification au démarage d'un 
 
 #### Ré-générer les Bundles avant chaque rendu de page ####
 
-De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés `"stylesheetsBundlesBeforeResponse": "true"` et `"javascriptBundlesBeforeResponse": "true"` pour chaque type de Bundle.
+De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés `"stylesheetsBundlesBeforeResponse": true` et `"javascriptBundlesBeforeResponse": true` pour chaque type de Bundle.
 
 ```js
 {
-    "stylesheetsBundlesBeforeResponse": "false",
-    "javascriptBundlesBeforeResponse": "false",
+    "stylesheetsBundlesBeforeResponse": false,
+    "javascriptBundlesBeforeResponse": false,
     "bundles": {
         "javascript": {
             "javascript/boot.min.js": [
@@ -2637,7 +2641,7 @@ et avec `webconfig.prod.json`
 }
 ```
 
-pourrait devenir l'ensemble de fichier suivant 
+pourrait devenir l'ensemble de fichier suivant
 
 ```
 assets/
@@ -2699,11 +2703,11 @@ et `optimizations.json`
 
 #### Désactiver des Optimizations ####
 
-Il est également possible de ne pas executer l'optimisation au démarage d'un site web avec NodeAtlas avec les propriétés `"imagesOptimizationsEnable": "false"`.
+Il est également possible de ne pas executer l'optimisation au démarage d'un site web avec NodeAtlas avec les propriétés `"imagesOptimizationsEnable": false`.
 
 ```js
 {
-    "imagesOptimizationsEnable": "false",
+    "imagesOptimizationsEnable": false,
     "images": {
         "media/images/example.min.png": "media/images/example.png",
         "media/images/example.min.jpg": "media/images/example.jpg",
@@ -2721,11 +2725,11 @@ Il est également possible de ne pas executer l'optimisation au démarage d'un s
 
 #### Ré-générer les Optimizations avant chaque rendu de page ####
 
-Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés `"imagesOptimizationsBeforeResponse": "true"`.
+Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés `"imagesOptimizationsBeforeResponse": true`.
 
 ```js
 {
-    "imagesOptimizationsBeforeResponse": "false",
+    "imagesOptimizationsBeforeResponse": false,
     "images": {
         "media/images/example.min.png": "media/images/example.png",
         "media/images/example.min.jpg": "media/images/example.jpg",
@@ -2740,6 +2744,137 @@ Vous pouvez demander à ce que les fichiers soient régénérés avant chaque af
 ```
 
 *Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.*
+
+
+
+### Injecter du CSS inline pour maintenir des assets Email ###
+
+Quand on créer des templates pour envoyer des Newsletters par email, ou même de simple message, on ne peut pas attacher de feuille de style. Le seul moyen à notre disposition est d'écrire les instructions CSS dans le template à l'intérieur de l'attribut `style` brisant ainsi la séparation du font et de la forme.
+
+#### Injection spécifique ####
+
+Avec `injectCss`, il vous suffit d'habiller votre template comme à votre habitude via une feuille de style et NodeAtlas injectera à chaque rendu les styles dans l'attribut `style`. Il ne vous restera plus qu'à générer vos templates.
+
+Avec par exemple la configuration suivante :
+
+```json
+{
+    "routes": {
+        "/": {
+            "template": "email.htm",
+            "generate": "bienvenue.html",
+            "injectCss": "stylesheets/email.css"
+        }
+    }
+}
+```
+
+et l'ensemble de fichiers suivant :
+
+```
+generates/
+assets/
+— stylesheets/
+—— email.css
+templates/
+— email.htm
+```
+
+dont les contenus sont :
+
+**stylesheets/common.css**
+
+```css 
+body {
+    color: #f00;
+}
+```
+
+**templates/email.htm***
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Email</title>
+    </head>
+    <body>
+        <p>This is a template email.</p>        
+    </body>
+</html>
+```
+
+vous obtiendrez en sortie avec la commande `node </path/to/>node-atlas/node-atlas.js --generate` l'ensemble de fichier suivant :
+
+```
+generates/
+— bienvenue.html    <= template email prêt à l'envoi !
+assets/
+— stylesheets/
+—— email.css
+templates/
+— email.htm
+```
+
+avec comme contenu pour `generates/bienvenue.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Email</title>
+    </head>
+    <body style="color: #f00;">
+        <p>This is a template email.</p>        
+    </body>
+</html>
+```
+
+Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.
+
+#### Injection globale ####
+
+Il existe également la même propriété globale inpactant toutes les pages.
+
+```json
+    "injectCss": "stylesheets/email.css"
+    "routes": {
+        "/bienvenue/": {
+            "template": "email-a.htm",
+            "generate": "bienvenue.html"
+        },
+        "/au-revoir/": {
+            "template": "email-b.htm",
+            "generate": "au-revoir.html"
+        }
+    }
+```
+
+ainsi les deux pages `bienvenue` et `au-revoir` contiendront chacune `<body style="color: #f00;">`.
+
+#### Injection multiple ####
+
+Il est possible :
+- De préciser des feuilles spécifique et commune en même temps.
+- De préciser plus d'une feuille à la fois.
+
+```json
+    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"]
+    "routes": {
+        "/bienvenue/": {
+            "template": "email-a.htm",
+            "generate": "bienvenue.html",
+            "injectCss": "/stylesheets/welcome.css"
+        },
+        "/au-revoir/": {
+            "template": "email-b.htm",
+            "generate": "au-revoir.html",
+            "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
+        }
+    }
+```
 
 
 

@@ -1,3 +1,27 @@
+## 0.38.0 ##
+
+Features:
+
+- CSS could be injected inline by referencing some CSS file with `injectCss`. Useful for maintain HTML assets.
+
+Documentation:
+
+- Add precision for  `injectCss` feature.
+
+
+
+## 0.37.0 ##
+
+Features:
+
+- forceDomain could be disabled or enabled with `enableForceDomain`. By default, it's disabled.
+
+Documentation:
+
+- Add precision for  `enableForceDomain` feature.
+
+
+
 ## 0.36.0 ##
 
 Features:
@@ -7,7 +31,7 @@ Features:
 
 Documentation:
 
-- Add precision for htmlGenerateEnable feature.
+- Add precision for `htmlGenerateEnable` feature.
 
 
 

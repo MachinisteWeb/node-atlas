@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.37.0
+ * @version 0.38.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.37.0')
+            .version('0.38.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -1454,11 +1454,6 @@ var NA = {};
         response.charset = charset;
         response.writeHead(statusCode, others);
 
-        /* Inject CSS into DOM */
-        if (NA.webconfig.injectCss || currentRouteParameters.injectCss) {
-            data = NA.injectCss(data, currentRouteParameters.injectCss);
-        }
-
         /* Set/Send body */
         response.write(data);
         response.end();
@@ -1800,59 +1795,107 @@ var NA = {};
      * @public
      * @function injectCss
      * @memberOf node-atlas~NA
-     * @param {string} dom - The ouptput HTML.
+     * @param {string} dom                          - The ouptput HTML.
+     * @param {string|Array.<string>} injection     - Represent the injectCss property injection to the template.
+     * @param {injectCss~mainCallback} mainCallback - The next steps after injection.
      */ 
-    publics.injectCss = function (dom, specific) {
+    publics.injectCss = function (dom, injection, mainCallback) {
         var cheerio = NA.modules.cheerio,
             cssParse = NA.modules.cssParse,
+            async = NA.modules.async,
+            fs = NA.modules.fs,
             path = NA.modules.path,
             allCssFiles = [],
             $ = cheerio.load(dom),
-            inject = true;
+            inject = true,
+            css,
+            add,
+
+            /**
+             * CSS files for specific injection of CSS.
+             * @public
+             * @alias injectCss
+             * @type {string|Array.<string>}
+             * @memberOf node-atlas~NA#currentRouteParameters
+             */
+            specificInjection = injection,
+
+            /**
+             * CSS files for common injection of CSS.
+             * @public
+             * @alias injectCss
+             * @type {string|Array.<string>}
+             * @memberOf node-atlas~NA.webconfig
+             */
+            commonInjection = NA.webconfig.injectCss;
 
         /* Add common injections. */
-        if (typeof NA.webconfig.injectCss === 'string') {
-            allCssFiles.push(NA.webconfig.injectCss);
+        if (typeof commonInjection === 'string') {
+            allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + commonInjection));
         } else {
-            for (var i = 0, l = NA.webconfig.injectCss.length; i < l; i++) {
-                allCssFiles.push(NA.webconfig.injectCss[i]);
+            if (commonInjection) {
+                for (var i = 0; i < commonInjection.length; i++) {
+                    allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + NA.webconfig.injectCss[i]));
+                }
             }
         }
 
         /* Add specific injections. */
-        if (specific) {     
-            if (typeof specific === 'string') {
-                for (var i = 0, l = NA.webconfig.injectCss.length; i < l; i++) {
-                    if (path.normalize(specific) === path.normalize(NA.webconfig.injectCss[i])) {
+        if (specificInjection) {     
+            if (typeof specificInjection === 'string') {
+                for (var i = 0; i < allCssFiles.length; i++) {
+                    if (path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection) === allCssFiles[i]) {
                         inject = false;
                     }
                 }
                 if (inject) {
-                    allCssFiles.push(specific);
+                    allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection));
                 }
             } else {
-                for (var j = 0, l = specific.length; j < l; j++) {
-                    for (var i = 0, l = NA.webconfig.injectCss.length; i < l; i++) {
-                        if (path.normalize(specific[j]) === path.normalize(NA.webconfig.injectCss[i])) {
+                for (var j = 0; j < specificInjection.length; j++) {
+                    for (var i = 0; i < allCssFiles.length; i++) {
+                        if (path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection[j]) === allCssFiles[i]) {
                             inject = false;
                         }
                     }
                     if (inject) {
-                        allCssFiles.push(specific[j]);
+                        allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection[j]));
                     }
                     inject = true;
                 }
             }
         }
 
-        /*  Work in progress
-        console.log(allCssFiles);
+        async.map(allCssFiles, function (sourceFile, callback) {
+            /* Concatain all CSS. */
+            callback(null, fs.readFileSync(sourceFile, 'utf-8'));
+        }, function(error, results) {
+            var output = "";
+            for (var i = 0; i < results.length; i++) {
+                output += results[i];
+            }
 
-        $("body").css({
-            "margin": "100px"
-        });*/
+            /* Parse CSS in JavaScript. */
+            css = cssParse(output);
 
-        return $.html();
+            /* Apply property on the DOM. */
+            for (var i = 0; i < css.stylesheet.rules.length; i++) {
+                if (typeof css.stylesheet.rules[i].selectors !== 'undefined') {
+                    for (var j = 0; j < css.stylesheet.rules[i].selectors.length; j++) {
+                        for (var k = 0; k < css.stylesheet.rules[i].declarations.length; k++) {
+                            $(css.stylesheet.rules[i].selectors[j]).css(css.stylesheet.rules[i].declarations[k].property, css.stylesheet.rules[i].declarations[k].value);
+                        };
+                    }
+                }
+            }
+
+            /**
+             * Next steps after injection of CSS.
+             * @callback injectCss~mainCallback
+             * @param {string} dom - DOM with modifications.
+             */
+            mainCallback($.html());
+        });
     }
 
     /**
@@ -2196,11 +2239,11 @@ var NA = {};
                     typeof NA.websiteController[currentRouteParameters.controller].changeDom !== 'undefined') {
                         /** Use the `NA.websiteController[<controller>].changeVariation(...)` function if set... */
                         NA.websiteController[currentRouteParameters.controller].changeDom({ dom: data, NA: NA, request: request, response: response }, function (data) {
-                            renderTemplate(data, currentVariation);
+                            intoBrowserAndFiles(data, currentVariation);
                         });
                 } else {
                     /** ...else, just continue. */
-                    renderTemplate(data, currentVariation);      
+                    intoBrowserAndFiles(data, currentVariation);      
                 }
             }
 
@@ -2246,12 +2289,14 @@ var NA = {};
                              */
                             NA.websiteController[NA.webconfig.commonController].changeDom({ dom: data, NA: NA, request: request, response: response },
 
-                            /**
-                             * Next steps after changeDom is done.
-                             * @callback changeDom~callback
-                             * @param {string} data - DOM with modifications.
-                             */
                             function (data) {
+
+                                /**
+                                 * Next steps after changeDomSpecific is done.
+                                 * @callback changeDomSpecific~callback
+                                 * @param {string} data - DOM with modifications.
+                                 * @param {Object} currentVariation - list of all variations for this page.
+                                 */
                                 changeDomSpecific(data, currentVariation);
                             });
                     /* ...else, just continue. */
@@ -2307,6 +2352,25 @@ var NA = {};
                     ], function () {
                         NA.response(request, response, data, currentRouteParameters, currentVariation);
                     });
+                }
+            }
+
+            /**
+             * Inject CSS into DOM if needed.
+             * @private
+             * @function NA.render~intoBrowserAndFiles
+             * @param {string} data - DOM Generated.
+             * @param {Object} currentVariation - Variations for the current page.
+             */
+            function intoBrowserAndFiles(data, currentVariation) { 
+                /* Inject CSS into DOM... */
+                if (NA.webconfig.injectCss || currentRouteParameters.injectCss) {
+                    NA.injectCss(data, currentRouteParameters.injectCss, function (data) {
+                        renderTemplate(data, currentVariation);
+                    });
+                /* ...or do nothing. */
+                } else {
+                    renderTemplate(data, currentVariation);
                 }
             }
             
