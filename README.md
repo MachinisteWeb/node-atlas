@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.38.1 (Beta)
+Version : 0.38
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -69,13 +69,13 @@ The tool is still in development and I experience it slowly with my own websites
  - [Changing the template engine brackets <% %>](#Changing-the-template-engine-brackets--)
  - [Change the url hostname and listening port](#change-the-url-hostname-and-listening-port)
  - [Generate urls dynamically](#generate-urls-dynamically)
-- [Running commands](#running-commands)
+- [CLI / Running commands](#cli-running-commands)
  - [--directory](#--directory)
  - [--webconfig](#--webconfig)
  - [--browse](#--browse)
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
-- [NodeAtlas as npm module](#nodeatlas-as-npm-module)
+- [API / NodeAtlas as npm module](#api-nodeatlas-as-npm-module)
 - [NodeAtlas as a simple web server](#nodeatlas-as-a-simple-web-server)
 - [Running NodeAtlas on online server](#running-nodeatlas-on-online-server)
  - [In a Windows Server environment with iisnode](#in-a-windows-server-environment-with-iisnode)
@@ -3297,7 +3297,7 @@ I can now write the link in the dynamic template:
 
 
 
-## Running commands ##
+## CLI / Running commands ##
 
 The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command `\> node </path/to/>node-atlas/node-atlas.js`. However there are options to launch more than launch the site.
 
@@ -3365,7 +3365,7 @@ If you change an item in your common variation file or even your template compon
 
 
 
-## NodeAtlas as npm module ##
+## API / NodeAtlas as npm module ##
 
 If you start NodeAtlas via JavaScript code, you can also configure the launch:
 
