@@ -1,3 +1,11 @@
+## 0.38.4 ##
+
+Bugfixes:
+
+- Avoid a stopping of generation of HTML pages when a directory was created.
+
+
+
 ## 0.38.3 ##
 
 Bugfixes:

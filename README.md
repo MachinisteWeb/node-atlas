@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.38.3 (Beta)
+Version : 0.38
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -69,13 +69,13 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
  - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
-- [Commandes de lancement](#commandes-de-lancement)
+- [CLI / Commandes de lancement](#cli-commandes-de-lancement)
  - [--directory](#--directory)
  - [--webconfig](#--webconfig)
  - [--browse](#--browse)
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
-- [NodeAtlas comme module npm](#nodeatlas-comme-module-npm)
+- [API / NodeAtlas comme module npm](#api-nodeatlas-comme-module-npm)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
 - [Faire tourner NodeAtlas sur serveur](#faire-tourner-nodeatlas-sur-serveur)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
