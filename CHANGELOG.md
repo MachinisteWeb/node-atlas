@@ -1,4 +1,4 @@
-## 0.38.8 ##
+## 0.38.9 ##
 
 Documentation:
 
@@ -6,11 +6,19 @@ Documentation:
 
 
 
+## 0.38.8 ##
+
+Documentation:
+
+- Adding of TLTR. In progress...
+
+
+
 ## 0.38.7 ##
 
 Documentation:
 
-- Adding of TLTR. Tests.
+- Adding of TLTR. In progress...
 
 
 
@@ -18,7 +26,7 @@ Documentation:
 
 Documentation:
 
-- Adding of TLTR. Tests.
+- Adding of TLTR. In progress...
 
 
 
@@ -26,7 +34,7 @@ Documentation:
 
 Documentation:
 
-- Adding of TLTR. Tests.
+- Adding of TLTR. In progress...
 
 
 

@@ -1,4 +1,6 @@
-> *NodeAtlas* is a MVC2 Framework oriented Front-end, this means it makes running multilingual websites complete with only the View and Url Rewriting part activated. Of course, by activating the Controller and Model part, you can create great websites !
+> *NodeAtlas* is a MVC2 Framework oriented Front-end, this means it makes running multilingual websites and create HTML mockups with only the View and Url Rewriting part activated. Of course, by activating the Controller and Model part, you can create great websites !
+
+**Vous êtes français ? Le document [derrière ce lien](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) vous sera peut-être plus agréable.**
 
 ## Usage ##
 
@@ -19,14 +21,14 @@
 {
 	"languageCode": "en-gb",                /* Set the principal language. */
     "pageNotFound": "/page-404/",           /* Assign the 404 dedicated view. */
-    "commonVariation": "common.json",       /* Assign the common variation file for localisation. */
-    "commonController": "common.js",        /* Assign the common controller file for all pages called. */
+    "commonVariation": "common.json",       /* Assign the common variation files for localisation. */
+    "commonController": "common.js",        /* Assign the common controller files for all pages called. */
     "postSupport": false,                   /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
-    "optimizations": "optimizations.json",  /* Set images to optimized for the web with an external file. */
-    "htmlGenerateBeforeResponse": true,     /* Generate page currently visited into "generates" directory. */
+    "optimizations": "optimizations.json",  /* Set images to optimize for the web with an external file. */
+    "htmlGenerateBeforeResponse": true,     /* Generate page currently displayed into "generates" directory. */
     "stylesheetsBundlesEnable": true,       /* Minify CSS into ".min" files before response pages. */
-    "javascriptBundlesEnable": true,        /* Obfuscate CSS into ".min" files before response pages. */
+    "javascriptBundlesEnable": true,        /* Obfuscate JS into ".min" files before response pages. */
     "enableLess": true,                     /* Use Less files with ".map" for development phase. */
     "routes": "route.json"                  /* Set all urls provided by website with an external file. */
 }
@@ -38,7 +40,7 @@
 {
 	"httpPort": 7777,                       /* Set the real application HTTP port if port 80 is already listened. */
 	"urlHttp": 80,                          /* Set the frontal port for application on the world wide web (proxy). */
-	"httpSecure": "security/server",        /* Set the directory for find ".key" and ".crt" file for HTTPS. */
+	"httpSecure": "security/server",        /* Set the directory for find "server.key" and "server.crt" file for HTTPs. */
 	"urlHostname": "www.my-website.com",    /* Set the hostname for the application on the world wide web. */
     "urlRelativeSubPath": "/example",       /* Set a subdirectory for the application url. i.e.: "https://www.my-website.com/example/". */
 	"languageCode": "en-gb",
@@ -54,17 +56,17 @@
 
    ```js
 {
-	"home": {                               /* Set a key to use parameters into url or code. */
+	"home": {                               /* Set a key to use parameters defined or from url into code. */
 		"url": "/",                         /* Set the url to request for a page. */
 		"generate": "home.html",            /* Set the pathname for save an HTML file represent the output in static. */
-		"template": "home.htm",             /* Assign the view file used to render content informations. */
+		"template": "home.htm",             /* Assign the view file used to render content information. */
 		"variation": "home.json",           /* Assign the specific variation file used for localize page. */
 		"controller": "home.js"             /* Assign the specific controller file used for the home page (get last articles, number of suscribers, etc.). */
 	},
 	"presentation": {
 		"url": "/presentation/",
 		"generate": "presentation.html",
-		"template": "default.htm",          /* Same template with... */
+		"template": "default.htm",          /* A same template with... */
 		"variation": "presentation.json"    /* ...different variation can generate different content page (see "error"). */
 	},
 	"members": {
@@ -83,7 +85,7 @@
 	},
 	"member": {                             /* The old version of "memberV2" page... */
 		"url": "/members-profile/:member/", /* ...with old route... */
-		"redirect": "/members/:member/",    /* ...kept for redirect to the new page... */
+		"redirect": "/members/:member/",    /* ...kept to redirect to the new page... */
 		"statusCode": 301                   /* ...in permanent. */
 	},
 	"contact-us": {
@@ -92,7 +94,7 @@
 		"template": "contact-us.htm",
 		"variation": "contact-us.json",
 		"controller": "contact-us.js",
-		"postSupport": true                 /* Allow post support for send an email with custom form. */
+		"postSupport": true                 /* Allow POST support for send an email with custom form. */
 	},
 	"home-fr-fr": {
 		"url": "/francais/",
@@ -166,7 +168,7 @@
    *NodeAtlas* default file hierarchy:
 
    ```
-my-website/                       <= Folder for your NodeAtlas project.
+my-website/
 	— node_modules/               <= All node.js module for your application.
 		— node-atlas/
 		— ...
@@ -190,7 +192,7 @@ my-website/                       <= Folder for your NodeAtlas project.
 			common.json
 			home.json
 			...
-	— controller/                 <= The Controller part for manipulate template with database/external system data and url parameters.
+	— controller/                 <= The Controller part for manipulate template, variation and models with database and url parameters.
 		common.js
 		home.js
 		...
@@ -199,12 +201,12 @@ my-website/                       <= Folder for your NodeAtlas project.
 			head.htm
 			foot.htm
 			...
-		— controllers/            <= ...and controllers...
+		— controllers/            <= ...and controllers.
 			form-contact-us.js
 			...
-	— models/                     <= The Model part with model files used into controllers for filled view.
+	— models/                     <= The Model part with model files used into controllers for filled templates.
 		— ...
-	— generates/                  <= All HTML assets generate and usable for Back-end not in node.js.
+	— generates/                  <= All HTML mockups generated and usable for Back-end not in Node.js.
 	...
 	server.js                     <= File used to run and configure NodeAtlas for API usage.
 	webconfig.json                <= File used to run website on localhost for development.
@@ -222,7 +224,7 @@ my-website/                       <= Folder for your NodeAtlas project.
 
    Run *NodeAtlas* into the "my-website" folder in your development environment:
 
-   - with your server file:
+   - with your `server.js` file:
 
      ```
      node server.js
@@ -234,7 +236,7 @@ my-website/                       <= Folder for your NodeAtlas project.
      nodeatlas
      ```
 
-   - for generate assets: 
+   - for generate mockups: 
 
      ```
      nodeatlas --generate
@@ -262,7 +264,7 @@ my-website/                       <= Folder for your NodeAtlas project.
 
 ### About NodeAtlas ##
 
-- [Complete and detailed README.md on GitHub](https://www.npmjs.com/package/node-atlas)
+- [Complete and detailed README.md on GitHub](https://github.com/Haeresis/NodeAtlas)
 - [node-atlas.js documentation for maintainers](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html)
 
 ### Websites Example ##
