@@ -22,7 +22,7 @@ NodeAtlas is an application developed in JavaScript and running with [Node.js](h
 
 The tool is still in development and I experience it slowly with my own websites.
 
-- [Generating and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
+- [Generation and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
 - [HTML website maintenance (no Back-end)](https://github.com/Haeresis/ResumeAtlas/).
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
@@ -130,6 +130,7 @@ The tool is still in development and I experience it slowly with my own websites
 ### Documentation ###
 
 In addition to this README, you also have access to,
+- [TLTR](https://www.npmjs.com/package/node-atlas),
 - [Code Explanation](https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js) and,
 - [Details of public function in the NA object](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html).
 
