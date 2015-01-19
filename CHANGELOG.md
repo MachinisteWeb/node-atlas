@@ -1,8 +1,16 @@
+## 0.38.10 ##
+
+Documentation:
+
+- Adding of tl;dr. Done.
+
+
+
 ## 0.38.9 ##
 
 Documentation:
 
-- Adding of TLTR. Done.
+- Adding of tl;dr. In progress...
 
 
 
@@ -10,7 +18,7 @@ Documentation:
 
 Documentation:
 
-- Adding of TLTR. In progress...
+- Adding of tl;dr. In progress...
 
 
 
@@ -18,7 +26,7 @@ Documentation:
 
 Documentation:
 
-- Adding of TLTR. In progress...
+- Adding of tl;dr. In progress...
 
 
 
@@ -26,7 +34,7 @@ Documentation:
 
 Documentation:
 
-- Adding of TLTR. In progress...
+- Adding of tl;dr. In progress...
 
 
 
@@ -34,7 +42,7 @@ Documentation:
 
 Documentation:
 
-- Adding of TLTR. In progress...
+- Adding of tl;dr. In progress...
 
 
 
