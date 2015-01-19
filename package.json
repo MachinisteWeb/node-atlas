@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.38.4",
+  "version": "0.38.8",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -76,5 +76,5 @@
   "engines": {
     "node": ">=0.10"
   },
-  "readmeFilename": "README.md"
+  "readmeFilename": "TLTR.md"
 }

@@ -131,6 +131,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 ### Documentation ###
 
 En complément de ce README (Fr), vous avez également accès au,
+- [TLTR](https://www.npmjs.com/package/node-atlas) (En),
 - [Explications de code](https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js) (En) et au,
 - [détail des fonctions publiques de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html) (En).
 

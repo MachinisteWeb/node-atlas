@@ -1,3 +1,35 @@
+## 0.38.8 ##
+
+Documentation:
+
+- Adding of TLTR. Done.
+
+
+
+## 0.38.7 ##
+
+Documentation:
+
+- Adding of TLTR. Tests.
+
+
+
+## 0.38.6 ##
+
+Documentation:
+
+- Adding of TLTR. Tests.
+
+
+
+## 0.38.5 ##
+
+Documentation:
+
+- Adding of TLTR. Tests.
+
+
+
 ## 0.38.4 ##
 
 Bugfixes:
