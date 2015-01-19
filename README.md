@@ -130,7 +130,7 @@ The tool is still in development and I experience it slowly with my own websites
 ### Documentation ###
 
 In addition to this README, you also have access to,
-- [TLTR](https://www.npmjs.com/package/node-atlas),
+- [tl;dr](https://www.npmjs.com/package/node-atlas),
 - [Code Explanation](https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js) and,
 - [Details of public function in the NA object](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html).
 
