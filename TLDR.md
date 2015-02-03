@@ -2,22 +2,30 @@
 
 **Vous êtes français ? Le document [derrière ce lien](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) vous sera peut-être plus agréable.**
 
+
+
+
+
 ## Usage ##
 
-1. ### Step 1 - Install ###
 
-   Install *NodeAtlas* with one of two existing way:
 
-   - `npm install node-atlas` prefered for an API usage.
-   - `npm install -g node-atlas` prefered for a CLI usage.
+### Step 1 - Install ###
 
-2. ### Step 2 - Configure ###
+Install *NodeAtlas* with one of two existing way:
 
-   Create a `webconfig.json` file and dependencies files for configured your website.
+ - `npm install node-atlas` prefered for an API usage.
+ - `npm install -g node-atlas` prefered for a CLI usage.
 
-   **website.json** example for development:
 
-   ```js
+
+### Step 2 - Configure ###
+
+Create a `webconfig.json` file and dependencies files for configured your website.
+
+**website.json** example for development:
+
+```js
 {
 	"languageCode": "en-gb",                /* Set the principal language. */
     "pageNotFound": "/page-404/",           /* Assign the 404 dedicated view. */
@@ -34,9 +42,9 @@
 }
 ```
 
-   **website.prod.json** example for production:
+**website.prod.json** example for production:
 
-   ```js
+```js
 {
 	"httpPort": 7777,                       /* Set the real application HTTP port if port 80 is already listened. */
 	"urlHttp": 80,                          /* Set the frontal port for application on the world wide web (proxy). */
@@ -52,9 +60,9 @@
 }
 ```
 
-   **routes.json** example:
+**routes.json** example:
 
-   ```js
+```js
 {
 	"home": {                               /* Set a key to use parameters defined or from url into code. */
 		"url": "/",                         /* Set the url to request for a page. */
@@ -159,15 +167,17 @@
 }
 ```
 
-   other files...
+other files...
 
-3. ### Step 3 - Create ###
 
-	Create files to develop your website !
 
-   *NodeAtlas* default file hierarchy:
+### Step 3 - Create ###
 
-   ```
+Create files to develop your website !
+
+*NodeAtlas* default file hierarchy:
+
+```
 my-website/
 	— node_modules/               <= All node.js module for your application.
 		— node-atlas/
@@ -220,41 +230,41 @@ my-website/
 	...
 ```
 
-4. ### Step 4 - Run ! ###
+### Step 4 - Run ! ###
 
-   Run *NodeAtlas* into the "my-website" folder in your development environment:
+Run *NodeAtlas* into the "my-website" folder in your development environment:
 
-   - with your `server.js` file:
+- with your `server.js` file:
 
-     ```
-     node server.js
-     ```
+```
+node server.js
+```
 
-   - with CLI: 
+- with CLI: 
 
-     ```
-     nodeatlas
-     ```
+```
+nodeatlas
+```
 
-   - for generate mockups: 
+- for generate mockups: 
 
-     ```
-     nodeatlas --generate
-     ```
+```
+nodeatlas --generate
+```
 
-   Run *NodeAtlas* on your production server:
+Run *NodeAtlas* on your production server:
 
-   - in standard: 
+- in standard: 
 
-     ```
-     nodeatlas --directory /var/www/my-website/ --webconfig webconfig.prod.json
-     ```
+```
+nodeatlas --directory /var/www/my-website/ --webconfig webconfig.prod.json
+```
 
-   - with *Forever*: 
+- with *Forever*: 
 
-     ```
-     forever start /usr/local/lib/node_modules/node-atlas/node-atlas.js --directory /var/www/my-website/ --webconfig webconfig.prod.json
-     ```
+```
+forever start /usr/local/lib/node_modules/node-atlas/node-atlas.js --directory /var/www/my-website/ --webconfig webconfig.prod.json
+```
 
 
 
@@ -262,10 +272,14 @@ my-website/
 
 ## Documentation ##
 
+
+
 ### About NodeAtlas ##
 
 - [Complete and detailed README.md on GitHub](https://github.com/Haeresis/NodeAtlas)
 - [node-atlas.js documentation for maintainers](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html)
+
+
 
 ### Websites Example ##
 
