@@ -2613,7 +2613,7 @@ avec `webconfig.json`
             "media/images/example.min.jpg": "media/images/example.jpg",
             "media/images/example.min.gif": "media/images/example.gif"
         }
-    }
+    },
     "routes": {
         "/": {
             "template": "index.htm"
@@ -2635,7 +2635,7 @@ et avec `webconfig.prod.json`
             "media/images/example.min.jpg": "media/images/example.jpg",
             "media/images/example.min.gif": "media/images/example.gif"
         }
-    }
+    },
     "routes": {
         "/": {
             "template": "index.htm"
