@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.38
+Version : 0.40
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -98,8 +98,8 @@ The tool is still in development and I experience it slowly with my own websites
  - Example of Socket.IO with handshake.
  - Support Express middleware.
  - Support personal variables webconfig.
- - Connect 2.x Migration to Connect 3.x.
- - Migration 3.x Express to Express 4.x.
+ - Migration Connect 2.x to Connect 3.x.
+ - Migration Express 3.x to Express 4.x.
  - Removing Connect 3.x.
  - Reverse-proxy Example for multiple instances on port 80.
  - Start with a NodeAtlas require() from a code file.
@@ -117,6 +117,8 @@ The tool is still in development and I experience it slowly with my own websites
  - Less support.
  - HTTPs support (WSs support too).
  - Image compression.
+ - Auto-injection of CSS stylesheet property into inline tag attribute style (for email template).
+ - Migration EJS 3.x to EJS 4.x.
 
 - Coming soon and I need your help !
  - Global tests on multiple projects.
@@ -474,27 +476,27 @@ webconfig.json
 *templates/index.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <div>
         <h1>Welcome</h1>
         <p>This is the home page.</p>
     </div>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 *templates/members.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <div>
         <h1>List of members</h1>
         <p>It is the Members page.</p>
     </div>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 you will have access to the addresses:
@@ -577,7 +579,7 @@ webconfig.json
 *templates/template.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <div class="title"><%= common.titleWebsite %></div>
     
@@ -586,7 +588,7 @@ webconfig.json
         <%- specific.content %>
     </div>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 *variations/common.json*
@@ -698,7 +700,7 @@ webconfig.json
 *templates/landing.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <select>
         <% for (var i = 0; i < specific.selectLabel.length; i++) { %>
@@ -706,20 +708,20 @@ webconfig.json
         <% } %>
     </select>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 *templates/home.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <div>
         <h1><%= specific.titlePage %></h1>
         <%- specific.content %>
     </div>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 *languages/landing.json*
@@ -3040,12 +3042,11 @@ More information to [connect-redis](https://www.npmjs.org/package/connect-mongo)
 
 ### Changing the template engine brackets <% %> ###
 
-For example, to include part of a file instruction is used ***<% include head.htm %>***. It would be possible to do it with ***<?js include head.htm ?>*** with the configuration below:
+For example, to include part of a file instruction is used ***<%- include('head.htm') %>***. It would be possible to do it with ***<?- include('head.htm') ?>*** with the configuration below:
 
 ```js
 {
-    "templateEngineOpenPattern": "<?js",
-    "templateEngineClosePattern": "?>",
+    "templateEngineDelimiter": "?",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -3063,18 +3064,18 @@ See the exemple in files below:
 <html lang="fr-fr">
     <head>
         <meta charset="utf-8" />
-        <title><?js= specific.titlePage ?></title>
+        <title><?= specific.titlePage ?></title>
 
-        <link type="text/css" rel="stylesheet" href="stylesheets/<?js= common.classCssCommon ?>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<?js= specific.classPage ?>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
     </head>
-    <body class="<?js= specific.classPage ?>">
+    <body class="<?= specific.classPage ?>">
 ```
 
 *components/foot.htm*
 
 ```html
-        <script async type="text/javascript" src="javascript/<?js= common.classJsCommon ?>.js"></script>
+        <script async type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
     </body>
 </html>
 ```
@@ -3082,21 +3083,21 @@ See the exemple in files below:
 *templates/template.htm*
 
 ```html
-    <?js include head.htm ?>
+    <? include('head.htm') ?>
     
-    <div class="title"><?js= common.titleWebsite ?></div>
+    <div class="title"><?= common.titleWebsite ?></div>
     
     <div>
-        <h1><?js= specific.titlePage ?></h1>
-        <?js- specific.content ?>
+        <h1><?= specific.titlePage ?></h1>
+        <?- specific.content ?>
     </div>
     
-    <?js include foot.htm ?>
+    <? include('foot.htm') ?>
 ```
 
-Learn all about the possibilities of the template engine consult the documentation [ejs](https://github.com/visionmedia/ejs)
+Learn all about the possibilities of the template engine consult the documentation [ejs](https://github.com/mde/ejs)
 
-*Note : If nothing is set,* ***templateEngineOpenPattern*** *and* ***templateEngineClosePattern*** *are set to* ***<%*** *et* ***%>***.
+*Note : If nothing is set,* ***templateEngineDelimiter*** *is set to* ***%***.
 
 
 

@@ -110,7 +110,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.38</p>
+        <article><h1>node-atlas</h1><p>Version : 0.40</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -201,8 +201,8 @@
 <li>Example of Socket.IO with handshake.</li>
 <li>Support Express middleware.</li>
 <li>Support personal variables webconfig.</li>
-<li>Connect 2.x Migration to Connect 3.x.</li>
-<li>Migration 3.x Express to Express 4.x.</li>
+<li>Migration Connect 2.x to Connect 3.x.</li>
+<li>Migration Express 3.x to Express 4.x.</li>
 <li>Removing Connect 3.x.</li>
 <li>Reverse-proxy Example for multiple instances on port 80.</li>
 <li>Start with a NodeAtlas require() from a code file.</li>
@@ -220,6 +220,8 @@
 <li>Less support.</li>
 <li>HTTPs support (WSs support too).</li>
 <li>Image compression.</li>
+<li>Auto-injection of CSS stylesheet property into inline tag attribute style (for email template).</li>
+<li>Migration EJS 3.x to EJS 4.x.</li>
 </ul>
 </li>
 <li><p>Coming soon and I need your help !</p>
@@ -414,22 +416,22 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;>&lt;/script>
     &lt;/body>
 &lt;/html></code></pre><p><em>templates/index.htm</em></p>
-<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+<pre class="prettyprint source lang-html"><code>    &lt;%- include('head.htm') %>
 
     &lt;div>
         &lt;h1>Welcome&lt;/h1>
         &lt;p>This is the home page.&lt;/p>
     &lt;/div>
 
-    &lt;% include foot.htm %></code></pre><p><em>templates/members.htm</em></p>
-<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+    &lt;%- include('foot.htm') %></code></pre><p><em>templates/members.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;%- include('head.htm') %>
 
     &lt;div>
         &lt;h1>List of members&lt;/h1>
         &lt;p>It is the Members page.&lt;/p>
     &lt;/div>
 
-    &lt;% include foot.htm %></code></pre><p>you will have access to the addresses:</p>
+    &lt;%- include('foot.htm') %></code></pre><p>you will have access to the addresses:</p>
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/list-of-members/</em></li>
@@ -482,7 +484,7 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %>.js&quot;>&lt;/script>
     &lt;/body>
 &lt;/html></code></pre><p><em>templates/template.htm</em></p>
-<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+<pre class="prettyprint source lang-html"><code>    &lt;%- include('head.htm') %>
 
     &lt;div class=&quot;title&quot;>&lt;%= common.titleWebsite %>&lt;/div>
 
@@ -491,7 +493,7 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
         &lt;%- specific.content %>
     &lt;/div>
 
-    &lt;% include foot.htm %></code></pre><p><em>variations/common.json</em></p>
+    &lt;%- include('foot.htm') %></code></pre><p><em>variations/common.json</em></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;titleWebsite&quot;: &quot;Website title&quot;,
     &quot;classCssCommon&quot;: &quot;common&quot;,
@@ -555,7 +557,7 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
     &lt;body class=&quot;&lt;%= specific.classPage %>&quot;></code></pre><p><em>components/foot.htm</em></p>
 <pre class="prettyprint source lang-html"><code>    &lt;/body>
 &lt;/html></code></pre><p><em>templates/landing.htm</em></p>
-<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+<pre class="prettyprint source lang-html"><code>    &lt;%- include('head.htm') %>
 
     &lt;select>
         &lt;% for (var i = 0; i &lt; specific.selectLabel.length; i++) { %>
@@ -563,15 +565,15 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
         &lt;% } %>
     &lt;/select>
 
-    &lt;% include foot.htm %></code></pre><p><em>templates/home.htm</em></p>
-<pre class="prettyprint source lang-html"><code>    &lt;% include head.htm %>
+    &lt;%- include('foot.htm') %></code></pre><p><em>templates/home.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;%- include('head.htm') %>
 
     &lt;div>
         &lt;h1>&lt;%= specific.titlePage %>&lt;/h1>
         &lt;%- specific.content %>
     &lt;/div>
 
-    &lt;% include foot.htm %></code></pre><p><em>languages/landing.json</em></p>
+    &lt;%- include('foot.htm') %></code></pre><p><em>languages/landing.json</em></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;titlePage&quot;: &quot;Landing&quot;,
     &quot;classPage&quot;: &quot;landing&quot;,
@@ -2255,10 +2257,9 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 
 exports.loadModules = website.loadModules;
 exports.setSessions = website.setSessions;</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p>
-<h3>Changing the template engine brackets &lt;% %&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;% include head.htm %&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;?js include head.htm ?&gt;</em></strong> with the configuration below:</p>
+<h3>Changing the template engine brackets &lt;% %&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;%- include('head.htm') %&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;?- include('head.htm') ?&gt;</em></strong> with the configuration below:</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;templateEngineOpenPattern&quot;: &quot;&lt;?js&quot;,
-    &quot;templateEngineClosePattern&quot;: &quot;?>&quot;,
+    &quot;templateEngineDelimiter&quot;: &quot;?&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -2270,26 +2271,26 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 &lt;html lang=&quot;fr-fr&quot;>
     &lt;head>
         &lt;meta charset=&quot;utf-8&quot; />
-        &lt;title>&lt;?js= specific.titlePage ?>&lt;/title>
+        &lt;title>&lt;?= specific.titlePage ?>&lt;/title>
 
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?js= common.classCssCommon ?>.css&quot; media=&quot;all&quot; />
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?js= specific.classPage ?>.css&quot; media=&quot;all&quot; />
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= common.classCssCommon ?>.css&quot; media=&quot;all&quot; />
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?>.css&quot; media=&quot;all&quot; />
     &lt;/head>
-    &lt;body class=&quot;&lt;?js= specific.classPage ?>&quot;></code></pre><p><em>components/foot.htm</em></p>
-<pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?js= common.classJsCommon ?>.js&quot;>&lt;/script>
+    &lt;body class=&quot;&lt;?= specific.classPage ?>&quot;></code></pre><p><em>components/foot.htm</em></p>
+<pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?>.js&quot;>&lt;/script>
     &lt;/body>
 &lt;/html></code></pre><p><em>templates/template.htm</em></p>
-<pre class="prettyprint source lang-html"><code>    &lt;?js include head.htm ?>
+<pre class="prettyprint source lang-html"><code>    &lt;? include('head.htm') ?>
 
-    &lt;div class=&quot;title&quot;>&lt;?js= common.titleWebsite ?>&lt;/div>
+    &lt;div class=&quot;title&quot;>&lt;?= common.titleWebsite ?>&lt;/div>
 
     &lt;div>
-        &lt;h1>&lt;?js= specific.titlePage ?>&lt;/h1>
-        &lt;?js- specific.content ?>
+        &lt;h1>&lt;?= specific.titlePage ?>&lt;/h1>
+        &lt;?- specific.content ?>
     &lt;/div>
 
-    &lt;?js include foot.htm ?></code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="https://github.com/visionmedia/ejs">ejs</a></p>
-<p><em>Note : If nothing is set,</em> <strong><em>templateEngineOpenPattern</em></strong> <em>and</em> <strong><em>templateEngineClosePattern</em></strong> <em>are set to</em> <strong><em>&lt;%</em></strong> <em>et</em> <strong><em>%&gt;</em></strong>.</p>
+    &lt;? include('foot.htm') ?></code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="https://github.com/mde/ejs">ejs</a></p>
+<p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>%</em></strong>.</p>
 <h3>Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 7777,
@@ -2578,7 +2579,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-01-19T13:48:45+01:00 using the <a
+		on 2015-03-09T17:24:10+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
