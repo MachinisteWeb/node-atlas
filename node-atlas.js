@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.38.11
+ * @version 0.40.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.38.11')
+            .version('0.40.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -270,24 +270,14 @@ var NA = {};
         NA.variations.filename = NA.variations.pathname + "all-component.here";
 
         /**
-         * Set open bracket for use EJS.
+         * Set open and close bracket for use EJS.
          * @public
-         * @alias templateEngineOpenPattern
+         * @alias templateEngineDelimiter
          * @type {string}
          * @memberOf node-atlas~NA.webconfig
-         * @default '<%'.
+         * @default '%'.
          */
-        ejs.open = NA.webconfig.templateEngineOpenPattern || ejs.open;
-
-        /**
-         * Set close bracket for use EJS.
-         * @public
-         * @alias templateEngineClosePattern
-         * @type {string}
-         * @memberOf node-atlas~NA.webconfig
-         * @default '%>'.
-         */
-        ejs.close = NA.webconfig.templateEngineClosePattern || ejs.close;
+        ejs.delimiter = NA.webconfig.templateEngineDelimiter || ejs.delimiter;
     };
 
     /**

@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.38
+Version : 0.40
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -118,6 +118,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - Support HTTPs (WSs aussi).
  - Compression des images.
  - Injection automatique de feuille CSS en style inline (pour les maquettes email).
+ - Migration EJS 1.x vers EJS 2.x.
 
 - À venir et avec votre aide !
  - Tests globaux sur divers projets.
@@ -475,27 +476,27 @@ webconfig.json
 *templates/index.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <div>
         <h1>Bienvenue</h1>
         <p>C'est la page d'accueil.</p>
     </div>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 *templates/members.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <div>
         <h1>Liste des members</h1>
         <p>C'est la page des membres.</p>
     </div>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 vous aurez accès aux adresses :
@@ -578,7 +579,7 @@ webconfig.json
 *templates/template.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <div class="title"><%= common.titleWebsite %></div>
     
@@ -587,7 +588,7 @@ webconfig.json
         <%- specific.content %>
     </div>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 *variations/common.json*
@@ -699,7 +700,7 @@ webconfig.json
 *templates/landing.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <select>
         <% for (var i = 0; i < specific.selectLabel.length; i++) { %>
@@ -707,20 +708,20 @@ webconfig.json
         <% } %>
     </select>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 *templates/home.htm*
 
 ```html
-    <% include head.htm %>
+    <%- include('head.htm') %>
     
     <div>
         <h1><%= specific.titlePage %></h1>
         <%- specific.content %>
     </div>
     
-    <% include foot.htm %>
+    <%- include('foot.htm') %>
 ```
 
 *languages/landing.json*
@@ -3041,12 +3042,11 @@ Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mo
 
 ### Changer les chevrons <% %> du moteur de template ###
 
-Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<% include head.htm %>***. Il serait possible de le faire avec ***<?js include head.htm ?>*** avec la configuration ci-dessous :
+Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<%- include('head.htm') %>***. Il serait possible de le faire avec ***<?- include('head.htm') ?>*** avec la configuration ci-dessous :
 
 ```js
 {
-    "templateEngineOpenPattern": "<?js",
-    "templateEngineClosePattern": "?>",
+    "templateEngineDelimiter": "?",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -3064,18 +3064,18 @@ Voyez l'exemple dans les fichiers ci-dessous :
 <html lang="fr-fr">
     <head>
         <meta charset="utf-8" />
-        <title><?js= specific.titlePage ?></title>
+        <title><?= specific.titlePage ?></title>
 
-        <link type="text/css" rel="stylesheet" href="stylesheets/<?js= common.classCssCommon ?>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<?js= specific.classPage ?>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
     </head>
-    <body class="<?js= specific.classPage ?>">
+    <body class="<?= specific.classPage ?>">
 ```
 
 *components/foot.htm*
 
 ```html
-        <script async type="text/javascript" src="javascript/<?js= common.classJsCommon ?>.js"></script>
+        <script async type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
     </body>
 </html>
 ```
@@ -3083,21 +3083,21 @@ Voyez l'exemple dans les fichiers ci-dessous :
 *templates/template.htm*
 
 ```html
-    <?js include head.htm ?>
+    <? include('head.htm') ?>
     
-    <div class="title"><?js= common.titleWebsite ?></div>
+    <div class="title"><?= common.titleWebsite ?></div>
     
     <div>
-        <h1><?js= specific.titlePage ?></h1>
-        <?js- specific.content ?>
+        <h1><?= specific.titlePage ?></h1>
+        <?- specific.content ?>
     </div>
     
-    <?js include foot.htm ?>
+    <? include('foot.htm') ?>
 ```
 
-Pour tout savoir sur les possibilités du moteur de template consulter la documentation [ejs](https://github.com/visionmedia/ejs)
+Pour tout savoir sur les possibilités du moteur de template consulter la documentation [ejs](https://github.com/mde/ejs)
 
-*Note : Si rien n'est précisé,* ***templateEngineOpenPattern*** *et* ***templateEngineClosePattern*** *valent respectivement* ***<%*** *et* ***%>***.
+*Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***%***.
 
 
 

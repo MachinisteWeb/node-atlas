@@ -1,3 +1,15 @@
+## 0.40.0 ##
+
+Features:
+
+- EJS 2 as template engine.
+
+Documentation:
+
+- Change include part for templating.
+
+
+
 ## 0.38.11 ##
 
 Documentation:
@@ -10,47 +22,7 @@ Documentation:
 
 Documentation:
 
-- Adding of tl;dr. Done.
-
-
-
-## 0.38.9 ##
-
-Documentation:
-
-- Adding of tl;dr. In progress...
-
-
-
-## 0.38.8 ##
-
-Documentation:
-
-- Adding of tl;dr. In progress...
-
-
-
-## 0.38.7 ##
-
-Documentation:
-
-- Adding of tl;dr. In progress...
-
-
-
-## 0.38.6 ##
-
-Documentation:
-
-- Adding of tl;dr. In progress...
-
-
-
-## 0.38.5 ##
-
-Documentation:
-
-- Adding of tl;dr. In progress...
+- Adding of tl;dr.
 
 
 
