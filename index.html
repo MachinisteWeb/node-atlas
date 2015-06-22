@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.41</p>
+<p>Version : 0.43</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -2490,7 +2490,7 @@ webconfig.json
 <h3>
 <a id="optimiser-les-images" class="anchor" href="#optimiser-les-images" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimiser les Images</h3>
 
-<p>Vous pouvez automatiquement optimiser les images que vous aller utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut que des Optimizations existe dans le Webconfig.</p>
+<p>Vous pouvez automatiquement optimiser les images que vous aller utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peut que des Optimizations existe dans le Webconfig.</p>
 
 <h4>
 <a id="créer-des-optimizations" class="anchor" href="#cr%C3%A9er-des-optimizations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Créer des Optimizations</h4>
@@ -2500,9 +2500,10 @@ webconfig.json
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.svg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>
         }
     },
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -2520,6 +2521,7 @@ webconfig.json
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 webconfig.json
@@ -2533,52 +2535,77 @@ webconfig.json
 ——— example.png
 ——— example.jpg
 ——— example.gif
-——— example.min.png    &lt;= nouveau fichier
-——— example.min.jpg    &lt;= nouveau fichier
-——— example.min.gif    &lt;= nouveau fichier
+——— example.svg
+——— optimized/      &lt;= nouveau dossier
+———— example.png    &lt;= nouveau fichier
+———— example.jpg    &lt;= nouveau fichier
+———— example.gif    &lt;= nouveau fichier
+———— example.svg    &lt;= nouveau fichier
 templates/
 — index.htm
 webconfig.json
 </code></pre>
 
 <h4>
-<a id="optimizations-dans-un-fichier-partagé" class="anchor" href="#optimizations-dans-un-fichier-partag%C3%A9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimizations dans un fichier partagé</h4>
+<a id="créer-des-optimizations-par-groupes-de-fichier" class="anchor" href="#cr%C3%A9er-des-optimizations-par-groupes-de-fichier" aria-hidden="true"><span class="octicon octicon-link"></span></a>Créer des Optimizations par groupes de fichier</h4>
 
-<p>Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>optimizations.json</code>. </p>
+<p>Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indiquer en groupe :</p>
 
-<p>Par exemple :</p>
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/*.{gif,jpg,png,svg}<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>
+        }
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}
 
-<p>L'ensemble de fichier suivant</p>
+#### Optimizations dans un fichier partagé ####
 
-<pre><code>assets/
+Afin de ne pas ré<span class="pl-k">-</span>écrire une longue liste de configuration d<span class="pl-s"><span class="pl-pds">'</span>Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c<span class="pl-pds">'</span></span>est le fichier <span class="pl-s"><span class="pl-pds">`</span>optimizations.json<span class="pl-pds">`</span></span>. 
+
+Par exemple <span class="pl-k">:</span>
+
+L<span class="pl-s"><span class="pl-pds">'</span>ensemble de fichier suivant</span>
+<span class="pl-s"></span></pre></div>
+
+<p>assets/
 — media/
 —— images/
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 webconfig.json
-webconfig.prod.json
-</code></pre>
+webconfig.prod.json</p>
 
-<p>avec <code>webconfig.json</code></p>
+<pre><code>
+avec `webconfig.json`
 
-<div class="highlight highlight-json"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span>: <span class="pl-c1">7777</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span>: {
-        <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span>: {
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+```json
+{
+    "httpPort": 7777,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
         }
     },
-    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
-        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>: {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    "routes": {
+        "/": {
+            "template": "index.htm"
         }
     }
-}</pre></div>
+}
+</code></pre>
 
 <p>et avec <code>webconfig.prod.json</code></p>
 
@@ -2588,9 +2615,10 @@ webconfig.prod.json
     <span class="pl-s"><span class="pl-pds">"</span>urlPort<span class="pl-pds">"</span></span>: <span class="pl-c1">80</span>,
     <span class="pl-s"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span>: {
         <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span>: {
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.svg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>
         }
     },
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
@@ -2608,6 +2636,7 @@ webconfig.prod.json
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 optimizations.json
@@ -2645,9 +2674,10 @@ webconfig.prod.json
 
 <div class="highlight highlight-json"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span>: {
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.svg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>
     }
 }</pre></div>
 
@@ -2660,10 +2690,13 @@ webconfig.prod.json
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>imagesOptimizationsEnable<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.svg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>
+        }
     },
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -2681,10 +2714,13 @@ webconfig.prod.json
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>imagesOptimizationsBeforeResponse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>media/images/example.min.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>optimizations<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>images<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.png<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.jpg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.gif<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>media/images/example.svg<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>media/images/optimized/<span class="pl-pds">"</span></span>
+        }
     },
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
