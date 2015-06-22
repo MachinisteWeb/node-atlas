@@ -1,3 +1,22 @@
+## 0.41.0 ##
+
+Features:
+
+- Allow you to not generate a route with `currentRouteParameters.generate` set to false.
+
+Documentation:
+
+- Documentation for feature below.
+
+
+## 0.40.1 ##
+
+Updates:
+
+- Update of less-middleware.
+
+
+
 ## 0.40.0 ##
 
 Features:

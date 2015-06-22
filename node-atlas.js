@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.40.0
+ * @version 0.41.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.40.0')
+            .version('0.41.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -2329,7 +2329,11 @@ var NA = {};
                      * @type {string}
                      * @memberOf node-atlas~NA#currentRouteParameters
                      */
-                    templateRenderName = currentRouteParameters.generate || currentPath;
+                    templateRenderName = currentPath;
+
+                    if (typeof currentRouteParameters.generate !== 'undefined') {
+                        templateRenderName = currentRouteParameters.generate
+                    }
 
                     NA.saveTemplateRender(data, templateRenderName);
                 }
@@ -2827,47 +2831,55 @@ var NA = {};
             deeper,
             newBase = "";
 
-        /* 
-         * If a <base> markup exist, calculation of
-         * relative placement of page under root folder...
+        /*
+         * If false, no generate for this line.
          */
-        deeper = templateRenderName.split('/').length - 1;
-        if (templateRenderName[0] === '/') {
-            deeper = templateRenderName.split('/').length - 2;
-        }
+        if (templateRenderName !== false) {
 
-        /* ...and creation of path for all resources */
-        for (var i = 0; i < deeper; i++) {
-            newBase += '../';
-        }
+            /* 
+             * If a <base> markup exist, calculation of
+             * relative placement of page under root folder...
+             */
+            deeper = templateRenderName.split('/').length - 1;
+            if (templateRenderName[0] === '/') {
+                deeper = templateRenderName.split('/').length - 2;
+            }
 
-        /* ...and set new base */
-        $("base").attr("href", newBase);
+            /* ...and creation of path for all resources */
+            for (var i = 0; i < deeper; i++) {
+                newBase += '../';
+            }
 
-        /* Create file render. */
-        mkpath(pathToSaveFile, function (error) {
-            var dataError = {},
-                innerHTML = $.html();
+            /* ...and set new base */
+            $("base").attr("href", newBase);
 
-            /* If source is not a HTML format, keep initial data format. */
-            if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
+            /* Create file render. */
+            mkpath(pathToSaveFile, function (error) {
+                var dataError = {},
+                    innerHTML = $.html();
 
-            dataError.pathName = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath + templateRenderName);
+                /* If source is not a HTML format, keep initial data format. */
+                if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
 
-            /* Write file */
-            fs.writeFile(pathToSaveFileComplete, innerHTML, function (error) {
-                if (error) {
-                    if (error.code === 'EISDIR') {
-                        console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                dataError.pathName = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath + templateRenderName);
+
+                /* Write file */
+                fs.writeFile(pathToSaveFileComplete, innerHTML, function (error) {
+                    if (error) {
+                        if (error.code === 'EISDIR') {
+                            console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                        } else if (error.code === 'ENOENT') {
+                            console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                        } else {
+                            throw error;                     
+                        }
                     } else {
-                        throw error;
+                        console.log(NA.appLabels.templateGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                     }
-                }
+                });
 
-                console.log(NA.appLabels.templateGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
             });
-
-        });
+        }
     };
 
 })(NA);

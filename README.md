@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.40
+Version : 0.41
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -912,6 +912,10 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
             "template": "members.htm",
             "generate": "/members/list.html"
         },
+        "/liste-des-membres/?foo=bar": {
+            "template": "members.htm",
+            "generate": false
+        },
         "/no/generate/property/": {
             "template": "members.htm"
         }
@@ -958,6 +962,9 @@ en se rendant aux adresses :
 
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
+- *http://localhost/no/generate/property/*
+
+*Note : Il n'y a pas de génération pour « /liste-des-membres/?foo=bar » car `generate` est à `false`. Utilisez cette valeur pour ignorer des routes à la génération.*
 
 La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerateBeforeResponse*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup uniquement si le dossier de `generatesRelativePath` existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
 
