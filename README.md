@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.41
+Version : 0.43
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -2535,7 +2535,7 @@ Vous pouvez également générer des fichiers CSS déjà minifiés avec :
 
 ### Optimiser les Images ###
 
-Vous pouvez automatiquement optimiser les images que vous aller utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut que des Optimizations existe dans le Webconfig.
+Vous pouvez automatiquement optimiser les images que vous aller utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut que des Optimizations existe dans le Webconfig.
 
 #### Créer des Optimizations ####
 
@@ -2545,9 +2545,10 @@ Avec la configuration suivante :
 {
     "optimizations": {
         "images": {
-            "media/images/example.min.png": "media/images/example.png",
-            "media/images/example.min.jpg": "media/images/example.jpg",
-            "media/images/example.min.gif": "media/images/example.gif"
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
         }
     },
     "routes": {
@@ -2567,6 +2568,7 @@ assets/
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 webconfig.json
@@ -2581,13 +2583,34 @@ assets/
 ——— example.png
 ——— example.jpg
 ——— example.gif
-——— example.min.png    <= nouveau fichier
-——— example.min.jpg    <= nouveau fichier
-——— example.min.gif    <= nouveau fichier
+——— example.svg
+——— optimized/      <= nouveau dossier
+———— example.png    <= nouveau fichier
+———— example.jpg    <= nouveau fichier
+———— example.gif    <= nouveau fichier
+———— example.svg    <= nouveau fichier
 templates/
 — index.htm
 webconfig.json
 ```
+
+#### Créer des Optimizations par groupes de fichier ####
+
+Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indiquer en groupe :
+
+```js
+{
+    "optimizations": {
+        "images": {
+            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
 
 #### Optimizations dans un fichier partagé ####
 
@@ -2604,6 +2627,7 @@ assets/
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 webconfig.json
@@ -2617,9 +2641,10 @@ avec `webconfig.json`
     "httpPort": 7777,
     "optimizations": {
         "images": {
-            "media/images/example.min.png": "media/images/example.png",
-            "media/images/example.min.jpg": "media/images/example.jpg",
-            "media/images/example.min.gif": "media/images/example.gif"
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
         }
     },
     "routes": {
@@ -2639,9 +2664,10 @@ et avec `webconfig.prod.json`
     "urlPort": 80,
     "optimizations": {
         "images": {
-            "media/images/example.min.png": "media/images/example.png",
-            "media/images/example.min.jpg": "media/images/example.jpg",
-            "media/images/example.min.gif": "media/images/example.gif"
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
         }
     },
     "routes": {
@@ -2661,6 +2687,7 @@ assets/
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 optimizations.json
@@ -2703,9 +2730,10 @@ et `optimizations.json`
 ```json
 {
     "images": {
-        "media/images/example.min.png": "media/images/example.png",
-        "media/images/example.min.jpg": "media/images/example.jpg",
-        "media/images/example.min.gif": "media/images/example.gif"
+        "media/images/example.png": "media/images/optimized/",
+        "media/images/example.jpg": "media/images/optimized/",
+        "media/images/example.gif": "media/images/optimized/",
+        "media/images/example.svg": "media/images/optimized/"
     }
 }
 ```
@@ -2719,10 +2747,13 @@ Il est également possible de ne pas executer l'optimisation au démarage d'un s
 ```js
 {
     "imagesOptimizationsEnable": false,
-    "images": {
-        "media/images/example.min.png": "media/images/example.png",
-        "media/images/example.min.jpg": "media/images/example.jpg",
-        "media/images/example.min.gif": "media/images/example.gif"
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
     },
     "routes": {
         "/": {
@@ -2741,10 +2772,13 @@ Vous pouvez demander à ce que les fichiers soient régénérés avant chaque af
 ```js
 {
     "imagesOptimizationsBeforeResponse": false,
-    "images": {
-        "media/images/example.min.png": "media/images/example.png",
-        "media/images/example.min.jpg": "media/images/example.jpg",
-        "media/images/example.min.gif": "media/images/example.gif"
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
     },
     "routes": {
         "/": {

@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.41.0
+ * @version 0.43.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -20,10 +20,10 @@
  * @requires express
  * @requires express-session
  * @requires extend
- * @requires image-min
+ * @requires imagemin
  * @requires less-middleware
  * @requires mkpath
- * @requires node-force-domain
+ * @requires forcedomain
  * @requires open
  * @requires traverse-directory
  * @requires uglify-js
@@ -97,7 +97,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.41.0')
+            .version('0.43.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -858,11 +858,11 @@ var NA = {};
         /**
          * Minify GIF, JPEG and PNG images.
          * @public
-         * @function image-min
+         * @function imagemin
          * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.com/package/image-min image-min}
+         * @see {@link https://www.npmjs.com/package/imagemin imagemin}
          */
-        publics.modules.imageMin = require('image-min');
+        publics.modules.imagemin = require('imagemin');
 
         /**
          * A command tool for run NodeAtlas in command prompt.
@@ -953,9 +953,9 @@ var NA = {};
          * @public
          * @function forceDomain
          * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.org/package/node-force-domain node-force-domain}
+         * @see {@link https://www.npmjs.org/package/forcedomain forcedomain}
          */
-        publics.modules.forceDomain = require('node-force-domain');
+        publics.modules.forceDomain = require('forcedomain');
 
         /**
          * LESS.js middleware for connect.
@@ -1979,7 +1979,7 @@ var NA = {};
      */ 
     publics.imgOptimization = function (callback) {
         var optimizations = NA.webconfig.optimizations,
-            imageMin = NA.modules.imageMin,
+            imagemin = NA.modules.imagemin,
             async = NA.modules.async,
             path = NA.modules.path,
             fs = NA.modules.fs,
@@ -2023,20 +2023,24 @@ var NA = {};
 
             async.each(allImgMinified, function (compressedFile, firstCallback) {
 
-                var source = fs.createReadStream(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + optimizations.images[compressedFile]),
-                    output = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile,
+                var source = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile,
+                    output = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + optimizations.images[compressedFile],
                     ext = path.extname(source.path);
 
-                source
-                    .pipe(imageMin({ 
-                        ext: ext 
-                    }))
-                    .pipe(fs.createWriteStream(output));
+                    new imagemin()
+                        .src(source)
+                        .dest(output)
+                        .use(imagemin.jpegtran({progressive: true}))
+                        .use(imagemin.gifsicle({interlaced: true}))
+                        .use(imagemin.optipng({optimizationLevel: 3}))
+                        .use(imagemin.svgo())
+                        .run(function (error, files) {
+                            data.pathName = path.normalize(source);
 
-                data.pathName = path.normalize(output);
-                console.log(NA.appLabels.imgGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-
-                firstCallback();
+                            console.log(NA.appLabels.imgGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                            
+                            firstCallback();
+                        });
 
             }, function(error) {
 
@@ -2323,10 +2327,11 @@ var NA = {};
                 if (typeof response === 'undefined' || (htmlGenerateBeforeResponse && htmlGenerateEnable)) {
 
                     /**
-                     * Output name of file generate if `NA.webconfig.htmlGenerateBeforeResponse` is set to true.
+                     * Output name of file generate if `NA.webconfig.htmlGenerateBeforeResponse` is set to true or if `--generate` command is used.
+                     * If value is set to `false`, no generate page will be generated.
                      * @public
                      * @alias generate
-                     * @type {string}
+                     * @type {string|boolean}
                      * @memberOf node-atlas~NA#currentRouteParameters
                      */
                     templateRenderName = currentPath;

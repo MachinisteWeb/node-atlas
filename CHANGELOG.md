@@ -1,3 +1,14 @@
+## 0.43.0 ##
+
+Updates:
+
+- Update image optimization mechanism.
+
+Documentation:
+
+- Documentation for feature below.
+
+
 ## 0.41.0 ##
 
 Features:
