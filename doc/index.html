@@ -110,7 +110,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.41</p>
+        <article><h1>node-atlas</h1><p>Version : 0.43</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -1940,9 +1940,10 @@ webconfig.json</code></pre><p>and the following webconfig:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
-            &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
-            &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
-            &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+            &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.jpg&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.gif&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.svg&quot;: &quot;media/images/optimized/&quot;
         }
     },
     &quot;routes&quot;: {
@@ -1957,6 +1958,7 @@ webconfig.json</code></pre><p>and the following webconfig:</p>
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 webconfig.json</code></pre><p>you will get the following new files:</p>
@@ -1966,15 +1968,35 @@ webconfig.json</code></pre><p>you will get the following new files:</p>
 ——— example.png
 ——— example.jpg
 ——— example.gif
-——— example.min.png    &lt;= new file
-——— example.min.jpg    &lt;= new file
-——— example.min.gif    &lt;= new file
+——— example.svg
+——— optimized/      &lt;= new folder
+———— example.png    &lt;= new file
+———— example.jpg    &lt;= new file
+———— example.gif    &lt;= new file
+———— example.svg    &lt;= new file
 templates/
 — index.htm
-webconfig.json</code></pre><h4>Optimizations in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p>
-<p>For example:</p>
-<p>The following set of file</p>
-<pre class="prettyprint source"><code>assets/
+webconfig.json</code></pre><h4>Create Optimizations by group of file</h4><p>For example, not define file one by one, but in group:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;optimizations&quot;: {
+        &quot;images&quot;: {
+            &quot;media/images/*.{gif,jpg,png,svg}&quot;: &quot;media/images/optimized/&quot;
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+
+#### Optimizations in a shared file ####
+
+In order to not re-write a long Bundles configuration list in `webconfig.json` file to your development environment and` webconfig.prod.json` to your production environment, you can group files in a file of your choice. By convention, the name is `optimizations.json` file.
+
+For example:
+
+The following set of file</code></pre><p>assets/
 — media/
 —— images/
 ——— example.png
@@ -1983,14 +2005,19 @@ webconfig.json</code></pre><h4>Optimizations in a shared file</h4><p>In order to
 templates/
 — index.htm
 webconfig.json
-webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
-<pre class="prettyprint source lang-json"><code>{
+webconfig.prod.json</p>
+<pre class="prettyprint source"><code>
+with `webconfig.json`
+
+```json
+{
     &quot;httpPort&quot;: 7777,
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
-            &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
-            &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
-            &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+            &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.jpg&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.gif&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.svg&quot;: &quot;media/images/optimized/&quot;
         }
     },
     &quot;routes&quot;: {
@@ -2005,9 +2032,10 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
     &quot;urlPort&quot;: 80,
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
-            &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
-            &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
-            &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+            &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.jpg&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.gif&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.svg&quot;: &quot;media/images/optimized/&quot;
         }
     },
     &quot;routes&quot;: {
@@ -2022,6 +2050,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 bundles.json
@@ -2057,10 +2086,13 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <h4>Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>&quot;imagesOptimizationsEnable&quot;: false</code>.</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;imagesOptimizationsEnable&quot;: false,
-    &quot;images&quot;: {
-        &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
-        &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
-        &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+    &quot;optimizations&quot;: {
+        &quot;images&quot;: {
+            &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.jpg&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.gif&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.svg&quot;: &quot;media/images/optimized/&quot;
+        }
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -2071,10 +2103,13 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <h4>Re-generate Optimizations before each Page Response</h4><p>You can ask files to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: false</code> et `&quot;javascriptBundlesBeforeResponse&quot;: false`` for each type of Bundle.</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;imagesOptimizationsBeforeResponse&quot;: false,
-    &quot;images&quot;: {
-        &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
-        &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
-        &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+    &quot;optimizations&quot;: {
+        &quot;images&quot;: {
+            &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.jpg&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.gif&quot;: &quot;media/images/optimized/&quot;,
+            &quot;media/images/example.svg&quot;: &quot;media/images/optimized/&quot;
+        }
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -2585,7 +2620,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-06-22T19:16:35+02:00 using the <a
+		on 2015-06-22T20:42:52+02:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
