@@ -1,7 +1,9 @@
+
 /*------------------------------------*\
     $%ABOUT
 \*------------------------------------*/
 
+/*jslint node: true */
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
@@ -204,10 +206,10 @@ var NA = {};
                  * @memberOf node-atlas~NA
                  * @default Folder where NodeAtlas execute website or `--directory` value.
                  */
-                publics.websitePhysicalPath = process.cwd() + path.sep
+                publics.websitePhysicalPath = process.cwd() + path.sep;
             } else {
                 /* `NA.websitePhysicalPath` manually setted value with `--directory`. */
-                publics.websitePhysicalPath = NA.configuration.directory.replace(regex, '') + path.sep
+                publics.websitePhysicalPath = NA.configuration.directory.replace(regex, '') + path.sep;
             }
            
             /**
@@ -313,8 +315,7 @@ var NA = {};
     publics.improveWebconfigBase = function () {
         var commander = NA.modules.commander,
             path = NA.modules.path,
-            regex = new RegExp(path.sep + path.sep + '?$', 'g'),
-            data = {};
+            regex = new RegExp(path.sep + path.sep + '?$', 'g');
 
         /**
          * Contain Webconfig file to JSON format.
@@ -611,7 +612,7 @@ var NA = {};
         var copy;
 
         /* Handle the 3 simple types, and null or undefined */
-        if (null == object || "objectect" != typeof object) return object;
+        if (null === object || undefined === object || "object" !== typeof object) return object;
 
         /* Handle Date */
         if (object instanceof Date) {
@@ -629,7 +630,7 @@ var NA = {};
         if (object instanceof Object) {
             copy = {};
             for (var attr in object) {
-                if (object.hasOwnProperty(attr)) copy[attr] = clone(object[attr]);
+                if (object.hasOwnProperty(attr)) copy[attr] = publics.clone(object[attr]);
             }
             return copy;
         }
@@ -683,7 +684,7 @@ var NA = {};
         fs.stat(physicalPath + fileName, function (error) {
             var data = {
                 pathName: path.normalize(physicalPath + fileName)
-            }
+            };
 
             if (error && error.code === 'ENOENT') {
                 console.log(NA.appLabels.ifFileExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
@@ -993,7 +994,7 @@ var NA = {};
             console.log(NA.appLabels.downloadAllModule.moduleNotExist + " " + NA.appLabels.downloadAllModule.downloadStarting + "(" + exception + ")");
 
             /* Execute an npm command to install all modules not founded. */
-            execute('npm --prefix ' + NA.serverPhysicalPath + ' install -l', function (error, stdout, stderr) {
+            execute('npm --prefix ' + NA.serverPhysicalPath + ' install -l', function (error) {
                 if (!error) {
                     console.log(NA.appLabels.downloadAllModule.installationDone + " " + NA.appLabels.downloadAllModule.restartRequired);
                     /** It's ok, killing process and restarting manually now. */
@@ -1017,8 +1018,6 @@ var NA = {};
      * @param {moduleRequired~callback} callback - Run next steps if all module are correctly loaded.
      */
     publics.moduleRequired = function (callback) {
-        var commander;
-
         try {
             NA.loadListOfRequiredNpmModules();
 
@@ -1064,7 +1063,6 @@ var NA = {};
     publics.simpleWebServer = function () {
         var commander = NA.modules.commander,
             http = NA.modules.http,
-            commander = NA.modules.commander,
             express = NA.modules.express,
             path = NA.modules.path,
             open = NA.modules.open,
@@ -1081,7 +1079,7 @@ var NA = {};
         });
 
         /* Catch error. */
-        NA.server.on('error', function (error) {
+        NA.server.on('error', function () {
             var data = {};
 
             data.httpPort = httpPort;
@@ -1108,7 +1106,6 @@ var NA = {};
      */
     publics.startingHttpServer = function () {
         var express = NA.modules.express,
-            favicon = NA.modules.favicon,
             commander = NA.modules.commander,
             compress = NA.modules.compress,
             lessMiddleware = NA.modules.lessMiddleware,
@@ -1206,7 +1203,7 @@ var NA = {};
             });
 
             /* Catch error. */
-            NA.server.on('error', function (error) {
+            NA.server.on('error', function () {
                 var data = {};
 
                 data.httpPort = httpPort;
@@ -1327,7 +1324,7 @@ var NA = {};
              */
             optionSession.secret = NA.webconfig.sessionSecret || '1234567890bépo',
             optionSession.saveUninitialized = true,
-            optionSession.resave = true
+            optionSession.resave = true;
 
             if (NA.webconfig.session) {
 
@@ -1653,7 +1650,7 @@ var NA = {};
                     /* ...else execute render... */
                     NA.render(pageNotFoundUrl, NA.webconfig.routes, request, response);
                 }
-            })
+            });
             /* Match all Post Request */
             NA.httpServer.post("*", function (request, response) {
                 /* Verify if route for `pageNotFound` is a redirection... */
@@ -1683,7 +1680,9 @@ var NA = {};
             /* For each `webconfig.routes`. */    
             for (var currentUrl in NA.webconfig.routes) {
                 /* Listen request */
-                NA.request(currentUrl, NA.webconfig.routes);
+                if (NA.webconfig.routes.hasOwnProperty(currentUrl)) {
+                	NA.request(currentUrl, NA.webconfig.routes);
+                }
             }
         }
     };
@@ -1804,7 +1803,7 @@ var NA = {};
             $ = cheerio.load(dom),
             inject = true,
             css,
-            add,
+            i,
 
             /**
              * CSS files for specific injection of CSS.
@@ -1829,7 +1828,7 @@ var NA = {};
             allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + commonInjection));
         } else {
             if (commonInjection) {
-                for (var i = 0; i < commonInjection.length; i++) {
+                for (i = 0; i < commonInjection.length; i++) {
                     allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + NA.webconfig.injectCss[i]));
                 }
             }
@@ -1838,7 +1837,7 @@ var NA = {};
         /* Add specific injections. */
         if (specificInjection) {     
             if (typeof specificInjection === 'string') {
-                for (var i = 0; i < allCssFiles.length; i++) {
+                for (i = 0; i < allCssFiles.length; i++) {
                     if (path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection) === allCssFiles[i]) {
                         inject = false;
                     }
@@ -1848,7 +1847,7 @@ var NA = {};
                 }
             } else {
                 for (var j = 0; j < specificInjection.length; j++) {
-                    for (var i = 0; i < allCssFiles.length; i++) {
+                    for (i = 0; i < allCssFiles.length; i++) {
                         if (path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection[j]) === allCssFiles[i]) {
                             inject = false;
                         }
@@ -1874,12 +1873,12 @@ var NA = {};
             css = cssParse(output);
 
             /* Apply property on the DOM. */
-            for (var i = 0; i < css.stylesheet.rules.length; i++) {
+            for (i = 0; i < css.stylesheet.rules.length; i++) {
                 if (typeof css.stylesheet.rules[i].selectors !== 'undefined') {
                     for (var j = 0; j < css.stylesheet.rules[i].selectors.length; j++) {
                         for (var k = 0; k < css.stylesheet.rules[i].declarations.length; k++) {
                             $(css.stylesheet.rules[i].selectors[j]).css(css.stylesheet.rules[i].declarations[k].property, css.stylesheet.rules[i].declarations[k].value);
-                        };
+                        }
                     }
                 }
             }
@@ -1891,7 +1890,7 @@ var NA = {};
              */
             mainCallback($.html());
         });
-    }
+    };
 
     /**
      * Engine for minification and concatenation of all files with a Bundle configuration.
@@ -1941,7 +1940,9 @@ var NA = {};
         if (bundles && bundles.stylesheets && bundles.stylesheets && enable) {
 
             for (var compressedFile in bundles.stylesheets) {
-                allCssMinified.push(compressedFile);
+            	if (bundles.stylesheets.hasOwnProperty(compressedFile)) {
+                	allCssMinified.push(compressedFile);
+                }
             }
 
             async.each(allCssMinified, function (compressedFile, firstCallback) {
@@ -1962,7 +1963,7 @@ var NA = {};
                     firstCallback();
                 });
 
-            }, function(error) {
+            }, function() {
 
                 /**
                  * Next steps after minification and concatenation are done.
@@ -1987,9 +1988,7 @@ var NA = {};
             imagemin = NA.modules.imagemin,
             async = NA.modules.async,
             path = NA.modules.path,
-            fs = NA.modules.fs,
             enable = false,
-            output = "",
             data = {},
             allImgMinified = [];
 
@@ -2023,14 +2022,15 @@ var NA = {};
         if (optimizations && optimizations.images && enable) {
 
             for (var compressedFile in optimizations.images) {
-                allImgMinified.push(compressedFile);
+            	if (optimizations.images.hasOwnProperty(compressedFile)) {
+                	allImgMinified.push(compressedFile);
+                }
             }
 
             async.each(allImgMinified, function (compressedFile, firstCallback) {
 
                 var source = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile,
-                    output = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + optimizations.images[compressedFile],
-                    ext = path.extname(source.path);
+                    output = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + optimizations.images[compressedFile];
 
                     new imagemin()
                         .src(source)
@@ -2039,7 +2039,7 @@ var NA = {};
                         .use(imagemin.gifsicle({interlaced: true}))
                         .use(imagemin.optipng({optimizationLevel: 3}))
                         .use(imagemin.svgo())
-                        .run(function (error, files) {
+                        .run(function () {
                             data.pathName = path.normalize(source);
 
                             console.log(NA.appLabels.imgGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
@@ -2047,7 +2047,7 @@ var NA = {};
                             firstCallback();
                         });
 
-            }, function(error) {
+            }, function() {
 
                 /**
                  * Next steps after minification and concatenation are done.
@@ -2108,7 +2108,9 @@ var NA = {};
         if (bundles && bundles.javascript && bundles.javascript && enable) {
 
             for (var compressedFile in bundles.javascript) {
-                allJsMinified.push(compressedFile);
+            	if ( bundles.javascript.hasOwnProperty(compressedFile)) {
+                	allJsMinified.push(compressedFile);
+            	}
             }
 
             async.each(allJsMinified, function (compressedFile, firstCallback) {
@@ -2128,7 +2130,7 @@ var NA = {};
                     firstCallback();
                 });
 
-            }, function(error) {
+            }, function() {
 
                 /**
                  * Next steps after obfuscation and concatenation are done.
@@ -2176,7 +2178,7 @@ var NA = {};
         if (typeof currentRouteParameters === 'string') {
             /* templatesPath is just use like temp var in this if statement. */
             templatesPath = currentRouteParameters;
-            currentRouteParameters = {}
+            currentRouteParameters = {};
 
             /**
              * This is the file name of template used for render of page behind the route.
@@ -2342,7 +2344,7 @@ var NA = {};
                     templateRenderName = currentPath;
 
                     if (typeof currentRouteParameters.generate !== 'undefined') {
-                        templateRenderName = currentRouteParameters.generate
+                        templateRenderName = currentRouteParameters.generate;
                     }
 
                     NA.saveTemplateRender(data, templateRenderName);
@@ -2728,7 +2730,9 @@ var NA = {};
                 fs.exists(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath, function (exists) {
                     if (exists) {
                         for (var currentUrl in NA.webconfig.routes) {
-                            NA.render(currentUrl, NA.webconfig.routes);
+                        	if (NA.webconfig.routes.hasOwnProperty(currentUrl)) {
+                            	NA.render(currentUrl, NA.webconfig.routes);
+                            }
                         }
                     } else {
                         data.templatePath = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath);
@@ -2759,7 +2763,7 @@ var NA = {};
                         next(traverseDirectory.copyfile, source, target);
                     });
 
-                    traverse.run(function(err) {
+                    traverse.run(function() {
                         console.log(NA.appLabels.assetsCopy);
                     });
                 }
@@ -2798,20 +2802,21 @@ var NA = {};
 
                 /* Create a new path to « / ». Erase the route to « / » defined into `routes`. */
                 NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
-                    var data = {};
+                    var data = {},
+                    	matches = function (regex, matches) { return data[matches]; };
 
                         data.render = '';
 
                     /* List all routes... */
                     for (var page in NA.webconfig.routes) {
-
-                        data.page = page;
-                        if (NA.webconfig.routes[page].url) {
-                            data.page = NA.webconfig.routes[page].url;
-                        }
-
                         if (NA.webconfig.routes.hasOwnProperty(page)) {
-                            data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; });
+	                        data.page = page;
+	                        
+	                        if (NA.webconfig.routes[page].url) {
+	                            data.page = NA.webconfig.routes[page].url;
+	                        }
+
+                            data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([-a-zA-Z0-9_]+)%/g, matches);
                         }
                     }
 
@@ -2864,7 +2869,7 @@ var NA = {};
             $("base").attr("href", newBase);
 
             /* Create file render. */
-            mkpath(pathToSaveFile, function (error) {
+            mkpath(pathToSaveFile, function () {
                 var dataError = {},
                     innerHTML = $.html();
 
@@ -2934,9 +2939,9 @@ var NA = {};
      * @return {Object} - the NA object for chained functions.
      */
     publics.config = function (config) {
-        var config = config || {};
+        var configuration = config || {};
 
-        NA.configuration = config;
+        NA.configuration = configuration;
 
         return NA;
     };
@@ -2989,7 +2994,7 @@ var NA = {};
         NA.init();
 
         return NA;
-    }
+    };
 
 })(NA);
 
