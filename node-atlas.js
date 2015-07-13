@@ -1,9 +1,9 @@
-/*jslint node: true */
 
 /*------------------------------------*\
     $%ABOUT
 \*------------------------------------*/
 
+/*jslint node: true */
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
