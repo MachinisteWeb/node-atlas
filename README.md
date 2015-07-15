@@ -2611,6 +2611,7 @@ Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indi
         }
     }
 }
+```
 
 #### Optimizations dans un fichier partagé ####
 

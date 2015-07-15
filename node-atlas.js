@@ -3,11 +3,10 @@
     $%ABOUT
 \*------------------------------------*/
 
-/*jslint node: true */
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.43.1
+ * @version 0.43.3
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -30,6 +29,7 @@
  * @requires traverse-directory
  * @requires uglify-js
  */
+/*jslint node: true */
 
 
 
@@ -99,7 +99,7 @@ var NA = {};
         commander
         
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.43.1')
+            .version('0.43.3')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
