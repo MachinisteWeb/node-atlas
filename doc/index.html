@@ -293,7 +293,7 @@
 
 nodeAtlas.run();</code></pre><pre class="prettyprint source"><code>\> node server.js</code></pre><h2>Different configurations of webconfig.json</h2><h3>More one page</h3><p>Below is a sample configuration.</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;templatesRelativePath&quot;: &quot;templates/&quot;,
+    &quot;templatesRelativePath&quot;: &quot;templates&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -327,10 +327,10 @@ webconfig.json</code></pre><p>with the addresses:</p>
 <li><em>http://localhost/member-without-extension/</em> (will not respond if is GET requested)</li>
 <li><em>http://localhost/error.html</em> (return of the plain-text content (without markup) with a 404)</li>
 </ul>
-<p><em>Note : If</em> <strong><em>templatesRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, template folder is</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>templatesRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, template folder is</em> <strong><em>templates</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Template shortcut</h3><p>The configuration below is equivalent to the configuration section just above</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;templatesRelativePath&quot;: &quot;templates/&quot;,
+    &quot;templatesRelativePath&quot;: &quot;templates&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;,
         &quot;/member.html&quot;: {
@@ -355,7 +355,7 @@ webconfig.json</code></pre><p>with the addresses:</p>
 }</code></pre><p>Obviously this shortcut is used only if <code>template</code> is the only parameter to declare in the route.</p>
 <h3>Host images, fonts, CSS, JS, etc.</h3><p>You can also host any file on your site in a public folder. For example, with this configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;assetsRelativePath&quot;: &quot;assets/&quot;
+    &quot;assetsRelativePath&quot;: &quot;assets&quot;
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -379,10 +379,10 @@ webconfig.json</code></pre><p>you will have access to the addresses:</p>
 <li><em>http://localhost/javascript/common.js</em></li>
 <li><em>http://localhost/media/images/logo.png</em></li>
 </ul>
-<p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default public folder is</em> <strong><em>assets/</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default public folder is</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Manage inclusions to avoid redundancy code</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;componentsRelativePath&quot;: &quot;components/&quot;
+    &quot;componentsRelativePath&quot;: &quot;components&quot;
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -436,11 +436,11 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/list-of-members/</em></li>
 </ul>
-<p><em>Note : If</em> <strong><em>componentsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default include folder is</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>componentsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default include folder is</em> <strong><em>components</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Manage variations within the same template</h3><p>It is possible with the same template and the same includes, generating pages with different content (useful in generation HTML assets mode). Activate the variations with the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;commonVariation&quot;: &quot;common.json&quot;,
-    &quot;variationsRelativePath&quot;: &quot;variations/&quot;,
+    &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;template.htm&quot;,
@@ -513,11 +513,11 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/list-of-members/</em></li>
 </ul>
-<p><em>Note : If</em> <strong><em>variationsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default variations folder is</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>variationsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default variations folder is</em> <strong><em>variations</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Manage Multilingual</h3><h4>All languages on the same site</h4><p>On the same principle, the variations can be used to create the same page, but in different languages:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;languageCode&quot;: &quot;en-gb&quot;,
-    &quot;variationsRelativePath&quot;: &quot;languages/&quot;,
+    &quot;variationsRelativePath&quot;: &quot;languages&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;landing.htm&quot;,
@@ -533,7 +533,7 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
             &quot;languageCode&quot;: &quot;fr-fr&quot;
         }
     }
-}</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify</em> <strong><em>commonVariation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations/</em></strong> <em>to</em> <strong><em>languages/</em></strong>.</p>
+}</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify</em> <strong><em>commonVariation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations</em></strong> <em>to</em> <strong><em>languages</em></strong>.</p>
 <p>with the following files:</p>
 <pre class="prettyprint source"><code>components/
 — head.htm
@@ -644,7 +644,7 @@ webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:<
 }</code></pre><p><em>webconfig.en-gb.json</em></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 81,
-    &quot;urlRelativeSubPath&quot;: &quot;/english&quot;,
+    &quot;urlRelativeSubPath&quot;: &quot;english&quot;,
     &quot;languageCode&quot;: &quot;en-gb&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -659,7 +659,7 @@ webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:<
 }</code></pre><p><em>webconfig.fr-fr.json</em></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 82,
-    &quot;urlRelativeSubPath&quot;: &quot;/francais&quot;,
+    &quot;urlRelativeSubPath&quot;: &quot;francais&quot;,
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -692,7 +692,7 @@ webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:<
 <h3>NodeAtlas use to generate HTML assets</h3><h4>Generate HTML assets</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;htmlGenerateBeforeResponse&quot;: true,
-    &quot;generatesRelativePath&quot;: &quot;generates/&quot;,
+    &quot;generatesRelativePath&quot;: &quot;generates&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;,
@@ -791,7 +791,7 @@ engine/
 <p>For the master controller, use this configuration example:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;controllersRelativePath&quot;: &quot;controllers/&quot;,
+    &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;,
@@ -1230,7 +1230,7 @@ webconfig.json</code></pre><p>with a &quot;index.js&quot; file containing, for e
 
 exports.changeVariation = website.changeVariation;
 exports.changeDom = website.changeDom;
-exports.asynchrone = website.asynchrone; // Used not by &quot;NodeAtlas&quot; but with &quot;common.js&quot; (see previous file).</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default controller folder is</em> <strong><em>controllers/</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+exports.asynchrone = website.asynchrone; // Used not by &quot;NodeAtlas&quot; but with &quot;common.js&quot; (see previous file).</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Change the url parameters</h3><p>By default, if you use the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
@@ -1255,7 +1255,7 @@ exports.asynchrone = website.asynchrone; // Used not by &quot;NodeAtlas&quot; bu
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;httpPort&quot;: 7777,
     &quot;httpSecure&quot;: true,
-    &quot;urlRelativeSubPath&quot;: &quot;/sub/folder&quot;,
+    &quot;urlRelativeSubPath&quot;: &quot;sub/folder&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -2367,7 +2367,7 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 }</code></pre><p><code>urlBasePath</code> return <code>http://localhost/</code> while in this configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 7777,
-    &quot;urlRelativeSubPath&quot;: &quot;/sub/folder&quot;,
+    &quot;urlRelativeSubPath&quot;: &quot;sub/folder&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -2515,7 +2515,6 @@ site-hello-world/
                 &lt;/rule>
             &lt;/rules>
         &lt;/rewrite>
-
     &lt;/system.webServer>
 &lt;/configuration></code></pre><p>to obtain:</p>
 <pre class="prettyprint source"><code>site-hello-world/
@@ -2611,7 +2610,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-07-15T12:24:30+02:00 using the <a
+		on 2015-07-20T14:14:33+02:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>

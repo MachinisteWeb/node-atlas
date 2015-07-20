@@ -283,7 +283,7 @@ Below is a sample configuration.
 
 ```js
 {
-    "templatesRelativePath": "templates/",
+    "templatesRelativePath": "templates",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -325,7 +325,7 @@ with the addresses:
 - *http://localhost/member-without-extension/* (will not respond if is GET requested)
 - *http://localhost/error.html* (return of the plain-text content (without markup) with a 404)
 
-*Note : If* ***templatesRelativePath*** *is not present in "webconfig.js", template folder is* ***templates/***. ***templatesRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***templatesRelativePath*** *is not present in "webconfig.js", template folder is* ***templates***. ***templatesRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
@@ -335,7 +335,7 @@ The configuration below is equivalent to the configuration section just above
 
 ```js
 {
-    "templatesRelativePath": "templates/",
+    "templatesRelativePath": "templates",
     "routes": {
         "/": "index.htm",
         "/member.html": {
@@ -380,7 +380,7 @@ You can also host any file on your site in a public folder. For example, with th
 
 ```js
 {
-    "assetsRelativePath": "assets/"
+    "assetsRelativePath": "assets"
     "routes": {
         "/": {
             "template": "index.htm"
@@ -412,7 +412,7 @@ you will have access to the addresses:
 - *http://localhost/javascript/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : If* ***assetsRelativePath*** *is not present in "webconfig.js", default public folder is* ***assets/***. ***assetsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***assetsRelativePath*** *is not present in "webconfig.js", default public folder is* ***assets***. ***assetsRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
@@ -422,7 +422,7 @@ You can segment your HTML codes to not repeat the redundant code such "head" par
 
 ```js
 {
-    "componentsRelativePath": "components/"
+    "componentsRelativePath": "components"
     "routes": {
         "/": {
             "template": "index.htm"
@@ -504,7 +504,7 @@ you will have access to the addresses:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-*Note : If* ***componentsRelativePath*** *is not present in "webconfig.js", default include folder is* ***components/***. ***componentsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***componentsRelativePath*** *is not present in "webconfig.js", default include folder is* ***components***. ***componentsRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
@@ -515,7 +515,7 @@ It is possible with the same template and the same includes, generating pages wi
 ```js
 {
     "commonVariation": "common.json",
-    "variationsRelativePath": "variations/",
+    "variationsRelativePath": "variations",
     "routes": {
         "/": {
             "template": "template.htm",
@@ -626,7 +626,7 @@ you will have access to the addresses:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-*Note : If* ***variationsRelativePath*** *is not present in "webconfig.js", default variations folder is* ***variations/***. ***variationsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***variationsRelativePath*** *is not present in "webconfig.js", default variations folder is* ***variations***. ***variationsRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
@@ -639,7 +639,7 @@ On the same principle, the variations can be used to create the same page, but i
 ```js
 {
     "languageCode": "en-gb",
-    "variationsRelativePath": "languages/",
+    "variationsRelativePath": "languages",
     "routes": {
         "/": {
             "template": "landing.htm",
@@ -658,7 +658,7 @@ On the same principle, the variations can be used to create the same page, but i
 }
 ```
 
-*Note : In this example I decided to do without a common variation file, because I did not specify* ***commonVariation***. *I also completely arbitrarily decided to rename my folder* ***variations/*** *to* ***languages/***.
+*Note : In this example I decided to do without a common variation file, because I did not specify* ***commonVariation***. *I also completely arbitrarily decided to rename my folder* ***variations*** *to* ***languages***.
 
 with the following files:
 
@@ -838,7 +838,7 @@ you could have "webconfig.json» next:
 ```js
 {
     "httpPort": 81,
-    "urlRelativeSubPath": "/english",
+    "urlRelativeSubPath": "english",
     "languageCode": "en-gb",
     "routes": {
         "/": {
@@ -858,7 +858,7 @@ you could have "webconfig.json» next:
 ```js
 {
     "httpPort": 82,
-    "urlRelativeSubPath": "/francais",
+    "urlRelativeSubPath": "francais",
     "languageCode": "fr-fr",
     "routes": {
         "/": {
@@ -902,7 +902,7 @@ With the following configuration it is possible to generate HTML rendering asset
 ```js
 {
     "htmlGenerateBeforeResponse": true,
-    "generatesRelativePath": "generates/",
+    "generatesRelativePath": "generates",
     "routes": {
         "/": {
             "template": "index.htm",
@@ -1045,7 +1045,7 @@ For the master controller, use this configuration example:
 ```js
 {
     "commonController": "common.js",
-    "controllersRelativePath": "controllers/",
+    "controllersRelativePath": "controllers",
     "routes": {
         "/": {
             "template": "index.htm",
@@ -1510,7 +1510,7 @@ exports.changeDom = website.changeDom;
 exports.asynchrone = website.asynchrone; // Used not by "NodeAtlas" but with "common.js" (see previous file).
 ```
 
-*Note : If* ***controllersRelativePath*** *is not present in "webconfig.js", default controller folder is* ***controllers/***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***controllersRelativePath*** *is not present in "webconfig.js", default controller folder is* ***controllers***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
@@ -1553,7 +1553,7 @@ Then change the configuration to this:
     "httpHostname": "127.0.0.1",
     "httpPort": 7777,
     "httpSecure": true,
-    "urlRelativeSubPath": "/sub/folder",
+    "urlRelativeSubPath": "sub/folder",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -3222,7 +3222,7 @@ Note that in the case of the following configuration:
 ```js
 {
     "httpPort": 7777,
-    "urlRelativeSubPath": "/sub/folder",
+    "urlRelativeSubPath": "sub/folder",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -3540,7 +3540,6 @@ You will add to this set of files, additional file named `web.config` whose cont
                 </rule>
             </rules>
         </rewrite>
-
     </system.webServer>
 </configuration>
 ```
