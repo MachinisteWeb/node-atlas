@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.43
+Version : 0.44
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -283,7 +283,7 @@ Ci-dessous un exemple de configuration.
 
 ```js
 {
-    "templatesRelativePath": "templates/",
+    "templatesRelativePath": "templates",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -325,7 +325,7 @@ aux adresses :
 - *http://localhost/member-without-extension/* (ne répondra pas si demandée en GET)
 - *http://localhost/error.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404)
 
-*Note : Si* ***templatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des templates est bien* ***templates/***. ***templatesRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***templatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des templates est bien* ***templates***. ***templatesRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -335,7 +335,7 @@ La configuration ci-dessous est équivalente à la configuration de la section j
 
 ```js
 {
-    "templatesRelativePath": "templates/",
+    "templatesRelativePath": "templates",
     "routes": {
         "/": "index.htm",
         "/member.html": {
@@ -380,7 +380,7 @@ Vous pouvez également héberger tout un tas de fichier sur votre site dans un d
 
 ```js
 {
-    "assetsRelativePath": "assets/"
+    "assetsRelativePath": "assets"
     "routes": {
         "/": {
             "template": "index.htm"
@@ -412,7 +412,7 @@ vous aurez accès aux adresses :
 - *http://localhost/javascript/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***assets/***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***assets***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -504,7 +504,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components/***. ***componentsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
+*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components***. ***componentsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
 
@@ -515,7 +515,7 @@ Il est possible avec le même template et les mêmes includes de générer des p
 ```js
 {
     "commonVariation": "common.json",
-    "variationsRelativePath": "variations/",
+    "variationsRelativePath": "variations",
     "routes": {
         "/": {
             "template": "template.htm",
@@ -626,7 +626,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien* ***variations/***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
+*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien* ***variations***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
 
@@ -639,7 +639,7 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 ```js
 {
     "languageCode": "en-gb",
-    "variationsRelativePath": "languages/",
+    "variationsRelativePath": "languages",
     "routes": {
         "/": {
             "template": "landing.htm",
@@ -658,7 +658,7 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 }
 ```
 
-*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de* ***commonVariation***. *J'ai également totalement arbitrairement décidé de renommer mon dossier* ***variations/*** *en* ***languages/***.
+*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de* ***commonVariation***. *J'ai également totalement arbitrairement décidé de renommer mon dossier* ***variations*** *en* ***languages***.
 
 avec les fichiers suivants :
 
@@ -838,7 +838,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 ```js
 {
     "httpPort": 81,
-    "urlRelativeSubPath": "/english",
+    "urlRelativeSubPath": "english",
     "languageCode": "en-gb",
     "routes": {
         "/": {
@@ -858,7 +858,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 ```js
 {
     "httpPort": 82,
-    "urlRelativeSubPath": "/francais",
+    "urlRelativeSubPath": "francais",
     "languageCode": "fr-fr",
     "routes": {
         "/": {
@@ -902,7 +902,7 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
 ```js
 {
     "htmlGenerateBeforeResponse": true,
-    "generatesRelativePath": "generates/",
+    "generatesRelativePath": "generates",
     "routes": {
         "/": {
             "template": "index.htm",
@@ -1045,7 +1045,7 @@ Pour le contrôleur maître, utilisez par exemple cette configuration :
 ```js
 {
     "commonController": "common.js",
-    "controllersRelativePath": "controllers/",
+    "controllersRelativePath": "controllers",
     "routes": {
         "/": {
             "template": "index.htm",
@@ -1510,7 +1510,7 @@ exports.changeDom = website.changeDom;
 exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
 ```
 
-*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien* ***controllers/***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -1553,7 +1553,7 @@ Changez alors la configuration en ceci :
     "httpHostname": "127.0.0.1",
     "httpPort": 7777,
     "httpSecure": true,
-    "urlRelativeSubPath": "/sub/folder",
+    "urlRelativeSubPath": "sub/folder",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -3223,7 +3223,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 ```js
 {
     "httpPort": 7777,
-    "urlRelativeSubPath": "/sub/folder",
+    "urlRelativeSubPath": "sub/folder",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -3541,7 +3541,6 @@ Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé `
                 </rule>
             </rules>
         </rewrite>
-
     </system.webServer>
 </configuration>
 ```

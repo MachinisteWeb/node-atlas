@@ -1,4 +1,3 @@
-
 /*------------------------------------*\
     $%ABOUT
 \*------------------------------------*/
@@ -6,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.43.3
+ * @version 0.44.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -21,16 +20,15 @@
  * @requires express
  * @requires express-session
  * @requires extend
+ * @requires forcedomain
  * @requires imagemin
  * @requires less-middleware
  * @requires mkpath
- * @requires forcedomain
  * @requires open
  * @requires traverse-directory
  * @requires uglify-js
  */
-/*jslint node: true */
-
+/* jslint node: true */
 
 
 
@@ -43,7 +41,7 @@
  * ABOUT..........................Informations about NodeAtlas.
  * SUMMARY........................It's me !
  * NODE ATLAS OBJECT..............Creation of Main Object.
- * CONFIGURATION..................Global configuration variables, command tool and webconfig. 
+ * CONFIGURATION..................Global configuration variables, command tool and webconfig.
  * GLOBAL FUNCTIONS...............Neutral functions used more once.
  * NODE MODULES...................Functions used to load Node Modules.
  * WEB SERVER.....................Functions used to run pages on http(s) protocol and use middlewares.
@@ -97,16 +95,16 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-        
+
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.43.3')
+            .version('0.44.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
 
             /* Target the directory in which website and NodeAtlas will be running. */
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
-            
+
             /* Change name of JSON file used as the webconfig file. */
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
 
@@ -239,7 +237,8 @@ var NA = {};
      * @memberOf node-atlas~NA
      */
     publics.templateEngineConfiguration = function () {
-        var ejs = NA.modules.ejs;
+        var ejs = NA.modules.ejs,
+            path = NA.modules.path;
 
         /**
          * Container for all variations usable into template engine.
@@ -259,7 +258,7 @@ var NA = {};
          * @memberOf node-atlas~NA.variations
          * @default The `NA.websitePhysicalPath` value with webconfig `componentsRelativePath` after.
          */
-        NA.variations.pathname = NA.websitePhysicalPath + NA.webconfig.componentsRelativePath;
+        NA.variations.pathname = path.join(NA.websitePhysicalPath, NA.webconfig.componentsRelativePath);
 
         /**
          * Same as `NA.variations.pathname` with arbitrary value setted after. This value will be represent current page generated for all page generated with template engine.
@@ -269,7 +268,7 @@ var NA = {};
          * @memberOf node-atlas~NA.variations
          * @default Arbitrarily setted to "all-component.here".
          */
-        NA.variations.filename = NA.variations.pathname + "all-component.here";
+        NA.variations.filename = path.join(NA.variations.pathname, "all-component.here");
 
         /**
          * Set open and close bracket for use EJS.
@@ -313,9 +312,7 @@ var NA = {};
      * @memberOf node-atlas~NA
      */
     publics.improveWebconfigBase = function () {
-        var commander = NA.modules.commander,
-            path = NA.modules.path,
-            regex = new RegExp(path.sep + path.sep + '?$', 'g');
+        var commander = NA.modules.commander;
 
         /**
          * Contain Webconfig file to JSON format.
@@ -405,11 +402,11 @@ var NA = {};
              * @alias variationsRelativePath
              * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default "variations/".
+             * @default "variations".
              */
-            NA.webconfig.variationsRelativePath = NA.webconfig.variationsRelativePath.replace(regex, '') + path.sep;
+            NA.webconfig.variationsRelativePath = NA.webconfig.variationsRelativePath;
         } else {
-            NA.webconfig.variationsRelativePath = 'variations/';
+            NA.webconfig.variationsRelativePath = 'variations';
         }
 
         if (typeof NA.webconfig.controllersRelativePath !== 'undefined') {
@@ -420,11 +417,11 @@ var NA = {};
              * @alias controllersRelativePath
              * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default "controllers/".
+             * @default "controllers".
              */
-            NA.webconfig.controllersRelativePath = NA.webconfig.controllersRelativePath.replace(regex, '') + path.sep;
+            NA.webconfig.controllersRelativePath = NA.webconfig.controllersRelativePath;
         } else {
-            NA.webconfig.controllersRelativePath = 'controllers/';
+            NA.webconfig.controllersRelativePath = 'controllers';
         }
 
         /* Path to template. */
@@ -436,11 +433,11 @@ var NA = {};
              * @alias templatesRelativePath
              * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default "templates/".
+             * @default "templates".
              */
-            NA.webconfig.templatesRelativePath = NA.webconfig.templatesRelativePath.replace(regex, '') + path.sep;
+            NA.webconfig.templatesRelativePath = NA.webconfig.templatesRelativePath;
         } else {
-            NA.webconfig.templatesRelativePath = 'templates/';
+            NA.webconfig.templatesRelativePath = 'templates';
         }
 
         if (typeof NA.webconfig.componentsRelativePath !== 'undefined') {
@@ -451,11 +448,11 @@ var NA = {};
              * @alias componentsRelativePath
              * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default "components/".
+             * @default "components".
              */
-            NA.webconfig.componentsRelativePath = NA.webconfig.componentsRelativePath.replace(regex, '') + path.sep;
+            NA.webconfig.componentsRelativePath = NA.webconfig.componentsRelativePath;
         } else {
-            NA.webconfig.componentsRelativePath = 'components/';
+            NA.webconfig.componentsRelativePath = 'components';
         }
 
         if (typeof NA.webconfig.assetsRelativePath !== 'undefined') {
@@ -466,11 +463,11 @@ var NA = {};
              * @alias assetsRelativePath
              * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default "assets/".
+             * @default "assets".
              */
-            NA.webconfig.assetsRelativePath = NA.webconfig.assetsRelativePath.replace(regex, '') + path.sep;
+            NA.webconfig.assetsRelativePath = NA.webconfig.assetsRelativePath;
         } else {
-            NA.webconfig.assetsRelativePath = 'assets/';
+            NA.webconfig.assetsRelativePath = 'assets';
         }
 
         if (typeof NA.webconfig.generatesRelativePath !== 'undefined') {
@@ -481,11 +478,11 @@ var NA = {};
              * @alias generatesRelativePath
              * @type {string}
              * @memberOf node-atlas~NA.webconfig
-             * @default "generates/".
+             * @default "generates".
              */
-            NA.webconfig.generatesRelativePath = NA.webconfig.generatesRelativePath.replace(regex, '') + path.sep;
+            NA.webconfig.generatesRelativePath = NA.webconfig.generatesRelativePath;
         } else {
-            NA.webconfig.generatesRelativePath = 'generates/';
+            NA.webconfig.generatesRelativePath = 'generates';
         }
 
         /* Adding path to original url. */
@@ -499,10 +496,10 @@ var NA = {};
              * @memberOf node-atlas~NA.webconfig
              * @default Empty.
              * @example
-             * // If `NA.webconfig.urlRelativeSubPath` is setted to "example/"
+             * // If `NA.webconfig.urlRelativeSubPath` is setted to "example"
              * // Website will run by default to « http://localhost/example/ »
              */     
-            NA.webconfig.urlRelativeSubPath = NA.webconfig.urlRelativeSubPath.replace(/\/$/g, '');
+            NA.webconfig.urlRelativeSubPath = '/' + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "").replace(/\/$/g, "");
         } else {
             NA.webconfig.urlRelativeSubPath = '';
         }
@@ -683,7 +680,7 @@ var NA = {};
         /* Check if file exist */
         fs.stat(physicalPath + fileName, function (error) {
             var data = {
-                pathName: path.normalize(physicalPath + fileName)
+                pathName: path.join(physicalPath, fileName)
             };
 
             if (error && error.code === 'ENOENT') {
@@ -1095,8 +1092,8 @@ var NA = {};
 
         if (commander.browse) { NA.configuration.browse = commander.browse; }
         
-        if (NA.configuration.browse) { open(path.normalize('http://localhost' + ((httpPort !== 80) ? ':' + httpPort : '') + '/' + ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))); }
-    };
+        if (NA.configuration.browse) { open(path.normalize('http://localhost/' + ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))); }
+    }; 
 
     /**
      * Start a real NodeAtlas Server.
@@ -1216,7 +1213,7 @@ var NA = {};
 
             if (commander.browse) { NA.configuration.browse = commander.browse; }
 
-            if (NA.configuration.browse) { open(path.normalize(NA.webconfig.urlWithoutFileName + NA.webconfig.urlRelativeSubPath + ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))); }
+            if (NA.configuration.browse) { open(path.join(NA.webconfig.urlWithoutFileName, NA.webconfig.urlRelativeSubPath, ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))); }
         }
 
         /**
@@ -1291,7 +1288,7 @@ var NA = {};
                 NA.webconfig.enableLess
             ) {
                 /* Generate Less on the fly during the development phase. */
-                NA.httpServer.use(lessMiddleware(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath, {
+                NA.httpServer.use(lessMiddleware(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath), {
                     postprocess: {
                         css: function(css, req) {
                             return css + "/*# sourceMappingURL=" + req.url.replace(/\.css$/i, '.css.map') + " */";
@@ -1386,12 +1383,13 @@ var NA = {};
      */ 
     publics.httpServerPublicFiles = function () {
         var express = NA.modules.express,
+            path = NA.modules.path,
             commander = NA.modules.commander;
 
         if (commander.generate) { NA.configuration.generate = commander.generate; }
 
         if (!NA.configuration.generate) {
-            NA.httpServer.use(NA.webconfig.urlRelativeSubPath, express["static"](NA.websitePhysicalPath + NA.webconfig.assetsRelativePath, { maxAge: 86400000 * 30 }));
+            NA.httpServer.use(NA.webconfig.urlRelativeSubPath, express["static"](path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath), { maxAge: 86400000 * 30 }));
         }
     };
 
@@ -1461,7 +1459,8 @@ var NA = {};
      * @param {Object} response - Initial response.
      */ 
     publics.redirect = function (currentRouteParameters, request, response) {
-        var location;
+        var location,
+            path = NA.modules.path;
 
         /* Re-inject param into redirected url if is replaced by regex. */
         if (currentRouteParameters.regExp) {
@@ -1481,7 +1480,7 @@ var NA = {};
 
         /* Set status and new location. */
         response.writeHead(currentRouteParameters.statusCode, {
-            Location: NA.webconfig.urlRelativeSubPath + location
+            Location: path.join(NA.webconfig.urlRelativeSubPath, location)
         });
 
         /* No more data. */
@@ -1498,6 +1497,7 @@ var NA = {};
      */ 
     publics.request = function (path, options) {
         var currentRouteParameters = options[path],
+            pathM = NA.modules.path,
             getSupport = true,
             postSupport = true,
             currentPath = path,
@@ -1751,16 +1751,17 @@ var NA = {};
      */ 
     publics.openVariation = function (variationName, languageCode) {
         var fs = NA.modules.fs,
+            path = NA.modules.path,
             dataError = {},
-            variationsPath,
-            languagePath;
-
-            /* Know if variation must be open language subdirectory in first place or not. */
-            if (languageCode) { languagePath = languageCode + '/'; }
-            if (!languageCode) { languagePath = ''; }
+            variationsPath;
 
             /* Find the correct path for variations. */
-            variationsPath = NA.websitePhysicalPath + NA.webconfig.variationsRelativePath + languagePath + variationName;
+            variationsPath = path.join(
+                NA.websitePhysicalPath, 
+                NA.webconfig.variationsRelativePath, 
+                (languageCode) ? languageCode : '', 
+                (variationName) ? variationName : ''
+            );
 
         if (typeof variationName !== 'undefined') {
             dataError.variationsPath = variationsPath;
@@ -1825,11 +1826,11 @@ var NA = {};
 
         /* Add common injections. */
         if (typeof commonInjection === 'string') {
-            allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + commonInjection));
+            allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, commonInjection));
         } else {
             if (commonInjection) {
                 for (i = 0; i < commonInjection.length; i++) {
-                    allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + NA.webconfig.injectCss[i]));
+                    allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, NA.webconfig.injectCss[i]));
                 }
             }
         }
@@ -1838,22 +1839,22 @@ var NA = {};
         if (specificInjection) {     
             if (typeof specificInjection === 'string') {
                 for (i = 0; i < allCssFiles.length; i++) {
-                    if (path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection) === allCssFiles[i]) {
+                    if (path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, specificInjection) === allCssFiles[i]) {
                         inject = false;
                     }
                 }
                 if (inject) {
-                    allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection));
+                    allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, specificInjection));
                 }
             } else {
                 for (var j = 0; j < specificInjection.length; j++) {
                     for (i = 0; i < allCssFiles.length; i++) {
-                        if (path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection[j]) === allCssFiles[i]) {
+                        if (path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, specificInjection[j]) === allCssFiles[i]) {
                             inject = false;
                         }
                     }
                     if (inject) {
-                        allCssFiles.push(path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + specificInjection[j]));
+                        allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, specificInjection[j]));
                     }
                     inject = true;
                 }
@@ -1948,15 +1949,15 @@ var NA = {};
             async.each(allCssMinified, function (compressedFile, firstCallback) {
 
                 async.map(bundles.stylesheets[compressedFile], function (sourceFile, secondCallback) {
-                    secondCallback(null, fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + sourceFile, 'utf-8'));
+                    secondCallback(null, fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile), 'utf-8'));
                 }, function(error, results) {
                     for (var i = 0; i < results.length; i++) {
                         output += results[i];
                     }
 
                     output = new cleanCss().minify(output);
-                    fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile, output);
-                    data.pathName = path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile);
+                    fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile), output);
+                    data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile);
                     console.log(NA.appLabels.cssGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     output = "";
 
@@ -2029,8 +2030,8 @@ var NA = {};
 
             async.each(allImgMinified, function (compressedFile, firstCallback) {
 
-                var source = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile,
-                    output = NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + optimizations.images[compressedFile];
+                var source = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile),
+                    output = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, optimizations.images[compressedFile]);
 
                     new imagemin()
                         .src(source)
@@ -2116,14 +2117,14 @@ var NA = {};
             async.each(allJsMinified, function (compressedFile, firstCallback) {
 
                 async.map(bundles.javascript[compressedFile], function (sourceFile, secondCallback) {
-                    secondCallback(null, uglifyJs.minify(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + sourceFile, 'utf-8').code);
+                    secondCallback(null, uglifyJs.minify(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile), 'utf-8').code);
                 }, function(error, results) {
                     for (var i = 0; i < results.length; i++) {
                         output += results[i];
                     }
 
-                    fs.writeFileSync(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile, output);
-                    data.pathName = path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath + compressedFile);
+                    fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile), output);
+                    data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile);
                     console.log(NA.appLabels.jsGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     output = "";
 
@@ -2155,6 +2156,7 @@ var NA = {};
      */ 
     publics.render = function (path, options, request, response) {
         var ejs = NA.modules.ejs,
+            pathM = NA.modules.path,
             extend = NA.modules.extend,
 
             /**
@@ -2191,7 +2193,7 @@ var NA = {};
         }
 
         /* Generate the server path to the template file. */
-        templatesPath = NA.websitePhysicalPath + NA.webconfig.templatesRelativePath + currentRouteParameters.template;
+        templatesPath = pathM.join(NA.websitePhysicalPath, NA.webconfig.templatesRelativePath, currentRouteParameters.template);
 
         /* Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
         if (currentRouteParameters.url) {
@@ -2262,7 +2264,7 @@ var NA = {};
                 NA.openTemplate(currentRouteParameters, templatesPath, function (data) {
 
                     /* Set the file currently in use. */
-                    currentVariation.filename = currentVariation.pathname + currentRouteParameters.template;
+                    currentVariation.filename = pathM.join(currentVariation.pathname, currentRouteParameters.template);
 
                     try {
                         /* Transform ejs data and inject incduded file. */
@@ -2421,7 +2423,7 @@ var NA = {};
              * @example http://localhost:7777/subpath
              * https://www.example.here
              */
-            currentVariation.urlBasePathSlice = NA.webconfig.urlWithoutFileName.replace(/\/$/g, "") + ((NA.webconfig.urlRelativeSubPath !== '') ? '/' + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "").replace(/\/$/g, "") : '');
+            currentVariation.urlBasePathSlice = NA.webconfig.urlWithoutFileName.replace(/\/$/g, "") + NA.webconfig.urlRelativeSubPath;
 
             /**
              * Expose the current URL of page with `NA.webconfig.urlWithoutFileName` and `NA.webconfig.urlRelativeSubPath`.
@@ -2640,7 +2642,12 @@ var NA = {};
      * @param {loadController~callback} callback - Next steps after controller loading.
      */
     publics.loadController = function (controller, callback) {
-        var commonControllerPath = NA.websitePhysicalPath + NA.webconfig.controllersRelativePath + controller,
+        var path = NA.modules.path,
+            commonControllerPath = path.join(
+                NA.websitePhysicalPath, 
+                NA.webconfig.controllersRelativePath, 
+                (controller) ? controller : ''
+            ),
             dataError = {};
 
         /* If a controller is required. Loading of this controller... */
@@ -2700,8 +2707,8 @@ var NA = {};
             path = NA.modules.path,
             traverseDirectory = publics.modules.traverseDirectory,
             data = {},
-            sourcePath = path.normalize(NA.websitePhysicalPath + NA.webconfig.assetsRelativePath),
-            destinationPath = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath),
+            sourcePath = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath),
+            destinationPath = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath),
             traverse,
             htmlGenerateEnable = true;
 
@@ -2727,7 +2734,7 @@ var NA = {};
 
             /* Generate all HTML files. */
             if (htmlGenerateEnable) {
-                fs.exists(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath, function (exists) {
+                fs.exists(path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath), function (exists) {
                     if (exists) {
                         for (var currentUrl in NA.webconfig.routes) {
                         	if (NA.webconfig.routes.hasOwnProperty(currentUrl)) {
@@ -2735,7 +2742,7 @@ var NA = {};
                             }
                         }
                     } else {
-                        data.templatePath = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath);
+                        data.templatePath = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath);
                         console.log(NA.appLabels.templateDirectoryNotExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     }
                 });
@@ -2840,7 +2847,7 @@ var NA = {};
             cheerio = NA.modules.cheerio,
             mkpath = NA.modules.mkpath,
             path = NA.modules.path,
-            pathToSaveFileComplete = NA.websitePhysicalPath + NA.webconfig.generatesRelativePath + templateRenderName,
+            pathToSaveFileComplete = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath, templateRenderName),
             pathToSaveFile = path.dirname(pathToSaveFileComplete),
             $ = cheerio.load(data),
             deeper,
@@ -2876,7 +2883,7 @@ var NA = {};
                 /* If source is not a HTML format, keep initial data format. */
                 if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
 
-                dataError.pathName = path.normalize(NA.websitePhysicalPath + NA.webconfig.generatesRelativePath + templateRenderName);
+                dataError.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath, templateRenderName);
 
                 /* Write file */
                 fs.writeFile(pathToSaveFileComplete, innerHTML, function (error) {

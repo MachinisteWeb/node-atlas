@@ -1,3 +1,10 @@
+## 0.44.0 ##
+
+Updates:
+
+- Allow all webconfig param to not set with '/' in end or start.
+
+
 ## 0.43.0 ##
 
 Updates:
