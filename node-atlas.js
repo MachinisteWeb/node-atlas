@@ -1,4 +1,3 @@
-
 /*------------------------------------*\
     $%ABOUT
 \*------------------------------------*/
@@ -21,16 +20,15 @@
  * @requires express
  * @requires express-session
  * @requires extend
+ * @requires forcedomain
  * @requires imagemin
  * @requires less-middleware
  * @requires mkpath
- * @requires forcedomain
  * @requires open
  * @requires traverse-directory
  * @requires uglify-js
  */
-/*jslint node: true */
-
+/* jslint node: true */
 
 
 
@@ -43,7 +41,7 @@
  * ABOUT..........................Informations about NodeAtlas.
  * SUMMARY........................It's me !
  * NODE ATLAS OBJECT..............Creation of Main Object.
- * CONFIGURATION..................Global configuration variables, command tool and webconfig. 
+ * CONFIGURATION..................Global configuration variables, command tool and webconfig.
  * GLOBAL FUNCTIONS...............Neutral functions used more once.
  * NODE MODULES...................Functions used to load Node Modules.
  * WEB SERVER.....................Functions used to run pages on http(s) protocol and use middlewares.
@@ -97,7 +95,7 @@ var NA = {};
         var commander = NA.modules.commander;
 
         commander
-        
+
             /* Version of NodeAtlas currently in use with `--version` option. */
             .version('0.43.3')
 
@@ -106,7 +104,7 @@ var NA = {};
 
             /* Target the directory in which website and NodeAtlas will be running. */
             .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
-            
+
             /* Change name of JSON file used as the webconfig file. */
             .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
 
@@ -239,7 +237,8 @@ var NA = {};
      * @memberOf node-atlas~NA
      */
     publics.templateEngineConfiguration = function () {
-        var ejs = NA.modules.ejs;
+        var ejs = NA.modules.ejs,
+            path = NA.modules.path;
 
         /**
          * Container for all variations usable into template engine.
@@ -259,7 +258,7 @@ var NA = {};
          * @memberOf node-atlas~NA.variations
          * @default The `NA.websitePhysicalPath` value with webconfig `componentsRelativePath` after.
          */
-        NA.variations.pathname = NA.websitePhysicalPath + NA.webconfig.componentsRelativePath;
+        NA.variations.pathname = path.join(NA.websitePhysicalPath, NA.webconfig.componentsRelativePath);
 
         /**
          * Same as `NA.variations.pathname` with arbitrary value setted after. This value will be represent current page generated for all page generated with template engine.
