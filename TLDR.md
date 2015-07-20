@@ -50,7 +50,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
 	"urlHttp": 80,                          /* Set the frontal port for application on the world wide web (proxy). */
 	"httpSecure": "security/server",        /* Set the directory for find "server.key" and "server.crt" file for HTTPs. */
 	"urlHostname": "www.my-website.com",    /* Set the hostname for the application on the world wide web. */
-    "urlRelativeSubPath": "/example",       /* Set a subdirectory for the application url. i.e.: "https://www.my-website.com/example/". */
+    "urlRelativeSubPath": "example",       /* Set a subdirectory for the application url. i.e.: "https://www.my-website.com/example/". */
 	"languageCode": "en-gb",
     "pageNotFound": "/page-404/",
     "commonVariation": "common.json",
