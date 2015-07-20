@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.44.0
+ * @version 0.44.1
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.44.0')
+            .version('0.44.1')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -2193,7 +2193,11 @@ var NA = {};
         }
 
         /* Generate the server path to the template file. */
-        templatesPath = pathM.join(NA.websitePhysicalPath, NA.webconfig.templatesRelativePath, currentRouteParameters.template);
+        templatesPath = pathM.join(
+            NA.websitePhysicalPath, 
+            NA.webconfig.templatesRelativePath, 
+            (currentRouteParameters.template) ? currentRouteParameters.template : ""
+        );
 
         /* Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
         if (currentRouteParameters.url) {
@@ -2847,7 +2851,11 @@ var NA = {};
             cheerio = NA.modules.cheerio,
             mkpath = NA.modules.mkpath,
             path = NA.modules.path,
-            pathToSaveFileComplete = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath, templateRenderName),
+            pathToSaveFileComplete = path.join(
+                NA.websitePhysicalPath, 
+                NA.webconfig.generatesRelativePath, 
+                (templateRenderName) ? templateRenderName : ''
+            ),
             pathToSaveFile = path.dirname(pathToSaveFileComplete),
             $ = cheerio.load(data),
             deeper,
