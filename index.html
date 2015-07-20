@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.43</p>
+<p>Version : 0.44</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -348,7 +348,7 @@ nodeAtlas.run();</pre></div>
 <p>Ci-dessous un exemple de configuration.</p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>templatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>templates/<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>templatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>templates<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
@@ -394,7 +394,7 @@ webconfig.json
 <em>http://localhost/error.html</em> (renvoi du contenu plein texte (sans balise) avec une erreur 404)</li>
 </ul>
 
-<p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des templates est bien</em> <strong><em>templates/</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+<p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des templates est bien</em> <strong><em>templates</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
 <a id="raccourci-de-template" class="anchor" href="#raccourci-de-template" aria-hidden="true"><span class="octicon octicon-link"></span></a>Raccourci de template</h3>
@@ -402,7 +402,7 @@ webconfig.json
 <p>La configuration ci-dessous est équivalente à la configuration de la section juste au dessus </p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>templatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>templates/<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>templatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>templates<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
         <span class="pl-s"><span class="pl-pds">"</span>/member.html<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -440,7 +440,7 @@ webconfig.json
 <p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>assetsRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets/<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>assetsRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets<span class="pl-pds">"</span></span>
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
@@ -472,7 +472,7 @@ webconfig.json
 <li><em>http://localhost/media/images/logo.png</em></li>
 </ul>
 
-<p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>assets/</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+<p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
 <a id="gérer-des-inclusions-pour-éviter-la-redondance-du-code" class="anchor" href="#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gérer des inclusions pour éviter la redondance du code</h3>
@@ -554,7 +554,7 @@ webconfig.json
 <li><em>http://localhost/liste-des-membres/</em></li>
 </ul>
 
-<p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components/</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
+<p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien</em> <strong><em>components</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
 
 <h3>
 <a id="gérer-des-variations-au-sein-dun-même-template" class="anchor" href="#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gérer des variations au sein d'un même template</h3>
@@ -563,7 +563,7 @@ webconfig.json
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>commonVariation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.json<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>variationsRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>variations/<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>variationsRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>variations<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>template.htm<span class="pl-pds">"</span></span>,
@@ -662,7 +662,7 @@ webconfig.json
 <li><em>http://localhost/liste-des-membres/</em></li>
 </ul>
 
-<p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien</em> <strong><em>variations/</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
+<p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien</em> <strong><em>variations</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p>
 
 <h3>
 <a id="gérer-le-multilingue" class="anchor" href="#g%C3%A9rer-le-multilingue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gérer le multilingue</h3>
@@ -674,7 +674,7 @@ webconfig.json
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-gb<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>variationsRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>languages/<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>variationsRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>languages<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>landing.htm<span class="pl-pds">"</span></span>,
@@ -692,7 +692,7 @@ webconfig.json
     }
 }</pre></div>
 
-<p><em>Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de</em> <strong><em>commonVariation</em></strong>. <em>J'ai également totalement arbitrairement décidé de renommer mon dossier</em> <strong><em>variations/</em></strong> <em>en</em> <strong><em>languages/</em></strong>.</p>
+<p><em>Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de</em> <strong><em>commonVariation</em></strong>. <em>J'ai également totalement arbitrairement décidé de renommer mon dossier</em> <strong><em>variations</em></strong> <em>en</em> <strong><em>languages</em></strong>.</p>
 
 <p>avec les fichiers suivants :</p>
 
@@ -856,7 +856,7 @@ webconfig.fr-fr.json
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">81</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/english<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>english<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-gb<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -874,7 +874,7 @@ webconfig.fr-fr.json
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">82</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/francais<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>francais<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
@@ -920,7 +920,7 @@ webconfig.fr-fr.json
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>htmlGenerateBeforeResponse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>generatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>generates/<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>generatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>generates<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
@@ -1056,7 +1056,7 @@ engine/
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>controllersRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>controllers/<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>controllersRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>controllers<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
@@ -1516,7 +1516,7 @@ webconfig.json
 <span class="pl-c1">exports</span>.changeDom <span class="pl-k">=</span> website.changeDom;
 <span class="pl-c1">exports</span>.asynchrone <span class="pl-k">=</span> website.asynchrone; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
 
-<p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers/</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+<p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
 <h3>
 <a id="changer-les-paramètres-durl" class="anchor" href="#changer-les-param%C3%A8tres-durl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changer les paramètres d'url</h3>
@@ -1553,7 +1553,7 @@ webconfig.json
     <span class="pl-s"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">7777</span>,
     <span class="pl-s"><span class="pl-pds">"</span>httpSecure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/sub/folder<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>sub/folder<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
@@ -3129,7 +3129,7 @@ exports.setSessions = website.setSessions;
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">7777</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/sub/folder<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>sub/folder<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
@@ -3411,7 +3411,6 @@ site-hello-world/
                 &lt;/<span class="pl-ent">rule</span>&gt;
             &lt;/<span class="pl-ent">rules</span>&gt;
         &lt;/<span class="pl-ent">rewrite</span>&gt;
-
     &lt;/<span class="pl-ent">system</span>.webServer&gt;
 &lt;/<span class="pl-ent">configuration</span>&gt;</pre></div>
 
