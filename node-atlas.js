@@ -617,7 +617,6 @@ var NA = {};
         if (object instanceof Date) {
             copy = new Date();
             copy.setTime(object.getTime());
-            
             return copy;
         }
 
@@ -629,13 +628,11 @@ var NA = {};
         /* Handle Object */
         if (object instanceof Object) {
             copy = {};
-
             for (var attr in object) {
                 if (object.hasOwnProperty(attr)) {
                     copy[attr] = publics.clone(object[attr]);
                 }
             }
-
             return copy;
         }
     };
