@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.43
+Version : 0.45
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -53,6 +53,7 @@ The tool is still in development and I experience it slowly with my own websites
  - [Manage Multilingual](#manage-multilingual)
  - [NodeAtlas use to generate HTML assets](#nodeatlas-use-to-generate-html-assets)
  - [Use NodeAtlas to run a website (Back-end Part)](#use-nodeatlas-to-run-a-website-back-end-part)
+ - [Generate partial page with AJAX/Websocket](#generate-partial-page-with-ajax-websocket)
  - [Change the url parameters](#change-the-url-parameters)
  - [Create your own webconfig variables](#create-your-own-webconfig-variables)
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
@@ -1511,6 +1512,70 @@ exports.asynchrone = website.asynchrone; // Used not by "NodeAtlas" but with "co
 ```
 
 *Note : If* ***controllersRelativePath*** *is not present in "webconfig.js", default controller folder is* ***controllers***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
+
+
+
+### Generate partial page with AJAX/Websocket ###
+
+When a page is generate and send to client, the server doesn't know, if an AJAX request come, what is the route associated. And so it not capable to response with an HTML that used the correct variations or correct language.
+
+The first step is to set value into client code. For example :
+
+```html
+...
+<html lang="<%= languageCode %>">
+...
+<body data-variation="<%= currentRouteParameters.variation %>">
+...
+```
+
+and the generate code will be :
+
+```html
+...
+<html lang="fr-fr">
+...
+<body data-variation="index">
+...
+```
+
+after, the JavaScript part send this value with an AJAX call with jQuery for example or, a socket.io request :
+
+```js
+...
+publics.socket.emit("load-section-a", { 
+    lang: $("html").attr('lang'), 
+    variation: $("body").data('variation')
+});
+...
+```
+
+and so, the server know this parameters,
+
+```js
+...
+socket.on('load-section-a', function (data) {
+    var result = {},
+        currentVariation = {};
+
+    // Specific variations in the good language.
+    currentVariation = NA.addSpecificVariation(data.variation, data.lang, currentVariation);
+
+    // Common variations in the good language.
+    currentVariation = NA.addCommonVariation(data.lang, currentVariation);
+
+    // HTML part from `componentsRelativePath` directory and render with variations.
+    result = NA.newRender("section-a.htm", currentVariation);
+
+    // Send the result to client.
+    socket.emit('load-sections', result);
+});
+...
+```
+
+and this thanks to `NA.addSpecificVariation`, `NA.addCommonVariation` and `NA.newRender`.
+
+If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `currentVariation` is type of `undefined` an empty object will be created.
 
 
 
