@@ -1,3 +1,10 @@
+## 0.45.1 ##
+
+Updates:
+
+- Expose function for templating with variation for Back-end part.
+
+
 ## 0.44.0 ##
 
 Updates:
