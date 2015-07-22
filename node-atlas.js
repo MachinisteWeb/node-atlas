@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.45.0
+ * @version 0.45.1
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.45.0')
+            .version('0.45.1')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -2198,7 +2198,8 @@ var NA = {};
             async.each(allJsMinified, function (compressedFile, firstCallback) {
 
                 async.map(bundles.javascript[compressedFile], function (sourceFile, secondCallback) {
-                    secondCallback(null, uglifyJs.minify(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile), 'utf-8').code);
+                    console.log(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile));
+                    secondCallback(null, uglifyJs.minify(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile)).code);
                 }, function(error, results) {
                     for (var i = 0; i < results.length; i++) {
                         output += results[i];
