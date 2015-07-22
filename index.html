@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.44</p>
+<p>Version : 0.45</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -104,6 +104,7 @@
 <li><a href="#g%C3%A9rer-le-multilingue">Gérer le multilingue</a></li>
 <li><a href="#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html">Utiliser NodeAtlas pour générer des assets HTML</a></li>
 <li><a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">Utiliser NodeAtlas pour faire tourner un site (partie Back-end)</a></li>
+<li><a href="#generer-des-fragments-de-page-par-retour-ajax-websocket">Génerer des fragments de page par retour AJAX/Websocket</a></li>
 <li><a href="#changer-les-param%C3%A8tres-durl">Changer les paramètres d'url</a></li>
 <li><a href="#cr%C3%A9er-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</a></li>
 <li><a href="#g%C3%A9rer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</a></li>
@@ -1517,6 +1518,61 @@ webconfig.json
 <span class="pl-c1">exports</span>.asynchrone <span class="pl-k">=</span> website.asynchrone; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
 
 <p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
+
+<h3>
+<a id="génerer-des-fragments-de-page-par-retour-ajaxwebsocket" class="anchor" href="#g%C3%A9nerer-des-fragments-de-page-par-retour-ajaxwebsocket" aria-hidden="true"><span class="octicon octicon-link"></span></a>Génerer des fragments de page par retour AJAX/Websocket</h3>
+
+<p>Une fois qu'une page est génerée et envoyée au client, le serveur ne sait pas, quand une requête AJAX lui parvient de qu'elle chemin il s'agit. Il est donc incapable de vous renvoyer un composant HTML avec les bonnes valeurs de variation dedans ou même la bonne langue.</p>
+
+<p>La première étape est de baliser votre code HTML. Par exemple, il pourrait contenir ceci :</p>
+
+<div class="highlight highlight-html"><pre>...
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= languageCode %&gt;<span class="pl-pds">"</span></span>&gt;
+...
+&lt;<span class="pl-ent">body</span> <span class="pl-e">data-variation</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= currentRouteParameters.variation %&gt;<span class="pl-pds">"</span></span>&gt;
+...</pre></div>
+
+<p>ce qui génèrerait ceci :</p>
+
+<div class="highlight highlight-html"><pre>...
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+...
+&lt;<span class="pl-ent">body</span> <span class="pl-e">data-variation</span>=<span class="pl-s"><span class="pl-pds">"</span>index<span class="pl-pds">"</span></span>&gt;
+...</pre></div>
+
+<p>puis, quand votre JavaScript fera une requête AJAX via jQuery, ou comme ici, une requête socket.io, il utilisera ses paramètres :</p>
+
+<div class="highlight highlight-js"><pre>...
+publics.socket.emit(<span class="pl-s"><span class="pl-pds">"</span>load-section-a<span class="pl-pds">"</span></span>, { 
+    lang<span class="pl-k">:</span> $(<span class="pl-s"><span class="pl-pds">"</span>html<span class="pl-pds">"</span></span>).attr(<span class="pl-s"><span class="pl-pds">'</span>lang<span class="pl-pds">'</span></span>), 
+    variation<span class="pl-k">:</span> $(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>).<span class="pl-c1">data</span>(<span class="pl-s"><span class="pl-pds">'</span>variation<span class="pl-pds">'</span></span>)
+});
+...</pre></div>
+
+<p>pour que le serveur récupère les valeurs :</p>
+
+<div class="highlight highlight-js"><pre>...
+socket.on(<span class="pl-s"><span class="pl-pds">'</span>load-section-a<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
+    <span class="pl-k">var</span> result <span class="pl-k">=</span> {},
+        currentVariation <span class="pl-k">=</span> {};
+
+    <span class="pl-c">// On récupère les variations spécifiques dans la bonne langue.</span>
+    currentVariation <span class="pl-k">=</span> <span class="pl-c1">NA</span>.addSpecificVariation(data.variation, data.<span class="pl-c1">lang</span>, currentVariation);
+
+    <span class="pl-c">// On récupère les variations communes dans la bonne langue.</span>
+    currentVariation <span class="pl-k">=</span> <span class="pl-c1">NA</span>.addCommonVariation(data.<span class="pl-c1">lang</span>, currentVariation);
+
+    <span class="pl-c">// On récupère le fragment HTML depuis le dossier `componentsRelativePath` et on applique les variations.</span>
+    result <span class="pl-k">=</span> <span class="pl-c1">NA</span>.newRender(<span class="pl-s"><span class="pl-pds">"</span>section-a.htm<span class="pl-pds">"</span></span>, currentVariation);
+
+    <span class="pl-c">// On renvoit le résultat pour injection dans le DOM.</span>
+    socket.emit(<span class="pl-s"><span class="pl-pds">'</span>load-sections<span class="pl-pds">'</span></span>, result);
+});
+...</pre></div>
+
+<p>tout ceci grâce à <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> et <code>NA.newRender</code>.</p>
+
+<p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>currentVariation</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p>
 
 <h3>
 <a id="changer-les-paramètres-durl" class="anchor" href="#changer-les-param%C3%A8tres-durl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changer les paramètres d'url</h3>
