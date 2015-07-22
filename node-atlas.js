@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.44.2
+ * @version 0.45.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.44.2')
+            .version('0.45.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -704,6 +704,83 @@ var NA = {};
                 callback();
             }
         });
+    };
+
+    /**
+     * Load into `{variation}.common` to object format the content of common variation file.
+     * @public
+     * @function addCommonVariation
+     * @memberOf node-atlas~NA
+     * @param {string} languageCode - Select a subdirectory for load variation (name is generaly the languageCode).
+     * @param {object} variation - An object for attach common parameter. If empty, a new empty object is created.
+     */  
+    publics.addCommonVariation = function (languageCode, variation) {
+        var currentVariation = {},
+            extend = NA.modules.extend;
+
+        /* Create a global variation object if is not passed. */
+        if (typeof variation !== 'undefined') {
+            currentVariation = variation;
+        }
+
+        /* Load variation from languageCode directory or root directory (depend if languageCode is defined)... */
+        currentVariation.common = NA.openVariation(NA.webconfig.commonVariation, languageCode);
+
+        /* ...and complete empty value with value of file in root directory. */
+        if (languageCode) {
+            currentVariation.common = extend(true, NA.openVariation(NA.webconfig.commonVariation), currentVariation.common);
+        }
+
+        return currentVariation;
+    };
+
+    /**
+     * Load into `{variation}.specific` to object format the content of a specific variation file.
+     * @public
+     * @function addSpecificVariation
+     * @memberOf node-atlas~NA
+     * @param {string} specific - Select the specific variation associate to the current page.
+     * @param {string} languageCode - Select a subdirectory for load variation (name is generaly the languageCode).
+     * @param {object} variation - An object for attach common parameter. If empty, a new empty object is created.
+     */  
+     publics.addSpecificVariation = function (specific, languageCode, variation) {
+        var currentVariation = {},
+            extend = NA.modules.extend;
+
+        /* Create a global variation object if is not passed. */
+        if (typeof variation !== 'undefined') {
+            currentVariation = variation;
+        }
+
+        /* Load variation from languageCode directory or root directory (depend if languageCode is defined)... */
+        currentVariation.specific = NA.openVariation(specific, languageCode);
+
+        /* ...and complete empty value with value of file in root directory. */
+        if (languageCode) {
+            currentVariation.specific = extend(true, NA.openVariation(specific), currentVariation.specific);
+        }
+
+        return currentVariation;
+    };
+
+    /**
+     * Load a HTML fragment and inject variation for an async result.
+     * @public
+     * @function newRender
+     * @memberOf node-atlas~NA
+     * @param {string} templateFile - Path of file used into componentsRelativePath directory.
+     * @param {object} variations - All variable used for transform variation into HTML.
+     */
+    publics.newRender = function (templateFile, variations) {
+        var ejs = NA.modules.ejs,
+            fs = NA.modules.fs,
+            path = NA.modules.path;
+
+        /* Generate asynchrone render. */    
+        return ejs.render(
+            fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.componentsRelativePath, templateFile), 'utf-8'),
+            variations
+        );
     };
 
 })(NA);
