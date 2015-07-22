@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.44.1
+ * @version 0.45.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.44.1')
+            .version('0.45.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -143,7 +143,7 @@ var NA = {};
              * @memberOf node-atlas~NA
              * @default Folder where NodeAtlas is running.
              */
-            publics.serverPhysicalPath = process.argv[1].replace(/[-a-zA-Z0-9_]+(\.js)?$/g, "");
+            publics.serverPhysicalPath = process.argv[1].replace(/[\-a-zA-Z0-9_]+(\.js)?$/g, "");
 
             /**
              * Contain all Labels finded into `NA.appLanguage` file.
@@ -167,7 +167,7 @@ var NA = {};
              * NA.websiteController["common.json"].setSessions(...);
              * NA.websiteController["common.json"].changeVariation(...);
              * NA.websiteController["common.json"].changeDom(...);
-             * 
+             *
              * // Functions for specific controller if a route `controller` value is "index.json".
              * NA.websiteController["index.json"].changeVariation(...);
              * NA.websiteController["index.json"].changeDom(...);
@@ -209,7 +209,7 @@ var NA = {};
                 /* `NA.websitePhysicalPath` manually setted value with `--directory`. */
                 publics.websitePhysicalPath = NA.configuration.directory.replace(regex, '') + path.sep;
             }
-           
+
             /**
              * Name of the webconfig used for run website.
              * @public
@@ -217,7 +217,7 @@ var NA = {};
              * @type {string}
              * @memberOf node-atlas~NA
              * @default "webconfig.json".
-             */ 
+             */
             publics.webconfigName = 'webconfig.json';
 
             /* `webconfigName` manually setted value with `--webconfig`. */
@@ -282,7 +282,7 @@ var NA = {};
     };
 
     /**
-     * Decide to run a « Simple Web Server » or a « With Weconfig Server » depending to webconfig opening success. 
+     * Decide to run a « Simple Web Server » or a « With Weconfig Server » depending to webconfig opening success.
      * If webconfig is correctly openned, the `NA.improveWebconfigBase` and `callback` function will be run, else, just `NA.simpleWebServer` will be run.
      * @public
      * @function initWebconfig
@@ -498,7 +498,7 @@ var NA = {};
              * @example
              * // If `NA.webconfig.urlRelativeSubPath` is setted to "example"
              * // Website will run by default to « http://localhost/example/ »
-             */     
+             */
             NA.webconfig.urlRelativeSubPath = '/' + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "").replace(/\/$/g, "");
         } else {
             NA.webconfig.urlRelativeSubPath = '';
@@ -539,7 +539,7 @@ var NA = {};
          * @default "localhost", or `process.env.IP_ADDRESS` if setted, or the webconfig's property `httpHostname`.
          */
         NA.webconfig.httpHostname = NA.webconfig.httpHostname || process.env.IP_ADDRESS || 'localhost';
-   
+
         /**
          * Url access hostname by http (for reverse proxy).
          * @public
@@ -547,7 +547,7 @@ var NA = {};
          * @type {string}
          * @memberOf node-atlas~NA.webconfig
          * @default `NA.webconfig.httpHostname`.
-         */     
+         */
         NA.webconfig.urlHostname = NA.webconfig.urlHostname || NA.webconfig.httpHostname;
 
         /**
@@ -556,7 +556,7 @@ var NA = {};
          * @alias httpSecureRelativeKeyPath
          * @type {string}
          * @memberOf node-atlas~NA.webconfig
-         */ 
+         */
         NA.webconfig.httpSecureRelativeKeyPath = NA.webconfig.httpSecureRelativeKeyPath || (typeof NA.webconfig.httpSecure === 'string') ? NA.webconfig.httpSecure + '.key' : undefined;
 
         /**
@@ -565,7 +565,7 @@ var NA = {};
          * @alias httpSecureRelativeCertificatePath
          * @type {string}
          * @memberOf node-atlas~NA.webconfig
-         */ 
+         */
         NA.webconfig.httpSecureRelativeCertificatePath = NA.webconfig.httpSecureRelativeCertificatePath || (typeof NA.webconfig.httpSecure === 'string') ? NA.webconfig.httpSecure + '.crt' : undefined;
 
         /**
@@ -575,7 +575,7 @@ var NA = {};
          * @alias urlWithoutFileName
          * @type {string}
          * @memberOf node-atlas~NA.webconfig
-         */        
+         */
         NA.webconfig.urlWithoutFileName = 'http' + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + NA.webconfig.urlHostname + ((NA.webconfig.urlPort !== ((NA.webconfig.httpSecure) ? 443 : 80)) ? ':' + NA.webconfig.urlPort : '') + '/';
     };
 
@@ -604,12 +604,14 @@ var NA = {};
      * @memberOf node-atlas~NA
      * @param {Object} object - The A object.
      * @return {Object} - Return the B object.
-     */ 
+     */
     publics.clone = function (object) {
         var copy;
 
         /* Handle the 3 simple types, and null or undefined */
-        if (null === object || undefined === object || "object" !== typeof object) return object;
+        if (null === object || undefined === object || "object" !== typeof object) {
+            return object;
+        }
 
         /* Handle Date */
         if (object instanceof Date) {
@@ -627,7 +629,9 @@ var NA = {};
         if (object instanceof Object) {
             copy = {};
             for (var attr in object) {
-                if (object.hasOwnProperty(attr)) copy[attr] = publics.clone(object[attr]);
+                if (object.hasOwnProperty(attr)) {
+                    copy[attr] = publics.clone(object[attr]);
+                }
             }
             return copy;
         }
@@ -640,7 +644,7 @@ var NA = {};
      * @memberOf node-atlas~NA
      * @param {string} configName - File name (on file path + name in relative). Base folder is the folder where is `webconfig.json`.
      * @return {Object} - Literal object of JSON file.
-     */  
+     */
     publics.openConfiguration = function (configName) {
         var fs = NA.modules.fs,
             data = {};
@@ -653,7 +657,7 @@ var NA = {};
                 /* If the file is a JSON file, but contain a Syntax error. */
                 data.syntaxError = exception.toString();
                 data.fileName = configName;
-                console.log(NA.appLabels.webconfigSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                console.log(NA.appLabels.webconfigSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
             } else {
                 /* Other errors. */
                 console.log(exception);
@@ -684,7 +688,7 @@ var NA = {};
             };
 
             if (error && error.code === 'ENOENT') {
-                console.log(NA.appLabels.ifFileExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                console.log(NA.appLabels.ifFileExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
 
                 /**
                  * If file do not exist, bad next step...
@@ -700,6 +704,83 @@ var NA = {};
                 callback();
             }
         });
+    };
+
+    /**
+     * Load into `{variation}.common` to object format the content of common variation file.
+     * @public
+     * @function addCommonVariation
+     * @memberOf node-atlas~NA
+     * @param {string} languageCode - Select a subdirectory for load variation (name is generaly the languageCode).
+     * @param {object} variation - An object for attach common parameter. If empty, a new empty object is created.
+     */  
+    publics.addCommonVariation = function (languageCode, variation) {
+        var currentVariation = {},
+            extend = NA.modules.extend;
+
+        /* Create a global variation object if is not passed. */
+        if (typeof variation !== 'undefined') {
+            currentVariation = variation;
+        }
+
+        /* Load variation from languageCode directory or root directory (depend if languageCode is defined)... */
+        currentVariation.common = NA.openVariation(NA.webconfig.commonVariation, languageCode);
+
+        /* ...and complete empty value with value of file in root directory. */
+        if (languageCode) {
+            currentVariation.common = extend(true, NA.openVariation(NA.webconfig.commonVariation), currentVariation.common);
+        }
+
+        return currentVariation;
+    };
+
+    /**
+     * Load into `{variation}.specific` to object format the content of a specific variation file.
+     * @public
+     * @function addSpecificVariation
+     * @memberOf node-atlas~NA
+     * @param {string} specific - Select the specific variation associate to the current page.
+     * @param {string} languageCode - Select a subdirectory for load variation (name is generaly the languageCode).
+     * @param {object} variation - An object for attach common parameter. If empty, a new empty object is created.
+     */  
+     publics.addSpecificVariation = function (specific, languageCode, variation) {
+        var currentVariation = {},
+            extend = NA.modules.extend;
+
+        /* Create a global variation object if is not passed. */
+        if (typeof variation !== 'undefined') {
+            currentVariation = variation;
+        }
+
+        /* Load variation from languageCode directory or root directory (depend if languageCode is defined)... */
+        currentVariation.specific = NA.openVariation(specific, languageCode);
+
+        /* ...and complete empty value with value of file in root directory. */
+        if (languageCode) {
+            currentVariation.specific = extend(true, NA.openVariation(specific), currentVariation.specific);
+        }
+
+        return currentVariation;
+    };
+
+    /**
+     * Load a HTML fragment and inject variation for an async result.
+     * @public
+     * @function newRender
+     * @memberOf node-atlas~NA
+     * @param {string} templateFile - Path of file used into componentsRelativePath directory.
+     * @param {object} variations - All variable used for transform variation into HTML.
+     */
+    publics.newRender = function (templateFile, variations) {
+        var ejs = NA.modules.ejs,
+            fs = NA.modules.fs,
+            path = NA.modules.path;
+
+        /* Generate asynchrone render. */    
+        return ejs.render(
+            fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.componentsRelativePath, templateFile), 'utf-8'),
+            variations
+        );
     };
 
 })(NA);
@@ -1081,7 +1162,7 @@ var NA = {};
 
             data.httpPort = httpPort;
 
-            console.log(NA.appLabels.portAlreadyListened.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+            console.log(NA.appLabels.portAlreadyListened.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
 
             /* In case of error, kill current process. */
             process.kill(process.pid);
@@ -1196,7 +1277,7 @@ var NA = {};
 
                 data.httpPort = NA.webconfig.httpPort;
 
-                console.log(NA.appLabels.isRunning.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                console.log(NA.appLabels.isRunning.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
             });
 
             /* Catch error. */
@@ -1205,7 +1286,7 @@ var NA = {};
 
                 data.httpPort = httpPort;
 
-                console.log(NA.appLabels.portAlreadyListened.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                console.log(NA.appLabels.portAlreadyListened.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
 
                 /* In case of error, kill current process. */
                 process.kill(process.pid);
@@ -1726,7 +1807,7 @@ var NA = {};
                 if (typeof currentRouteParameters.template === 'undefined') {
                     console.log(NA.appLabels.templateNotSet);
                 } else {
-                    console.log(NA.appLabels.templateNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                    console.log(NA.appLabels.templateNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                 }
             } else {
 
@@ -1772,10 +1853,10 @@ var NA = {};
                 /* Explain errors. */
                 if (!languageCode) {
                     if (exception.code === 'ENOENT') {
-                        console.log(NA.appLabels.variationNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                        console.log(NA.appLabels.variationNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                     } else if (exception.toString().indexOf('SyntaxError') !== -1) {
                         dataError.syntaxError = exception.toString();
-                        console.log(NA.appLabels.variationSyntaxError.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                        console.log(NA.appLabels.variationSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                     } else {
                         console.log(exception);
                     }
@@ -1958,7 +2039,7 @@ var NA = {};
                     output = new cleanCss().minify(output);
                     fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile), output);
                     data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile);
-                    console.log(NA.appLabels.cssGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    console.log(NA.appLabels.cssGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     output = "";
 
                     firstCallback();
@@ -2043,7 +2124,7 @@ var NA = {};
                         .run(function () {
                             data.pathName = path.normalize(source);
 
-                            console.log(NA.appLabels.imgGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                            console.log(NA.appLabels.imgGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                             
                             firstCallback();
                         });
@@ -2125,7 +2206,7 @@ var NA = {};
 
                     fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile), output);
                     data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile);
-                    console.log(NA.appLabels.jsGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    console.log(NA.appLabels.jsGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     output = "";
 
                     firstCallback();
@@ -2669,7 +2750,7 @@ var NA = {};
             } catch (exception) {
                 dataError.moduleError = exception.toString();
                 if (exception.code === 'MODULE_NOT_FOUND') {
-                    console.log(NA.appLabels.moduleNotFound.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                    console.log(NA.appLabels.moduleNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                 } else {
                     throw exception;
                 }
@@ -2747,7 +2828,7 @@ var NA = {};
                         }
                     } else {
                         data.templatePath = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath);
-                        console.log(NA.appLabels.templateDirectoryNotExist.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                        console.log(NA.appLabels.templateDirectoryNotExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     }
                 });
             }
@@ -2827,13 +2908,13 @@ var NA = {};
 	                            data.page = NA.webconfig.routes[page].url;
 	                        }
 
-                            data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([-a-zA-Z0-9_]+)%/g, matches);
+                            data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([\-a-zA-Z0-9_]+)%/g, matches);
                         }
                     }
 
                     /* ...and provide a page. */
                     response.writeHead(200, NA.appLabels.emulatedIndexPage.charsetAndType);
-                    response.write(NA.appLabels.emulatedIndexPage.data.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    response.write(NA.appLabels.emulatedIndexPage.data.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     response.end();
                 });
             }
@@ -2897,14 +2978,14 @@ var NA = {};
                 fs.writeFile(pathToSaveFileComplete, innerHTML, function (error) {
                     if (error) {
                         if (error.code === 'EISDIR') {
-                            console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                            console.log(NA.appLabels.templateNotGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                         } else if (error.code === 'ENOENT') {
-                            console.log(NA.appLabels.templateNotGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                            console.log(NA.appLabels.templateNotGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                         } else {
                             throw error;                     
                         }
                     } else {
-                        console.log(NA.appLabels.templateGenerate.replace(/%([-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                        console.log(NA.appLabels.templateGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                     }
                 });
 

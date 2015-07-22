@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.44
+Version : 0.45
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -53,6 +53,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
  - [Utiliser NodeAtlas pour générer des assets HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html)
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
+ - [Génerer des fragments de page par retour AJAX/Websocket](#generer-des-fragments-de-page-par-retour-ajax-websocket)
  - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
@@ -1511,6 +1512,70 @@ exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas »
 ```
 
 *Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+
+
+
+### Génerer des fragments de page par retour AJAX/Websocket ###
+
+Une fois qu'une page est génerée et envoyée au client, le serveur ne sait pas, quand une requête AJAX lui parvient de qu'elle chemin il s'agit. Il est donc incapable de vous renvoyer un composant HTML avec les bonnes valeurs de variation dedans ou même la bonne langue.
+
+La première étape est de baliser votre code HTML. Par exemple, il pourrait contenir ceci :
+
+```html
+...
+<html lang="<%= languageCode %>">
+...
+<body data-variation="<%= currentRouteParameters.variation %>">
+...
+```
+
+ce qui génèrerait ceci :
+
+```html
+...
+<html lang="fr-fr">
+...
+<body data-variation="index">
+...
+```
+
+puis, quand votre JavaScript fera une requête AJAX via jQuery, ou comme ici, une requête socket.io, il utilisera ses paramètres :
+
+```js
+...
+publics.socket.emit("load-section-a", { 
+    lang: $("html").attr('lang'), 
+    variation: $("body").data('variation')
+});
+...
+```
+
+pour que le serveur récupère les valeurs :
+
+```js
+...
+socket.on('load-section-a', function (data) {
+    var result = {},
+        currentVariation = {};
+
+    // On récupère les variations spécifiques dans la bonne langue.
+    currentVariation = NA.addSpecificVariation(data.variation, data.lang, currentVariation);
+
+    // On récupère les variations communes dans la bonne langue.
+    currentVariation = NA.addCommonVariation(data.lang, currentVariation);
+
+    // On récupère le fragment HTML depuis le dossier `componentsRelativePath` et on applique les variations.
+    result = NA.newRender("section-a.htm", currentVariation);
+
+    // On renvoit le résultat pour injection dans le DOM.
+    socket.emit('load-sections', result);
+});
+...
+```
+
+tout ceci grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`.
+
+Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `currentVariation` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 
 
 
