@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.45
+Version : 0.46
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -3397,12 +3397,82 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 
    ```html
 <!-- ... -->
-<a href="<%= urlBasePathSlice %><%= webconfig.routes.home.url %>">Lien vers l'accueil</a>
-<a href="<%= urlBasePathSlice %><%= webconfig.routes.contact.url %>">Lien pour nous contacter</a>
+<a href="<%= urlBasePathSlice + webconfig.routes.home.url %>">Lien vers l'accueil</a>
+<a href="<%= urlBasePathSlice + webconfig.routes.contact.url %>">Lien pour nous contacter</a>
 <!-- ... -->
 ```
 
    *Note : `urlBasePathSlice` renvoyant `http://localhost` au lieu de `http://localhost/` ou encore `http://localhost:7777/sub/folder` au lieu de `http://localhost:7777/sub/folder/`.*
+
+#### Utilisation de la clé pour mapper les pages ####
+
+Il est parfois utile de connaître la clé utilisé pour la page courante afin de trouver une équivalence dans une autre langue par exemple.
+
+Avec le webconfig suivant :
+
+```js
+{
+    "languageCode": "fr-fr",
+    "routes": {
+        "index_fr-fr": {
+            "url": "/",
+            "template": "/index.htm"
+        },
+        "index_en-us": {
+            "url": "/english/",
+            "template": "index.htm",
+            "languageCode": "en-us"
+        },
+        "cv_fr-fr": {
+            "url": "/cv/",
+            "template": "cv.htm"
+        },
+        "cv_en-us": {
+            "url": "/english/resume/",
+            "template": "index.htm",
+            "languageCode": "en-us"
+        }
+    }
+}
+```
+
+et les fichiers de variation commun suivant en fr :
+
+```js
+{
+    "language": [{ 
+        "name": "Anglais",
+        "code": "en-us" 
+    }, { 
+        "name": "Français",
+        "code": "fr-fr" 
+    }]
+}
+```
+
+et en en :
+
+```js
+{
+    "language": [{ 
+        "name": "English",
+        "code": "en-us" 
+    }, { 
+        "name": "French",
+        "code": "fr-fr" 
+    }]
+}
+```
+
+on peut alors créer un lien entre chaque page multilingue comme ceci :
+
+```html
+<ul>
+    <% for (var i = 0; i < common.language.length; i++) { %>
+    <li><a href="<%= urlBasePathSlice + webconfig.routes[currentRouteName.split('_')[0] + '_' + common.language[i].code].url %>"><%- common.language[i].name %></a></li>
+    <% } %>
+</ul>
+```
 
 
 
