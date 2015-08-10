@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.45
+Version : 0.46
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -3396,12 +3396,82 @@ I can now write the link in the dynamic template:
 
    ```html
 <!-- ... -->
-<a href="<%= urlBasePathSlice %><%= webconfig.routes.home.url %>">Link to home</a>
-<a href="<%= urlBasePathSlice %><%= webconfig.routes.contact.url %>">Link to contact</a>
+<a href="<%= urlBasePathSlice + webconfig.routes.home.url %>">Link to home</a>
+<a href="<%= urlBasePathSlice + webconfig.routes.contact.url %>">Link to contact</a>
 <!-- ... -->
 ```
 
    *Note : `urlBasePathSlice` return `http://localhost` in place of `http://localhost/` or `http://localhost:7777/sub/folder` in place of `http://localhost:7777/sub/folder/`.*
+
+#### Utilisation de la clé pour mapper les pages ####
+
+It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.
+
+With the following webconfig :
+
+```js
+{
+    "languageCode": "en-us",
+    "routes": {
+        "index_en-us": {
+            "url": "/",
+            "template": "/index.htm"
+        },
+        "index_fr-fr": {
+            "url": "/francais/",
+            "template": "index.htm",
+            "languageCode": "fr-fr"
+        },
+        "cv_en-us": {
+            "url": "/resume/",
+            "template": "cv.htm"
+        },
+        "cv_fr-fr": {
+            "url": "/francais/cv/",
+            "template": "index.htm",
+            "languageCode": "fr-fr"
+        }
+    }
+}
+```
+
+and the common variation following :
+
+```js
+{
+    "language": [{ 
+        "name": "English",
+        "code": "en-us" 
+    }, { 
+        "name": "French",
+        "code": "fr-fr" 
+    }]
+}
+```
+
+in fr :
+
+```js
+{
+    "language": [{ 
+        "name": "Anglais",
+        "code": "en-us" 
+    }, { 
+        "name": "Français",
+        "code": "fr-fr" 
+    }]
+}
+```
+
+we could create link between each page as following :
+
+```html
+<ul>
+    <% for (var i = 0; i < common.language.length; i++) { %>
+    <li><a href="<%= urlBasePathSlice + webconfig.routes[currentRouteName.split('_')[0] + '_' + common.language[i].code].url %>"><%- common.language[i].name %></a></li>
+    <% } %>
+</ul>
+```
 
 
 

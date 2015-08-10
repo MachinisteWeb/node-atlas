@@ -110,7 +110,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version : 0.45</p>
+        <article><h1>node-atlas</h1><p>Version : 0.46</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -2470,12 +2470,59 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 </li>
 <li><p>ou comme suit</p>
 <pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
-&lt;a href=&quot;&lt;%= urlBasePathSlice %>&lt;%= webconfig.routes.home.url %>&quot;>Link to home&lt;/a>
-&lt;a href=&quot;&lt;%= urlBasePathSlice %>&lt;%= webconfig.routes.contact.url %>&quot;>Link to contact&lt;/a>
+&lt;a href=&quot;&lt;%= urlBasePathSlice + webconfig.routes.home.url %>&quot;>Link to home&lt;/a>
+&lt;a href=&quot;&lt;%= urlBasePathSlice + webconfig.routes.contact.url %>&quot;>Link to contact&lt;/a>
 &lt;!-- ... --></code></pre><p><em>Note : <code>urlBasePathSlice</code> return <code>http://localhost</code> in place of <code>http://localhost/</code> or <code>http://localhost:7777/sub/folder</code> in place of <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
 </ol>
-<h2>CLI / Running commands</h2><p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. However there are options to launch more than launch the site.</p>
+<h4>Utilisation de la clé pour mapper les pages</h4><p>It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.</p>
+<p>With the following webconfig :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;languageCode&quot;: &quot;en-us&quot;,
+    &quot;routes&quot;: {
+        &quot;index_en-us&quot;: {
+            &quot;url&quot;: &quot;/&quot;,
+            &quot;template&quot;: &quot;/index.htm&quot;
+        },
+        &quot;index_fr-fr&quot;: {
+            &quot;url&quot;: &quot;/francais/&quot;,
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;languageCode&quot;: &quot;fr-fr&quot;
+        },
+        &quot;cv_en-us&quot;: {
+            &quot;url&quot;: &quot;/resume/&quot;,
+            &quot;template&quot;: &quot;cv.htm&quot;
+        },
+        &quot;cv_fr-fr&quot;: {
+            &quot;url&quot;: &quot;/francais/cv/&quot;,
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;languageCode&quot;: &quot;fr-fr&quot;
+        }
+    }
+}</code></pre><p>and the common variation following :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;language&quot;: [{ 
+        &quot;name&quot;: &quot;English&quot;,
+        &quot;code&quot;: &quot;en-us&quot; 
+    }, { 
+        &quot;name&quot;: &quot;French&quot;,
+        &quot;code&quot;: &quot;fr-fr&quot; 
+    }]
+}</code></pre><p>in fr :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;language&quot;: [{ 
+        &quot;name&quot;: &quot;Anglais&quot;,
+        &quot;code&quot;: &quot;en-us&quot; 
+    }, { 
+        &quot;name&quot;: &quot;Français&quot;,
+        &quot;code&quot;: &quot;fr-fr&quot; 
+    }]
+}</code></pre><p>we could create link between each page as following :</p>
+<pre class="prettyprint source lang-html"><code>&lt;ul>
+    &lt;% for (var i = 0; i &lt; common.language.length; i++) { %>
+    &lt;li>&lt;a href=&quot;&lt;%= urlBasePathSlice + webconfig.routes[currentRouteName.split('_')[0] + '_' + common.language[i].code].url %>&quot;>&lt;%- common.language[i].name %>&lt;/a>&lt;/li>
+    &lt;% } %>
+&lt;/ul></code></pre><h2>CLI / Running commands</h2><p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. However there are options to launch more than launch the site.</p>
 <p>Each of the commands that follow can be coupled with other like this:</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse</code></pre><h3>--directory</h3><p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--directory</code> command will be very useful.</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><h3>--webconfig</h3><p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p>
@@ -2648,7 +2695,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-07-29T13:13:03+02:00 using the <a
+		on 2015-08-10T10:55:19+02:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
