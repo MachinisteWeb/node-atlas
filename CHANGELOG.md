@@ -1,3 +1,17 @@
+## 0.47.0 ##
+
+Updates:
+
+- A nice looked Index page for webconfig.
+
+
+## 0.46.0 ##
+
+Updates:
+
+- Expose `currentRouteName` value for know the key of route if a key is setted.
+
+
 ## 0.45.1 ##
 
 Updates:
