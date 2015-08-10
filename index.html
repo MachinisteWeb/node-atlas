@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.45</p>
+<p>Version : 0.46</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -3283,13 +3283,76 @@ exports.setSessions = website.setSessions;
 <p>ou comme suit</p>
 
 <div class="highlight highlight-html"><pre><span class="pl-c">&lt;!-- ... --&gt;</span>
-&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.routes.home.url %&gt;<span class="pl-pds">"</span></span>&gt;Lien vers l'accueil&lt;/<span class="pl-ent">a</span>&gt;
-&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= urlBasePathSlice %&gt;&lt;%= webconfig.routes.contact.url %&gt;<span class="pl-pds">"</span></span>&gt;Lien pour nous contacter&lt;/<span class="pl-ent">a</span>&gt;
+&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= urlBasePathSlice + webconfig.routes.home.url %&gt;<span class="pl-pds">"</span></span>&gt;Lien vers l'accueil&lt;/<span class="pl-ent">a</span>&gt;
+&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= urlBasePathSlice + webconfig.routes.contact.url %&gt;<span class="pl-pds">"</span></span>&gt;Lien pour nous contacter&lt;/<span class="pl-ent">a</span>&gt;
 <span class="pl-c">&lt;!-- ... --&gt;</span></pre></div>
 
 <p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
 </ol>
+
+<h4>
+<a id="utilisation-de-la-clé-pour-mapper-les-pages" class="anchor" href="#utilisation-de-la-cl%C3%A9-pour-mapper-les-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Utilisation de la clé pour mapper les pages</h4>
+
+<p>Il est parfois utile de connaître la clé utilisé pour la page courante afin de trouver une équivalence dans une autre langue par exemple.</p>
+
+<p>Avec le webconfig suivant :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>index_fr-fr<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/index.htm<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>index_en-us<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/english/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-us<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>cv_fr-fr<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/cv/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>cv.htm<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>cv_en-us<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/english/resume/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>languageCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-us<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>et les fichiers de variation commun suivant en fr :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span><span class="pl-k">:</span> [{ 
+        <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Anglais<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-us<span class="pl-pds">"</span></span> 
+    }, { 
+        <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Français<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span> 
+    }]
+}</pre></div>
+
+<p>et en en :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span><span class="pl-k">:</span> [{ 
+        <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>English<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-us<span class="pl-pds">"</span></span> 
+    }, { 
+        <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>French<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span> 
+    }]
+}</pre></div>
+
+<p>on peut alors créer un lien entre chaque page multilingue comme ceci :</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">ul</span>&gt;
+    &lt;% for (var i = 0; i &lt; common.language.length; i++) { %&gt;
+    &lt;<span class="pl-ent">li</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= urlBasePathSlice + webconfig.routes[currentRouteName.split('_')[0] + '_' + common.language[i].code].url %&gt;<span class="pl-pds">"</span></span>&gt;&lt;%- common.language[i].name %&gt;&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;% } %&gt;
+&lt;/<span class="pl-ent">ul</span>&gt;</pre></div>
 
 <h2>
 <a id="commandes-de-lancement" class="anchor" href="#commandes-de-lancement" aria-hidden="true"><span class="octicon octicon-link"></span></a>Commandes de lancement</h2>
