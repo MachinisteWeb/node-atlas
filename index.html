@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.48</p>
+<p>Version : 0.49</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -2542,6 +2542,62 @@ webconfig.json
         "/": "index.htm"
     }
 </code></pre>
+
+<h4>
+<a id="compiler-les-less-avec---generate" class="anchor" href="#compiler-les-less-avec---generate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compiler les Less avec <code>--generate</code>
+</h4>
+
+<p>Comme les Less sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>enableLess.less</code>.</p>
+
+<p>Avec le <code>webconfig.json</code> suivant :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>enableLess<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>less<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+            <span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.less<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-1.less<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-2.less<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-3.less<span class="pl-pds">"</span></span>
+        ]
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p>ou suivante :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>enableLess<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>less<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>less.json<span class="pl-pds">"</span></span>
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p>avec <code>less.json</code> qui contient :</p>
+
+<div class="highlight highlight-js"><pre>[
+    <span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.less<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-1.less<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-2.less<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-3.less<span class="pl-pds">"</span></span>
+]</pre></div>
+
+<p>Par defaut, les <code>@import</code> utilisés par Less seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p>
+
+<div class="highlight highlight-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>enableLess<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>paths<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+            <span class="pl-s"><span class="pl-pds">"</span>subdirectory/styles-files<span class="pl-pds">"</span></span>,
+        ],
+        <span class="pl-s"><span class="pl-pds">"</span>less<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>less.json<span class="pl-pds">"</span></span>
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
 
 <h3>
 <a id="optimiser-les-images" class="anchor" href="#optimiser-les-images" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimiser les Images</h3>
