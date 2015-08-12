@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.47.0
+ * @version 0.48.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.47.0')
+            .version('0.48.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -1045,6 +1045,7 @@ var NA = {};
          * @see {@link https://www.npmjs.com/package/less-middleware less-middleware}
          */ 
         publics.modules.lessMiddleware = require('less-middleware');
+        publics.modules.lessMiddlewareUtilities = require('less-middleware/lib/utilities');
 
         /**
          * Clone directories using copy/symlink.
@@ -1187,6 +1188,7 @@ var NA = {};
             commander = NA.modules.commander,
             compress = NA.modules.compress,
             lessMiddleware = NA.modules.lessMiddleware,
+            lessMiddlewareUtilities = NA.modules.lessMiddlewareUtilities,
             session = NA.modules.session,
             fs = NA.modules.fs,
             bodyParser = NA.modules.bodyParser,
@@ -1206,6 +1208,7 @@ var NA = {};
             https = NA.modules.https,
             open = NA.modules.open,
             path = NA.modules.path,
+            mkpath = NA.modules.mkpath,
             optionSession = {},
             
             /**
@@ -1215,7 +1218,8 @@ var NA = {};
              * @type {boolean}
              * @memberOf node-atlas~NA.webconfig
              */ 
-            httpSecure = NA.webconfig.httpSecure;
+            httpSecure = NA.webconfig.httpSecure,
+            regex = new RegExp(path.join(NA.webconfig.urlRelativeSubPath).replace(/(\\|\/)/g, '\\' + path.sep), 'g');
 
         /**
          * Next step after session configuration.
@@ -1369,11 +1373,46 @@ var NA = {};
                 NA.webconfig.enableLess
             ) {
                 /* Generate Less on the fly during the development phase. */
-                NA.httpServer.use(lessMiddleware(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath), {
+                NA.httpServer.use(lessMiddleware(path.join(NA.webconfig.assetsRelativePath), {
+                    dest: path.join(NA.webconfig.assetsRelativePath),
+                    pathRoot: path.join(NA.websitePhysicalPath),
+                    preprocess: {
+                        path: function(pathname) {
+                            if (NA.webconfig.urlRelativeSubPath) {
+                                pathname = pathname.replace(regex, path.sep);
+                            }
+                            return pathname;
+                        }
+                    },
                     postprocess: {
                         css: function(css, req) {
                             return css + "/*# sourceMappingURL=" + req.url.replace(/\.css$/i, '.css.map') + " */";
                         }
+                    },
+                    storeSourcemap: function(pathname, sourcemap) {
+                        if (NA.webconfig.urlRelativeSubPath) {
+                            pathname = pathname.replace(regex, path.sep);
+                        }
+
+                        mkpath(path.dirname(pathname), function (error) {
+                            if (error) {
+                                lessMiddlewareUtilities.lessError(error);
+                                return;
+                            }
+
+                            fs.writeFile(pathname, sourcemap, 'utf8');
+                        });
+                    },
+                    storeCss: function(pathname, css, req, next) {
+                        if (NA.webconfig.urlRelativeSubPath) {
+                            pathname = pathname.replace(regex, path.sep);
+                        }
+
+                        mkpath(path.dirname(pathname), function(error) {
+                            if (error) return next(error);
+
+                            fs.writeFile(pathname, css, 'utf8', next);
+                        });
                     },
                     render: {
                         compress: (NA.webconfig.enableLess && NA.webconfig.enableLess.compress) || false,
