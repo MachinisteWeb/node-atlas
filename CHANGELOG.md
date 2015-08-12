@@ -1,3 +1,10 @@
+## 0.48.0 ##
+
+Updates:
+
+- Use Less with `urlRelativeSubPath`.
+
+
 ## 0.47.0 ##
 
 Updates:
