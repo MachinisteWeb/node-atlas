@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.48
+Version : 0.49
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -2594,6 +2594,68 @@ Vous pouvez également générer des fichiers CSS déjà minifiés avec :
     "routes": {
         "/": "index.htm"
     }
+```
+
+#### Compiler les Less avec `--generate` ####
+
+Comme les Less sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `enableLess.less`.
+
+Avec le `webconfig.json` suivant :
+
+```js
+{
+    "enableLess": {
+        "less": [
+            "stylesheets/common.less",
+            "stylesheets/component-1.less",
+            "stylesheets/component-2.less",
+            "stylesheets/component-3.less"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+ou suivante :
+
+```js
+{
+    "enableLess": {
+        "less": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+avec `less.json` qui contient :
+
+```js
+[
+    "stylesheets/common.less",
+    "stylesheets/component-1.less",
+    "stylesheets/component-2.less",
+    "stylesheets/component-3.less"
+]
+```
+
+Par defaut, les `@import` utilisés par Less seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
+
+```js
+{
+    "enableLess": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "less": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
 ```
 
 

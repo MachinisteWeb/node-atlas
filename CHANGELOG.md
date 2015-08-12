@@ -1,3 +1,10 @@
+## 0.49.0 ##
+
+Updates:
+
+- Compile Less with Generate feature.
+
+
 ## 0.48.0 ##
 
 Updates:
