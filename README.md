@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.48
+Version : 0.49
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -2594,6 +2594,68 @@ You can also generate CSS files already minify with:
     "routes": {
         "/": "index.htm"
     }
+```
+
+#### Compile Less files with `--generate` ####
+
+Because of Less are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Less before minify CSS with `enableLess.less`.
+
+With the following `webconfig.json`:
+
+```js
+{
+    "enableLess": {
+        "less": [
+            "stylesheets/common.less",
+            "stylesheets/component-1.less",
+            "stylesheets/component-2.less",
+            "stylesheets/component-3.less"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+or with the following `webconfig.json`:
+
+```js
+{
+    "enableLess": {
+        "less": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+with `less.json` containing :
+
+```js
+[
+    "stylesheets/common.less",
+    "stylesheets/component-1.less",
+    "stylesheets/component-2.less",
+    "stylesheets/component-3.less"
+]
+```
+
+The `@import` used by Less will be capable to walk into subdirectories : `styles`, `stylesheets` or `css`. It's possible to change that with :
+
+```js
+{
+    "enableLess": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "less": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
 ```
 
 
