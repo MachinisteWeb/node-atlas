@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.48.0
+ * @version 0.49.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.48.0')
+            .version('0.49.0')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -371,6 +371,27 @@ var NA = {};
              * }
              */
             publics.webconfig.bundles = NA.openConfiguration(publics.webconfig.bundles);
+        }
+
+        if (typeof publics.webconfig.enableLess && typeof publics.webconfig.enableLess.less === 'string') {
+
+            /**
+             * Contain Less files needed compilation to JSON format.
+             * @public
+             * @alias less
+             * @type {Object}
+             * @memberOf node-atlas~NA.webconfig
+             * @property {Array} less              - The file for compilation in an Array.
+             * @example {
+             *     "less": [
+             *         "stylesheets/common.less",
+             *         "stylesheets/component-1.less",
+             *         "stylesheets/component-2.less",
+             *         "stylesheets/component-3.less"
+             *     ]
+             * }
+             */
+            publics.webconfig.enableLess.less = NA.openConfiguration(publics.webconfig.enableLess.less);
         }
 
         if (typeof publics.webconfig.optimizations === 'string') {
@@ -1035,6 +1056,16 @@ var NA = {};
          * @see {@link https://www.npmjs.org/package/forcedomain forcedomain}
          */
         publics.modules.forceDomain = require('forcedomain');
+
+        /**
+         * The dynamic stylesheet language. http://lesscss.org.
+         * @public
+         * @alias less
+         * @type {Object}
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/less less}
+         */ 
+        publics.modules.less = require('less');
 
         /**
          * LESS.js middleware for connect.
@@ -2014,6 +2045,69 @@ var NA = {};
     };
 
     /**
+     * Engine for compile Less file without call any CSS files.
+     * @public
+     * @function lessCompilation
+     * @memberOf node-atlas~NA
+     * @callback lessCompilation~callback callback - Next step after Less compilation.
+     */ 
+    publics.lessCompilation = function (callback) {
+        var enableLess = NA.webconfig.enableLess,
+            async = NA.modules.async,
+            path = NA.modules.path,
+            less = publics.modules.less,
+            fs = NA.modules.fs,
+            allLessCompiled,
+            data = {};
+
+        if (enableLess && enableLess.less) {
+
+            allLessCompiled = enableLess.less;
+
+            if (enableLess.paths) {
+                for (var i = 0; i < enableLess.paths.length; i++) {
+                    enableLess.paths[i] = path.join(NA.webconfig.assetsRelativePath, enableLess.paths[i]);
+                }
+            } else {
+                enableLess.paths = [
+                    NA.webconfig.assetsRelativePath, 
+                    path.join(NA.webconfig.assetsRelativePath, 'stylesheets'), 
+                    path.join(NA.webconfig.assetsRelativePath, 'styles'), 
+                    path.join(NA.webconfig.assetsRelativePath, 'css')
+                ];
+            }
+
+            async.each(allLessCompiled, function (compiledFile, next) {
+                var currentFile = fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile), 'utf-8');
+
+                data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css'));
+
+                less.render(currentFile, enableLess, function (e, output) {
+                    if (e) {
+                        console.log(e);
+                    }
+
+                    fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css')), output.css);
+                    console.log(NA.appLabels.lessGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    next();
+                });
+            }, function () {
+
+                /**
+                 * Next steps after less compilation.
+                 * @callback lessCompilation~callback
+                 */
+                publics.cssMinification(callback);
+            });
+        } else {
+            console.log("here 2");
+
+            publics.cssMinification(callback);
+        }
+
+    };
+
+    /**
      * Engine for minification and concatenation of all files with a Bundle configuration.
      * @public
      * @function cssMinification
@@ -2058,7 +2152,7 @@ var NA = {};
         }
 
         /* Star engine. */
-        if (bundles && bundles.stylesheets && bundles.stylesheets && enable) {
+        if (bundles && bundles.stylesheets && enable) {
 
             for (var compressedFile in bundles.stylesheets) {
             	if (bundles.stylesheets.hasOwnProperty(compressedFile)) {
@@ -2084,7 +2178,7 @@ var NA = {};
                     firstCallback();
                 });
 
-            }, function() {
+            }, function () {
 
                 /**
                  * Next steps after minification and concatenation are done.
@@ -2097,7 +2191,7 @@ var NA = {};
         }
     };
 
- /**
+    /**
      * Engine for optimization of all images with a Bundle configuration.
      * @public
      * @function imgOptimization
@@ -2168,7 +2262,7 @@ var NA = {};
                             firstCallback();
                         });
 
-            }, function() {
+            }, function () {
 
                 /**
                  * Next steps after minification and concatenation are done.
@@ -2226,7 +2320,7 @@ var NA = {};
         }
 
         /* Star engine. */
-        if (bundles && bundles.javascript && bundles.javascript && enable) {
+        if (bundles && bundles.javascript && enable) {
 
             for (var compressedFile in bundles.javascript) {
             	if ( bundles.javascript.hasOwnProperty(compressedFile)) {
@@ -2251,7 +2345,7 @@ var NA = {};
                     firstCallback();
                 });
 
-            }, function() {
+            }, function () {
 
                 /**
                  * Next steps after obfuscation and concatenation are done.
@@ -2885,7 +2979,7 @@ var NA = {};
 
             /* Generate all minified CSS, JS and Images files. */
             async.parallel([
-                NA.cssMinification,
+                NA.lessCompilation,
                 NA.jsObfuscation,
                 NA.imgOptimization
             ], function () {
