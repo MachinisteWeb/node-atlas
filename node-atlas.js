@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.49.0
+ * @version 0.49.1
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.49.0')
+            .version('0.49.1')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -2080,13 +2080,12 @@ var NA = {};
             async.each(allLessCompiled, function (compiledFile, next) {
                 var currentFile = fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile), 'utf-8');
 
-                data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css'));
-
                 less.render(currentFile, enableLess, function (e, output) {
                     if (e) {
                         console.log(e);
                     }
 
+                    data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css'));
                     fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css')), output.css);
                     console.log(NA.appLabels.lessGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     next();

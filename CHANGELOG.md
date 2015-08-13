@@ -1,3 +1,10 @@
+## 0.49.1 ##
+
+Bugfixes:
+
+- Bad name file in the console.log for multiple Less file.
+
+
 ## 0.49.0 ##
 
 Updates:
