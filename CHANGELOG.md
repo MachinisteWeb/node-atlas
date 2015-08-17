@@ -1,3 +1,10 @@
+## 0.50.0 ##
+
+Updates:
+
+- Allow '/home/' path for example to generate 'home' path with good `urlBasePath`.
+
+
 ## 0.49.1 ##
 
 Bugfixes:
