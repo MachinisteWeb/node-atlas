@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.49.2
+ * @version 0.49.3
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.49.2')
+            .version('0.49.3')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -2099,8 +2099,6 @@ var NA = {};
                 publics.cssMinification(callback);
             });
         } else {
-            console.log("here 2");
-
             publics.cssMinification(callback);
         }
 
