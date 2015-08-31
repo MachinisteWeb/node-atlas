@@ -3538,7 +3538,7 @@ on peut alors créer un lien entre chaque page multilingue comme ceci :
 
 
 
-## Commandes de lancement ##
+## CLI / Commandes de lancement ##
 
 La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node </path/to/>node-atlas/node-atlas.js`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
 
@@ -3607,7 +3607,7 @@ Si vous modifiez un élément dans votre fichier de variation commun ou même da
 
 
 
-## NodeAtlas comme module npm ##
+## API / NodeAtlas comme module npm ##
 
 Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :
 
