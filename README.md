@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.50
+Version : 0.51
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -478,12 +478,12 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <div>
         <h1>Welcome</h1>
         <p>This is the home page.</p>
     </div>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -491,12 +491,12 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <div>
         <h1>List of members</h1>
         <p>It is the Members page.</p>
     </div>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -581,14 +581,14 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <div class="title"><%= common.titleWebsite %></div>
-    
+
     <div>
         <h1><%= specific.titlePage %></h1>
         <%- specific.content %>
     </div>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -702,13 +702,13 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <select>
         <% for (var i = 0; i < specific.selectLabel.length; i++) { %>
         <option><%= specific.selectLabel[i] %></option>
         <% } %>
     </select>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -716,12 +716,12 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <div>
         <h1><%= specific.titlePage %></h1>
         <%- specific.content %>
     </div>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -845,7 +845,7 @@ you could have "webconfig.json» next:
         "/": {
             "template": "home.htm",
             "variation": "home.json"
-        }, 
+        },
         "/members-list/": {
             "template": "members.htm",
             "variation": "members.json"
@@ -865,7 +865,7 @@ you could have "webconfig.json» next:
         "/": {
             "template": "home.htm",
             "variation": "home.json"
-        }, 
+        },
         "/list-of-members/": {
             "template": "members.htm",
             "variation": "members.json"
@@ -1136,7 +1136,7 @@ var website = {};
             // Next.
             callback(mongoose);
         });
-        
+
         // Connection Management.
         mongoose.connection.on('error', function (error) {
             console.log('Error to connect by default Mongoose: ' + error);
@@ -1197,7 +1197,7 @@ var website = {};
                 if (error || !session) {
                     return next(new Error('No recovered session.'));
                 } else {
-                    handshakeData.session = session;                    
+                    handshakeData.session = session;
                     next();
                 }
             });
@@ -1236,7 +1236,7 @@ var website = {};
                 privates.socketIoEvents(io, NA);
 
                 // Re-injection of the object "NodeAtlas" overloaded the motor.
-                callback(NA);                   
+                callback(NA);
             });
         });
 
@@ -1375,10 +1375,10 @@ var website = {};
         // Can intercept all the variables of "variations/common.js".
         console.log(variation.common.title); // Return title stored in « variations/common.js ».
         variation.common.title = "New Title"; // Set title.
-        console.log(variation.common.title); // Return "New Title" and is accessible in template side via `<%= common.title %>`. 
+        console.log(variation.common.title); // Return "New Title" and is accessible in template side via `<%= common.title %>`.
 
         // Can intercept all the variables of "variations/index.js" (because this file correspond to specific "index.js").
-        variation.specific.title = "New Title"; // Return "New Title" and is accessible in template side via `<%= specific.title %>`. 
+        variation.specific.title = "New Title"; // Return "New Title" and is accessible in template side via `<%= specific.title %>`.
         variation.specific.newProperty = "New Property"; // Defined a property does not exist in the original variation file that is accessible in template side via « <%= specific.newProperty ».
 
         // Can intercept the configuration of the current page
@@ -1416,7 +1416,7 @@ var website = {};
 
 (function (publics) {
     "use strict";
-    
+
     // It comes just before the HTML response to the client.
     publics.changeDom = function (params, mainCallback) {
         var dom = params.dom,
@@ -1486,7 +1486,7 @@ var website = {};
 
                     // ...we save the article into database.
                     article.save(function (error) {
-                        if (error) { 
+                        if (error) {
                             throw error;
                         }
 
@@ -1543,8 +1543,8 @@ after, the JavaScript part send this value with an AJAX call with jQuery for exa
 
 ```js
 ...
-publics.socket.emit("load-section-a", { 
-    lang: $("html").attr('lang'), 
+publics.socket.emit("load-section-a", {
+    lang: $("html").attr('lang'),
     variation: $("body").data('variation')
 });
 ...
@@ -1643,7 +1643,7 @@ Imagine two webconfigs in which we create our own variables as follows:
         "/": {
             "template": "index.htm"
         }
-    }, 
+    },
     "_minified": ""
 }
 ```
@@ -1656,7 +1656,7 @@ Imagine two webconfigs in which we create our own variables as follows:
         "/": {
             "template": "index.htm"
         }
-    }, 
+    },
     "_minified": ".min"
 }
 ```
@@ -1720,7 +1720,7 @@ We will have to address "http://localhost/" the following output with non-minifi
 However, running the command:
 
 ```
-\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json 
+\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json
 ```
 
 We will have to address "http://localhost/" the following output with minified files:
@@ -1783,7 +1783,7 @@ and retrieve the `:member` value in` changeVariation` (common and specific).
 exports.changeVariation = function (params, mainCallback) {
     var variation = params.variation;
 
-    console.log(variation.params.member); 
+    console.log(variation.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
     mainCallback(variation);
@@ -1834,7 +1834,7 @@ exports.changeVariation = function (params, mainCallback) {
     if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
     // variation.params[1] for second match, etc...
 
-    console.log(variation.params.member); 
+    console.log(variation.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
     mainCallback(variation);
@@ -2956,7 +2956,7 @@ whose contents are :
 
 **stylesheets/common.css**
 
-```css 
+```css
 body {
     color: #f00;
 }
@@ -2972,7 +2972,7 @@ body {
         <title>Email</title>
     </head>
     <body>
-        <p>This is a template email.</p>        
+        <p>This is a template email.</p>
     </body>
 </html>
 ```
@@ -2999,19 +2999,22 @@ with as content for `generates/welcome.html`
         <title>Email</title>
     </head>
     <body style="color: #f00;">
-        <p>This is a template email.</p>        
+        <p>This is a template email.</p>
     </body>
 </html>
 ```
 
 This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.
 
+> Test : From `./tests/examples/css-injection` run `node "../../../node-atlas.js" --generate`. Result are into `generates`.
+
 #### Global Injection ####
 
 It is possible to use `injectCss` as global mechanism for all pages.
 
 ```json
-    "injectCss": "stylesheets/email.css"
+{
+    "injectCss": "stylesheets/email.css",
     "routes": {
         "/welcome/": {
             "template": "email-a.htm",
@@ -3022,9 +3025,12 @@ It is possible to use `injectCss` as global mechanism for all pages.
             "generate": "good-bye.html"
         }
     }
+}
 ```
 
 ainsi les deux pages `welcome` et `good-bye` contiendront chacune `<body style="color: #f00;">`.
+
+> Test : From `./tests/examples/css-injection` run `node "../../../node-atlas.js" --generate --webconfig webconfig.common.json`. Result are into `generates`.
 
 #### Multiple Injection ####
 
@@ -3033,7 +3039,8 @@ It's possible to :
 - Attach more one CSS file by `injectCss` property.
 
 ```json
-    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"]
+{
+    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
     "routes": {
         "/welcome/": {
             "template": "email-a.htm",
@@ -3046,7 +3053,10 @@ It's possible to :
             "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
         }
     }
+}
 ```
+
+> Test : From `./tests/examples/css-injection` run `node "../../../node-atlas.js" --generate --webconfig webconfig.multiple.json`. Result are into `generates`.
 
 
 
@@ -3112,10 +3122,10 @@ It is possible to change all the parameters of the sessions (except MemoryStore)
     "session": {
         "key": "personal key",
         "secret": "personal secret",
-        "cookie": { 
-            "path": '/', 
-            "httpOnly": true, 
-            "secure": false, 
+        "cookie": {
+            "path": '/',
+            "httpOnly": true,
+            "secure": false,
             "maxAge": null
         },
         ...,
@@ -3156,11 +3166,11 @@ var website = {};
     publics.setSessions = function (NA, callback) {
         var session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
-        
+
         NA.sessionStore = new RedisStore();
 
         callback(NA);
-    };  
+    };
 
 }(website));
 
@@ -3190,13 +3200,13 @@ var website = {};
     publics.setSessions = function (NA, callback) {
         var session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
-        
+
         NA.sessionStore = new MongoStore({
             db: 'sessions'
         });
 
         callback(NA);
-    };  
+    };
 
 }(website));
 
@@ -3252,14 +3262,14 @@ See the exemple in files below:
 
 ```html
     <? include('head.htm') ?>
-    
+
     <div class="title"><?= common.titleWebsite ?></div>
-    
+
     <div>
         <h1><?= specific.titlePage ?></h1>
         <?- specific.content ?>
     </div>
-    
+
     <? include('foot.htm') ?>
 ```
 
@@ -3501,12 +3511,12 @@ and the common variation following :
 
 ```js
 {
-    "language": [{ 
+    "language": [{
         "name": "English",
-        "code": "en-us" 
-    }, { 
+        "code": "en-us"
+    }, {
         "name": "French",
-        "code": "fr-fr" 
+        "code": "fr-fr"
     }]
 }
 ```
@@ -3515,12 +3525,12 @@ in fr :
 
 ```js
 {
-    "language": [{ 
+    "language": [{
         "name": "Anglais",
-        "code": "en-us" 
-    }, { 
+        "code": "en-us"
+    }, {
         "name": "Français",
-        "code": "fr-fr" 
+        "code": "fr-fr"
     }]
 }
 ```
@@ -3723,7 +3733,7 @@ You will add to this set of files, additional file named `web.config` whose cont
                 <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
                      <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
                 </rule>
-                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">                    
+                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
                     <match url="^node-atlas.js\/debug[\/]?" />
                 </rule>
                 <rule name="StaticContent">
@@ -3793,7 +3803,7 @@ To manage a new website in continues to be used the command:
 \> forever start </path/to/>node-atlas/node-atlas.js --directory </path/to/your/website/directory/>
 ```
 
-To stop it, localise the **uid** with the `list` forever command 
+To stop it, localise the **uid** with the `list` forever command
 
 ```
 \> forever list
@@ -3838,7 +3848,7 @@ Bouncy is an example of reverse-proxy that you can use to run various NodeAtlas 
 You can for example:
 
 - run 3 Node.js apps on ports 7777, 7778 and 7779 with forever,
-- and besides launching a apache server on port 81 
+- and besides launching a apache server on port 81
 
 and make all your websites accessible behind domain names on port 80 with Bouncy example.
 
