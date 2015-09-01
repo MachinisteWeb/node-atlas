@@ -1,0 +1,13 @@
+{
+    "injectCss": "stylesheets/email.css",
+    "routes": {
+        "/bienvenue/": {
+            "template": "email-a.htm",
+            "generate": "bienvenue.html"
+        },
+        "/au-revoir/": {
+            "template": "email-b.htm",
+            "generate": "au-revoir.html"
+        }
+    }
+}

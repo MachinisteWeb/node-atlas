@@ -1,0 +1,9 @@
+{
+    "routes": {
+        "/": {
+            "template": "email.htm",
+            "generate": "bienvenue.html",
+            "injectCss": "stylesheets/email.css"
+        }
+    }
+}

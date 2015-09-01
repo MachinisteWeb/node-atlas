@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.50
+Version : 0.51
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
@@ -88,7 +88,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 ### Roadmap d'avancement du développement ###
 
-- Fait 
+- Fait
  - Lancement d'un serveur Express.
  - Génération live de maquette HTML.
  - Génération complète de maquette HTML.
@@ -332,7 +332,7 @@ aux adresses :
 
 ### Raccourci de template ###
 
-La configuration ci-dessous est équivalente à la configuration de la section juste au dessus 
+La configuration ci-dessous est équivalente à la configuration de la section juste au dessus
 
 ```js
 {
@@ -363,7 +363,7 @@ car
 "about.html": "about.htm",
 ```
 
-est un raccourci de 
+est un raccourci de
 
 ```js
 "about.html": {
@@ -478,12 +478,12 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <div>
         <h1>Bienvenue</h1>
         <p>C'est la page d'accueil.</p>
     </div>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -491,12 +491,12 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <div>
         <h1>Liste des members</h1>
         <p>C'est la page des membres.</p>
     </div>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -581,14 +581,14 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <div class="title"><%= common.titleWebsite %></div>
-    
+
     <div>
         <h1><%= specific.titlePage %></h1>
         <%- specific.content %>
     </div>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -702,13 +702,13 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <select>
         <% for (var i = 0; i < specific.selectLabel.length; i++) { %>
         <option><%= specific.selectLabel[i] %></option>
         <% } %>
     </select>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -716,12 +716,12 @@ webconfig.json
 
 ```html
     <%- include('head.htm') %>
-    
+
     <div>
         <h1><%= specific.titlePage %></h1>
         <%- specific.content %>
     </div>
-    
+
     <%- include('foot.htm') %>
 ```
 
@@ -786,7 +786,7 @@ variations/
 ...
 ```
 
-vous pouvez 
+vous pouvez
 
 - gérer la version `en-gb` directement à la racine de `variations/` (comme NodeAtlas ne trouve rien dans `en-gb` il utilise alors les valeurs des fichiers racines) et
 - gérer la version `fr-fr` dans le dossier `fr-fr/`,
@@ -845,7 +845,7 @@ vous pourriez avoir les « webconfig.json » suivant :
         "/": {
             "template": "home.htm",
             "variation": "home.json"
-        }, 
+        },
         "/members-list/": {
             "template": "members.htm",
             "variation": "members.json"
@@ -865,7 +865,7 @@ vous pourriez avoir les « webconfig.json » suivant :
         "/": {
             "template": "home.htm",
             "variation": "home.json"
-        }, 
+        },
         "/liste-des-membres/": {
             "template": "members.htm",
             "variation": "members.json"
@@ -1136,7 +1136,7 @@ var website = {};
             // Suite.
             callback(mongoose);
         });
-        
+
         // Gestion de connexion.
         mongoose.connection.on('error', function (error) {
             console.log('Erreur pour la connexion par défaut à Mongoose : ' + error);
@@ -1197,7 +1197,7 @@ var website = {};
                 if (error || !session) {
                     return next(new Error('Aucune session récupérée.'));
                 } else {
-                    handshakeData.session = session;                    
+                    handshakeData.session = session;
                     next();
                 }
             });
@@ -1236,7 +1236,7 @@ var website = {};
                 privates.socketIoEvents(io, NA);
 
                 // Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
-                callback(NA);                   
+                callback(NA);
             });
         });
 
@@ -1375,7 +1375,7 @@ var website = {};
         // Interception possible de toutes les variables de « variations/common.js ».
         console.log(variation.common.title); // Renvoi le titre stocké dans « variations/common.js ».
         variation.common.title = "Nouveau title"; // Redéfini un titre.
-        console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via `<%= common.title %>`. 
+        console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via `<%= common.title %>`.
 
         // Interception possible de toutes les variables de « variations/index.js » (car on est dans le spécific « index.js »).
         variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via `<%= specific.title %>`.
@@ -1385,7 +1385,7 @@ var website = {};
         console.log(variation.currentRoute) // Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.
 
         // On test une variable créer de toute pièce dans le webconfig.
-        if (variation.webconfig._websiteIsClosed) { 
+        if (variation.webconfig._websiteIsClosed) {
             // La page sera en 404.
             variation.currentRouteParameters.statusCode = 404;
         } else {
@@ -1416,14 +1416,14 @@ var website = {};
 
 (function (publics) {
     "use strict";
-    
+
     // On intervient juste avant le renvoi HTML auprès du client (response).
     publics.changeDom = function (params, mainCallback) {
         var dom = params.dom,
             NA = params.NA,
             cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
             $ = cheerio.load(dom); // On charge les données pour les manipuler comme un DOM.
-            
+
         // Après tous les h2 de la sortie HTML « dom »,
         $("h2").each(function (i) {
             var $this = $(this);
@@ -1486,7 +1486,7 @@ var website = {};
 
                     // ...on sauve l'article en base.
                     article.save(function (error) {
-                        if (error) { 
+                        if (error) {
                             throw error;
                         }
 
@@ -1543,8 +1543,8 @@ puis, quand votre JavaScript fera une requête AJAX via jQuery, ou comme ici, un
 
 ```js
 ...
-publics.socket.emit("load-section-a", { 
-    lang: $("html").attr('lang'), 
+publics.socket.emit("load-section-a", {
+    lang: $("html").attr('lang'),
     variation: $("body").data('variation')
 });
 ...
@@ -1643,7 +1643,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
         "/": {
             "template": "index.htm"
         }
-    }, 
+    },
     "_minified": ""
 }
 ```
@@ -1656,7 +1656,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
         "/": {
             "template": "index.htm"
         }
-    }, 
+    },
     "_minified": ".min"
 }
 ```
@@ -1720,7 +1720,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 Cependant en lançant la commande :
 
 ```
-\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json 
+\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
@@ -1783,7 +1783,7 @@ et récupérer les valeurs de `:member` dans le `changeVariation` (common et spe
 exports.changeVariation = function (params, mainCallback) {
     var variation = params.variation;
 
-    console.log(variation.params.member); 
+    console.log(variation.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
 
     mainCallback(variation);
@@ -1834,7 +1834,7 @@ exports.changeVariation = function (params, mainCallback) {
     if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
     // variation.params[1] pour le deuxième match, etc...
 
-    console.log(variation.params.member); 
+    console.log(variation.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
 
     mainCallback(variation);
@@ -1845,7 +1845,7 @@ Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp J
 
 #### Routage dans un fichier partagé ####
 
-Afin de ne pas ré-écrire une longue liste de route dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `routes.json`. 
+Afin de ne pas ré-écrire une longue liste de route dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `routes.json`.
 
 Par exemple :
 
@@ -1886,7 +1886,7 @@ et avec `webconfig.prod.json`
 }
 ```
 
-pourrait devenir l'ensemble de fichier suivant 
+pourrait devenir l'ensemble de fichier suivant
 
 ```
 templates/
@@ -2119,7 +2119,7 @@ Il ne vous reste plus qu'à utiliser la configuration suivante :
 }
 ```
 
-Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration : 
+Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration :
 
 ```js
 {
@@ -2230,7 +2230,7 @@ webconfig.json
 
 #### Bundles dans un fichier partagé ####
 
-Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`. 
+Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`.
 
 Par exemple :
 
@@ -2338,7 +2338,7 @@ et avec `webconfig.prod.json`
 }
 ```
 
-pourrait devenir l'ensemble de fichier suivant 
+pourrait devenir l'ensemble de fichier suivant
 
 ```
 assets/
@@ -2742,7 +2742,7 @@ Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indi
 
 #### Optimizations dans un fichier partagé ####
 
-Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`. 
+Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`.
 
 Par exemple :
 
@@ -2957,7 +2957,7 @@ dont les contenus sont :
 
 **stylesheets/common.css**
 
-```css 
+```css
 body {
     color: #f00;
 }
@@ -2973,7 +2973,7 @@ body {
         <title>Email</title>
     </head>
     <body>
-        <p>This is a template email.</p>        
+        <p>This is a template email.</p>
     </body>
 </html>
 ```
@@ -3000,19 +3000,22 @@ avec comme contenu pour `generates/bienvenue.html`
         <title>Email</title>
     </head>
     <body style="color: #f00;">
-        <p>This is a template email.</p>        
+        <p>This is a template email.</p>
     </body>
 </html>
 ```
 
 Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.
 
+> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../node-atlas.js" --generate`. Le résultat est dans `generates`.
+
 #### Injection globale ####
 
 Il existe également la même propriété globale inpactant toutes les pages.
 
 ```json
-    "injectCss": "stylesheets/email.css"
+{
+    "injectCss": "stylesheets/email.css",
     "routes": {
         "/bienvenue/": {
             "template": "email-a.htm",
@@ -3023,9 +3026,12 @@ Il existe également la même propriété globale inpactant toutes les pages.
             "generate": "au-revoir.html"
         }
     }
+}
 ```
 
 ainsi les deux pages `bienvenue` et `au-revoir` contiendront chacune `<body style="color: #f00;">`.
+
+> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../node-atlas.js" --generate --webconfig webconfig.common.json`. Le résultat est dans `generates`.
 
 #### Injection multiple ####
 
@@ -3034,7 +3040,8 @@ Il est possible :
 - De préciser plus d'une feuille à la fois.
 
 ```json
-    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"]
+{
+    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
     "routes": {
         "/bienvenue/": {
             "template": "email-a.htm",
@@ -3047,7 +3054,10 @@ Il est possible :
             "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
         }
     }
+}
 ```
+
+> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../node-atlas.js" --generate --webconfig webconfig.multiple.json`. Le résultat est dans `generates`.
 
 
 
@@ -3113,10 +3123,10 @@ Il est possible de changer l'intégralité des paramètres des sessions (sauf le
     "session": {
         "key": "clé personnelle",
         "secret": "secret personnel",
-        "cookie": { 
-            "path": '/', 
-            "httpOnly": true, 
-            "secure": false, 
+        "cookie": {
+            "path": '/',
+            "httpOnly": true,
+            "secure": false,
             "maxAge": null
         },
         ...,
@@ -3157,11 +3167,11 @@ var website = {};
     publics.setSessions = function (NA, callback) {
         var session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
-        
+
         NA.sessionStore = new RedisStore();
 
         callback(NA);
-    };  
+    };
 
 }(website));
 
@@ -3191,13 +3201,13 @@ var website = {};
     publics.setSessions = function (NA, callback) {
         var session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
-        
+
         NA.sessionStore = new MongoStore({
             db: 'sessions'
         });
 
         callback(NA);
-    };  
+    };
 
 }(website));
 
@@ -3253,14 +3263,14 @@ Voyez l'exemple dans les fichiers ci-dessous :
 
 ```html
     <? include('head.htm') ?>
-    
+
     <div class="title"><?= common.titleWebsite ?></div>
-    
+
     <div>
         <h1><?= specific.titlePage ?></h1>
         <?- specific.content ?>
     </div>
-    
+
     <? include('foot.htm') ?>
 ```
 
@@ -3502,12 +3512,12 @@ et les fichiers de variation commun suivant en fr :
 
 ```js
 {
-    "language": [{ 
+    "language": [{
         "name": "Anglais",
-        "code": "en-us" 
-    }, { 
+        "code": "en-us"
+    }, {
         "name": "Français",
-        "code": "fr-fr" 
+        "code": "fr-fr"
     }]
 }
 ```
@@ -3516,12 +3526,12 @@ et en en :
 
 ```js
 {
-    "language": [{ 
+    "language": [{
         "name": "English",
-        "code": "en-us" 
-    }, { 
+        "code": "en-us"
+    }, {
         "name": "French",
-        "code": "fr-fr" 
+        "code": "fr-fr"
     }]
 }
 ```
@@ -3648,7 +3658,7 @@ site-hello-world/
 — webconfig.json
 ```
 
-en exécutant la commande 
+en exécutant la commande
 
 ```
 \> node </path/to/>node-atlas/node-atlas.js
@@ -3724,7 +3734,7 @@ Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé `
                 <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
                      <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
                 </rule>
-                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">                    
+                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
                     <match url="^node-atlas.js\/debug[\/]?" />
                 </rule>
                 <rule name="StaticContent">
@@ -3839,7 +3849,7 @@ Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourn
 Vous pouvez par exemple :
 
 - lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,
-- et en plus lancer un server apache sur le port 81 
+- et en plus lancer un server apache sur le port 81
 
 et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.
 
