@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.50.0
+ * @version 0.51.1
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -29,6 +29,7 @@
  * @requires uglify-js
  */
 /* jslint node: true */
+
 
 
 
@@ -83,7 +84,6 @@ var NA = {};
  * @param {Object} publics - Allow you to add publics methods to NA object.
  */
 (function (publics) {
-    "use strict";
 
     /**
      * Set line command options usable when NodeAtlas is executed in a command line tool.
@@ -97,7 +97,7 @@ var NA = {};
         commander
 
             /* Version of NodeAtlas currently in use with `--version` option. */
-            .version('0.50.0')
+            .version('0.51.1')
 
             /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
             .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -174,7 +174,7 @@ var NA = {};
              */
             publics.websiteController = [];
         } catch (exception) {
-            console.log(exception);
+            NA.log(exception);
         }
     };
 
@@ -190,7 +190,9 @@ var NA = {};
             regex = new RegExp(path.sep + path.sep + '?$', 'g');
 
         /* `websitePhysicalPath` Manually setted value with `NA.config`. */
-        if (commander.directory) { NA.configuration.directory = commander.directory; }
+        if (commander.directory) {
+            NA.configuration.directory = commander.directory;
+        }
 
         try {
 
@@ -221,12 +223,16 @@ var NA = {};
             publics.webconfigName = 'webconfig.json';
 
             /* `webconfigName` manually setted value with `--webconfig`. */
-            if (commander.webconfig) { NA.configuration.webconfig = commander.webconfig; }
+            if (commander.webconfig) {
+                NA.configuration.webconfig = commander.webconfig;
+            }
 
             /* `webconfigName` manually setted value with `NA.config`. */
-            if (NA.configuration.webconfig) { NA.webconfigName = NA.configuration.webconfig; }
+            if (NA.configuration.webconfig) {
+                NA.webconfigName = NA.configuration.webconfig;
+            }
         } catch (exception) {
-            console.log(exception);
+            NA.log(exception);
         }
     };
 
@@ -306,24 +312,12 @@ var NA = {};
     };
 
     /**
-     * Set all default webconfig's value into `NA.webconfig`.
+     * Set default webconfig's value from possibly external files.
      * @public
-     * @function improveWebconfigBase
+     * @function setExternalFilesAsWebconfigBase
      * @memberOf node-atlas~NA
      */
-    publics.improveWebconfigBase = function () {
-        var commander = NA.modules.commander;
-
-        /**
-         * Contain Webconfig file to JSON format.
-         * @namespace node-atlas~NA.webconfig
-         * @public
-         * @alias webconfig
-         * @type {Object}
-         * @memberOf node-atlas~NA
-         */
-        publics.webconfig = NA.openConfiguration(NA.webconfigName);
-
+    publics.setExternalFilesAsWebconfigBase = function () {
         if (typeof publics.webconfig.routes === 'string') {
 
             /**
@@ -414,8 +408,16 @@ var NA = {};
              */
             publics.webconfig.optimizations = NA.openConfiguration(publics.webconfig.optimizations);
         }
+    };
 
-        if (typeof NA.webconfig.variationsRelativePath !== 'undefined') {
+    /**
+     * Set default webconfig's value possibly undefined from webconfig.
+     * @public
+     * @function setDirectoriesAsWebconfigBase
+     * @memberOf node-atlas~NA
+     */
+    publics.setDirectoriesAsWebconfigBase = function () {
+        if (typeof NA.webconfig.variationsRelativePath === 'undefined') {
 
             /**
              * Language and variable variation folder depending of languages.
@@ -425,12 +427,10 @@ var NA = {};
              * @memberOf node-atlas~NA.webconfig
              * @default "variations".
              */
-            NA.webconfig.variationsRelativePath = NA.webconfig.variationsRelativePath;
-        } else {
             NA.webconfig.variationsRelativePath = 'variations';
         }
 
-        if (typeof NA.webconfig.controllersRelativePath !== 'undefined') {
+        if (typeof NA.webconfig.controllersRelativePath === 'undefined') {
 
             /**
              * Controller folder for Back-end.
@@ -440,13 +440,11 @@ var NA = {};
              * @memberOf node-atlas~NA.webconfig
              * @default "controllers".
              */
-            NA.webconfig.controllersRelativePath = NA.webconfig.controllersRelativePath;
-        } else {
             NA.webconfig.controllersRelativePath = 'controllers';
         }
 
         /* Path to template. */
-        if (typeof NA.webconfig.templatesRelativePath !== 'undefined') {
+        if (typeof NA.webconfig.templatesRelativePath === 'undefined') {
 
             /**
              * Template folder for template engine.
@@ -456,12 +454,10 @@ var NA = {};
              * @memberOf node-atlas~NA.webconfig
              * @default "templates".
              */
-            NA.webconfig.templatesRelativePath = NA.webconfig.templatesRelativePath;
-        } else {
             NA.webconfig.templatesRelativePath = 'templates';
         }
 
-        if (typeof NA.webconfig.componentsRelativePath !== 'undefined') {
+        if (typeof NA.webconfig.componentsRelativePath === 'undefined') {
 
             /**
              * Default folder for template engine include file or controller components.
@@ -471,12 +467,10 @@ var NA = {};
              * @memberOf node-atlas~NA.webconfig
              * @default "components".
              */
-            NA.webconfig.componentsRelativePath = NA.webconfig.componentsRelativePath;
-        } else {
             NA.webconfig.componentsRelativePath = 'components';
         }
 
-        if (typeof NA.webconfig.assetsRelativePath !== 'undefined') {
+        if (typeof NA.webconfig.assetsRelativePath === 'undefined') {
 
             /**
              * Folder for public file like image, CSS or JS.
@@ -486,12 +480,10 @@ var NA = {};
              * @memberOf node-atlas~NA.webconfig
              * @default "assets".
              */
-            NA.webconfig.assetsRelativePath = NA.webconfig.assetsRelativePath;
-        } else {
             NA.webconfig.assetsRelativePath = 'assets';
         }
 
-        if (typeof NA.webconfig.generatesRelativePath !== 'undefined') {
+        if (typeof NA.webconfig.generatesRelativePath === 'undefined') {
 
             /**
              * HTML asset generation Folder.
@@ -501,8 +493,6 @@ var NA = {};
              * @memberOf node-atlas~NA.webconfig
              * @default "generates".
              */
-            NA.webconfig.generatesRelativePath = NA.webconfig.generatesRelativePath;
-        } else {
             NA.webconfig.generatesRelativePath = 'generates';
         }
 
@@ -524,6 +514,16 @@ var NA = {};
         } else {
             NA.webconfig.urlRelativeSubPath = '';
         }
+    };
+
+    /**
+     * Set default Http Port value possibly undefined from webconfig.
+     * @public
+     * @function setHttpValueAsWebconfigBase
+     * @memberOf node-atlas~NA
+     */
+    publics.setHttpValueAsWebconfigBase = function () {
+        var commander = NA.modules.commander;
 
         /**
          * Server listening port.
@@ -536,10 +536,14 @@ var NA = {};
         NA.webconfig.httpPort = NA.webconfig.httpPort || process.env.PORT || ((NA.webconfig.httpSecure) ? 443 : 80);
 
         /* `httpPort` manually setted value with `--httpPort`. */
-        if (commander.httpPort) { NA.configuration.httpPort = commander.httpPort; }
+        if (commander.httpPort) {
+            NA.configuration.httpPort = commander.httpPort;
+        }
 
         /* `httpPort` manually setted value with `NA.config`. */
-        if (NA.configuration.httpPort) { NA.webconfig.httpPort = NA.configuration.httpPort; }
+        if (NA.configuration.httpPort) {
+            NA.webconfig.httpPort = NA.configuration.httpPort;
+        }
 
         /**
          * Url access port.
@@ -570,6 +574,34 @@ var NA = {};
          * @default `NA.webconfig.httpHostname`.
          */
         NA.webconfig.urlHostname = NA.webconfig.urlHostname || NA.webconfig.httpHostname;
+    };
+
+    /**
+     * Set all default webconfig's value into `NA.webconfig`.
+     * @public
+     * @function improveWebconfigBase
+     * @memberOf node-atlas~NA
+     */
+    publics.improveWebconfigBase = function () {
+
+        /**
+         * Contain Webconfig file to JSON format.
+         * @namespace node-atlas~NA.webconfig
+         * @public
+         * @alias webconfig
+         * @type {Object}
+         * @memberOf node-atlas~NA
+         */
+        publics.webconfig = NA.openConfiguration(NA.webconfigName);
+
+        /* Set external files as a part of default webconfig. */
+        NA.setExternalFilesAsWebconfigBase();
+
+        /* Set value possibly undefined from default webconfig. */
+        NA.setDirectoriesAsWebconfigBase();
+
+        /* Set the httpPort, httpHost, urlPort and urlHost for default webconfig. */
+        NA.setHttpValueAsWebconfigBase();
 
         /**
          * Define the path to the Private Key for HTTPs.
@@ -616,7 +648,6 @@ var NA = {};
  * @param {Object} publics - Allow you to add publics methods to NA object.
  */
 (function (publics) {
-    "use strict";
 
     /**
      * Clone Object A into B and the purpose is : change A not affect B.
@@ -627,35 +658,64 @@ var NA = {};
      * @return {Object} - Return the B object.
      */
     publics.clone = function (object) {
-        var copy;
+        var copy,
+            result;
 
         /* Handle the 3 simple types, and null or undefined */
         if (null === object || undefined === object || "object" !== typeof object) {
-            return object;
+            result = object;
         }
 
         /* Handle Date */
         if (object instanceof Date) {
             copy = new Date();
             copy.setTime(object.getTime());
-            return copy;
+            result = copy;
         }
 
         /* Handle Array */
         if (object instanceof Array) {
-            return object.slice(0);
+            result = object.slice(0);
         }
 
         /* Handle Object */
         if (object instanceof Object) {
             copy = {};
-            for (var attr in object) {
-                if (object.hasOwnProperty(attr)) {
-                    copy[attr] = publics.clone(object[attr]);
-                }
-            }
-            return copy;
+            NA.forEach(object, function (attr) {
+                copy[attr] = publics.clone(object[attr]);
+            });
+            result = copy;
         }
+
+        return result;
+    };
+
+    /**
+     * A safe iterator for object properties.
+     * @public
+     * @function forEach
+     * @memberOf node-atlas~NA
+     */
+    publics.forEach = function (object, callback) {
+        for (var current in object) {
+            if (object.hasOwnProperty(current)) {
+                callback(current, object);
+            }
+        }
+    };
+
+    /**
+     * Allow you to write into Console.
+     * @public
+     * @function log
+     * @memberOf node-atlas~NA
+     */
+    publics.log = function () {
+        var logs = console.log;
+
+        NA.forEach(arguments, function (log, logList) {
+            logs('\u001b[36m' + logList[log] + '\u001b[39m');
+        });
     };
 
     /**
@@ -678,10 +738,10 @@ var NA = {};
                 /* If the file is a JSON file, but contain a Syntax error. */
                 data.syntaxError = exception.toString();
                 data.fileName = configName;
-                console.log(NA.appLabels.webconfigSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                NA.log(NA.appLabels.webconfigSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
             } else {
                 /* Other errors. */
-                console.log(exception);
+                NA.log(exception);
             }
             /* In case of error, kill current process. */
             process.kill(process.pid);
@@ -697,7 +757,7 @@ var NA = {};
      * @param {string} fileName - Name of file.
      * @param {ifFileExist~callback} callback - Executed if file was correctly opened.
      * @param {ifFileExist~fallback} fallback - Executed if something was wrong with file.
-     */  
+     */
     publics.ifFileExist = function (physicalPath, fileName, callback, fallback) {
         var fs = NA.modules.fs,
             path = NA.modules.path;
@@ -709,7 +769,7 @@ var NA = {};
             };
 
             if (error && error.code === 'ENOENT') {
-                console.log(NA.appLabels.ifFileExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                NA.log(NA.appLabels.ifFileExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
 
                 /**
                  * If file do not exist, bad next step...
@@ -734,7 +794,7 @@ var NA = {};
      * @memberOf node-atlas~NA
      * @param {string} languageCode - Select a subdirectory for load variation (name is generaly the languageCode).
      * @param {object} variation - An object for attach common parameter. If empty, a new empty object is created.
-     */  
+     */
     publics.addCommonVariation = function (languageCode, variation) {
         var currentVariation = {},
             extend = NA.modules.extend;
@@ -763,7 +823,7 @@ var NA = {};
      * @param {string} specific - Select the specific variation associate to the current page.
      * @param {string} languageCode - Select a subdirectory for load variation (name is generaly the languageCode).
      * @param {object} variation - An object for attach common parameter. If empty, a new empty object is created.
-     */  
+     */
      publics.addSpecificVariation = function (specific, languageCode, variation) {
         var currentVariation = {},
             extend = NA.modules.extend;
@@ -797,7 +857,7 @@ var NA = {};
             fs = NA.modules.fs,
             path = NA.modules.path;
 
-        /* Generate asynchrone render. */    
+        /* Generate asynchrone render. */
         return ejs.render(
             fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.componentsRelativePath, templateFile), 'utf-8'),
             variations
@@ -820,14 +880,13 @@ var NA = {};
  * @param {Object} publics Allow you to add publics methods to NA object.
  */
 (function (publics) {
-    "use strict";
 
     /**
      * Add native node.js module to `NA.modules`.
      * @public
      * @function loadListOfNativeModules
      * @memberOf node-atlas~NA
-     */ 
+     */
     publics.loadListOfNativeModules = function () {
         var modules = {};
 
@@ -838,7 +897,7 @@ var NA = {};
          * @type {Object}
          * @memberOf node-atlas~NA.modules
          * @see {@link http://nodejs.org/api/child_process.html Child Process}
-         */ 
+         */
         modules.child_process = require('child_process');
 
         /**
@@ -848,7 +907,7 @@ var NA = {};
          * @type {Object}
          * @memberOf node-atlas~NA.modules
          * @see {@link http://nodejs.org/api/fs.html File System}
-         */ 
+         */
         modules.fs = require('fs');
 
         /**
@@ -858,7 +917,7 @@ var NA = {};
          * @type {Object}
          * @memberOf node-atlas~NA.modules
          * @see {@link http://nodejs.org/api/path.html Path}
-         */ 
+         */
         modules.path = require('path');
 
         /**
@@ -868,7 +927,7 @@ var NA = {};
          * @type {Object}
          * @memberOf node-atlas~NA.modules
          * @see {@link http://nodejs.org/api/http.html HTTP}
-         */ 
+         */
         modules.http = require('http');
 
         /**
@@ -878,7 +937,7 @@ var NA = {};
          * @type {Object}
          * @memberOf node-atlas~NA.modules
          * @see {@link http://nodejs.org/api/https.html HTTPs}
-         */ 
+         */
         modules.https = require('https');
 
         /**
@@ -888,27 +947,17 @@ var NA = {};
          * @type {Object}
          * @alias modules
          * @memberOf node-atlas~NA
-         */ 
+         */
         publics.modules = modules;
     };
 
     /**
-     * Add npm module to `NA.modules`.
+     * Add npm module to run a Server web.
      * @public
-     * @function loadListOfRequiredNpmModules
+     * @function loadUtilsModules
      * @memberOf node-atlas~NA
      */
-    publics.loadListOfRequiredNpmModules = function () {
-
-        /**
-         * Higher-order functions and common patterns for asynchronous code.
-         * @public
-         * @alias async
-         * @type {Object}
-         * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.com/package/async async}
-         */ 
-        publics.modules.async = require('async');
+    publics.loadServerModules = function () {
 
         /**
          * An advanced web server.
@@ -947,24 +996,6 @@ var NA = {};
         publics.modules.cookieParser = require('cookie-parser');
 
         /**
-         * An implementation of heritage.
-         * @public
-         * @function extend
-         * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.org/package/extend extend}
-         */
-        publics.modules.extend = require('extend');
-
-        /**
-         * Minify GIF, JPEG and PNG images.
-         * @public
-         * @function imagemin
-         * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.com/package/imagemin imagemin}
-         */
-        publics.modules.imagemin = require('imagemin');
-
-        /**
          * A command tool for run NodeAtlas in command prompt.
          * @public
          * @alias commander
@@ -975,22 +1006,22 @@ var NA = {};
         publics.modules.commander = require('commander');
 
         /**
-         * Compress code before send it to the client.
+         * Is a middleware for Epxpress that redirects any requests to a default domain.
          * @public
-         * @function compress
+         * @function forceDomain
          * @memberOf node-atlas~NA.modules
-         * @see {@link https://github.com/expressjs/compression compression}
+         * @see {@link https://www.npmjs.org/package/forcedomain forcedomain}
          */
-        publics.modules.compress = require('compression');
+        publics.modules.forceDomain = require('forcedomain');
+    };
 
-        /**
-         * Open a file or url in the user's preferred application.
-         * @public
-         * @function open
-         * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.org/package/open open}
-         */
-        publics.modules.open = require('open');
+    /**
+     * Add npm module to manipulate HTML render.
+     * @public
+     * @function loadUtilsModules
+     * @memberOf node-atlas~NA
+     */
+    publics.loadTemplatingModules = function () {
 
         /**
          * EJS cleans the HTML out of your JavaScript with client side templates.
@@ -1003,13 +1034,50 @@ var NA = {};
         publics.modules.ejs = require('ejs');
 
         /**
-         * CSS parser.
+         * Tiny, fast, and elegant implementation of core jQuery designed specifically for the server.
          * @public
-         * @function cssParse
+         * @function cheerio
          * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.com/package/css-parse css-parse}
+         * @see {@link https://www.npmjs.org/package/cheerio cheerio}
          */
-        publics.modules.cssParse = require('css-parse');
+        publics.modules.cheerio = require('cheerio');
+    };
+
+    /**
+     * Add npm module to enhance NodeAtlas.
+     * @public
+     * @function loadUtilsModules
+     * @memberOf node-atlas~NA
+     */
+    publics.loadUtilsModules = function () {
+
+        /**
+         * Higher-order functions and common patterns for asynchronous code.
+         * @public
+         * @alias async
+         * @type {Object}
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/async async}
+         */
+        publics.modules.async = require('async');
+
+        /**
+         * An implementation of heritage.
+         * @public
+         * @function extend
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.org/package/extend extend}
+         */
+        publics.modules.extend = require('extend');
+
+        /**
+         * Open a file or url in the user's preferred application.
+         * @public
+         * @function open
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.org/package/open open}
+         */
+        publics.modules.open = require('open');
 
         /**
          * Make all directories in a path, like mkdir -p.
@@ -1021,13 +1089,49 @@ var NA = {};
         publics.modules.mkpath = require('mkpath');
 
         /**
-         * Tiny, fast, and elegant implementation of core jQuery designed specifically for the server.
+         * Clone directories using copy/symlink.
          * @public
-         * @function cheerio
+         * @function traverseDirectory
          * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.org/package/cheerio cheerio}
+         * @see {@link https://www.npmjs.com/package/traverse-directory traverse-directory}
          */
-        publics.modules.cheerio = require('cheerio');
+        publics.modules.traverseDirectory = require('traverse-directory');
+    };
+
+    /**
+     * Add npm module for minification, obfuscation, compression, optimization and transformation.
+     * @public
+     * @function loadProcessModules
+     * @memberOf node-atlas~NA
+     */
+    publics.loadProcessModules = function () {
+
+        /**
+         * Minify GIF, JPEG and PNG images.
+         * @public
+         * @function imagemin
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/imagemin imagemin}
+         */
+        publics.modules.imagemin = require('imagemin');
+
+        /**
+         * Compress code before send it to the client.
+         * @public
+         * @function compress
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://github.com/expressjs/compression compression}
+         */
+        publics.modules.compress = require('compression');
+
+        /**
+         * CSS parser.
+         * @public
+         * @function cssParse
+         * @memberOf node-atlas~NA.modules
+         * @see {@link https://www.npmjs.com/package/css-parse css-parse}
+         */
+        publics.modules.cssParse = require('css-parse');
 
         /**
          * UglifyJS is a JavaScript parser, minifier, compressor or beautifier toolkit.
@@ -1049,22 +1153,13 @@ var NA = {};
         publics.modules.cleanCss = require('clean-css');
 
         /**
-         * Is a middleware for Epxpress that redirects any requests to a default domain.
-         * @public
-         * @function forceDomain
-         * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.org/package/forcedomain forcedomain}
-         */
-        publics.modules.forceDomain = require('forcedomain');
-
-        /**
          * The dynamic stylesheet language. http://lesscss.org.
          * @public
          * @alias less
          * @type {Object}
          * @memberOf node-atlas~NA.modules
          * @see {@link https://www.npmjs.com/package/less less}
-         */ 
+         */
         publics.modules.less = require('less');
 
         /**
@@ -1074,19 +1169,24 @@ var NA = {};
          * @type {Object}
          * @memberOf node-atlas~NA.modules
          * @see {@link https://www.npmjs.com/package/less-middleware less-middleware}
-         */ 
+         */
         publics.modules.lessMiddleware = require('less-middleware');
         publics.modules.lessMiddlewareUtilities = require('less-middleware/lib/utilities');
+    };
 
-        /**
-         * Clone directories using copy/symlink.
-         * @public
-         * @function traverseDirectory
-         * @memberOf node-atlas~NA.modules
-         * @see {@link https://www.npmjs.com/package/traverse-directory traverse-directory}
-         */ 
-        publics.modules.traverseDirectory = require('traverse-directory');
+    /**
+     * Add npm module to `NA.modules`.
+     * @public
+     * @function loadListOfRequiredNpmModules
+     * @memberOf node-atlas~NA
+     */
+    publics.loadListOfRequiredNpmModules = function () {
 
+        /* Load all modules. */
+        NA.loadServerModules();
+        NA.loadTemplatingModules();
+        NA.loadUtilsModules();
+        NA.loadProcessModules();
     };
 
     /**
@@ -1101,17 +1201,17 @@ var NA = {};
 
         /* Test if package.json is present for obtain list of module and version. */
         NA.ifFileExist(NA.serverPhysicalPath, 'package.json', function () {
-            console.log(NA.appLabels.downloadAllModule.moduleNotExist + " " + NA.appLabels.downloadAllModule.downloadStarting + "(" + exception + ")");
+            NA.log(NA.appLabels.downloadAllModule.moduleNotExist + " " + NA.appLabels.downloadAllModule.downloadStarting + "(" + exception + ")");
 
             /* Execute an npm command to install all modules not founded. */
             execute('npm --prefix ' + NA.serverPhysicalPath + ' install -l', function (error) {
                 if (!error) {
-                    console.log(NA.appLabels.downloadAllModule.installationDone + " " + NA.appLabels.downloadAllModule.restartRequired);
+                    NA.log(NA.appLabels.downloadAllModule.installationDone + " " + NA.appLabels.downloadAllModule.restartRequired);
                     /** It's ok, killing process and restarting manually now. */
                     process.kill(process.pid);
                 } else {
                     /** It's not ok explain the error. */
-                    console.log(error);
+                    NA.log(error);
                 }
             });
         }, function () {
@@ -1131,7 +1231,7 @@ var NA = {};
         try {
             NA.loadListOfRequiredNpmModules();
 
-            /** 
+            /**
              * Next step after loading of module.
              * @callback moduleRequired~callback
              */
@@ -1141,7 +1241,7 @@ var NA = {};
                 /** If a module is not found, download it */
                 NA.downloadAllModule(exception);
             } else {
-                console.log(exception);
+                NA.log(exception);
             }
         }
     };
@@ -1162,7 +1262,6 @@ var NA = {};
  * @param {Object} publics Allow you to add publics methods to NA object.
  */
 (function (publics) {
-    "use strict";
 
     /**
      * Run NodeAtlas with targeted directory (without webconfig) as a « public » directory.
@@ -1185,7 +1284,7 @@ var NA = {};
 
         /* ...listen HTTP request... */
         NA.server.listen(httpPort, function () {
-            console.log(NA.appLabels.publicMode);
+            NA.log(NA.appLabels.publicMode);
         });
 
         /* Catch error. */
@@ -1194,19 +1293,292 @@ var NA = {};
 
             data.httpPort = httpPort;
 
-            console.log(NA.appLabels.portAlreadyListened.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+            NA.log(NA.appLabels.portAlreadyListened.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
 
             /* In case of error, kill current process. */
             process.kill(process.pid);
         });
 
         /* ...from « public » directory. */
-        NA.httpServer.use(express["static"](NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
+        NA.httpServer.use(express.static(NA.websitePhysicalPath, { maxAge: 86400000 * 30 }));
 
-        if (commander.browse) { NA.configuration.browse = commander.browse; }
-        
-        if (NA.configuration.browse) { open(path.normalize('http://localhost/' + ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))); }
-    }; 
+        if (commander.browse) {
+            NA.configuration.browse = commander.browse;
+        }
+
+        if (NA.configuration.browse) {
+            open(path.normalize('http://localhost/' + ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : "")));
+        }
+    };
+
+    /**
+     * Allow you to configure your own modules configuration.
+     * @public
+     * @function atlasConfigurations
+     * @memberOf node-atlas~NA
+     * @param {Object} NA - The NodeAtlas object with new modifications.
+     * @param {Object} session - Session Object.
+     * @param {Object} optionSession - Property for Object Session.
+     */
+    publics.atlasConfigurations = function (NA, session, optionSession) {
+
+        publics = NA;
+
+        optionSession.store = NA.sessionStore;
+        NA.webconfig.session = optionSession;
+
+        /* Create a cookie Session. */
+        NA.httpServer.use(session(optionSession));
+
+        /* Use the `NA.websiteController[<commonController>].setConfigurations(...)` function if set... */
+        if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
+            typeof NA.websiteController[NA.webconfig.commonController].setConfigurations !== 'undefined') {
+
+                /**
+                 * Define this function for configure all modules of your application. Only for `common` controller file.
+                 * @function setConfigurations
+                 * @memberOf node-atlas~NA.websiteController[]
+                 * @param {Object} NA - NodeAtlas object for used `NA.modules` object.
+                 * @param {setConfigurations~callback} callback - Next steps after configuration is done.
+                 */
+                NA.websiteController[NA.webconfig.commonController].setConfigurations(NA,
+
+                /**
+                 * Next steps after configuration is done.
+                 * @callback setConfigurations~callback
+                 * @param {Object} NA - Return NodeAtlas object with modification.
+                 */
+                function (NA) {
+                    publics.atlasServer(NA);
+                });
+        /* ...else, just continue. */
+        } else {
+            publics.atlasServer(NA);
+        }
+    };
+
+    /**
+     * Run the Server of NodeAtlas.
+     * @public
+     * @function atlasServer
+     * @memberOf node-atlas~NA
+     * @param {Object} NA - The NodeAtlas object with new modifications.
+     */
+    publics.atlasServer = function (NA) {
+        var commander = NA.modules.commander,
+            open = NA.modules.open,
+            path = NA.modules.path,
+            httpPort = ((NA.webconfig.httpSecure) ? 443 : 80);
+
+        if (NA.webconfig.httpPort) {
+            httpPort = NA.webconfig.httpPort;
+        }
+
+        if (NA.configuration.httpPort) {
+            httpPort = NA.configuration.httpPort;
+        }
+
+        if (commander.httpPort) {
+            httpPort = commander.httpPort;
+        }
+
+        publics = NA;
+
+        /* Listen HTTP(s) request... */
+        NA.server.listen(httpPort, function () {
+            var data = {};
+
+            data.httpPort = NA.webconfig.httpPort;
+
+            NA.log(NA.appLabels.isRunning.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+        });
+
+        /* Catch error. */
+        NA.server.on('error', function () {
+            var data = {};
+
+            data.httpPort = httpPort;
+
+            NA.log(NA.appLabels.portAlreadyListened.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+
+            /* In case of error, kill current process. */
+            process.kill(process.pid);
+        });
+
+        if (commander.browse) {
+            NA.configuration.browse = commander.browse;
+        }
+
+        if (NA.configuration.browse) {
+            open(path.join(NA.webconfig.urlWithoutFileName, NA.webconfig.urlRelativeSubPath, ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : "")));
+        }
+    };
+
+    /**
+     * Active Mechanism for generate Less files.
+     * @public
+     * @function enableLessProcess
+     * @memberOf node-atlas~NA
+     */
+    publics.enableLessProcess = function () {
+        var lessMiddleware = NA.modules.lessMiddleware,
+            lessMiddlewareUtilities = NA.modules.lessMiddlewareUtilities,
+            fs = NA.modules.fs,
+            path = NA.modules.path,
+            mkpath = NA.modules.mkpath,
+            compressValue = false,
+            sourceMapValue = true,
+            regex = new RegExp(path.join(NA.webconfig.urlRelativeSubPath).replace(/(\\|\/)/g, '\\' + path.sep), 'g');
+
+        if (
+
+            /**
+             * Enable Less preprocessor.
+             * @public
+             * @alias enableLess
+             * @type {boolean|Object}
+             * @memberOf node-atlas~NA.webconfig
+             * @default false.
+             * @property {boolean} compress  - Minify the Less file.
+             * @property {boolean} sourceMap - Create a sourceMap file for development.
+             */
+            NA.webconfig.enableLess
+        ) {
+
+            /* Generate Less on the fly during the development phase. */
+            NA.httpServer.use(lessMiddleware(path.join(NA.webconfig.assetsRelativePath), {
+                dest: path.join(NA.webconfig.assetsRelativePath),
+                pathRoot: path.join(NA.websitePhysicalPath),
+                preprocess: {
+                    path: function(pathname) {
+                        if (NA.webconfig.urlRelativeSubPath) {
+                            pathname = pathname.replace(regex, path.sep);
+                        }
+                        return pathname;
+                    }
+                },
+                postprocess: {
+                    css: function(css, req) {
+                        return css + "/*# sourceMappingURL=" + req.url.replace(/\.css$/i, '.css.map') + " */";
+                    }
+                },
+                storeSourcemap: function(pathname, sourcemap) {
+                    if (NA.webconfig.urlRelativeSubPath) {
+                        pathname = pathname.replace(regex, path.sep);
+                    }
+
+                    mkpath(path.dirname(pathname), function (error) {
+                        if (error) {
+                            lessMiddlewareUtilities.lessError(error);
+                            return;
+                        }
+
+                        fs.writeFile(pathname, sourcemap, 'utf8');
+                    });
+                },
+                storeCss: function(pathname, css, req, next) {
+                    if (NA.webconfig.urlRelativeSubPath) {
+                        pathname = pathname.replace(regex, path.sep);
+                    }
+
+                    mkpath(path.dirname(pathname), function(error) {
+                        if (error) {
+                            return next(error);
+                        }
+
+                        fs.writeFile(pathname, css, 'utf8', next);
+                    });
+                },
+                render: {
+                    compress: (NA.webconfig.enableLess && NA.webconfig.enableLess.compress) || compressValue,
+                    sourceMap: (NA.webconfig.enableLess && NA.webconfig.enableLess.sourceMap) || sourceMapValue
+                }
+            }));
+        }
+    };
+
+    /**
+     * Set the Sessions variables possibility.
+     * @public
+     * @function atlasSessions
+     * @memberOf node-atlas~NA
+     */
+    publics.atlasSessions = function () {
+        var optionSession = {},
+            session = NA.modules.session;
+
+        /**
+         * Name for Session cookie of connected user.
+         * @public
+         * @alias sessionKey
+         * @type {string}
+         * @memberOf node-atlas~NA.webconfig
+         * @default 'nodeatlas.sid'.
+         */
+        optionSession.key = NA.webconfig.sessionKey || 'nodeatlas.sid',
+
+        /**
+         * Secret for Session cookie of connected user.
+         * @public
+         * @alias sessionSecret
+         * @type {string}
+         * @memberOf node-atlas~NA.webconfig
+         * @default '1234567890bépo'.
+         */
+        optionSession.secret = NA.webconfig.sessionSecret || '1234567890bépo',
+        optionSession.saveUninitialized = true,
+        optionSession.resave = true;
+
+        if (NA.webconfig.session) {
+
+            /**
+             * Use a more complexe session cookie options.
+             * Replace `NA.webconfig.sessionKey` and `NA.webconfig.sessionSecret` if set.
+             * @public
+             * @alias session
+             * @type {Object}
+             * @memberOf node-atlas~NA.webconfig
+             * @see {@link https://github.com/expressjs/session Session Middleware}
+             */
+            optionSession = NA.webconfig.session;
+        }
+
+        /**
+         * A default session loaded with `NA.webconfig.sessionKey` and `NA.webconfig.sessionSecret` or `NA.webconfig.sessionKey` and `NA.webconfig.session`.
+         * @public
+         * @alias sessionStore
+         * @type {Object}
+         * @memberOf node-atlas~NA
+         * @see {@link https://github.com/expressjs/session Session Middleware}
+         */
+        publics.sessionStore = new session.MemoryStore();
+
+        /* Use the `NA.websiteController[<commonController>].setSessions(...)` function if set... */
+        if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
+            typeof NA.websiteController[NA.webconfig.commonController].setSessions !== 'undefined') {
+
+                /**
+                 * Define this function for configure sessions of application. Only for `common` controller file.
+                 * @function setSessions
+                 * @memberOf node-atlas~NA.websiteController[]
+                 * @param {Object} NA - NodeAtlas object for used `NA.session` object.
+                 * @param {setSessions~callback} callback - Next steps after configuration is done.
+                 */
+                NA.websiteController[NA.webconfig.commonController].setSessions(NA,
+
+                /**
+                 * Next steps after set session is done.
+                 * @callback setSessions~callback
+                 * @param {Object} NA - Return NodeAtlas object with modification.
+                 */
+                function (NA) {
+                    publics.atlasConfigurations(NA, session, optionSession);
+                });
+        /* ...else, just continue. */
+        } else {
+            publics.atlasConfigurations(NA, session, optionSession);
+        }
+    };
 
     /**
      * Start a real NodeAtlas Server.
@@ -1218,9 +1590,6 @@ var NA = {};
         var express = NA.modules.express,
             commander = NA.modules.commander,
             compress = NA.modules.compress,
-            lessMiddleware = NA.modules.lessMiddleware,
-            lessMiddlewareUtilities = NA.modules.lessMiddlewareUtilities,
-            session = NA.modules.session,
             fs = NA.modules.fs,
             bodyParser = NA.modules.bodyParser,
             cookieParser = NA.modules.cookieParser,
@@ -1237,100 +1606,15 @@ var NA = {};
             enableForceDomain = NA.webconfig.enableForceDomain,
             http = NA.modules.http,
             https = NA.modules.https,
-            open = NA.modules.open,
-            path = NA.modules.path,
-            mkpath = NA.modules.mkpath,
-            optionSession = {},
-            
+
             /**
              * Define is site is running with HTTP(S) protocol.
              * @public
              * @alias httpSecure
              * @type {boolean}
              * @memberOf node-atlas~NA.webconfig
-             */ 
-            httpSecure = NA.webconfig.httpSecure,
-            regex = new RegExp(path.join(NA.webconfig.urlRelativeSubPath).replace(/(\\|\/)/g, '\\' + path.sep), 'g');
-
-        /**
-         * Next step after session configuration.
-         * @private
-         * @function startingHttpServer~atlasSessions
-         * @param {Object} NA - The NodeAtlas object with new modifications.
-         */
-        function atlasSessions(NA) {
-
-            publics = NA;
-
-            optionSession.store = NA.sessionStore;
-            NA.webconfig.session = optionSession;
-
-            /* Create a cookie Session. */
-            NA.httpServer.use(session(optionSession));
-
-            /* Use the `NA.websiteController[<commonController>].setConfigurations(...)` function if set... */
-            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-                typeof NA.websiteController[NA.webconfig.commonController].setConfigurations !== 'undefined') {
-
-                    /**
-                     * Define this function for configure all modules of your application. Only for `common` controller file.
-                     * @function setConfigurations
-                     * @memberOf node-atlas~NA.websiteController[]
-                     * @param {Object} NA - NodeAtlas object for used `NA.modules` object.
-                     * @param {setConfigurations~callback} callback - Next steps after configuration is done.
-                     */
-                    NA.websiteController[NA.webconfig.commonController].setConfigurations(NA, 
-
-                    /**
-                     * Next steps after configuration is done.
-                     * @callback setConfigurations~callback
-                     * @param {Object} NA - Return NodeAtlas object with modification.
-                     */
-                    function (NA) {
-                        atlasMiddlewares(NA);
-                    });
-            /* ...else, just continue. */
-            } else {
-                atlasMiddlewares(NA);
-            }
-        }
-
-        /**
-         * Next step after configuration of modules and middlewares.
-         * @private
-         * @function startingHttpServer~atlasMiddlewares
-         * @param {Object} NA - The NodeAtlas object with new modifications.
-         */  
-        function atlasMiddlewares(NA) {
-            var httpPort = commander.httpPort || NA.configuration.httpPort || NA.webconfig.httpPort || ((NA.webconfig.httpSecure) ? 443 : 80);
-
-            publics = NA;
-
-            /* Listen HTTP(s) request... */
-            NA.server.listen(httpPort, function () {
-                var data = {};
-
-                data.httpPort = NA.webconfig.httpPort;
-
-                console.log(NA.appLabels.isRunning.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-            });
-
-            /* Catch error. */
-            NA.server.on('error', function () {
-                var data = {};
-
-                data.httpPort = httpPort;
-
-                console.log(NA.appLabels.portAlreadyListened.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-
-                /* In case of error, kill current process. */
-                process.kill(process.pid);
-            });
-
-            if (commander.browse) { NA.configuration.browse = commander.browse; }
-
-            if (NA.configuration.browse) { open(path.join(NA.webconfig.urlWithoutFileName, NA.webconfig.urlRelativeSubPath, ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))); }
-        }
+             */
+            httpSecure = NA.webconfig.httpSecure;
 
         /**
          * A simple HTTP server.
@@ -1343,7 +1627,6 @@ var NA = {};
         /** Server is case sensitive and slash sensitive. */
         NA.httpServer.enable('strict routing');
 
-
         if (!NA.webconfig.httpSecure) {
 
             /**
@@ -1354,15 +1637,17 @@ var NA = {};
              */
             publics.server = http.createServer(NA.httpServer);
         } else {
-            
+
             /* HTTPs version for a website. */
             publics.server = https.createServer({
-                key: fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.httpSecureRelativeKeyPath, 'utf-8'), 
+                key: fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.httpSecureRelativeKeyPath, 'utf-8'),
                 cert: fs.readFileSync(NA.websitePhysicalPath + NA.webconfig.httpSecureRelativeCertificatePath, 'utf-8')
             }, NA.httpServer);
         }
 
-        if (commander.generate) { NA.configuration.generate = commander.generate; }
+        if (commander.generate) {
+            NA.configuration.generate = commander.generate;
+        }
 
         /* NodeAtlas as Node.js Website. */
         if (!NA.configuration.generate) {
@@ -1389,140 +1674,11 @@ var NA = {};
             /* Allow you to parse the Cookie data format. */
             NA.httpServer.use(cookieParser());
 
-            if (
+            /* Allow you to parse the Less files. */
+            NA.enableLessProcess();
 
-                /**
-                 * Enable Less preprocessor.
-                 * @public
-                 * @alias enableLess
-                 * @type {boolean|Object}
-                 * @memberOf node-atlas~NA.webconfig
-                 * @default false.
-                 * @property {boolean} compress  - Minify the Less file.
-                 * @property {boolean} sourceMap - Create a sourceMap file for development.
-                 */
-                NA.webconfig.enableLess
-            ) {
-                /* Generate Less on the fly during the development phase. */
-                NA.httpServer.use(lessMiddleware(path.join(NA.webconfig.assetsRelativePath), {
-                    dest: path.join(NA.webconfig.assetsRelativePath),
-                    pathRoot: path.join(NA.websitePhysicalPath),
-                    preprocess: {
-                        path: function(pathname) {
-                            if (NA.webconfig.urlRelativeSubPath) {
-                                pathname = pathname.replace(regex, path.sep);
-                            }
-                            return pathname;
-                        }
-                    },
-                    postprocess: {
-                        css: function(css, req) {
-                            return css + "/*# sourceMappingURL=" + req.url.replace(/\.css$/i, '.css.map') + " */";
-                        }
-                    },
-                    storeSourcemap: function(pathname, sourcemap) {
-                        if (NA.webconfig.urlRelativeSubPath) {
-                            pathname = pathname.replace(regex, path.sep);
-                        }
-
-                        mkpath(path.dirname(pathname), function (error) {
-                            if (error) {
-                                lessMiddlewareUtilities.lessError(error);
-                                return;
-                            }
-
-                            fs.writeFile(pathname, sourcemap, 'utf8');
-                        });
-                    },
-                    storeCss: function(pathname, css, req, next) {
-                        if (NA.webconfig.urlRelativeSubPath) {
-                            pathname = pathname.replace(regex, path.sep);
-                        }
-
-                        mkpath(path.dirname(pathname), function(error) {
-                            if (error) return next(error);
-
-                            fs.writeFile(pathname, css, 'utf8', next);
-                        });
-                    },
-                    render: {
-                        compress: (NA.webconfig.enableLess && NA.webconfig.enableLess.compress) || false,
-                        sourceMap: (NA.webconfig.enableLess && NA.webconfig.enableLess.sourceMap) || true
-                    }
-                }));
-            }
-
-            /**
-             * Name for Session cookie of connected user.
-             * @public
-             * @alias sessionKey
-             * @type {string}
-             * @memberOf node-atlas~NA.webconfig
-             * @default 'nodeatlas.sid'.
-             */
-            optionSession.key = NA.webconfig.sessionKey || 'nodeatlas.sid',
-
-            /**
-             * Secret for Session cookie of connected user.
-             * @public
-             * @alias sessionSecret
-             * @type {string}
-             * @memberOf node-atlas~NA.webconfig
-             * @default '1234567890bépo'.
-             */
-            optionSession.secret = NA.webconfig.sessionSecret || '1234567890bépo',
-            optionSession.saveUninitialized = true,
-            optionSession.resave = true;
-
-            if (NA.webconfig.session) {
-
-                /**
-                 * Use a more complexe session cookie options.
-                 * Replace `NA.webconfig.sessionKey` and `NA.webconfig.sessionSecret` if set.
-                 * @public
-                 * @alias session
-                 * @type {Object}
-                 * @memberOf node-atlas~NA.webconfig
-                 * @see {@link https://github.com/expressjs/session Session Middleware}
-                 */        
-                optionSession = NA.webconfig.session;
-            }
-
-            /**
-             * A default session loaded with `NA.webconfig.sessionKey` and `NA.webconfig.sessionSecret` or `NA.webconfig.sessionKey` and `NA.webconfig.session`.
-             * @public
-             * @alias sessionStore
-             * @type {Object}
-             * @memberOf node-atlas~NA
-             * @see {@link https://github.com/expressjs/session Session Middleware}
-             */    
-            publics.sessionStore = new session.MemoryStore();
-
-            /* Use the `NA.websiteController[<commonController>].setSessions(...)` function if set... */
-            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-                typeof NA.websiteController[NA.webconfig.commonController].setSessions !== 'undefined') {
-
-                    /**
-                     * Define this function for configure sessions of application. Only for `common` controller file.
-                     * @function setSessions
-                     * @memberOf node-atlas~NA.websiteController[]
-                     * @param {Object} NA - NodeAtlas object for used `NA.session` object.
-                     * @param {setSessions~callback} callback - Next steps after configuration is done.
-                     */
-                    NA.websiteController[NA.webconfig.commonController].setSessions(NA, 
-
-                    /**
-                     * Next steps after set session is done.
-                     * @callback setSessions~callback
-                     * @param {Object} NA - Return NodeAtlas object with modification.
-                     */
-                    function (NA) {
-                        atlasSessions(NA);
-                    });
-            /* ...else, just continue. */
-            } else {
-                atlasSessions(NA);
-            }
+            /* Allow you to use Session variables. */
+            NA.atlasSessions();
         }
     };
 
@@ -1531,13 +1687,15 @@ var NA = {};
      * @public
      * @function httpServerPublicFiles
      * @memberOf node-atlas~NA
-     */ 
+     */
     publics.httpServerPublicFiles = function () {
         var express = NA.modules.express,
             path = NA.modules.path,
             commander = NA.modules.commander;
 
-        if (commander.generate) { NA.configuration.generate = commander.generate; }
+        if (commander.generate) {
+            NA.configuration.generate = commander.generate;
+        }
 
         if (!NA.configuration.generate) {
             NA.httpServer.use(NA.webconfig.urlRelativeSubPath, express["static"](path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath), { maxAge: 86400000 * 30 }));
@@ -1554,7 +1712,7 @@ var NA = {};
      * @param {string} data - HTML DOM ready for sending.
      * @param {string} currentRouteParameters - Parameters set into `routes[<currentRoute>]`.
      * @param {string} currentVariation - Variations for the current page.
-     */ 
+     */
     publics.response = function (request, response, data, currentRouteParameters, currentVariation) {
 
             /**
@@ -1608,7 +1766,7 @@ var NA = {};
      * @param {Object} currentRouteParameters - All information associate with the redirection.
      * @param {Object} request - Initial request.
      * @param {Object} response - Initial response.
-     */ 
+     */
     publics.redirect = function (currentRouteParameters, request, response) {
         var location,
             path = NA.modules.path;
@@ -1622,7 +1780,7 @@ var NA = {};
              * @alias redirect
              * @type {string}
              * @memberOf node-atlas~NA#currentRouteParameters
-             */    
+             */
             location = currentRouteParameters.redirect.replace(/\$([0-9]+)\$/g, function (regex, matches) { return request.params[matches]; });
         /* Or by standard selector. */
         } else {
@@ -1639,110 +1797,43 @@ var NA = {};
     };
 
     /**
-     * Listen a specific request.
+     * sf.
      * @public
      * @function routesPages
      * @memberOf node-atlas~NA
      * @param {string} path - The url listening.
      * @param {Object} options - Option associate to this url.
-     */ 
-    publics.request = function (path, options) {
-        var currentRouteParameters = options[path],
-            pathM = NA.modules.path,
-            getSupport = true,
-            postSupport = true,
-            currentPath = path,
-            objectPath;
-
-        /* Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
-        if (currentRouteParameters.url) {
-
-            /**
-             * If setted, replace « The url listening ». « The url listening. » become a « key » value.
-             * @public
-             * @alias url
-             * @type {string}
-             * @memberOf node-atlas~NA#currentRouteParameters
-             */
-            currentPath = currentRouteParameters.url;
-        }
-
-        /* Adding of subfolder before url listening. */
-        objectPath = NA.webconfig.urlRelativeSubPath + currentPath;
+     */
+    publics.setSupport = function (support, common, specific) {
 
         /* Manage GET / POST support for an url. */
-        if (
-            /**
-             * Allow you to avoid or authorize GET response for all page.
-             * @public
-             * @alias getSupport
-             * @type {boolean}
-             * @memberOf node-atlas~NA.webconfig
-             * @default true
-             */
-            NA.webconfig.getSupport === false
-        ) { getSupport = false; }
-
-        if (
-            /**
-             * Allow you to avoid or authorize GET response for current page.
-             * @public
-             * @alias getSupport
-             * @type {boolean}
-             * @memberOf node-atlas~NA#currentRouteParameters
-             * @default true
-             */
-            currentRouteParameters.getSupport === false
-        ) { getSupport = false; }
-        if (currentRouteParameters.getSupport === true) { getSupport = true; }
-
-        if (
-            /**
-             * Allow you to avoid or authorize POST response for all page.
-             * @public
-             * @alias postSupport
-             * @type {boolean}
-             * @memberOf node-atlas~NA.webconfig
-             * @default true
-             */
-            NA.webconfig.postSupport === false
-        ) { postSupport = false; }
-
-        if (
-            /**
-             * Allow you to avoid or authorize POST response for current page.
-             * @public
-             * @alias postSupport
-             * @type {boolean}
-             * @memberOf node-atlas~NA#currentRouteParameters
-             * @default true
-             */
-            currentRouteParameters.postSupport === false
-        ) { postSupport = false; }
-        if (currentRouteParameters.postSupport === true) { postSupport = true; }
-
-        /* Allow you to use regex into your url route... */
-        if (
-            /**
-             * Use RegExp expression as selector for route url If setted to true.
-             * Same if is a string but string represent option like "g".
-             * @public
-             * @alias regExp
-             * @type {string|boolean}
-             * @default false
-             * @memberOf node-atlas~NA#currentRouteParameters 
-             */
-            currentRouteParameters.regExp
-        ) {
-            /* ...with options... */
-            if (typeof currentRouteParameters.regExp === 'string') {
-                objectPath = new RegExp(objectPath, currentRouteParameters.regExp);
-            /* ...or not... */
-            } else {
-                objectPath = new RegExp(objectPath);
-            }
+        if (common === false) {
+            support = false;
         }
 
+        if (specific === false) {
+            support = false;
+        }
+
+        if (specific === true) {
+            support = true;
+        }
+
+        return support;
+    };
+
+    /**
+     * Ask for a page in GET and in POST.
+     * @public
+     * @function routesPages
+     * @memberOf node-atlas~NA
+     * @param {boolean} getSupport - This page can be requested by GET ?
+     * @param {boolean} postSupport - This page can be requested by POST ?
+     * @param {string} objectPath - The list of Url match for obtain response.
+     * @param {Object} options - Option associate to this url.
+     * @param {string} path - The Url in routes' webconfig.
+     */
+    publics.executeRequest = function (getSupport, postSupport, objectPath, options, path) {
         /** Execute Get Request */
         if (getSupport) {
             NA.httpServer.get(objectPath, function (request, response) {
@@ -1773,11 +1864,114 @@ var NA = {};
     };
 
     /**
+     * Listen a specific request.
+     * @public
+     * @function routesPages
+     * @memberOf node-atlas~NA
+     * @param {string} path - The url listening.
+     * @param {Object} options - Option associate to this url.
+     */
+    publics.request = function (path, options) {
+        var currentRouteParameters = options[path],
+            getSupport = true,
+            postSupport = true,
+            currentPath = path,
+            objectPath;
+
+        /* Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
+        if (currentRouteParameters.url) {
+
+            /**
+             * If setted, replace « The url listening ». « The url listening. » become a « key » value.
+             * @public
+             * @alias url
+             * @type {string}
+             * @memberOf node-atlas~NA#currentRouteParameters
+             */
+            currentPath = currentRouteParameters.url;
+        }
+
+        /* Adding of subfolder before url listening. */
+        objectPath = NA.webconfig.urlRelativeSubPath + currentPath;
+
+        /* Manage GET / POST support for an url. */
+        getSupport = NA.setSupport(getSupport,
+
+            /**
+             * Allow you to avoid or authorize GET response for all page.
+             * @public
+             * @alias getSupport
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default true
+             */
+            NA.webconfig.getSupport,
+
+            /**
+             * Allow you to avoid or authorize GET response for current page.
+             * @public
+             * @alias getSupport
+             * @type {boolean}
+             * @memberOf node-atlas~NA#currentRouteParameters
+             * @default true
+             */
+            currentRouteParameters.getSupport
+        );
+        postSupport = NA.setSupport(postSupport,
+
+            /**
+             * Allow you to avoid or authorize POST response for all page.
+             * @public
+             * @alias postSupport
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default true
+             */
+            NA.webconfig.postSupport,
+
+            /**
+             * Allow you to avoid or authorize POST response for current page.
+             * @public
+             * @alias postSupport
+             * @type {boolean}
+             * @memberOf node-atlas~NA#currentRouteParameters
+             * @default true
+             */
+            currentRouteParameters.postSupport
+        );
+
+        /* Allow you to use regex into your url route... */
+        if (
+            /**
+             * Use RegExp expression as selector for route url If setted to true.
+             * Same if is a string but string represent option like "g".
+             * @public
+             * @alias regExp
+             * @type {string|boolean}
+             * @default false
+             * @memberOf node-atlas~NA#currentRouteParameters
+             */
+            currentRouteParameters.regExp
+        ) {
+            /* ...with options... */
+            if (typeof currentRouteParameters.regExp === 'string') {
+                objectPath = new RegExp(objectPath, currentRouteParameters.regExp);
+            /* ...or not... */
+            } else {
+                objectPath = new RegExp(objectPath);
+            }
+        }
+
+        /* Ask for a page in GET and in POST. */
+        NA.executeRequest(getSupport, postSupport, objectPath, options, path);
+    };
+
+    /**
      * Define a page to display when no url match in route or in `NA.httpServerPublicFiles` directory.
      * @public
      * @function pageNotFound
      * @memberOf node-atlas~NA
-     */ 
+     */
     publics.pageNotFound = function () {
         if (NA.webconfig.pageNotFound && NA.webconfig.routes[NA.webconfig.pageNotFound]) {
             var pageNotFound = NA.webconfig.routes[NA.webconfig.pageNotFound],
@@ -1788,7 +1982,7 @@ var NA = {};
                  * @alias pageNotFound
                  * @type {string}
                  * @memberOf node-atlas~NA.webconfig
-                 */  
+                 */
                 pageNotFoundUrl = NA.webconfig.pageNotFound;
 
             /* Match all Get Request */
@@ -1821,20 +2015,19 @@ var NA = {};
      * @public
      * @function routesPages
      * @memberOf node-atlas~NA
-     */ 
+     */
     publics.routesPages = function () {
         var commander = NA.modules.commander;
 
-        if (commander.generate) { NA.configuration.generate = commander.generate; }
-        
-        if (!NA.configuration.generate) {   
-            /* For each `webconfig.routes`. */    
-            for (var currentUrl in NA.webconfig.routes) {
-                /* Listen request */
-                if (NA.webconfig.routes.hasOwnProperty(currentUrl)) {
-                	NA.request(currentUrl, NA.webconfig.routes);
-                }
-            }
+        if (commander.generate) {
+            NA.configuration.generate = commander.generate;
+        }
+
+        if (!NA.configuration.generate) {
+            /* For each `webconfig.routes`. */
+            NA.forEach(NA.webconfig.routes, function (currentUrl) {
+                NA.request(currentUrl, NA.webconfig.routes);
+            });
         }
     };
 
@@ -1855,7 +2048,6 @@ var NA = {};
  * @param {Object} publics Allow you to add publics methods to NA object.
  */
 (function (publics) {
-    "use strict";
 
     /**
      * Open a temlpate file.
@@ -1865,7 +2057,7 @@ var NA = {};
      * @param {Object} currentRouteParameters - Parameters set into `routes[<currentRoute>]`.
      * @param {Object} templatesPath - Path to template file.
      * @param {openTemplate~callback} callback - Next steps after opening file.
-     */ 
+     */
     publics.openTemplate = function (currentRouteParameters, templatesPath, callback) {
         var fs = NA.modules.fs;
 
@@ -1875,9 +2067,9 @@ var NA = {};
             if (error) {
                 dataError.templatesPath = templatesPath;
                 if (typeof currentRouteParameters.template === 'undefined') {
-                    console.log(NA.appLabels.templateNotSet);
+                    NA.log(NA.appLabels.templateNotSet);
                 } else {
-                    console.log(NA.appLabels.templateNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                    NA.log(NA.appLabels.templateNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                 }
             } else {
 
@@ -1886,7 +2078,7 @@ var NA = {};
                  * @callback openTemplate~callback
                  * @param {string} data - All HTML data from template.
                  */
-                callback(data); 
+                callback(data);
             }
        });
     };
@@ -1899,7 +2091,7 @@ var NA = {};
      * @param {string} variationName - Name of JSON file.
      * @param {string} languageCode - Current language for this variation.
      * @returns {Object|boolean} - Return all data from JSON or false if an error occured.
-     */ 
+     */
     publics.openVariation = function (variationName, languageCode) {
         var fs = NA.modules.fs,
             path = NA.modules.path,
@@ -1908,11 +2100,26 @@ var NA = {};
 
             /* Find the correct path for variations. */
             variationsPath = path.join(
-                NA.websitePhysicalPath, 
-                NA.webconfig.variationsRelativePath, 
-                (languageCode) ? languageCode : '', 
+                NA.websitePhysicalPath,
+                NA.webconfig.variationsRelativePath,
+                (languageCode) ? languageCode : '',
                 (variationName) ? variationName : ''
             );
+
+        /* Explain errors. */
+        function explainError(exception) {
+            if (!languageCode) {
+                if (exception.code === 'ENOENT') {
+                    NA.log(NA.appLabels.variationNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                } else if (exception.toString().indexOf('SyntaxError') !== -1) {
+                    dataError.syntaxError = exception.toString();
+                    NA.log(NA.appLabels.variationSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                } else {
+                    NA.log(exception);
+                }
+                return false;
+            }
+        }
 
         if (typeof variationName !== 'undefined') {
             dataError.variationsPath = variationsPath;
@@ -1921,41 +2128,58 @@ var NA = {};
                 return JSON.parse(fs.readFileSync(variationsPath, 'utf-8'));
             } catch (exception) {
                 /* Explain errors. */
-                if (!languageCode) {
-                    if (exception.code === 'ENOENT') {
-                        console.log(NA.appLabels.variationNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                    } else if (exception.toString().indexOf('SyntaxError') !== -1) {
-                        dataError.syntaxError = exception.toString();
-                        console.log(NA.appLabels.variationSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                    } else {
-                        console.log(exception);
-                    }
-                    return false;
-                }
+                explainError(exception);
             }
         }
     };
 
     /**
-     * Inject the content of a stylesheets file into a DOM.
+     * Check if a file have been already parsed.
      * @public
-     * @function injectCss
+     * @function alreadyParse
      * @memberOf node-atlas~NA
-     * @param {string} dom                          - The ouptput HTML.
-     * @param {string|Array.<string>} injection     - Represent the injectCss property injection to the template.
-     * @param {injectCss~mainCallback} mainCallback - The next steps after injection.
-     */ 
-    publics.injectCss = function (dom, injection, mainCallback) {
-        var cheerio = NA.modules.cheerio,
-            cssParse = NA.modules.cssParse,
-            async = NA.modules.async,
-            fs = NA.modules.fs,
-            path = NA.modules.path,
-            allCssFiles = [],
-            $ = cheerio.load(dom),
+     * @param {string}         newPath     - Current file tested.
+     * @param {Array.<string>} allCssFiles - Files already tested.
+     * @param {string}         inject      - State for know if injection will be authorized.
+     */
+    publics.cssAlreadyParse = function (newPath, allCssFiles, inject) {
+        var path = NA.modules.path;
+
+        for (var i = 0; i < allCssFiles.length; i++) {
+            if (path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, newPath) === allCssFiles[i]) {
+                inject = false;
+            }
+        }
+
+        return inject;
+    };
+
+    /**
+     * Inject Css if not already injected.
+     * @public
+     * @function injectCssAuth
+     * @memberOf node-atlas~NA
+     * @param {string}         pathFile     - Current file for injection.
+     * @param {Array.<string>} allCssFiles - Files already tested.
+     * @param {string}         inject      - State for know if injection will be authorized.
+     */
+    publics.injectCssAuth = function (pathFile, allCssFiles, inject) {
+        var path = NA.modules.path;
+
+        if (inject) {
+            allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, pathFile));
+        }
+    };
+
+    /**
+     * Verify if common or specif file without double are ready for injection CSS.
+     * @public
+     * @function injectCssAuth
+     * @memberOf node-atlas~NA
+     */
+    publics.prepareCssInjection = function (allCssFiles, injection) {
+        var path = NA.modules.path,
             inject = true,
-            css,
-            i,
 
             /**
              * CSS files for specific injection of CSS.
@@ -1978,45 +2202,62 @@ var NA = {};
         /* Add common injections. */
         if (typeof commonInjection === 'string') {
             allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, commonInjection));
-        } else {
-            if (commonInjection) {
-                for (i = 0; i < commonInjection.length; i++) {
-                    allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, NA.webconfig.injectCss[i]));
-                }
+        } else if (commonInjection) {
+            for (var i = 0; i < commonInjection.length; i++) {
+                /* Inject Css. */
+                NA.injectCssAuth(NA.webconfig.injectCss[i], allCssFiles, inject);
             }
         }
 
         /* Add specific injections. */
-        if (specificInjection) {     
+        if (specificInjection) {
             if (typeof specificInjection === 'string') {
-                for (i = 0; i < allCssFiles.length; i++) {
-                    if (path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, specificInjection) === allCssFiles[i]) {
-                        inject = false;
-                    }
-                }
-                if (inject) {
-                    allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, specificInjection));
-                }
+                /* Check if a file have been already parsed. */
+                inject = NA.cssAlreadyParse(specificInjection, allCssFiles, inject);
+                /* Inject Css. */
+                NA.injectCssAuth(specificInjection, allCssFiles, inject);
             } else {
                 for (var j = 0; j < specificInjection.length; j++) {
-                    for (i = 0; i < allCssFiles.length; i++) {
-                        if (path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, specificInjection[j]) === allCssFiles[i]) {
-                            inject = false;
-                        }
-                    }
-                    if (inject) {
-                        allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, specificInjection[j]));
-                    }
+                    /* Check if a file have been already parsed. */
+                    inject = NA.cssAlreadyParse(specificInjection[j], allCssFiles, inject);
+                    /* Inject Css. */
+                    NA.injectCssAuth(specificInjection[j], allCssFiles, inject);
                     inject = true;
                 }
             }
         }
 
+        return allCssFiles;
+    };
+
+    /**
+     * Inject the content of a stylesheets file into a DOM.
+     * @public
+     * @function injectCss
+     * @memberOf node-atlas~NA
+     * @param {string} dom                          - The ouptput HTML.
+     * @param {string|Array.<string>} injection     - Represent the injectCss property injection to the template.
+     * @param {injectCss~mainCallback} mainCallback - The next steps after injection.
+     */
+    publics.injectCss = function (dom, injection, mainCallback) {
+        var cheerio = NA.modules.cheerio,
+            cssParse = NA.modules.cssParse,
+            async = NA.modules.async,
+            fs = NA.modules.fs,
+            allCssFiles = [],
+            $ = cheerio.load(dom);
+
+        /* Prepare Injection */
+        allCssFiles = NA.prepareCssInjection(allCssFiles, injection);
+
+        /* Injection */
         async.map(allCssFiles, function (sourceFile, callback) {
             /* Concatain all CSS. */
             callback(null, fs.readFileSync(sourceFile, 'utf-8'));
         }, function(error, results) {
-            var output = "";
+            var output = "",
+                css;
+
             for (var i = 0; i < results.length; i++) {
                 output += results[i];
             }
@@ -2024,16 +2265,35 @@ var NA = {};
             /* Parse CSS in JavaScript. */
             css = cssParse(output);
 
-            /* Apply property on the DOM. */
-            for (i = 0; i < css.stylesheet.rules.length; i++) {
-                if (typeof css.stylesheet.rules[i].selectors !== 'undefined') {
-                    for (var j = 0; j < css.stylesheet.rules[i].selectors.length; j++) {
-                        for (var k = 0; k < css.stylesheet.rules[i].declarations.length; k++) {
-                            $(css.stylesheet.rules[i].selectors[j]).css(css.stylesheet.rules[i].declarations[k].property, css.stylesheet.rules[i].declarations[k].value);
-                        }
+            /* Parse all rules Css. */
+            function parseCssRules(callback) {
+                for (var i = 0; i < css.stylesheet.rules.length; i++) {
+                    if (typeof css.stylesheet.rules[i].selectors !== 'undefined') {
+                        callback(i);
                     }
                 }
             }
+
+            /* Parse all selector Css. */
+            function parseCssSelector(i, callback) {
+                for (var j = 0; j < css.stylesheet.rules[i].selectors.length; j++) {
+                    callback(j);
+                }
+            }
+
+            /* Parse all declaration Css. */
+            function parseCssDeclaration(i, j) {
+                for (var k = 0; k < css.stylesheet.rules[i].declarations.length; k++) {
+                    $(css.stylesheet.rules[i].selectors[j]).css(css.stylesheet.rules[i].declarations[k].property, css.stylesheet.rules[i].declarations[k].value);
+                }
+            }
+
+            /* Apply property on the DOM. */
+            parseCssRules(function (i) {
+                parseCssSelector(i, function (j) {
+                    parseCssDeclaration(i, j);
+                });
+            });
 
             /**
              * Next steps after injection of CSS.
@@ -2050,7 +2310,7 @@ var NA = {};
      * @function lessCompilation
      * @memberOf node-atlas~NA
      * @callback lessCompilation~callback callback - Next step after Less compilation.
-     */ 
+     */
     publics.lessCompilation = function (callback) {
         var enableLess = NA.webconfig.enableLess,
             async = NA.modules.async,
@@ -2070,9 +2330,9 @@ var NA = {};
                 }
             } else {
                 enableLess.paths = [
-                    NA.webconfig.assetsRelativePath, 
-                    path.join(NA.webconfig.assetsRelativePath, 'stylesheets'), 
-                    path.join(NA.webconfig.assetsRelativePath, 'styles'), 
+                    NA.webconfig.assetsRelativePath,
+                    path.join(NA.webconfig.assetsRelativePath, 'stylesheets'),
+                    path.join(NA.webconfig.assetsRelativePath, 'styles'),
                     path.join(NA.webconfig.assetsRelativePath, 'css')
                 ];
             }
@@ -2082,12 +2342,12 @@ var NA = {};
 
                 less.render(currentFile, enableLess, function (e, output) {
                     if (e) {
-                        console.log(e);
+                        NA.log(e);
                     }
 
                     data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css'));
                     fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css')), output.css);
-                    console.log(NA.appLabels.lessGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    NA.log(NA.appLabels.lessGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     next();
                 });
             }, function () {
@@ -2110,7 +2370,7 @@ var NA = {};
      * @function cssMinification
      * @memberOf node-atlas~NA
      * @callback cssMinification~callback callback - Next step after minification and concatenation of all CSS.
-     */ 
+     */
     publics.cssMinification = function (callback) {
         var bundles = NA.webconfig.bundles,
             cleanCss = NA.modules.cleanCss,
@@ -2123,7 +2383,7 @@ var NA = {};
             allCssMinified = [];
 
         /* Verify if bundle is okay and if engine must start. */
-        enable = (NA.configuration.generate || 
+        enable = (NA.configuration.generate ||
 
             /**
              * CSS minification before each HTML response.
@@ -2151,11 +2411,9 @@ var NA = {};
         /* Star engine. */
         if (bundles && bundles.stylesheets && enable) {
 
-            for (var compressedFile in bundles.stylesheets) {
-            	if (bundles.stylesheets.hasOwnProperty(compressedFile)) {
-                	allCssMinified.push(compressedFile);
-                }
-            }
+            NA.forEach(bundles.stylesheets, function (compressedFile) {
+                allCssMinified.push(compressedFile);
+            });
 
             async.each(allCssMinified, function (compressedFile, firstCallback) {
 
@@ -2169,7 +2427,7 @@ var NA = {};
                     output = new cleanCss().minify(output);
                     fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile), output);
                     data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile);
-                    console.log(NA.appLabels.cssGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    NA.log(NA.appLabels.cssGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     output = "";
 
                     firstCallback();
@@ -2181,10 +2439,14 @@ var NA = {};
                  * Next steps after minification and concatenation are done.
                  * @callback cssMinification~callback
                  */
-                if (callback) callback();
+                if (callback) {
+                    callback();
+                }
             });
         } else {
-            if (callback) callback();
+            if (callback) {
+                callback();
+            }
         }
     };
 
@@ -2194,7 +2456,7 @@ var NA = {};
      * @function imgOptimization
      * @memberOf node-atlas~NA
      * @callback imgOptimization~callback callback - Next step after optimization of all Images.
-     */ 
+     */
     publics.imgOptimization = function (callback) {
         var optimizations = NA.webconfig.optimizations,
             imagemin = NA.modules.imagemin,
@@ -2205,7 +2467,7 @@ var NA = {};
             allImgMinified = [];
 
         /* Verify if bundle is okay and if engine must start. */
-        enable = (NA.configuration.generate || 
+        enable = (NA.configuration.generate ||
 
             /**
              * Images optimization before each HTML response.
@@ -2233,18 +2495,16 @@ var NA = {};
         /* Star engine. */
         if (optimizations && optimizations.images && enable) {
 
-            for (var compressedFile in optimizations.images) {
-            	if (optimizations.images.hasOwnProperty(compressedFile)) {
-                	allImgMinified.push(compressedFile);
-                }
-            }
+            NA.forEach(optimizations.images, function (compressedFile) {
+                allImgMinified.push(compressedFile);
+            });
 
             async.each(allImgMinified, function (compressedFile, firstCallback) {
 
                 var source = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile),
                     output = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, optimizations.images[compressedFile]);
 
-                    new imagemin()
+                    (new imagemin())
                         .src(source)
                         .dest(output)
                         .use(imagemin.jpegtran({progressive: true}))
@@ -2254,8 +2514,8 @@ var NA = {};
                         .run(function () {
                             data.pathName = path.normalize(source);
 
-                            console.log(NA.appLabels.imgGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-                            
+                            NA.log(NA.appLabels.imgGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+
                             firstCallback();
                         });
 
@@ -2265,10 +2525,14 @@ var NA = {};
                  * Next steps after minification and concatenation are done.
                  * @callback cssMinification~callback
                  */
-                if (callback) callback();
+                if (callback) {
+                    callback();
+                }
             });
         } else {
-            if (callback) callback();
+            if (callback) {
+                callback();
+            }
         }
     };
 
@@ -2278,7 +2542,7 @@ var NA = {};
      * @function jsObfuscation
      * @memberOf node-atlas~NA
      * @callback jsObfuscation~callback callback - Next step after obfuscation and concatenation of all CSS.
-     */ 
+     */
     publics.jsObfuscation = function (callback) {
         var bundles = NA.webconfig.bundles,
             uglifyJs = NA.modules.uglifyJs,
@@ -2291,7 +2555,7 @@ var NA = {};
             allJsMinified = [];
 
         /* Verify if bundle is okay and if engine must start. */
-        enable = (NA.configuration.generate || 
+        enable = (NA.configuration.generate ||
 
             /**
              * JavaScript obfuscation before each HTML response.
@@ -2319,11 +2583,9 @@ var NA = {};
         /* Star engine. */
         if (bundles && bundles.javascript && enable) {
 
-            for (var compressedFile in bundles.javascript) {
-            	if ( bundles.javascript.hasOwnProperty(compressedFile)) {
-                	allJsMinified.push(compressedFile);
-            	}
-            }
+            NA.forEach(bundles.javascript, function (compressedFile) {
+                allJsMinified.push(compressedFile);
+            });
 
             async.each(allJsMinified, function (compressedFile, firstCallback) {
 
@@ -2336,7 +2598,7 @@ var NA = {};
 
                     fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile), output);
                     data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile);
-                    console.log(NA.appLabels.jsGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    NA.log(NA.appLabels.jsGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     output = "";
 
                     firstCallback();
@@ -2348,10 +2610,476 @@ var NA = {};
                  * Next steps after obfuscation and concatenation are done.
                  * @callback jsObfuscation~callback
                  */
-                if (callback) callback();
+                if (callback) {
+                    callback();
+                }
             });
         } else {
-            if (callback) callback();
+            if (callback) {
+                callback();
+            }
+        }
+    };
+    /**
+     * Create some variable for manage path for render.
+     * @public
+     * @function prepareRenderPath
+     * @memberOf node-atlas~NA
+     * @param {Object} currentVariation - Variations for the current page.
+     * @param {Object} currentRouteParameters - All parameters from current route.
+     * @param {Object} request - Information from request.
+     * @param {Object} response - Information from response.
+     * @param {string} templatesPath - Path to the based template.
+     * @param {string} currentPath - Url from `url` value for this render.
+     * @param {string} path - Url path for this render.
+     */
+    publics.prepareRenderPath = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path) {
+
+        /**
+         * Expose the current language code for the page if setted else expose the global if setted.
+         * @public
+         * @alias languageCode
+         * @type {string}
+         * @memberOf node-atlas~NA#currentVariation
+         * @default No language code if not setted.
+         */
+        currentVariation.languageCode =
+
+            /**
+             * Represent the language code for this page.
+             * @public
+             * @alias languageCode
+             * @type {string}
+             * @memberOf node-atlas~NA#currentRouteParameters
+             * @default No language code if not setted.
+             */
+            currentRouteParameters.languageCode ||
+
+            /**
+             * Represent the global and main language code for website.
+             * @public
+             * @alias languageCode
+             * @type {string}
+             * @memberOf node-atlas~NA.webconfig
+             * @default No language code if not setted.
+             */
+            NA.webconfig.languageCode;
+
+        /**
+         * Idem as `NA.variation.urlBasePath` without "/" at the end.
+         * @public
+         * @alias urlBasePathSlice
+         * @type {string}
+         * @memberOf node-atlas~NA#currentVariation
+         * @example http://localhost:7777/subpath
+         * https://www.example.here
+         */
+        currentVariation.urlBasePathSlice = NA.webconfig.urlWithoutFileName.replace(/\/$/g, "") + NA.webconfig.urlRelativeSubPath;
+
+        /**
+         * Expose the current URL of page with `NA.webconfig.urlWithoutFileName` and `NA.webconfig.urlRelativeSubPath`.
+         * @public
+         * @alias urlBasePath
+         * @type {string}
+         * @memberOf node-atlas~NA#currentVariation
+         * @example http://localhost:7777/subpath/
+         * https://www.example.here/
+         */
+        currentVariation.urlBasePath = currentVariation.urlBasePathSlice + '/';
+
+        /**
+         * Expose the current URL of page with `NA.webconfig.urlBasePath` and the current page route.
+         * @public
+         * @alias urlPath
+         * @type {string}
+         * @memberOf node-atlas~NA#currentVariation
+         * @example http://localhost:7777/subpath/example.html  (if current route is '/example.html')
+         * https://www.example.here/example/this/ (if current route is '/example/this/')
+         */
+        currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + currentPath;
+        if (request) {
+            currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url;
+        }
+
+        /**
+         * Same as `NA.variations.pathname`.
+         * @public
+         * @alias pathname
+         * @type {string}
+         * @memberOf node-atlas~NA#currentVariation
+         */
+        currentVariation.pathname = NA.variations.pathname;
+
+        /**
+         * Same as `NA.variations.filename`.
+         * @public
+         * @alias filename
+         * @type {string}
+         * @memberOf node-atlas~NA#currentVariation
+         */
+        currentVariation.filename = NA.variations.filename;
+
+        /* Next preparation render for variation. */
+        NA.prepareRenderVariation(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path);
+    };
+
+    /**
+     * Create some variable for manage variation into render.
+     * @public
+     * @function prepareRenderVariation
+     * @memberOf node-atlas~NA
+     * @param {Object} currentVariation - Variations for the current page.
+     * @param {Object} currentRouteParameters - All parameters from current route.
+     * @param {Object} request - Information from request.
+     * @param {Object} response - Information from response.
+     * @param {string} templatesPath - Path to the based template.
+     * @param {string} currentPath - Url from `url` value for this render.
+     * @param {string} path - Url path for this render.
+     */
+    publics.prepareRenderVariation = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path) {
+        var extend = NA.modules.extend;
+
+        if (request) {
+
+            /**
+             * Expose list of selector used into page.
+             * @public
+             * @alias params
+             * @type {string}
+             * @memberOf node-atlas~NA#currentVariation
+             * @example If current route is '/example/:selector/'
+             * At http://localhost/example/test/ the value of `NA.variations#params` is
+             * { "selector": "test" }
+             */
+            currentVariation.params = request.params;
+        }
+
+        /**
+         * Name of file for `common` variation.
+         * @public
+         * @alias commonVariation
+         * @type {string}
+         * @memberOf node-atlas~NA.webconfig
+         */
+        currentVariation.common = NA.openVariation(NA.webconfig.commonVariation, currentVariation.languageCode);
+        if (currentVariation.languageCode) {
+
+            /**
+             * Expose all JSON data from `commonVariation` file.
+             * @public
+             * @alias common
+             * @type {Object}
+             * @memberOf node-atlas~NA#currentVariation
+             */
+            currentVariation.common = extend(true, NA.openVariation(NA.webconfig.commonVariation), currentVariation.common);
+        }
+
+        /**
+         * Name of file for `specific` variation.
+         * @public
+         * @alias variation
+         * @type {string}
+         * @memberOf node-atlas~NA#currentRouteParameters
+         */
+        currentVariation.specific = NA.openVariation(currentRouteParameters.variation, currentVariation.languageCode);
+        if (currentVariation.languageCode) {
+
+            /**
+             * Expose all JSON data from `routes[<currentRoute>].variation` file.
+             * @public
+             * @alias specific
+             * @type {Object}
+             * @memberOf node-atlas~NA#currentVariation
+             */
+            currentVariation.specific = extend(true, NA.openVariation(currentRouteParameters.variation), currentVariation.specific);
+        }
+
+        /**
+         * Expose all data from `routes[<currentRoute>]` object from webconfig.
+         * @public
+         * @alias currentRouteParameters
+         * @type {Object}
+         * @memberOf node-atlas~NA#currentVariation
+         */
+        currentVariation.currentRouteParameters = currentRouteParameters;
+
+        /**
+         * Expose the key from `<currentRoute>` object from webconfig.
+         * @public
+         * @alias currentRouteName
+         * @type {Object}
+         * @memberOf node-atlas~NA#currentVariation
+         */
+        if (currentVariation.currentRouteParameters.url) {
+            currentVariation.currentRouteName = path;
+        }
+
+        /**
+         * Expose route of current page from current webconfig `routes`.
+         * @public
+         * @alias currentRoute
+         * @type {string}
+         * @memberOf node-atlas~NA#currentVariation
+         * @example /categories/:category/
+         */
+        currentVariation.currentRoute = currentPath;
+
+        /**
+         * Expose all webconfig values.
+         * @public
+         * @alias webconfig
+         * @type {Object}
+         * @memberOf node-atlas~NA#currentVariation
+         */
+        currentVariation.webconfig = NA.webconfig;
+
+        /* Nexts Step for render. */
+        NA.changeVariationCommon(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path);
+    };
+
+    /**
+     * Intercept Variation from common file.
+     * @public
+     * @function changeVariationCommon
+     * @memberOf node-atlas~NA
+     * @param {Object} currentVariation - Variations for the current page.
+     * @param {Object} currentRouteParameters - All parameters from current route.
+     * @param {Object} request - Information from request.
+     * @param {Object} response - Information from response.
+     * @param {string} templatesPath - Path to the based template.
+     * @param {string} currentPath - Url from `url` value for this render.
+     */
+    publics.changeVariationCommon = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath) {
+
+        /* Use the `NA.websiteController[<commonController>].changeVariation(...)` function if set... */
+        if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
+            typeof NA.websiteController[NA.webconfig.commonController].changeVariation !== 'undefined') {
+
+                /**
+                 * Define this function for intercept Variation object and modify it. Both `common` and `specific` controller.
+                 * @function changeVariation
+                 * @memberOf node-atlas~NA.websiteController[]
+                 * @param {Object} params               - Collection of property.
+                 * @param {string} params.variation     - Variation object of current page.
+                 * @param {Object} params.NA            - NodeAtlas object.
+                 * @param {Object} params.request       - Initial request.
+                 * @param {Object} params.response      - Initial response.
+                 * @param {changeVariation~callback} callback - Next steps after configuration is done.
+                 */
+                NA.websiteController[NA.webconfig.commonController].changeVariation({ variation: currentVariation, NA: NA, request: request, response: response },
+
+                /**
+                 * Next steps after changeVariation is done.
+                 * @callback changeVariation~callback
+                 * @param {Object} currentVariation - Variation object with new values.
+                 */
+                function (currentVariation) {
+                    NA.changeVariationSpecific(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath);
+                });
+        /* ...else, just continue. */
+        } else {
+            NA.changeVariationSpecific(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath);
+        }
+    };
+
+    /**
+     * Intercept Variation from specific file.
+     * @public
+     * @function changeVariationSpecific
+     * @memberOf node-atlas~NA
+     * @param {Object} currentVariation - Variations for the current page.
+     * @param {Object} currentRouteParameters - All parameters from current route.
+     * @param {Object} request - Information from request.
+     * @param {Object} response - Information from response.
+     * @param {string} templatesPath - Path to the based template.
+     * @param {string} currentPath - Url from `url` value for this render.
+     */
+    publics.changeVariationSpecific = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath) {
+        if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &&
+            typeof NA.websiteController[currentRouteParameters.controller].changeVariation !== 'undefined') {
+                /* Use the `NA.websiteController[<controller>].changeVariation(...)` function if set... */
+                NA.websiteController[currentRouteParameters.controller].changeVariation({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
+                    NA.changeDomCommon(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath);
+                });
+        } else {
+            /* ...else, just continue. */
+            NA.changeDomCommon(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath);
+        }
+    };
+
+    /**
+     * Intercept DOM from common file.
+     * @public
+     * @function changeDomCommon
+     * @memberOf node-atlas~NA
+     * @param {Object} currentVariation - Variations for the current page.
+     * @param {Object} currentRouteParameters - All parameters from current route.
+     * @param {Object} request - Information from request.
+     * @param {Object} response - Information from response.
+     * @param {string} templatesPath - Path to the based template.
+     * @param {string} currentPath - Url from `url` value for this render.
+     */
+    publics.changeDomCommon = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath) {
+        var ejs = NA.modules.ejs,
+            pathM = NA.modules.path;
+
+        /* Open the template file */
+        NA.openTemplate(currentRouteParameters, templatesPath, function (data) {
+
+            /* Set the file currently in use. */
+            currentVariation.filename = pathM.join(currentVariation.pathname, currentRouteParameters.template);
+
+            try {
+                /* Transform ejs data and inject incduded file. */
+               data = ejs.render(data, currentVariation);
+            } catch (exception) {
+                /* Make error more readable. */
+                data = exception.toString()
+                    .replace(/[\n]/g, "<br>")
+                    .replace(/    /g, "<span style='display:inline-block;width:32px'></span>")
+                    .replace(/ >> /g, "<span style='display:inline-block;width:32px'>&gt;&gt;</span>");
+            }
+
+            /* Use the `NA.websiteController[<commonController>].changeDom(...)` function if set... */
+            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
+                typeof NA.websiteController[NA.webconfig.commonController].changeDom !== 'undefined') {
+
+                    /**
+                     * Define this function for intercept DOM and modify it with jQuery for example. Both `common` and `specific` controller.
+                     * @function changeDom
+                     * @memberOf node-atlas~NA.websiteController[]
+                     * @param {Object} params            - Collection of property.
+                     * @param {string} params.dom        - DOM of current page.
+                     * @param {Object} params.NA         - NodeAtlas object.
+                     * @param {Object} params.request    - Initial request.
+                     * @param {Object} params.response   - Initial response.
+                     * @param {changeDom~callback} callback - Next steps after configuration is done.
+                     */
+                    NA.websiteController[NA.webconfig.commonController].changeDom({ dom: data, NA: NA, request: request, response: response },
+
+                    function (data) {
+
+                        /**
+                         * Next steps after changeDomSpecific is done.
+                         * @callback changeDomSpecific~callback
+                         * @param {string} data - DOM with modifications.
+                         * @param {Object} currentVariation - list of all variations for this page.
+                         */
+                        NA.changeDomSpecific(data, currentVariation, currentRouteParameters, request, response, currentPath);
+                    });
+            /* ...else, just continue. */
+            } else {
+                NA.changeDomSpecific(data, currentVariation, currentRouteParameters, request, response, currentPath);
+            }
+       });
+    };
+
+    /**
+     * Intercept DOM from specific file.
+     * @public
+     * @function changeDomSpecific
+     * @memberOf node-atlas~NA
+     * @param {string} dom - DOM Generated.
+     * @param {Object} currentVariation - Variations for the current page.
+     * @param {Object} currentRouteParameters - All parameters from current route.
+     * @param {Object} request - Information from request.
+     * @param {Object} response - Information from response.
+     * @param {string} currentPath - Url from `url` value for this render.
+     */
+    publics.changeDomSpecific = function (data, currentVariation, currentRouteParameters, request, response, currentPath) {
+        if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &&
+            typeof NA.websiteController[currentRouteParameters.controller].changeDom !== 'undefined') {
+                /** Use the `NA.websiteController[<controller>].changeVariation(...)` function if set... */
+                NA.websiteController[currentRouteParameters.controller].changeDom({ dom: data, NA: NA, request: request, response: response }, function (data) {
+                    NA.intoBrowserAndFiles(data, currentVariation, currentRouteParameters, request, response, currentPath);
+                });
+        } else {
+            /** ...else, just continue. */
+            NA.intoBrowserAndFiles(data, currentVariation, currentRouteParameters, request, response, currentPath);
+        }
+    };
+
+    /**
+     * Inject CSS into DOM if needed.
+     * @public
+     * @function intoBrowserAndFiles
+     * @memberOf node-atlas~NA
+     * @param {string} data - DOM Generated.
+     * @param {Object} currentVariation - Variations for the current page.
+     * @param {Object} currentRouteParameters - All parameters from current route.
+     * @param {Object} request - Information from request.
+     * @param {Object} response - Information from response.
+     * @param {string} currentPath - Url from `url` value for this render.
+     */
+    publics.intoBrowserAndFiles = function (data, currentVariation, currentRouteParameters, request, response, currentPath) {
+        /* Inject CSS into DOM... */
+        if (NA.webconfig.injectCss || currentRouteParameters.injectCss) {
+            NA.injectCss(data, currentRouteParameters.injectCss, function (data) {
+                NA.renderTemplate(data, currentVariation, currentRouteParameters, request, response, currentPath);
+            });
+        /* ...or do nothing. */
+        } else {
+            NA.renderTemplate(data, currentVariation, currentRouteParameters, request, response, currentPath);
+        }
+    };
+
+    /**
+     * Write file or/and send response.
+     * @public
+     * @function renderTemplate
+     * @memberOf node-atlas~NA
+     * @param {string} data - HTML DOM ready for sending.
+     * @param {Object} currentVariation - Variations for the current page.
+     * @param {Object} currentRouteParameters - All parameters from current route.
+     * @param {Object} request - Information from request.
+     * @param {Object} response - Information from response.
+     * @param {string} currentPath - Url from `url` value for this render.
+     */
+    publics.renderTemplate = function (data, currentVariation, currentRouteParameters, request, response, currentPath) {
+        var async = NA.modules.async,
+
+            /**
+             * Allow NodeAtlas to generate real file into `NA.webconfig.generatesRelativePath` directory if set to true.
+             * @public
+             * @alias htmlGenerateBeforeResponse
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default false.
+             */
+            htmlGenerateBeforeResponse = NA.webconfig.htmlGenerateBeforeResponse,
+            htmlGenerateEnable = (typeof NA.webconfig.htmlGenerateEnable === 'boolean') ? NA.webconfig.htmlGenerateEnable : true,
+            templateRenderName;
+
+        /* Create the file for asset mode */
+        if (typeof response === 'undefined' || (htmlGenerateBeforeResponse && htmlGenerateEnable)) {
+
+            /**
+             * Output name of file generate if `NA.webconfig.htmlGenerateBeforeResponse` is set to true or if `--generate` command is used.
+             * If value is set to `false`, no generate page will be generated.
+             * @public
+             * @alias generate
+             * @type {string|boolean}
+             * @memberOf node-atlas~NA#currentRouteParameters
+             */
+            templateRenderName = currentPath;
+
+            if (typeof currentRouteParameters.generate !== 'undefined') {
+                templateRenderName = currentRouteParameters.generate;
+            }
+
+            NA.saveTemplateRender(data, templateRenderName);
+        }
+
+        /* Run page into browser. */
+        if (typeof response !== 'undefined') {
+            /* Compression of CSS, JS and Images if required. */
+            async.parallel([
+                NA.cssMinification,
+                NA.jsObfuscation,
+                NA.imgOptimization
+            ], function () {
+                NA.response(request, response, data, currentRouteParameters, currentVariation);
+            });
         }
     };
 
@@ -2364,11 +3092,9 @@ var NA = {};
      * @param {Object} options - Option associate to this url.
      * @param {Object} request - Initial request.
      * @param {Object} response - Initial response.
-     */ 
+     */
     publics.render = function (path, options, request, response) {
-        var ejs = NA.modules.ejs,
-            pathM = NA.modules.path,
-            extend = NA.modules.extend,
+        var pathM = NA.modules.path,
 
             /**
              * All parameters from a specific page.
@@ -2384,7 +3110,6 @@ var NA = {};
              * @memberOf node-atlas~NA
              */
             currentVariation = {},
-            templateRenderName,
             currentPath = path;
 
         /* Inject template shortcut to template. */
@@ -2405,8 +3130,8 @@ var NA = {};
 
         /* Generate the server path to the template file. */
         templatesPath = pathM.join(
-            NA.websitePhysicalPath, 
-            NA.webconfig.templatesRelativePath, 
+            NA.websitePhysicalPath,
+            NA.webconfig.templatesRelativePath,
             (currentRouteParameters.template) ? currentRouteParameters.template : ""
         );
 
@@ -2425,386 +3150,11 @@ var NA = {};
              * @type {string}
              * @memberOf node-atlas~NA#currentRouteParameters
              */
-            currentRouteParameters.controller, 
-        function () {
-
-            /**
-             * Next step after PreRender part.
-             * @private
-             * @function NA.render~changeVariationSpecific
-             * @param {Object} currentVariation - Variations for the current page.
-             */
-            function changeVariationSpecific(currentVariation) {                
-                if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &&
-                    typeof NA.websiteController[currentRouteParameters.controller].changeVariation !== 'undefined') {
-                        /* Use the `NA.websiteController[<controller>].changeVariation(...)` function if set... */
-                        NA.websiteController[currentRouteParameters.controller].changeVariation({ variation: currentVariation, NA: NA, request: request, response: response }, function (currentVariation) {
-                            openTemplate(currentVariation);
-                        });
-                } else {
-                    /* ...else, just continue. */
-                    openTemplate(currentVariation);      
-                }
-            }
-
-            /**
-             * Next step after Render part.
-             * @private
-             * @function NA.render~changeDomSpecific
-             * @param {string} dom - DOM Generated.
-             * @param {Object} currentVariation - Variations for the current page.
-             */
-            function changeDomSpecific(data, currentVariation) {                
-                if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &&
-                    typeof NA.websiteController[currentRouteParameters.controller].changeDom !== 'undefined') {
-                        /** Use the `NA.websiteController[<controller>].changeVariation(...)` function if set... */
-                        NA.websiteController[currentRouteParameters.controller].changeDom({ dom: data, NA: NA, request: request, response: response }, function (data) {
-                            intoBrowserAndFiles(data, currentVariation);
-                        });
-                } else {
-                    /** ...else, just continue. */
-                    intoBrowserAndFiles(data, currentVariation);      
-                }
-            }
-
-            /**
-             * Opening template file.
-             * @private
-             * @function NA.render~openTemplate
-             * @param {Object} currentVariation - Variations for the current page.
-             */
-            function openTemplate(currentVariation) {  
-
-                /* Open the template file */              
-                NA.openTemplate(currentRouteParameters, templatesPath, function (data) {
-
-                    /* Set the file currently in use. */
-                    currentVariation.filename = pathM.join(currentVariation.pathname, currentRouteParameters.template);
-
-                    try {
-                        /* Transform ejs data and inject incduded file. */
-                       data = ejs.render(data, currentVariation);
-                    } catch (exception) {
-                        /* Make error more readable. */
-                        data = exception.toString()
-                            .replace(/[\n]/g, "<br>")
-                            .replace(/    /g, "<span style='display:inline-block;width:32px'></span>")
-                            .replace(/ >> /g, "<span style='display:inline-block;width:32px'>&gt;&gt;</span>");
-                    }
-
-                    /* Use the `NA.websiteController[<commonController>].changeDom(...)` function if set... */
-                    if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-                        typeof NA.websiteController[NA.webconfig.commonController].changeDom !== 'undefined') {
-
-                            /**
-                             * Define this function for intercept DOM and modify it with jQuery for example. Both `common` and `specific` controller.
-                             * @function changeDom
-                             * @memberOf node-atlas~NA.websiteController[]
-                             * @param {Object} params            - Collection of property.
-                             * @param {string} params.dom        - DOM of current page.
-                             * @param {Object} params.NA         - NodeAtlas object.
-                             * @param {Object} params.request    - Initial request.
-                             * @param {Object} params.response   - Initial response.
-                             * @param {changeDom~callback} callback - Next steps after configuration is done.
-                             */
-                            NA.websiteController[NA.webconfig.commonController].changeDom({ dom: data, NA: NA, request: request, response: response },
-
-                            function (data) {
-
-                                /**
-                                 * Next steps after changeDomSpecific is done.
-                                 * @callback changeDomSpecific~callback
-                                 * @param {string} data - DOM with modifications.
-                                 * @param {Object} currentVariation - list of all variations for this page.
-                                 */
-                                changeDomSpecific(data, currentVariation);
-                            });
-                    /* ...else, just continue. */
-                    } else {
-                        changeDomSpecific(data, currentVariation);
-                    }
-               });
-            }
-
-            /**
-             * Write file or/and send response.
-             * @private
-             * @function NA.render~renderTemplate
-             * @param {string} data - HTML DOM ready for sending.
-             * @param {Object} currentVariation - Variations for the current page.
-             */
-            function renderTemplate(data, currentVariation) {
-                var async = NA.modules.async,
-
-                    /**
-                     * Allow NodeAtlas to generate real file into `NA.webconfig.generatesRelativePath` directory if set to true.
-                     * @public
-                     * @alias htmlGenerateBeforeResponse
-                     * @type {boolean}
-                     * @memberOf node-atlas~NA.webconfig
-                     * @default false.
-                     */
-                    htmlGenerateBeforeResponse = NA.webconfig.htmlGenerateBeforeResponse,
-                    htmlGenerateEnable = (typeof NA.webconfig.htmlGenerateEnable === 'boolean') ? NA.webconfig.htmlGenerateEnable : true;
-
-                /* Create the file for asset mode */
-                if (typeof response === 'undefined' || (htmlGenerateBeforeResponse && htmlGenerateEnable)) {
-
-                    /**
-                     * Output name of file generate if `NA.webconfig.htmlGenerateBeforeResponse` is set to true or if `--generate` command is used.
-                     * If value is set to `false`, no generate page will be generated.
-                     * @public
-                     * @alias generate
-                     * @type {string|boolean}
-                     * @memberOf node-atlas~NA#currentRouteParameters
-                     */
-                    templateRenderName = currentPath;
-
-                    if (typeof currentRouteParameters.generate !== 'undefined') {
-                        templateRenderName = currentRouteParameters.generate;
-                    }
-
-                    NA.saveTemplateRender(data, templateRenderName);
-                }
-
-                /* Run page into browser. */
-                if (typeof response !== 'undefined') {
-                    /* Compression of CSS, JS and Images if required. */
-                    async.parallel([
-                        NA.cssMinification,
-                        NA.jsObfuscation,
-                        NA.imgOptimization
-                    ], function () {
-                        NA.response(request, response, data, currentRouteParameters, currentVariation);
-                    });
-                }
-            }
-
-            /**
-             * Inject CSS into DOM if needed.
-             * @private
-             * @function NA.render~intoBrowserAndFiles
-             * @param {string} data - DOM Generated.
-             * @param {Object} currentVariation - Variations for the current page.
-             */
-            function intoBrowserAndFiles(data, currentVariation) { 
-                /* Inject CSS into DOM... */
-                if (NA.webconfig.injectCss || currentRouteParameters.injectCss) {
-                    NA.injectCss(data, currentRouteParameters.injectCss, function (data) {
-                        renderTemplate(data, currentVariation);
-                    });
-                /* ...or do nothing. */
-                } else {
-                    renderTemplate(data, currentVariation);
-                }
-            }
-            
-            /**
-             * Expose the current language code for the page if setted else expose the global if setted.
-             * @public
-             * @alias languageCode
-             * @type {string}
-             * @memberOf node-atlas~NA#currentVariation
-             * @default No language code if not setted.
-             */
-            currentVariation.languageCode = 
-
-                /**
-                 * Represent the language code for this page.
-                 * @public
-                 * @alias languageCode
-                 * @type {string}
-                 * @memberOf node-atlas~NA#currentRouteParameters
-                 * @default No language code if not setted.
-                 */
-                currentRouteParameters.languageCode || 
-
-                /**
-                 * Represent the global and main language code for website.
-                 * @public
-                 * @alias languageCode
-                 * @type {string}
-                 * @memberOf node-atlas~NA.webconfig
-                 * @default No language code if not setted.
-                 */
-                NA.webconfig.languageCode;
-
-            /**
-             * Idem as `NA.variation.urlBasePath` without "/" at the end.
-             * @public
-             * @alias urlBasePathSlice
-             * @type {string}
-             * @memberOf node-atlas~NA#currentVariation
-             * @example http://localhost:7777/subpath
-             * https://www.example.here
-             */
-            currentVariation.urlBasePathSlice = NA.webconfig.urlWithoutFileName.replace(/\/$/g, "") + NA.webconfig.urlRelativeSubPath;
-
-            /**
-             * Expose the current URL of page with `NA.webconfig.urlWithoutFileName` and `NA.webconfig.urlRelativeSubPath`.
-             * @public
-             * @alias urlBasePath
-             * @type {string}
-             * @memberOf node-atlas~NA#currentVariation
-             * @example http://localhost:7777/subpath/
-             * https://www.example.here/
-             */
-            currentVariation.urlBasePath = currentVariation.urlBasePathSlice + '/';
-
-            /**
-             * Expose the current URL of page with `NA.webconfig.urlBasePath` and the current page route.
-             * @public
-             * @alias urlPath
-             * @type {string}
-             * @memberOf node-atlas~NA#currentVariation
-             * @example http://localhost:7777/subpath/example.html  (if current route is '/example.html')
-             * https://www.example.here/example/this/ (if current route is '/example/this/')
-             */
-            currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + currentPath;
-            if (request) { currentVariation.urlPath = request.protocol + "://" + request.get('host') + request.url; }
-
-            /**
-             * Same as `NA.variations.pathname`.
-             * @public
-             * @alias pathname
-             * @type {string}
-             * @memberOf node-atlas~NA#currentVariation
-             */
-            currentVariation.pathname = NA.variations.pathname;
-
-            /**
-             * Same as `NA.variations.filename`.
-             * @public
-             * @alias filename
-             * @type {string}
-             * @memberOf node-atlas~NA#currentVariation
-             */
-            currentVariation.filename = NA.variations.filename;
-
-            if (request) { 
-
-                /**
-                 * Expose list of selector used into page.
-                 * @public
-                 * @alias params
-                 * @type {string}
-                 * @memberOf node-atlas~NA#currentVariation
-                 * @example If current route is '/example/:selector/'
-                 * At http://localhost/example/test/ the value of `NA.variations#params` is
-                 * { "selector": "test" }
-                 */
-                currentVariation.params = request.params; 
-            }
-
-            /**
-             * Name of file for `common` variation.
-             * @public
-             * @alias commonVariation
-             * @type {string}
-             * @memberOf node-atlas~NA.webconfig
-             */
-            currentVariation.common = NA.openVariation(NA.webconfig.commonVariation, currentVariation.languageCode);
-            if (currentVariation.languageCode) {
-
-                /**
-                 * Expose all JSON data from `commonVariation` file.
-                 * @public
-                 * @alias common
-                 * @type {Object}
-                 * @memberOf node-atlas~NA#currentVariation
-                 */
-                currentVariation.common = extend(true, NA.openVariation(NA.webconfig.commonVariation), currentVariation.common);
-            }
-
-            /**
-             * Name of file for `specific` variation.
-             * @public
-             * @alias variation
-             * @type {string}
-             * @memberOf node-atlas~NA#currentRouteParameters
-             */
-            currentVariation.specific = NA.openVariation(currentRouteParameters.variation, currentVariation.languageCode);
-            if (currentVariation.languageCode) {
-
-                /**
-                 * Expose all JSON data from `routes[<currentRoute>].variation` file.
-                 * @public
-                 * @alias specific
-                 * @type {Object}
-                 * @memberOf node-atlas~NA#currentVariation
-                 */
-                currentVariation.specific = extend(true, NA.openVariation(currentRouteParameters.variation), currentVariation.specific);
-            }
-
-            /**
-             * Expose all data from `routes[<currentRoute>]` object from webconfig.
-             * @public
-             * @alias currentRouteParameters
-             * @type {Object}
-             * @memberOf node-atlas~NA#currentVariation
-             */
-            currentVariation.currentRouteParameters = currentRouteParameters;
-
-            /**
-             * Expose the key from `<currentRoute>` object from webconfig.
-             * @public
-             * @alias currentRouteName
-             * @type {Object}
-             * @memberOf node-atlas~NA#currentVariation
-             */
-            if (currentVariation.currentRouteParameters.url) {
-                currentVariation.currentRouteName = path;
-            }
-
-            /**
-             * Expose route of current page from current webconfig `routes`.
-             * @public
-             * @alias currentRoute
-             * @type {string}
-             * @memberOf node-atlas~NA#currentVariation
-             * @example /categories/:category/
-             */
-            currentVariation.currentRoute = currentPath;
-
-            /**
-             * Expose all webconfig values.
-             * @public
-             * @alias webconfig
-             * @type {Object}
-             * @memberOf node-atlas~NA#currentVariation
-             */
-            currentVariation.webconfig = NA.webconfig;
-
-            /* Use the `NA.websiteController[<commonController>].changeVariation(...)` function if set... */
-            if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &&
-                typeof NA.websiteController[NA.webconfig.commonController].changeVariation !== 'undefined') {
-
-                    /**
-                     * Define this function for intercept Variation object and modify it. Both `common` and `specific` controller.
-                     * @function changeVariation
-                     * @memberOf node-atlas~NA.websiteController[]
-                     * @param {Object} params               - Collection of property.
-                     * @param {string} params.variation     - Variation object of current page.
-                     * @param {Object} params.NA            - NodeAtlas object.
-                     * @param {Object} params.request       - Initial request.
-                     * @param {Object} params.response      - Initial response.
-                     * @param {changeVariation~callback} callback - Next steps after configuration is done.
-                     */
-                    NA.websiteController[NA.webconfig.commonController].changeVariation({ variation: currentVariation, NA: NA, request: request, response: response }, 
-
-                    /**
-                     * Next steps after changeVariation is done.
-                     * @callback changeVariation~callback
-                     * @param {Object} currentVariation - Variation object with new values.
-                     */
-                    function (currentVariation) {
-                        changeVariationSpecific(currentVariation);
-                    });
-            /* ...else, just continue. */
-            } else {
-                changeVariationSpecific(currentVariation);
-            }
-        });
+            currentRouteParameters.controller,
+            function () {
+                /* Next preparation path render. */
+                NA.prepareRenderPath(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path);
+            });
     };
 
 })(NA);
@@ -2823,7 +3173,6 @@ var NA = {};
  * @param {Object} publics Allow you to add publics methods to NA object.
  */
 (function (publics) {
-    "use strict";
 
     /**
      * Load the modules adding by the website.
@@ -2870,8 +3219,8 @@ var NA = {};
     publics.loadController = function (controller, callback) {
         var path = NA.modules.path,
             commonControllerPath = path.join(
-                NA.websitePhysicalPath, 
-                NA.webconfig.controllersRelativePath, 
+                NA.websitePhysicalPath,
+                NA.webconfig.controllersRelativePath,
                 (controller) ? controller : ''
             ),
             dataError = {};
@@ -2891,7 +3240,7 @@ var NA = {};
             } catch (exception) {
                 dataError.moduleError = exception.toString();
                 if (exception.code === 'MODULE_NOT_FOUND') {
-                    console.log(NA.appLabels.moduleNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                    NA.log(NA.appLabels.moduleNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                 } else {
                     throw exception;
                 }
@@ -2953,7 +3302,9 @@ var NA = {};
         }
 
         /* `generate` manually setted value with `NA.config`. */
-        if (commander.generate) { NA.configuration.generate = commander.generate; }
+        if (commander.generate) {
+            NA.configuration.generate = commander.generate;
+        }
 
         /* Generation only if is configured to « true » in `generate` or set co command line. */
         if (NA.configuration.generate) {
@@ -2962,14 +3313,12 @@ var NA = {};
             if (htmlGenerateEnable) {
                 fs.exists(path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath), function (exists) {
                     if (exists) {
-                        for (var currentUrl in NA.webconfig.routes) {
-                        	if (NA.webconfig.routes.hasOwnProperty(currentUrl)) {
-                            	NA.render(currentUrl, NA.webconfig.routes);
-                            }
-                        }
+                        NA.forEach(NA.webconfig.routes, function (currentUrl) {
+                            NA.render(currentUrl, NA.webconfig.routes);
+                        });
                     } else {
                         data.templatePath = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath);
-                        console.log(NA.appLabels.templateDirectoryNotExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                        NA.log(NA.appLabels.templateDirectoryNotExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                     }
                 });
             }
@@ -2997,7 +3346,7 @@ var NA = {};
                     });
 
                     traverse.run(function() {
-                        console.log(NA.appLabels.assetsCopy);
+                        NA.log(NA.appLabels.assetsCopy);
                     });
                 }
             });
@@ -3015,50 +3364,47 @@ var NA = {};
         var commander = NA.modules.commander;
 
         /* `generate` manually setted value with `NA.config`. */
-        if (commander.generate) { NA.configuration.generate = commander.generate; }
+        if (commander.generate) {
+            NA.configuration.generate = commander.generate;
+        }
 
-        /* Only if server was started... */
-        if (!NA.configuration.generate) {
-            /* ...and `enableIndex` is set to « true ». */
-            if (
+        /* Only if server was started and `enableIndex` is set to « true ». */
+        if (!NA.configuration.generate &&
 
-                /**
-                 * Allow NodeAtlas to create a root page with link to all routes for development if set to true.
-                 * @public
-                 * @alias enableIndex
-                 * @type {boolean}
-                 * @memberOf node-atlas~NA.webconfig
-                 * @default false.
-                 */
-                NA.webconfig.enableIndex
-            ) {
+            /**
+             * Allow NodeAtlas to create a root page with link to all routes for development if set to true.
+             * @public
+             * @alias enableIndex
+             * @type {boolean}
+             * @memberOf node-atlas~NA.webconfig
+             * @default false.
+             */
+            NA.webconfig.enableIndex
+        ) {
 
-                /* Create a new path to « / ». Erase the route to « / » defined into `routes`. */
-                NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
-                    var data = {},
-                    	matches = function (regex, matches) { return data[matches]; };
+            /* Create a new path to « / ». Erase the route to « / » defined into `routes`. */
+            NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
+                var data = {},
+                    matches = function (regex, matches) { return data[matches]; };
 
-                        data.render = '';
+                    data.render = '';
 
-                    /* List all routes... */
-                    for (var page in NA.webconfig.routes) {
-                        if (NA.webconfig.routes.hasOwnProperty(page)) {
-	                        data.page = page;
-	                        
-	                        if (NA.webconfig.routes[page].url) {
-	                            data.page = NA.webconfig.routes[page].url;
-	                        }
+                /* List all routes... */
+                NA.forEach(NA.webconfig.routes, function (page) {
+                    data.page = page;
 
-                            data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([\-a-zA-Z0-9_]+)%/g, matches);
-                        }
+                    if (NA.webconfig.routes[page].url) {
+                        data.page = NA.webconfig.routes[page].url;
                     }
 
-                    /* ...and provide a page. */
-                    response.writeHead(200, NA.appLabels.emulatedIndexPage.charsetAndType);
-                    response.write(NA.appLabels.emulatedIndexPage.data.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-                    response.end();
+                    data.render += NA.appLabels.emulatedIndexPage.line.replace(/%([\-a-zA-Z0-9_]+)%/g, matches);
                 });
-            }
+
+                /* ...and provide a page. */
+                response.writeHead(200, NA.appLabels.emulatedIndexPage.charsetAndType);
+                response.write(NA.appLabels.emulatedIndexPage.data.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                response.end();
+            });
         }
     };
 
@@ -3074,8 +3420,8 @@ var NA = {};
             mkpath = NA.modules.mkpath,
             path = NA.modules.path,
             pathToSaveFileComplete = path.join(
-                NA.websitePhysicalPath, 
-                NA.webconfig.generatesRelativePath, 
+                NA.websitePhysicalPath,
+                NA.webconfig.generatesRelativePath,
                 (templateRenderName) ? templateRenderName : ''
             ),
             pathToSaveFile = path.dirname(pathToSaveFileComplete),
@@ -3093,7 +3439,7 @@ var NA = {};
              */
             templateRenderName = templateRenderName.replace(/\/$/g, '');
 
-            /* 
+            /*
              * If a <base> markup exist, calculation of
              * relative placement of page under root folder...
              */
@@ -3116,22 +3462,22 @@ var NA = {};
                     innerHTML = $.html();
 
                 /* If source is not a HTML format, keep initial data format. */
-                if (data.trim().match(/<\/html>$/g) === null) { innerHTML = data; }
+                if (data.trim().match(/<\/html>$/g) === null) {
+                    innerHTML = data;
+                }
 
                 dataError.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath, templateRenderName);
 
                 /* Write file */
                 fs.writeFile(pathToSaveFileComplete, innerHTML, function (error) {
                     if (error) {
-                        if (error.code === 'EISDIR') {
-                            console.log(NA.appLabels.templateNotGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                        } else if (error.code === 'ENOENT') {
-                            console.log(NA.appLabels.templateNotGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                        if (error.code === 'EISDIR' || error.code === 'ENOENT') {
+                            NA.log(NA.appLabels.templateNotGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                         } else {
-                            throw error;                     
+                            throw error;
                         }
                     } else {
-                        console.log(NA.appLabels.templateGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
+                        NA.log(NA.appLabels.templateGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
                     }
                 });
 
@@ -3155,7 +3501,6 @@ var NA = {};
  * @param {Object} publics Allow you to add publics methods to NA object.
  */
 (function (publics) {
-    "use strict";
 
     /**
      * Object contain configuration.
@@ -3165,7 +3510,6 @@ var NA = {};
      * @memberOf node-atlas~NA
      */
     publics.configuration = {};
-
 
     /**
      * Allow you to set `NA.configuration` with chaining.
@@ -3203,9 +3547,9 @@ var NA = {};
             NA.lineCommandConfiguration();
             NA.initGlobalVarRequiredNpmModules();
             NA.initWebconfig(function () {
-                NA.loadListOfExternalModules(function () {      
+                NA.loadListOfExternalModules(function () {
                     NA.startingHttpServer();
-                    NA.templateEngineConfiguration(); 
+                    NA.templateEngineConfiguration();
                     NA.routesPages();
                     NA.emulatedIndexPage();
                     NA.httpServerPublicFiles();
