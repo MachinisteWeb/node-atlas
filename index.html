@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p>Version : 0.50</p>
+<p>Version : 0.51</p>
 
 <p><strong>For an international version of this README.md, <a href="https://haeresis.github.com/NodeAtlas/doc/">follow this link</a>.</strong></p>
 
@@ -153,7 +153,7 @@
 
 <ul>
 <li>
-<p>Fait </p>
+<p>Fait</p>
 
 <ul>
 <li>Lancement d'un serveur Express.</li>
@@ -400,7 +400,7 @@ webconfig.json
 <h3>
 <a id="raccourci-de-template" class="anchor" href="#raccourci-de-template" aria-hidden="true"><span class="octicon octicon-link"></span></a>Raccourci de template</h3>
 
-<p>La configuration ci-dessous est équivalente à la configuration de la section juste au dessus </p>
+<p>La configuration ci-dessous est équivalente à la configuration de la section juste au dessus</p>
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>templatesRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>templates<span class="pl-pds">"</span></span>,
@@ -427,7 +427,7 @@ webconfig.json
 
 <div class="highlight highlight-js"><pre><span class="pl-s"><span class="pl-pds">"</span>about.html<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>about.htm<span class="pl-pds">"</span></span>,</pre></div>
 
-<p>est un raccourci de </p>
+<p>est un raccourci de</p>
 
 <div class="highlight highlight-js"><pre><span class="pl-s"><span class="pl-pds">"</span>about.html<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
     <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>about.htm<span class="pl-pds">"</span></span>
@@ -806,7 +806,7 @@ variations/
 ...
 </code></pre>
 
-<p>vous pouvez </p>
+<p>vous pouvez</p>
 
 <ul>
 <li>gérer la version <code>en-gb</code> directement à la racine de <code>variations/</code> (comme NodeAtlas ne trouve rien dans <code>en-gb</code> il utilise alors les valeurs des fichiers racines) et</li>
@@ -863,7 +863,7 @@ webconfig.fr-fr.json
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>home.htm<span class="pl-pds">"</span></span>,
             <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>home.json<span class="pl-pds">"</span></span>
-        }, 
+        },
         <span class="pl-s"><span class="pl-pds">"</span>/members-list/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>,
             <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>members.json<span class="pl-pds">"</span></span>
@@ -881,7 +881,7 @@ webconfig.fr-fr.json
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>home.htm<span class="pl-pds">"</span></span>,
             <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>home.json<span class="pl-pds">"</span></span>
-        }, 
+        },
         <span class="pl-s"><span class="pl-pds">"</span>/liste-des-membres/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>members.htm<span class="pl-pds">"</span></span>,
             <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>members.json<span class="pl-pds">"</span></span>
@@ -1207,7 +1207,7 @@ webconfig.json
                 <span class="pl-k">if</span> (error <span class="pl-k">||</span> <span class="pl-k">!</span>session) {
                     <span class="pl-k">return</span> <span class="pl-c1">next</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>Aucune session récupérée.<span class="pl-pds">'</span></span>));
                 } <span class="pl-k">else</span> {
-                    handshakeData.<span class="pl-c1">session</span> <span class="pl-k">=</span> session;                    
+                    handshakeData.<span class="pl-c1">session</span> <span class="pl-k">=</span> session;
                     <span class="pl-c1">next</span>();
                 }
             });
@@ -1246,7 +1246,7 @@ webconfig.json
                 privates.<span class="pl-c1">socketIoEvents</span>(io, <span class="pl-c1">NA</span>);
 
                 <span class="pl-c">// Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.</span>
-                <span class="pl-c1">callback</span>(<span class="pl-c1">NA</span>);                   
+                <span class="pl-c1">callback</span>(<span class="pl-c1">NA</span>);
             });
         });
 
@@ -1382,7 +1382,7 @@ webconfig.json
         <span class="pl-c">// Interception possible de toutes les variables de « variations/common.js ».</span>
         <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.<span class="pl-c1">common</span>.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi le titre stocké dans « variations/common.js ».</span>
         variation.<span class="pl-c1">common</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre.</span>
-        <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.<span class="pl-c1">common</span>.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi « Nouveau title » et est accessible côté template via `&lt;%= common.title %&gt;`. </span>
+        <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.<span class="pl-c1">common</span>.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi « Nouveau title » et est accessible côté template via `&lt;%= common.title %&gt;`.</span>
 
         <span class="pl-c">// Interception possible de toutes les variables de « variations/index.js » (car on est dans le spécific « index.js »).</span>
         variation.<span class="pl-c1">specific</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre qui est accessible côté template via `&lt;%= specific.title %&gt;`.</span>
@@ -1392,7 +1392,7 @@ webconfig.json
         <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.<span class="pl-c1">currentRoute</span>) <span class="pl-c">// Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.</span>
 
         <span class="pl-c">// On test une variable créer de toute pièce dans le webconfig.</span>
-        <span class="pl-k">if</span> (variation.<span class="pl-c1">webconfig</span>.<span class="pl-c1">_websiteIsClosed</span>) { 
+        <span class="pl-k">if</span> (variation.<span class="pl-c1">webconfig</span>.<span class="pl-c1">_websiteIsClosed</span>) {
             <span class="pl-c">// La page sera en 404.</span>
             variation.<span class="pl-c1">currentRouteParameters</span>.<span class="pl-c1">statusCode</span> <span class="pl-k">=</span> <span class="pl-c1">404</span>;
         } <span class="pl-k">else</span> {
@@ -1493,7 +1493,7 @@ webconfig.json
 
                     <span class="pl-c">// ...on sauve l'article en base.</span>
                     article.<span class="pl-c1">save</span>(<span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
-                        <span class="pl-k">if</span> (error) { 
+                        <span class="pl-k">if</span> (error) {
                             <span class="pl-k">throw</span> error;
                         }
 
@@ -1543,8 +1543,8 @@ webconfig.json
 <p>puis, quand votre JavaScript fera une requête AJAX via jQuery, ou comme ici, une requête socket.io, il utilisera ses paramètres :</p>
 
 <div class="highlight highlight-js"><pre>...
-publics.<span class="pl-c1">socket</span>.<span class="pl-c1">emit</span>(<span class="pl-s"><span class="pl-pds">"</span>load-section-a<span class="pl-pds">"</span></span>, { 
-    lang<span class="pl-k">:</span> $(<span class="pl-s"><span class="pl-pds">"</span>html<span class="pl-pds">"</span></span>).<span class="pl-c1">attr</span>(<span class="pl-s"><span class="pl-pds">'</span>lang<span class="pl-pds">'</span></span>), 
+publics.<span class="pl-c1">socket</span>.<span class="pl-c1">emit</span>(<span class="pl-s"><span class="pl-pds">"</span>load-section-a<span class="pl-pds">"</span></span>, {
+    lang<span class="pl-k">:</span> $(<span class="pl-s"><span class="pl-pds">"</span>html<span class="pl-pds">"</span></span>).<span class="pl-c1">attr</span>(<span class="pl-s"><span class="pl-pds">'</span>lang<span class="pl-pds">'</span></span>),
     variation<span class="pl-k">:</span> $(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>).<span class="pl-c1">data</span>(<span class="pl-s"><span class="pl-pds">'</span>variation<span class="pl-pds">'</span></span>)
 });
 ...</pre></div>
@@ -1633,7 +1633,7 @@ socket.<span class="pl-c1">on</span>(<span class="pl-s"><span class="pl-pds">'</
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
         }
-    }, 
+    },
     <span class="pl-s"><span class="pl-pds">"</span>_minified<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
 }</pre></div>
 
@@ -1646,7 +1646,7 @@ socket.<span class="pl-c1">on</span>(<span class="pl-s"><span class="pl-pds">'</
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
         }
-    }, 
+    },
     <span class="pl-s"><span class="pl-pds">"</span>_minified<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>.min<span class="pl-pds">"</span></span>
 }</pre></div>
 
@@ -1702,7 +1702,7 @@ webconfig.prod.json
 
 <p>Cependant en lançant la commande :</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/server.js --webconfig webconfig.prod.json 
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/server.js --webconfig webconfig.prod.json
 </code></pre>
 
 <p>Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :</p>
@@ -1762,7 +1762,7 @@ webconfig.prod.json
 <div class="highlight highlight-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
     <span class="pl-k">var</span> variation <span class="pl-k">=</span> params.<span class="pl-c1">variation</span>;
 
-    <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.<span class="pl-c1">params</span>.<span class="pl-c1">member</span>); 
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.<span class="pl-c1">params</span>.<span class="pl-c1">member</span>);
     <span class="pl-c">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.</span>
 
     <span class="pl-c1">mainCallback</span>(variation);
@@ -1822,7 +1822,7 @@ webconfig.prod.json
     <span class="pl-k">if</span> (variation.<span class="pl-c1">params</span> <span class="pl-k">&amp;&amp;</span> variation.<span class="pl-c1">params</span>[<span class="pl-c1">0</span>]) { variation.<span class="pl-c1">params</span>.<span class="pl-c1">member</span> <span class="pl-k">=</span> variation.<span class="pl-c1">params</span>[<span class="pl-c1">0</span>]; }
     <span class="pl-c">// variation.params[1] pour le deuxième match, etc...</span>
 
-    <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.<span class="pl-c1">params</span>.<span class="pl-c1">member</span>); 
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.<span class="pl-c1">params</span>.<span class="pl-c1">member</span>);
     <span class="pl-c">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.</span>
 
     <span class="pl-c1">mainCallback</span>(variation);
@@ -1833,7 +1833,7 @@ webconfig.prod.json
 <h4>
 <a id="routage-dans-un-fichier-partagé" class="anchor" href="#routage-dans-un-fichier-partag%C3%A9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Routage dans un fichier partagé</h4>
 
-<p>Afin de ne pas ré-écrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier <code>routes.json</code>. </p>
+<p>Afin de ne pas ré-écrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier <code>routes.json</code>.</p>
 
 <p>Par exemple :</p>
 
@@ -1869,7 +1869,7 @@ webconfig.prod.json
     }
 }</pre></div>
 
-<p>pourrait devenir l'ensemble de fichier suivant </p>
+<p>pourrait devenir l'ensemble de fichier suivant</p>
 
 <pre><code>templates/
 — index.htm
@@ -2094,7 +2094,7 @@ webconfig.prod.json
     }
 }</pre></div>
 
-<p>Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration : </p>
+<p>Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration :</p>
 
 <div class="highlight highlight-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>httpSecure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>security/server<span class="pl-pds">"</span></span>,
@@ -2200,7 +2200,7 @@ webconfig.json
 <h4>
 <a id="bundles-dans-un-fichier-partagé" class="anchor" href="#bundles-dans-un-fichier-partag%C3%A9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bundles dans un fichier partagé</h4>
 
-<p>Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>. </p>
+<p>Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>.</p>
 
 <p>Par exemple :</p>
 
@@ -2303,7 +2303,7 @@ webconfig.prod.json
     }
 }</pre></div>
 
-<p>pourrait devenir l'ensemble de fichier suivant </p>
+<p>pourrait devenir l'ensemble de fichier suivant</p>
 
 <pre><code>assets/
 — stylesheets/
@@ -2679,7 +2679,7 @@ webconfig.json
 <h4>
 <a id="optimizations-dans-un-fichier-partagé" class="anchor" href="#optimizations-dans-un-fichier-partag%C3%A9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimizations dans un fichier partagé</h4>
 
-<p>Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>optimizations.json</code>. </p>
+<p>Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>optimizations.json</code>.</p>
 
 <p>Par exemple :</p>
 
@@ -2890,7 +2890,7 @@ templates/
         &lt;<span class="pl-ent">title</span>&gt;Email&lt;/<span class="pl-ent">title</span>&gt;
     &lt;/<span class="pl-ent">head</span>&gt;
     &lt;<span class="pl-ent">body</span>&gt;
-        &lt;<span class="pl-ent">p</span>&gt;This is a template email.&lt;/<span class="pl-ent">p</span>&gt;        
+        &lt;<span class="pl-ent">p</span>&gt;This is a template email.&lt;/<span class="pl-ent">p</span>&gt;
     &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
@@ -2914,18 +2914,23 @@ templates/
         &lt;<span class="pl-ent">title</span>&gt;Email&lt;/<span class="pl-ent">title</span>&gt;
     &lt;/<span class="pl-ent">head</span>&gt;
     &lt;<span class="pl-ent">body</span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>color: #f00;<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">p</span>&gt;This is a template email.&lt;/<span class="pl-ent">p</span>&gt;        
+        &lt;<span class="pl-ent">p</span>&gt;This is a template email.&lt;/<span class="pl-ent">p</span>&gt;
     &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
 <p>Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.</p>
+
+<blockquote>
+<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node "../../../node-atlas.js" --generate</code>. Le résultat est dans <code>generates</code>.</p>
+</blockquote>
 
 <h4>
 <a id="injection-globale" class="anchor" href="#injection-globale" aria-hidden="true"><span class="octicon octicon-link"></span></a>Injection globale</h4>
 
 <p>Il existe également la même propriété globale inpactant toutes les pages.</p>
 
-<div class="highlight highlight-json"><pre>    <span class="pl-s"><span class="pl-pds">"</span>injectCss<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>stylesheets/email.css<span class="pl-pds">"</span></span>
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>injectCss<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>stylesheets/email.css<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
         <span class="pl-s"><span class="pl-pds">"</span>/bienvenue/<span class="pl-pds">"</span></span>: {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>email-a.htm<span class="pl-pds">"</span></span>,
@@ -2935,9 +2940,14 @@ templates/
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>email-b.htm<span class="pl-pds">"</span></span>,
             <span class="pl-s"><span class="pl-pds">"</span>generate<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>au-revoir.html<span class="pl-pds">"</span></span>
         }
-    }</pre></div>
+    }
+}</pre></div>
 
 <p>ainsi les deux pages <code>bienvenue</code> et <code>au-revoir</code> contiendront chacune <code>&lt;body style="color: #f00;"&gt;</code>.</p>
+
+<blockquote>
+<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node "../../../node-atlas.js" --generate --webconfig webconfig.common.json</code>. Le résultat est dans <code>generates</code>.</p>
+</blockquote>
 
 <h4>
 <a id="injection-multiple" class="anchor" href="#injection-multiple" aria-hidden="true"><span class="octicon octicon-link"></span></a>Injection multiple</h4>
@@ -2949,7 +2959,8 @@ templates/
 <li>De préciser plus d'une feuille à la fois.</li>
 </ul>
 
-<div class="highlight highlight-json"><pre>    <span class="pl-s"><span class="pl-pds">"</span>injectCss<span class="pl-pds">"</span></span>: [<span class="pl-s"><span class="pl-pds">"</span>stylesheets/reset.css<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>stylesheets/email.css<span class="pl-pds">"</span></span>]
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>injectCss<span class="pl-pds">"</span></span>: [<span class="pl-s"><span class="pl-pds">"</span>stylesheets/reset.css<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>stylesheets/email.css<span class="pl-pds">"</span></span>],
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
         <span class="pl-s"><span class="pl-pds">"</span>/bienvenue/<span class="pl-pds">"</span></span>: {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>email-a.htm<span class="pl-pds">"</span></span>,
@@ -2961,7 +2972,12 @@ templates/
             <span class="pl-s"><span class="pl-pds">"</span>generate<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>au-revoir.html<span class="pl-pds">"</span></span>,
             <span class="pl-s"><span class="pl-pds">"</span>injectCss<span class="pl-pds">"</span></span>: [<span class="pl-s"><span class="pl-pds">"</span>stylesheets/good-bye.css<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>/stylesheets/others.css<span class="pl-pds">"</span></span>]
         }
-    }</pre></div>
+    }
+}</pre></div>
+
+<blockquote>
+<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node "../../../node-atlas.js" --generate --webconfig webconfig.multiple.json</code>. Le résultat est dans <code>generates</code>.</p>
+</blockquote>
 
 <h3>
 <a id="autoriserinterdire-les-demandes-getpost" class="anchor" href="#autoriserinterdire-les-demandes-getpost" aria-hidden="true"><span class="octicon octicon-link"></span></a>Autoriser/Interdire les demandes GET/POST</h3>
@@ -3026,10 +3042,10 @@ templates/
     <span class="pl-s"><span class="pl-pds">"</span>session<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>clé personnelle<span class="pl-pds">"</span></span>,
         <span class="pl-s"><span class="pl-pds">"</span>secret<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>secret personnel<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>cookie<span class="pl-pds">"</span></span><span class="pl-k">:</span> { 
-            <span class="pl-s"><span class="pl-pds">"</span>path<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>, 
-            <span class="pl-s"><span class="pl-pds">"</span>httpOnly<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>, 
-            <span class="pl-s"><span class="pl-pds">"</span>secure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>, 
+        <span class="pl-s"><span class="pl-pds">"</span>cookie<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>path<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>httpOnly<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>secure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>,
             <span class="pl-s"><span class="pl-pds">"</span>maxAge<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">null</span>
         },
         ...,
@@ -3072,7 +3088,7 @@ templates/
         NA.sessionStore = new RedisStore();
 
         callback(NA);
-    };  
+    };
 
 }(website));
 
@@ -3107,7 +3123,7 @@ exports.setSessions = website.setSessions;
         });
 
         callback(NA);
-    };  
+    };
 
 }(website));
 
@@ -3381,24 +3397,24 @@ exports.setSessions = website.setSessions;
 <p>et les fichiers de variation commun suivant en fr :</p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span><span class="pl-k">:</span> [{ 
+    <span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span><span class="pl-k">:</span> [{
         <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Anglais<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-us<span class="pl-pds">"</span></span> 
-    }, { 
+        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-us<span class="pl-pds">"</span></span>
+    }, {
         <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Français<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span> 
+        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>
     }]
 }</pre></div>
 
 <p>et en en :</p>
 
 <div class="highlight highlight-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span><span class="pl-k">:</span> [{ 
+    <span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span><span class="pl-k">:</span> [{
         <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>English<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-us<span class="pl-pds">"</span></span> 
-    }, { 
+        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>en-us<span class="pl-pds">"</span></span>
+    }, {
         <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>French<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span> 
+        <span class="pl-s"><span class="pl-pds">"</span>code<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>
     }]
 }</pre></div>
 
@@ -3500,7 +3516,7 @@ exports.setSessions = website.setSessions;
 — webconfig.json
 </code></pre>
 
-<p>en exécutant la commande </p>
+<p>en exécutant la commande</p>
 
 <pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
 </code></pre>
@@ -3572,7 +3588,7 @@ site-hello-world/
                 &lt;<span class="pl-ent">rule</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>LogFile<span class="pl-pds">"</span></span> <span class="pl-e">patternSyntax</span>=<span class="pl-s"><span class="pl-pds">"</span>ECMAScript<span class="pl-pds">"</span></span> <span class="pl-e">stopProcessing</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;
                      &lt;<span class="pl-ent">match</span> <span class="pl-e">url</span>=<span class="pl-s"><span class="pl-pds">"</span>^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$<span class="pl-pds">"</span></span>/&gt;
                 &lt;/<span class="pl-ent">rule</span>&gt;
-                &lt;<span class="pl-ent">rule</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>NodeInspector<span class="pl-pds">"</span></span> <span class="pl-e">patternSyntax</span>=<span class="pl-s"><span class="pl-pds">"</span>ECMAScript<span class="pl-pds">"</span></span> <span class="pl-e">stopProcessing</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;                    
+                &lt;<span class="pl-ent">rule</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>NodeInspector<span class="pl-pds">"</span></span> <span class="pl-e">patternSyntax</span>=<span class="pl-s"><span class="pl-pds">"</span>ECMAScript<span class="pl-pds">"</span></span> <span class="pl-e">stopProcessing</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;
                     &lt;<span class="pl-ent">match</span> <span class="pl-e">url</span>=<span class="pl-s"><span class="pl-pds">"</span>^node-atlas.js\/debug[\/]?<span class="pl-pds">"</span></span> /&gt;
                 &lt;/<span class="pl-ent">rule</span>&gt;
                 &lt;<span class="pl-ent">rule</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>StaticContent<span class="pl-pds">"</span></span>&gt;
@@ -3680,7 +3696,7 @@ site-hello-world/
 
 <ul>
 <li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
-<li>et en plus lancer un server apache sur le port 81 </li>
+<li>et en plus lancer un server apache sur le port 81</li>
 </ul>
 
 <p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p>
