@@ -8,6 +8,8 @@
 
 ## Usage ##
 
+For a complete documentation, you could refer to [README.md](http://haeresis.github.io/NodeAtlas/doc/).
+
 
 
 ### Step 1 - Install ###
