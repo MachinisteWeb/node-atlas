@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>NodeAtlas Namespace: currentRouteParameters</title>
+	<title>NodeAtlas Namespace: currentVariation</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -28,31 +28,31 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
-							<a href="node-atlas-NA.html">node-atlas~NA</a>
+							<a href="NA_currentRouteParameters.html">NA#currentRouteParameters</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA.modules.html">node-atlas~NA.modules</a>
+							<a href="NA_currentVariation.html">NA#currentVariation</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA.variations.html">node-atlas~NA.variations</a>
+							<a href="NA_modules.html">NA#modules</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA.webconfig.html">node-atlas~NA.webconfig</a>
+							<a href="NA_variations.html">NA#variations</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA.websiteController%255B%255D.html">node-atlas~NA.websiteController[]</a>
+							<a href="NA_webconfig.html">NA#webconfig</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA_currentRouteParameters.html">node-atlas~NA#currentRouteParameters</a>
+							<a href="NA_webconfig.enableLess.html">NA#webconfig.enableLess</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA_currentVariation.html">node-atlas~NA#currentVariation</a>
+							<a href="NA_websiteController%255B%255D.html">NA#websiteController[]</a>
 						</li>
 						
 
@@ -73,6 +73,20 @@
 					</ul>
 				</li>
 				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="NA.html">NA</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
 			</ul>
 		</div>
 	</div>
@@ -86,14 +100,14 @@
 					
 
 
-	<h1 class="page-title">Namespace: currentRouteParameters</h1>
+	<h1 class="page-title">Namespace: currentVariation</h1>
 <section>
 
 <header>
     <h2>
-        <span class="ancestors"><a href="node-atlas-NA.html">~NA</a>#</span>
+        <span class="ancestors"><a href="NA.html">NA</a>#</span>
     
-    currentRouteParameters
+    currentVariation
     </h2>
     
 </header>
@@ -104,7 +118,7 @@
 
     
         
-            <div class="description">All parameters from a specific page.</div>
+            <div class="description">All variation for a specific page.</div>
         
 
         
@@ -134,8 +148,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-3099">line 3099</a>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-631">line 631</a>
 			</li>
 		</ul>
 	</dd>
@@ -168,15 +182,86 @@
 
         <dl>
             
-<dt class="name" id="charset">
-    <h4><span class="type-signature">&lt;static> </span>charset<span class="type-signature"> :string</span></h4>
+<dt class="name" id="common">
+    <h4><span class="type-signature">&lt;static> </span>common<span class="type-signature"> :Object</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Charset use for render of this page.
+        Expose all JSON data from `commonVariation` file.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-265">line 265</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<dt class="name" id="currentRoute">
+    <h4><span class="type-signature">&lt;static> </span>currentRoute<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Expose route of current page from current webconfig `routes`.
     </div>
     
 
@@ -211,12 +296,82 @@
 	
 
 	
-	<dt class="tag-default">Default Value:</dt>
-	<dd class="tag-default">
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
 		<ul class="dummy">
-			<li>'utf-8'</li>
+			<li>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-336">line 336</a>
+			</li>
 		</ul>
 	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">/categories/:category/</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt class="name" id="currentRouteParameters">
+    <h4><span class="type-signature">&lt;static> </span>currentRouteParameters<span class="type-signature"> :Object</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Expose all data from `routes[<currentRoute>]` object from webconfig.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
 	
 
 
@@ -226,8 +381,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1726">line 1726</a>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-315">line 315</a>
 			</li>
 		</ul>
 	</dd>
@@ -246,15 +401,15 @@
 
         
             
-<dt class="name" id="controller">
-    <h4><span class="type-signature">&lt;static> </span>controller<span class="type-signature"> :string</span></h4>
+<dt class="name" id="filename">
+    <h4><span class="type-signature">&lt;static> </span>filename<span class="type-signature"> :string</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        This is the file name of specific controller used for back-end part of this page.
+        Same as `NA#variations.filename`.
     </div>
     
 
@@ -297,234 +452,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-3153">line 3153</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<dt class="name" id="generate">
-    <h4><span class="type-signature">&lt;static> </span>generate<span class="type-signature"> :string|boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Output name of file generate if `NA.webconfig.htmlGenerateBeforeResponse` is set to true or if `--generate` command is used.If value is set to `false`, no generate page will be generated.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-3064">line 3064</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<dt class="name" id="getSupport">
-    <h4><span class="type-signature">&lt;static> </span>getSupport<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Allow you to avoid or authorize GET response for current page.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>true</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1918">line 1918</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<dt class="name" id="injectCss">
-    <h4><span class="type-signature">&lt;static> </span>injectCss<span class="type-signature"> :string|Array.&lt;string></span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        CSS files for specific injection of CSS.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">Array.&lt;string></span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-2191">line 2191</a>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-210">line 210</a>
 			</li>
 		</ul>
 	</dd>
@@ -551,7 +480,7 @@
 <dd>
     
     <div class="description">
-        Represent the language code for this page.
+        Expose the current language code for the page if setted else expose the global if setted.
     </div>
     
 
@@ -589,7 +518,7 @@
 	<dt class="tag-default">Default Value:</dt>
 	<dd class="tag-default">
 		<ul class="dummy">
-			<li>No language code if not setted.</li>
+			<li>undefined</li>
 		</ul>
 	</dd>
 	
@@ -601,8 +530,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-2656">line 2656</a>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-116">line 116</a>
 			</li>
 		</ul>
 	</dd>
@@ -621,171 +550,15 @@
 
         
             
-<dt class="name" id="mimeType">
-    <h4><span class="type-signature">&lt;static> </span>mimeType<span class="type-signature"> :string</span></h4>
+<dt class="name" id="params">
+    <h4><span class="type-signature">&lt;static> </span>params<span class="type-signature"> :string</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Content Type use for respond with this page.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>'text/html'</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1746">line 1746</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<dt class="name" id="postSupport">
-    <h4><span class="type-signature">&lt;static> </span>postSupport<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Allow you to avoid or authorize POST response for current page.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>true</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1940">line 1940</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<dt class="name" id="redirect">
-    <h4><span class="type-signature">&lt;static> </span>redirect<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Represent route to redirect if current route matched.
+        Expose list of selector used into page.
     </div>
     
 
@@ -828,8 +601,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1784">line 1784</a>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-245">line 245</a>
 			</li>
 		</ul>
 	</dd>
@@ -844,84 +617,9 @@
 
 
     
-</dd>
-
+        <h5>Example</h5>
         
-            
-<dt class="name" id="regExp">
-    <h4><span class="type-signature">&lt;static> </span>regExp<span class="type-signature"> :string|boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Use RegExp expression as selector for route url If setted to true.Same if is a string but string represent option like "g".
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>false</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1954">line 1954</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
+    <pre class="sunlight-highlight-javascript">If current route is &#x27;/example/:selector/&#x27;At http://localhost/example/test/ the value of `NA.variations#params` is{ &quot;selector&quot;: &quot;test&quot; }</pre>
 
 
     
@@ -929,93 +627,15 @@
 
         
             
-<dt class="name" id="statusCode">
-    <h4><span class="type-signature">&lt;static> </span>statusCode<span class="type-signature"> :number</span></h4>
+<dt class="name" id="pathname">
+    <h4><span class="type-signature">&lt;static> </span>pathname<span class="type-signature"> :string</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Status Code use for respond with this page.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">number</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>200</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1736">line 1736</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<dt class="name" id="template">
-    <h4><span class="type-signature">&lt;static> </span>template<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        This is the file name of template used for render of page behind the route.
+        Same as `NA#variations.pathname`.
     </div>
     
 
@@ -1058,8 +678,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-3128">line 3128</a>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-201">line 201</a>
 			</li>
 		</ul>
 	</dd>
@@ -1078,15 +698,86 @@
 
         
             
-<dt class="name" id="url">
-    <h4><span class="type-signature">&lt;static> </span>url<span class="type-signature"> :string</span></h4>
+<dt class="name" id="specific">
+    <h4><span class="type-signature">&lt;static> </span>specific<span class="type-signature"> :Object</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        If setted, replace « The url listening ». « The url listening. » become a « key » value.
+        Expose all JSON data from `routes[<currentRoute>].variation` file.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-285">line 285</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<dt class="name" id="urlBasePath">
+    <h4><span class="type-signature">&lt;static> </span>urlBasePath<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Expose the current URL of page with `NA#webconfig.urlWithoutFileName` and `NA#webconfig.urlRelativeSubPath`.
     </div>
     
 
@@ -1129,8 +820,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-1891">line 1891</a>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-178">line 178</a>
 			</li>
 		</ul>
 	</dd>
@@ -1145,19 +836,25 @@
 
 
     
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">http://localhost:7777/subpath/https://www.example.here/</pre>
+
+
+    
 </dd>
 
         
             
-<dt class="name" id="variation">
-    <h4><span class="type-signature">&lt;static> </span>variation<span class="type-signature"> :string</span></h4>
+<dt class="name" id="urlBasePathSlice">
+    <h4><span class="type-signature">&lt;static> </span>urlBasePathSlice<span class="type-signature"> :string</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        Name of file for `specific` variation.
+        Idem as `NA#variation.urlBasePath` without "/" at the end.
     </div>
     
 
@@ -1200,8 +897,162 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="C__nodejs_NodeAtlas_node-atlas.js.html">node-atlas.js</a>,
-				 <a href="C__nodejs_NodeAtlas_node-atlas.js.html#sunlight-1-line-2784">line 2784</a>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-167">line 167</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">http://localhost:7777/subpathhttps://www.example.here</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt class="name" id="urlPath">
+    <h4><span class="type-signature">&lt;static> </span>urlPath<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Expose the current URL of page with `NA#webconfig.urlBasePath` and the current page route.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-189">line 189</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">http://localhost:7777/subpath/example.html (if current route is &#x27;/example.html&#x27;)https://www.example.here/example/this/ (if current route is &#x27;/example/this/&#x27;)</pre>
+
+
+    
+</dd>
+
+        
+            
+<dt class="name" id="webconfig">
+    <h4><span class="type-signature">&lt;static> </span>webconfig<span class="type-signature"> :Object</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Expose all webconfig values.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="lib_front-end-part.js.html">lib/front-end-part.js</a>,
+				 <a href="lib_front-end-part.js.html#sunlight-1-line-345">line 345</a>
 			</li>
 		</ul>
 	</dd>
@@ -1249,7 +1100,7 @@
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-09-01T17:06:12+02:00 using the <a
+		on 2015-09-03T14:07:24+02:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>

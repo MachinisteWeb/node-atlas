@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 0.51
+Version : 0.99
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -3634,6 +3634,25 @@ require("node-atlas").run({
 
 ```
 \> server app.js
+```
+
+You can run multiple website in same time. Each webconfig must listen a different port.
+
+*servers.js*
+
+```javascript
+var nodeAtlas = require("node-atlas"),
+    websiteEn = new nodeAtlas(),
+    websiteFr = new nodeAtlas();
+
+websiteEn.run({
+    "browse": true,
+    "webconfig": "webconfig.english.json"
+});
+websiteFr.run({
+    "browse": true,
+    "webconfig": "webconfig.french.json"
+});
 ```
 
 

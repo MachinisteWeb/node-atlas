@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>NodeAtlas Namespace: websiteController[]</title>
+	<title>NodeAtlas Source: lib/init.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -28,19 +28,31 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
+							<a href="NA_currentRouteParameters.html">NA#currentRouteParameters</a>
+						</li>
+						
+						<li>
+							<a href="NA_currentVariation.html">NA#currentVariation</a>
+						</li>
+						
+						<li>
 							<a href="NA_modules.html">NA#modules</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA.variations.html">node-atlas~NA.variations</a>
+							<a href="NA_variations.html">NA#variations</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA.webconfig.html">node-atlas~NA.webconfig</a>
+							<a href="NA_webconfig.html">NA#webconfig</a>
 						</li>
 						
 						<li>
-							<a href="node-atlas-NA.websiteController%255B%255D.html">node-atlas~NA.websiteController[]</a>
+							<a href="NA_webconfig.enableLess.html">NA#webconfig.enableLess</a>
+						</li>
+						
+						<li>
+							<a href="NA_websiteController%255B%255D.html">NA#websiteController[]</a>
 						</li>
 						
 
@@ -82,103 +94,108 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	<h1 class="page-title">Namespace: websiteController[]</h1>
+		<h1 class="page-title">Source: lib/init.js</h1>
+    
 <section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/*------------------------------------*\
+    $%INIT
+\*------------------------------------*/
+/* jslint node: true */
 
-<header>
-    <h2>
-    websiteController[]
-    </h2>
-    
-</header>
+/**
+ * Object containing the configuration by API calling.
+ * @public
+ * @alias configuration
+ * @type {Object}
+ * @memberOf NA#
+ */
+exports.configuration = {};
 
-<article>
-    <div class="container-overview">
-    
+/**
+ * Allow you to set `NA#configuration` (with chaining).
+ * @public
+ * @function config
+ * @memberOf NA#
+ * @example require('node-atlas').config({
+ *        webconfig: "webconfig.alternatif.json",
+ *        httpPort: 7778,
+ *        generate: true,
+ *        browse: true
+ * }).init();
+ * @return {Object} The NA instance for chained functions.
+ */
+exports.config = function (config) {
+    var NA = this,
+        configuration = config || {};
 
-    
-        
-            <div class="description">Contain all functions of controllers both common and specific.</div>
-        
+    NA.configuration = configuration;
 
-        
-<dl class="details">
-	
+    return NA;
+};
 
-	
+/**
+ * Allow you to start a NodeAtlas server.
+ * @public
+ * @function init
+ * @memberOf NA#
+ * @example require('node-atlas').init();
+ * @return {Object} The NA instance for chained functions.
+ */
+exports.init = function () {
+    var NA = this;
 
-	
+    NA.loadListOfNativeModules();
+    NA.initGlobalVar();
+    NA.moduleRequired(function () {
+        NA.lineCommandConfiguration();
+        NA.initGlobalVarRequiredNpmModules();
+        NA.initWebconfig(function () {
+            NA.loadListOfExternalModules(function () {
+                NA.startingHttpServer();
+                NA.templateEngineConfiguration();
+                NA.routesPages();
+                NA.emulatedIndexPage();
+                NA.httpServerPublicFiles();
+                NA.pageNotFound();
+                NA.urlGeneratingPages();
+            });
+        });
+    });
 
-	
+    return NA;
+};
 
-	
+/**
+ * Execute both `NA#config()` and `NA#init()` functions.
+ * @public
+ * @function run
+ * @memberOf NA#
+ * @example require('node-atlas').run({
+ *        webconfig: "webconfig.alternatif.json",
+ *        httpPort: 7778,
+ *        generate: true
+ * });
+ * @return {Object} The NA instance for chained functions.
+ */
+exports.run = function (config) {
+    var NA = this;
 
-	
+    NA.config(config);
+    NA.init();
 
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="lib_configuration.js.html">lib/configuration.js</a>,
-				 <a href="lib_configuration.js.html#sunlight-1-line-78">line 78</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-        
-            <h3>Example</h3>
-            
-    <pre class="sunlight-highlight-javascript">// Functions for common controller if `commonController` value is &quot;common.json&quot;.NA.websiteController[&quot;common.json&quot;].setConfigurations(...);NA.websiteController[&quot;common.json&quot;].loadModules(...);NA.websiteController[&quot;common.json&quot;].setSessions(...);NA.websiteController[&quot;common.json&quot;].changeVariation(...);NA.websiteController[&quot;common.json&quot;].changeDom(...);// Functions for specific controller if a route `controller` value is &quot;index.json&quot;.NA.websiteController[&quot;index.json&quot;].changeVariation(...);NA.websiteController[&quot;index.json&quot;].changeDom(...);</pre>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+    return NA;
+};</pre>
+	</article>
 </section>
+
 
 
 
@@ -199,16 +216,12 @@
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-09-02T13:08:51+02:00 using the <a
+		on 2015-09-03T14:07:23+02:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>
