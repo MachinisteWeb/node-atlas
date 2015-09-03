@@ -5,7 +5,7 @@
 		"installationDone": "All modules have been installed correctly.",
 		"restartRequired": "You can restart the application.",
 		"installShortcutsDone": "`nodeatlas` command is available as a shortcut for `node <path/to/>node-atlas.js`.",
-		"installDone": "✔ node-atlas module installed successfully !"
+		"installDone": "✔ node-atlas module successfully installed !"
 	},
 	"ifFileExist": "No file « %pathName%  » found.",
 	"publicMode": "So NodeAtlas is running in « Simple Web Server » mode.",
