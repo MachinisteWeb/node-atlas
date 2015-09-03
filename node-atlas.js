@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.51.3
+ * @version 0.99.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -31,9 +31,6 @@
 /* jslint node: true */
 
 
-
-
-
 /*------------------------------------*\
     $%SUMMARY
 \*------------------------------------*/
@@ -54,175 +51,121 @@
  */
 
 
-
-
-
 /*------------------------------------*\
     $%NODE ATLAS OBJECT
 \*------------------------------------*/
 
-/**
- * The main object that contains all API variables of NodeAtlas.
- * @namespace node-atlas~NA
- * @public
- * @alias NA
- * @type {Object}
- */
-var NA = {},
-    configuration = require('./lib/configuration'),
+var configuration = require('./lib/configuration'),
     globalFunctions = require('./lib/global-functions'),
     nodeModules = require('./lib/node-modules'),
     webServer = require('./lib/web-server'),
     frontEndPart = require('./lib/front-end-part'),
     backEndPart = require('./lib/back-end-part'),
     assetsGeneration = require('./lib/assets-generation'),
-    init = require('./lib/init');
+    init = require('./lib/init'),
 
+/**
+ * Creates a new instance of NodeAtlas Website.
+ * @class
+ * @public
+ * @alias NA
+ */
+NA = function () {
 
+    /* Shortcut for use NA without `new` keyword. */
+    if (!(this instanceof NA)) {
+        return new NA();
+    }
 
+    /* $%CONFIGURATION */
+    this.lineCommandConfiguration = configuration.lineCommandConfiguration;
+    this.initGlobalVar = configuration.initGlobalVar;
+    this.initGlobalVarRequiredNpmModules = configuration.initGlobalVarRequiredNpmModules;
+    this.templateEngineConfiguration = configuration.templateEngineConfiguration;
+    this.initWebconfig = configuration.initWebconfig;
+    this.setExternalRoutesAsWebconfigBase = configuration.setExternalRoutesAsWebconfigBase;
+    this.setExternalFilesAsWebconfigBase = configuration.setExternalFilesAsWebconfigBase;
+    this.setDirectoriesAsWebconfigBase = configuration.setDirectoriesAsWebconfigBase;
+    this.setHttpValuesAsWebconfigBase = configuration.setHttpValuesAsWebconfigBase;
+    this.improveWebconfigBase = configuration.improveWebconfigBase;
 
+    /* $%GLOBAL FUNCTIONS */
+    this.clone = globalFunctions.clone;
+    this.forEach = globalFunctions.forEach;
+    this.log = globalFunctions.log;
+    this.openConfiguration = globalFunctions.openConfiguration;
+    this.ifFileExist = globalFunctions.ifFileExist;
+    this.addCommonVariation = globalFunctions.addCommonVariation;
+    this.addSpecificVariation = globalFunctions.addSpecificVariation;
+    this.newRender = globalFunctions.newRender;
 
-/*------------------------------------*\
-    $%CONFIGURATION
-\*------------------------------------*/
+    /* $%NODE MODULES */
+    this.loadListOfNativeModules = nodeModules.loadListOfNativeModules;
+    this.loadServerModules = nodeModules.loadServerModules;
+    this.loadTemplatingModules = nodeModules.loadTemplatingModules;
+    this.loadUtilsModules = nodeModules.loadUtilsModules;
+    this.loadProcessModules = nodeModules.loadProcessModules;
+    this.loadListOfRequiredNpmModules = nodeModules.loadListOfRequiredNpmModules;
+    this.downloadAllModule = nodeModules.downloadAllModule;
+    this.moduleRequired = nodeModules.moduleRequired;
 
-NA = configuration.lineCommandConfiguration(NA);
-NA = configuration.initGlobalVar(NA);
-NA = configuration.initGlobalVarRequiredNpmModules(NA);
-NA = configuration.templateEngineConfiguration(NA);
-NA = configuration.initWebconfig(NA);
-NA = configuration.setExternalRoutesAsWebconfigBase(NA);
-NA = configuration.setExternalFilesAsWebconfigBase(NA);
-NA = configuration.setDirectoriesAsWebconfigBase(NA);
-NA = configuration.setHttpValueAsWebconfigBase(NA);
-NA = configuration.improveWebconfigBase(NA);
+    /* WEB SERVER */
+    this.simpleWebServer = webServer.simpleWebServer;
+    this.atlasConfigurations = webServer.atlasConfigurations;
+    this.atlasServer = webServer.atlasServer;
+    this.enableLessProcess = webServer.enableLessProcess;
+    this.atlasSessions = webServer.atlasSessions;
+    this.startingHttpServer = webServer.startingHttpServer;
+    this.httpServerPart = webServer.httpServerPart;
+    this.httpServerPublicFiles = webServer.httpServerPublicFiles;
+    this.response = webServer.response;
+    this.redirect = webServer.redirect;
+    this.setSupport = webServer.setSupport;
+    this.executeRequest = webServer.executeRequest;
+    this.request = webServer.request;
+    this.requestRegex = webServer.requestRegex;
+    this.pageNotFound = webServer.pageNotFound;
+    this.routesPages = webServer.routesPages;
 
+    /* FRONT-END PART */
+    this.openTemplate = frontEndPart.openTemplate;
+    this.openVariation = frontEndPart.openVariation;
+    this.prepareRenderLanguage = frontEndPart.prepareRenderLanguage;
+    this.prepareRenderPath = frontEndPart.prepareRenderPath;
+    this.prepareRenderVariation = frontEndPart.prepareRenderVariation;
+    this.prepareRenderParameters = frontEndPart.prepareRenderParameters;
+    this.changeVariationCommon = frontEndPart.changeVariationCommon;
+    this.changeVariationSpecific = frontEndPart.changeVariationSpecific;
+    this.changeDomCommon = frontEndPart.changeDomCommon;
+    this.changeDomSpecific = frontEndPart.changeDomSpecific;
+    this.intoBrowserAndFiles = frontEndPart.intoBrowserAndFiles;
+    this.renderTemplate = frontEndPart.renderTemplate;
+    this.render = frontEndPart.render;
 
+    /* $%BACK-END PART */
+    this.cssAlreadyParse = backEndPart.cssAlreadyParse;
+    this.injectCssAuth = backEndPart.injectCssAuth;
+    this.prepareCssInjection = backEndPart.prepareCssInjection;
+    this.injectCss = backEndPart.injectCss;
+    this.lessCompilation = backEndPart.lessCompilation;
+    this.cssMinification = backEndPart.cssMinification;
+    this.imgOptimization = backEndPart.imgOptimization;
+    this.jsObfuscation = backEndPart.jsObfuscation;
+    this.loadListOfExternalModules = backEndPart.loadListOfExternalModules;
+    this.loadController = backEndPart.loadController;
 
+    /* $%ASSETS GENERATION */
+    this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
+    this.emulatedIndexPage = assetsGeneration.emulatedIndexPage;
+    this.saveTemplateRender = assetsGeneration.saveTemplateRender;
 
+    /* $%INIT */
+    this.configuration = init.configuration;
+    this.config = init.config;
+    this.init = init.init;
+    this.run = init.run;
 
-/*------------------------------------*\
-    $%GLOBAL FUNCTIONS
-\*------------------------------------*/
-
-NA = globalFunctions.clone(NA);
-NA = globalFunctions.forEach(NA);
-NA = globalFunctions.log(NA);
-NA = globalFunctions.openConfiguration(NA);
-NA = globalFunctions.ifFileExist(NA);
-NA = globalFunctions.addCommonVariation(NA);
-NA = globalFunctions.addSpecificVariation(NA);
-NA = globalFunctions.newRender(NA);
-
-
-
-
-
-/*------------------------------------*\
-    $%NODE MODULES
-\*------------------------------------*/
-
-NA = nodeModules.loadListOfNativeModules(NA);
-NA = nodeModules.loadServerModules(NA);
-NA = nodeModules.loadTemplatingModules(NA);
-NA = nodeModules.loadUtilsModules(NA);
-NA = nodeModules.loadProcessModules(NA);
-NA = nodeModules.loadListOfRequiredNpmModules(NA);
-NA = nodeModules.downloadAllModule(NA);
-NA = nodeModules.moduleRequired(NA);
-
-
-
-
-
-/*------------------------------------*\
-    $%WEB SERVER
-\*------------------------------------*/
-
-NA = webServer.simpleWebServer(NA);
-NA = webServer.atlasConfigurations(NA);
-NA = webServer.atlasServer(NA);
-NA = webServer.enableLessProcess(NA);
-NA = webServer.atlasSessions(NA);
-NA = webServer.startingHttpServer(NA);
-NA = webServer.httpServerPart(NA);
-NA = webServer.httpServerPublicFiles(NA);
-NA = webServer.response(NA);
-NA = webServer.redirect(NA);
-NA = webServer.setSupport(NA);
-NA = webServer.executeRequest(NA);
-NA = webServer.request(NA);
-NA = webServer.requestRegex(NA);
-NA = webServer.pageNotFound(NA);
-NA = webServer.routesPages(NA);
-
-
-
-
-
-/*------------------------------------*\
-    $%FRONT-END PART
-\*------------------------------------*/
-
-NA = frontEndPart.openTemplate(NA);
-NA = frontEndPart.openVariation(NA);
-NA = frontEndPart.prepareRenderLanguage(NA);
-NA = frontEndPart.prepareRenderPath(NA);
-NA = frontEndPart.prepareRenderVariation(NA);
-NA = frontEndPart.prepareRenderParameters(NA);
-NA = frontEndPart.changeVariationCommon(NA);
-NA = frontEndPart.changeVariationSpecific(NA);
-NA = frontEndPart.changeDomCommon(NA);
-NA = frontEndPart.changeDomSpecific(NA);
-NA = frontEndPart.intoBrowserAndFiles(NA);
-NA = frontEndPart.renderTemplate(NA);
-NA = frontEndPart.render(NA);
-
-
-
-
-
-/*------------------------------------*\
-    $%BACK-END PART
-\*------------------------------------*/
-
-NA = backEndPart.cssAlreadyParse(NA);
-NA = backEndPart.injectCssAuth(NA);
-NA = backEndPart.prepareCssInjection(NA);
-NA = backEndPart.injectCss(NA);
-NA = backEndPart.lessCompilation(NA);
-NA = backEndPart.cssMinification(NA);
-NA = backEndPart.imgOptimization(NA);
-NA = backEndPart.jsObfuscation(NA);
-NA = backEndPart.loadListOfExternalModules(NA);
-NA = backEndPart.loadController(NA);
-
-
-
-
-
-/*------------------------------------*\
-    $%ASSETS GENERATION
-\*------------------------------------*/
-
-NA = assetsGeneration.urlGeneratingPages(NA);
-NA = assetsGeneration.emulatedIndexPage(NA);
-NA = assetsGeneration.saveTemplateRender(NA);
-
-
-
-
-
-/*------------------------------------*\
-    $%INIT
-\*------------------------------------*/
-
-NA = init.config(NA);
-NA = init.init(NA);
-NA = init.run(NA);
-
-
-
+};
 
 
 /*------------------------------------*\
@@ -231,7 +174,7 @@ NA = init.run(NA);
 
 /* Run script with command tools. */
 if (require.main === module) {
-    NA.init();
+    (new NA()).init();
 }
 
 /* Run script with require as a npm module. */
