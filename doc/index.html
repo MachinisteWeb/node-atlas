@@ -124,7 +124,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p>Version: 1.0 Beta</p>
+        <article><h1>node-atlas</h1><p>Version: 1.0 (Beta)</p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -141,12 +141,12 @@
 <li><a href="https://github.com/Haeresis/EditAtlas/">Node.js example of content filling in real time without Back-office</a>.</li>
 <li><a href="https://github.com/Haeresis/SimpleAtlas/">Simple web server for a file</a>.</li>
 <li><a href="https://github.com/Haeresis/LessAtlas/">CSS-driven usage with Less preprocessor with CSS Framework</a>.</li>
+<li><a href="https://github.com/Haeresis/SublimeAtlas/">Plugin to boost standard capabilities</a>.</li>
 </ul>
 <h3>Table of Contents</h3><ul>
 <li><a href="#overview">Overview</a><ul>
 <li><a href="#examples-of-websites-with-nodeatlas">Examples of websites with NodeAtlas</a></li>
 <li><a href="#table-of-contents">Table of Contents</a></li>
-<li><a href="#roadmap-of-development-progress">Roadmap of Development Progress</a></li>
 <li><a href="#documentation">Documentation</a></li>
 </ul>
 </li>
@@ -166,7 +166,7 @@
 <li><a href="#manage-multilingual">Manage Multilingual</a></li>
 <li><a href="#nodeatlas-use-to-generate-html-assets">NodeAtlas use to generate HTML assets</a></li>
 <li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
-<li><a href="#generate-partial-page-with-ajax-websocket">Generate partial page with AJAX/Websocket</a></li>
+<li><a href="#generate-partial-page-with-ajaxwebsocket">Generate partial page with AJAX/Websocket</a></li>
 <li><a href="#change-the-url-parameters">Change the url parameters</a></li>
 <li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
@@ -185,15 +185,15 @@
 <li><a href="#generate-urls-dynamically">Generate urls dynamically</a></li>
 </ul>
 </li>
-<li><a href="#cli-running-commands">CLI / Running commands</a><ul>
-<li><a href="#--directory">--directory</a></li>
-<li><a href="#--webconfig">--webconfig</a></li>
-<li><a href="#--browse">--browse</a></li>
-<li><a href="#--httpport">--httpPort</a></li>
+<li><a href="#cli--running-commands">CLI / Running commands</a><ul>
+<li><a href="#--directory-">--directory</a></li>
+<li><a href="#--webconfig-">--webconfig</a></li>
+<li><a href="#--browse-subpath">--browse</a></li>
+<li><a href="#--httpport-">--httpPort</a></li>
 <li><a href="#--generate">--generate</a></li>
 </ul>
 </li>
-<li><a href="#api-nodeatlas-as-npm-module">API / NodeAtlas as npm module</a></li>
+<li><a href="#api--nodeatlas-as-npm-module">API / NodeAtlas as npm module</a></li>
 <li><a href="#nodeatlas-as-a-simple-web-server">NodeAtlas as a simple web server</a></li>
 <li><a href="#running-nodeatlas-on-online-server">Running NodeAtlas on online server</a><ul>
 <li><a href="#in-a-windows-server-environment-with-iisnode">In a Windows Server environment with iisnode</a></li>
@@ -203,57 +203,10 @@
 </li>
 <li><a href="#a-propos-de-l-architecture-de-nodeatlas">About architecture NodeAtlas</a></li>
 </ul>
-<h3>Roadmap of Development Progress</h3><ul>
-<li><p>Done</p>
-<ul>
-<li>Express server used.</li>
-<li>HTML mock-Generation live.</li>
-<li>Full HTML Generation.</li>
-<li>Configuration file (pages with URL Rewriting list).</li>
-<li>Support of a part as possible Back-end (Controllers / Models).</li>
-<li>Example of possible database (MySql / MongoDB / etc.).</li>
-<li>Support Sessions.</li>
-<li>Example of Socket.IO with handshake.</li>
-<li>Support Express middleware.</li>
-<li>Support personal variables webconfig.</li>
-<li>Migration Connect 2.x to Connect 3.x.</li>
-<li>Migration Express 3.x to Express 4.x.</li>
-<li>Removing Connect 3.x.</li>
-<li>Reverse-proxy Example for multiple instances on port 80.</li>
-<li>Start with a NodeAtlas require() from a code file.</li>
-<li>Install automatically NodeAtlas from npm.</li>
-<li>Minification CSS / JS to generation.</li>
-<li>Aggregation CSS / JS file via Bundles.</li>
-<li>Support of a BDD session (Redis / MongoDB).</li>
-<li>Quick Launch without &quot;webconfig&quot; just as a simple web server.</li>
-<li>Routing shared via an external file.</li>
-<li>Bundle shared via an external file.</li>
-<li>Documentation of the API (JSDoc documentation node-atlas.js file)</li>
-<li>Example of Socket.IO 1.0 with Handshake.</li>
-<li>Translation of README.md file in English.</li>
-<li>Create a global command <code>nodeatlas</code> with global installation.</li>
-<li>Less support.</li>
-<li>HTTPs support (WSs support too).</li>
-<li>Image compression.</li>
-<li>Auto-injection of CSS stylesheet property into inline tag attribute style (for email template).</li>
-<li>Migration EJS 3.x to EJS 4.x.</li>
-</ul>
-</li>
-<li><p>Coming soon and I need your help !</p>
-<ul>
-<li>Global tests on multiple projects.</li>
-<li>Re-read and tests on README fr.</li>
-<li>Enhancement of README en.</li>
-<li>Create a NodeAtlas website EN/FR dedicated to NodeAtlas.</li>
-<li>Update to 1.0.0.</li>
-</ul>
-</li>
-</ul>
 <h3>Documentation</h3><p>In addition to this README, you also have access to,</p>
 <ul>
-<li><a href="https://www.npmjs.com/package/node-atlas">tl;dr</a>,</li>
-<li><a href="https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js">Code Explanation</a> and,</li>
-<li><a href="http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html">Details of public function in the NA object</a>.</li>
+<li><a href="https://www.npmjs.com/package/node-atlas">tl;dr</a> and,</li>
+<li><a href="http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html">details of functions in the NA object</a>.</li>
 </ul>
 <h2>Installation</h2><p>There are several ways to install Node-Atlas:</p>
 <ul>
@@ -261,13 +214,13 @@
 <p> <em>Once downloaded, unzip <strong>NodeAtlas</strong> in the folder that will suit you.</em></p>
 <p> <strong>Start at least once NodeAtlas with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the <em>node_modules</em>.</strong></p>
 </li>
-<li><p><code>npm install node-atlas</code> (recommended for <a href="#nodeatlas-as-npm-module">use as a module</a> in a project).</p>
+<li><p><code>npm install node-atlas</code> (recommended for <a href="#api--nodeatlas-as-npm-module">use as a module</a> in a project).</p>
 <p> <em>This will install <strong>NodeAtlas</strong> in the <code>node_modules/node-atlas</code> directory of the execution of the command.</em></p>
 </li>
-<li><p><code>npm install -g node-atlas</code> (recommended for <a href="#nodeatlas-as-npm-module">use as a module</a> in large amount of project or for a command line utilisation).</p>
+<li><p><code>npm install -g node-atlas</code> (recommended for <a href="#api--nodeatlas-as-npm-module">use as a module</a> in large amount of project or for <a href="#cli--running-commands">a command line utilisation</a>).</p>
 <p> <em>This will install <strong>NodeAtlas</strong> in the global <code>node_modules/node-atlas</code>.</em></p>
 </li>
-<li><p>Clone the directory from <a href="https://github.com/Haeresis/NodeAtlas/">GitHub</a>.</p>
+<li><p>Clone the directory from <a href="https://github.com/Haeresis/NodeAtlas/">GitHub</a> (recommended for).</p>
 <p> <em>This will install <strong>NodeAtlas</strong> in cloning home folder.</em></p>
 <p> <strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the <em>node_modules</em>.</strong></p>
 </li>
@@ -306,7 +259,7 @@
 <p><em>server.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>var nodeAtlas = require(&quot;node-atlas&quot;);
 
-nodeAtlas.run();</code></pre><pre class="prettyprint source"><code>\> node server.js</code></pre><h2>Different configurations of webconfig.json</h2><h3>More one page</h3><p>Below is a sample configuration.</p>
+nodeAtlas().run();</code></pre><pre class="prettyprint source"><code>\> node server.js</code></pre><h2>Different configurations of webconfig.json</h2><h3>More one page</h3><p>Below is a sample configuration.</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;templatesRelativePath&quot;: &quot;templates&quot;,
     &quot;routes&quot;: {
@@ -314,12 +267,12 @@ nodeAtlas.run();</code></pre><pre class="prettyprint source"><code>\> node serve
             &quot;template&quot;: &quot;index.htm&quot;
         },
         &quot;/member.html&quot;: {
-            &quot;template&quot;: &quot;member.htm&quot;
-            &quot;postSupport&quot;: false,
+            &quot;template&quot;: &quot;member.htm&quot;,
+            &quot;postSupport&quot;: false
         },
         &quot;/member-without-extension/&quot;: {
-            &quot;template&quot;: &quot;member.htm&quot;
-            &quot;getSupport&quot;: false,
+            &quot;template&quot;: &quot;member.htm&quot;,
+            &quot;getSupport&quot;: false
         },
         &quot;about.html&quot;: {
             &quot;template&quot;: &quot;about.htm&quot;
@@ -349,12 +302,12 @@ webconfig.json</code></pre><p>with the addresses:</p>
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;,
         &quot;/member.html&quot;: {
-            &quot;template&quot;: &quot;member.htm&quot;
-            &quot;postSupport&quot;: false,
+            &quot;template&quot;: &quot;member.htm&quot;,
+            &quot;postSupport&quot;: false
         },
         &quot;/member-without-extension/&quot;: {
-            &quot;template&quot;: &quot;member.htm&quot;
-            &quot;getSupport&quot;: false,
+            &quot;template&quot;: &quot;member.htm&quot;,
+            &quot;getSupport&quot;: false
         },
         &quot;about.html&quot;: &quot;about.htm&quot;,
         &quot;/error.html&quot;: {
@@ -370,7 +323,7 @@ webconfig.json</code></pre><p>with the addresses:</p>
 }</code></pre><p>Obviously this shortcut is used only if <code>template</code> is the only parameter to declare in the route.</p>
 <h3>Host images, fonts, CSS, JS, etc.</h3><p>You can also host any file on your site in a public folder. For example, with this configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;assetsRelativePath&quot;: &quot;assets&quot;
+    &quot;assetsRelativePath&quot;: &quot;assets&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -397,7 +350,7 @@ webconfig.json</code></pre><p>you will have access to the addresses:</p>
 <p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default public folder is</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Manage inclusions to avoid redundancy code</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p>
 <pre class="prettyprint source lang-js"><code>{
-    &quot;componentsRelativePath&quot;: &quot;components&quot;
+    &quot;componentsRelativePath&quot;: &quot;components&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -847,19 +800,13 @@ var website = {};
     &quot;use strict&quot;;
 
     // Load modules for this site in the NodeAtlas object.
-    publics.loadModules = function (NA) {
+    publics.loadModules = function () {
+        // Find instance of « NodeAtlas » engine.
+        var NA = this;
+
         // Associations of each module to access it anywhere.
         NA.modules.cookie = require('cookie');
         NA.modules.mongoose = require('mongoose');
-
-        // Go for a specific module in the `node_modules` website.
-        NA.modules.socketio = require(NA.websiteModulesPath + 'socket.io');
-
-        // Go for a specific module in the `node_modules` NodeAtlas the engine.
-        NA.modules.ejs = require(NA.nodeAtlasModulesPath + 'ejs.io');
-
-        // Re-injection of the object &quot;NodeAtlas&quot; overloaded the motor.
-        return NA;
     };
 
 }(website));
@@ -880,9 +827,9 @@ var website = {};
         // &quot;blog&quot; database connection.
         mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
             if (error) {
-                console.log(&quot;Database '&quot; + address + &quot;' is not accessible.&quot;);
+                console.log(&quot;Database 'mongodb://127.0.0.1:27017/blog' is not accessible.&quot;);
                 process.kill(process.pid);
-            };
+            }
 
             // Next.
             callback(mongoose);
@@ -920,7 +867,7 @@ var website = {};
 
     // Example using Socket.IO.
     privates.socketIoInitialisation = function (socketio, NA, callback) {
-        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io' } : undefined,
+        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
             io = socketio(NA.server, optionIo),
             cookie = NA.modules.cookie,
             cookieParser = NA.modules.cookieParser;
@@ -963,15 +910,15 @@ var website = {};
         var params = {};
 
         params.io = io;
-        params.NA = NA;
 
         // Event for the index page (see example in the next file).
-        require('./index').asynchrone(params);
+        require('./index').asynchrone.call(NA, params);
     };
 
     // Configuration of all modules.
-    publics.setConfigurations = function (NA, callback) {
-        var mongoose = NA.modules.mongoose,
+    publics.setConfigurations = function (callback) {
+        var NA = this,
+            mongoose = NA.modules.mongoose,
             socketio = NA.modules.socketio;
 
         // Initialize Mongoose.
@@ -986,8 +933,8 @@ var website = {};
                 // Socket IO listening.
                 privates.socketIoEvents(io, NA);
 
-                // Re-injection of the object &quot;NodeAtlas&quot; overloaded the motor.
-                callback(NA);
+                // Next steps of engine.
+                callback();
             });
         });
 
@@ -1104,7 +1051,8 @@ webconfig.json</code></pre><p>with a &quot;index.js&quot; file containing, for e
 
     // It occurs just before the complete assembly EJS.
     publics.changeVariation = function (params, mainCallback) {
-        var variation = params.variation,
+        var NA = this,
+            variation = params.variation,
             mongoose = params.NA.modules.mongoose,
             Article = mongoose.model('article');
 
@@ -1119,7 +1067,7 @@ webconfig.json</code></pre><p>with a &quot;index.js&quot; file containing, for e
         variation.specific.newProperty = &quot;New Property&quot;; // Defined a property does not exist in the original variation file that is accessible in template side via « &lt;%= specific.newProperty ».
 
         // Can intercept the configuration of the current page
-        console.log(variation.currentRoute) // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
+        console.log(variation.currentRoute); // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
 
         // A test is made on a variable created in the webconfig.
         if (variation.webconfig._websiteIsClosed) {
@@ -1156,26 +1104,26 @@ webconfig.json</code></pre><p>with a &quot;index.js&quot; file containing, for e
 
     // It comes just before the HTML response to the client.
     publics.changeDom = function (params, mainCallback) {
-        var dom = params.dom,
-            NA = params.NA,
+        var NA = this,
+            dom = params.dom,
             cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
             $ = cheerio.load(dom); // It loads dom to manipulate as a DOM.
 
         // After all HTML h2 output &quot;dom&quot;.
-        $(&quot;h2&quot;).each(function (i) {
+        $(&quot;h2&quot;).each(function () {
             var $this = $(this);
 
             // ...we created a div,
             $this.after(
                 // ... on injecte le contenu du h2 dans la div,
                 $(&quot;&lt;div>&quot;).html($this.html())
-            )
+            );
             // ...and deletes the h2.
             $this.remove();
         });
 
         // We re-create a new HTML output with our changes.
-        dom = $.html()
+        dom = $.html();
 
         // We re-injects the changes.
         mainCallback(dom);
@@ -1192,15 +1140,13 @@ webconfig.json</code></pre><p>with a &quot;index.js&quot; file containing, for e
 (function (publics) {
     &quot;use strict&quot;;
 
-    var privates = {};
-
     // All Websocket action possible for this template.
     publics.asynchrone = function (params) {
-        var io = params.io,
+        var NA = this,
+            io = params.io,
             mongoose = params.NA.modules.mongoose,
             marked = params.NA.modules.marked,
-            Article = mongoose.model('article'),
-            renderer = new marked.Renderer();
+            Article = mongoose.model('article');
 
         // Once we have a valid connection between the client and our back-end...
         io.sockets.on('connection', function (socket) {
@@ -1571,11 +1517,11 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         },
         &quot;/list-of-members&quot;: {
             &quot;redirect&quot;: &quot;/list-of-members/&quot;,
-            &quot;statusCode&quot;: 301,
+            &quot;statusCode&quot;: 301
         },
         &quot;/go-to-node-atlas/&quot;: {
             &quot;redirect&quot;: &quot;http://haeresis.github.io/NodeAtlas/&quot;,
-            &quot;statusCode&quot;: 302,
+            &quot;statusCode&quot;: 302
         },
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;
@@ -1593,7 +1539,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;members.htm&quot;
         },
         &quot;/list-of-members/:member&quot;: {
-            &quot;redirect&quot;: &quot;/membres/:member/&quot;
+            &quot;redirect&quot;: &quot;/membres/:member/&quot;,
             &quot;statusCode&quot;: 301
         },
         &quot;/&quot;: {
@@ -1609,7 +1555,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;regExp&quot;: true
         },
         &quot;/list-of-members/([-a-z0-9]+)/&quot;: {
-            &quot;redirect&quot;: &quot;/membres/$0$/&quot;
+            &quot;redirect&quot;: &quot;/membres/$0/&quot;,
             &quot;statusCode&quot;: 301,
             &quot;regExp&quot;: true
         },
@@ -1621,9 +1567,9 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p>
-<p>For the second <em>match</em> use $1$, the third $2#, etc.</p>
-<h3>Run Website with HTTPs</h3><p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol.
-Just use the following configuration:</p>
+<p>For the second <em>match</em> use $1, the third $2, etc.</p>
+<h3>Run Website with HTTPs</h3><p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol. </p>
+<p>Just use the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpSecure&quot;: true,
     &quot;httpSecureRelativeKeyPath&quot;: &quot;security/server.key&quot;
@@ -2160,9 +2106,10 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 }</code></pre><p>and <code>optimizations.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;images&quot;: {
-        &quot;media/images/example.min.png&quot;: &quot;media/images/example.png&quot;,
-        &quot;media/images/example.min.jpg&quot;: &quot;media/images/example.jpg&quot;,
-        &quot;media/images/example.min.gif&quot;: &quot;media/images/example.gif&quot;
+        &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
+        &quot;media/images/example.jpg&quot;: &quot;media/images/optimized/&quot;,
+        &quot;media/images/example.gif&quot;: &quot;media/images/optimized/&quot;,
+        &quot;media/images/example.svg&quot;: &quot;media/images/optimized/&quot;
     }
 }</code></pre><p><em>Note : it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p>
 <h4>Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>&quot;imagesOptimizationsEnable&quot;: false</code>.</p>
@@ -2265,9 +2212,6 @@ templates/
         }
     }
 }</code></pre><p>ainsi les deux pages <code>welcome</code> et <code>good-bye</code> contiendront chacune <code>&lt;body style=&quot;color: #f00;&quot;&gt;</code>.</p>
-<blockquote>
-<p>Test : From <code>./tests/examples/css-injection</code> run <code>node &quot;../../../node-atlas.js&quot; --generate --webconfig webconfig.common.json</code>. Result are into <code>generates</code>.</p>
-</blockquote>
 <h4>Multiple Injection</h4><p>It's possible to :</p>
 <ul>
 <li>Attach global and specific files in same time.</li>
@@ -2348,18 +2292,19 @@ templates/
     &quot;use strict&quot;;
 
     publics.loadModules = function (NA) {
-        NA.modules.RedisStore = require('connect-redis');
+        var NA = this;
 
-        return NA;
+        NA.modules.RedisStore = require('connect-redis');
     };
 
-    publics.setSessions = function (NA, callback) {
-        var session = NA.modules.session,
+    publics.setSessions = function (callback) {
+        var NA = this,
+            session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
 
         NA.sessionStore = new RedisStore();
 
-        callback(NA);
+        callback();
     };
 
 }(website));
@@ -2372,21 +2317,22 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 (function (publics) {
     &quot;use strict&quot;;
 
-    publics.loadModules = function (NA) {
-        NA.modules.MongoStore = require('connect-mongo');
+    publics.loadModules = function () {
+        var NA = this;
 
-        return NA;
+        NA.modules.MongoStore = require('connect-mongo');
     };
 
-    publics.setSessions = function (NA, callback) {
-        var session = NA.modules.session,
+    publics.setSessions = function (callback) {
+        var NA = this,
+            session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
 
         NA.sessionStore = new MongoStore({
             db: 'sessions'
         });
 
-        callback(NA);
+        callback();
     };
 
 }(website));
@@ -2598,13 +2544,13 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --httpPort 7778</code></pre><h3>--generate</h3><p>If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>. This command will copy the entire contents of the folder <code>assetsRelativePath</code> into <code>generatesRelativePath</code> if their path is different.</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --generate</code></pre><h2>API / NodeAtlas as npm module</h2><p>If you start NodeAtlas via JavaScript code, you can also configure the launch:</p>
 <p><em>server.js</em></p>
-<pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;).run({
+<pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().run({
     directory: &quot;&lt;/path/to/your/website/directory/>&quot;,
     webconfig: &quot;webconfig.alternatif.json&quot;,
     browse: true,
     httpPort: 7778,
     generate: true
-});</code></pre><pre class="prettyprint source"><code>\> server app.js</code></pre><p>You can run multiple website in same time. Each webconfig must listen a different port.</p>
+});</code></pre><pre class="prettyprint source"><code>\> server server.js</code></pre><p>You can run multiple website in same time. Each webconfig must listen a different port.</p>
 <p><em>servers.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>var nodeAtlas = require(&quot;node-atlas&quot;),
     websiteEn = new nodeAtlas(),
@@ -2774,7 +2720,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-09-03T16:32:44+02:00 using the <a
+		on 2015-09-04T11:08:52+02:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>

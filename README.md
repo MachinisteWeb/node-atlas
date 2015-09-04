@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version: 1.0 Beta
+Version: 1.0 (Beta)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -29,6 +29,7 @@ The tool is still in development and I experience it slowly with my own websites
 - [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
 - [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
+- [Plugin to boost standard capabilities](https://github.com/Haeresis/SublimeAtlas/).
 
 
 
@@ -37,7 +38,6 @@ The tool is still in development and I experience it slowly with my own websites
 - [Overview](#overview)
  - [Examples of websites with NodeAtlas](#examples-of-websites-with-nodeatlas)
  - [Table of Contents](#table-of-contents)
- - [Roadmap of Development Progress](#roadmap-of-development-progress)
  - [Documentation](#documentation)
 - [Installation](#installation)
 - [Start with NodeAtlas](#start-with-nodeatlas)
@@ -53,7 +53,7 @@ The tool is still in development and I experience it slowly with my own websites
  - [Manage Multilingual](#manage-multilingual)
  - [NodeAtlas use to generate HTML assets](#nodeatlas-use-to-generate-html-assets)
  - [Use NodeAtlas to run a website (Back-end Part)](#use-nodeatlas-to-run-a-website-back-end-part)
- - [Generate partial page with AJAX/Websocket](#generate-partial-page-with-ajax-websocket)
+ - [Generate partial page with AJAX/Websocket](#generate-partial-page-with-ajaxwebsocket)
  - [Change the url parameters](#change-the-url-parameters)
  - [Create your own webconfig variables](#create-your-own-webconfig-variables)
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
@@ -70,13 +70,13 @@ The tool is still in development and I experience it slowly with my own websites
  - [Changing the template engine brackets <% %>](#Changing-the-template-engine-brackets--)
  - [Change the url hostname and listening port](#change-the-url-hostname-and-listening-port)
  - [Generate urls dynamically](#generate-urls-dynamically)
-- [CLI / Running commands](#cli-running-commands)
- - [--directory](#--directory)
- - [--webconfig](#--webconfig)
- - [--browse](#--browse)
- - [--httpPort](#--httpport)
+- [CLI / Running commands](#cli--running-commands)
+ - [--directory](#--directory-)
+ - [--webconfig](#--webconfig-)
+ - [--browse](#--browse-subpath)
+ - [--httpPort](#--httpport-)
  - [--generate](#--generate)
-- [API / NodeAtlas as npm module](#api-nodeatlas-as-npm-module)
+- [API / NodeAtlas as npm module](#api--nodeatlas-as-npm-module)
 - [NodeAtlas as a simple web server](#nodeatlas-as-a-simple-web-server)
 - [Running NodeAtlas on online server](#running-nodeatlas-on-online-server)
  - [In a Windows Server environment with iisnode](#in-a-windows-server-environment-with-iisnode)
@@ -86,56 +86,11 @@ The tool is still in development and I experience it slowly with my own websites
 
 
 
-### Roadmap of Development Progress ###
-
-- Done
- - Express server used.
- - HTML mock-Generation live.
- - Full HTML Generation.
- - Configuration file (pages with URL Rewriting list).
- - Support of a part as possible Back-end (Controllers / Models).
- - Example of possible database (MySql / MongoDB / etc.).
- - Support Sessions.
- - Example of Socket.IO with handshake.
- - Support Express middleware.
- - Support personal variables webconfig.
- - Migration Connect 2.x to Connect 3.x.
- - Migration Express 3.x to Express 4.x.
- - Removing Connect 3.x.
- - Reverse-proxy Example for multiple instances on port 80.
- - Start with a NodeAtlas require() from a code file.
- - Install automatically NodeAtlas from npm.
- - Minification CSS / JS to generation.
- - Aggregation CSS / JS file via Bundles.
- - Support of a BDD session (Redis / MongoDB).
- - Quick Launch without "webconfig" just as a simple web server.
- - Routing shared via an external file.
- - Bundle shared via an external file.
- - Documentation of the API (JSDoc documentation node-atlas.js file)
- - Example of Socket.IO 1.0 with Handshake.
- - Translation of README.md file in English.
- - Create a global command `nodeatlas` with global installation.
- - Less support.
- - HTTPs support (WSs support too).
- - Image compression.
- - Auto-injection of CSS stylesheet property into inline tag attribute style (for email template).
- - Migration EJS 3.x to EJS 4.x.
-
-- Coming soon and I need your help !
- - Global tests on multiple projects.
- - Re-read and tests on README fr.
- - Enhancement of README en.
- - Create a NodeAtlas website EN/FR dedicated to NodeAtlas.
- - Update to 1.0.0.
-
-
-
 ### Documentation ###
 
 In addition to this README, you also have access to,
-- [tl;dr](https://www.npmjs.com/package/node-atlas),
-- [Code Explanation](https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js) and,
-- [Details of public function in the NA object](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html).
+- [tl;dr](https://www.npmjs.com/package/node-atlas) and,
+- [details of functions in the NA object](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html).
 
 
 
@@ -151,15 +106,15 @@ There are several ways to install Node-Atlas:
 
    **Start at least once NodeAtlas with the command line `\> node </path/to/>node-atlas/node-atlas.js`, to install the _node_modules_.**
 
-- `npm install node-atlas` (recommended for [use as a module](#nodeatlas-as-npm-module) in a project).
+- `npm install node-atlas` (recommended for [use as a module](#api--nodeatlas-as-npm-module) in a project).
 
    _This will install **NodeAtlas** in the `node_modules/node-atlas` directory of the execution of the command._
 
-- `npm install -g node-atlas` (recommended for [use as a module](#nodeatlas-as-npm-module) in large amount of project or for a command line utilisation).
+- `npm install -g node-atlas` (recommended for [use as a module](#api--nodeatlas-as-npm-module) in large amount of project or for [a command line utilisation](#cli--running-commands)).
 
    _This will install **NodeAtlas** in the global `node_modules/node-atlas`._
 
-- Clone the directory from [GitHub](https://github.com/Haeresis/NodeAtlas/).
+- Clone the directory from [GitHub](https://github.com/Haeresis/NodeAtlas/) (recommended for).
 
    _This will install **NodeAtlas** in cloning home folder._
 
@@ -174,7 +129,6 @@ There are several ways to install Node-Atlas:
 ### Fileset ###
 
 After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.
-
 
 ```
 site-hello-world/
@@ -265,7 +219,7 @@ You can also use NodeAtlas as a npm module.
 ```javascript
 var nodeAtlas = require("node-atlas");
 
-nodeAtlas.run();
+nodeAtlas().run();
 ```
 
 ```
@@ -290,12 +244,12 @@ Below is a sample configuration.
             "template": "index.htm"
         },
         "/member.html": {
-            "template": "member.htm"
-            "postSupport": false,
+            "template": "member.htm",
+            "postSupport": false
         },
         "/member-without-extension/": {
-            "template": "member.htm"
-            "getSupport": false,
+            "template": "member.htm",
+            "getSupport": false
         },
         "about.html": {
             "template": "about.htm"
@@ -340,12 +294,12 @@ The configuration below is equivalent to the configuration section just above
     "routes": {
         "/": "index.htm",
         "/member.html": {
-            "template": "member.htm"
-            "postSupport": false,
+            "template": "member.htm",
+            "postSupport": false
         },
         "/member-without-extension/": {
-            "template": "member.htm"
-            "getSupport": false,
+            "template": "member.htm",
+            "getSupport": false
         },
         "about.html": "about.htm",
         "/error.html": {
@@ -381,7 +335,7 @@ You can also host any file on your site in a public folder. For example, with th
 
 ```js
 {
-    "assetsRelativePath": "assets"
+    "assetsRelativePath": "assets",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -423,7 +377,7 @@ You can segment your HTML codes to not repeat the redundant code such "head" par
 
 ```js
 {
-    "componentsRelativePath": "components"
+    "componentsRelativePath": "components",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -1096,19 +1050,13 @@ var website = {};
     "use strict";
 
     // Load modules for this site in the NodeAtlas object.
-    publics.loadModules = function (NA) {
+    publics.loadModules = function () {
+        // Find instance of « NodeAtlas » engine.
+        var NA = this;
+
         // Associations of each module to access it anywhere.
         NA.modules.cookie = require('cookie');
         NA.modules.mongoose = require('mongoose');
-
-        // Go for a specific module in the `node_modules` website.
-        NA.modules.socketio = require(NA.websiteModulesPath + 'socket.io');
-
-        // Go for a specific module in the `node_modules` NodeAtlas the engine.
-        NA.modules.ejs = require(NA.nodeAtlasModulesPath + 'ejs.io');
-
-        // Re-injection of the object "NodeAtlas" overloaded the motor.
-        return NA;
     };
 
 }(website));
@@ -1129,9 +1077,9 @@ var website = {};
         // "blog" database connection.
         mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
             if (error) {
-                console.log("Database '" + address + "' is not accessible.");
+                console.log("Database 'mongodb://127.0.0.1:27017/blog' is not accessible.");
                 process.kill(process.pid);
-            };
+            }
 
             // Next.
             callback(mongoose);
@@ -1169,7 +1117,7 @@ var website = {};
 
     // Example using Socket.IO.
     privates.socketIoInitialisation = function (socketio, NA, callback) {
-        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io' } : undefined,
+        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
             io = socketio(NA.server, optionIo),
             cookie = NA.modules.cookie,
             cookieParser = NA.modules.cookieParser;
@@ -1212,15 +1160,15 @@ var website = {};
         var params = {};
 
         params.io = io;
-        params.NA = NA;
 
         // Event for the index page (see example in the next file).
-        require('./index').asynchrone(params);
+        require('./index').asynchrone.call(NA, params);
     };
 
     // Configuration of all modules.
-    publics.setConfigurations = function (NA, callback) {
-        var mongoose = NA.modules.mongoose,
+    publics.setConfigurations = function (callback) {
+        var NA = this,
+            mongoose = NA.modules.mongoose,
             socketio = NA.modules.socketio;
 
         // Initialize Mongoose.
@@ -1235,8 +1183,8 @@ var website = {};
                 // Socket IO listening.
                 privates.socketIoEvents(io, NA);
 
-                // Re-injection of the object "NodeAtlas" overloaded the motor.
-                callback(NA);
+                // Next steps of engine.
+                callback();
             });
         });
 
@@ -1367,7 +1315,8 @@ var website = {};
 
     // It occurs just before the complete assembly EJS.
     publics.changeVariation = function (params, mainCallback) {
-        var variation = params.variation,
+        var NA = this,
+            variation = params.variation,
             mongoose = params.NA.modules.mongoose,
             Article = mongoose.model('article');
 
@@ -1382,7 +1331,7 @@ var website = {};
         variation.specific.newProperty = "New Property"; // Defined a property does not exist in the original variation file that is accessible in template side via « <%= specific.newProperty ».
 
         // Can intercept the configuration of the current page
-        console.log(variation.currentRoute) // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
+        console.log(variation.currentRoute); // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
 
         // A test is made on a variable created in the webconfig.
         if (variation.webconfig._websiteIsClosed) {
@@ -1419,26 +1368,26 @@ var website = {};
 
     // It comes just before the HTML response to the client.
     publics.changeDom = function (params, mainCallback) {
-        var dom = params.dom,
-            NA = params.NA,
+        var NA = this,
+            dom = params.dom,
             cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
             $ = cheerio.load(dom); // It loads dom to manipulate as a DOM.
 
         // After all HTML h2 output "dom".
-        $("h2").each(function (i) {
+        $("h2").each(function () {
             var $this = $(this);
 
             // ...we created a div,
             $this.after(
                 // ... on injecte le contenu du h2 dans la div,
                 $("<div>").html($this.html())
-            )
+            );
             // ...and deletes the h2.
             $this.remove();
         });
 
         // We re-create a new HTML output with our changes.
-        dom = $.html()
+        dom = $.html();
 
         // We re-injects the changes.
         mainCallback(dom);
@@ -1455,15 +1404,13 @@ var website = {};
 (function (publics) {
     "use strict";
 
-    var privates = {};
-
     // All Websocket action possible for this template.
     publics.asynchrone = function (params) {
-        var io = params.io,
+        var NA = this,
+            io = params.io,
             mongoose = params.NA.modules.mongoose,
             marked = params.NA.modules.marked,
-            Article = mongoose.model('article'),
-            renderer = new marked.Renderer();
+            Article = mongoose.model('article');
 
         // Once we have a valid connection between the client and our back-end...
         io.sockets.on('connection', function (socket) {
@@ -2029,11 +1976,11 @@ See the example below:
         },
         "/list-of-members": {
             "redirect": "/list-of-members/",
-            "statusCode": 301,
+            "statusCode": 301
         },
         "/go-to-node-atlas/": {
             "redirect": "http://haeresis.github.io/NodeAtlas/",
-            "statusCode": 302,
+            "statusCode": 302
         },
         "/": {
             "template": "index.htm"
@@ -2058,7 +2005,7 @@ See the example below:
             "template": "members.htm"
         },
         "/list-of-members/:member": {
-            "redirect": "/membres/:member/"
+            "redirect": "/membres/:member/",
             "statusCode": 301
         },
         "/": {
@@ -2082,7 +2029,7 @@ See the example below:
             "regExp": true
         },
         "/list-of-members/([-a-z0-9]+)/": {
-            "redirect": "/membres/$0$/"
+            "redirect": "/membres/$0/",
             "statusCode": 301,
             "regExp": true
         },
@@ -2098,13 +2045,14 @@ See the example below:
 
 You will be redirected to `http://localhost/list-of-members/haeresis/` when you access to `http://localhost/list-of-members/haeresis` with a header _permanent redirect_.
 
-For the second *match* use $1$, the third $2#, etc.
+For the second *match* use $1, the third $2, etc.
 
 
 
 ### Run Website with HTTPs ###
 
-It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a `security` folder in which to place your `server.key` and `server.crt` file to supply the protocol.
+It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a `security` folder in which to place your `server.key` and `server.crt` file to supply the protocol. 
+
 Just use the following configuration:
 
 ```js
@@ -2132,6 +2080,7 @@ Alternatively , if your two Key and Certificate files have the same name, use th
     }
 }
 ```
+
 
 
 ### Minify CSS/JS ###
@@ -2858,9 +2807,10 @@ and `optimizations.json`
 ```json
 {
     "images": {
-        "media/images/example.min.png": "media/images/example.png",
-        "media/images/example.min.jpg": "media/images/example.jpg",
-        "media/images/example.min.gif": "media/images/example.gif"
+        "media/images/example.png": "media/images/optimized/",
+        "media/images/example.jpg": "media/images/optimized/",
+        "media/images/example.gif": "media/images/optimized/",
+        "media/images/example.svg": "media/images/optimized/"
     }
 }
 ```
@@ -3030,8 +2980,6 @@ It is possible to use `injectCss` as global mechanism for all pages.
 
 ainsi les deux pages `welcome` et `good-bye` contiendront chacune `<body style="color: #f00;">`.
 
-> Test : From `./tests/examples/css-injection` run `node "../../../node-atlas.js" --generate --webconfig webconfig.common.json`. Result are into `generates`.
-
 #### Multiple Injection ####
 
 It's possible to :
@@ -3158,18 +3106,19 @@ var website = {};
     "use strict";
 
     publics.loadModules = function (NA) {
-        NA.modules.RedisStore = require('connect-redis');
+        var NA = this;
 
-        return NA;
+        NA.modules.RedisStore = require('connect-redis');
     };
 
-    publics.setSessions = function (NA, callback) {
-        var session = NA.modules.session,
+    publics.setSessions = function (callback) {
+        var NA = this,
+            session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
 
         NA.sessionStore = new RedisStore();
 
-        callback(NA);
+        callback();
     };
 
 }(website));
@@ -3191,21 +3140,22 @@ var website = {};
 (function (publics) {
     "use strict";
 
-    publics.loadModules = function (NA) {
-        NA.modules.MongoStore = require('connect-mongo');
+    publics.loadModules = function () {
+        var NA = this;
 
-        return NA;
+        NA.modules.MongoStore = require('connect-mongo');
     };
 
-    publics.setSessions = function (NA, callback) {
-        var session = NA.modules.session,
+    publics.setSessions = function (callback) {
+        var NA = this,
+            session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
 
         NA.sessionStore = new MongoStore({
             db: 'sessions'
         });
 
-        callback(NA);
+        callback();
     };
 
 }(website));
@@ -3615,6 +3565,7 @@ If you change an item in your common variation file or even your template compon
 
 
 
+
 ## API / NodeAtlas as npm module ##
 
 If you start NodeAtlas via JavaScript code, you can also configure the launch:
@@ -3622,18 +3573,17 @@ If you start NodeAtlas via JavaScript code, you can also configure the launch:
 *server.js*
 
 ```javascript
-require("node-atlas").run({
+require("node-atlas")().run({
     directory: "</path/to/your/website/directory/>",
     webconfig: "webconfig.alternatif.json",
     browse: true,
     httpPort: 7778,
     generate: true
 });
-
 ```
 
 ```
-\> server app.js
+\> server server.js
 ```
 
 You can run multiple website in same time. Each webconfig must listen a different port.
@@ -3800,7 +3750,6 @@ An example for a production webconfig:
         ...
     }
 }
-
 ```
 
 
