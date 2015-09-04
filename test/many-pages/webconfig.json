@@ -1,0 +1,24 @@
+{
+    "templatesRelativePath": "templates",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        },
+        "/member.html": {
+            "template": "member.htm",
+            "postSupport": false,
+        },
+        "/member-without-extension/": {
+            "template": "member.htm",
+            "getSupport": false
+        },
+        "about.html": {
+            "template": "about.htm"
+        },
+        "/error.html": {
+            "template": "error.htm",
+            "statusCode": 404,
+            "mimeType": "text/plain"
+        }
+    }
+}

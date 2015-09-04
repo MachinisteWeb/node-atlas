@@ -1,0 +1,39 @@
+{
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        },
+        "/standard/": {
+            "template": "index.htm"
+        },
+        "/standard-redirect/": {
+            "redirect": "/standard/",
+            "statusCode": 301
+        },
+        "/variable/:test/": {
+            "template": "index.htm"
+        },
+        "/variable-redirect/:test/": {
+            "redirect": "/variable/:test/",
+            "statusCode": 301
+        },
+        "/regex/([a-z0-9]+)/?": {
+            "template": "index.htm",
+            "regExp": true
+        },
+        "/regex-redirect/([a-z0-9]+)/?": {
+            "redirect": "/regex/$0/",
+            "statusCode": 301,
+            "regExp": true
+        },
+        "/regex-multi/([a-z]+)/([0-9]+)/?$": {
+            "template": "index.htm",
+            "regExp": true
+        },
+        "/regex-multi-redirect/([a-z]+)/([0-9]+)/?$": {
+            "redirect": "/regex-multi/$0/$1/",
+            "statusCode": 301,
+            "regExp": true
+        }
+    }
+}

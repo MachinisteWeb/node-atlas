@@ -12,7 +12,7 @@ Version : 1.0 (Beta)
 
 NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/). Elle permet trois choses :
 
-- Créer et maintenir un ensemble d'assets HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.
+- Créer et maintenir un ensemble de maquettes HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.
 - Créer et maintenir des sites multilingues sans Back-end.
 - Développer des sites ou des applications Node.js multilingues de toutes tailles.
 
@@ -28,7 +28,8 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
-- [Utilisation du préprocesseur Less pour des Framework non invasif dans le HTML](https://github.com/Haeresis/LessAtlas/).
+- [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/LessAtlas/).
+- [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/SublimeAtlas/).
 
 
 
@@ -37,7 +38,6 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Avant-propos](#avant-propos)
  - [Exemple de réalisations avec NodeAtlas](#exemples-de-r%C3%A9alisations-avec-nodeatlas)
  - [Table des matières](#table-des-mati%C3%A8res)
- - [Roadmap d'avancement du développement](#roadmap-davancement-du-d%C3%A9veloppement)
  - [Documentation](#documentation)
 - [Installation](#installation)
 - [Commencer avec NodeAtlas](#commencer-avec-nodeatlas)
@@ -53,7 +53,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
  - [Utiliser NodeAtlas pour générer des assets HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html)
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
- - [Génerer des fragments de page par retour AJAX/Websocket](#generer-des-fragments-de-page-par-retour-ajax-websocket)
+ - [Génerer des fragments de page par retour AJAX/Websocket](#generer-des-fragments-de-page-par-retour-ajaxwebsocket)
  - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
@@ -70,11 +70,11 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
  - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
-- [CLI / Commandes de lancement](#cli-commandes-de-lancement)
- - [--directory](#--directory)
- - [--webconfig](#--webconfig)
- - [--browse](#--browse)
- - [--httpPort](#--httpport)
+- [CLI / Commandes de lancement](#cli--commandes-de-lancement)
+ - [--directory](#--directory-)
+ - [--webconfig](#--webconfig-)
+ - [--browse](#--browse-subpath)
+ - [--httpPort](#--httpport-)
  - [--generate](#--generate)
 - [API / NodeAtlas comme module npm](#api-nodeatlas-comme-module-npm)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
@@ -86,56 +86,11 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 
 
-### Roadmap d'avancement du développement ###
-
-- Fait
- - Lancement d'un serveur Express.
- - Génération live de maquette HTML.
- - Génération complète de maquette HTML.
- - Fichier de configuration (Liste des pages avec Url Rewriting).
- - Support d'une partie Back-end possible (Controllers / Models).
- - Exemple d'utilisation de BDD possible (MySql / MongoDB / etc.).
- - Support des Sessions.
- - Exemple de Socket.IO avec Handshake.
- - Support des middlewares de Express.
- - Support des variables personnelles de webconfig.
- - Migration Connect 2.x vers Connect 3.x.
- - Migration Express 3.x vers Express 4.x.
- - Retrait de Connect 3.x.
- - Exemple de reverse-proxy pour plusieurs instances sur port 80.
- - Lancer NodeAtlas avec un require() depuis un fichier de code.
- - Installer automatiquement NodeAtlas depuis npm.
- - Minification de CSS/JS à la génération.
- - Agrégation de fichier CSS/JS via des Bundles.
- - Support d'une BDD de Session (Redis / MongoDB).
- - Lancement rapide sans « webconfig » juste en tant que simple serveur web.
- - Routage partagé via un fichier externe.
- - Bundle partagé via un fichier externe.
- - Documentation de l'API (documentation JSDoc du fichier node-atlas.js)
- - Exemple de Socket.IO 1.0 avec Handshake.
- - Traduction du fichier README.md en anglais.
- - Créer une commande `nodeatlas` en installation globale.
- - Support Less.
- - Support HTTPs (WSs aussi).
- - Compression des images.
- - Injection automatique de feuille CSS en style inline (pour les maquettes email).
- - Migration EJS 1.x vers EJS 2.x.
-
-- À venir et avec votre aide !
- - Tests globaux sur divers projets.
- - Relecture et tests du README fr.
- - Amélioration du README en.
- - Création d'un site EN/FR dédié au projet avec NodeAtlas.
- - Passage en 1.0.0.
-
-
-
 ### Documentation ###
 
-En complément de ce README (Fr), vous avez également accès au,
-- [tl;dr](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) (Fr),
-- [Explications de code](https://github.com/Haeresis/NodeAtlas/blob/master/node-atlas.js) (En) et au,
-- [détail des fonctions publiques de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html) (En).
+En complément de ce README, vous avez également accès au,
+- [tl;dr](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) et aux
+- [détails des fonctions de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html) (En).
 
 
 
@@ -151,15 +106,15 @@ Il y a plusieurs solutions pour installer Node-Atlas :
 
    **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/node-atlas.js`, pour installer les _node_modules_.**
 
-- `npm install node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans un projet).
+- `npm install node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans un projet).
 
    _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'execution de la commande._
 
-- `npm install -g node-atlas` (recommandé pour un [usage sous forme de module](#nodeatlas-comme-module-npm) dans beaucoup de projet ou pour un usage à la ligne de commande).
+- `npm install -g node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans beaucoup de projet ou pour [un usage à la ligne de commande](#cli--commandes-de-lancement)).
 
    _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` global._
 
-- Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas/).
+- Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas/) (recommandé pour participer au développement).
 
    _Ceci installera **NodeAtlas** dans le dossier d'accueil du clonage._
 
@@ -174,7 +129,6 @@ Il y a plusieurs solutions pour installer Node-Atlas :
 ### Ensemble de fichiers ###
 
 Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs comme la structure ci-dessous.
-
 
 ```
 site-hello-world/
@@ -265,7 +219,7 @@ Vous pouvez également utiliser NodeAtlas comme un module npm.
 ```javascript
 var nodeAtlas = require("node-atlas");
 
-nodeAtlas.run();
+nodeAtlas().run();
 ```
 
 ```
@@ -290,12 +244,12 @@ Ci-dessous un exemple de configuration.
             "template": "index.htm"
         },
         "/member.html": {
-            "template": "member.htm"
-            "postSupport": false,
+            "template": "member.htm",
+            "postSupport": false
         },
         "/member-without-extension/": {
-            "template": "member.htm"
-            "getSupport": false,
+            "template": "member.htm",
+            "getSupport": false
         },
         "about.html": {
             "template": "about.htm"
@@ -340,12 +294,12 @@ La configuration ci-dessous est équivalente à la configuration de la section j
     "routes": {
         "/": "index.htm",
         "/member.html": {
-            "template": "member.htm"
-            "postSupport": false,
+            "template": "member.htm",
+            "postSupport": false
         },
         "/member-without-extension/": {
-            "template": "member.htm"
-            "getSupport": false,
+            "template": "member.htm",
+            "getSupport": false
         },
         "about.html": "about.htm",
         "/error.html": {
@@ -381,7 +335,7 @@ Vous pouvez également héberger tout un tas de fichier sur votre site dans un d
 
 ```js
 {
-    "assetsRelativePath": "assets"
+    "assetsRelativePath": "assets",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -423,7 +377,7 @@ Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant 
 
 ```js
 {
-    "componentsRelativePath": "components/"
+    "componentsRelativePath": "components/",
     "routes": {
         "/": {
             "template": "index.htm"
@@ -1096,19 +1050,13 @@ var website = {};
     "use strict";
 
     // Chargement des modules pour ce site dans l'objet NodeAtlas.
-    publics.loadModules = function (NA) {
+    publics.loadModules = function () {
+		// Récupérer l'instance « NodeAtlas » du moteur.
+    	var NA = this;
+
         // Associations de chaque module pour y avoir accès partout.
         NA.modules.cookie = require('cookie');
         NA.modules.mongoose = require('mongoose');
-
-        // Aller chercher un module spécifiquement dans le `node_modules` du site web.
-        NA.modules.socketio = require(NA.websiteModulesPath + 'socket.io');
-
-        // Aller chercher un module spécifiquement dans le `node_modules` du moteur NodeAtlas.
-        NA.modules.ejs = require(NA.nodeAtlasModulesPath + 'ejs.io');
-
-        // Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
-        return NA;
     };
 
 }(website));
@@ -1129,11 +1077,11 @@ var website = {};
         // Connexion à la base « blog ».
         mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
             if (error) {
-                console.log("La base '" + address + "' n'est pas accessible.");
+                console.log("Database 'mongodb://127.0.0.1:27017/blog' is not accessible.");
                 process.kill(process.pid);
-            };
+            }
 
-            // Suite.
+            // Next.
             callback(mongoose);
         });
 
@@ -1169,7 +1117,7 @@ var website = {};
 
     // Exemple d'utilisation de Socket.IO.
     privates.socketIoInitialisation = function (socketio, NA, callback) {
-        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io' } : undefined,
+        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
             io = socketio(NA.server, optionIo),
             cookie = NA.modules.cookie,
             cookieParser = NA.modules.cookieParser;
@@ -1212,15 +1160,15 @@ var website = {};
         var params = {};
 
         params.io = io;
-        params.NA = NA;
 
         // Évênements pour la page index (voir exemple dans le fichier d'après).
-        require('./index').asynchrone(params);
+        require('./index').asynchrone.call(NA, params);
     };
 
     // Configuration de tous les modules.
-    publics.setConfigurations = function (NA, callback) {
-        var mongoose = NA.modules.mongoose,
+    publics.setConfigurations = function (callback) {
+        var NA = this,
+        	mongoose = NA.modules.mongoose,
             socketio = NA.modules.socketio;
 
         // Initialisation de Mongoose.
@@ -1235,8 +1183,8 @@ var website = {};
                 // Écoute d'action Socket IO.
                 privates.socketIoEvents(io, NA);
 
-                // Ré-injection de l'objet « NodeAtlas » surchargé dans le moteur.
-                callback(NA);
+                // Étapes suivante du moteur.
+                callback();
             });
         });
 
@@ -1367,8 +1315,9 @@ var website = {};
 
     // On intervient juste avant l'assemblage complet EJS.
     publics.changeVariation = function (params, mainCallback) {
-        var variation = params.variation,
-            mongoose = params.NA.modules.mongoose,
+        var NA = this,
+        	variation = params.variation,
+            mongoose = NA.modules.mongoose,
             Article = mongoose.model('article');
 
 
@@ -1382,7 +1331,7 @@ var website = {};
         variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via `<%= specific.newProperty %>`.
 
         // Interception possible de la configuration de la page courante.
-        console.log(variation.currentRoute) // Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.
+        console.log(variation.currentRoute); // Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.
 
         // On test une variable créer de toute pièce dans le webconfig.
         if (variation.webconfig._websiteIsClosed) {
@@ -1419,26 +1368,26 @@ var website = {};
 
     // On intervient juste avant le renvoi HTML auprès du client (response).
     publics.changeDom = function (params, mainCallback) {
-        var dom = params.dom,
-            NA = params.NA,
+        var NA = params.NA,
+        	dom = params.dom,
             cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
             $ = cheerio.load(dom); // On charge les données pour les manipuler comme un DOM.
 
         // Après tous les h2 de la sortie HTML « dom »,
-        $("h2").each(function (i) {
+        $("h2").each(function () {
             var $this = $(this);
 
             // ...on créé une div,
             $this.after(
                 // ... on injecte le contenu du h2 dans la div,
                 $("<div>").html($this.html())
-            )
+            );
             // ...et supprime le h2.
             $this.remove();
         });
 
         // On re-créer une nouvelle sortie HTML avec nos modifications.
-        dom = $.html()
+        dom = $.html();
 
         // On ré-injecte les modifications.
         mainCallback(dom);
@@ -1455,15 +1404,13 @@ var website = {};
 (function (publics) {
     "use strict";
 
-    var privates = {};
-
     // Intégralité des actions Websocket possible pour ce template.
     publics.asynchrone = function (params) {
-        var io = params.io,
+        var NA = this,
+        	io = params.io,
             mongoose = params.NA.modules.mongoose,
             marked = params.NA.modules.marked,
-            Article = mongoose.model('article'),
-            renderer = new marked.Renderer();
+            Article = mongoose.model('article');
 
         // Dès qu'on a un lien valide entre le client et notre back...
         io.sockets.on('connection', function (socket) {
@@ -2009,6 +1956,8 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
+
+
 ### Gérer les redirections ###
 
 Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre `redirect`.
@@ -2027,11 +1976,11 @@ Voyez l'exemple ci-dessous :
         },
         "/liste-des-membres": {
             "redirect": "/liste-des-membres/",
-            "statusCode": 301,
+            "statusCode": 301
         },
         "/aller-sur-node-atlas/": {
             "redirect": "http://haeresis.github.io/NodeAtlas/",
-            "statusCode": 302,
+            "statusCode": 302
         },
         "/": {
             "template": "index.htm"
@@ -2056,7 +2005,7 @@ Voyez l'exemple ci-dessous :
             "template": "members.htm"
         },
         "/liste-des-membres/:member": {
-            "redirect": "/membres/:member/"
+            "redirect": "/membres/:member/",
             "statusCode": 301
         },
         "/": {
@@ -2080,7 +2029,7 @@ Voyez l'exemple ci-dessous :
             "regExp": true
         },
         "/liste-des-membres/([-a-z0-9]+)/": {
-            "redirect": "/membres/$0$/"
+            "redirect": "/membres/$0/",
             "statusCode": 301,
             "regExp": true
         },
@@ -2096,7 +2045,7 @@ Voyez l'exemple ci-dessous :
 
 Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
 
-Pour le second *match* utilisez $1$, pour le troisième $2$, etc.
+Pour le second *match* utilisez $1, pour le troisième $2, etc.
 
 
 
@@ -3031,8 +2980,6 @@ Il existe également la même propriété globale inpactant toutes les pages.
 
 ainsi les deux pages `bienvenue` et `au-revoir` contiendront chacune `<body style="color: #f00;">`.
 
-> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../node-atlas.js" --generate --webconfig webconfig.common.json`. Le résultat est dans `generates`.
-
 #### Injection multiple ####
 
 Il est possible :
@@ -3158,19 +3105,20 @@ var website = {};
 (function (publics) {
     "use strict";
 
-    publics.loadModules = function (NA) {
-        NA.modules.RedisStore = require('connect-redis');
+    publics.loadModules = function () {
+    	var NA = this;
 
-        return NA;
+        NA.modules.RedisStore = require('connect-redis');
     };
 
-    publics.setSessions = function (NA, callback) {
-        var session = NA.modules.session,
+    publics.setSessions = function (callback) {
+        var NA = this,
+    		session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
 
         NA.sessionStore = new RedisStore();
 
-        callback(NA);
+        callback();
     };
 
 }(website));
@@ -3192,21 +3140,22 @@ var website = {};
 (function (publics) {
     "use strict";
 
-    publics.loadModules = function (NA) {
-        NA.modules.MongoStore = require('connect-mongo');
+    publics.loadModules = function () {
+    	var NA = this;
 
-        return NA;
+        NA.modules.MongoStore = require('connect-mongo');
     };
 
-    publics.setSessions = function (NA, callback) {
-        var session = NA.modules.session,
+    publics.setSessions = function (callback) {
+        var NA = this,
+        	session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
 
         NA.sessionStore = new MongoStore({
             db: 'sessions'
         });
 
-        callback(NA);
+        callback();
     };
 
 }(website));
@@ -3595,7 +3544,6 @@ Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 
 
 
-
 ### --httpPort <httpPort> ###
 
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
@@ -3617,6 +3565,7 @@ Si vous modifiez un élément dans votre fichier de variation commun ou même da
 
 
 
+
 ## API / NodeAtlas comme module npm ##
 
 Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :
@@ -3624,7 +3573,7 @@ Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configur
 *server.js*
 
 ```javascript
-require("node-atlas").run({
+require("node-atlas")().run({
     directory: "</path/to/your/website/directory/>",
     webconfig: "webconfig.alternatif.json",
     browse: true,
@@ -3801,7 +3750,6 @@ Un webconfig exemple pour une production :
         ...
     }
 }
-
 ```
 
 
