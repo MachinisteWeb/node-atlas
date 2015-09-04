@@ -2,5 +2,5 @@
 var nodeAtlas = require("node-atlas");
 
 nodeAtlas().run({
-	browse: true
+    browse: true
 });
