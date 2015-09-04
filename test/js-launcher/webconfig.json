@@ -1,0 +1,7 @@
+{
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}

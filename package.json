@@ -1,12 +1,12 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.99.1",
+  "version": "0.99.4",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
   },
-  "description": "Create MVC2 or Front-end-based websites easily.",
+  "description": "Create MVC2 or Front-end-based websites easily!",
   "private": false,
   "contributors": [
     {
@@ -66,7 +66,15 @@
     "languages/default.json",
     "languages/en-gb.json",
     "languages/fr-fr.json",
-    "scripts/install.js",
+    "lib/install.js",
+    "lib/assets-generation.js",
+    "lib/back-end-part.js",
+    "lib/configuration.js",
+    "lib/front-end-part.js",
+    "lib/global-functions.js",
+    "lib/init.js",
+    "lib/node-modules.js",
+    "lib/web-server.js",
     "commands/nodeatlas",
     "commands/nodeatlas.cmd",
     "LICENSE",
