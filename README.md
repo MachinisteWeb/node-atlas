@@ -29,7 +29,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
 - [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/LessAtlas/).
-- [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/SublimeAtlas/).
+- [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/ComponentAtlas/).
 
 
 
