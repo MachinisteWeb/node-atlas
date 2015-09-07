@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>NodeAtlas Source: lib/global-functions.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top ">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">NodeAtlas</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="NA_currentRouteParameters.html">NA#currentRouteParameters</a>
+						</li>
+						
+						<li>
+							<a href="NA_currentVariation.html">NA#currentVariation</a>
+						</li>
+						
+						<li>
+							<a href="NA_modules.html">NA#modules</a>
+						</li>
+						
+						<li>
+							<a href="NA_variations.html">NA#variations</a>
+						</li>
+						
+						<li>
+							<a href="NA_webconfig.html">NA#webconfig</a>
+						</li>
+						
+						<li>
+							<a href="NA_webconfig.enableLess.html">NA#webconfig.enableLess</a>
+						</li>
+						
+						<li>
+							<a href="NA_websiteController%255B%255D.html">NA#websiteController[]</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="module-node-atlas.html">node-atlas</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="NA.html">NA</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: lib/global-functions.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/*------------------------------------*\
+    $%GLOBAL FUNCTIONS
+\*------------------------------------*/
+/* jslint node: true */
+
+/**
+ * Clone Object A into B and the purpose is : change A not affect B.
+ * @public
+ * @function clone
+ * @memberOf NA#
+ * @param {Object} object The A object.
+ * @return {Object} Return the B object.
+ */
+exports.clone = function (object) {
+    var NA = this,
+        copy,
+        result;
+
+    /* Handle the 3 simple types, and null or undefined */
+    if (null === object || undefined === object || "object" !== typeof object) {
+        result = object;
+    }
+
+    /* Handle Date */
+    if (object instanceof Date) {
+        copy = new Date();
+        copy.setTime(object.getTime());
+        result = copy;
+    }
+
+    /* Handle Array */
+    if (object instanceof Array) {
+        result = object.slice(0);
+    }
+
+    /* Handle Object */
+    if (object instanceof Object) {
+        copy = {};
+        NA.forEach(object, function (attr) {
+            copy[attr] = NA.clone(object[attr]);
+        });
+        result = copy;
+    }
+
+    return result;
+};
+
+/**
+ * A safe iterator for object properties.
+ * @public
+ * @function forEach
+ * @memberOf NA#
+ */
+exports.forEach = function (object, callback) {
+    for (var current in object) {
+        if (object.hasOwnProperty(current)) {
+            callback(current, object);
+        }
+    }
+};
+
+/**
+ * Allow you to write into Console.
+ * @public
+ * @function log
+ * @memberOf NA#
+ */
+exports.log = function () {
+    var NA = this,
+        logs = console.log;
+
+    NA.forEach(arguments, function (log, logList) {
+        logs('\u001b[36m' + logList[log] + '\u001b[39m');
+    });
+};
+
+/**
+ * Read a JSON file and return a literal Object else kill process.
+ * @private
+ * @function openConfiguration
+ * @memberOf NA#
+ * @param {string} configName File name (on file path + name in relative). Base folder is the folder where is `webconfig.json`.
+ * @return {Object} Literal object of JSON file.
+ */
+exports.openConfiguration = function (configName) {
+    var NA = this,
+        fs = NA.modules.fs,
+        data = {};
+
+    try {
+        /* If file is a correct JSON file, return a literal Object file's content. */
+        return JSON.parse(fs.readFileSync(NA.websitePhysicalPath + configName, 'utf-8'));
+    } catch (exception) {
+        if (exception.toString().indexOf('SyntaxError') !== -1) {
+            /* If the file is a JSON file, but contain a Syntax error. */
+            data.syntaxError = exception.toString();
+            data.fileName = configName;
+            NA.log(NA.appLabels.webconfigSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+        } else {
+            /* Other errors. */
+            NA.log(exception);
+        }
+        /* In case of error, kill current process. */
+        process.kill(process.pid);
+    }
+};
+
+/**
+ * Read a file and allow a success callback or fallback in case of failure.
+ * @public
+ * @function ifFileExist
+ * @memberOf NA#
+ * @param {string}               physicalPath Absolute OS path to a filename.
+ * @param {string}               fileName     Name of file.
+ * @param {ifFileExist~callback} callback     Executed if file was correctly opened.
+ * @param {ifFileExist~fallback} fallback     Executed if something was wrong with file.
+ */
+exports.ifFileExist = function (physicalPath, fileName, callback, fallback) {
+    var NA = this,
+        fs = NA.modules.fs,
+        path = NA.modules.path;
+
+    /* Check if file exist */
+    fs.stat(physicalPath + fileName, function (error) {
+        var data = {
+            pathName: path.join(physicalPath, fileName)
+        };
+
+        if (error &amp;&amp; error.code === 'ENOENT') {
+            NA.log(NA.appLabels.ifFileExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+
+            /**
+             * If file do not exist, bad next step...
+             * @callback ifFileExist~fallback
+             */
+            fallback();
+        } else {
+
+            /**
+             * If file exist, good next step !
+             * @callback ifFileExist~callback
+             */
+            callback();
+        }
+    });
+};
+
+/**
+ * Load into `{variation}.common` to object format the content of common variation file.
+ * @public
+ * @function addCommonVariation
+ * @memberOf NA#
+ * @param {string} languageCode Select a subdirectory for load variation (name is generaly the languageCode).
+ * @param {object} variation    An object for attach common parameter. If empty, a new empty object is created.
+ */
+exports.addCommonVariation = function (languageCode, variation) {
+    var NA = this,
+        currentVariation = {},
+        extend = NA.modules.extend;
+
+    /* Create a global variation object if is not passed. */
+    if (typeof variation !== 'undefined') {
+        currentVariation = variation;
+    }
+
+    /* Load variation from languageCode directory or root directory (depend if languageCode is defined)... */
+    currentVariation.common = NA.openVariation(NA.webconfig.commonVariation, languageCode);
+
+    /* ...and complete empty value with value of file in root directory. */
+    if (languageCode) {
+        currentVariation.common = extend(true, NA.openVariation(NA.webconfig.commonVariation), currentVariation.common);
+    }
+
+    return currentVariation;
+};
+
+/**
+ * Load into `{variation}.specific` to object format the content of a specific variation file.
+ * @public
+ * @function addSpecificVariation
+ * @memberOf NA#
+ * @param {string} specific     Select the specific variation associate to the current page.
+ * @param {string} languageCode Select a subdirectory for load variation (name is generaly the languageCode).
+ * @param {object} variation    An object for attach common parameter. If empty, a new empty object is created.
+ */
+exports.addSpecificVariation = function (specific, languageCode, variation) {
+    var NA = this,
+        currentVariation = {},
+        extend = NA.modules.extend;
+
+    /* Create a global variation object if is not passed. */
+    if (typeof variation !== 'undefined') {
+        currentVariation = variation;
+    }
+
+    /* Load variation from languageCode directory or root directory (depend if languageCode is defined)... */
+    currentVariation.specific = NA.openVariation(specific, languageCode);
+
+    /* ...and complete empty value with value of file in root directory. */
+    if (languageCode) {
+        currentVariation.specific = extend(true, NA.openVariation(specific), currentVariation.specific);
+    }
+
+    return currentVariation;
+};
+
+/**
+ * Load a HTML fragment and inject variation for an async result.
+ * @public
+ * @function newRender
+ * @memberOf NA#
+ * @param {string} templateFile Path of file used into componentsRelativePath directory.
+ * @param {object} variations   All variable used for transform variation into HTML.
+ */
+exports.newRender = function (templateFile, variations) {
+    var NA = this,
+        ejs = NA.modules.ejs,
+        fs = NA.modules.fs,
+        path = NA.modules.path;
+
+    /* Generate asynchrone render. */
+    return ejs.render(
+        fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.componentsRelativePath, templateFile), 'utf-8'),
+        variations
+    );
+};</pre>
+	</article>
+</section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a>
+					<br />
+					
+					
+		<span class="copyright">
+		<a href="https://www.npmjs.org/package/node-atlas">This project is a npm module</a>
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
+		on 2015-09-07T10:05:01+02:00 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : true,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+
+</body>
+</html>

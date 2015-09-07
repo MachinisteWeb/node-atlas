@@ -30,7 +30,7 @@ The tool is still in development and I experience it slowly with my own websites
 - [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
 - [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
-- [Plugin to boost standard capabilities](https://github.com/Haeresis/SublimeAtlas/).
+- [Plugin to boost standard capabilities](https://github.com/Haeresis/ComponentAtlas/).
 
 
 

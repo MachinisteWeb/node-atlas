@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>NodeAtlas Source: node-atlas.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top ">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">NodeAtlas</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="NA_currentRouteParameters.html">NA#currentRouteParameters</a>
+						</li>
+						
+						<li>
+							<a href="NA_currentVariation.html">NA#currentVariation</a>
+						</li>
+						
+						<li>
+							<a href="NA_modules.html">NA#modules</a>
+						</li>
+						
+						<li>
+							<a href="NA_variations.html">NA#variations</a>
+						</li>
+						
+						<li>
+							<a href="NA_webconfig.html">NA#webconfig</a>
+						</li>
+						
+						<li>
+							<a href="NA_webconfig.enableLess.html">NA#webconfig.enableLess</a>
+						</li>
+						
+						<li>
+							<a href="NA_websiteController%255B%255D.html">NA#websiteController[]</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="module-node-atlas.html">node-atlas</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="NA.html">NA</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: node-atlas.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/*------------------------------------*\
+    $%ABOUT
+\*------------------------------------*/
+
+/**
+ * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
+ * @author {@link http://www.lesieur.name/ Bruno Lesieur}
+ * @version 0.99.6
+ * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
+ * @module node-atlas
+ * @requires async
+ * @requires body-parser
+ * @requires cheerio
+ * @requires clean-css
+ * @requires commander
+ * @requires compression
+ * @requires cookie-parser
+ * @requires css-parse
+ * @requires ejs
+ * @requires express
+ * @requires express-session
+ * @requires extend
+ * @requires forcedomain
+ * @requires imagemin
+ * @requires less-middleware
+ * @requires mkpath
+ * @requires open
+ * @requires traverse-directory
+ * @requires uglify-js
+ */
+/* jslint node: true */
+
+
+/*------------------------------------*\
+    $%SUMMARY
+\*------------------------------------*/
+
+/**
+ * ABOUT..........................Informations about NodeAtlas.
+ * SUMMARY........................It's me !
+ * NODE ATLAS OBJECT..............Creation of Main Object.
+ * CONFIGURATION..................Global configuration variables, command tool and webconfig.
+ * GLOBAL FUNCTIONS...............Neutral functions used more once.
+ * NODE MODULES...................Functions used to load Node Modules.
+ * WEB SERVER.....................Functions used to run pages on http(s) protocol and use middlewares.
+ * FRONT-END PART.................Functions used for manage Front-end part.
+ * BACK-END PART..................Functions used for manage Back-end part.
+ * ASSETS GENERATION..............Functions used for create HTML assets.
+ * INIT...........................Run all JavaScript.
+ * RUN............................Starting program.
+ */
+
+
+/*------------------------------------*\
+    $%NODE ATLAS OBJECT
+\*------------------------------------*/
+
+var configuration = require('./lib/configuration'),
+    globalFunctions = require('./lib/global-functions'),
+    nodeModules = require('./lib/node-modules'),
+    webServer = require('./lib/web-server'),
+    frontEndPart = require('./lib/front-end-part'),
+    backEndPart = require('./lib/back-end-part'),
+    assetsGeneration = require('./lib/assets-generation'),
+    init = require('./lib/init'),
+
+/**
+ * Creates a new instance of NodeAtlas Website.
+ * @class
+ * @public
+ * @alias NA
+ */
+NA = function () {
+
+    /* Shortcut for use NA without `new` keyword. */
+    if (!(this instanceof NA)) {
+        return new NA();
+    }
+
+    /* $%CONFIGURATION */
+    this.lineCommandConfiguration = configuration.lineCommandConfiguration;
+    this.initGlobalVar = configuration.initGlobalVar;
+    this.initGlobalVarRequiredNpmModules = configuration.initGlobalVarRequiredNpmModules;
+    this.templateEngineConfiguration = configuration.templateEngineConfiguration;
+    this.initWebconfig = configuration.initWebconfig;
+    this.setExternalRoutesAsWebconfigBase = configuration.setExternalRoutesAsWebconfigBase;
+    this.setExternalFilesAsWebconfigBase = configuration.setExternalFilesAsWebconfigBase;
+    this.setDirectoriesAsWebconfigBase = configuration.setDirectoriesAsWebconfigBase;
+    this.setHttpValuesAsWebconfigBase = configuration.setHttpValuesAsWebconfigBase;
+    this.improveWebconfigBase = configuration.improveWebconfigBase;
+
+    /* $%GLOBAL FUNCTIONS */
+    this.clone = globalFunctions.clone;
+    this.forEach = globalFunctions.forEach;
+    this.log = globalFunctions.log;
+    this.openConfiguration = globalFunctions.openConfiguration;
+    this.ifFileExist = globalFunctions.ifFileExist;
+    this.addCommonVariation = globalFunctions.addCommonVariation;
+    this.addSpecificVariation = globalFunctions.addSpecificVariation;
+    this.newRender = globalFunctions.newRender;
+
+    /* $%NODE MODULES */
+    this.loadListOfNativeModules = nodeModules.loadListOfNativeModules;
+    this.loadServerModules = nodeModules.loadServerModules;
+    this.loadTemplatingModules = nodeModules.loadTemplatingModules;
+    this.loadUtilsModules = nodeModules.loadUtilsModules;
+    this.loadProcessModules = nodeModules.loadProcessModules;
+    this.loadListOfRequiredNpmModules = nodeModules.loadListOfRequiredNpmModules;
+    this.downloadAllModule = nodeModules.downloadAllModule;
+    this.moduleRequired = nodeModules.moduleRequired;
+
+    /* WEB SERVER */
+    this.simpleWebServer = webServer.simpleWebServer;
+    this.atlasConfigurations = webServer.atlasConfigurations;
+    this.atlasServer = webServer.atlasServer;
+    this.enableLessProcess = webServer.enableLessProcess;
+    this.atlasSessions = webServer.atlasSessions;
+    this.startingHttpServer = webServer.startingHttpServer;
+    this.httpServerPart = webServer.httpServerPart;
+    this.httpServerPublicFiles = webServer.httpServerPublicFiles;
+    this.response = webServer.response;
+    this.redirect = webServer.redirect;
+    this.setSupport = webServer.setSupport;
+    this.executeRequest = webServer.executeRequest;
+    this.request = webServer.request;
+    this.requestRegex = webServer.requestRegex;
+    this.pageNotFound = webServer.pageNotFound;
+    this.routesPages = webServer.routesPages;
+
+    /* FRONT-END PART */
+    this.openTemplate = frontEndPart.openTemplate;
+    this.openVariation = frontEndPart.openVariation;
+    this.prepareRenderLanguage = frontEndPart.prepareRenderLanguage;
+    this.prepareRenderPath = frontEndPart.prepareRenderPath;
+    this.prepareRenderVariation = frontEndPart.prepareRenderVariation;
+    this.prepareRenderParameters = frontEndPart.prepareRenderParameters;
+    this.changeVariationCommon = frontEndPart.changeVariationCommon;
+    this.changeVariationSpecific = frontEndPart.changeVariationSpecific;
+    this.changeDomCommon = frontEndPart.changeDomCommon;
+    this.changeDomSpecific = frontEndPart.changeDomSpecific;
+    this.intoBrowserAndFiles = frontEndPart.intoBrowserAndFiles;
+    this.renderTemplate = frontEndPart.renderTemplate;
+    this.render = frontEndPart.render;
+
+    /* $%BACK-END PART */
+    this.cssAlreadyParse = backEndPart.cssAlreadyParse;
+    this.injectCssAuth = backEndPart.injectCssAuth;
+    this.prepareCssInjection = backEndPart.prepareCssInjection;
+    this.injectCss = backEndPart.injectCss;
+    this.lessCompilation = backEndPart.lessCompilation;
+    this.cssMinification = backEndPart.cssMinification;
+    this.imgOptimization = backEndPart.imgOptimization;
+    this.jsObfuscation = backEndPart.jsObfuscation;
+    this.loadListOfExternalModules = backEndPart.loadListOfExternalModules;
+    this.loadController = backEndPart.loadController;
+
+    /* $%ASSETS GENERATION */
+    this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
+    this.emulatedIndexPage = assetsGeneration.emulatedIndexPage;
+    this.saveTemplateRender = assetsGeneration.saveTemplateRender;
+
+    /* $%INIT */
+    this.configuration = init.configuration;
+    this.config = init.config;
+    this.init = init.init;
+    this.run = init.run;
+
+};
+
+
+/*------------------------------------*\
+    $%RUN
+\*------------------------------------*/
+
+/* Run script with command tools. */
+if (require.main === module) {
+    (new NA()).init();
+}
+
+/* Run script with require as a npm module. */
+module.exports = NA;</pre>
+	</article>
+</section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a>
+					<br />
+					
+					
+		<span class="copyright">
+		<a href="https://www.npmjs.org/package/node-atlas">This project is a npm module</a>
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
+		on 2015-09-07T10:05:01+02:00 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : true,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+
+</body>
+</html>
