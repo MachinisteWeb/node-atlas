@@ -1,3 +1,10 @@
+## 0.99.x ##
+
+Updates:
+
+- Preparation for v1.0.
+
+
 ## 0.50.0 ##
 
 Updates:
