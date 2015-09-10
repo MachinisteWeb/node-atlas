@@ -1,6 +1,6 @@
 # node-atlas #
 
-Version : 1.0 (Beta) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/)
+Version : 1.0 (Beta) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) ![Package NPM](https://badge.fury.io/js/node-atlas.svg)
 
 **For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
 
