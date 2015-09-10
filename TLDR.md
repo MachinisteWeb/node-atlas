@@ -1,4 +1,4 @@
-> *NodeAtlas* is a MVC2 Framework oriented Front-end, this means it makes running multilingual websites and create HTML mockups with only the View and Url Rewriting part activated. Of course, by activating the Controller and Model part, you can create great websites !
+> *NodeAtlas* is a MVC2 Javascript Framework SEO-compliant and Front-end-oriented. This means it makes running multilingual websites and create HTML mockups referenceable with only the View and Url Rewriting part activated. Of course, by activating the Controller and Model part, you can create great websites !
 
 **Vous êtes français ? Le document [derrière ce lien](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) vous sera peut-être plus agréable.**
 
