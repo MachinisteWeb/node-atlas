@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 0.99.13
+ * @version 0.99.14
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires async
@@ -90,6 +90,7 @@ NA = function () {
     this.improveWebconfigBase = configuration.improveWebconfigBase;
 
     /* $%GLOBAL FUNCTIONS */
+    this.extend = globalFunctions.extend;
     this.clone = globalFunctions.clone;
     this.forEach = globalFunctions.forEach;
     this.log = globalFunctions.log;
