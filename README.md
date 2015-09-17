@@ -1,6 +1,8 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.0.0--beta-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10.0_--_4.0.0-brightgreen.svg)](https://nodejs.org/en/)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5)
+
+[![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.0--beta-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_4.0-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -39,6 +41,7 @@ The tool is still in development and I experience it slowly with my own websites
  - [Examples of websites with NodeAtlas](#examples-of-websites-with-nodeatlas)
  - [Table of Contents](#table-of-contents)
  - [Documentation](#documentation)
+ - [Contributing](#contributing)
 - [Installation](#installation)
 - [Start with NodeAtlas](#start-with-nodeatlas)
  - [Fileset](#fileset)
@@ -91,6 +94,30 @@ The tool is still in development and I experience it slowly with my own websites
 In addition to this README, you also have access to,
 - [tl;dr](https://www.npmjs.com/package/node-atlas) and,
 - [details of functions in the NA object](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html).
+
+
+
+### Contributing ###
+
+If you would like to contribute with:
+
+ - Code enhancements and fixes,
+ - French correct spelling mistake or
+ - Decent english translation
+
+Please do the following:
+
+ 1. Fork the NodeAtlas repository.
+ 2. Hack on a separate topic branch created from the latest master.
+ 3. Commit and push the topic branch.
+ 4. Make a pull request.
+ 5. Be patient. ;-)
+
+Please note that modications should follow these coding guidelines:
+
+- Pass Sonarqube JS with 0% Technical Debt Ratio.
+
+Thank you for helping out!
 
 
 
