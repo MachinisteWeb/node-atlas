@@ -1110,7 +1110,7 @@ webconfig.json
         <span class="pl-c">// Connexion à la base « blog ».</span>
         mongoose.connect(<span class="pl-s"><span class="pl-pds">'</span>mongodb://127.0.0.1:27017/blog<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
             <span class="pl-k">if</span> (error) {
-                <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Database 'mongodb://127.0.0.1:27017/blog' is not accessible.<span class="pl-pds">"</span></span>);
+                <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Database 'mongodb://127.0.0.1:27017/blog' is not accessible.<span class="pl-pds">"</span></span>);
                 <span class="pl-c1">process</span>.kill(<span class="pl-c1">process</span>.pid);
             }
 
@@ -1120,16 +1120,16 @@ webconfig.json
 
         <span class="pl-c">// Gestion de connexion.</span>
         mongoose.connection.on(<span class="pl-s"><span class="pl-pds">'</span>error<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
-            <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Erreur pour la connexion par défaut à Mongoose : <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Erreur pour la connexion par défaut à Mongoose : <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
         });
 
         <span class="pl-c">// Gestion des déconnexion.</span>
         mongoose.connection.on(<span class="pl-s"><span class="pl-pds">'</span>disconnected<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
-            <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>Déconnexion de Mongoose.<span class="pl-pds">'</span></span>);
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Déconnexion de Mongoose.<span class="pl-pds">'</span></span>);
         });
         <span class="pl-c1">process</span>.on(<span class="pl-s"><span class="pl-pds">'</span>SIGINT<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
             mongoose.connection.<span class="pl-c1">close</span>(<span class="pl-k">function</span> () {
-                <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Déconnexion de Mongoose en raison de l'arrêt de l'app.<span class="pl-pds">"</span></span>);
+                <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Déconnexion de Mongoose en raison de l'arrêt de l'app.<span class="pl-pds">"</span></span>);
                 <span class="pl-c1">process</span>.exit(<span class="pl-c1">0</span>);
             });
         });
@@ -1352,16 +1352,16 @@ webconfig.json
 
 
         <span class="pl-c">// Interception possible de toutes les variables de « variations/common.js ».</span>
-        <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.common.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi le titre stocké dans « variations/common.js ».</span>
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.common.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi le titre stocké dans « variations/common.js ».</span>
         variation.common.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre.</span>
-        <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.common.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi « Nouveau title » et est accessible côté template via `&lt;%= common.title %&gt;`.</span>
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.common.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi « Nouveau title » et est accessible côté template via `&lt;%= common.title %&gt;`.</span>
 
         <span class="pl-c">// Interception possible de toutes les variables de « variations/index.js » (car on est dans le spécific « index.js »).</span>
         variation.specific.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre qui est accessible côté template via `&lt;%= specific.title %&gt;`.</span>
         variation.specific.newProperty <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouvelle propriété<span class="pl-pds">"</span></span>; <span class="pl-c">// Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via `&lt;%= specific.newProperty %&gt;`.</span>
 
         <span class="pl-c">// Interception possible de la configuration de la page courante.</span>
-        <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.currentRoute); <span class="pl-c">// Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.</span>
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.currentRoute); <span class="pl-c">// Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.</span>
 
         <span class="pl-c">// On test une variable créer de toute pièce dans le webconfig.</span>
         <span class="pl-k">if</span> (variation.webconfig._websiteIsClosed) {
@@ -1732,7 +1732,7 @@ webconfig.prod.json
 <div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
     <span class="pl-k">var</span> variation <span class="pl-k">=</span> params.variation;
 
-    <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.params.member);
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.params.member);
     <span class="pl-c">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.</span>
 
     mainCallback(variation);
@@ -1792,7 +1792,7 @@ webconfig.prod.json
     <span class="pl-k">if</span> (variation.params <span class="pl-k">&amp;&amp;</span> variation.params[<span class="pl-c1">0</span>]) { variation.params.member <span class="pl-k">=</span> variation.params[<span class="pl-c1">0</span>]; }
     <span class="pl-c">// variation.params[1] pour le deuxième match, etc...</span>
 
-    <span class="pl-en">console</span><span class="pl-c1">.log</span>(variation.params.member);
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.params.member);
     <span class="pl-c">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.</span>
 
     mainCallback(variation);
