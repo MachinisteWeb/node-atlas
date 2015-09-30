@@ -1,8 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5)
-
-[![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.0--beta-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_4.0-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.0.0--beta-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10.0%2C_4.1.1-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](https://haeresis.github.com/NodeAtlas/) vous sera peut-être plus agréable.**
 
@@ -395,6 +393,25 @@ you will have access to the addresses:
 - *http://localhost/media/images/logo.png*
 
 *Note : If* ***assetsRelativePath*** *is not present in "webconfig.js", default public folder is* ***assets***. ***assetsRelativePath*** *is useful only to change the name/path of directory.*
+
+#### maxAge, Etag, etc. ####
+
+It's possible to manage informations provided by NodeAtlas when a ressource is requested (like `maxAge`, `etag`, etc.) via the `staticOptions` property in webconfig. For more informations, see the [Express](http://expressjs.com/api.html#express.static) documentation about static files.
+
+For exemple, for a devlopment webconfig, it's interresting to put the `maxAge` to 0 in order to always get the last modifications into a file and avoid frenetic browser reload.
+
+```
+{
+    "staticOptions": {
+        "maxAge": 0
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
 
 
 
