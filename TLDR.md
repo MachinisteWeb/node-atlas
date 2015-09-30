@@ -1,8 +1,11 @@
-> *NodeAtlas* is a MVC2 Javascript Framework Front-end-oriented, SEO and W3C compliant. This means it makes running multilingual websites and create HTML mockups referenceable with only the View and Url Rewriting part activated and real time modification. Of course, by activating the Controller and Model part, you can create great websites with standards compliance!
+> *NodeAtlas* is a MVC2 Javascript Framework Front-end-oriented, SEO and W3C compliant. This means it makes running indexable multilingual websites and create HTML mockups with only the View and Url Rewriting part activated and real time modification. Of course, by activating the Controller and Model part, you can create great websites with standards compliance!
 
 **Vous êtes français ? Le document [derrière ce lien](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) vous sera peut-être plus agréable.**
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.0--beta-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10.0_--_4.0.0-brightgreen.svg)](https://nodejs.org/en/)
+[![Faites un don](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5)
+
+[![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.0--beta-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_4.0-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin)
+
 
 
 
