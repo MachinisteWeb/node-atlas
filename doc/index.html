@@ -124,7 +124,7 @@
 
 
     <section class="readme-section">
-        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.0.0--beta-brightgreen.svg" alt="Version 1.0 Beta"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10.0%2C_4.1.1-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.0.0--beta-brightgreen.svg" alt="Version 1.0 Beta"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_4.1-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 <p><strong>Vous êtes français ? Le README <a href="https://haeresis.github.com/NodeAtlas/">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is an application developed in JavaScript and running with <a href="http://nodejs.org/">Node.js</a>. It provides three things:</p>
 <ul>
@@ -228,21 +228,22 @@
 <li>Pass Sonarqube JS with 0% Technical Debt Ratio.</li>
 </ul>
 <p>Thank you for helping out!</p>
-<h2>Installation</h2><p>There are several ways to install Node-Atlas:</p>
+<h2>Installation</h2><p><em>Before install NodeAtlas, install <a href="https://nodejs.org/en/">Node.js</a> and <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> as pre-require.</em></p>
+<p>There are several ways to install NodeAtlas:</p>
 <ul>
 <li><p>Download NodeAtlas from the official repository <a href="https://haeresis.github.com/NodeAtlas">NodeAtlas</a>.</p>
 <p> <em>Once downloaded, unzip <strong>NodeAtlas</strong> in the folder that will suit you.</em></p>
-<p> <strong>Start at least once NodeAtlas with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the <em>node_modules</em>.</strong></p>
+<p> <strong>Start at least once NodeAtlas with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the _node<em>modules</em>.</strong></p>
 </li>
 <li><p><code>npm install node-atlas</code> (recommended for <a href="#api--nodeatlas-as-npm-module">use as a module</a> in a project).</p>
-<p> <em>This will install <strong>NodeAtlas</strong> in the <code>node_modules/node-atlas</code> directory of the execution of the command.</em></p>
+<p> _This will install <strong>NodeAtlas</strong> in the <code>node_modules/node-atlas</code> directory of the execution of the command._</p>
 </li>
 <li><p><code>npm install -g node-atlas</code> (recommended for <a href="#api--nodeatlas-as-npm-module">use as a module</a> in large amount of project or for <a href="#cli--running-commands">a command line utilisation</a>).</p>
-<p> <em>This will install <strong>NodeAtlas</strong> in the global <code>node_modules/node-atlas</code>.</em></p>
+<p> _This will install <strong>NodeAtlas</strong> in the global <code>node_modules/node-atlas</code>._</p>
 </li>
 <li><p>Clone the directory from <a href="https://github.com/Haeresis/NodeAtlas/">GitHub</a> (recommended for).</p>
 <p> <em>This will install <strong>NodeAtlas</strong> in cloning home folder.</em></p>
-<p> <strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the <em>node_modules</em>.</strong></p>
+<p> <strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the _node<em>modules</em>.</strong></p>
 </li>
 </ul>
 <h2>Start with NodeAtlas</h2><h3>Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.</p>
@@ -2750,8 +2751,8 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 					<br />
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha11</a>
-		on 2015-09-30T15:46:32+02:00 using the <a
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a>
+		on 2015-10-09T10:43:17+02:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
