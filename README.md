@@ -3900,9 +3900,60 @@ que vous pouvez lancer avec :
 
 [Plus d'informations sur Bouncy](https://github.com/substack/bouncy)
 
+#### NGINX ####
 
+Voici un exemple de configuration pour Nginx :
 
+```javascript
+## Server bruno.lesieur.name
 
+upstream websocket {
+    server Ip_backend:7777;
+}
+
+server {
+	
+	listen   80; 
+	server_name bruno.lesieur.name;
+
+     	keepalive_timeout    60;
+	
+	access_log on;
+	
+        access_log /var/log/nginx/access.log logstash;
+	error_log /var/log/nginx/error-bruno.lesieur.name.log;
+	
+	location /socket.io/ {
+        	proxy_pass http://websocket;
+        	proxy_http_version 1.1;
+        	proxy_set_header Upgrade $http_upgrade;
+        	proxy_set_header Connection "upgrade";
+	}
+		
+	location / {
+		proxy_set_header X-Real-IP $remote_addr;
+      		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      		proxy_set_header Host $http_host;
+      		proxy_set_header X-NginX-Proxy true;
+ 
+      		proxy_pass http://websocket;
+		proxy_read_timeout 300;
+   		proxy_connect_timeout 300;
+   		proxy_redirect off;
+		
+	}
+
+	error_page 400 401 402 403 405 406 407 408 409 410 411 412 413 414 415 416 417 500 501 502 503 504 505 506 507 /error.html;
+
+	location = /error.html {
+    		root /var/www/nginx-default;
+	}
+}
+```
+
+Ip_backend doit être remplacé par l'IP de votre sous-réseaux privé. Cela peut être 127.0.0.1 si la node tourne sur le même serveur que Nginx.
+
+websocket peut être remplacé par n'importe quel mot, il faudra alors aussi modifier le proxy_pass. Il doit être unique à chaque node.
 
 ## À propos de l'architecture de NodeAtlas ##
 
