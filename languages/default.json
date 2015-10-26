@@ -1,5 +1,5 @@
 {
-	"downloadAllModule": {
+	"downloadAllModules": {
 		"moduleNotExist": "All Node.js modules required for the application are not installed.",
 		"downloadStarting": "Download of all modules in progress...",
 		"installationDone": "All modules have been installed correctly.",
@@ -7,11 +7,16 @@
 		"installShortcutsDone": "`nodeatlas` command is available as a shortcut for `node <path/to/>node-atlas.js`.",
 		"installDone": "node-atlas module successfully installed !"
 	},
-	"ifFileExist": "No file « %pathName%  » found.",
-	"publicMode": "So NodeAtlas is running in « Simple Web Server » mode.",
-	"isRunning": "Your NodeAtlas website is running on port %httpPort%.",
+	"running": {
+		"isRunning": "Your NodeAtlas website is running on port %httpPort%.",
+		"publicMode": "NodeAtlas is running in « Simple Web Server » mode because no « %path% » was found.",
+		"portAlreadyListened": "NodeAtlas is stopped because port %port% is already listening by other application."
+	},
+	"ifFileExist": "No file « %path% » found.",
+	"notFound": {
+		"controller": "The controller « %controller% » is not found."
+	},
 	"templateNotFound": "The template file « %templatesPath% » could not be opened.",
-	"moduleNotFound": "The requested module is not found : « %moduleError% ».",
 	"variationNotFound": "The variation file « %variationsPath% » could not be opened.",
 	"webconfigSyntaxError": "The file « %fileName% » has a syntax error : « %syntaxError% ».",
 	"variationSyntaxError": "The variation file « %variationsPath% » has a syntax error : « %syntaxError% ».",
@@ -24,7 +29,6 @@
 	"templateNotGenerate": "Unable to save file « %pathName% ».",
 	"templateNotSet": "No template file has been defined.",
 	"templateDirectoryNotExist": "HTML : There are no « %templatePath% » directory. No template generated.",
-	"portAlreadyListened": "NodeAtlas is stopped because port %httpPort% is already listening by other application.",
 	"commander": {
 		"directory" : {
 			"command": "-d, --directory <path>",

@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "0.99.19",
+  "version": "1.0.0",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -40,7 +40,7 @@
     "postinstall": "node lib/install.js"
   },
   "dependencies": {
-    "async": "1.4.x",
+    "async": "1.5.x",
     "body-parser": "1.14.x",
     "cheerio": "0.19.x",
     "clean-css": "3.4.x",
@@ -50,7 +50,7 @@
     "css-parse": "2.0.x",
     "ejs": "2.3.x",
     "express": "4.13.x",
-    "express-session": "1.11.x",
+    "express-session": "1.12.x",
     "extend": "3.0.x",
     "forcedomain": "0.5.x",
     "imagemin": "3.2.x",
