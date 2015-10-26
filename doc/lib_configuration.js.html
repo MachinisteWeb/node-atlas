@@ -123,7 +123,7 @@ exports.lineCommandConfiguration = function () {
     commander
 
         /* Version of NodeAtlas currently in use with `--version` option. */
-        .version('0.99.19')
+        .version('1.0.0')
 
         /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
         .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
@@ -151,59 +151,54 @@ exports.lineCommandConfiguration = function () {
 exports.initGlobalVar = function () {
     var NA = this;
 
-    try {
+    /**
+     * Name of file which contains language error messages. The name of file is without extension.
+     * @public
+     * @alias appLanguage
+     * @type {String}
+     * @memberOf NA#
+     * @default "default"
+     */
+    NA.appLanguage = 'default';
 
-        /**
-         * Name of file contains language error messages. Name of file is without extension.
-         * @public
-         * @alias appLanguage
-         * @type {string}
-         * @memberOf NA#
-         * @default "default"
-         */
-        NA.appLanguage = 'default';
+    /**
+     * OS absolute path which contains NodeAtlas folders and files.
+     * @public
+     * @alias serverPhysicalPath
+     * @type {string}
+     * @memberOf NA#
+     * @default « The path where `node-atlas.js` is. »
+     */
+    NA.serverPhysicalPath = process.argv[1].replace(/[\-a-zA-Z0-9_]+(\.js)?$/g, "");
 
-        /**
-         * OS absolute path that contains NodeAtlas folders and files.
-         * @public
-         * @alias serverPhysicalPath
-         * @type {string}
-         * @memberOf NA#
-         * @default « Path from NodeAtlas is running. »
-         */
-        NA.serverPhysicalPath = process.argv[1].replace(/[\-a-zA-Z0-9_]+(\.js)?$/g, "");
+    /**
+     * All internationalize labels from `NA#appLanguage` file.
+     * @public
+     * @alias appLabels
+     * @type {Object}
+     * @memberOf NA#
+     */
+    NA.appLabels = require('../languages/' + NA.appLanguage + '.json');
 
-        /**
-         * Contain all labels found into `NA#appLanguage` file.
-         * @public
-         * @alias appLabels
-         * @type {Object}
-         * @memberOf NA#
-         */
-        NA.appLabels = require('../languages/' + NA.appLanguage + '.json');
-
-        /**
-         * Contain all functions of controllers both common and specific.
-         * @namespace websiteController[]
-         * @private
-         * @alias websiteController
-         * @type {Array.&lt;Object>}
-         * @memberOf NA#
-         * @example // Functions for common controller if `commonController` value is "common.json".
-         * NA.websiteController["common.json"].loadModules(...);
-         * NA.websiteController["common.json"].setConfigurations(...);
-         * NA.websiteController["common.json"].setSessions(...);
-         * NA.websiteController["common.json"].changeVariation(...);
-         * NA.websiteController["common.json"].changeDom(...);
-         *
-         * // Functions for specific controller if a route `controller` value is "index.json".
-         * NA.websiteController["index.json"].changeVariation(...);
-         * NA.websiteController["index.json"].changeDom(...);
-         */
-        NA.websiteController = [];
-    } catch (exception) {
-        NA.log(exception);
-    }
+    /**
+     * Contain all functions of controllers both common and specific.
+     * @namespace websiteController[]
+     * @private
+     * @alias websiteController
+     * @type {Array.&lt;Object>}
+     * @memberOf NA#
+     * @example // Functions for common controller if `commonController` value is "common.json".
+     * NA.websiteController["common.json"].loadModules(...);
+     * NA.websiteController["common.json"].setConfigurations(...);
+     * NA.websiteController["common.json"].setSessions(...);
+     * NA.websiteController["common.json"].changeVariation(...);
+     * NA.websiteController["common.json"].changeDom(...);
+     *
+     * // Functions for specific controller if a route `controller` value is "index.json".
+     * NA.websiteController["index.json"].changeVariation(...);
+     * NA.websiteController["index.json"].changeDom(...);
+     */
+    NA.websiteController = [];
 };
 
 /**
@@ -223,45 +218,41 @@ exports.initGlobalVarRequiredNpmModules = function () {
         NA.configuration.directory = commander.directory;
     }
 
-    try {
-
-        if (typeof NA.configuration.directory !== 'string') {
-
-            /**
-             * OS absolute path that contains webconfig and website.
-             * @public
-             * @alias websitePhysicalPath
-             * @type {string}
-             * @memberOf NA#
-             * @default « `--directory` value » || « Path from NodeAtlas is called ».
-             */
-            NA.websitePhysicalPath = process.cwd() + path.sep;
-        } else {
-            /* `NA#websitePhysicalPath` manually setted value with `--directory`. */
-            NA.websitePhysicalPath = NA.configuration.directory.replace(regex, '') + path.sep;
-        }
+    if (typeof NA.configuration.directory !== 'string') {
 
         /**
-         * Name of the webconfig used for run the website.
+         * OS absolute path that contains webconfig and website.
          * @public
-         * @alias webconfigName
-         * @type {string}
+         * @alias websitePhysicalPath
+         * @type {String}
          * @memberOf NA#
-         * @default "webconfig.json".
+         * @default « `--directory` value » || « Path from NodeAtlas is called ».
          */
-        NA.webconfigName = 'webconfig.json';
+        NA.websitePhysicalPath = process.cwd() + path.sep;
+    } else {
 
-        /* `webconfigName` manually setted value with `--webconfig`. */
-        if (commander.webconfig) {
-            NA.configuration.webconfig = commander.webconfig;
-        }
+        /* `NA#websitePhysicalPath` manually setted value with `--directory`. */
+        NA.websitePhysicalPath = NA.configuration.directory.replace(regex, '') + path.sep;
+    }
 
-        /* `webconfigName` manually setted value with `NA#config`. */
-        if (NA.configuration.webconfig) {
-            NA.webconfigName = NA.configuration.webconfig;
-        }
-    } catch (exception) {
-        NA.log(exception);
+    /**
+     * Name of the webconfig used for run the website.
+     * @public
+     * @alias webconfigName
+     * @type {string}
+     * @memberOf NA#
+     * @default "webconfig.json".
+     */
+    NA.webconfigName = 'webconfig.json';
+
+    /* `webconfigName` manually setted value with `--webconfig`. */
+    if (commander.webconfig) {
+        NA.configuration.webconfig = commander.webconfig;
+    }
+
+    /* `webconfigName` manually setted value with `NA#config`. */
+    if (NA.configuration.webconfig) {
+        NA.webconfigName = NA.configuration.webconfig;
     }
 };
 
@@ -330,7 +321,13 @@ exports.initWebconfig = function (callback) {
     var NA = this;
 
     /* Webconfig based website... */
-    NA.ifFileExist(NA.websitePhysicalPath, NA.webconfigName, function () {
+    NA.ifFileExist(NA.websitePhysicalPath, NA.webconfigName, function (err) {
+        if (err &amp;&amp; err.code === 'ENOENT') {
+
+            /* ... or static website. */
+            return NA.simpleWebServer();
+        }
+
         NA.improveWebconfigBase();
 
         /**
@@ -338,9 +335,6 @@ exports.initWebconfig = function (callback) {
          * @callback initWebconfig~callback
          */
         callback();
-    /* ... or static website. */
-    }, function () {
-        NA.simpleWebServer();
     });
 };
 
@@ -725,7 +719,7 @@ exports.improveWebconfigBase = function () {
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a>
-		on 2015-10-09T10:43:16+02:00 using the <a
+		on 2015-10-26T12:20:15+01:00 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
