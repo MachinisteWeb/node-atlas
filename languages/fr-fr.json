@@ -1,5 +1,5 @@
 {
-	"downloadAllModule": {
+	"downloadAllModules": {
 		"moduleNotExist": "Tous les modules Node.js nécéssaire à l'application ne sont pas installés.",
 		"downloadStarting": "Téléchargement de tous les modules en cour...",
 		"installationDone": "Tous les modules ont été correctement installé.",
@@ -7,11 +7,16 @@
 		"installShortcutsDone": "La commande `nodeatlas` est maintenant disponible en tant que raccourci pour `node <path/to/>node-atlas.js`.",
 		"installDone": "node-atlas a été installé avec succès !"
 	},
-	"ifFileExist": "Pas de fichier « %pathName%  » trouvé.",
-	"publicMode": "NodeAtlas c'est donc lancer en mode « Simple Serveur Web ».",
-	"isRunning": "Votre site NodeAtlas est lancé sur le port %httpPort%.",
+	"running": {
+		"isRunning": "Votre site NodeAtlas est lancé sur le port %httpPort%.",
+		"publicMode": "NodeAtlas c'est lancer en mode « Simple Serveur Web » car aucun « %path% » n'a été trouvé.",
+		"portAlreadyListened": "NodeAtlas c'est arrêté car le port %port% est déjà écouté par une autre application."
+	},
+	"ifFileExist": "Pas de fichier « %path%  » trouvé.",
+	"notFound": {
+		"controller": "Le controlleur « %controller% » n'a pas été trouvé.",
+	},
 	"templateNotFound": "Le fichier de template « %templatesPath% » n'a pas pu être ouvert.",
-	"moduleNotFound": "Le module demandé n'a pas été trouvé : « %moduleError% ».",
 	"variationNotFound": "Le fichier de variation « %variationsPath% » n'a pas pu être ouvert.",
 	"webconfigSyntaxError": "Le fichier « %fileName% » a une erreur de syntaxe : « %syntaxError% ».",
 	"variationSyntaxError": "Le fichier de variation « %variationsPath% » a une erreur de syntaxe : « %syntaxError% ».",
@@ -24,7 +29,6 @@
 	"templateNotGenerate": "Impossible d'enregistrer le fichier « %pathName% ».",
 	"templateNotSet": "Aucun fichier de template n'a été défini.",
 	"templateDirectoryNotExist": "HTML : Il n'y aucun dossier « %templatePath% » existant. Aucune génération.",
-	"portAlreadyListened": "NodeAtlas c'est arrêté car le port %httpPort% est déjà écouté par une autre application.",
 	"commander": {
 		"directory" : {
 			"command": "-d, --directory <path>",
