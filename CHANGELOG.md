@@ -1,3 +1,10 @@
+## 1.0.0 ##
+
+Updates:
+
+- All functionality of Roadmap for v1.0.
+
+
 ## 0.99.x ##
 
 Updates:
