@@ -8,25 +8,25 @@
  * @version 1.0.1
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
- * @requires async
- * @requires body-parser
- * @requires cheerio
- * @requires clean-css
- * @requires commander
- * @requires compression
- * @requires cookie-parser
- * @requires css-parse
- * @requires ejs
- * @requires express
- * @requires express-session
- * @requires extend
- * @requires forcedomain
- * @requires imagemin
- * @requires less-middleware
- * @requires mkpath
- * @requires open
- * @requires traverse-directory
- * @requires uglify-js
+ * @requires {@link NA#modules.external:async}
+ * @requires {@link NA#modules.external:body-parser}
+ * @requires {@link NA#modules.external:cheerio}
+ * @requires {@link NA#modules.external:clean-css}
+ * @requires {@link NA#modules.external:commander}
+ * @requires {@link NA#modules.external:compression}
+ * @requires {@link NA#modules.external:cookie-parser}
+ * @requires {@link NA#modules.external:css-parse}
+ * @requires {@link NA#modules.external:ejs}
+ * @requires {@link NA#modules.external:express}
+ * @requires {@link NA#modules.external:express-session}
+ * @requires {@link NA#modules.external:extend}
+ * @requires {@link NA#modules.external:forcedomain}
+ * @requires {@link NA#modules.external:imagemin}
+ * @requires {@link NA#modules.external:less-middleware}
+ * @requires {@link NA#modules.external:mkpath}
+ * @requires {@link NA#modules.external:open}
+ * @requires {@link NA#modules.external:traverse-directory}
+ * @requires {@link NA#modules.external:uglify-js}
  */
 /* jslint node: true */
 
@@ -38,7 +38,7 @@
     $%SUMMARY
 \*------------------------------------*/
 
-/**
+/*
  * ABOUT..........................Informations about NodeAtlas.
  * SUMMARY........................It's me !
  * NODE ATLAS FUNCTION............Creation of Main Function.
@@ -72,9 +72,7 @@ var configuration = require('./lib/configuration'),
 
 /**
  * Creates a new instance of NodeAtlas Website.
- * @class
- * @public
- * @alias NA
+ * @class NA
  */
 NA = function () {
 
