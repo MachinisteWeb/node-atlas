@@ -3735,60 +3735,6 @@ server.listen(<span class="pl-c1">80</span>);</pre></div>
 
 <p><a href="https://github.com/substack/bouncy">Plus d'informations sur Bouncy</a></p>
 
-<h4>
-<a id="nginx" class="anchor" href="#nginx" aria-hidden="true"><span class="octicon octicon-link"></span></a>NGINX</h4>
-
-<p>Voici un exemple de configuration pour Nginx :</p>
-
-<div class="highlight highlight-source-js"><pre>## Server bruno.lesieur.<span class="pl-c1">name</span>
-
-upstream websocket {
-    server Ip_backend<span class="pl-k">:</span><span class="pl-c1">7777</span>;
-}
-
-server {
-
-    listen   <span class="pl-c1">80</span>; 
-    server_name bruno.lesieur.<span class="pl-c1">name</span>;
-
-        keepalive_timeout    <span class="pl-c1">60</span>;
-
-    access_log on;
-
-        access_log <span class="pl-k">/</span><span class="pl-k">var</span><span class="pl-k">/</span>log<span class="pl-k">/</span>nginx<span class="pl-k">/</span>access.log logstash;
-    error_log <span class="pl-k">/</span><span class="pl-k">var</span><span class="pl-k">/</span>log<span class="pl-k">/</span>nginx<span class="pl-k">/</span>error<span class="pl-k">-</span>bruno.lesieur.<span class="pl-c1">name</span>.log;
-
-    location <span class="pl-k">/</span>socket.io<span class="pl-k">/</span> {
-            proxy_pass http<span class="pl-k">:</span><span class="pl-c">//websocket;</span>
-            proxy_http_version <span class="pl-c1">1.1</span>;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection <span class="pl-s"><span class="pl-pds">"</span>upgrade<span class="pl-pds">"</span></span>;
-    }
-
-    location <span class="pl-k">/</span> {
-        proxy_set_header X<span class="pl-k">-</span>Real<span class="pl-k">-</span><span class="pl-c1">IP</span> $remote_addr;
-            proxy_set_header X<span class="pl-k">-</span>Forwarded<span class="pl-k">-</span>For $proxy_add_x_forwarded_for;
-            proxy_set_header Host $http_host;
-            proxy_set_header X<span class="pl-k">-</span>NginX<span class="pl-k">-</span>Proxy <span class="pl-c1">true</span>;
-
-            proxy_pass http<span class="pl-k">:</span><span class="pl-c">//websocket;</span>
-        proxy_read_timeout <span class="pl-c1">300</span>;
-        proxy_connect_timeout <span class="pl-c1">300</span>;
-        proxy_redirect off;
-
-    }
-
-    error_page <span class="pl-c1">400</span> <span class="pl-c1">401</span> <span class="pl-c1">402</span> <span class="pl-c1">403</span> <span class="pl-c1">405</span> <span class="pl-c1">406</span> <span class="pl-c1">407</span> <span class="pl-c1">408</span> <span class="pl-c1">409</span> <span class="pl-c1">410</span> <span class="pl-c1">411</span> <span class="pl-c1">412</span> <span class="pl-c1">413</span> <span class="pl-c1">414</span> <span class="pl-c1">415</span> <span class="pl-c1">416</span> <span class="pl-c1">417</span> <span class="pl-c1">500</span> <span class="pl-c1">501</span> <span class="pl-c1">502</span> <span class="pl-c1">503</span> <span class="pl-c1">504</span> <span class="pl-c1">505</span> <span class="pl-c1">506</span> <span class="pl-c1">507</span> <span class="pl-k">/</span>error.html;
-
-    location <span class="pl-k">=</span> <span class="pl-k">/</span>error.html {
-            root <span class="pl-k">/</span><span class="pl-k">var</span><span class="pl-k">/</span>www<span class="pl-k">/</span>nginx<span class="pl-k">-</span><span class="pl-k">default</span>;
-    }
-}</pre></div>
-
-<p>Ip_backend doit être remplacé par l'IP de votre sous-réseaux privé. Cela peut être 127.0.0.1 si la node tourne sur le même serveur que Nginx.</p>
-
-<p>websocket peut être remplacé par n'importe quel mot, il faudra alors aussi modifier le proxy_pass. Il doit être unique à chaque node.</p>
-
 <h2>
 <a id="À-propos-de-larchitecture-de-nodeatlas" class="anchor" href="#%C3%80-propos-de-larchitecture-de-nodeatlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>À propos de l'architecture de NodeAtlas</h2>
 
