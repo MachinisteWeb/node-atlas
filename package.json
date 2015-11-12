@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -59,7 +59,7 @@
     "mkpath": "1.0.x",
     "open": "0.0.x",
     "traverse-directory": "0.3.x",
-    "uglify-js": "2.5.x"
+    "uglify-js": "2.6.x"
   },
   "main": "node-atlas.js",
   "files": [
