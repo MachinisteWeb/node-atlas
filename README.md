@@ -82,6 +82,7 @@ The tool is still in development and I experience it slowly with my own websites
 - [Running NodeAtlas on online server](#running-nodeatlas-on-online-server)
  - [In a Windows Server environment with iisnode](#in-a-windows-server-environment-with-iisnode)
  - [In a Unix environment with forever](#in-a-unix-environment-with-forever)
+ - [In a Unix environment with Nginx](#in-a-unix-environment-with-nginx)
  - [Proxy](#proxy)
 - [About architecture NodeAtlas](#a-propos-de-l-architecture-de-nodeatlas)
 
@@ -3850,6 +3851,62 @@ An example for a production webconfig:
 
 You will then use a reverse proxy to make your site accessible on port 80.
 
+
+
+#### In a Unix environment with Nginx ####
+
+This is an example of Nginx's configuration:
+
+```javascript
+## Server an.example.fr
+
+upstream websocket {
+    server Ip_backend:7777;
+}
+
+server {
+
+    listen   80;
+    server_name an.example.fr;
+
+        keepalive_timeout    60;
+
+    access_log on;
+
+        access_log /var/log/nginx/access.log logstash;
+    error_log /var/log/nginx/error-an.example.fr.log;
+
+    location /socket.io/ {
+            proxy_pass http://websocket;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+    }
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-NginX-Proxy true;
+
+            proxy_pass http://websocket;
+        proxy_read_timeout 300;
+        proxy_connect_timeout 300;
+        proxy_redirect off;
+
+    }
+
+    error_page 400 401 402 403 405 406 407 408 409 410 411 412 413 414 415 416 417 500 501 502 503 504 505 506 507 /error.html;
+
+    location = /error.html {
+            root /var/www/nginx-default;
+    }
+}
+```
+
+`Ip_backend` must be replaced by your private subnetwork IP. That can be `127.0.0.1` if node run in same server as Nginx.
+
+`websocket` should be replaced by any word, it will be also moddify the `proxy_pass`. It must be unique to each node.
 
 
 
