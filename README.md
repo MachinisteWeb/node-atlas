@@ -2,7 +2,7 @@
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.0-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_4.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
-**For an international version of this README.md, [follow this link](https://haeresis.github.com/NodeAtlas/doc/).**
+**For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/).**
 
 
 
@@ -82,6 +82,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 - [Faire tourner NodeAtlas sur serveur](#faire-tourner-nodeatlas-sur-serveur)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
+ - [Dans un environnement Unix avec Nginx](#dans-un-environnement-unix-avec-nginx)
  - [Proxy](#proxy)
 - [À propos de l'architecture de NodeAtlas](#%C3%80-propos-de-larchitecture-de-nodeatlas)
 
@@ -2735,6 +2736,35 @@ Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indi
 }
 ```
 
+#### Ajouter des options aux Optimizations ####
+
+Il est possible de redéfinir les options par défaut pour l'optimisation via ses 4 objets :
+
+```js
+{
+    "optimizations": {
+        "jpg": { "progressive": false },
+        "gif": { "interlaced": false },
+        "png": { "optimizationLevel": 1 },
+        "svg": { "multipass": false },
+        "images": {
+            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+Pour connaître toutes les options c'est par ici :
+- [Options Jpeg](https://www.npmjs.com/package/imagemin-jpegtran)
+- [Options Gif](https://www.npmjs.com/package/imagemin-gifsicle)
+- [Options Png](https://www.npmjs.com/package/imagemin-optipng)
+- [Options Svg](https://www.npmjs.com/package/imagemin-svgo)
+
 #### Optimizations dans un fichier partagé ####
 
 Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`.
@@ -3619,13 +3649,13 @@ Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configur
 *server.js*
 
 ```javascript
-require("node-atlas")().run({
+require("node-atlas")().config({
     directory: "</path/to/your/website/directory/>",
     webconfig: "webconfig.alternatif.json",
     browse: true,
     httpPort: 7778,
     generate: true
-});
+}).init();
 ```
 
 ```
@@ -3648,6 +3678,22 @@ websiteEn.run({
 websiteFr.run({
     "browse": true,
     "webconfig": "webconfig.french.json"
+});
+```
+
+Vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
+
+*servers.js*
+
+```javascript
+require("node-atlas")().afterGeneration(function() {
+    require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
+        console.log("Documentation generation...");
+        console.log(stdout);
+        console.log("Documentation generation done !");
+    });
+}).run({
+    generate: true
 });
 ```
 
@@ -3850,6 +3896,62 @@ Un webconfig exemple pour une production :
 
 Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessible sur le port 80.
 
+
+
+#### Dans un environnement Unix avec Nginx ####
+
+Voici un exemple de configuration pour Nginx :
+
+```javascript
+## Server an.example.fr
+
+upstream websocket {
+    server Ip_backend:7777;
+}
+
+server {
+
+    listen   80;
+    server_name an.example.fr;
+
+        keepalive_timeout    60;
+
+    access_log on;
+
+        access_log /var/log/nginx/access.log logstash;
+    error_log /var/log/nginx/error-an.example.fr.log;
+
+    location /socket.io/ {
+            proxy_pass http://websocket;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+    }
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-NginX-Proxy true;
+
+            proxy_pass http://websocket;
+        proxy_read_timeout 300;
+        proxy_connect_timeout 300;
+        proxy_redirect off;
+
+    }
+
+    error_page 400 401 402 403 405 406 407 408 409 410 411 412 413 414 415 416 417 500 501 502 503 504 505 506 507 /error.html;
+
+    location = /error.html {
+            root /var/www/nginx-default;
+    }
+}
+```
+
+`Ip_backend` doit être remplacé par l'IP de votre sous-réseaux privé. Cela peut être `127.0.0.1` si la node tourne sur le même serveur que Nginx.
+
+`websocket` peut être remplacé par n'importe quel mot, il faudra alors aussi modifier le `proxy_pass`. Il doit être unique à chaque node.
 
 
 

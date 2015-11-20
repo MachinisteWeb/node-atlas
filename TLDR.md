@@ -10,7 +10,7 @@
 
 ## Usage ##
 
-For a complete documentation, you could refer to [README.md](http://haeresis.github.io/NodeAtlas/doc/).
+For a complete documentation, you could refer to [README.md](http://haeresis.github.io/NodeAtlas).
 
 
 
@@ -281,7 +281,7 @@ forever start /usr/local/lib/node_modules/node-atlas/node-atlas.js --directory /
 ### About NodeAtlas ##
 
 - [Complete and detailed README.md on GitHub](https://github.com/Haeresis/NodeAtlas)
-- [node-atlas.js documentation for maintainers](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html)
+- [node-atlas.js documentation for maintainers](http://haeresis.github.io/NodeAtlas/doc/index.html)
 
 
 

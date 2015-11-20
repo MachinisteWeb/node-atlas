@@ -1,3 +1,11 @@
+## 1.1.0 ##
+
+Features:
+
+- To be able to execute code after assets generation with `--generate` via API.
+- Allow you to pass image compression options for generation with `--generate`
+
+
 ## 1.0.0 ##
 
 Updates:
