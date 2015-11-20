@@ -5,7 +5,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 1.0.1
+ * @version 1.1.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires {@link NA#modules.external:async}
@@ -167,6 +167,8 @@ NA = function () {
     /* $%INIT */
     this.configuration = init.configuration;
     this.config = init.config;
+    this.afterGeneration = init.afterGeneration;
+    this.afterGenerates = init.afterGenerates;
     this.init = init.init;
     this.run = init.run;
 

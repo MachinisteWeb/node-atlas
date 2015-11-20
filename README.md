@@ -2736,6 +2736,35 @@ Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indi
 }
 ```
 
+#### Ajouter des options aux Optimizations ####
+
+Il est possible de redéfinir les options par défaut pour l'optimisation via ses 4 objets :
+
+```js
+{
+    "optimizations": {
+        "jpg": { "progressive": false },
+        "gif": { "interlaced": false },
+        "png": { "optimizationLevel": 1 },
+        "svg": { "multipass": false },
+        "images": {
+            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+Pour connaître toutes les options c'est par ici :
+- [Options Jpeg](https://www.npmjs.com/package/imagemin-jpegtran)
+- [Options Gif](https://www.npmjs.com/package/imagemin-gifsicle)
+- [Options Png](https://www.npmjs.com/package/imagemin-optipng)
+- [Options Svg](https://www.npmjs.com/package/imagemin-svgo)
+
 #### Optimizations dans un fichier partagé ####
 
 Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`.
@@ -3620,13 +3649,13 @@ Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configur
 *server.js*
 
 ```javascript
-require("node-atlas")().run({
+require("node-atlas")().config({
     directory: "</path/to/your/website/directory/>",
     webconfig: "webconfig.alternatif.json",
     browse: true,
     httpPort: 7778,
     generate: true
-});
+}).init();
 ```
 
 ```
@@ -3649,6 +3678,22 @@ websiteEn.run({
 websiteFr.run({
     "browse": true,
     "webconfig": "webconfig.french.json"
+});
+```
+
+Vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
+
+*servers.js*
+
+```javascript
+require("node-atlas")().afterGeneration(function() {
+    require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
+        console.log("Documentation generation...");
+        console.log(stdout);
+        console.log("Documentation generation done !");
+    });
+}).run({
+    generate: true
 });
 ```
 
