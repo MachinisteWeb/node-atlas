@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.0-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_4.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.1-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_4.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
@@ -2717,7 +2717,6 @@ templates/
 webconfig.json
 ```
 
-
 #### Create Optimizations by group of file ####
 
 For example, not define file one by one, but in group:
@@ -2736,6 +2735,35 @@ For example, not define file one by one, but in group:
     }
 }
 ```
+
+#### Add more options to Optimizations ####
+
+It is possible to redefine default options used for optimizations via this 4 objects:
+
+```js
+{
+    "optimizations": {
+        "jpg": { "progressive": false },
+        "gif": { "interlaced": false },
+        "png": { "optimizationLevel": 1 },
+        "svg": { "multipass": false },
+        "images": {
+            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+To know all options it is here:
+- [Jpeg Options](https://www.npmjs.com/package/imagemin-jpegtran)
+- [Gif Options](https://www.npmjs.com/package/imagemin-gifsicle)
+- [Png Options](https://www.npmjs.com/package/imagemin-optipng)
+- [Svg Options](https://www.npmjs.com/package/imagemin-svgo)
 
 #### Optimizations in a shared file ####
 
@@ -3649,6 +3677,23 @@ websiteEn.run({
 websiteFr.run({
     "browse": true,
     "webconfig": "webconfig.french.json"
+});
+```
+```
+
+You could also execute other tasks after assets generation:
+
+*servers.js*
+
+```javascript
+require("node-atlas")().afterGeneration(function() {
+    require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
+        console.log("Documentation generation...");
+        console.log(stdout);
+        console.log("Documentation generation done !");
+    });
+}).run({
+    generate: true
 });
 ```
 
