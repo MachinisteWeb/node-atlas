@@ -313,7 +313,7 @@
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> nodeAtlas <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>);
 
-nodeAtlas().run();</pre></div>
+<span class="pl-en">nodeAtlas</span>().<span class="pl-en">run</span>();</pre></div>
 
 <pre><code>\&gt; node server.js
 </code></pre>
@@ -1108,8 +1108,8 @@ webconfig.json
         <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
 
         <span class="pl-c">// Associations de chaque module pour y avoir accès partout.</span>
-        <span class="pl-c1">NA</span>.modules.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cookie<span class="pl-pds">'</span></span>);
-        <span class="pl-c1">NA</span>.modules.mongoose <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
+        <span class="pl-smi">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cookie<span class="pl-pds">'</span></span>);
+        <span class="pl-smi">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
     };
 
 }(website));
@@ -1128,116 +1128,116 @@ webconfig.json
     <span class="pl-c">// Exemple d'utilisation de MongoDB et Mongoose.</span>
     <span class="pl-c1">privates</span>.<span class="pl-en">mongooseInitialization</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>, <span class="pl-smi">callback</span>) {
         <span class="pl-c">// Connexion à la base « blog ».</span>
-        mongoose.connect(<span class="pl-s"><span class="pl-pds">'</span>mongodb://127.0.0.1:27017/blog<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
+        <span class="pl-smi">mongoose</span>.<span class="pl-en">connect</span>(<span class="pl-s"><span class="pl-pds">'</span>mongodb://127.0.0.1:27017/blog<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
             <span class="pl-k">if</span> (error) {
                 <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Database 'mongodb://127.0.0.1:27017/blog' is not accessible.<span class="pl-pds">"</span></span>);
-                <span class="pl-c1">process</span>.kill(<span class="pl-c1">process</span>.pid);
+                <span class="pl-smi">process</span>.<span class="pl-en">kill</span>(<span class="pl-smi">process</span>.<span class="pl-smi">pid</span>);
             }
 
             <span class="pl-c">// Next.</span>
-            callback(mongoose);
+            <span class="pl-en">callback</span>(mongoose);
         });
 
         <span class="pl-c">// Gestion de connexion.</span>
-        mongoose.connection.on(<span class="pl-s"><span class="pl-pds">'</span>error<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
+        <span class="pl-smi">mongoose</span>.<span class="pl-smi">connection</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>error<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
             <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Erreur pour la connexion par défaut à Mongoose : <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
         });
 
         <span class="pl-c">// Gestion des déconnexion.</span>
-        mongoose.connection.on(<span class="pl-s"><span class="pl-pds">'</span>disconnected<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+        <span class="pl-smi">mongoose</span>.<span class="pl-smi">connection</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>disconnected<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
             <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Déconnexion de Mongoose.<span class="pl-pds">'</span></span>);
         });
-        <span class="pl-c1">process</span>.on(<span class="pl-s"><span class="pl-pds">'</span>SIGINT<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
-            mongoose.connection.<span class="pl-c1">close</span>(<span class="pl-k">function</span> () {
+        <span class="pl-smi">process</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>SIGINT<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
+            <span class="pl-smi">mongoose</span>.<span class="pl-smi">connection</span>.<span class="pl-c1">close</span>(<span class="pl-k">function</span> () {
                 <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Déconnexion de Mongoose en raison de l'arrêt de l'app.<span class="pl-pds">"</span></span>);
-                <span class="pl-c1">process</span>.exit(<span class="pl-c1">0</span>);
+                <span class="pl-smi">process</span>.<span class="pl-en">exit</span>(<span class="pl-c1">0</span>);
             });
         });
     };
 
     <span class="pl-c">// Mise à disposition des Schémas Mongoose.</span>
     <span class="pl-c1">privates</span>.<span class="pl-en">mongooseSchemas</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>) {
-        publics.schema <span class="pl-k">=</span> {};
+        <span class="pl-smi">publics</span>.<span class="pl-smi">schema</span> <span class="pl-k">=</span> {};
 
         <span class="pl-c">// Chargement des Schémas.</span>
-        publics.schema.article <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../models/Article<span class="pl-pds">'</span></span>);
-        publics.schema.category <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../models/Category<span class="pl-pds">'</span></span>);
+        <span class="pl-smi">publics</span>.<span class="pl-smi">schema</span>.<span class="pl-smi">article</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../models/Article<span class="pl-pds">'</span></span>);
+        <span class="pl-smi">publics</span>.<span class="pl-smi">schema</span>.<span class="pl-smi">category</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../models/Category<span class="pl-pds">'</span></span>);
 
         <span class="pl-c">// Mise à disposition des Schémas.</span>
-        mongoose.model(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>, website.schema.article, <span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
-        mongoose.model(<span class="pl-s"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>, website.schema.category, <span class="pl-s"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>);
+        <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>, <span class="pl-smi">website</span>.<span class="pl-smi">schema</span>.<span class="pl-smi">article</span>, <span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
+        <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>, <span class="pl-smi">website</span>.<span class="pl-smi">schema</span>.<span class="pl-smi">category</span>, <span class="pl-s"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>);
     };
 
     <span class="pl-c">// Exemple d'utilisation de Socket.IO.</span>
     <span class="pl-c1">privates</span>.<span class="pl-en">socketIoInitialisation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">socketio</span>, <span class="pl-smi">NA</span>, <span class="pl-smi">callback</span>) {
-        <span class="pl-k">var</span> optionIo <span class="pl-k">=</span> (<span class="pl-c1">NA</span>.webconfig.urlRelativeSubPath) <span class="pl-k">?</span> { path<span class="pl-k">:</span> <span class="pl-c1">NA</span>.webconfig.urlRelativeSubPath <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/socket.io<span class="pl-pds">'</span></span>, secure<span class="pl-k">:</span> ((<span class="pl-c1">NA</span>.webconfig.httpSecure) <span class="pl-k">?</span> <span class="pl-c1">true</span> <span class="pl-k">:</span> <span class="pl-c1">false</span>) } <span class="pl-k">:</span> <span class="pl-c1">undefined</span>,
-            io <span class="pl-k">=</span> socketio(<span class="pl-c1">NA</span>.server, optionIo),
-            cookie <span class="pl-k">=</span> <span class="pl-c1">NA</span>.modules.<span class="pl-c1">cookie</span>,
-            cookieParser <span class="pl-k">=</span> <span class="pl-c1">NA</span>.modules.cookieParser;
+        <span class="pl-k">var</span> optionIo <span class="pl-k">=</span> (<span class="pl-smi">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">urlRelativeSubPath</span>) <span class="pl-k">?</span> { path<span class="pl-k">:</span> <span class="pl-smi">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">urlRelativeSubPath</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/socket.io<span class="pl-pds">'</span></span>, secure<span class="pl-k">:</span> ((<span class="pl-smi">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">httpSecure</span>) <span class="pl-k">?</span> <span class="pl-c1">true</span> <span class="pl-k">:</span> <span class="pl-c1">false</span>) } <span class="pl-k">:</span> <span class="pl-c1">undefined</span>,
+            io <span class="pl-k">=</span> <span class="pl-en">socketio</span>(<span class="pl-smi">NA</span>.<span class="pl-smi">server</span>, optionIo),
+            cookie <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-c1">cookie</span>,
+            cookieParser <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">cookieParser</span>;
 
         <span class="pl-c">// Synchronisation des Sessions avec Socket.IO.</span>
-        io.use(<span class="pl-k">function</span>(<span class="pl-smi">socket</span>, <span class="pl-smi">next</span>) {
-            <span class="pl-k">var</span> handshakeData <span class="pl-k">=</span> socket.request;
+        <span class="pl-smi">io</span>.<span class="pl-en">use</span>(<span class="pl-k">function</span>(<span class="pl-smi">socket</span>, <span class="pl-smi">next</span>) {
+            <span class="pl-k">var</span> handshakeData <span class="pl-k">=</span> <span class="pl-smi">socket</span>.<span class="pl-smi">request</span>;
 
             <span class="pl-c">// Fallback si les cookies ne sont pas gérés.</span>
-            <span class="pl-k">if</span> (<span class="pl-k">!</span>handshakeData.<span class="pl-c1">headers</span>.<span class="pl-c1">cookie</span>) {
-                <span class="pl-k">return</span> next(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>Cookie de session requis.<span class="pl-pds">'</span></span>));
+            <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-smi">handshakeData</span>.<span class="pl-c1">headers</span>.<span class="pl-c1">cookie</span>) {
+                <span class="pl-k">return</span> <span class="pl-en">next</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>Cookie de session requis.<span class="pl-pds">'</span></span>));
             }
 
             <span class="pl-c">// Transformation de la String cookie en Objet JSON.</span>
-            handshakeData.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> cookie.<span class="pl-c1">parse</span>(handshakeData.<span class="pl-c1">headers</span>.<span class="pl-c1">cookie</span>);
+            <span class="pl-smi">handshakeData</span>.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-smi">cookie</span>.<span class="pl-c1">parse</span>(<span class="pl-smi">handshakeData</span>.<span class="pl-c1">headers</span>.<span class="pl-c1">cookie</span>);
 
             <span class="pl-c">// Vérification de la signature du cookie.</span>
-            handshakeData.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> cookieParser.signedCookies(handshakeData.<span class="pl-c1">cookie</span>, <span class="pl-c1">NA</span>.webconfig.session.secret);
+            <span class="pl-smi">handshakeData</span>.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-smi">cookieParser</span>.<span class="pl-en">signedCookies</span>(<span class="pl-smi">handshakeData</span>.<span class="pl-c1">cookie</span>, <span class="pl-smi">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">session</span>.<span class="pl-smi">secret</span>);
 
             <span class="pl-c">// Garder à porté l'ID de Session.</span>
-            handshakeData.sessionID <span class="pl-k">=</span> handshakeData.<span class="pl-c1">cookie</span>[<span class="pl-c1">NA</span>.webconfig.session.key];
+            <span class="pl-smi">handshakeData</span>.<span class="pl-smi">sessionID</span> <span class="pl-k">=</span> <span class="pl-smi">handshakeData</span>.<span class="pl-c1">cookie</span>[<span class="pl-smi">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">session</span>.<span class="pl-smi">key</span>];
 
             <span class="pl-c">// Accepter le cookie.</span>
-            <span class="pl-c1">NA</span>.sessionStore.<span class="pl-c1">load</span>(handshakeData.sessionID, <span class="pl-k">function</span> (<span class="pl-smi">error</span>, <span class="pl-smi">session</span>) {
+            <span class="pl-smi">NA</span>.<span class="pl-smi">sessionStore</span>.<span class="pl-c1">load</span>(<span class="pl-smi">handshakeData</span>.<span class="pl-smi">sessionID</span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>, <span class="pl-smi">session</span>) {
                 <span class="pl-k">if</span> (error <span class="pl-k">||</span> <span class="pl-k">!</span>session) {
-                    <span class="pl-k">return</span> next(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>Aucune session récupérée.<span class="pl-pds">'</span></span>));
+                    <span class="pl-k">return</span> <span class="pl-en">next</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>Aucune session récupérée.<span class="pl-pds">'</span></span>));
                 } <span class="pl-k">else</span> {
-                    handshakeData.session <span class="pl-k">=</span> session;
-                    next();
+                    <span class="pl-smi">handshakeData</span>.<span class="pl-smi">session</span> <span class="pl-k">=</span> session;
+                    <span class="pl-en">next</span>();
                 }
             });
         });
 
         <span class="pl-c">// Suite.</span>
-        callback(io);
+        <span class="pl-en">callback</span>(io);
     };
 
     <span class="pl-c">// Ajout d'évênements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).</span>
     <span class="pl-c1">privates</span>.<span class="pl-en">socketIoEvents</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">io</span>, <span class="pl-smi">NA</span>) {
         <span class="pl-k">var</span> params <span class="pl-k">=</span> {};
 
-        params.io <span class="pl-k">=</span> io;
+        <span class="pl-smi">params</span>.<span class="pl-smi">io</span> <span class="pl-k">=</span> io;
 
         <span class="pl-c">// Évênements pour la page index (voir exemple dans le fichier d'après).</span>
-        <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./index<span class="pl-pds">'</span></span>).asynchrone.<span class="pl-c1">call</span>(<span class="pl-c1">NA</span>, params);
+        <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./index<span class="pl-pds">'</span></span>).<span class="pl-smi">asynchrone</span>.<span class="pl-c1">call</span>(<span class="pl-c1">NA</span>, params);
     };
 
     <span class="pl-c">// Configuration de tous les modules.</span>
     <span class="pl-c1">publics</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">callback</span>) {
         <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
-            mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.modules.mongoose,
-            socketio <span class="pl-k">=</span> <span class="pl-c1">NA</span>.modules.socketio;
+            mongoose <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
+            socketio <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">socketio</span>;
 
         <span class="pl-c">// Initialisation de Mongoose.</span>
-        privates.mongooseInitialization(mongoose, <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>) {
+        <span class="pl-smi">privates</span>.<span class="pl-en">mongooseInitialization</span>(mongoose, <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>) {
 
             <span class="pl-c">// Injection de Schémas dans Mongoose.</span>
-            privates.mongooseSchemas(mongoose);
+            <span class="pl-smi">privates</span>.<span class="pl-en">mongooseSchemas</span>(mongoose);
 
             <span class="pl-c">// Initialisation de Socket IO.</span>
-            privates.socketIoInitialisation(socketio, <span class="pl-c1">NA</span>, <span class="pl-k">function</span> (<span class="pl-smi">io</span>) {
+            <span class="pl-smi">privates</span>.<span class="pl-en">socketIoInitialisation</span>(socketio, <span class="pl-c1">NA</span>, <span class="pl-k">function</span> (<span class="pl-smi">io</span>) {
 
                 <span class="pl-c">// Écoute d'action Socket IO.</span>
-                privates.socketIoEvents(io, <span class="pl-c1">NA</span>);
+                <span class="pl-smi">privates</span>.<span class="pl-en">socketIoEvents</span>(io, <span class="pl-c1">NA</span>);
 
                 <span class="pl-c">// Étapes suivante du moteur.</span>
-                callback();
+                <span class="pl-en">callback</span>();
             });
         });
 
@@ -1256,13 +1256,13 @@ webconfig.json
 
     <span class="pl-c">// On intervient juste avant l'assemblage complet EJS.</span>
     <span class="pl-c1">publics</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
-        <span class="pl-k">var</span> variation <span class="pl-k">=</span> params.variation;
+        <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
 
         <span class="pl-c">// Ici on modifie les variables de variations.</span>
         <span class="pl-c">// voir exemple dans le fichier d'après.</span>
 
         <span class="pl-c">// On ré-injecte les modifications.</span>
-        mainCallback(variation);
+        <span class="pl-en">mainCallback</span>(variation);
     };
 
 }(website));
@@ -1278,13 +1278,13 @@ webconfig.json
 
     <span class="pl-c">// On intervient juste avant le renvoi HTML auprès du client (response).</span>
     <span class="pl-c1">publics</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
-        <span class="pl-k">var</span> dom <span class="pl-k">=</span> params.dom;
+        <span class="pl-k">var</span> dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>;
 
         <span class="pl-c">// Ici on peut manipuler le DOM côté serveur avant retour client.</span>
         <span class="pl-c">// voir exemple dans le fichier d'après.</span>
 
         <span class="pl-c">// On ré-injecte les modifications.</span>
-        mainCallback(dom);
+        <span class="pl-en">mainCallback</span>(dom);
     };
 
 }(website));
@@ -1295,10 +1295,10 @@ webconfig.json
 <span class="pl-c">/* Mise à dispositions des fonction pour le moteur NodeAtlas */</span>
 <span class="pl-c">/*************************************************************/</span>
 
-<span class="pl-c1">exports</span>.loadModules <span class="pl-k">=</span> website.loadModules;
-<span class="pl-c1">exports</span>.setConfigurations <span class="pl-k">=</span> website.setConfigurations;
-<span class="pl-c1">exports</span>.changeVariation <span class="pl-k">=</span> website.changeVariation;
-<span class="pl-c1">exports</span>.changeDom <span class="pl-k">=</span> website.changeDom;</pre></div>
+<span class="pl-smi">exports</span>.<span class="pl-smi">loadModules</span> <span class="pl-k">=</span> <span class="pl-smi">website</span>.<span class="pl-smi">loadModules</span>;
+<span class="pl-smi">exports</span>.<span class="pl-smi">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-smi">website</span>.<span class="pl-smi">setConfigurations</span>;
+<span class="pl-smi">exports</span>.<span class="pl-smi">changeVariation</span> <span class="pl-k">=</span> <span class="pl-smi">website</span>.<span class="pl-smi">changeVariation</span>;
+<span class="pl-smi">exports</span>.<span class="pl-smi">changeDom</span> <span class="pl-k">=</span> <span class="pl-smi">website</span>.<span class="pl-smi">changeDom</span>;</pre></div>
 
 <p>Au lieu de se servir de <code>changeVariation</code> et <code>changeDom</code> dans le fichier <code>common.js</code> effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :</p>
 
@@ -1361,47 +1361,47 @@ webconfig.json
     <span class="pl-k">var</span> privates <span class="pl-k">=</span> {};
 
     <span class="pl-c">// On charge une fonction ou un ensemble de fonctions.</span>
-    privates.listOfArticles <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./modules/list-of-articles<span class="pl-pds">'</span></span>);
+    <span class="pl-smi">privates</span>.<span class="pl-smi">listOfArticles</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./modules/list-of-articles<span class="pl-pds">'</span></span>);
 
     <span class="pl-c">// On intervient juste avant l'assemblage complet EJS.</span>
     <span class="pl-c1">publics</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
         <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
-            variation <span class="pl-k">=</span> params.variation,
-            mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.modules.mongoose,
-            Article <span class="pl-k">=</span> mongoose.model(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
+            variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
+            mongoose <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
+            Article <span class="pl-k">=</span> <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
 
 
         <span class="pl-c">// Interception possible de toutes les variables de « variations/common.js ».</span>
-        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.common.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi le titre stocké dans « variations/common.js ».</span>
-        variation.common.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre.</span>
-        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.common.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi « Nouveau title » et est accessible côté template via `&lt;%= common.title %&gt;`.</span>
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi le titre stocké dans « variations/common.js ».</span>
+        <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre.</span>
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-c1">title</span>); <span class="pl-c">// Renvoi « Nouveau title » et est accessible côté template via `&lt;%= common.title %&gt;`.</span>
 
         <span class="pl-c">// Interception possible de toutes les variables de « variations/index.js » (car on est dans le spécific « index.js »).</span>
-        variation.specific.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre qui est accessible côté template via `&lt;%= specific.title %&gt;`.</span>
-        variation.specific.newProperty <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouvelle propriété<span class="pl-pds">"</span></span>; <span class="pl-c">// Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via `&lt;%= specific.newProperty %&gt;`.</span>
+        <span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouveau title<span class="pl-pds">"</span></span>; <span class="pl-c">// Redéfini un titre qui est accessible côté template via `&lt;%= specific.title %&gt;`.</span>
+        <span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-smi">newProperty</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Nouvelle propriété<span class="pl-pds">"</span></span>; <span class="pl-c">// Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via `&lt;%= specific.newProperty %&gt;`.</span>
 
         <span class="pl-c">// Interception possible de la configuration de la page courante.</span>
-        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.currentRoute); <span class="pl-c">// Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.</span>
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">currentRoute</span>); <span class="pl-c">// Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.</span>
 
         <span class="pl-c">// On test une variable créer de toute pièce dans le webconfig.</span>
-        <span class="pl-k">if</span> (variation.webconfig._websiteIsClosed) {
+        <span class="pl-k">if</span> (<span class="pl-smi">variation</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">_websiteIsClosed</span>) {
             <span class="pl-c">// La page sera en 404.</span>
-            variation.currentRouteParameters.statusCode <span class="pl-k">=</span> <span class="pl-c1">404</span>;
+            <span class="pl-smi">variation</span>.<span class="pl-smi">currentRouteParameters</span>.<span class="pl-smi">statusCode</span> <span class="pl-k">=</span> <span class="pl-c1">404</span>;
         } <span class="pl-k">else</span> {
             <span class="pl-c">// La page sera en 200.</span>
-            variation.currentRouteParameters.statusCode <span class="pl-k">=</span> <span class="pl-c1">200</span>;
+            <span class="pl-smi">variation</span>.<span class="pl-smi">currentRouteParameters</span>.<span class="pl-smi">statusCode</span> <span class="pl-k">=</span> <span class="pl-c1">200</span>;
         }
 
         <span class="pl-c">// Création d'un nouvel ensemble de variation dynamique pour les templates.</span>
-        variation.backend <span class="pl-k">=</span> {}; <span class="pl-c">// Propriétés accessibles via « &lt;%= backend.&lt;propriétés&gt; %&gt; ».p</span>
+        <span class="pl-smi">variation</span>.<span class="pl-smi">backend</span> <span class="pl-k">=</span> {}; <span class="pl-c">// Propriétés accessibles via « &lt;%= backend.&lt;propriétés&gt; %&gt; ».p</span>
 
-        privates.listOfArticles(Article, <span class="pl-k">function</span> (<span class="pl-smi">listOfArticles</span>) {
+        <span class="pl-smi">privates</span>.<span class="pl-en">listOfArticles</span>(Article, <span class="pl-k">function</span> (<span class="pl-smi">listOfArticles</span>) {
 
             <span class="pl-c">// Disponibilité des données des articles côté template.</span>
-            variation.backend.articles <span class="pl-k">=</span> listOfArticles; <span class="pl-c">// « &lt;%= backend.articles.&lt;propriétés&gt; %&gt; ».</span>
+            <span class="pl-smi">variation</span>.<span class="pl-smi">backend</span>.<span class="pl-smi">articles</span> <span class="pl-k">=</span> listOfArticles; <span class="pl-c">// « &lt;%= backend.articles.&lt;propriétés&gt; %&gt; ».</span>
 
             <span class="pl-c">// On ré-injecte les modifications.</span>
-            mainCallback(variation);
+            <span class="pl-en">mainCallback</span>(variation);
         });
     };
 
@@ -1418,29 +1418,29 @@ webconfig.json
 
     <span class="pl-c">// On intervient juste avant le renvoi HTML auprès du client (response).</span>
     <span class="pl-c1">publics</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
-        <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> params.NA,
-            dom <span class="pl-k">=</span> params.dom,
-            cheerio <span class="pl-k">=</span> <span class="pl-c1">NA</span>.modules.cheerio, <span class="pl-c">// Récupération de jsdom pour parcourir le DOM avec jQuery.</span>
-            $ <span class="pl-k">=</span> cheerio.<span class="pl-c1">load</span>(dom); <span class="pl-c">// On charge les données pour les manipuler comme un DOM.</span>
+        <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-c1">NA</span>,
+            dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>,
+            cheerio <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">cheerio</span>, <span class="pl-c">// Récupération de jsdom pour parcourir le DOM avec jQuery.</span>
+            $ <span class="pl-k">=</span> <span class="pl-smi">cheerio</span>.<span class="pl-c1">load</span>(dom); <span class="pl-c">// On charge les données pour les manipuler comme un DOM.</span>
 
         <span class="pl-c">// Après tous les h2 de la sortie HTML « dom »,</span>
-        $(<span class="pl-s"><span class="pl-pds">"</span>h2<span class="pl-pds">"</span></span>).each(<span class="pl-k">function</span> () {
-            <span class="pl-k">var</span> $<span class="pl-v">this</span> <span class="pl-k">=</span> $(<span class="pl-v">this</span>);
+        <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>h2<span class="pl-pds">"</span></span>).<span class="pl-en">each</span>(<span class="pl-k">function</span> () {
+            <span class="pl-k">var</span> $<span class="pl-v">this</span> <span class="pl-k">=</span> <span class="pl-en">$</span>(<span class="pl-v">this</span>);
 
             <span class="pl-c">// ...on créé une div,</span>
-            $<span class="pl-v">this</span>.after(
+            <span class="pl-smi">$this</span>.<span class="pl-en">after</span>(
                 <span class="pl-c">// ... on injecte le contenu du h2 dans la div,</span>
-                $(<span class="pl-s"><span class="pl-pds">"</span>&lt;div&gt;<span class="pl-pds">"</span></span>).html($<span class="pl-v">this</span>.html())
+                <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>&lt;div&gt;<span class="pl-pds">"</span></span>).<span class="pl-en">html</span>(<span class="pl-smi">$this</span>.<span class="pl-en">html</span>())
             );
             <span class="pl-c">// ...et supprime le h2.</span>
-            $<span class="pl-v">this</span>.remove();
+            <span class="pl-smi">$this</span>.<span class="pl-en">remove</span>();
         });
 
         <span class="pl-c">// On re-créer une nouvelle sortie HTML avec nos modifications.</span>
-        dom <span class="pl-k">=</span> $.html();
+        dom <span class="pl-k">=</span> <span class="pl-smi">$</span>.<span class="pl-en">html</span>();
 
         <span class="pl-c">// On ré-injecte les modifications.</span>
-        mainCallback(dom);
+        <span class="pl-en">mainCallback</span>(dom);
     };
 
 }(website));
@@ -1457,38 +1457,38 @@ webconfig.json
     <span class="pl-c">// Intégralité des actions Websocket possible pour ce template.</span>
     <span class="pl-c1">publics</span>.<span class="pl-en">asynchrone</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>) {
         <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
-            io <span class="pl-k">=</span> params.io,
-            mongoose <span class="pl-k">=</span> params.NA.modules.mongoose,
-            marked <span class="pl-k">=</span> params.NA.modules.marked,
-            Article <span class="pl-k">=</span> mongoose.model(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
+            io <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">io</span>,
+            mongoose <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
+            marked <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">marked</span>,
+            Article <span class="pl-k">=</span> <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
 
         <span class="pl-c">// Dès qu'on a un lien valide entre le client et notre back...</span>
-        io.sockets.on(<span class="pl-s"><span class="pl-pds">'</span>connection<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">socket</span>) {
-            <span class="pl-k">var</span> sessionID <span class="pl-k">=</span> socket.request.sessionID,
-                session <span class="pl-k">=</span> socket.request.session;
+        <span class="pl-smi">io</span>.<span class="pl-smi">sockets</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>connection<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">socket</span>) {
+            <span class="pl-k">var</span> sessionID <span class="pl-k">=</span> <span class="pl-smi">socket</span>.<span class="pl-smi">request</span>.<span class="pl-smi">sessionID</span>,
+                session <span class="pl-k">=</span> <span class="pl-smi">socket</span>.<span class="pl-smi">request</span>.<span class="pl-smi">session</span>;
 
             <span class="pl-c">// ...rester à l'écoute de la demande « create-article-button »...</span>
-            socket.on(<span class="pl-s"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
+            <span class="pl-smi">socket</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
 
                 <span class="pl-c">// ...et répondre à cette demande en créant un nouvelle article si elle vient</span>
                 <span class="pl-c">// avec les information envoyées via « data ».</span>
                 <span class="pl-k">var</span> article <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Article</span>({
-                    _id<span class="pl-k">:</span> mongoose.Types.ObjectId(),
-                    title<span class="pl-k">:</span> data.<span class="pl-c1">title</span>,
-                    urn<span class="pl-k">:</span> data.urn,
+                    _id<span class="pl-k">:</span> <span class="pl-smi">mongoose</span>.<span class="pl-smi">Types</span>.<span class="pl-en">ObjectId</span>(),
+                    title<span class="pl-k">:</span> <span class="pl-smi">data</span>.<span class="pl-c1">title</span>,
+                    urn<span class="pl-k">:</span> <span class="pl-smi">data</span>.<span class="pl-smi">urn</span>,
                 });
 
                 <span class="pl-c">// Si l'utilisateur est connecté.</span>
-                <span class="pl-k">if</span> (session.account) {
+                <span class="pl-k">if</span> (<span class="pl-smi">session</span>.<span class="pl-smi">account</span>) {
 
                     <span class="pl-c">// ...on sauve l'article en base.</span>
-                    article.save(<span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
+                    <span class="pl-smi">article</span>.<span class="pl-en">save</span>(<span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
                         <span class="pl-k">if</span> (error) {
                             <span class="pl-k">throw</span> error;
                         }
 
                         <span class="pl-c">// Et on répond à tous les clients avec un jeu de donnée dans data.</span>
-                        io.sockets.emit(<span class="pl-s"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, data);
+                        <span class="pl-smi">io</span>.<span class="pl-smi">sockets</span>.<span class="pl-en">emit</span>(<span class="pl-s"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, data);
                     });
                 }
             });
@@ -1503,9 +1503,9 @@ webconfig.json
 <span class="pl-c">/* Mise à dispositions des fonction pour le moteur NodeAtlas */</span>
 <span class="pl-c">/*************************************************************/</span>
 
-<span class="pl-c1">exports</span>.changeVariation <span class="pl-k">=</span> website.changeVariation;
-<span class="pl-c1">exports</span>.changeDom <span class="pl-k">=</span> website.changeDom;
-<span class="pl-c1">exports</span>.asynchrone <span class="pl-k">=</span> website.asynchrone; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
+<span class="pl-smi">exports</span>.<span class="pl-smi">changeVariation</span> <span class="pl-k">=</span> <span class="pl-smi">website</span>.<span class="pl-smi">changeVariation</span>;
+<span class="pl-smi">exports</span>.<span class="pl-smi">changeDom</span> <span class="pl-k">=</span> <span class="pl-smi">website</span>.<span class="pl-smi">changeDom</span>;
+<span class="pl-smi">exports</span>.<span class="pl-smi">asynchrone</span> <span class="pl-k">=</span> <span class="pl-smi">website</span>.<span class="pl-smi">asynchrone</span>; <span class="pl-c">// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).</span></pre></div>
 
 <p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p>
 
@@ -1533,30 +1533,30 @@ webconfig.json
 <p>puis, quand votre JavaScript fera une requête AJAX via jQuery, ou comme ici, une requête socket.io, il utilisera ses paramètres :</p>
 
 <div class="highlight highlight-source-js"><pre>...
-publics.socket.emit(<span class="pl-s"><span class="pl-pds">"</span>load-section-a<span class="pl-pds">"</span></span>, {
-    lang<span class="pl-k">:</span> $(<span class="pl-s"><span class="pl-pds">"</span>html<span class="pl-pds">"</span></span>).attr(<span class="pl-s"><span class="pl-pds">'</span>lang<span class="pl-pds">'</span></span>),
-    variation<span class="pl-k">:</span> $(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>).<span class="pl-c1">data</span>(<span class="pl-s"><span class="pl-pds">'</span>variation<span class="pl-pds">'</span></span>)
+<span class="pl-smi">publics</span>.<span class="pl-smi">socket</span>.<span class="pl-en">emit</span>(<span class="pl-s"><span class="pl-pds">"</span>load-section-a<span class="pl-pds">"</span></span>, {
+    lang<span class="pl-k">:</span> <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>html<span class="pl-pds">"</span></span>).<span class="pl-en">attr</span>(<span class="pl-s"><span class="pl-pds">'</span>lang<span class="pl-pds">'</span></span>),
+    variation<span class="pl-k">:</span> <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>).<span class="pl-c1">data</span>(<span class="pl-s"><span class="pl-pds">'</span>variation<span class="pl-pds">'</span></span>)
 });
 ...</pre></div>
 
 <p>pour que le serveur récupère les valeurs :</p>
 
 <div class="highlight highlight-source-js"><pre>...
-socket.on(<span class="pl-s"><span class="pl-pds">'</span>load-section-a<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
+<span class="pl-smi">socket</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>load-section-a<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
     <span class="pl-k">var</span> result <span class="pl-k">=</span> {},
         currentVariation <span class="pl-k">=</span> {};
 
     <span class="pl-c">// On récupère les variations spécifiques dans la bonne langue.</span>
-    currentVariation <span class="pl-k">=</span> <span class="pl-c1">NA</span>.addSpecificVariation(data.variation, data.<span class="pl-c1">lang</span>, currentVariation);
+    currentVariation <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-en">addSpecificVariation</span>(<span class="pl-smi">data</span>.<span class="pl-smi">variation</span>, <span class="pl-smi">data</span>.<span class="pl-c1">lang</span>, currentVariation);
 
     <span class="pl-c">// On récupère les variations communes dans la bonne langue.</span>
-    currentVariation <span class="pl-k">=</span> <span class="pl-c1">NA</span>.addCommonVariation(data.<span class="pl-c1">lang</span>, currentVariation);
+    currentVariation <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-en">addCommonVariation</span>(<span class="pl-smi">data</span>.<span class="pl-c1">lang</span>, currentVariation);
 
     <span class="pl-c">// On récupère le fragment HTML depuis le dossier `componentsRelativePath` et on applique les variations.</span>
-    result <span class="pl-k">=</span> <span class="pl-c1">NA</span>.newRender(<span class="pl-s"><span class="pl-pds">"</span>section-a.htm<span class="pl-pds">"</span></span>, currentVariation);
+    result <span class="pl-k">=</span> <span class="pl-smi">NA</span>.<span class="pl-en">newRender</span>(<span class="pl-s"><span class="pl-pds">"</span>section-a.htm<span class="pl-pds">"</span></span>, currentVariation);
 
     <span class="pl-c">// On renvoit le résultat pour injection dans le DOM.</span>
-    socket.emit(<span class="pl-s"><span class="pl-pds">'</span>load-sections<span class="pl-pds">'</span></span>, result);
+    <span class="pl-smi">socket</span>.<span class="pl-en">emit</span>(<span class="pl-s"><span class="pl-pds">'</span>load-sections<span class="pl-pds">'</span></span>, result);
 });
 ...</pre></div>
 
@@ -1750,12 +1750,12 @@ webconfig.prod.json
 <p>et récupérer les valeurs de <code>:member</code> dans le <code>changeVariation</code> (common et specific).</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
-    <span class="pl-k">var</span> variation <span class="pl-k">=</span> params.variation;
+    <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
 
-    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.params.member);
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">params</span>.<span class="pl-smi">member</span>);
     <span class="pl-c">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.</span>
 
-    mainCallback(variation);
+    <span class="pl-en">mainCallback</span>(variation);
 }</pre></div>
 
 <p>Les règles de création d'url dynamique sont celles de <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p>
@@ -1807,15 +1807,15 @@ webconfig.prod.json
 <p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariation</code> (common et specific).</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
-    <span class="pl-k">var</span> variation <span class="pl-k">=</span> params.variation;
+    <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
 
-    <span class="pl-k">if</span> (variation.params <span class="pl-k">&amp;&amp;</span> variation.params[<span class="pl-c1">0</span>]) { variation.params.member <span class="pl-k">=</span> variation.params[<span class="pl-c1">0</span>]; }
+    <span class="pl-k">if</span> (<span class="pl-smi">variation</span>.<span class="pl-smi">params</span> <span class="pl-k">&amp;&amp;</span> <span class="pl-smi">variation</span>.<span class="pl-smi">params</span>[<span class="pl-c1">0</span>]) { <span class="pl-smi">variation</span>.<span class="pl-smi">params</span>.<span class="pl-smi">member</span> <span class="pl-k">=</span> <span class="pl-smi">variation</span>.<span class="pl-smi">params</span>[<span class="pl-c1">0</span>]; }
     <span class="pl-c">// variation.params[1] pour le deuxième match, etc...</span>
 
-    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(variation.params.member);
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">params</span>.<span class="pl-smi">member</span>);
     <span class="pl-c">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.</span>
 
-    mainCallback(variation);
+    <span class="pl-en">mainCallback</span>(variation);
 }</pre></div>
 
 <p>Les règles de création d'url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p>
@@ -3507,13 +3507,13 @@ exports.setSessions = website.setSessions;
 
 <p><em>server.js</em></p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>)().config({
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>)().<span class="pl-en">config</span>({
     directory<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;/path/to/your/website/directory/&gt;<span class="pl-pds">"</span></span>,
     webconfig<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>webconfig.alternatif.json<span class="pl-pds">"</span></span>,
     browse<span class="pl-k">:</span> <span class="pl-c1">true</span>,
     httpPort<span class="pl-k">:</span> <span class="pl-c1">7778</span>,
     generate<span class="pl-k">:</span> <span class="pl-c1">true</span>
-}).init();</pre></div>
+}).<span class="pl-en">init</span>();</pre></div>
 
 <pre><code>\&gt; node server.js
 </code></pre>
@@ -3526,11 +3526,11 @@ exports.setSessions = website.setSessions;
     websiteEn <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">nodeAtlas</span>(),
     websiteFr <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">nodeAtlas</span>();
 
-websiteEn.run({
+<span class="pl-smi">websiteEn</span>.<span class="pl-en">run</span>({
     <span class="pl-s"><span class="pl-pds">"</span>browse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
     <span class="pl-s"><span class="pl-pds">"</span>webconfig<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>webconfig.english.json<span class="pl-pds">"</span></span>
 });
-websiteFr.run({
+<span class="pl-smi">websiteFr</span>.<span class="pl-en">run</span>({
     <span class="pl-s"><span class="pl-pds">"</span>browse<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
     <span class="pl-s"><span class="pl-pds">"</span>webconfig<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>webconfig.french.json<span class="pl-pds">"</span></span>
 });</pre></div>
@@ -3539,13 +3539,13 @@ websiteFr.run({
 
 <p><em>servers.js</em></p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>)().afterGeneration(<span class="pl-k">function</span>() {
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>)().<span class="pl-en">afterGeneration</span>(<span class="pl-k">function</span>() {
     <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>child_process<span class="pl-pds">'</span></span>).<span class="pl-c1">exec</span>(<span class="pl-c1">__dirname</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>/documentation.bat<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">err</span>, <span class="pl-smi">stdout</span>, <span class="pl-smi">stderr</span>) {
         <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Documentation generation...<span class="pl-pds">"</span></span>);
         <span class="pl-en">console</span>.<span class="pl-c1">log</span>(stdout);
         <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Documentation generation done !<span class="pl-pds">"</span></span>);
     });
-}).run({
+}).<span class="pl-en">run</span>({
     generate<span class="pl-k">:</span> <span class="pl-c1">true</span>
 });</pre></div>
 
@@ -3738,7 +3738,7 @@ site-hello-world/
 
 <p>Voici un exemple de configuration pour Nginx :</p>
 
-<div class="highlight highlight-source-js"><pre>## Server an.example.fr
+<div class="highlight highlight-source-js"><pre>## Server <span class="pl-smi">an</span>.<span class="pl-smi">example</span>.<span class="pl-smi">fr</span>
 
 upstream websocket {
     server Ip_backend<span class="pl-k">:</span><span class="pl-c1">7777</span>;
@@ -3747,16 +3747,16 @@ upstream websocket {
 server {
 
     listen   <span class="pl-c1">80</span>;
-    server_name an.example.fr;
+    server_name <span class="pl-smi">an</span>.<span class="pl-smi">example</span>.<span class="pl-smi">fr</span>;
 
         keepalive_timeout    <span class="pl-c1">60</span>;
 
     access_log on;
 
-        access_log <span class="pl-k">/</span><span class="pl-k">var</span><span class="pl-k">/</span>log<span class="pl-k">/</span>nginx<span class="pl-k">/</span>access.log logstash;
-    error_log <span class="pl-k">/</span><span class="pl-k">var</span><span class="pl-k">/</span>log<span class="pl-k">/</span>nginx<span class="pl-k">/</span>error<span class="pl-k">-</span>an.example.fr.log;
+        access_log <span class="pl-k">/</span><span class="pl-k">var</span><span class="pl-k">/</span>log<span class="pl-k">/</span>nginx<span class="pl-k">/</span><span class="pl-smi">access</span>.<span class="pl-smi">log</span> logstash;
+    error_log <span class="pl-k">/</span><span class="pl-k">var</span><span class="pl-k">/</span>log<span class="pl-k">/</span>nginx<span class="pl-k">/</span>error<span class="pl-k">-</span><span class="pl-smi">an</span>.<span class="pl-smi">example</span>.<span class="pl-smi">fr</span>.<span class="pl-smi">log</span>;
 
-    location <span class="pl-k">/</span>socket.io<span class="pl-k">/</span> {
+    location <span class="pl-k">/</span><span class="pl-smi">socket</span>.<span class="pl-smi">io</span><span class="pl-k">/</span> {
             proxy_pass http<span class="pl-k">:</span><span class="pl-c">//websocket;</span>
             proxy_http_version <span class="pl-c1">1.1</span>;
             proxy_set_header Upgrade $http_upgrade;
@@ -3776,9 +3776,9 @@ server {
 
     }
 
-    error_page <span class="pl-c1">400</span> <span class="pl-c1">401</span> <span class="pl-c1">402</span> <span class="pl-c1">403</span> <span class="pl-c1">405</span> <span class="pl-c1">406</span> <span class="pl-c1">407</span> <span class="pl-c1">408</span> <span class="pl-c1">409</span> <span class="pl-c1">410</span> <span class="pl-c1">411</span> <span class="pl-c1">412</span> <span class="pl-c1">413</span> <span class="pl-c1">414</span> <span class="pl-c1">415</span> <span class="pl-c1">416</span> <span class="pl-c1">417</span> <span class="pl-c1">500</span> <span class="pl-c1">501</span> <span class="pl-c1">502</span> <span class="pl-c1">503</span> <span class="pl-c1">504</span> <span class="pl-c1">505</span> <span class="pl-c1">506</span> <span class="pl-c1">507</span> <span class="pl-k">/</span>error.html;
+    error_page <span class="pl-c1">400</span> <span class="pl-c1">401</span> <span class="pl-c1">402</span> <span class="pl-c1">403</span> <span class="pl-c1">405</span> <span class="pl-c1">406</span> <span class="pl-c1">407</span> <span class="pl-c1">408</span> <span class="pl-c1">409</span> <span class="pl-c1">410</span> <span class="pl-c1">411</span> <span class="pl-c1">412</span> <span class="pl-c1">413</span> <span class="pl-c1">414</span> <span class="pl-c1">415</span> <span class="pl-c1">416</span> <span class="pl-c1">417</span> <span class="pl-c1">500</span> <span class="pl-c1">501</span> <span class="pl-c1">502</span> <span class="pl-c1">503</span> <span class="pl-c1">504</span> <span class="pl-c1">505</span> <span class="pl-c1">506</span> <span class="pl-c1">507</span> <span class="pl-k">/</span><span class="pl-smi">error</span>.<span class="pl-smi">html</span>;
 
-    location <span class="pl-k">=</span> <span class="pl-k">/</span>error.html {
+    location <span class="pl-k">=</span> <span class="pl-k">/</span><span class="pl-smi">error</span>.<span class="pl-smi">html</span> {
             root <span class="pl-k">/</span><span class="pl-k">var</span><span class="pl-k">/</span>www<span class="pl-k">/</span>nginx<span class="pl-k">-</span><span class="pl-k">default</span>;
     }
 }</pre></div>
@@ -3810,23 +3810,23 @@ server {
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> bouncy <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>bouncy<span class="pl-pds">'</span></span>);
 
-<span class="pl-k">var</span> server <span class="pl-k">=</span> bouncy(<span class="pl-k">function</span> (<span class="pl-smi">request</span>, <span class="pl-smi">response</span>, <span class="pl-smi">bounce</span>) {
-    <span class="pl-k">if</span> (request.<span class="pl-c1">headers</span>.<span class="pl-c1">host</span> <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>beep.example.com<span class="pl-pds">'</span></span>) {
-        bounce(<span class="pl-c1">7777</span>);
+<span class="pl-k">var</span> server <span class="pl-k">=</span> <span class="pl-en">bouncy</span>(<span class="pl-k">function</span> (<span class="pl-smi">request</span>, <span class="pl-smi">response</span>, <span class="pl-smi">bounce</span>) {
+    <span class="pl-k">if</span> (<span class="pl-smi">request</span>.<span class="pl-c1">headers</span>.<span class="pl-c1">host</span> <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>beep.example.com<span class="pl-pds">'</span></span>) {
+        <span class="pl-en">bounce</span>(<span class="pl-c1">7777</span>);
     }
-    <span class="pl-k">else</span> <span class="pl-k">if</span> (request.<span class="pl-c1">headers</span>.<span class="pl-c1">host</span> <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>blup.example.com<span class="pl-pds">'</span></span>) {
-        bounce(<span class="pl-c1">7776</span>);
+    <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">request</span>.<span class="pl-c1">headers</span>.<span class="pl-c1">host</span> <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>blup.example.com<span class="pl-pds">'</span></span>) {
+        <span class="pl-en">bounce</span>(<span class="pl-c1">7776</span>);
     }
-    <span class="pl-k">else</span> <span class="pl-k">if</span> (request.<span class="pl-c1">headers</span>.<span class="pl-c1">host</span> <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>boop.example.com<span class="pl-pds">'</span></span>) {
-        bounce(<span class="pl-c1">81</span>);
+    <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">request</span>.<span class="pl-c1">headers</span>.<span class="pl-c1">host</span> <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>boop.example.com<span class="pl-pds">'</span></span>) {
+        <span class="pl-en">bounce</span>(<span class="pl-c1">81</span>);
     }
     <span class="pl-k">else</span> {
-        response.statusCode <span class="pl-k">=</span> <span class="pl-c1">404</span>;
-        response.end(<span class="pl-s"><span class="pl-pds">'</span>no such host<span class="pl-pds">'</span></span>);
+        <span class="pl-smi">response</span>.<span class="pl-smi">statusCode</span> <span class="pl-k">=</span> <span class="pl-c1">404</span>;
+        <span class="pl-smi">response</span>.<span class="pl-en">end</span>(<span class="pl-s"><span class="pl-pds">'</span>no such host<span class="pl-pds">'</span></span>);
     }
 });
 
-server.listen(<span class="pl-c1">80</span>);</pre></div>
+<span class="pl-smi">server</span>.<span class="pl-en">listen</span>(<span class="pl-c1">80</span>);</pre></div>
 
 <p>que vous pouvez lancer avec :</p>
 
@@ -3838,11 +3838,9 @@ server.listen(<span class="pl-c1">80</span>);</pre></div>
 <h2>
 <a id="À-propos-de-larchitecture-de-nodeatlas" class="anchor" href="#%C3%80-propos-de-larchitecture-de-nodeatlas" aria-hidden="true"><span class="octicon octicon-link"></span></a>À propos de l'architecture de NodeAtlas</h2>
 
-<p>NodeAtlas est fait de tel sorte que l'objet <code>NA</code> contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.</p>
+<p>NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.</p>
 
 <p>Tous les messages d'erreurs se trouvent dans <code>/languages/default.json</code>. Si vous souhaitez les modifier, il suffit de remplacer le contenu de <code>default.json</code> (actuellement identique à celui de <code>en-gb</code>) par celui de <code>fr-fr.json</code> ou tout autre fichier traduit par vos soins.</p>
-
-<p>Pour finir <a href="http://blog.lesieur.name/structurer-le-javascript-de-son-site-avec-ou-sans-framework/">l'appoche publics/privates de l'architecture est expliqué dans cette article</a>.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Haeresis">Haeresis</a></p>
