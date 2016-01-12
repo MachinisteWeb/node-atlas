@@ -1,3 +1,24 @@
+## 1.1.3 ##
+
+Updates:
+
+- Update dependencies.
+
+
+## 1.1.2 ##
+
+Updates:
+
+- Update dependencies.
+
+
+## 1.1.1 ##
+
+Updates:
+
+- Update dependencies.
+
+
 ## 1.1.0 ##
 
 Features:
