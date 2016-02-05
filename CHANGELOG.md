@@ -1,3 +1,10 @@
+## 1.1.4 ##
+
+Updates:
+
+- Update dependencies.
+
+
 ## 1.1.3 ##
 
 Updates:
