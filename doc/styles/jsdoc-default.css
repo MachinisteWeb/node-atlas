@@ -351,22 +351,3 @@ h6
 .disabled {
     color: #454545;
 }
-
-/** Fix for presentation */
-nav li [href*=privates\.htm] {
-    display: none;
-}
-h2 {
-    margin-top: 40px;
-    font-size: 34px;
-}
-h3 {
-    margin-top: 32px;
-    font-size: 26px;
-}
-h4 {
-    margin-top: 24px;
-}
-article dl {
-    margin-bottom: 16px;
-}
