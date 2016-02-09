@@ -1,3 +1,10 @@
+## 1.1.9 ##
+
+Updates:
+
+- Bin directory used and lib/install.js removed.
+
+
 ## 1.1.4 ##
 
 Updates:
