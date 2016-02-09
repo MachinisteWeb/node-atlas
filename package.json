@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.1.9",
+  "version": "1.1.17",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -19,7 +19,7 @@
     }
   ],
   "bin": {
-    "nodeatlas": "./bin/nodeatlas"
+    "nodeatlas": "./node-atlas.js"
   },
   "repository": {
     "type": "git",
@@ -74,8 +74,6 @@
     "lib/init.js",
     "lib/node-modules.js",
     "lib/web-server.js",
-    "bin/nodeatlas",
-    "bin/nodeatlas.cmd",
     "LICENSE",
     "README.md",
     "CHANGELOG.md",
