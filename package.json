@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.1.4",
+  "version": "1.1.9",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -15,9 +15,12 @@
     },
     {
       "name": "Tommy Pater",
-      "email": "syals@shadelys.com"
+      "email": "syals@eringan.fr"
     }
   ],
+  "bin": {
+    "nodeatlas": "./bin/nodeatlas"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Haeresis/NodeAtlas.git"
@@ -35,9 +38,6 @@
   "license": "GPL-2.0",
   "bugs": {
     "url": "https://github.com/Haeresis/NodeAtlas/issues"
-  },
-  "scripts": {
-    "postinstall": "node lib/install.js"
   },
   "dependencies": {
     "async": "1.5.x",
@@ -66,7 +66,6 @@
     "languages/default.json",
     "languages/en-gb.json",
     "languages/fr-fr.json",
-    "lib/install.js",
     "lib/assets-generation.js",
     "lib/back-end-part.js",
     "lib/configuration.js",
@@ -75,8 +74,8 @@
     "lib/init.js",
     "lib/node-modules.js",
     "lib/web-server.js",
-    "commands/nodeatlas",
-    "commands/nodeatlas.cmd",
+    "bin/nodeatlas",
+    "bin/nodeatlas.cmd",
     "LICENSE",
     "README.md",
     "CHANGELOG.md",
