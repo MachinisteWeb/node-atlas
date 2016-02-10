@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.1.17",
+  "version": "1.2.0",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -19,7 +19,7 @@
     }
   ],
   "bin": {
-    "nodeatlas": "./node-atlas.js"
+    "nodeatlas": "./bin/node-atlas.js"
   },
   "repository": {
     "type": "git",
@@ -61,7 +61,6 @@
     "traverse-directory": "0.3.x",
     "uglify-js": "2.6.x"
   },
-  "main": "node-atlas.js",
   "files": [
     "languages/default.json",
     "languages/en-gb.json",
@@ -74,10 +73,11 @@
     "lib/init.js",
     "lib/node-modules.js",
     "lib/web-server.js",
+    "bin/node-atlas.js",
     "LICENSE",
     "README.md",
     "CHANGELOG.md",
-    "node-atlas.js"
+    "index.js"
   ],
   "engines": {
     "node": ">=0.10"

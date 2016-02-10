@@ -1,44 +1,9 @@
 #!/usr/bin/env node
 
 /*------------------------------------*\
-    $%ABOUT
-\*------------------------------------*/
-
-/**
- * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
- * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 1.1.17
- * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
- * @module node-atlas
- * @requires {@link NA#modules.external:async}
- * @requires {@link NA#modules.external:body-parser}
- * @requires {@link NA#modules.external:cheerio}
- * @requires {@link NA#modules.external:clean-css}
- * @requires {@link NA#modules.external:commander}
- * @requires {@link NA#modules.external:compression}
- * @requires {@link NA#modules.external:cookie-parser}
- * @requires {@link NA#modules.external:css-parse}
- * @requires {@link NA#modules.external:ejs}
- * @requires {@link NA#modules.external:express}
- * @requires {@link NA#modules.external:express-session}
- * @requires {@link NA#modules.external:extend}
- * @requires {@link NA#modules.external:forcedomain}
- * @requires {@link NA#modules.external:imagemin}
- * @requires {@link NA#modules.external:less-middleware}
- * @requires {@link NA#modules.external:mkpath}
- * @requires {@link NA#modules.external:open}
- * @requires {@link NA#modules.external:traverse-directory}
- * @requires {@link NA#modules.external:uglify-js}
- */
-/* jslint node: true */
-
-
-
-
-
-/*------------------------------------*\
     $%SUMMARY
 \*------------------------------------*/
+/* jslint node: true */
 
 /*
  * ABOUT..........................Informations about NodeAtlas.
@@ -63,14 +28,14 @@
     $%NODE ATLAS FUNCTION
 \*------------------------------------*/
 
-var configuration = require('./lib/configuration'),
-    globalFunctions = require('./lib/global-functions'),
-    nodeModules = require('./lib/node-modules'),
-    webServer = require('./lib/web-server'),
-    frontEndPart = require('./lib/front-end-part'),
-    backEndPart = require('./lib/back-end-part'),
-    assetsGeneration = require('./lib/assets-generation'),
-    init = require('./lib/init'),
+var configuration = require('../lib/configuration'),
+    globalFunctions = require('../lib/global-functions'),
+    nodeModules = require('../lib/node-modules'),
+    webServer = require('../lib/web-server'),
+    frontEndPart = require('../lib/front-end-part'),
+    backEndPart = require('../lib/back-end-part'),
+    assetsGeneration = require('../lib/assets-generation'),
+    init = require('../lib/init'),
 
 /**
  * Creates a new instance of NodeAtlas Website.
