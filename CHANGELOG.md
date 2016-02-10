@@ -1,3 +1,10 @@
+## 1.2.0 ##
+
+Updates:
+
+- Use a couple `index.js` and `bin/` directory to work.
+
+
 ## 1.1.9 ##
 
 Updates:
