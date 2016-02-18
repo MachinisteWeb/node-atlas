@@ -1,6 +1,14 @@
-## 1.2.1 ##
+## 1.2.2 ##
 
 Updates:
+
+- Body Parser Module update.
+
+
+
+## 1.2.1 ##
+
+Bugfix:
 
 - Avoid Cheerio output use decodeEntities.
 
