@@ -1,3 +1,11 @@
+## 1.2.1 ##
+
+Updates:
+
+- Avoid Cheerio output use decodeEntities.
+
+
+
 ## 1.2.0 ##
 
 Updates:
