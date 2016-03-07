@@ -1,3 +1,10 @@
+## 1.2.3 ##
+
+Updates:
+
+- Less-Midleware 2.1.0 update.
+
+
 ## 1.2.2 ##
 
 Updates:

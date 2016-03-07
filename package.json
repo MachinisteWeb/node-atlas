@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -55,7 +55,7 @@
     "forcedomain": "0.6.x",
     "imagemin": "4.0.x",
     "less": "2.6.x",
-    "less-middleware": "2.0.x",
+    "less-middleware": "2.1.x",
     "mkpath": "1.0.x",
     "open": "0.0.x",
     "traverse-directory": "0.3.x",
