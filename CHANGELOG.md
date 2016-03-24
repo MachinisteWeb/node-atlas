@@ -1,3 +1,11 @@
+## 1.2.4 ##
+
+Bugfix:
+
+- `--browse` command work as expected now !
+
+
+
 ## 1.2.3 ##
 
 Updates:
