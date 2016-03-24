@@ -92,7 +92,7 @@ The tool is still in development and I experience it slowly with my own websites
 
 In addition to this README, you also have access to,
 - [tl;dr](https://www.npmjs.com/package/node-atlas) and,
-- [details of functions in the NA object](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html).
+- [details of functions in the NA object](http://haeresis.github.io/NodeAtlas/doc/index.html).
 
 
 
