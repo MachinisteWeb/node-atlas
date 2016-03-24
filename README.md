@@ -92,7 +92,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 En complément de ce README, vous avez également accès au,
 - [tl;dr](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) et aux
-- [détails des fonctions de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html) (En).
+- [détails des fonctions de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/index.html) (En).
 
 
 
