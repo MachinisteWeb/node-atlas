@@ -1,3 +1,11 @@
+## 1.2.5 ##
+
+Updates:
+
+- See the link for starting page in the console.
+
+
+
 ## 1.2.4 ##
 
 Bugfix:
