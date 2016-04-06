@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.2](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_5.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.2](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/).**
 
@@ -10,11 +10,11 @@
 
 ## Avant-propos ##
 
-NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/). Elle permet trois choses :
+NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/) côté serveur. Elle permet trois choses :
 
-- Créer et maintenir un ensemble de maquettes HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.
-- Créer et maintenir des sites multilingues sans Back-end.
-- Développer des sites ou des applications Node.js multilingues de toutes tailles.
+- Créer, maintenir et documenter des ensembles d'interface utilisateur HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.
+- Créer et maintenir des sites multilingues sans écrire d'instruction côté back-end.
+- Développer des sites ou des applications Node.js multilingues de toutes tailles avec code source côté serveur.
 
 
 

@@ -1,12 +1,12 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.2.6",
+  "version": "1.2.7",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
   },
-  "description": "Create MVC2 or Front-end-based websites easily!",
+  "description": "Create server-based and component-based websites easily!",
   "private": false,
   "contributors": [
     {
