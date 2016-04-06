@@ -1,3 +1,12 @@
+## 1.2.6 ##
+
+Updates:
+
+- New async version.
+- Less informations on NodeAtlas index bootstrap page.
+
+
+
 ## 1.2.5 ##
 
 Updates:
