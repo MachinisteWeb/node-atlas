@@ -42,7 +42,7 @@ Starting with a single HTML page,
 
 
 
-### And what about others JavaScript Frameworks ? ###
+### And what about others JavaScript Frameworks? ###
 
 In opposition to others JavaScript Frameworks like AngularJS 2 or Aurelia.io, NodeAtlas run server-side and provide some real url. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
 
@@ -66,6 +66,9 @@ This is a list of repository you could analyse to understand NodeAtlas:
 ### Table of Contents ###
 
 - [Overview](#overview)
+ - [For What ?](#for-what-)
+ - [Why NodeAtlas](#why-nodeatlas)
+ - [And what about others JavaScript Frameworks?](#and-what-about-others-javascript-frameworks)
  - [Examples of websites with NodeAtlas](#examples-of-websites-with-nodeatlas)
  - [Table of Contents](#table-of-contents)
  - [Documentation](#documentation)
@@ -162,7 +165,7 @@ There are several ways to install NodeAtlas:
 
    _Once downloaded, unzip **NodeAtlas** in the folder that will suit you._
 
-   **Start at least once NodeAtlas with the command line `\> node </path/to/>node-atlas/node-atlas.js`, to install the _node_modules_.**
+   **Start at least once NodeAtlas with the command line `\> node </path/to/>node-atlas/index.js`, to install the _node_modules_ or use `npm install` command from `</path/to/>node-atlas/` directory.**
 
 - `npm install node-atlas` (recommended for [use as a module](#api--nodeatlas-as-npm-module) in a project).
 
@@ -172,7 +175,7 @@ There are several ways to install NodeAtlas:
 
    _This will install **NodeAtlas** in the global `node_modules/node-atlas`._
 
-- Clone the directory from [GitHub](https://github.com/Haeresis/NodeAtlas/) (recommended for).
+- Clone the directory from [GitHub](https://github.com/Haeresis/NodeAtlas/) (recommended for participating to project).
 
    _This will install **NodeAtlas** in cloning home folder._
 
