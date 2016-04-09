@@ -10,17 +10,47 @@
 
 ## Overview ##
 
-NodeAtlas is an application developed in JavaScript and running with [Node.js](http://nodejs.org/). It provides three things:
+### For What ? ###
 
-- Create, maintain and document a set of assets HTML/CSS/JavaScript as user interface to provide them to back-end developers.
-- Create and maintain multilingual sites without write Back-end code.
-- Develop Node.js multilingual websites or applications of all sizes with server-based source code.
+NodeAtlas is a JavaScript Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run on all [Node.js](https://nodejs.org/en/) verision. NodeAtlas allows you to :
+
+   - Create, maintain and document a set of assets HTML/CSS/JavaScript as user interfaces to provide solid Guidelines for the realization of website or webapp (i.e. for brands).
+
+   - Create and maintain and run internationalized wesites without use a single JavaScript file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
+
+   - Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/en/) applications running of all sizes with server-based source code for high performance, indexability and W3C compliancy.
+
+
+
+### Why NodeAtlas ###
+
+NodeAtlas is designed to create scalable websites and to allow Front-end and Back-end developers to embrace [Node.js](https://nodejs.org/en/).
+
+Starting with a single HTML page,
+
+- then internationalize it,
+- then create other pages,
+- then minify/obfuscate/optimized your sources,
+- then use Less (or Stylus soon),
+- then use files for drive back-end part with code,
+- then connect you to [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
+- then use [Socket.io](http://socket.io/) for real time,
+- then be component-based with [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas)
+- then let your customer edit website itself with [EditAtlas](https://github.com/Haeresis/EditAtlas)
+- then create plugins,
+- then...
+
+
+
+### And what about others JavaScript Frameworks ? ###
+
+In opposition to others JavaScript Frameworks like AngularJS 2 or Aurelia.io, NodeAtlas run server-side and provide some real url. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
 
 
 
 ### Examples of websites with NodeAtlas ###
 
-The tool is still in development and I experience it slowly with my own websites.
+This is a list of repository you could analyse to understand NodeAtlas:
 
 - [Generation and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
 - [HTML website maintenance (no Back-end)](https://github.com/Haeresis/ResumeAtlas/).
