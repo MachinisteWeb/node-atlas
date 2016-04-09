@@ -166,7 +166,7 @@ Il y a plusieurs solutions pour installer NodeAtlas :
 
    _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
 
-   **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/node-atlas.js`, pour installer les _node_modules_.**
+   **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/index.js`, pour installer les _node_modules_ ou via npm avec `npm install` depuis le dossier `</path/to/>node-atlas/`.**
 
 - `npm install node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans un projet).
 
