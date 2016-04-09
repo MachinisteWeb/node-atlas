@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.2.7",
+  "version": "1.2.8",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -40,7 +40,7 @@
     "url": "https://github.com/Haeresis/NodeAtlas/issues"
   },
   "dependencies": {
-    "async": "2.0.0-rc.2",
+    "async": "2.0.0-rc.3",
     "body-parser": "1.15.x",
     "cheerio": "0.20.x",
     "clean-css": "3.4.x",
