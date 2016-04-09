@@ -10,17 +10,48 @@
 
 ## Avant-propos ##
 
-NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/) côté serveur. Elle permet trois choses :
+### Pour réaliser quoi ? ###
 
-- Créer, maintenir et documenter des ensembles d'interface utilisateur HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.
-- Créer et maintenir des sites multilingues sans écrire d'instruction côté back-end.
-- Développer des sites ou des applications Node.js multilingues de toutes tailles avec code source côté serveur.
+NodeAtlas est un Framework JavaScript Serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant sur toutes les versions de [Node.js](https://nodejs.org/en/). Il vous permet de :
+
+- Créer, maintenir et documenter des interfaces utilisateurs HTML/CSS/JavaScript pour fournir un ensemble cohérant afin de les fournirs en tant que Guidelines pour la réalisation de divers sites ou applications web pour, par exemple, une même marque.
+
+- Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou les sites vitrines et la réalisation de site hautement performant et maintenable en des temps record.
+
+- Développer des sites ou des applications [Node.js](https://nodejs.org/en/)
+évolutives tournant côté serveur et vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec un code source passant la validation W3C et parfaitement indexable par les moteurs de recherche.
+
+
+
+### Pourquoi NodeAtlas ? ###
+
+NodeAtlas est designé pour créer des sites évolutifs et pour permettre au Front-end ou Back-end d'embrasser [Node.js](https://nodejs.org/en/).
+
+Commencez avec une simple page HTML,
+
+- puis internationalisez là,
+- puis créez d'autres pages,
+- puis minifiez/offusquez/compressez vos sources,
+- puis utiliser Less (ou Stylus prochainement),
+- puis prenez la main sur la logique serveur,
+- puis connectez vous à [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/),
+- puis rendez tout ça temps réel avec [Socket.io](http://socket.io/)
+- puis soyez orienté composant avec [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas)
+- puis laissez votre client éditer son site avec [EditAtlas](https://github.com/Haeresis/EditAtlas)
+- puis créer des plugins,
+- puis...
+
+
+
+### Et les autres Framework JavaScript ? ###
+
+Contrairement aux Frameworks JavaScript comme AngularJS 2 ou Aurelia.io, NodeAtlas fonctionne côté serveur et délivre son contenu derrière de vrai url. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la response HTTP en premier lieu, et est ensuite modifié par requête Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Framework Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/). NodeAtlas forme un socle en dessous et remplace bien votre PHP, JAVA ou C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initial (que vous pouvez complètement changé) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laisser le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
 
 
 ### Exemples de réalisations avec NodeAtlas ###
 
-L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.
+Voici une liste de repository que vous pouvez décortiquer à votre gré.
 
 - [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
 - [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
