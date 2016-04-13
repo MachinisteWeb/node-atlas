@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.2-brightgreen.svg" alt="Version 1.2"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+<p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.3-brightgreen.svg" alt="Version 1.3"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 
@@ -60,7 +60,7 @@
 <li>then internationalize it,</li>
 <li>then create other pages,</li>
 <li>then minify/obfuscate/optimized your sources,</li>
-<li>then use Less (or Stylus soon),</li>
+<li>then use Less or/and Stylus,</li>
 <li>then use files for drive back-end part with code,</li>
 <li>then connect you to <a href="https://www.mysql.fr/">MySQL</a>, <a href="https://www.mongodb.org/">MongoDB</a>, <a href="https://www.elastic.co/">ElasticSearch</a>...,</li>
 <li>then use <a href="http://socket.io/">Socket.io</a> for real time,</li>
@@ -149,6 +149,7 @@
 <li><a href="#run-website-with-https">Run Website with HTTPs</a></li>
 <li><a href="#minify-cssjs">Minify CSS/JS</a></li>
 <li><a href="#css-generation-with-less">CSS generation with Less</a></li>
+<li><a href="#css-generation-with-stylus">CSS generation with Stylus</a></li>
 <li><a href="#optimize-images-files">Optimize Images files</a></li>
 <li><a href="#css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</a></li>
 <li><a href="#allowdisallow-getpost-requests">Allow/Disallow GET/POST requests</a></li>
@@ -2530,7 +2531,7 @@ webconfig.json
         &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>&gt;
     &lt;/<span class="pl-ent">head</span>&gt;
     &lt;<span class="pl-ent">body</span>&gt;
-        &lt;<span class="pl-ent">p</span>&gt;Test&lt;/<span class="pl-ent">p</span>&gt;
+        &lt;<span class="pl-ent">p</span>&gt;This line is red.&lt;/<span class="pl-ent">p</span>&gt;
     &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
@@ -2617,6 +2618,136 @@ webconfig.json
             <span class="pl-s"><span class="pl-pds">"</span>subdirectory/styles-files<span class="pl-pds">"</span></span>,
         ],
         <span class="pl-s"><span class="pl-pds">"</span>less<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>less.json<span class="pl-pds">"</span></span>
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<h3>
+<a id="css-generation-with-stylus" class="anchor" href="#css-generation-with-stylus" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSS generation with Stylus</h3>
+
+<p>You can use the preprocessor Stylus to create your CSS. The operation is as follows: whenever a CSS request is made, if a Stylus equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p>
+
+<p>With the following structure:</p>
+
+<pre><code>assets/
+— stylesheets
+—— common.styl
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>and the following webconfig:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>enableStylus<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p>and the following content in:</p>
+
+<p><em>templates/index.htm</em></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Stylus Test&lt;/<span class="pl-ent">title</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">p</span>&gt;This line is red.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><em>assets/stylesheets/common.styl</em></p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-ent">p</span>
+    color: <span class="pl-e">#f00</span></pre></div>
+
+<p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p>
+
+<h4>
+<a id="source-map-and-minification-1" class="anchor" href="#source-map-and-minification-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Source Map and Minification</h4>
+
+<p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.styl</code>  file has generated the CSS property of the item you have selected in your debugger.</p>
+
+<p>Disable this with <code>enableLess.sourceMap</code> to <code>false</code>:</p>
+
+<pre><code>    "enableStylus": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre>
+
+<p>You can also generate CSS files already minify with:</p>
+
+<pre><code>    "enableStylus": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre>
+
+<p><em>Note:</em> More options on <a href="https://www.npmjs.com/package/stylus">stylus documentation for module</a>.</p>
+
+<h4>
+<a id="compile-stylus-files-with---generate" class="anchor" href="#compile-stylus-files-with---generate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compile Stylus files with <code>--generate</code>
+</h4>
+
+<p>Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with <code>enableLess.stylus</code>.</p>
+
+<p>With the following <code>webconfig.json</code>:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>enableLess<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>stylus<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+            <span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.styl<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-1.styl<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-2.styl<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-3.styl<span class="pl-pds">"</span></span>
+        ]
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p>or with the following <code>webconfig.json</code>:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>enableLess<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>stylus<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>stylus.json<span class="pl-pds">"</span></span>
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p>with <code>stylus.json</code> containing :</p>
+
+<div class="highlight highlight-source-js"><pre>[
+    <span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.styl<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-1.styl<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-2.styl<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>stylesheets/component-3.styl<span class="pl-pds">"</span></span>
+]</pre></div>
+
+<p>The <code>@import</code> used by Less will be capable to walk into subdirectories : <code>styles</code>, <code>stylesheets</code> or <code>css</code>. It's possible to change that with :</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>enableLess<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>paths<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+            <span class="pl-s"><span class="pl-pds">"</span>subdirectory/styles-files<span class="pl-pds">"</span></span>,
+        ],
+        <span class="pl-s"><span class="pl-pds">"</span>stylus<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>stylus.json<span class="pl-pds">"</span></span>
     },
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
