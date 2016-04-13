@@ -1,8 +1,8 @@
-> *NodeAtlas* is a MVC2 Javascript Framework Front-end-oriented, SEO and W3C compliant. This means it makes running indexable multilingual websites and create HTML mockups with only the View and Url Rewriting part activated and real time modification. Of course, by activating the Controller and Model part, you can create great websites with standards compliance!
+> *NodeAtlas* is a full-stack JavaScript framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy Component-based websites in order to create great things with standards compliance!
 
 **Vous êtes français ? Le document [derrière ce lien](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) vous sera peut-être plus agréable.**
 
-[![Faites un don](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.1-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_4.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.3](https://img.shields.io/badge/version-1.3-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 
 
@@ -293,5 +293,6 @@ forever start /usr/local/lib/node_modules/node-atlas/node-atlas.js --directory /
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
+- [Website Component Oriented SEO and W3C Compliant](https://github.com/Haeresis/ComponentAtlas/).
 - [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
 - [Plugin to boost standard capabilities](https://github.com/Haeresis/SublimeAtlas/).

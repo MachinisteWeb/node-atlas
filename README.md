@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.0 Beta](https://img.shields.io/badge/version-1.1-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_4.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.3](https://img.shields.io/badge/version-1.3-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/).**
 
@@ -10,17 +10,48 @@
 
 ## Avant-propos ##
 
-NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/). Elle permet trois choses :
+### Pour réaliser quoi ? ###
 
-- Créer et maintenir un ensemble de maquettes HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.
-- Créer et maintenir des sites multilingues sans Back-end.
-- Développer des sites ou des applications Node.js multilingues de toutes tailles.
+NodeAtlas est un Framework JavaScript Serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant sur toutes les versions de [Node.js](https://nodejs.org/en/). Il vous permet de :
+
+- Créer, maintenir et documenter des interfaces utilisateurs HTML/CSS/JavaScript pour fournir un ensemble cohérant afin de les fournirs en tant que Guidelines pour la réalisation de divers sites ou applications web pour, par exemple, une même marque.
+
+- Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
+
+- Développer des sites ou des applications [Node.js](https://nodejs.org/en/)
+évolutives tournant côté serveur et vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec un code source passant la validation W3C et parfaitement indexable par les moteurs de recherche.
+
+
+
+### Pourquoi NodeAtlas ? ###
+
+NodeAtlas est designé pour créer des sites évolutifs et pour permettre au Front-end ou Back-end d'embrasser [Node.js](https://nodejs.org/en/).
+
+Commencez avec une simple page HTML,
+
+- puis internationalisez là,
+- puis créez d'autres pages,
+- puis minifiez/offusquez/compressez vos sources,
+- puis utiliser Less ou/et Stylus,
+- puis prenez la main sur la logique serveur,
+- puis connectez vous à [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
+- puis rendez tout ça temps réel avec [Socket.io](http://socket.io/),
+- puis soyez orienté composant avec [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas),
+- puis laissez votre client éditer son site avec [EditAtlas](https://github.com/Haeresis/EditAtlas),
+- puis créer des plugins,
+- puis...
+
+
+
+### Et les autres Frameworks JavaScript ? ###
+
+Contrairement aux Frameworks JavaScript comme AngularJS 2 ou Aurelia.io, NodeAtlas fonctionne côté serveur et délivre son contenu derrière de vrai url. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la response HTTP en premier lieu, et est ensuite modifié par requête Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas forme un socle en dessous et remplace bien votre PHP, JAVA ou C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initial (que vous pouvez complètement changé) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laisser le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
 
 
 ### Exemples de réalisations avec NodeAtlas ###
 
-L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.
+Voici une liste de repository que vous pouvez décortiquer à votre gré :
 
 - [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
 - [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
@@ -54,7 +85,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
  - [Utiliser NodeAtlas pour générer des assets HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html)
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
- - [Génerer des fragments de page par retour AJAX/Websocket](#generer-des-fragments-de-page-par-retour-ajaxwebsocket)
+ - [Générer des fragments de page par retour AJAX/Websocket](#generer-des-fragments-de-page-par-retour-ajaxwebsocket)
  - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
@@ -63,6 +94,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
  - [Générer les CSS avec Less](#g%C3%A9n%C3%A9rer-les-css-avec-less)
+ - [Générer les CSS avec Stylus](#g%C3%A9n%C3%A9rer-les-css-avec-stylus)
  - [Optimiser les Images](#optimiser-les-images)
  - [Injecter du CSS inline pour maintenir des assets Email](#injecter-du-css-inline-pour-maintenir-des-assets-email)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
@@ -92,7 +124,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
 
 En complément de ce README, vous avez également accès au,
 - [tl;dr](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) et aux
-- [détails des fonctions de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/namespaces.list.html) (En).
+- [détails des fonctions de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/index.html) (En).
 
 
 
@@ -124,7 +156,7 @@ Merci d'avance pour votre aide !
 
 ## Installation ##
 
-*Avant toutes choses, assurez vous d'avoir installé [Node.js](https://nodejs.org/en/) et [Python 2.7](https://www.python.org/download/releases/2.7/) pour installer NodeAtlas sans aucun problème.*
+*Avant toutes choses, assurez-vous d'avoir installé [Node.js](https://nodejs.org/en/) et [Python 2.7](https://www.python.org/download/releases/2.7/) pour installer NodeAtlas sans aucun problème.*
 
 Il y a plusieurs solutions pour installer NodeAtlas :
 
@@ -136,7 +168,7 @@ Il y a plusieurs solutions pour installer NodeAtlas :
 
 - `npm install node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans un projet).
 
-   _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'execution de la commande._
+   _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'exécution de la commande._
 
 - `npm install -g node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans beaucoup de projet ou pour [un usage à la ligne de commande](#cli--commandes-de-lancement)).
 
@@ -222,10 +254,10 @@ Ré-exécutez.
 \> node </path/to/>node-atlas/node-atlas.js
 ```
 
-Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur.
+Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur.
 
 
-#### Avec un executable sur votre OS ####
+#### Avec un exécutable sur votre OS ####
 
 **Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez également utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/>node-atlas/node-atlas.js`.
 
@@ -314,7 +346,7 @@ aux adresses :
 
 ### Raccourci de template ###
 
-La configuration ci-dessous est équivalente à la configuration de la section juste au dessus
+La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus
 
 ```js
 {
@@ -399,7 +431,7 @@ vous aurez accès aux adresses :
 
 #### maxAge, Etag, etc. ####
 
-Il est possible de manager les informations livrés par NodeAtlas à la demande d'une ressource (comme le `maxAge`, l'`etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/api.html#express.static).
+Il est possible de manager les informations livrées par NodeAtlas à la demande d'une ressource (comme le `maxAge`, l'`etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/api.html#express.static).
 
 Par exemple, pour un webconfig de développement, il peut être intéressant de mettre le `maxAge` à 0 de manière à toujours avoir la dernière modification d'un fichier sans s'acharner sur le rechargement de page.
 
@@ -970,7 +1002,7 @@ en se rendant aux adresses :
 
 La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerateBeforeResponse*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup uniquement si le dossier de `generatesRelativePath` existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
 
-De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `generatesRelativePath` si les deux dossier n'ont pas un chemin identique, et que `generatesRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
+De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `generatesRelativePath` si les deux dossiers n'ont pas un chemin identique, et que `generatesRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
 
 Vous pouvez également désactiver la génération, même si un dossier `generatesRelativePath` existe dans les dossiers, avec `htmlGenerateEnable` à `false`.
 
@@ -1137,7 +1169,7 @@ var website = {};
             console.log('Erreur pour la connexion par défaut à Mongoose : ' + error);
         });
 
-        // Gestion des déconnexion.
+        // Gestion des déconnexions.
         mongoose.connection.on('disconnected', function () {
             console.log('Déconnexion de Mongoose.');
         });
@@ -1184,7 +1216,7 @@ var website = {};
             // Vérification de la signature du cookie.
             handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
 
-            // Garder à porté l'ID de Session.
+            // Garder à portée l'ID de Session.
             handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
 
             // Accepter le cookie.
@@ -1202,13 +1234,13 @@ var website = {};
         callback(io);
     };
 
-    // Ajout d'évênements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
+    // Ajout d'évènements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
     privates.socketIoEvents = function (io, NA) {
         var params = {};
 
         params.io = io;
 
-        // Évênements pour la page index (voir exemple dans le fichier d'après).
+        // Evènements pour la page index (voir exemple dans le fichier d'après).
         require('./index').asynchrone.call(NA, params);
     };
 
@@ -1286,7 +1318,7 @@ var website = {};
 
 
 /*************************************************************/
-/* Mise à dispositions des fonction pour le moteur NodeAtlas */
+/* Mise à dispositions des fonctions pour le moteur NodeAtlas */
 /*************************************************************/
 
 exports.loadModules = website.loadModules;
@@ -1433,10 +1465,10 @@ var website = {};
             $this.remove();
         });
 
-        // On re-créer une nouvelle sortie HTML avec nos modifications.
+        // On recrée une nouvelle sortie HTML avec nos modifications.
         dom = $.html();
 
-        // On ré-injecte les modifications.
+        // On réinjecte les modifications.
         mainCallback(dom);
     };
 
@@ -1445,7 +1477,7 @@ var website = {};
 
 
 /***********************************************/
-/* Gestion des évênements Socket.IO asynchrone */
+/* Gestion des évènements Socket.IO asynchrone */
 /***********************************************/
 
 (function (publics) {
@@ -1467,8 +1499,8 @@ var website = {};
             // ...rester à l'écoute de la demande « create-article-button »...
             socket.on('create-article-button', function (data) {
 
-                // ...et répondre à cette demande en créant un nouvelle article si elle vient
-                // avec les information envoyées via « data ».
+                // ...et répondre à cette demande en créant un nouvel article si elle vient
+                // avec les informations envoyées via « data ».
                 var article = new Article({
                     _id: mongoose.Types.ObjectId(),
                     title: data.title,
@@ -1497,7 +1529,7 @@ var website = {};
 
 
 /*************************************************************/
-/* Mise à dispositions des fonction pour le moteur NodeAtlas */
+/* Mise à dispositions des fonctions pour le moteur NodeAtlas */
 /*************************************************************/
 
 exports.changeVariation = website.changeVariation;
@@ -1509,9 +1541,9 @@ exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas »
 
 
 
-### Génerer des fragments de page par retour AJAX/Websocket ###
+### Générer des fragments de page par retour AJAX/Websocket ###
 
-Une fois qu'une page est génerée et envoyée au client, le serveur ne sait pas, quand une requête AJAX lui parvient de qu'elle chemin il s'agit. Il est donc incapable de vous renvoyer un composant HTML avec les bonnes valeurs de variation dedans ou même la bonne langue.
+Une fois qu'une page est générée et envoyée au client, le serveur ne sait pas, quand une requête AJAX lui parvient de qu'elle chemin il s'agit. Il est donc incapable de vous renvoyer un composant HTML avec les bonnes valeurs de variation dedans ou même la bonne langue.
 
 La première étape est de baliser votre code HTML. Par exemple, il pourrait contenir ceci :
 
@@ -1561,7 +1593,7 @@ socket.on('load-section-a', function (data) {
     // On récupère le fragment HTML depuis le dossier `componentsRelativePath` et on applique les variations.
     result = NA.newRender("section-a.htm", currentVariation);
 
-    // On renvoit le résultat pour injection dans le DOM.
+    // On renvoie le résultat pour injection dans le DOM.
     socket.emit('load-sections', result);
 });
 ...
@@ -1839,7 +1871,7 @@ Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp J
 
 #### Routage dans un fichier partagé ####
 
-Afin de ne pas ré-écrire une longue liste de route dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `routes.json`.
+Afin de ne pas réécrire une longue liste de route dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `routes.json`.
 
 Par exemple :
 
@@ -1920,7 +1952,7 @@ et `routes.json`
 }
 ```
 
-*Note : Vous pouvez vous créer plusieurs fichier de route comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramètrer pour faire tourner un site dans diverses langues.*
+*Note : Vous pouvez vous créer plusieurs fichier de route comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
 
 
 
@@ -2098,7 +2130,7 @@ Pour le second *match* utilisez $1, pour le troisième $2, etc.
 
 ### Faire tourner le site en HTTPs ###
 
-Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier `security` dans lequel vous allez placer vos fichier `server.key` et `server.crt` afin d'alimenter le protocol.
+Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier `security` dans lequel vous allez placer vos fichiers `server.key` et `server.crt` afin d'alimenter le protocol.
 
 Il ne vous reste plus qu'à utiliser la configuration suivante :
 
@@ -2132,7 +2164,7 @@ Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et
 
 ### Minifier les CSS/JS ###
 
-Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La gérération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut qu'un Bundle existe dans le Webconfig.
+Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu qu'un Bundle existe dans le Webconfig.
 
 #### Créer des Bundles ####
 
@@ -2226,7 +2258,7 @@ webconfig.json
 
 #### Bundles dans un fichier partagé ####
 
-Afin de ne pas ré-écrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`.
+Afin de ne pas réécrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`.
 
 Par exemple :
 
@@ -2424,7 +2456,7 @@ et `bundles.json`
 
 #### Désactiver des Bundles ####
 
-Il est également possible de ne pas executer la minification au démarage d'un site web avec NodeAtlas avec les propriétés `"stylesheetsBundlesEnable": false` et `"javascriptBundlesEnable": false` pour chaque type de Bundle.
+Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés `"stylesheetsBundlesEnable": false` et `"javascriptBundlesEnable": false` pour chaque type de Bundle.
 
 ```js
 {
@@ -2551,7 +2583,7 @@ et le contenu suivant dans :
         <link rel="stylesheet" href="stylesheets/common.css">
     </head>
     <body>
-        <p>Test</p>
+        <p>This line is red.</p>
     </body>
 </html>
 ```
@@ -2568,7 +2600,7 @@ vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `h
 
 #### Source Map et Minification ####
 
-Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiqué qu'elle ligne du fichier `.less` a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.less` a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
 
 Cela se désactive avec `enableLess.sourceMap` à `false` :
 
@@ -2638,7 +2670,7 @@ avec `less.json` qui contient :
 ]
 ```
 
-Par defaut, les `@import` utilisés par Less seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
+Par défaut, les `@import` utilisés par Less seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
 
 ```js
 {
@@ -2656,9 +2688,154 @@ Par defaut, les `@import` utilisés par Less seront capable de fouiller dans les
 
 
 
+### Générer les CSS avec Stylus ###
+
+Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère le CSS. Une fois l'opération effectuée, on renvoi le CSS demandée.
+
+Avec la structure suivante :
+
+```
+assets/
+— stylesheets
+—— common.styl
+templates/
+— index.htm
+webconfig.json
+```
+
+ainsi que le webconfig suivante :
+
+```js
+{
+    "enableStylus": true,
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+et le contenu suivant dans :
+
+*templates/index.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Stylus Test</title>
+        <link rel="stylesheet" href="stylesheets/common.css">
+    </head>
+    <body>
+        <p>This line is red.</p>
+    </body>
+</html>
+```
+
+*assets/stylesheets/common.styl*
+
+```css
+p
+    color: #f00
+```
+
+vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `http://localhost/` ou `http://localhost/stylesheets/common.css`.
+
+#### Source Map et Minification ####
+
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.styl` a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+
+Cela se désactive avec `enableStylus.sourceMap` à `false` :
+
+```
+    "enableStylus": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+```
+
+Vous pouvez également générer des fichiers CSS déjà minifiés avec :
+
+```
+    "enableStylus": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+```
+
+*Note:* Plus d'options sur [la documentation du module stylus](https://www.npmjs.com/package/stylus).
+
+#### Compiler les Stylus avec `--generate` ####
+
+Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `enableLess.less`.
+
+Avec le `webconfig.json` suivant :
+
+```js
+{
+    "enableStylus": {
+        "stylus": [
+            "stylesheets/common.styl",
+            "stylesheets/component-1.styl",
+            "stylesheets/component-2.styl",
+            "stylesheets/component-3.styl"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+ou suivante :
+
+```js
+{
+    "enableLess": {
+        "stylus": "stylus.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+avec `stylus.json` qui contient :
+
+```js
+[
+    "stylesheets/common.styl",
+    "stylesheets/component-1.styl",
+    "stylesheets/component-2.styl",
+    "stylesheets/component-3.styl"
+]
+```
+
+Par défaut, les `@import` utilisés par Less seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
+
+```js
+{
+    "enableStylus": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "stylus": "stylus.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+
+
 ### Optimiser les Images ###
 
-Vous pouvez automatiquement optimiser les images que vous aller utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peut que des Optimizations existe dans le Webconfig.
+Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu que des Optimizations existe dans le Webconfig.
 
 #### Créer des Optimizations ####
 
@@ -2767,7 +2944,7 @@ Pour connaître toutes les options c'est par ici :
 
 #### Optimizations dans un fichier partagé ####
 
-Afin de ne pas ré-écrire une longue liste de configuration d'Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutaliser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`.
+Afin de ne pas réécrire une longue liste de configuration d'Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`.
 
 Par exemple :
 
@@ -2895,7 +3072,7 @@ et `optimizations.json`
 
 #### Désactiver des Optimizations ####
 
-Il est également possible de ne pas executer l'optimisation au démarage d'un site web avec NodeAtlas avec les propriétés `"imagesOptimizationsEnable": false`.
+Il est également possible de ne pas exécuter l'optimisation au démarrage d'un site web avec NodeAtlas avec les propriétés `"imagesOptimizationsEnable": false`.
 
 ```js
 {
@@ -2916,7 +3093,7 @@ Il est également possible de ne pas executer l'optimisation au démarage d'un s
 }
 ```
 
-*Note : si vos optimizations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne `"optimizations": "optimizations.json"`.*
+*Note : si vos optimizations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne `"optimizations": "optimizations.json"`.*
 
 #### Ré-générer les Optimizations avant chaque rendu de page ####
 
@@ -3036,7 +3213,7 @@ Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi
 
 #### Injection globale ####
 
-Il existe également la même propriété globale inpactant toutes les pages.
+Il existe également la même propriété globale impactant toutes les pages.
 
 ```json
 {
@@ -3135,7 +3312,7 @@ Il est possible de modifier ses paramètres par défaut (et même obligatoire po
 }
 ```
 
-NodeAtlas utilise également un objet de stockage mémoire (MemoryStore) qui stoques les informations dans la RAM du serveur.
+NodeAtlas utilise également un objet de stockage mémoire (MemoryStore) qui stocke les informations dans la RAM du serveur.
 
 #### Autres paramètres ####
 
@@ -3167,7 +3344,7 @@ L'intégralité de la configuration possible se trouve sur la documentation du m
 
 Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.
 
-Pour résoudre ce soucis, il convient de prendre en charge l'enregistrement des sessions via une base No SQL tel que `Redis` ou `MongoBD`.
+Pour résoudre ce souci, il convient de prendre en charge l'enregistrement des sessions via une base No SQL tel que `Redis` ou `MongoBD`.
 
 Pour cela il suffit d'utiliser la fonction `setSessions` dans le fichier `controllers/common.js` de la [partie Back-end](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end).
 
@@ -3346,7 +3523,7 @@ Il est également possible de faire en sorte qu'aucune autre url ne puisse être
 
 #### Les chemins relatifs en absolue ####
 
-Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existance réelle. Cela a pour conséquence de rendre l'adresse `media/images/example.jpg` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `../media/images/example.jpg`).
+Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l'adresse `media/images/example.jpg` initialement accessible depuis un template affiché à **http://localhost**` impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `../media/images/example.jpg`).
 
 Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :
 
@@ -3447,7 +3624,7 @@ me contraindrait à modifier le template précédent comme suit :
 <!-- ... -->
 ```
 
-Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant sont chemin dans la propriété `url`.
+Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant son chemin dans la propriété `url`.
 
 Avec le webconfig suivant :
 
@@ -3605,7 +3782,7 @@ Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible q
 
 ### --browse [subpath] ###
 
-Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplé avec `--generate` (voir plus loin).
+Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplée avec `--generate` (voir plus loin).
 
 ```
 \> node </path/to/>node-atlas/node-atlas.js --browse
@@ -3662,7 +3839,7 @@ require("node-atlas")().config({
 \> node server.js
 ```
 
-Vous pouvez également lancer plusieurs site en une fois. Bien entendu, chaque webconfig écoutera un port différent.
+Vous pouvez également lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.
 
 *servers.js*
 
@@ -3703,11 +3880,11 @@ require("node-atlas")().afterGeneration(function() {
 
 ## NodeAtlas comme simple serveur web ##
 
-Si NodeAtlas ne trouve pas le « webconfig.json » ou le `--webconfig` que vous lui aurez indiqué, il se lancera en mode « Simple Serveur Web » ou « Public ».
+Si NodeAtlas ne trouve pas le « webconfig.json » ou le `--webconfig` que vous lui aurez indiqué, il se lancera en mode « Simple Serveur Web » ou « Public ».
 
 **Ce mode est pratique pour tester très rapidement que NodeAtlas est correctement installé ou pour créer des petits exemples HTML qui ont besoin d'un serveur web pour fonctionner (retours AJAX, iframe embarquée, etc.).**
 
-Pour bien comprendre ce que cela signifie : s'il existe un quelconque fichier dans le répertoire d'où NodeAtlas a été lancé, il sera renvoyé par requête HTTP si ont le réclame via son chemin d'accès.
+Pour bien comprendre ce que cela signifie : s'il existe un quelconque fichier dans le répertoire d'où NodeAtlas a été lancé, il sera renvoyé par requête HTTP si on le réclame via son chemin d'accès.
 
 Par exemple, en lançant NodeAtlas dans le répertoire `site-hello-world`
 

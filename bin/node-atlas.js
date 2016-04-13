@@ -1,42 +1,9 @@
-/*------------------------------------*\
-    $%ABOUT
-\*------------------------------------*/
-
-/**
- * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
- * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 1.1.0
- * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
- * @module node-atlas
- * @requires {@link NA#modules.external:async}
- * @requires {@link NA#modules.external:body-parser}
- * @requires {@link NA#modules.external:cheerio}
- * @requires {@link NA#modules.external:clean-css}
- * @requires {@link NA#modules.external:commander}
- * @requires {@link NA#modules.external:compression}
- * @requires {@link NA#modules.external:cookie-parser}
- * @requires {@link NA#modules.external:css-parse}
- * @requires {@link NA#modules.external:ejs}
- * @requires {@link NA#modules.external:express}
- * @requires {@link NA#modules.external:express-session}
- * @requires {@link NA#modules.external:extend}
- * @requires {@link NA#modules.external:forcedomain}
- * @requires {@link NA#modules.external:imagemin}
- * @requires {@link NA#modules.external:less-middleware}
- * @requires {@link NA#modules.external:mkpath}
- * @requires {@link NA#modules.external:open}
- * @requires {@link NA#modules.external:traverse-directory}
- * @requires {@link NA#modules.external:uglify-js}
- */
-/* jslint node: true */
-
-
-
-
+#!/usr/bin/env node
 
 /*------------------------------------*\
     $%SUMMARY
 \*------------------------------------*/
+/* jslint node: true */
 
 /*
  * ABOUT..........................Informations about NodeAtlas.
@@ -61,14 +28,14 @@
     $%NODE ATLAS FUNCTION
 \*------------------------------------*/
 
-var configuration = require('./lib/configuration'),
-    globalFunctions = require('./lib/global-functions'),
-    nodeModules = require('./lib/node-modules'),
-    webServer = require('./lib/web-server'),
-    frontEndPart = require('./lib/front-end-part'),
-    backEndPart = require('./lib/back-end-part'),
-    assetsGeneration = require('./lib/assets-generation'),
-    init = require('./lib/init'),
+var configuration = require('../lib/configuration'),
+    globalFunctions = require('../lib/global-functions'),
+    nodeModules = require('../lib/node-modules'),
+    webServer = require('../lib/web-server'),
+    frontEndPart = require('../lib/front-end-part'),
+    backEndPart = require('../lib/back-end-part'),
+    assetsGeneration = require('../lib/assets-generation'),
+    init = require('../lib/init'),
 
 /**
  * Creates a new instance of NodeAtlas Website.
@@ -88,11 +55,11 @@ NA = function () {
     this.templateEngineConfiguration = configuration.templateEngineConfiguration;
     this.initWebconfig = configuration.initWebconfig;
     this.setExternalRoutesAsWebconfigBase = configuration.setExternalRoutesAsWebconfigBase;
-    this.setExternalFilesAsWebconfigBase = configuration.setExternalFilesAsWebconfigBase;
+    this.setCompressionDirectiveAsWebconfigBase = configuration.setCompressionDirectiveAsWebconfigBase;
+    this.setPreprocessorDirectiveAsWebconfigBase = configuration.setPreprocessorDirectiveAsWebconfigBase;
     this.setDirectoriesAsWebconfigBase = configuration.setDirectoriesAsWebconfigBase;
     this.setHttpValuesAsWebconfigBase = configuration.setHttpValuesAsWebconfigBase;
     this.improveWebconfigBase = configuration.improveWebconfigBase;
-
     /* $%GLOBAL FUNCTIONS */
     this.extend = globalFunctions.extend;
     this.clone = globalFunctions.clone;
@@ -103,7 +70,6 @@ NA = function () {
     this.addCommonVariation = globalFunctions.addCommonVariation;
     this.addSpecificVariation = globalFunctions.addSpecificVariation;
     this.newRender = globalFunctions.newRender;
-
     /* $%NODE MODULES */
     this.loadListOfNativeModules = nodeModules.loadListOfNativeModules;
     this.loadServerModules = nodeModules.loadServerModules;
@@ -113,12 +79,12 @@ NA = function () {
     this.loadListOfRequiredNpmModules = nodeModules.loadListOfRequiredNpmModules;
     this.downloadAllModules = nodeModules.downloadAllModules;
     this.moduleRequired = nodeModules.moduleRequired;
-
     /* WEB SERVER */
     this.simpleWebServer = webServer.simpleWebServer;
     this.atlasConfigurations = webServer.atlasConfigurations;
     this.atlasServer = webServer.atlasServer;
     this.enableLessProcess = webServer.enableLessProcess;
+    this.enableStylusProcess = webServer.enableStylusProcess;
     this.atlasSessions = webServer.atlasSessions;
     this.startingHttpServer = webServer.startingHttpServer;
     this.httpServerParse = webServer.httpServerParse;
@@ -131,7 +97,6 @@ NA = function () {
     this.requestRegex = webServer.requestRegex;
     this.pageNotFound = webServer.pageNotFound;
     this.routesPages = webServer.routesPages;
-
     /* FRONT-END PART */
     this.openTemplate = frontEndPart.openTemplate;
     this.openVariation = frontEndPart.openVariation;
@@ -146,24 +111,23 @@ NA = function () {
     this.intoBrowserAndFiles = frontEndPart.intoBrowserAndFiles;
     this.renderTemplate = frontEndPart.renderTemplate;
     this.render = frontEndPart.render;
-
     /* $%BACK-END PART */
     this.cssAlreadyParse = backEndPart.cssAlreadyParse;
     this.injectCssAuth = backEndPart.injectCssAuth;
     this.prepareCssInjection = backEndPart.prepareCssInjection;
     this.injectCss = backEndPart.injectCss;
     this.lessCompilation = backEndPart.lessCompilation;
+    this.stylusCompilation = backEndPart.stylusCompilation;
+    this.cssCompilation = backEndPart.cssCompilation;
     this.cssMinification = backEndPart.cssMinification;
     this.imgOptimization = backEndPart.imgOptimization;
     this.jsObfuscation = backEndPart.jsObfuscation;
     this.loadListOfExternalModules = backEndPart.loadListOfExternalModules;
     this.loadController = backEndPart.loadController;
-
     /* $%ASSETS GENERATION */
     this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
     this.emulatedIndexPage = assetsGeneration.emulatedIndexPage;
     this.saveTemplateRender = assetsGeneration.saveTemplateRender;
-
     /* $%INIT */
     this.configuration = init.configuration;
     this.config = init.config;

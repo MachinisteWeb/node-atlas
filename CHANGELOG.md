@@ -1,3 +1,109 @@
+## 1.3.0 ##
+
+Updates:
+
+- Stylus support for generate CSS.
+
+
+
+## 1.2.7 ##
+
+Updates:
+
+- Package New Description.
+
+
+
+## 1.2.6 ##
+
+Updates:
+
+- New async version.
+- Less informations on NodeAtlas index bootstrap page.
+
+
+
+## 1.2.5 ##
+
+Updates:
+
+- See the link for starting page in the console.
+
+
+
+## 1.2.4 ##
+
+Bugfix:
+
+- `--browse` command work as expected now !
+
+
+
+## 1.2.3 ##
+
+Updates:
+
+- Less-Midleware 2.1.0 update.
+
+
+## 1.2.2 ##
+
+Updates:
+
+- Body Parser Module update.
+
+
+
+## 1.2.1 ##
+
+Bugfix:
+
+- Avoid Cheerio output use decodeEntities.
+
+
+
+## 1.2.0 ##
+
+Updates:
+
+- Use a couple `index.js` and `bin/` directory to work.
+
+
+## 1.1.9 ##
+
+Updates:
+
+- Bin directory used and lib/install.js removed.
+
+
+## 1.1.4 ##
+
+Updates:
+
+- Update dependencies.
+
+
+## 1.1.3 ##
+
+Updates:
+
+- Update dependencies.
+
+
+## 1.1.2 ##
+
+Updates:
+
+- Update dependencies.
+
+
+## 1.1.1 ##
+
+Updates:
+
+- Update dependencies.
+
+
 ## 1.1.0 ##
 
 Features:
