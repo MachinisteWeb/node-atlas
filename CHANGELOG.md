@@ -1,3 +1,11 @@
+## 1.3.0 ##
+
+Updates:
+
+- Stylus support for generate CSS.
+
+
+
 ## 1.2.7 ##
 
 Updates:

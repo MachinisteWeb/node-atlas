@@ -22,6 +22,7 @@
 	"variationSyntaxError": "The variation file « %variationsPath% » has a syntax error : « %syntaxError% ».",
 	"templateGenerate": "HTML : The file « %pathName% » was generated !",
 	"lessGenerate": "Less : The file « %pathName% » was compiled !",
+	"stylusGenerate": "Stylus : The file « %pathName% » was compiled !",
 	"cssGenerate": "CSS : The minified file « %pathName% » was generated !",
 	"imgGenerate": "IMG : The optimized file « %pathName% » was generated !",
 	"jsGenerate": "JS : The obfuscated file « %pathName% » was generated !",

@@ -55,11 +55,11 @@ NA = function () {
     this.templateEngineConfiguration = configuration.templateEngineConfiguration;
     this.initWebconfig = configuration.initWebconfig;
     this.setExternalRoutesAsWebconfigBase = configuration.setExternalRoutesAsWebconfigBase;
-    this.setExternalFilesAsWebconfigBase = configuration.setExternalFilesAsWebconfigBase;
+    this.setCompressionDirectiveAsWebconfigBase = configuration.setCompressionDirectiveAsWebconfigBase;
+    this.setPreprocessorDirectiveAsWebconfigBase = configuration.setPreprocessorDirectiveAsWebconfigBase;
     this.setDirectoriesAsWebconfigBase = configuration.setDirectoriesAsWebconfigBase;
     this.setHttpValuesAsWebconfigBase = configuration.setHttpValuesAsWebconfigBase;
     this.improveWebconfigBase = configuration.improveWebconfigBase;
-
     /* $%GLOBAL FUNCTIONS */
     this.extend = globalFunctions.extend;
     this.clone = globalFunctions.clone;
@@ -70,7 +70,6 @@ NA = function () {
     this.addCommonVariation = globalFunctions.addCommonVariation;
     this.addSpecificVariation = globalFunctions.addSpecificVariation;
     this.newRender = globalFunctions.newRender;
-
     /* $%NODE MODULES */
     this.loadListOfNativeModules = nodeModules.loadListOfNativeModules;
     this.loadServerModules = nodeModules.loadServerModules;
@@ -80,12 +79,12 @@ NA = function () {
     this.loadListOfRequiredNpmModules = nodeModules.loadListOfRequiredNpmModules;
     this.downloadAllModules = nodeModules.downloadAllModules;
     this.moduleRequired = nodeModules.moduleRequired;
-
     /* WEB SERVER */
     this.simpleWebServer = webServer.simpleWebServer;
     this.atlasConfigurations = webServer.atlasConfigurations;
     this.atlasServer = webServer.atlasServer;
     this.enableLessProcess = webServer.enableLessProcess;
+    this.enableStylusProcess = webServer.enableStylusProcess;
     this.atlasSessions = webServer.atlasSessions;
     this.startingHttpServer = webServer.startingHttpServer;
     this.httpServerParse = webServer.httpServerParse;
@@ -98,7 +97,6 @@ NA = function () {
     this.requestRegex = webServer.requestRegex;
     this.pageNotFound = webServer.pageNotFound;
     this.routesPages = webServer.routesPages;
-
     /* FRONT-END PART */
     this.openTemplate = frontEndPart.openTemplate;
     this.openVariation = frontEndPart.openVariation;
@@ -113,24 +111,23 @@ NA = function () {
     this.intoBrowserAndFiles = frontEndPart.intoBrowserAndFiles;
     this.renderTemplate = frontEndPart.renderTemplate;
     this.render = frontEndPart.render;
-
     /* $%BACK-END PART */
     this.cssAlreadyParse = backEndPart.cssAlreadyParse;
     this.injectCssAuth = backEndPart.injectCssAuth;
     this.prepareCssInjection = backEndPart.prepareCssInjection;
     this.injectCss = backEndPart.injectCss;
     this.lessCompilation = backEndPart.lessCompilation;
+    this.stylusCompilation = backEndPart.stylusCompilation;
+    this.cssCompilation = backEndPart.cssCompilation;
     this.cssMinification = backEndPart.cssMinification;
     this.imgOptimization = backEndPart.imgOptimization;
     this.jsObfuscation = backEndPart.jsObfuscation;
     this.loadListOfExternalModules = backEndPart.loadListOfExternalModules;
     this.loadController = backEndPart.loadController;
-
     /* $%ASSETS GENERATION */
     this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
     this.emulatedIndexPage = assetsGeneration.emulatedIndexPage;
     this.saveTemplateRender = assetsGeneration.saveTemplateRender;
-
     /* $%INIT */
     this.configuration = init.configuration;
     this.config = init.config;

@@ -6,7 +6,7 @@
 /**
  * @fileOverview NodeAtlas allows you to create and manage HTML assets or create multilingual websites/webapps easily with Node.js.
  * @author {@link http://www.lesieur.name/ Bruno Lesieur}
- * @version 1.2.8
+ * @version 1.3.0
  * @license {@link https://github.com/Haeresis/ResumeAtlas/blob/master/LICENSE/ GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires {@link NA#modules.external:async}
@@ -26,6 +26,7 @@
  * @requires {@link NA#modules.external:less-middleware}
  * @requires {@link NA#modules.external:mkpath}
  * @requires {@link NA#modules.external:open}
+ * @requires {@link NA#modules.external:stylus}
  * @requires {@link NA#modules.external:traverse-directory}
  * @requires {@link NA#modules.external:uglify-js}
  */

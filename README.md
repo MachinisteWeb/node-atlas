@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.2](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.3](https://img.shields.io/badge/version-1.3-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/).**
 
@@ -10,17 +10,48 @@
 
 ## Avant-propos ##
 
-NodeAtlas est une application réalisée en JavaScript et tournant avec [Node.js](http://nodejs.org/) côté serveur. Elle permet trois choses :
+### Pour réaliser quoi ? ###
 
-- Créer, maintenir et documenter des ensembles d'interface utilisateur HTML/CSS/JavaScript pour les fournir à des développeurs Back-end.
-- Créer et maintenir des sites multilingues sans écrire d'instruction côté back-end.
-- Développer des sites ou des applications Node.js multilingues de toutes tailles avec code source côté serveur.
+NodeAtlas est un Framework JavaScript Serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant sur toutes les versions de [Node.js](https://nodejs.org/en/). Il vous permet de :
+
+- Créer, maintenir et documenter des interfaces utilisateurs HTML/CSS/JavaScript pour fournir un ensemble cohérant afin de les fournirs en tant que Guidelines pour la réalisation de divers sites ou applications web pour, par exemple, une même marque.
+
+- Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
+
+- Développer des sites ou des applications [Node.js](https://nodejs.org/en/)
+évolutives tournant côté serveur et vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec un code source passant la validation W3C et parfaitement indexable par les moteurs de recherche.
+
+
+
+### Pourquoi NodeAtlas ? ###
+
+NodeAtlas est designé pour créer des sites évolutifs et pour permettre au Front-end ou Back-end d'embrasser [Node.js](https://nodejs.org/en/).
+
+Commencez avec une simple page HTML,
+
+- puis internationalisez là,
+- puis créez d'autres pages,
+- puis minifiez/offusquez/compressez vos sources,
+- puis utiliser Less ou/et Stylus,
+- puis prenez la main sur la logique serveur,
+- puis connectez vous à [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
+- puis rendez tout ça temps réel avec [Socket.io](http://socket.io/),
+- puis soyez orienté composant avec [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas),
+- puis laissez votre client éditer son site avec [EditAtlas](https://github.com/Haeresis/EditAtlas),
+- puis créer des plugins,
+- puis...
+
+
+
+### Et les autres Frameworks JavaScript ? ###
+
+Contrairement aux Frameworks JavaScript comme AngularJS 2 ou Aurelia.io, NodeAtlas fonctionne côté serveur et délivre son contenu derrière de vrai url. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la response HTTP en premier lieu, et est ensuite modifié par requête Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas forme un socle en dessous et remplace bien votre PHP, JAVA ou C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initial (que vous pouvez complètement changé) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laisser le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
 
 
 ### Exemples de réalisations avec NodeAtlas ###
 
-L'outil est encore en développement et je l'expérimente petit à petit avec mes propres sites.
+Voici une liste de repository que vous pouvez décortiquer à votre gré :
 
 - [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
 - [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
@@ -63,6 +94,7 @@ L'outil est encore en développement et je l'expérimente petit à petit avec me
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
  - [Générer les CSS avec Less](#g%C3%A9n%C3%A9rer-les-css-avec-less)
+ - [Générer les CSS avec Stylus](#g%C3%A9n%C3%A9rer-les-css-avec-stylus)
  - [Optimiser les Images](#optimiser-les-images)
  - [Injecter du CSS inline pour maintenir des assets Email](#injecter-du-css-inline-pour-maintenir-des-assets-email)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
@@ -2551,7 +2583,7 @@ et le contenu suivant dans :
         <link rel="stylesheet" href="stylesheets/common.css">
     </head>
     <body>
-        <p>Test</p>
+        <p>This line is red.</p>
     </body>
 </html>
 ```
@@ -2647,6 +2679,151 @@ Par défaut, les `@import` utilisés par Less seront capable de fouiller dans le
             "subdirectory/styles-files",
         ],
         "less": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+
+
+### Générer les CSS avec Stylus ###
+
+Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère le CSS. Une fois l'opération effectuée, on renvoi le CSS demandée.
+
+Avec la structure suivante :
+
+```
+assets/
+— stylesheets
+—— common.styl
+templates/
+— index.htm
+webconfig.json
+```
+
+ainsi que le webconfig suivante :
+
+```js
+{
+    "enableStylus": true,
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+et le contenu suivant dans :
+
+*templates/index.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Stylus Test</title>
+        <link rel="stylesheet" href="stylesheets/common.css">
+    </head>
+    <body>
+        <p>This line is red.</p>
+    </body>
+</html>
+```
+
+*assets/stylesheets/common.styl*
+
+```css
+p
+    color: #f00
+```
+
+vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `http://localhost/` ou `http://localhost/stylesheets/common.css`.
+
+#### Source Map et Minification ####
+
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.styl` a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+
+Cela se désactive avec `enableStylus.sourceMap` à `false` :
+
+```
+    "enableStylus": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+```
+
+Vous pouvez également générer des fichiers CSS déjà minifiés avec :
+
+```
+    "enableStylus": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+```
+
+*Note:* Plus d'options sur [la documentation du module stylus](https://www.npmjs.com/package/stylus).
+
+#### Compiler les Stylus avec `--generate` ####
+
+Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `enableLess.less`.
+
+Avec le `webconfig.json` suivant :
+
+```js
+{
+    "enableStylus": {
+        "stylus": [
+            "stylesheets/common.styl",
+            "stylesheets/component-1.styl",
+            "stylesheets/component-2.styl",
+            "stylesheets/component-3.styl"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+ou suivante :
+
+```js
+{
+    "enableLess": {
+        "stylus": "stylus.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+avec `stylus.json` qui contient :
+
+```js
+[
+    "stylesheets/common.styl",
+    "stylesheets/component-1.styl",
+    "stylesheets/component-2.styl",
+    "stylesheets/component-3.styl"
+]
+```
+
+Par défaut, les `@import` utilisés par Less seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
+
+```js
+{
+    "enableStylus": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "stylus": "stylus.json"
     },
     "routes": {
         "/": "index.htm"
