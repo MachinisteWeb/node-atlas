@@ -2600,7 +2600,7 @@ vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `h
 
 #### Source Map et Minification ####
 
-Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.less` a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.less` a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
 
 Cela se désactive avec `enableLess.sourceMap` à `false` :
 
@@ -2743,7 +2743,7 @@ vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `h
 
 #### Source Map et Minification ####
 
-Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.styl` a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.styl` a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
 
 Cela se désactive avec `enableStylus.sourceMap` à `false` :
 
@@ -2771,7 +2771,7 @@ Vous pouvez également générer des fichiers CSS déjà minifiés avec :
 
 #### Compiler les Stylus avec `--generate` ####
 
-Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `enableLess.less`.
+Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `enableStylus.stylus`.
 
 Avec le `webconfig.json` suivant :
 
