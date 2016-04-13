@@ -209,6 +209,29 @@ exports.injectCss = function (dom, injection, mainCallback) {
 };
 
 /**
+ * Engine for compile Preprocessor language without call any CSS files.
+ * @private
+ * @function cssCompilation
+ * @memberOf NA#
+ * @callback cssCompilation~callback callback Next step after Preprocessor compilation.
+ */
+exports.cssCompilation = function (callback) {
+    var NA = this,
+        async = NA.modules.async;
+
+    if (NA.configuration.generate || NA.webconfig.stylesheetsBundlesBeforeResponse) {
+        async.parallel([
+            NA.lessCompilation.bind(NA),
+            NA.stylusCompilation.bind(NA)
+        ], function () {
+            NA.cssMinification(callback);
+        });
+    } else {
+        callback();
+    }
+};
+
+/**
  * Engine for compile Less file without call any CSS files.
  * @private
  * @function lessCompilation
@@ -223,18 +246,19 @@ exports.lessCompilation = function (callback) {
         less = NA.modules.less,
         fs = NA.modules.fs,
         allLessCompiled,
-        data = {};
+        data = {},
+        paths = [];
 
     if (enableLess &amp;&amp; enableLess.less) {
 
         allLessCompiled = enableLess.less;
 
-        if (enableLess.paths) {
+        if (enableLess.paths &amp;&amp; paths.length === 0) {
             for (var i = 0; i &lt; enableLess.paths.length; i++) {
-                enableLess.paths[i] = path.join(NA.webconfig.assetsRelativePath, enableLess.paths[i]);
+                paths[i] = path.join(NA.webconfig.assetsRelativePath, enableLess.paths[i]);
             }
-        } else {
-            enableLess.paths = [
+        } else if (paths.length === 0) {
+            paths = [
                 NA.webconfig.assetsRelativePath,
                 path.join(NA.webconfig.assetsRelativePath, 'stylesheets'),
                 path.join(NA.webconfig.assetsRelativePath, 'styles'),
@@ -245,7 +269,9 @@ exports.lessCompilation = function (callback) {
         async.each(allLessCompiled, function (compiledFile, next) {
             var currentFile = fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile), 'utf-8');
 
-            less.render(currentFile, enableLess, function (e, output) {
+            less.render(currentFile, {
+                paths: paths
+            }, function (e, output) {
                 if (e) {
                     NA.log(e);
                 }
@@ -261,10 +287,82 @@ exports.lessCompilation = function (callback) {
              * Next steps after less compilation.
              * @callback lessCompilation~callback
              */
-            NA.cssMinification(callback);
+            if (callback) {
+                callback();
+            }
         });
     } else {
-        NA.cssMinification(callback);
+        if (callback) {
+            callback();
+        }
+    }
+
+};
+
+/**
+ * Engine for compile Stylus file without call any CSS files.
+ * @private
+ * @function stylusCompilation
+ * @memberOf NA#
+ * @callback stylusCompilation~callback callback Next step after Stylus compilation.
+ */
+exports.stylusCompilation = function (callback) {
+    var NA = this,
+        enableStylus = NA.webconfig.enableStylus,
+        async = NA.modules.async,
+        path = NA.modules.path,
+        stylus = NA.modules.stylus,
+        fs = NA.modules.fs,
+        allStylusCompiled,
+        data = {},
+        paths = [];
+
+    if (enableStylus &amp;&amp; enableStylus.stylus) {
+
+        allStylusCompiled = enableStylus.stylus;
+
+        if (enableStylus.paths &amp;&amp; paths.length === 0) {
+            for (var i = 0; i &lt; enableStylus.paths.length; i++) {
+                paths[i] = path.join(NA.webconfig.assetsRelativePath, enableStylus.paths[i]);
+            }
+        } else if (paths.length === 0) {
+            paths = [
+                NA.webconfig.assetsRelativePath,
+                path.join(NA.webconfig.assetsRelativePath, 'stylesheets'),
+                path.join(NA.webconfig.assetsRelativePath, 'styles'),
+                path.join(NA.webconfig.assetsRelativePath, 'css')
+            ];
+        }
+
+        async.each(allStylusCompiled, function (compiledFile, next) {
+            var currentFile = fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile), 'utf-8');
+
+            stylus(currentFile)
+            .set('paths', paths)
+            .render(function (e, output) {
+                if (e) {
+                    NA.log(e);
+                }
+
+                data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.styl$/g,'.css'));
+                fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.styl$/g,'.css')), output);
+                NA.log(NA.appLabels.stylusGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                next();
+            });
+        }, function () {
+
+            /**
+             * Next steps after stylus compilation.
+             * @callback stylusCompilation~callback
+             */
+            if (callback) {
+                callback();
+            }
+        });
+    } else {
+        if (callback) {
+            callback();
+        }
     }
 
 };
@@ -324,7 +422,11 @@ exports.cssMinification = function (callback) {
         async.each(allCssMinified, function (compressedFile, firstCallback) {
 
             async.map(bundles.stylesheets[compressedFile], function (sourceFile, secondCallback) {
-                secondCallback(null, fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile), 'utf-8'));
+                try {
+                    secondCallback(null, fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile), 'utf-8'));
+                } catch (e) {
+                    secondCallback(e, "");
+                }
             }, function(error, results) {
                 for (var i = 0; i &lt; results.length; i++) {
                     output += results[i];
@@ -631,13 +733,13 @@ exports.loadController = function (controller, callback) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Apr 09 2016 14:12:02 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Apr 13 2016 14:30:26 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.2](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.3](https://img.shields.io/badge/version-1.3-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
@@ -31,7 +31,7 @@ Starting with a single HTML page,
 - then internationalize it,
 - then create other pages,
 - then minify/obfuscate/optimized your sources,
-- then use Less (or Stylus soon),
+- then use Less or/and Stylus,
 - then use files for drive back-end part with code,
 - then connect you to [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
 - then use [Socket.io](http://socket.io/) for real time,
@@ -96,6 +96,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Run Website with HTTPs](#run-website-with-https)
  - [Minify CSS/JS](#minify-cssjs)
  - [CSS generation with Less](#css-generation-with-less)
+ - [CSS generation with Stylus](#css-generation-with-stylus)
  - [Optimize Images files](#optimize-images-files)
  - [CSS Inline Injection for Manage Email Assets](#css-inline-injection-for-manage-email-assets)
  - [Allow/Disallow GET/POST requests](#allowdisallow-getpost-requests)
@@ -2584,7 +2585,7 @@ and the following content in:
         <link rel="stylesheet" href="stylesheets/common.css">
     </head>
     <body>
-        <p>Test</p>
+        <p>This line is red.</p>
     </body>
 </html>
 ```
@@ -2680,6 +2681,151 @@ The `@import` used by Less will be capable to walk into subdirectories : `styles
             "subdirectory/styles-files",
         ],
         "less": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+
+
+### CSS generation with Stylus ###
+
+You can use the preprocessor Stylus to create your CSS. The operation is as follows: whenever a CSS request is made, if a Stylus equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.
+
+With the following structure:
+
+```
+assets/
+— stylesheets
+—— common.styl
+templates/
+— index.htm
+webconfig.json
+```
+
+and the following webconfig:
+
+```js
+{
+    "enableStylus": true,
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+and the following content in:
+
+*templates/index.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Stylus Test</title>
+        <link rel="stylesheet" href="stylesheets/common.css">
+    </head>
+    <body>
+        <p>This line is red.</p>
+    </body>
+</html>
+```
+
+*assets/stylesheets/common.styl*
+
+```css
+p
+    color: #f00
+```
+
+you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
+
+#### Source Map and Minification ####
+
+By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in `.styl`  file has generated the CSS property of the item you have selected in your debugger.
+
+Disable this with `enableLess.sourceMap` to `false`:
+
+```
+    "enableStylus": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+```
+
+You can also generate CSS files already minify with:
+
+```
+    "enableStylus": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+```
+
+*Note:* More options on [stylus documentation for module](https://www.npmjs.com/package/stylus).
+
+#### Compile Stylus files with `--generate` ####
+
+Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with `enableLess.stylus`.
+
+With the following `webconfig.json`:
+
+```js
+{
+    "enableLess": {
+        "stylus": [
+            "stylesheets/common.styl",
+            "stylesheets/component-1.styl",
+            "stylesheets/component-2.styl",
+            "stylesheets/component-3.styl"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+or with the following `webconfig.json`:
+
+```js
+{
+    "enableLess": {
+        "stylus": "stylus.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+with `stylus.json` containing :
+
+```js
+[
+    "stylesheets/common.styl",
+    "stylesheets/component-1.styl",
+    "stylesheets/component-2.styl",
+    "stylesheets/component-3.styl"
+]
+```
+
+The `@import` used by Less will be capable to walk into subdirectories : `styles`, `stylesheets` or `css`. It's possible to change that with :
+
+```js
+{
+    "enableLess": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "stylus": "stylus.json"
     },
     "routes": {
         "/": "index.htm"

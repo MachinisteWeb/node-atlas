@@ -43,7 +43,7 @@
 
 
     <section>
-        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.2-brightgreen.svg" alt="Version 1.2"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.3-brightgreen.svg" alt="Version 1.3"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_5.10-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><h3>For What ?</h3><p>NodeAtlas is a JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run on all <a href="https://nodejs.org/en/">Node.js</a> verision. NodeAtlas allows you to :</p>
 <ul>
@@ -60,7 +60,7 @@
 <li>then internationalize it,</li>
 <li>then create other pages,</li>
 <li>then minify/obfuscate/optimized your sources,</li>
-<li>then use Less (or Stylus soon),</li>
+<li>then use Less or/and Stylus,</li>
 <li>then use files for drive back-end part with code,</li>
 <li>then connect you to <a href="https://www.mysql.fr/">MySQL</a>, <a href="https://www.mongodb.org/">MongoDB</a>, <a href="https://www.elastic.co/">ElasticSearch</a>...,</li>
 <li>then use <a href="http://socket.io/">Socket.io</a> for real time,</li>
@@ -117,6 +117,7 @@
 <li><a href="#run-website-with-https">Run Website with HTTPs</a></li>
 <li><a href="#minify-cssjs">Minify CSS/JS</a></li>
 <li><a href="#css-generation-with-less">CSS generation with Less</a></li>
+<li><a href="#css-generation-with-stylus">CSS generation with Stylus</a></li>
 <li><a href="#optimize-images-files">Optimize Images files</a></li>
 <li><a href="#css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</a></li>
 <li><a href="#allowdisallow-getpost-requests">Allow/Disallow GET/POST requests</a></li>
@@ -1888,7 +1889,7 @@ webconfig.json</code></pre><p>and the following webconfig:</p>
         &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;>
     &lt;/head>
     &lt;body>
-        &lt;p>Test&lt;/p>
+        &lt;p>This line is red.&lt;/p>
     &lt;/body>
 &lt;/html></code></pre><p><em>assets/stylesheets/common.less</em></p>
 <pre class="prettyprint source lang-css"><code>p {
@@ -1942,6 +1943,87 @@ webconfig.json</code></pre><p>and the following webconfig:</p>
             &quot;subdirectory/styles-files&quot;,
         ],
         &quot;less&quot;: &quot;less.json&quot;
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}</code></pre><h3>CSS generation with Stylus</h3><p>You can use the preprocessor Stylus to create your CSS. The operation is as follows: whenever a CSS request is made, if a Stylus equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p>
+<p>With the following structure:</p>
+<pre class="prettyprint source"><code>assets/
+— stylesheets
+—— common.styl
+templates/
+— index.htm
+webconfig.json</code></pre><p>and the following webconfig:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;enableStylus&quot;: true,
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}</code></pre><p>and the following content in:</p>
+<p><em>templates/index.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;UTF-8&quot;>
+        &lt;title>Stylus Test&lt;/title>
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;>
+    &lt;/head>
+    &lt;body>
+        &lt;p>This line is red.&lt;/p>
+    &lt;/body>
+&lt;/html></code></pre><p><em>assets/stylesheets/common.styl</em></p>
+<pre class="prettyprint source lang-css"><code>p
+    color: #f00</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p>
+<h4>Source Map and Minification</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.styl</code>  file has generated the CSS property of the item you have selected in your debugger.</p>
+<p>Disable this with <code>enableLess.sourceMap</code> to <code>false</code>:</p>
+<pre class="prettyprint source"><code>    &quot;enableStylus&quot;: {
+        &quot;sourceMap&quot;: false
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }</code></pre><p>You can also generate CSS files already minify with:</p>
+<pre class="prettyprint source"><code>    &quot;enableStylus&quot;: {
+        &quot;compress&quot;: true
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }</code></pre><p><em>Note:</em> More options on <a href="https://www.npmjs.com/package/stylus">stylus documentation for module</a>.</p>
+<h4>Compile Stylus files with <code>--generate</code></h4><p>Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with <code>enableLess.stylus</code>.</p>
+<p>With the following <code>webconfig.json</code>:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;enableLess&quot;: {
+        &quot;stylus&quot;: [
+            &quot;stylesheets/common.styl&quot;,
+            &quot;stylesheets/component-1.styl&quot;,
+            &quot;stylesheets/component-2.styl&quot;,
+            &quot;stylesheets/component-3.styl&quot;
+        ]
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}</code></pre><p>or with the following <code>webconfig.json</code>:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;enableLess&quot;: {
+        &quot;stylus&quot;: &quot;stylus.json&quot;
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}</code></pre><p>with <code>stylus.json</code> containing :</p>
+<pre class="prettyprint source lang-js"><code>[
+    &quot;stylesheets/common.styl&quot;,
+    &quot;stylesheets/component-1.styl&quot;,
+    &quot;stylesheets/component-2.styl&quot;,
+    &quot;stylesheets/component-3.styl&quot;
+]</code></pre><p>The <code>@import</code> used by Less will be capable to walk into subdirectories : <code>styles</code>, <code>stylesheets</code> or <code>css</code>. It's possible to change that with :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;enableLess&quot;: {
+        &quot;paths&quot;: [
+            &quot;subdirectory/styles-files&quot;,
+        ],
+        &quot;stylus&quot;: &quot;stylus.json&quot;
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -2762,13 +2844,13 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Apr 09 2016 14:12:02 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Apr 13 2016 14:30:26 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
