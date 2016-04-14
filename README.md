@@ -14,7 +14,7 @@
 
 NodeAtlas est un Framework JavaScript Serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant sur toutes les versions de [Node.js](https://nodejs.org/en/). Il vous permet de :
 
-- Créer, maintenir et documenter des interfaces utilisateurs HTML/CSS/JavaScript pour fournir un ensemble cohérant afin de les fournirs en tant que Guidelines pour la réalisation de divers sites ou applications web pour, par exemple, une même marque.
+- Créer, maintenir et documenter des interfaces utilisateurs HTML/CSS/JavaScript pour créer un ensemble d'assets cohérants afin de les fournirs en tant que Guidelines pour la réalisation de divers sites ou applications web.
 
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
 
@@ -45,7 +45,7 @@ Commencez avec une simple page HTML,
 
 ### Et les autres Frameworks JavaScript ? ###
 
-Contrairement aux Frameworks JavaScript comme AngularJS 2 ou Aurelia.io, NodeAtlas fonctionne côté serveur et délivre son contenu derrière de vrai url. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la response HTTP en premier lieu, et est ensuite modifié par requête Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas forme un socle en dessous et remplace bien votre PHP, JAVA ou C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initial (que vous pouvez complètement changé) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laisser le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
+Contrairement aux Frameworks JavaScript comme AngularJS 2 ou Aurelia.io, NodeAtlas fonctionne côté serveur et délivre son contenu derrière de vrai url. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la response HTTP en premier lieu, et est ensuite modifié par requête Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas forme un socle en dessous et remplace bien votre PHP, JAVA ou C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initial (que vous pouvez complètement changer) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
 
 
@@ -2600,7 +2600,7 @@ vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `h
 
 #### Source Map et Minification ####
 
-Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.less` a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.less` a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
 
 Cela se désactive avec `enableLess.sourceMap` à `false` :
 
@@ -2743,7 +2743,7 @@ vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `h
 
 #### Source Map et Minification ####
 
-Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.styl` a généré la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.styl` a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
 
 Cela se désactive avec `enableStylus.sourceMap` à `false` :
 
@@ -2771,7 +2771,7 @@ Vous pouvez également générer des fichiers CSS déjà minifiés avec :
 
 #### Compiler les Stylus avec `--generate` ####
 
-Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `enableLess.less`.
+Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `enableStylus.stylus`.
 
 Avec le `webconfig.json` suivant :
 
