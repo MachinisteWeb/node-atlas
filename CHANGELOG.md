@@ -1,3 +1,19 @@
+## 1.3.2 ##
+
+Enhancement:
+
+- `--httpHostname` become a configurable value from CLI and API usage. This will help you to test website with others device on the same network without use some proxy or internet webserver.
+
+
+
+## 1.3.1 ##
+
+Enhancement:
+
+- `httpSecure` not use https object if it only defined to `true` to support plateform that provide https certificate for you (e. i. Cloud9).
+
+
+
 ## 1.3.0 ##
 
 Updates:

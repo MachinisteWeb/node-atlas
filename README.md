@@ -104,10 +104,11 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
  - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
- - [--directory](#--directory-)
- - [--webconfig](#--webconfig-)
+ - [--directory](#--directory-path)
+ - [--webconfig](#--webconfig-webconfigname)
  - [--browse](#--browse-subpath)
- - [--httpPort](#--httpport-)
+ - [--httpHostname](#--httphostname-httphostname)
+ - [--httpPort](#--httpport-httpport)
  - [--generate](#--generate)
 - [API / NodeAtlas comme module npm](#api-nodeatlas-comme-module-npm)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
@@ -3810,6 +3811,16 @@ Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 
 
 
+### --httpHostname <httpHostname> ###
+
+Il est parfois utile de demander son adresse IP via un `ipconfig` pour le paramettrer dans l'url afin de rendre son site entièrement disponible sur un périphérique du réseau local (smartphone par exemple). Vous pourrez le faire avec cette commande.
+
+```
+\> node </path/to/>node-atlas/node-atlas.js --httpHostname 192.168.1.1
+```
+
+
+
 ### --httpPort <httpPort> ###
 
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
@@ -3843,6 +3854,7 @@ require("node-atlas")().config({
     directory: "</path/to/your/website/directory/>",
     webconfig: "webconfig.alternatif.json",
     browse: true,
+    httpHostname: "192.168.1.1",
     httpPort: 7778,
     generate: true
 }).init();
