@@ -106,10 +106,11 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Change the url hostname and listening port](#change-the-url-hostname-and-listening-port)
  - [Generate urls dynamically](#generate-urls-dynamically)
 - [CLI / Running commands](#cli--running-commands)
- - [--directory](#--directory-)
- - [--webconfig](#--webconfig-)
+ - [--directory](#--directory-path)
+ - [--webconfig](#--webconfig-webconfigname)
  - [--browse](#--browse-subpath)
- - [--httpPort](#--httpport-)
+ - [--httpHostname](#--httphostname-httphostname)
+ - [--httpPort](#--httpport-httpport)
  - [--generate](#--generate)
 - [API / NodeAtlas as npm module](#api--nodeatlas-as-npm-module)
 - [NodeAtlas as a simple web server](#nodeatlas-as-a-simple-web-server)
@@ -3775,7 +3776,7 @@ Each of the commands that follow can be coupled with other like this:
 ```
 
 
-### --directory ###
+### --directory <path> ###
 
 It is possible to launch NodeAtlas from another location where the website folder is placed. The `--directory` command will be very useful.
 
@@ -3784,7 +3785,7 @@ It is possible to launch NodeAtlas from another location where the website folde
 ```
 
 
-### --webconfig ###
+### --webconfig <webconfigName> ###
 
 By default, NodeAtlas will read your `webconfig.json` file. It is possible that in addition to the file you created another `webconfig.prod.json` file whose domain name is different. Or a `webconfig.fr-fr.json` with urls changes for another language. Instead of renaming your files in `webconfig.json` before launching the site, simply enter your other configuration name. In the following example, this file will be `webconfig.alternatif.json`.
 
@@ -3794,7 +3795,7 @@ By default, NodeAtlas will read your `webconfig.json` file. It is possible that 
 
 
 
-### --browse ###
+### --browse [subpath] ###
 
 This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with `--generate` (see below).
 
@@ -3811,7 +3812,17 @@ You could also targeted a specific page with the end of url.
 
 
 
-### --httpPort ###
+### --httpHostname <httpHostname> ###
+
+You will maybe want know your IP with `ipconfig` to change it in the url to access your website from others device connected to the current network so this command is for you.
+
+```
+\> node </path/to/>node-atlas/node-atlas.js --httpHostname 192.168.1.1
+```
+
+
+
+### --httpPort <httpPort> ###
 
 You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.
 
@@ -3840,13 +3851,14 @@ If you start NodeAtlas via JavaScript code, you can also configure the launch:
 *server.js*
 
 ```javascript
-require("node-atlas")().run({
+require("node-atlas")().config({
     directory: "</path/to/your/website/directory/>",
     webconfig: "webconfig.alternatif.json",
     browse: true,
+    httpHostname: "192.168.1.1",
     httpPort: 7778,
     generate: true
-});
+}).init();
 ```
 
 ```
