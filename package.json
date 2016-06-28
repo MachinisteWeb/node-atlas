@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.3.0",
+  "version": "1.3.1",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -40,7 +40,7 @@
     "url": "https://github.com/Haeresis/NodeAtlas/issues"
   },
   "dependencies": {
-    "async": "2.0.0-rc.3",
+    "async": "2.0.0-rc.6",
     "body-parser": "1.15.x",
     "cheerio": "0.20.x",
     "clean-css": "3.4.x",
@@ -49,12 +49,12 @@
     "cookie-parser": "1.4.x",
     "css-parse": "2.0.x",
     "ejs": "2.4.x",
-    "express": "4.13.x",
+    "express": "4.14.x",
     "express-session": "1.13.x",
     "extend": "3.0.x",
-    "forcedomain": "0.6.x",
-    "imagemin": "4.0.x",
-    "less": "2.6.x",
+    "forcedomain": "0.7.x",
+    "imagemin": "5.2.x",
+    "less": "2.7.x",
     "less-middleware": "2.1.x",
     "mkpath": "1.0.x",
     "open": "0.0.x",

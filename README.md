@@ -2137,8 +2137,8 @@ Il ne vous reste plus qu'à utiliser la configuration suivante :
 ```js
 {
     "httpSecure": true,
-    "httpSecureRelativeKeyPath": "security/server.key"
-    "httpSecureRelativeCertificatePath": "security/server.crt"
+    "httpSecureRelativeKeyPath": "security/server.key",
+    "httpSecureRelativeCertificatePath": "security/server.crt",
     "routes": {
         "/": {
             "template": "index.htm"
