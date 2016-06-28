@@ -43,6 +43,10 @@
 			"command": "-w, --webconfig <webconfigName>",
 			"description": "Spécifier un nom alternatif pour le « webconfig.json »."
 		},
+		"httpHostname": {
+			"command": "-p, --httpHostname <httpHostname>",
+			"description": "Spécifier un(e) Hostname/IP d'exécution alternati(f|ve) à celui du « webconfig.json »."
+		},
 		"httpPort": {
 			"command": "-p, --httpPort <httpPort>",
 			"description": "Spécifier un port d'exécution alternatif à celui du « webconfig.json »."

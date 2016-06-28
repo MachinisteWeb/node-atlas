@@ -43,9 +43,13 @@
 			"command": "-w, --webconfig <webconfigName>",
 			"description": "Specify alternate name for the 'webconfig.json'."
 		},
+		"httpHostname": {
+			"command": "-p, --httpHostname <httpHostname>",
+			"description": "Specify an alternate Hostname/IP for the execution of the 'webconfig.json'."
+		},
 		"httpPort": {
 			"command": "-p, --httpPort <httpPort>",
-			"description": "Specify an alternate port to the execution of the 'webconfig.json'."
+			"description": "Specify an alternate port for the execution of the 'webconfig.json'."
 		},
 		"generate": {
 			"command": "-g, --generate",
