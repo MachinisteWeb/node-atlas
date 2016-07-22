@@ -1,3 +1,14 @@
+## 1.3.3 ##
+
+Updates:
+
+- async	2.0.0 update.
+- express-session 1.14.0 update.
+- less-midleware 2.2.0 update.
+- uglify-js 2.7.0 update.
+
+
+
 ## 1.3.2 ##
 
 Enhancement:
