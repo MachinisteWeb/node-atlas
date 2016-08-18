@@ -146,6 +146,7 @@
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
 <li><a href="#manage-a-page-not-found">Manage a page not found</a></li>
 <li><a href="#manage-redirects">Manage redirects</a></li>
+<li><a href="#manage-headers">Manage Headers</a></li>
 <li><a href="#run-website-with-https">Run Website with HTTPs</a></li>
 <li><a href="#minify-cssjs">Minify CSS/JS</a></li>
 <li><a href="#css-generation-with-less">CSS generation with Less</a></li>
@@ -2103,9 +2104,44 @@ webconfig.prod.json
 <p>For the second <em>match</em> use $1, the third $2, etc.</p>
 
 <h3>
+<a id="manage-headers" class="anchor" href="#manage-headers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Manage Headers</h3>
+
+<p>By défault, sent Headers by NodeAtlas are followings: <code>Content-Type:text/html; charset=utf-8</code> with a 200 <code>statusCode</code>.</p>
+
+<p>It's possible to modify this values for a specific route (for local API for example).</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/api/articles<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>display-json.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>blog/list-of-articles.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>mimeType<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>application/json<span class="pl-pds">"</span></span>
+            <span class="pl-s"><span class="pl-pds">"</span>charset<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>ISO-8859-1<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">203</span>
+        }
+    }
+}</pre></div>
+
+<p>It's also possible to modify all Headers values, this erase all shortcuts before, except the <code>statusCode</code>.</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/api/articles<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>display-json.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>blog/list-of-articles.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>statusCode<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">203</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>headers<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+                <span class="pl-s"><span class="pl-pds">"</span>Content-Type<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>application/json; charset=utf-8<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>Access-Control-Allow-Origin<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>
+            }
+        }
+    }
+}</pre></div>
+
+<h3>
 <a id="run-website-with-https" class="anchor" href="#run-website-with-https" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run Website with HTTPs</h3>
 
-<p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol. </p>
+<p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol.</p>
 
 <p>Just use the following configuration:</p>
 
