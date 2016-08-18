@@ -14,7 +14,7 @@
 	},
 	"ifFileExist": "Pas de fichier « %path%  » trouvé.",
 	"notFound": {
-		"controller": "Le controlleur « %controller% » n'a pas été trouvé.",
+		"controller": "Le controlleur « %controller% » n'a pas été trouvé (ou ne peut pas être chargé).",
 	},
 	"templateNotFound": "Le fichier de template « %templatesPath% » n'a pas pu être ouvert.",
 	"variationNotFound": "Le fichier de variation « %variationsPath% » n'a pas pu être ouvert.",

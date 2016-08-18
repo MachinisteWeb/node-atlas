@@ -1,3 +1,15 @@
+## 1.3.4 ##
+
+Feature:
+
+- Possibility to change all Headers information by page.
+
+Updates:
+
+- async	1.5.x update.
+
+
+
 ## 1.3.3 ##
 
 Updates:
