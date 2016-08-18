@@ -93,6 +93,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a page not found](#manage-a-page-not-found)
  - [Manage redirects](#manage-redirects)
+ - [Manage Headers](#manage-headers)
  - [Run Website with HTTPs](#run-website-with-https)
  - [Minify CSS/JS](#minify-cssjs)
  - [CSS generation with Less](#css-generation-with-less)
@@ -2131,9 +2132,49 @@ For the second *match* use $1, the third $2, etc.
 
 
 
+### Manage Headers ###
+
+By défault, sent Headers by NodeAtlas are followings: `Content-Type:text/html; charset=utf-8` with a 200 `statusCode`.
+
+It's possible to modify this values for a specific route (for local API for example).
+
+```js
+{
+    "routes": {
+        "/api/articles": {
+            "template": "display-json.htm",
+            "controller": "blog/list-of-articles.js",
+            "mimeType": "application/json"
+            "charset": "ISO-8859-1",
+            "statusCode": 203
+        }
+    }
+}
+```
+
+It's also possible to modify all Headers values, this erase all shortcuts before, except the `statusCode`.
+
+```js
+{
+    "routes": {
+        "/api/articles": {
+            "template": "display-json.htm",
+            "controller": "blog/list-of-articles.js",
+            "statusCode": 203,
+            "headers": {
+                "Content-Type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*"
+            }
+        }
+    }
+}
+```
+
+
+
 ### Run Website with HTTPs ###
 
-It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a `security` folder in which to place your `server.key` and `server.crt` file to supply the protocol. 
+It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a `security` folder in which to place your `server.key` and `server.crt` file to supply the protocol.
 
 Just use the following configuration:
 
