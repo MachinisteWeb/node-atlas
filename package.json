@@ -48,7 +48,7 @@
     "compression": "1.6.x",
     "cookie-parser": "1.4.x",
     "css-parse": "2.0.x",
-    "ejs": "2.4.x",
+    "ejs": "2.5.x",
     "express": "4.14.x",
     "express-session": "1.14.x",
     "extend": "3.0.x",

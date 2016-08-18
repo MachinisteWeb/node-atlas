@@ -14,7 +14,7 @@
 	},
 	"ifFileExist": "No file « %path% » found.",
 	"notFound": {
-		"controller": "The controller « %controller% » is not found."
+		"controller": "The controller « %controller% » is not found (or cannot be loaded)."
 	},
 	"templateNotFound": "The template file « %templatesPath% » could not be opened.",
 	"variationNotFound": "The variation file « %variationsPath% » could not be opened.",

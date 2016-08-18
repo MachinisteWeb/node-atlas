@@ -91,6 +91,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
+ - [Gérer les Headers de page](#g%C3%A9rer-les-headers-de-page)
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
  - [Générer les CSS avec Less](#g%C3%A9n%C3%A9rer-les-css-avec-less)
@@ -2126,6 +2127,46 @@ Voyez l'exemple ci-dessous :
 Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
 
 Pour le second *match* utilisez $1, pour le troisième $2, etc.
+
+
+
+### Gérer les Headers de page ###
+
+Par défaut, les Headers envoyé par NodeAtlas sont les suivants : `Content-Type:text/html; charset=utf-8` avec un `statusCode` à 200.
+
+Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.
+
+```js
+{
+    "routes": {
+        "/api/articles": {
+            "template": "display-json.htm",
+            "controller": "blog/list-of-articles.js",
+            "mimeType": "application/json"
+            "charset": "ISO-8859-1",
+            "statusCode": 203
+        }
+    }
+}
+```
+
+Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs à l'exception du `statusCode`.
+
+```js
+{
+    "routes": {
+        "/api/articles": {
+            "template": "display-json.htm",
+            "controller": "blog/list-of-articles.js",
+            "statusCode": 203,
+            "headers": {
+                "Content-Type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*"
+            }
+        }
+    }
+}
+```
 
 
 
