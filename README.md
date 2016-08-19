@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.3](https://img.shields.io/badge/version-1.3-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.4](https://img.shields.io/badge/version-1.4-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/).**
 
@@ -18,8 +18,7 @@ NodeAtlas est un Framework JavaScript Serveur sous forme de [module npm](https:/
 
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
 
-- Développer des sites ou des applications [Node.js](https://nodejs.org/en/)
-évolutives tournant côté serveur et vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec un code source passant la validation W3C et parfaitement indexable par les moteurs de recherche.
+- Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/en/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec un code source passant la validation W3C et parfaitement indexable par les moteurs de recherche.
 
 
 
@@ -99,6 +98,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Optimiser les Images](#optimiser-les-images)
  - [Injecter du CSS inline pour maintenir des assets Email](#injecter-du-css-inline-pour-maintenir-des-assets-email)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
+ - [Autoriser/Interdire les demandes PUT/DELETE](#autoriserinterdire-les-demandes-putdelete)
  - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
@@ -3344,6 +3344,52 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 ```
 
 *Note : Si rien n'est précisé,* ***getSupport*** *et* ***postSupport*** *sont à* ***true*** *au niveau global et par page.*
+
+
+
+### Autoriser/Interdire les demandes PUT/DELETE ###
+
+Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `putSupport` et `deleteSupport`.
+
+```js
+{
+    "getSupport": false,
+    "postSupport": false,
+    "putSupport": true,
+    "routes": {
+        "/read-all-entry/": {
+            "template": "display-json.htm",
+            "variation": "all-entry.json",
+            "getSupport": true,
+            "putSupport": false
+        },
+        "/read-entry/:id/": {
+            "template": "display-json.htm",
+            "variation": "entry.json",
+            "getSupport": true,
+            "putSupport": false
+        },
+        "/create-entry/:id/": {
+            "template": "display-json.htm",
+            "variation": "entry.json",
+            "postSupport": true,
+            "putSupport": false
+        },
+        "/update-entry/:id/": {
+            "template": "display-json.htm",
+            "variation": "entry.json"
+        },
+        "/delete-entry/:id/": {
+            "template": "display-json.htm",
+            "variation": "entry.json",
+            "deleteSupport": true,
+            "putSupport": false
+        }
+    }
+}
+```
+
+Avec la configuration ci-dessus, seulement une action HTTP n'est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.
 
 
 

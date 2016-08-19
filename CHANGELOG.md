@@ -1,3 +1,11 @@
+## 1.4.0 ##
+
+Feature:
+
+- Quick support for HTTP DELETE and PUT for create REST API easily.
+
+
+
 ## 1.3.4 ##
 
 Feature:
