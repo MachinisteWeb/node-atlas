@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.3](https://img.shields.io/badge/version-1.3-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.4](https://img.shields.io/badge/version-1.4-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
@@ -18,7 +18,7 @@ NodeAtlas is a JavaScript Framework as an [npm module](https://www.npmjs.com/pac
 
    - Create and maintain and run internationalized wesites without use a single JavaScript file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
 
-   - Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/en/) applications running of all sizes with server-based source code for high performance, indexability and W3C compliancy.
+   - Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/en/) applications running of all sizes with server-based source code for high performance, indexability and W3C compliancy. Distant REST APIs are also easily to create.
 
 
 
@@ -101,6 +101,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Optimize Images files](#optimize-images-files)
  - [CSS Inline Injection for Manage Email Assets](#css-inline-injection-for-manage-email-assets)
  - [Allow/Disallow GET/POST requests](#allowdisallow-getpost-requests)
+ - [Allow/Disallow PUT/DELETE requests](#allowdisallow-putdelete-requests)
  - [Change settings of Sessions](#change-settings-of-sessions)
  - [External Storage Sessions](#external-storage-sessions)
  - [Changing the template engine brackets <% %>](#Changing-the-template-engine-brackets--)
@@ -3345,6 +3346,52 @@ You can also manager how the server will respond to requests GET/POST to a given
 ```
 
 *Note : If nothing is set,* ***getSupport*** *and* ***postSupport*** *are set to* ***true*** *in  global webconfig and by route.*
+
+
+
+### Allow/Disallow PUT/DELETE requests ###
+
+Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `putSupport` et `deleteSupport`.
+
+```js
+{
+    "getSupport": false,
+    "postSupport": false,
+    "putSupport": true,
+    "routes": {
+        "/read-all-entry/": {
+            "template": "display-json.htm",
+            "variation": "all-entry.json",
+            "getSupport": true,
+            "putSupport": false
+        },
+        "/read-entry/:id/": {
+            "template": "display-json.htm",
+            "variation": "entry.json",
+            "getSupport": true,
+            "putSupport": false
+        },
+        "/create-entry/:id/": {
+            "template": "display-json.htm",
+            "variation": "entry.json",
+            "postSupport": true,
+            "putSupport": false
+        },
+        "/update-entry/:id/": {
+            "template": "display-json.htm",
+            "variation": "entry.json"
+        },
+        "/delete-entry/:id/": {
+            "template": "display-json.htm",
+            "variation": "entry.json",
+            "deleteSupport": true,
+            "putSupport": false
+        }
+    }
+}
+```
+
+With the configuration below, only one HTTP action is possible by route, this is a great way to create APIs REST easily with NodeAtlas.
 
 
 
