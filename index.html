@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.3-brightgreen.svg" alt="Version 1.3"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.2-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+<p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.4-brightgreen.svg" alt="Version 1.4"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.2-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 
@@ -46,7 +46,7 @@
 <ul>
 <li><p>Create, maintain and document a set of assets HTML/CSS/JavaScript as user interfaces to provide solid Guidelines for the realization of website or webapp (i.e. for brands).</p></li>
 <li><p>Create and maintain and run internationalized wesites without use a single JavaScript file. That's it's perfect for beginners or for develop presentational website with high performance quickly.</p></li>
-<li><p>Develop Node.js internationalized websites or scalable <a href="https://nodejs.org/en/">Node.js</a> applications running of all sizes with server-based source code for high performance, indexability and W3C compliancy.</p></li>
+<li><p>Develop Node.js internationalized websites or scalable <a href="https://nodejs.org/en/">Node.js</a> applications running of all sizes with server-based source code for high performance, indexability and W3C compliancy. Distant REST APIs are also easily to create.</p></li>
 </ul>
 
 <h3>
@@ -154,6 +154,7 @@
 <li><a href="#optimize-images-files">Optimize Images files</a></li>
 <li><a href="#css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</a></li>
 <li><a href="#allowdisallow-getpost-requests">Allow/Disallow GET/POST requests</a></li>
+<li><a href="#allowdisallow-putdelete-requests">Allow/Disallow PUT/DELETE requests</a></li>
 <li><a href="#change-settings-of-sessions">Change settings of Sessions</a></li>
 <li><a href="#external-storage-sessions">External Storage Sessions</a></li>
 <li><a href="#Changing-the-template-engine-brackets--">Changing the template engine brackets &lt;% %&gt;</a></li>
@@ -3235,6 +3236,49 @@ templates/
 }</pre></div>
 
 <p><em>Note : If nothing is set,</em> <strong><em>getSupport</em></strong> <em>and</em> <strong><em>postSupport</em></strong> <em>are set to</em> <strong><em>true</em></strong> <em>in  global webconfig and by route.</em></p>
+
+<h3>
+<a id="allowdisallow-putdelete-requests" class="anchor" href="#allowdisallow-putdelete-requests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Allow/Disallow PUT/DELETE requests</h3>
+
+<p>Fonctionnant exactement de la même manière que <code>getSupport</code> et <code>postSupport</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>putSupport</code> et <code>deleteSupport</code>.</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>getSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>postSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>putSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/read-all-entry/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>display-json.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>all-entry.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>getSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>putSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>/read-entry/:id/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>display-json.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>entry.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>getSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>putSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>/create-entry/:id/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>display-json.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>entry.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>postSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>putSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>/update-entry/:id/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>display-json.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>entry.json<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>/delete-entry/:id/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>display-json.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>entry.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>deleteSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>putSupport<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>
+        }
+    }
+}</pre></div>
+
+<p>With the configuration below, only one HTTP action is possible by route, this is a great way to create APIs REST easily with NodeAtlas.</p>
 
 <h3>
 <a id="change-settings-of-sessions" class="anchor" href="#change-settings-of-sessions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change settings of Sessions</h3>
