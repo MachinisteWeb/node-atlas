@@ -43,7 +43,7 @@
 
 
     <section>
-        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.4-brightgreen.svg" alt="Version 1.4"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.2-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.4-brightgreen.svg" alt="Version 1.4"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.5-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><h3>For What ?</h3><p>NodeAtlas is a JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run on all <a href="https://nodejs.org/en/">Node.js</a> verision. NodeAtlas allows you to :</p>
 <ul>
@@ -762,207 +762,110 @@ templates/
 — categories.htm
 webconfig.json</code></pre><p>And &quot;common.js&quot; file containing e.g.:</p>
 <ul>
-<li>Things for load additional modules NodeAtlas.</li>
-<li>Things for configure additional modules.</li>
+<li>Things for load additional npm modules.</li>
+<li>Things for load <a href="http://expressjs.com/">Express</a> middlewares.</li>
+<li>Things for load additional NodeAtlas modules.</li>
 </ul>
-<pre class="prettyprint source lang-js"><code>// Creating a global object for file.
-var website = {};
+<pre class="prettyprint source lang-js"><code>/***************************/
+/* Configuring npm modules */
+/***************************/
 
+var privates = {};
 
-
-/*******************/
-/* Loading modules */
-/*******************/
-
-(function (publics) {
-    &quot;use strict&quot;;
-
-    // Load modules for this site in the NodeAtlas object.
-    publics.loadModules = function () {
-        // Find instance of « NodeAtlas » engine.
-        var NA = this;
-
-        // Associations of each module to access it anywhere.
-        NA.modules.cookie = require('cookie');
-        NA.modules.mongoose = require('mongoose');
-    };
-
-}(website));
-
-
-
-/***********************/
-/* Configuring Modules */
-/***********************/
-
-(function (publics) {
-    &quot;use strict&quot;;
-
-    var privates = {};
-
-    // Example of using MongoDB and Mongoose.
-    privates.mongooseInitialization = function (mongoose, callback) {
-        // &quot;blog&quot; database connection.
-        mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
-            if (error) {
-                console.log(&quot;Database 'mongodb://127.0.0.1:27017/blog' is not accessible.&quot;);
-                process.kill(process.pid);
-            }
-
-            // Next.
-            callback(mongoose);
-        });
-
-        // Connection Management.
-        mongoose.connection.on('error', function (error) {
-            console.log('Error to connect by default Mongoose: ' + error);
-        });
-
-        // Disconnection Management.
-        mongoose.connection.on('disconnected', function () {
-            console.log('Disconnection of Mongoose.');
-        });
-        process.on('SIGINT', function (error) {
-            mongoose.connection.close(function () {
-                console.log('Disconnection of Mongoose because of app termination');
-                process.exit(0);
-            });
-        });
-    };
-
-    // Mongoose Schemas Management.
-    privates.mongooseSchemas = function (mongoose) {
-        publics.schema = {};
-
-        // Load Schemas.
-        publics.schema.article = require('../models/Article');
-        publics.schema.category = require('../models/Category');
-
-        // Expose Schemas.
-        mongoose.model('article', website.schema.article, 'article');
-        mongoose.model('category', website.schema.category, 'category');
-    };
-
-    // Example using Socket.IO.
-    privates.socketIoInitialisation = function (socketio, NA, callback) {
-        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
-            io = socketio(NA.server, optionIo),
-            cookie = NA.modules.cookie,
-            cookieParser = NA.modules.cookieParser;
-
-        // Synchronizing sessions with Socket.IO.
-        io.use(function(socket, next) {
-            var handshakeData = socket.request;
-
-            // Fallback if cookies are not supported.
-            if (!handshakeData.headers.cookie) {
-                return next(new Error('Session cookie required.'));
-            }
-
-            // Transformation of the cookie String to JSON object.
-            handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
-
-            // Verification of the signature of the cookie.
-            handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
-
-            // Keep worn the Session ID.
-            handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
-
-            // Accept the cookie.
-            NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
-                if (error || !session) {
-                    return next(new Error('No recovered session.'));
-                } else {
-                    handshakeData.session = session;
-                    next();
-                }
-            });
-        });
+// Example of using MongoDB and Mongoose.
+privates.mongooseInitialization = function (mongoose, callback) {
+    // &quot;blog&quot; database connection.
+    mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
+        if (error) {
+            console.log(&quot;Database 'mongodb://127.0.0.1:27017/blog' is not accessible.&quot;);
+            process.kill(process.pid);
+        }
 
         // Next.
-        callback(io);
-    };
+        callback(mongoose);
+    });
 
-    // Adding listener for a specific controller &quot;index.js&quot; (see example in the next file).
-    privates.socketIoEvents = function (io, NA) {
-        var params = {};
+    // Connection Management.
+    mongoose.connection.on('error', function (error) {
+        console.log('Error to connect by default Mongoose: ' + error);
+    });
 
-        params.io = io;
-
-        // Event for the index page (see example in the next file).
-        require('./index').asynchrone.call(NA, params);
-    };
-
-    // Configuration of all modules.
-    publics.setConfigurations = function (callback) {
-        var NA = this,
-            mongoose = NA.modules.mongoose,
-            socketio = NA.modules.socketio;
-
-        // Initialize Mongoose.
-        privates.mongooseInitialization(mongoose, function (mongoose) {
-
-            // Schemas injection into Mongoose.
-            privates.mongooseSchemas(mongoose);
-
-            // Initialize Socket IO.
-            privates.socketIoInitialisation(socketio, NA, function (io) {
-
-                // Socket IO listening.
-                privates.socketIoEvents(io, NA);
-
-                // Next steps of engine.
-                callback();
-            });
+    // Disconnection Management.
+    mongoose.connection.on('disconnected', function () {
+        console.log('Disconnection of Mongoose.');
+    });
+    process.on('SIGINT', function (error) {
+        mongoose.connection.close(function () {
+            console.log('Disconnection of Mongoose because of app termination');
+            process.exit(0);
         });
+    });
+};
 
-    };
+// Mongoose Schemas Management.
+privates.mongooseSchemas = function (mongoose) {
+    website.schema = {};
 
-}(website));
+    // Load Schemas.
+    website.schema.article = require('../models/Article');
+    website.schema.category = require('../models/Category');
+
+    // Expose Schemas.
+    mongoose.model('article', website.schema.article, 'article');
+    mongoose.model('category', website.schema.category, 'category');
+};
+
+// Example using Socket.IO.
+privates.socketIoInitialisation = function (socketio, NA, callback) {
+    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
+        io = socketio(NA.server, optionIo),
+        cookie = NA.modules.cookie,
+        cookieParser = NA.modules.cookieParser;
+
+    // Synchronizing sessions with Socket.IO.
+    io.use(function(socket, next) {
+        var handshakeData = socket.request;
+
+        // Fallback if cookies are not supported.
+        if (!handshakeData.headers.cookie) {
+            return next(new Error('Session cookie required.'));
+        }
+
+        // Transformation of the cookie String to JSON object.
+        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
+
+        // Verification of the signature of the cookie.
+        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
+
+        // Keep worn the Session ID.
+        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
+
+        // Accept the cookie.
+        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
+            if (error || !session) {
+                return next(new Error('No recovered session.'));
+            } else {
+                handshakeData.session = session;
+                next();
+            }
+        });
+    });
+
+    // Next.
+    callback(io);
+};
+
+// Adding listener for a specific controller &quot;index.js&quot; (see example in the next file).
+privates.socketIoEvents = function (io, NA) {
+    var params = {};
+
+    params.io = io;
+
+    // Event for the index page (see example in the next file).
+    require('./index').asynchrone.call(NA, params);
+};
 
 
-
-/****************************/
-/* Variations interception. */
-/****************************/
-
-(function (publics) {
-    &quot;use strict&quot;;
-
-    // It occurs just before the complete assembly EJS.
-    publics.changeVariation = function (params, mainCallback) {
-        var variation = params.variation;
-
-        // Here variations variables are modified.
-        // see example in the file after.
-
-        // We re-injects the changes.
-        mainCallback(variation);
-    };
-
-}(website));
-
-
-
-/**********************************************************/
-/* Interception of the HTML output for server-side jQuery */
-/**********************************************************/
-
-(function (publics) {
-    &quot;use strict&quot;;
-
-    // It comes just before the HTML response to the client.
-    publics.changeDom = function (params, mainCallback) {
-        var dom = params.dom;
-
-        // Here one can manipulate the DOM before response to the client.
-        // see example in the file after.
-
-        // We re-injects the changes.
-        mainCallback(dom);
-    };
-
-}(website));
 
 
 
@@ -970,10 +873,92 @@ var website = {};
 /* Expose function for the NodeAtlas engine */
 /********************************************/
 
-exports.loadModules = website.loadModules;
-exports.setConfigurations = website.setConfigurations;
-exports.changeVariation = website.changeVariation;
-exports.changeDom = website.changeDom;</code></pre><p>Instead of using <code>changeVariation</code> and <code>changeDom</code> in the file <code>common.js</code> effective for the whole website page, you can use specific controllers page. The previous configuration becomes:</p>
+/*** Loading npm modules ***/
+
+// Load modules for this site in the NodeAtlas object.
+exports.loadModules = function () {
+    // Find instance of « NodeAtlas » engine.
+    var NA = this;
+
+    // Associations of each module to access it anywhere.
+    NA.modules.cookie = require('cookie');
+    NA.modules.mongoose = require('mongoose');
+    NA.modules.RedisStore = require('connect-redis');
+    NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
+};
+
+
+
+/*** Configuring npm modules ***/
+
+// Configuration of all modules.
+exports.setConfigurations = function (callback) {
+    var NA = this,
+        mongoose = NA.modules.mongoose,
+        socketio = NA.modules.socketio;
+
+    // Initialize Mongoose.
+    privates.mongooseInitialization(mongoose, function (mongoose) {
+
+        // Schemas injection into Mongoose.
+        privates.mongooseSchemas(mongoose);
+
+        // Initialize Socket IO.
+        privates.socketIoInitialisation(socketio, NA, function (io) {
+
+            // Socket IO listening.
+            privates.socketIoEvents(io, NA);
+
+            // Next steps of engine.
+            callback();
+        });
+    });
+};
+
+
+
+/*** Configuring Express Session. ***/
+
+// Allows you to use an external DB for Session.
+exports.setSessions = function (callback) {
+    var NA = this,
+        session = NA.modules.session,
+        RedisStore = NA.modules.RedisStore(session);
+
+    NA.sessionStore = new RedisStore();
+
+    callback();
+};
+
+
+
+/*** Variations interception. ***/
+
+// It occurs just before the complete assembly EJS.
+exports.changeVariation = function (params, mainCallback) {
+    var variation = params.variation;
+
+    // Here variations variables are modified.
+    // see example in the file after.
+
+    // We re-injects the changes.
+    mainCallback(variation);
+};
+
+
+
+/*** Interception of the HTML output for server-side jQuery ***/
+
+// It comes just before the HTML response to the client.
+exports.changeDom = function (params, mainCallback) {
+    var dom = params.dom;
+
+    // Here one can manipulate the DOM before response to the client.
+    // see example in the file after.
+
+    // We re-injects the changes.
+    mainCallback(dom);
+};</code></pre><p>Instead of using <code>changeVariation</code> and <code>changeDom</code> in the file <code>common.js</code> effective for the whole website page, you can use specific controllers page. The previous configuration becomes:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;controllersRelativePath&quot;: &quot;controllers/&quot;,
@@ -1011,155 +996,14 @@ webconfig.json</code></pre><p>with a &quot;index.js&quot; file containing, for e
 <li>Things for changes on the server side with jQuery.</li>
 <li>Things for asynchronous exchanges with Socket.IO.</li>
 </ul>
-<pre class="prettyprint source lang-js"><code>var website = {};
+<pre class="prettyprint source lang-js"><code>/*******************************************/
+/* Charging a function or set of functions */
+/*******************************************/
+
+var privates = {};
+privates.listOfArticles = require('./modules/list-of-articles');
 
 
-
-/***************************/
-/* Variations Interception */
-/***************************/
-
-(function (publics) {
-    &quot;use strict&quot;;
-
-    var privates = {};
-
-    // Charging a function or set of functions.
-    privates.listOfArticles = require('./modules/list-of-articles');
-
-    // It occurs just before the complete assembly EJS.
-    publics.changeVariation = function (params, mainCallback) {
-        var NA = this,
-            variation = params.variation,
-            mongoose = params.NA.modules.mongoose,
-            Article = mongoose.model('article');
-
-
-        // Can intercept all the variables of &quot;variations/common.js&quot;.
-        console.log(variation.common.title); // Return title stored in « variations/common.js ».
-        variation.common.title = &quot;New Title&quot;; // Set title.
-        console.log(variation.common.title); // Return &quot;New Title&quot; and is accessible in template side via `&lt;%= common.title %>`.
-
-        // Can intercept all the variables of &quot;variations/index.js&quot; (because this file correspond to specific &quot;index.js&quot;).
-        variation.specific.title = &quot;New Title&quot;; // Return &quot;New Title&quot; and is accessible in template side via `&lt;%= specific.title %>`.
-        variation.specific.newProperty = &quot;New Property&quot;; // Defined a property does not exist in the original variation file that is accessible in template side via « &lt;%= specific.newProperty ».
-
-        // Can intercept the configuration of the current page
-        console.log(variation.currentRoute); // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
-
-        // A test is made on a variable created in the webconfig.
-        if (variation.webconfig._websiteIsClosed) {
-            // The page is a 404.
-            variation.currentRouteParameters.statusCode = 404;
-        } else {
-            // The page is a 200.
-            variation.currentRouteParameters.statusCode = 200;
-        }
-
-        // Creating a new set of dynamic variation for templates.
-        variation.backend = {}; // Properties available through « &lt;%= backend.&lt;properties> %> ».
-
-        privates.listOfArticles(Article, function (listOfArticles) {
-
-            // Availability of data items for client-side.
-            variation.backend.articles = listOfArticles; // « &lt;%= backend.articles.&lt;properties> %> ».
-
-            // We re-injects the changes.
-            mainCallback(variation);
-        });
-    };
-
-}(website));
-
-
-
-/**********************************************************/
-/* Interception of the HTML output for server-side jQuery */
-/**********************************************************/
-
-(function (publics) {
-    &quot;use strict&quot;;
-
-    // It comes just before the HTML response to the client.
-    publics.changeDom = function (params, mainCallback) {
-        var NA = this,
-            dom = params.dom,
-            cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
-            $ = cheerio.load(dom); // It loads dom to manipulate as a DOM.
-
-        // After all HTML h2 output &quot;dom&quot;.
-        $(&quot;h2&quot;).each(function () {
-            var $this = $(this);
-
-            // ...we created a div,
-            $this.after(
-                // ... on injecte le contenu du h2 dans la div,
-                $(&quot;&lt;div>&quot;).html($this.html())
-            );
-            // ...and deletes the h2.
-            $this.remove();
-        });
-
-        // We re-create a new HTML output with our changes.
-        dom = $.html();
-
-        // We re-injects the changes.
-        mainCallback(dom);
-    };
-
-}(website));
-
-
-
-/********************************************/
-/* Asynchronous Events Management Socket.IO */
-/********************************************/
-
-(function (publics) {
-    &quot;use strict&quot;;
-
-    // All Websocket action possible for this template.
-    publics.asynchrone = function (params) {
-        var NA = this,
-            io = params.io,
-            mongoose = params.NA.modules.mongoose,
-            marked = params.NA.modules.marked,
-            Article = mongoose.model('article');
-
-        // Once we have a valid connection between the client and our back-end...
-        io.sockets.on('connection', function (socket) {
-            var sessionID = socket.request.sessionID,
-                session = socket.request.session;
-
-            // ...stay tuned on the &quot;create-item-button&quot; demand...
-            socket.on('create-article-button', function (data) {
-
-                // ...and respond to this demand by creating a new item if it comes
-                // with the information sent via &quot;data&quot;.
-                var article = new Article({
-                    _id: mongoose.Types.ObjectId(),
-                    title: data.title,
-                    urn: data.urn,
-                });
-
-                // If the user is connected.
-                if (session.account) {
-
-                    // ...we save the article into database.
-                    article.save(function (error) {
-                        if (error) {
-                            throw error;
-                        }
-
-                        // And responds to all customers with a set of data in data.
-                        io.sockets.emit('create-article-button', data);
-                    });
-                }
-            });
-        });
-    };
-
-}(website));
 
 
 
@@ -1167,9 +1011,126 @@ webconfig.json</code></pre><p>with a &quot;index.js&quot; file containing, for e
 /* Expose function for the NodeAtlas engine */
 /********************************************/
 
-exports.changeVariation = website.changeVariation;
-exports.changeDom = website.changeDom;
-exports.asynchrone = website.asynchrone; // Used not by &quot;NodeAtlas&quot; but with &quot;common.js&quot; (see previous file).</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+/*** Variations Interception ***/
+
+// It occurs just before the complete assembly EJS.
+exports.changeVariation = function (params, mainCallback) {
+    var NA = this,
+        variation = params.variation,
+        mongoose = params.NA.modules.mongoose,
+        Article = mongoose.model('article');
+
+
+    // Can intercept all the variables of &quot;variations/common.js&quot;.
+    console.log(variation.common.title); // Return title stored in « variations/common.js ».
+    variation.common.title = &quot;New Title&quot;; // Set title.
+    console.log(variation.common.title); // Return &quot;New Title&quot; and is accessible in template side via `&lt;%= common.title %>`.
+
+    // Can intercept all the variables of &quot;variations/index.js&quot; (because this file correspond to specific &quot;index.js&quot;).
+    variation.specific.title = &quot;New Title&quot;; // Return &quot;New Title&quot; and is accessible in template side via `&lt;%= specific.title %>`.
+    variation.specific.newProperty = &quot;New Property&quot;; // Defined a property does not exist in the original variation file that is accessible in template side via « &lt;%= specific.newProperty ».
+
+    // Can intercept the configuration of the current page
+    console.log(variation.currentRoute); // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
+
+    // A test is made on a variable created in the webconfig.
+    if (variation.webconfig._websiteIsClosed) {
+        // The page is a 404.
+        variation.currentRouteParameters.statusCode = 404;
+    } else {
+        // The page is a 200.
+        variation.currentRouteParameters.statusCode = 200;
+    }
+
+    // Creating a new set of dynamic variation for templates.
+    variation.backend = {}; // Properties available through « &lt;%= backend.&lt;properties> %> ».
+
+    privates.listOfArticles(Article, function (listOfArticles) {
+
+        // Availability of data items for client-side.
+        variation.backend.articles = listOfArticles; // « &lt;%= backend.articles.&lt;properties> %> ».
+
+        // We re-injects the changes.
+        mainCallback(variation);
+    });
+};
+
+
+
+/*** Interception of the HTML output for server-side jQuery ***/
+
+// It comes just before the HTML response to the client.
+exports.changeDom = function (params, mainCallback) {
+    var NA = this,
+        dom = params.dom,
+        cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
+        $ = cheerio.load(dom); // It loads dom to manipulate as a DOM.
+
+    // After all HTML h2 output &quot;dom&quot;.
+    $(&quot;h2&quot;).each(function () {
+        var $this = $(this);
+
+        // ...we created a div,
+        $this.after(
+            // ... on injecte le contenu du h2 dans la div,
+            $(&quot;&lt;div>&quot;).html($this.html())
+        );
+        // ...and deletes the h2.
+        $this.remove();
+    });
+
+    // We re-create a new HTML output with our changes.
+    dom = $.html();
+
+    // We re-injects the changes.
+    mainCallback(dom);
+};
+
+
+
+/*** Asynchronous Events Management Socket.IO ***/
+
+// All Websocket action possible for this template.
+// Used not by &quot;NodeAtlas&quot; but with &quot;common.js&quot; (see previous file).
+exports.asynchrone = function (params) {
+    var NA = this,
+        io = params.io,
+        mongoose = params.NA.modules.mongoose,
+        marked = params.NA.modules.marked,
+        Article = mongoose.model('article');
+
+    // Once we have a valid connection between the client and our back-end...
+    io.sockets.on('connection', function (socket) {
+        var sessionID = socket.request.sessionID,
+            session = socket.request.session;
+
+        // ...stay tuned on the &quot;create-item-button&quot; demand...
+        socket.on('create-article-button', function (data) {
+
+            // ...and respond to this demand by creating a new item if it comes
+            // with the information sent via &quot;data&quot;.
+            var article = new Article({
+                _id: mongoose.Types.ObjectId(),
+                title: data.title,
+                urn: data.urn,
+            });
+
+            // If the user is connected.
+            if (session.account) {
+
+                // ...we save the article into database.
+                article.save(function (error) {
+                    if (error) {
+                        throw error;
+                    }
+
+                    // And responds to all customers with a set of data in data.
+                    io.sockets.emit('create-article-button', data);
+                });
+            }
+        });
+    });
+};</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Generate partial page with AJAX/Websocket</h3><p>When a page is generate and send to client, the server doesn't know, if an AJAX request come, what is the route associated. And so it not capable to response with an HTML that used the correct variations or correct language.</p>
 <p>The first step is to set value into client code. For example :</p>
 <pre class="prettyprint source lang-html"><code>...
@@ -2924,7 +2885,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Aug 19 2016 17:09:58 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Sep 12 2016 17:28:43 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
