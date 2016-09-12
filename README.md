@@ -1114,219 +1114,204 @@ webconfig.json
 
 Et le fichier « common.js » contenant par exemple :
 
-- De quoi charger des modules supplémentaires à NodeAtlas.
-- De quoi configurer les modules supplémentaires.
+- De quoi utiliser des modules npm.
+- De quoi utiliser des middlewares d'[Express](http://expressjs.com/).
+- De quoi utiliser des modules supplémentaires à NodeAtlas.
 
 ```js
-// Création d'un objet global au fichier.
-var website = {};
-
-
-
-/**********************/
-/* Chargement modules */
-/**********************/
-
-(function (publics) {
-    "use strict";
-
-    // Chargement des modules pour ce site dans l'objet NodeAtlas.
-    publics.loadModules = function () {
-		// Récupérer l'instance « NodeAtlas » du moteur.
-    	var NA = this;
-
-        // Associations de chaque module pour y avoir accès partout.
-        NA.modules.cookie = require('cookie');
-        NA.modules.mongoose = require('mongoose');
-    };
-
-}(website));
-
-
-
 /*****************************/
 /* Configuration des modules */
 /*****************************/
 
-(function (publics) {
-    "use strict";
+var privates = {};
 
-    var privates = {};
+// Exemple d'utilisation de MongoDB et Mongoose.
+privates.mongooseInitialization = function (mongoose, callback) {
+    // Connexion à la base « blog ».
+    mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
+        if (error) {
+            console.log("Database 'mongodb://127.0.0.1:27017/blog' is not accessible.");
+            process.kill(process.pid);
+        }
 
-    // Exemple d'utilisation de MongoDB et Mongoose.
-    privates.mongooseInitialization = function (mongoose, callback) {
-        // Connexion à la base « blog ».
-        mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
-            if (error) {
-                console.log("Database 'mongodb://127.0.0.1:27017/blog' is not accessible.");
-                process.kill(process.pid);
+        // Next.
+        callback(mongoose);
+    });
+
+    // Gestion de connexion.
+    mongoose.connection.on('error', function (error) {
+        console.log('Erreur pour la connexion par défaut à Mongoose : ' + error);
+    });
+
+    // Gestion des déconnexions.
+    mongoose.connection.on('disconnected', function () {
+        console.log('Déconnexion de Mongoose.');
+    });
+    process.on('SIGINT', function (error) {
+        mongoose.connection.close(function () {
+            console.log("Déconnexion de Mongoose en raison de l'arrêt de l'app.");
+            process.exit(0);
+        });
+    });
+};
+
+// Mise à disposition des Schémas Mongoose.
+privates.mongooseSchemas = function (mongoose) {
+    website.schema = {};
+
+    // Chargement des Schémas.
+    website.schema.article = require('../models/Article');
+    website.schema.category = require('../models/Category');
+
+    // Mise à disposition des Schémas.
+    mongoose.model('article', website.schema.article, 'article');
+    mongoose.model('category', website.schema.category, 'category');
+};
+
+// Exemple d'utilisation de Socket.IO.
+privates.socketIoInitialisation = function (socketio, NA, callback) {
+    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
+        io = socketio(NA.server, optionIo),
+        cookie = NA.modules.cookie,
+        cookieParser = NA.modules.cookieParser;
+
+    // Synchronisation des Sessions avec Socket.IO.
+    io.use(function(socket, next) {
+        var handshakeData = socket.request;
+
+        // Fallback si les cookies ne sont pas gérés.
+        if (!handshakeData.headers.cookie) {
+            return next(new Error('Cookie de session requis.'));
+        }
+
+        // Transformation de la String cookie en Objet JSON.
+        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
+
+        // Vérification de la signature du cookie.
+        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
+
+        // Garder à portée l'ID de Session.
+        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
+
+        // Accepter le cookie.
+        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
+            if (error || !session) {
+                return next(new Error('Aucune session récupérée.'));
+            } else {
+                handshakeData.session = session;
+                next();
             }
-
-            // Next.
-            callback(mongoose);
         });
+    });
 
-        // Gestion de connexion.
-        mongoose.connection.on('error', function (error) {
-            console.log('Erreur pour la connexion par défaut à Mongoose : ' + error);
-        });
+    // Suite.
+    callback(io);
+};
 
-        // Gestion des déconnexions.
-        mongoose.connection.on('disconnected', function () {
-            console.log('Déconnexion de Mongoose.');
-        });
-        process.on('SIGINT', function (error) {
-            mongoose.connection.close(function () {
-                console.log("Déconnexion de Mongoose en raison de l'arrêt de l'app.");
-                process.exit(0);
-            });
-        });
-    };
+// Ajout d'évènements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
+privates.socketIoEvents = function (io, NA) {
+    var params = {};
 
-    // Mise à disposition des Schémas Mongoose.
-    privates.mongooseSchemas = function (mongoose) {
-        publics.schema = {};
+    params.io = io;
 
-        // Chargement des Schémas.
-        publics.schema.article = require('../models/Article');
-        publics.schema.category = require('../models/Category');
-
-        // Mise à disposition des Schémas.
-        mongoose.model('article', website.schema.article, 'article');
-        mongoose.model('category', website.schema.category, 'category');
-    };
-
-    // Exemple d'utilisation de Socket.IO.
-    privates.socketIoInitialisation = function (socketio, NA, callback) {
-        var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
-            io = socketio(NA.server, optionIo),
-            cookie = NA.modules.cookie,
-            cookieParser = NA.modules.cookieParser;
-
-        // Synchronisation des Sessions avec Socket.IO.
-        io.use(function(socket, next) {
-            var handshakeData = socket.request;
-
-            // Fallback si les cookies ne sont pas gérés.
-            if (!handshakeData.headers.cookie) {
-                return next(new Error('Cookie de session requis.'));
-            }
-
-            // Transformation de la String cookie en Objet JSON.
-            handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
-
-            // Vérification de la signature du cookie.
-            handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
-
-            // Garder à portée l'ID de Session.
-            handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
-
-            // Accepter le cookie.
-            NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
-                if (error || !session) {
-                    return next(new Error('Aucune session récupérée.'));
-                } else {
-                    handshakeData.session = session;
-                    next();
-                }
-            });
-        });
-
-        // Suite.
-        callback(io);
-    };
-
-    // Ajout d'évènements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
-    privates.socketIoEvents = function (io, NA) {
-        var params = {};
-
-        params.io = io;
-
-        // Evènements pour la page index (voir exemple dans le fichier d'après).
-        require('./index').asynchrone.call(NA, params);
-    };
-
-    // Configuration de tous les modules.
-    publics.setConfigurations = function (callback) {
-        var NA = this,
-        	mongoose = NA.modules.mongoose,
-            socketio = NA.modules.socketio;
-
-        // Initialisation de Mongoose.
-        privates.mongooseInitialization(mongoose, function (mongoose) {
-
-            // Injection de Schémas dans Mongoose.
-            privates.mongooseSchemas(mongoose);
-
-            // Initialisation de Socket IO.
-            privates.socketIoInitialisation(socketio, NA, function (io) {
-
-                // Écoute d'action Socket IO.
-                privates.socketIoEvents(io, NA);
-
-                // Étapes suivante du moteur.
-                callback();
-            });
-        });
-
-    };
-
-}(website));
+    // Evènements pour la page index (voir exemple dans le fichier d'après).
+    require('./index').asynchrone.call(NA, params);
+};
 
 
 
-/*******************************/
-/* Interception des Variations */
-/*******************************/
-
-(function (publics) {
-    "use strict";
-
-    // On intervient juste avant l'assemblage complet EJS.
-    publics.changeVariation = function (params, mainCallback) {
-        var variation = params.variation;
-
-        // Ici on modifie les variables de variations.
-        // voir exemple dans le fichier d'après.
-
-        // On ré-injecte les modifications.
-        mainCallback(variation);
-    };
-
-}(website));
 
 
-
-/***********************************************************/
-/* Interception de la sortie HTML pour jQuery côté serveur */
-/***********************************************************/
-
-(function (publics) {
-    "use strict";
-
-    // On intervient juste avant le renvoi HTML auprès du client (response).
-    publics.changeDom = function (params, mainCallback) {
-        var dom = params.dom;
-
-        // Ici on peut manipuler le DOM côté serveur avant retour client.
-        // voir exemple dans le fichier d'après.
-
-        // On ré-injecte les modifications.
-        mainCallback(dom);
-    };
-
-}(website));
-
-
-
-/*************************************************************/
+/**************************************************************/
 /* Mise à dispositions des fonctions pour le moteur NodeAtlas */
-/*************************************************************/
+/**************************************************************/
 
-exports.loadModules = website.loadModules;
-exports.setConfigurations = website.setConfigurations;
-exports.changeVariation = website.changeVariation;
-exports.changeDom = website.changeDom;
+/*** Chargement modules npm ***/
+
+// Chargement des modules pour ce site dans l'objet NodeAtlas.
+exports.loadModules = function () {
+    // Récupérer l'instance « NodeAtlas » du moteur.
+    var NA = this;
+
+    // Associations de chaque module pour y avoir accès partout.
+    NA.modules.cookie = require('cookie');
+    NA.modules.mongoose = require('mongoose');
+    NA.modules.RedisStore = require('connect-redis');
+    NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
+};
+
+
+
+/*** Configuration des modules ***/
+
+// Configuration de tous les modules.
+exports.setConfigurations = function (callback) {
+    var NA = this,
+        mongoose = NA.modules.mongoose,
+        socketio = NA.modules.socketio;
+
+    // Initialisation de Mongoose.
+    privates.mongooseInitialization(mongoose, function (mongoose) {
+
+        // Injection de Schémas dans Mongoose.
+        privates.mongooseSchemas(mongoose);
+
+        // Initialisation de Socket IO.
+        privates.socketIoInitialisation(socketio, NA, function (io) {
+
+            // Écoute d'action Socket IO.
+            privates.socketIoEvents(io, NA);
+
+            // Étapes suivante du moteur.
+            callback();
+        });
+    });
+};
+
+
+
+/*** Configurer les Sessions Express. ***/
+
+// Allows you to use an external DB for Session.
+exports.setSessions = function (callback) {
+    var NA = this,
+        session = NA.modules.session,
+        RedisStore = NA.modules.RedisStore(session);
+
+    NA.sessionStore = new RedisStore();
+
+    callback();
+};
+
+
+
+/* Interception des Variations */
+
+// On intervient juste avant l'assemblage complet EJS.
+exports.changeVariation = function (params, mainCallback) {
+    var variation = params.variation;
+
+    // Ici on modifie les variables de variations.
+    // voir exemple dans le fichier d'après.
+
+    // On ré-injecte les modifications.
+    mainCallback(variation);
+};
+
+
+
+/*** Interception de la sortie HTML pour jQuery côté serveur ***/
+
+// On intervient juste avant le renvoi HTML auprès du client (response).
+exports.changeDom = function (params, mainCallback) {
+    var dom = params.dom;
+
+    // Ici on peut manipuler le DOM côté serveur avant retour client.
+    // voir exemple dans le fichier d'après.
+
+    // On ré-injecte les modifications.
+    mainCallback(dom);
+};
 ```
 
 Au lieu de se servir de `changeVariation` et `changeDom` dans le fichier `common.js` effectif pour tout le site, on peut utiliser des contrôleurs spécifiques par page. La configuration précédente devient alors :
@@ -1378,155 +1363,14 @@ avec un fichier « index.js » contenant par exemple :
 - De quoi faire des échanges asynchrones avec Socket.IO.
 
 ```js
-var website = {};
+/*******************************************************/
+/* On charge une fonction ou un ensemble de fonctions. */
+/*******************************************************/
+
+var privates = {};
+privates.listOfArticles = require('./modules/list-of-articles');
 
 
-
-/*******************************/
-/* Interception des Variations */
-/*******************************/
-
-(function (publics) {
-    "use strict";
-
-    var privates = {};
-
-    // On charge une fonction ou un ensemble de fonctions.
-    privates.listOfArticles = require('./modules/list-of-articles');
-
-    // On intervient juste avant l'assemblage complet EJS.
-    publics.changeVariation = function (params, mainCallback) {
-        var NA = this,
-        	variation = params.variation,
-            mongoose = NA.modules.mongoose,
-            Article = mongoose.model('article');
-
-
-        // Interception possible de toutes les variables de « variations/common.js ».
-        console.log(variation.common.title); // Renvoi le titre stocké dans « variations/common.js ».
-        variation.common.title = "Nouveau title"; // Redéfini un titre.
-        console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via `<%= common.title %>`.
-
-        // Interception possible de toutes les variables de « variations/index.js » (car on est dans le spécific « index.js »).
-        variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via `<%= specific.title %>`.
-        variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via `<%= specific.newProperty %>`.
-
-        // Interception possible de la configuration de la page courante.
-        console.log(variation.currentRoute); // Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.
-
-        // On test une variable créer de toute pièce dans le webconfig.
-        if (variation.webconfig._websiteIsClosed) {
-            // La page sera en 404.
-            variation.currentRouteParameters.statusCode = 404;
-        } else {
-            // La page sera en 200.
-            variation.currentRouteParameters.statusCode = 200;
-        }
-
-        // Création d'un nouvel ensemble de variation dynamique pour les templates.
-        variation.backend = {}; // Propriétés accessibles via « <%= backend.<propriétés> %> ».p
-
-        privates.listOfArticles(Article, function (listOfArticles) {
-
-            // Disponibilité des données des articles côté template.
-            variation.backend.articles = listOfArticles; // « <%= backend.articles.<propriétés> %> ».
-
-            // On ré-injecte les modifications.
-            mainCallback(variation);
-        });
-    };
-
-}(website));
-
-
-
-/***********************************************************/
-/* Interception de la sortie HTML pour jQuery côté serveur */
-/***********************************************************/
-
-(function (publics) {
-    "use strict";
-
-    // On intervient juste avant le renvoi HTML auprès du client (response).
-    publics.changeDom = function (params, mainCallback) {
-        var NA = params.NA,
-        	dom = params.dom,
-            cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
-            $ = cheerio.load(dom); // On charge les données pour les manipuler comme un DOM.
-
-        // Après tous les h2 de la sortie HTML « dom »,
-        $("h2").each(function () {
-            var $this = $(this);
-
-            // ...on créé une div,
-            $this.after(
-                // ... on injecte le contenu du h2 dans la div,
-                $("<div>").html($this.html())
-            );
-            // ...et supprime le h2.
-            $this.remove();
-        });
-
-        // On recrée une nouvelle sortie HTML avec nos modifications.
-        dom = $.html();
-
-        // On réinjecte les modifications.
-        mainCallback(dom);
-    };
-
-}(website));
-
-
-
-/***********************************************/
-/* Gestion des évènements Socket.IO asynchrone */
-/***********************************************/
-
-(function (publics) {
-    "use strict";
-
-    // Intégralité des actions Websocket possible pour ce template.
-    publics.asynchrone = function (params) {
-        var NA = this,
-        	io = params.io,
-            mongoose = params.NA.modules.mongoose,
-            marked = params.NA.modules.marked,
-            Article = mongoose.model('article');
-
-        // Dès qu'on a un lien valide entre le client et notre back...
-        io.sockets.on('connection', function (socket) {
-            var sessionID = socket.request.sessionID,
-                session = socket.request.session;
-
-            // ...rester à l'écoute de la demande « create-article-button »...
-            socket.on('create-article-button', function (data) {
-
-                // ...et répondre à cette demande en créant un nouvel article si elle vient
-                // avec les informations envoyées via « data ».
-                var article = new Article({
-                    _id: mongoose.Types.ObjectId(),
-                    title: data.title,
-                    urn: data.urn,
-                });
-
-                // Si l'utilisateur est connecté.
-                if (session.account) {
-
-                    // ...on sauve l'article en base.
-                    article.save(function (error) {
-                        if (error) {
-                            throw error;
-                        }
-
-                        // Et on répond à tous les clients avec un jeu de donnée dans data.
-                        io.sockets.emit('create-article-button', data);
-                    });
-                }
-            });
-        });
-    };
-
-}(website));
 
 
 
@@ -1534,9 +1378,126 @@ var website = {};
 /* Mise à dispositions des fonctions pour le moteur NodeAtlas */
 /*************************************************************/
 
-exports.changeVariation = website.changeVariation;
-exports.changeDom = website.changeDom;
-exports.asynchrone = website.asynchrone; // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
+/*** Interception des Variations ***/
+
+// On intervient juste avant l'assemblage complet EJS.
+exports.changeVariation = function (params, mainCallback) {
+    var NA = this,
+        variation = params.variation,
+        mongoose = NA.modules.mongoose,
+        Article = mongoose.model('article');
+
+
+    // Interception possible de toutes les variables de « variations/common.js ».
+    console.log(variation.common.title); // Renvoi le titre stocké dans « variations/common.js ».
+    variation.common.title = "Nouveau title"; // Redéfini un titre.
+    console.log(variation.common.title); // Renvoi « Nouveau title » et est accessible côté template via `<%= common.title %>`.
+
+    // Interception possible de toutes les variables de « variations/index.js » (car on est dans le spécific « index.js »).
+    variation.specific.title = "Nouveau title"; // Redéfini un titre qui est accessible côté template via `<%= specific.title %>`.
+    variation.specific.newProperty = "Nouvelle propriété"; // Défini une propriété n'existant pas initialement dans le fichier de variation qui est accessible côté template via `<%= specific.newProperty %>`.
+
+    // Interception possible de la configuration de la page courante.
+    console.log(variation.currentRoute); // Retourne « / » pour « index.js », « /categories/ » pour « categories.js », « /categories/:category/ » pour « category-detail.js », etc.
+
+    // On test une variable créer de toute pièce dans le webconfig.
+    if (variation.webconfig._websiteIsClosed) {
+        // La page sera en 404.
+        variation.currentRouteParameters.statusCode = 404;
+    } else {
+        // La page sera en 200.
+        variation.currentRouteParameters.statusCode = 200;
+    }
+
+    // Création d'un nouvel ensemble de variation dynamique pour les templates.
+    variation.backend = {}; // Propriétés accessibles via « <%= backend.<propriétés> %> ».p
+
+    privates.listOfArticles(Article, function (listOfArticles) {
+
+        // Disponibilité des données des articles côté template.
+        variation.backend.articles = listOfArticles; // « <%= backend.articles.<propriétés> %> ».
+
+        // On ré-injecte les modifications.
+        mainCallback(variation);
+    });
+};
+
+
+
+/*** Interception de la sortie HTML pour jQuery côté serveur ***/
+
+// On intervient juste avant le renvoi HTML auprès du client (response).
+exports.changeDom = function (params, mainCallback) {
+    var NA = params.NA,
+        dom = params.dom,
+        cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
+        $ = cheerio.load(dom); // On charge les données pour les manipuler comme un DOM.
+
+    // Après tous les h2 de la sortie HTML « dom »,
+    $("h2").each(function () {
+        var $this = $(this);
+
+        // ...on créé une div,
+        $this.after(
+            // ... on injecte le contenu du h2 dans la div,
+            $("<div>").html($this.html())
+        );
+        // ...et supprime le h2.
+        $this.remove();
+    });
+
+    // On recrée une nouvelle sortie HTML avec nos modifications.
+    dom = $.html();
+
+    // On réinjecte les modifications.
+    mainCallback(dom);
+};
+
+
+
+/*** Gestion des évènements Socket.IO asynchrone ***/
+
+// Intégralité des actions Websocket possible pour ce template.
+// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
+exports.asynchrone = function (params) {
+    var NA = this,
+        io = params.io,
+        mongoose = params.NA.modules.mongoose,
+        marked = params.NA.modules.marked,
+        Article = mongoose.model('article');
+
+    // Dès qu'on a un lien valide entre le client et notre back...
+    io.sockets.on('connection', function (socket) {
+        var sessionID = socket.request.sessionID,
+            session = socket.request.session;
+
+        // ...rester à l'écoute de la demande « create-article-button »...
+        socket.on('create-article-button', function (data) {
+
+            // ...et répondre à cette demande en créant un nouvel article si elle vient
+            // avec les informations envoyées via « data ».
+            var article = new Article({
+                _id: mongoose.Types.ObjectId(),
+                title: data.title,
+                urn: data.urn,
+            });
+
+            // Si l'utilisateur est connecté.
+            if (session.account) {
+
+                // ...on sauve l'article en base.
+                article.save(function (error) {
+                    if (error) {
+                        throw error;
+                    }
+
+                    // Et on répond à tous les clients avec un jeu de donnée dans data.
+                    io.sockets.emit('create-article-button', data);
+                });
+            }
+        });
+    });
+};
 ```
 
 *Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
