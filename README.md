@@ -345,7 +345,7 @@ with the addresses:
 - *http://localhost/member-without-extension/* (will not respond if is GET requested)
 - *http://localhost/error.html* (return of the plain-text content (without markup) with a 404)
 
-*Note : If* ***templatesRelativePath*** *is not present in "webconfig.js", template folder is* ***templates***. ***templatesRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***templatesRelativePath*** *is not present in "webconfig.json", template folder is* ***templates***. ***templatesRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
@@ -432,7 +432,7 @@ you will have access to the addresses:
 - *http://localhost/javascript/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : If* ***assetsRelativePath*** *is not present in "webconfig.js", default public folder is* ***assets***. ***assetsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***assetsRelativePath*** *is not present in "webconfig.json", default public folder is* ***assets***. ***assetsRelativePath*** *is useful only to change the name/path of directory.*
 
 #### maxAge, Etag, etc. ####
 
@@ -543,7 +543,7 @@ you will have access to the addresses:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-*Note : If* ***componentsRelativePath*** *is not present in "webconfig.js", default include folder is* ***components***. ***componentsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***componentsRelativePath*** *is not present in "webconfig.json", default include folder is* ***components***. ***componentsRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
@@ -665,7 +665,7 @@ you will have access to the addresses:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-*Note : If* ***variationsRelativePath*** *is not present in "webconfig.js", default variations folder is* ***variations***. ***variationsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***variationsRelativePath*** *is not present in "webconfig.json", default variations folder is* ***variations***. ***variationsRelativePath*** *is useful only to change the name/path of directory.*
 
 
 
@@ -1011,7 +1011,7 @@ Also with `--generate` , the entire ` assetsRelativePath` folder (public folder 
 
 You could desactivate the HTML generation, even if a directory `generatesRelativePath` exist in the système file, with `htmlGenerateEnable` à `false`.
 
-*Note : If* ***generatesRelativePath*** *is not present in "webconfig.js", default generates folder is* ***generates/***. ***generatesRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***generatesRelativePath*** *is not present in "webconfig.json", default generates folder is* ***generates/***. ***generatesRelativePath*** *is useful only to change the name/path of directory.*
 
 
 #### Generate website without server side ####
@@ -1503,7 +1503,7 @@ exports.asynchrone = function (params) {
 };
 ```
 
-*Note : If* ***controllersRelativePath*** *is not present in "webconfig.js", default controller folder is* ***controllers***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* ***controllersRelativePath*** *is not present in "webconfig.json", default controller folder is* ***controllers***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
 
 
 

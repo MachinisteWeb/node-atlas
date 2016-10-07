@@ -262,7 +262,7 @@ webconfig.json</code></pre><p>with the addresses:</p>
 <li><em>http://localhost/member-without-extension/</em> (will not respond if is GET requested)</li>
 <li><em>http://localhost/error.html</em> (return of the plain-text content (without markup) with a 404)</li>
 </ul>
-<p><em>Note : If</em> <strong><em>templatesRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, template folder is</em> <strong><em>templates</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>templatesRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, template folder is</em> <strong><em>templates</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Template shortcut</h3><p>The configuration below is equivalent to the configuration section just above</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;templatesRelativePath&quot;: &quot;templates&quot;,
@@ -314,7 +314,7 @@ webconfig.json</code></pre><p>you will have access to the addresses:</p>
 <li><em>http://localhost/javascript/common.js</em></li>
 <li><em>http://localhost/media/images/logo.png</em></li>
 </ul>
-<p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default public folder is</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default public folder is</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h4>maxAge, Etag, etc.</h4><p>It's possible to manage informations provided by NodeAtlas when a ressource is requested (like <code>maxAge</code>, <code>etag</code>, etc.) via the <code>staticOptions</code> property in webconfig. For more informations, see the <a href="http://expressjs.com/api.html#express.static">Express</a> documentation about static files.</p>
 <p>For exemple, for a devlopment webconfig, it's interresting to put the <code>maxAge</code> to 0 in order to always get the last modifications into a file and avoid frenetic browser reload.</p>
 <pre class="prettyprint source"><code>{
@@ -382,7 +382,7 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/list-of-members/</em></li>
 </ul>
-<p><em>Note : If</em> <strong><em>componentsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default include folder is</em> <strong><em>components</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>componentsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default include folder is</em> <strong><em>components</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Manage variations within the same template</h3><p>It is possible with the same template and the same includes, generating pages with different content (useful in generation HTML assets mode). Activate the variations with the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -459,7 +459,7 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/list-of-members/</em></li>
 </ul>
-<p><em>Note : If</em> <strong><em>variationsRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default variations folder is</em> <strong><em>variations</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>variationsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default variations folder is</em> <strong><em>variations</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Manage Multilingual</h3><h4>All languages on the same site</h4><p>On the same principle, the variations can be used to create the same page, but in different languages:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;languageCode&quot;: &quot;en-gb&quot;,
@@ -691,7 +691,7 @@ webconfig.json
 <p>The generation starts when displaying the page if <strong><em>htmlGenerateBeforeResponse</em></strong> exist and if it is <strong><em>true</em></strong>. If it is passed <strong><em>false</em></strong> (or removed) the only way to generate all the pages of the website will be via the command <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> will generate all pages once if <code>generatesRelativePath</code> exist. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).</p>
 <p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>generatesRelativePath</code> if both folder does not have the same path, and if <code>generatesRelativePath</code> exist. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p>
 <p>You could desactivate the HTML generation, even if a directory <code>generatesRelativePath</code> exist in the système file, with <code>htmlGenerateEnable</code> à <code>false</code>.</p>
-<p><em>Note : If</em> <strong><em>generatesRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default generates folder is</em> <strong><em>generates/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+<p><em>Note : If</em> <strong><em>generatesRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default generates folder is</em> <strong><em>generates/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h4>Generate website without server side</h4><p>You can also manager a simple HTML website page with the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
@@ -1130,7 +1130,7 @@ exports.asynchrone = function (params) {
             }
         });
     });
-};</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.js&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+};</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
 <h3>Generate partial page with AJAX/Websocket</h3><p>When a page is generate and send to client, the server doesn't know, if an AJAX request come, what is the route associated. And so it not capable to response with an HTML that used the correct variations or correct language.</p>
 <p>The first step is to set value into client code. For example :</p>
 <pre class="prettyprint source lang-html"><code>...
@@ -2885,7 +2885,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Sep 12 2016 17:28:43 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Oct 07 2016 09:14:28 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
