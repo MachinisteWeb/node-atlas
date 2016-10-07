@@ -342,7 +342,7 @@ aux adresses :
 - *http://localhost/member-without-extension/* (ne répondra pas si demandée en GET)
 - *http://localhost/error.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404)
 
-*Note : Si* ***templatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des templates est bien* ***templates***. ***templatesRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***templatesRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des templates est bien* ***templates***. ***templatesRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -429,7 +429,7 @@ vous aurez accès aux adresses :
 - *http://localhost/javascript/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier public est bien* ***assets***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier public est bien* ***assets***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 #### maxAge, Etag, etc. ####
 
@@ -540,7 +540,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des includes est bien* ***components***. ***componentsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
+*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des includes est bien* ***components***. ***componentsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
 
@@ -662,7 +662,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des variations est bien* ***variations***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
+*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des variations est bien* ***variations***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
 
@@ -1500,7 +1500,7 @@ exports.asynchrone = function (params) {
 };
 ```
 
-*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des controlleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des controlleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 

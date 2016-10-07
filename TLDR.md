@@ -288,11 +288,12 @@ forever start /usr/local/lib/node_modules/node-atlas/node-atlas.js --directory /
 ### Websites Example ##
 
 - [Generation and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
+- [UI Test and UI Documentation](https://github.com/Haeresis/TestCaseAtlas/).
 - [HTML website maintenance (no Back-end)](https://github.com/Haeresis/ResumeAtlas/).
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
+- [API REST example](https://github.com/Haeresis/ApiAtlas/).
 - [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
-- [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
+- [Simple Web Server to share directory](https://github.com/Haeresis/SimpleAtlas/).
+- [CSS-driven usage with Less/Stylus preprocessor with CSS Framework](https://github.com/Haeresis/PreprocessorAtlas/).
 - [Website Component Oriented SEO and W3C Compliant](https://github.com/Haeresis/ComponentAtlas/).
-- [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
-- [Plugin to boost standard capabilities](https://github.com/Haeresis/SublimeAtlas/).
