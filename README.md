@@ -806,7 +806,7 @@ vous aurez accès aux adresses :
 
 Vous avez peut-être constaté dans l'exemple précédent que le fichier `landing.json` n'était pas dans le dossier `en-gb/` ou `fr-fr/`. Cela est tout à fait possible et signifie qu'il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.
 
-Aussi, quand un `languageCode` est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y ai pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans multilingue).
+Aussi, quand un `languageCode` est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondent. Si celle-ci n'y ai pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans multilingue).
 
 Cela va vous permettre par exemple de manager la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :
 
@@ -3652,7 +3652,7 @@ En utilisant le webconfig suivant :
 }
 ```
 
-ainsi que le template `index.htm` correspondant
+ainsi que le template `index.htm` correspondent
 
 ```html
 <!-- ... -->
