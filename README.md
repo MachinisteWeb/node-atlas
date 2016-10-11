@@ -66,7 +66,10 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 ### Table des matières ###
 
 - [Avant-propos](#avant-propos)
- - [Exemple de réalisations avec NodeAtlas](#exemples-de-r%C3%A9alisations-avec-nodeatlas)
+ - [Pour réaliser quoi ?](#for-what-)
+ - [Pourquoi NodeAtlas ?](#why-nodeatlas)
+ - [Et les autres Frameworks JavaScript ?](#and-what-about-others-javascript-frameworks)
+ - [Exemples de réalisations avec NodeAtlas](#examples-of-websites-with-nodeatlas)
  - [Table des matières](#table-des-mati%C3%A8res)
  - [Documentation](#documentation)
  - [Contribution](#contribution)
