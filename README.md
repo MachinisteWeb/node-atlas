@@ -58,6 +58,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
+- [API REST example](https://github.com/Haeresis/ApiAtlas/).
 - [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
 - [Plugin to boost standard capabilities](https://github.com/Haeresis/ComponentAtlas/).
 
@@ -599,7 +600,7 @@ webconfig.json
 <html lang="fr-fr">
     <head>
         <meta charset="utf-8" />
-        <title><%= specific.titlePage %></title>
+        <title><%- specific.titlePage %></title>
 
         <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
         <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
@@ -620,10 +621,10 @@ webconfig.json
 ```html
     <%- include('head.htm') %>
 
-    <div class="title"><%= common.titleWebsite %></div>
+    <div class="title"><%- common.titleWebsite %></div>
 
     <div>
-        <h1><%= specific.titlePage %></h1>
+        <h1><%- specific.titlePage %></h1>
         <%- specific.content %>
     </div>
 
@@ -756,7 +757,7 @@ webconfig.json
     <%- include('head.htm') %>
 
     <div>
-        <h1><%= specific.titlePage %></h1>
+        <h1><%- specific.titlePage %></h1>
         <%- specific.content %>
     </div>
 
@@ -1077,35 +1078,607 @@ HTML/
 
 ### Use NodeAtlas to run a website (Back-end Part) ###
 
-You can either use a single controller for the whole site and/or also by controllers template and variation.
+NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with :
 
-For the master controller, use this configuration example:
+- parameters in query part of url (GET),
+- parameters in request body (POST),
+- connection with database or,
+- management of sessions or,
+- do AJAX or Websocket request/response and
+- do more !
+
+For that, you could hook to some point of life cycle of the page generation with common controller (`commonController`) and with specific controller for each page (`routes[<route>].controller`).
+
+This is a `webconfig.json` allows you to manipulate each part of life cycle of a page.
 
 ```js
 {
-    "commonController": "common.js",
     "controllersRelativePath": "controllers",
+    "commonController": "common.js",
     "routes": {
         "/": {
             "template": "index.htm",
-            "variation": "index.json"
-        },
-        "/categories/": {
-            "template": "categories.htm",
-            "variation": "categories.json"
+            "variation": "index.json",
+            "controller": "index.json"
         }
     }
 }
 ```
 
-with this set of files
+*Note : If* ***controllersRelativePath*** *is not present in "webconfig.json", default controller folder is* ***controllers***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
+
+and this is the detail of all hooks :
+
+**Start NodeAtlas** 
+> Init of Internal Modules
+
+> - *loadModules* --> into `commonController` file (`common.js` for example).
+
+> Init of External Modules
+
+> - *setConfigurations* --> into `commonController` file (`common.js` for example).
+
+> Start Web Server
+
+> - *setSessions* --> into `commonController` file (`common.js` for example).
+
+> Web Server stay Up
+
+**HTTP Request/Response of NodeAtlas**
+> Client Request Processing
+
+> - *changeVariation* --> into `commonController` file (`common.js` for example).
+
+> - *changeVariation* --> into `routes[<route>].controller` file (`index.js` for example).
+
+> Templates and Variations Compilation => Complete DOM.
+
+> - *changeDom* --> into `commonController` file (`common.js` for example).
+
+> - *changeDom* --> into `routes[<route>].controller` file (`index.js` for example).
+
+> Sending of Response to Client
+
+#### changeVariation ####
+
+In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.
+
+This is an example using the two hooks, the common in first and after the specific:
+
+```js
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
+```
+
+with this files :
+
+```
+components/
+— head.htm
+— foot.htm
+variations/
+— common.json
+— index.json
+controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+webconfig.json
+```
+
+Do a POST request on `http://localhost/?title=Haeresis` with `example=This+is+a+test` variable in body will use the following files:
+
+*variations/common.json*
+
+```js
+{
+    "titleWebsite": "Site Title"
+}
+```
+
+*variations/index.json*
+
+```js
+{
+    "titlePage": "Welcome",
+    "content": "<p>This is the Home Page.</p>"
+}
+```
+
+*templates/index.htm*
+
+```html
+    <%- include('head.htm') %>
+
+    <div class="title"><%- common.titleWebsite %></div>
+
+    <div>
+        <h1><%- specific.titlePage %></h1>
+        <%- specific.content %>
+    </div>
+
+    <%- include('foot.htm') %>
+```
+
+*controllers/common.js*
+
+```js
+// This code is executed before variation are injected into template engine.
+// This code is executed for all HTTP request, for all pages.
+exports.changeVariation = function (params, mainCallback) {
+    var variation = params.variation,
+        request = params.request,
+        response = params.response;
+
+    // Here we update variations variable.
+
+    console.log(variation.common.titleWebsite); // "Site Title"
+    console.log(variation.specific.titlePage); // "Welcome"
+    console.log(variation.specific.content); // "This is the Home Page."
+
+    if (request.query["title"]) {
+        variation.specific.titlePage = variation.specific.titlePage + " " + request.query.title;
+    }
+    if (request.body["example"]) {
+        variation.specific.content = request.body.example;
+    }
+    
+    console.log(variation.common.titleWebsite); // "Site Title"
+    console.log(variation.specific.titlePage); // "Welcome Haeresis"
+    console.log(variation.specific.content); // "This is a test"
+
+    // We update modification here.
+    mainCallback(variation);
+};
+```
+
+*controllers/index.js*
+
+```js
+// This code is executed before variation are injected into template engine.
+// This code is executed only for the « / » page .
+exports.changeVariation = function (params, mainCallback) {
+    var variation = params.variation,
+        request = params.request,
+        response = params.response;
+
+    // Here we update variations variable.
+
+    console.log(variation.common.titleWebsite); // "Site Title"
+    console.log(variation.specific.titlePage); // "Welcome Haeresis"
+    console.log(variation.specific.content); // "This is a test"
+
+    variation.common.titleWebsite = "It's Home, no way.";
+    variation.specific.content = "It's Home, no way.";
+
+    console.log(variation.common.titleWebsite); // "It's Home, no way."
+    console.log(variation.specific.titlePage); // "Welcome Haeresis"
+    console.log(variation.specific.content); // "It's Home, no way."
+
+    // We update modification here.
+    mainCallback(variation);
+};
+```
+
+en this produce the following output :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>It's Home, no way.</title>
+    </head>
+    <body>
+        <div class="title">It's Home, no way.</div>
+        <div>
+            <h1>Welcome Haeresis</h1>
+            It's Home, no way.
+        </div>
+    </body>
+</html>
+```
+
+If you delete the variation entry of specific page from webconfig:
+
+```js
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+the output will be as following:
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Site Title</title>
+    </head>
+    <body>
+        <div class="title">Site Title</div>
+        <div>
+            <h1>Welcome Haeresis</h1>
+            This is a test
+        </div>
+    </body>
+</html>
+```
+
+#### changeDom ####
+
+In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.
+
+This is an example using the two hooks, the common in first and after the specific:
+
+```js
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
+```
+
+with this files :
+
+```
+variations/
+— index.json
+controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+webconfig.json
+```
+
+Do a POST request on `http://localhost/` will use the following files:
+
+*variations/common.json*
+
+```js
+{
+    "titleWebsite": "Site Title"
+}
+```
+
+*variations/index.json*
+
+```js
+{
+    "titlePage": "Welcome",
+    "content": "<p>This is Home Page.</p>"
+}
+```
+
+*templates/index.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title><%- common.titleWebsite %></title>
+    </head>
+    <body>
+        <div class="title"><%- common.titleWebsite %></div>
+        <div>
+            <h1><%- specific.titlePage %></h1>
+            <%- specific.content %>
+        </div>
+    </body>
+</html>
+```
+
+*controllers/common.js*
+
+```js
+// This code is executed before DOM was sent to Client.
+// This code is executed for all HTTP request, for all pages.
+exports.changeDom = function (params, mainCallback) {
+    var NA = this,
+        dom = params.dom,
+        request = params.request,
+        response = params.response,
+        cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
+        $ = cheerio.load(dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+
+    // Just after eath h1 from HTML DOM...
+    $("h1").each(function () {
+        var $this = $(this);
+
+        // ...we create a div,
+        $this.after(
+            // ...we inject the content of h1 into the div,
+            $("<div>").html($this.html())
+        );
+        // ...and we delete the h1.
+        $this.remove();
+    });
+
+    // We create a new HTML output with updates.
+    dom = $.html();
+
+    // We update modification here.
+    mainCallback(dom);
+};
+```
+
+*controllers/index.js*
+
+```js
+// This code is executed before DOM was sent to Client.
+// This code is executed only for the « / » page .
+exports.changeDom = function (params, mainCallback) {
+    var NA = this,
+        dom = params.dom,
+        request = params.request,
+        response = params.response,
+        cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
+        $ = cheerio.load(dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+
+    // We update nodes contents with `.title` class.
+    $(".title").text("Content Update");
+
+    // We create a new HTML output with updates.
+    dom = $.html();
+
+    // We update modification here.
+    mainCallback(dom);
+};
+```
+
+the output will be as following:
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Site Title</title>
+    </head>
+    <body>
+        <div class="title">Content Update</div>
+        <div>
+            <div>Welcome</div>
+            <p>This is Home Page.</p>
+        </div>
+    </body>
+</html>
+```
+
+#### loadModules ####
+
+To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.
+
+This is an exemple using an external module of NodeAtlas:
+
+```js
+{
+    "commonController": "common.js",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "controller": "index.js"
+        }
+    }
+}
+```
+
+with this set of files:
+
+```
+controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+webconfig.json
+```
+
+Do a POST request on `http://localhost/` will use the following files:
+
+*templates/index.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Test Module</title>
+    </head>
+    <body>
+        <div class="title">Test Module</div>
+        <div>
+            <h1>Test Module</h1>
+            <%- example %>
+        </div>
+    </body>
+</html>
+```
+
+*controllers/common.js*
+
+```js
+// This code is executing during the modules loading phase.
+// This code will be executed when NodeAtlas starting.
+exports.loadModules = function () {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this;
+
+    // Associate each modules to allow us to use them anywhare.
+    NA.modules.marked = require('marked');
+};
+```
+
+*controllers/index.js*
+
+```js
+// This code is executed before variation are injected into template engine.
+// This code is executed only for the « / » page .
+exports.changeVariation = function (params, mainCallback) {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this,
+        variation = params.variation,
+        marked = NA.modules.marked;
+
+    variation.example = marked("I am using __markdown__.");
+
+    // We update modification here.
+    mainCallback(variation);
+};
+```
+
+this will produce the following output:
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Test Module</title>
+    </head>
+    <body>
+        <div class="title">Test Module</div>
+        <div>
+            <h1>Test Module</h1>
+            <p>I am using <strong>markdown</strong>.</p>
+        </div>
+    </body>
+</html>
+```
+
+#### setConfigurations ####
+
+To configure NodeAtlas web server others ([ExpressJs](http://expressjs.com/)), you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.
+
+This is an exemple using a middleware for [ExpressJs](http://expressjs.com/):
+
+```js
+{
+    "commonController": "common.js",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "controller": "index.js"
+        }
+    }
+}
+```
+
+with this set of files:
+
+```
+controllers/
+— common.js
+templates/
+— index.htm
+webconfig.json
+```
+
+Do a POST request on `http://localhost/` will use the following files:
+
+*templates/index.htm*
+
+```html
+<%- content %>
+```
+
+*controllers/common.js*
+
+```js
+// This code is executing before starting of the web server.
+// This code will be executed when NodeAtlas starting.
+exports.setConfigurations = function (mainCallback) {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this;
+
+    // Middleware utilisé lors de chaque requête.
+    NA.httpServer.use(function (request, response, next) {
+        response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+        next();
+    });
+
+    // We update modification here.
+    mainCallback();
+};
+```
+
+*controllers/index.js*
+
+```js
+// This code is executing before starting of the web server.
+// This code is executed only for the « / » page .
+exports.changeVariation = function (params, mainCallback) {
+    var variation = params.variation;
+
+    // We prepare file for JSON displaying.
+    variation.currentRouteParameters.headers = {
+        "Content-Type": "application/json; charset=utf-8"
+    };
+    variation.content = JSON.stringify(variation, null, "    ");
+
+    // We update modification here.
+    mainCallback(variation);
+};
+```
+
+this will produce the following output:
+
+```html
+{
+    "urlBasePathSlice": "http://localhost",
+    "urlBasePath": "http://localhost/",
+    "urlPath": "http://localhost/",
+    "pathname": /* ... */,
+    "filename": /* ... */,
+    "params": {},
+    "currentRouteParameters": { /* ... */ },
+    "currentRoute": "/",
+    "webconfig": { /* ... */ }
+}
+```
+
+#### setSessions ####
+
+To talk about `setSessions` we will explain a complete example. We will see how to use `Socket.IO` for asynchronous Client-Server Request, how to connect to a database with `MongoDB` and how to use a database for sessions with `Redis`.
+
+This is all files for example:
 
 ```
 variations/
 — index.json
 — categories.json
 controllers/
+— modules/
+—— list-of-article.js/
 — common.js
+- index.js
+- categories.js
 models/
 — Article.js
 — Category.js
@@ -1115,11 +1688,31 @@ templates/
 webconfig.json
 ```
 
+With the `webconfig.json`:
+
+```js
+{
+    "commonController": "common.js",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "controller": "index.js",
+            "variation": "index.json"
+        },
+        "/categories/": {
+            "template": "categories.htm",
+            "controller": "categories.js",
+            "variation": "categories.json"
+        }
+    }
+}
+```
+
 And "common.js" file containing e.g.:
 
-- Things for load additional npm modules.
-- Things for load [Express](http://expressjs.com/) middlewares.
-- Things for load additional NodeAtlas modules.
+- things for load additional npm modules.
+- things for load [Express](http://expressjs.com/) middlewares.
+- things for load additional NodeAtlas modules.
 
 ```js
 /***************************/
@@ -1317,53 +1910,11 @@ exports.changeDom = function (params, mainCallback) {
 };
 ```
 
-Instead of using `changeVariation` and `changeDom` in the file `common.js` effective for the whole website page, you can use specific controllers page. The previous configuration becomes:
-
-```js
-{
-    "commonController": "common.js",
-    "controllersRelativePath": "controllers/",
-    "routes": {
-        "/": {
-            "template": "index.htm",
-            "controller": "index.js",
-            "variation": "index.json"
-        },
-        "/categories/": {
-            "template": "categories.htm",
-            "controller": "categories.js",
-            "variation": "categories.json"
-        }
-    }
-}
-```
-
-with this set of files:
-
-```
-variations/
-— index.json
-— categories.json
-controllers/
-— modules/
-—— list-of-article.js/
-— common.js
-- index.js
-- categories.js
-models/
-— Article.js
-— Category.js
-templates/
-— index.htm
-— categories.htm
-webconfig.json
-```
-
 with a "index.js" file containing, for example:
 
-- Things for dynamically change the front display.
-- Things for changes on the server side with jQuery.
-- Things for asynchronous exchanges with Socket.IO.
+- things for dynamically change the front display.
+- things for changes on the server side with jQuery.
+- things for asynchronous exchanges with Socket.IO.
 
 ```js
 /*******************************************/
@@ -1387,7 +1938,7 @@ privates.listOfArticles = require('./modules/list-of-articles');
 exports.changeVariation = function (params, mainCallback) {
     var NA = this,
         variation = params.variation,
-        mongoose = params.NA.modules.mongoose,
+        mongoose = NA.modules.mongoose,
         Article = mongoose.model('article');
 
 
@@ -1465,8 +2016,8 @@ exports.changeDom = function (params, mainCallback) {
 exports.asynchrone = function (params) {
     var NA = this,
         io = params.io,
-        mongoose = params.NA.modules.mongoose,
-        marked = params.NA.modules.marked,
+        mongoose = NA.modules.mongoose,
+        marked = NA.modules.marked,
         Article = mongoose.model('article');
 
     // Once we have a valid connection between the client and our back-end...
@@ -1503,8 +2054,6 @@ exports.asynchrone = function (params) {
 };
 ```
 
-*Note : If* ***controllersRelativePath*** *is not present in "webconfig.json", default controller folder is* ***controllers***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
-
 
 
 ### Generate partial page with AJAX/Websocket ###
@@ -1517,7 +2066,7 @@ The first step is to set value into client code. For example :
 ...
 <html lang="<%= languageCode %>">
 ...
-<body data-variation="<%= currentRouteParameters.variation %>">
+<body data-variation="<%= currentRouteParameters.variation.replace(/\.json/,'') %>">
 ...
 ```
 
@@ -3509,7 +4058,7 @@ See the exemple in files below:
 <html lang="fr-fr">
     <head>
         <meta charset="utf-8" />
-        <title><?= specific.titlePage ?></title>
+        <title><?- specific.titlePage ?></title>
 
         <link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
         <link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
@@ -3528,16 +4077,16 @@ See the exemple in files below:
 *templates/template.htm*
 
 ```html
-    <? include('head.htm') ?>
+    <?- include('head.htm') ?>
 
-    <div class="title"><?= common.titleWebsite ?></div>
+    <div class="title"><?- common.titleWebsite ?></div>
 
     <div>
-        <h1><?= specific.titlePage ?></h1>
+        <h1><?- specific.titlePage ?></h1>
         <?- specific.content ?>
     </div>
 
-    <? include('foot.htm') ?>
+    <?- include('foot.htm') ?>
 ```
 
 Learn all about the possibilities of the template engine consult the documentation [ejs](https://github.com/mde/ejs)
@@ -3825,7 +4374,7 @@ Each of the commands that follow can be coupled with other like this:
 ```
 
 
-### --directory <path> ###
+### --directory &lt;path> ###
 
 It is possible to launch NodeAtlas from another location where the website folder is placed. The `--directory` command will be very useful.
 
@@ -3834,7 +4383,7 @@ It is possible to launch NodeAtlas from another location where the website folde
 ```
 
 
-### --webconfig <webconfigName> ###
+### --webconfig &lt;webconfigName> ###
 
 By default, NodeAtlas will read your `webconfig.json` file. It is possible that in addition to the file you created another `webconfig.prod.json` file whose domain name is different. Or a `webconfig.fr-fr.json` with urls changes for another language. Instead of renaming your files in `webconfig.json` before launching the site, simply enter your other configuration name. In the following example, this file will be `webconfig.alternatif.json`.
 
@@ -3861,7 +4410,7 @@ You could also targeted a specific page with the end of url.
 
 
 
-### --httpHostname <httpHostname> ###
+### --httpHostname &lt;httpHostname> ###
 
 You will maybe want know your IP with `ipconfig` to change it in the url to access your website from others device connected to the current network so this command is for you.
 
@@ -3871,7 +4420,7 @@ You will maybe want know your IP with `ipconfig` to change it in the url to acce
 
 
 
-### --httpPort <httpPort> ###
+### --httpPort &lt;httpPort> ###
 
 You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.
 
