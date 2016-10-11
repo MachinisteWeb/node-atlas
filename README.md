@@ -58,6 +58,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
+- [Exemple d'API REST](https://github.com/Haeresis/ApiAtlas/).
 - [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/LessAtlas/).
 - [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/ComponentAtlas/).
 
@@ -66,7 +67,10 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 ### Table des matières ###
 
 - [Avant-propos](#avant-propos)
- - [Exemple de réalisations avec NodeAtlas](#exemples-de-r%C3%A9alisations-avec-nodeatlas)
+ - [Pour réaliser quoi ?](#pour-réaliser-quoi-)
+ - [Pourquoi NodeAtlas ?](#pourquoi-nodeatlas-)
+ - [Et les autres Frameworks JavaScript ?](#et-les-autres-frameworks-javascript-)
+ - [Exemples de réalisations avec NodeAtlas](#exemples-de-réalisations-avec-nodeatlas)
  - [Table des matières](#table-des-mati%C3%A8res)
  - [Documentation](#documentation)
  - [Contribution](#contribution)
@@ -1076,8 +1080,8 @@ HTML/
 
 NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 
-- des paramètres dans la partie query de l'url (GET) ou 
-- des paramètres dans le body de la requête (POST), 
+- des paramètres dans la partie query de l'url (GET),
+- des paramètres dans le body de la requête (POST),
 - de vous connecter à des bases de donner,
 - de maintenir des sessions, 
 - de faire des échange AJAX ou même Websocket et
@@ -1085,7 +1089,7 @@ NodeAtlas ne se contente pas que de faciliter la génération de page web en fon
 
 Pour cela, il vous est possible d'intéragir à divers endroit du cycle de vie de création d'une page grâce à un contrôleur commun (`commonController`) et à un controlleur spécifique à chaque page (`routes[<route>].controller`).
 
-Voici à quoi peut ressembler un `webconfig` permettant d'atteindre tous les points du cycle de vie d'une page.
+Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous les points du cycle de vie d'une page.
 
 ```js
 {
@@ -1162,6 +1166,7 @@ components/
 — head.htm
 — foot.htm
 variations/
+— common.json
 — index.json
 controllers/
 — common.js
@@ -1204,7 +1209,6 @@ En demandant la page `http://localhost/?title=Haeresis` en POST avec une variabl
 
     <%- include('foot.htm') %>
 ```
-
 
 *controllers/common.js*
 
@@ -1289,7 +1293,6 @@ Si vous décidez de déshabonner la variation spécifique avec le webconfig suiv
 
 ```js
 {
-    "controllersRelativePath": "controllers",
     "commonController": "common.js",
     "commonVariation": "common.json",
     "routes": {
@@ -1438,7 +1441,7 @@ exports.changeDom = function (params, mainCallback) {
         cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
         $ = cheerio.load(dom, { decodeEntities: false }); // On charge les données pour les manipuler comme un DOM.
 
-    // On modifie tous les contenu des noeuds avec la classe `.title`,
+    // On modifie tous les contenu des noeuds avec la classe `.title`.
     $(".title").text("Modification de Contenu");
 
     // On recrée une nouvelle sortie HTML avec nos modifications.
@@ -1538,6 +1541,7 @@ exports.loadModules = function () {
 // On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, mainCallback) {
+    // Récupérer l'instance « NodeAtlas » du moteur.
     var NA = this,
         variation = params.variation,
         marked = NA.modules.marked;
@@ -1568,9 +1572,100 @@ ce qui produit la sortie suivante :
 </html>
 ```
 
-#### setConfigurations et setSessions ####
+#### setConfigurations ####
 
-Pour parler de `setConfigurations` et de `setSessions` nous allons par l'exemple, voir comment utiliser `Socket.IO` pour les requêtes Client-Server asynchrone, comment se connecter à `MongoDB` pour la connexion aux bases de données et comment stocker les sessions des utilisateur dans une bases de donnée avec `Redis`.
+Pour configurer le serveur web de NodeAtlas ([ExpressJs](http://expressjs.com/)) vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs.
+
+Voici un exemple utilisant un middleware pour [ExpressJs](http://expressjs.com/) :
+
+```js
+{
+    "commonController": "common.js",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "controller": "index.js"
+        }
+    }
+}
+```
+
+avec cet ensemble de fichier :
+
+```
+controllers/
+— common.js
+templates/
+— index.htm
+webconfig.json
+```
+
+En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
+
+*templates/index.htm*
+
+```html
+<%- content %>
+```
+
+*controllers/common.js*
+
+```js
+// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
+// Ce code sera exécuté au lancement de NodeAtlas.
+exports.setConfigurations = function (mainCallback) {
+    // Récupérer l'instance « NodeAtlas » du moteur.
+    var NA = this;
+
+    // Middleware utilisé lors de chaque requête.
+    NA.httpServer.use(function (request, response, next) {
+        response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+        next();
+    });
+
+    // On ré-injecte les modifications.
+    mainCallback();
+};
+```
+
+*controllers/index.js*
+
+```js
+// On intervient avant que les variables soient injectées dans le système de template.
+// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+exports.changeVariation = function (params, mainCallback) {
+    var variation = params.variation;
+
+    // On prépare le fichier pour un affichage JSON.
+    variation.currentRouteParameters.headers = {
+        "Content-Type": "application/json; charset=utf-8"
+    };
+    variation.content = JSON.stringify(variation, null, "    ");
+
+    // On ré-injecte les modifications.
+    mainCallback(variation);
+};
+```
+
+ce qui produit la sortie suivante :
+
+```html
+{
+    "urlBasePathSlice": "http://localhost",
+    "urlBasePath": "http://localhost/",
+    "urlPath": "http://localhost/",
+    "pathname": /* ... */,
+    "filename": /* ... */,
+    "params": {},
+    "currentRouteParameters": { /* ... */ },
+    "currentRoute": "/",
+    "webconfig": { /* ... */ }
+}
+```
+
+#### setSessions ####
+
+Pour parler de `setSessions` nous allons par l'exemple, voir comment utiliser `Socket.IO` pour les requêtes Client-Serveur asynchrone, comment se connecter à `MongoDB` pour la connexion aux bases de données et comment stocker les sessions des utilisateur dans une bases de donnée avec `Redis`.
 
 Voici l'ensemble de fichier suivant :
 
