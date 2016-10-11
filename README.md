@@ -84,7 +84,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
  - [Utiliser NodeAtlas pour générer des assets HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html)
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
- - [Générer des fragments de page par retour AJAX/Websocket](#generer-des-fragments-de-page-par-retour-ajaxwebsocket)
+ - [Générer des fragments de page par retour AJAX/Websocket](#générer-des-fragments-de-page-par-retour-ajaxwebsocket)
  - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
@@ -1074,7 +1074,7 @@ HTML/
 
 ### Utiliser NodeAtlas pour faire tourner un site (partie Back-end) ###
 
-NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de `variation`. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
+NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 
 - des paramètres dans la partie query de l'url (GET) ou 
 - des paramètres dans le body de la requête (POST), 
@@ -1101,24 +1101,38 @@ Voici à quoi peut ressembler un `webconfig` permettant d'atteindre tous les poi
 }
 ```
 
+*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des controlleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+
 et voici le détail des endroits ou vous pouvez intervenir :
 
 **Démarrage de NodeAtlas** 
 > Initialisation des modules internes
+
 > - *loadModules* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+
 > Initialisation des modules externes
+
 > - *setConfigurations* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+
 > Lancement du serveur web
+
 > - *setSessions* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+
 > Maintient du serveur up
 
 **Requête/Réponse HTTP de NodeAtlas** 
 > Traitement de la Request du Client
+
 > - *changeVariation* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+
 > - *changeVariation* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
+
 > Assemblage des Templates et Compilation des Variations => DOM complet de la Réponse.
+
 > - *changeDom* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+
 > - *changeDom* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
+
 > Envoi de la Response au Client
 
 #### changeVariation ####
@@ -1306,8 +1320,6 @@ alors la sortie sera :
     </body>
 </html>
 ```
-
-*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des controlleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 #### changeDom ####
 
