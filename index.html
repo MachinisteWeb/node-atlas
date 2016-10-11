@@ -96,6 +96,8 @@
 <li>
 <a href="https://github.com/Haeresis/SimpleAtlas/">Simple web server for a file</a>.</li>
 <li>
+<a href="https://github.com/Haeresis/ApiAtlas/">API REST example</a>.</li>
+<li>
 <a href="https://github.com/Haeresis/LessAtlas/">CSS-driven usage with Less preprocessor with CSS Framework</a>.</li>
 <li>
 <a href="https://github.com/Haeresis/ComponentAtlas/">Plugin to boost standard capabilities</a>.</li>
@@ -641,7 +643,7 @@ webconfig.json
 &lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">head</span>&gt;
         &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
-        &lt;<span class="pl-ent">title</span>&gt;&lt;%= specific.titlePage %&gt;&lt;/<span class="pl-ent">title</span>&gt;
+        &lt;<span class="pl-ent">title</span>&gt;&lt;%- specific.titlePage %&gt;&lt;/<span class="pl-ent">title</span>&gt;
 
         &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/&lt;%= common.classCssCommon %&gt;.css<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s"><span class="pl-pds">"</span>all<span class="pl-pds">"</span></span> /&gt;
         &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/&lt;%= specific.classPage %&gt;.css<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s"><span class="pl-pds">"</span>all<span class="pl-pds">"</span></span> /&gt;
@@ -658,10 +660,10 @@ webconfig.json
 
 <div class="highlight highlight-text-html-basic"><pre>    &lt;%- include('head.htm') %&gt;
 
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;%= common.titleWebsite %&gt;&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">div</span>&gt;
 
     &lt;<span class="pl-ent">div</span>&gt;
-        &lt;<span class="pl-ent">h1</span>&gt;&lt;%= specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+        &lt;<span class="pl-ent">h1</span>&gt;&lt;%- specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
         &lt;%- specific.content %&gt;
     &lt;/<span class="pl-ent">div</span>&gt;
 
@@ -779,7 +781,7 @@ webconfig.json
 <div class="highlight highlight-text-html-basic"><pre>    &lt;%- include('head.htm') %&gt;
 
     &lt;<span class="pl-ent">div</span>&gt;
-        &lt;<span class="pl-ent">h1</span>&gt;&lt;%= specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+        &lt;<span class="pl-ent">h1</span>&gt;&lt;%- specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
         &lt;%- specific.content %&gt;
     &lt;/<span class="pl-ent">div</span>&gt;
 
@@ -1086,32 +1088,572 @@ engine/
 <h3>
 <a id="use-nodeatlas-to-run-a-website-back-end-part" class="anchor" href="#use-nodeatlas-to-run-a-website-back-end-part" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use NodeAtlas to run a website (Back-end Part)</h3>
 
-<p>You can either use a single controller for the whole site and/or also by controllers template and variation.</p>
+<p>NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with :</p>
 
-<p>For the master controller, use this configuration example:</p>
+<ul>
+<li>parameters in query part of url (GET),</li>
+<li>parameters in request body (POST),</li>
+<li>connection with database or,</li>
+<li>management of sessions or,</li>
+<li>do AJAX or Websocket request/response and</li>
+<li>do more !</li>
+</ul>
+
+<p>For that, you could hook to some point of life cycle of the page generation with common controller (<code>commonController</code>) and with specific controller for each page (<code>routes[&lt;route&gt;].controller</code>).</p>
+
+<p>This is a <code>webconfig.json</code> allows you to manipulate each part of life cycle of a page.</p>
 
 <div class="highlight highlight-source-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>controllersRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>controllers<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>
-        },
-        <span class="pl-s"><span class="pl-pds">"</span>/categories/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.json<span class="pl-pds">"</span></span>
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>
         }
     }
 }</pre></div>
 
-<p>with this set of files</p>
+<p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in "webconfig.json", default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
+
+<p>and this is the detail of all hooks :</p>
+
+<p><strong>Start NodeAtlas</strong> </p>
+
+<blockquote>
+<p>Init of Internal Modules</p>
+
+<ul>
+<li>
+<em>loadModules</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
+</ul>
+
+<p>Init of External Modules</p>
+
+<ul>
+<li>
+<em>setConfigurations</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
+</ul>
+
+<p>Start Web Server</p>
+
+<ul>
+<li>
+<em>setSessions</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
+</ul>
+
+<p>Web Server stay Up</p>
+</blockquote>
+
+<p><strong>HTTP Request/Response of NodeAtlas</strong></p>
+
+<blockquote>
+<p>Client Request Processing</p>
+
+<ul>
+<li><p><em>changeVariation</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</p></li>
+<li><p><em>changeVariation</em> --&gt; into <code>routes[&lt;route&gt;].controller</code> file (<code>index.js</code> for example).</p></li>
+</ul>
+
+<p>Templates and Variations Compilation =&gt; Complete DOM.</p>
+
+<ul>
+<li><p><em>changeDom</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</p></li>
+<li><p><em>changeDom</em> --&gt; into <code>routes[&lt;route&gt;].controller</code> file (<code>index.js</code> for example).</p></li>
+</ul>
+
+<p>Sending of Response to Client</p>
+</blockquote>
+
+<h4>
+<a id="changevariation" class="anchor" href="#changevariation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>changeVariation</h4>
+
+<p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p>
+
+<p>This is an example using the two hooks, the common in first and after the specific:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>commonVariation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.json<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.js<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>with this files :</p>
+
+<pre><code>components/
+— head.htm
+— foot.htm
+variations/
+— common.json
+— index.json
+controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>Do a POST request on <code>http://localhost/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p>
+
+<p><em>variations/common.json</em></p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titleWebsite<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Site Title<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p><em>variations/index.json</em></p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titlePage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Welcome<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;p&gt;This is the Home Page.&lt;/p&gt;<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p><em>templates/index.htm</em></p>
+
+<div class="highlight highlight-text-html-basic"><pre>    &lt;%- include('head.htm') %&gt;
+
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">div</span>&gt;
+
+    &lt;<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">h1</span>&gt;&lt;%- specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+        &lt;%- specific.content %&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+
+    &lt;%- include('foot.htm') %&gt;</pre></div>
+
+<p><em>controllers/common.js</em></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before variation are injected into template engine.</span>
+<span class="pl-c">// This code is executed for all HTTP request, for all pages.</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+    <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
+        request <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">request</span>,
+        response <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">response</span>;
+
+    <span class="pl-c">// Here we update variations variable.</span>
+
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">titleWebsite</span>); <span class="pl-c">// "Site Title"</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-smi">titlePage</span>); <span class="pl-c">// "Welcome"</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">content</span>); <span class="pl-c">// "This is the Home Page."</span>
+
+    <span class="pl-k">if</span> (<span class="pl-smi">request</span>.<span class="pl-smi">query</span>[<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>]) {
+        <span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-smi">titlePage</span> <span class="pl-k">=</span> <span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-smi">titlePage</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">request</span>.<span class="pl-smi">query</span>.<span class="pl-c1">title</span>;
+    }
+    <span class="pl-k">if</span> (<span class="pl-smi">request</span>.<span class="pl-c1">body</span>[<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>]) {
+        <span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">content</span> <span class="pl-k">=</span> <span class="pl-smi">request</span>.<span class="pl-c1">body</span>.<span class="pl-smi">example</span>;
+    }
+
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">titleWebsite</span>); <span class="pl-c">// "Site Title"</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-smi">titlePage</span>); <span class="pl-c">// "Welcome Haeresis"</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">content</span>); <span class="pl-c">// "This is a test"</span>
+
+    <span class="pl-c">// We update modification here.</span>
+    <span class="pl-en">mainCallback</span>(variation);
+};</pre></div>
+
+<p><em>controllers/index.js</em></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before variation are injected into template engine.</span>
+<span class="pl-c">// This code is executed only for the « / » page .</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+    <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
+        request <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">request</span>,
+        response <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">response</span>;
+
+    <span class="pl-c">// Here we update variations variable.</span>
+
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">titleWebsite</span>); <span class="pl-c">// "Site Title"</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-smi">titlePage</span>); <span class="pl-c">// "Welcome Haeresis"</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">content</span>); <span class="pl-c">// "This is a test"</span>
+
+    <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">titleWebsite</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>It's Home, no way.<span class="pl-pds">"</span></span>;
+    <span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">content</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>It's Home, no way.<span class="pl-pds">"</span></span>;
+
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">titleWebsite</span>); <span class="pl-c">// "It's Home, no way."</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-smi">titlePage</span>); <span class="pl-c">// "Welcome Haeresis"</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">content</span>); <span class="pl-c">// "It's Home, no way."</span>
+
+    <span class="pl-c">// We update modification here.</span>
+    <span class="pl-en">mainCallback</span>(variation);
+};</pre></div>
+
+<p>en this produce the following output :</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;It's Home, no way.&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;It's Home, no way.&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;Welcome Haeresis&lt;/<span class="pl-ent">h1</span>&gt;
+            It's Home, no way.
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p>If you delete the variation entry of specific page from webconfig:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>commonVariation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.json<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>the output will be as following:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Site Title&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;Site Title&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;Welcome Haeresis&lt;/<span class="pl-ent">h1</span>&gt;
+            This is a test
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h4>
+<a id="changedom" class="anchor" href="#changedom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>changeDom</h4>
+
+<p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p>
+
+<p>This is an example using the two hooks, the common in first and after the specific:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>commonVariation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.json<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.js<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>with this files :</p>
+
+<pre><code>variations/
+— index.json
+controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
+
+<p><em>variations/common.json</em></p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titleWebsite<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Site Title<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p><em>variations/index.json</em></p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titlePage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Welcome<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;p&gt;This is Home Page.&lt;/p&gt;<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p><em>templates/index.htm</em></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;&lt;%- specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+            &lt;%- specific.content %&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><em>controllers/common.js</em></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before DOM was sent to Client.</span>
+<span class="pl-c">// This code is executed for all HTTP request, for all pages.</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>,
+        request <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">request</span>,
+        response <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">response</span>,
+        cheerio <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">cheerio</span>, <span class="pl-c">// jsdom for manipulate DOM with jQuery.</span>
+        $ <span class="pl-k">=</span> <span class="pl-smi">cheerio</span>.<span class="pl-c1">load</span>(dom, { decodeEntities<span class="pl-k">:</span> <span class="pl-c1">false</span> }); <span class="pl-c">// We load datas for manipulate it as a DOM.</span>
+
+    <span class="pl-c">// Just after eath h1 from HTML DOM...</span>
+    <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>h1<span class="pl-pds">"</span></span>).<span class="pl-en">each</span>(<span class="pl-k">function</span> () {
+        <span class="pl-k">var</span> $this <span class="pl-k">=</span> <span class="pl-en">$</span>(<span class="pl-v">this</span>);
+
+        <span class="pl-c">// ...we create a div,</span>
+        <span class="pl-smi">$this</span>.<span class="pl-c1">after</span>(
+            <span class="pl-c">// ...we inject the content of h1 into the div,</span>
+            <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>&lt;div&gt;<span class="pl-pds">"</span></span>).<span class="pl-en">html</span>(<span class="pl-smi">$this</span>.<span class="pl-en">html</span>())
+        );
+        <span class="pl-c">// ...and we delete the h1.</span>
+        <span class="pl-smi">$this</span>.<span class="pl-c1">remove</span>();
+    });
+
+    <span class="pl-c">// We create a new HTML output with updates.</span>
+    dom <span class="pl-k">=</span> <span class="pl-smi">$</span>.<span class="pl-en">html</span>();
+
+    <span class="pl-c">// We update modification here.</span>
+    <span class="pl-en">mainCallback</span>(dom);
+};</pre></div>
+
+<p><em>controllers/index.js</em></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before DOM was sent to Client.</span>
+<span class="pl-c">// This code is executed only for the « / » page .</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>,
+        request <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">request</span>,
+        response <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">response</span>,
+        cheerio <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">cheerio</span>, <span class="pl-c">// jsdom for manipulate DOM with jQuery.</span>
+        $ <span class="pl-k">=</span> <span class="pl-smi">cheerio</span>.<span class="pl-c1">load</span>(dom, { decodeEntities<span class="pl-k">:</span> <span class="pl-c1">false</span> }); <span class="pl-c">// We load datas for manipulate it as a DOM.</span>
+
+    <span class="pl-c">// We update nodes contents with `.title` class.</span>
+    <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>.title<span class="pl-pds">"</span></span>).<span class="pl-c1">text</span>(<span class="pl-s"><span class="pl-pds">"</span>Content Update<span class="pl-pds">"</span></span>);
+
+    <span class="pl-c">// We create a new HTML output with updates.</span>
+    dom <span class="pl-k">=</span> <span class="pl-smi">$</span>.<span class="pl-en">html</span>();
+
+    <span class="pl-c">// We update modification here.</span>
+    <span class="pl-en">mainCallback</span>(dom);
+};</pre></div>
+
+<p>the output will be as following:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Site Title&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;Content Update&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">div</span>&gt;Welcome&lt;/<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">p</span>&gt;This is Home Page.&lt;/<span class="pl-ent">p</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h4>
+<a id="loadmodules" class="anchor" href="#loadmodules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>loadModules</h4>
+
+<p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p>
+
+<p>This is an exemple using an external module of NodeAtlas:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.js<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>with this set of files:</p>
+
+<pre><code>controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
+
+<p><em>templates/index.htm</em></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Test Module&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;Test Module&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;Test Module&lt;/<span class="pl-ent">h1</span>&gt;
+            &lt;%- example %&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><em>controllers/common.js</em></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executing during the modules loading phase.</span>
+<span class="pl-c">// This code will be executed when NodeAtlas starting.</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">loadModules</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+    <span class="pl-c">// Use the « NodeAtlas » instance from engine.</span>
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
+
+    <span class="pl-c">// Associate each modules to allow us to use them anywhare.</span>
+    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">marked</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>marked<span class="pl-pds">'</span></span>);
+};</pre></div>
+
+<p><em>controllers/index.js</em></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before variation are injected into template engine.</span>
+<span class="pl-c">// This code is executed only for the « / » page .</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+    <span class="pl-c">// Use the « NodeAtlas » instance from engine.</span>
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
+        marked <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">marked</span>;
+
+    <span class="pl-smi">variation</span>.<span class="pl-smi">example</span> <span class="pl-k">=</span> <span class="pl-en">marked</span>(<span class="pl-s"><span class="pl-pds">"</span>I am using __markdown__.<span class="pl-pds">"</span></span>);
+
+    <span class="pl-c">// We update modification here.</span>
+    <span class="pl-en">mainCallback</span>(variation);
+};</pre></div>
+
+<p>this will produce the following output:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Test Module&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;Test Module&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;Test Module&lt;/<span class="pl-ent">h1</span>&gt;
+            &lt;<span class="pl-ent">p</span>&gt;I am using &lt;<span class="pl-ent">strong</span>&gt;markdown&lt;/<span class="pl-ent">strong</span>&gt;.&lt;/<span class="pl-ent">p</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h4>
+<a id="setconfigurations" class="anchor" href="#setconfigurations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setConfigurations</h4>
+
+<p>To configure NodeAtlas web server others (<a href="http://expressjs.com/">ExpressJs</a>), you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p>
+
+<p>This is an exemple using a middleware for <a href="http://expressjs.com/">ExpressJs</a>:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.js<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>with this set of files:</p>
+
+<pre><code>controllers/
+— common.js
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
+
+<p><em>templates/index.htm</em></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;%- content %&gt;</pre></div>
+
+<p><em>controllers/common.js</em></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executing before starting of the web server.</span>
+<span class="pl-c">// This code will be executed when NodeAtlas starting.</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">mainCallback</span>) {
+    <span class="pl-c">// Use the « NodeAtlas » instance from engine.</span>
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
+
+    <span class="pl-c">// Middleware utilisé lors de chaque requête.</span>
+    <span class="pl-c1">NA</span>.<span class="pl-smi">httpServer</span>.<span class="pl-en">use</span>(<span class="pl-k">function</span> (<span class="pl-smi">request</span>, <span class="pl-smi">response</span>, <span class="pl-smi">next</span>) {
+        <span class="pl-smi">response</span>.<span class="pl-en">setHeader</span>(<span class="pl-s"><span class="pl-pds">"</span>X-Frame-Options<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ALLOW-FROM http://www.lesieur.name/<span class="pl-pds">"</span></span>);
+        <span class="pl-en">next</span>();
+    });
+
+    <span class="pl-c">// We update modification here.</span>
+    <span class="pl-en">mainCallback</span>();
+};</pre></div>
+
+<p><em>controllers/index.js</em></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executing before starting of the web server.</span>
+<span class="pl-c">// This code is executed only for the « / » page .</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+    <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
+
+    <span class="pl-c">// We prepare file for JSON displaying.</span>
+    <span class="pl-smi">variation</span>.<span class="pl-smi">currentRouteParameters</span>.<span class="pl-c1">headers</span> <span class="pl-k">=</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>Content-Type<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>application/json; charset=utf-8<span class="pl-pds">"</span></span>
+    };
+    <span class="pl-smi">variation</span>.<span class="pl-c1">content</span> <span class="pl-k">=</span> <span class="pl-c1">JSON</span>.<span class="pl-en">stringify</span>(variation, <span class="pl-c1">null</span>, <span class="pl-s"><span class="pl-pds">"</span>    <span class="pl-pds">"</span></span>);
+
+    <span class="pl-c">// We update modification here.</span>
+    <span class="pl-en">mainCallback</span>(variation);
+};</pre></div>
+
+<p>this will produce the following output:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>{
+    "urlBasePathSlice": "http://localhost",
+    "urlBasePath": "http://localhost/",
+    "urlPath": "http://localhost/",
+    "pathname": /* ... */,
+    "filename": /* ... */,
+    "params": {},
+    "currentRouteParameters": { /* ... */ },
+    "currentRoute": "/",
+    "webconfig": { /* ... */ }
+}</pre></div>
+
+<h4>
+<a id="setsessions" class="anchor" href="#setsessions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setSessions</h4>
+
+<p>To talk about <code>setSessions</code> we will explain a complete example. We will see how to use <code>Socket.IO</code> for asynchronous Client-Server Request, how to connect to a database with <code>MongoDB</code> and how to use a database for sessions with <code>Redis</code>.</p>
+
+<p>This is all files for example:</p>
 
 <pre><code>variations/
 — index.json
 — categories.json
 controllers/
+— modules/
+—— list-of-article.js/
 — common.js
+- index.js
+- categories.js
 models/
 — Article.js
 — Category.js
@@ -1121,12 +1663,30 @@ templates/
 webconfig.json
 </code></pre>
 
+<p>With the <code>webconfig.json</code>:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>/categories/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.json<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
 <p>And "common.js" file containing e.g.:</p>
 
 <ul>
-<li>Things for load additional npm modules.</li>
-<li>Things for load <a href="http://expressjs.com/">Express</a> middlewares.</li>
-<li>Things for load additional NodeAtlas modules.</li>
+<li>things for load additional npm modules.</li>
+<li>things for load <a href="http://expressjs.com/">Express</a> middlewares.</li>
+<li>things for load additional NodeAtlas modules.</li>
 </ul>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">/***************************/</span>
@@ -1323,51 +1883,12 @@ webconfig.json
     <span class="pl-en">mainCallback</span>(dom);
 };</pre></div>
 
-<p>Instead of using <code>changeVariation</code> and <code>changeDom</code> in the file <code>common.js</code> effective for the whole website page, you can use specific controllers page. The previous configuration becomes:</p>
-
-<div class="highlight highlight-source-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>controllersRelativePath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>controllers/<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.js<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>
-        },
-        <span class="pl-s"><span class="pl-pds">"</span>/categories/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.js<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.json<span class="pl-pds">"</span></span>
-        }
-    }
-}</pre></div>
-
-<p>with this set of files:</p>
-
-<pre><code>variations/
-— index.json
-— categories.json
-controllers/
-— modules/
-—— list-of-article.js/
-— common.js
-- index.js
-- categories.js
-models/
-— Article.js
-— Category.js
-templates/
-— index.htm
-— categories.htm
-webconfig.json
-</code></pre>
-
 <p>with a "index.js" file containing, for example:</p>
 
 <ul>
-<li>Things for dynamically change the front display.</li>
-<li>Things for changes on the server side with jQuery.</li>
-<li>Things for asynchronous exchanges with Socket.IO.</li>
+<li>things for dynamically change the front display.</li>
+<li>things for changes on the server side with jQuery.</li>
+<li>things for asynchronous exchanges with Socket.IO.</li>
 </ul>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">/*******************************************/</span>
@@ -1391,7 +1912,7 @@ webconfig.json
 <span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
-        mongoose <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
+        mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
         Article <span class="pl-k">=</span> <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
 
 
@@ -1469,8 +1990,8 @@ webconfig.json
 <span class="pl-c1">exports</span>.<span class="pl-en">asynchrone</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         io <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">io</span>,
-        mongoose <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
-        marked <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">marked</span>,
+        mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
+        marked <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">marked</span>,
         Article <span class="pl-k">=</span> <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
 
     <span class="pl-c">// Once we have a valid connection between the client and our back-end...</span>
@@ -1506,8 +2027,6 @@ webconfig.json
     });
 };</pre></div>
 
-<p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in "webconfig.json", default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p>
-
 <h3>
 <a id="generate-partial-page-with-ajaxwebsocket" class="anchor" href="#generate-partial-page-with-ajaxwebsocket" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generate partial page with AJAX/Websocket</h3>
 
@@ -1518,7 +2037,7 @@ webconfig.json
 <div class="highlight highlight-text-html-basic"><pre>...
 &lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= languageCode %&gt;<span class="pl-pds">"</span></span>&gt;
 ...
-&lt;<span class="pl-ent">body</span> <span class="pl-e">data-variation</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= currentRouteParameters.variation %&gt;<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">body</span> <span class="pl-e">data-variation</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= currentRouteParameters.variation.replace(/\.json/,'') %&gt;<span class="pl-pds">"</span></span>&gt;
 ...</pre></div>
 
 <p>and the generate code will be :</p>
@@ -3391,7 +3910,7 @@ exports.setSessions = website.setSessions;
 &lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">head</span>&gt;
         &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
-        &lt;<span class="pl-ent">title</span>&gt;&lt;?= specific.titlePage ?&gt;&lt;/<span class="pl-ent">title</span>&gt;
+        &lt;<span class="pl-ent">title</span>&gt;&lt;?- specific.titlePage ?&gt;&lt;/<span class="pl-ent">title</span>&gt;
 
         &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/&lt;?= common.classCssCommon ?&gt;.css<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s"><span class="pl-pds">"</span>all<span class="pl-pds">"</span></span> /&gt;
         &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/&lt;?= specific.classPage ?&gt;.css<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s"><span class="pl-pds">"</span>all<span class="pl-pds">"</span></span> /&gt;
@@ -3406,16 +3925,16 @@ exports.setSessions = website.setSessions;
 
 <p><em>templates/template.htm</em></p>
 
-<div class="highlight highlight-text-html-basic"><pre>    &lt;? include('head.htm') ?&gt;
+<div class="highlight highlight-text-html-basic"><pre>    &lt;?- include('head.htm') ?&gt;
 
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;?= common.titleWebsite ?&gt;&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;?- common.titleWebsite ?&gt;&lt;/<span class="pl-ent">div</span>&gt;
 
     &lt;<span class="pl-ent">div</span>&gt;
-        &lt;<span class="pl-ent">h1</span>&gt;&lt;?= specific.titlePage ?&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+        &lt;<span class="pl-ent">h1</span>&gt;&lt;?- specific.titlePage ?&gt;&lt;/<span class="pl-ent">h1</span>&gt;
         &lt;?- specific.content ?&gt;
     &lt;/<span class="pl-ent">div</span>&gt;
 
-    &lt;? include('foot.htm') ?&gt;</pre></div>
+    &lt;?- include('foot.htm') ?&gt;</pre></div>
 
 <p>Learn all about the possibilities of the template engine consult the documentation <a href="https://github.com/mde/ejs">ejs</a></p>
 
@@ -3673,7 +4192,7 @@ exports.setSessions = website.setSessions;
 </code></pre>
 
 <h3>
-<a id="--directory-" class="anchor" href="#--directory-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>--directory </h3>
+<a id="--directory-path" class="anchor" href="#--directory-path" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>--directory &lt;path&gt;</h3>
 
 <p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--directory</code> command will be very useful.</p>
 
@@ -3681,7 +4200,7 @@ exports.setSessions = website.setSessions;
 </code></pre>
 
 <h3>
-<a id="--webconfig-" class="anchor" href="#--webconfig-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>--webconfig </h3>
+<a id="--webconfig-webconfigname" class="anchor" href="#--webconfig-webconfigname" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>--webconfig &lt;webconfigName&gt;</h3>
 
 <p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p>
 
@@ -3702,7 +4221,7 @@ exports.setSessions = website.setSessions;
 </code></pre>
 
 <h3>
-<a id="--httphostname-" class="anchor" href="#--httphostname-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>--httpHostname </h3>
+<a id="--httphostname-httphostname" class="anchor" href="#--httphostname-httphostname" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>--httpHostname &lt;httpHostname&gt;</h3>
 
 <p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p>
 
@@ -3710,7 +4229,7 @@ exports.setSessions = website.setSessions;
 </code></pre>
 
 <h3>
-<a id="--httpport-" class="anchor" href="#--httpport-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>--httpPort </h3>
+<a id="--httpport-httpport" class="anchor" href="#--httpport-httpport" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>--httpPort &lt;httpPort&gt;</h3>
 
 <p>You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p>
 
