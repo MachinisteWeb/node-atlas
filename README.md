@@ -111,7 +111,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [--httpHostname](#--httphostname-httphostname)
  - [--httpPort](#--httpport-httpport)
  - [--generate](#--generate)
-- [API / NodeAtlas comme module npm](#api-nodeatlas-comme-module-npm)
+- [API / NodeAtlas comme module npm](#api--nodeatlas-comme-module-npm)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
 - [Faire tourner NodeAtlas sur serveur](#faire-tourner-nodeatlas-sur-serveur)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
