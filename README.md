@@ -1143,7 +1143,6 @@ Voici un exemple utilisant les deux interceptions, d'abord la commune au deux pa
 
 ```js
 {
-    "controllersRelativePath": "controllers",
     "commonController": "common.js",
     "commonVariation": "common.json",
     "routes": {
@@ -1616,9 +1615,9 @@ Avec le `webconfig.json` :
 
 et avec le fichier « common.js » contenant par exemple :
 
-- d'utiliser les modules npm.
-- d'utiliser les middlewares d'[Express](http://expressjs.com/).
-- d'utiliser les modules supplémentaires à NodeAtlas.
+- de quoi utiliser les modules npm.
+- de quoi utiliser les middlewares d'[Express](http://expressjs.com/).
+- de quoi utiliser les modules supplémentaires à NodeAtlas.
 
 ```js
 /*****************************/
@@ -1816,11 +1815,11 @@ exports.changeDom = function (params, mainCallback) {
 };
 ```
 
-et le fichier « index.js » contenant par exemple :
+et avec le fichier « index.js » contenant par exemple :
 
-- De quoi modifier les variations dynamiquement avant affichage.
-- De quoi faire des modifications jQuery côté serveur.
-- De quoi faire des échanges asynchrones avec Socket.IO.
+- de quoi modifier les variations dynamiquement avant affichage.
+- de quoi faire des modifications jQuery côté serveur.
+- de quoi faire des échanges asynchrones avec Socket.IO.
 
 ```js
 /*******************************************************/
@@ -1964,7 +1963,7 @@ exports.asynchrone = function (params) {
 
 ### Générer des fragments de page par retour AJAX/Websocket ###
 
-Une fois qu'une page est générée et envoyée au client, le serveur ne sait pas, quand une requête AJAX lui parvient de qu'elle chemin il s'agit. Il est donc incapable de vous renvoyer un composant HTML avec les bonnes valeurs de variation dedans ou même la bonne langue.
+Une fois qu'une page est générée et envoyée au client le serveur ne sait pas, quand une requête AJAX lui parvient, de quel chemin il s'agit. Il est donc incapable de vous renvoyer un composant HTML avec les bonnes valeurs de variation dedans ou même la bonne langue.
 
 La première étape est de baliser votre code HTML. Par exemple, il pourrait contenir ceci :
 
@@ -1972,7 +1971,7 @@ La première étape est de baliser votre code HTML. Par exemple, il pourrait con
 ...
 <html lang="<%= languageCode %>">
 ...
-<body data-variation="<%= currentRouteParameters.variation %>">
+<body data-variation="<%= currentRouteParameters.variation.replace(/\.json/,'') %>">
 ...
 ```
 
@@ -4281,7 +4280,7 @@ Chacune des commandes qui vont suivre peut être couplée avec les autres de cet
 ```
 
 
-### --directory <path> ###
+### --directory &lt;path> ###
 
 Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous sera alors très utile.
 
@@ -4290,7 +4289,7 @@ Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où e
 ```
 
 
-### --webconfig <webconfigName> ###
+### --webconfig &lt;webconfigName> ###
 
 Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
@@ -4317,7 +4316,7 @@ Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 
 
 
-### --httpHostname <httpHostname> ###
+### --httpHostname &lt;httpHostname> ###
 
 Il est parfois utile de demander son adresse IP via un `ipconfig` pour le paramettrer dans l'url afin de rendre son site entièrement disponible sur un périphérique du réseau local (smartphone par exemple). Vous pourrez le faire avec cette commande.
 
@@ -4327,7 +4326,7 @@ Il est parfois utile de demander son adresse IP via un `ipconfig` pour le parame
 
 
 
-### --httpPort <httpPort> ###
+### --httpPort &lt;httpPort> ###
 
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
 
