@@ -75,3 +75,15 @@ exports.setConfigurations = function (callback) {
         callback();
     });
 };
+
+exports.changeVariation = function (params, callback) {
+	var NA = this,
+		variation = params.variation,
+		session = params.request.session;
+
+	session.name = "Bruno";
+	variation.session = session;
+	console.log(variation.session);
+
+	callback(variation);
+};

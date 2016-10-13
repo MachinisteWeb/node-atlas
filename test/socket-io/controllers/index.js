@@ -8,7 +8,12 @@ exports.asynchrone = function (params) {
     io.sockets.on("connection", function (socket) {
         // ...rester à l'écoute de la demande « create-article-button »...
         socket.on("server-render", function (data) {
-            var variation = {};
+            var sessionID = socket.request.sessionID,
+                session = socket.request.session,
+                variation = {};
+
+            console.log(sessionID);
+            console.log(session);
 
             // On récupère les variations spécifiques dans la bonne langue.
             variation = NA.addSpecificVariation(data.variation + ".json", data.lang, variation);

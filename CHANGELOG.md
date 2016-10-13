@@ -1,8 +1,16 @@
+## 1.4.2 ##
+
+Updates:
+
+-  async 2.1.x update.
+
+
+
 ## 1.4.1 ##
 
 Updates:
 
--  0.22.x update.
+- cheerio 0.22.x update.
 
 
 

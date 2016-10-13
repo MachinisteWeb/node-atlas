@@ -1665,7 +1665,7 @@ ce qui produit la sortie suivante :
 
 #### setSessions ####
 
-Pour parler de `setSessions` nous allons par l'exemple, voir comment utiliser `Socket.IO` pour les requêtes Client-Serveur asynchrone, comment se connecter à `MongoDB` pour la connexion aux bases de données et comment stocker les sessions des utilisateur dans une bases de donnée avec `Redis`.
+Pour parler de `setSessions` nous allons par l'exemple, voir comment se connecter à `MongoDB` pour la connexion aux bases de données et comment stocker les sessions des utilisateur dans une bases de donnée avec `Redis`.
 
 Voici l'ensemble de fichier suivant :
 
@@ -1764,56 +1764,6 @@ privates.mongooseSchemas = function (mongoose) {
     mongoose.model('category', website.schema.category, 'category');
 };
 
-// Exemple d'utilisation de Socket.IO.
-privates.socketIoInitialisation = function (socketio, NA, callback) {
-    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
-        io = socketio(NA.server, optionIo),
-        cookie = NA.modules.cookie,
-        cookieParser = NA.modules.cookieParser;
-
-    // Synchronisation des Sessions avec Socket.IO.
-    io.use(function(socket, next) {
-        var handshakeData = socket.request;
-
-        // Fallback si les cookies ne sont pas gérés.
-        if (!handshakeData.headers.cookie) {
-            return next(new Error('Cookie de session requis.'));
-        }
-
-        // Transformation de la String cookie en Objet JSON.
-        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
-
-        // Vérification de la signature du cookie.
-        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
-
-        // Garder à portée l'ID de Session.
-        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
-
-        // Accepter le cookie.
-        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
-            if (error || !session) {
-                return next(new Error('Aucune session récupérée.'));
-            } else {
-                handshakeData.session = session;
-                next();
-            }
-        });
-    });
-
-    // Suite.
-    callback(io);
-};
-
-// Ajout d'évènements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
-privates.socketIoEvents = function (io, NA) {
-    var params = {};
-
-    params.io = io;
-
-    // Evènements pour la page index (voir exemple dans le fichier d'après).
-    require('./index').asynchrone.call(NA, params);
-};
-
 
 
 
@@ -1832,7 +1782,6 @@ exports.loadModules = function () {
     // Associations de chaque module pour y avoir accès partout.
     NA.modules.cookie = require('cookie');
     NA.modules.mongoose = require('mongoose');
-    NA.modules.socketio = require('socket.io');
     NA.modules.RedisStore = require('connect-redis');
     NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
 };
@@ -1844,8 +1793,7 @@ exports.loadModules = function () {
 // Configuration de tous les modules.
 exports.setConfigurations = function (callback) {
     var NA = this,
-        mongoose = NA.modules.mongoose,
-        socketio = NA.modules.socketio;
+        mongoose = NA.modules.mongoose;
 
     // Initialisation de Mongoose.
     privates.mongooseInitialization(mongoose, function (mongoose) {
@@ -1853,15 +1801,8 @@ exports.setConfigurations = function (callback) {
         // Injection de Schémas dans Mongoose.
         privates.mongooseSchemas(mongoose);
 
-        // Initialisation de Socket IO.
-        privates.socketIoInitialisation(socketio, NA, function (io) {
-
-            // Écoute d'action Socket IO.
-            privates.socketIoEvents(io, NA);
-
-            // Étapes suivante du moteur.
-            callback();
-        });
+        // Étapes suivante du moteur.
+        callback();
     });
 };
 
@@ -1915,7 +1856,6 @@ et avec le fichier « index.js » contenant par exemple :
 
 - de quoi modifier les variations dynamiquement avant affichage.
 - de quoi faire des modifications jQuery côté serveur.
-- de quoi faire des échanges asynchrones avec Socket.IO.
 
 ```js
 /*******************************************************/
@@ -1941,7 +1881,6 @@ exports.changeVariation = function (params, mainCallback) {
         variation = params.variation,
         mongoose = NA.modules.mongoose,
         Article = mongoose.model('article');
-
 
     // Interception possible de toutes les variables de « variations/common.js ».
     console.log(variation.common.title); // Renvoi le titre stocké dans « variations/common.js ».
@@ -2006,52 +1945,6 @@ exports.changeDom = function (params, mainCallback) {
 
     // On réinjecte les modifications.
     mainCallback(dom);
-};
-
-
-
-/*** Gestion des évènements Socket.IO asynchrone ***/
-
-// Intégralité des actions Websocket possible pour ce template.
-// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
-exports.asynchrone = function (params) {
-    var NA = this,
-        io = params.io,
-        mongoose = NA.modules.mongoose,
-        marked = NA.modules.marked,
-        Article = mongoose.model('article');
-
-    // Dès qu'on a un lien valide entre le client et notre back...
-    io.sockets.on('connection', function (socket) {
-        var sessionID = socket.request.sessionID,
-            session = socket.request.session;
-
-        // ...rester à l'écoute de la demande « create-article-button »...
-        socket.on('create-article-button', function (data) {
-
-            // ...et répondre à cette demande en créant un nouvel article si elle vient
-            // avec les informations envoyées via « data ».
-            var article = new Article({
-                _id: mongoose.Types.ObjectId(),
-                title: data.title,
-                urn: data.urn,
-            });
-
-            // Si l'utilisateur est connecté.
-            if (session.account) {
-
-                // ...on sauve l'article en base.
-                article.save(function (error) {
-                    if (error) {
-                        throw error;
-                    }
-
-                    // Et on répond à tous les clients avec un jeu de donnée dans data.
-                    io.sockets.emit('create-article-button', data);
-                });
-            }
-        });
-    });
 };
 ```
 
@@ -2273,10 +2166,12 @@ exports.asynchrone = function (params) {
 
     // Dès qu'on a un lien valide entre le client et notre back...
     io.sockets.on("connection", function (socket) {
-        
+
         // ...rester à l'écoute de la demande « create-article-button »...
         socket.on("server-render", function (data) {
-            var variation = {};
+            var sessionID = socket.request.sessionID,
+                session = socket.request.session,
+                variation = {};
 
             // On récupère les variations spécifiques dans la bonne langue.
             variation = NA.addSpecificVariation("index.json", data.lang, variation);
@@ -2354,7 +2249,7 @@ window.website = window.website || {};
             // ...on met à jour le contenu...
             layout.innerHTML = data.render;
 
-            // ...et ré-affecton l'action au bouton du nouveau contenu.
+            // ...et ré-affectons l'action au bouton du nouveau contenu.
             setServerRender();
         });
     };
