@@ -1,0 +1,12 @@
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "controllersRelativePath": "controllers",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
