@@ -88,7 +88,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
  - [Utiliser NodeAtlas pour générer des assets HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html)
  - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
- - [Générer des fragments de page par retour AJAX/Websocket](#générer-des-fragments-de-page-par-retour-ajaxwebsocket)
+ - [Utiliser les Websocket à la place des échanges AJAX](#utiliser-les-websocket-à-la-place-des-échanges-ajax)
  - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
  - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
@@ -1832,6 +1832,7 @@ exports.loadModules = function () {
     // Associations de chaque module pour y avoir accès partout.
     NA.modules.cookie = require('cookie');
     NA.modules.mongoose = require('mongoose');
+    NA.modules.socketio = require('socket.io');
     NA.modules.RedisStore = require('connect-redis');
     NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
 };
@@ -2056,67 +2057,315 @@ exports.asynchrone = function (params) {
 
 
 
-### Générer des fragments de page par retour AJAX/Websocket ###
+### Utiliser les Websocket à la place des échanges AJAX ###
 
-Une fois qu'une page est générée et envoyée au client le serveur ne sait pas, quand une requête AJAX lui parvient, de quel chemin il s'agit. Il est donc incapable de vous renvoyer un composant HTML avec les bonnes valeurs de variation dedans ou même la bonne langue.
+Afin de conserver une liaison ouverte entre la partie Frontale et la partie Serveur de vos applications, NodeAtlas est à même d'utiliser [Socket.IO](http://socket.io/) dont vous trouverez plus de détail sur le site officiel.
 
-La première étape est de baliser votre code HTML. Par exemple, il pourrait contenir ceci :
+Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres page ouvertes à travers tous les autres navigateurs.
+
+Avec l'ensemble de fichier suivant :
+
+```
+assets/
+— javascript/
+—— common.js
+—— index.js
+components/
+— foot.htm
+— head.htm
+— index.htm
+controllers/
+— common.js
+- index.js
+variations/
+— common.json
+— index.json
+templates/
+— index.htm
+webconfig.json
+```
+
+Contenant le `webconfig.json` suivant :
+
+```json
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
+```
+
+et contenant les fichiers de template suivant :
+
+**components/head.htm**
 
 ```html
-...
+<!DOCTYPE html>
 <html lang="<%= languageCode %>">
-...
-<body data-variation="<%= currentRouteParameters.variation.replace(/\.json/,'') %>">
-...
+    <head>
+        <meta charset="utf-8" />
+        <title><%- common.titleWebsite %></title>
+    </head>
+    <body data-hostname="<%= webconfig.urlWithoutFileName %>" data-subpath="<%= webconfig.urlRelativeSubPath.slice(1) %>" data-variation="<%= currentRouteParameters.variation.replace(/\.json/,'') %>">
 ```
 
-ce qui génèrerait ceci :
+*Note : `data-hostname` et `data-subpath` va nous aider à paramètrer Socket.io côté Front.*
+
+**components/foot.htm**
 
 ```html
-...
-<html lang="fr-fr">
-...
-<body data-variation="index">
-...
+        <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="javascript/common.js"></script>
+    </body>
+</html>
 ```
 
-puis, quand votre JavaScript fera une requête AJAX via jQuery, ou comme ici, une requête socket.io, il utilisera ses paramètres :
+*Note : Le fichier frontal de Socket.IO s'injecte ici en global.*
+
+**components/index.htm**
+
+```html
+        <div class="title"><%- common.titleWebsite %></div>
+        <div>
+            <h1><%- specific.titlePage %></h1>
+            <%- specific.content %>
+            <div><%- new Date() %></div>
+        </div>
+        <button>Update</button>
+```
+
+*Note : Chaque clique sur `button` raffraichira le contenu de `components/index.htm`.*
+
+**templates/index.htm**
+
+```html
+    <%- include('head.htm') %>
+    <div class="layout">
+    <%- include('index.htm') %>
+    </div>
+    <script src="javascript/index.js"></script>
+    <%- include('foot.htm') %>
+```
+
+*Note : On construit ici la page d'accueil `/`.*
+
+ainsi que les fichiers de variations suivant :
+
+**variations/common.json**
+
+```json
+{
+    "titleWebsite": "Socket.IO Exemple"
+}
+```
+
+**variations/index.json**
+
+```json
+{
+    "titlePage": "Date",
+    "content": "<p>La date actuelle est :</p>"
+}
+```
+
+Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.
+
+Côté serveur, nous utiliserons les fichiers suivant :
+
+**controllers/common.js**
 
 ```js
-...
-publics.socket.emit("load-section-a", {
-    lang: $("html").attr('lang'),
-    variation: $("body").data('variation')
-});
-...
+var privates = {};
+
+// Chargement des modules pour ce site dans l'objet NodeAtlas.
+exports.loadModules = function () {
+    // Récupérer l'instance « NodeAtlas » du moteur.
+    var NA = this;
+
+    // Associations de chaque module pour y avoir accès partout.
+    NA.modules.socketio = require('socket.io');
+    NA.modules.cookie = require('cookie');
+};
+
+// Exemple d'utilisation de Socket.IO.
+privates.socketIoInitialisation = function (socketio, NA, callback) {
+    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
+        io = socketio(NA.server, optionIo),
+        cookie = NA.modules.cookie,
+        cookieParser = NA.modules.cookieParser;
+
+    // Synchronisation des Sessions avec Socket.IO.
+    io.use(function(socket, next) {
+        var handshakeData = socket.request;
+
+        // Fallback si les cookies ne sont pas gérés.
+        if (!handshakeData.headers.cookie) {
+            return next(new Error('Cookie de session requis.'));
+        }
+
+        // Transformation de la String cookie en Objet JSON.
+        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
+
+        // Vérification de la signature du cookie.
+        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
+
+        // Garder à portée l'ID de Session.
+        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
+
+        // Accepter le cookie.
+        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
+            if (error || !session) {
+                return next(new Error('Aucune session récupérée.'));
+            } else {
+                handshakeData.session = session;
+                next();
+            }
+        });
+    });
+
+    // Suite.
+    callback(io);
+};
+
+// Ajout d'évènements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
+privates.socketIoEvents = function (io, NA) {
+    var params = {};
+
+    params.io = io;
+
+    // Evènements pour la page index (voir exemple dans le fichier d'après).
+    require('./index').asynchrone.call(NA, params);
+};
+
+// Configuration de tous les modules.
+exports.setConfigurations = function (callback) {
+    var NA = this,
+        socketio = NA.modules.socketio;
+
+    // Initialisation de Socket IO.
+    privates.socketIoInitialisation(socketio, NA, function (io) {
+
+        // Écoute d'action Socket IO.
+        privates.socketIoEvents(io, NA);
+
+        // Étapes suivante du moteur.
+        callback();
+    });
+};
 ```
 
-pour que le serveur récupère les valeurs :
+*Note : Ceci est la configuration global de Socket.IO côté serveur.*
+
+**controllers/index.js**
 
 ```js
-...
-socket.on('load-section-a', function (data) {
-    var result = {},
-        currentVariation = {};
+// Intégralité des actions Websocket possible pour ce template.
+// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
+exports.asynchrone = function (params) {
+    var NA = this,
+        io = params.io;
 
-    // On récupère les variations spécifiques dans la bonne langue.
-    currentVariation = NA.addSpecificVariation(data.variation, data.lang, currentVariation);
+    // Dès qu'on a un lien valide entre le client et notre back...
+    io.sockets.on("connection", function (socket) {
+        
+        // ...rester à l'écoute de la demande « create-article-button »...
+        socket.on("server-render", function (data) {
+            var variation = {};
 
-    // On récupère les variations communes dans la bonne langue.
-    currentVariation = NA.addCommonVariation(data.lang, currentVariation);
+            // On récupère les variations spécifiques dans la bonne langue.
+            variation = NA.addSpecificVariation("index.json", data.lang, variation);
 
-    // On récupère le fragment HTML depuis le dossier `componentsRelativePath` et on applique les variations.
-    result = NA.newRender("section-a.htm", currentVariation);
+            // On récupère les variations communes dans la bonne langue.
+            variation = NA.addCommonVariation(data.lang, variation);
+            
+            // On récupère le fragment HTML depuis le dossier `componentsRelativePath` et on applique les variations.
+            data.render = NA.newRender("index.htm", variation);
 
-    // On renvoie le résultat pour injection dans le DOM.
-    socket.emit('load-sections', result);
-});
-...
+            // Et on répond à tous les clients avec un jeu de donnée dans data.
+            io.sockets.emit('server-render', data);
+        });
+    });
+};
 ```
 
-tout ceci grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`.
+Quand au côté client, nous utiliserons les fichiers suivant :
 
-Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `currentVariation` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
+**assets/javascript/common.js**
+
+```js
+window.website = window.website || {};
+
+(function (publics) {
+    "use strict";
+
+    var privates = {},
+        optionsSocket,
+        body = document.getElementsByTagName("body")[0];
+
+    // On configure Socket.IO côté Client.
+    optionsSocket = (body.getAttribute("data-subpath") !== "") ? { path: "/" + body.getAttribute("data-subpath") + ((body.getAttribute("data-subpath")) ? "/" : "") + "socket.io" } : undefined;
+    publics.socket = io.connect((body.getAttribute("data-subpath") !== "") ? body.getAttribute("data-hostname") : undefined, optionsSocket);
+}(website));
+
+// On exécute le JavaScript Spécifique à la page en cours, ici ["index"].
+website[document.getElementsByTagName("body")[0].getAttribute("data-variation")].init();
+```
+
+*Note : Ceci est la configuration global de Socket.IO côté client en ce basant sur `data-subpath` et `data-hostname`.*
+
+**assets/javascript/index.js**
+
+```js
+window.website = window.website || {};
+
+(function (publics) {
+    "use strict";
+
+    var html = document.getElementsByTagName("html")[0],
+        body = document.getElementsByTagName("body")[0],
+        layout = document.getElementsByClassName("layout")[0];
+
+    // On associe sur le bouton l'action de communiquer avec le serveur en cliquant dessus.
+    function setServerRender() {
+        var button = document.getElementsByTagName("button")[0];
+        button.addEventListener("click", function () {
+            website.socket.emit("server-render", {
+                lang: html.getAttribute("lang"),
+                variation: body.getAttribute("data-variation")
+            });
+        });
+    }
+
+    // On créer le code qui s'exécutera au lancement de la page.
+    publics.init = function () {
+
+        // On affecte l'action au bouton.
+        setServerRender();
+
+        // Quand le serveur répond après notre demande auprès de lui...
+        website.socket.on("server-render", function (data) {
+
+            // ...on met à jour le contenu...
+            layout.innerHTML = data.render;
+
+            // ...et ré-affecton l'action au bouton du nouveau contenu.
+            setServerRender();
+        });
+    };
+}(website.index = {}));
+```
+
+Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.
+
+Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, il est possible de générer une nouvelle compilation d'un template (composant) et d'une variation commune et spécifique.
+
+Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `variation` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 
 
 
