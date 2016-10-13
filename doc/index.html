@@ -109,7 +109,7 @@
 <li><a href="#manage-multilingual">Manage Multilingual</a></li>
 <li><a href="#nodeatlas-use-to-generate-html-assets">NodeAtlas use to generate HTML assets</a></li>
 <li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
-<li><a href="#generate-partial-page-with-ajaxwebsocket">Generate partial page with AJAX/Websocket</a></li>
+<li><a href="#use-websocket-instead-of-ajax">Use Websocket instead of AJAX</a></li>
 <li><a href="#change-the-url-parameters">Change the url parameters</a></li>
 <li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
@@ -1304,6 +1304,7 @@ exports.loadModules = function () {
     // Associations of each module to access it anywhere.
     NA.modules.cookie = require('cookie');
     NA.modules.mongoose = require('mongoose');
+    NA.modules.socketio = require('socket.io');
     NA.modules.RedisStore = require('connect-redis');
     NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
 };
@@ -1519,42 +1520,237 @@ exports.asynchrone = function (params) {
             }
         });
     });
-};</code></pre><h3>Generate partial page with AJAX/Websocket</h3><p>When a page is generate and send to client, the server doesn't know, if an AJAX request come, what is the route associated. And so it not capable to response with an HTML that used the correct variations or correct language.</p>
-<p>The first step is to set value into client code. For example :</p>
-<pre class="prettyprint source lang-html"><code>...
+};</code></pre><h3>Use Websocket instead of AJAX</h3><p>To keep a link between Front and Back part of website, NodeAtlas can use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p>
+<p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p>
+<p>With this following files:</p>
+<pre class="prettyprint source"><code>assets/
+— javascript/
+—— common.js
+—— index.js
+components/
+— foot.htm
+— head.htm
+— index.htm
+controllers/
+— common.js
+- index.js
+variations/
+— common.json
+— index.json
+templates/
+— index.htm
+webconfig.json</code></pre><p>With this <code>webconfig.json</code>:</p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    }
+}</code></pre><p>and with this templates files:</p>
+<p><strong>components/head.htm</strong></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;&lt;%= languageCode %>&quot;>
-...
-&lt;body data-variation=&quot;&lt;%= currentRouteParameters.variation.replace(/\.json/,'') %>&quot;>
-...</code></pre><p>and the generate code will be :</p>
-<pre class="prettyprint source lang-html"><code>...
-&lt;html lang=&quot;fr-fr&quot;>
-...
-&lt;body data-variation=&quot;index&quot;>
-...</code></pre><p>after, the JavaScript part send this value with an AJAX call with jQuery for example or, a socket.io request :</p>
-<pre class="prettyprint source lang-js"><code>...
-publics.socket.emit(&quot;load-section-a&quot;, {
-    lang: $(&quot;html&quot;).attr('lang'),
-    variation: $(&quot;body&quot;).data('variation')
-});
-...</code></pre><p>and so, the server know this parameters,</p>
-<pre class="prettyprint source lang-js"><code>...
-socket.on('load-section-a', function (data) {
-    var result = {},
-        currentVariation = {};
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>&lt;%- common.titleWebsite %>&lt;/title>
+    &lt;/head>
+    &lt;body data-hostname=&quot;&lt;%= webconfig.urlWithoutFileName %>&quot; data-subpath=&quot;&lt;%= webconfig.urlRelativeSubPath.slice(1) %>&quot; data-variation=&quot;&lt;%= currentRouteParameters.variation.replace(/\.json/,'') %>&quot;></code></pre><p><em>Note : <code>data-hostname</code> and <code>data-subpath</code> will help us to set Socket.IO front configuration.</em></p>
+<p><strong>components/foot.htm</strong></p>
+<pre class="prettyprint source lang-html"><code>        &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdn.socket.io/socket.io-1.2.0.js&quot;>&lt;/script>
+        &lt;script src=&quot;javascript/common.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p><em>Note : The Front file of Socket.IO is calling here.</em></p>
+<p><strong>components/index.htm</strong></p>
+<pre class="prettyprint source lang-html"><code>        &lt;div class=&quot;title&quot;>&lt;%- common.titleWebsite %>&lt;/div>
+        &lt;div>
+            &lt;h1>&lt;%- specific.titlePage %>&lt;/h1>
+            &lt;%- specific.content %>
+            &lt;div>&lt;%- new Date() %>&lt;/div>
+        &lt;/div>
+        &lt;button>Update&lt;/button></code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>components/index.htm</code>.</em></p>
+<p><strong>templates/index.htm</strong></p>
+<pre class="prettyprint source lang-html"><code>    &lt;%- include('head.htm') %>
+    &lt;div class=&quot;layout&quot;>
+    &lt;%- include('index.htm') %>
+    &lt;/div>
+    &lt;script src=&quot;javascript/index.js&quot;>&lt;/script>
+    &lt;%- include('foot.htm') %></code></pre><p><em>Note : We parse here the home page <code>/</code>.</em></p>
+<p>and the following variations files :</p>
+<p><strong>variations/common.json</strong></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;titleWebsite&quot;: &quot;Socket.IO Example&quot;
+}</code></pre><p><strong>variations/index.json</strong></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;titlePage&quot;: &quot;Date&quot;,
+    &quot;content&quot;: &quot;&lt;p>Current date is:&lt;/p>&quot;
+}</code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side. </p>
+<p>On server, we will use the following files:</p>
+<p><strong>controllers/common.js</strong></p>
+<pre class="prettyprint source lang-js"><code>var privates = {};
 
-    // Specific variations in the good language.
-    currentVariation = NA.addSpecificVariation(data.variation, data.lang, currentVariation);
+// Load modules for this site in the NodeAtlas object.
+exports.loadModules = function () {
+    // Find instance of « NodeAtlas » engine.
+    var NA = this;
 
-    // Common variations in the good language.
-    currentVariation = NA.addCommonVariation(data.lang, currentVariation);
+    // Associations of each module to access it anywhere.
+    NA.modules.socketio = require('socket.io');
+    NA.modules.cookie = require('cookie');
+};
 
-    // HTML part from `componentsRelativePath` directory and render with variations.
-    result = NA.newRender(&quot;section-a.htm&quot;, currentVariation);
+// Example using Socket.IO.
+privates.socketIoInitialisation = function (socketio, NA, callback) {
+    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
+        io = socketio(NA.server, optionIo),
+        cookie = NA.modules.cookie,
+        cookieParser = NA.modules.cookieParser;
 
-    // Send the result to client.
-    socket.emit('load-sections', result);
-});
-...</code></pre><p>and this thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>.</p>
+    // Synchronizing sessions with Socket.IO.
+    io.use(function(socket, next) {
+        var handshakeData = socket.request;
+
+        // Fallback if cookies are not supported.
+        if (!handshakeData.headers.cookie) {
+            return next(new Error('Session cookie required.'));
+        }
+
+        // Transformation of the cookie String to JSON object.
+        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
+
+        // Verification of the signature of the cookie.
+        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
+
+        // Keep worn the Session ID.
+        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
+
+        // Accept the cookie.
+        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
+            if (error || !session) {
+                return next(new Error('No recovered session.'));
+            } else {
+                handshakeData.session = session;
+                next();
+            }
+        });
+    });
+
+    // Next.
+    callback(io);
+};
+
+// Adding listener for a specific controller &quot;index.js&quot; (see example in the next file).
+privates.socketIoEvents = function (io, NA) {
+    var params = {};
+
+    params.io = io;
+
+    // Event for the index page (see example in the next file).
+    require('./index').asynchrone.call(NA, params);
+};
+
+// Configuration of all modules.
+exports.setConfigurations = function (callback) {
+    var NA = this,
+        socketio = NA.modules.socketio;
+
+    // Initialize Socket IO.
+    privates.socketIoInitialisation(socketio, NA, function (io) {
+
+        // Socket IO listening.
+        privates.socketIoEvents(io, NA);
+
+        // Next steps of engine.
+        callback();
+    });
+};</code></pre><p><em>Note : This is Socket.IO server global configuration.</em></p>
+<p><strong>controllers/index.js</strong></p>
+<pre class="prettyprint source lang-js"><code>// All Websocket action possible for this template.
+// Used not by &quot;NodeAtlas&quot; but with &quot;common.js&quot; (see previous file).
+exports.asynchrone = function (params) {
+    var NA = this,
+        io = params.io;
+
+    // Once we have a valid connection between the client and our back-end...
+    io.sockets.on('connection', function (socket) {
+
+        // ...stay tuned on the &quot;create-item-button&quot; demand...
+        socket.on(&quot;server-render&quot;, function (data) {
+            var variation = {};
+
+            // Specific variations in the good language.
+            variation = NA.addSpecificVariation(&quot;index.json&quot;, data.lang, variation);
+
+            // Common variations in the good language.
+            variation = NA.addCommonVariation(data.lang, variation);
+
+            // HTML part from `componentsRelativePath` directory and render with variations.
+            result = NA.newRender(&quot;index.htm&quot;, variation);
+
+            // And responds to all customers with a set of data in data.
+            io.sockets.emit('create-article-button', data);
+        });
+    });
+};</code></pre><p>And for client-side, we use the following files:</p>
+<p><strong>assets/javascript/common.js</strong></p>
+<pre class="prettyprint source lang-js"><code>window.website = window.website || {};
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    var privates = {},
+        optionsSocket,
+        body = document.getElementsByTagName(&quot;body&quot;)[0];
+
+    // We configure Socket.IO client-side.
+    optionsSocket = (body.getAttribute(&quot;data-subpath&quot;) !== &quot;&quot;) ? { path: &quot;/&quot; + body.getAttribute(&quot;data-subpath&quot;) + ((body.getAttribute(&quot;data-subpath&quot;)) ? &quot;/&quot; : &quot;&quot;) + &quot;socket.io&quot; } : undefined;
+    publics.socket = io.connect((body.getAttribute(&quot;data-subpath&quot;) !== &quot;&quot;) ? body.getAttribute(&quot;data-hostname&quot;) : undefined, optionsSocket);
+}(website));
+
+// We execute specific JavaScript, here it's [&quot;index&quot;].
+website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;data-variation&quot;)].init();</code></pre><p><em>Note : This is the global Socket.IO configuration client-side with <code>data-subpath</code> and <code>data-hostname</code>.</em></p>
+<p><strong>assets/javascript/index.js</strong></p>
+<pre class="prettyprint source lang-js"><code>window.website = window.website || {};
+
+(function (publics) {
+    &quot;use strict&quot;;
+
+    var html = document.getElementsByTagName(&quot;html&quot;)[0],
+        body = document.getElementsByTagName(&quot;body&quot;)[0],
+        layout = document.getElementsByClassName(&quot;layout&quot;)[0];
+
+    // We associate on the button the action to contact server.
+    function setServerRender() {
+        var button = document.getElementsByTagName(&quot;button&quot;)[0];
+        button.addEventListener(&quot;click&quot;, function () {
+            website.socket.emit(&quot;server-render&quot;, {
+                lang: html.getAttribute(&quot;lang&quot;),
+                variation: body.getAttribute(&quot;data-variation&quot;)
+            });
+        });
+    }
+
+    // We create the code will be executed when page run.
+    publics.init = function () {
+
+        // We set action on button.
+        setServerRender();
+
+        // When server response come back...
+        website.socket.on(&quot;server-render&quot;, function (data) {
+
+            // ...we update data content...
+            layout.innerHTML = data.render;
+
+            // ...and we set again button action.
+            setServerRender();
+        });
+    };
+}(website.index = {}));</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p>
+<p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it's possible to generate a new template and variation compilation.</p>
 <p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>currentVariation</code> is type of <code>undefined</code> an empty object will be created.</p>
 <h3>Change the url parameters</h3><p>By default, if you use the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
@@ -2498,6 +2694,7 @@ webconfig.json</code></pre><h4>Create Optimizations by group of file</h4><p>For 
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 webconfig.json
@@ -3065,13 +3262,9 @@ websiteEn.run({
 websiteFr.run({
     &quot;browse&quot;: true,
     &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
-});</code></pre><pre class="prettyprint source"><code>
-You could also execute other tasks after assets generation:
-
-*servers.js*
-
-```javascript
-require(&quot;node-atlas&quot;)().afterGeneration(function() {
+});</code></pre><p>You could also execute other tasks after assets generation:</p>
+<p><em>servers.js</em></p>
+<pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().afterGeneration(function() {
     require('child_process').exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
         console.log(&quot;Documentation generation...&quot;);
         console.log(stdout);
@@ -3273,7 +3466,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Tue Oct 11 2016 17:50:50 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Oct 13 2016 16:54:43 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>

@@ -88,7 +88,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Manage Multilingual](#manage-multilingual)
  - [NodeAtlas use to generate HTML assets](#nodeatlas-use-to-generate-html-assets)
  - [Use NodeAtlas to run a website (Back-end Part)](#use-nodeatlas-to-run-a-website-back-end-part)
- - [Generate partial page with AJAX/Websocket](#generate-partial-page-with-ajaxwebsocket)
+ - [Use Websocket instead of AJAX](#use-websocket-instead-of-ajax)
  - [Change the url parameters](#change-the-url-parameters)
  - [Create your own webconfig variables](#create-your-own-webconfig-variables)
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
@@ -1832,6 +1832,7 @@ exports.loadModules = function () {
     // Associations of each module to access it anywhere.
     NA.modules.cookie = require('cookie');
     NA.modules.mongoose = require('mongoose');
+    NA.modules.socketio = require('socket.io');
     NA.modules.RedisStore = require('connect-redis');
     NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
 };
@@ -2056,65 +2057,313 @@ exports.asynchrone = function (params) {
 
 
 
-### Generate partial page with AJAX/Websocket ###
+### Use Websocket instead of AJAX ###
 
-When a page is generate and send to client, the server doesn't know, if an AJAX request come, what is the route associated. And so it not capable to response with an HTML that used the correct variations or correct language.
+To keep a link between Front and Back part of website, NodeAtlas can use [Socket.IO](http://socket.io/) (more details on official website).
 
-The first step is to set value into client code. For example :
+Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.
+
+With this following files:
+
+```
+assets/
+— javascript/
+—— common.js
+—— index.js
+components/
+— foot.htm
+— head.htm
+— index.htm
+controllers/
+— common.js
+- index.js
+variations/
+— common.json
+— index.json
+templates/
+— index.htm
+webconfig.json
+```
+
+With this `webconfig.json`:
+
+```json
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
+```
+
+and with this templates files:
+
+**components/head.htm**
 
 ```html
-...
+<!DOCTYPE html>
 <html lang="<%= languageCode %>">
-...
-<body data-variation="<%= currentRouteParameters.variation.replace(/\.json/,'') %>">
-...
+    <head>
+        <meta charset="utf-8" />
+        <title><%- common.titleWebsite %></title>
+    </head>
+    <body data-hostname="<%= webconfig.urlWithoutFileName %>" data-subpath="<%= webconfig.urlRelativeSubPath.slice(1) %>" data-variation="<%= currentRouteParameters.variation.replace(/\.json/,'') %>">
 ```
 
-and the generate code will be :
+*Note : `data-hostname` and `data-subpath` will help us to set Socket.IO front configuration.*
+
+**components/foot.htm**
 
 ```html
-...
-<html lang="fr-fr">
-...
-<body data-variation="index">
-...
+        <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="javascript/common.js"></script>
+    </body>
+</html>
 ```
 
-after, the JavaScript part send this value with an AJAX call with jQuery for example or, a socket.io request :
+*Note : The Front file of Socket.IO is calling here.*
+
+**components/index.htm**
+
+```html
+        <div class="title"><%- common.titleWebsite %></div>
+        <div>
+            <h1><%- specific.titlePage %></h1>
+            <%- specific.content %>
+            <div><%- new Date() %></div>
+        </div>
+        <button>Update</button>
+```
+
+*Note : Each click on `button` will update content from `components/index.htm`.*
+
+**templates/index.htm**
+
+```html
+    <%- include('head.htm') %>
+    <div class="layout">
+    <%- include('index.htm') %>
+    </div>
+    <script src="javascript/index.js"></script>
+    <%- include('foot.htm') %>
+```
+
+*Note : We parse here the home page `/`.*
+
+and the following variations files :
+
+**variations/common.json**
+
+```json
+{
+    "titleWebsite": "Socket.IO Example"
+}
+```
+
+**variations/index.json**
+
+```json
+{
+    "titlePage": "Date",
+    "content": "<p>Current date is:</p>"
+}
+```
+
+All work fine here, but see what we will do with controller part on Server-side and on Client-side. 
+
+On server, we will use the following files:
+
+**controllers/common.js**
 
 ```js
-...
-publics.socket.emit("load-section-a", {
-    lang: $("html").attr('lang'),
-    variation: $("body").data('variation')
-});
-...
+var privates = {};
+
+// Load modules for this site in the NodeAtlas object.
+exports.loadModules = function () {
+    // Find instance of « NodeAtlas » engine.
+    var NA = this;
+
+    // Associations of each module to access it anywhere.
+    NA.modules.socketio = require('socket.io');
+    NA.modules.cookie = require('cookie');
+};
+
+// Example using Socket.IO.
+privates.socketIoInitialisation = function (socketio, NA, callback) {
+    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
+        io = socketio(NA.server, optionIo),
+        cookie = NA.modules.cookie,
+        cookieParser = NA.modules.cookieParser;
+
+    // Synchronizing sessions with Socket.IO.
+    io.use(function(socket, next) {
+        var handshakeData = socket.request;
+
+        // Fallback if cookies are not supported.
+        if (!handshakeData.headers.cookie) {
+            return next(new Error('Session cookie required.'));
+        }
+
+        // Transformation of the cookie String to JSON object.
+        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
+
+        // Verification of the signature of the cookie.
+        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
+
+        // Keep worn the Session ID.
+        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
+
+        // Accept the cookie.
+        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
+            if (error || !session) {
+                return next(new Error('No recovered session.'));
+            } else {
+                handshakeData.session = session;
+                next();
+            }
+        });
+    });
+
+    // Next.
+    callback(io);
+};
+
+// Adding listener for a specific controller "index.js" (see example in the next file).
+privates.socketIoEvents = function (io, NA) {
+    var params = {};
+
+    params.io = io;
+
+    // Event for the index page (see example in the next file).
+    require('./index').asynchrone.call(NA, params);
+};
+
+// Configuration of all modules.
+exports.setConfigurations = function (callback) {
+    var NA = this,
+        socketio = NA.modules.socketio;
+
+    // Initialize Socket IO.
+    privates.socketIoInitialisation(socketio, NA, function (io) {
+
+        // Socket IO listening.
+        privates.socketIoEvents(io, NA);
+
+        // Next steps of engine.
+        callback();
+    });
+};
 ```
 
-and so, the server know this parameters,
+*Note : This is Socket.IO server global configuration.*
+
+**controllers/index.js**
 
 ```js
-...
-socket.on('load-section-a', function (data) {
-    var result = {},
-        currentVariation = {};
+// All Websocket action possible for this template.
+// Used not by "NodeAtlas" but with "common.js" (see previous file).
+exports.asynchrone = function (params) {
+    var NA = this,
+        io = params.io;
 
-    // Specific variations in the good language.
-    currentVariation = NA.addSpecificVariation(data.variation, data.lang, currentVariation);
+    // Once we have a valid connection between the client and our back-end...
+    io.sockets.on('connection', function (socket) {
 
-    // Common variations in the good language.
-    currentVariation = NA.addCommonVariation(data.lang, currentVariation);
+        // ...stay tuned on the "create-item-button" demand...
+        socket.on("server-render", function (data) {
+            var variation = {};
 
-    // HTML part from `componentsRelativePath` directory and render with variations.
-    result = NA.newRender("section-a.htm", currentVariation);
+            // Specific variations in the good language.
+            variation = NA.addSpecificVariation("index.json", data.lang, variation);
 
-    // Send the result to client.
-    socket.emit('load-sections', result);
-});
-...
+            // Common variations in the good language.
+            variation = NA.addCommonVariation(data.lang, variation);
+
+            // HTML part from `componentsRelativePath` directory and render with variations.
+            result = NA.newRender("index.htm", variation);
+
+            // And responds to all customers with a set of data in data.
+            io.sockets.emit('create-article-button', data);
+        });
+    });
+};
 ```
 
-and this thanks to `NA.addSpecificVariation`, `NA.addCommonVariation` and `NA.newRender`.
+And for client-side, we use the following files:
+
+**assets/javascript/common.js**
+
+```js
+window.website = window.website || {};
+
+(function (publics) {
+    "use strict";
+
+    var privates = {},
+        optionsSocket,
+        body = document.getElementsByTagName("body")[0];
+
+    // We configure Socket.IO client-side.
+    optionsSocket = (body.getAttribute("data-subpath") !== "") ? { path: "/" + body.getAttribute("data-subpath") + ((body.getAttribute("data-subpath")) ? "/" : "") + "socket.io" } : undefined;
+    publics.socket = io.connect((body.getAttribute("data-subpath") !== "") ? body.getAttribute("data-hostname") : undefined, optionsSocket);
+}(website));
+
+// We execute specific JavaScript, here it's ["index"].
+website[document.getElementsByTagName("body")[0].getAttribute("data-variation")].init();
+```
+
+*Note : This is the global Socket.IO configuration client-side with `data-subpath` and `data-hostname`.*
+
+**assets/javascript/index.js**
+
+```js
+window.website = window.website || {};
+
+(function (publics) {
+    "use strict";
+
+    var html = document.getElementsByTagName("html")[0],
+        body = document.getElementsByTagName("body")[0],
+        layout = document.getElementsByClassName("layout")[0];
+
+    // We associate on the button the action to contact server.
+    function setServerRender() {
+        var button = document.getElementsByTagName("button")[0];
+        button.addEventListener("click", function () {
+            website.socket.emit("server-render", {
+                lang: html.getAttribute("lang"),
+                variation: body.getAttribute("data-variation")
+            });
+        });
+    }
+
+    // We create the code will be executed when page run.
+    publics.init = function () {
+
+        // We set action on button.
+        setServerRender();
+
+        // When server response come back...
+        website.socket.on("server-render", function (data) {
+
+            // ...we update data content...
+            layout.innerHTML = data.render;
+
+            // ...and we set again button action.
+            setServerRender();
+        });
+    };
+}(website.index = {}));
+```
+
+Run your project and go on `http://localhost/` across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.
+
+Thanks to `NA.addSpecificVariation`, `NA.addCommonVariation` and `NA.newRender`, it's possible to generate a new template and variation compilation.
 
 If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `currentVariation` is type of `undefined` an empty object will be created.
 
@@ -3525,6 +3774,7 @@ assets/
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 webconfig.json
@@ -4480,7 +4730,6 @@ websiteFr.run({
     "browse": true,
     "webconfig": "webconfig.french.json"
 });
-```
 ```
 
 You could also execute other tasks after assets generation:
