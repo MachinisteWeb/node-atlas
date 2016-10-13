@@ -142,7 +142,7 @@
 <li><a href="#manage-multilingual">Manage Multilingual</a></li>
 <li><a href="#nodeatlas-use-to-generate-html-assets">NodeAtlas use to generate HTML assets</a></li>
 <li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
-<li><a href="#generate-partial-page-with-ajaxwebsocket">Generate partial page with AJAX/Websocket</a></li>
+<li><a href="#use-websocket-instead-of-ajax">Use Websocket instead of AJAX</a></li>
 <li><a href="#change-the-url-parameters">Change the url parameters</a></li>
 <li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
@@ -1806,6 +1806,7 @@ webconfig.json
     <span class="pl-c">// Associations of each module to access it anywhere.</span>
     <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cookie<span class="pl-pds">'</span></span>);
     <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
+    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">socketio</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>socket.io<span class="pl-pds">'</span></span>);
     <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">RedisStore</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>connect-redis<span class="pl-pds">'</span></span>);
     <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">commonVar</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-smi">path</span>.<span class="pl-c1">join</span>(<span class="pl-c1">NA</span>.<span class="pl-smi">websitePhysicalPath</span>, <span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">variationsRelativePath</span>, <span class="pl-s"><span class="pl-pds">'</span>common.json<span class="pl-pds">'</span></span>));
 };
@@ -2028,57 +2029,290 @@ webconfig.json
 };</pre></div>
 
 <h3>
-<a id="generate-partial-page-with-ajaxwebsocket" class="anchor" href="#generate-partial-page-with-ajaxwebsocket" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generate partial page with AJAX/Websocket</h3>
+<a id="use-websocket-instead-of-ajax" class="anchor" href="#use-websocket-instead-of-ajax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use Websocket instead of AJAX</h3>
 
-<p>When a page is generate and send to client, the server doesn't know, if an AJAX request come, what is the route associated. And so it not capable to response with an HTML that used the correct variations or correct language.</p>
+<p>To keep a link between Front and Back part of website, NodeAtlas can use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p>
 
-<p>The first step is to set value into client code. For example :</p>
+<p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p>
 
-<div class="highlight highlight-text-html-basic"><pre>...
+<p>With this following files:</p>
+
+<pre><code>assets/
+— javascript/
+—— common.js
+—— index.js
+components/
+— foot.htm
+— head.htm
+— index.htm
+controllers/
+— common.js
+- index.js
+variations/
+— common.json
+— index.json
+templates/
+— index.htm
+webconfig.json
+</code></pre>
+
+<p>With this <code>webconfig.json</code>:</p>
+
+<div class="highlight highlight-source-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>commonVariation<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>common.json<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>index.js<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>and with this templates files:</p>
+
+<p><strong>components/head.htm</strong></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
 &lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= languageCode %&gt;<span class="pl-pds">"</span></span>&gt;
-...
-&lt;<span class="pl-ent">body</span> <span class="pl-e">data-variation</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= currentRouteParameters.variation.replace(/\.json/,'') %&gt;<span class="pl-pds">"</span></span>&gt;
-...</pre></div>
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span> <span class="pl-e">data-hostname</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= webconfig.urlWithoutFileName %&gt;<span class="pl-pds">"</span></span> <span class="pl-e">data-subpath</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= webconfig.urlRelativeSubPath.slice(1) %&gt;<span class="pl-pds">"</span></span> <span class="pl-e">data-variation</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%= currentRouteParameters.variation.replace(/\.json/,'') %&gt;<span class="pl-pds">"</span></span>&gt;</pre></div>
 
-<p>and the generate code will be :</p>
+<p><em>Note : <code>data-hostname</code> and <code>data-subpath</code> will help us to set Socket.IO front configuration.</em></p>
 
-<div class="highlight highlight-text-html-basic"><pre>...
-&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
-...
-&lt;<span class="pl-ent">body</span> <span class="pl-e">data-variation</span>=<span class="pl-s"><span class="pl-pds">"</span>index<span class="pl-pds">"</span></span>&gt;
-...</pre></div>
+<p><strong>components/foot.htm</strong></p>
 
-<p>after, the JavaScript part send this value with an AJAX call with jQuery for example or, a socket.io request :</p>
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdn.socket.io/socket.io-1.2.0.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">...</span>
-<span class="pl-smi">publics</span>.<span class="pl-smi">socket</span>.<span class="pl-en">emit</span>(<span class="pl-s"><span class="pl-pds">"</span>load-section-a<span class="pl-pds">"</span></span>, {
-    lang<span class="pl-k">:</span> <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>html<span class="pl-pds">"</span></span>).<span class="pl-en">attr</span>(<span class="pl-s"><span class="pl-pds">'</span>lang<span class="pl-pds">'</span></span>),
-    variation<span class="pl-k">:</span> <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>).<span class="pl-c1">data</span>(<span class="pl-s"><span class="pl-pds">'</span>variation<span class="pl-pds">'</span></span>)
-});
-<span class="pl-k">...</span></pre></div>
+<p><em>Note : The Front file of Socket.IO is calling here.</em></p>
 
-<p>and so, the server know this parameters,</p>
+<p><strong>components/index.htm</strong></p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">...</span>
-<span class="pl-smi">socket</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>load-section-a<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
-    <span class="pl-k">var</span> result <span class="pl-k">=</span> {},
-        currentVariation <span class="pl-k">=</span> {};
+<div class="highlight highlight-text-html-basic"><pre>        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;&lt;%- specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+            &lt;%- specific.content %&gt;
+            &lt;<span class="pl-ent">div</span>&gt;&lt;%- new Date() %&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">button</span>&gt;Update&lt;/<span class="pl-ent">button</span>&gt;</pre></div>
 
-    <span class="pl-c">// Specific variations in the good language.</span>
-    currentVariation <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-en">addSpecificVariation</span>(<span class="pl-smi">data</span>.<span class="pl-smi">variation</span>, <span class="pl-smi">data</span>.<span class="pl-c1">lang</span>, currentVariation);
+<p><em>Note : Each click on <code>button</code> will update content from <code>components/index.htm</code>.</em></p>
 
-    <span class="pl-c">// Common variations in the good language.</span>
-    currentVariation <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-en">addCommonVariation</span>(<span class="pl-smi">data</span>.<span class="pl-c1">lang</span>, currentVariation);
+<p><strong>templates/index.htm</strong></p>
 
-    <span class="pl-c">// HTML part from `componentsRelativePath` directory and render with variations.</span>
-    result <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-en">newRender</span>(<span class="pl-s"><span class="pl-pds">"</span>section-a.htm<span class="pl-pds">"</span></span>, currentVariation);
+<div class="highlight highlight-text-html-basic"><pre>    &lt;%- include('head.htm') %&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>layout<span class="pl-pds">"</span></span>&gt;
+    &lt;%- include('index.htm') %&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript/index.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;%- include('foot.htm') %&gt;</pre></div>
 
-    <span class="pl-c">// Send the result to client.</span>
-    <span class="pl-smi">socket</span>.<span class="pl-en">emit</span>(<span class="pl-s"><span class="pl-pds">'</span>load-sections<span class="pl-pds">'</span></span>, result);
-});
-<span class="pl-k">...</span></pre></div>
+<p><em>Note : We parse here the home page <code>/</code>.</em></p>
 
-<p>and this thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>.</p>
+<p>and the following variations files :</p>
+
+<p><strong>variations/common.json</strong></p>
+
+<div class="highlight highlight-source-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titleWebsite<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Socket.IO Example<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p><strong>variations/index.json</strong></p>
+
+<div class="highlight highlight-source-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titlePage<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Date<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>&lt;p&gt;Current date is:&lt;/p&gt;<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p>All work fine here, but see what we will do with controller part on Server-side and on Client-side. </p>
+
+<p>On server, we will use the following files:</p>
+
+<p><strong>controllers/common.js</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> privates <span class="pl-k">=</span> {};
+
+<span class="pl-c">// Load modules for this site in the NodeAtlas object.</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">loadModules</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+    <span class="pl-c">// Find instance of « NodeAtlas » engine.</span>
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
+
+    <span class="pl-c">// Associations of each module to access it anywhere.</span>
+    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">socketio</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>socket.io<span class="pl-pds">'</span></span>);
+    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cookie<span class="pl-pds">'</span></span>);
+};
+
+<span class="pl-c">// Example using Socket.IO.</span>
+<span class="pl-smi">privates</span>.<span class="pl-en">socketIoInitialisation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">socketio</span>, <span class="pl-c1">NA</span>, <span class="pl-smi">callback</span>) {
+    <span class="pl-k">var</span> optionIo <span class="pl-k">=</span> (<span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">urlRelativeSubPath</span>) <span class="pl-k">?</span> { path<span class="pl-k">:</span> <span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">urlRelativeSubPath</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/socket.io<span class="pl-pds">'</span></span>, secure<span class="pl-k">:</span> ((<span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">httpSecure</span>) <span class="pl-k">?</span> <span class="pl-c1">true</span> <span class="pl-k">:</span> <span class="pl-c1">false</span>) } <span class="pl-k">:</span> <span class="pl-c1">undefined</span>,
+        io <span class="pl-k">=</span> <span class="pl-en">socketio</span>(<span class="pl-c1">NA</span>.<span class="pl-smi">server</span>, optionIo),
+        cookie <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-c1">cookie</span>,
+        cookieParser <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">cookieParser</span>;
+
+    <span class="pl-c">// Synchronizing sessions with Socket.IO.</span>
+    <span class="pl-smi">io</span>.<span class="pl-en">use</span>(<span class="pl-k">function</span>(<span class="pl-smi">socket</span>, <span class="pl-smi">next</span>) {
+        <span class="pl-k">var</span> handshakeData <span class="pl-k">=</span> <span class="pl-smi">socket</span>.<span class="pl-smi">request</span>;
+
+        <span class="pl-c">// Fallback if cookies are not supported.</span>
+        <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-smi">handshakeData</span>.<span class="pl-c1">headers</span>.<span class="pl-c1">cookie</span>) {
+            <span class="pl-k">return</span> <span class="pl-en">next</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>Session cookie required.<span class="pl-pds">'</span></span>));
+        }
+
+        <span class="pl-c">// Transformation of the cookie String to JSON object.</span>
+        <span class="pl-smi">handshakeData</span>.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-smi">cookie</span>.<span class="pl-c1">parse</span>(<span class="pl-smi">handshakeData</span>.<span class="pl-c1">headers</span>.<span class="pl-c1">cookie</span>);
+
+        <span class="pl-c">// Verification of the signature of the cookie.</span>
+        <span class="pl-smi">handshakeData</span>.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-smi">cookieParser</span>.<span class="pl-en">signedCookies</span>(<span class="pl-smi">handshakeData</span>.<span class="pl-c1">cookie</span>, <span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">session</span>.<span class="pl-smi">secret</span>);
+
+        <span class="pl-c">// Keep worn the Session ID.</span>
+        <span class="pl-smi">handshakeData</span>.<span class="pl-smi">sessionID</span> <span class="pl-k">=</span> <span class="pl-smi">handshakeData</span>.<span class="pl-c1">cookie</span>[<span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">session</span>.<span class="pl-smi">key</span>];
+
+        <span class="pl-c">// Accept the cookie.</span>
+        <span class="pl-c1">NA</span>.<span class="pl-smi">sessionStore</span>.<span class="pl-c1">load</span>(<span class="pl-smi">handshakeData</span>.<span class="pl-smi">sessionID</span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>, <span class="pl-smi">session</span>) {
+            <span class="pl-k">if</span> (error <span class="pl-k">||</span> <span class="pl-k">!</span>session) {
+                <span class="pl-k">return</span> <span class="pl-en">next</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>No recovered session.<span class="pl-pds">'</span></span>));
+            } <span class="pl-k">else</span> {
+                <span class="pl-smi">handshakeData</span>.<span class="pl-smi">session</span> <span class="pl-k">=</span> session;
+                <span class="pl-en">next</span>();
+            }
+        });
+    });
+
+    <span class="pl-c">// Next.</span>
+    <span class="pl-en">callback</span>(io);
+};
+
+<span class="pl-c">// Adding listener for a specific controller "index.js" (see example in the next file).</span>
+<span class="pl-smi">privates</span>.<span class="pl-en">socketIoEvents</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">io</span>, <span class="pl-c1">NA</span>) {
+    <span class="pl-k">var</span> params <span class="pl-k">=</span> {};
+
+    <span class="pl-smi">params</span>.<span class="pl-smi">io</span> <span class="pl-k">=</span> io;
+
+    <span class="pl-c">// Event for the index page (see example in the next file).</span>
+    <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./index<span class="pl-pds">'</span></span>).<span class="pl-smi">asynchrone</span>.<span class="pl-c1">call</span>(<span class="pl-c1">NA</span>, params);
+};
+
+<span class="pl-c">// Configuration of all modules.</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">callback</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        socketio <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">socketio</span>;
+
+    <span class="pl-c">// Initialize Socket IO.</span>
+    <span class="pl-smi">privates</span>.<span class="pl-en">socketIoInitialisation</span>(socketio, <span class="pl-c1">NA</span>, <span class="pl-k">function</span> (<span class="pl-smi">io</span>) {
+
+        <span class="pl-c">// Socket IO listening.</span>
+        <span class="pl-smi">privates</span>.<span class="pl-en">socketIoEvents</span>(io, <span class="pl-c1">NA</span>);
+
+        <span class="pl-c">// Next steps of engine.</span>
+        <span class="pl-en">callback</span>();
+    });
+};</pre></div>
+
+<p><em>Note : This is Socket.IO server global configuration.</em></p>
+
+<p><strong>controllers/index.js</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// All Websocket action possible for this template.</span>
+<span class="pl-c">// Used not by "NodeAtlas" but with "common.js" (see previous file).</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">asynchrone</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        io <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">io</span>;
+
+    <span class="pl-c">// Once we have a valid connection between the client and our back-end...</span>
+    <span class="pl-smi">io</span>.<span class="pl-smi">sockets</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>connection<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">socket</span>) {
+
+        <span class="pl-c">// ...stay tuned on the "create-item-button" demand...</span>
+        <span class="pl-smi">socket</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">"</span>server-render<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
+            <span class="pl-k">var</span> variation <span class="pl-k">=</span> {};
+
+            <span class="pl-c">// Specific variations in the good language.</span>
+            variation <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-en">addSpecificVariation</span>(<span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>, <span class="pl-smi">data</span>.<span class="pl-c1">lang</span>, variation);
+
+            <span class="pl-c">// Common variations in the good language.</span>
+            variation <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-en">addCommonVariation</span>(<span class="pl-smi">data</span>.<span class="pl-c1">lang</span>, variation);
+
+            <span class="pl-c">// HTML part from `componentsRelativePath` directory and render with variations.</span>
+            result <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-en">newRender</span>(<span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>, variation);
+
+            <span class="pl-c">// And responds to all customers with a set of data in data.</span>
+            <span class="pl-smi">io</span>.<span class="pl-smi">sockets</span>.<span class="pl-en">emit</span>(<span class="pl-s"><span class="pl-pds">'</span>create-article-button<span class="pl-pds">'</span></span>, data);
+        });
+    });
+};</pre></div>
+
+<p>And for client-side, we use the following files:</p>
+
+<p><strong>assets/javascript/common.js</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">window</span>.<span class="pl-smi">website</span> <span class="pl-k">=</span> <span class="pl-c1">window</span>.<span class="pl-smi">website</span> <span class="pl-k">||</span> {};
+
+(<span class="pl-k">function</span> (<span class="pl-smi">publics</span>) {
+    <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+    <span class="pl-k">var</span> privates <span class="pl-k">=</span> {},
+        optionsSocket,
+        body <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTagName</span>(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>)[<span class="pl-c1">0</span>];
+
+    <span class="pl-c">// We configure Socket.IO client-side.</span>
+    optionsSocket <span class="pl-k">=</span> (<span class="pl-smi">body</span>.<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>data-subpath<span class="pl-pds">"</span></span>) <span class="pl-k">!==</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>) <span class="pl-k">?</span> { path<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">body</span>.<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>data-subpath<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> ((<span class="pl-smi">body</span>.<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>data-subpath<span class="pl-pds">"</span></span>)) <span class="pl-k">?</span> <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>socket.io<span class="pl-pds">"</span></span> } <span class="pl-k">:</span> <span class="pl-c1">undefined</span>;
+    <span class="pl-smi">publics</span>.<span class="pl-smi">socket</span> <span class="pl-k">=</span> <span class="pl-smi">io</span>.<span class="pl-en">connect</span>((<span class="pl-smi">body</span>.<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>data-subpath<span class="pl-pds">"</span></span>) <span class="pl-k">!==</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>) <span class="pl-k">?</span> <span class="pl-smi">body</span>.<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>data-hostname<span class="pl-pds">"</span></span>) <span class="pl-k">:</span> <span class="pl-c1">undefined</span>, optionsSocket);
+}(website));
+
+<span class="pl-c">// We execute specific JavaScript, here it's ["index"].</span>
+website[<span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTagName</span>(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>)[<span class="pl-c1">0</span>].<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>data-variation<span class="pl-pds">"</span></span>)].<span class="pl-en">init</span>();</pre></div>
+
+<p><em>Note : This is the global Socket.IO configuration client-side with <code>data-subpath</code> and <code>data-hostname</code>.</em></p>
+
+<p><strong>assets/javascript/index.js</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">window</span>.<span class="pl-smi">website</span> <span class="pl-k">=</span> <span class="pl-c1">window</span>.<span class="pl-smi">website</span> <span class="pl-k">||</span> {};
+
+(<span class="pl-k">function</span> (<span class="pl-smi">publics</span>) {
+    <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+    <span class="pl-k">var</span> html <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTagName</span>(<span class="pl-s"><span class="pl-pds">"</span>html<span class="pl-pds">"</span></span>)[<span class="pl-c1">0</span>],
+        body <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTagName</span>(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>)[<span class="pl-c1">0</span>],
+        layout <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementsByClassName</span>(<span class="pl-s"><span class="pl-pds">"</span>layout<span class="pl-pds">"</span></span>)[<span class="pl-c1">0</span>];
+
+    <span class="pl-c">// We associate on the button the action to contact server.</span>
+    <span class="pl-k">function</span> <span class="pl-en">setServerRender</span>() {
+        <span class="pl-k">var</span> button <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTagName</span>(<span class="pl-s"><span class="pl-pds">"</span>button<span class="pl-pds">"</span></span>)[<span class="pl-c1">0</span>];
+        <span class="pl-smi">button</span>.<span class="pl-c1">addEventListener</span>(<span class="pl-s"><span class="pl-pds">"</span>click<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> () {
+            <span class="pl-smi">website</span>.<span class="pl-smi">socket</span>.<span class="pl-en">emit</span>(<span class="pl-s"><span class="pl-pds">"</span>server-render<span class="pl-pds">"</span></span>, {
+                lang<span class="pl-k">:</span> <span class="pl-smi">html</span>.<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span>),
+                variation<span class="pl-k">:</span> <span class="pl-smi">body</span>.<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>data-variation<span class="pl-pds">"</span></span>)
+            });
+        });
+    }
+
+    <span class="pl-c">// We create the code will be executed when page run.</span>
+    <span class="pl-smi">publics</span>.<span class="pl-en">init</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+
+        <span class="pl-c">// We set action on button.</span>
+        <span class="pl-en">setServerRender</span>();
+
+        <span class="pl-c">// When server response come back...</span>
+        <span class="pl-smi">website</span>.<span class="pl-smi">socket</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">"</span>server-render<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
+
+            <span class="pl-c">// ...we update data content...</span>
+            <span class="pl-smi">layout</span>.<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> <span class="pl-smi">data</span>.<span class="pl-smi">render</span>;
+
+            <span class="pl-c">// ...and we set again button action.</span>
+            <span class="pl-en">setServerRender</span>();
+        });
+    };
+}(<span class="pl-smi">website</span>.<span class="pl-c1">index</span> <span class="pl-k">=</span> {}));</pre></div>
+
+<p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p>
+
+<p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it's possible to generate a new template and variation compilation.</p>
 
 <p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>currentVariation</code> is type of <code>undefined</code> an empty object will be created.</p>
 
@@ -3406,6 +3640,7 @@ webconfig.json
 ——— example.png
 ——— example.jpg
 ——— example.gif
+——— example.svg
 templates/
 — index.htm
 webconfig.json
@@ -4280,22 +4515,19 @@ exports.setSessions = website.setSessions;
     <span class="pl-s"><span class="pl-pds">"</span>webconfig<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>webconfig.french.json<span class="pl-pds">"</span></span>
 });</pre></div>
 
-<pre><code>
-You could also execute other tasks after assets generation:
+<p>You could also execute other tasks after assets generation:</p>
 
-*servers.js*
+<p><em>servers.js</em></p>
 
-```javascript
-require("node-atlas")().afterGeneration(function() {
-    require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
-        console.log("Documentation generation...");
-        console.log(stdout);
-        console.log("Documentation generation done !");
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>node-atlas<span class="pl-pds">"</span></span>)().<span class="pl-en">afterGeneration</span>(<span class="pl-k">function</span>() {
+    <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>child_process<span class="pl-pds">'</span></span>).<span class="pl-c1">exec</span>(<span class="pl-c1">__dirname</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>/documentation.bat<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">err</span>, <span class="pl-smi">stdout</span>, <span class="pl-smi">stderr</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Documentation generation...<span class="pl-pds">"</span></span>);
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(stdout);
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Documentation generation done !<span class="pl-pds">"</span></span>);
     });
-}).run({
-    generate: true
-});
-</code></pre>
+}).<span class="pl-en">run</span>({
+    generate<span class="pl-k">:</span> <span class="pl-c1">true</span>
+});</pre></div>
 
 <h2>
 <a id="nodeatlas-as-a-simple-web-server" class="anchor" href="#nodeatlas-as-a-simple-web-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NodeAtlas as a simple web server</h2>
