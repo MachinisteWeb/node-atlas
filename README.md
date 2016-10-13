@@ -2155,13 +2155,13 @@ et contenant les fichiers de template suivant :
 
 *Note : On construit ici la page d'accueil `/`.*
 
-ainsi que les fichir de variations suivant :
+ainsi que les fichiers de variations suivant :
 
 **variations/common.json**
 
 ```json
 {
-    "titleWebsite": "Titre du site"
+    "titleWebsite": "Socket.IO Exemple"
 }
 ```
 
@@ -2169,8 +2169,8 @@ ainsi que les fichir de variations suivant :
 
 ```json
 {
-    "titlePage": "Bienvenue",
-    "content": "<p>C'est la page d'accueil.</p>"
+    "titlePage": "Date",
+    "content": "<p>La date actuelle est :</p>"
 }
 ```
 
@@ -2232,6 +2232,32 @@ privates.socketIoInitialisation = function (socketio, NA, callback) {
     // Suite.
     callback(io);
 };
+
+// Ajout d'évènements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
+privates.socketIoEvents = function (io, NA) {
+    var params = {};
+
+    params.io = io;
+
+    // Evènements pour la page index (voir exemple dans le fichier d'après).
+    require('./index').asynchrone.call(NA, params);
+};
+
+// Configuration de tous les modules.
+exports.setConfigurations = function (callback) {
+    var NA = this,
+        socketio = NA.modules.socketio;
+
+    // Initialisation de Socket IO.
+    privates.socketIoInitialisation(socketio, NA, function (io) {
+
+        // Écoute d'action Socket IO.
+        privates.socketIoEvents(io, NA);
+
+        // Étapes suivante du moteur.
+        callback();
+    });
+};
 ```
 
 *Note : Ceci est la configuration global de Socket.IO côté serveur.*
@@ -2247,6 +2273,7 @@ exports.asynchrone = function (params) {
 
     // Dès qu'on a un lien valide entre le client et notre back...
     io.sockets.on("connection", function (socket) {
+        
         // ...rester à l'écoute de la demande « create-article-button »...
         socket.on("server-render", function (data) {
             var variation = {};
@@ -2304,6 +2331,7 @@ window.website = window.website || {};
         body = document.getElementsByTagName("body")[0],
         layout = document.getElementsByClassName("layout")[0];
 
+    // On associe sur le bouton l'action de communiquer avec le serveur en cliquant dessus.
     function setServerRender() {
         var button = document.getElementsByTagName("button")[0];
         button.addEventListener("click", function () {
@@ -2314,19 +2342,28 @@ window.website = window.website || {};
         });
     }
 
+    // On créer le code qui s'exécutera au lancement de la page.
     publics.init = function () {
+
+        // On affecte l'action au bouton.
         setServerRender();
+
+        // Quand le serveur répond après notre demande auprès de lui...
         website.socket.on("server-render", function (data) {
+
+            // ...on met à jour le contenu...
             layout.innerHTML = data.render;
+
+            // ...et ré-affecton l'action au bouton du nouveau contenu.
             setServerRender();
         });
     };
 }(website.index = {}));
 ```
 
-Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante).
+Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.
 
-Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, il est possible de générer une nouvelle compilation d'un template et d'une variation commune et spécifique.
+Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, il est possible de générer une nouvelle compilation d'un template (composant) et d'une variation commune et spécifique.
 
 Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `variation` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 
