@@ -1149,7 +1149,7 @@ exports.changeVariation = function (params, mainCallback) {
     &quot;currentRouteParameters&quot;: { /* ... */ },
     &quot;currentRoute&quot;: &quot;/&quot;,
     &quot;webconfig&quot;: { /* ... */ }
-}</code></pre><h4>setSessions</h4><p>To talk about <code>setSessions</code> we will explain a complete example. We will see how to use <code>Socket.IO</code> for asynchronous Client-Server Request, how to connect to a database with <code>MongoDB</code> and how to use a database for sessions with <code>Redis</code>.</p>
+}</code></pre><h4>setSessions</h4><p>To talk about <code>setSessions</code> we will explain a complete example. We will see how to connect to a database with <code>MongoDB</code> and how to use a database for sessions with <code>Redis</code>.</p>
 <p>This is all files for example:</p>
 <pre class="prettyprint source"><code>variations/
 — index.json
@@ -1236,56 +1236,6 @@ privates.mongooseSchemas = function (mongoose) {
     mongoose.model('category', website.schema.category, 'category');
 };
 
-// Example using Socket.IO.
-privates.socketIoInitialisation = function (socketio, NA, callback) {
-    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
-        io = socketio(NA.server, optionIo),
-        cookie = NA.modules.cookie,
-        cookieParser = NA.modules.cookieParser;
-
-    // Synchronizing sessions with Socket.IO.
-    io.use(function(socket, next) {
-        var handshakeData = socket.request;
-
-        // Fallback if cookies are not supported.
-        if (!handshakeData.headers.cookie) {
-            return next(new Error('Session cookie required.'));
-        }
-
-        // Transformation of the cookie String to JSON object.
-        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
-
-        // Verification of the signature of the cookie.
-        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
-
-        // Keep worn the Session ID.
-        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
-
-        // Accept the cookie.
-        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
-            if (error || !session) {
-                return next(new Error('No recovered session.'));
-            } else {
-                handshakeData.session = session;
-                next();
-            }
-        });
-    });
-
-    // Next.
-    callback(io);
-};
-
-// Adding listener for a specific controller &quot;index.js&quot; (see example in the next file).
-privates.socketIoEvents = function (io, NA) {
-    var params = {};
-
-    params.io = io;
-
-    // Event for the index page (see example in the next file).
-    require('./index').asynchrone.call(NA, params);
-};
-
 
 
 
@@ -1304,7 +1254,6 @@ exports.loadModules = function () {
     // Associations of each module to access it anywhere.
     NA.modules.cookie = require('cookie');
     NA.modules.mongoose = require('mongoose');
-    NA.modules.socketio = require('socket.io');
     NA.modules.RedisStore = require('connect-redis');
     NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
 };
@@ -1316,8 +1265,7 @@ exports.loadModules = function () {
 // Configuration of all modules.
 exports.setConfigurations = function (callback) {
     var NA = this,
-        mongoose = NA.modules.mongoose,
-        socketio = NA.modules.socketio;
+        mongoose = NA.modules.mongoose;
 
     // Initialize Mongoose.
     privates.mongooseInitialization(mongoose, function (mongoose) {
@@ -1325,15 +1273,8 @@ exports.setConfigurations = function (callback) {
         // Schemas injection into Mongoose.
         privates.mongooseSchemas(mongoose);
 
-        // Initialize Socket IO.
-        privates.socketIoInitialisation(socketio, NA, function (io) {
-
-            // Socket IO listening.
-            privates.socketIoEvents(io, NA);
-
-            // Next steps of engine.
-            callback();
-        });
+        // Next steps of engine.
+        callback();
     });
 };
 
@@ -1384,7 +1325,6 @@ exports.changeDom = function (params, mainCallback) {
 <ul>
 <li>things for dynamically change the front display.</li>
 <li>things for changes on the server side with jQuery.</li>
-<li>things for asynchronous exchanges with Socket.IO.</li>
 </ul>
 <pre class="prettyprint source lang-js"><code>/*******************************************/
 /* Charging a function or set of functions */
@@ -1409,7 +1349,6 @@ exports.changeVariation = function (params, mainCallback) {
         variation = params.variation,
         mongoose = NA.modules.mongoose,
         Article = mongoose.model('article');
-
 
     // Can intercept all the variables of &quot;variations/common.js&quot;.
     console.log(variation.common.title); // Return title stored in « variations/common.js ».
@@ -1474,52 +1413,6 @@ exports.changeDom = function (params, mainCallback) {
 
     // We re-injects the changes.
     mainCallback(dom);
-};
-
-
-
-/*** Asynchronous Events Management Socket.IO ***/
-
-// All Websocket action possible for this template.
-// Used not by &quot;NodeAtlas&quot; but with &quot;common.js&quot; (see previous file).
-exports.asynchrone = function (params) {
-    var NA = this,
-        io = params.io,
-        mongoose = NA.modules.mongoose,
-        marked = NA.modules.marked,
-        Article = mongoose.model('article');
-
-    // Once we have a valid connection between the client and our back-end...
-    io.sockets.on('connection', function (socket) {
-        var sessionID = socket.request.sessionID,
-            session = socket.request.session;
-
-        // ...stay tuned on the &quot;create-item-button&quot; demand...
-        socket.on('create-article-button', function (data) {
-
-            // ...and respond to this demand by creating a new item if it comes
-            // with the information sent via &quot;data&quot;.
-            var article = new Article({
-                _id: mongoose.Types.ObjectId(),
-                title: data.title,
-                urn: data.urn,
-            });
-
-            // If the user is connected.
-            if (session.account) {
-
-                // ...we save the article into database.
-                article.save(function (error) {
-                    if (error) {
-                        throw error;
-                    }
-
-                    // And responds to all customers with a set of data in data.
-                    io.sockets.emit('create-article-button', data);
-                });
-            }
-        });
-    });
 };</code></pre><h3>Use Websocket instead of AJAX</h3><p>To keep a link between Front and Back part of website, NodeAtlas can use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p>
 <p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p>
 <p>With this following files:</p>
@@ -1679,7 +1572,9 @@ exports.asynchrone = function (params) {
 
         // ...stay tuned on the &quot;create-item-button&quot; demand...
         socket.on(&quot;server-render&quot;, function (data) {
-            var variation = {};
+            var sessionID = socket.request.sessionID,
+                session = socket.request.session,
+                variation = {};
 
             // Specific variations in the good language.
             variation = NA.addSpecificVariation(&quot;index.json&quot;, data.lang, variation);
@@ -3466,7 +3361,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Oct 13 2016 16:54:43 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Oct 13 2016 17:35:16 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
