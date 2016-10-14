@@ -1,15 +1,26 @@
 <!DOCTYPE html>
-<html lang="fr-fr">
+<html lang="<%- languageCode %>">
     <head>
         <meta charset="utf-8" />
         <title><%- common.titleWebsite %></title>
     </head>
     <body>
 	    <div class="title"><%- common.titleWebsite %></div>
-
 	    <div>
 	        <h1><%- specific.titlePage %></h1>
 	        <%- specific.content %>
+            <ul>
+                <li>Id: <strong><%- id %></strong></li>
+                <li>Lastname: <strong><%- lastname %></strong></li>
+                <li>Firstname: <strong><%- firstname %></strong></li>
+                <li>Email: <strong><%- email %></strong></li>
+                <li>Birthdate: <strong><%- birthdate %></strong></li>
+                <li>Gender: <strong><%- gender %></strong></li>
+                <li>Country: <strong><%- country %></strong></li>
+                <li>Town: <strong><%- town %></strong></li>
+                <li>Zipcode: <strong><%- zipcode %></strong></li>
+                <li>Address: <strong><%- address %></strong></li>
+            </ul>
 	    </div>
     </body>
 </html>
