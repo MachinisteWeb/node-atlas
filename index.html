@@ -1233,7 +1233,7 @@ webconfig.json
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before variation are injected into template engine.</span>
 <span class="pl-c">// This code is executed for all HTTP request, for all pages.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
         request <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">request</span>,
         response <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">response</span>;
@@ -1256,14 +1256,14 @@ webconfig.json
     <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">content</span>); <span class="pl-c">// "This is a test"</span>
 
     <span class="pl-c">// We update modification here.</span>
-    <span class="pl-en">mainCallback</span>(variation);
+    <span class="pl-en">next</span>(variation);
 };</pre></div>
 
 <p><em>controllers/index.js</em></p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before variation are injected into template engine.</span>
 <span class="pl-c">// This code is executed only for the « / » page .</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
         request <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">request</span>,
         response <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">response</span>;
@@ -1282,7 +1282,7 @@ webconfig.json
     <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">content</span>); <span class="pl-c">// "It's Home, no way."</span>
 
     <span class="pl-c">// We update modification here.</span>
-    <span class="pl-en">mainCallback</span>(variation);
+    <span class="pl-en">next</span>(variation);
 };</pre></div>
 
 <p>en this produce the following output :</p>
@@ -1399,7 +1399,7 @@ webconfig.json
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before DOM was sent to Client.</span>
 <span class="pl-c">// This code is executed for all HTTP request, for all pages.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>,
         request <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">request</span>,
@@ -1424,14 +1424,14 @@ webconfig.json
     dom <span class="pl-k">=</span> <span class="pl-smi">$</span>.<span class="pl-en">html</span>();
 
     <span class="pl-c">// We update modification here.</span>
-    <span class="pl-en">mainCallback</span>(dom);
+    <span class="pl-en">next</span>(dom);
 };</pre></div>
 
 <p><em>controllers/index.js</em></p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before DOM was sent to Client.</span>
 <span class="pl-c">// This code is executed only for the « / » page .</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>,
         request <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">request</span>,
@@ -1446,7 +1446,7 @@ webconfig.json
     dom <span class="pl-k">=</span> <span class="pl-smi">$</span>.<span class="pl-en">html</span>();
 
     <span class="pl-c">// We update modification here.</span>
-    <span class="pl-en">mainCallback</span>(dom);
+    <span class="pl-en">next</span>(dom);
 };</pre></div>
 
 <p>the output will be as following:</p>
@@ -1528,7 +1528,7 @@ webconfig.json
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executed before variation are injected into template engine.</span>
 <span class="pl-c">// This code is executed only for the « / » page .</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-c">// Use the « NodeAtlas » instance from engine.</span>
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
@@ -1537,7 +1537,7 @@ webconfig.json
     <span class="pl-smi">variation</span>.<span class="pl-smi">example</span> <span class="pl-k">=</span> <span class="pl-en">marked</span>(<span class="pl-s"><span class="pl-pds">"</span>I am using __markdown__.<span class="pl-pds">"</span></span>);
 
     <span class="pl-c">// We update modification here.</span>
-    <span class="pl-en">mainCallback</span>(variation);
+    <span class="pl-en">next</span>(variation);
 };</pre></div>
 
 <p>this will produce the following output:</p>
@@ -1593,7 +1593,7 @@ webconfig.json
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executing before starting of the web server.</span>
 <span class="pl-c">// This code will be executed when NodeAtlas starting.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
     <span class="pl-c">// Use the « NodeAtlas » instance from engine.</span>
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
 
@@ -1604,14 +1604,14 @@ webconfig.json
     });
 
     <span class="pl-c">// We update modification here.</span>
-    <span class="pl-en">mainCallback</span>();
+    <span class="pl-en">next</span>();
 };</pre></div>
 
 <p><em>controllers/index.js</em></p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executing before starting of the web server.</span>
 <span class="pl-c">// This code is executed only for the « / » page .</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
 
     <span class="pl-c">// We prepare file for JSON displaying.</span>
@@ -1621,7 +1621,7 @@ webconfig.json
     <span class="pl-smi">variation</span>.<span class="pl-c1">content</span> <span class="pl-k">=</span> <span class="pl-c1">JSON</span>.<span class="pl-en">stringify</span>(variation, <span class="pl-c1">null</span>, <span class="pl-s"><span class="pl-pds">"</span>    <span class="pl-pds">"</span></span>);
 
     <span class="pl-c">// We update modification here.</span>
-    <span class="pl-en">mainCallback</span>(variation);
+    <span class="pl-en">next</span>(variation);
 };</pre></div>
 
 <p>this will produce the following output:</p>
@@ -1696,7 +1696,7 @@ webconfig.json
 <span class="pl-k">var</span> privates <span class="pl-k">=</span> {};
 
 <span class="pl-c">// Example of using MongoDB and Mongoose.</span>
-<span class="pl-smi">privates</span>.<span class="pl-en">mongooseInitialization</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>, <span class="pl-smi">callback</span>) {
+<span class="pl-smi">privates</span>.<span class="pl-en">mongooseInitialization</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>, <span class="pl-smi">next</span>) {
     <span class="pl-c">// "blog" database connection.</span>
     <span class="pl-smi">mongoose</span>.<span class="pl-en">connect</span>(<span class="pl-s"><span class="pl-pds">'</span>mongodb://127.0.0.1:27017/blog<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
         <span class="pl-k">if</span> (error) {
@@ -1704,8 +1704,7 @@ webconfig.json
             <span class="pl-c1">process</span>.<span class="pl-en">kill</span>(<span class="pl-c1">process</span>.<span class="pl-smi">pid</span>);
         }
 
-        <span class="pl-c">// Next.</span>
-        <span class="pl-en">callback</span>(mongoose);
+        <span class="pl-en">next</span>(mongoose);
     });
 
     <span class="pl-c">// Connection Management.</span>
@@ -1765,7 +1764,7 @@ webconfig.json
 <span class="pl-c">/*** Configuring npm modules ***/</span>
 
 <span class="pl-c">// Configuration of all modules.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">callback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>;
 
@@ -1776,7 +1775,7 @@ webconfig.json
         <span class="pl-smi">privates</span>.<span class="pl-en">mongooseSchemas</span>(mongoose);
 
         <span class="pl-c">// Next steps of engine.</span>
-        <span class="pl-en">callback</span>();
+        <span class="pl-en">next</span>();
     });
 };
 
@@ -1785,14 +1784,14 @@ webconfig.json
 <span class="pl-c">/*** Configuring Express Session. ***/</span>
 
 <span class="pl-c">// Allows you to use an external DB for Session.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">setSessions</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">callback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">setSessions</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         session <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">session</span>,
         RedisStore <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-en">RedisStore</span>(session);
 
     <span class="pl-c1">NA</span>.<span class="pl-smi">sessionStore</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">RedisStore</span>();
 
-    <span class="pl-en">callback</span>();
+    <span class="pl-en">next</span>();
 };
 
 
@@ -1800,14 +1799,14 @@ webconfig.json
 <span class="pl-c">/*** Variations interception. ***/</span>
 
 <span class="pl-c">// It occurs just before the complete assembly EJS.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
 
     <span class="pl-c">// Here variations variables are modified.</span>
     <span class="pl-c">// see example in the file after.</span>
 
     <span class="pl-c">// We re-injects the changes.</span>
-    <span class="pl-en">mainCallback</span>(variation);
+    <span class="pl-en">next</span>(variation);
 };
 
 
@@ -1815,14 +1814,14 @@ webconfig.json
 <span class="pl-c">/*** Interception of the HTML output for server-side jQuery ***/</span>
 
 <span class="pl-c">// It comes just before the HTML response to the client.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>;
 
     <span class="pl-c">// Here one can manipulate the DOM before response to the client.</span>
     <span class="pl-c">// see example in the file after.</span>
 
     <span class="pl-c">// We re-injects the changes.</span>
-    <span class="pl-en">mainCallback</span>(dom);
+    <span class="pl-en">next</span>(dom);
 };</pre></div>
 
 <p>with a "index.js" file containing, for example:</p>
@@ -1850,7 +1849,7 @@ webconfig.json
 <span class="pl-c">/*** Variations Interception ***/</span>
 
 <span class="pl-c">// It occurs just before the complete assembly EJS.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
         mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
@@ -1886,7 +1885,7 @@ webconfig.json
         <span class="pl-smi">variation</span>.<span class="pl-smi">backend</span>.<span class="pl-smi">articles</span> <span class="pl-k">=</span> listOfArticles; <span class="pl-c">// « &lt;%= backend.articles.&lt;properties&gt; %&gt; ».</span>
 
         <span class="pl-c">// We re-injects the changes.</span>
-        <span class="pl-en">mainCallback</span>(variation);
+        <span class="pl-en">next</span>(variation);
     });
 };
 
@@ -1895,7 +1894,7 @@ webconfig.json
 <span class="pl-c">/*** Interception of the HTML output for server-side jQuery ***/</span>
 
 <span class="pl-c">// It comes just before the HTML response to the client.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>,
         cheerio <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">cheerio</span>, <span class="pl-c">// Recovery cheerio to browse the DOM with jQuery.</span>
@@ -1918,7 +1917,7 @@ webconfig.json
     dom <span class="pl-k">=</span> <span class="pl-smi">$</span>.<span class="pl-en">html</span>();
 
     <span class="pl-c">// We re-injects the changes.</span>
-    <span class="pl-en">mainCallback</span>(dom);
+    <span class="pl-en">next</span>(dom);
 };</pre></div>
 
 <h3>
@@ -2043,7 +2042,7 @@ webconfig.json
 };
 
 <span class="pl-c">// Example using Socket.IO.</span>
-<span class="pl-smi">privates</span>.<span class="pl-en">socketIoInitialisation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">socketio</span>, <span class="pl-c1">NA</span>, <span class="pl-smi">callback</span>) {
+<span class="pl-smi">privates</span>.<span class="pl-en">socketIoInitialisation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">socketio</span>, <span class="pl-c1">NA</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> optionIo <span class="pl-k">=</span> (<span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">urlRelativeSubPath</span>) <span class="pl-k">?</span> { path<span class="pl-k">:</span> <span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">urlRelativeSubPath</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/socket.io<span class="pl-pds">'</span></span>, secure<span class="pl-k">:</span> ((<span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">httpSecure</span>) <span class="pl-k">?</span> <span class="pl-c1">true</span> <span class="pl-k">:</span> <span class="pl-c1">false</span>) } <span class="pl-k">:</span> <span class="pl-c1">undefined</span>,
         io <span class="pl-k">=</span> <span class="pl-en">socketio</span>(<span class="pl-c1">NA</span>.<span class="pl-smi">server</span>, optionIo),
         cookie <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-c1">cookie</span>,
@@ -2079,7 +2078,7 @@ webconfig.json
     });
 
     <span class="pl-c">// Next.</span>
-    <span class="pl-en">callback</span>(io);
+    <span class="pl-en">next</span>(io);
 };
 
 <span class="pl-c">// Adding listener for a specific controller "index.js" (see example in the next file).</span>
@@ -2093,7 +2092,7 @@ webconfig.json
 };
 
 <span class="pl-c">// Configuration of all modules.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">callback</span>) {
+<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         socketio <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">socketio</span>;
 
@@ -2104,7 +2103,7 @@ webconfig.json
         <span class="pl-smi">privates</span>.<span class="pl-en">socketIoEvents</span>(io, <span class="pl-c1">NA</span>);
 
         <span class="pl-c">// Next steps of engine.</span>
-        <span class="pl-en">callback</span>();
+        <span class="pl-en">next</span>();
     });
 };</pre></div>
 
@@ -2396,13 +2395,13 @@ webconfig.prod.json
 
 <p>and retrieve the <code>:member</code> value in<code>changeVariation</code> (common and specific).</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
 
     <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">params</span>.<span class="pl-smi">member</span>);
     <span class="pl-c">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.</span>
 
-    <span class="pl-en">mainCallback</span>(variation);
+    <span class="pl-en">next</span>(variation);
 }</pre></div>
 
 <p>Dynamic url creation rules are those of <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p>
@@ -2453,7 +2452,7 @@ webconfig.prod.json
 
 <p>and retrieve the <code>([-a-z0-9] +) value in the</code> <code>changeVariation</code> (common and specific).</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
 
     <span class="pl-k">if</span> (<span class="pl-smi">variation</span>.<span class="pl-smi">params</span> <span class="pl-k">&amp;&amp;</span> <span class="pl-smi">variation</span>.<span class="pl-smi">params</span>[<span class="pl-c1">0</span>]) { <span class="pl-smi">variation</span>.<span class="pl-smi">params</span>.<span class="pl-smi">member</span> <span class="pl-k">=</span> <span class="pl-smi">variation</span>.<span class="pl-smi">params</span>[<span class="pl-c1">0</span>]; }
@@ -2462,7 +2461,7 @@ webconfig.prod.json
     <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">params</span>.<span class="pl-smi">member</span>);
     <span class="pl-c">// \&gt; 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.</span>
 
-    <span class="pl-en">mainCallback</span>(variation);
+    <span class="pl-en">next</span>(variation);
 }</pre></div>
 
 <p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p>
@@ -3964,14 +3963,14 @@ templates/
         NA.modules.RedisStore = require('connect-redis');
     };
 
-    publics.setSessions = function (callback) {
+    publics.setSessions = function (next) {
         var NA = this,
             session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
 
         NA.sessionStore = new RedisStore();
 
-        callback();
+        next();
     };
 
 }(website));
@@ -3998,7 +3997,7 @@ exports.setSessions = website.setSessions;
         NA.modules.MongoStore = require('connect-mongo');
     };
 
-    publics.setSessions = function (callback) {
+    publics.setSessions = function (next) {
         var NA = this,
             session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
@@ -4007,7 +4006,7 @@ exports.setSessions = website.setSessions;
             db: 'sessions'
         });
 
-        callback();
+        next();
     };
 
 }(website));
