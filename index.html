@@ -143,6 +143,7 @@
 <li><a href="#nodeatlas-use-to-generate-html-assets">NodeAtlas use to generate HTML assets</a></li>
 <li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
 <li><a href="#use-websocket-instead-of-ajax">Use Websocket instead of AJAX</a></li>
+<li><a href="#use-mysql-database-sql">Use MySQL Database (SQL)</a></li>
 <li><a href="#change-the-url-parameters">Change the url parameters</a></li>
 <li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
@@ -2209,6 +2210,421 @@ website[<span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTag
 <p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it's possible to generate a new template and variation compilation.</p>
 
 <p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>currentVariation</code> is type of <code>undefined</code> an empty object will be created.</p>
+
+<h3>
+<a id="use-mysql-database-sql" class="anchor" href="#use-mysql-database-sql" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use MySQL Database (SQL)</h3>
+
+<p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p>
+
+<h4>
+<a id="mysql-database" class="anchor" href="#mysql-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MySQL Database</h4>
+
+<p>First, we will create a database <code>demo</code> on the server:</p>
+
+<pre><code>CREATE DATABASE demo;
+</code></pre>
+
+<p>and select it:</p>
+
+<pre><code>USE demo
+</code></pre>
+
+<p>and create a <code>user</code> table:</p>
+
+<pre><code>CREATE TABLE user
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    lastname VARCHAR(100),
+    firstname VARCHAR(100),
+    email VARCHAR(255),
+    birthdate DATE,
+    gender INT,
+    country VARCHAR(255),
+    town VARCHAR(255),
+    zipcode VARCHAR(5),
+    address VARCHAR(255)
+);
+</code></pre>
+
+<p>and fill it with thi set of data:</p>
+
+<pre><code>INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    "Lesieur",
+    "Bruno",
+    "bruno.lesieur@gmail.com",
+    "1988/07/18",
+    1,
+    "France",
+    "Annecy",
+    74000,
+    "66 avenue de Genève"
+);
+</code></pre>
+
+<h4>
+<a id="nodeatlas-files" class="anchor" href="#nodeatlas-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NodeAtlas Files</h4>
+
+<p>With the following data set:</p>
+
+<pre><code>assets/
+— javascript/
+—— models/
+——— user.js
+controllers/
+— common.js
+— index.js
+models/
+— user.js
+templates/
+— index.htm
+variations/
+— common.json
+— index.json
+webconfig.json
+</code></pre>
+
+<p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contain all informations for database connection:</p>
+
+<pre><code>{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    },
+    "_mysqlConfig": {
+        "host": "localhost",
+        "user": "root",
+        "password": "root",
+        "database": "demo"
+    }
+}
+</code></pre>
+
+<p>With following files to display page:</p>
+
+<p><strong>templates/index.htm</strong></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%- languageCode %&gt;<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;&lt;%- specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+            &lt;%- specific.content %&gt;
+            &lt;<span class="pl-ent">ul</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Id: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- id %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Lastname: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- lastname %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Firstname: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- firstname %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Email: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- email %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Birthdate: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- birthdate %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Gender: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- gender %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Country: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- country %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Town: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- town %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Zipcode: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- zipcode %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Address: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- address %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+            &lt;/<span class="pl-ent">ul</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><strong>variations/common.json</strong></p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titleWebsite<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Example MySql<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>male<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Man<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>female<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Woman<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p><strong>variations/index.json</strong></p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titlePage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>User Table<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;p&gt;`bruno` entry details.&lt;/p&gt;<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">loadModules</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
+
+    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mysql</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mysql<span class="pl-pds">'</span></span>);
+    <span class="pl-c1">NA</span>.<span class="pl-smi">models</span> <span class="pl-k">=</span> {};
+    <span class="pl-c1">NA</span>.<span class="pl-smi">models</span>.<span class="pl-smi">User</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../models/user.js<span class="pl-pds">'</span></span>);
+};
+
+<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        mysql <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mysql</span>;
+
+    <span class="pl-c1">NA</span>.<span class="pl-smi">mySql</span> <span class="pl-k">=</span> <span class="pl-smi">mysql</span>.<span class="pl-en">createPool</span>(<span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">_mysqlConfig</span>);
+
+    <span class="pl-en">next</span>();
+};</pre></div>
+
+<p>And display result via specific controller <code>controllers/index.js</code>:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
+        User <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">models</span>.<span class="pl-smi">User</span>,
+        bruno <span class="pl-k">=</span> <span class="pl-en">User</span>();
+
+    <span class="pl-c1">NA</span>.<span class="pl-smi">mySql</span>.<span class="pl-en">getConnection</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">connection</span>) {
+        <span class="pl-k">if</span> (err) {
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(err);
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        bruno
+        .<span class="pl-en">setConnection</span>(connection)
+        .<span class="pl-en">firstname</span>(<span class="pl-s"><span class="pl-pds">"</span>bruno<span class="pl-pds">"</span></span>)
+        .<span class="pl-en">readFirst</span>(<span class="pl-k">function</span> () {
+
+            <span class="pl-smi">variation</span>.<span class="pl-c1">id</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-c1">id</span>();
+            <span class="pl-smi">variation</span>.<span class="pl-smi">lastname</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">lastname</span>();
+            <span class="pl-smi">variation</span>.<span class="pl-smi">firstname</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">firstname</span>();
+            <span class="pl-smi">variation</span>.<span class="pl-smi">email</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">email</span>();
+            <span class="pl-smi">variation</span>.<span class="pl-smi">birthdate</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">birthdate</span>();
+            <span class="pl-smi">variation</span>.<span class="pl-smi">gender</span> <span class="pl-k">=</span> (<span class="pl-smi">bruno</span>.<span class="pl-en">gender</span>() <span class="pl-k">===</span> <span class="pl-c1">1</span>) <span class="pl-k">?</span> <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">male</span> <span class="pl-k">:</span> <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">female</span>;
+            <span class="pl-smi">variation</span>.<span class="pl-smi">country</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">country</span>();
+            <span class="pl-smi">variation</span>.<span class="pl-smi">town</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">town</span>();
+            <span class="pl-smi">variation</span>.<span class="pl-smi">zipcode</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">zipcode</span>();
+            <span class="pl-smi">variation</span>.<span class="pl-smi">address</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">address</span>();
+
+            <span class="pl-en">mainCallback</span>(variation);
+        });
+    });
+};</pre></div>
+
+<p>with the <code>user</code> model via connect file to database <code>models/user.js</code>:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">/* jslint esversion: 6 */</span>
+<span class="pl-k">var</span> user <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../assets/javascript/models/user.js<span class="pl-pds">'</span></span>);
+
+<span class="pl-k">function</span> <span class="pl-en">User</span>(<span class="pl-smi">connection</span>) {
+    <span class="pl-k">var</span> privates <span class="pl-k">=</span> {},
+        publics <span class="pl-k">=</span> <span class="pl-v">this</span>;
+
+    <span class="pl-smi">privates</span>.<span class="pl-smi">connection</span> <span class="pl-k">=</span> connection;
+
+    <span class="pl-k">if</span> (<span class="pl-k">!</span>(publics <span class="pl-k">instanceof</span> User)) {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">User</span>();
+    }
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">setConnection</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">connection</span>) {
+        <span class="pl-smi">privates</span>.<span class="pl-smi">connection</span> <span class="pl-k">=</span> connection;
+        <span class="pl-k">return</span> publics;
+    };
+
+    <span class="pl-smi">user</span>.<span class="pl-c1">call</span>(publics);
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">readFirst</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">callback</span>) {
+        <span class="pl-k">var</span> select <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">`</span>SELECT</span>
+<span class="pl-s">                    id,</span>
+<span class="pl-s">                    lastname,</span>
+<span class="pl-s">                    firstname,</span>
+<span class="pl-s">                    email,</span>
+<span class="pl-s">                    birthdate,</span>
+<span class="pl-s">                    gender,</span>
+<span class="pl-s">                    country,</span>
+<span class="pl-s">                    town,</span>
+<span class="pl-s">                    zipcode,</span>
+<span class="pl-s">                    address</span>
+<span class="pl-s">                FROM user<span class="pl-pds">`</span></span>, 
+            where <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, 
+            limit <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span> LIMIT 0,1 <span class="pl-pds">"</span></span>,
+            addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span> WHERE <span class="pl-pds">"</span></span>;
+
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-c1">id</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`id` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-c1">id</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">lastname</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`lastname` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">lastname</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">firstname</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`firstname` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">firstname</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">email</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`email` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">email</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">birthdate</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`birthdate` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">birthdate</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">gender</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`gender` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">gender</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">country</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`country` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">country</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">town</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`town` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">town</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">zipcode</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`zipcode` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">zipcode</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+        <span class="pl-k">if</span> (<span class="pl-smi">publics</span>.<span class="pl-en">address</span>()) { where <span class="pl-k">+=</span> addWhere <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>`address` = '<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">publics</span>.<span class="pl-en">address</span>().<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span>'<span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">"</span>''<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>; addWhere <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span> &amp;&amp; <span class="pl-pds">'</span></span>; }
+
+        <span class="pl-smi">privates</span>.<span class="pl-smi">connection</span>.<span class="pl-en">query</span>(select <span class="pl-k">+</span> where <span class="pl-k">+</span> limit, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">rows</span>, <span class="pl-smi">fields</span>) {
+            <span class="pl-k">if</span> (err) <span class="pl-en">console</span>.<span class="pl-c1">log</span>(err);
+
+            <span class="pl-k">if</span> (rows[<span class="pl-c1">0</span>]) {
+                <span class="pl-smi">publics</span>.<span class="pl-c1">id</span>(rows[<span class="pl-c1">0</span>].<span class="pl-c1">id</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">lastname</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">lastname</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">firstname</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">firstname</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">email</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">email</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">birthdate</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">birthdate</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">gender</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">gender</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">country</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">country</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">town</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">town</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">zipcode</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">zipcode</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">address</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">address</span>);
+            }
+
+            <span class="pl-en">callback</span>();
+        });
+    };
+}
+
+<span class="pl-smi">User</span>.<span class="pl-c1">prototype</span> <span class="pl-k">=</span> <span class="pl-c1">Object</span>.<span class="pl-en">create</span>(<span class="pl-smi">user</span>.<span class="pl-c1">prototype</span>);
+<span class="pl-smi">User</span>.<span class="pl-c1">prototype</span>.<span class="pl-c1">constructor</span> <span class="pl-k">=</span> User;
+
+<span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> User;</pre></div>
+
+<p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p>
+
+<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span> (<span class="pl-smi">expose</span>, <span class="pl-smi">factory</span>) {
+    <span class="pl-k">if</span> (<span class="pl-k">typeof</span> <span class="pl-c1">module</span> <span class="pl-k">!==</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">module</span>.<span class="pl-smi">exports</span>) {
+        <span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> factory;
+    } <span class="pl-k">else</span> {
+        <span class="pl-smi">expose</span>.<span class="pl-smi">User</span> <span class="pl-k">=</span> factory;
+    }
+}(<span class="pl-v">this</span>, <span class="pl-k">function</span> <span class="pl-en">User</span>() {
+    <span class="pl-k">var</span> privates <span class="pl-k">=</span> {},
+        publics <span class="pl-k">=</span> <span class="pl-v">this</span>;
+
+    <span class="pl-k">if</span> (<span class="pl-k">!</span>(publics <span class="pl-k">instanceof</span> User)) {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">User</span>();
+    }
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">id</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">id</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> id <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-c1">id</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-c1">id</span> <span class="pl-k">=</span> id;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">lastname</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">lastname</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> lastname <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">lastname</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">lastname</span> <span class="pl-k">=</span> lastname;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">firstname</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">firstname</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> firstname <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">firstname</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">firstname</span> <span class="pl-k">=</span> firstname;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">email</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">email</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> email <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">email</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">email</span> <span class="pl-k">=</span> email;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">birthdate</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">birthdate</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> birthdate <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">birthdate</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">birthdate</span> <span class="pl-k">=</span> birthdate;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">gender</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">gender</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> gender <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">gender</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">gender</span> <span class="pl-k">=</span> gender;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">country</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">country</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> country <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">country</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">country</span> <span class="pl-k">=</span> country;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">town</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">town</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> town <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">town</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">town</span> <span class="pl-k">=</span> town;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">zipcode</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">zipcode</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> zipcode <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">zipcode</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">zipcode</span> <span class="pl-k">=</span> zipcode;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+
+    <span class="pl-smi">publics</span>.<span class="pl-en">address</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">address</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> address <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">privates</span>.<span class="pl-smi">address</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-smi">privates</span>.<span class="pl-smi">address</span> <span class="pl-k">=</span> address;
+            <span class="pl-k">return</span> publics;
+        }
+    };
+}));</pre></div>
+
+<p>You will get the following output:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;MySql Example&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;MySql Example&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;User Table&lt;/<span class="pl-ent">h1</span>&gt;
+            &lt;<span class="pl-ent">p</span>&gt;`bruno` entry details.&lt;/<span class="pl-ent">p</span>&gt;
+            &lt;<span class="pl-ent">ul</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Id: &lt;<span class="pl-ent">strong</span>&gt;1&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Lastname: &lt;<span class="pl-ent">strong</span>&gt;Lesieur&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Firstname: &lt;<span class="pl-ent">strong</span>&gt;Bruno&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Email: &lt;<span class="pl-ent">strong</span>&gt;bruno.lesieur@gmail.com&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Birthdate: &lt;<span class="pl-ent">strong</span>&gt;Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Gender: &lt;<span class="pl-ent">strong</span>&gt;Homme&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Country: &lt;<span class="pl-ent">strong</span>&gt;France&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Town: &lt;<span class="pl-ent">strong</span>&gt;Annecy&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Zipcode: &lt;<span class="pl-ent">strong</span>&gt;74000&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Address: &lt;<span class="pl-ent">strong</span>&gt;66 avenue de Genève&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+            &lt;/<span class="pl-ent">ul</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
 <h3>
 <a id="change-the-url-parameters" class="anchor" href="#change-the-url-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change the url parameters</h3>
