@@ -89,6 +89,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [NodeAtlas use to generate HTML assets](#nodeatlas-use-to-generate-html-assets)
  - [Use NodeAtlas to run a website (Back-end Part)](#use-nodeatlas-to-run-a-website-back-end-part)
  - [Use Websocket instead of AJAX](#use-websocket-instead-of-ajax)
+ - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Change the url parameters](#change-the-url-parameters)
  - [Create your own webconfig variables](#create-your-own-webconfig-variables)
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
@@ -2260,6 +2261,442 @@ Run your project and go on `http://localhost/` across multiple tab and/or multip
 Thanks to `NA.addSpecificVariation`, `NA.addCommonVariation` and `NA.newRender`, it's possible to generate a new template and variation compilation.
 
 If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `currentVariation` is type of `undefined` an empty object will be created.
+
+
+
+### Use MySQL Database (SQL) ###
+
+We will see now how to use data from database. We will use the `mysql` npm module. And first, [install a MySQL server](https://dev.mysql.com/downloads/installer/).
+
+#### MySQL Database ####
+
+First, we will create a database `demo` on the server:
+
+```
+CREATE DATABASE demo;
+```
+
+and select it:
+
+```
+USE demo
+```
+
+and create a `user` table:
+
+```
+CREATE TABLE user
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    lastname VARCHAR(100),
+    firstname VARCHAR(100),
+    email VARCHAR(255),
+    birthdate DATE,
+    gender INT,
+    country VARCHAR(255),
+    town VARCHAR(255),
+    zipcode VARCHAR(5),
+    address VARCHAR(255)
+);
+```
+
+and fill it with thi set of data:
+
+```
+INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    "Lesieur",
+    "Bruno",
+    "bruno.lesieur@gmail.com",
+    "1988/07/18",
+    1,
+    "France",
+    "Annecy",
+    74000,
+    "66 avenue de Genève"
+);
+```
+
+#### NodeAtlas Files ####
+
+With the following data set:
+
+```
+assets/
+— javascript/
+—— models/
+——— user.js
+controllers/
+— common.js
+— index.js
+models/
+— user.js
+templates/
+— index.htm
+variations/
+— common.json
+— index.json
+webconfig.json
+```
+
+We will use the following `webconfig.json` with the custom `_mysqlConfig` variable which contain all informations for database connection:
+
+```
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    },
+    "_mysqlConfig": {
+        "host": "localhost",
+        "user": "root",
+        "password": "root",
+        "database": "demo"
+    }
+}
+```
+
+With following files to display page:
+
+**templates/index.htm**
+
+```html
+<!DOCTYPE html>
+<html lang="<%- languageCode %>">
+    <head>
+        <meta charset="utf-8" />
+        <title><%- common.titleWebsite %></title>
+    </head>
+    <body>
+        <div class="title"><%- common.titleWebsite %></div>
+        <div>
+            <h1><%- specific.titlePage %></h1>
+            <%- specific.content %>
+            <ul>
+                <li>Id: <strong><%- id %></strong></li>
+                <li>Lastname: <strong><%- lastname %></strong></li>
+                <li>Firstname: <strong><%- firstname %></strong></li>
+                <li>Email: <strong><%- email %></strong></li>
+                <li>Birthdate: <strong><%- birthdate %></strong></li>
+                <li>Gender: <strong><%- gender %></strong></li>
+                <li>Country: <strong><%- country %></strong></li>
+                <li>Town: <strong><%- town %></strong></li>
+                <li>Zipcode: <strong><%- zipcode %></strong></li>
+                <li>Address: <strong><%- address %></strong></li>
+            </ul>
+        </div>
+    </body>
+</html>
+```
+
+**variations/common.json**
+
+```js
+{
+    "titleWebsite": "Example MySql",
+    "male": "Man",
+    "female": "Woman"
+}
+```
+
+**variations/index.json**
+
+```js
+{
+    "titlePage": "User Table",
+    "content": "<p>`bruno` entry details.</p>"
+}
+```
+
+And last, we will be connect to the database with the common controller `controllers/common.js`:
+
+```js
+exports.loadModules = function () {
+    var NA = this;
+
+    NA.modules.mysql = require('mysql');
+    NA.models = {};
+    NA.models.User = require('../models/user.js');
+};
+
+exports.setConfigurations = function (next) {
+    var NA = this,
+        mysql = NA.modules.mysql;
+
+    NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
+
+    next();
+};
+```
+
+And display result via specific controller `controllers/index.js`:
+
+```js
+exports.changeVariation = function (params, mainCallback) {
+    var NA = this,
+        variation = params.variation,
+        User = NA.models.User,
+        bruno = User();
+
+    NA.mySql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return false;
+        }
+
+        bruno
+        .setConnection(connection)
+        .firstname("bruno")
+        .readFirst(function () {
+
+            variation.id = bruno.id();
+            variation.lastname = bruno.lastname();
+            variation.firstname = bruno.firstname();
+            variation.email = bruno.email();
+            variation.birthdate = bruno.birthdate();
+            variation.gender = (bruno.gender() === 1) ? variation.common.male : variation.common.female;
+            variation.country = bruno.country();
+            variation.town = bruno.town();
+            variation.zipcode = bruno.zipcode();
+            variation.address = bruno.address();
+
+            mainCallback(variation);
+        });
+    });
+};
+```
+
+with the `user` model via connect file to database `models/user.js`:
+
+```js
+/* jslint esversion: 6 */
+var user = require('../assets/javascript/models/user.js');
+
+function User(connection) {
+    var privates = {},
+        publics = this;
+
+    privates.connection = connection;
+
+    if (!(publics instanceof User)) {
+        return new User();
+    }
+
+    publics.setConnection = function (connection) {
+        privates.connection = connection;
+        return publics;
+    };
+
+    user.call(publics);
+
+    publics.readFirst = function (callback) {
+        var select = `SELECT
+                    id,
+                    lastname,
+                    firstname,
+                    email,
+                    birthdate,
+                    gender,
+                    country,
+                    town,
+                    zipcode,
+                    address
+                FROM user`, 
+            where = "", 
+            limit = " LIMIT 0,1 ",
+            addWhere = " WHERE ";
+
+        if (publics.id()) { where += addWhere + "`id` = '" + publics.id().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.lastname()) { where += addWhere + "`lastname` = '" + publics.lastname().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.firstname()) { where += addWhere + "`firstname` = '" + publics.firstname().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.email()) { where += addWhere + "`email` = '" + publics.email().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.birthdate()) { where += addWhere + "`birthdate` = '" + publics.birthdate().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.gender()) { where += addWhere + "`gender` = '" + publics.gender().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.country()) { where += addWhere + "`country` = '" + publics.country().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.town()) { where += addWhere + "`town` = '" + publics.town().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.zipcode()) { where += addWhere + "`zipcode` = '" + publics.zipcode().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.address()) { where += addWhere + "`address` = '" + publics.address().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+
+        privates.connection.query(select + where + limit, function(err, rows, fields) {
+            if (err) console.log(err);
+
+            if (rows[0]) {
+                publics.id(rows[0].id);
+                publics.lastname(rows[0].lastname);
+                publics.firstname(rows[0].firstname);
+                publics.email(rows[0].email);
+                publics.birthdate(rows[0].birthdate);
+                publics.gender(rows[0].gender);
+                publics.country(rows[0].country);
+                publics.town(rows[0].town);
+                publics.zipcode(rows[0].zipcode);
+                publics.address(rows[0].address);
+            }
+
+            callback();
+        });
+    };
+}
+
+User.prototype = Object.create(user.prototype);
+User.prototype.constructor = User;
+
+module.exports = User;
+```
+
+based on `user` classe shared between Front and Back part `assets/javascript/models/user.js`:
+
+```js
+(function (expose, factory) {
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, function User() {
+    var privates = {},
+        publics = this;
+
+    if (!(publics instanceof User)) {
+        return new User();
+    }
+
+    publics.id = function (id) {
+        if (typeof id === 'undefined') {
+            return privates.id;
+        } else {
+            privates.id = id;
+            return publics;
+        }
+    };
+
+    publics.lastname = function (lastname) {
+        if (typeof lastname === 'undefined') {
+            return privates.lastname;
+        } else {
+            privates.lastname = lastname;
+            return publics;
+        }
+    };
+
+    publics.firstname = function (firstname) {
+        if (typeof firstname === 'undefined') {
+            return privates.firstname;
+        } else {
+            privates.firstname = firstname;
+            return publics;
+        }
+    };
+
+    publics.email = function (email) {
+        if (typeof email === 'undefined') {
+            return privates.email;
+        } else {
+            privates.email = email;
+            return publics;
+        }
+    };
+
+    publics.birthdate = function (birthdate) {
+        if (typeof birthdate === 'undefined') {
+            return privates.birthdate;
+        } else {
+            privates.birthdate = birthdate;
+            return publics;
+        }
+    };
+
+    publics.gender = function (gender) {
+        if (typeof gender === 'undefined') {
+            return privates.gender;
+        } else {
+            privates.gender = gender;
+            return publics;
+        }
+    };
+    
+    publics.country = function (country) {
+        if (typeof country === 'undefined') {
+            return privates.country;
+        } else {
+            privates.country = country;
+            return publics;
+        }
+    };
+
+    publics.town = function (town) {
+        if (typeof town === 'undefined') {
+            return privates.town;
+        } else {
+            privates.town = town;
+            return publics;
+        }
+    };
+
+    publics.zipcode = function (zipcode) {
+        if (typeof zipcode === 'undefined') {
+            return privates.zipcode;
+        } else {
+            privates.zipcode = zipcode;
+            return publics;
+        }
+    };
+
+    publics.address = function (address) {
+        if (typeof address === 'undefined') {
+            return privates.address;
+        } else {
+            privates.address = address;
+            return publics;
+        }
+    };
+}));
+```
+
+You will get the following output:
+
+```html
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8" />
+        <title>MySql Example</title>
+    </head>
+    <body>
+        <div class="title">MySql Example</div>
+        <div>
+            <h1>User Table</h1>
+            <p>`bruno` entry details.</p>
+            <ul>
+                <li>Id: <strong>1</strong></li>
+                <li>Lastname: <strong>Lesieur</strong></li>
+                <li>Firstname: <strong>Bruno</strong></li>
+                <li>Email: <strong>bruno.lesieur@gmail.com</strong></li>
+                <li>Birthdate: <strong>Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))</strong></li>
+                <li>Gender: <strong>Homme</strong></li>
+                <li>Country: <strong>France</strong></li>
+                <li>Town: <strong>Annecy</strong></li>
+                <li>Zipcode: <strong>74000</strong></li>
+                <li>Address: <strong>66 avenue de Genève</strong></li>
+            </ul>
+        </div>
+    </body>
+</html>
+```
 
 
 

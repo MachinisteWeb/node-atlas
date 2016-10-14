@@ -110,6 +110,7 @@
 <li><a href="#nodeatlas-use-to-generate-html-assets">NodeAtlas use to generate HTML assets</a></li>
 <li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
 <li><a href="#use-websocket-instead-of-ajax">Use Websocket instead of AJAX</a></li>
+<li><a href="#use-mysql-database-sql">Use MySQL Database (SQL)</a></li>
 <li><a href="#change-the-url-parameters">Change the url parameters</a></li>
 <li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
@@ -1646,7 +1647,363 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
 }(website.index = {}));</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p>
 <p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it's possible to generate a new template and variation compilation.</p>
 <p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>currentVariation</code> is type of <code>undefined</code> an empty object will be created.</p>
-<h3>Change the url parameters</h3><p>By default, if you use the following configuration:</p>
+<h3>Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p>
+<h4>MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p>
+<pre class="prettyprint source"><code>CREATE DATABASE demo;</code></pre><p>and select it:</p>
+<pre class="prettyprint source"><code>USE demo</code></pre><p>and create a <code>user</code> table:</p>
+<pre class="prettyprint source"><code>CREATE TABLE user
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    lastname VARCHAR(100),
+    firstname VARCHAR(100),
+    email VARCHAR(255),
+    birthdate DATE,
+    gender INT,
+    country VARCHAR(255),
+    town VARCHAR(255),
+    zipcode VARCHAR(5),
+    address VARCHAR(255)
+);</code></pre><p>and fill it with thi set of data:</p>
+<pre class="prettyprint source"><code>INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    &quot;Lesieur&quot;,
+    &quot;Bruno&quot;,
+    &quot;bruno.lesieur@gmail.com&quot;,
+    &quot;1988/07/18&quot;,
+    1,
+    &quot;France&quot;,
+    &quot;Annecy&quot;,
+    74000,
+    &quot;66 avenue de Genève&quot;
+);</code></pre><h4>NodeAtlas Files</h4><p>With the following data set:</p>
+<pre class="prettyprint source"><code>assets/
+— javascript/
+—— models/
+——— user.js
+controllers/
+— common.js
+— index.js
+models/
+— user.js
+templates/
+— index.htm
+variations/
+— common.json
+— index.json
+webconfig.json</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contain all informations for database connection:</p>
+<pre class="prettyprint source"><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    },
+    &quot;_mysqlConfig&quot;: {
+        &quot;host&quot;: &quot;localhost&quot;,
+        &quot;user&quot;: &quot;root&quot;,
+        &quot;password&quot;: &quot;root&quot;,
+        &quot;database&quot;: &quot;demo&quot;
+    }
+}</code></pre><p>With following files to display page:</p>
+<p><strong>templates/index.htm</strong></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;&lt;%- languageCode %>&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>&lt;%- common.titleWebsite %>&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div class=&quot;title&quot;>&lt;%- common.titleWebsite %>&lt;/div>
+        &lt;div>
+            &lt;h1>&lt;%- specific.titlePage %>&lt;/h1>
+            &lt;%- specific.content %>
+            &lt;ul>
+                &lt;li>Id: &lt;strong>&lt;%- id %>&lt;/strong>&lt;/li>
+                &lt;li>Lastname: &lt;strong>&lt;%- lastname %>&lt;/strong>&lt;/li>
+                &lt;li>Firstname: &lt;strong>&lt;%- firstname %>&lt;/strong>&lt;/li>
+                &lt;li>Email: &lt;strong>&lt;%- email %>&lt;/strong>&lt;/li>
+                &lt;li>Birthdate: &lt;strong>&lt;%- birthdate %>&lt;/strong>&lt;/li>
+                &lt;li>Gender: &lt;strong>&lt;%- gender %>&lt;/strong>&lt;/li>
+                &lt;li>Country: &lt;strong>&lt;%- country %>&lt;/strong>&lt;/li>
+                &lt;li>Town: &lt;strong>&lt;%- town %>&lt;/strong>&lt;/li>
+                &lt;li>Zipcode: &lt;strong>&lt;%- zipcode %>&lt;/strong>&lt;/li>
+                &lt;li>Address: &lt;strong>&lt;%- address %>&lt;/strong>&lt;/li>
+            &lt;/ul>
+        &lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><p><strong>variations/common.json</strong></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titleWebsite&quot;: &quot;Example MySql&quot;,
+    &quot;male&quot;: &quot;Man&quot;,
+    &quot;female&quot;: &quot;Woman&quot;
+}</code></pre><p><strong>variations/index.json</strong></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;User Table&quot;,
+    &quot;content&quot;: &quot;&lt;p>`bruno` entry details.&lt;/p>&quot;
+}</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>exports.loadModules = function () {
+    var NA = this;
+
+    NA.modules.mysql = require('mysql');
+    NA.models = {};
+    NA.models.User = require('../models/user.js');
+};
+
+exports.setConfigurations = function (next) {
+    var NA = this,
+        mysql = NA.modules.mysql;
+
+    NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
+
+    next();
+};</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>exports.changeVariation = function (params, mainCallback) {
+    var NA = this,
+        variation = params.variation,
+        User = NA.models.User,
+        bruno = User();
+
+    NA.mySql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return false;
+        }
+
+        bruno
+        .setConnection(connection)
+        .firstname(&quot;bruno&quot;)
+        .readFirst(function () {
+
+            variation.id = bruno.id();
+            variation.lastname = bruno.lastname();
+            variation.firstname = bruno.firstname();
+            variation.email = bruno.email();
+            variation.birthdate = bruno.birthdate();
+            variation.gender = (bruno.gender() === 1) ? variation.common.male : variation.common.female;
+            variation.country = bruno.country();
+            variation.town = bruno.town();
+            variation.zipcode = bruno.zipcode();
+            variation.address = bruno.address();
+
+            mainCallback(variation);
+        });
+    });
+};</code></pre><p>with the <code>user</code> model via connect file to database <code>models/user.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>/* jslint esversion: 6 */
+var user = require('../assets/javascript/models/user.js');
+
+function User(connection) {
+    var privates = {},
+        publics = this;
+
+    privates.connection = connection;
+
+    if (!(publics instanceof User)) {
+        return new User();
+    }
+
+    publics.setConnection = function (connection) {
+        privates.connection = connection;
+        return publics;
+    };
+
+    user.call(publics);
+
+    publics.readFirst = function (callback) {
+        var select = `SELECT
+                    id,
+                    lastname,
+                    firstname,
+                    email,
+                    birthdate,
+                    gender,
+                    country,
+                    town,
+                    zipcode,
+                    address
+                FROM user`, 
+            where = &quot;&quot;, 
+            limit = &quot; LIMIT 0,1 &quot;,
+            addWhere = &quot; WHERE &quot;;
+
+        if (publics.id()) { where += addWhere + &quot;`id` = '&quot; + publics.id().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.lastname()) { where += addWhere + &quot;`lastname` = '&quot; + publics.lastname().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.firstname()) { where += addWhere + &quot;`firstname` = '&quot; + publics.firstname().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.email()) { where += addWhere + &quot;`email` = '&quot; + publics.email().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.birthdate()) { where += addWhere + &quot;`birthdate` = '&quot; + publics.birthdate().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.gender()) { where += addWhere + &quot;`gender` = '&quot; + publics.gender().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.country()) { where += addWhere + &quot;`country` = '&quot; + publics.country().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.town()) { where += addWhere + &quot;`town` = '&quot; + publics.town().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.zipcode()) { where += addWhere + &quot;`zipcode` = '&quot; + publics.zipcode().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+        if (publics.address()) { where += addWhere + &quot;`address` = '&quot; + publics.address().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+
+        privates.connection.query(select + where + limit, function(err, rows, fields) {
+            if (err) console.log(err);
+
+            if (rows[0]) {
+                publics.id(rows[0].id);
+                publics.lastname(rows[0].lastname);
+                publics.firstname(rows[0].firstname);
+                publics.email(rows[0].email);
+                publics.birthdate(rows[0].birthdate);
+                publics.gender(rows[0].gender);
+                publics.country(rows[0].country);
+                publics.town(rows[0].town);
+                publics.zipcode(rows[0].zipcode);
+                publics.address(rows[0].address);
+            }
+
+            callback();
+        });
+    };
+}
+
+User.prototype = Object.create(user.prototype);
+User.prototype.constructor = User;
+
+module.exports = User;</code></pre><p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>(function (expose, factory) {
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, function User() {
+    var privates = {},
+        publics = this;
+
+    if (!(publics instanceof User)) {
+        return new User();
+    }
+
+    publics.id = function (id) {
+        if (typeof id === 'undefined') {
+            return privates.id;
+        } else {
+            privates.id = id;
+            return publics;
+        }
+    };
+
+    publics.lastname = function (lastname) {
+        if (typeof lastname === 'undefined') {
+            return privates.lastname;
+        } else {
+            privates.lastname = lastname;
+            return publics;
+        }
+    };
+
+    publics.firstname = function (firstname) {
+        if (typeof firstname === 'undefined') {
+            return privates.firstname;
+        } else {
+            privates.firstname = firstname;
+            return publics;
+        }
+    };
+
+    publics.email = function (email) {
+        if (typeof email === 'undefined') {
+            return privates.email;
+        } else {
+            privates.email = email;
+            return publics;
+        }
+    };
+
+    publics.birthdate = function (birthdate) {
+        if (typeof birthdate === 'undefined') {
+            return privates.birthdate;
+        } else {
+            privates.birthdate = birthdate;
+            return publics;
+        }
+    };
+
+    publics.gender = function (gender) {
+        if (typeof gender === 'undefined') {
+            return privates.gender;
+        } else {
+            privates.gender = gender;
+            return publics;
+        }
+    };
+
+    publics.country = function (country) {
+        if (typeof country === 'undefined') {
+            return privates.country;
+        } else {
+            privates.country = country;
+            return publics;
+        }
+    };
+
+    publics.town = function (town) {
+        if (typeof town === 'undefined') {
+            return privates.town;
+        } else {
+            privates.town = town;
+            return publics;
+        }
+    };
+
+    publics.zipcode = function (zipcode) {
+        if (typeof zipcode === 'undefined') {
+            return privates.zipcode;
+        } else {
+            privates.zipcode = zipcode;
+            return publics;
+        }
+    };
+
+    publics.address = function (address) {
+        if (typeof address === 'undefined') {
+            return privates.address;
+        } else {
+            privates.address = address;
+            return publics;
+        }
+    };
+}));</code></pre><p>You will get the following output:</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>MySql Example&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div class=&quot;title&quot;>MySql Example&lt;/div>
+        &lt;div>
+            &lt;h1>User Table&lt;/h1>
+            &lt;p>`bruno` entry details.&lt;/p>
+            &lt;ul>
+                &lt;li>Id: &lt;strong>1&lt;/strong>&lt;/li>
+                &lt;li>Lastname: &lt;strong>Lesieur&lt;/strong>&lt;/li>
+                &lt;li>Firstname: &lt;strong>Bruno&lt;/strong>&lt;/li>
+                &lt;li>Email: &lt;strong>bruno.lesieur@gmail.com&lt;/strong>&lt;/li>
+                &lt;li>Birthdate: &lt;strong>Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong>&lt;/li>
+                &lt;li>Gender: &lt;strong>Homme&lt;/strong>&lt;/li>
+                &lt;li>Country: &lt;strong>France&lt;/strong>&lt;/li>
+                &lt;li>Town: &lt;strong>Annecy&lt;/strong>&lt;/li>
+                &lt;li>Zipcode: &lt;strong>74000&lt;/strong>&lt;/li>
+                &lt;li>Address: &lt;strong>66 avenue de Genève&lt;/strong>&lt;/li>
+            &lt;/ul>
+        &lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><h3>Change the url parameters</h3><p>By default, if you use the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -3360,7 +3717,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Fri Oct 14 2016 15:04:46 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Fri Oct 14 2016 17:53:05 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
