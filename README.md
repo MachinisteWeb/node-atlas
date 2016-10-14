@@ -1215,7 +1215,7 @@ Do a POST request on `http://localhost/?title=Haeresis` with `example=This+is+a+
 ```js
 // This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation,
         request = params.request,
         response = params.response;
@@ -1238,7 +1238,7 @@ exports.changeVariation = function (params, mainCallback) {
     console.log(variation.specific.content); // "This is a test"
 
     // We update modification here.
-    mainCallback(variation);
+    next(variation);
 };
 ```
 
@@ -1247,7 +1247,7 @@ exports.changeVariation = function (params, mainCallback) {
 ```js
 // This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation,
         request = params.request,
         response = params.response;
@@ -1266,7 +1266,7 @@ exports.changeVariation = function (params, mainCallback) {
     console.log(variation.specific.content); // "It's Home, no way."
 
     // We update modification here.
-    mainCallback(variation);
+    next(variation);
 };
 ```
 
@@ -1399,7 +1399,7 @@ Do a POST request on `http://localhost/` will use the following files:
 ```js
 // This code is executed before DOM was sent to Client.
 // This code is executed for all HTTP request, for all pages.
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
     var NA = this,
         dom = params.dom,
         request = params.request,
@@ -1424,7 +1424,7 @@ exports.changeDom = function (params, mainCallback) {
     dom = $.html();
 
     // We update modification here.
-    mainCallback(dom);
+    next(dom);
 };
 ```
 
@@ -1433,7 +1433,7 @@ exports.changeDom = function (params, mainCallback) {
 ```js
 // This code is executed before DOM was sent to Client.
 // This code is executed only for the « / » page .
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
     var NA = this,
         dom = params.dom,
         request = params.request,
@@ -1448,7 +1448,7 @@ exports.changeDom = function (params, mainCallback) {
     dom = $.html();
 
     // We update modification here.
-    mainCallback(dom);
+    next(dom);
 };
 ```
 
@@ -1540,7 +1540,7 @@ exports.loadModules = function () {
 ```js
 // This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     // Use the « NodeAtlas » instance from engine.
     var NA = this,
         variation = params.variation,
@@ -1549,7 +1549,7 @@ exports.changeVariation = function (params, mainCallback) {
     variation.example = marked("I am using __markdown__.");
 
     // We update modification here.
-    mainCallback(variation);
+    next(variation);
 };
 ```
 
@@ -1613,7 +1613,7 @@ Do a POST request on `http://localhost/` will use the following files:
 ```js
 // This code is executing before starting of the web server.
 // This code will be executed when NodeAtlas starting.
-exports.setConfigurations = function (mainCallback) {
+exports.setConfigurations = function (next) {
     // Use the « NodeAtlas » instance from engine.
     var NA = this;
 
@@ -1624,7 +1624,7 @@ exports.setConfigurations = function (mainCallback) {
     });
 
     // We update modification here.
-    mainCallback();
+    next();
 };
 ```
 
@@ -1633,7 +1633,7 @@ exports.setConfigurations = function (mainCallback) {
 ```js
 // This code is executing before starting of the web server.
 // This code is executed only for the « / » page .
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     // We prepare file for JSON displaying.
@@ -1643,7 +1643,7 @@ exports.changeVariation = function (params, mainCallback) {
     variation.content = JSON.stringify(variation, null, "    ");
 
     // We update modification here.
-    mainCallback(variation);
+    next(variation);
 };
 ```
 
@@ -1722,7 +1722,7 @@ And "common.js" file containing e.g.:
 var privates = {};
 
 // Example of using MongoDB and Mongoose.
-privates.mongooseInitialization = function (mongoose, callback) {
+privates.mongooseInitialization = function (mongoose, next) {
     // "blog" database connection.
     mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
         if (error) {
@@ -1730,8 +1730,7 @@ privates.mongooseInitialization = function (mongoose, callback) {
             process.kill(process.pid);
         }
 
-        // Next.
-        callback(mongoose);
+        next(mongoose);
     });
 
     // Connection Management.
@@ -1791,7 +1790,7 @@ exports.loadModules = function () {
 /*** Configuring npm modules ***/
 
 // Configuration of all modules.
-exports.setConfigurations = function (callback) {
+exports.setConfigurations = function (next) {
     var NA = this,
         mongoose = NA.modules.mongoose;
 
@@ -1802,7 +1801,7 @@ exports.setConfigurations = function (callback) {
         privates.mongooseSchemas(mongoose);
 
         // Next steps of engine.
-        callback();
+        next();
     });
 };
 
@@ -1811,14 +1810,14 @@ exports.setConfigurations = function (callback) {
 /*** Configuring Express Session. ***/
 
 // Allows you to use an external DB for Session.
-exports.setSessions = function (callback) {
+exports.setSessions = function (next) {
     var NA = this,
         session = NA.modules.session,
         RedisStore = NA.modules.RedisStore(session);
 
     NA.sessionStore = new RedisStore();
 
-    callback();
+    next();
 };
 
 
@@ -1826,14 +1825,14 @@ exports.setSessions = function (callback) {
 /*** Variations interception. ***/
 
 // It occurs just before the complete assembly EJS.
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     // Here variations variables are modified.
     // see example in the file after.
 
     // We re-injects the changes.
-    mainCallback(variation);
+    next(variation);
 };
 
 
@@ -1841,14 +1840,14 @@ exports.changeVariation = function (params, mainCallback) {
 /*** Interception of the HTML output for server-side jQuery ***/
 
 // It comes just before the HTML response to the client.
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
     var dom = params.dom;
 
     // Here one can manipulate the DOM before response to the client.
     // see example in the file after.
 
     // We re-injects the changes.
-    mainCallback(dom);
+    next(dom);
 };
 ```
 
@@ -1876,7 +1875,7 @@ privates.listOfArticles = require('./modules/list-of-articles');
 /*** Variations Interception ***/
 
 // It occurs just before the complete assembly EJS.
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
         mongoose = NA.modules.mongoose,
@@ -1912,7 +1911,7 @@ exports.changeVariation = function (params, mainCallback) {
         variation.backend.articles = listOfArticles; // « <%= backend.articles.<properties> %> ».
 
         // We re-injects the changes.
-        mainCallback(variation);
+        next(variation);
     });
 };
 
@@ -1921,7 +1920,7 @@ exports.changeVariation = function (params, mainCallback) {
 /*** Interception of the HTML output for server-side jQuery ***/
 
 // It comes just before the HTML response to the client.
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
     var NA = this,
         dom = params.dom,
         cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
@@ -1944,7 +1943,7 @@ exports.changeDom = function (params, mainCallback) {
     dom = $.html();
 
     // We re-injects the changes.
-    mainCallback(dom);
+    next(dom);
 };
 ```
 
@@ -2087,7 +2086,7 @@ exports.loadModules = function () {
 };
 
 // Example using Socket.IO.
-privates.socketIoInitialisation = function (socketio, NA, callback) {
+privates.socketIoInitialisation = function (socketio, NA, next) {
     var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
         io = socketio(NA.server, optionIo),
         cookie = NA.modules.cookie,
@@ -2123,7 +2122,7 @@ privates.socketIoInitialisation = function (socketio, NA, callback) {
     });
 
     // Next.
-    callback(io);
+    next(io);
 };
 
 // Adding listener for a specific controller "index.js" (see example in the next file).
@@ -2137,7 +2136,7 @@ privates.socketIoEvents = function (io, NA) {
 };
 
 // Configuration of all modules.
-exports.setConfigurations = function (callback) {
+exports.setConfigurations = function (next) {
     var NA = this,
         socketio = NA.modules.socketio;
 
@@ -2148,7 +2147,7 @@ exports.setConfigurations = function (callback) {
         privates.socketIoEvents(io, NA);
 
         // Next steps of engine.
-        callback();
+        next();
     });
 };
 ```
@@ -2465,13 +2464,13 @@ you can access:
 and retrieve the `:member` value in` changeVariation` (common and specific).
 
 ```js
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     console.log(variation.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    mainCallback(variation);
+    next(variation);
 }
 ```
 
@@ -2513,7 +2512,7 @@ you can access:
 and retrieve the `([-a-z0-9] +) value in the` `changeVariation` (common and specific).
 
 ```js
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
@@ -2522,7 +2521,7 @@ exports.changeVariation = function (params, mainCallback) {
     console.log(variation.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    mainCallback(variation);
+    next(variation);
 }
 ```
 
@@ -4122,14 +4121,14 @@ var website = {};
         NA.modules.RedisStore = require('connect-redis');
     };
 
-    publics.setSessions = function (callback) {
+    publics.setSessions = function (next) {
         var NA = this,
             session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
 
         NA.sessionStore = new RedisStore();
 
-        callback();
+        next();
     };
 
 }(website));
@@ -4157,7 +4156,7 @@ var website = {};
         NA.modules.MongoStore = require('connect-mongo');
     };
 
-    publics.setSessions = function (callback) {
+    publics.setSessions = function (next) {
         var NA = this,
             session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
@@ -4166,7 +4165,7 @@ var website = {};
             db: 'sessions'
         });
 
-        callback();
+        next();
     };
 
 }(website));

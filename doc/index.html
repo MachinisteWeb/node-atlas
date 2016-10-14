@@ -43,7 +43,7 @@
 
 
     <section>
-        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.4-brightgreen.svg" alt="Version 1.4"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.5-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.4-brightgreen.svg" alt="Version 1.4"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.8-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><h3>For What ?</h3><p>NodeAtlas is a JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run on all <a href="https://nodejs.org/en/">Node.js</a> verision. NodeAtlas allows you to :</p>
 <ul>
@@ -836,7 +836,7 @@ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/?title
     &lt;%- include('foot.htm') %></code></pre><p><em>controllers/common.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation,
         request = params.request,
         response = params.response;
@@ -859,11 +859,11 @@ exports.changeVariation = function (params, mainCallback) {
     console.log(variation.specific.content); // &quot;This is a test&quot;
 
     // We update modification here.
-    mainCallback(variation);
+    next(variation);
 };</code></pre><p><em>controllers/index.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation,
         request = params.request,
         response = params.response;
@@ -882,7 +882,7 @@ exports.changeVariation = function (params, mainCallback) {
     console.log(variation.specific.content); // &quot;It's Home, no way.&quot;
 
     // We update modification here.
-    mainCallback(variation);
+    next(variation);
 };</code></pre><p>en this produce the following output :</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;fr-fr&quot;>
@@ -966,7 +966,7 @@ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/</code
 &lt;/html></code></pre><p><em>controllers/common.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before DOM was sent to Client.
 // This code is executed for all HTTP request, for all pages.
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
     var NA = this,
         dom = params.dom,
         request = params.request,
@@ -991,11 +991,11 @@ exports.changeDom = function (params, mainCallback) {
     dom = $.html();
 
     // We update modification here.
-    mainCallback(dom);
+    next(dom);
 };</code></pre><p><em>controllers/index.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before DOM was sent to Client.
 // This code is executed only for the « / » page .
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
     var NA = this,
         dom = params.dom,
         request = params.request,
@@ -1010,7 +1010,7 @@ exports.changeDom = function (params, mainCallback) {
     dom = $.html();
 
     // We update modification here.
-    mainCallback(dom);
+    next(dom);
 };</code></pre><p>the output will be as following:</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;fr-fr&quot;>
@@ -1068,7 +1068,7 @@ exports.loadModules = function () {
 };</code></pre><p><em>controllers/index.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     // Use the « NodeAtlas » instance from engine.
     var NA = this,
         variation = params.variation,
@@ -1077,7 +1077,7 @@ exports.changeVariation = function (params, mainCallback) {
     variation.example = marked(&quot;I am using __markdown__.&quot;);
 
     // We update modification here.
-    mainCallback(variation);
+    next(variation);
 };</code></pre><p>this will produce the following output:</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;fr-fr&quot;>
@@ -1112,7 +1112,7 @@ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/</code
 <pre class="prettyprint source lang-html"><code>&lt;%- content %></code></pre><p><em>controllers/common.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executing before starting of the web server.
 // This code will be executed when NodeAtlas starting.
-exports.setConfigurations = function (mainCallback) {
+exports.setConfigurations = function (next) {
     // Use the « NodeAtlas » instance from engine.
     var NA = this;
 
@@ -1123,11 +1123,11 @@ exports.setConfigurations = function (mainCallback) {
     });
 
     // We update modification here.
-    mainCallback();
+    next();
 };</code></pre><p><em>controllers/index.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executing before starting of the web server.
 // This code is executed only for the « / » page .
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     // We prepare file for JSON displaying.
@@ -1137,7 +1137,7 @@ exports.changeVariation = function (params, mainCallback) {
     variation.content = JSON.stringify(variation, null, &quot;    &quot;);
 
     // We update modification here.
-    mainCallback(variation);
+    next(variation);
 };</code></pre><p>this will produce the following output:</p>
 <pre class="prettyprint source lang-html"><code>{
     &quot;urlBasePathSlice&quot;: &quot;http://localhost&quot;,
@@ -1194,7 +1194,7 @@ webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
 var privates = {};
 
 // Example of using MongoDB and Mongoose.
-privates.mongooseInitialization = function (mongoose, callback) {
+privates.mongooseInitialization = function (mongoose, next) {
     // &quot;blog&quot; database connection.
     mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
         if (error) {
@@ -1202,8 +1202,7 @@ privates.mongooseInitialization = function (mongoose, callback) {
             process.kill(process.pid);
         }
 
-        // Next.
-        callback(mongoose);
+        next(mongoose);
     });
 
     // Connection Management.
@@ -1263,7 +1262,7 @@ exports.loadModules = function () {
 /*** Configuring npm modules ***/
 
 // Configuration of all modules.
-exports.setConfigurations = function (callback) {
+exports.setConfigurations = function (next) {
     var NA = this,
         mongoose = NA.modules.mongoose;
 
@@ -1274,7 +1273,7 @@ exports.setConfigurations = function (callback) {
         privates.mongooseSchemas(mongoose);
 
         // Next steps of engine.
-        callback();
+        next();
     });
 };
 
@@ -1283,14 +1282,14 @@ exports.setConfigurations = function (callback) {
 /*** Configuring Express Session. ***/
 
 // Allows you to use an external DB for Session.
-exports.setSessions = function (callback) {
+exports.setSessions = function (next) {
     var NA = this,
         session = NA.modules.session,
         RedisStore = NA.modules.RedisStore(session);
 
     NA.sessionStore = new RedisStore();
 
-    callback();
+    next();
 };
 
 
@@ -1298,14 +1297,14 @@ exports.setSessions = function (callback) {
 /*** Variations interception. ***/
 
 // It occurs just before the complete assembly EJS.
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     // Here variations variables are modified.
     // see example in the file after.
 
     // We re-injects the changes.
-    mainCallback(variation);
+    next(variation);
 };
 
 
@@ -1313,14 +1312,14 @@ exports.changeVariation = function (params, mainCallback) {
 /*** Interception of the HTML output for server-side jQuery ***/
 
 // It comes just before the HTML response to the client.
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
     var dom = params.dom;
 
     // Here one can manipulate the DOM before response to the client.
     // see example in the file after.
 
     // We re-injects the changes.
-    mainCallback(dom);
+    next(dom);
 };</code></pre><p>with a &quot;index.js&quot; file containing, for example:</p>
 <ul>
 <li>things for dynamically change the front display.</li>
@@ -1344,7 +1343,7 @@ privates.listOfArticles = require('./modules/list-of-articles');
 /*** Variations Interception ***/
 
 // It occurs just before the complete assembly EJS.
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
         mongoose = NA.modules.mongoose,
@@ -1380,7 +1379,7 @@ exports.changeVariation = function (params, mainCallback) {
         variation.backend.articles = listOfArticles; // « &lt;%= backend.articles.&lt;properties> %> ».
 
         // We re-injects the changes.
-        mainCallback(variation);
+        next(variation);
     });
 };
 
@@ -1389,7 +1388,7 @@ exports.changeVariation = function (params, mainCallback) {
 /*** Interception of the HTML output for server-side jQuery ***/
 
 // It comes just before the HTML response to the client.
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
     var NA = this,
         dom = params.dom,
         cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
@@ -1412,7 +1411,7 @@ exports.changeDom = function (params, mainCallback) {
     dom = $.html();
 
     // We re-injects the changes.
-    mainCallback(dom);
+    next(dom);
 };</code></pre><h3>Use Websocket instead of AJAX</h3><p>To keep a link between Front and Back part of website, NodeAtlas can use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p>
 <p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p>
 <p>With this following files:</p>
@@ -1496,7 +1495,7 @@ exports.loadModules = function () {
 };
 
 // Example using Socket.IO.
-privates.socketIoInitialisation = function (socketio, NA, callback) {
+privates.socketIoInitialisation = function (socketio, NA, next) {
     var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
         io = socketio(NA.server, optionIo),
         cookie = NA.modules.cookie,
@@ -1532,7 +1531,7 @@ privates.socketIoInitialisation = function (socketio, NA, callback) {
     });
 
     // Next.
-    callback(io);
+    next(io);
 };
 
 // Adding listener for a specific controller &quot;index.js&quot; (see example in the next file).
@@ -1546,7 +1545,7 @@ privates.socketIoEvents = function (io, NA) {
 };
 
 // Configuration of all modules.
-exports.setConfigurations = function (callback) {
+exports.setConfigurations = function (next) {
     var NA = this,
         socketio = NA.modules.socketio;
 
@@ -1557,7 +1556,7 @@ exports.setConfigurations = function (callback) {
         privates.socketIoEvents(io, NA);
 
         // Next steps of engine.
-        callback();
+        next();
     });
 };</code></pre><p><em>Note : This is Socket.IO server global configuration.</em></p>
 <p><strong>controllers/index.js</strong></p>
@@ -1773,13 +1772,13 @@ webconfig.prod.json</code></pre><p>and &quot;index.htm&quot; containing:</p>
 <li><em>http://localhost/list-of-members/etc/</em></li>
 </ul>
 <p>and retrieve the <code>:member</code> value in<code>changeVariation</code> (common and specific).</p>
-<pre class="prettyprint source lang-js"><code>exports.changeVariation = function (params, mainCallback) {
+<pre class="prettyprint source lang-js"><code>exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     console.log(variation.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    mainCallback(variation);
+    next(variation);
 }</code></pre><p>Dynamic url creation rules are those of <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p>
 <h4>Regular Expressions</h4><p>You can also enable regular expressions to a specific path with <code>regExp</code>. If it is <code>true</code>, the previous profile no longer works and you pass in Regular Expression mode. If <code>regExp</code> is a string, it acts as a flag (g, i, m or y).</p>
 <p>See the following configuration:</p>
@@ -1807,7 +1806,7 @@ webconfig.prod.json</code></pre><p>and &quot;index.htm&quot; containing:</p>
 <li><em>http://localhost/list-of-members/etc/</em> <em>(ou <em>https://localhost/list-of-members/etc</em>)</em></li>
 </ul>
 <p>and retrieve the <code>([-a-z0-9] +) value in the</code> <code>changeVariation</code> (common and specific).</p>
-<pre class="prettyprint source lang-js"><code>exports.changeVariation = function (params, mainCallback) {
+<pre class="prettyprint source lang-js"><code>exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
@@ -1816,7 +1815,7 @@ webconfig.prod.json</code></pre><p>and &quot;index.htm&quot; containing:</p>
     console.log(variation.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    mainCallback(variation);
+    next(variation);
 }</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p>
 <h4>Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p>
 <p>For example:</p>
@@ -2889,14 +2888,14 @@ templates/
         NA.modules.RedisStore = require('connect-redis');
     };
 
-    publics.setSessions = function (callback) {
+    publics.setSessions = function (next) {
         var NA = this,
             session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
 
         NA.sessionStore = new RedisStore();
 
-        callback();
+        next();
     };
 
 }(website));
@@ -2915,7 +2914,7 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
         NA.modules.MongoStore = require('connect-mongo');
     };
 
-    publics.setSessions = function (callback) {
+    publics.setSessions = function (next) {
         var NA = this,
             session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
@@ -2924,7 +2923,7 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
             db: 'sessions'
         });
 
-        callback();
+        next();
     };
 
 }(website));
@@ -3361,7 +3360,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Oct 13 2016 17:35:16 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Fri Oct 14 2016 15:04:46 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
