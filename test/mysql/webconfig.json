@@ -7,5 +7,11 @@
             "variation": "index.json",
             "controller": "index.js"
         }
-    }
+    },
+    "_mysqlConfig": {
+  		"host": "localhost",
+  		"user": "root",
+	  	"password": "root",
+	  	"database": "demo"
+	}
 }

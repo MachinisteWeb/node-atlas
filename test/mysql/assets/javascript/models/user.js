@@ -21,20 +21,20 @@
         }
     };
 
-    publics.name = function (name) {
-        if (typeof name === 'undefined') {
-            return privates.name;
+    publics.lastname = function (lastname) {
+        if (typeof lastname === 'undefined') {
+            return privates.lastname;
         } else {
-            privates.name = name;
+            privates.lastname = lastname;
             return publics;
         }
     };
 
-    publics.password = function (password) {
-        if (typeof password === 'undefined') {
-            return privates.password;
+    publics.firstname = function (firstname) {
+        if (typeof firstname === 'undefined') {
+            return privates.firstname;
         } else {
-            privates.password = password;
+            privates.firstname = firstname;
             return publics;
         }
     };
@@ -48,11 +48,11 @@
         }
     };
 
-    publics.birth = function (birth) {
-        if (typeof birth === 'undefined') {
-            return privates.birth;
+    publics.birthdate = function (birthdate) {
+        if (typeof birthdate === 'undefined') {
+            return privates.birthdate;
         } else {
-            privates.birth = birth;
+            privates.birthdate = birthdate;
             return publics;
         }
     };
@@ -66,47 +66,38 @@
         }
     };
     
-    publics.isavatar = function (isavatar) {
-        if (typeof isavatar === 'undefined') {
-            return privates.isavatar;
+    publics.country = function (country) {
+        if (typeof country === 'undefined') {
+            return privates.country;
         } else {
-            privates.isavatar = isavatar;
+            privates.country = country;
             return publics;
         }
     };
 
-    publics.isnavi = function (isnavi) {
-        if (typeof isnavi === 'undefined') {
-            return privates.isnavi;
+    publics.town = function (town) {
+        if (typeof town === 'undefined') {
+            return privates.town;
         } else {
-            privates.isnavi = isnavi;
+            privates.town = town;
             return publics;
         }
     };
 
-    publics.subscription = function (subscription) {
-        if (typeof subscription === 'undefined') {
-            return privates.subscription;
+    publics.zipcode = function (zipcode) {
+        if (typeof zipcode === 'undefined') {
+            return privates.zipcode;
         } else {
-            privates.subscription = subscription;
+            privates.zipcode = zipcode;
             return publics;
         }
     };
 
-    publics.connected = function (connected) {
-        if (typeof connected === 'undefined') {
-            return privates.connected;
+    publics.address = function (address) {
+        if (typeof address === 'undefined') {
+            return privates.address;
         } else {
-            privates.connected = connected;
-            return publics;
-        }
-    };
-
-    publics.invisible = function (invisible) {
-        if (typeof invisible === 'undefined') {
-            return privates.invisible;
-        } else {
-            privates.invisible = invisible;
+            privates.address = address;
             return publics;
         }
     };

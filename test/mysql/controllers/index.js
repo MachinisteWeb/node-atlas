@@ -12,20 +12,19 @@ exports.changeVariation = function (params, mainCallback) {
 
         bruno
         .setConnection(connection)
-        .password('a5e0ba393fd8ccc094235059aa702e0e')
-        .read(function () {
+        .firstname("bruno")
+        .readFirst(function () {
 
-            console.log(bruno.id());
-            console.log(bruno.name());
-            console.log(bruno.password());
-            console.log(bruno.email());
-            console.log(bruno.birth());
-            console.log(bruno.gender());
-            console.log(bruno.isavatar());
-            console.log(bruno.isnavi());
-            console.log(bruno.subscription());
-            console.log(bruno.connected());
-            console.log(bruno.invisible());
+            variation.id = bruno.id();
+            variation.lastname = bruno.lastname();
+            variation.firstname = bruno.firstname();
+            variation.email = bruno.email();
+            variation.birthdate = bruno.birthdate();
+            variation.gender = (bruno.gender() === 1) ? variation.common.male : variation.common.female;
+            variation.country = bruno.country();
+            variation.town = bruno.town();
+            variation.zipcode = bruno.zipcode();
+            variation.address = bruno.address();
 
             mainCallback(variation);
         });
