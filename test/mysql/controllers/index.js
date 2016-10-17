@@ -20,7 +20,7 @@ exports.changeVariation = function (params, mainCallback) {
             variation.firstname = bruno.firstname();
             variation.email = bruno.email();
             variation.birthdate = bruno.birthdate();
-            variation.gender = (bruno.gender() === 1) ? variation.common.male : variation.common.female;
+            variation.gender = (bruno.gender()) ? variation.common.male : variation.common.female;
             variation.country = bruno.country();
             variation.town = bruno.town();
             variation.zipcode = bruno.zipcode();

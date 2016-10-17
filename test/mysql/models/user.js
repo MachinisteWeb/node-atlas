@@ -55,7 +55,7 @@ function User(connection) {
 				publics.firstname(rows[0].firstname);
 				publics.email(rows[0].email);
 				publics.birthdate(rows[0].birthdate);
-				publics.gender(rows[0].gender);
+				publics.gender((rows[0].gender) ? true : false);
 				publics.country(rows[0].country);
 				publics.town(rows[0].town);
 				publics.zipcode(rows[0].zipcode);
