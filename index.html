@@ -144,6 +144,7 @@
 <li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
 <li><a href="#use-websocket-instead-of-ajax">Use Websocket instead of AJAX</a></li>
 <li><a href="#use-mysql-database-sql">Use MySQL Database (SQL)</a></li>
+<li><a href="#use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</a></li>
 <li><a href="#change-the-url-parameters">Change the url parameters</a></li>
 <li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
@@ -1646,21 +1647,13 @@ webconfig.json
 
 <p>This is all files for example:</p>
 
-<pre><code>variations/
-— index.json
-— categories.json
-controllers/
-— modules/
-—— list-of-article.js/
+<pre><code>controllers/
 — common.js
-- index.js
-- categories.js
-models/
-— Article.js
-— Category.js
 templates/
 — index.htm
-— categories.htm
+variations/
+— common.json
+— index.json
 webconfig.json
 </code></pre>
 
@@ -1668,121 +1661,25 @@ webconfig.json
 
 <div class="highlight highlight-source-js"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>commonVariation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.json<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
             <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.js<span class="pl-pds">"</span></span>,
             <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.json<span class="pl-pds">"</span></span>
-        },
-        <span class="pl-s"><span class="pl-pds">"</span>/categories/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.htm<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>controller<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.js<span class="pl-pds">"</span></span>,
-            <span class="pl-s"><span class="pl-pds">"</span>variation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>categories.json<span class="pl-pds">"</span></span>
         }
     }
 }</pre></div>
 
 <p>And "common.js" file containing e.g.:</p>
 
-<ul>
-<li>things for load additional npm modules.</li>
-<li>things for load <a href="http://expressjs.com/">Express</a> middlewares.</li>
-<li>things for load additional NodeAtlas modules.</li>
-</ul>
-
-<div class="highlight highlight-source-js"><pre><span class="pl-c">/***************************/</span>
-<span class="pl-c">/* Configuring npm modules */</span>
-<span class="pl-c">/***************************/</span>
-
-<span class="pl-k">var</span> privates <span class="pl-k">=</span> {};
-
-<span class="pl-c">// Example of using MongoDB and Mongoose.</span>
-<span class="pl-smi">privates</span>.<span class="pl-en">mongooseInitialization</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>, <span class="pl-smi">next</span>) {
-    <span class="pl-c">// "blog" database connection.</span>
-    <span class="pl-smi">mongoose</span>.<span class="pl-en">connect</span>(<span class="pl-s"><span class="pl-pds">'</span>mongodb://127.0.0.1:27017/blog<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
-        <span class="pl-k">if</span> (error) {
-            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Database 'mongodb://127.0.0.1:27017/blog' is not accessible.<span class="pl-pds">"</span></span>);
-            <span class="pl-c1">process</span>.<span class="pl-en">kill</span>(<span class="pl-c1">process</span>.<span class="pl-smi">pid</span>);
-        }
-
-        <span class="pl-en">next</span>(mongoose);
-    });
-
-    <span class="pl-c">// Connection Management.</span>
-    <span class="pl-smi">mongoose</span>.<span class="pl-smi">connection</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>error<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
-        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Error to connect by default Mongoose: <span class="pl-pds">'</span></span> <span class="pl-k">+</span> error);
-    });
-
-    <span class="pl-c">// Disconnection Management.</span>
-    <span class="pl-smi">mongoose</span>.<span class="pl-smi">connection</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>disconnected<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
-        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Disconnection of Mongoose.<span class="pl-pds">'</span></span>);
-    });
-    <span class="pl-c1">process</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>SIGINT<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
-        <span class="pl-smi">mongoose</span>.<span class="pl-smi">connection</span>.<span class="pl-c1">close</span>(<span class="pl-k">function</span> () {
-            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Disconnection of Mongoose because of app termination<span class="pl-pds">'</span></span>);
-            <span class="pl-c1">process</span>.<span class="pl-en">exit</span>(<span class="pl-c1">0</span>);
-        });
-    });
-};
-
-<span class="pl-c">// Mongoose Schemas Management.</span>
-<span class="pl-smi">privates</span>.<span class="pl-en">mongooseSchemas</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>) {
-    <span class="pl-smi">website</span>.<span class="pl-smi">schema</span> <span class="pl-k">=</span> {};
-
-    <span class="pl-c">// Load Schemas.</span>
-    <span class="pl-smi">website</span>.<span class="pl-smi">schema</span>.<span class="pl-smi">article</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../models/Article<span class="pl-pds">'</span></span>);
-    <span class="pl-smi">website</span>.<span class="pl-smi">schema</span>.<span class="pl-smi">category</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../models/Category<span class="pl-pds">'</span></span>);
-
-    <span class="pl-c">// Expose Schemas.</span>
-    <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>, <span class="pl-smi">website</span>.<span class="pl-smi">schema</span>.<span class="pl-smi">article</span>, <span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
-    <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>, <span class="pl-smi">website</span>.<span class="pl-smi">schema</span>.<span class="pl-smi">category</span>, <span class="pl-s"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>);
-};
-
-
-
-
-
-<span class="pl-c">/********************************************/</span>
-<span class="pl-c">/* Expose function for the NodeAtlas engine */</span>
-<span class="pl-c">/********************************************/</span>
-
-<span class="pl-c">/*** Loading npm modules ***/</span>
-
-<span class="pl-c">// Load modules for this site in the NodeAtlas object.</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Load modules for this site in the NodeAtlas object.</span>
 <span class="pl-c1">exports</span>.<span class="pl-en">loadModules</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
     <span class="pl-c">// Find instance of « NodeAtlas » engine.</span>
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
 
     <span class="pl-c">// Associations of each module to access it anywhere.</span>
-    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-c1">cookie</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cookie<span class="pl-pds">'</span></span>);
-    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
     <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">RedisStore</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>connect-redis<span class="pl-pds">'</span></span>);
-    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">commonVar</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-smi">path</span>.<span class="pl-c1">join</span>(<span class="pl-c1">NA</span>.<span class="pl-smi">websitePhysicalPath</span>, <span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">variationsRelativePath</span>, <span class="pl-s"><span class="pl-pds">'</span>common.json<span class="pl-pds">'</span></span>));
 };
-
-
-
-<span class="pl-c">/*** Configuring npm modules ***/</span>
-
-<span class="pl-c">// Configuration of all modules.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
-    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
-        mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>;
-
-    <span class="pl-c">// Initialize Mongoose.</span>
-    <span class="pl-smi">privates</span>.<span class="pl-en">mongooseInitialization</span>(mongoose, <span class="pl-k">function</span> (<span class="pl-smi">mongoose</span>) {
-
-        <span class="pl-c">// Schemas injection into Mongoose.</span>
-        <span class="pl-smi">privates</span>.<span class="pl-en">mongooseSchemas</span>(mongoose);
-
-        <span class="pl-c">// Next steps of engine.</span>
-        <span class="pl-en">next</span>();
-    });
-};
-
-
-
-<span class="pl-c">/*** Configuring Express Session. ***/</span>
 
 <span class="pl-c">// Allows you to use an external DB for Session.</span>
 <span class="pl-c1">exports</span>.<span class="pl-en">setSessions</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
@@ -1793,132 +1690,6 @@ webconfig.json
     <span class="pl-c1">NA</span>.<span class="pl-smi">sessionStore</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">RedisStore</span>();
 
     <span class="pl-en">next</span>();
-};
-
-
-
-<span class="pl-c">/*** Variations interception. ***/</span>
-
-<span class="pl-c">// It occurs just before the complete assembly EJS.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
-    <span class="pl-k">var</span> variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>;
-
-    <span class="pl-c">// Here variations variables are modified.</span>
-    <span class="pl-c">// see example in the file after.</span>
-
-    <span class="pl-c">// We re-injects the changes.</span>
-    <span class="pl-en">next</span>(variation);
-};
-
-
-
-<span class="pl-c">/*** Interception of the HTML output for server-side jQuery ***/</span>
-
-<span class="pl-c">// It comes just before the HTML response to the client.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
-    <span class="pl-k">var</span> dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>;
-
-    <span class="pl-c">// Here one can manipulate the DOM before response to the client.</span>
-    <span class="pl-c">// see example in the file after.</span>
-
-    <span class="pl-c">// We re-injects the changes.</span>
-    <span class="pl-en">next</span>(dom);
-};</pre></div>
-
-<p>with a "index.js" file containing, for example:</p>
-
-<ul>
-<li>things for dynamically change the front display.</li>
-<li>things for changes on the server side with jQuery.</li>
-</ul>
-
-<div class="highlight highlight-source-js"><pre><span class="pl-c">/*******************************************/</span>
-<span class="pl-c">/* Charging a function or set of functions */</span>
-<span class="pl-c">/*******************************************/</span>
-
-<span class="pl-k">var</span> privates <span class="pl-k">=</span> {};
-<span class="pl-smi">privates</span>.<span class="pl-smi">listOfArticles</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./modules/list-of-articles<span class="pl-pds">'</span></span>);
-
-
-
-
-
-<span class="pl-c">/********************************************/</span>
-<span class="pl-c">/* Expose function for the NodeAtlas engine */</span>
-<span class="pl-c">/********************************************/</span>
-
-<span class="pl-c">/*** Variations Interception ***/</span>
-
-<span class="pl-c">// It occurs just before the complete assembly EJS.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
-    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
-        variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
-        mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
-        Article <span class="pl-k">=</span> <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>article<span class="pl-pds">'</span></span>);
-
-    <span class="pl-c">// Can intercept all the variables of "variations/common.js".</span>
-    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-c1">title</span>); <span class="pl-c">// Return title stored in « variations/common.js ».</span>
-    <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>New Title<span class="pl-pds">"</span></span>; <span class="pl-c">// Set title.</span>
-    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-c1">title</span>); <span class="pl-c">// Return "New Title" and is accessible in template side via `&lt;%= common.title %&gt;`.</span>
-
-    <span class="pl-c">// Can intercept all the variables of "variations/index.js" (because this file correspond to specific "index.js").</span>
-    <span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>New Title<span class="pl-pds">"</span></span>; <span class="pl-c">// Return "New Title" and is accessible in template side via `&lt;%= specific.title %&gt;`.</span>
-    <span class="pl-smi">variation</span>.<span class="pl-smi">specific</span>.<span class="pl-smi">newProperty</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>New Property<span class="pl-pds">"</span></span>; <span class="pl-c">// Defined a property does not exist in the original variation file that is accessible in template side via « &lt;%= specific.newProperty ».</span>
-
-    <span class="pl-c">// Can intercept the configuration of the current page</span>
-    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">variation</span>.<span class="pl-smi">currentRoute</span>); <span class="pl-c">// Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.</span>
-
-    <span class="pl-c">// A test is made on a variable created in the webconfig.</span>
-    <span class="pl-k">if</span> (<span class="pl-smi">variation</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">_websiteIsClosed</span>) {
-        <span class="pl-c">// The page is a 404.</span>
-        <span class="pl-smi">variation</span>.<span class="pl-smi">currentRouteParameters</span>.<span class="pl-smi">statusCode</span> <span class="pl-k">=</span> <span class="pl-c1">404</span>;
-    } <span class="pl-k">else</span> {
-        <span class="pl-c">// The page is a 200.</span>
-        <span class="pl-smi">variation</span>.<span class="pl-smi">currentRouteParameters</span>.<span class="pl-smi">statusCode</span> <span class="pl-k">=</span> <span class="pl-c1">200</span>;
-    }
-
-    <span class="pl-c">// Creating a new set of dynamic variation for templates.</span>
-    <span class="pl-smi">variation</span>.<span class="pl-smi">backend</span> <span class="pl-k">=</span> {}; <span class="pl-c">// Properties available through « &lt;%= backend.&lt;properties&gt; %&gt; ».</span>
-
-    <span class="pl-smi">privates</span>.<span class="pl-en">listOfArticles</span>(Article, <span class="pl-k">function</span> (<span class="pl-smi">listOfArticles</span>) {
-
-        <span class="pl-c">// Availability of data items for client-side.</span>
-        <span class="pl-smi">variation</span>.<span class="pl-smi">backend</span>.<span class="pl-smi">articles</span> <span class="pl-k">=</span> listOfArticles; <span class="pl-c">// « &lt;%= backend.articles.&lt;properties&gt; %&gt; ».</span>
-
-        <span class="pl-c">// We re-injects the changes.</span>
-        <span class="pl-en">next</span>(variation);
-    });
-};
-
-
-
-<span class="pl-c">/*** Interception of the HTML output for server-side jQuery ***/</span>
-
-<span class="pl-c">// It comes just before the HTML response to the client.</span>
-<span class="pl-c1">exports</span>.<span class="pl-en">changeDom</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">next</span>) {
-    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
-        dom <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">dom</span>,
-        cheerio <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">cheerio</span>, <span class="pl-c">// Recovery cheerio to browse the DOM with jQuery.</span>
-        $ <span class="pl-k">=</span> <span class="pl-smi">cheerio</span>.<span class="pl-c1">load</span>(dom); <span class="pl-c">// It loads dom to manipulate as a DOM.</span>
-
-    <span class="pl-c">// After all HTML h2 output "dom".</span>
-    <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>h2<span class="pl-pds">"</span></span>).<span class="pl-en">each</span>(<span class="pl-k">function</span> () {
-        <span class="pl-k">var</span> $this <span class="pl-k">=</span> <span class="pl-en">$</span>(<span class="pl-v">this</span>);
-
-        <span class="pl-c">// ...we created a div,</span>
-        <span class="pl-smi">$this</span>.<span class="pl-c1">after</span>(
-            <span class="pl-c">// ... on injecte le contenu du h2 dans la div,</span>
-            <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>&lt;div&gt;<span class="pl-pds">"</span></span>).<span class="pl-en">html</span>(<span class="pl-smi">$this</span>.<span class="pl-en">html</span>())
-        );
-        <span class="pl-c">// ...and deletes the h2.</span>
-        <span class="pl-smi">$this</span>.<span class="pl-c1">remove</span>();
-    });
-
-    <span class="pl-c">// We re-create a new HTML output with our changes.</span>
-    dom <span class="pl-k">=</span> <span class="pl-smi">$</span>.<span class="pl-en">html</span>();
-
-    <span class="pl-c">// We re-injects the changes.</span>
-    <span class="pl-en">next</span>(dom);
 };</pre></div>
 
 <h3>
@@ -2238,7 +2009,7 @@ website[<span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTag
     firstname VARCHAR(100),
     email VARCHAR(255),
     birthdate DATE,
-    gender INT,
+    gender TINYINT(1),
     country VARCHAR(255),
     town VARCHAR(255),
     zipcode VARCHAR(5),
@@ -2246,7 +2017,7 @@ website[<span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTag
 );
 </code></pre>
 
-<p>and fill it with thi set of data:</p>
+<p>and fill it with this set of data:</p>
 
 <pre><code>INSERT INTO user (
     lastname,
@@ -2263,7 +2034,7 @@ website[<span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTag
     "Bruno",
     "bruno.lesieur@gmail.com",
     "1988/07/18",
-    1,
+    true,
     "France",
     "Annecy",
     74000,
@@ -2403,7 +2174,7 @@ webconfig.json
             <span class="pl-smi">variation</span>.<span class="pl-smi">firstname</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">firstname</span>();
             <span class="pl-smi">variation</span>.<span class="pl-smi">email</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">email</span>();
             <span class="pl-smi">variation</span>.<span class="pl-smi">birthdate</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">birthdate</span>();
-            <span class="pl-smi">variation</span>.<span class="pl-smi">gender</span> <span class="pl-k">=</span> (<span class="pl-smi">bruno</span>.<span class="pl-en">gender</span>() <span class="pl-k">===</span> <span class="pl-c1">1</span>) <span class="pl-k">?</span> <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">male</span> <span class="pl-k">:</span> <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">female</span>;
+            <span class="pl-smi">variation</span>.<span class="pl-smi">gender</span> <span class="pl-k">=</span> (<span class="pl-smi">bruno</span>.<span class="pl-en">gender</span>()) <span class="pl-k">?</span> <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">male</span> <span class="pl-k">:</span> <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">female</span>;
             <span class="pl-smi">variation</span>.<span class="pl-smi">country</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">country</span>();
             <span class="pl-smi">variation</span>.<span class="pl-smi">town</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">town</span>();
             <span class="pl-smi">variation</span>.<span class="pl-smi">zipcode</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-en">zipcode</span>();
@@ -2473,7 +2244,7 @@ webconfig.json
                 <span class="pl-smi">publics</span>.<span class="pl-en">firstname</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">firstname</span>);
                 <span class="pl-smi">publics</span>.<span class="pl-en">email</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">email</span>);
                 <span class="pl-smi">publics</span>.<span class="pl-en">birthdate</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">birthdate</span>);
-                <span class="pl-smi">publics</span>.<span class="pl-en">gender</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">gender</span>);
+                <span class="pl-smi">publics</span>.<span class="pl-en">gender</span>((rows[<span class="pl-c1">0</span>].<span class="pl-smi">gender</span>) <span class="pl-k">?</span> <span class="pl-c1">true</span> <span class="pl-k">:</span> <span class="pl-c1">false</span>);
                 <span class="pl-smi">publics</span>.<span class="pl-en">country</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">country</span>);
                 <span class="pl-smi">publics</span>.<span class="pl-en">town</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">town</span>);
                 <span class="pl-smi">publics</span>.<span class="pl-en">zipcode</span>(rows[<span class="pl-c1">0</span>].<span class="pl-smi">zipcode</span>);
@@ -2610,6 +2381,238 @@ webconfig.json
         &lt;<span class="pl-ent">div</span>&gt;
             &lt;<span class="pl-ent">h1</span>&gt;User Table&lt;/<span class="pl-ent">h1</span>&gt;
             &lt;<span class="pl-ent">p</span>&gt;`bruno` entry details.&lt;/<span class="pl-ent">p</span>&gt;
+            &lt;<span class="pl-ent">ul</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Id: &lt;<span class="pl-ent">strong</span>&gt;1&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Lastname: &lt;<span class="pl-ent">strong</span>&gt;Lesieur&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Firstname: &lt;<span class="pl-ent">strong</span>&gt;Bruno&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Email: &lt;<span class="pl-ent">strong</span>&gt;bruno.lesieur@gmail.com&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Birthdate: &lt;<span class="pl-ent">strong</span>&gt;Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Gender: &lt;<span class="pl-ent">strong</span>&gt;Homme&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Country: &lt;<span class="pl-ent">strong</span>&gt;France&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Town: &lt;<span class="pl-ent">strong</span>&gt;Annecy&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Zipcode: &lt;<span class="pl-ent">strong</span>&gt;74000&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Address: &lt;<span class="pl-ent">strong</span>&gt;66 avenue de Genève&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+            &lt;/<span class="pl-ent">ul</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h3>
+<a id="use-mongodb-database-nosql" class="anchor" href="#use-mongodb-database-nosql" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use MongoDB Database (NoSQL)</h3>
+
+<p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p>
+
+<h4>
+<a id="mongodb-database" class="anchor" href="#mongodb-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MongoDB Database</h4>
+
+<p>First, we will create a database <code>demo</code> on the server and select it:</p>
+
+<pre><code>use demo
+</code></pre>
+
+<p>and create a <code>user</code> collection:</p>
+
+<pre><code>db.createCollection("user")
+</code></pre>
+
+<p>and fill it with this document:</p>
+
+<pre><code>db.user.insert({
+    email: "bruno.lesieur@gmail.com",
+    identity: {
+        lastname: "Lesieur",
+        firstname: "Bruno",
+        gender: true,
+        birthdate : new Date("1988/07/18")
+    },
+    location: {
+        country: "France",
+        town: "Annecy",
+        zipcode: "74000",
+        address: "66 avenue de Genève"
+    }
+})
+</code></pre>
+
+<h4>
+<a id="nodeatlas-files-1" class="anchor" href="#nodeatlas-files-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NodeAtlas Files</h4>
+
+<p>With the following data set:</p>
+
+<pre><code>assets/
+— javascript/
+—— models/
+——— user.js
+controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+variations/
+— common.json
+— index.json
+webconfig.json
+</code></pre>
+
+<p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p>
+
+<pre><code>{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    },
+    "_mongodbConfig": {
+        "host": "localhost",
+        "port": "27017",
+        "database": "demo"
+    }
+}
+</code></pre>
+
+<p>With following files to display page:</p>
+
+<p><strong>templates/index.htm</strong></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>&lt;%- languageCode %&gt;<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;&lt;%- common.titleWebsite %&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;&lt;%- specific.titlePage %&gt;&lt;/<span class="pl-ent">h1</span>&gt;
+            &lt;%- specific.content %&gt;
+            &lt;<span class="pl-ent">ul</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Id: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- id %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Lastname: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- lastname %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Firstname: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- firstname %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Email: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- email %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Birthdate: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- birthdate %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Gender: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- gender %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Country: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- country %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Town: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- town %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Zipcode: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- zipcode %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span>&gt;Address: &lt;<span class="pl-ent">strong</span>&gt;&lt;%- address %&gt;&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+            &lt;/<span class="pl-ent">ul</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><strong>variations/common.json</strong></p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titleWebsite<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Example MongoDB<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>male<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Man<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>female<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Woman<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p><strong>variations/index.json</strong></p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>titlePage<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>User Collection<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;p&gt;Document `{ <span class="pl-cce">\"</span>identity.firstname<span class="pl-cce">\"</span>: <span class="pl-cce">\"</span>Bruno<span class="pl-cce">\"</span> }` details.&lt;/p&gt;<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">loadModules</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        path <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">path</span>;
+
+    <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
+    <span class="pl-c1">NA</span>.<span class="pl-smi">models</span> <span class="pl-k">=</span> {};
+    <span class="pl-c1">NA</span>.<span class="pl-smi">models</span>.<span class="pl-smi">User</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>../assets/javascript/models/user.js<span class="pl-pds">'</span></span>);
+};
+
+<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
+        config <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">_mongodbConfig</span>;
+
+    <span class="pl-smi">mongoose</span>.<span class="pl-smi">Promise</span> <span class="pl-k">=</span> <span class="pl-c1">global</span>.<span class="pl-smi">Promise</span>;
+    <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>, <span class="pl-c1">NA</span>.<span class="pl-smi">models</span>.<span class="pl-smi">User</span>, <span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>);
+    <span class="pl-smi">mongoose</span>.<span class="pl-en">connect</span>(<span class="pl-s"><span class="pl-pds">"</span>mongodb://<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">config</span>.<span class="pl-c1">host</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">config</span>.<span class="pl-c1">port</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-smi">config</span>.<span class="pl-smi">database</span>, <span class="pl-k">function</span> (<span class="pl-smi">error</span>) {
+        <span class="pl-en">next</span>();
+    });
+};</pre></div>
+
+<p>And display result via specific controller <code>controllers/index.js</code>:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">exports</span>.<span class="pl-en">changeVariation</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">params</span>, <span class="pl-smi">mainCallback</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+        variation <span class="pl-k">=</span> <span class="pl-smi">params</span>.<span class="pl-smi">variation</span>,
+        mongoose <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">mongoose</span>,
+        User <span class="pl-k">=</span> <span class="pl-smi">mongoose</span>.<span class="pl-en">model</span>(<span class="pl-s"><span class="pl-pds">'</span>user<span class="pl-pds">'</span></span>);
+
+    User
+    .<span class="pl-en">findOne</span>({ <span class="pl-s"><span class="pl-pds">"</span>identity.firstname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Bruno<span class="pl-pds">"</span></span> })
+    .<span class="pl-c1">exec</span>(<span class="pl-k">function</span> (<span class="pl-smi">err</span>, <span class="pl-smi">bruno</span>) {
+
+        <span class="pl-smi">variation</span>.<span class="pl-c1">id</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-smi">_id</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">lastname</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-smi">identity</span>.<span class="pl-smi">lastname</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">firstname</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-smi">identity</span>.<span class="pl-smi">firstname</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">birthdate</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-smi">identity</span>.<span class="pl-smi">birthdate</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">email</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-smi">email</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">gender</span> <span class="pl-k">=</span> (<span class="pl-smi">bruno</span>.<span class="pl-smi">identity</span>.<span class="pl-smi">gender</span>) <span class="pl-k">?</span> <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">male</span> <span class="pl-k">:</span> <span class="pl-smi">variation</span>.<span class="pl-smi">common</span>.<span class="pl-smi">female</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">country</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-c1">location</span>.<span class="pl-smi">country</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">town</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-c1">location</span>.<span class="pl-smi">town</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">zipcode</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-c1">location</span>.<span class="pl-smi">zipcode</span>;
+        <span class="pl-smi">variation</span>.<span class="pl-smi">address</span> <span class="pl-k">=</span> <span class="pl-smi">bruno</span>.<span class="pl-c1">location</span>.<span class="pl-smi">address</span>;
+
+        <span class="pl-en">mainCallback</span>(variation);
+    });
+};</pre></div>
+
+<p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> mongoose;
+<span class="pl-k">if</span> (<span class="pl-k">typeof</span> <span class="pl-c1">module</span> <span class="pl-k">!==</span> <span class="pl-s"><span class="pl-pds">'</span>undefined<span class="pl-pds">'</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">module</span>.<span class="pl-smi">exports</span>) {
+     mongoose <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>);
+}
+
+(<span class="pl-k">function</span> (<span class="pl-smi">expose</span>, <span class="pl-smi">factory</span>) {
+    <span class="pl-k">if</span> (mongoose) {
+        <span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> factory;
+    } <span class="pl-k">else</span> {
+        <span class="pl-smi">expose</span>.<span class="pl-smi">User</span> <span class="pl-k">=</span> factory;
+    }
+}(<span class="pl-v">this</span>, <span class="pl-k">new</span> <span class="pl-en">mongoose.Schema</span>({
+    _id<span class="pl-k">:</span> <span class="pl-smi">mongoose</span>.<span class="pl-smi">Schema</span>.<span class="pl-smi">Types</span>.<span class="pl-smi">ObjectId</span>,
+    email<span class="pl-k">:</span> { type <span class="pl-k">:</span> <span class="pl-c1">String</span>, match<span class="pl-k">:</span><span class="pl-sr"> <span class="pl-pds">/</span><span class="pl-k">^</span><span class="pl-c1">\S</span><span class="pl-k">+</span>@<span class="pl-c1">\S</span><span class="pl-k">+</span><span class="pl-k">$</span><span class="pl-pds">/</span></span> },
+    identity<span class="pl-k">:</span> {
+        lastname<span class="pl-k">:</span> <span class="pl-c1">String</span>,
+        firstname<span class="pl-k">:</span> <span class="pl-c1">String</span>,
+        gender<span class="pl-k">:</span> <span class="pl-c1">Boolean</span>,
+        birthdate <span class="pl-k">:</span> { type <span class="pl-k">:</span> <span class="pl-c1">Date</span>, default <span class="pl-k">:</span> <span class="pl-c1">Date</span>.<span class="pl-smi">now</span> }
+    },
+    location<span class="pl-k">:</span> {
+        country<span class="pl-k">:</span> <span class="pl-c1">String</span>,
+        town<span class="pl-k">:</span> <span class="pl-c1">String</span>,
+        zipcode<span class="pl-k">:</span> <span class="pl-c1">String</span>,
+        address<span class="pl-k">:</span> <span class="pl-c1">String</span>
+    }
+})));</pre></div>
+
+<p>You will get the following output:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;MongoDB Example&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;MongoDB Example&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">h1</span>&gt;User Collection&lt;/<span class="pl-ent">h1</span>&gt;
+            &lt;<span class="pl-ent">p</span>&gt;Collection `{ "identity.firstname": "Bruno" }` details.&lt;/<span class="pl-ent">p</span>&gt;
             &lt;<span class="pl-ent">ul</span>&gt;
                 &lt;<span class="pl-ent">li</span>&gt;Id: &lt;<span class="pl-ent">strong</span>&gt;1&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
                 &lt;<span class="pl-ent">li</span>&gt;Lastname: &lt;<span class="pl-ent">strong</span>&gt;Lesieur&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
