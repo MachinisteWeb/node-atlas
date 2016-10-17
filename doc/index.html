@@ -111,6 +111,7 @@
 <li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
 <li><a href="#use-websocket-instead-of-ajax">Use Websocket instead of AJAX</a></li>
 <li><a href="#use-mysql-database-sql">Use MySQL Database (SQL)</a></li>
+<li><a href="#use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</a></li>
 <li><a href="#change-the-url-parameters">Change the url parameters</a></li>
 <li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
@@ -1152,135 +1153,32 @@ exports.changeVariation = function (params, next) {
     &quot;webconfig&quot;: { /* ... */ }
 }</code></pre><h4>setSessions</h4><p>To talk about <code>setSessions</code> we will explain a complete example. We will see how to connect to a database with <code>MongoDB</code> and how to use a database for sessions with <code>Redis</code>.</p>
 <p>This is all files for example:</p>
-<pre class="prettyprint source"><code>variations/
-— index.json
-— categories.json
-controllers/
-— modules/
-—— list-of-article.js/
+<pre class="prettyprint source"><code>controllers/
 — common.js
-- index.js
-- categories.js
-models/
-— Article.js
-— Category.js
 templates/
 — index.htm
-— categories.htm
+variations/
+— common.json
+— index.json
 webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;template&quot;: &quot;index.htm&quot;,
-            &quot;controller&quot;: &quot;index.js&quot;,
             &quot;variation&quot;: &quot;index.json&quot;
-        },
-        &quot;/categories/&quot;: {
-            &quot;template&quot;: &quot;categories.htm&quot;,
-            &quot;controller&quot;: &quot;categories.js&quot;,
-            &quot;variation&quot;: &quot;categories.json&quot;
         }
     }
 }</code></pre><p>And &quot;common.js&quot; file containing e.g.:</p>
-<ul>
-<li>things for load additional npm modules.</li>
-<li>things for load <a href="http://expressjs.com/">Express</a> middlewares.</li>
-<li>things for load additional NodeAtlas modules.</li>
-</ul>
-<pre class="prettyprint source lang-js"><code>/***************************/
-/* Configuring npm modules */
-/***************************/
-
-var privates = {};
-
-// Example of using MongoDB and Mongoose.
-privates.mongooseInitialization = function (mongoose, next) {
-    // &quot;blog&quot; database connection.
-    mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
-        if (error) {
-            console.log(&quot;Database 'mongodb://127.0.0.1:27017/blog' is not accessible.&quot;);
-            process.kill(process.pid);
-        }
-
-        next(mongoose);
-    });
-
-    // Connection Management.
-    mongoose.connection.on('error', function (error) {
-        console.log('Error to connect by default Mongoose: ' + error);
-    });
-
-    // Disconnection Management.
-    mongoose.connection.on('disconnected', function () {
-        console.log('Disconnection of Mongoose.');
-    });
-    process.on('SIGINT', function (error) {
-        mongoose.connection.close(function () {
-            console.log('Disconnection of Mongoose because of app termination');
-            process.exit(0);
-        });
-    });
-};
-
-// Mongoose Schemas Management.
-privates.mongooseSchemas = function (mongoose) {
-    website.schema = {};
-
-    // Load Schemas.
-    website.schema.article = require('../models/Article');
-    website.schema.category = require('../models/Category');
-
-    // Expose Schemas.
-    mongoose.model('article', website.schema.article, 'article');
-    mongoose.model('category', website.schema.category, 'category');
-};
-
-
-
-
-
-/********************************************/
-/* Expose function for the NodeAtlas engine */
-/********************************************/
-
-/*** Loading npm modules ***/
-
-// Load modules for this site in the NodeAtlas object.
+<pre class="prettyprint source lang-js"><code>// Load modules for this site in the NodeAtlas object.
 exports.loadModules = function () {
     // Find instance of « NodeAtlas » engine.
     var NA = this;
 
     // Associations of each module to access it anywhere.
-    NA.modules.cookie = require('cookie');
-    NA.modules.mongoose = require('mongoose');
     NA.modules.RedisStore = require('connect-redis');
-    NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
 };
-
-
-
-/*** Configuring npm modules ***/
-
-// Configuration of all modules.
-exports.setConfigurations = function (next) {
-    var NA = this,
-        mongoose = NA.modules.mongoose;
-
-    // Initialize Mongoose.
-    privates.mongooseInitialization(mongoose, function (mongoose) {
-
-        // Schemas injection into Mongoose.
-        privates.mongooseSchemas(mongoose);
-
-        // Next steps of engine.
-        next();
-    });
-};
-
-
-
-/*** Configuring Express Session. ***/
 
 // Allows you to use an external DB for Session.
 exports.setSessions = function (next) {
@@ -1291,128 +1189,6 @@ exports.setSessions = function (next) {
     NA.sessionStore = new RedisStore();
 
     next();
-};
-
-
-
-/*** Variations interception. ***/
-
-// It occurs just before the complete assembly EJS.
-exports.changeVariation = function (params, next) {
-    var variation = params.variation;
-
-    // Here variations variables are modified.
-    // see example in the file after.
-
-    // We re-injects the changes.
-    next(variation);
-};
-
-
-
-/*** Interception of the HTML output for server-side jQuery ***/
-
-// It comes just before the HTML response to the client.
-exports.changeDom = function (params, next) {
-    var dom = params.dom;
-
-    // Here one can manipulate the DOM before response to the client.
-    // see example in the file after.
-
-    // We re-injects the changes.
-    next(dom);
-};</code></pre><p>with a &quot;index.js&quot; file containing, for example:</p>
-<ul>
-<li>things for dynamically change the front display.</li>
-<li>things for changes on the server side with jQuery.</li>
-</ul>
-<pre class="prettyprint source lang-js"><code>/*******************************************/
-/* Charging a function or set of functions */
-/*******************************************/
-
-var privates = {};
-privates.listOfArticles = require('./modules/list-of-articles');
-
-
-
-
-
-/********************************************/
-/* Expose function for the NodeAtlas engine */
-/********************************************/
-
-/*** Variations Interception ***/
-
-// It occurs just before the complete assembly EJS.
-exports.changeVariation = function (params, next) {
-    var NA = this,
-        variation = params.variation,
-        mongoose = NA.modules.mongoose,
-        Article = mongoose.model('article');
-
-    // Can intercept all the variables of &quot;variations/common.js&quot;.
-    console.log(variation.common.title); // Return title stored in « variations/common.js ».
-    variation.common.title = &quot;New Title&quot;; // Set title.
-    console.log(variation.common.title); // Return &quot;New Title&quot; and is accessible in template side via `&lt;%= common.title %>`.
-
-    // Can intercept all the variables of &quot;variations/index.js&quot; (because this file correspond to specific &quot;index.js&quot;).
-    variation.specific.title = &quot;New Title&quot;; // Return &quot;New Title&quot; and is accessible in template side via `&lt;%= specific.title %>`.
-    variation.specific.newProperty = &quot;New Property&quot;; // Defined a property does not exist in the original variation file that is accessible in template side via « &lt;%= specific.newProperty ».
-
-    // Can intercept the configuration of the current page
-    console.log(variation.currentRoute); // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
-
-    // A test is made on a variable created in the webconfig.
-    if (variation.webconfig._websiteIsClosed) {
-        // The page is a 404.
-        variation.currentRouteParameters.statusCode = 404;
-    } else {
-        // The page is a 200.
-        variation.currentRouteParameters.statusCode = 200;
-    }
-
-    // Creating a new set of dynamic variation for templates.
-    variation.backend = {}; // Properties available through « &lt;%= backend.&lt;properties> %> ».
-
-    privates.listOfArticles(Article, function (listOfArticles) {
-
-        // Availability of data items for client-side.
-        variation.backend.articles = listOfArticles; // « &lt;%= backend.articles.&lt;properties> %> ».
-
-        // We re-injects the changes.
-        next(variation);
-    });
-};
-
-
-
-/*** Interception of the HTML output for server-side jQuery ***/
-
-// It comes just before the HTML response to the client.
-exports.changeDom = function (params, next) {
-    var NA = this,
-        dom = params.dom,
-        cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
-        $ = cheerio.load(dom); // It loads dom to manipulate as a DOM.
-
-    // After all HTML h2 output &quot;dom&quot;.
-    $(&quot;h2&quot;).each(function () {
-        var $this = $(this);
-
-        // ...we created a div,
-        $this.after(
-            // ... on injecte le contenu du h2 dans la div,
-            $(&quot;&lt;div>&quot;).html($this.html())
-        );
-        // ...and deletes the h2.
-        $this.remove();
-    });
-
-    // We re-create a new HTML output with our changes.
-    dom = $.html();
-
-    // We re-injects the changes.
-    next(dom);
 };</code></pre><h3>Use Websocket instead of AJAX</h3><p>To keep a link between Front and Back part of website, NodeAtlas can use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p>
 <p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p>
 <p>With this following files:</p>
@@ -1658,12 +1434,12 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     firstname VARCHAR(100),
     email VARCHAR(255),
     birthdate DATE,
-    gender INT,
+    gender TINYINT(1),
     country VARCHAR(255),
     town VARCHAR(255),
     zipcode VARCHAR(5),
     address VARCHAR(255)
-);</code></pre><p>and fill it with thi set of data:</p>
+);</code></pre><p>and fill it with this set of data:</p>
 <pre class="prettyprint source"><code>INSERT INTO user (
     lastname,
     firstname,
@@ -1679,7 +1455,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     &quot;Bruno&quot;,
     &quot;bruno.lesieur@gmail.com&quot;,
     &quot;1988/07/18&quot;,
-    1,
+    true,
     &quot;France&quot;,
     &quot;Annecy&quot;,
     74000,
@@ -1791,7 +1567,7 @@ exports.setConfigurations = function (next) {
             variation.firstname = bruno.firstname();
             variation.email = bruno.email();
             variation.birthdate = bruno.birthdate();
-            variation.gender = (bruno.gender() === 1) ? variation.common.male : variation.common.female;
+            variation.gender = (bruno.gender()) ? variation.common.male : variation.common.female;
             variation.country = bruno.country();
             variation.town = bruno.town();
             variation.zipcode = bruno.zipcode();
@@ -1858,7 +1634,7 @@ function User(connection) {
                 publics.firstname(rows[0].firstname);
                 publics.email(rows[0].email);
                 publics.birthdate(rows[0].birthdate);
-                publics.gender(rows[0].gender);
+                publics.gender((rows[0].gender) ? true : false);
                 publics.country(rows[0].country);
                 publics.town(rows[0].town);
                 publics.zipcode(rows[0].zipcode);
@@ -1989,6 +1765,186 @@ module.exports = User;</code></pre><p>based on <code>user</code> classe shared b
         &lt;div>
             &lt;h1>User Table&lt;/h1>
             &lt;p>`bruno` entry details.&lt;/p>
+            &lt;ul>
+                &lt;li>Id: &lt;strong>1&lt;/strong>&lt;/li>
+                &lt;li>Lastname: &lt;strong>Lesieur&lt;/strong>&lt;/li>
+                &lt;li>Firstname: &lt;strong>Bruno&lt;/strong>&lt;/li>
+                &lt;li>Email: &lt;strong>bruno.lesieur@gmail.com&lt;/strong>&lt;/li>
+                &lt;li>Birthdate: &lt;strong>Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong>&lt;/li>
+                &lt;li>Gender: &lt;strong>Homme&lt;/strong>&lt;/li>
+                &lt;li>Country: &lt;strong>France&lt;/strong>&lt;/li>
+                &lt;li>Town: &lt;strong>Annecy&lt;/strong>&lt;/li>
+                &lt;li>Zipcode: &lt;strong>74000&lt;/strong>&lt;/li>
+                &lt;li>Address: &lt;strong>66 avenue de Genève&lt;/strong>&lt;/li>
+            &lt;/ul>
+        &lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><h3>Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p>
+<h4>MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p>
+<pre class="prettyprint source"><code>use demo</code></pre><p>and create a <code>user</code> collection:</p>
+<pre class="prettyprint source"><code>db.createCollection(&quot;user&quot;)</code></pre><p>and fill it with this document:</p>
+<pre class="prettyprint source"><code>db.user.insert({
+    email: &quot;bruno.lesieur@gmail.com&quot;,
+    identity: {
+        lastname: &quot;Lesieur&quot;,
+        firstname: &quot;Bruno&quot;,
+        gender: true,
+        birthdate : new Date(&quot;1988/07/18&quot;)
+    },
+    location: {
+        country: &quot;France&quot;,
+        town: &quot;Annecy&quot;,
+        zipcode: &quot;74000&quot;,
+        address: &quot;66 avenue de Genève&quot;
+    }
+})</code></pre><h4>NodeAtlas Files</h4><p>With the following data set:</p>
+<pre class="prettyprint source"><code>assets/
+— javascript/
+—— models/
+——— user.js
+controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+variations/
+— common.json
+— index.json
+webconfig.json</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p>
+<pre class="prettyprint source"><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    },
+    &quot;_mongodbConfig&quot;: {
+        &quot;host&quot;: &quot;localhost&quot;,
+        &quot;port&quot;: &quot;27017&quot;,
+        &quot;database&quot;: &quot;demo&quot;
+    }
+}</code></pre><p>With following files to display page:</p>
+<p><strong>templates/index.htm</strong></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;&lt;%- languageCode %>&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>&lt;%- common.titleWebsite %>&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div class=&quot;title&quot;>&lt;%- common.titleWebsite %>&lt;/div>
+        &lt;div>
+            &lt;h1>&lt;%- specific.titlePage %>&lt;/h1>
+            &lt;%- specific.content %>
+            &lt;ul>
+                &lt;li>Id: &lt;strong>&lt;%- id %>&lt;/strong>&lt;/li>
+                &lt;li>Lastname: &lt;strong>&lt;%- lastname %>&lt;/strong>&lt;/li>
+                &lt;li>Firstname: &lt;strong>&lt;%- firstname %>&lt;/strong>&lt;/li>
+                &lt;li>Email: &lt;strong>&lt;%- email %>&lt;/strong>&lt;/li>
+                &lt;li>Birthdate: &lt;strong>&lt;%- birthdate %>&lt;/strong>&lt;/li>
+                &lt;li>Gender: &lt;strong>&lt;%- gender %>&lt;/strong>&lt;/li>
+                &lt;li>Country: &lt;strong>&lt;%- country %>&lt;/strong>&lt;/li>
+                &lt;li>Town: &lt;strong>&lt;%- town %>&lt;/strong>&lt;/li>
+                &lt;li>Zipcode: &lt;strong>&lt;%- zipcode %>&lt;/strong>&lt;/li>
+                &lt;li>Address: &lt;strong>&lt;%- address %>&lt;/strong>&lt;/li>
+            &lt;/ul>
+        &lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><p><strong>variations/common.json</strong></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titleWebsite&quot;: &quot;Example MongoDB&quot;,
+    &quot;male&quot;: &quot;Man&quot;,
+    &quot;female&quot;: &quot;Woman&quot;
+}</code></pre><p><strong>variations/index.json</strong></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;User Collection&quot;,
+    &quot;content&quot;: &quot;&lt;p>Document `{ \&quot;identity.firstname\&quot;: \&quot;Bruno\&quot; }` details.&lt;/p>&quot;
+}</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>exports.loadModules = function () {
+    var NA = this,
+        path = NA.modules.path;
+
+    NA.modules.mongoose = require('mongoose');
+    NA.models = {};
+    NA.models.User = require('../assets/javascript/models/user.js');
+};
+
+exports.setConfigurations = function (next) {
+    var NA = this,
+        mongoose = NA.modules.mongoose,
+        config = NA.webconfig._mongodbConfig;
+
+    mongoose.Promise = global.Promise;
+    mongoose.model(&quot;user&quot;, NA.models.User, &quot;user&quot;);
+    mongoose.connect(&quot;mongodb://&quot; + config.host + &quot;:&quot; + config.port + &quot;/&quot; + config.database, function (error) {
+        next();
+    });
+};</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>exports.changeVariation = function (params, mainCallback) {
+    var NA = this,
+        variation = params.variation,
+        mongoose = NA.modules.mongoose,
+        User = mongoose.model('user');
+
+    User
+    .findOne({ &quot;identity.firstname&quot;: &quot;Bruno&quot; })
+    .exec(function (err, bruno) {
+
+        variation.id = bruno._id;
+        variation.lastname = bruno.identity.lastname;
+        variation.firstname = bruno.identity.firstname;
+        variation.birthdate = bruno.identity.birthdate;
+        variation.email = bruno.email;
+        variation.gender = (bruno.identity.gender) ? variation.common.male : variation.common.female;
+        variation.country = bruno.location.country;
+        variation.town = bruno.location.town;
+        variation.zipcode = bruno.location.zipcode;
+        variation.address = bruno.location.address;
+
+        mainCallback(variation);
+    });
+};</code></pre><p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>var mongoose;
+if (typeof module !== 'undefined' && module.exports) {
+     mongoose = require('mongoose');
+}
+
+(function (expose, factory) {
+    if (mongoose) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    email: { type : String, match: /^\S+@\S+$/ },
+    identity: {
+        lastname: String,
+        firstname: String,
+        gender: Boolean,
+        birthdate : { type : Date, default : Date.now }
+    },
+    location: {
+        country: String,
+        town: String,
+        zipcode: String,
+        address: String
+    }
+})));</code></pre><p>You will get the following output:</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>MongoDB Example&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div class=&quot;title&quot;>MongoDB Example&lt;/div>
+        &lt;div>
+            &lt;h1>User Collection&lt;/h1>
+            &lt;p>Collection `{ &quot;identity.firstname&quot;: &quot;Bruno&quot; }` details.&lt;/p>
             &lt;ul>
                 &lt;li>Id: &lt;strong>1&lt;/strong>&lt;/li>
                 &lt;li>Lastname: &lt;strong>Lesieur&lt;/strong>&lt;/li>
@@ -3717,7 +3673,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Fri Oct 14 2016 17:56:03 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Mon Oct 17 2016 16:21:46 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>

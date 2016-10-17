@@ -90,6 +90,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Use NodeAtlas to run a website (Back-end Part)](#use-nodeatlas-to-run-a-website-back-end-part)
  - [Use Websocket instead of AJAX](#use-websocket-instead-of-ajax)
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
+ - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
  - [Change the url parameters](#change-the-url-parameters)
  - [Create your own webconfig variables](#create-your-own-webconfig-variables)
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
@@ -1671,21 +1672,13 @@ To talk about `setSessions` we will explain a complete example. We will see how 
 This is all files for example:
 
 ```
-variations/
-— index.json
-— categories.json
 controllers/
-— modules/
-—— list-of-article.js/
 — common.js
-- index.js
-- categories.js
-models/
-— Article.js
-— Category.js
 templates/
 — index.htm
-— categories.htm
+variations/
+— common.json
+— index.json
 webconfig.json
 ```
 
@@ -1694,16 +1687,11 @@ With the `webconfig.json`:
 ```js
 {
     "commonController": "common.js",
+    "commonVariation": "common.json",
     "routes": {
         "/": {
             "template": "index.htm",
-            "controller": "index.js",
             "variation": "index.json"
-        },
-        "/categories/": {
-            "template": "categories.htm",
-            "controller": "categories.js",
-            "variation": "categories.json"
         }
     }
 }
@@ -1711,104 +1699,15 @@ With the `webconfig.json`:
 
 And "common.js" file containing e.g.:
 
-- things for load additional npm modules.
-- things for load [Express](http://expressjs.com/) middlewares.
-- things for load additional NodeAtlas modules.
-
 ```js
-/***************************/
-/* Configuring npm modules */
-/***************************/
-
-var privates = {};
-
-// Example of using MongoDB and Mongoose.
-privates.mongooseInitialization = function (mongoose, next) {
-    // "blog" database connection.
-    mongoose.connect('mongodb://127.0.0.1:27017/blog', function (error) {
-        if (error) {
-            console.log("Database 'mongodb://127.0.0.1:27017/blog' is not accessible.");
-            process.kill(process.pid);
-        }
-
-        next(mongoose);
-    });
-
-    // Connection Management.
-    mongoose.connection.on('error', function (error) {
-        console.log('Error to connect by default Mongoose: ' + error);
-    });
-
-    // Disconnection Management.
-    mongoose.connection.on('disconnected', function () {
-        console.log('Disconnection of Mongoose.');
-    });
-    process.on('SIGINT', function (error) {
-        mongoose.connection.close(function () {
-            console.log('Disconnection of Mongoose because of app termination');
-            process.exit(0);
-        });
-    });
-};
-
-// Mongoose Schemas Management.
-privates.mongooseSchemas = function (mongoose) {
-    website.schema = {};
-
-    // Load Schemas.
-    website.schema.article = require('../models/Article');
-    website.schema.category = require('../models/Category');
-
-    // Expose Schemas.
-    mongoose.model('article', website.schema.article, 'article');
-    mongoose.model('category', website.schema.category, 'category');
-};
-
-
-
-
-
-/********************************************/
-/* Expose function for the NodeAtlas engine */
-/********************************************/
-
-/*** Loading npm modules ***/
-
 // Load modules for this site in the NodeAtlas object.
 exports.loadModules = function () {
     // Find instance of « NodeAtlas » engine.
     var NA = this;
 
     // Associations of each module to access it anywhere.
-    NA.modules.cookie = require('cookie');
-    NA.modules.mongoose = require('mongoose');
     NA.modules.RedisStore = require('connect-redis');
-    NA.modules.commonVar = require(path.join(NA.websitePhysicalPath, NA.webconfig.variationsRelativePath, 'common.json'));
 };
-
-
-
-/*** Configuring npm modules ***/
-
-// Configuration of all modules.
-exports.setConfigurations = function (next) {
-    var NA = this,
-        mongoose = NA.modules.mongoose;
-
-    // Initialize Mongoose.
-    privates.mongooseInitialization(mongoose, function (mongoose) {
-
-        // Schemas injection into Mongoose.
-        privates.mongooseSchemas(mongoose);
-
-        // Next steps of engine.
-        next();
-    });
-};
-
-
-
-/*** Configuring Express Session. ***/
 
 // Allows you to use an external DB for Session.
 exports.setSessions = function (next) {
@@ -1819,132 +1718,6 @@ exports.setSessions = function (next) {
     NA.sessionStore = new RedisStore();
 
     next();
-};
-
-
-
-/*** Variations interception. ***/
-
-// It occurs just before the complete assembly EJS.
-exports.changeVariation = function (params, next) {
-    var variation = params.variation;
-
-    // Here variations variables are modified.
-    // see example in the file after.
-
-    // We re-injects the changes.
-    next(variation);
-};
-
-
-
-/*** Interception of the HTML output for server-side jQuery ***/
-
-// It comes just before the HTML response to the client.
-exports.changeDom = function (params, next) {
-    var dom = params.dom;
-
-    // Here one can manipulate the DOM before response to the client.
-    // see example in the file after.
-
-    // We re-injects the changes.
-    next(dom);
-};
-```
-
-with a "index.js" file containing, for example:
-
-- things for dynamically change the front display.
-- things for changes on the server side with jQuery.
-
-```js
-/*******************************************/
-/* Charging a function or set of functions */
-/*******************************************/
-
-var privates = {};
-privates.listOfArticles = require('./modules/list-of-articles');
-
-
-
-
-
-/********************************************/
-/* Expose function for the NodeAtlas engine */
-/********************************************/
-
-/*** Variations Interception ***/
-
-// It occurs just before the complete assembly EJS.
-exports.changeVariation = function (params, next) {
-    var NA = this,
-        variation = params.variation,
-        mongoose = NA.modules.mongoose,
-        Article = mongoose.model('article');
-
-    // Can intercept all the variables of "variations/common.js".
-    console.log(variation.common.title); // Return title stored in « variations/common.js ».
-    variation.common.title = "New Title"; // Set title.
-    console.log(variation.common.title); // Return "New Title" and is accessible in template side via `<%= common.title %>`.
-
-    // Can intercept all the variables of "variations/index.js" (because this file correspond to specific "index.js").
-    variation.specific.title = "New Title"; // Return "New Title" and is accessible in template side via `<%= specific.title %>`.
-    variation.specific.newProperty = "New Property"; // Defined a property does not exist in the original variation file that is accessible in template side via « <%= specific.newProperty ».
-
-    // Can intercept the configuration of the current page
-    console.log(variation.currentRoute); // Return « / » for « index.js », « /categories/ » for categories.js, « /categories/:category/ » for « category-detail.js », etc.
-
-    // A test is made on a variable created in the webconfig.
-    if (variation.webconfig._websiteIsClosed) {
-        // The page is a 404.
-        variation.currentRouteParameters.statusCode = 404;
-    } else {
-        // The page is a 200.
-        variation.currentRouteParameters.statusCode = 200;
-    }
-
-    // Creating a new set of dynamic variation for templates.
-    variation.backend = {}; // Properties available through « <%= backend.<properties> %> ».
-
-    privates.listOfArticles(Article, function (listOfArticles) {
-
-        // Availability of data items for client-side.
-        variation.backend.articles = listOfArticles; // « <%= backend.articles.<properties> %> ».
-
-        // We re-injects the changes.
-        next(variation);
-    });
-};
-
-
-
-/*** Interception of the HTML output for server-side jQuery ***/
-
-// It comes just before the HTML response to the client.
-exports.changeDom = function (params, next) {
-    var NA = this,
-        dom = params.dom,
-        cheerio = NA.modules.cheerio, // Recovery cheerio to browse the DOM with jQuery.
-        $ = cheerio.load(dom); // It loads dom to manipulate as a DOM.
-
-    // After all HTML h2 output "dom".
-    $("h2").each(function () {
-        var $this = $(this);
-
-        // ...we created a div,
-        $this.after(
-            // ... on injecte le contenu du h2 dans la div,
-            $("<div>").html($this.html())
-        );
-        // ...and deletes the h2.
-        $this.remove();
-    });
-
-    // We re-create a new HTML output with our changes.
-    dom = $.html();
-
-    // We re-injects the changes.
-    next(dom);
 };
 ```
 
@@ -2292,7 +2065,7 @@ CREATE TABLE user
     firstname VARCHAR(100),
     email VARCHAR(255),
     birthdate DATE,
-    gender INT,
+    gender TINYINT(1),
     country VARCHAR(255),
     town VARCHAR(255),
     zipcode VARCHAR(5),
@@ -2300,7 +2073,7 @@ CREATE TABLE user
 );
 ```
 
-and fill it with thi set of data:
+and fill it with this set of data:
 
 ```
 INSERT INTO user (
@@ -2318,7 +2091,7 @@ INSERT INTO user (
     "Bruno",
     "bruno.lesieur@gmail.com",
     "1988/07/18",
-    1,
+    true,
     "France",
     "Annecy",
     74000,
@@ -2468,7 +2241,7 @@ exports.changeVariation = function (params, mainCallback) {
             variation.firstname = bruno.firstname();
             variation.email = bruno.email();
             variation.birthdate = bruno.birthdate();
-            variation.gender = (bruno.gender() === 1) ? variation.common.male : variation.common.female;
+            variation.gender = (bruno.gender()) ? variation.common.male : variation.common.female;
             variation.country = bruno.country();
             variation.town = bruno.town();
             variation.zipcode = bruno.zipcode();
@@ -2540,7 +2313,7 @@ function User(connection) {
                 publics.firstname(rows[0].firstname);
                 publics.email(rows[0].email);
                 publics.birthdate(rows[0].birthdate);
-                publics.gender(rows[0].gender);
+                publics.gender((rows[0].gender) ? true : false);
                 publics.country(rows[0].country);
                 publics.town(rows[0].town);
                 publics.zipcode(rows[0].zipcode);
@@ -2681,6 +2454,256 @@ You will get the following output:
         <div>
             <h1>User Table</h1>
             <p>`bruno` entry details.</p>
+            <ul>
+                <li>Id: <strong>1</strong></li>
+                <li>Lastname: <strong>Lesieur</strong></li>
+                <li>Firstname: <strong>Bruno</strong></li>
+                <li>Email: <strong>bruno.lesieur@gmail.com</strong></li>
+                <li>Birthdate: <strong>Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))</strong></li>
+                <li>Gender: <strong>Homme</strong></li>
+                <li>Country: <strong>France</strong></li>
+                <li>Town: <strong>Annecy</strong></li>
+                <li>Zipcode: <strong>74000</strong></li>
+                <li>Address: <strong>66 avenue de Genève</strong></li>
+            </ul>
+        </div>
+    </body>
+</html>
+```
+
+
+
+### Use MongoDB Database (NoSQL) ###
+
+We will see now how to use data from nosql database. We will use the `mongoose` npm module. And first, [install a MongoDB server](https://www.mongodb.com/).
+
+#### MongoDB Database ####
+
+First, we will create a database `demo` on the server and select it:
+
+```
+use demo
+```
+
+and create a `user` collection:
+
+```
+db.createCollection("user")
+```
+
+and fill it with this document:
+
+```
+db.user.insert({
+    email: "bruno.lesieur@gmail.com",
+    identity: {
+        lastname: "Lesieur",
+        firstname: "Bruno",
+        gender: true,
+        birthdate : new Date("1988/07/18")
+    },
+    location: {
+        country: "France",
+        town: "Annecy",
+        zipcode: "74000",
+        address: "66 avenue de Genève"
+    }
+})
+```
+
+#### NodeAtlas Files ####
+
+With the following data set:
+
+```
+assets/
+— javascript/
+—— models/
+——— user.js
+controllers/
+— common.js
+— index.js
+templates/
+— index.htm
+variations/
+— common.json
+— index.json
+webconfig.json
+```
+
+We will use the following `webconfig.json` with the custom `_mongodbConfig` variable which contain all informations for database connection:
+
+```
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "template": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    },
+    "_mongodbConfig": {
+        "host": "localhost",
+        "port": "27017",
+        "database": "demo"
+    }
+}
+```
+
+With following files to display page:
+
+**templates/index.htm**
+
+```html
+<!DOCTYPE html>
+<html lang="<%- languageCode %>">
+    <head>
+        <meta charset="utf-8" />
+        <title><%- common.titleWebsite %></title>
+    </head>
+    <body>
+        <div class="title"><%- common.titleWebsite %></div>
+        <div>
+            <h1><%- specific.titlePage %></h1>
+            <%- specific.content %>
+            <ul>
+                <li>Id: <strong><%- id %></strong></li>
+                <li>Lastname: <strong><%- lastname %></strong></li>
+                <li>Firstname: <strong><%- firstname %></strong></li>
+                <li>Email: <strong><%- email %></strong></li>
+                <li>Birthdate: <strong><%- birthdate %></strong></li>
+                <li>Gender: <strong><%- gender %></strong></li>
+                <li>Country: <strong><%- country %></strong></li>
+                <li>Town: <strong><%- town %></strong></li>
+                <li>Zipcode: <strong><%- zipcode %></strong></li>
+                <li>Address: <strong><%- address %></strong></li>
+            </ul>
+        </div>
+    </body>
+</html>
+```
+
+**variations/common.json**
+
+```js
+{
+    "titleWebsite": "Example MongoDB",
+    "male": "Man",
+    "female": "Woman"
+}
+```
+
+**variations/index.json**
+
+```js
+{
+    "titlePage": "User Collection",
+    "content": "<p>Document `{ \"identity.firstname\": \"Bruno\" }` details.</p>"
+}
+```
+
+And last, we will be connect to the database with the common controller `controllers/common.js`:
+
+```js
+exports.loadModules = function () {
+    var NA = this,
+        path = NA.modules.path;
+
+    NA.modules.mongoose = require('mongoose');
+    NA.models = {};
+    NA.models.User = require('../assets/javascript/models/user.js');
+};
+
+exports.setConfigurations = function (next) {
+    var NA = this,
+        mongoose = NA.modules.mongoose,
+        config = NA.webconfig._mongodbConfig;
+
+    mongoose.Promise = global.Promise;
+    mongoose.model("user", NA.models.User, "user");
+    mongoose.connect("mongodb://" + config.host + ":" + config.port + "/" + config.database, function (error) {
+        next();
+    });
+};
+```
+
+And display result via specific controller `controllers/index.js`:
+
+```js
+exports.changeVariation = function (params, mainCallback) {
+    var NA = this,
+        variation = params.variation,
+        mongoose = NA.modules.mongoose,
+        User = mongoose.model('user');
+
+    User
+    .findOne({ "identity.firstname": "Bruno" })
+    .exec(function (err, bruno) {
+
+        variation.id = bruno._id;
+        variation.lastname = bruno.identity.lastname;
+        variation.firstname = bruno.identity.firstname;
+        variation.birthdate = bruno.identity.birthdate;
+        variation.email = bruno.email;
+        variation.gender = (bruno.identity.gender) ? variation.common.male : variation.common.female;
+        variation.country = bruno.location.country;
+        variation.town = bruno.location.town;
+        variation.zipcode = bruno.location.zipcode;
+        variation.address = bruno.location.address;
+
+        mainCallback(variation);
+    });
+};
+```
+
+based on `user` classe shared between Front and Back part `assets/javascript/models/user.js`:
+
+```js
+var mongoose;
+if (typeof module !== 'undefined' && module.exports) {
+     mongoose = require('mongoose');
+}
+
+(function (expose, factory) {
+    if (mongoose) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    email: { type : String, match: /^\S+@\S+$/ },
+    identity: {
+        lastname: String,
+        firstname: String,
+        gender: Boolean,
+        birthdate : { type : Date, default : Date.now }
+    },
+    location: {
+        country: String,
+        town: String,
+        zipcode: String,
+        address: String
+    }
+})));
+```
+
+You will get the following output:
+
+```html
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8" />
+        <title>MongoDB Example</title>
+    </head>
+    <body>
+        <div class="title">MongoDB Example</div>
+        <div>
+            <h1>User Collection</h1>
+            <p>Collection `{ "identity.firstname": "Bruno" }` details.</p>
             <ul>
                 <li>Id: <strong>1</strong></li>
                 <li>Lastname: <strong>Lesieur</strong></li>
