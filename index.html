@@ -131,7 +131,7 @@
 </ul>
 </li>
 <li>
-<a href="#different-configurations-of-webconfig.json">Different configurations of webconfig.json</a>
+<a href="#create-website-front-end-part">Create Website (Front-end Part)</a>
 
 <ul>
 <li><a href="#more-one-page">More one page</a></li>
@@ -140,13 +140,25 @@
 <li><a href="#manage-inclusions-to-avoid-redundancy-code">Manage inclusions to avoid redundancy code</a></li>
 <li><a href="#manage-variations-within-the-same-template">Manage variations within the same template</a></li>
 <li><a href="#manage-multilingual">Manage Multilingual</a></li>
+<li><a href="#change-the-url-parameters">Change the url parameters</a></li>
+<li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
 <li><a href="#nodeatlas-use-to-generate-html-assets">NodeAtlas use to generate HTML assets</a></li>
-<li><a href="#use-nodeatlas-to-run-a-website-back-end-part">Use NodeAtlas to run a website (Back-end Part)</a></li>
+</ul>
+</li>
+<li>
+<a href="#javascript-development-back-end-part">JavaScript Development (Back-end Part)</a>
+
+<ul>
+<li><a href="#use-nodeatlas-to-run-a-website">Use NodeAtlas to run a website</a></li>
 <li><a href="#use-websocket-instead-of-ajax">Use Websocket instead of AJAX</a></li>
 <li><a href="#use-mysql-database-sql">Use MySQL Database (SQL)</a></li>
 <li><a href="#use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</a></li>
-<li><a href="#change-the-url-parameters">Change the url parameters</a></li>
-<li><a href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
+</ul>
+</li>
+<li>
+<a href="#more-features">More features</a>
+
+<ul>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
 <li><a href="#manage-a-page-not-found">Manage a page not found</a></li>
 <li><a href="#manage-redirects">Manage redirects</a></li>
@@ -361,7 +373,7 @@
 </code></pre>
 
 <h2>
-<a id="different-configurations-of-webconfigjson" class="anchor" href="#different-configurations-of-webconfigjson" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Different configurations of webconfig.json</h2>
+<a id="create-website-front-end-part" class="anchor" href="#create-website-front-end-part" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Website (Front-end Part)</h2>
 
 <h3>
 <a id="more-one-page" class="anchor" href="#more-one-page" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More one page</h3>
@@ -951,6 +963,154 @@ webconfig.fr-fr.json
 </ul>
 
 <h3>
+<a id="change-the-url-parameters" class="anchor" href="#change-the-url-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change the url parameters</h3>
+
+<p>By default, if you use the following configuration:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>This is the same to using it:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">80</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>httpSecure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>and you will be access to the url: <em>http://localhost/</em>.</p>
+
+<p>Then change the configuration to this:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">7777</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>httpSecure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>sub/folder<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>for access to : <em><a href="https://127.0.0.1:7777/sub/folder/">https://127.0.0.1:7777/sub/folder/</a></em></p>
+
+<h3>
+<a id="create-your-own-webconfig-variables" class="anchor" href="#create-your-own-webconfig-variables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create your own webconfig variables</h3>
+
+<p>Imagine two webconfigs in which we create our own variables as follows:</p>
+
+<ol>
+<li>"webconfig.json"</li>
+</ol>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>_minified<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
+}</pre></div>
+
+<ol>
+<li>"webconfig.prod.json"</li>
+</ol>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>_minified<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>.min<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p>with this set of files</p>
+
+<pre><code>assets/
+— stylesheets/
+—— common.css
+—— common.min.css
+— javascript/
+—— common.js
+—— common.min.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+</code></pre>
+
+<p>and "index.htm" containing:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Hello world&lt;/<span class="pl-ent">title</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/common&lt;%= webconfig._minified %&gt;.css<span class="pl-pds">"</span></span> /&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;This is a test to get a file minify/unminify.&lt;/<span class="pl-ent">div</span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript/common&lt;%= webconfig._minified %&gt;.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p>To run (since the site folder) the the command:</p>
+
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
+</code></pre>
+
+<p>We will have to address "http://localhost/" the following output with non-minified files:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Hello world&lt;/<span class="pl-ent">title</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span> /&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;This is a test to get a file minify/unminify.&lt;/<span class="pl-ent">div</span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p>However, running the command:</p>
+
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/server.js --webconfig webconfig.prod.json
+</code></pre>
+
+<p>We will have to address "http://localhost/" the following output with minified files:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+        &lt;<span class="pl-ent">title</span>&gt;Hello world&lt;/<span class="pl-ent">title</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span> /&gt;
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;This is a test to get a file minify/unminify.&lt;/<span class="pl-ent">div</span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><em>Note : It is better to prefix his personal variables with "_" to avoid conflicts with existing or future configuration variables.</em></p>
+
+<h3>
 <a id="nodeatlas-use-to-generate-html-assets" class="anchor" href="#nodeatlas-use-to-generate-html-assets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NodeAtlas use to generate HTML assets</h3>
 
 <h4>
@@ -1087,10 +1247,13 @@ engine/
 —— cv.html
 </code></pre>
 
-<h3>
-<a id="use-nodeatlas-to-run-a-website-back-end-part" class="anchor" href="#use-nodeatlas-to-run-a-website-back-end-part" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use NodeAtlas to run a website (Back-end Part)</h3>
+<h2>
+<a id="javascript-development-back-end-part" class="anchor" href="#javascript-development-back-end-part" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JavaScript Development (Back-end Part)</h2>
 
-<p>NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with :</p>
+<h3>
+<a id="use-nodeatlas-to-run-a-website" class="anchor" href="#use-nodeatlas-to-run-a-website" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use NodeAtlas to run a website</h3>
+
+<p>NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;</p>
 
 <ul>
 <li>parameters in query part of url (GET),</li>
@@ -2629,153 +2792,8 @@ webconfig.json
     &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
-<h3>
-<a id="change-the-url-parameters" class="anchor" href="#change-the-url-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change the url parameters</h3>
-
-<p>By default, if you use the following configuration:</p>
-
-<div class="highlight highlight-source-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
-        }
-    }
-}</pre></div>
-
-<p>This is the same to using it:</p>
-
-<div class="highlight highlight-source-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">80</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>httpSecure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">false</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
-        }
-    }
-}</pre></div>
-
-<p>and you will be access to the url: <em>http://localhost/</em>.</p>
-
-<p>Then change the configuration to this:</p>
-
-<div class="highlight highlight-source-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>httpHostname<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>httpPort<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">7777</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>httpSecure<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
-    <span class="pl-s"><span class="pl-pds">"</span>urlRelativeSubPath<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>sub/folder<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
-        }
-    }
-}</pre></div>
-
-<p>for access to : <em><a href="https://127.0.0.1:7777/sub/folder/">https://127.0.0.1:7777/sub/folder/</a></em></p>
-
-<h3>
-<a id="create-your-own-webconfig-variables" class="anchor" href="#create-your-own-webconfig-variables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create your own webconfig variables</h3>
-
-<p>Imagine two webconfigs in which we create our own variables as follows:</p>
-
-<ol>
-<li>"webconfig.json"</li>
-</ol>
-
-<div class="highlight highlight-source-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
-        }
-    },
-    <span class="pl-s"><span class="pl-pds">"</span>_minified<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
-}</pre></div>
-
-<ol>
-<li>"webconfig.prod.json"</li>
-</ol>
-
-<div class="highlight highlight-source-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
-        }
-    },
-    <span class="pl-s"><span class="pl-pds">"</span>_minified<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>.min<span class="pl-pds">"</span></span>
-}</pre></div>
-
-<p>with this set of files</p>
-
-<pre><code>assets/
-— stylesheets/
-—— common.css
-—— common.min.css
-— javascript/
-—— common.js
-—— common.min.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
-</code></pre>
-
-<p>and "index.htm" containing:</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
-&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">head</span>&gt;
-        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
-        &lt;<span class="pl-ent">title</span>&gt;Hello world&lt;/<span class="pl-ent">title</span>&gt;
-        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/common&lt;%= webconfig._minified %&gt;.css<span class="pl-pds">"</span></span> /&gt;
-    &lt;/<span class="pl-ent">head</span>&gt;
-    &lt;<span class="pl-ent">body</span>&gt;
-        &lt;<span class="pl-ent">div</span>&gt;This is a test to get a file minify/unminify.&lt;/<span class="pl-ent">div</span>&gt;
-<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript/common&lt;%= webconfig._minified %&gt;.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-    &lt;/<span class="pl-ent">body</span>&gt;
-&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
-
-<p>To run (since the site folder) the the command:</p>
-
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
-</code></pre>
-
-<p>We will have to address "http://localhost/" the following output with non-minified files:</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
-&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">head</span>&gt;
-        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
-        &lt;<span class="pl-ent">title</span>&gt;Hello world&lt;/<span class="pl-ent">title</span>&gt;
-        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.css<span class="pl-pds">"</span></span> /&gt;
-    &lt;/<span class="pl-ent">head</span>&gt;
-    &lt;<span class="pl-ent">body</span>&gt;
-        &lt;<span class="pl-ent">div</span>&gt;This is a test to get a file minify/unminify.&lt;/<span class="pl-ent">div</span>&gt;
-<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript/common.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-    &lt;/<span class="pl-ent">body</span>&gt;
-&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
-
-<p>However, running the command:</p>
-
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/server.js --webconfig webconfig.prod.json
-</code></pre>
-
-<p>We will have to address "http://localhost/" the following output with minified files:</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
-&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>fr-fr<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">head</span>&gt;
-        &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
-        &lt;<span class="pl-ent">title</span>&gt;Hello world&lt;/<span class="pl-ent">title</span>&gt;
-        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheets/common.min.css<span class="pl-pds">"</span></span> /&gt;
-    &lt;/<span class="pl-ent">head</span>&gt;
-    &lt;<span class="pl-ent">body</span>&gt;
-        &lt;<span class="pl-ent">div</span>&gt;This is a test to get a file minify/unminify.&lt;/<span class="pl-ent">div</span>&gt;
-<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript/common.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-    &lt;/<span class="pl-ent">body</span>&gt;
-&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
-
-<p><em>Note : It is better to prefix his personal variables with "_" to avoid conflicts with existing or future configuration variables.</em></p>
+<h2>
+<a id="more-features" class="anchor" href="#more-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More Features</h2>
 
 <h3>
 <a id="manage-routing-url-rewriting" class="anchor" href="#manage-routing-url-rewriting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Manage routing (URL Rewriting)</h3>
