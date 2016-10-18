@@ -79,20 +79,22 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Fileset](#fileset)
  - [Minimum Requirements](#minimum-requirements)
  - [Run the site with NodeAtlas](#run-the-site-with-nodeatlas)
-- [Different configurations of webconfig.json](#different-configurations-of-webconfig.json)
+- [Create Website (Front-end Part)](#create-website-front-end-part)
  - [More one page](#more-one-page)
  - [Template shortcut](#template-shortcut)
  - [Host images, fonts, CSS, JS, etc.](#host-images-fonts-css-js-etc)
  - [Manage inclusions to avoid redundancy code](#manage-inclusions-to-avoid-redundancy-code)
  - [Manage variations within the same template](#manage-variations-within-the-same-template)
  - [Manage Multilingual](#manage-multilingual)
+ - [Change the url parameters](#change-the-url-parameters)
+ - [Create your own webconfig variables](#create-your-own-webconfig-variables)
  - [NodeAtlas use to generate HTML assets](#nodeatlas-use-to-generate-html-assets)
- - [Use NodeAtlas to run a website (Back-end Part)](#use-nodeatlas-to-run-a-website-back-end-part)
+- [JavaScript Development (Back-end Part)](#javascript-development-back-end-part)
+ - [Use NodeAtlas to run a website](#use-nodeatlas-to-run-a-website)
  - [Use Websocket instead of AJAX](#use-websocket-instead-of-ajax)
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
- - [Change the url parameters](#change-the-url-parameters)
- - [Create your own webconfig variables](#create-your-own-webconfig-variables)
+- [More features](#more-features)
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a page not found](#manage-a-page-not-found)
  - [Manage redirects](#manage-redirects)
@@ -298,7 +300,7 @@ nodeAtlas().run();
 
 
 
-## Different configurations of webconfig.json ##
+## Create Website (Front-end Part) ##
 
 ### More one page ###
 
@@ -935,6 +937,171 @@ It is then possible to reverse proxy with [Bouncy](#proxy) (for example) to brin
 
 
 
+### Change the url parameters ###
+
+By default, if you use the following configuration:
+
+```js
+{
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+This is the same to using it:
+
+```js
+{
+    "httpHostname": "localhost",
+    "httpPort": 80,
+    "httpSecure": false,
+    "urlRelativeSubPath": "",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+and you will be access to the url: *http://localhost/*.
+
+Then change the configuration to this:
+
+```js
+{
+    "httpHostname": "127.0.0.1",
+    "httpPort": 7777,
+    "httpSecure": true,
+    "urlRelativeSubPath": "sub/folder",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+for access to : *https://127.0.0.1:7777/sub/folder/*
+
+
+
+### Create your own webconfig variables ###
+
+Imagine two webconfigs in which we create our own variables as follows:
+
+1. "webconfig.json"
+
+```js
+{
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    },
+    "_minified": ""
+}
+```
+
+2. "webconfig.prod.json"
+
+```js
+{
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    },
+    "_minified": ".min"
+}
+```
+
+with this set of files
+
+```
+assets/
+— stylesheets/
+—— common.css
+—— common.min.css
+— javascript/
+—— common.js
+—— common.min.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+```
+
+and "index.htm" containing:
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
+    </head>
+    <body>
+        <div>This is a test to get a file minify/unminify.</div>
+        <script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
+    </body>
+</html>
+```
+
+To run (since the site folder) the the command:
+
+```
+\> node </path/to/>node-atlas/node-atlas.js
+```
+
+We will have to address "http://localhost/" the following output with non-minified files:
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+    </head>
+    <body>
+        <div>This is a test to get a file minify/unminify.</div>
+        <script type="text/javascript" src="javascript/common.js"></script>
+    </body>
+</html>
+```
+
+However, running the command:
+
+```
+\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json
+```
+
+We will have to address "http://localhost/" the following output with minified files:
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
+    </head>
+    <body>
+        <div>This is a test to get a file minify/unminify.</div>
+        <script type="text/javascript" src="javascript/common.min.js"></script>
+    </body>
+</html>
+```
+
+*Note : It is better to prefix his personal variables with "_" to avoid conflicts with existing or future configuration variables.*
+
+
+
 ### NodeAtlas use to generate HTML assets ###
 
 #### Generate HTML assets ####
@@ -1078,9 +1245,13 @@ HTML/
 
 
 
-### Use NodeAtlas to run a website (Back-end Part) ###
 
-NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with :
+
+## JavaScript Development (Back-end Part) ##
+
+### Use NodeAtlas to run a website ###
+
+NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;
 
 - parameters in query part of url (GET),
 - parameters in request body (POST),
@@ -2723,170 +2894,9 @@ You will get the following output:
 
 
 
-### Change the url parameters ###
-
-By default, if you use the following configuration:
-
-```js
-{
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    }
-}
-```
-
-This is the same to using it:
-
-```js
-{
-    "httpHostname": "localhost",
-    "httpPort": 80,
-    "httpSecure": false,
-    "urlRelativeSubPath": "",
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    }
-}
-```
-
-and you will be access to the url: *http://localhost/*.
-
-Then change the configuration to this:
-
-```js
-{
-    "httpHostname": "127.0.0.1",
-    "httpPort": 7777,
-    "httpSecure": true,
-    "urlRelativeSubPath": "sub/folder",
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    }
-}
-```
-
-for access to : *https://127.0.0.1:7777/sub/folder/*
 
 
-
-### Create your own webconfig variables ###
-
-Imagine two webconfigs in which we create our own variables as follows:
-
-1. "webconfig.json"
-
-```js
-{
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    },
-    "_minified": ""
-}
-```
-
-2. "webconfig.prod.json"
-
-```js
-{
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    },
-    "_minified": ".min"
-}
-```
-
-with this set of files
-
-```
-assets/
-— stylesheets/
-—— common.css
-—— common.min.css
-— javascript/
-—— common.js
-—— common.min.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
-```
-
-and "index.htm" containing:
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
-    </head>
-    <body>
-        <div>This is a test to get a file minify/unminify.</div>
-        <script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
-    </body>
-</html>
-```
-
-To run (since the site folder) the the command:
-
-```
-\> node </path/to/>node-atlas/node-atlas.js
-```
-
-We will have to address "http://localhost/" the following output with non-minified files:
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
-    </head>
-    <body>
-        <div>This is a test to get a file minify/unminify.</div>
-        <script type="text/javascript" src="javascript/common.js"></script>
-    </body>
-</html>
-```
-
-However, running the command:
-
-```
-\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json
-```
-
-We will have to address "http://localhost/" the following output with minified files:
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
-    </head>
-    <body>
-        <div>This is a test to get a file minify/unminify.</div>
-        <script type="text/javascript" src="javascript/common.min.js"></script>
-    </body>
-</html>
-```
-
-*Note : It is better to prefix his personal variables with "_" to avoid conflicts with existing or future configuration variables.*
-
-
+## More Features ##
 
 ### Manage routing (URL Rewriting) ###
 
