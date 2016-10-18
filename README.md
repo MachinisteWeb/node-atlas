@@ -79,20 +79,22 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Ensemble de fichiers](#ensemble-de-fichiers)
  - [Configuration minimale](#configuration-minimale)
  - [Lancer le site avec NodeAtlas](#lancer-le-site-avec-nodeatlas)
-- [Différentes configurations du webconfig.json](#diff%C3%A9rentes-configurations-du-webconfigjson)
+- [Création de site (partie Front-end)](#création-de-site-partie-front-end)
  - [Plusieurs pages](#plusieurs-pages)
  - [Raccourci de template](#raccourci-de-template)
  - [Héberger des images, polices, CSS, JS, etc.](#h%C3%A9berger-des-images-polices-css-js-etc)
  - [Gérer des inclusions pour éviter la redondance du code](#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code)
  - [Gérer des variations au sein d'un même template](#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template)
  - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
- - [Utiliser NodeAtlas pour générer des assets HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-assets-html)
- - [Utiliser NodeAtlas pour faire tourner un site (partie Back-end)](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end)
+ - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
+ - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
+ - [Utiliser NodeAtlas pour générer des maquettes HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-maquettes-html)
+- [Développement JavaScript (partie Back-end)](#développement-javascript-partie-back-end)
+ - [Utiliser NodeAtlas pour faire tourner un site](#utiliser-nodeatlas-pour-faire-tourner-un-site)
  - [Utiliser les Websocket à la place des échanges AJAX](#utiliser-les-websocket-à-la-place-des-échanges-ajax)
  - [Utiliser une base de donnée MySQL (SQL)](#utiliser-une-base-de-donnée-mysql-sql)
  - [Utiliser une base de donnée MongoDB (NoSQL)](#utiliser-une-base-de-donnée-mongodb-nosql)
- - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
- - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
+- [Pour aller plus loin](#pour-aller-plus-loin)
  - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
  - [Gérer les redirections](#g%C3%A9rer-les-redirections)
@@ -298,7 +300,7 @@ nodeAtlas().run();
 
 
 
-## Différentes configurations du webconfig.json ##
+## Création de site (partie Front-end) ##
 
 ### Plusieurs pages ###
 
@@ -935,7 +937,172 @@ Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exe
 
 
 
-### Utiliser NodeAtlas pour générer des assets HTML ###
+### Changer les paramètres d'url ###
+
+Par défaut, si vous utilisez la configuration suivante :
+
+```js
+{
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+cela est identique à utiliser celle-ci :
+
+```js
+{
+    "httpHostname": "localhost",
+    "httpPort": 80,
+    "httpSecure": false,
+    "urlRelativeSubPath": "",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+et vous pourrez accéder à l'url : *http://localhost/*.
+
+Changez alors la configuration en ceci :
+
+```js
+{
+    "httpHostname": "127.0.0.1",
+    "httpPort": 7777,
+    "httpSecure": true,
+    "urlRelativeSubPath": "sub/folder",
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+pour accéder à : *https://127.0.0.1:7777/sub/folder/*
+
+
+
+### Créer ses propres variables de webconfig ###
+
+Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
+
+1. « webconfig.json »
+
+```js
+{
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    },
+    "_minified": ""
+}
+```
+
+2. « webconfig.prod.json »
+
+```js
+{
+    "routes": {
+        "/": {
+            "template": "index.htm"
+        }
+    },
+    "_minified": ".min"
+}
+```
+
+avec cet ensemble de fichiers
+
+```
+assets/
+— stylesheets/
+—— common.css
+—— common.min.css
+— javascript/
+—— common.js
+—— common.min.js
+templates/
+— index.htm
+webconfig.json
+webconfig.prod.json
+```
+
+et « index.htm » contenant :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
+    </head>
+    <body>
+        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
+    </body>
+</html>
+```
+
+En lançant (depuis le dossier du site) la commande :
+
+```
+\> node </path/to/>node-atlas/node-atlas.js
+```
+
+Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+    </head>
+    <body>
+        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <script type="text/javascript" src="javascript/common.js"></script>
+    </body>
+</html>
+```
+
+Cependant en lançant la commande :
+
+```
+\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json
+```
+
+Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Hello world</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
+    </head>
+    <body>
+        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
+        <script type="text/javascript" src="javascript/common.min.js"></script>
+    </body>
+</html>
+```
+
+*Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
+
+
+
+### Utiliser NodeAtlas pour générer des maquettes HTML ###
 
 #### Générer des assets HTML ####
 
@@ -1078,7 +1245,11 @@ HTML/
 
 
 
-### Utiliser NodeAtlas pour faire tourner un site (partie Back-end) ###
+
+
+## Développement JavaScript (partie Back-end) ##
+
+### Utiliser NodeAtlas pour faire tourner un site ###
 
 NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 
@@ -2723,170 +2894,9 @@ Vous obtiendrez la sortie suivante :
 
 
 
-### Changer les paramètres d'url ###
-
-Par défaut, si vous utilisez la configuration suivante :
-
-```js
-{
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    }
-}
-```
-
-cela est identique à utiliser celle-ci :
-
-```js
-{
-    "httpHostname": "localhost",
-    "httpPort": 80,
-    "httpSecure": false,
-    "urlRelativeSubPath": "",
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    }
-}
-```
-
-et vous pourrez accéder à l'url : *http://localhost/*.
-
-Changez alors la configuration en ceci :
-
-```js
-{
-    "httpHostname": "127.0.0.1",
-    "httpPort": 7777,
-    "httpSecure": true,
-    "urlRelativeSubPath": "sub/folder",
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    }
-}
-```
-
-pour accéder à : *https://127.0.0.1:7777/sub/folder/*
 
 
-
-### Créer ses propres variables de webconfig ###
-
-Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
-
-1. « webconfig.json »
-
-```js
-{
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    },
-    "_minified": ""
-}
-```
-
-2. « webconfig.prod.json »
-
-```js
-{
-    "routes": {
-        "/": {
-            "template": "index.htm"
-        }
-    },
-    "_minified": ".min"
-}
-```
-
-avec cet ensemble de fichiers
-
-```
-assets/
-— stylesheets/
-—— common.css
-—— common.min.css
-— javascript/
-—— common.js
-—— common.min.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
-```
-
-et « index.htm » contenant :
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
-    </head>
-    <body>
-        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-        <script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
-    </body>
-</html>
-```
-
-En lançant (depuis le dossier du site) la commande :
-
-```
-\> node </path/to/>node-atlas/node-atlas.js
-```
-
-Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
-    </head>
-    <body>
-        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-        <script type="text/javascript" src="javascript/common.js"></script>
-    </body>
-</html>
-```
-
-Cependant en lançant la commande :
-
-```
-\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json
-```
-
-Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
-    </head>
-    <body>
-        <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-        <script type="text/javascript" src="javascript/common.min.js"></script>
-    </body>
-</html>
-```
-
-*Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
-
-
+## Pour aller plus loin ##
 
 ### Gérer le routage (Url Rewriting) ###
 
