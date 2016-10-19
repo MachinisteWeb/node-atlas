@@ -1,4 +1,4 @@
-> *NodeAtlas* is a full-stack JavaScript framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy Component-based websites in order to create great things with standards compliance!
+> *NodeAtlas* is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy Component-based websites in order to create great things with standards compliance!
 
 **Vous êtes français ? Le document [derrière ce lien](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) vous sera peut-être plus agréable.**
 
