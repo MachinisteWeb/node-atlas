@@ -12,19 +12,19 @@
 
 ### Pour réaliser quoi ? ###
 
-NodeAtlas est un Framework JavaScript Serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant sur toutes les versions de [Node.js](https://nodejs.org/en/). Il vous permet de :
+NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant sur toutes les versions de [Node.js](https://nodejs.org/en/). Il vous permet de :
 
 - Créer, maintenir et documenter des interfaces utilisateurs HTML/CSS/JavaScript pour créer un ensemble d'assets cohérants afin de les fournirs en tant que Guidelines pour la réalisation de divers sites ou applications web.
 
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
 
-- Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/en/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec un code source passant la validation W3C et parfaitement indexable par les moteurs de recherche.
+- Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/en/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec un code source passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.
 
 
 
 ### Pourquoi NodeAtlas ? ###
 
-NodeAtlas est designé pour créer des sites évolutifs et pour permettre au Front-end ou Back-end d'embrasser [Node.js](https://nodejs.org/en/).
+NodeAtlas est designé pour créer des sites évolutifs et pour permettre au Front-end ou Back-end d'embrasser [Node.js](https://nodejs.org/).
 
 Commencez avec une simple page HTML,
 
@@ -44,8 +44,9 @@ Commencez avec une simple page HTML,
 
 ### Et les autres Frameworks JavaScript ? ###
 
-Contrairement aux Frameworks JavaScript comme AngularJS 2 ou Aurelia.io, NodeAtlas fonctionne côté serveur et délivre son contenu derrière de vrai url. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la response HTTP en premier lieu, et est ensuite modifié par requête Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas forme un socle en dessous et remplace bien votre PHP, JAVA ou C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initial (que vous pouvez complètement changer) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
+Contrairement aux Frameworks JavaScript comme Angular, Aurelia ou Reac, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des url en retour HTTP. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la Response HTTP en premier lieu, et est ensuite modifié par requête Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas forme un socle en dessous et remplace bien votre PHP, JAVA ou C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initial (que vous pouvez complètement changer) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
+Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur, [vous pouvez consulter cette grille](#nodeatlas-vs-les-autres).
 
 
 ### Exemples de réalisations avec NodeAtlas ###
@@ -71,7 +72,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Pourquoi NodeAtlas ?](#pourquoi-nodeatlas-)
  - [Et les autres Frameworks JavaScript ?](#et-les-autres-frameworks-javascript-)
  - [Exemples de réalisations avec NodeAtlas](#exemples-de-réalisations-avec-nodeatlas)
- - [Table des matières](#table-des-mati%C3%A8res)
+ - [Table des matières](#table-des-matières)
  - [Documentation](#documentation)
  - [Contribution](#contribution)
 - [Installation](#installation)
@@ -82,36 +83,36 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 - [Création de site (partie Front-end)](#création-de-site-partie-front-end)
  - [Plusieurs pages](#plusieurs-pages)
  - [Raccourci de template](#raccourci-de-template)
- - [Héberger des images, polices, CSS, JS, etc.](#h%C3%A9berger-des-images-polices-css-js-etc)
- - [Gérer des inclusions pour éviter la redondance du code](#g%C3%A9rer-des-inclusions-pour-%C3%A9viter-la-redondance-du-code)
- - [Gérer des variations au sein d'un même template](#g%C3%A9rer-des-variations-au-sein-dun-m%C3%AAme-template)
- - [Gérer le multilingue](#g%C3%A9rer-le-multilingue)
- - [Changer les paramètres d'url](#changer-les-param%C3%A8tres-durl)
- - [Créer ses propres variables de webconfig](#cr%C3%A9er-ses-propres-variables-de-webconfig)
- - [Utiliser NodeAtlas pour générer des maquettes HTML](#utiliser-nodeatlas-pour-g%C3%A9n%C3%A9rer-des-maquettes-html)
+ - [Héberger des images, polices, CSS, JS, etc.](#héberger-des-images-polices-css-js-etc)
+ - [Gérer des inclusions pour éviter la redondance du code](#gérer-des-inclusions-pour-éviter-la-redondance-du-code)
+ - [Gérer des variations au sein d'un même template](#gérer-des-variations-au-sein-dun-m%C3%AAme-template)
+ - [Gérer le multilingue](#gérer-le-multilingue)
+ - [Changer les paramètres d'url](#changer-les-paramètres-durl)
+ - [Créer ses propres variables de webconfig](#créer-ses-propres-variables-de-webconfig)
+ - [Utiliser NodeAtlas pour générer des maquettes HTML](#utiliser-nodeatlas-pour-générer-des-maquettes-html)
 - [Développement JavaScript (partie Back-end)](#développement-javascript-partie-back-end)
  - [Utiliser NodeAtlas pour faire tourner un site](#utiliser-nodeatlas-pour-faire-tourner-un-site)
  - [Utiliser les Websocket à la place des échanges AJAX](#utiliser-les-websocket-à-la-place-des-échanges-ajax)
  - [Utiliser une base de donnée MySQL (SQL)](#utiliser-une-base-de-donnée-mysql-sql)
  - [Utiliser une base de donnée MongoDB (NoSQL)](#utiliser-une-base-de-donnée-mongodb-nosql)
 - [Pour aller plus loin](#pour-aller-plus-loin)
- - [Gérer le routage (Url Rewriting)](#g%C3%A9rer-le-routage-url-rewriting)
- - [Gérer les pages inexistantes](#g%C3%A9rer-les-pages-inexistantes)
- - [Gérer les redirections](#g%C3%A9rer-les-redirections)
- - [Gérer les Headers de page](#g%C3%A9rer-les-headers-de-page)
+ - [Gérer le routage (Url Rewriting)](#gérer-le-routage-url-rewriting)
+ - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
+ - [Gérer les redirections](#gérer-les-redirections)
+ - [Gérer les Headers de page](#gérer-les-headers-de-page)
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
  - [Minifier les CSS/JS](#minifier-les-cssjs)
- - [Générer les CSS avec Less](#g%C3%A9n%C3%A9rer-les-css-avec-less)
- - [Générer les CSS avec Stylus](#g%C3%A9n%C3%A9rer-les-css-avec-stylus)
+ - [Générer les CSS avec Less](#générer-les-css-avec-less)
+ - [Générer les CSS avec Stylus](#générer-les-css-avec-stylus)
  - [Optimiser les Images](#optimiser-les-images)
  - [Injecter du CSS inline pour maintenir des assets Email](#injecter-du-css-inline-pour-maintenir-des-assets-email)
  - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
  - [Autoriser/Interdire les demandes PUT/DELETE](#autoriserinterdire-les-demandes-putdelete)
- - [Changer les paramètres des Sessions](#changer-les-param%C3%A8tres-des-sessions)
+ - [Changer les paramètres des Sessions](#changer-les-paramètres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
- - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-d%C3%A9coute)
- - [Générer les urls dynamiquement](#g%C3%A9n%C3%A9rer-les-urls-dynamiquement)
+ - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
+ - [Générer les urls dynamiquement](#générer-les-urls-dynamiquement)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
  - [--directory](#--directory-path)
  - [--webconfig](#--webconfig-webconfigname)
@@ -126,7 +127,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
  - [Dans un environnement Unix avec Nginx](#dans-un-environnement-unix-avec-nginx)
  - [Proxy](#proxy)
-- [À propos de l'architecture de NodeAtlas](#%C3%80-propos-de-larchitecture-de-nodeatlas)
+- [À propos de NodeAtlas](#à-propos-de-nodeatlas)
 
 
 
@@ -5421,8 +5422,20 @@ que vous pouvez lancer avec :
 
 
 
-## À propos de l'architecture de NodeAtlas ##
+## À propos de NodeAtlas ##
 
 NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.
+
+### NodeAtlas VS les autres ###
+
+|                       | **NodeAtlas**                                                                                                  | Express                  | Hapi                   | Sails                                       | Restify                  | LoopBack                                          | Meteor                                                      |
+|-----------------------|----------------------------------------------------------------------------------------------------------------|--------------------------|------------------------|---------------------------------------------|--------------------------|---------------------------------------------------|-------------------------------------------------------------|
+| Type                  | Framework Web **MVC(2)**                                                                                       | Librarie serveur HTTP    | Framework serveur HTTP | Framework Web MVC                           | Librarie HTTP REST       | Framework d'API                                   | Full-stack JavaScript app platform                          |
+| Top Features          | Simplicité, **Evolutivité**, Modularité                                                                        | Routage HTTP, middleware | Modularité, securité   | Familier à Rails, MVC                       | Simplicité, Routage REST | Connectivité d'Entreprise                         | Framework Front-end et Back-end                             |
+| Adapté pour           | **Sites web**, Apps web, APIs REST, **Maquettage**                                                             | Apps web simple          | Apps web, APIs         | Apps web, APIs                              | APIs REST Simple         | Apps web, APIs                                    | Apps web                                                    |
+| Node Module Package   | Oui                                                                                                            | Oui                      | Oui                    | Oui                                         | Oui                      | Oui                                               | Non                                                         |
+| Extensions            | **Plugin Atlas**, Module Npm , Middleware Express                                                              | Middleware Express       | Plugins Hapi           |                                             |                          |                                                   | Package et repository Meteor, Module Npm                    |
+| Sources de données    | **Builtin**: En-memoire, fichier (JSON), REST. Avec **module npm externe**: NoSQL (MongoDB...), SQL (MySql...) |                          |                        | In-memory, File, PostgreSQL, MySQL, MongoDB |                          | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages |
+| Langue principale     | Français                                                                                                       | Anglais                  | Anglais                | Anglais                                     | Anglais                  | Anglais                                           | Anglais                                                     |
 
 Tous les messages d'erreurs se trouvent dans `/languages/default.json`. Si vous souhaitez les modifier, il suffit de remplacer le contenu de `default.json` (actuellement identique à celui de `en-gb`) par celui de `fr-fr.json` ou tout autre fichier traduit par vos soins.
