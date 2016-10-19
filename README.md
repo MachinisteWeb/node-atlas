@@ -18,7 +18,7 @@ NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de [modul
 
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
 
-- Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/en/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec un code source passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.
+- Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/en/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec des réponses HTTP passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.
 
 
 
