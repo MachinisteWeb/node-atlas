@@ -12,13 +12,13 @@
 
 ### For What ? ###
 
-NodeAtlas is a JavaScript Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run on all [Node.js](https://nodejs.org/en/) verision. NodeAtlas allows you to :
+NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run on all [Node.js](https://nodejs.org/en/) verision. NodeAtlas allows you to :
 
    - Create, maintain and document a set of assets HTML/CSS/JavaScript as user interfaces to provide solid Guidelines for the realization of website or webapp (i.e. for brands).
 
    - Create and maintain and run internationalized wesites without use a single JavaScript file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
 
-   - Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/en/) applications running of all sizes with server-based source code for high performance, indexability and W3C compliancy. Distant REST APIs are also easily to create.
+   - Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/en/) applications running of all sizes with server-based source code for high performance, indexability for SEO and W3C compliancy. Distant REST APIs are also easily to create.
 
 
 
@@ -44,7 +44,9 @@ Starting with a single HTML page,
 
 ### And what about others JavaScript Frameworks? ###
 
-In opposition to others JavaScript Frameworks like AngularJS 2 or Aurelia.io, NodeAtlas run server-side and provide some real url. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
+In opposition to others JavaScript Frameworks like Angular, Aurelia ou Reac, NodeAtlas run server-side and provide some real url by Response HTTP. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
+
+To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API, [you could check this grid](#nodeatlas-vs-others).
 
 
 
@@ -126,7 +128,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [In a Unix environment with forever](#in-a-unix-environment-with-forever)
  - [In a Unix environment with Nginx](#in-a-unix-environment-with-nginx)
  - [Proxy](#proxy)
-- [About architecture NodeAtlas](#a-propos-de-l-architecture-de-nodeatlas)
+- [More About NodeAtlas](#more-about-nodeatlas)
 
 
 
@@ -5421,8 +5423,20 @@ and you can start with:
 
 
 
-## About NodeAtlas API ##
+## More About NodeAtlas ##
 
 NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.
+
+### NodeAtlas VS Others ###
+
+|                       | **NodeAtlas**                                                                                               | Express                  | Hapi                  | Sails                                       | Restify                  | LoopBack                                          | Meteor                                                      |
+|-----------------------|-------------------------------------------------------------------------------------------------------------|--------------------------|-----------------------|---------------------------------------------|--------------------------|---------------------------------------------------|-------------------------------------------------------------|
+| Type                  | Web **MVC(2)** framework                                                                                    | HTTP server library      | HTTP server framework | Web MVC framework                           | REST HTTP library        | API framework                                     | Full-stack JavaScript app platform                          |
+| Top Features          | Simplicity, **Evolutivity**, Modularity                                                                     | HTTP routing, middleware | Modularity, security  | Rails familiarity, MVC                      | Simplicity, REST routing | Enterprise connectivity                           | Framework Front-end et Back-end                             |
+| Suitable For          | **Web sites**, Web apps, REST APIs, **Templating**                                                          | Simple web apps          | Web apps, APIs        | Web apps, APIs                              | Simple REST APIs         | Web apps, APIs                                    | Web apps                                                    |
+| Pure Node runtime     | Yes                                                                                                         | Yes                      | Yes                   | Yes                                         | Yes                      | Yes                                               | No                                                          |
+| Extensions            | **Atlas plugin**, Npm module, Express middleware                                                            | Express middleware       | Hapi Plugins          |                                             |                          |                                                   | Meteor package and repository, Npm module                   |
+| Data sources          | **Builtin**: In-memory /file (JSON), REST. With **external npm module**: NoSQL (MongoDB...), SQL (MySql...) |                          |                       | In-memory, File, PostgreSQL, MySQL, MongoDB |                          | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages |
+| Main support language | French                                                                                                      | English                  | English               | English                                     | English                  | English                                           | English                                                     |
 
 All error messages are in `/languages/default.json`. If you want to change language, simply replace content of `default.json` file (currently the same of `en-gb`) with the content of `fr-fr.json` or others file translated by you.
