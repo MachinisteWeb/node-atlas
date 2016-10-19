@@ -24,7 +24,7 @@ NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de [modul
 
 ### Pourquoi NodeAtlas ? ###
 
-NodeAtlas est designé pour créer des sites évolutifs et pour permettre au Front-end ou Back-end d'embrasser [Node.js](https://nodejs.org/).
+NodeAtlas est designé pour créer des sites évolutifs et pour permettre au Front-end ou Back-end développeur d'embrasser [Node.js](https://nodejs.org/).
 
 Commencez avec une simple page HTML,
 
