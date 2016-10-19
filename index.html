@@ -41,12 +41,12 @@
 <h3>
 <a id="for-what-" class="anchor" href="#for-what-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>For What ?</h3>
 
-<p>NodeAtlas is a JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run on all <a href="https://nodejs.org/en/">Node.js</a> verision. NodeAtlas allows you to :</p>
+<p>NodeAtlas is a Server-side MVC(2) JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run on all <a href="https://nodejs.org/en/">Node.js</a> verision. NodeAtlas allows you to :</p>
 
 <ul>
 <li><p>Create, maintain and document a set of assets HTML/CSS/JavaScript as user interfaces to provide solid Guidelines for the realization of website or webapp (i.e. for brands).</p></li>
 <li><p>Create and maintain and run internationalized wesites without use a single JavaScript file. That's it's perfect for beginners or for develop presentational website with high performance quickly.</p></li>
-<li><p>Develop Node.js internationalized websites or scalable <a href="https://nodejs.org/en/">Node.js</a> applications running of all sizes with server-based source code for high performance, indexability and W3C compliancy. Distant REST APIs are also easily to create.</p></li>
+<li><p>Develop Node.js internationalized websites or scalable <a href="https://nodejs.org/en/">Node.js</a> applications running of all sizes with server-based source code for high performance, indexability for SEO and W3C compliancy. Distant REST APIs are also easily to create.</p></li>
 </ul>
 
 <h3>
@@ -75,7 +75,9 @@
 <h3>
 <a id="and-what-about-others-javascript-frameworks" class="anchor" href="#and-what-about-others-javascript-frameworks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>And what about others JavaScript Frameworks?</h3>
 
-<p>In opposition to others JavaScript Frameworks like AngularJS 2 or Aurelia.io, NodeAtlas run server-side and provide some real url. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use <a href="https://nodejs.org/en/">Node.js</a> for use after <a href="https://www.npmjs.com/">npm</a>, <a href="http://jspm.io/">jspm</a> or <a href="http://gulpjs.com/">gulp</a>. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as <a href="https://www.meteor.com/">Meteor.js</a>, NodeAtlas allow you to set your working environment and you have not need of <a href="http://gulpjs.com/">gulp</a> but to oposition of <a href="https://www.meteor.com/">Meteor.js</a>, the <code>NA</code> object is not provided client-side. It's your responsability to spread server-side mechanism to front.</p>
+<p>In opposition to others JavaScript Frameworks like Angular, Aurelia ou Reac, NodeAtlas run server-side and provide some real url by Response HTTP. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use <a href="https://nodejs.org/en/">Node.js</a> for use after <a href="https://www.npmjs.com/">npm</a>, <a href="http://jspm.io/">jspm</a> or <a href="http://gulpjs.com/">gulp</a>. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as <a href="https://www.meteor.com/">Meteor.js</a>, NodeAtlas allow you to set your working environment and you have not need of <a href="http://gulpjs.com/">gulp</a> but to oposition of <a href="https://www.meteor.com/">Meteor.js</a>, the <code>NA</code> object is not provided client-side. It's your responsability to spread server-side mechanism to front.</p>
+
+<p>To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API, <a href="#nodeatlas-vs-others">you could check this grid</a>.</p>
 
 <h3>
 <a id="examples-of-websites-with-nodeatlas" class="anchor" href="#examples-of-websites-with-nodeatlas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples of websites with NodeAtlas</h3>
@@ -202,7 +204,7 @@
 <li><a href="#proxy">Proxy</a></li>
 </ul>
 </li>
-<li><a href="#a-propos-de-l-architecture-de-nodeatlas">About architecture NodeAtlas</a></li>
+<li><a href="#more-about-nodeatlas">More About NodeAtlas</a></li>
 </ul>
 
 <h3>
@@ -5147,9 +5149,103 @@ server {
 <p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p>
 
 <h2>
-<a id="about-nodeatlas-api" class="anchor" href="#about-nodeatlas-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About NodeAtlas API</h2>
+<a id="more-about-nodeatlas" class="anchor" href="#more-about-nodeatlas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More About NodeAtlas</h2>
 
 <p>NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.</p>
+
+<h3>
+<a id="nodeatlas-vs-others" class="anchor" href="#nodeatlas-vs-others" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NodeAtlas VS Others</h3>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>NodeAtlas</strong></th>
+<th>Express</th>
+<th>Hapi</th>
+<th>Sails</th>
+<th>Restify</th>
+<th>LoopBack</th>
+<th>Meteor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Web <strong>MVC(2)</strong> framework</td>
+<td>HTTP server library</td>
+<td>HTTP server framework</td>
+<td>Web MVC framework</td>
+<td>REST HTTP library</td>
+<td>API framework</td>
+<td>Full-stack JavaScript app platform</td>
+</tr>
+<tr>
+<td>Top Features</td>
+<td>Simplicity, <strong>Evolutivity</strong>, Modularity</td>
+<td>HTTP routing, middleware</td>
+<td>Modularity, security</td>
+<td>Rails familiarity, MVC</td>
+<td>Simplicity, REST routing</td>
+<td>Enterprise connectivity</td>
+<td>Framework Front-end et Back-end</td>
+</tr>
+<tr>
+<td>Suitable For</td>
+<td>
+<strong>Web sites</strong>, Web apps, REST APIs, <strong>Templating</strong>
+</td>
+<td>Simple web apps</td>
+<td>Web apps, APIs</td>
+<td>Web apps, APIs</td>
+<td>Simple REST APIs</td>
+<td>Web apps, APIs</td>
+<td>Web apps</td>
+</tr>
+<tr>
+<td>Pure Node runtime</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Extensions</td>
+<td>
+<strong>Atlas plugin</strong>, Npm module, Express middleware</td>
+<td>Express middleware</td>
+<td>Hapi Plugins</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Meteor package and repository, Npm module</td>
+</tr>
+<tr>
+<td>Data sources</td>
+<td>
+<strong>Builtin</strong>: In-memory /file (JSON), REST. With <strong>external npm module</strong>: NoSQL (MongoDB...), SQL (MySql...)</td>
+<td></td>
+<td></td>
+<td>In-memory, File, PostgreSQL, MySQL, MongoDB</td>
+<td></td>
+<td>In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP</td>
+<td>MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages</td>
+</tr>
+<tr>
+<td>Main support language</td>
+<td>French</td>
+<td>English</td>
+<td>English</td>
+<td>English</td>
+<td>English</td>
+<td>English</td>
+<td>English</td>
+</tr>
+</tbody>
+</table>
 
 <p>All error messages are in <code>/languages/default.json</code>. If you want to change language, simply replace content of <code>default.json</code> file (currently the same of <code>en-gb</code>) with the content of <code>fr-fr.json</code> or others file translated by you.</p>
       </section>
