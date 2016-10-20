@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.4](https://img.shields.io/badge/version-1.4-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.8-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.5](https://img.shields.io/badge/version-1.5-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
@@ -44,7 +44,7 @@ Starting with a single HTML page,
 
 ### And what about others JavaScript Frameworks? ###
 
-In opposition to others JavaScript Frameworks like Angular, Aurelia ou Reac, NodeAtlas run server-side and provide some real url by Response HTTP. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
+In opposition to others JavaScript Frameworks like Angular, Aurelia ou React, NodeAtlas run server-side and provide some real url by Response HTTP. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
 
 To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API, [you could check this grid](#nodeatlas-vs-others).
 
@@ -1112,7 +1112,7 @@ With the following configuration it is possible to generate HTML rendering asset
 
 ```js
 {
-    "htmlGenerateBeforeResponse": true,
+    "htmlGeneratesBeforeResponse": true,
     "generatesRelativePath": "generates",
     "routes": {
         "/": {
@@ -1177,7 +1177,7 @@ by going to the address:
 
 *Note : No generate page are generated for "/list-of-members/?foo=bar" because `generate` is set to `false`. Use this value to ignore a route generation.*
 
-The generation starts when displaying the page if ***htmlGenerateBeforeResponse*** exist and if it is ***true***. If it is passed ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/server.js --generate` will generate all pages once if `generatesRelativePath` exist. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
+The generation starts when displaying the page if ***htmlGeneratesBeforeResponse*** exist and if it is ***true***. If it is passed ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/server.js --generate` will generate all pages once if `generatesRelativePath` exist. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
 
 Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `generatesRelativePath` if both folder does not have the same path, and if `generatesRelativePath` exist. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
 
@@ -1194,7 +1194,7 @@ You can also manager a simple HTML website page with the following configuration
 {
     "languageCode": "fr-fr",
     "enableIndex": true,
-    "htmlGenerateBeforeResponse": true,
+    "htmlGeneratesBeforeResponse": true,
     "generatesRelativePath": "../HTML/",
     "assetsRelativePath": "../HTML/",
     "routes": {
