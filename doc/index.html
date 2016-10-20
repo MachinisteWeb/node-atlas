@@ -199,7 +199,7 @@
 </li>
 <li><p>Clone the directory from <a href="https://github.com/Haeresis/NodeAtlas/">GitHub</a> (recommended for participating to project).</p>
 <p> <em>This will install <strong>NodeAtlas</strong> in cloning home folder.</em></p>
-<p> <strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the _node<em>modules</em>.</strong></p>
+<p> <strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>, to install the _node<em>modules</em>.</strong></p>
 </li>
 </ul>
 <h2>Start with NodeAtlas</h2><h3>Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.</p>
@@ -226,10 +226,10 @@
     }
 }</code></pre><p>equivalent to</p>
 <pre class="prettyprint source lang-js"><code>{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }</code></pre><h3>Run the site with NodeAtlas</h3><h4>With a command line</h4><p>Position yourself with the prompt console in the folder &quot;/Site-hello-world/&quot; and run the following command.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>In your first run, NodeAtlas install all the &quot;node_modules&quot; necessary for running (if you downloaded out of npm).</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/</code></pre><p>In your first run, NodeAtlas install all the &quot;node_modules&quot; necessary for running (if you downloaded out of npm).</p>
 <p>Rerun.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>You will have access to your &quot;Hello World&quot; to the page: <em>http://localhost/</em> in a browser.</p>
-<h4>With an executable on your OS</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can also use the <code>nodeatlas</code> command. <code>nodeatlas</code> is a shortcut for <code>node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/</code></pre><p>You will have access to your &quot;Hello World&quot; to the page: <em>http://localhost/</em> in a browser.</p>
+<h4>With an executable on your OS</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can also use the <code>nodeatlas</code> command. <code>nodeatlas</code> is a shortcut for <code>node &lt;/path/to/&gt;node-atlas/</code>.</p>
 <p>Position yourself with the prompt console in the folder « /site-hello-world/ » and run the following command.</p>
 <pre class="prettyprint source"><code>\> nodeatlas</code></pre><p><em>Note : </em>if the <code>nodeatlas</code> command do not work on unix OS after installation, it's probably because of right problem. If you are root, the command <code>chown -R root:root /usr/local/bin/</code> before re-execuse <code>npm install -g node-atlas</code> command will fix issue, else, use the command <code>sudo npm install -g node-atlas</code>.*</p>
 <h4>Via a JavaScript file</h4><p>You can also use NodeAtlas as a npm module.</p>
@@ -721,7 +721,7 @@ webconfig.prod.json</code></pre><p>and &quot;index.htm&quot; containing:</p>
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common&lt;%= webconfig._minified %>.js&quot;>&lt;/script>
     &lt;/body>
 &lt;/html></code></pre><p>To run (since the site folder) the the command:</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>We will have to address &quot;http://localhost/&quot; the following output with non-minified files:</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/</code></pre><p>We will have to address &quot;http://localhost/&quot; the following output with non-minified files:</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;fr-fr&quot;>
     &lt;head>
@@ -3052,7 +3052,7 @@ templates/
     &lt;body>
         &lt;p>This is a template email.&lt;/p>
     &lt;/body>
-&lt;/html></code></pre><p>output will be, with the command <code>node &lt;/path/to/&gt;node-atlas/node-atlas.js --generate</code>, all following file:</p>
+&lt;/html></code></pre><p>output will be, with the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code>, all following file:</p>
 <pre class="prettyprint source"><code>generates/
 — welcome.html    &lt;= template email generate !
 assets/
@@ -3071,7 +3071,7 @@ templates/
     &lt;/body>
 &lt;/html></code></pre><p>This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.</p>
 <blockquote>
-<p>Test : From <code>./tests/examples/css-injection</code> run <code>node &quot;../../../node-atlas.js&quot; --generate</code>. Result are into <code>generates</code>.</p>
+<p>Test : From <code>./tests/examples/css-injection</code> run <code>node &quot;../../../&quot; --generate</code>. Result are into <code>generates</code>.</p>
 </blockquote>
 <h4>Global Injection</h4><p>It is possible to use <code>injectCss</code> as global mechanism for all pages.</p>
 <pre class="prettyprint source lang-json"><code>{
@@ -3107,7 +3107,7 @@ templates/
         }
     }
 }</code></pre><blockquote>
-<p>Test : From <code>./tests/examples/css-injection</code> run <code>node &quot;../../../node-atlas.js&quot; --generate --webconfig webconfig.multiple.json</code>. Result are into <code>generates</code>.</p>
+<p>Test : From <code>./tests/examples/css-injection</code> run <code>node &quot;../../../&quot; --generate --webconfig webconfig.multiple.json</code>. Result are into <code>generates</code>.</p>
 </blockquote>
 <h3>Allow/Disallow GET/POST requests</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p>
 <pre class="prettyprint source lang-js"><code>{
@@ -3445,16 +3445,16 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
     &lt;% for (var i = 0; i &lt; common.language.length; i++) { %>
     &lt;li>&lt;a href=&quot;&lt;%= urlBasePathSlice + webconfig.routes[currentRouteName.split('_')[0] + '_' + common.language[i].code].url %>&quot;>&lt;%- common.language[i].name %>&lt;/a>&lt;/li>
     &lt;% } %>
-&lt;/ul></code></pre><h2>CLI / Running commands</h2><p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. However there are options to launch more than launch the site.</p>
+&lt;/ul></code></pre><h2>CLI / Running commands</h2><p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>. However there are options to launch more than launch the site.</p>
 <p>Each of the commands that follow can be coupled with other like this:</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse</code></pre><h3>--directory &lt;path&gt;</h3><p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--directory</code> command will be very useful.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><h3>--webconfig &lt;webconfigName&gt;</h3><p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --webconfig webconfig.alternatif.json</code></pre><h3>--browse [subpath]</h3><p>This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with <code>--generate</code> (see below).</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --browse</code></pre><p>You could also targeted a specific page with the end of url.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --browse index.html</code></pre><h3>--httpHostname &lt;httpHostname&gt;</h3><p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --httpHostname 192.168.1.1</code></pre><h3>--httpPort &lt;httpPort&gt;</h3><p>You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --httpPort 7778</code></pre><h3>--generate</h3><p>If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>. This command will copy the entire contents of the folder <code>assetsRelativePath</code> into <code>generatesRelativePath</code> if their path is different.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --generate</code></pre><h2>API / NodeAtlas as npm module</h2><p>If you start NodeAtlas via JavaScript code, you can also configure the launch:</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse</code></pre><h3>--directory &lt;path&gt;</h3><p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--directory</code> command will be very useful.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --directory &lt;/path/to/your/website/directory/></code></pre><h3>--webconfig &lt;webconfigName&gt;</h3><p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --webconfig webconfig.alternatif.json</code></pre><h3>--browse [subpath]</h3><p>This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with <code>--generate</code> (see below).</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --browse</code></pre><p>You could also targeted a specific page with the end of url.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --browse index.html</code></pre><h3>--httpHostname &lt;httpHostname&gt;</h3><p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpHostname 192.168.1.1</code></pre><h3>--httpPort &lt;httpPort&gt;</h3><p>You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpPort 7778</code></pre><h3>--generate</h3><p>If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>. This command will copy the entire contents of the folder <code>assetsRelativePath</code> into <code>generatesRelativePath</code> if their path is different.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --generate</code></pre><h2>API / NodeAtlas as npm module</h2><p>If you start NodeAtlas via JavaScript code, you can also configure the launch:</p>
 <p><em>server.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().config({
     directory: &quot;&lt;/path/to/your/website/directory/>&quot;,
@@ -3494,8 +3494,8 @@ websiteFr.run({
 — templates/
 —— index.htm
 — webconfig.json</code></pre><p>by running the command</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js</code></pre><p>or even the command</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/node-atlas.js --webconfig webconfig.not-exist.json</code></pre><p>the server will run in &quot;Simple Web Server&quot; mode and file &quot;http://localhost/webconfig.json&quot; or &quot;http://localhost/templates/webconfig.htm&quot; will be available as the browser could refer as a simple web server.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/</code></pre><p>or even the command</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --webconfig webconfig.not-exist.json</code></pre><p>the server will run in &quot;Simple Web Server&quot; mode and file &quot;http://localhost/webconfig.json&quot; or &quot;http://localhost/templates/webconfig.htm&quot; will be available as the browser could refer as a simple web server.</p>
 <p><em>Note : only commands <code>--webconfig</code>, <code>--browse</code>, <code>--directory</code> and <code>--httpPort</code> work in this mode.</em></p>
 <h2>Running NodeAtlas on online server</h2><h3>In a Windows Server environment with iisnode</h3><p>In a Windows Server 2013 environment with IIS8 the requirements are:</p>
 <ol>
@@ -3575,7 +3575,7 @@ site-hello-world/
 <li>Running in addition of your websites a reverse-proxy running on port 80 for all applications.</li>
 </ol>
 <h4>Some forever commands</h4><p>To manage a new website in continues to be used the command:</p>
-<pre class="prettyprint source"><code>\> forever start &lt;/path/to/>node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/></code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p>
+<pre class="prettyprint source"><code>\> forever start &lt;/path/to/>node-atlas/ --directory &lt;/path/to/your/website/directory/></code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p>
 <pre class="prettyprint source"><code>\> forever list</code></pre><p>and then use the command:</p>
 <pre class="prettyprint source"><code>\> forever stop &lt;uid></code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p>
 <h4>webconfig example</h4><p>An example for a production webconfig:</p>
@@ -3766,7 +3766,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Oct 20 2016 12:17:24 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Oct 20 2016 15:15:37 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
