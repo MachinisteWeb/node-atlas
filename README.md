@@ -175,7 +175,7 @@ Il y a plusieurs solutions pour installer NodeAtlas :
 
    _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
 
-   **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/node-atlas.js`, pour installer les _node_modules_.**
+   **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
 
 - `npm install node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans un projet).
 
@@ -189,7 +189,7 @@ Il y a plusieurs solutions pour installer NodeAtlas :
 
    _Ceci installera **NodeAtlas** dans le dossier d'accueil du clonage._
 
-   **Lancez au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/node-atlas.js`, pour installer les _node_modules_.**
+   **Lancez au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
 
 
 
@@ -254,7 +254,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js
+\> node </path/to/>node-atlas/
 ```
 
 À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement (si vous avez téléchargé hors npm).
@@ -262,7 +262,7 @@ Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ »
 Ré-exécutez.
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js
+\> node </path/to/>node-atlas/
 ```
 
 Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur.
@@ -270,7 +270,7 @@ Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans
 
 #### Avec un exécutable sur votre OS ####
 
-**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez également utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/>node-atlas/node-atlas.js`.
+**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez également utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/>node-atlas/`.
 
 Placez-vous toujours avec votre invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
 
@@ -1056,7 +1056,7 @@ et « index.htm » contenant :
 En lançant (depuis le dossier du site) la commande :
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js
+\> node </path/to/>node-atlas/
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
@@ -4362,7 +4362,7 @@ body {
 </html>
 ```
 
-vous obtiendrez en sortie avec la commande `node </path/to/>node-atlas/node-atlas.js --generate` l'ensemble de fichier suivant :
+vous obtiendrez en sortie avec la commande `node </path/to/>node-atlas/ --generate` l'ensemble de fichier suivant :
 
 ```
 generates/
@@ -4391,7 +4391,7 @@ avec comme contenu pour `generates/bienvenue.html`
 
 Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.
 
-> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../node-atlas.js" --generate`. Le résultat est dans `generates`.
+> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../" --generate`. Le résultat est dans `generates`.
 
 #### Injection globale ####
 
@@ -4439,7 +4439,7 @@ Il est possible :
 }
 ```
 
-> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../node-atlas.js" --generate --webconfig webconfig.multiple.json`. Le résultat est dans `generates`.
+> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../" --generate --webconfig webconfig.multiple.json`. Le résultat est dans `generates`.
 
 
 
@@ -4980,12 +4980,12 @@ on peut alors créer un lien entre chaque page multilingue comme ceci :
 
 ## CLI / Commandes de lancement ##
 
-La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node </path/to/>node-atlas/node-atlas.js`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
+La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node </path/to/>node-atlas/`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
 
 Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
+\> node </path/to/>node-atlas/ --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
 ```
 
 
@@ -4994,7 +4994,7 @@ Chacune des commandes qui vont suivre peut être couplée avec les autres de cet
 Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous sera alors très utile.
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --directory </path/to/your/website/directory/>
+\> node </path/to/>node-atlas/ --directory </path/to/your/website/directory/>
 ```
 
 
@@ -5003,7 +5003,7 @@ Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où e
 Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --webconfig webconfig.alternatif.json
+\> node </path/to/>node-atlas/ --webconfig webconfig.alternatif.json
 ```
 
 
@@ -5013,14 +5013,14 @@ Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible q
 Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplée avec `--generate` (voir plus loin).
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --browse
+\> node </path/to/>node-atlas/ --browse
 ```
 
 Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --browse index.html
+\> node </path/to/>node-atlas/ --browse index.html
 ```
 
 
@@ -5030,7 +5030,7 @@ Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 Il est parfois utile de demander son adresse IP via un `ipconfig` pour le paramettrer dans l'url afin de rendre son site entièrement disponible sur un périphérique du réseau local (smartphone par exemple). Vous pourrez le faire avec cette commande.
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --httpHostname 192.168.1.1
+\> node </path/to/>node-atlas/ --httpHostname 192.168.1.1
 ```
 
 
@@ -5040,7 +5040,7 @@ Il est parfois utile de demander son adresse IP via un `ipconfig` pour le parame
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --httpPort 7778
+\> node </path/to/>node-atlas/ --httpPort 7778
 ```
 
 
@@ -5050,7 +5050,7 @@ Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tou
 Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser `--generate`. Cette commande copiera l'intégralité du contenu du dossier `assetsRelativePath` dans `generatesRelativePath` si leur chemin est différent.
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --generate
+\> node </path/to/>node-atlas/ --generate
 ```
 
 
@@ -5137,13 +5137,13 @@ site-hello-world/
 en exécutant la commande
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js
+\> node </path/to/>node-atlas/
 ```
 
 ou même la commande
 
 ```
-\> node </path/to/>node-atlas/node-atlas.js --webconfig webconfig.not-exist.json
+\> node </path/to/>node-atlas/ --webconfig webconfig.not-exist.json
 ```
 
 le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
@@ -5276,7 +5276,7 @@ Il faut pour cela :
 Pour manager un nouveau site en continue il faut utiliser la commande :
 
 ```
-\> forever start </path/to/>node-atlas/node-atlas.js --directory </path/to/your/website/directory/>
+\> forever start </path/to/>node-atlas/ --directory </path/to/your/website/directory/>
 ```
 
 Pour le stopper, il faut repérer son **uid** avec la commande `forever list`
