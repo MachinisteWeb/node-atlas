@@ -1,3 +1,11 @@
+## 1.5.0 ##
+
+Updates:
+
+-  change `htmlGenerateBeforeResponse` into `htmlGeneratesBeforeResponse`.
+
+
+
 ## 1.4.2 ##
 
 Updates:
