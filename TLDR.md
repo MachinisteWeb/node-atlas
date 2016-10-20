@@ -2,7 +2,7 @@
 
 **Vous êtes français ? Le document [derrière ce lien](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) vous sera peut-être plus agréable.**
 
-[![Faites un don](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.4](https://img.shields.io/badge/version-1.4-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.8-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.5](https://img.shields.io/badge/version-1.5-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 
 
@@ -38,7 +38,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "postSupport": false,                   /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
     "optimizations": "optimizations.json",  /* Set images to optimize for the web with an external file. */
-    "htmlGenerateBeforeResponse": true,     /* Generate page currently displayed into "generates" directory. */
+    "htmlGeneratesBeforeResponse": true,     /* Generate page currently displayed into "generates" directory. */
     "stylesheetsBundlesEnable": true,       /* Minify CSS into ".min" files before response pages. */
     "javascriptBundlesEnable": true,        /* Obfuscate JS into ".min" files before response pages. */
     "enableLess": true,                     /* Use Less files with ".map" for development phase. */
@@ -51,7 +51,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
 ```js
 {
     "httpPort": 7777,                       /* Set the real application HTTP port if port 80 is already listened. */
-    "urlHttp": 80,                          /* Set the frontal port for application on the world wide web (proxy). */
+    "urlPort": 80,                          /* Set the frontal port for application on the world wide web (proxy). */
     "httpSecure": "security/server",        /* Set the directory for find "server.key" and "server.crt" file for HTTPs. */
     "urlHostname": "www.my-website.com",    /* Set the hostname for the application on the world wide web. */
     "urlRelativeSubPath": "example",       /* Set a subdirectory for the application url. i.e.: "https://www.my-website.com/example/". */
