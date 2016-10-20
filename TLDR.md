@@ -267,7 +267,7 @@ nodeatlas --directory /var/www/my-website/ --webconfig webconfig.prod.json
 - with *Forever*:
 
 ```
-forever start /usr/local/lib/node_modules/node-atlas/node-atlas.js --directory /var/www/my-website/ --webconfig webconfig.prod.json
+forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-website/ --webconfig webconfig.prod.json
 ```
 
 
