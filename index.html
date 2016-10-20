@@ -278,7 +278,7 @@
 
 <p><em>This will install <strong>NodeAtlas</strong> in cloning home folder.</em></p>
 
-<p><strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>, to install the <em>node_modules</em>.</strong></p>
+<p><strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>, to install the <em>node_modules</em>.</strong></p>
 </li>
 </ul>
 
@@ -336,14 +336,14 @@
 
 <p>Position yourself with the prompt console in the folder "/Site-hello-world/" and run the following command.</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
 </code></pre>
 
 <p>In your first run, NodeAtlas install all the "node_modules" necessary for running (if you downloaded out of npm).</p>
 
 <p>Rerun.</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
 </code></pre>
 
 <p>You will have access to your "Hello World" to the page: <em>http://localhost/</em> in a browser.</p>
@@ -351,7 +351,7 @@
 <h4>
 <a id="with-an-executable-on-your-os" class="anchor" href="#with-an-executable-on-your-os" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>With an executable on your OS</h4>
 
-<p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can also use the <code>nodeatlas</code> command. <code>nodeatlas</code> is a shortcut for <code>node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>.</p>
+<p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can also use the <code>nodeatlas</code> command. <code>nodeatlas</code> is a shortcut for <code>node &lt;/path/to/&gt;node-atlas/</code>.</p>
 
 <p>Position yourself with the prompt console in the folder « /site-hello-world/ » and run the following command.</p>
 
@@ -1072,7 +1072,7 @@ webconfig.prod.json
 
 <p>To run (since the site folder) the the command:</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
 </code></pre>
 
 <p>We will have to address "http://localhost/" the following output with non-minified files:</p>
@@ -4176,7 +4176,7 @@ templates/
     &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
-<p>output will be, with the command <code>node &lt;/path/to/&gt;node-atlas/node-atlas.js --generate</code>, all following file:</p>
+<p>output will be, with the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code>, all following file:</p>
 
 <pre><code>generates/
 — welcome.html    &lt;= template email generate !
@@ -4203,7 +4203,7 @@ templates/
 <p>This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.</p>
 
 <blockquote>
-<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../node-atlas.js" --generate</code>. Result are into <code>generates</code>.</p>
+<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../" --generate</code>. Result are into <code>generates</code>.</p>
 </blockquote>
 
 <h4>
@@ -4254,7 +4254,7 @@ templates/
 }</pre></div>
 
 <blockquote>
-<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../node-atlas.js" --generate --webconfig webconfig.multiple.json</code>. Result are into <code>generates</code>.</p>
+<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../" --generate --webconfig webconfig.multiple.json</code>. Result are into <code>generates</code>.</p>
 </blockquote>
 
 <h3>
@@ -4752,11 +4752,11 @@ exports.setSessions = website.setSessions;
 <h2>
 <a id="cli--running-commands" class="anchor" href="#cli--running-commands" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CLI / Running commands</h2>
 
-<p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js</code>. However there are options to launch more than launch the site.</p>
+<p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>. However there are options to launch more than launch the site.</p>
 
 <p>Each of the commands that follow can be coupled with other like this:</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
 </code></pre>
 
 <h3>
@@ -4764,7 +4764,7 @@ exports.setSessions = website.setSessions;
 
 <p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--directory</code> command will be very useful.</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/&gt;
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
 </code></pre>
 
 <h3>
@@ -4772,7 +4772,7 @@ exports.setSessions = website.setSessions;
 
 <p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --webconfig webconfig.alternatif.json
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.alternatif.json
 </code></pre>
 
 <h3>
@@ -4780,12 +4780,12 @@ exports.setSessions = website.setSessions;
 
 <p>This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with <code>--generate</code> (see below).</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --browse
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --browse
 </code></pre>
 
 <p>You could also targeted a specific page with the end of url.</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --browse index.html
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --browse index.html
 </code></pre>
 
 <h3>
@@ -4793,7 +4793,7 @@ exports.setSessions = website.setSessions;
 
 <p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --httpHostname 192.168.1.1
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --httpHostname 192.168.1.1
 </code></pre>
 
 <h3>
@@ -4801,7 +4801,7 @@ exports.setSessions = website.setSessions;
 
 <p>You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --httpPort 7778
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --httpPort 7778
 </code></pre>
 
 <h3>
@@ -4809,7 +4809,7 @@ exports.setSessions = website.setSessions;
 
 <p>If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>. This command will copy the entire contents of the folder <code>assetsRelativePath</code> into <code>generatesRelativePath</code> if their path is different.</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --generate
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --generate
 </code></pre>
 
 <h2>
@@ -4881,12 +4881,12 @@ exports.setSessions = website.setSessions;
 
 <p>by running the command</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
 </code></pre>
 
 <p>or even the command</p>
 
-<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/node-atlas.js --webconfig webconfig.not-exist.json
+<pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.not-exist.json
 </code></pre>
 
 <p>the server will run in "Simple Web Server" mode and file "http://localhost/webconfig.json" or "http://localhost/templates/webconfig.htm" will be available as the browser could refer as a simple web server.</p>
@@ -5014,7 +5014,7 @@ site-hello-world/
 
 <p>To manage a new website in continues to be used the command:</p>
 
-<pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/node-atlas.js --directory &lt;/path/to/your/website/directory/&gt;
+<pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
 </code></pre>
 
 <p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p>
