@@ -31,7 +31,7 @@
         <h1>
 <a id="node-atlas" class="anchor" href="#node-atlas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>node-atlas</h1>
 
-<p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.5-brightgreen.svg" alt="Version 1.5"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+<p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.6-brightgreen.svg" alt="Version 1.6"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 
@@ -1310,6 +1310,13 @@ engine/
 <em>setConfigurations</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
 
+<p>Init of routes</p>
+
+<ul>
+<li>
+<em>setRoutes</em> --&gt; à manipuler depuis le fichier <code>commonController</code> (<code>common.js</code> dans l'exemple).</li>
+</ul>
+
 <p>Start Web Server</p>
 </blockquote>
 
@@ -1837,7 +1844,8 @@ webconfig.json
 
 <p>And "common.js" file containing e.g.:</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-c">// Load modules for this site in the NodeAtlas object.</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executing during the modules loading phase.</span>
+<span class="pl-c">// This code will be executed when NodeAtlas starting.</span>
 <span class="pl-c1">exports</span>.<span class="pl-en">loadModules</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
     <span class="pl-c">// Find instance of « NodeAtlas » engine.</span>
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
@@ -1846,15 +1854,68 @@ webconfig.json
     <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">RedisStore</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>connect-redis<span class="pl-pds">'</span></span>);
 };
 
-<span class="pl-c">// Allows you to use an external DB for Session.</span>
+<span class="pl-c">// This code is executing while configuration of session.</span>
+<span class="pl-c">// This code will be executed when NodeAtlas starting.</span>
 <span class="pl-c1">exports</span>.<span class="pl-en">setSessions</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
     <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
         session <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-smi">session</span>,
         RedisStore <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">modules</span>.<span class="pl-en">RedisStore</span>(session);
 
+    <span class="pl-c">// We replace the default session.</span>
     <span class="pl-c1">NA</span>.<span class="pl-smi">sessionStore</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">RedisStore</span>();
 
+    <span class="pl-c">// We update modification here.</span>
     <span class="pl-en">next</span>();
+};</pre></div>
+
+<h4>
+<a id="setroutes" class="anchor" href="#setroutes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setRoutes</h4>
+
+<p>To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p>
+
+<p>This is all files for example:</p>
+
+<pre><code>controllers/
+— common.js
+templates/
+— content.htm
+— index.htm
+variations/
+— common.json
+webconfig.json
+</code></pre>
+
+<p>With the <code>webconfig.json</code>:</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>commonController<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.js<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>commonVariation<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>common.json<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>routes<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>/index.html<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>index.htm<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>And "common.js" file containing e.g.:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// This code is executing while route are added.</span>
+<span class="pl-c">// This code will be executed when NodeAtlas starting.</span>
+<span class="pl-c1">exports</span>.<span class="pl-en">setConfigurations</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">next</span>) {
+
+    <span class="pl-c">// We use instance of NodeAtlas.</span>
+    <span class="pl-k">var</span> <span class="pl-c1">NA</span> <span class="pl-k">=</span> <span class="pl-v">this</span>,
+
+        <span class="pl-c">// And we keep routes from NodeAtlas webconfig...</span>
+        route <span class="pl-k">=</span> <span class="pl-c1">NA</span>.<span class="pl-smi">webconfig</span>.<span class="pl-smi">routes</span>;
+
+    <span class="pl-c">// ...to add "/content.html" route amongs others routes.</span>
+    route[<span class="pl-s"><span class="pl-pds">"</span>/content.html<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>template<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>content.htm<span class="pl-pds">"</span></span>
+    };
+
+    <span class="pl-c">// We update modification here.</span>
+    <span class="pl-en">next</span>(); 
 };</pre></div>
 
 <h3>
