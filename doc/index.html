@@ -43,7 +43,7 @@
 
 
     <section>
-        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.5-brightgreen.svg" alt="Version 1.5"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.6-brightgreen.svg" alt="Version 1.6"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><h3>For What ?</h3><p>NodeAtlas is a Server-side MVC(2) JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run on all <a href="https://nodejs.org/en/">Node.js</a> verision. NodeAtlas allows you to :</p>
 <ul>
@@ -870,19 +870,23 @@ engine/
 <p>and this is the detail of all hooks :</p>
 <p><strong>Start NodeAtlas</strong> </p>
 <blockquote>
-<p>Init of Internal Modules</p>
+<p>Init of Modules</p>
 <ul>
 <li><em>loadModules</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
-<p>Init of External Modules</p>
-<ul>
-<li><em>setConfigurations</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
-</ul>
-<p>Start Web Server</p>
+<p>Init of Sessions</p>
 <ul>
 <li><em>setSessions</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
-<p>Web Server stay Up</p>
+<p>Init of server configuration</p>
+<ul>
+<li><em>setConfigurations</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
+</ul>
+<p>Init of routes</p>
+<ul>
+<li><em>setRoutes</em> --&gt; à manipuler depuis le fichier <code>commonController</code> (<code>common.js</code> dans l'exemple).</li>
+</ul>
+<p>Start Web Server</p>
 </blockquote>
 <p><strong>HTTP Request/Response of NodeAtlas</strong></p>
 <blockquote>
@@ -1260,7 +1264,7 @@ exports.changeVariation = function (params, next) {
     &quot;currentRouteParameters&quot;: { /* ... */ },
     &quot;currentRoute&quot;: &quot;/&quot;,
     &quot;webconfig&quot;: { /* ... */ }
-}</code></pre><h4>setSessions</h4><p>To talk about <code>setSessions</code> we will explain a complete example. We will see how to connect to a database with <code>MongoDB</code> and how to use a database for sessions with <code>Redis</code>.</p>
+}</code></pre><h4>setSessions</h4><p>To configure client-server Sessions of NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers, this is an example with <a href="http://redis.io/">Redis</a> sessions.</p>
 <p>This is all files for example:</p>
 <pre class="prettyprint source"><code>controllers/
 — common.js
@@ -1280,7 +1284,8 @@ webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
         }
     }
 }</code></pre><p>And &quot;common.js&quot; file containing e.g.:</p>
-<pre class="prettyprint source lang-js"><code>// Load modules for this site in the NodeAtlas object.
+<pre class="prettyprint source lang-js"><code>// This code is executing during the modules loading phase.
+// This code will be executed when NodeAtlas starting.
 exports.loadModules = function () {
     // Find instance of « NodeAtlas » engine.
     var NA = this;
@@ -1289,15 +1294,54 @@ exports.loadModules = function () {
     NA.modules.RedisStore = require('connect-redis');
 };
 
-// Allows you to use an external DB for Session.
+// This code is executing while configuration of session.
+// This code will be executed when NodeAtlas starting.
 exports.setSessions = function (next) {
     var NA = this,
         session = NA.modules.session,
         RedisStore = NA.modules.RedisStore(session);
 
+    // We replace the default session.
     NA.sessionStore = new RedisStore();
 
+    // We update modification here.
     next();
+};</code></pre><h4>setRoutes</h4><p>To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p>
+<p>This is all files for example:</p>
+<pre class="prettyprint source"><code>controllers/
+— common.js
+templates/
+— content.htm
+— index.htm
+variations/
+— common.json
+webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/index.html&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>And &quot;common.js&quot; file containing e.g.:</p>
+<pre class="prettyprint source lang-js"><code>// This code is executing while route are added.
+// This code will be executed when NodeAtlas starting.
+exports.setConfigurations = function (next) {
+
+    // We use instance of NodeAtlas.
+    var NA = this,
+
+        // And we keep routes from NodeAtlas webconfig...
+        route = NA.webconfig.routes;
+
+    // ...to add &quot;/content.html&quot; route amongs others routes.
+    route[&quot;/content.html&quot;] = {
+        &quot;template&quot;: &quot;content.htm&quot;
+    };
+
+    // We update modification here.
+    next(); 
 };</code></pre><h3>Use Websocket instead of AJAX</h3><p>To keep a link between Front and Back part of website, NodeAtlas can use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p>
 <p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p>
 <p>With this following files:</p>
@@ -3766,7 +3810,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Oct 20 2016 15:59:03 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Mon Oct 24 2016 14:36:09 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>

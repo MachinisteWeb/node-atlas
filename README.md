@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.5](https://img.shields.io/badge/version-1.5-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.6](https://img.shields.io/badge/version-1.6-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
@@ -1297,6 +1297,10 @@ and this is the detail of all hooks :
 
 > - *setConfigurations* --> into `commonController` file (`common.js` for example).
 
+> Init of routes
+
+> - *setRoutes* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+
 > Start Web Server
 
 **HTTP Request/Response of NodeAtlas**
@@ -1873,7 +1877,8 @@ With the `webconfig.json`:
 And "common.js" file containing e.g.:
 
 ```js
-// Load modules for this site in the NodeAtlas object.
+// This code is executing during the modules loading phase.
+// This code will be executed when NodeAtlas starting.
 exports.loadModules = function () {
     // Find instance of « NodeAtlas » engine.
     var NA = this;
@@ -1882,15 +1887,72 @@ exports.loadModules = function () {
     NA.modules.RedisStore = require('connect-redis');
 };
 
-// Allows you to use an external DB for Session.
+// This code is executing while configuration of session.
+// This code will be executed when NodeAtlas starting.
 exports.setSessions = function (next) {
     var NA = this,
         session = NA.modules.session,
         RedisStore = NA.modules.RedisStore(session);
 
+    // We replace the default session.
     NA.sessionStore = new RedisStore();
 
+    // We update modification here.
     next();
+};
+```
+
+#### setRoutes ####
+
+To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.
+
+This is all files for example:
+
+```
+controllers/
+— common.js
+templates/
+— content.htm
+— index.htm
+variations/
+— common.json
+webconfig.json
+```
+
+With the `webconfig.json`:
+
+```js
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/index.html": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+And "common.js" file containing e.g.:
+
+```js
+// This code is executing while route are added.
+// This code will be executed when NodeAtlas starting.
+exports.setConfigurations = function (next) {
+
+    // We use instance of NodeAtlas.
+    var NA = this,
+
+        // And we keep routes from NodeAtlas webconfig...
+        route = NA.webconfig.routes;
+
+    // ...to add "/content.html" route amongs others routes.
+    route["/content.html"] = {
+        "template": "content.htm"
+    };
+
+    // We update modification here.
+    next(); 
 };
 ```
 
