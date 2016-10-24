@@ -49,6 +49,7 @@ Contrairement aux Frameworks JavaScript comme Angular, Aurelia ou React, NodeAtl
 Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur, [vous pouvez consulter cette grille](#nodeatlas-vs-les-autres).
 
 
+
 ### Exemples de réalisations avec NodeAtlas ###
 
 Voici une liste de repository que vous pouvez décortiquer à votre gré :
@@ -1284,19 +1285,19 @@ Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous le
 et voici le détail des endroits ou vous pouvez intervenir :
 
 **Démarrage de NodeAtlas** 
-> Initialisation des modules internes
+> Initialisation des modules
 
 > - *loadModules* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
-> Initialisation des modules externes
+> Initialisation des Sessions
+
+> - *setSessions* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+
+> Initialisation de la configuration du serveur
 
 > - *setConfigurations* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
 > Lancement du serveur web
-
-> - *setSessions* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
-
-> Maintient du serveur up
 
 **Requête/Réponse HTTP de NodeAtlas** 
 > Traitement de la Request du Client
@@ -1839,7 +1840,7 @@ ce qui produit la sortie suivante :
 
 #### setSessions ####
 
-Pour parler de `setSessions` nous allons par l'exemple, voir comment se connecter à `MongoDB` pour la connexion aux bases de données et comment stocker les sessions des utilisateur dans une bases de donnée avec `Redis`.
+Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs, voici un exemple de management de Session avec [Redis](http://redis.io/).
 
 Voici l'ensemble de fichier suivant :
 

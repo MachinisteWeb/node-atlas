@@ -1,3 +1,11 @@
+## 1.5.1 ##
+
+Updates:
+
+-  `changeVariation` callback have no necessity to use `variation` anymore as first parameter.
+
+
+
 ## 1.5.0 ##
 
 Updates:
