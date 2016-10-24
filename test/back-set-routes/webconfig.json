@@ -1,0 +1,11 @@
+{
+	"enableIndex": true,
+	"languageCode": "fr-fr",
+	"commonController": "common.js",
+	"commonVariation": "common.json",
+	"routes": {
+		"/index.html": {
+			"template": "index.htm"
+		}
+	}
+}
