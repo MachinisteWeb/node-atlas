@@ -1285,19 +1285,19 @@ This is a `webconfig.json` allows you to manipulate each part of life cycle of a
 and this is the detail of all hooks :
 
 **Start NodeAtlas** 
-> Init of Internal Modules
+> Init of Modules
 
 > - *loadModules* --> into `commonController` file (`common.js` for example).
 
-> Init of External Modules
+> Init of Sessions
+
+> - *setSessions* --> into `commonController` file (`common.js` for example).
+
+> Init of server configuration
 
 > - *setConfigurations* --> into `commonController` file (`common.js` for example).
 
 > Start Web Server
-
-> - *setSessions* --> into `commonController` file (`common.js` for example).
-
-> Web Server stay Up
 
 **HTTP Request/Response of NodeAtlas**
 > Client Request Processing
@@ -1840,7 +1840,7 @@ this will produce the following output:
 
 #### setSessions ####
 
-To talk about `setSessions` we will explain a complete example. We will see how to connect to a database with `MongoDB` and how to use a database for sessions with `Redis`.
+To configure client-server Sessions of NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers, this is an example with [Redis](http://redis.io/) sessions.
 
 This is all files for example:
 
