@@ -1289,14 +1289,21 @@ engine/
 <p><strong>Start NodeAtlas</strong> </p>
 
 <blockquote>
-<p>Init of Internal Modules</p>
+<p>Init of Modules</p>
 
 <ul>
 <li>
 <em>loadModules</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
 
-<p>Init of External Modules</p>
+<p>Init of Sessions</p>
+
+<ul>
+<li>
+<em>setSessions</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
+</ul>
+
+<p>Init of server configuration</p>
 
 <ul>
 <li>
@@ -1304,13 +1311,6 @@ engine/
 </ul>
 
 <p>Start Web Server</p>
-
-<ul>
-<li>
-<em>setSessions</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
-</ul>
-
-<p>Web Server stay Up</p>
 </blockquote>
 
 <p><strong>HTTP Request/Response of NodeAtlas</strong></p>
@@ -1808,7 +1808,7 @@ webconfig.json
 <h4>
 <a id="setsessions" class="anchor" href="#setsessions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setSessions</h4>
 
-<p>To talk about <code>setSessions</code> we will explain a complete example. We will see how to connect to a database with <code>MongoDB</code> and how to use a database for sessions with <code>Redis</code>.</p>
+<p>To configure client-server Sessions of NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers, this is an example with <a href="http://redis.io/">Redis</a> sessions.</p>
 
 <p>This is all files for example:</p>
 
