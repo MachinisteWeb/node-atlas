@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.5](https://img.shields.io/badge/version-1.5-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.6](https://img.shields.io/badge/version-1.6-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/).**
 
@@ -1297,6 +1297,10 @@ et voici le détail des endroits ou vous pouvez intervenir :
 
 > - *setConfigurations* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
+> Initialisation des routes
+
+> - *setRoutes* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+
 > Lancement du serveur web
 
 **Requête/Réponse HTTP de NodeAtlas** 
@@ -1873,7 +1877,8 @@ Avec le `webconfig.json` :
 et avec le fichier « common.js » contenant par exemple :
 
 ```js
-// Chargement des modules pour ce site dans l'objet NodeAtlas.
+// On intervient avant que la phase de chargement des modules ne soit achevée.
+// Ce code sera exécuté au lancement de NodeAtlas.
 exports.loadModules = function () {
     // Récupérer l'instance « NodeAtlas » du moteur.
     var NA = this;
@@ -1882,15 +1887,72 @@ exports.loadModules = function () {
     NA.modules.RedisStore = require('connect-redis');
 };
 
-// Vous permettre d'utiliser une DB de Session externe.
+// On intervient au niveau du serveur pendant la configuration des Sessions.
+// Ce code sera exécuté au lancement de NodeAtlas.
 exports.setSessions = function (next) {
     var NA = this,
         session = NA.modules.session,
         RedisStore = NA.modules.RedisStore(session);
 
+    // On remplace la session par default.
     NA.sessionStore = new RedisStore();
 
+    // On redonne la main à NodeAtlas pour la suite.
     next();
+};
+```
+
+#### setRoutes ####
+
+Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs.
+
+Voici l'ensemble de fichier suivant :
+
+```
+controllers/
+— common.js
+templates/
+— content.htm
+— index.htm
+variations/
+— common.json
+webconfig.json
+```
+
+Avec le `webconfig.json` :
+
+```js
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/index.html": {
+            "template": "index.htm"
+        }
+    }
+}
+```
+
+et avec le fichier « common.js » contenant par exemple :
+
+```js
+// On intervient au niveau des routes pendant qu'elles sont ajoutées.
+// Ce code sera exécuté au lancement de NodeAtlas.
+exports.setConfigurations = function (next) {
+
+    // On récupère l'instance de NodeAtlas en cours.
+    var NA = this,
+
+        // Et nous récupérons les routes en provenance du webconfig...
+        route = NA.webconfig.routes;
+
+    // ...pour ajouter la route "/content.html" à la liste de nos routes.
+    route["/content.html"] = {
+        "template": "content.htm"
+    };
+
+    // On redonne la main à NodeAtlas pour la suite.
+    next(); 
 };
 ```
 

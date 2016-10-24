@@ -83,6 +83,7 @@ NA = function () {
     this.simpleWebServer = webServer.simpleWebServer;
     this.atlasConfigurations = webServer.atlasConfigurations;
     this.atlasServer = webServer.atlasServer;
+    this.atlasRoutes = webServer.atlasRoutes;
     this.enableLessProcess = webServer.enableLessProcess;
     this.enableStylusProcess = webServer.enableStylusProcess;
     this.atlasSessions = webServer.atlasSessions;
