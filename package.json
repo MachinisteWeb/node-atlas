@@ -52,7 +52,7 @@
     "express": "4.14.x",
     "express-session": "1.14.x",
     "extend": "3.0.x",
-    "forcedomain": "0.7.x",
+    "forcedomain": "0.8.x",
     "imagemin": "5.2.x",
     "less": "2.7.x",
     "less-middleware": "2.2.x",
