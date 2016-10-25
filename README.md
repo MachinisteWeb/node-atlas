@@ -102,13 +102,13 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Manage redirects](#manage-redirects)
  - [Manage Headers](#manage-headers)
  - [Run Website with HTTPs](#run-website-with-https)
- - [Minify CSS/JS](#minify-cssjs)
+ - [Minify CSS / JS](#minify-css--js)
  - [CSS generation with Less](#css-generation-with-less)
  - [CSS generation with Stylus](#css-generation-with-stylus)
  - [Optimize Images files](#optimize-images-files)
  - [CSS Inline Injection for Manage Email Assets](#css-inline-injection-for-manage-email-assets)
- - [Allow/Disallow GET/POST requests](#allowdisallow-getpost-requests)
- - [Allow/Disallow PUT/DELETE requests](#allowdisallow-putdelete-requests)
+ - [Allow / Disallow GET / POST requests](#allow--disallow-get--post-requests)
+ - [Allow / Disallow PUT / DELETE requests](#allow--disallow-put--delete-requests)
  - [Change settings of Sessions](#change-settings-of-sessions)
  - [External Storage Sessions](#external-storage-sessions)
  - [Changing the template engine brackets <% %>](#Changing-the-template-engine-brackets--)
@@ -3407,7 +3407,7 @@ This is also possible to just set the `httpSecure` value to `true` for get a "ht
 
 
 
-### Minify CSS/JS ###
+### Minify CSS / JS ###
 
 You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the `--generate` command if a Bundle exists in the Webconfig.
 
@@ -4506,7 +4506,7 @@ It's possible to :
 
 
 
-### Allow/Disallow GET/POST requests ###
+### Allow / Disallow GET / POST requests ###
 
 You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).
 
@@ -4537,7 +4537,7 @@ You can also manager how the server will respond to requests GET/POST to a given
 
 
 
-### Allow/Disallow PUT/DELETE requests ###
+### Allow / Disallow PUT / DELETE requests ###
 
 Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `putSupport` et `deleteSupport`.
 
