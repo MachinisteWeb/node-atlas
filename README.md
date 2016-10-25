@@ -102,13 +102,13 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer les redirections](#gérer-les-redirections)
  - [Gérer les Headers de page](#gérer-les-headers-de-page)
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
- - [Minifier les CSS/JS](#minifier-les-cssjs)
+ - [Minifier les CSS / JS](#minifier-les-css--js)
  - [Générer les CSS avec Less](#générer-les-css-avec-less)
  - [Générer les CSS avec Stylus](#générer-les-css-avec-stylus)
  - [Optimiser les Images](#optimiser-les-images)
  - [Injecter du CSS inline pour maintenir des assets Email](#injecter-du-css-inline-pour-maintenir-des-assets-email)
- - [Autoriser/Interdire les demandes GET/POST](#autoriserinterdire-les-demandes-getpost)
- - [Autoriser/Interdire les demandes PUT/DELETE](#autoriserinterdire-les-demandes-putdelete)
+ - [Autoriser / Interdire les demandes GET / POST](#autoriser--interdire-les-demandes-get--post)
+ - [Autoriser / Interdire les demandes PUT / DELETE](#autoriser--interdire-les-demandes-put--delete)
  - [Changer les paramètres des Sessions](#changer-les-paramètres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
  - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
@@ -128,7 +128,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
  - [Dans un environnement Unix avec Nginx](#dans-un-environnement-unix-avec-nginx)
  - [Proxy](#proxy)
-- [À propos de NodeAtlas](#À-propos-de-nodeatlas)
+- [Plus sur NodeAtlas](#plus-sur-nodeatlas)
 
 
 
@@ -3407,7 +3407,7 @@ Pour finir, il est également possible de seulement laisser la valeur de `httpSe
 
 
 
-### Minifier les CSS/JS ###
+### Minifier les CSS / JS ###
 
 Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu qu'un Bundle existe dans le Webconfig.
 
@@ -4506,7 +4506,7 @@ Il est possible :
 
 
 
-### Autoriser/Interdire les demandes GET/POST ###
+### Autoriser / Interdire les demandes GET / POST ###
 
 Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).
 
@@ -4537,7 +4537,7 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 
 
 
-### Autoriser/Interdire les demandes PUT/DELETE ###
+### Autoriser / Interdire les demandes PUT / DELETE ###
 
 Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `putSupport` et `deleteSupport`.
 
@@ -5485,7 +5485,7 @@ que vous pouvez lancer avec :
 
 
 
-## À propos de NodeAtlas ##
+## Plus sur NodeAtlas ##
 
 NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.
 
