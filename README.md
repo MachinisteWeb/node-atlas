@@ -115,11 +115,11 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Change the url hostname and listening port](#change-the-url-hostname-and-listening-port)
  - [Generate urls dynamically](#generate-urls-dynamically)
 - [CLI / Running commands](#cli--running-commands)
- - [--directory](#--directory-path)
- - [--webconfig](#--webconfig-webconfigname)
- - [--browse](#--browse-subpath)
- - [--httpHostname](#--httphostname-httphostname)
- - [--httpPort](#--httpport-httpport)
+ - [--directory &lt;path>](#--directory-path)
+ - [--webconfig &lt;webconfigName>](#--webconfig-webconfigname)
+ - [--browse [subpath]](#--browse-subpath)
+ - [--httpHostname &lt;httpHostname>](#--httphostname-httphostname)
+ - [--httpPort &lt;httpPort>](#--httpport-httpport)
  - [--generate](#--generate)
 - [API / NodeAtlas as npm module](#api--nodeatlas-as-npm-module)
 - [NodeAtlas as a simple web server](#nodeatlas-as-a-simple-web-server)
@@ -3404,6 +3404,8 @@ This is also possible to just set the `httpSecure` value to `true` for get a "ht
     }
 }
 ```
+
+*Note : in production, if you use a proxy for redirect request/response, don't forget use `urlPort: 443` instead of `urlPort: 80` for HTTPs.*
 
 
 
