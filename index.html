@@ -184,11 +184,11 @@
 <a href="#cli--running-commands">CLI / Running commands</a>
 
 <ul>
-<li><a href="#--directory-path">--directory</a></li>
-<li><a href="#--webconfig-webconfigname">--webconfig</a></li>
-<li><a href="#--browse-subpath">--browse</a></li>
-<li><a href="#--httphostname-httphostname">--httpHostname</a></li>
-<li><a href="#--httpport-httpport">--httpPort</a></li>
+<li><a href="#--directory-path">--directory &lt;path&gt;</a></li>
+<li><a href="#--webconfig-webconfigname">--webconfig &lt;webconfigName&gt;</a></li>
+<li><a href="#--browse-subpath">--browse [subpath]</a></li>
+<li><a href="#--httphostname-httphostname">--httpHostname &lt;httpHostname&gt;</a></li>
+<li><a href="#--httpport-httpport">--httpPort &lt;httpPort&gt;</a></li>
 <li><a href="#--generate">--generate</a></li>
 </ul>
 </li>
@@ -3287,6 +3287,8 @@ webconfig.prod.json
     }
 }</pre></div>
 
+<p><em>Note : in production, if you use a proxy for redirect request/response, don't forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p>
+
 <h3>
 <a id="minify-css--js" class="anchor" href="#minify-css--js" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Minify CSS / JS</h3>
 
@@ -5287,7 +5289,7 @@ server {
 <tr>
 <td>Data sources</td>
 <td>
-<strong>Builtin</strong>: In-memory/file (JSON), REST. With <strong>external npm module</strong>: NoSQL (MongoDB...), SQL (MySql...)</td>
+<strong>Builtin</strong>: In-memory /file (JSON), REST. With <strong>external npm module</strong>: NoSQL (MongoDB...), SQL (MySql...)</td>
 <td></td>
 <td></td>
 <td>In-memory, File, PostgreSQL, MySQL, MongoDB</td>
