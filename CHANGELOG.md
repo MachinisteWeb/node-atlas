@@ -1,3 +1,11 @@
+## 1.6.1 ##
+
+Bugfix:
+
+- Allows template of `enableIndex` to manage special char displaying.
+
+
+
 ## 1.6.0 ##
 
 Feature:

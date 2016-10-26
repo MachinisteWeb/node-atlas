@@ -2,7 +2,7 @@
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.6](https://img.shields.io/badge/version-1.6-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
-**For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/).**
+**For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/doc/index.html).**
 
 
 
@@ -115,11 +115,11 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
  - [Générer les urls dynamiquement](#générer-les-urls-dynamiquement)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
- - [--directory](#--directory-path)
- - [--webconfig](#--webconfig-webconfigname)
- - [--browse](#--browse-subpath)
- - [--httpHostname](#--httphostname-httphostname)
- - [--httpPort](#--httpport-httpport)
+ - [--directory &lt;path>](#--directory-path)
+ - [--webconfig &lt;webconfigName>](#--webconfig-webconfigname)
+ - [--browse [subpath]](#--browse-subpath)
+ - [--httpHostname &lt;httpHostname>](#--httphostname-httphostname)
+ - [--httpPort &lt;httpPort>](#--httpport-httpport)
  - [--generate](#--generate)
 - [API / NodeAtlas comme module npm](#api--nodeatlas-comme-module-npm)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
@@ -3404,6 +3404,8 @@ Pour finir, il est également possible de seulement laisser la valeur de `httpSe
     }
 }
 ```
+
+*Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n'oubliez pas qu'en HTTPs ce n'est pas `urlPort: 80` mais `urlPort: 443`*
 
 
 
