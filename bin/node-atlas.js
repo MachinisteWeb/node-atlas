@@ -127,8 +127,10 @@ NA = function () {
     this.loadController = backEndPart.loadController;
     /* $%ASSETS GENERATION */
     this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
+    this.urlGeneratingAssets = assetsGeneration.urlGeneratingAssets;
     this.emulatedIndexPage = assetsGeneration.emulatedIndexPage;
     this.saveTemplateRender = assetsGeneration.saveTemplateRender;
+    this.atta = assetsGeneration.atta;
     /* $%INIT */
     this.configuration = init.configuration;
     this.config = init.config;
