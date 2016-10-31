@@ -73,8 +73,8 @@ exports.setRoutes = function (next) {
             var $title = $(this);
 
             allRoutes.push(function (nextRoute) {
-                fs.writeFile("assets/" + NA.webconfig._content + $title.attr("id") + ".htm", $title + $title.nextUntil("h2"), function () {
-                    route["/" + $title.attr("id") + ".html"] = {
+                fs.writeFile("assets/" + NA.webconfig._content + encodeURIComponent($title.attr("id")) + ".htm", $title + $title.nextUntil("h2"), function () {
+                    route["/" + encodeURIComponent($title.attr("id")) + ".html"] = {
                         "template": "content.htm",
                         "controller": "content.js"
                     };
