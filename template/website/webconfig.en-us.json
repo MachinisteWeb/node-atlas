@@ -6,7 +6,7 @@
 	"commonController": "common.js",
 	"commonVariation": "common.json",
 	"generatesRelativePath": "../../english/",
-    "urlRelativeSubPath": "english",
+    "urlRelativeSubPath": "NodeAtlas/english",
 	"routes": "routes.json",
 	"_readme": "../../readme.md",
 	"_content": "content/english/",

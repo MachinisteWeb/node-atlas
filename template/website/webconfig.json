@@ -7,6 +7,7 @@
 	"commonVariation": "common.json",
 	"generatesRelativePath": "../../",
 	"routes": "routes.json",
+    "urlRelativeSubPath": "NodeAtlas",
 	"_readme": "../../../NodeAtlas/README.md",
 	"_content": "content/",
 	"_toc": "table-des-matières",
