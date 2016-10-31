@@ -1,0 +1,18 @@
+{
+    "stylesheets": {
+        "stylesheets/common.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/cmpt.header.css",
+            "stylesheets/cmpt.navigation.css",
+            "stylesheets/cmpt.content.css"
+        ]
+    },
+    "javascript": {
+        "javascript/common.min.js": [
+            "javascript/cmpt.header.js",
+            "javascript/cmpt.navigation.js",
+            "javascript/cmpt.content.js",
+            "javascript/common.js"
+        ]
+    }
+}

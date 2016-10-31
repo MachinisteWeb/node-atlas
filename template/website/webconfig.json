@@ -1,0 +1,15 @@
+{
+	"httpPort": 7777,
+    "enableStylus": "stylus.json",
+	"enableIndex": true,
+	"languageCode": "fr-fr",
+	"commonController": "common.js",
+	"commonVariation": "common.json",
+	"generatesRelativePath": "../../",
+	"routes": "routes.json",
+	"_readme": "../../../NodeAtlas/README.md",
+	"_content": "content/",
+	"_toc": "table-des-matières",
+	"_otherPort": 7778,
+	"_min": ""
+}

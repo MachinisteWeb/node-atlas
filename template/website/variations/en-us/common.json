@@ -1,0 +1,52 @@
+{
+	"title": {
+		"alt": "NodeAtlas",
+		"src": "media/images/min/logo-node-atlas.png"
+	},
+	"content": "Content for documentation.",
+	"noJs": "No JavaScript enabled.",
+	"home": {
+		"title": "Home",
+		"url": "index.html"
+	},
+	"lang": {
+		"title": "Français",
+		"url": "../index.html"
+	},
+	"menu": [{
+		"title": "Overview",
+		"url": "overview.html",
+		"menu": [{
+			"title": "Installation",
+			"url": "installation.html"
+		}, {
+			"title": "Get Started",
+			"url": "start-with-nodeatlas.html"
+		}]
+	}, {
+		"title": "View and Template",
+		"url": "create-website-front-end-part.html"
+	}, {
+		"title": "Controller and Model",
+		"url": "javascript-development-back-end-part.html"
+	}, {
+		"title": "Route and More",
+		"url": "more-features.html",
+		"menu": [{
+			"title": "API",
+			"url": "api-nodeatlas-as-npm-module.html"
+		}, {
+			"title": "CLI",
+			"url": "cli-running-commands.html"
+		}, {
+			"title": "Simple Server",
+			"url": "nodeatlas-as-a-simple-web-server.html"
+		}, {
+			"title": "Others Serveurs",
+			"url": "running-nodeatlas-on-online-server.html"
+		}]
+	}, {
+		"title": "And others?",
+		"url": "more-about-nodeatlas.html"
+	}]
+}

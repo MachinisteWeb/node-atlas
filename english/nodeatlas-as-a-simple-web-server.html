@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>NodeAtlas</title>
+
+		<base href="">
+
+		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur.">
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/english/" data-subpath="/english">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>No JavaScript enabled.</p>
+				</div>
+			</noscript>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--title">
+						<h1><img src="media/images/min/logo-node-atlas.png" alt="NodeAtlas"></h1>
+					</div>
+				</div>
+			</header>
+			<nav class="navigation cmpt">
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+
+						<!-- On ajoute la base si le site est en développement, en attribuant le port de l'autre version. -->
+						<a href="../index.html" title="Français">Français</a>
+					</div>
+					<div class="navigation--home">
+						<a href="index.html" title="Home">Home</a>
+					</div>
+					<div class="navigation--menu">
+						<ul>
+							
+							<li>
+								<a href="overview.html" title="Overview">Overview</a>
+								
+								<ul>
+									
+									<li>
+										<a href="installation.html" title="Installation">Installation</a>
+									</li>
+									
+									<li>
+										<a href="start-with-nodeatlas.html" title="Get Started">Get Started</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="create-website-front-end-part.html" title="View and Template">View and Template</a>
+								
+							</li>
+							
+							<li>
+								<a href="javascript-development-back-end-part.html" title="Controller and Model">Controller and Model</a>
+								
+							</li>
+							
+							<li>
+								<a href="more-features.html" title="Route and More">Route and More</a>
+								
+								<ul>
+									
+									<li>
+										<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
+									</li>
+									
+									<li>
+										<a href="cli-running-commands.html" title="CLI">CLI</a>
+									</li>
+									
+									<li>
+										<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
+									</li>
+									
+									<li>
+										<a href="running-nodeatlas-on-online-server.html" title="Others Serveurs">Others Serveurs</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
+								
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<nav class="content cmpt">
+				<div class="content--inner">
+					<h2 id="nodeatlas-as-a-simple-web-server">NodeAtlas as a simple web server</h2><p>If NodeAtlas can not find the &quot;webconfig.json&quot; or <code>--webconfig</code> you have specify, it will run in either &quot;Simple Web Server&quot; or &quot;Public&quot; mode.</p><p><strong>This mode is useful for testing very quickly that NodeAtlas is installed properly or to create small HTML examples that need to run a web server (AJAX returns, embedded iframe, etc.).</strong></p><p>To understand what this means: if there is any file in the directory where NodeAtlas was launched, it will be returned by HTTP request so have the demands via its path.</p><p>For example, by launching NodeAtlas in the <code>site-hello-world</code> folder</p><pre><code>site-hello-world/
+— templates/
+—— index.htm
+— webconfig.json
+</code></pre><p>by running the command</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
+</code></pre><p>or even the command</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.not-exist.json
+</code></pre><p>the server will run in &quot;Simple Web Server&quot; mode and file &quot;<a href="http://localhost/webconfig.json">http://localhost/webconfig.json</a>&quot; or &quot;<a href="http://localhost/templates/webconfig.htm">http://localhost/templates/webconfig.htm</a>&quot; will be available as the browser could refer as a simple web server.</p><p><em>Note : only commands <code>--webconfig</code>, <code>--browse</code>, <code>--directory</code> and <code>--httpPort</code> work in this mode.</em></p>
+				</div>
+			</nav>
+			<!-- Inclusion du fichiers minifié après génération. -->
+			
+			<script src="javascript/common.min.js"></script>
+
+			<!-- Inclusion du fichiers standar pendant le développement. -->
+			
+		</div>
+	</body>
+</html>

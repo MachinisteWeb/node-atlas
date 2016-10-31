@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr-fr">
+	<head>
+		<meta charset="utf-8">
+		<title>NodeAtlas</title>
+
+		<base href="">
+
+		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur.">
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/" data-subpath="">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>Le JavaScript n'est pas activé.</p>
+				</div>
+			</noscript>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--title">
+						<h1><img src="media/images/min/logo-node-atlas.png" alt="NodeAtlas"></h1>
+					</div>
+				</div>
+			</header>
+			<nav class="navigation cmpt">
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+
+						<!-- On ajoute la base si le site est en développement, en attribuant le port de l'autre version. -->
+						<a href="english/index.html" title="English">English</a>
+					</div>
+					<div class="navigation--home">
+						<a href="index.html" title="Accueil">Accueil</a>
+					</div>
+					<div class="navigation--menu">
+						<ul>
+							
+							<li>
+								<a href="avant-propos.html" title="Présentation">Présentation</a>
+								
+								<ul>
+									
+									<li>
+										<a href="installation.html" title="Installation">Installation</a>
+									</li>
+									
+									<li>
+										<a href="commencer-avec-nodeatlas.html" title="Démarrage rapide">Démarrage rapide</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="cr%C3%A9ation-de-site-partie-front-end.html" title="View et Template">View et Template</a>
+								
+							</li>
+							
+							<li>
+								<a href="d%C3%A9veloppement-javascript-partie-back-end.html" title="Controller et Model">Controller et Model</a>
+								
+							</li>
+							
+							<li>
+								<a href="pour-aller-plus-loin.html" title="Route et Plus">Route et Plus</a>
+								
+								<ul>
+									
+									<li>
+										<a href="api-nodeatlas-comme-module-npm.html" title="API">API</a>
+									</li>
+									
+									<li>
+										<a href="cli-commandes-de-lancement.html" title="CLI">CLI</a>
+									</li>
+									
+									<li>
+										<a href="nodeatlas-comme-simple-serveur-web.html" title="Simple Serveur">Simple Serveur</a>
+									</li>
+									
+									<li>
+										<a href="faire-tourner-nodeatlas-sur-serveur.html" title="Autres Serveurs">Autres Serveurs</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="plus-sur-nodeatlas.html" title="Et les autres ?">Et les autres ?</a>
+								
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<nav class="content cmpt">
+				<div class="content--inner">
+					<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module npm</h2><p>Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().config({
+    directory: &quot;&lt;/path/to/your/website/directory/&gt;&quot;,
+    webconfig: &quot;webconfig.alternatif.json&quot;,
+    browse: true,
+    httpHostname: &quot;192.168.1.1&quot;,
+    httpPort: 7778,
+    generate: true
+}).init();
+</code></pre><pre><code>\&gt; node server.js
+</code></pre><p>Vous pouvez également lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+    websiteEn = new nodeAtlas(),
+    websiteFr = new nodeAtlas();
+
+websiteEn.run({
+    &quot;browse&quot;: true,
+    &quot;webconfig&quot;: &quot;webconfig.english.json&quot;
+});
+websiteFr.run({
+    &quot;browse&quot;: true,
+    &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
+});
+</code></pre><p>Vous pouvez aussi exécuter d&#39;autres tâches après la génération de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().afterGeneration(function() {
+    require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
+        console.log(&quot;Documentation generation...&quot;);
+        console.log(stdout);
+        console.log(&quot;Documentation generation done !&quot;);
+    });
+}).run({
+    generate: true
+});
+</code></pre>
+				</div>
+			</nav>
+			<!-- Inclusion du fichiers minifié après génération. -->
+			
+			<script src="javascript/common.min.js"></script>
+
+			<!-- Inclusion du fichiers standar pendant le développement. -->
+			
+		</div>
+	</body>
+</html>

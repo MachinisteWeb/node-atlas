@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>NodeAtlas</title>
+
+		<base href="">
+
+		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur.">
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/english/" data-subpath="/english">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>No JavaScript enabled.</p>
+				</div>
+			</noscript>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--title">
+						<h1><img src="media/images/min/logo-node-atlas.png" alt="NodeAtlas"></h1>
+					</div>
+				</div>
+			</header>
+			<nav class="navigation cmpt">
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+
+						<!-- On ajoute la base si le site est en développement, en attribuant le port de l'autre version. -->
+						<a href="../index.html" title="Français">Français</a>
+					</div>
+					<div class="navigation--home">
+						<a href="index.html" title="Home">Home</a>
+					</div>
+					<div class="navigation--menu">
+						<ul>
+							
+							<li>
+								<a href="overview.html" title="Overview">Overview</a>
+								
+								<ul>
+									
+									<li>
+										<a href="installation.html" title="Installation">Installation</a>
+									</li>
+									
+									<li>
+										<a href="start-with-nodeatlas.html" title="Get Started">Get Started</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="create-website-front-end-part.html" title="View and Template">View and Template</a>
+								
+							</li>
+							
+							<li>
+								<a href="javascript-development-back-end-part.html" title="Controller and Model">Controller and Model</a>
+								
+							</li>
+							
+							<li>
+								<a href="more-features.html" title="Route and More">Route and More</a>
+								
+								<ul>
+									
+									<li>
+										<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
+									</li>
+									
+									<li>
+										<a href="cli-running-commands.html" title="CLI">CLI</a>
+									</li>
+									
+									<li>
+										<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
+									</li>
+									
+									<li>
+										<a href="running-nodeatlas-on-online-server.html" title="Others Serveurs">Others Serveurs</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
+								
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<nav class="content cmpt">
+				<div class="content--inner">
+					<h2 id="more-about-nodeatlas">More About NodeAtlas</h2><p>NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it&#39;s object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.</p><h3 id="nodeatlas-vs-others">NodeAtlas VS Others</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>NodeAtlas</strong></th>
+<th>Express</th>
+<th>Hapi</th>
+<th>Sails</th>
+<th>Restify</th>
+<th>LoopBack</th>
+<th>Meteor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Web <strong>MVC(2)</strong> framework</td>
+<td>HTTP server library</td>
+<td>HTTP server framework</td>
+<td>Web MVC framework</td>
+<td>REST HTTP library</td>
+<td>API framework</td>
+<td>Full-stack JavaScript app platform</td>
+</tr>
+<tr>
+<td>Top Features</td>
+<td>Simplicity, <strong>Evolutivity</strong>, Modularity</td>
+<td>HTTP routing, middleware</td>
+<td>Modularity, security</td>
+<td>Rails familiarity, MVC</td>
+<td>Simplicity, REST routing</td>
+<td>Enterprise connectivity</td>
+<td>Framework Front-end et Back-end</td>
+</tr>
+<tr>
+<td>Suitable For</td>
+<td><strong>Web sites</strong>, Web apps, REST APIs, <strong>Templating</strong></td>
+<td>Simple web apps</td>
+<td>Web apps, APIs</td>
+<td>Web apps, APIs</td>
+<td>Simple REST APIs</td>
+<td>Web apps, APIs</td>
+<td>Web apps</td>
+</tr>
+<tr>
+<td>Pure Node runtime</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Extensions</td>
+<td><strong>Atlas plugin</strong>, Npm module, Express middleware</td>
+<td>Express middleware</td>
+<td>Hapi Plugins</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Meteor package and repository, Npm module</td>
+</tr>
+<tr>
+<td>Data sources</td>
+<td><strong>Builtin</strong>: In-memory /file (JSON), REST. With <strong>external npm module</strong>: NoSQL (MongoDB...), SQL (MySql...)</td>
+<td></td>
+<td></td>
+<td>In-memory, File, PostgreSQL, MySQL, MongoDB</td>
+<td></td>
+<td>In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP</td>
+<td>MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages</td>
+</tr>
+<tr>
+<td>Main support language</td>
+<td>French</td>
+<td>English</td>
+<td>English</td>
+<td>English</td>
+<td>English</td>
+<td>English</td>
+<td>English</td>
+</tr>
+</tbody>
+</table><p>All error messages are in <code>/languages/default.json</code>. If you want to change language, simply replace content of <code>default.json</code> file (currently the same of <code>en-gb</code>) with the content of <code>fr-fr.json</code> or others file translated by you.</p>
+				</div>
+			</nav>
+			<!-- Inclusion du fichiers minifié après génération. -->
+			
+			<script src="javascript/common.min.js"></script>
+
+			<!-- Inclusion du fichiers standar pendant le développement. -->
+			
+		</div>
+	</body>
+</html>

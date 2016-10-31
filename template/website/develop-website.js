@@ -1,0 +1,20 @@
+/* jshint node: true */
+
+// On récupère l'API NodeAtlas.
+var nodeAtlas = require("node-atlas"),
+
+	// On créer une instance pour générer la version française.
+	versionFrench = new nodeAtlas(),
+
+	// On créer une instance pour générer la version internationale.
+	versionEnglish = new nodeAtlas();
+
+// On paramètre la version française et on lance.
+versionFrench.run({
+	"browse": true
+});
+
+// On paramètre la version internationale et on lance.
+versionEnglish.run({
+	"webconfig": "webconfig.en-us.json"
+});

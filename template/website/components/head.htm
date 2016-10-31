@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="<%= languageCode %>">
+	<head>
+		<meta charset="utf-8" />
+		<title>NodeAtlas</title>
+
+		<base href="<%= urlBasePath %>" />
+
+		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur." />
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France" />
+
+		<meta name="robots" content="index, follow" />
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no" /><!--<![endif]-->
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		<% if (webconfig._min) { %>
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		<% } else { %>
+		<link rel="stylesheet" href="stylesheets/common.css">
+		<link rel="stylesheet" href="stylesheets/cmpt.header.css">
+		<link rel="stylesheet" href="stylesheets/cmpt.navigation.css">
+		<link rel="stylesheet" href="stylesheets/cmpt.content.css">
+		<% }  %>
+	</head>
+	<body data-content="<%= webconfig._content %>" data-subpath="<%= webconfig.urlRelativeSubPath %>">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p><%- common.noJs %></p>
+				</div>
+			</noscript>

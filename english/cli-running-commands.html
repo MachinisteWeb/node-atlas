@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>NodeAtlas</title>
+
+		<base href="">
+
+		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur.">
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/english/" data-subpath="/english">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>No JavaScript enabled.</p>
+				</div>
+			</noscript>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--title">
+						<h1><img src="media/images/min/logo-node-atlas.png" alt="NodeAtlas"></h1>
+					</div>
+				</div>
+			</header>
+			<nav class="navigation cmpt">
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+
+						<!-- On ajoute la base si le site est en développement, en attribuant le port de l'autre version. -->
+						<a href="../index.html" title="Français">Français</a>
+					</div>
+					<div class="navigation--home">
+						<a href="index.html" title="Home">Home</a>
+					</div>
+					<div class="navigation--menu">
+						<ul>
+							
+							<li>
+								<a href="overview.html" title="Overview">Overview</a>
+								
+								<ul>
+									
+									<li>
+										<a href="installation.html" title="Installation">Installation</a>
+									</li>
+									
+									<li>
+										<a href="start-with-nodeatlas.html" title="Get Started">Get Started</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="create-website-front-end-part.html" title="View and Template">View and Template</a>
+								
+							</li>
+							
+							<li>
+								<a href="javascript-development-back-end-part.html" title="Controller and Model">Controller and Model</a>
+								
+							</li>
+							
+							<li>
+								<a href="more-features.html" title="Route and More">Route and More</a>
+								
+								<ul>
+									
+									<li>
+										<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
+									</li>
+									
+									<li>
+										<a href="cli-running-commands.html" title="CLI">CLI</a>
+									</li>
+									
+									<li>
+										<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
+									</li>
+									
+									<li>
+										<a href="running-nodeatlas-on-online-server.html" title="Others Serveurs">Others Serveurs</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
+								
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<nav class="content cmpt">
+				<div class="content--inner">
+					<h2 id="cli-running-commands">CLI / Running commands</h2><p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>. However there are options to launch more than launch the site.</p><p>Each of the commands that follow can be coupled with other like this:</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
+</code></pre><h3 id="directory-lt-path-gt">--directory &lt;path&gt;</h3><p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--directory</code> command will be very useful.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
+</code></pre><h3 id="webconfig-lt-webconfigname-gt">--webconfig &lt;webconfigName&gt;</h3><p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.alternatif.json
+</code></pre><h3 id="browse-subpath">--browse [subpath]</h3><p>This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with <code>--generate</code> (see below).</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --browse
+</code></pre><p>You could also targeted a specific page with the end of url.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --browse index.html
+</code></pre><h3 id="httphostname-lt-httphostname-gt">--httpHostname &lt;httpHostname&gt;</h3><p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --httpHostname 192.168.1.1
+</code></pre><h3 id="httpport-lt-httpport-gt">--httpPort &lt;httpPort&gt;</h3><p>You will not be bored to change your listening port on your projects and sometimes you&#39;ll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --httpPort 7778
+</code></pre><h3 id="generate">--generate</h3><p>If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>. This command will copy the entire contents of the folder <code>assetsRelativePath</code> into <code>generatesRelativePath</code> if their path is different.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --generate
+</code></pre>
+				</div>
+			</nav>
+			<!-- Inclusion du fichiers minifié après génération. -->
+			
+			<script src="javascript/common.min.js"></script>
+
+			<!-- Inclusion du fichiers standar pendant le développement. -->
+			
+		</div>
+	</body>
+</html>

@@ -1,0 +1,6 @@
+{
+	"/index.html": {
+		"template": "content.htm",
+		"controller": "index.js"
+	}
+}

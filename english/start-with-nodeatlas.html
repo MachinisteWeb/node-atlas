@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>NodeAtlas</title>
+
+		<base href="">
+
+		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur.">
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/english/" data-subpath="/english">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>No JavaScript enabled.</p>
+				</div>
+			</noscript>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--title">
+						<h1><img src="media/images/min/logo-node-atlas.png" alt="NodeAtlas"></h1>
+					</div>
+				</div>
+			</header>
+			<nav class="navigation cmpt">
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+
+						<!-- On ajoute la base si le site est en développement, en attribuant le port de l'autre version. -->
+						<a href="../index.html" title="Français">Français</a>
+					</div>
+					<div class="navigation--home">
+						<a href="index.html" title="Home">Home</a>
+					</div>
+					<div class="navigation--menu">
+						<ul>
+							
+							<li>
+								<a href="overview.html" title="Overview">Overview</a>
+								
+								<ul>
+									
+									<li>
+										<a href="installation.html" title="Installation">Installation</a>
+									</li>
+									
+									<li>
+										<a href="start-with-nodeatlas.html" title="Get Started">Get Started</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="create-website-front-end-part.html" title="View and Template">View and Template</a>
+								
+							</li>
+							
+							<li>
+								<a href="javascript-development-back-end-part.html" title="Controller and Model">Controller and Model</a>
+								
+							</li>
+							
+							<li>
+								<a href="more-features.html" title="Route and More">Route and More</a>
+								
+								<ul>
+									
+									<li>
+										<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
+									</li>
+									
+									<li>
+										<a href="cli-running-commands.html" title="CLI">CLI</a>
+									</li>
+									
+									<li>
+										<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
+									</li>
+									
+									<li>
+										<a href="running-nodeatlas-on-online-server.html" title="Others Serveurs">Others Serveurs</a>
+									</li>
+									
+								</ul>
+								
+							</li>
+							
+							<li>
+								<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
+								
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<nav class="content cmpt">
+				<div class="content--inner">
+					<h2 id="start-with-nodeatlas">Start with NodeAtlas</h2><h3 id="fileset">Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.</p><pre><code>site-hello-world/
+— templates/
+—— index.htm
+— webconfig.json
+</code></pre><p>Here is the &quot;/site-hello-world/templates/index.htm&quot; file:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;Hello world&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;This is a Hello World!&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>and following, the &quot;/site-hello-world/webconfig.json&quot; file.</p><h3 id="minimum-requirements">Minimum Requirements</h3><p>You can turn a simple page with minimal configuration &quot;webconfig.json&quot; below</p><pre><code class="lang-js">{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;template&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>equivalent to</p><pre><code class="lang-js">{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }
+</code></pre><h3 id="run-the-site-with-nodeatlas">Run the site with NodeAtlas</h3><h4 id="with-a-command-line">With a command line</h4><p>Position yourself with the prompt console in the folder &quot;/Site-hello-world/&quot; and run the following command.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
+</code></pre><p>In your first run, NodeAtlas install all the &quot;node_modules&quot; necessary for running (if you downloaded out of npm).</p><p>Rerun.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
+</code></pre><p>You will have access to your &quot;Hello World&quot; to the page: <em><a href="http://localhost/">http://localhost/</a></em> in a browser.</p><h4 id="with-an-executable-on-your-os">With an executable on your OS</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can also use the <code>nodeatlas</code> command. <code>nodeatlas</code> is a shortcut for <code>node &lt;/path/to/&gt;node-atlas/</code>.</p><p>Position yourself with the prompt console in the folder « /site-hello-world/ » and run the following command.</p><pre><code>\&gt; nodeatlas
+</code></pre><p><em>Note : </em>if the <code>nodeatlas</code> command do not work on unix OS after installation, it&#39;s probably because of right problem. If you are root, the command <code>chown -R root:root /usr/local/bin/</code> before re-execuse <code>npm install -g node-atlas</code> command will fix issue, else, use the command <code>sudo npm install -g node-atlas</code>.*</p><h4 id="via-a-javascript-file">Via a JavaScript file</h4><p>You can also use NodeAtlas as a npm module.</p><p><em>server.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;);
+
+nodeAtlas().run();
+</code></pre><pre><code>\&gt; node server.js
+</code></pre>
+				</div>
+			</nav>
+			<!-- Inclusion du fichiers minifié après génération. -->
+			
+			<script src="javascript/common.min.js"></script>
+
+			<!-- Inclusion du fichiers standar pendant le développement. -->
+			
+		</div>
+	</body>
+</html>

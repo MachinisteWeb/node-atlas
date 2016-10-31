@@ -1,0 +1,52 @@
+{
+	"title": {
+		"alt": "NodeAtlas",
+		"src": "media/images/min/logo-node-atlas.png"
+	},
+	"content": "Contenu pour la documentation.",
+	"noJs": "Le JavaScript n'est pas activé.",
+	"home": {
+		"title": "Accueil",
+		"url": "index.html"
+	},
+	"lang": {
+		"title": "English",
+		"url": "english/index.html"
+	},
+	"menu": [{
+		"title": "Présentation",
+		"url": "avant-propos.html",
+		"menu": [{
+			"title": "Installation",
+			"url": "installation.html"
+		}, {
+			"title": "Démarrage rapide",
+			"url": "commencer-avec-nodeatlas.html"
+		}]
+	}, {
+		"title": "View et Template",
+		"url": "cr%C3%A9ation-de-site-partie-front-end.html"
+	}, {
+		"title": "Controller et Model",
+		"url": "d%C3%A9veloppement-javascript-partie-back-end.html"
+	}, {
+		"title": "Route et Plus",
+		"url": "pour-aller-plus-loin.html",
+		"menu": [{
+			"title": "API",
+			"url": "api-nodeatlas-comme-module-npm.html"
+		}, {
+			"title": "CLI",
+			"url": "cli-commandes-de-lancement.html"
+		}, {
+			"title": "Simple Serveur",
+			"url": "nodeatlas-comme-simple-serveur-web.html"
+		}, {
+			"title": "Autres Serveurs",
+			"url": "faire-tourner-nodeatlas-sur-serveur.html"
+		}]
+	}, {
+		"title": "Et les autres ?",
+		"url": "plus-sur-nodeatlas.html"
+	}]
+}

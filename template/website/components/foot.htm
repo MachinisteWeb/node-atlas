@@ -1,0 +1,14 @@
+			<!-- Inclusion du fichiers minifié après génération. -->
+			<% if (webconfig._min) { %>
+			<script src="javascript/common.min.js"></script>
+
+			<!-- Inclusion du fichiers standar pendant le développement. -->
+			<% } else { %>
+			<script src="javascript/cmpt.header.js"></script>
+			<script src="javascript/cmpt.navigation.js"></script>
+			<script src="javascript/cmpt.content.js"></script>
+			<script src="javascript/common.js"></script>
+			<% }  %>
+		</div>
+	</body>
+</html>

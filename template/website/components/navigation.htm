@@ -1,0 +1,30 @@
+			<nav class="navigation cmpt">
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+
+						<!-- On ajoute la base si le site est en développement, en attribuant le port de l'autre version. -->
+						<a href="<%= (!webconfig._min) ? urlBasePath.replace(webconfig.httpPort, webconfig._otherPort) : '' %><%= common.lang.url %>" title="<%= common.lang.title %>"><%- common.lang.title %></a>
+					</div>
+					<div class="navigation--home">
+						<a href="<%= common.home.url %>" title="<%= common.home.title %>"><%- common.home.title %></a>
+					</div>
+					<div class="navigation--menu">
+						<ul>
+							<% for (var i = 0; i < common.menu.length; i++) { %>
+							<li>
+								<a href="<%= common.menu[i].url %>" title="<%= common.menu[i].title %>"><%- common.menu[i].title %></a>
+								<% if (common.menu[i].menu) { %>
+								<ul>
+									<% for (var j = 0; j < common.menu[i].menu.length; j++) { %>
+									<li>
+										<a href="<%= common.menu[i].menu[j].url %>" title="<%= common.menu[i].menu[j].title %>"><%- common.menu[i].menu[j].title %></a>
+									</li>
+									<% } %>
+								</ul>
+								<% } %>
+							</li>
+							<% } %>
+						</ul>
+					</div>
+				</div>
+			</nav>

@@ -1,0 +1,31 @@
+<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module npm</h2><p>Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().config({
+    directory: &quot;&lt;/path/to/your/website/directory/&gt;&quot;,
+    webconfig: &quot;webconfig.alternatif.json&quot;,
+    browse: true,
+    httpHostname: &quot;192.168.1.1&quot;,
+    httpPort: 7778,
+    generate: true
+}).init();
+</code></pre><pre><code>\&gt; node server.js
+</code></pre><p>Vous pouvez également lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+    websiteEn = new nodeAtlas(),
+    websiteFr = new nodeAtlas();
+
+websiteEn.run({
+    &quot;browse&quot;: true,
+    &quot;webconfig&quot;: &quot;webconfig.english.json&quot;
+});
+websiteFr.run({
+    &quot;browse&quot;: true,
+    &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
+});
+</code></pre><p>Vous pouvez aussi exécuter d&#39;autres tâches après la génération de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().afterGeneration(function() {
+    require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
+        console.log(&quot;Documentation generation...&quot;);
+        console.log(stdout);
+        console.log(&quot;Documentation generation done !&quot;);
+    });
+}).run({
+    generate: true
+});
+</code></pre>
