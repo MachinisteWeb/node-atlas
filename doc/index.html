@@ -43,7 +43,7 @@
 
 
     <section>
-        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.6-brightgreen.svg" alt="Version 1.6"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/debt_ratio-0%25-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.6-brightgreen.svg" alt="Version 1.6"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/quality_code-A-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><h3>For What ?</h3><p>NodeAtlas is a Server-side MVC(2) JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run on all <a href="https://nodejs.org/en/">Node.js</a> verision. NodeAtlas allows you to :</p>
 <ul>
@@ -141,11 +141,11 @@
 </ul>
 </li>
 <li><a href="#cli--running-commands">CLI / Running commands</a><ul>
-<li><a href="#--directory-path">--directory</a></li>
-<li><a href="#--webconfig-webconfigname">--webconfig</a></li>
-<li><a href="#--browse-subpath">--browse</a></li>
-<li><a href="#--httphostname-httphostname">--httpHostname</a></li>
-<li><a href="#--httpport-httpport">--httpPort</a></li>
+<li><a href="#--directory-path">--directory &lt;path&gt;</a></li>
+<li><a href="#--webconfig-webconfigname">--webconfig &lt;webconfigName&gt;</a></li>
+<li><a href="#--browse-subpath">--browse [subpath]</a></li>
+<li><a href="#--httphostname-httphostname">--httpHostname &lt;httpHostname&gt;</a></li>
+<li><a href="#--httpport-httpport">--httpPort &lt;httpPort&gt;</a></li>
 <li><a href="#--generate">--generate</a></li>
 </ul>
 </li>
@@ -181,7 +181,7 @@
 </ol>
 <p>Please note that modications should follow these coding guidelines:</p>
 <ul>
-<li>Pass Sonarqube JS with 0% Technical Debt Ratio.</li>
+<li><a href="http://www.sonarqube.org/">Pass Sonarqube JS with rank A</a> : Bugs, Vulnerabilities and Debt Ratio.</li>
 </ul>
 <p>Thank you for helping out!</p>
 <h2>Installation</h2><p><em>Before install NodeAtlas, install <a href="https://nodejs.org/en/">Node.js</a> and <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> as pre-require.</em></p>
@@ -2401,7 +2401,8 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><h3>Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p>
+}</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don't forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p>
+<h3>Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p>
 <h4>Creating Bundles</h4><p>With the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;bundles&quot;: {
@@ -3810,7 +3811,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Tue Oct 25 2016 15:18:55 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Mon Oct 31 2016 10:45:47 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>
