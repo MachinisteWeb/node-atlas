@@ -1,3 +1,16 @@
+## 1.6.2 ##
+
+Enhancement:
+
+- Split a too long function into two.
+
+
+Bugfix:
+
+- Add `imagemin` submodule into `package.json`.
+
+
+
 ## 1.6.1 ##
 
 Bugfix:
