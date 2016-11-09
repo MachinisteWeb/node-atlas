@@ -1774,7 +1774,7 @@ webconfig.json
 
     <span class="pl-c">// Middleware utilisé lors de chaque requête.</span>
     <span class="pl-c1">NA</span>.<span class="pl-smi">httpServer</span>.<span class="pl-en">use</span>(<span class="pl-k">function</span> (<span class="pl-smi">request</span>, <span class="pl-smi">response</span>, <span class="pl-smi">next</span>) {
-        <span class="pl-smi">response</span>.<span class="pl-en">setHeader</span>(<span class="pl-s"><span class="pl-pds">"</span>X-Frame-Options<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ALLOW-FROM http://www.lesieur.name/<span class="pl-pds">"</span></span>);
+        <span class="pl-smi">response</span>.<span class="pl-en">setHeader</span>(<span class="pl-s"><span class="pl-pds">"</span>X-Frame-Options<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ALLOW-FROM https://www.lesieur.name/<span class="pl-pds">"</span></span>);
         <span class="pl-en">next</span>();
     });
 
