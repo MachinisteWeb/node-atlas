@@ -1798,7 +1798,7 @@ exports.setConfigurations = function (next) {
 
     // Middleware utilisé lors de chaque requête.
     NA.httpServer.use(function (request, response, next) {
-        response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+        response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
         next();
     });
 
