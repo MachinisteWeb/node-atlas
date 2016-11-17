@@ -1,7 +1,12 @@
 @import "variables"
 
 .content
-	make-color orange
-
-	a
-		color orange
+	&.with-animation
+		-webkit-transition height 1s ease 
+		   -moz-transition height 1s ease 
+		    -ms-transition height 1s ease 
+		     -o-transition height 1s ease 
+		        transition height 1s ease
+	padding 0.1rem
+	overflow hidden
+	background-color rgba(255, 255, 255, 1)

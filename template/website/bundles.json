@@ -1,15 +1,21 @@
 {
     "stylesheets": {
         "stylesheets/common.min.css": [
+            "stylesheets/fonts.css",
+            "stylesheets/fontawesome.css",
+            "stylesheets/highlight.css",
             "stylesheets/common.css",
             "stylesheets/cmpt.header.css",
+            "stylesheets/cmpt.download.css",
             "stylesheets/cmpt.navigation.css",
             "stylesheets/cmpt.content.css"
         ]
     },
     "javascript": {
         "javascript/common.min.js": [
+            "javascript/prettify.js",
             "javascript/cmpt.header.js",
+            "javascript/cmpt.download.js",
             "javascript/cmpt.navigation.js",
             "javascript/cmpt.content.js",
             "javascript/common.js"

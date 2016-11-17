@@ -1,5 +1,9 @@
 {
+	"staticOptions": {
+        "maxAge": 0
+    },
 	"httpPort": 7778,
+    "enableLess": "less.json",
     "enableStylus": "stylus.json",
 	"enableIndex": true,
 	"languageCode": "en-us",

@@ -1,16 +1,16 @@
 {
 	"title": {
 		"alt": "NodeAtlas",
-		"src": "media/images/min/logo-node-atlas.png"
+		"src": "media/images/min/node-atlas.png"
 	},
 	"content": "Content for documentation.",
 	"noJs": "No JavaScript enabled.",
 	"home": {
-		"title": "Home",
+		"title": "Summary",
 		"url": "index.html"
 	},
 	"lang": {
-		"title": "Français",
+		"title": "Version française",
 		"url": "../index.html"
 	},
 	"menu": [{

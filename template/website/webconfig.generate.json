@@ -1,6 +1,7 @@
 {
 	"optimizations": "optimizations.json",
 	"bundles": "bundles.json",
+    "enableLess": "less.json",
     "enableStylus": "stylus.json",
 	"enableIndex": true,
 	"languageCode": "fr-fr",

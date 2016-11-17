@@ -1,0 +1,74 @@
+			<aside class="download cmpt">
+				<div class="download--inner">
+					<div class="download--install">
+						<div class="download--cli is-active">
+							<h2>Utilisation CLI</h2>
+							<div class="download--cli--inner">
+								<div class="download--cli--step1">			
+									<h3>Installer NodeAtlas</h3>
+									<pre>&gt; npm install -g node-atlas</pre>
+								</div>					
+								<div class="download--cli--step2">			
+									<h3>Créer un site test</h3>
+									<pre>&gt; nodeatlas --init</pre>
+								</div>					
+								<div class="download--cli--step3">			
+									<h3>Lancer le site</h3>
+									<pre>&gt; nodeatlas --browse</pre>
+								</div>
+							</div>							
+						</div>
+						<div class="download--api">						
+							<h2>Utilisation API</h2>
+							<div class="download--api--inner">
+								<div class="download--api--step1">			
+									<h3>Installer NodeAtlas</h3>
+									<pre>&gt; npm install node-atlas</pre>
+								</div>
+								<div class="download--api--step2">		
+									<h3>Créer un script</h3>
+									<pre>var NA = require("node-atlas"),
+    website = NA();
+website.config({
+    "init": true
+}).afterInitProject(function () {
+    website.run(function () {
+        "--browse": "true"
+    });
+}).init()</pre>
+								</div>
+								<div class="download--api--step3">		
+									<h3>Lancer le site</h3>
+									<pre>&gt; node app.js</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--clone">
+						<div class="download--version">						
+							<h2>Télécharger</h2>
+							<div class="download--version--inner">
+								<div class="download--version--step1">
+									<h3>v1.7.0</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/Haeresis/NodeAtlas/archive/master.zip" target="_blank">Dernière version</a></p>
+									<p class="aside"><a href="https://github.com/Haeresis/NodeAtlas/releases" target="_blank">Versions stables</a></p>
+								</div>
+								<div class="download--version--step2">
+									<h3>Cloner</h3>
+									<p><input type="text" name="clone" data-instruction="Copier dans le presse-papier: Ctrl+C, Entrer" class="download--clone--text" value="https://github.com/Haeresis/NodeAtlas.git"><button><span class="fa fa-clipboard" aria-hidden="true"></span></button></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--plugin">
+						<div class="download--plugin--inner">
+							Prochainement...
+						</div>
+					</div>
+					<div class="download--info">
+						<div class="download--info--inner">
+							Prochainement...
+						</div>
+					</div>
+				</div>
+			</aside>

@@ -1,16 +1,20 @@
 {
+	"titlePre": {
+		"alt": "Node",
+		"src": "media/images/min/ode.png"
+	},
 	"title": {
-		"alt": "NodeAtlas",
-		"src": "media/images/min/logo-node-atlas.png"
+		"alt": "Atlas",
+		"src": "media/images/min/tlas.png"
 	},
 	"content": "Contenu pour la documentation.",
 	"noJs": "Le JavaScript n'est pas activé.",
 	"home": {
-		"title": "Accueil",
+		"title": "Sommaire",
 		"url": "index.html"
 	},
 	"lang": {
-		"title": "English",
+		"title": "International Version",
 		"url": "english/index.html"
 	},
 	"menu": [{

@@ -1,30 +1,43 @@
 			<nav class="navigation cmpt">
+				<div class="navigation--outer">
+					<div class="navigation--start"><button class="button">Commencez</button></div>
+					<div class="navigation--documentation"><button class="button">Documentation</button></div>
+				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-
-						<!-- On ajoute la base si le site est en développement, en attribuant le port de l'autre version. -->
 						<a href="<%= (!webconfig._min) ? urlBasePath.replace(webconfig.httpPort, webconfig._otherPort) : '' %><%= common.lang.url %>" title="<%= common.lang.title %>"><%- common.lang.title %></a>
 					</div>
 					<div class="navigation--home">
-						<a href="<%= common.home.url %>" title="<%= common.home.title %>"><%- common.home.title %></a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="<%- common.home.title %>" width="80px"> <a class="navigation--home--back" href="<%= common.home.url %>" title="<%= common.home.title %>"><%- common.home.title %></a>
 					</div>
 					<div class="navigation--menu">
-						<ul>
-							<% for (var i = 0; i < common.menu.length; i++) { %>
-							<li>
-								<a href="<%= common.menu[i].url %>" title="<%= common.menu[i].title %>"><%- common.menu[i].title %></a>
-								<% if (common.menu[i].menu) { %>
+						<div class="navigation--menu--toggle">
+							<span class="top"></span>
+							<span class="middle"></span>
+							<span class="bottom"></span>
+						</div>
+						<div class="navigation--menu--list">
+							<div class="navigation--menu--list--inner">
+								<h2>Menu</h2>
 								<ul>
-									<% for (var j = 0; j < common.menu[i].menu.length; j++) { %>
+									<% for (var i = 0; i < common.menu.length; i++) { %>
 									<li>
-										<a href="<%= common.menu[i].menu[j].url %>" title="<%= common.menu[i].menu[j].title %>"><%- common.menu[i].menu[j].title %></a>
+										<a href="<%= common.menu[i].url %>" title="<%= common.menu[i].title %>"><%- common.menu[i].title %></a> 
+										<% if (common.menu[i].menu) { %>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											<% for (var j = 0; j < common.menu[i].menu.length; j++) { %>
+											<li>
+												<a href="<%= common.menu[i].menu[j].url %>" title="<%= common.menu[i].menu[j].title %>"><%- common.menu[i].menu[j].title %></a>
+											</li>
+											<% } %>
+										</ul>
+										<% } %>
 									</li>
 									<% } %>
 								</ul>
-								<% } %>
-							</li>
-							<% } %>
-						</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</nav>

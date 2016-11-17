@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.6](https://img.shields.io/badge/version-1.6-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.7](https://img.shields.io/badge/version-1.7-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.12%2C_7.1-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
@@ -168,7 +168,9 @@ Thank you for helping out!
 
 ## Installation ##
 
-*Before install NodeAtlas, install [Node.js](https://nodejs.org/en/) and [Python 2.7](https://www.python.org/download/releases/2.7/) as pre-require.*
+Before install NodeAtlas, install [Node.js](https://nodejs.org/en/) and [Python 2.7](https://www.python.org/download/releases/2.7/) as pre-require.
+
+*Note: With Linux, add `sudo` before all commands if you're not logged with root user.*
 
 There are several ways to install NodeAtlas:
 
@@ -5491,6 +5493,8 @@ and you can start with:
 
 NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.
 
+All error messages are in `/languages/default.json`. If you want to change language, simply replace content of `default.json` file (currently the same of `en-gb`) with the content of `fr-fr.json` or others file translated by you.
+
 ### NodeAtlas VS Others ###
 
 |                       | **NodeAtlas**                                                                                               | Express                  | Hapi                  | Sails                                       | Restify                  | LoopBack                                          | Meteor                                                      |
@@ -5502,5 +5506,3 @@ NodeAtlas is made of such a way that the instanciate object contains all the fun
 | Extensions            | **Atlas plugin**, Npm module, Express middleware                                                            | Express middleware       | Hapi Plugins          |                                             |                          |                                                   | Meteor package and repository, Npm module                   |
 | Data sources          | **Builtin**: In-memory /file (JSON), REST. With **external npm module**: NoSQL (MongoDB...), SQL (MySql...) |                          |                       | In-memory, File, PostgreSQL, MySQL, MongoDB |                          | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages |
 | Main support language | French                                                                                                      | English                  | English               | English                                     | English                  | English                                           | English                                                     |
-
-All error messages are in `/languages/default.json`. If you want to change language, simply replace content of `default.json` file (currently the same of `en-gb`) with the content of `fr-fr.json` or others file translated by you.

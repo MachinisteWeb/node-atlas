@@ -28,22 +28,61 @@
 					<p>No JavaScript enabled.</p>
 				</div>
 			</noscript>
+			<div class="background"></div>
 			<header class="header cmpt">
 				<div class="header--inner">
 					<div class="header--title">
-						<h1><img src="media/images/min/logo-node-atlas.png" alt="NodeAtlas"></h1>
+						<h1>
+							<img class="header--title--node" src="media/images/min/ode.png" alt="Node">
+							<img class="header--title--atlas" src="media/images/min/node-atlas.png" alt="NodeAtlas">
+						</h1>
+					</div>
+					<div class="header--abstract">
+						<p>Le Framework JavaScript Serveur MVC(2)</p>
+					</div>
+					<div class="header--main">
+						<ul>
+							<li>
+								<div class="header--main--first">
+									<h2><span>Mise en place</span> <strong>Simple</strong></h2>
+									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>Débutant</strong> en JavaScript ?</p>
+									<p class="small">Réalisez rapidement des sites vitrines multilingues sans effort avec de simple Routes, Views ou Variations.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--second">
+									<h2><span>Sites vivant et</span> <strong>Évolutif</strong></h2>
+									<p><strong>Expert</strong> en JavaScript client ?<br>Prêt à embrasser <strong>Node.js</strong> ?</p>
+									<p class="small">Améliorer progressivement votre base à mesure de vos besoins en utilisant des Controllers, Modèles ou Modules.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--third">
+									<h2><span>Partie Cliente</span> <strong>Agnostique</strong></h2>
+									<p>Déjà vos habitudes <strong>Front-end</strong> ?<br>Habitué(e) du <strong>Data Binding</strong> ?</p>
+									<p class="small">Du léger Vanilla JS au simple jQuery en passant par Vue, Angular ou React : utiliser vos outils clients favoris !</p>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</header>
+			<aside class="download cmpt">
+				<div class="download--inner">
+					Download
+				</div>
+			</aside>
 			<nav class="navigation cmpt">
+				<div class="navigation--outer">
+					<div class="navigation--start"><button>Commencez</button></div>
+					<div class="navigation--documentation"><button>Documentation</button></div>
+				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-
-						<!-- On ajoute la base si le site est en développement, en attribuant le port de l'autre version. -->
 						<a href="../index.html" title="Français">Français</a>
 					</div>
 					<div class="navigation--home">
-						<a href="index.html" title="Home">Home</a>
+						<a href="index.html" title="Home"><img src="media/images/logo.png" alt="Home" width="80px"> Home</a>
 					</div>
 					<div class="navigation--menu">
 						<ul>
@@ -481,7 +520,7 @@ exports.setConfigurations = function (next) {
 
     // Middleware utilisé lors de chaque requête.
     NA.httpServer.use(function (request, response, next) {
-        response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM http://www.lesieur.name/&quot;);
+        response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM https://www.lesieur.name/&quot;);
         next();
     });
 
