@@ -23,7 +23,7 @@
 			"description": "Améliorer progressivement votre base à mesure de vos besoins en utilisant des Controllers, Modèles ou Modules."
 		},
 		"third": {
-			"title": "<strong>Agnostique</strong> <span>client side</span>",
+			"title": "<strong>Agnostic</strong> <span>client side</span>",
 			"abstract": "Déjà vos habitudes <strong>Front-end</strong> ?<br>Habitué(e) du <strong>Data Binding</strong> ?",
 			"description": "Du léger Vanilla JS au simple jQuery en passant par Vue, Angular ou React : utiliser vos outils clients favoris !"
 		}
