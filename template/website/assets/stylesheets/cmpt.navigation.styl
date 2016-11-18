@@ -91,11 +91,16 @@
 			font-weight bold
 			text-shadow 1px 1px 2px rgba(255, 255, 255, 1), -1px 1px 2px rgba(255, 255, 255, 1), 1px -1px 2px rgba(255, 255, 255, 1), -1px -1px 2px rgba(255, 255, 255, 1)
 			vertical-align middle 
+			font-size 2.0rem 
 		&--logo
 			cursor pointer
 			vertical-align middle 
 		left 10px
 		top 50%
+		span
+			color #6DBD4D
+			&:hover
+				color #c00 
 		-webkit-transform translateY(-50%) 
 		   -moz-transform translateY(-50%) 
 		    -ms-transform translateY(-50%) 
@@ -111,7 +116,7 @@
 		right 0
 		bottom 0
 		padding 0
-		@media (min-width 880px)
+		@media (min-width 820px)
 			background-color #FFF 
 			padding 10px
 		-webkit-border-top-left-radius 8px 
@@ -170,7 +175,7 @@
 				     -o-transition top 1s ease, left 1s ease, transform 1s ease
 				        transition top 1s ease, left 1s ease, transform 1s ease
 				top 80% 
-			@media (min-width 880px)
+			@media (min-width 820px)
 				display none
 		&--list
 			h2
@@ -182,10 +187,10 @@
 			        transition opacity 1s ease
 			opacity 0
 			display none
-			@media (min-width 880px)
+			@media (min-width 820px)
 				opacity 1
 				display block
-			@media (max-width 879px)
+			@media (max-width 819px)
 				text-align center
 				background-color rgba(255, 255, 255, 0.95) 
 				position fixed
@@ -236,7 +241,7 @@
 			margin-left 20px
 			margin-right 20px
 
-		@media (max-width 879px)
+		@media (max-width 819px)
 			&.is-front
 				& ^[1]--list
 					display block

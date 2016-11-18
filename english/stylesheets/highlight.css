@@ -1,0 +1,87 @@
+.pln { 
+	color: #000;
+}
+
+.str { 
+	color: #800080;
+}
+
+.kwd { 
+	color: #008;
+}
+
+.com { 
+	color: #008000;
+	font-style: italic;
+}
+
+.typ { 
+	color: #606;
+}
+
+.lit { 
+	color: #066;
+}
+
+.pun,
+.opn,
+.clo { 
+	color: #660; 
+}
+.tag {
+	color: #008; 
+}
+
+.atn { 
+	color: #606; 
+}
+
+.atv { 
+	color: #080; 
+ }
+
+.dec, 
+.var { 
+	color: #606; 
+ } 
+
+.fun { 
+	color: red; 
+}
+
+.prettyprint {
+	display: block;
+	font-family: monospace;
+	padding: 2px;
+	margin-left: 8px;
+	margin-right: 8px;
+	border: 1px dashed #ccc;
+	overflow-y: auto;
+	background: #fff;
+	cursor: e-resize;
+	font-size: 1.0em;
+}
+
+ol.linenums { 
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: 35px;
+}
+
+li.L0,
+li.L2,
+li.L4,
+li.L6,
+li.L8 { 
+	background: #fff;
+	color: #ccc;
+ }
+
+li.L1,
+li.L3,
+li.L5,
+li.L7,
+li.L9 { 
+	background: #fbfbfb; 	
+	color: #ccc;
+}

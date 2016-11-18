@@ -2,11 +2,36 @@
 
 .content
 	&.with-animation
-		-webkit-transition height 1s ease 
+		-webkit-transition height 1s ease
 		   -moz-transition height 1s ease 
 		    -ms-transition height 1s ease 
 		     -o-transition height 1s ease 
-		        transition height 1s ease
+		        transition height 1s ease 
 	padding 0.1rem
 	overflow hidden
 	background-color rgba(255, 255, 255, 1)
+	padding 8px 
+	-webkit-box-sizing border-box
+	   -moz-box-sizing border-box
+	        box-sizing border-box
+	@media (min-width 768px)
+		padding 16px
+	-webkit-box-sizing border-box
+	   -moz-box-sizing border-box
+	        box-sizing border-box
+	&--inner
+		-webkit-transition height 1s ease, opacity 1s ease
+		   -moz-transition height 1s ease, opacity 1s ease
+		    -ms-transition height 1s ease, opacity 1s ease
+		     -o-transition height 1s ease, opacity 1s ease
+		        transition height 1s ease, opacity 1s ease
+		overflow-y auto
+		-webkit-box-sizing border-box
+		   -moz-box-sizing border-box
+		        box-sizing border-box
+		position relative
+		height 100%
+		opacity 1
+		&.is-hidden
+			opacity 0 
+			height 0

@@ -1,8 +1,8 @@
 @import "variables"
 
 .navigation
+	z-index 4 
 	height 100px
-	overflow hidden
 	-webkit-transition background-color 2s linear 
 	   -moz-transition background-color 2s linear 
 	    -ms-transition background-color 2s linear 
@@ -29,6 +29,10 @@
 		        transition opacity 1s ease
 		opacity 0
 		background-color rgba(255, 255, 255, .5)
+		background -webkit-linear-gradient(top,  rgba(255,255,255, 0) 0%,rgba(255,255,255, .2) 13%,rgba(255,255,255, .8) 100%)
+		background    -moz-linear-gradient(top,  rgba(255,255,255, 0) 0%, rgba(255,255,255, .2) 13%, rgba(255,255,255, .8) 100%)
+		background         linear-gradient(to bottom,  rgba(255,255,255, 0) 0%,rgba(255,255,255, .2) 13%,rgba(255,255,255, .8) 100%)
+		
 		^[-1].is-scrolled &
 			opacity 1
 			height 100%
@@ -49,28 +53,9 @@
 		^[-1].is-scrolled &
 			height 0
 			opacity 0
-		button
-			opacity 0 
-			-webkit-transition color .5s ease, background-color .5s ease, opacity 3s ease
-			   -moz-transition color .5s ease, background-color .5s ease, opacity 3s ease
-			    -ms-transition color .5s ease, background-color .5s ease, opacity 3s ease
-			     -o-transition color .5s ease, background-color .5s ease, opacity 3s ease
-			        transition color .5s ease, background-color .5s ease, opacity 3s ease
-			font-family "lato"
-			font-size 1.5rem
-			font-weight bold
-			box-shadow 1px 1px 2px rgba(255, 255, 255, 0.6), -1px 1px 2px rgba(255, 255, 255, 0.6), 1px -1px 2px rgba(255, 255, 255, 0.6), -1px -1px 2px rgba(255, 255, 255, 0.6)
+		.button
 			letter-spacing 0.1em
-			padding 0.75em 2em
-			border-radius 2em
-			display inline-block
-			color rgba(255, 255, 255, 1)
-			background-color rgba(102, 159, 100, 1)
-			box-sizing border-box
-			border 1px solid #4fc08d
-			&:hover
-				color rgba(102, 159, 100, 1)
-				background-color rgba(255, 255, 255, 1)
+			opacity 0
 			&.is-loaded
 				opacity 1
 	&--start
@@ -87,8 +72,6 @@
 		    -ms-transform translate(-50%, -50%) 
 		     -o-transform translate(-50%, -50%) 
 		        transform translate(-50%, -50%)
-		button
-			cursor pointer
 	&--start
 		top 45% 
 		@media (min-width 540px)
@@ -104,8 +87,20 @@
 	&--menu
 		position absolute
 	&--home
+		&--back
+			font-weight bold
+			text-shadow 1px 1px 2px rgba(255, 255, 255, 1), -1px 1px 2px rgba(255, 255, 255, 1), 1px -1px 2px rgba(255, 255, 255, 1), -1px -1px 2px rgba(255, 255, 255, 1)
+			vertical-align middle 
+			font-size 2.0rem 
+		&--logo
+			cursor pointer
+			vertical-align middle 
 		left 10px
 		top 50%
+		span
+			color #6DBD4D
+			&:hover
+				color #c00 
 		-webkit-transform translateY(-50%) 
 		   -moz-transform translateY(-50%) 
 		    -ms-transform translateY(-50%) 
@@ -113,23 +108,173 @@
 		        transform translateY(-50%) 
 	&--lang
 		top 10px
-		right 10px
+		right 30px
+		font-weight bold
+		text-shadow 1px 1px 2px rgba(255, 255, 255, 1), -1px 1px 2px rgba(255, 255, 255, 1), 1px -1px 2px rgba(255, 255, 255, 1), -1px -1px 2px rgba(255, 255, 255, 1)
 	&--menu
-		background-color #FFF 
+		z-index 2
 		right 0
 		bottom 0
-		padding 10px
+		padding 0
+		@media (min-width 820px)
+			background-color #FFF 
+			padding 10px
 		-webkit-border-top-left-radius 8px 
-		        border-top-left-radius 8px 
+		        border-top-left-radius 8px
+		&--toggle
+			-webkit-transition top 1s ease
+			   -moz-transition top 1s ease
+			    -ms-transition top 1s ease
+			     -o-transition top 1s ease
+			        transition top 1s ease
+			height 30px
+			width 30px
+			top 50px
+			right 30px
+			cursor pointer 
+			position fixed
+			.top
+			.middle
+			.bottom
+				-webkit-transition box-shadow 1s ease
+				   -moz-transition box-shadow 1s ease
+				    -ms-transition box-shadow 1s ease
+				     -o-transition box-shadow 1s ease
+				        transition box-shadow 1s ease				
+				box-shadow 1px 1px 2px rgba(255, 255, 255, 1), -1px 1px 2px rgba(255, 255, 255, 1), 1px -1px 2px rgba(255, 255, 255, 1), -1px -1px 2px rgba(255, 255, 255, 1)
+				position absolute
+				top 50%
+				left 50%
+				-webkit-transform translate(-50%, -50%) 
+				   -moz-transform translate(-50%, -50%) 
+				    -ms-transform translate(-50%, -50%) 
+				     -o-transform translate(-50%, -50%) 
+				        transform translate(-50%, -50%) 
+				background-color #48739e 
+				display inline-block
+				width 28px
+				height 3px
+			.top
+				-webkit-transition top 1s ease, left 1s ease, transform 1s ease
+				   -moz-transition top 1s ease, left 1s ease, transform 1s ease
+				    -ms-transition top 1s ease, left 1s ease, transform 1s ease
+				     -o-transition top 1s ease, left 1s ease, transform 1s ease
+				        transition top 1s ease, left 1s ease, transform 1s ease
+				top 20%
+			.middle
+				-webkit-transition opacity 1s ease 
+				   -moz-transition opacity 1s ease 
+				    -ms-transition opacity 1s ease 
+				     -o-transition opacity 1s ease 
+				        transition opacity 1s ease 
+				opacity 1 
+			.bottom
+				-webkit-transition top 1s ease, left 1s ease, transform 1s ease
+				   -moz-transition top 1s ease, left 1s ease, transform 1s ease
+				    -ms-transition top 1s ease, left 1s ease, transform 1s ease
+				     -o-transition top 1s ease, left 1s ease, transform 1s ease
+				        transition top 1s ease, left 1s ease, transform 1s ease
+				top 80% 
+			@media (min-width 820px)
+				display none
+		&--list
+			h2
+				display none
+			-webkit-transition opacity 1s ease
+			   -moz-transition opacity 1s ease
+			    -ms-transition opacity 1s ease
+			     -o-transition opacity 1s ease
+			        transition opacity 1s ease
+			opacity 0
+			display none
+			@media (min-width 820px)
+				opacity 1
+				display block
+			@media (max-width 819px)
+				text-align center
+				background-color rgba(255, 255, 255, 0.95) 
+				position fixed
+				top 0
+				left 0
+				width 100%
+				height 100%
+				.fa
+					display none
+				h2
+					display block
+					margin-top 64px
+				ul
+					li
+						display list-item
+						font-size 2.6rem
+						margin-bottom 24px
+						ul
+							width auto
+							display block
+							position static
+							li
+								display block
+								font-size 1.8rem
+								margin-top 8px
+								margin-bottom 0
 		ul
 			margin 0
 			padding 0
 			font-size 0
 			ul
 				display none
+				position absolute
+				top 100%
+				width 200%
+				left 0
+				z-index 3  
+				&.is-opened
+					display block
+				li
+					display list-item
+					list-style-type circle 
 		li
+			position relative
 			standard-size()
 			list-style-type none
 			display inline-block
 			margin-left 20px
 			margin-right 20px
+
+		@media (max-width 819px)
+			&.is-front
+				& ^[1]--list
+					display block
+			&.is-opened
+				& ^[1]--toggle
+					position fixed
+					z-index 2
+					top 20px
+					right 30px
+					.top
+					.middle
+					.bottom
+						box-shadow 1px 1px 2px rgba(255, 255, 255, 0), -1px 1px 2px rgba(255, 255, 255, 0), 1px -1px 2px rgba(255, 255, 255, 0), -1px -1px 2px rgba(255, 255, 255, 0)
+					.top
+						left 0
+						top 50% 
+						-webkit-transform rotate(45deg) 
+						   -moz-transform rotate(45deg) 
+						    -ms-transform rotate(45deg) 
+						     -o-transform rotate(45deg) 
+						        transform rotate(45deg)
+					.middle
+						opacity 0 
+					.bottom
+						left 0
+						top 50% 
+						-webkit-transform rotate(-45deg) 
+						   -moz-transform rotate(-45deg) 
+						    -ms-transform rotate(-45deg) 
+						     -o-transform rotate(-45deg) 
+						        transform rotate(-45deg) 
+				& ^[1]--list
+					opacity 1
+					&--inner
+						height 100%
+						overflow auto 

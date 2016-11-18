@@ -6,6 +6,8 @@
 	position relative
 	&.is-scrolled
 		height 150px
+		& ^[0]--inner
+			opacity 1 
 	&.with-animation
 		-webkit-transition height 1s ease 
 		   -moz-transition height 1s ease 
@@ -29,6 +31,12 @@
 		& ^[0]--plugin
 			height 0
 	&--inner
+		-webkit-transition opacity 1s ease 
+		   -moz-transition opacity 1s ease 
+		    -ms-transition opacity 1s ease 
+		     -o-transition opacity 1s ease 
+		        transition opacity 1s ease	
+		opacity 0 
 		-webkit-box-sizing border-box
 		   -moz-box-sizing border-box
 		        box-sizing border-box
@@ -169,7 +177,6 @@
 		height calc(100% - 24px)
 		width 100%
 		h2
-			cursor pointer
 			-webkit-border-top-left-radius 8px
 			        border-top-left-radius 8px
 			-webkit-border-top-right-radius 8px
@@ -289,6 +296,7 @@
 			margin-left 10px
 			width calc(50% - 20px)
 			margin-right 10px
+			position relative
 		&--step3
 			margin-left 10px
 			width calc(50% - 20px)
@@ -334,6 +342,14 @@
 				font-size 1.3rem
 				padding 4px 
 				background rgba(51, 51, 51, 0.7)
+			span
+				position absolute
+				bottom -9px
+				right 2px
+				display inline-block
+				border 1px solid rgba(51, 51, 51, 0.7)
+				padding 2px
+				font-style italic
 		&--step3
 			float right
 			width calc(60% - 20px)

@@ -43,7 +43,7 @@
 
 
     <section>
-        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.6-brightgreen.svg" alt="Version 1.6"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.10%2C_6.9-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/quality_code-A-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.7-brightgreen.svg" alt="Version 1.7"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-0.12%2C_7.1-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/quality_code-A-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><h3>For What ?</h3><p>NodeAtlas is a Server-side MVC(2) JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run on all <a href="https://nodejs.org/en/">Node.js</a> verision. NodeAtlas allows you to :</p>
 <ul>
@@ -184,7 +184,8 @@
 <li><a href="http://www.sonarqube.org/">Pass Sonarqube JS with rank A</a> : Bugs, Vulnerabilities and Debt Ratio.</li>
 </ul>
 <p>Thank you for helping out!</p>
-<h2>Installation</h2><p><em>Before install NodeAtlas, install <a href="https://nodejs.org/en/">Node.js</a> and <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> as pre-require.</em></p>
+<h2>Installation</h2><p>Before install NodeAtlas, install <a href="https://nodejs.org/en/">Node.js</a> and <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> as pre-require.</p>
+<p><em>Note: With Linux, add <code>sudo</code> before all commands if you're not logged with root user.</em></p>
 <p>There are several ways to install NodeAtlas:</p>
 <ul>
 <li><p>Download NodeAtlas from the official repository <a href="https://haeresis.github.com/NodeAtlas">NodeAtlas</a>.</p>
@@ -3499,7 +3500,8 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --browse index.html</code></pre><h3>--httpHostname &lt;httpHostname&gt;</h3><p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpHostname 192.168.1.1</code></pre><h3>--httpPort &lt;httpPort&gt;</h3><p>You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpPort 7778</code></pre><h3>--generate</h3><p>If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>. This command will copy the entire contents of the folder <code>assetsRelativePath</code> into <code>generatesRelativePath</code> if their path is different.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --generate</code></pre><h2>API / NodeAtlas as npm module</h2><p>If you start NodeAtlas via JavaScript code, you can also configure the launch:</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --generate</code></pre><h3>--init [path]</h3><p>NodeAtlas contain a directory <code>templates</code> with predefined website into. To install them in the current directory for NodeAtlas command, you can use <code>--init</code> with the name of the <code>templates</code> you want use. By default, it's the <code>hello-world</code> value that is used. <em>Possible values: <code>hello-world</code>.</em></p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --init hello-world</code></pre><h2>API / NodeAtlas as npm module</h2><p>If you start NodeAtlas via JavaScript code, you can also configure the launch:</p>
 <p><em>server.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().config({
     directory: &quot;&lt;/path/to/your/website/directory/>&quot;,
@@ -3708,6 +3710,7 @@ var server = bouncy(function (request, response, bounce) {
 server.listen(80);</code></pre><p>and you can start with:</p>
 <pre class="prettyprint source"><code>\> forever start &lt;/path/to/>global-server.js</code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p>
 <h2>More About NodeAtlas</h2><p>NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.</p>
+<p>All error messages are in <code>/languages/default.json</code>. If you want to change language, simply replace content of <code>default.json</code> file (currently the same of <code>en-gb</code>) with the content of <code>fr-fr.json</code> or others file translated by you.</p>
 <h3>NodeAtlas VS Others</h3><table>
 <thead>
 <tr>
@@ -3793,8 +3796,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <td>English</td>
 </tr>
 </tbody>
-</table>
-<p>All error messages are in <code>/languages/default.json</code>. If you want to change language, simply replace content of <code>default.json</code> file (currently the same of <code>en-gb</code>) with the content of <code>fr-fr.json</code> or others file translated by you.</p></article>
+</table></article>
     </section>
 
 
@@ -3811,7 +3813,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Wed Nov 09 2016 15:32:48 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Fri Nov 18 2016 15:29:43 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

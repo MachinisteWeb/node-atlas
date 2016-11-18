@@ -5122,6 +5122,16 @@ If you change an item in your common variation file or even your template compon
 
 
 
+### --init [path] ###
+
+NodeAtlas contain a directory `templates` with predefined website into. To install them in the current directory for NodeAtlas command, you can use `--init` with the name of the `templates` you want use. By default, it's the `hello-world` value that is used. *Possible values: `hello-world`.*
+
+```
+\> node </path/to/>node-atlas/ --init hello-world
+```
+
+
+
 
 
 ## API / NodeAtlas as npm module ##

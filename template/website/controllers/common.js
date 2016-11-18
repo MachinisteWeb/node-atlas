@@ -39,6 +39,8 @@ exports.setRoutes = function (next) {
             var $title = $(this),
                 $toc = $title.next();
 
+            $toc.addClass("toc");
+
             $toc.find("> li").each(function () {
                 var $sublink = $(this),
                     $subtitle = $sublink.find("> a"),

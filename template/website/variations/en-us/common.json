@@ -1,17 +1,81 @@
 {
+	"noJs": "No JavaScript enabled.",
+	"titlePre": {
+		"alt": "Node",
+		"src": "media/images/min/ode.png"
+	},
 	"title": {
-		"alt": "NodeAtlas",
-		"src": "media/images/min/node-atlas.png"
+		"alt": "Atlas",
+		"src": "media/images/min/tlas.png"
 	},
 	"content": "Content for documentation.",
-	"noJs": "No JavaScript enabled.",
+	"abstract": "The MVC(2) Server-side JavaScript Framework.",
+	"main": {
+		"first": {
+			"title": "<strong>Simple</strong> <span>set-up</span>",
+			"abstract": "Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>Débutant</strong> en JavaScript ?",
+			"description": "Réalisez rapidement des sites vitrines multilingues sans effort avec de simple Routes, Views ou Variations."
+		},
+		"second": {
+			"title": "<strong>Scalable</strong> <span>website</span>",
+			"abstract": "<strong>Expert</strong> en JavaScript client ?<br>Prêt à embrasser <strong>Node.js</strong> ?",
+			"description": "Améliorer progressivement votre base à mesure de vos besoins en utilisant des Controllers, Modèles ou Modules."
+		},
+		"third": {
+			"title": "<strong>Agnostique</strong> <span>client side</span>",
+			"abstract": "Déjà vos habitudes <strong>Front-end</strong> ?<br>Habitué(e) du <strong>Data Binding</strong> ?",
+			"description": "Du léger Vanilla JS au simple jQuery en passant par Vue, Angular ou React : utiliser vos outils clients favoris !"
+		}
+	},
 	"home": {
-		"title": "Summary",
+		"title": "Guide <span>NodeAtlas</span>",
 		"url": "index.html"
 	},
 	"lang": {
 		"title": "Version française",
 		"url": "../index.html"
+	},
+	"goto": {
+		"start": "<button class=\"button\">Get Started</button>",
+		"documentation": "<button class=\"button\">Documentation</button>"
+	},
+	"download": {
+		"cli": {
+			"title": "CLI Usage",
+			"step1": {
+				"title": "Install NodeAtlas"
+			},
+			"step2": {
+				"title": "Create test website"
+			},
+			"step3": {
+				"title": "Run website"
+			}
+		},
+		"api": {
+			"title": "API Usage",
+			"step1": {
+				"title": "Install NodeAtlas"
+			},
+			"step2": {
+				"title": "Create a script"
+			},
+			"step3": {
+				"title": "Run website"
+			}
+		},
+		"version": {
+			"title": "Download",
+			"step1": {
+				"last": "Latest Version",
+				"stable": "Stables Versions"
+			},
+			"step2": {
+				"title": "Clone",
+				"copy": "Copy to clipboard: Ctrl+C, Enter"
+			}
+		},
+		"soon": "Comming soon..."
 	},
 	"menu": [{
 		"title": "Overview",

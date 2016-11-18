@@ -31,6 +31,7 @@
 			<div class="background"></div>
 			<header class="header cmpt">
 				<div class="header--inner">
+					<div class="header--background"></div>
 					<div class="header--title">
 						<h1>
 							<img class="header--title--node" src="media/images/min/ode.png" alt="Node">
@@ -38,7 +39,7 @@
 						</h1>
 					</div>
 					<div class="header--abstract">
-						<p>Le Framework JavaScript Serveur MVC(2)</p>
+						<p>Le Framework JavaScript Serveur MVC(2).</p>
 					</div>
 					<div class="header--main">
 						<ul>
@@ -51,7 +52,7 @@
 							</li>
 							<li>
 								<div class="header--main--second">
-									<h2><span>Sites vivant et</span> <strong>Évolutif</strong></h2>
+									<h2><span>Site vivant et</span> <strong>Évolutif</strong></h2>
 									<p><strong>Expert</strong> en JavaScript client ?<br>Prêt à embrasser <strong>Node.js</strong> ?</p>
 									<p class="small">Améliorer progressivement votre base à mesure de vos besoins en utilisant des Controllers, Modèles ou Modules.</p>
 								</div>
@@ -69,86 +70,167 @@
 			</header>
 			<aside class="download cmpt">
 				<div class="download--inner">
-					Download
+					<div class="download--install">
+						<div class="download--cli is-active">
+							<h2>Utilisation CLI</h2>
+							<div class="download--cli--inner">
+								<div class="download--cli--step1">
+									<h3>Installer NodeAtlas</h3>
+									<pre>&gt; npm install -g node-atlas</pre>
+								</div>					
+								<div class="download--cli--step2">
+									<h3>Créer un site test</h3>
+									<pre>&gt; nodeatlas --init</pre>
+								</div>					
+								<div class="download--cli--step3">
+									<h3>Lancer le site</h3>
+									<pre>&gt; nodeatlas --browse</pre>
+								</div>
+							</div>							
+						</div>
+						<div class="download--api">
+							<h2>Utilisation API</h2>
+							<div class="download--api--inner">
+								<div class="download--api--step1">
+									<h3>Installer NodeAtlas</h3>
+									<pre>&gt; npm install node-atlas</pre>
+								</div>
+								<div class="download--api--step2">
+									<h3>Créer un script</h3>
+									<pre><span>server.js</span>var NA = require("node-atlas"),
+    website = NA();
+website.config({
+    "init": true
+}).afterInitProject(function () {
+    website.run(function () {
+        "--browse": "true"
+    });
+}).init()</pre>
+								</div>
+								<div class="download--api--step3">
+									<h3>Lancer le site</h3>
+									<pre>&gt; node server.js</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--clone">
+						<div class="download--version">						
+							<h2>Télécharger</h2>
+							<div class="download--version--inner">
+								<div class="download--version--step1">
+									<h3>v1.7.0</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/Haeresis/NodeAtlas/archive/master.zip" target="_blank">Dernière version</a></p>
+									<p class="aside"><a href="https://github.com/Haeresis/NodeAtlas/releases">Versions stables</a></p>
+								</div>
+								<div class="download--version--step2">
+									<h3>Cloner</h3>
+									<p><input type="text" name="clone" data-instruction="Copier dans le presse-papier: Ctrl+C, Entrer" class="download--clone--text" value="https://github.com/Haeresis/NodeAtlas.git"><button><span class="fa fa-clipboard" aria-hidden="true"></span></button></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--plugin">
+						<div class="download--plugin--inner">
+							Prochainement...
+						</div>
+					</div>
+					<div class="download--info">
+						<div class="download--info--inner">
+							Prochainement...
+						</div>
+					</div>
 				</div>
 			</aside>
 			<nav class="navigation cmpt">
 				<div class="navigation--outer">
-					<div class="navigation--start"><button>Commencez</button></div>
-					<div class="navigation--documentation"><button>Documentation</button></div>
+					<div class="navigation--start"><button class="button">Commencez</button></div>
+					<div class="navigation--documentation"><button class="button">Documentation</button></div>
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="english/index.html" title="English">English</a>
+						<a href="english/index.html" title="International Version">International Version</a>
 					</div>
 					<div class="navigation--home">
-						<a href="index.html" title="Accueil"><img src="media/images/logo.png" alt="Accueil" width="80px"> Accueil</a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
 					</div>
 					<div class="navigation--menu">
-						<ul>
-							
-							<li>
-								<a href="avant-propos.html" title="Présentation">Présentation</a>
-								
+						<div class="navigation--menu--toggle">
+							<span class="top"></span>
+							<span class="middle"></span>
+							<span class="bottom"></span>
+						</div>
+						<div class="navigation--menu--list">
+							<div class="navigation--menu--list--inner">
+								<h2>Menu</h2>
 								<ul>
 									
 									<li>
-										<a href="installation.html" title="Installation">Installation</a>
+										<a href="avant-propos.html" title="Présentation">Présentation</a> 
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="installation.html" title="Installation">Installation</a>
+											</li>
+											
+											<li>
+												<a href="commencer-avec-nodeatlas.html" title="Démarrage rapide">Démarrage rapide</a>
+											</li>
+											
+										</ul>
+										
 									</li>
 									
 									<li>
-										<a href="commencer-avec-nodeatlas.html" title="Démarrage rapide">Démarrage rapide</a>
+										<a href="cr%C3%A9ation-de-site-partie-front-end.html" title="View et Template">View et Template</a> 
+										
+									</li>
+									
+									<li>
+										<a href="d%C3%A9veloppement-javascript-partie-back-end.html" title="Controller et Model">Controller et Model</a> 
+										
+									</li>
+									
+									<li>
+										<a href="pour-aller-plus-loin.html" title="Route et Plus">Route et Plus</a> 
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="api-nodeatlas-comme-module-npm.html" title="API">API</a>
+											</li>
+											
+											<li>
+												<a href="cli-commandes-de-lancement.html" title="CLI">CLI</a>
+											</li>
+											
+											<li>
+												<a href="nodeatlas-comme-simple-serveur-web.html" title="Simple Serveur">Simple Serveur</a>
+											</li>
+											
+											<li>
+												<a href="faire-tourner-nodeatlas-sur-serveur.html" title="Autres Serveurs">Autres Serveurs</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="plus-sur-nodeatlas.html" title="Et les autres ?">Et les autres ?</a> 
+										
 									</li>
 									
 								</ul>
-								
-							</li>
-							
-							<li>
-								<a href="cr%C3%A9ation-de-site-partie-front-end.html" title="View et Template">View et Template</a>
-								
-							</li>
-							
-							<li>
-								<a href="d%C3%A9veloppement-javascript-partie-back-end.html" title="Controller et Model">Controller et Model</a>
-								
-							</li>
-							
-							<li>
-								<a href="pour-aller-plus-loin.html" title="Route et Plus">Route et Plus</a>
-								
-								<ul>
-									
-									<li>
-										<a href="api-nodeatlas-comme-module-npm.html" title="API">API</a>
-									</li>
-									
-									<li>
-										<a href="cli-commandes-de-lancement.html" title="CLI">CLI</a>
-									</li>
-									
-									<li>
-										<a href="nodeatlas-comme-simple-serveur-web.html" title="Simple Serveur">Simple Serveur</a>
-									</li>
-									
-									<li>
-										<a href="faire-tourner-nodeatlas-sur-serveur.html" title="Autres Serveurs">Autres Serveurs</a>
-									</li>
-									
-								</ul>
-								
-							</li>
-							
-							<li>
-								<a href="plus-sur-nodeatlas.html" title="Et les autres ?">Et les autres ?</a>
-								
-							</li>
-							
-						</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</nav>
-			<nav class="content cmpt">
+			<div class="content cmpt">
 				<div class="content--inner">
 					<h2 id="avant-propos">Avant-propos</h2><h3 id="pour-réaliser-quoi">Pour réaliser quoi ?</h3><p>NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de <a href="https://www.npmjs.com/package/node-atlas">module npm</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) et tournant sur toutes les versions de <a href="https://nodejs.org/en/">Node.js</a>. Il vous permet de :</p><ul>
 <li><p>Créer, maintenir et documenter des interfaces utilisateurs HTML/CSS/JavaScript pour créer un ensemble d&#39;assets cohérants afin de les fournirs en tant que Guidelines pour la réalisation de divers sites ou applications web.</p>
@@ -196,12 +278,9 @@
 <li><a href="http://www.sonarqube.org/">Passez le test Sonarqube JS avec un rang A</a> : Bugs, Vulnerabilités et Dette Technique.</li>
 </ul><p>Merci d&#39;avance pour votre aide !</p>
 				</div>
-			</nav>
-			<!-- Inclusion du fichiers minifié après génération. -->
+			</div>
 			
 			<script src="javascript/common.min.js"></script>
-
-			<!-- Inclusion du fichiers standar pendant le développement. -->
 			
 		</div>
 	</body>

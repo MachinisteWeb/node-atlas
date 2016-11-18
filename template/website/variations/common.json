@@ -1,4 +1,5 @@
 {
+	"noJs": "Le JavaScript n'est pas activé.",
 	"titlePre": {
 		"alt": "Node",
 		"src": "media/images/min/ode.png"
@@ -8,14 +9,73 @@
 		"src": "media/images/min/tlas.png"
 	},
 	"content": "Contenu pour la documentation.",
-	"noJs": "Le JavaScript n'est pas activé.",
+	"abstract": "Le Framework JavaScript Serveur MVC(2).",
+	"main": {
+		"first": {
+			"title": "<span>Mise en place</span> <strong>Simple</strong>",
+			"abstract": "Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>Débutant</strong> en JavaScript ?",
+			"description": "Réalisez rapidement des sites vitrines multilingues sans effort avec de simple Routes, Views ou Variations."
+		},
+		"second": {
+			"title": "<span>Site vivant et</span> <strong>Évolutif</strong>",
+			"abstract": "<strong>Expert</strong> en JavaScript client ?<br>Prêt à embrasser <strong>Node.js</strong> ?",
+			"description": "Améliorer progressivement votre base à mesure de vos besoins en utilisant des Controllers, Modèles ou Modules."
+		},
+		"third": {
+			"title": "<span>Partie Cliente</span> <strong>Agnostique</strong>",
+			"abstract": "Déjà vos habitudes <strong>Front-end</strong> ?<br>Habitué(e) du <strong>Data Binding</strong> ?",
+			"description": "Du léger Vanilla JS au simple jQuery en passant par Vue, Angular ou React : utiliser vos outils clients favoris !"
+		}
+	},
 	"home": {
-		"title": "Sommaire",
+		"title": "Guide <span>NodeAtlas</span>",
 		"url": "index.html"
 	},
 	"lang": {
 		"title": "International Version",
 		"url": "english/index.html"
+	},
+	"goto": {
+		"start": "<button class=\"button\">Commencez</button>",
+		"documentation": "<button class=\"button\">Documentation</button>"
+	},
+	"download": {
+		"cli": {
+			"title": "Utilisation CLI",
+			"step1": {
+				"title": "Installer NodeAtlas"
+			},
+			"step2": {
+				"title": "Créer un site test"
+			},
+			"step3": {
+				"title": "Lancer le site"
+			}
+		},
+		"api": {
+			"title": "Utilisation API",
+			"step1": {
+				"title": "Installer NodeAtlas"
+			},
+			"step2": {
+				"title": "Créer un script"
+			},
+			"step3": {
+				"title": "Lancer le site"
+			}
+		},
+		"version": {
+			"title": "Télécharger",
+			"step1": {
+				"last": "Dernière version",
+				"stable": "Versions stables"
+			},
+			"step2": {
+				"title": "Cloner",
+				"copy": "Copier dans le presse-papier: Ctrl+C, Entrer"
+			}
+		},
+		"soon": "Prochainement..."
 	},
 	"menu": [{
 		"title": "Présentation",

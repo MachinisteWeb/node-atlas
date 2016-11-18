@@ -4,6 +4,9 @@ var website = window.website || {};
 website.component = website.component || {};
 
 (function (publics) {
+    var privates = {
+        firstScroll: true
+    };
     publics.xhrRequest = function(url, next) {
         var request = new XMLHttpRequest();
 
@@ -30,32 +33,6 @@ website.component = website.component || {};
         location.href = encodeURIComponent(url) + ".html";
     };
 
-    publics.loadAnimation = function () {
-        var node = document.getElementsByClassName("header--title--node")[0],
-            atlas = document.getElementsByClassName("header--title--atlas")[0],
-            first = document.getElementsByClassName("header--main--first")[0],
-            second = document.getElementsByClassName("header--main--second")[0],
-            third = document.getElementsByClassName("header--main--third")[0],
-            abstract = document.getElementsByClassName("header--abstract")[0],
-            start = document.querySelector(".navigation--start button"),
-            documentation = document.querySelector(".navigation--documentation button");
-
-        node.classList.add("is-loaded");
-        atlas.classList.add("is-loaded");
-        abstract.classList.add("is-loaded");
-        setTimeout(function () {
-            second.classList.add("is-loaded");
-            setTimeout(function () {
-                first.classList.add("is-loaded");
-                start.classList.add("is-loaded");
-                setTimeout(function () {
-                    third.classList.add("is-loaded");
-                    documentation.classList.add("is-loaded");
-                }, 1000);
-            }, 1000);
-        }, 1000);
-    };
-
     publics.smartTargetInjection = function () {
         var links = document.links;
         for (var i = 0, linksLength = links.length; i < linksLength; i++) {
@@ -70,120 +47,44 @@ website.component = website.component || {};
         }
     };
 
-    publics.goTo = function () {
-        var title = document.querySelector(".header--title h1"),
-            start = document.querySelectorAll(".navigation--start button, .navigation--home--logo"),
-            menu = document.querySelectorAll(".navigation--home--back, .navigation--menu a, .navigation--documentation button");
+    publics.scrollSmoothTo = function (scrollTarget, speed, next) {
+        var last = +new Date(),
+            scrollTop = document.body.scrollTop || document.documentElement.scrollTop,
+            tickPlus = function () {
+                scrollTop = +scrollTop + (new Date() - last) / speed;
+                window.scrollTo(0, scrollTop);
+                last = +new Date();
+                if (+scrollTop < scrollTarget) {
+                    requestAnimationFrame(tickPlus);
+                } else if (next) {
+                    window.scrollTo(0, scrollTarget);
+                    next();
+                }
+            },
+            tickMinus = function () {
+                scrollTop = +scrollTop - (new Date() - last) / speed;
+                window.scrollTo(0, scrollTop);
+                last = +new Date();
+                if (+scrollTop > scrollTarget) {
+                    requestAnimationFrame(tickMinus);
+                } else if (next) {
+                    window.scrollTo(0, scrollTarget);
+                    next();
+                }
+            };
 
-        function fadeIn(target, speed, next) {
-            var last = +new Date(),
-                scrollTop = document.body.scrollTop || document.documentElement.scrollTop,
-                tickPlus = function () {
-                    scrollTop = +scrollTop + (new Date() - last) / speed;
-                    window.scrollTo(0, scrollTop);
-                    last = +new Date();
-                    if (+scrollTop < target) {
-                        requestAnimationFrame(tickPlus);
-                    } else if (next) {
-                        window.scrollTo(0, target);
-                        next();
-                    }
-                },
-                tickMinus = function () {
-                    scrollTop = +scrollTop - (new Date() - last) / speed;
-                    window.scrollTo(0, scrollTop);
-                    last = +new Date();
-                    if (+scrollTop > target) {
-                        requestAnimationFrame(tickMinus);
-                    } else if (next) {
-                        window.scrollTo(0, target);
-                        next();
-                    }
-                };
-
-            if (target > scrollTop) {
-                tickPlus();
-            } else {
-                tickMinus();
-            }
+        if (scrollTarget > scrollTop) {
+            tickPlus();
+        } else {
+            tickMinus();
         }
-
-        title.addEventListener("click", function () {
-            fadeIn(0, 4);
-        });
-        Array.prototype.forEach.call(start, function (item) {
-            item.addEventListener("click", function () {
-                fadeIn(5, 4);
-            });
-        });
-        Array.prototype.forEach.call(menu, function (item) {
-            item.addEventListener("click", function () {
-                fadeIn(350, 4);
-            });
-        });
     };
 
-    publics.openTab = function () {
-        var cli = document.querySelector(".download--cli"),
-            api = document.querySelector(".download--api");
-
-        cli.addEventListener("click", function () {
-            cli.classList.add("is-active");
-            api.classList.remove("is-active");
-        });
-        api.addEventListener("click", function () {
-            api.classList.add("is-active");
-            cli.classList.remove("is-active");
-        });
-    };
-
-    publics.clipboard = function () {
-        var input = document.getElementsByClassName("download--clone--text")[0],
-            sender = document.querySelector(".download--clone .fa");
-
-        sender.addEventListener("click", function () {
-            window.prompt(input.getAttribute("data-instruction"), input.value);
-        });
-    };
-
-    publics.openMenu = function () {
-        var chevrons = document.querySelectorAll(".navigation--menu .fa");
-
-        Array.prototype.forEach.call(chevrons, function (chevron) {
-            var menu = chevron.nextElementSibling;
-            
-            chevron.addEventListener("click", function () {
-                chevron.classList.toggle("fa-chevron-down");
-                chevron.classList.toggle("fa-chevron-up");
-                menu.classList.toggle("is-opened");
-            });
-        });
-    };
-
-    publics.toggleMenu = function () {
-        var toggle = document.getElementsByClassName("navigation--menu--toggle")[0],
-            inner = document.getElementsByClassName("navigation--menu--list--inner")[0],
-            menu = document.getElementsByClassName("navigation--menu")[0];
-
-        inner.addEventListener("click", function () {
-            menu.classList.remove("is-opened");
-            setTimeout(function () {
-                menu.classList.remove("is-front");
-            }, 1000);
-        });
-        toggle.addEventListener("click", function () {
-            if (menu.classList.value.indexOf("is-opened") === -1) {
-                menu.classList.add("is-front");
-                setTimeout(function () {
-                    menu.classList.add("is-opened");
-                }, 0);
-            } else {
-                menu.classList.remove("is-opened");
-                setTimeout(function () {
-                    menu.classList.remove("is-front");
-                }, 1000);
-            }
-        });
+    publics.goToHash = function(container, hash) {
+        var anchor = document.getElementById(hash);
+        if (anchor) {
+            container.scrollTop = anchor.offsetTop;
+        }
     };
 
     publics.highlightCode = function () {
@@ -194,12 +95,13 @@ website.component = website.component || {};
         prettyPrint();
     };
 
-    publics.manageStartedHeight = function () {
+    publics.manageHeight = function () {
         var background = document.getElementsByClassName("background")[0],
             header = document.getElementsByClassName("header")[0],
             download = document.getElementsByClassName("download")[0],
             navigation = document.getElementsByClassName("navigation")[0],
-            content = document.getElementsByClassName("content")[0];
+            content = document.getElementsByClassName("content")[0],
+            contentInner = document.getElementsByClassName("content--inner")[0];
 
         function allowAnimation() {
             setInterval(function () {
@@ -223,6 +125,10 @@ website.component = website.component || {};
             if (scrollTop > 10) {
                 content.style.height = (window.innerHeight - 100) + "px";
                 download.classList.add("is-small");
+                if (privates.firstScroll) {
+                    website.goToHash(contentInner, location.href.split("#")[1]);
+                    privates.firstScroll = false;
+                }
             }
         }
 
@@ -279,12 +185,6 @@ website.component = website.component || {};
                 onTop();
             }
         }
-        /*window.addEventListener("DOMMouseScroll", function () {
-            console.log("Here");
-        });
-        window.addEventListener("mousewheel", function () {
-            console.log("Here");
-        });*/
         window.addEventListener("scroll", function () {
             scrollState();
         });
@@ -292,22 +192,31 @@ website.component = website.component || {};
         allowAnimation();
     };
 
+    publics.googleAnalytics = function () {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-50163044-1', 'haeresis.github.io');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    };
+
     publics.init = function () {
-        var links = document.querySelectorAll(".navigation--home a, .navigation--menu a"),
+        var links = document.querySelectorAll(".navigation--home a, .navigation--menu a, .toc a"),
             fragmentPath = document.body.getAttribute("data-content"),
-            urlRelativeSubPath = document.body.getAttribute("data-subpath");
+            urlRelativeSubPath = document.body.getAttribute("data-subpath"),
+            content = document.getElementsByClassName("content--inner")[0];
 
         website.smartTargetInjection();
-        website.manageStartedHeight();
-        website.loadAnimation();
-        website.goTo();
-        website.openTab();
-        website.clipboard();
-        website.openMenu();
-        website.toggleMenu();
+        website.manageHeight();
         website.highlightCode();
+        website.goToHash(content, location.href.split("#")[1]);
+        website.googleAnalytics();
 
         (new website.component.Header()).init();
+        (new website.component.Download()).init();
         (new website.component.Navigation()).init();
         (new website.component.Content()).init(links, fragmentPath, urlRelativeSubPath);       
     };
