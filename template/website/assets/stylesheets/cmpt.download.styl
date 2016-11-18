@@ -199,12 +199,19 @@
 			    -ms-transform translate(-50%,-50%) 
 			     -o-transform translate(-50%,-50%) 
 			        transform translate(-50%,-50%) 
+		&--step2
+			@media (max-height 530px)
+				display none
 	&--plugin
 		bottom 0
 		left 0
 	&--info
 		bottom 0
 		right 0
+	&--install
+	&--clone
+		@media (max-height 739px)
+			height 100%
 	&--plugin
 	&--info
 		&--inner
@@ -216,6 +223,8 @@
 			    -ms-transform translate(-50%, -50%) 
 			     -o-transform translate(-50%, -50%) 
 			        transform translate(-50%, -50%) 
+		@media (max-height 739px)
+			display none
 	&--api
 	&--cli
 		border-top 1px solid #ccc
@@ -297,10 +306,14 @@
 			width calc(50% - 20px)
 			margin-right 10px
 			position relative
+			@media (max-height 530px)
+				display none
 		&--step3
 			margin-left 10px
 			width calc(50% - 20px)
 			margin-right 10px
+			@media (max-height 530px)
+				display none
 	&--api
 		right 0
 		z-index 1
@@ -350,7 +363,11 @@
 				border 1px solid rgba(51, 51, 51, 0.7)
 				padding 2px
 				font-style italic
+			@media (max-height 530px)
+				display none
 		&--step3
 			float right
 			width calc(60% - 20px)
 			margin-left calc(40% + 20px)
+			@media (max-height 530px)
+				display none
