@@ -1,3 +1,12 @@
+## 1.7.0 ##
+
+Enhancement:
+
+- Use `NA.serverPhysicalPath` to find real location of NodeAtlas engine.
+- Use `--init` command to copy « templates/hello-world » from NodeAtlas directory to current directory.
+
+
+
 ## 1.6.2 ##
 
 Enhancement:

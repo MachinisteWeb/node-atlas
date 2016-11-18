@@ -128,6 +128,7 @@ NA = function () {
     /* $%ASSETS GENERATION */
     this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
     this.urlGeneratingAssets = assetsGeneration.urlGeneratingAssets;
+    this.generateStartingProject = assetsGeneration.generateStartingProject;
     this.emulatedIndexPage = assetsGeneration.emulatedIndexPage;
     this.saveTemplateRender = assetsGeneration.saveTemplateRender;
     this.atta = assetsGeneration.atta;
@@ -136,6 +137,7 @@ NA = function () {
     this.config = init.config;
     this.afterGeneration = init.afterGeneration;
     this.afterGenerates = init.afterGenerates;
+    this.afterInitProject = init.afterInitProject;
     this.init = init.init;
     this.run = init.run;
 

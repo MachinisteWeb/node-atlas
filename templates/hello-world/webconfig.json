@@ -1,0 +1,26 @@
+{
+	"languageCode": "fr-fr",
+	"commonVariation": "common.json",
+	"commonController": "common.js",
+	"pageNotFound": "error",
+	"routes": {
+		"home_fr-fr": {
+			"url": "/",
+			"template": "index.htm",
+			"variation": "index.json",
+			"controller": "index.js"
+		},
+		"home_en-us": {
+			"url": "/english/",
+			"languageCode": "en-us",
+			"template": "index.htm",
+			"variation": "index.json"
+		},
+		"error": {
+			"url": "/error/",
+			"languageCode": "en-us",
+			"template": "error.htm",
+			"statusCode": 404
+		}
+	}
+}
