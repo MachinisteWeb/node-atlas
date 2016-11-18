@@ -137,6 +137,7 @@ NA = function () {
     this.config = init.config;
     this.afterGeneration = init.afterGeneration;
     this.afterGenerates = init.afterGenerates;
+    this.afterNewProject = init.afterNewProject;
     this.afterInitProject = init.afterInitProject;
     this.init = init.init;
     this.run = init.run;

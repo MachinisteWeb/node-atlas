@@ -1,3 +1,11 @@
+## 1.7.1 ##
+
+Bugfix:
+
+- Find the real place of `node-atlas` module used by CLI or by API.
+
+
+
 ## 1.7.0 ##
 
 Enhancement:

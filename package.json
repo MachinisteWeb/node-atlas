@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.7.0",
+  "version": "1.7.1",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -79,7 +79,18 @@
     "lib/node-modules.js",
     "lib/web-server.js",
     "bin/node-atlas.js",
-    "templates/*",
+    "templates/hello-world/webconfig.json",
+    "templates/hello-world/variations/common.json",
+    "templates/hello-world/variations/index.json",
+    "templates/hello-world/variations/en-us/common.json",
+    "templates/hello-world/variations/en-us/index.json",
+    "templates/hello-world/templates/error.htm",
+    "templates/hello-world/templates/index.htm",
+    "templates/hello-world/controllers/common.js",
+    "templates/hello-world/controllers/index.js",
+    "templates/hello-world/components/head.htm",
+    "templates/hello-world/components/foot.htm",
+    "templates/hello-world/assets/stylesheets/common.css",
     "LICENSE",
     "README.md",
     "CHANGELOG.md",
