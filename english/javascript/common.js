@@ -192,6 +192,17 @@ website.component = website.component || {};
         allowAnimation();
     };
 
+    publics.googleAnalytics = function () {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-50163044-1', 'haeresis.github.io');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    };
+
     publics.init = function () {
         var links = document.querySelectorAll(".navigation--home a, .navigation--menu a, .toc a"),
             fragmentPath = document.body.getAttribute("data-content"),
@@ -202,6 +213,7 @@ website.component = website.component || {};
         website.manageHeight();
         website.highlightCode();
         website.goToHash(content, location.href.split("#")[1]);
+        website.googleAnalytics();
 
         (new website.component.Header()).init();
         (new website.component.Download()).init();

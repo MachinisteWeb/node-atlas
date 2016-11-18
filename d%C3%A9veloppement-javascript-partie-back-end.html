@@ -98,14 +98,14 @@
 								<div class="download--api--step2">
 									<h3>Créer un script</h3>
 									<pre><span>server.js</span>var NA = require("node-atlas"),
-    website = NA();
+	website = NA();
 website.config({
     "init": true
 }).afterInitProject(function () {
-    website.run(function () {
-        "--browse": "true"
-    });
-}).init()</pre>
+    website.run({
+		"browse": true
+	});
+}).init();</pre>
 								</div>
 								<div class="download--api--step3">
 									<h3>Lancer le site</h3>
