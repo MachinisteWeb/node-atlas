@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.7](https://img.shields.io/badge/version-1.7-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-0.12%2C_7.1-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.7](https://img.shields.io/badge/version-1.7-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.1-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
@@ -12,7 +12,7 @@
 
 ### For What ? ###
 
-NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run on all [Node.js](https://nodejs.org/en/) verision. NodeAtlas allows you to :
+NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run with [Node.js](https://nodejs.org/en/) verision. NodeAtlas allows you to :
 
    - Create, maintain and document a set of assets HTML/CSS/JavaScript as user interfaces to provide solid Guidelines for the realization of website or webapp (i.e. for brands).
 
@@ -44,7 +44,7 @@ Starting with a single HTML page,
 
 ### And what about others JavaScript Frameworks? ###
 
-In opposition to others JavaScript Frameworks like Angular, Aurelia ou React, NodeAtlas run server-side and provide some real url by Response HTTP. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
+In opposition to others JavaScript Frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real url by Response HTTP. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
 
 To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API, [you could check this grid](#nodeatlas-vs-others).
 
