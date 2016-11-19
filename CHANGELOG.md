@@ -1,3 +1,11 @@
+## 1.7.2 ##
+
+Updates:
+
+- Compatibility test and information checked and updated.
+
+
+
 ## 1.7.1 ##
 
 Bugfix:
