@@ -131,7 +131,11 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [&lt;node-atlas-instance>.afterGeneration(Function)](#node-atlas-instanceaftergenerationfunction)
  - [&lt;node-atlas-instance>.afterInitProject(Function)](#node-atlas-instanceafterinitprojectfunction)
 - [NodeAtlas as a simple web server](#nodeatlas-as-a-simple-web-server)
-- [Running NodeAtlas on online server](#running-nodeatlas-on-online-server)
+- [Development Environment](#development-environment)
+ - [Front-end Debug](#front-end-debug)
+ - [Back-end Debug](#back-end-debug)
+ - [Devices Tests](#devices-tests)
+- [Production Environment](#production-environment)
  - [In a Windows Server environment with iisnode](#in-a-windows-server-environment-with-iisnode)
  - [In a Unix environment with forever](#in-a-unix-environment-with-forever)
  - [In a Unix environment with Nginx](#in-a-unix-environment-with-nginx)
@@ -5354,7 +5358,55 @@ the server will run in "Simple Web Server" mode and file "http://localhost/webco
 
 
 
-## Running NodeAtlas on online server ##
+## Development Environment ##
+
+NodeAtlas use Node.js which is developed on V8 Engine. The V8 Engine is also used by Google Chrome and Chromium which do NodeAtlas could be debug with this environment.
+
+### Front-end Debug ###
+
+You could debug your HTML render, your CSS files and your JavaScript front-end code in the same way that you'll do that with a simple HTML website or another technology. You have acces with F12 to the JavaScript console, to DOM editable elements, to the CSS property and animation editor and also to the JavaScript file débug system.
+
+The new thing introduce with NodeAtlas is into the CSS editor. Instead of show you name and line of CSS file for rules of an element, if this CSS file was generated from a Stylus or Less, it's the Stylus or Less name and line that you'll see in the editor.
+
+### Back-end Debug ###
+
+From Node.js v6.6+, you could debug your Back-end code with Google Chrome. You have just to do that to use the `--inspect` option of node.
+
+Create for example a starting point file like this :
+
+```javascript
+require("node")().init()
+```
+
+and run the following command :
+
+```
+node --inspect server.js
+```
+
+The engine will communicate you the url of a page to display in Chrome. Go to this page to see all messages from console into the `console` tab, to debug your code with all Back-end files used in `source` and tests the perfs with `profile`.
+
+### Devices Tests ###
+
+For test your app or website during the development phase on your mobile and pad you must connect your development machine and all devices on the same local network.
+
+For example, connect all your devices on the same Wifi network. Then, find on this network the ip address of your development machine. On Windows, this could be done with the `ipconfig` for example.
+
+When you obtain your ip, just set the hostname and the listening port for your NodeAtlas development instance:
+
+```
+nodeatlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
+```
+
+And that will open the website here : `http://192.168.1.24:7777/`.
+
+You just now reach the url from your other devices to test the render of your app or website.
+
+
+
+
+
+## Production Environment ##
 
 ### In a Windows Server environment with iisnode ###
 
