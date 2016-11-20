@@ -1,8 +1,4 @@
-<h2 id="installation">Installation</h2><p>Before install NodeAtlas, install <a href="https://nodejs.org/en/">Node.js</a> and <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> as pre-require.</p><p><em>Note: With Linux, add <code>sudo</code> before all commands if you&#39;re not logged with root user.</em></p><p>There are several ways to install NodeAtlas:</p><ul>
-<li><p>Download NodeAtlas from the official repository <a href="https://haeresis.github.com/NodeAtlas">NodeAtlas</a>.</p>
-<p> <em>Once downloaded, unzip <strong>NodeAtlas</strong> in the folder that will suit you.</em></p>
-<p> <strong>Start at least once NodeAtlas with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/index.js</code>, to install the _node<em>modules</em> or use <code>npm install</code> command from <code>&lt;/path/to/&gt;node-atlas/</code> directory.</strong></p>
-</li>
+<h2 id="installation">Installation</h2><p>Before install NodeAtlas, install <a href="https://nodejs.org/en/">Node.js</a>, we will see this in the section : Install Node.js.</p><h3 id="install-nodeatlas">Install NodeAtlas</h3><p><em>Note: With Linux, add <code>sudo</code> before all commands if you&#39;re not logged with root user.</em></p><p>There are several ways to install NodeAtlas:</p><ul>
 <li><p><code>npm install node-atlas</code> (recommended for <a href="#api--nodeatlas-as-npm-module">use as a module</a> in a project).</p>
 <p> _This will install <strong>NodeAtlas</strong> in the <code>node_modules/node-atlas</code> directory of the execution of the command._</p>
 </li>
@@ -13,4 +9,21 @@
 <p> <em>This will install <strong>NodeAtlas</strong> in cloning home folder.</em></p>
 <p> <strong>Start at least once NodeAtlas the with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>, to install the _node<em>modules</em>.</strong></p>
 </li>
-</ul>
+<li><p>Download NodeAtlas from the official repository <a href="https://haeresis.github.com/NodeAtlas">NodeAtlas</a>.</p>
+<p> <em>Once downloaded, unzip <strong>NodeAtlas</strong> in the folder that will suit you.</em></p>
+<p> <strong>Start at least once NodeAtlas with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/index.js</code>, to install the _node<em>modules</em> or use <code>npm install</code> command from <code>&lt;/path/to/&gt;node-atlas/</code> directory.</strong></p>
+</li>
+</ul><h3 id="install-node.js">Install Node.js</h3><p>NodeAtlas is developed as a <a href="https://www.npmjs.com/">Node.js Module Package</a> that means its require Node.js to work. Node.js allows us to quickly and efficiently run JavaScript code outside the browser, making it possible to use the same language on both the front-end and the back-end.</p><p><em>Note: Python 2.6 or 2.7 is required to build from source tarballs.</em></p><h4 id="install-on-windows">Install on Windows</h4><p>Using a package:</p><ul>
+<li><a href="https://nodejs.org/en/download/">Download Windows Installer</a>.</li>
+</ul><p>Using <a href="http://chocolatey.org/">chocolatey</a> to install Node:</p><pre><code>cinst nodejs
+</code></pre><p>or for full install with NPM:</p><pre><code>cinst nodejs.install
+</code></pre><h4 id="install-on-osx">Install on OSX</h4><p>Using a package:</p><ul>
+<li><a href="https://nodejs.org/en/download/">Download Macintosh Installer</a>.</li>
+</ul><p>Using <a href="https://github.com/mxcl/homebrew">homebrew</a>:</p><pre><code>brew install node
+</code></pre><p>Using <a href="http://www.macports.org/">macports</a>:</p><pre><code>port install nodejs
+</code></pre><h4 id="install-on-linux">Install on Linux</h4><p>Using a package:</p><ul>
+<li><a href="https://nodejs.org/en/download/">Download Linux Binaries</a>.</li>
+</ul><p>Example install with apt-get:</p><pre><code>sudo apt-get install python-software-properties python g++ make
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
+</code></pre><p>There is a naming conflict with the node package (Amateur Packet Radio Node Program), and the nodejs binary has been renamed from node to nodejs. You&#39;ll need to symlink /usr/bin/node to /usr/bin/nodejs or you could uninstall the Amateur Packet Radio Node Program to avoid that conflict.</p>

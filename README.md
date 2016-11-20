@@ -77,6 +77,8 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Documentation](#documentation)
  - [Contributing](#contributing)
 - [Installation](#installation)
+ - [Install NodeAtlas](#install-nodeatlas)
+ - [Install Node.js](#install-node-js)
 - [Start with NodeAtlas](#start-with-nodeatlas)
  - [Fileset](#fileset)
  - [Minimum Requirements](#minimum-requirements)
@@ -121,7 +123,13 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [--httpHostname &lt;httpHostname>](#--httphostname-httphostname)
  - [--httpPort &lt;httpPort>](#--httpport-httpport)
  - [--generate](#--generate)
+ - [--init [path]](#--init-path)  
 - [API / NodeAtlas as npm module](#api--nodeatlas-as-npm-module)
+ - [&lt;node-atlas-instance>.init()](#node-atlas-instanceinit)
+ - [&lt;node-atlas-instance>.config(Object)](#node-atlas-instanceconfigobject)
+ - [&lt;node-atlas-instance>.run(Object)](#node-atlas-instancerunobject)
+ - [&lt;node-atlas-instance>.afterGeneration(Function)](#node-atlas-instanceaftergenerationfunction)
+ - [&lt;node-atlas-instance>.afterInitProject(Function)](#node-atlas-instanceafterinitprojectfunction)
 - [NodeAtlas as a simple web server](#nodeatlas-as-a-simple-web-server)
 - [Running NodeAtlas on online server](#running-nodeatlas-on-online-server)
  - [In a Windows Server environment with iisnode](#in-a-windows-server-environment-with-iisnode)
@@ -168,17 +176,13 @@ Thank you for helping out!
 
 ## Installation ##
 
-Before install NodeAtlas, install [Node.js](https://nodejs.org/en/) and [Python 2.7](https://www.python.org/download/releases/2.7/) as pre-require.
+Before install NodeAtlas, install [Node.js](https://nodejs.org/en/), we will see this in the section : Install Node.js.
+
+### Install NodeAtlas ###
 
 *Note: With Linux, add `sudo` before all commands if you're not logged with root user.*
 
 There are several ways to install NodeAtlas:
-
-- Download NodeAtlas from the official repository [NodeAtlas](https://haeresis.github.com/NodeAtlas).
-
-   _Once downloaded, unzip **NodeAtlas** in the folder that will suit you._
-
-   **Start at least once NodeAtlas with the command line `\> node </path/to/>node-atlas/index.js`, to install the _node_modules_ or use `npm install` command from `</path/to/>node-atlas/` directory.**
 
 - `npm install node-atlas` (recommended for [use as a module](#api--nodeatlas-as-npm-module) in a project).
 
@@ -193,6 +197,72 @@ There are several ways to install NodeAtlas:
    _This will install **NodeAtlas** in cloning home folder._
 
    **Start at least once NodeAtlas the with the command line `\> node </path/to/>node-atlas/`, to install the _node_modules_.**
+
+- Download NodeAtlas from the official repository [NodeAtlas](https://haeresis.github.com/NodeAtlas).
+
+   _Once downloaded, unzip **NodeAtlas** in the folder that will suit you._
+
+   **Start at least once NodeAtlas with the command line `\> node </path/to/>node-atlas/index.js`, to install the _node_modules_ or use `npm install` command from `</path/to/>node-atlas/` directory.**
+
+
+
+### Install Node.js ###
+
+NodeAtlas is developed as a [Node.js Module Package](https://www.npmjs.com/) that means its require Node.js to work. Node.js allows us to quickly and efficiently run JavaScript code outside the browser, making it possible to use the same language on both the front-end and the back-end.
+
+*Note: Python 2.6 or 2.7 is required to build from source tarballs.*
+
+#### Install on Windows ####
+
+Using a package:
+
+- [Download Windows Installer](https://nodejs.org/en/download/).
+
+Using [chocolatey](http://chocolatey.org/) to install Node:
+
+```
+cinst nodejs
+```
+
+or for full install with NPM:
+
+```
+cinst nodejs.install
+```
+
+#### Install on OSX ####
+
+Using a package:
+
+- [Download Macintosh Installer](https://nodejs.org/en/download/).
+
+Using [homebrew](https://github.com/mxcl/homebrew):
+
+```
+brew install node
+```
+
+Using [macports](http://www.macports.org/):
+
+```
+port install nodejs
+```
+
+#### Install on Linux ####
+
+Using a package:
+
+- [Download Linux Binaries](https://nodejs.org/en/download/).
+
+Example install with apt-get:
+
+```
+sudo apt-get install python-software-properties python g++ make
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+There is a naming conflict with the node package (Amateur Packet Radio Node Program), and the nodejs binary has been renamed from node to nodejs. You'll need to symlink /usr/bin/node to /usr/bin/nodejs or you could uninstall the Amateur Packet Radio Node Program to avoid that conflict.
 
 
 
@@ -5136,13 +5206,35 @@ NodeAtlas contain a directory `templates` with predefined website into. To insta
 
 ## API / NodeAtlas as npm module ##
 
-If you start NodeAtlas via JavaScript code, you can also configure the launch:
+You could run NodeAtlas via JavaScript code.
+
+
+
+### &lt;node-atlas-instance>.init() ###
+
+Execute a simple NodeAtlas running with `init()`. By default, it use `webconfig.json` from directory where file is executed. If no `webconfig.json` is set, a Simple Web Server will be launched.
+
+*server.js*
+
+```javascript
+require("node-atlas")().init();
+```
+
+```
+\> server server.js
+``
+
+
+
+### &lt;node-atlas-instance>.config(Object) ###
+
+You can also configure the launch with `config(Object)`:
 
 *server.js*
 
 ```javascript
 require("node-atlas")().config({
-    directory: "</path/to/your/website/directory/>",
+    directory: "/path/to/your/website/directory/",
     webconfig: "webconfig.alternatif.json",
     browse: true,
     httpHostname: "192.168.1.1",
@@ -5152,10 +5244,16 @@ require("node-atlas")().config({
 ```
 
 ```
-\> server server.js
+\> node server.js
 ```
 
-You can run multiple website in same time. Each webconfig must listen a different port.
+
+
+### &lt;node-atlas-instance>.run(Object) ###
+
+With `run(Object)` you could configure and lanch NodeAtlas with one command.
+
+You can for example run multiple websites in same time. Each webconfig must listen a different port.
 
 *servers.js*
 
@@ -5174,7 +5272,11 @@ websiteFr.run({
 });
 ```
 
-You could also execute other tasks after assets generation:
+
+
+### &lt;node-atlas-instance>.afterGeneration(Function) ###
+
+With `afterGeneration(Function)`, you could also execute other tasks after assets generation:
 
 *servers.js*
 
@@ -5188,6 +5290,27 @@ require("node-atlas")().afterGeneration(function() {
 }).run({
     generate: true
 });
+```
+
+
+
+### &lt;node-atlas-instance>.afterInitProject(Function) ###
+
+With `afterInitProject(Function)`, you could also execute other tasks after init the current directory with template website:
+
+*servers.js*
+
+```javascript
+var nodeAtlas = require("node-atlas"),
+    website = nodeAtlas();
+
+website.config({
+    "init": true
+}).afterInitProject(function() {
+    website.run({
+        "browse": true
+    });
+}).init();
 ```
 
 
