@@ -77,6 +77,8 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Documentation](#documentation)
  - [Contribution](#contribution)
 - [Installation](#installation)
+ - [Installation de NodeAtlas](#installation-de-nodeatlas)
+ - [Installation de Node.js](#installation-de-node-js)
 - [Commencer avec NodeAtlas](#commencer-avec-nodeatlas)
  - [Ensemble de fichiers](#ensemble-de-fichiers)
  - [Configuration minimale](#configuration-minimale)
@@ -123,8 +125,17 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [--generate](#--generate)
  - [--init [path]](#--init-path)
 - [API / NodeAtlas comme module npm](#api--nodeatlas-comme-module-npm)
+ - [&lt;node-atlas-instance>.init()](#node-atlas-instanceinit)
+ - [&lt;node-atlas-instance>.config(Object)](#node-atlas-instanceconfigobject)
+ - [&lt;node-atlas-instance>.run(Object)](#node-atlas-instancerunobject)
+ - [&lt;node-atlas-instance>.afterGeneration(Function)](#node-atlas-instanceaftergenerationfunction)
+ - [&lt;node-atlas-instance>.afterInitProject(Function)](#node-atlas-instanceafterinitprojectfunction)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
-- [Faire tourner NodeAtlas sur serveur](#faire-tourner-nodeatlas-sur-serveur)
+- [Environnement de Développement](#environnement-de-développement)
+ - [Debug du Front-end](#debug-du-front-end)
+ - [Debug du Back-end](#debug-du-back-end)
+ - [Tests de Périphériques](#tests-de-périphériques)
+- [Environnement de Production](#environnement-de-production)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
  - [Dans un environnement Unix avec Nginx](#dans-un-environnement-unix-avec-nginx)
@@ -169,17 +180,13 @@ Merci d'avance pour votre aide !
 
 ## Installation ##
 
-Avant toutes choses, assurez-vous d'avoir installé [Node.js](https://nodejs.org/en/) et [Python 2.7](https://www.python.org/download/releases/2.7/) pour installer NodeAtlas sans aucun problème.
+Avant toutes choses, assurez-vous d'avoir installé [Node.js](https://nodejs.org/en/), nous verrons cela dans la section : Installation de Node.js plus bas.
+
+### Installation de NodeAtlas ###
 
 *Note: Si vous êtes sous Linux, il faudra ajouter `sudo` en amont des commandes si vous n'êtes pas root.*
 
-Il y a plusieurs solutions pour installer NodeAtlas :
-
-- Télécharger NodeAtlas depuis le site officiel [NodeAtlas](https://github.com/Haeresis/NodeAtlas).
-
-   _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
-
-   **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
+Il y a plusieurs manières d'installer NodeAtlas :
 
 - `npm install node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans un projet).
 
@@ -194,6 +201,72 @@ Il y a plusieurs solutions pour installer NodeAtlas :
    _Ceci installera **NodeAtlas** dans le dossier d'accueil du clonage._
 
    **Lancez au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
+
+- Télécharger NodeAtlas depuis le site dépôt [NodeAtlas](https://github.com/Haeresis/NodeAtlas).
+
+   _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
+
+   **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
+
+
+
+### Installation de Node.js ###
+
+NodeAtlas est développé sous la forme d'un [Node.js Module Package](https://www.npmjs.com/) ce qui signifie qu'il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l'utilisation du même langage côté front-end et back-end.
+
+*Note: Python 2.6 ou 2.7 est requis pour build depuis les sources tarballs.*
+
+#### Installer sur Windows ####
+
+En utilisant un installeur :
+
+- [Download Windows Installer](https://nodejs.org/en/download/).
+
+En utilisant [chocolatey](http://chocolatey.org/) pour installer Node:
+
+```
+cinst nodejs
+```
+
+ou en l'installant avec NPM :
+
+```
+cinst nodejs.install
+```
+
+#### Installer sur OSX ####
+
+En utilisant un installeur :
+
+- [Download Macintosh Installer](https://nodejs.org/en/download/).
+
+En utilisant [homebrew](https://github.com/mxcl/homebrew):
+
+```
+brew install node
+```
+
+En utilisant [macports](http://www.macports.org/):
+
+```
+port install nodejs
+```
+
+#### Installer sur Linux ####
+
+Using a package:
+
+- [Download Linux Binaries](https://nodejs.org/en/download/).
+
+Example install with apt-get:
+
+```
+sudo apt-get install python-software-properties python g++ make
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+Il y a un conflit de nom entre le node de package (Amateur Packet Radio Node Program), et les binaires de nodejs on été renommé de node à nodejs. Vous pouvez effectuer un symlink de /usr/bin/node à /usr/bin/nodejs ou désinstaller Amateur Packet Radio Node pour éviter le conflit.
 
 
 
@@ -5137,13 +5210,35 @@ NodeAtlas contient un dossier `templates` qui contient des exemples de site prè
 
 ## API / NodeAtlas comme module npm ##
 
-Si vous lancez NodeAtlas via du code JavaScript, vous pouvez également configurer le lancement :
+Vous pouvez lancez NodeAtlas via du code JavaScript.
+
+
+
+### &lt;node-atlas-instance>.init() ###
+
+Exécuté un simple lancement de NodeAtlas avec `init()`. Par défaut il cherchera le `webconfig.json` dans le dossier où le script est exécuté. Si aucun `webconfig.json` n'est trouvé, un Simple Serveur Web sera lancé.
+
+*server.js*
+
+```javascript
+require("node-atlas")().init();
+```
+
+```
+\> node server.js
+```
+
+
+
+### &lt;node-atlas-instance>.config(Object) ###
+
+Vous pouvez également configurer le lancement avec `config(Object)` :
 
 *server.js*
 
 ```javascript
 require("node-atlas")().config({
-    directory: "</path/to/your/website/directory/>",
+    directory: "/path/to/your/website/directory/",
     webconfig: "webconfig.alternatif.json",
     browse: true,
     httpHostname: "192.168.1.1",
@@ -5156,7 +5251,13 @@ require("node-atlas")().config({
 \> node server.js
 ```
 
-Vous pouvez également lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.
+
+
+### &lt;node-atlas-instance>.run(Object) ###
+
+Avec `run(Object)` vous pouvez configurer et lancer NodeAtlas en une commande.
+
+Vous pouvez par exemple lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.
 
 *servers.js*
 
@@ -5175,7 +5276,11 @@ websiteFr.run({
 });
 ```
 
-Vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
+
+
+### &lt;node-atlas-instance>.afterGeneration(Function) ###
+
+Avec `afterGeneration(Function)`, vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
 
 *servers.js*
 
@@ -5189,6 +5294,27 @@ require("node-atlas")().afterGeneration(function() {
 }).run({
     generate: true
 });
+```
+
+
+
+### &lt;node-atlas-instance>.afterInitProject(Function) ###
+
+Avec `afterInitProject(Function)`, vous pouvez aussi exécuter d'autres tâches après avoir initialisé le répertoire courant avec un site template :
+
+*servers.js*
+
+```javascript
+var nodeAtlas = require("node-atlas"),
+    website = nodeAtlas();
+
+website.config({
+    "init": true
+}).afterInitProject(function() {
+    website.run({
+        "browse": true
+    });
+}).init();
 ```
 
 
@@ -5232,7 +5358,55 @@ le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http:/
 
 
 
-## Faire tourner NodeAtlas sur serveur ##
+## Environnement de Développement ##
+
+NodeAtlas utilise Node.js qui est développé sur le moteur V8. Le moteur V8 est également utilisé par les navigateurs Google Chrome et Chromium ce qui fait que NodeAtlas peut être complètement débuggué dans cet environnement.
+
+### Debug du Front-end ###
+
+Vous pouvez débugguer vos rendu HTML, vos règles CSS et votre code JavaScript front-end de la même manière que vous l'auriez fait avec un simple site HTML ou une autre technologie. Vous avez donc accès via F12 à la console JavaScript, aux éléments du DOM éditables, à l'éditeur de propriétés et animations CSS ainsi qu'au débuggeur de fichier JavaScript.
+
+La nouveauté avec NodeAtlas vient de l'éditeur de CSS. Là où il vous indiquait les fichiers CSS et lignes pour vos fichiers source en CSS, il vous indique pour un fichier CSS généré avec Stylus ou Less le fichier Stylus ou Less ainsi que sa ligne.
+
+### Debug du Back-end ###
+
+À partir de Node.js v6.6+, vous pouvez débugguer tout simplement votre code Back-end dans Google Chrome. Il suffit pour cela d'utiliser l'option `--inspect` de node.
+
+Créez vous par exemple un fichier de lancement comme celui-ci :
+
+```javascript
+require("node")().init()
+```
+
+puis lancez le avec la commande suivante :
+
+```
+node --inspect server.js
+```
+
+Le moteur vous communiquera alors l'url d'une page à afficher dans Chrome. Rendez-vous sur cette page afin de voir les messages de la console dans l'onglet `console`, de debugguer votre code avec la totalité des fichiers utilisés dans `source` et des tests de performance avec `profile`.
+
+### Tests de Périphériques ###
+
+Pour tester votre site ou application web pendant la phase de développement sur vos téléphones mobiles et tablettes il suffit de connecter votre poste de développement et ces appareils sur le même réseau local.
+
+Par exemple, connectez tous vos appareils sur le même réseau Wifi. Puis, trouvez sur ce réseau, l'ip de votre poste de développement. Sur Windows, cela ce fait à l'aide de la commande `ipconfig` par exemple.
+
+Une fois votre ip connu, il ne vous reste qu'à définir le hostname et le port d'écoute pour votre instance de développement NodeAtlas :
+
+```
+nodeatlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
+```
+
+Ce qui ouvrira votre site ici : `http://192.168.1.24:7777/`.
+
+Il ne vous reste plus qu'à réclamer cette url depuis vos autres appareils et tester vos rendus et cas d'utilisations.
+
+
+
+
+
+## Environnement de Production ##
 
 ### Dans un environnement Windows Server avec iisnode ###
 
