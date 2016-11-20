@@ -236,36 +236,10 @@ website.config({
 			</nav>
 			<div class="content cmpt">
 				<div class="content--inner">
-					<h2 id="commencer-avec-nodeatlas">Commencer avec NodeAtlas</h2><h3 id="ensemble-de-fichiers">Ensemble de fichiers</h3><p>Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n&#39;importe où ailleurs comme la structure ci-dessous.</p><pre><code>site-hello-world/
-— templates/
-—— index.htm
-— webconfig.json
-</code></pre><p>Voici le fichier « /site-hello-world/templates/index.htm » :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;fr-fr&quot;&gt;
-    &lt;head&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;Hello world&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;div&gt;Ceci est un Hello World !&lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>et ci-après, le fichier « /site-hello-world/webconfig.json ».</p><h3 id="configuration-minimale">Configuration minimale</h3><p>Vous pouvez faire tourner une page simple avec la configuration minimale du « webconfig.json » ci-dessous</p><pre><code class="lang-js">{
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><p>équivalente à</p><pre><code class="lang-js">{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }
-</code></pre><h3 id="lancer-le-site-avec-nodeatlas">Lancer le site avec NodeAtlas</h3><h4 id="-la-ligne-de-commande-en-appelant-le-script">À la ligne de commande en appelant le script</h4><p>Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
-</code></pre><p>À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement (si vous avez téléchargé hors npm).</p><p>Ré-exécutez.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
-</code></pre><p>Vous aurez accès à votre « Hello World » à la page <em><a href="http://localhost/">http://localhost/</a></em> dans un navigateur.</p><h4 id="avec-un-ex-cutable-sur-votre-os">Avec un exécutable sur votre OS</h4><p><strong>Si vous avez installé NodeAtlas avec <code>npm install -g node-atlas</code></strong> vous pouvez également utiliser la commande <code>nodeatlas</code>. <code>nodeatlas</code> est un raccourci de <code>node &lt;/path/to/&gt;node-atlas/</code>.</p><p>Placez-vous toujours avec votre invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.</p><pre><code>\&gt; nodeatlas
-</code></pre><p><em>Note : </em>si la commande <code>nodeatlas</code> n&#39;est pas disponible sous unix après installation (erreur quand vous la tapez), c&#39;est surement à cause d&#39;un problème de droit. Si vous êtes root la commande <code>chown -R root:root /usr/local/bin/</code> avant de retaper <code>npm install -g node-atlas</code> solutionnera votre problème, sinon la utilisez la commande <code>sudo npm install -g node-atlas</code>.*</p><h4 id="via-un-fichier-javascript">Via un fichier JavaScript</h4><p>Vous pouvez également utiliser NodeAtlas comme un module npm.</p><p><em>server.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;);
-
-nodeAtlas().run();
-</code></pre><pre><code>\&gt; node server.js
-</code></pre>
+					<h2 id="environnement-de-développement">Environnement de Développement</h2><p>NodeAtlas utilise Node.js qui est développé sur le moteur V8. Le moteur V8 est également utilisé par les navigateurs Google Chrome et Chromium ce qui fait que NodeAtlas peut être complètement débuggué dans cet environnement.</p><h3 id="debug-du-front-end">Debug du Front-end</h3><p>Vous pouvez débugguer vos rendu HTML, vos règles CSS et votre code JavaScript front-end de la même manière que vous l&#39;auriez fait avec un simple site HTML ou une autre technologie. Vous avez donc accès via F12 à la console JavaScript, aux éléments du DOM éditables, à l&#39;éditeur de propriétés et animations CSS ainsi qu&#39;au débuggeur de fichier JavaScript.</p><p>La nouveauté avec NodeAtlas vient de l&#39;éditeur de CSS. Là où il vous indiquait les fichiers CSS et lignes pour vos fichiers source en CSS, il vous indique pour un fichier CSS généré avec Stylus ou Less le fichier Stylus ou Less ainsi que sa ligne.</p><h3 id="debug-du-back-end">Debug du Back-end</h3><p>À partir de Node.js v6.6+, vous pouvez débugguer tout simplement votre code Back-end dans Google Chrome. Il suffit pour cela d&#39;utiliser l&#39;option <code>--inspect</code> de node.</p><p>Créez vous par exemple un fichier de lancement comme celui-ci :</p><pre><code class="lang-javascript">require(&quot;node&quot;)().init()
+</code></pre><p>puis lancez le avec la commande suivante :</p><pre><code>node --inspect server.js
+</code></pre><p>Le moteur vous communiquera alors l&#39;url d&#39;une page à afficher dans Chrome. Rendez-vous sur cette page afin de voir les messages de la console dans l&#39;onglet <code>console</code>, de debugguer votre code avec la totalité des fichiers utilisés dans <code>source</code> et des tests de performance avec <code>profile</code>.</p><h3 id="tests-de-périphériques">Tests de Périphériques</h3><p>Pour tester votre site ou application web pendant la phase de développement sur vos téléphones mobiles et tablettes il suffit de connecter votre poste de développement et ces appareils sur le même réseau local.</p><p>Par exemple, connectez tous vos appareils sur le même réseau Wifi. Puis, trouvez sur ce réseau, l&#39;ip de votre poste de développement. Sur Windows, cela ce fait à l&#39;aide de la commande <code>ipconfig</code> par exemple.</p><p>Une fois votre ip connu, il ne vous reste qu&#39;à définir le hostname et le port d&#39;écoute pour votre instance de développement NodeAtlas :</p><pre><code>nodeatlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
+</code></pre><p>Ce qui ouvrira votre site ici : <code>http://192.168.1.24:7777/</code>.</p><p>Il ne vous reste plus qu&#39;à réclamer cette url depuis vos autres appareils et tester vos rendus et cas d&#39;utilisations.</p>
 				</div>
 			</div>
 			

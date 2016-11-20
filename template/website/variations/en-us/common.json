@@ -107,8 +107,11 @@
 			"title": "Simple Server",
 			"url": "nodeatlas-as-a-simple-web-server.html"
 		}, {
-			"title": "Others Serveurs",
-			"url": "running-nodeatlas-on-online-server.html"
+			"title": "Development Environment",
+			"url": "development-environment.html"
+		}, {
+			"title": "Production Environment",
+			"url": "production-environment.html"
 		}]
 	}, {
 		"title": "And others?",
