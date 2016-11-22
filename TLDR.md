@@ -1,18 +1,18 @@
 > *NodeAtlas* is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy Component-based websites in order to create great things with standards compliance!
 
-**Vous êtes français ? Le document [derrière ce lien](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) vous sera peut-être plus agréable.**
+**Vous êtes français ? Le document [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
 [![Faites un don](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.7](https://img.shields.io/badge/version-1.7-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.1-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 
 
+## NodeAtlas Official Website ##
+
+> For a complete documentation, you could refer to [the NodeAtlas Official Website](https://haeresis.github.io/NodeAtlas/english/).
+
 
 
 ## Usage ##
-
-For a complete documentation, you could refer to [README.md](http://haeresis.github.io/NodeAtlas).
-
-
 
 ### Step 1 - Install ###
 
@@ -276,12 +276,10 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 ## Documentation ##
 
-
-
 ### About NodeAtlas ##
 
-- [Complete and detailed README.md on GitHub](https://github.com/Haeresis/NodeAtlas)
-- [node-atlas.js documentation for maintainers](http://haeresis.github.io/NodeAtlas/doc/index.html)
+- [Complete and detailed Website](https://haeresis.github.com/NodeAtlas/english/)
+- [node-atlas.js documentation for maintainers](https://haeresis.github.io/NodeAtlas/doc/index.html)
 
 
 
@@ -297,3 +295,19 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 - [Simple Web Server to share directory](https://github.com/Haeresis/SimpleAtlas/).
 - [CSS-driven usage with Less/Stylus preprocessor with CSS Framework](https://github.com/Haeresis/PreprocessorAtlas/).
 - [Website Component Oriented SEO and W3C Compliant](https://github.com/Haeresis/ComponentAtlas/).
+
+
+
+
+
+## NodeAtlas vs Others ##
+
+|                       | **NodeAtlas**                                                                                               | Express                  | Hapi                  | Sails                                       | Restify                  | LoopBack                                          | Meteor                                                      |
+|-----------------------|-------------------------------------------------------------------------------------------------------------|--------------------------|-----------------------|---------------------------------------------|--------------------------|---------------------------------------------------|-------------------------------------------------------------|
+| Type                  | Web **MVC(2)** framework                                                                                    | HTTP server library      | HTTP server framework | Web MVC framework                           | REST HTTP library        | API framework                                     | Full-stack JavaScript app platform                          |
+| Top Features          | Simplicity, **Evolutivity**, Modularity                                                                     | HTTP routing, middleware | Modularity, security  | Rails familiarity, MVC                      | Simplicity, REST routing | Enterprise connectivity                           | Framework Front-end et Back-end                             |
+| Suitable For          | **Web sites**, Web apps, REST APIs, **Templating**                                                          | Simple web apps          | Web apps, APIs        | Web apps, APIs                              | Simple REST APIs         | Web apps, APIs                                    | Web apps                                                    |
+| Pure Node runtime     | Yes                                                                                                         | Yes                      | Yes                   | Yes                                         | Yes                      | Yes                                               | No                                                          |
+| Extensions            | **Atlas plugin**, Npm module, Express middleware                                                            | Express middleware       | Hapi Plugins          |                                             |                          |                                                   | Meteor package and repository, Npm module                   |
+| Data sources          | **Builtin**: In-memory /file (JSON), REST. With **external npm module**: NoSQL (MongoDB...), SQL (MySql...) |                          |                       | In-memory, File, PostgreSQL, MySQL, MongoDB |                          | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages |
+| Main support language | French                                                                                                      | English                  | English               | English                                     | English                  | English                                           | English                                                     |
