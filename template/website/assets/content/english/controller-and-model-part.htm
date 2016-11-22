@@ -1,11 +1,11 @@
-<h2 id="javascript-development-back-end-part">JavaScript Development (Back-end Part)</h2><h3 id="use-nodeatlas-to-run-a-website">Use NodeAtlas to run a website</h3><p>NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;</p><ul>
+<h2 id="controller-and-model-part">Controller and Model Part</h2><p>NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;</p><ul>
 <li>parameters in query part of url (GET),</li>
 <li>parameters in request body (POST),</li>
 <li>connection with database or,</li>
 <li>management of sessions or,</li>
 <li>do AJAX or Websocket request/response and</li>
 <li>do more !</li>
-</ul><p>For that, you could hook to some point of life cycle of the page generation with common controller (<code>commonController</code>) and with specific controller for each page (<code>routes[&lt;route&gt;].controller</code>).</p><p>This is a <code>webconfig.json</code> allows you to manipulate each part of life cycle of a page.</p><pre><code class="lang-js">{
+</ul><h3 id="lifecycle-and-hooks">Lifecycle and Hooks</h3><p>For that, you could hook to some point of life cycle of the page generation with common controller (<code>commonController</code>) and with specific controller for each page (<code>routes[&lt;route&gt;].controller</code>).</p><p>This is a <code>webconfig.json</code> allows you to manipulate each part of life cycle of a page.</p><pre><code class="lang-js">{
     &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {

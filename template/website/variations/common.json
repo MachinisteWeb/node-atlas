@@ -37,7 +37,7 @@
 		"url": "english/index.html"
 	},
 	"goto": {
-		"start": "<button class=\"button\">Commencez</button>",
+		"start": "<button class=\"button\">Commencer</button>",
 		"documentation": "<button class=\"button\">Documentation</button>"
 	},
 	"download": {
@@ -90,10 +90,10 @@
 		}]
 	}, {
 		"title": "View et Template",
-		"url": "cr%C3%A9ation-de-site-partie-front-end.html"
+		"url": "partie-view-et-template.html"
 	}, {
 		"title": "Controller et Model",
-		"url": "d%C3%A9veloppement-javascript-partie-back-end.html"
+		"url": "partie-controller-et-model.html"
 	}, {
 		"title": "Route et Plus",
 		"url": "pour-aller-plus-loin.html",
@@ -107,10 +107,10 @@
 			"title": "Simple Serveur",
 			"url": "nodeatlas-comme-simple-serveur-web.html"
 		}, {
-			"title": "Environnement de Développement",
-			"url": "environnement-de-développement.html"
+			"title": "Développement",
+			"url": "environnement-de-d%C3%A9veloppement.html"
 		}, {
-			"title": "Environnement de Production",
+			"title": "Production",
 			"url": "environnement-de-production.html"
 		}]
 	}, {

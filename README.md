@@ -10,15 +10,19 @@
 
 ## Overview ##
 
-### For What ? ###
+NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run with [Node.js](https://nodejs.org/) verision. NodeAtlas allows you to:
 
-NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run with [Node.js](https://nodejs.org/en/) verision. NodeAtlas allows you to :
+- Create, maintain and document a set of assets HTML / CSS / JavaScript as user interfaces to provide solid guidelines for the realization of website or webapp (i.e. for brands).
 
-   - Create, maintain and document a set of assets HTML/CSS/JavaScript as user interfaces to provide solid Guidelines for the realization of website or webapp (i.e. for brands).
+   Exemple : [Pages, Componants and Web Interface](https://www.lesieur.name/test-case-atlas/) or official NodeAtlas website.
 
-   - Create and maintain and run internationalized wesites without use a single JavaScript file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
+- Create and maintain and run internationalized wesites without use a single JavaScript file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
+   
+   Exemple : [Simple Web Page](http://bruno.lesieur.name/)
 
-   - Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/en/) applications running of all sizes with server-based source code for high performance, indexability for SEO and W3C compliancy. Distant REST APIs are also easily to create.
+- Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/en/) applications running of all sizes with server-based source code for high performance, indexability for SEO and W3C compliancy. Distant REST APIs are also easily to create.
+   
+   Exemple : [Blog](http://blog.lesieur.name/), [Portfolio](http://www.lesieur.name/) or [Distant API](http://www.lesieur.name/api/)
 
 
 
@@ -44,7 +48,7 @@ Starting with a single HTML page,
 
 ### And what about others JavaScript Frameworks? ###
 
-In opposition to others JavaScript Frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real url by Response HTTP. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
+In opposition to others JavaScript Frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real urls by Response HTTP. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by AJAX or Websocket mechanisms. So, NodeAtlas is not an alternative to others Front-end JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side. It's your responsability to spread server-side mechanism to front.
 
 To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API, [you could check this grid](#nodeatlas-vs-others).
 
@@ -69,7 +73,6 @@ This is a list of repository you could analyse to understand NodeAtlas:
 ### Table of Contents ###
 
 - [Overview](#overview)
- - [For What ?](#for-what-)
  - [Why NodeAtlas](#why-nodeatlas)
  - [And what about others JavaScript Frameworks?](#and-what-about-others-javascript-frameworks)
  - [Examples of websites with NodeAtlas](#examples-of-websites-with-nodeatlas)
@@ -83,7 +86,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Fileset](#fileset)
  - [Minimum Requirements](#minimum-requirements)
  - [Run the site with NodeAtlas](#run-the-site-with-nodeatlas)
-- [Create Website (Front-end Part)](#create-website-front-end-part)
+- [View and Template Part](#view-and-template-part)
  - [More one page](#more-one-page)
  - [Template shortcut](#template-shortcut)
  - [Host images, fonts, CSS, JS, etc.](#host-images-fonts-css-js-etc)
@@ -93,8 +96,8 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Change the url parameters](#change-the-url-parameters)
  - [Create your own webconfig variables](#create-your-own-webconfig-variables)
  - [NodeAtlas use to generate HTML assets](#nodeatlas-use-to-generate-html-assets)
-- [JavaScript Development (Back-end Part)](#javascript-development-back-end-part)
- - [Use NodeAtlas to run a website](#use-nodeatlas-to-run-a-website)
+- [Controller and Model Part](#controller-and-model-part)
+ - [Lifecycle and Hooks](#lifecycle-and-hooks)
  - [Use Websocket instead of AJAX](#use-websocket-instead-of-ajax)
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
@@ -180,7 +183,7 @@ Thank you for helping out!
 
 ## Installation ##
 
-Before install NodeAtlas, install [Node.js](https://nodejs.org/en/), we will see this in the section : Install Node.js.
+Before install NodeAtlas, install [Node.js](https://nodejs.org/), we will see this in the section : [Install Node.js](install-node.js) bellow.
 
 ### Install NodeAtlas ###
 
@@ -190,21 +193,21 @@ There are several ways to install NodeAtlas:
 
 - `npm install node-atlas` (recommended for [use as a module](#api--nodeatlas-as-npm-module) in a project).
 
-   _This will install **NodeAtlas** in the `node_modules/node-atlas` directory of the execution of the command._
+   *This will install* **NodeAtlas** *in the `node_modules/node-atlas` directory of the execution of the command.*
 
 - `npm install -g node-atlas` (recommended for [use as a module](#api--nodeatlas-as-npm-module) in large amount of project or for [a command line utilisation](#cli--running-commands)).
 
-   _This will install **NodeAtlas** in the global `node_modules/node-atlas`._
+   *This will install* **NodeAtlas** *in the global `node_modules/node-atlas`.*
 
 - Clone the directory from [GitHub](https://github.com/Haeresis/NodeAtlas/) (recommended for participating to project).
 
-   _This will install **NodeAtlas** in cloning home folder._
+   *This will install* **NodeAtlas** *in cloning home folder.*
 
    **Start at least once NodeAtlas the with the command line `\> node </path/to/>node-atlas/`, to install the _node_modules_.**
 
 - Download NodeAtlas from the official repository [NodeAtlas](https://haeresis.github.com/NodeAtlas).
 
-   _Once downloaded, unzip **NodeAtlas** in the folder that will suit you._
+   *Once downloaded, unzip* **NodeAtlas** *in the folder that will suit you.*
 
    **Start at least once NodeAtlas with the command line `\> node </path/to/>node-atlas/index.js`, to install the _node_modules_ or use `npm install` command from `</path/to/>node-atlas/` directory.**
 
@@ -273,6 +276,8 @@ There is a naming conflict with the node package (Amateur Packet Radio Node Prog
 
 
 ## Start with NodeAtlas ##
+
+We will start with a how to set minimal files to perform a `hello-world`.
 
 ### Fileset ###
 
@@ -378,7 +383,13 @@ nodeAtlas().run();
 
 
 
-## Create Website (Front-end Part) ##
+## View and Template Part ##
+
+NodeAtlas works with a configuration with usage of `webconfig.json` that allow its to scale and upgrade possibilities in a versatille way. For example, to create a website without JavaScript server-side (no controller), just add a `template` parameter to each route.
+
+It's still possible to use JavaScript inline into templates with the capabilities offer by template engine [EJS2](http://ejs.co/) used by NodeAtlas.
+
+We will see all possibilities with couples of templates files together.
 
 ### More one page ###
 
@@ -1325,9 +1336,7 @@ HTML/
 
 
 
-## JavaScript Development (Back-end Part) ##
-
-### Use NodeAtlas to run a website ###
+## Controller and Model Part ##
 
 NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;
 
@@ -1337,6 +1346,10 @@ NodeAtlas is useful for more than simply generate template web page easily based
 - management of sessions or,
 - do AJAX or Websocket request/response and
 - do more !
+
+
+
+### Lifecycle and Hooks ###
 
 For that, you could hook to some point of life cycle of the page generation with common controller (`commonController`) and with specific controller for each page (`routes[<route>].controller`).
 
@@ -3037,6 +3050,8 @@ You will get the following output:
 
 
 ## More Features ##
+
+NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.
 
 ### Manage routing (URL Rewriting) ###
 
@@ -5407,6 +5422,8 @@ You just now reach the url from your other devices to test the render of your ap
 
 
 ## Production Environment ##
+
+It's a good thing to develop, but it's time to run your website or apps on online production server. See this examples.
 
 ### In a Windows Server environment with iisnode ###
 

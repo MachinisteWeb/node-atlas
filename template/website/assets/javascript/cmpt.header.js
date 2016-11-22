@@ -32,7 +32,7 @@ website.component.Header = function () {
         var title = document.querySelector("." + publics.name + "--title h1");
 
         title.addEventListener("click", function () {
-            website.scrollSmoothTo(0, 4);
+            website.scrollSmoothTo(0, 3);
         });
     };
 

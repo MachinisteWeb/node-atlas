@@ -1,6 +1,20 @@
 @import "variables"
 
 .content
+	li
+	p
+		code
+			color #e96900
+			padding 3px 5px
+			margin 0 2px
+			border-radius 2px
+			white-space nowrap
+			background-color  #f8f8f8;
+			font-family monospace
+			font-size 0.8em
+	box-shadow -2px 0 5px rgba(0, 0, 0, 1)
+	font-size 1.5rem
+	line-height: 2rem; 
 	&.with-animation
 		-webkit-transition height 1s ease
 		   -moz-transition height 1s ease 
@@ -31,7 +45,34 @@
 		        box-sizing border-box
 		position relative
 		height 100%
+		width 100%
+		@media (min-width 768px)
+			margin-left 310px 
+			width calc(100% - 310px)
+		padding 0 10px
 		opacity 1
+		&.is-blocked
+			overflow hidden; 
 		&.is-hidden
 			opacity 0 
 			height 0
+	h2
+		-webkit-transition font-size 1s ease
+		   -moz-transition font-size 1s ease
+		    -ms-transition font-size 1s ease
+		     -o-transition font-size 1s ease
+		        transition font-size 1s ease	
+		color #3E863D
+		margin 20px 0 1em
+		font-size 2.4rem
+		@media (min-width 768px)
+			font-size 3rem
+	h3
+		&:nth-child(1)
+			margin-top 20px 
+		font-size 1.8rem
+		@media (min-width 768px)
+			font-size 2.25rem
+		margin 45px 0 0.8em
+		padding-bottom 0.7em
+		border-bottom 1px solid #ddd

@@ -93,7 +93,7 @@
 		"url": "create-website-front-end-part.html"
 	}, {
 		"title": "Controller and Model",
-		"url": "javascript-development-back-end-part.html"
+		"url": "controller-and-model-part.html"
 	}, {
 		"title": "Route and More",
 		"url": "more-features.html",
@@ -107,10 +107,10 @@
 			"title": "Simple Server",
 			"url": "nodeatlas-as-a-simple-web-server.html"
 		}, {
-			"title": "Development Environment",
+			"title": "Development",
 			"url": "development-environment.html"
 		}, {
-			"title": "Production Environment",
+			"title": "Production",
 			"url": "production-environment.html"
 		}]
 	}, {

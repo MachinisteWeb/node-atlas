@@ -87,7 +87,41 @@ website.component.Content = function () {
 		});
 	};
 
+	publics.manageScroll = function () {
+	    function isOnBottom (isCallback, notCallback) {
+	        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop,
+	            windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+	            body = document.body,
+	            html = document.documentElement,
+	            documentHeight = Math.max(
+	                body.scrollHeight, body.offsetHeight, 
+	                html.clientHeight, html.scrollHeight, html.offsetHeight
+	            );
+	        if (documentHeight <= windowHeight + scrollTop) {
+	            isCallback();
+	        } else {
+	            notCallback();
+	        }
+	    }
+
+        function scrollState () {
+            var content = document.getElementsByClassName("content--inner")[0];
+            isOnBottom(function () {
+                content.classList.remove("is-blocked");
+            }, function () {
+                content.classList.add("is-blocked");
+            });
+        }
+
+        window.addEventListener("scroll", function () {
+            scrollState();
+        });
+        scrollState();
+	};
+
 	publics.init = function (links, fragmentPath, urlRelativeSubPath) {
+        publics.manageScroll();
+
 		publics.updateContentByClick(links, fragmentPath, urlRelativeSubPath);
 		publics.updateContentByHistoryBack(fragmentPath, urlRelativeSubPath);
 	};

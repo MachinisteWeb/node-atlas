@@ -1,4 +1,4 @@
-<h2 id="création-de-site-partie-front-end">Création de site (partie Front-end)</h2><h3 id="plusieurs-pages">Plusieurs pages</h3><p>Ci-dessous un exemple de configuration.</p><pre><code class="lang-js">{
+<h2 id="partie-view-et-template">Partie View et Template</h2><p>NodeAtlas fonctionne avec une configuration via l&#39;utilisation d&#39;un <code>webconfig.json</code> qui lui permet d&#39;étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de controller), il suffit de ne renseigner qu&#39;un <code>template</code> pour chaque route.</p><p>Cependant, vous pourrez toujours utilisé du JavaScript inline dans ses templates grâce à l&#39;utilisation du moteur de template <a href="http://ejs.co/">EJS2</a> avec lequel fonctionne NodeAtlas.</p><p>Voyons les possibilités de nos sites par agrégat simple de fichiers templates.</p><h3 id="plusieurs-pages">Plusieurs pages</h3><p>Ci-dessous un exemple de configuration.</p><pre><code class="lang-js">{
     &quot;templatesRelativePath&quot;: &quot;templates&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {

@@ -67,9 +67,11 @@ website.component = website.component || {};
                 last = +new Date();
                 if (+scrollTop > scrollTarget) {
                     requestAnimationFrame(tickMinus);
-                } else if (next) {
+                } else {
                     window.scrollTo(0, scrollTarget);
-                    next();
+                    if (next) {
+                        next();
+                    }
                 }
             };
 

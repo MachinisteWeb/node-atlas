@@ -19,15 +19,31 @@ website.component.Navigation = function () {
     };
 
     publics.openSubMenu = function () {
-        var chevrons = document.querySelectorAll("." + publics.name + "--menu .fa");
+        var chevrons = document.querySelectorAll("." + publics.name + "--menu .fa"),
+            links = document.querySelectorAll("." + publics.name + "--menu a");
+
+        Array.prototype.forEach.call(links, function (link) {
+            link.addEventListener("click", function () {
+                Array.prototype.forEach.call(chevrons, function (chevron) {
+                    chevron.classList.add("fa-chevron-down");
+                    chevron.classList.remove("fa-chevron-up");
+                    chevron.nextElementSibling.classList.remove("is-opened");
+                });
+            });
+        });
 
         Array.prototype.forEach.call(chevrons, function (chevron) {
-            var menu = chevron.nextElementSibling;
-            
             chevron.addEventListener("click", function () {
+                Array.prototype.forEach.call(chevrons, function (otherChevron) {
+                    if (otherChevron !== chevron) {                    
+                        otherChevron.classList.add("fa-chevron-down");
+                        otherChevron.classList.remove("fa-chevron-up");
+                        otherChevron.nextElementSibling.classList.remove("is-opened");  
+                    }
+                });
                 chevron.classList.toggle("fa-chevron-down");
                 chevron.classList.toggle("fa-chevron-up");
-                menu.classList.toggle("is-opened");
+                chevron.nextElementSibling.classList.toggle("is-opened");
             });
         });
     };
@@ -65,16 +81,19 @@ website.component.Navigation = function () {
 
         download.addEventListener("click", function (e) {
             e.preventDefault();
-            website.scrollSmoothTo(200, 4);
+            website.scrollSmoothTo(200, 3);
         });
         Array.prototype.forEach.call(start, function (item) {
             item.addEventListener("click", function () {
-                website.scrollSmoothTo(5, 4);
+                website.scrollSmoothTo(5, 3);
             });
         });
         Array.prototype.forEach.call(menu, function (item) {
+            var content = document.getElementsByClassName("content--inner")[0];
             item.addEventListener("click", function () {
-                website.scrollSmoothTo(350, 4);
+                website.scrollSmoothTo(350 + 10, 3, function () {
+                    content.classList.remove("is-blocked");
+                });
             });
         });
     };

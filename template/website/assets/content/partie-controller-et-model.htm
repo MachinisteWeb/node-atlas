@@ -1,11 +1,11 @@
-<h2 id="développement-javascript-partie-back-end">Développement JavaScript (partie Back-end)</h2><h3 id="utiliser-nodeatlas-pour-faire-tourner-un-site">Utiliser NodeAtlas pour faire tourner un site</h3><p>NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d&#39;intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;</p><ul>
+<h2 id="partie-controller-et-model">Partie Controller et Model</h2><p>NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d&#39;intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;</p><ul>
 <li>des paramètres dans la partie query de l&#39;url (GET),</li>
 <li>des paramètres dans le body de la requête (POST),</li>
 <li>de vous connecter à des bases de donner,</li>
 <li>de maintenir des sessions, </li>
 <li>de faire des échange AJAX ou même Websocket et</li>
 <li>de faire bien plus encore !</li>
-</ul><p>Pour cela, il vous est possible d&#39;intéragir à divers endroit du cycle de vie de création d&#39;une page grâce à un contrôleur commun (<code>commonController</code>) et à un controlleur spécifique à chaque page (<code>routes[&lt;route&gt;].controller</code>).</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d&#39;atteindre tous les points du cycle de vie d&#39;une page.</p><pre><code class="lang-js">{
+</ul><h3 id="cycle-de-vie-et-hooks">Cycle de vie et Hooks</h3><p>Pour cela, il vous est possible d&#39;intéragir à divers endroit (Hooks) du cycle de vie de création d&#39;une page grâce à un contrôleur commun (<code>commonController</code>) et à un controlleur spécifique à chaque page (<code>routes[&lt;route&gt;].controller</code>).</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d&#39;atteindre tous les points du cycle de vie d&#39;une page.</p><pre><code class="lang-js">{
     &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
