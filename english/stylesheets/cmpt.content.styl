@@ -14,8 +14,15 @@
 			font-size 0.8em
 	box-shadow -2px 0 5px rgba(0, 0, 0, 1)
 	font-size 1.5rem
-	line-height: 2rem; 
+	line-height: 2rem;
+	opacity 0 
+	-webkit-transition opacity 1s ease
+	   -moz-transition opacity 1s ease 
+	    -ms-transition opacity 1s ease 
+	     -o-transition opacity 1s ease 
+	        transition opacity 1s ease 
 	&.with-animation
+		opacity 1 
 		-webkit-transition height 1s ease
 		   -moz-transition height 1s ease 
 		    -ms-transition height 1s ease 
