@@ -17,7 +17,9 @@ website.component.Download = function () {
 
     publics.openTab = function () {
         var cli = document.querySelector("." + publics.name + "--cli"),
-            api = document.querySelector("." + publics.name + "--api");
+            api = document.querySelector("." + publics.name + "--api"),
+            about = document.querySelector("." + publics.name + "--about"),
+            tuto = document.querySelector("." + publics.name + "--tuto");
 
         cli.addEventListener("click", function () {
             cli.classList.add("is-active");
@@ -26,6 +28,14 @@ website.component.Download = function () {
         api.addEventListener("click", function () {
             api.classList.add("is-active");
             cli.classList.remove("is-active");
+        });
+        about.addEventListener("click", function () {
+            about.classList.add("is-active");
+            tuto.classList.remove("is-active");
+        });
+        tuto.addEventListener("click", function () {
+            tuto.classList.add("is-active");
+            about.classList.remove("is-active");
         });
     };
 

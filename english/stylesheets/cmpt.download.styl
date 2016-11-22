@@ -66,9 +66,9 @@
 		overflow hidden
 		position absolute
 		background-color rgb(255, 255, 255)
-		background -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0.6) 63%,rgba(255,255,255,0.3) 100%)
-		background    -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 63%, rgba(255,255,255,0.3) 100%)
-		background         linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0.6) 63%,rgba(255,255,255,0.3) 100%)
+		background -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0.7) 63%,rgba(255,255,255,0.4) 100%)
+		background    -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 63%, rgba(255,255,255,0.4) 100%)
+		background         linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0.7) 63%,rgba(255,255,255,0.4) 100%)
 		-webkit-border-radius 8px 
 		        border-radius 8px
 		h2
@@ -99,6 +99,8 @@
 	&--install
 		top 0
 		left 0
+	&--install
+	&--info
 		background-color transparent
 		background-image none
 	&--clone
@@ -171,9 +173,9 @@
 		-webkit-border-top-right-radius 8px
 		        border-top-right-radius 8px
 		background-color rgb(255, 255, 255)
-		background -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.6) 63%,rgba(255,255,255,0.3) 100%)
-		background    -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 63%, rgba(255,255,255,0.3) 100%)
-		background         linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.6) 63%,rgba(255,255,255,0.3) 100%)	
+		background -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.7) 63%,rgba(255,255,255,0.4) 100%)
+		background    -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 63%, rgba(255,255,255,0.4) 100%)
+		background         linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.7) 63%,rgba(255,255,255,0.4) 100%)	
 		position absolute
 		height calc(100% - 24px)
 		width 100%
@@ -226,8 +228,10 @@
 			        transform translate(-50%, -50%) 
 		@media (max-height 739px)
 			display none
+	&--tuto
 	&--api
 	&--cli
+	&--about
 		border-top 1px solid #ccc
 		-webkit-transition width 1s ease, z-index 1s ease 
 		   -moz-transition width 1s ease, z-index 1s ease 
@@ -236,9 +240,9 @@
 		        transition width 1s ease, z-index 1s ease 
 		top 24px 
 		background-color rgb(255, 255, 255)
-		background -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.6) 63%,rgba(255,255,255,0.3) 100%)
-		background    -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 63%, rgba(255,255,255,0.3) 100%)
-		background         linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.6) 63%,rgba(255,255,255,0.3) 100%)	
+		background -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.7) 63%,rgba(255,255,255,0.4) 100%)
+		background    -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 63%, rgba(255,255,255,0.4) 100%)
+		background         linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.7) 63%,rgba(255,255,255,0.4) 100%)	
 		position absolute
 		height calc(100% - 24px)
 		width 0%
@@ -271,7 +275,41 @@
 			width 100%
 		&.is-active
 			width 100%
-			z-index 3
+			z-index 3 
+	&--about
+		left 0
+		z-index 2
+		text-align center
+		&--inner
+			width calc(100% - 40px)
+			min-width 350px
+			position absolute
+			top 50%
+			left 50%
+			-webkit-transform translate(-50%, -50%) 
+			   -moz-transform translate(-50%, -50%) 
+			    -ms-transform translate(-50%, -50%) 
+			     -o-transform translate(-50%, -50%) 
+			        transform translate(-50%, -50%)	
+		&--step1
+			-webkit-box-sizing border-box
+			   -moz-box-sizing border-box
+			        box-sizing border-box
+			float left
+			width 70%
+			margin-left 15%
+			text-indent 32px
+			font-size 1.1rem
+			@media (min-width 420px)
+				margin-left 0
+				width 100%
+				font-size 1.3rem
+			@media (min-width 940px)
+				min-width 540px
+				font-size 1.6rem
+			font-family "Open Sans"
+			text-align justify
+			text-shadow 1px 1px 2px rgba(255, 255, 255, 1), -1px 1px 2px rgba(255, 255, 255, 1), 1px -1px 2px rgba(255, 255, 255, 1), -1px -1px 2px rgba(255, 255, 255, 1)
 	&--cli
 		left 0
 		z-index 2
@@ -295,13 +333,13 @@
 			        box-sizing border-box
 			float left
 		&--step1
-			width calc(100%)
+			width 100%
 			pre
 				padding 1.2rem
 				font-size 2rem 
 			h3
 				text-shadow 1px 1px 2px rgba(255, 255, 255, 1), -1px 1px 2px rgba(255, 255, 255, 1), 1px -1px 2px rgba(255, 255, 255, 1), -1px -1px 2px rgba(255, 255, 255, 1)
-			font-size 1.6rem
+				font-size 1.6rem
 				margin 0 0 4px 0
 		&--step2
 			margin-left 10px
@@ -316,6 +354,31 @@
 			margin-right 10px
 			@media (max-height 530px)
 				display none
+	&--tuto
+		right 0
+		z-index 1
+		text-align center
+		h2
+			text-align right
+			left auto 
+			right -1px
+		&--inner
+			width calc(100% - 40px)
+			min-width 350px
+			position absolute
+			top 50%
+			left 50%
+			-webkit-transform translate(-50%, -50%) 
+			   -moz-transform translate(-50%, -50%) 
+			    -ms-transform translate(-50%, -50%) 
+			     -o-transform translate(-50%, -50%) 
+			        transform translate(-50%, -50%)	
+		&--step1
+			-webkit-box-sizing border-box
+			   -moz-box-sizing border-box
+			        box-sizing border-box
+			float left
+			width 100%
 	&--api
 		right 0
 		z-index 1
