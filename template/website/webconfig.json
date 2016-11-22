@@ -12,7 +12,7 @@
 	"generatesRelativePath": "../../",
 	"routes": "routes.json",
     "urlRelativeSubPath": "NodeAtlas",
-	"_readme": "../../../NodeAtlas/README.md",
+	"_readme": "../../readme.fr.md",
 	"_content": "content/",
 	"_toc": "table-des-matières",
 	"_otherPort": 7778,
