@@ -1,3 +1,7 @@
+# node-atlas #
+
+Créer des sites JavaScript côté serveur et orienté composant facilement !
+
 > *NodeAtlas* est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés Composants respectant les nouveaux standards !
 
 **For an international version of this document, [follow this link](https://www.npmjs.com/package/node-atlas).**
@@ -8,7 +12,7 @@
 
 ## Site Officiel de NodeAtlas ##
 
-> Pour une documentation complète, vous pouvez vous rendre sur [le Site Officiel de NodeAtlas](https://haeresis.github.io/NodeAtlas/).
+**Pour une documentation complète, vous pouvez vous rendre sur [le Site Officiel de NodeAtlas](https://haeresis.github.io/NodeAtlas/).**
 
 
 
