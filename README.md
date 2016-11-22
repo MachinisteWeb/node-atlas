@@ -10,15 +10,19 @@
 
 ## Avant-propos ##
 
-### Pour réaliser quoi ? ###
+NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant avec [Node.js](https://nodejs.org/). Il vous permet de :
 
-NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant avec [Node.js](https://nodejs.org/en/). Il vous permet de :
-
-- Créer, maintenir et documenter des interfaces utilisateurs HTML/CSS/JavaScript pour créer un ensemble d'assets cohérants afin de les fournirs en tant que Guidelines pour la réalisation de divers sites ou applications web.
+- Créer, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour créer un ensemble de livrables clients cohérants afin de les fournirs en tant que guide de style pour la réalisation de divers sites ou applications web.
+   
+   Exemple : [Pages, Composants et Documentation d'interface web](https://www.lesieur.name/test-case-atlas/) ou le site officiel NodeAtlas.
 
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
+   
+   Exemple : [Simple page web](http://bruno.lesieur.name/)
 
 - Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/en/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec des réponses HTTP passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.
+   
+   Exemple : [Blog](http://blog.lesieur.name/), [Portfolio](http://www.lesieur.name/) ou [API Distante](http://www.lesieur.name/api/)
 
 
 
@@ -44,9 +48,9 @@ Commencez avec une simple page HTML,
 
 ### Et les autres Frameworks JavaScript ? ###
 
-Contrairement aux Frameworks JavaScript comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des url en retour HTTP. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la Response HTTP en premier lieu, et est ensuite modifié par requête Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). . NodeAtlas est donc une alternative à Sails ou Meteor. NodeAtlas forme un socle en dessous et remplace bien votre PHP, JAVA ou C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initial (que vous pouvez complètement changer) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
+Contrairement aux Frameworks JavaScript comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des urls par retour HTTP. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifié par requête AJAX ou Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, JAVA ou encore C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
-Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur, [vous pouvez consulter cette grille](#nodeatlas-vs-les-autres).
+Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur, [vous pouvez consulter cette grille](./plus-sur-nodeatlas.html#nodeatlas-vs-les-autres).
 
 
 
@@ -69,7 +73,6 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 ### Table des matières ###
 
 - [Avant-propos](#avant-propos)
- - [Pour réaliser quoi ?](#pour-réaliser-quoi-)
  - [Pourquoi NodeAtlas ?](#pourquoi-nodeatlas-)
  - [Et les autres Frameworks JavaScript ?](#et-les-autres-frameworks-javascript-)
  - [Exemples de réalisations avec NodeAtlas](#exemples-de-réalisations-avec-nodeatlas)
@@ -83,7 +86,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Ensemble de fichiers](#ensemble-de-fichiers)
  - [Configuration minimale](#configuration-minimale)
  - [Lancer le site avec NodeAtlas](#lancer-le-site-avec-nodeatlas)
-- [Création de site (partie Front-end)](#création-de-site-partie-front-end)
+- [Partie View et Template](#partie-view-et-template)
  - [Plusieurs pages](#plusieurs-pages)
  - [Raccourci de template](#raccourci-de-template)
  - [Héberger des images, polices, CSS, JS, etc.](#héberger-des-images-polices-css-js-etc)
@@ -93,8 +96,8 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Changer les paramètres d'url](#changer-les-paramètres-durl)
  - [Créer ses propres variables de webconfig](#créer-ses-propres-variables-de-webconfig)
  - [Utiliser NodeAtlas pour générer des maquettes HTML](#utiliser-nodeatlas-pour-générer-des-maquettes-html)
-- [Développement JavaScript (partie Back-end)](#développement-javascript-partie-back-end)
- - [Utiliser NodeAtlas pour faire tourner un site](#utiliser-nodeatlas-pour-faire-tourner-un-site)
+- [Partie Controller et Model](#partie-controller-et-model)
+ - [Cycle de Vie et Hooks](#cycle-de-vie-et-hooks)
  - [Utiliser les Websocket à la place des échanges AJAX](#utiliser-les-websocket-à-la-place-des-échanges-ajax)
  - [Utiliser une base de donnée MySQL (SQL)](#utiliser-une-base-de-donnée-mysql-sql)
  - [Utiliser une base de donnée MongoDB (NoSQL)](#utiliser-une-base-de-donnée-mongodb-nosql)
@@ -180,7 +183,7 @@ Merci d'avance pour votre aide !
 
 ## Installation ##
 
-Avant toutes choses, assurez-vous d'avoir installé [Node.js](https://nodejs.org/en/), nous verrons cela dans la section : Installation de Node.js plus bas.
+Avant de pouvoir installer NodeAtlas, assurez-vous d'avoir installé [Node.js](https://nodejs.org/), nous verrons cela dans la section : [Installation de Node.js](#installation-de-node.js) plus bas.
 
 ### Installation de NodeAtlas ###
 
@@ -190,21 +193,21 @@ Il y a plusieurs manières d'installer NodeAtlas :
 
 - `npm install node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans un projet).
 
-   _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` du dossier d'exécution de la commande._
+   *Ceci installera* **NodeAtlas** *dans le dossier `node_modules/node-atlas` du dossier d'exécution de la commande.*
 
 - `npm install -g node-atlas` (recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans beaucoup de projet ou pour [un usage à la ligne de commande](#cli--commandes-de-lancement)).
 
-   _Ceci installera **NodeAtlas** dans le dossier `node_modules/node-atlas` global._
+   *Ceci installera* **NodeAtlas** *dans le dossier `node_modules/node-atlas` global.*
 
 - Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas/) (recommandé pour participer au développement).
 
-   _Ceci installera **NodeAtlas** dans le dossier d'accueil du clonage._
+   *Ceci installera* **NodeAtlas** *dans le dossier d'accueil du clonage.*
 
    **Lancez au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
 
 - Télécharger NodeAtlas depuis le site dépôt [NodeAtlas](https://github.com/Haeresis/NodeAtlas).
 
-   _Une fois téléchargé, dézippez **NodeAtlas** dans le dossier qui vous conviendra._
+   *Une fois téléchargé, dézippez* **NodeAtlas** *dans le dossier qui vous conviendra.*
 
    **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
 
@@ -273,6 +276,8 @@ Il y a un conflit de nom entre le node de package (Amateur Packet Radio Node Pro
 
 
 ## Commencer avec NodeAtlas ##
+
+Nous allons voir pour commencer mettre en place l'ensemble de fichier minimal afin de réaliser un `hello-world`.
 
 ### Ensemble de fichiers ###
 
@@ -378,7 +383,13 @@ nodeAtlas().run();
 
 
 
-## Création de site (partie Front-end) ##
+## Partie View et Template ##
+
+NodeAtlas fonctionne avec une configuration via l'utilisation d'un `webconfig.json` qui lui permet d'étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de controller), il suffit de ne renseigner qu'un `template` pour chaque route.
+
+Cependant, vous pourrez toujours utilisé du JavaScript inline dans ses templates grâce à l'utilisation du moteur de template [EJS2](http://ejs.co/) avec lequel fonctionne NodeAtlas.
+
+Voyons les possibilités de nos sites par agrégat simple de fichiers templates.
 
 ### Plusieurs pages ###
 
@@ -1325,9 +1336,7 @@ HTML/
 
 
 
-## Développement JavaScript (partie Back-end) ##
-
-### Utiliser NodeAtlas pour faire tourner un site ###
+## Partie Controller et Model ##
 
 NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 
@@ -1338,7 +1347,11 @@ NodeAtlas ne se contente pas que de faciliter la génération de page web en fon
 - de faire des échange AJAX ou même Websocket et
 - de faire bien plus encore !
 
-Pour cela, il vous est possible d'intéragir à divers endroit du cycle de vie de création d'une page grâce à un contrôleur commun (`commonController`) et à un controlleur spécifique à chaque page (`routes[<route>].controller`).
+
+
+### Cycle de vie et Hooks ###
+
+Pour cela, il vous est possible d'intéragir à divers endroit (Hooks) du cycle de vie de création d'une page grâce à un contrôleur commun (`commonController`) et à un controlleur spécifique à chaque page (`routes[<route>].controller`).
 
 Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous les points du cycle de vie d'une page.
 
@@ -3037,6 +3050,8 @@ Vous obtiendrez la sortie suivante :
 
 
 ## Pour aller plus loin ##
+
+NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.
 
 ### Gérer le routage (Url Rewriting) ###
 
@@ -5407,6 +5422,8 @@ Il ne vous reste plus qu'à réclamer cette url depuis vos autres appareils et t
 
 
 ## Environnement de Production ##
+
+C'est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.
 
 ### Dans un environnement Windows Server avec iisnode ###
 
