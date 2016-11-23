@@ -10,7 +10,7 @@
 	"generatesRelativePath": "../../",
     "urlRelativeSubPath": "NodeAtlas",
 	"routes": "routes.json",
-	"_readme": "../../readme.en.fr",
+	"_readme": "../../readme.fr.md",
 	"_content": "content/",
 	"_toc": "table-des-matières",
 	"_min": true

@@ -111,6 +111,8 @@ exports.setRoutes = function (next) {
                         "template": "content.htm",
                         "controller": "content.js"
                     };
+                    //console.log("===================================");
+                    //console.log(route);
 
                     nextRoute();
                 });
