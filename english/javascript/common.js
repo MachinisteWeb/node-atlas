@@ -87,17 +87,17 @@ website.component = website.component || {};
             scrollTop = document.body.scrollTop || document.documentElement.scrollTop,
             windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-        function goTop(n) {
+        function goBottom(n) {
             if (n > 0) {
                 setTimeout(function () {
                     window.scrollTo(0, scrollTop + windowHeight);
-                    goTop(n - 1);
+                    goBottom(n - 1);
                 }, 200);
             }
         }
 
         if (anchor) {
-            goTop(2);
+            goBottom(2);
             container.scrollTop = anchor.offsetTop;
         }
     };

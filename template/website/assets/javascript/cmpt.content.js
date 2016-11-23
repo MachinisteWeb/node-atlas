@@ -96,7 +96,11 @@ website.component.Content = function () {
 						contentBefore.parentNode.removeChild(contentBefore);
 					}, 1000);
 		        });
-		    }
+		    } else if (location.href.split("#")[1]) {
+    			website.goToHash(document.getElementsByClassName("content--inner")[0], location.href.split("#")[1]);
+	    	} else {
+	    		window.history.back();
+	    	}
 		});
 	};
 
