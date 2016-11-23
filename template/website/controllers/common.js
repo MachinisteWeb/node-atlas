@@ -46,7 +46,11 @@ exports.setRoutes = function (next) {
 
         $("h3[id=" + key + "]").each(function () {
             var $title = $(this),
-                $toc = $title.next();
+                $toc = $title.next(),
+                $titleFinal = $("<h2>");
+
+            $titleFinal.html($title.html());
+            $title.after($titleFinal);
 
             $toc.addClass("toc");
 
@@ -72,9 +76,10 @@ exports.setRoutes = function (next) {
             });
 
             menu = function (next) {
-                fs.writeFile("assets/" + NA.webconfig._content + "index.htm", $title + $toc, function () {
+                fs.writeFile("assets/" + NA.webconfig._content + "index.htm", $titleFinal + $toc, function () {
                 	var $base = $toc.clone();
                     $toc.remove();
+                    $titleFinal.remove();
                     $title.remove();
 
                     $("a").filter(function (index, element) {

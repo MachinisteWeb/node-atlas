@@ -46,6 +46,7 @@ website.component.Content = function () {
        				website.highlightCode();
        				publics.updateContentByClick(website.allInternalLink(".content--inner a"), fragmentPath, urlRelativeSubPath);
        				publics.getAnchor();
+       				publics.constructLinks(contentBefore.querySelectorAll("h3"));
        				website.goToHash(contentBefore, hash);
 
 				    setTimeout(function () {
@@ -84,6 +85,7 @@ website.component.Content = function () {
         			website.highlightCode();
        				publics.updateContentByClick(website.allInternalLink(".content--inner a"), fragmentPath, urlRelativeSubPath);
 			        publics.getAnchor();
+        			publics.constructLinks(contentAfter.querySelectorAll("h3"));
        				website.goToHash(contentAfter, e.state.hash);
 
 				    setTimeout(function () {
@@ -94,8 +96,6 @@ website.component.Content = function () {
 						contentBefore.parentNode.removeChild(contentBefore);
 					}, 1000);
 		        });
-		    } else {
-		        history.back();
 		    }
 		});
 	};
@@ -132,11 +132,37 @@ website.component.Content = function () {
         scrollState();
 	};
 
+	publics.constructLinks = function (allH3) {
+        var outer = document.querySelector(".content--outer"),
+        	ul = document.createElement("ul"),
+        	h3 = document.createElement("h3");
+
+        h3.innerHTML = outer.getAttribute("data-name");
+
+    	ul.innerHTML = "";
+    	outer.innerHTML = "";
+
+        Array.prototype.forEach.call(allH3, function (h3) {
+        	var li =  document.createElement("li"),
+        		link = document.createElement("a");
+
+        	link.href = location.href.split("#")[0] + "#" + h3.id;
+        	link.innerHTML = h3.innerHTML;
+        	li.appendChild(link);
+        	ul.appendChild(li);
+        });
+        if (allH3.length) {
+    		outer.appendChild(h3);
+        }
+    	outer.appendChild(ul);
+	};
+
 	publics.init = function (links, fragmentPath, urlRelativeSubPath) {
         publics.manageScroll();
         publics.getAnchor();
 
 		publics.updateContentByClick(links, fragmentPath, urlRelativeSubPath);
 		publics.updateContentByHistoryBack(fragmentPath, urlRelativeSubPath);
+        publics.constructLinks(document.querySelectorAll(".content--inner h3"));
 	};
 };

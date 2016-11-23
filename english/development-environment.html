@@ -248,6 +248,7 @@ website.config({
 				</div>
 			</nav>
 			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
 					<h2 id="development-environment">Development Environment</h2><p>NodeAtlas use Node.js which is developed on V8 Engine. The V8 Engine is also used by Google Chrome and Chromium which do NodeAtlas could be debug with this environment.</p><h3 id="front-end-debug">Front-end Debug</h3><p>You could debug your HTML render, your CSS files and your JavaScript front-end code in the same way that you&#39;ll do that with a simple HTML website or another technology. You have acces with F12 to the JavaScript console, to DOM editable elements, to the CSS property and animation editor and also to the JavaScript file débug system.</p><p>The new thing introduce with NodeAtlas is into the CSS editor. Instead of show you name and line of CSS file for rules of an element, if this CSS file was generated from a Stylus or Less, it&#39;s the Stylus or Less name and line that you&#39;ll see in the editor.</p><h3 id="back-end-debug">Back-end Debug</h3><p>From Node.js v6.6+, you could debug your Back-end code with Google Chrome. You have just to do that to use the <code>--inspect</code> option of node.</p><p>Create for example a starting point file like this :</p><pre><code class="lang-javascript">require(&quot;node&quot;)().init()
 </code></pre><p>and run the following command :</p><pre><code>node --inspect server.js

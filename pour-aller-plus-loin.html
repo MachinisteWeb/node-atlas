@@ -248,6 +248,7 @@ website.config({
 				</div>
 			</nav>
 			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
 					<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gérer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d&#39;url dynamiques !</p><h4 id="standard">Standard</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
@@ -1415,7 +1416,7 @@ exports.setSessions = website.setSessions;
         }
     }
 }
-</code></pre><h3 id="générer-les-urls-dynamiquement">Générer les urls dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n&#39;ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l&#39;adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong><a href="http://localhost">http://localhost</a></strong><code>impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu&#39;il faudrait alors que notre chemin soit plutôt</code>../media/images/example.jpg`).</p><p>Pour ne plus avoir à se soucier de l&#39;accès aux ressources peu importe l&#39;url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; /&gt;
+</code></pre><h3 id="générer-les-urls-dynamiquement">Générer les urls dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n&#39;ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l&#39;adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong><a href="http://localhost">http://localhost</a></strong> impossible à récupérer quand le template est affiché à <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu&#39;il faudrait alors que notre chemin soit plutôt <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir à se soucier de l&#39;accès aux ressources peu importe l&#39;url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;img src=&quot;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;

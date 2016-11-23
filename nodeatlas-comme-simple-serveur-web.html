@@ -248,6 +248,7 @@ website.config({
 				</div>
 			</nav>
 			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
 					<h2 id="nodeatlas-comme-simple-serveur-web">NodeAtlas comme simple serveur web</h2><p>Si NodeAtlas ne trouve pas le « webconfig.json » ou le <code>--webconfig</code> que vous lui aurez indiqué, il se lancera en mode « Simple Serveur Web » ou « Public ».</p><p><strong>Ce mode est pratique pour tester très rapidement que NodeAtlas est correctement installé ou pour créer des petits exemples HTML qui ont besoin d&#39;un serveur web pour fonctionner (retours AJAX, iframe embarquée, etc.).</strong></p><p>Pour bien comprendre ce que cela signifie : s&#39;il existe un quelconque fichier dans le répertoire d&#39;où NodeAtlas a été lancé, il sera renvoyé par requête HTTP si on le réclame via son chemin d&#39;accès.</p><p>Par exemple, en lançant NodeAtlas dans le répertoire <code>site-hello-world</code></p><pre><code>site-hello-world/
 — templates/

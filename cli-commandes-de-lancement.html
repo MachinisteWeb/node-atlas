@@ -248,6 +248,7 @@ website.config({
 				</div>
 			</nav>
 			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
 					<h2 id="cli-commandes-de-lancement">CLI / Commandes de lancement</h2><p>La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>. Cependant il existe des options de lancement pour faire bien plus que lancer le site.</p><p>Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
 </code></pre><h3 id="directory-lt-path-gt">--directory &lt;path&gt;</h3><p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande <code>--directory</code> vous sera alors très utile.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
