@@ -13,5 +13,5 @@
 	"_readme": "../../readme.en.fr",
 	"_content": "content/",
 	"_toc": "table-des-matières",
-	"_min": ""
+	"_min": true
 }
