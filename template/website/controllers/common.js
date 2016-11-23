@@ -112,12 +112,12 @@ exports.setRoutes = function (next) {
 
             allRoutes.push(function (nextRoute) {
                 fs.writeFile("assets/" + NA.webconfig._content + encodeURIComponent($title.attr("id")) + ".htm", $title + $title.nextUntil("h2"), function () {
-                    route["/" + encodeURIComponent($title.attr("id")) + ".html"] = {
-                        "template": "content.htm",
-                        "controller": "content.js"
-                    };
-                    //console.log("===================================");
-                    //console.log(route);
+                    if ($title.attr("id")) {
+                        route["/" + encodeURIComponent($title.attr("id")) + ".html"] = {
+                            "template": "content.htm",
+                            "controller": "content.js"
+                        };
+                    }
 
                     nextRoute();
                 });
