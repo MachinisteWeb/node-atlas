@@ -67,7 +67,7 @@ website.component.Content = function () {
 				contentBefore = contentBeforeTemp[contentBeforeTemp.length - 1],
 				contentAfter = document.createElement("div");
 
-		    //if (e.state) {
+		    if (e.state) {
 				contentAfter.classList.add(publics.name + "--inner");
 				contentAfter.classList.add("is-hidden");
         		contentBefore.parentNode.insertBefore(contentAfter, contentBefore.nextElementSibling);
@@ -96,13 +96,13 @@ website.component.Content = function () {
 						contentBefore.parentNode.removeChild(contentBefore);
 					}, 1000);
 		        });
-		    /*} else {
+		    } else {
 		    	if (location.href.split("#")[1]) {
 	    			website.goToHash(document.getElementsByClassName("content--inner")[0], location.href.split("#")[1]);
 		    	} else {
 		    		window.history.back();
 		    	}
-		    }*/
+		    }
 		});
 	};
 
