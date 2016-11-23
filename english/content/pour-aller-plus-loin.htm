@@ -168,7 +168,7 @@ webconfig.prod.json
             &quot;statusCode&quot;: 301
         },
         &quot;/aller-sur-node-atlas/&quot;: {
-            &quot;redirect&quot;: &quot;http://haeresis.github.io/NodeAtlas/&quot;,
+            &quot;redirect&quot;: &quot;https://haeresis.github.io/NodeAtlas/&quot;,
             &quot;statusCode&quot;: 302
         },
         &quot;/&quot;: {
@@ -178,7 +178,7 @@ webconfig.prod.json
 }
 </code></pre><p>Vous serez redirigé :</p><ul>
 <li>sur <code>http://localhost/liste-des-membres/</code> quand vous accéderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection permanente</em>.</li>
-<li>sur <code>http://haeresis.github.io/NodeAtlas/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
+<li>sur <code>https://haeresis.github.io/NodeAtlas/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
 </ul><h4 id="en-dynamique">En dynamique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/&quot;: {
@@ -1058,7 +1058,7 @@ templates/
         ...
     }
 }
-</code></pre><p>L&#39;intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="stockage-externe-des-sessions">Stockage externe des Sessions</h3><p>Par défaut, c&#39;est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p><p>Pour résoudre ce souci, il convient de prendre en charge l&#39;enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p><p>Pour cela il suffit d&#39;utiliser la fonction <code>setSessions</code> dans le fichier <code>controllers/common.js</code> de la <a href="#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end">partie Back-end</a>.</p><h4 id="session-g-r-es-avec-redis">Session gérées avec Redis</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans Redis en local.</p><pre><code>var website = {};
+</code></pre><p>L&#39;intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="stockage-externe-des-sessions">Stockage externe des Sessions</h3><p>Par défaut, c&#39;est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p><p>Pour résoudre ce souci, il convient de prendre en charge l&#39;enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p><p>Pour cela il suffit d&#39;utiliser la fonction <code>setSessions</code> dans le fichier <code>controllers/common.js</code> de la <a href="partie-controller-et-model.html">partie Back-end</a>.</p><h4 id="session-g-r-es-avec-redis">Session gérées avec Redis</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans Redis en local.</p><pre><code>var website = {};
 
 (function (publics) {
     &quot;use strict&quot;;

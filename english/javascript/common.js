@@ -207,6 +207,12 @@ website.component = website.component || {};
         allowAnimation();
     };
 
+    publics.allInternalLink = function (path) {
+        return Array.prototype.filter.call(document.querySelectorAll(path), function (item) {
+            return !/^http/.test(item.getAttribute("href"));
+        });
+    };
+
     publics.googleAnalytics = function () {
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -219,7 +225,7 @@ website.component = website.component || {};
     };
 
     publics.init = function () {
-        var links = document.querySelectorAll(".navigation--home a, .navigation--menu a, .toc a"),
+        var links = website.allInternalLink(".navigation--home a, .navigation--menu a, .content--inner a"),
             fragmentPath = document.body.getAttribute("data-content"),
             urlRelativeSubPath = document.body.getAttribute("data-subpath"),
             content = document.getElementsByClassName("content--inner")[0];

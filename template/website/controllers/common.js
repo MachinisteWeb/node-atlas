@@ -34,6 +34,15 @@ exports.setRoutes = function (next) {
 
             $title.attr("id", toUrl($title.text()));
         });
+        $("table").each(function () {
+            var $table = $(this),
+            	$container = $("<div>");
+
+            $container.addClass("table");
+            $table.after($container);
+            $container.html($table.clone());
+            $table.remove();
+        });
 
         $("h3[id=" + key + "]").each(function () {
             var $title = $(this),
@@ -46,13 +55,15 @@ exports.setRoutes = function (next) {
                     $subtitle = $sublink.find("> a"),
                     url = encodeURIComponent(toUrl($subtitle.text())) + ".html";
 
+                $subtitle.attr("data-href", $subtitle.attr("href"));
                 $subtitle.attr("href", url);
 
                 $sublink.find("> ul > li").each(function () {
                     var $sublink = $(this),
                         $subtitle = $sublink.find("> a");
 
-                    $subtitle.attr("href", url + "#" + encodeURIComponent(toUrl($subtitle.text())));
+                    $subtitle.attr("data-href", $subtitle.attr("href"));
+                	$subtitle.attr("href", url + "#" + encodeURIComponent(toUrl($subtitle.text())));
 
                     if (toUrl($subtitle.text()) === key) {
                         $sublink.remove();
@@ -62,8 +73,28 @@ exports.setRoutes = function (next) {
 
             menu = function (next) {
                 fs.writeFile("assets/" + NA.webconfig._content + "index.htm", $title + $toc, function () {
+                	var $base = $toc.clone();
                     $toc.remove();
                     $title.remove();
+
+                    $("a").filter(function (index, element) {
+                    	return !$(element).is("[href^=http]");
+                    }).each(function () {
+                    	var $needTransform = $(this);
+                    	$base.find("> li").each(function () {
+                    		var $subitem = $(this),
+                    			$link = $subitem.find("a");
+                    		if ($link.attr("data-href") === $needTransform.attr("href")) {
+                				$needTransform.attr("href", $link.attr("href"));
+                    		}
+                    		$subitem.find("> ul > li a").each(function () {
+                    			var $sublink = $(this);
+                    			if ($sublink.attr("data-href") === $needTransform.attr("href")) {
+	                				$needTransform.attr("href", $sublink.attr("href"));
+	                    		}
+							});
+                    	});
+        			});
 
                     next();
                 });

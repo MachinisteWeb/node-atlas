@@ -2,7 +2,7 @@
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.7](https://img.shields.io/badge/version-1.7-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.1-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
-**For an international version of this README.md, [follow this link](http://haeresis.github.io/NodeAtlas/doc/index.html).**
+**For an international version of this README.md, [follow this link](https://haeresis.github.io/NodeAtlas/doc/index.html).**
 
 
 
@@ -50,7 +50,7 @@ Commencez avec une simple page HTML,
 
 Contrairement aux Frameworks JavaScript comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des urls par retour HTTP. Les sites sont indexables et valides W3C c'est à dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifié par requête AJAX ou Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks Front-end JavaScript qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, JAVA ou encore C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
-Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur, [vous pouvez consulter cette grille](./plus-sur-nodeatlas.html#nodeatlas-vs-les-autres).
+Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur, [vous pouvez consulter cette grille](#nodeatlas-vs-les-autres).
 
 
 
@@ -81,7 +81,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Contribution](#contribution)
 - [Installation](#installation)
  - [Installation de NodeAtlas](#installation-de-nodeatlas)
- - [Installation de Node.js](#installation-de-node-js)
+ - [Installation de Node.js](#installation-de-nodejs)
 - [Commencer avec NodeAtlas](#commencer-avec-nodeatlas)
  - [Ensemble de fichiers](#ensemble-de-fichiers)
  - [Configuration minimale](#configuration-minimale)
@@ -144,6 +144,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Dans un environnement Unix avec Nginx](#dans-un-environnement-unix-avec-nginx)
  - [Proxy](#proxy)
 - [Plus sur NodeAtlas](#plus-sur-nodeatlas)
+ - [NodeAtlas VS les autres](#nodeatlas-vs-les-autres)
 
 
 
@@ -151,7 +152,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 
 En complément de ce README, vous avez également accès au,
 - [tl;dr](http://blog.lesieur.name/nodeatlas-le-framework-nodejs-mvc2-oriente-front-end/) et aux
-- [détails des fonctions de l'objet NA](http://haeresis.github.io/NodeAtlas/doc/index.html) (En).
+- [détails des fonctions de l'objet NA](https://haeresis.github.io/NodeAtlas/doc/index.html) (En).
 
 
 
@@ -183,7 +184,7 @@ Merci d'avance pour votre aide !
 
 ## Installation ##
 
-Avant de pouvoir installer NodeAtlas, assurez-vous d'avoir installé [Node.js](https://nodejs.org/), nous verrons cela dans la section : [Installation de Node.js](#installation-de-node.js) plus bas.
+Avant de pouvoir installer NodeAtlas, assurez-vous d'avoir installé [Node.js](https://nodejs.org/), nous verrons cela dans la section : [Installation de Node.js](#installation-de-nodejs) plus bas.
 
 ### Installation de NodeAtlas ###
 
@@ -3341,7 +3342,7 @@ Voyez l'exemple ci-dessous :
             "statusCode": 301
         },
         "/aller-sur-node-atlas/": {
-            "redirect": "http://haeresis.github.io/NodeAtlas/",
+            "redirect": "https://haeresis.github.io/NodeAtlas/",
             "statusCode": 302
         },
         "/": {
@@ -3354,7 +3355,7 @@ Voyez l'exemple ci-dessous :
 Vous serez redirigé :
 
 - sur `http://localhost/liste-des-membres/` quand vous accéderez à `http://localhost/liste-des-membres` avec une entête _redirection permanente_.
-- sur `http://haeresis.github.io/NodeAtlas/` quand vous accéderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
+- sur `https://haeresis.github.io/NodeAtlas/` quand vous accéderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
 
 #### En dynamique ####
 
@@ -4730,7 +4731,7 @@ Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du ser
 
 Pour résoudre ce souci, il convient de prendre en charge l'enregistrement des sessions via une base No SQL tel que `Redis` ou `MongoBD`.
 
-Pour cela il suffit d'utiliser la fonction `setSessions` dans le fichier `controllers/common.js` de la [partie Back-end](#utiliser-nodeatlas-pour-faire-tourner-un-site-partie-back-end).
+Pour cela il suffit d'utiliser la fonction `setSessions` dans le fichier `controllers/common.js` de la [partie Back-end](#partie-controller-et-model).
 
 #### Session gérées avec Redis ####
 

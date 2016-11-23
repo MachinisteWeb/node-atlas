@@ -44,7 +44,7 @@ website.component.Content = function () {
 				    contentBefore.innerHTML = response;
 				    website.smartTargetInjection();
        				website.highlightCode();
-       				publics.updateContentByClick(document.querySelectorAll(".toc a"), fragmentPath, urlRelativeSubPath);
+       				publics.updateContentByClick(website.allInternalLink(".content--inner a"), fragmentPath, urlRelativeSubPath);
        				publics.getAnchor();
        				website.goToHash(contentBefore, hash);
 
@@ -82,7 +82,7 @@ website.component.Content = function () {
 				    contentAfter.innerHTML = response;
 				    website.smartTargetInjection();
         			website.highlightCode();
-       				publics.updateContentByClick(document.querySelectorAll(".toc a"), fragmentPath, urlRelativeSubPath);
+       				publics.updateContentByClick(website.allInternalLink(".content--inner a"), fragmentPath, urlRelativeSubPath);
 			        publics.getAnchor();
        				website.goToHash(contentAfter, e.state.hash);
 

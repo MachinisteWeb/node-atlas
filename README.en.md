@@ -79,9 +79,9 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Table of Contents](#table-of-contents)
  - [Documentation](#documentation)
  - [Contributing](#contributing)
-- [Installation](#installation)
+- [Installing](#installing)
  - [Install NodeAtlas](#install-nodeatlas)
- - [Install Node.js](#install-node-js)
+ - [Install Node.js](#install-nodejs)
 - [Start with NodeAtlas](#start-with-nodeatlas)
  - [Fileset](#fileset)
  - [Minimum Requirements](#minimum-requirements)
@@ -144,6 +144,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [In a Unix environment with Nginx](#in-a-unix-environment-with-nginx)
  - [Proxy](#proxy)
 - [More About NodeAtlas](#more-about-nodeatlas)
+ - [NodeAtlas VS Others](#nodeatlas-vs-others)
 
 
 
@@ -151,7 +152,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
 
 In addition to this README, you also have access to,
 - [tl;dr](https://www.npmjs.com/package/node-atlas) and,
-- [details of functions in the NA object](http://haeresis.github.io/NodeAtlas/doc/index.html).
+- [details of functions in the NA object](https://haeresis.github.io/NodeAtlas/doc/index.html).
 
 
 
@@ -181,9 +182,9 @@ Thank you for helping out!
 
 
 
-## Installation ##
+## Installing ##
 
-Before install NodeAtlas, install [Node.js](https://nodejs.org/), we will see this in the section : [Install Node.js](install-node.js) bellow.
+Before install NodeAtlas, install [Node.js](https://nodejs.org/), we will see this in the section : [Install Node.js](#install-nodejs) bellow.
 
 ### Install NodeAtlas ###
 
@@ -3341,7 +3342,7 @@ See the example below:
             "statusCode": 301
         },
         "/go-to-node-atlas/": {
-            "redirect": "http://haeresis.github.io/NodeAtlas/",
+            "redirect": "https://haeresis.github.io/NodeAtlas/",
             "statusCode": 302
         },
         "/": {
@@ -3354,7 +3355,7 @@ See the example below:
 You will be redirected:
 
 - to `http://localhost/list-of-members/` when you access `http://localhost/list-of-members` with a header _permanent redirect_.
-- to `http://haeresis.github.io/NodeAtlas/` when you access `http://localhost/go-to-node-atlas/` with a header _temporary redirect_.
+- to `https://haeresis.github.io/NodeAtlas/` when you access `http://localhost/go-to-node-atlas/` with a header _temporary redirect_.
 
 #### Dynamic ####
 
@@ -4730,7 +4731,7 @@ By default, this is NodeAtlas server that stores sessions in the RAM of the serv
 
 To address this concern, it should support the recording sessions via a base No SQL such as `Redis` or `MongoBD`.
 
-You just have to use the `setSessions` function in` controllers/common.js` of [partie Back-end](#use-nodeatlas-to-run-a-website-back-end-part).
+You just have to use the `setSessions` function in` controllers/common.js` of [Back-end part](#controller-and-model-part).
 
 #### Session managed with Redis ####
 
