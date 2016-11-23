@@ -56,7 +56,7 @@
 		@media (min-width 768px)
 			margin-left 310px 
 			width calc(100% - 310px)
-		padding 0 10px
+		padding 0 20px
 		opacity 1
 		&.is-blocked
 			overflow hidden; 
@@ -82,6 +82,30 @@
 		line-height: 2rem;
 		@media (min-width 768px)
 			font-size 2.25rem
-		margin 45px 0 0.8em
-		padding-bottom 0.7em
+		margin 1.3em 0 0.8em
+		padding 0.7em 0
 		border-bottom 1px solid #ddd
+	h2
+	h3
+		position relative
+		cursor pointer
+		&:hover::before
+			content "\f13d"
+			font-family "FontAwesome"
+			z-index 1
+			overflow hidden
+			display inline-block
+			margin 0
+			text-align center
+			top 50%
+			right calc(100% + 2px)
+			width 18px 
+			position absolute
+			-webkit-transform translateY(-50%)
+			   -moz-transform translateY(-50%)
+			    -ms-transform translateY(-50%)
+			     -o-transform translateY(-50%)
+			        transform translateY(-50%) 
+			font-size 0.5em
+		    text-rendering auto
+		    -webkit-font-smoothing antialiased

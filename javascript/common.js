@@ -83,8 +83,21 @@ website.component = website.component || {};
     };
 
     publics.goToHash = function(container, hash) {
-        var anchor = document.getElementById(hash);
+        var anchor = document.getElementById(hash),
+            scrollTop = document.body.scrollTop || document.documentElement.scrollTop,
+            windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+        function goTop(n) {
+            if (n > 0) {
+                setTimeout(function () {
+                    window.scrollTo(0, scrollTop + windowHeight);
+                    goTop(n - 1);
+                }, 200);
+            }
+        }
+
         if (anchor) {
+            goTop(2);
             container.scrollTop = anchor.offsetTop;
         }
     };

@@ -6,6 +6,17 @@ website.component.Content = function () {
 
 	publics.name = "content";
 
+	publics.getAnchor = function () {
+        var message = document.getElementsByClassName("download--clone--text")[0],
+        	titles = document.querySelectorAll("." + publics.name + " h2, ." + publics.name + " h3");
+
+        Array.prototype.forEach.call(titles, function (title) {    	
+	        title.addEventListener("click", function () {
+	            window.prompt(message.getAttribute("data-instruction"), location.href + "#" + title.id);
+	        });
+        });
+    };
+
 	publics.updateContentByClick = function (links, fragmentPath, urlRelativeSubPath) {
 		[].forEach.call(links, function (link) {
 			link.addEventListener("click", function (e) {
@@ -34,6 +45,7 @@ website.component.Content = function () {
 				    website.smartTargetInjection();
        				website.highlightCode();
        				publics.updateContentByClick(document.querySelectorAll(".toc a"), fragmentPath, urlRelativeSubPath);
+       				publics.getAnchor();
        				website.goToHash(contentBefore, hash);
 
 				    setTimeout(function () {
@@ -71,6 +83,7 @@ website.component.Content = function () {
 				    website.smartTargetInjection();
         			website.highlightCode();
        				publics.updateContentByClick(document.querySelectorAll(".toc a"), fragmentPath, urlRelativeSubPath);
+			        publics.getAnchor();
        				website.goToHash(contentAfter, e.state.hash);
 
 				    setTimeout(function () {
@@ -121,6 +134,7 @@ website.component.Content = function () {
 
 	publics.init = function (links, fragmentPath, urlRelativeSubPath) {
         publics.manageScroll();
+        publics.getAnchor();
 
 		publics.updateContentByClick(links, fragmentPath, urlRelativeSubPath);
 		publics.updateContentByHistoryBack(fragmentPath, urlRelativeSubPath);
