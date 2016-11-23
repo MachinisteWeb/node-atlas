@@ -16,9 +16,14 @@
 
 		<!-- Inclusion du fichiers minifié après génération. -->
 		
-		<link rel="stylesheet" href="stylesheets/common.min.css">
-		
-		<!-- Inclusion du fichiers standar pendant le développement. -->
+		<link rel="stylesheet" href="stylesheets/fonts.css">
+		<link rel="stylesheet" href="stylesheets/fontawesome.css">
+		<link rel="stylesheet" href="stylesheets/highlight.css">
+		<link rel="stylesheet" href="stylesheets/common.css">
+		<link rel="stylesheet" href="stylesheets/cmpt.header.css">
+		<link rel="stylesheet" href="stylesheets/cmpt.download.css">
+		<link rel="stylesheet" href="stylesheets/cmpt.navigation.css">
+		<link rel="stylesheet" href="stylesheets/cmpt.content.css">
 		
 	</head>
 	<body data-content="content/english/" data-subpath="/NodeAtlas/english">
@@ -34,8 +39,8 @@
 					<div class="header--background"></div>
 					<div class="header--title">
 						<h1>
-							<img class="header--title--node" src="media/images/min/ode.png" alt="Node">
-							<img class="header--title--atlas" src="media/images/min/tlas.png" alt="Atlas">
+							<img class="header--title--node" src="media/images/ode.png" alt="Node">
+							<img class="header--title--atlas" src="media/images/tlas.png" alt="Atlas">
 						</h1>
 					</div>
 					<div class="header--abstract">
@@ -162,7 +167,7 @@ website.config({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="../index.html" title="Version française">Version française</a>
+						<a href="http://localhost/NodeAtlas/english/../index.html" title="Version française">Version française</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -1557,7 +1562,13 @@ exports.setSessions = website.setSessions;
 				</div>
 			</div>
 			
-			<script src="javascript/common.min.js"></script>
+			<script src="javascript/smooth-scroll.js"></script>
+			<script src="javascript/prettify.js"></script>
+			<script src="javascript/cmpt.header.js"></script>
+			<script src="javascript/cmpt.download.js"></script>
+			<script src="javascript/cmpt.navigation.js"></script>
+			<script src="javascript/cmpt.content.js"></script>
+			<script src="javascript/common.js"></script>
 			
 		</div>
 	</body>
