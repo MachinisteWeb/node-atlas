@@ -4908,7 +4908,7 @@ It's also possible to avoid other enter url. Also if `www.localhost` or `localho
 
 #### Relative paths in absolute ####
 
-It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address `media/images/example.jpg` initially accessible from template displayed to address **http://localhost**` impossible to reach when the template is displayed to address **http://localhost/sub-directory/** (because the path should be `../media/images/example.jpg`).
+It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address `media/images/example.jpg` initially accessible from template displayed to address **http://localhost** impossible to reach when the template is displayed to address **http://localhost/sub-directory/** (because the path should be `../media/images/example.jpg`).
 
 To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the urls such as:
 
