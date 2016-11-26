@@ -1,6 +1,7 @@
 {
 	"mainTitle": "NodeAtlas —Le Framework JavaScript Serveur MVC(2)—",
 	"noJs": "Le JavaScript n'est pas activé.",
+	"follow": "Suivre",
 	"titlePre": {
 		"alt": "Node",
 		"src": "media/images/min/ode.png"

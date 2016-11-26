@@ -4,6 +4,23 @@
 	z-index 2
 	height 200px
 	position relative
+	&--information
+		-webkit-transition opacity 2s ease 
+		   -moz-transition opacity 2s ease 
+		    -ms-transition opacity 2s ease 
+		     -o-transition opacity 2s ease 
+		        transition opacity 2s ease
+		position absolute
+		top 20px
+		right 20px
+		z-index 2
+		width calc(100% - 40px)
+		text-align right
+		opacity 0
+		&--github
+			float left
+		&.is-loaded
+			opacity 1
 	&--background
 		background -webkit-linear-gradient(top,  rgba(255,255,255, .8) 0%,rgba(255,255,255, .2) 87%,rgba(255,255,255, 0) 100%)
 		background    -moz-linear-gradient(top,  rgba(255,255,255, .8) 0%, rgba(255,255,255, .2) 87%, rgba(255,255,255, 0) 100%)

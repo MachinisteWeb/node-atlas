@@ -85,7 +85,7 @@ website.component.Navigation = function () {
         });
         Array.prototype.forEach.call(start, function (item) {
             item.addEventListener("click", function () {
-                website.scrollSmoothTo(5, 3);
+                website.scrollSmoothTo(1, 3);
             });
         });
         Array.prototype.forEach.call(menu, function (item) {
