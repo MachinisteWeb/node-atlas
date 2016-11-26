@@ -111,16 +111,18 @@ exports.setRoutes = function (next) {
             var $title = $(this);
 
             allRoutes.push(function (nextRoute) {
-                fs.writeFile("assets/" + NA.webconfig._content + encodeURIComponent($title.attr("id")) + ".htm", $title + $title.nextUntil("h2"), function () {
-                    if ($title.attr("id")) {
-                        route["/" + encodeURIComponent($title.attr("id")) + ".html"] = {
-                            "template": "content.htm",
-                            "controller": "content.js"
-                        };
-                    }
+                if ($title.attr("id")) {
+                    fs.writeFile("assets/" + NA.webconfig._content + encodeURIComponent($title.attr("id")) + ".htm", $title + $title.nextUntil("h2"), function () {
+                            route["/" + encodeURIComponent($title.attr("id")) + ".html"] = {
+                                "template": "content.htm",
+                                "controller": "content.js"
+                            };
 
+                        nextRoute();
+                    });
+                } else {
                     nextRoute();
-                });
+                }
             });
         });
 

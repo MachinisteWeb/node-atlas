@@ -134,6 +134,7 @@ website.component = website.component || {};
             navigation.style.height = "";
             content.style.height = "";
             download.classList.remove("is-small");
+            document.body.style.backgroundPosition = "0";
             if (scrollTop < 11 && scrollTop > 0) {
                 download.style.height = (window.innerHeight + scrollTop - 300) + "px";
             }
@@ -144,6 +145,9 @@ website.component = website.component || {};
                     website.goToHash(contentInner, location.href.split("#")[1]);
                     privates.firstScroll = false;
                 }
+            }
+            if (scrollTop >= 200) {
+                document.body.style.backgroundPosition = "center -400px";
             }
         }
 

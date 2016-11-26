@@ -33,7 +33,7 @@
 		"url": "index.html"
 	},
 	"lang": {
-		"title": "Version française",
+		"title": "<span class=\"fa fa-globe\"></span> Version française",
 		"url": "../index.html"
 	},
 	"goto": {

@@ -33,7 +33,7 @@
 		"url": "index.html"
 	},
 	"lang": {
-		"title": "International Version",
+		"title": "<span class=\"fa fa-globe\"></span> International Version",
 		"url": "english/index.html"
 	},
 	"goto": {

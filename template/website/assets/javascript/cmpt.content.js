@@ -20,9 +20,9 @@ website.component.Content = function () {
 	publics.updateContentByClick = function (links, fragmentPath, urlRelativeSubPath) {
 		[].forEach.call(links, function (link) {
 			link.addEventListener("click", function (e) {
-				var urn = link.getAttribute("href").replace(".html", "").split("#"),
-					url = urn[0],
-					hash = (urn[1]) ? decodeURIComponent(urn[1]) : undefined,
+				var url = link.getAttribute("href").replace(".html", "").split("#"),
+					urn = url[0],
+					hash = (url[1]) ? decodeURIComponent(url[1]) : undefined,
 					contentAfter = document.getElementsByClassName(publics.name + "--inner")[0],
 					contentBefore = document.createElement("div");
 				e.preventDefault();
@@ -33,13 +33,13 @@ website.component.Content = function () {
 
 				contentAfter.classList.add("is-hidden");
 
-		        website.xhrRequest(fragmentPath + encodeURIComponent(url) + ".htm", function (err, response) {
+		        website.xhrRequest(fragmentPath + encodeURIComponent(urn) + ".htm", function (err, response) {
 		            if (err) {
 		            	contentAfter.classList.remove("is-hidden");
-		                return website.xhrFallback(url + ".html" + ((hash) ? '#' + hash : ''));
+		                return website.xhrFallback(urn + ".html" + ((hash) ? '#' + hash : ''));
 		            }
 
-		    		history.pushState({ url: url, hash: hash }, null, urlRelativeSubPath + "/" + url + ".html" + ((hash) ? '#' + hash : ''));
+		    		history.pushState({ urn: urn, hash: hash }, null, urlRelativeSubPath + "/" + urn + ".html" + ((hash) ? '#' + hash : ''));
 
 				    contentBefore.innerHTML = response;
 				    website.smartTargetInjection();
@@ -74,10 +74,10 @@ website.component.Content = function () {
 
 				contentBefore.classList.add("is-hidden");
 
-		        website.xhrRequest("content/" + encodeURIComponent(e.state.url) + ".htm", function (err, response) {
+		        website.xhrRequest("content/" + encodeURIComponent(e.state.urn) + ".htm", function (err, response) {
 		            if (err) {
 						contentBefore.classList.remove("is-hidden");
-		                return website.xhrFallback(e.state.url);
+		                return website.xhrFallback(e.state.urn);
 		            }
 
 				    contentAfter.innerHTML = response;
@@ -96,12 +96,6 @@ website.component.Content = function () {
 						contentBefore.parentNode.removeChild(contentBefore);
 					}, 1000);
 		        });
-		    } else {
-		    	if (location.href.split("#")[1]) {
-	    			website.goToHash(document.getElementsByClassName("content--inner")[0], location.href.split("#")[1]);
-		    	} else {
-		    		window.history.back();
-		    	}
 		    }
 		});
 	};
@@ -144,28 +138,39 @@ website.component.Content = function () {
         	h3 = document.createElement("h3");
 
         h3.innerHTML = outer.getAttribute("data-name");
+    	outer.classList.add("is-hidden");
 
-    	ul.innerHTML = "";
-    	outer.innerHTML = "";
+        setTimeout(function () {
+	    	ul.innerHTML = "";
+	    	outer.innerHTML = "";
 
-        Array.prototype.forEach.call(allH3, function (h3) {
-        	var li =  document.createElement("li"),
-        		link = document.createElement("a");
+	        Array.prototype.forEach.call(allH3, function (h3) {
+	        	var li =  document.createElement("li"),
+	        		link = document.createElement("a");
 
-        	link.href = location.href.split("#")[0] + "#" + h3.id;
-        	link.innerHTML = h3.innerHTML;
-        	li.appendChild(link);
-        	ul.appendChild(li);
-        });
-        if (allH3.length) {
-    		outer.appendChild(h3);
-        }
-    	outer.appendChild(ul);
+	        	link.href = location.href.split("#")[0] + "#" + h3.id;
+	        	link.innerHTML = h3.innerHTML;
+	        	li.appendChild(link);
+	        	ul.appendChild(li);
+	        });
+	        if (allH3.length) {
+	    		outer.appendChild(h3);
+	        }
+	    	outer.appendChild(ul);
+	    	outer.classList.remove("is-hidden");
+        }, 500);
+	};
+
+	publics.hashChange = function () {
+		window.addEventListener("hashchange", function () {
+			document.getElementsByClassName(publics.name + "--inner")[0].scrollTop = document.getElementById(location.hash.replace("#", "")).offsetTop;
+		});
 	};
 
 	publics.init = function (links, fragmentPath, urlRelativeSubPath) {
         publics.manageScroll();
         publics.getAnchor();
+        publics.hashChange();
 
 		publics.updateContentByClick(links, fragmentPath, urlRelativeSubPath);
 		publics.updateContentByHistoryBack(fragmentPath, urlRelativeSubPath);
