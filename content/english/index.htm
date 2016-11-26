@@ -1,0 +1,97 @@
+<h2>Table of Contents</h2><ul class="toc">
+<li><a href="overview.html" data-href="#overview">Overview</a><ul>
+<li><a href="overview.html#why-nodeatlas" data-href="#why-nodeatlas">Why NodeAtlas</a></li>
+<li><a href="overview.html#and-what-about-others-javascript-frameworks" data-href="#and-what-about-others-javascript-frameworks">And what about others JavaScript Frameworks?</a></li>
+<li><a href="overview.html#examples-of-websites-with-nodeatlas" data-href="#examples-of-websites-with-nodeatlas">Examples of websites with NodeAtlas</a></li>
+
+<li><a href="overview.html#documentation" data-href="#documentation">Documentation</a></li>
+<li><a href="overview.html#contributing" data-href="#contributing">Contributing</a></li>
+</ul>
+</li>
+<li><a href="installing.html" data-href="#installing">Installing</a><ul>
+<li><a href="installing.html#install-nodeatlas" data-href="#install-nodeatlas">Install NodeAtlas</a></li>
+<li><a href="installing.html#install-node.js" data-href="#install-nodejs">Install Node.js</a></li>
+</ul>
+</li>
+<li><a href="start-with-nodeatlas.html" data-href="#start-with-nodeatlas">Start with NodeAtlas</a><ul>
+<li><a href="start-with-nodeatlas.html#fileset" data-href="#fileset">Fileset</a></li>
+<li><a href="start-with-nodeatlas.html#minimum-requirements" data-href="#minimum-requirements">Minimum Requirements</a></li>
+<li><a href="start-with-nodeatlas.html#run-the-site-with-nodeatlas" data-href="#run-the-site-with-nodeatlas">Run the site with NodeAtlas</a></li>
+</ul>
+</li>
+<li><a href="view-and-template-part.html" data-href="#view-and-template-part">View and Template Part</a><ul>
+<li><a href="view-and-template-part.html#more-one-page" data-href="#more-one-page">More one page</a></li>
+<li><a href="view-and-template-part.html#template-shortcut" data-href="#template-shortcut">Template shortcut</a></li>
+<li><a href="view-and-template-part.html#host-images-fonts-css-js-etc." data-href="#host-images-fonts-css-js-etc">Host images, fonts, CSS, JS, etc.</a></li>
+<li><a href="view-and-template-part.html#manage-inclusions-to-avoid-redundancy-code" data-href="#manage-inclusions-to-avoid-redundancy-code">Manage inclusions to avoid redundancy code</a></li>
+<li><a href="view-and-template-part.html#manage-variations-within-the-same-template" data-href="#manage-variations-within-the-same-template">Manage variations within the same template</a></li>
+<li><a href="view-and-template-part.html#manage-multilingual" data-href="#manage-multilingual">Manage Multilingual</a></li>
+<li><a href="view-and-template-part.html#change-the-url-parameters" data-href="#change-the-url-parameters">Change the url parameters</a></li>
+<li><a href="view-and-template-part.html#create-your-own-webconfig-variables" data-href="#create-your-own-webconfig-variables">Create your own webconfig variables</a></li>
+<li><a href="view-and-template-part.html#nodeatlas-use-to-generate-html-assets" data-href="#nodeatlas-use-to-generate-html-assets">NodeAtlas use to generate HTML assets</a></li>
+</ul>
+</li>
+<li><a href="controller-and-model-part.html" data-href="#controller-and-model-part">Controller and Model Part</a><ul>
+<li><a href="controller-and-model-part.html#lifecycle-and-hooks" data-href="#lifecycle-and-hooks">Lifecycle and Hooks</a></li>
+<li><a href="controller-and-model-part.html#use-websocket-instead-of-ajax" data-href="#use-websocket-instead-of-ajax">Use Websocket instead of AJAX</a></li>
+<li><a href="controller-and-model-part.html#use-mysql-database-sql" data-href="#use-mysql-database-sql">Use MySQL Database (SQL)</a></li>
+<li><a href="controller-and-model-part.html#use-mongodb-database-nosql" data-href="#use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</a></li>
+</ul>
+</li>
+<li><a href="more-features.html" data-href="#more-features">More features</a><ul>
+<li><a href="more-features.html#manage-routing-url-rewriting" data-href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
+<li><a href="more-features.html#manage-a-page-not-found" data-href="#manage-a-page-not-found">Manage a page not found</a></li>
+<li><a href="more-features.html#manage-redirects" data-href="#manage-redirects">Manage redirects</a></li>
+<li><a href="more-features.html#manage-headers" data-href="#manage-headers">Manage Headers</a></li>
+<li><a href="more-features.html#run-website-with-https" data-href="#run-website-with-https">Run Website with HTTPs</a></li>
+<li><a href="more-features.html#minify-css-js" data-href="#minify-css--js">Minify CSS / JS</a></li>
+<li><a href="more-features.html#css-generation-with-less" data-href="#css-generation-with-less">CSS generation with Less</a></li>
+<li><a href="more-features.html#css-generation-with-stylus" data-href="#css-generation-with-stylus">CSS generation with Stylus</a></li>
+<li><a href="more-features.html#optimize-images-files" data-href="#optimize-images-files">Optimize Images files</a></li>
+<li><a href="more-features.html#css-inline-injection-for-manage-email-assets" data-href="#css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</a></li>
+<li><a href="more-features.html#allow-disallow-get-post-requests" data-href="#allow--disallow-get--post-requests">Allow / Disallow GET / POST requests</a></li>
+<li><a href="more-features.html#allow-disallow-put-delete-requests" data-href="#allow--disallow-put--delete-requests">Allow / Disallow PUT / DELETE requests</a></li>
+<li><a href="more-features.html#change-settings-of-sessions" data-href="#change-settings-of-sessions">Change settings of Sessions</a></li>
+<li><a href="more-features.html#external-storage-sessions" data-href="#external-storage-sessions">External Storage Sessions</a></li>
+<li><a href="more-features.html#changing-the-template-engine-brackets-lt-gt" data-href="#Changing-the-template-engine-brackets--">Changing the template engine brackets &lt;% %&gt;</a></li>
+<li><a href="more-features.html#change-the-url-hostname-and-listening-port" data-href="#change-the-url-hostname-and-listening-port">Change the url hostname and listening port</a></li>
+<li><a href="more-features.html#generate-urls-dynamically" data-href="#generate-urls-dynamically">Generate urls dynamically</a></li>
+</ul>
+</li>
+<li><a href="cli-running-commands.html" data-href="#cli--running-commands">CLI / Running commands</a><ul>
+<li><a href="cli-running-commands.html#directory-lt-path-gt" data-href="#--directory-path">--directory &lt;path&gt;</a></li>
+<li><a href="cli-running-commands.html#webconfig-lt-webconfigname-gt" data-href="#--webconfig-webconfigname">--webconfig &lt;webconfigName&gt;</a></li>
+<li><a href="cli-running-commands.html#browse-subpath" data-href="#--browse-subpath">--browse [subpath]</a></li>
+<li><a href="cli-running-commands.html#httphostname-lt-httphostname-gt" data-href="#--httphostname-httphostname">--httpHostname &lt;httpHostname&gt;</a></li>
+<li><a href="cli-running-commands.html#httpport-lt-httpport-gt" data-href="#--httpport-httpport">--httpPort &lt;httpPort&gt;</a></li>
+<li><a href="cli-running-commands.html#generate" data-href="#--generate">--generate</a></li>
+<li><a href="cli-running-commands.html#init-path" data-href="#--init-path">--init [path]</a>  </li>
+</ul>
+</li>
+<li><a href="api-nodeatlas-as-npm-module.html" data-href="#api--nodeatlas-as-npm-module">API / NodeAtlas as npm module</a><ul>
+<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.init" data-href="#node-atlas-instanceinit">&lt;node-atlas-instance&gt;.init()</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.config-object" data-href="#node-atlas-instanceconfigobject">&lt;node-atlas-instance&gt;.config(Object)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.run-object" data-href="#node-atlas-instancerunobject">&lt;node-atlas-instance&gt;.run(Object)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.aftergeneration-function" data-href="#node-atlas-instanceaftergenerationfunction">&lt;node-atlas-instance&gt;.afterGeneration(Function)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.afterinitproject-function" data-href="#node-atlas-instanceafterinitprojectfunction">&lt;node-atlas-instance&gt;.afterInitProject(Function)</a></li>
+</ul>
+</li>
+<li><a href="nodeatlas-as-a-simple-web-server.html" data-href="#nodeatlas-as-a-simple-web-server">NodeAtlas as a simple web server</a></li>
+<li><a href="development-environment.html" data-href="#development-environment">Development Environment</a><ul>
+<li><a href="development-environment.html#front-end-debug" data-href="#front-end-debug">Front-end Debug</a></li>
+<li><a href="development-environment.html#back-end-debug" data-href="#back-end-debug">Back-end Debug</a></li>
+<li><a href="development-environment.html#devices-tests" data-href="#devices-tests">Devices Tests</a></li>
+</ul>
+</li>
+<li><a href="production-environment.html" data-href="#production-environment">Production Environment</a><ul>
+<li><a href="production-environment.html#in-a-windows-server-environment-with-iisnode" data-href="#in-a-windows-server-environment-with-iisnode">In a Windows Server environment with iisnode</a></li>
+<li><a href="production-environment.html#in-a-unix-environment-with-forever" data-href="#in-a-unix-environment-with-forever">In a Unix environment with forever</a></li>
+<li><a href="production-environment.html#in-a-unix-environment-with-nginx" data-href="#in-a-unix-environment-with-nginx">In a Unix environment with Nginx</a></li>
+<li><a href="production-environment.html#proxy" data-href="#proxy">Proxy</a></li>
+</ul>
+</li>
+<li><a href="more-about-nodeatlas.html" data-href="#more-about-nodeatlas">More About NodeAtlas</a><ul>
+<li><a href="more-about-nodeatlas.html#nodeatlas-vs-others" data-href="#nodeatlas-vs-others">NodeAtlas VS Others</a></li>
+</ul>
+</li>
+</ul>
