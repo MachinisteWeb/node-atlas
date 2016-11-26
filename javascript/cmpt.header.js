@@ -2,9 +2,9 @@ var website = window.website || {};
 website.component = website.component || {};
 
 website.component.Header = function () {
-	var publics = this;
+    var publics = this;
 
-	publics.name = "header";
+    publics.name = "header";
 
     publics.loadAnimation = function () {
         var node = document.getElementsByClassName(publics.name + "--title--node")[0],
@@ -38,8 +38,8 @@ website.component.Header = function () {
         });
     };
 
-	publics.init = function () {
-		publics.loadAnimation();
+    publics.init = function () {
+        publics.loadAnimation();
         publics.goTo();
-	};
+    };
 };

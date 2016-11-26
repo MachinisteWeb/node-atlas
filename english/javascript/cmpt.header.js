@@ -2,9 +2,9 @@ var website = window.website || {};
 website.component = website.component || {};
 
 website.component.Header = function () {
-	var publics = this;
+    var publics = this;
 
-	publics.name = "header";
+    publics.name = "header";
 
     publics.loadAnimation = function () {
         var node = document.getElementsByClassName(publics.name + "--title--node")[0],
@@ -12,7 +12,8 @@ website.component.Header = function () {
             first = document.getElementsByClassName(publics.name + "--main--first")[0],
             second = document.getElementsByClassName(publics.name + "--main--second")[0],
             third = document.getElementsByClassName(publics.name + "--main--third")[0],
-            abstract = document.getElementsByClassName(publics.name + "--abstract")[0];
+            abstract = document.getElementsByClassName(publics.name + "--abstract")[0],
+            information = document.getElementsByClassName(publics.name + "--information")[0];
 
         node.classList.add("is-loaded");
         atlas.classList.add("is-loaded");
@@ -22,6 +23,7 @@ website.component.Header = function () {
             setTimeout(function () {
                 first.classList.add("is-loaded");
                 setTimeout(function () {
+                    information.classList.add("is-loaded");
                     third.classList.add("is-loaded");
                 }, 1000);
             }, 1000);
@@ -36,8 +38,8 @@ website.component.Header = function () {
         });
     };
 
-	publics.init = function () {
-		publics.loadAnimation();
+    publics.init = function () {
+        publics.loadAnimation();
         publics.goTo();
-	};
+    };
 };
