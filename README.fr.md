@@ -153,7 +153,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 En complément de cette documentation, vous avez également accès au,
 - [tl;dr](https://github.com/Haeresis/NodeAtlas#node-atlas) et aux
 - [détails des fonctions de l'objet NA](https://haeresis.github.io/NodeAtlas/doc/index.html) (En).
-- [chat pour discuter ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Discussion).
+- [chat pour discuter ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Discussion_Fr).
 
 
 
