@@ -153,6 +153,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
 In addition to this README, you also have access to,
 - [tl;dr](https://www.npmjs.com/package/node-atlas) and,
 - [details of functions in the NA object](https://haeresis.github.io/NodeAtlas/doc/index.html).
+- [chat to discuss and ask asistance for NodeAtlas](https://gitter.im/NodeAtlas/Discussion).
 
 
 
