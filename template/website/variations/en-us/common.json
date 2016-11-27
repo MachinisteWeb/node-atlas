@@ -10,6 +10,10 @@
 		"alt": "Atlas",
 		"src": "media/images/min/tlas.png"
 	},
+	"titleBack": {
+		"alt": "NodeAtlas",
+		"src": "media/images/min/transparent.png"
+	},
 	"content": "Content for documentation.",
 	"abstract": "The MVC(2) Server-side JavaScript Framework.",
 	"main": {

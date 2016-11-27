@@ -10,6 +10,10 @@
 		"alt": "Atlas",
 		"src": "media/images/min/tlas.png"
 	},
+	"titleBack": {
+		"alt": "NodeAtlas",
+		"src": "media/images/min/transparent.png"
+	},
 	"content": "Contenu pour la documentation.",
 	"abstract": "Le Framework JavaScript Serveur MVC(2).",
 	"main": {
