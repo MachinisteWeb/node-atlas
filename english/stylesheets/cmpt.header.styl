@@ -11,10 +11,9 @@
 		     -o-transition opacity 2s ease 
 		        transition opacity 2s ease
 		&--package
-		&--follow
 			display none
 			@media (min-width 560px)
-				display block
+				display inline-block
 		position absolute
 		top 20px
 		right 20px
@@ -24,6 +23,10 @@
 		opacity 0
 		&--github
 			float left
+			iframe
+				display none
+				@media (min-width 560px)
+					display inline-block
 		&.is-loaded
 			opacity 1
 	&--background
@@ -147,7 +150,6 @@
 				h2
 					span
 						opacity 1
-
 			@media (min-width 920px)
 				bottom -5%
 				p
@@ -218,7 +220,6 @@
 			&.is-loaded
 				top 26%
 				opacity 1
-
 			opacity 0
 			z-index 3
 			width 83%
