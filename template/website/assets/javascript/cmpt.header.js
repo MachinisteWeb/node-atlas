@@ -9,6 +9,7 @@ website.component.Header = function () {
     publics.loadAnimation = function () {
         var node = document.getElementsByClassName(publics.name + "--title--node")[0],
             atlas = document.getElementsByClassName(publics.name + "--title--atlas")[0],
+            back = document.getElementsByClassName(publics.name + "--title--trans")[0],
             first = document.getElementsByClassName(publics.name + "--main--first")[0],
             second = document.getElementsByClassName(publics.name + "--main--second")[0],
             third = document.getElementsByClassName(publics.name + "--main--third")[0],
@@ -22,6 +23,7 @@ website.component.Header = function () {
             second.classList.add("is-loaded");
             setTimeout(function () {
                 first.classList.add("is-loaded");
+                back.classList.add("is-loaded");
                 setTimeout(function () {
                     information.classList.add("is-loaded");
                     third.classList.add("is-loaded");
