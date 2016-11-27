@@ -150,10 +150,10 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 
 ### Documentation ###
 
-En complément de cette documentation, vous avez également accès au,
-- [tl;dr](https://github.com/Haeresis/NodeAtlas#node-atlas) et aux
-- [détails des fonctions de l'objet NA](https://haeresis.github.io/NodeAtlas/doc/index.html) (En).
-- [chat pour discuter ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Aide).
+En complément de cette documentation, vous avez également accès aux,
+- [tl;dr](https://github.com/Haeresis/NodeAtlas#node-atlas),
+- [détails des fonctions de l'objet NA](https://haeresis.github.io/NodeAtlas/doc/index.html) (En) et vous pouvez aussi
+- [discuter sur le chat ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Aide).
 
 
 
@@ -5369,7 +5369,7 @@ ou même la commande
 
 le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
 
-*Note : seul les commandes `--webconfig`, `--browse`, `--directory` et `--httpPort` fonctionnent dans ce mode.*
+*Note : seul les commandes `--webconfig`, `--browse`, `--directory`, `--httpPort` et `--httpHostname` fonctionnent dans ce mode.*
 
 
 

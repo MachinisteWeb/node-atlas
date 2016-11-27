@@ -151,9 +151,9 @@ This is a list of repository you could analyse to understand NodeAtlas:
 ### Documentation ###
 
 In addition to this README, you also have access to,
-- [tl;dr](https://www.npmjs.com/package/node-atlas) and,
-- [details of functions in the NA object](https://haeresis.github.io/NodeAtlas/doc/index.html).
-- [chat to discuss and ask asistance for NodeAtlas](https://gitter.im/NodeAtlas/Help).
+- [tl;dr](https://www.npmjs.com/package/node-atlas),
+- [details of functions in the NA object](https://haeresis.github.io/NodeAtlas/doc/index.html) and you could
+- [discuss on chat and ask asistance for NodeAtlas](https://gitter.im/NodeAtlas/Help).
 
 
 
@@ -5369,7 +5369,7 @@ or even the command
 
 the server will run in "Simple Web Server" mode and file "http://localhost/webconfig.json" or "http://localhost/templates/webconfig.htm" will be available as the browser could refer as a simple web server.
 
-*Note : only commands `--webconfig`, `--browse`, `--directory` and `--httpPort` work in this mode.*
+*Note : only commands `--webconfig`, `--browse`, `--directory`, `--httpPort` and `--httpHostname` work in this mode.*
 
 
 
