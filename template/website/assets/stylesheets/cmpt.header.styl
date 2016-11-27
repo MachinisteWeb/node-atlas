@@ -5,17 +5,16 @@
 	height 200px
 	position relative
 	&--information
-
-		&--package
-		&--follow
-			display none
-			@media (min-width 560px)
-				display block
 		-webkit-transition opacity 2s ease 
 		   -moz-transition opacity 2s ease 
 		    -ms-transition opacity 2s ease 
 		     -o-transition opacity 2s ease 
 		        transition opacity 2s ease
+		&--package
+		&--follow
+			display none
+			@media (min-width 560px)
+				display block
 		position absolute
 		top 20px
 		right 20px
@@ -31,7 +30,10 @@
 		background -webkit-linear-gradient(top,  rgba(255,255,255, .8) 0%,rgba(255,255,255, .2) 87%,rgba(255,255,255, 0) 100%)
 		background    -moz-linear-gradient(top,  rgba(255,255,255, .8) 0%, rgba(255,255,255, .2) 87%, rgba(255,255,255, 0) 100%)
 		background         linear-gradient(to bottom,  rgba(255,255,255, .8) 0%,rgba(255,255,255, .2) 13%,rgba(255,255,255, 0) 100%)
-
+		-webkit-transition height 2s ease 
+		   -moz-transition height 2s ease 
+		    -ms-transition height 2s ease 
+		     -o-transition height 2s ease 
 		        transition height 1s ease
 		position absolute
 		top 0
@@ -39,7 +41,6 @@
 		width 100%
 		height 0
 	h1
-
 		-webkit-transition top 1s ease
 		   -moz-transition top 1s ease
 		    -ms-transition top 1s ease
@@ -56,18 +57,15 @@
 		@media (min-width 580px)
 			top 50%
 		left 50%
-
 		-webkit-transform translate(-50%, -50%)
 		   -moz-transform translate(-50%, -50%)
 		    -ms-transform translate(-50%, -50%)
 		     -o-transform translate(-50%, -50%)
 		        transform translate(-50%, -50%)
 	h2
- 
 		color #3E863D
 		font-size 1.6rem
 		span
-
 			-webkit-transition opacity 1s ease
 			   -moz-transition opacity 1s ease
 			    -ms-transition opacity 1s ease
@@ -75,14 +73,12 @@
 			        transition opacity 1s ease
 			opacity 0
 		strong
-
 			-webkit-transition font-size 1s ease
 			   -moz-transition font-size 1s ease
 			    -ms-transition font-size 1s ease
 			     -o-transition font-size 1s ease
 			        transition font-size 1s ease
 			display block
-
 			font-size 2.8rem
 	&.is-scrolled
 		& ^[0]--background
@@ -93,7 +89,6 @@
 			&--first
 			&--second
 			&--third
-
 				opacity 0
 	&.with-animation
 		-webkit-transition height 1s ease
@@ -102,7 +97,6 @@
 		     -o-transition height 1s ease
 		        transition height 1s ease
 	&--abstract
-
 		-webkit-transition top 3s ease, opacity 1s ease
 		   -moz-transition top 3s ease, opacity 1s ease
 		    -ms-transition top 3s ease, opacity 1s ease
@@ -111,12 +105,10 @@
 		        text-align center
 		font-size 2rem
 		position absolute
-
 		opacity 0
 		top 50%
 		left 50%
 		min-width 300px
-
 		-webkit-transform translate(-50%, -50%)
 		   -moz-transform translate(-50%, -50%)
 		    -ms-transform translate(-50%, -50%)
@@ -125,7 +117,6 @@
 		@media (max-height 479px)
 			display none
 		&.is-loaded
- 
 			top 20%
 			opacity 1
 	&--main
@@ -142,7 +133,6 @@
 		&--first
 		&--second
 		&--third
-
 			max-width 352px
 			bottom 10%
 			h2
@@ -172,11 +162,9 @@
 						font-size 3.6rem
 					span
 						opacity 1
-
 			opacity 0
 			text-align center
 			position absolute
-
 			-webkit-transition left 2s ease, right 2s ease, bottom 2s ease, opacity 2s ease
 			   -moz-transition left 2s ease, right 2s ease, bottom 2s ease, opacity 2s ease
 			    -ms-transition left 2s ease, right 2s ease, bottom 2s ease, opacity 2s ease
@@ -237,7 +225,6 @@
 			position absolute
 			top -106%
 			left 39%
-
 			-webkit-transform translate(-50%, -50%)
 			   -moz-transform translate(-50%, -50%)
 			    -ms-transform translate(-50%, -50%)
@@ -252,7 +239,7 @@
 			     -o-transition opacity 3s ease
 			        transition opacity 3s ease
 			&.is-loaded
-%				opacity 1
+				opacity 1
 			opacity 0
 			width 100%
 		&--trans

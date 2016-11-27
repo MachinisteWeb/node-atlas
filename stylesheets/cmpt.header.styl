@@ -5,11 +5,16 @@
 	height 200px
 	position relative
 	&--information
-		-webkit-transition opacity 2s ease
-		   -moz-transition opacity 2s ease
-		    -ms-transition opacity 2s ease
-		     -o-transition opacity 2s ease
+		-webkit-transition opacity 2s ease 
+		   -moz-transition opacity 2s ease 
+		    -ms-transition opacity 2s ease 
+		     -o-transition opacity 2s ease 
 		        transition opacity 2s ease
+		&--package
+		&--follow
+			display none
+			@media (min-width 560px)
+				display block
 		position absolute
 		top 20px
 		right 20px
@@ -25,10 +30,10 @@
 		background -webkit-linear-gradient(top,  rgba(255,255,255, .8) 0%,rgba(255,255,255, .2) 87%,rgba(255,255,255, 0) 100%)
 		background    -moz-linear-gradient(top,  rgba(255,255,255, .8) 0%, rgba(255,255,255, .2) 87%, rgba(255,255,255, 0) 100%)
 		background         linear-gradient(to bottom,  rgba(255,255,255, .8) 0%,rgba(255,255,255, .2) 13%,rgba(255,255,255, 0) 100%)
-		-webkit-transition height 1s ease
-		   -moz-transition height 1s ease
-		    -ms-transition height 1s ease
-		     -o-transition height 1s ease
+		-webkit-transition height 2s ease 
+		   -moz-transition height 2s ease 
+		    -ms-transition height 2s ease 
+		     -o-transition height 2s ease 
 		        transition height 1s ease
 		position absolute
 		top 0
@@ -150,10 +155,10 @@
 				h2
 					span
 						opacity 0
-
 			&:hover
 				h2
 					strong
+
 						font-size 3.6rem
 					span
 						opacity 1
@@ -213,6 +218,7 @@
 			&.is-loaded
 				top 26%
 				opacity 1
+
 			opacity 0
 			z-index 3
 			width 83%
