@@ -1,0 +1,20 @@
+{
+	"staticOptions": {
+        "maxAge": 0
+    },
+	"httpPort": 7778,
+    "enableLess": "less.json",
+    "enableStylus": "stylus.json",
+	"enableIndex": true,
+	"languageCode": "en-us",
+	"commonController": "common.js",
+	"commonVariation": "common.json",
+	"generatesRelativePath": "../english/",
+    "urlRelativeSubPath": "english",
+	"routes": "routes.json",
+	"_readme": "../readme.en.md",
+	"_content": "content/english/",
+	"_toc": "table-of-contents",
+	"_otherPort": 7777,
+	"_min": ""
+}
