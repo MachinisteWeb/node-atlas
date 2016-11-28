@@ -1,6 +1,6 @@
 # node-atlas #
 
-Créer des sites JavaScript côté serveur et orienté composant facilement !
+Créer facilement des sites JavaScript côté serveur et orienté composant !
 
 > *NodeAtlas* est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés Composants respectant les nouveaux standards !
 
@@ -12,7 +12,7 @@ Créer des sites JavaScript côté serveur et orienté composant facilement !
 
 ## Site Officiel de NodeAtlas ##
 
-**Pour une documentation complète, vous pouvez vous rendre sur [le Site Officiel de NodeAtlas](https://haeresis.github.io/NodeAtlas/).**
+**Pour une documentation complète, vous pouvez vous rendre sur [le Site Officiel de NodeAtlas](https://haeresis.github.io/NodeAtlas/)** ([README mirroir ici](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.fr.md)).
 
 
 
@@ -308,7 +308,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 |                       | **NodeAtlas**                                                                                                    | Express                  | Hapi                   | Sails                                           | Restify                  | LoopBack                                              | Meteor                                                      |
 |-----------------------|------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------|-------------------------------------------------|--------------------------|-------------------------------------------------------|-------------------------------------------------------------|
-| Type                  | Framework Web **MVC(2)**                                                                                         | Librairie serveur HTTP   | Framework serveur HTTP | Framework Web MVC                               | Librairie HTTP REST      | Framework d'API                                       | Full-stack JavaScript app platform                          |
+| Type                  | Framework Web **MVC(2)**                                                                                         | Librairie serveur HTTP   | Framework serveur HTTP | Framework Web MVC                               | Librairie HTTP REST      | Framework d'API                                       | Platforme d'app JavaScript côté client et serveur           |
 | Top Features          | Simplicité, **Evolutivité**, Modularité                                                                          | Routage HTTP, middleware | Modularité, securité   | Familier à Rails, MVC                           | Simplicité, Routage REST | Connectivité d'Entreprise                             | Framework Front-end et Back-end                             |
 | Adapté pour           | **Sites web**, Apps web, APIs REST, **Maquettage**                                                               | Apps web simple          | Apps web, APIs         | Apps web, APIs                                  | APIs REST Simple         | Apps web, APIs                                        | Apps web                                                    |
 | Node Module Package   | Oui                                                                                                              | Oui                      | Oui                    | Oui                                             | Oui                      | Oui                                                   | Non                                                         |
