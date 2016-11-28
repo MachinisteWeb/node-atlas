@@ -8,7 +8,7 @@
 
 ## NodeAtlas Official Website ##
 
-**For a complete documentation, you could refer to [the NodeAtlas Official Website](https://haeresis.github.io/NodeAtlas/english/).**
+**For a complete documentation, you could refer to [the NodeAtlas Official Website](https://haeresis.github.io/NodeAtlas/english/)** ([Mirror README here](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.en.md)).
 
 
 

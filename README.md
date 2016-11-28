@@ -12,7 +12,7 @@ Créer facilement des sites JavaScript côté serveur et orienté composant !
 
 ## Site Officiel de NodeAtlas ##
 
-**Pour une documentation complète, vous pouvez vous rendre sur [le Site Officiel de NodeAtlas](https://haeresis.github.io/NodeAtlas/).**
+**Pour une documentation complète, vous pouvez vous rendre sur [le Site Officiel de NodeAtlas](https://haeresis.github.io/NodeAtlas/)** ([README mirroir ici](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.fr.md)).
 
 
 
