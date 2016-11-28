@@ -1559,7 +1559,7 @@ ce qui produit la sortie suivante :
 </html>
 ```
 
-Si vous décidez de déshabonner la variation spécifique avec le webconfig suivant :
+Si vous décidez de désabonner la variation spécifique avec le webconfig suivant :
 
 ```js
 {
