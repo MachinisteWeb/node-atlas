@@ -59,7 +59,8 @@ Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur
 Voici une liste de repository que vous pouvez décortiquer à votre gré :
 
 - [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
-- [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
+- [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/TestCaseAtlas/).
+- [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).

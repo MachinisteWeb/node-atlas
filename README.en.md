@@ -59,7 +59,8 @@ To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API,
 This is a list of repository you could analyse to understand NodeAtlas:
 
 - [Generation and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
-- [HTML website maintenance (no Back-end)](https://github.com/Haeresis/ResumeAtlas/).
+- [UI Test and UI Documentation](https://github.com/Haeresis/TestCaseAtlas/).
+- [HTML website maintenance (no Back-end)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
