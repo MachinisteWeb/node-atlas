@@ -152,7 +152,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
 
 In addition to this README, you also have access to,
 - [tl;dr](https://www.npmjs.com/package/node-atlas),
-- [details of functions in the NA object](https://haeresis.github.io/NodeAtlas/doc/index.html) and you could
+- [details of functions in the NA object](https://node-atlas.js.org/doc/index.html) and you could
 - [discuss on chat and ask asistance for NodeAtlas](https://gitter.im/NodeAtlas/Help).
 
 
@@ -3345,7 +3345,7 @@ See the example below:
             "statusCode": 301
         },
         "/go-to-node-atlas/": {
-            "redirect": "https://haeresis.github.io/NodeAtlas/",
+            "redirect": "https://node-atlas.js.org/",
             "statusCode": 302
         },
         "/": {
@@ -3358,7 +3358,7 @@ See the example below:
 You will be redirected:
 
 - to `http://localhost/list-of-members/` when you access `http://localhost/list-of-members` with a header _permanent redirect_.
-- to `https://haeresis.github.io/NodeAtlas/` when you access `http://localhost/go-to-node-atlas/` with a header _temporary redirect_.
+- to `https://node-atlas.js.org/` when you access `http://localhost/go-to-node-atlas/` with a header _temporary redirect_.
 
 #### Dynamic ####
 

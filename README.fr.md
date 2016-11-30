@@ -2,7 +2,7 @@
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.7](https://img.shields.io/badge/version-1.7-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.1-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
-**For an international version of this README.md, [follow this link](https://haeresis.github.io/NodeAtlas/doc/index.html).**
+**For an international version of this README.md, [follow this link](https://node-atlas.js.org/doc/index.html).**
 
 
 
@@ -152,7 +152,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 
 En complément de cette documentation, vous avez également accès aux,
 - [tl;dr](https://github.com/Haeresis/NodeAtlas#node-atlas),
-- [détails des fonctions de l'objet NA](https://haeresis.github.io/NodeAtlas/doc/index.html) (En) et vous pouvez aussi
+- [détails des fonctions de l'objet NA](https://node-atlas.js.org/doc/index.html) (En) et vous pouvez aussi
 - [discuter sur le chat ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Aide).
 
 
@@ -3345,7 +3345,7 @@ Voyez l'exemple ci-dessous :
             "statusCode": 301
         },
         "/aller-sur-node-atlas/": {
-            "redirect": "https://haeresis.github.io/NodeAtlas/",
+            "redirect": "https://node-atlas.js.org/",
             "statusCode": 302
         },
         "/": {
@@ -3358,7 +3358,7 @@ Voyez l'exemple ci-dessous :
 Vous serez redirigé :
 
 - sur `http://localhost/liste-des-membres/` quand vous accéderez à `http://localhost/liste-des-membres` avec une entête _redirection permanente_.
-- sur `https://haeresis.github.io/NodeAtlas/` quand vous accéderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
+- sur `https://node-atlas.js.org/` quand vous accéderez à `http://localhost/aller-sur-node-atlas/` avec une entête _redirection temporaire_.
 
 #### En dynamique ####
 

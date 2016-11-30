@@ -431,7 +431,7 @@ webconfig.prod.json
             &quot;statusCode&quot;: 301
         },
         &quot;/aller-sur-node-atlas/&quot;: {
-            &quot;redirect&quot;: &quot;https://haeresis.github.io/NodeAtlas/&quot;,
+            &quot;redirect&quot;: &quot;https://node-atlas.js.org/&quot;,
             &quot;statusCode&quot;: 302
         },
         &quot;/&quot;: {
@@ -441,7 +441,7 @@ webconfig.prod.json
 }
 </code></pre><p>Vous serez redirigé :</p><ul>
 <li>sur <code>http://localhost/liste-des-membres/</code> quand vous accéderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection permanente</em>.</li>
-<li>sur <code>https://haeresis.github.io/NodeAtlas/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
+<li>sur <code>https://node-atlas.js.org/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
 </ul><h4 id="en-dynamique">En dynamique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/&quot;: {
