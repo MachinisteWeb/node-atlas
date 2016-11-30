@@ -304,7 +304,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 - [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
 - [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/TestCaseAtlas/).
-- [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/ResumeAtlas/).
+- [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Exemple d'API REST](https://github.com/Haeresis/ApiAtlas/).
