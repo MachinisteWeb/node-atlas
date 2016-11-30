@@ -8,7 +8,7 @@
 
 ## NodeAtlas Official Website ##
 
-**For a complete documentation, you could refer to [the NodeAtlas Official Website](https://haeresis.github.io/NodeAtlas/english/)** ([Mirror README here](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.en.md)).
+**For a complete documentation, you could refer to [the NodeAtlas Official Website](https://node-atlas.js.org/english/)** ([Mirror README here](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.en.md)).
 
 
 
@@ -292,7 +292,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 ### About NodeAtlas ##
 
 - [Complete and detailed Website](https://haeresis.github.com/NodeAtlas/english/)
-- [node-atlas.js documentation for maintainers](https://haeresis.github.io/NodeAtlas/doc/index.html)
+- [node-atlas.js documentation for maintainers](https://node-atlas.js.org/doc/index.html)
 
 
 
