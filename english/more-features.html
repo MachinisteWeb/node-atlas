@@ -322,10 +322,10 @@ website.config({
 
     next(variation);
 }
-</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h4 id="routing-in-a-shared-file">Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
+</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h4 id="routing-in-a-shared-file">Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
 </code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;routes&quot;: {
@@ -558,65 +558,71 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>and the following set of file:</p><pre><code>assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-webconfig.json
-</code></pre><p>you will get the following new files:</p><pre><code>assets/
-— stylesheets
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-—— common.min.css               &lt;= new file
-— javascript
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-—— javascript/boot.min.js       &lt;= new file
-—— javascript/framework.min.js  &lt;= new file
-—— javascript/common.min.js     &lt;= new file
-templates/
-— index.htm
-webconfig.json
-</code></pre><h4 id="bundles-in-a-shared-file">Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
+</code></pre><p>and the following set of file:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>you will get the following new files:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  ├─ common-min1160.css
+│  │  └─ common.min.css     ⤆ new file
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     ├─ common.js
+│     ├─ boot.min.js        ⤆ new file
+│     ├─ framework.min.js   ⤆ new file
+│     └─ common.min.js      ⤆ new file
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><h4 id="bundles-in-a-shared-file">Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
 </code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: {
@@ -687,26 +693,28 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>could be the following set of file</p><pre><code>assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-bundles.json
-webconfig.json
-webconfig.prod.json
+</code></pre><p>could be the following set of file</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ bundles.json              ⤆ new file
+├─ webconfig.json
+└─ webconfig.prod.json
 </code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: &quot;bundles.json&quot;,
@@ -823,12 +831,12 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p><em>Note : this is not recommanded for production environment because it&#39;s slowed responses pages.</em></p><h3 id="css-generation-with-less">CSS generation with Less</h3><p>You can use the preprocessor Less to create your CSS. The operation is as follows: whenever a CSS request is made, if a Less equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p><p>With the following structure:</p><pre><code>assets/
-— stylesheets
-—— common.less
-templates/
-— index.htm
-webconfig.json
+</code></pre><p><em>Note : this is not recommanded for production environment because it&#39;s slowed responses pages.</em></p><h3 id="css-generation-with-less">CSS generation with Less</h3><p>You can use the preprocessor Less to create your CSS. The operation is as follows: whenever a CSS request is made, if a Less equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p><p>With the following structure:</p><pre><code>├─ assets/
+│  └─ stylesheets
+│     └─ common.less
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>and the following webconfig:</p><pre><code class="lang-js">{
     &quot;enableLess&quot;: true,
     &quot;routes&quot;: {
@@ -899,12 +907,12 @@ webconfig.json
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><h3 id="css-generation-with-stylus">CSS generation with Stylus</h3><p>You can use the preprocessor Stylus to create your CSS. The operation is as follows: whenever a CSS request is made, if a Stylus equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p><p>With the following structure:</p><pre><code>assets/
-— stylesheets
-—— common.styl
-templates/
-— index.htm
-webconfig.json
+</code></pre><h3 id="css-generation-with-stylus">CSS generation with Stylus</h3><p>You can use the preprocessor Stylus to create your CSS. The operation is as follows: whenever a CSS request is made, if a Stylus equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p><p>With the following structure:</p><pre><code>├─ assets/
+│  └─ stylesheets
+│     └─ common.styl
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>and the following webconfig:</p><pre><code class="lang-js">{
     &quot;enableStylus&quot;: true,
     &quot;routes&quot;: {
@@ -989,31 +997,31 @@ webconfig.json
         }
     }
 }
-</code></pre><p>and the following set of file:</p><pre><code>assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-webconfig.json
-</code></pre><p>you will get the following new files:</p><pre><code>assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-——— optimized/      &lt;= new folder
-———— example.png    &lt;= new file
-———— example.jpg    &lt;= new file
-———— example.gif    &lt;= new file
-———— example.svg    &lt;= new file
-templates/
-— index.htm
-webconfig.json
+</code></pre><p>and the following set of file:</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>you will get the following new files:</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        ├─ example.svg
+│        └─ optimized/       ⤆ new folder
+│           ├─ example.png   ⤆ new file
+│           ├─ example.jpg   ⤆ new file
+│           ├─ example.gif   ⤆ new file
+│           └─ example.svg   ⤆ new file
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><h4 id="create-optimizations-by-group-of-file">Create Optimizations by group of file</h4><p>For example, not define file one by one, but in group:</p><pre><code class="lang-js">{
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
@@ -1047,17 +1055,17 @@ webconfig.json
 <li><a href="https://www.npmjs.com/package/imagemin-gifsicle">Gif Options</a></li>
 <li><a href="https://www.npmjs.com/package/imagemin-optipng">Png Options</a></li>
 <li><a href="https://www.npmjs.com/package/imagemin-svgo">Svg Options</a></li>
-</ul><h4 id="optimizations-in-a-shared-file">Optimizations in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
+</ul><h4 id="optimizations-in-a-shared-file">Optimizations in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
 </code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;optimizations&quot;: {
@@ -1092,18 +1100,18 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>could be the following set of file</p><pre><code>assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-bundles.json
-webconfig.json
-webconfig.prod.json
+</code></pre><p>could be the following set of file</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+├─ bundles.json
+├─ webconfig.json
+└─ webconfig.prod.json
 </code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;optimizations&quot;: &quot;optimizations.json&quot;,
@@ -1173,12 +1181,13 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>and the following set of files:</p><pre><code>generates/
-assets/
-— stylesheets/
-—— email.css
-templates/
-— email.htm
+</code></pre><p>and the following set of files:</p><pre><code>├─ generates/
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ templates/
+│  └─ email.htm
+└─ webconfig.json
 </code></pre><p>whose contents are :</p><p><strong>stylesheets/common.css</strong></p><pre><code class="lang-css">body {
     color: #f00;
 }
@@ -1192,13 +1201,14 @@ templates/
         &lt;p&gt;This is a template email.&lt;/p&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>output will be, with the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code>, all following file:</p><pre><code>generates/
-— welcome.html    &lt;= template email generate !
-assets/
-— stylesheets/
-—— email.css
-templates/
-— email.htm
+</code></pre><p>output will be, with the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code>, all following file:</p><pre><code>├─ generates/
+│  └─ bienvenue.html    &lt;= template email generate !
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ templates/
+│  └─ email.htm
+└─ webconfig.json
 </code></pre><p>with as content for <code>generates/welcome.html</code></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
     &lt;head&gt;

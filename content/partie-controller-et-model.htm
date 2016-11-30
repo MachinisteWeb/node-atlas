@@ -61,18 +61,18 @@
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>components/
-— head.htm
-— foot.htm
-variations/
-— common.json
-— index.json
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>En demandant la page <code>http://localhost/?title=Haeresis</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corp de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="lang-js">{
     &quot;titleWebsite&quot;: &quot;Titre du site&quot;
 }
@@ -189,14 +189,14 @@ exports.changeVariation = function (params, next) {
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>variations/
-— index.json
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ variations/
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="lang-js">{
     &quot;titleWebsite&quot;: &quot;Titre du site&quot;
 }
@@ -289,12 +289,12 @@ exports.changeDom = function (params, next) {
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>templates/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -354,11 +354,11 @@ exports.changeVariation = function (params, next) {
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>controllers/
-— common.js
-templates/
-— index.htm
-webconfig.json
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>templates/index.htm</em></p><pre><code class="lang-html">&lt;%- content %&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
@@ -400,14 +400,14 @@ exports.changeVariation = function (params, next) {
     &quot;currentRoute&quot;: &quot;/&quot;,
     &quot;webconfig&quot;: { /* ... */ }
 }
-</code></pre><h4 id="setsessions">setSessions</h4><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs, voici un exemple de management de Session avec <a href="http://redis.io/">Redis</a>.</p><p>Voici l&#39;ensemble de fichier suivant :</p><pre><code>controllers/
-— common.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json
+</code></pre><h4 id="setsessions">setSessions</h4><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs, voici un exemple de management de Session avec <a href="http://redis.io/">Redis</a>.</p><p>Voici l&#39;ensemble de fichier suivant :</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
 </code></pre><p>Avec le <code>webconfig.json</code> :</p><pre><code class="lang-js">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -441,14 +441,14 @@ exports.setSessions = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next();
 };
-</code></pre><h4 id="setroutes">setRoutes</h4><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs.</p><p>Voici l&#39;ensemble de fichier suivant :</p><pre><code>controllers/
-— common.js
-templates/
-— content.htm
-— index.htm
-variations/
-— common.json
-webconfig.json
+</code></pre><h4 id="setroutes">setRoutes</h4><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs.</p><p>Voici l&#39;ensemble de fichier suivant :</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ templates/
+│  ├─ content.htm
+│  └─ index.htm
+├─ variations/
+│  └─ common.json
+└─ webconfig.json
 </code></pre><p>Avec le <code>webconfig.json</code> :</p><pre><code class="lang-js">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -476,23 +476,23 @@ exports.setConfigurations = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next(); 
 };
-</code></pre><h3 id="utiliser-les-websocket-à-la-place-des-échanges-ajax">Utiliser les Websocket à la place des échanges AJAX</h3><p>Afin de conserver une liaison ouverte entre la partie Frontale et la partie Serveur de vos applications, NodeAtlas est à même d&#39;utiliser <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres page ouvertes à travers tous les autres navigateurs.</p><p>Avec l&#39;ensemble de fichier suivant :</p><pre><code>assets/
-— javascript/
-—— common.js
-—— index.js
-components/
-— foot.htm
-— head.htm
-— index.htm
-controllers/
-— common.js
-- index.js
-variations/
-— common.json
-— index.json
-templates/
-— index.htm
-webconfig.json
+</code></pre><h3 id="utiliser-les-websocket-à-la-place-des-échanges-ajax">Utiliser les Websocket à la place des échanges AJAX</h3><p>Afin de conserver une liaison ouverte entre la partie Frontale et la partie Serveur de vos applications, NodeAtlas est à même d&#39;utiliser <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres page ouvertes à travers tous les autres navigateurs.</p><p>Avec l&#39;ensemble de fichier suivant :</p><pre><code>├─ assets/
+│  └─ javascript/
+│     ├─ common.js
+│     └─ index.js
+├─ components/
+│  ├─ foot.htm
+│  ├─ head.htm
+│  └─ index.htm
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>Contenant le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -730,21 +730,21 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     74000,
     &quot;66 avenue de Genève&quot;
 );
-</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Avec le jeu de fichier suivant :</p><pre><code>assets/
-— javascript/
-—— models/
-——— user.js
-controllers/
-— common.js
-— index.js
-models/
-— user.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json
+</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Avec le jeu de fichier suivant :</p><pre><code>├─ assets/
+│  └─ javascript/
+│     └─ models/
+│        └─ user.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  └─ user.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
 </code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de donnée :</p><pre><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -1065,19 +1065,19 @@ module.exports = User;
         address: &quot;66 avenue de Genève&quot;
     }
 })
-</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Avec le jeu de fichier suivant :</p><pre><code>assets/
-— javascript/
-—— models/
-——— user.js
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json
+</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Avec le jeu de fichier suivant :</p><pre><code>├─ assets/
+│  └─ javascript/
+│     └─ models/
+│        └─ user.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
 </code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de donnée :</p><pre><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,

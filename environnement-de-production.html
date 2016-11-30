@@ -266,24 +266,32 @@ website.config({
 <li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
 <li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).</li>
 </ol><h4 id="cr-er-une-application">Créer une application</h4><p>Dans IIS8, créez un Website et créez une Application.</p><p>Le contenu de votre application sera celui du site mélangé à celui de NodeAtlas. Cela signifie donc que ceci :</p><pre><code>node-atlas/
-— node_modules/
-— languages/
-—— default.json
-— node-atlas.js
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+└─ index.js
 site-hello-world/
-— assets/
-— templates/
-—— index.htm
-— webconfig.json
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>devient ceci :</p><pre><code>site-hello-world/
-— node_modules/
-— languages/
-—— default.json
-— assets/
-— templates/
-—— index.htm
-— node-atlas.js
-— webconfig.json
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+├─ index.js
+└─ webconfig.json
 </code></pre><p>Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p><pre><code class="lang-xml">&lt;configuration&gt;
     &lt;system.webServer&gt;
         &lt;handlers&gt;
@@ -311,15 +319,19 @@ site-hello-world/
     &lt;/system.webServer&gt;
 &lt;/configuration&gt;
 </code></pre><p>pour au final obtenir :</p><pre><code>site-hello-world/
-— node_modules/
-— languages/
-—— default.json
-— assets/
-— templates/
-—— index.htm
-— node-atlas.js
-— webconfig.json
-— web.config
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+├─ index.js
+├─ webconfig.json
+└─ web.config
 </code></pre><p>Il ne vous restera plus qu&#39;à cliquer sur « Browse <url-of-site> » dans votre panneau d&#39;action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n&#39;importe quelle autre application IIS8.</url-of-site></p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-js">{
     &quot;urlPort&quot;: 80,
     &quot;httpPort&quot;: 7777,

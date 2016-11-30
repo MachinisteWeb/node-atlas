@@ -312,11 +312,11 @@ nodeAtlas().run();</code></pre><pre class="prettyprint source"><code>\> node ser
         }
     }
 }</code></pre><p>To run this set of file:</p>
-<pre class="prettyprint source"><code>templates/
-— index.htm
-— member.htm
-— error.htm
-webconfig.json</code></pre><p>with the addresses:</p>
+<pre class="prettyprint source"><code>├─ templates/
+│  ├─ index.htm
+│  ├─ member.htm
+│  └─ error.htm
+└─ webconfig.json</code></pre><p>with the addresses:</p>
 <ul>
 <li><em>http://localhost/</em> (responds to the root)</li>
 <li><em>http://localhost/member.html</em> (will not respond if is POST requested)</li>
@@ -358,17 +358,17 @@ webconfig.json</code></pre><p>with the addresses:</p>
         }
     }
 }</code></pre><p>and this set of files:</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-— media/
-—— images/
-——— logo.png
-templates/
-— index.htm
-webconfig.json</code></pre><p>you will have access to the addresses:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  ├─ javascript/
+│  │  └─ common.js
+│  └─ media/
+│     └─ images/
+│        └─ logo.png
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>you will have access to the addresses:</p>
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/stylesheets/common.css</em></li>
@@ -399,18 +399,18 @@ webconfig.json</code></pre><p>you will have access to the addresses:</p>
         }
     }
 }</code></pre><p>with the following files:</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-components/
-— head.htm
-— foot.htm
-templates/
-— index.htm
-— members.htm
-webconfig.json</code></pre><p><em>components/head.htm</em></p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  └─ javascript/
+│     └─ common.js
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ templates/
+│  ├─ index.htm
+│  └─ members.htm
+└─ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;fr-fr&quot;>
     &lt;head>
@@ -459,25 +459,25 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
         }
     }
 }</code></pre><p>with the following files:</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets/
-—— common.css
-—— home.css
-—— members.css
-— javascript/
-—— common.js
-—— home.js
-—— members.js
-components/
-— head.htm
-— foot.htm
-variations/
-— common.json
-— index.json
-— members.json
-templates/
-— template.htm
-webconfig.json</code></pre><p><em>components/head.htm</em></p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ index.css
+│  │  └─ members.css
+│  └─ javascript/
+│     ├─ common.js
+│     ├─ index.js
+│     └─ members.js
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ common.json
+│  ├─ index.json
+│  └─ members.json
+├─ templates/
+│  └─ template.htm
+└─ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;fr-fr&quot;>
     &lt;head>
@@ -542,19 +542,19 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
     }
 }</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify</em> <strong><em>commonVariation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations</em></strong> <em>to</em> <strong><em>languages</em></strong>.</p>
 <p>with the following files:</p>
-<pre class="prettyprint source"><code>components/
-— head.htm
-— foot.htm
-languages/
-— landing.json
-— en-gb
-—— home.json
-— fr-fr
-—— home.json
-templates/
-— landing.htm
-— home.htm
-webconfig.json</code></pre><p><em>components/head.htm</em></p>
+<pre class="prettyprint source"><code>├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ languages/
+│  ├─ landing.json
+│  ├─ en-gb
+│  │  └─ home.json
+│  └─ fr-fr
+│     └─ home.json
+├─ templates/
+│  ├─ landing.htm
+│  └─ home.htm
+└─ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;&lt;%= languageCode %>&quot;>
     &lt;head>
@@ -608,38 +608,39 @@ webconfig.json</code></pre><p><em>components/head.htm</em></p>
 <h4>Use only changes with the active multilingual</h4><p>You may have noticed in the previous example that the <code>landing.json</code> file was not in the <code>en-gb/</code> or <code>fr-fr/</code>. This is quite possible and means that will be used in languages that do not have it in their file.</p>
 <p>Also, when a <code>languageCode</code> is specified, NodeAtlas seek first hand the value in the corresponding folder file. If it was not there, so he went to fetch the parent folder (the one used as standard for variations without multilingual).</p>
 <p>This will allow you, for example, to manage master language directly in the variation folder. So with the following example:</p>
-<pre class="prettyprint source"><code>...
-variations/
-— common.json
-— home.json
-— fr-fr
-—— common.json
-—— home.json
-...</code></pre><p>you can</p>
+<pre class="prettyprint source"><code>│
+┊┉
+├─ variations/
+│  ├─ common.json
+│  ├─ home.json
+│  ├─ fr-fr
+│  │  ├─ common.json
+│  │  └─ home.json
+┊┉</code></pre><p>you can</p>
 <ul>
 <li>manage the version <code>en-gb</code> directly to the root of <code>variations/</code> (as NodeAtlas find nothing in<code>en-gb</code> then it uses the values of the root files) and</li>
 <li>manage the <code>fr-fr</code> release in the<code>fr-fr /</code>,</li>
 </ul>
 <p>thus, if a sentence has not yet translated into a file <code>fr-fr</code>, instead of returning an error, NodeAtlas return the root version or the version<code>en-gb</code>.</p>
 <h4>Each language has its configuration</h4><p>You can also choose to configure each language in a &quot;webconfig.json&quot; different. With the following set of file:</p>
-<pre class="prettyprint source"><code>components/
-— head.htm
-— foot.htm
-variations/
-— landing.json
-— en-gb
-—— home.json
-—— members.json
-— fr-fr
-—— home.json
-—— members.json
-templates/
-— landing.htm
-— home.htm
-— members.htm
-webconfig.json
-webconfig.en-gb.json
-webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:</p>
+<pre class="prettyprint source"><code>├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ landing.json
+│  ├─ en-gb
+│  │  ├─ home.json
+│  │  └─ members.json
+│  └─ fr-fr
+│     ├─ home.json
+│     └─ members.json
+├─ templates/
+│  ├─ landing.htm
+│  ├─ home.htm
+│  └─ members.htm
+├─ webconfig.json
+├─ webconfig.en-gb.json
+└─ webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:</p>
 <p><em>webconfig.json</em></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
@@ -749,17 +750,17 @@ webconfig.fr-fr.json</code></pre><p>you could have &quot;webconfig.json» next:<
     },
     &quot;_minified&quot;: &quot;.min&quot;
 }</code></pre><p>with this set of files</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets/
-—— common.css
-—— common.min.css
-— javascript/
-—— common.js
-—— common.min.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json</code></pre><p>and &quot;index.htm&quot; containing:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  └─ common.min.css
+│  └─ javascript/
+│     ├─ common.js
+│     └─ common.min.js
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json</code></pre><p>and &quot;index.htm&quot; containing:</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;fr-fr&quot;>
     &lt;head>
@@ -820,31 +821,32 @@ webconfig.prod.json</code></pre><p>and &quot;index.htm&quot; containing:</p>
         }
     }
 }</code></pre><p>and the following set of files:</p>
-<pre class="prettyprint source"><code>{
-assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-generates/
-templates/
-— index.htm
-— members.htm
-webconfig.json
-}</code></pre><p>can physically create assets:</p>
-<pre class="prettyprint source"><code>{
-generates/
-— index.html
-— members/
-—— list.html
-— no/
-—— generates/
-——— property &lt;== Ceci est un fichier
-templates/
-— index.htm
-— members.htm
-webconfig.json
-}</code></pre><p>by going to the address:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  └─ javascript/
+│     └─ common.js
+├─ generates/
+├─ templates/
+│  ├─ index.htm
+│  └─ members.htm
+└─ webconfig.json</code></pre><p>can physically create assets:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ┊┉
+├─ generates/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  ├─ javascript/
+│  │  └─ common.js
+│  ├─ index.html
+│  ├─ members/
+│  │  └─ list.html
+│  └─ no/
+│     └─ generate/
+│        └─ property ⤆ Ceci est un fichier
+├─ templates/
+│  ┊┉
+└─ webconfig.json</code></pre><p>by going to the address:</p>
 <ul>
 <li><em>http://localhost/</em></li>
 <li><em>http://localhost/list-of-members/</em></li>
@@ -874,29 +876,29 @@ webconfig.json
         }
     }
 }</code></pre><p>and the following set of files:</p>
-<pre class="prettyprint source"><code>HTML/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-engine/
-— variations/
-—— fr-fr/
-——— index.json
-—— en/
-——— index.json
-— templates/
-—— index.htm
-— webconfig.json</code></pre><p>To address <em>http://localhost/</em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>).</p>
+<pre class="prettyprint source"><code>├─ HTML/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  └─ javascript/
+│     └─ common.js
+└─ engine/
+   ├─ variations/
+   │  ├─ fr-fr/
+   │  │  └─ index.json
+   │  └─ en/
+   │     └─ index.json
+   ├─ templates/
+   │  └─ index.htm
+   └─ webconfig.json</code></pre><p>To address <em>http://localhost/</em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>).</p>
 <p>It will do more than, once your work is done, enjoy your HTML site in the folder:</p>
-<pre class="prettyprint source"><code>HTML/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-— cv.html
-— en/
-—— cv.html</code></pre><h2>Controller and Model Part</h2><p>NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;</p>
+<pre class="prettyprint source"><code>└─ HTML/
+   ├─ stylesheets/
+   │  └─ common.css
+   ├─ javascript/
+   │  └─ common.js
+   ├─ cv.html
+   └─ en/
+      └─ cv.html</code></pre><h2>Controller and Model Part</h2><p>NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;</p>
 <ul>
 <li>parameters in query part of url (GET),</li>
 <li>parameters in request body (POST),</li>
@@ -970,18 +972,18 @@ engine/
         }
     }
 }</code></pre><p>with this files :</p>
-<pre class="prettyprint source"><code>components/
-— head.htm
-— foot.htm
-variations/
-— common.json
-— index.json
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p>
+<pre class="prettyprint source"><code>├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p>
 <p><em>variations/common.json</em></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;titleWebsite&quot;: &quot;Site Title&quot;
@@ -1100,14 +1102,14 @@ exports.changeVariation = function (params, next) {
         }
     }
 }</code></pre><p>with this files :</p>
-<pre class="prettyprint source"><code>variations/
-— index.json
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
+<pre class="prettyprint source"><code>├─ variations/
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
 <p><em>variations/common.json</em></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;titleWebsite&quot;: &quot;Site Title&quot;
@@ -1202,12 +1204,12 @@ exports.changeDom = function (params, next) {
         }
     }
 }</code></pre><p>with this set of files:</p>
-<pre class="prettyprint source"><code>controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
+<pre class="prettyprint source"><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
 <p><em>templates/index.htm</em></p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;fr-fr&quot;>
@@ -1269,11 +1271,11 @@ exports.changeVariation = function (params, next) {
         }
     }
 }</code></pre><p>with this set of files:</p>
-<pre class="prettyprint source"><code>controllers/
-— common.js
-templates/
-— index.htm
-webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
+<pre class="prettyprint source"><code>├─ controllers/
+│  └─ common.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p>
 <p><em>templates/index.htm</em></p>
 <pre class="prettyprint source lang-html"><code>&lt;%- content %></code></pre><p><em>controllers/common.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executing before starting of the web server.
@@ -1317,14 +1319,14 @@ exports.changeVariation = function (params, next) {
     &quot;webconfig&quot;: { /* ... */ }
 }</code></pre><h4>setSessions</h4><p>To configure client-server Sessions of NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers, this is an example with <a href="http://redis.io/">Redis</a> sessions.</p>
 <p>This is all files for example:</p>
-<pre class="prettyprint source"><code>controllers/
-— common.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
+<pre class="prettyprint source"><code>├─ controllers/
+│  └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -1359,14 +1361,14 @@ exports.setSessions = function (next) {
     next();
 };</code></pre><h4>setRoutes</h4><p>To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p>
 <p>This is all files for example:</p>
-<pre class="prettyprint source"><code>controllers/
-— common.js
-templates/
-— content.htm
-— index.htm
-variations/
-— common.json
-webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
+<pre class="prettyprint source"><code>├─ controllers/
+│  └─ common.js
+├─ templates/
+│  ├─ content.htm
+│  └─ index.htm
+├─ variations/
+│  └─ common.json
+└─ webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -1396,23 +1398,23 @@ exports.setConfigurations = function (next) {
 };</code></pre><h3>Use Websocket instead of AJAX</h3><p>To keep a link between Front and Back part of website, NodeAtlas can use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p>
 <p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p>
 <p>With this following files:</p>
-<pre class="prettyprint source"><code>assets/
-— javascript/
-—— common.js
-—— index.js
-components/
-— foot.htm
-— head.htm
-— index.htm
-controllers/
-— common.js
-- index.js
-variations/
-— common.json
-— index.json
-templates/
-— index.htm
-webconfig.json</code></pre><p>With this <code>webconfig.json</code>:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ javascript/
+│     ├─ common.js
+│     └─ index.js
+├─ components/
+│  ├─ foot.htm
+│  ├─ head.htm
+│  └─ index.htm
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>With this <code>webconfig.json</code>:</p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -1665,21 +1667,21 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     74000,
     &quot;66 avenue de Genève&quot;
 );</code></pre><h4>NodeAtlas Files</h4><p>With the following data set:</p>
-<pre class="prettyprint source"><code>assets/
-— javascript/
-—— models/
-——— user.js
-controllers/
-— common.js
-— index.js
-models/
-— user.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contain all informations for database connection:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ javascript/
+│     └─ models/
+│        └─ user.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  └─ user.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contain all informations for database connection:</p>
 <pre class="prettyprint source"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -2002,19 +2004,19 @@ module.exports = User;</code></pre><p>based on <code>user</code> classe shared b
         address: &quot;66 avenue de Genève&quot;
     }
 })</code></pre><h4>NodeAtlas Files</h4><p>With the following data set:</p>
-<pre class="prettyprint source"><code>assets/
-— javascript/
-—— models/
-——— user.js
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ javascript/
+│     └─ models/
+│        └─ user.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p>
 <pre class="prettyprint source"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -2236,10 +2238,10 @@ if (typeof module !== 'undefined' && module.exports) {
 <h4>Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p>
 <p>For example:</p>
 <p>The following set of file</p>
-<pre class="prettyprint source"><code>templates/
-— index.htm
-webconfig.json
-webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
+<pre class="prettyprint source"><code>├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;routes&quot;: {
@@ -2489,67 +2491,73 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p>and the following set of file:</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-webconfig.json</code></pre><p>you will get the following new files:</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-—— common.min.css               &lt;= new file
-— javascript
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-—— javascript/boot.min.js       &lt;= new file
-—— javascript/framework.min.js  &lt;= new file
-—— javascript/common.min.js     &lt;= new file
-templates/
-— index.htm
-webconfig.json</code></pre><h4>Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>you will get the following new files:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  ├─ common-min1160.css
+│  │  └─ common.min.css     ⤆ new file
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     ├─ common.js
+│     ├─ boot.min.js        ⤆ new file
+│     ├─ framework.min.js   ⤆ new file
+│     └─ common.min.js      ⤆ new file
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><h4>Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p>
 <p>For example:</p>
 <p>The following set of file</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: {
@@ -2620,26 +2628,28 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p>could be the following set of file</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-bundles.json
-webconfig.json
-webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ bundles.json              ⤆ new file
+├─ webconfig.json
+└─ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: &quot;bundles.json&quot;,
@@ -2760,12 +2770,12 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 }</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p>
 <h3>CSS generation with Less</h3><p>You can use the preprocessor Less to create your CSS. The operation is as follows: whenever a CSS request is made, if a Less equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p>
 <p>With the following structure:</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets
-—— common.less
-templates/
-— index.htm
-webconfig.json</code></pre><p>and the following webconfig:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ stylesheets
+│     └─ common.less
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>and the following webconfig:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;enableLess&quot;: true,
     &quot;routes&quot;: {
@@ -2841,12 +2851,12 @@ webconfig.json</code></pre><p>and the following webconfig:</p>
     }
 }</code></pre><h3>CSS generation with Stylus</h3><p>You can use the preprocessor Stylus to create your CSS. The operation is as follows: whenever a CSS request is made, if a Stylus equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p>
 <p>With the following structure:</p>
-<pre class="prettyprint source"><code>assets/
-— stylesheets
-—— common.styl
-templates/
-— index.htm
-webconfig.json</code></pre><p>and the following webconfig:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ stylesheets
+│     └─ common.styl
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>and the following webconfig:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;enableStylus&quot;: true,
     &quot;routes&quot;: {
@@ -2937,31 +2947,31 @@ webconfig.json</code></pre><p>and the following webconfig:</p>
         }
     }
 }</code></pre><p>and the following set of file:</p>
-<pre class="prettyprint source"><code>assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-webconfig.json</code></pre><p>you will get the following new files:</p>
-<pre class="prettyprint source"><code>assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-——— optimized/      &lt;= new folder
-———— example.png    &lt;= new file
-———— example.jpg    &lt;= new file
-———— example.gif    &lt;= new file
-———— example.svg    &lt;= new file
-templates/
-— index.htm
-webconfig.json</code></pre><h4>Create Optimizations by group of file</h4><p>For example, not define file one by one, but in group:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>you will get the following new files:</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        ├─ example.svg
+│        └─ optimized/       ⤆ new folder
+│           ├─ example.png   ⤆ new file
+│           ├─ example.jpg   ⤆ new file
+│           ├─ example.gif   ⤆ new file
+│           └─ example.svg   ⤆ new file
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><h4>Create Optimizations by group of file</h4><p>For example, not define file one by one, but in group:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
@@ -2999,17 +3009,17 @@ webconfig.json</code></pre><h4>Create Optimizations by group of file</h4><p>For 
 <h4>Optimizations in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p>
 <p>For example:</p>
 <p>The following set of file</p>
-<pre class="prettyprint source"><code>assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;optimizations&quot;: {
@@ -3044,18 +3054,18 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p>could be the following set of file</p>
-<pre class="prettyprint source"><code>assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-bundles.json
-webconfig.json
-webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
+<pre class="prettyprint source"><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+├─ bundles.json
+├─ webconfig.json
+└─ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;httpPort&quot;: 7777,
     &quot;optimizations&quot;: &quot;optimizations.json&quot;,
@@ -3130,12 +3140,13 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p>and the following set of files:</p>
-<pre class="prettyprint source"><code>generates/
-assets/
-— stylesheets/
-—— email.css
-templates/
-— email.htm</code></pre><p>whose contents are :</p>
+<pre class="prettyprint source"><code>├─ generates/
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ templates/
+│  └─ email.htm
+└─ webconfig.json</code></pre><p>whose contents are :</p>
 <p><strong>stylesheets/common.css</strong></p>
 <pre class="prettyprint source lang-css"><code>body {
     color: #f00;
@@ -3150,13 +3161,14 @@ templates/
         &lt;p>This is a template email.&lt;/p>
     &lt;/body>
 &lt;/html></code></pre><p>output will be, with the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code>, all following file:</p>
-<pre class="prettyprint source"><code>generates/
-— welcome.html    &lt;= template email generate !
-assets/
-— stylesheets/
-—— email.css
-templates/
-— email.htm</code></pre><p>with as content for <code>generates/welcome.html</code></p>
+<pre class="prettyprint source"><code>├─ generates/
+│  └─ bienvenue.html    &lt;= template email generate !
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ templates/
+│  └─ email.htm
+└─ webconfig.json</code></pre><p>with as content for <code>generates/welcome.html</code></p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;en&quot;>
     &lt;head>
@@ -3614,9 +3626,9 @@ website.config({
 <p>To understand what this means: if there is any file in the directory where NodeAtlas was launched, it will be returned by HTTP request so have the demands via its path.</p>
 <p>For example, by launching NodeAtlas in the <code>site-hello-world</code> folder</p>
 <pre class="prettyprint source"><code>site-hello-world/
-— templates/
-—— index.htm
-— webconfig.json</code></pre><p>by running the command</p>
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>by running the command</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/</code></pre><p>or even the command</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --webconfig webconfig.not-exist.json</code></pre><p>the server will run in &quot;Simple Web Server&quot; mode and file &quot;http://localhost/webconfig.json&quot; or &quot;http://localhost/templates/webconfig.htm&quot; will be available as the browser could refer as a simple web server.</p>
 <p><em>Note : only commands <code>--webconfig</code>, <code>--browse</code>, <code>--directory</code>, <code>--httpPort</code> and <code>--httpHostname</code> work in this mode.</em></p>
@@ -3642,24 +3654,32 @@ website.config({
 <h4>Create application</h4><p>In IIS8, create a web site and create an Application.</p>
 <p>The content of your application will be the site mixed with that of NodeAtlas. So that means this:</p>
 <pre class="prettyprint source"><code>node-atlas/
-— node_modules/
-— languages/
-—— default.json
-— node-atlas.js
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+└─ index.js
 site-hello-world/
-— assets/
-— templates/
-—— index.htm
-— webconfig.json</code></pre><p>becomes this:</p>
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>becomes this:</p>
 <pre class="prettyprint source"><code>site-hello-world/
-— node_modules/
-— languages/
-—— default.json
-— assets/
-— templates/
-—— index.htm
-— node-atlas.js
-— webconfig.json</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p>
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+├─ index.js
+└─ webconfig.json</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p>
 <pre class="prettyprint source lang-xml"><code>&lt;configuration>
     &lt;system.webServer>
         &lt;handlers>
@@ -3687,15 +3707,19 @@ site-hello-world/
     &lt;/system.webServer>
 &lt;/configuration></code></pre><p>to obtain:</p>
 <pre class="prettyprint source"><code>site-hello-world/
-— node_modules/
-— languages/
-—— default.json
-— assets/
-— templates/
-—— index.htm
-— node-atlas.js
-— webconfig.json
-— web.config</code></pre><p>It will just have to click on &quot;Browse <url-of-Site>&quot; in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</p>
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+├─ index.js
+├─ webconfig.json
+└─ web.config</code></pre><p>It will just have to click on &quot;Browse <url-of-Site>&quot; in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</p>
 <h4>webconfig example</h4><p>An example for a production webconfig:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;urlPort&quot;: 80,
@@ -3902,7 +3926,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Mon Nov 28 2016 19:13:26 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Nov 30 2016 17:15:58 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

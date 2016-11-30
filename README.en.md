@@ -427,11 +427,11 @@ Below is a sample configuration.
 To run this set of file:
 
 ```
-templates/
-— index.htm
-— member.htm
-— error.htm
-webconfig.json
+├─ templates/
+│  ├─ index.htm
+│  ├─ member.htm
+│  └─ error.htm
+└─ webconfig.json
 ```
 
 with the addresses:
@@ -508,17 +508,17 @@ You can also host any file on your site in a public folder. For example, with th
 and this set of files:
 
 ```
-assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-— media/
-—— images/
-——— logo.png
-templates/
-— index.htm
-webconfig.json
+├─ assets/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  ├─ javascript/
+│  │  └─ common.js
+│  └─ media/
+│     └─ images/
+│        └─ logo.png
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 you will have access to the addresses:
@@ -572,18 +572,18 @@ You can segment your HTML codes to not repeat the redundant code such "head" par
 with the following files:
 
 ```
-assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-components/
-— head.htm
-— foot.htm
-templates/
-— index.htm
-— members.htm
-webconfig.json
+├─ assets/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  └─ javascript/
+│     └─ common.js
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ templates/
+│  ├─ index.htm
+│  └─ members.htm
+└─ webconfig.json
 ```
 
 *components/head.htm*
@@ -667,25 +667,25 @@ It is possible with the same template and the same includes, generating pages wi
 with the following files:
 
 ```
-assets/
-— stylesheets/
-—— common.css
-—— home.css
-—— members.css
-— javascript/
-—— common.js
-—— home.js
-—— members.js
-components/
-— head.htm
-— foot.htm
-variations/
-— common.json
-— index.json
-— members.json
-templates/
-— template.htm
-webconfig.json
+├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ index.css
+│  │  └─ members.css
+│  └─ javascript/
+│     ├─ common.js
+│     ├─ index.js
+│     └─ members.js
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ common.json
+│  ├─ index.json
+│  └─ members.json
+├─ templates/
+│  └─ template.htm
+└─ webconfig.json
 ```
 
 *components/head.htm*
@@ -798,19 +798,19 @@ On the same principle, the variations can be used to create the same page, but i
 with the following files:
 
 ```
-components/
-— head.htm
-— foot.htm
-languages/
-— landing.json
-— en-gb
-—— home.json
-— fr-fr
-—— home.json
-templates/
-— landing.htm
-— home.htm
-webconfig.json
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ languages/
+│  ├─ landing.json
+│  ├─ en-gb
+│  │  └─ home.json
+│  └─ fr-fr
+│     └─ home.json
+├─ templates/
+│  ├─ landing.htm
+│  └─ home.htm
+└─ webconfig.json
 ```
 
 *components/head.htm*
@@ -910,14 +910,15 @@ Also, when a `languageCode` is specified, NodeAtlas seek first hand the value in
 This will allow you, for example, to manage master language directly in the variation folder. So with the following example:
 
 ```
-...
-variations/
-— common.json
-— home.json
-— fr-fr
-—— common.json
-—— home.json
-...
+│
+┊┉
+├─ variations/
+│  ├─ common.json
+│  ├─ home.json
+│  ├─ fr-fr
+│  │  ├─ common.json
+│  │  └─ home.json
+┊┉
 ```
 
 you can
@@ -933,24 +934,24 @@ thus, if a sentence has not yet translated into a file `fr-fr`, instead of retur
 You can also choose to configure each language in a "webconfig.json" different. With the following set of file:
 
 ```
-components/
-— head.htm
-— foot.htm
-variations/
-— landing.json
-— en-gb
-—— home.json
-—— members.json
-— fr-fr
-—— home.json
-—— members.json
-templates/
-— landing.htm
-— home.htm
-— members.htm
-webconfig.json
-webconfig.en-gb.json
-webconfig.fr-fr.json
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ landing.json
+│  ├─ en-gb
+│  │  ├─ home.json
+│  │  └─ members.json
+│  └─ fr-fr
+│     ├─ home.json
+│     └─ members.json
+├─ templates/
+│  ├─ landing.htm
+│  ├─ home.htm
+│  └─ members.htm
+├─ webconfig.json
+├─ webconfig.en-gb.json
+└─ webconfig.fr-fr.json
 ```
 
 you could have "webconfig.json» next:
@@ -1113,17 +1114,17 @@ Imagine two webconfigs in which we create our own variables as follows:
 with this set of files
 
 ```
-assets/
-— stylesheets/
-—— common.css
-—— common.min.css
-— javascript/
-—— common.js
-—— common.min.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
+├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  └─ common.min.css
+│  └─ javascript/
+│     ├─ common.js
+│     └─ common.min.js
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
 ```
 
 and "index.htm" containing:
@@ -1226,36 +1227,37 @@ With the following configuration it is possible to generate HTML rendering asset
 and the following set of files:
 
 ```
-{
-assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-generates/
-templates/
-— index.htm
-— members.htm
-webconfig.json
-}
+├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  └─ javascript/
+│     └─ common.js
+├─ generates/
+├─ templates/
+│  ├─ index.htm
+│  └─ members.htm
+└─ webconfig.json
 ```
 
 can physically create assets:
 
 ```
-{
-generates/
-— index.html
-— members/
-—— list.html
-— no/
-—— generates/
-——— property <== Ceci est un fichier
-templates/
-— index.htm
-— members.htm
-webconfig.json
-}
+├─ assets/
+│  ┊┉
+├─ generates/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  ├─ javascript/
+│  │  └─ common.js
+│  ├─ index.html
+│  ├─ members/
+│  │  └─ list.html
+│  └─ no/
+│     └─ generate/
+│        └─ property ⤆ Ceci est un fichier
+├─ templates/
+│  ┊┉
+└─ webconfig.json
 ```
 
 by going to the address:
@@ -1303,20 +1305,20 @@ You can also manager a simple HTML website page with the following configuration
 and the following set of files:
 
 ```
-HTML/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-engine/
-— variations/
-—— fr-fr/
-——— index.json
-—— en/
-——— index.json
-— templates/
-—— index.htm
-— webconfig.json
+├─ HTML/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  └─ javascript/
+│     └─ common.js
+└─ engine/
+   ├─ variations/
+   │  ├─ fr-fr/
+   │  │  └─ index.json
+   │  └─ en/
+   │     └─ index.json
+   ├─ templates/
+   │  └─ index.htm
+   └─ webconfig.json
 ```
 
 To address *http://localhost/* will show a list of pages your site components (with **enableIndex** set to **true**).
@@ -1324,14 +1326,14 @@ To address *http://localhost/* will show a list of pages your site components (w
 It will do more than, once your work is done, enjoy your HTML site in the folder:
 
 ```
-HTML/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-— cv.html
-— en/
-—— cv.html
+└─ HTML/
+   ├─ stylesheets/
+   │  └─ common.css
+   ├─ javascript/
+   │  └─ common.js
+   ├─ cv.html
+   └─ en/
+      └─ cv.html
 ```
 
 
@@ -1432,18 +1434,18 @@ This is an example using the two hooks, the common in first and after the specif
 with this files :
 
 ```
-components/
-— head.htm
-— foot.htm
-variations/
-— common.json
-— index.json
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 Do a POST request on `http://localhost/?title=Haeresis` with `example=This+is+a+test` variable in body will use the following files:
@@ -1616,14 +1618,14 @@ This is an example using the two hooks, the common in first and after the specif
 with this files :
 
 ```
-variations/
-— index.json
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json
+├─ variations/
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 Do a POST request on `http://localhost/` will use the following files:
@@ -1762,12 +1764,12 @@ This is an exemple using an external module of NodeAtlas:
 with this set of files:
 
 ```
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-webconfig.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 Do a POST request on `http://localhost/` will use the following files:
@@ -1863,11 +1865,11 @@ This is an exemple using a middleware for [ExpressJs](http://expressjs.com/):
 with this set of files:
 
 ```
-controllers/
-— common.js
-templates/
-— index.htm
-webconfig.json
+├─ controllers/
+│  └─ common.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 Do a POST request on `http://localhost/` will use the following files:
@@ -1940,14 +1942,14 @@ To configure client-server Sessions of NodeAtlas, you can use the common control
 This is all files for example:
 
 ```
-controllers/
-— common.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json
+├─ controllers/
+│  └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
 ```
 
 With the `webconfig.json`:
@@ -2000,14 +2002,14 @@ To configure routes of NodeAtlas by programmation, you can use the common contro
 This is all files for example:
 
 ```
-controllers/
-— common.js
-templates/
-— content.htm
-— index.htm
-variations/
-— common.json
-webconfig.json
+├─ controllers/
+│  └─ common.js
+├─ templates/
+│  ├─ content.htm
+│  └─ index.htm
+├─ variations/
+│  └─ common.json
+└─ webconfig.json
 ```
 
 With the `webconfig.json`:
@@ -2058,23 +2060,23 @@ Thanks to this, you could change in real time data on your page, but also change
 With this following files:
 
 ```
-assets/
-— javascript/
-—— common.js
-—— index.js
-components/
-— foot.htm
-— head.htm
-— index.htm
-controllers/
-— common.js
-- index.js
-variations/
-— common.json
-— index.json
-templates/
-— index.htm
-webconfig.json
+├─ assets/
+│  └─ javascript/
+│     ├─ common.js
+│     └─ index.js
+├─ components/
+│  ├─ foot.htm
+│  ├─ head.htm
+│  └─ index.htm
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 With this `webconfig.json`:
@@ -2430,21 +2432,21 @@ INSERT INTO user (
 With the following data set:
 
 ```
-assets/
-— javascript/
-—— models/
-——— user.js
-controllers/
-— common.js
-— index.js
-models/
-— user.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json
+├─ assets/
+│  └─ javascript/
+│     └─ models/
+│        └─ user.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  └─ user.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
 ```
 
 We will use the following `webconfig.json` with the custom `_mysqlConfig` variable which contain all informations for database connection:
@@ -2842,19 +2844,19 @@ db.user.insert({
 With the following data set:
 
 ```
-assets/
-— javascript/
-—— models/
-——— user.js
-controllers/
-— common.js
-— index.js
-templates/
-— index.htm
-variations/
-— common.json
-— index.json
-webconfig.json
+├─ assets/
+│  └─ javascript/
+│     └─ models/
+│        └─ user.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ templates/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
 ```
 
 We will use the following `webconfig.json` with the custom `_mongodbConfig` variable which contain all informations for database connection:
@@ -3163,10 +3165,10 @@ For example:
 The following set of file
 
 ```
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
 ```
 
 with `webconfig.json`
@@ -3549,51 +3551,55 @@ With the following configuration:
 and the following set of file:
 
 ```
-assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-webconfig.json
+├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 you will get the following new files:
 
 ```
-assets/
-— stylesheets
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-—— common.min.css               <= new file
-— javascript
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-—— javascript/boot.min.js       <= new file
-—— javascript/framework.min.js  <= new file
-—— javascript/common.min.js     <= new file
-templates/
-— index.htm
-webconfig.json
+├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  ├─ common-min1160.css
+│  │  └─ common.min.css     ⤆ new file
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     ├─ common.js
+│     ├─ boot.min.js        ⤆ new file
+│     ├─ framework.min.js   ⤆ new file
+│     └─ common.min.js      ⤆ new file
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 #### Bundles in a shared file ####
@@ -3605,25 +3611,27 @@ For example:
 The following set of file
 
 ```
-assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
+├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
 ```
 
 with `webconfig.json`
@@ -3709,26 +3717,28 @@ and with `webconfig.prod.json`
 could be the following set of file
 
 ```
-assets/
-— stylesheets/
-—— common.css
-—— common-min780.css
-—— common-min1160.css
-— javascript/
-—— modernizr.js
-—— yepnot.js
-—— html5Shiv.js
-—— jquery.js
-—— jquery-ui.js
-—— prettify.js
-—— prettify/run_prettify.js
-—— components/extended-format-date.js
-—— common.js
-templates/
-— index.htm
-bundles.json
-webconfig.json
-webconfig.prod.json
+├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascript/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ templates/
+│  └─ index.htm
+├─ bundles.json              ⤆ new file
+├─ webconfig.json
+└─ webconfig.prod.json
 ```
 
 with `webconfig.json`
@@ -3891,12 +3901,12 @@ You can use the preprocessor Less to create your CSS. The operation is as follow
 With the following structure:
 
 ```
-assets/
-— stylesheets
-—— common.less
-templates/
-— index.htm
-webconfig.json
+├─ assets/
+│  └─ stylesheets
+│     └─ common.less
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 and the following webconfig:
@@ -4035,12 +4045,12 @@ You can use the preprocessor Stylus to create your CSS. The operation is as foll
 With the following structure:
 
 ```
-assets/
-— stylesheets
-—— common.styl
-templates/
-— index.htm
-webconfig.json
+├─ assets/
+│  └─ stylesheets
+│     └─ common.styl
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 and the following webconfig:
@@ -4202,36 +4212,36 @@ With the following configuration:
 and the following set of file:
 
 ```
-assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-webconfig.json
+├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 you will get the following new files:
 
 ```
-assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-——— optimized/      <= new folder
-———— example.png    <= new file
-———— example.jpg    <= new file
-———— example.gif    <= new file
-———— example.svg    <= new file
-templates/
-— index.htm
-webconfig.json
+├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        ├─ example.svg
+│        └─ optimized/       ⤆ new folder
+│           ├─ example.png   ⤆ new file
+│           ├─ example.jpg   ⤆ new file
+│           ├─ example.gif   ⤆ new file
+│           └─ example.svg   ⤆ new file
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 #### Create Optimizations by group of file ####
@@ -4291,17 +4301,17 @@ For example:
 The following set of file
 
 ```
-assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
+├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
 ```
 
 with `webconfig.json`
@@ -4351,18 +4361,18 @@ and with `webconfig.prod.json`
 could be the following set of file
 
 ```
-assets/
-— media/
-—— images/
-——— example.png
-——— example.jpg
-——— example.gif
-——— example.svg
-templates/
-— index.htm
-bundles.json
-webconfig.json
-webconfig.prod.json
+├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ templates/
+│  └─ index.htm
+├─ bundles.json
+├─ webconfig.json
+└─ webconfig.prod.json
 ```
 
 with `webconfig.json`
@@ -4487,12 +4497,13 @@ With for example the following configuration:
 and the following set of files:
 
 ```
-generates/
-assets/
-— stylesheets/
-—— email.css
-templates/
-— email.htm
+├─ generates/
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ templates/
+│  └─ email.htm
+└─ webconfig.json
 ```
 
 whose contents are :
@@ -4523,13 +4534,14 @@ body {
 output will be, with the command `node </path/to/>node-atlas/ --generate`, all following file:
 
 ```
-generates/
-— welcome.html    <= template email generate !
-assets/
-— stylesheets/
-—— email.css
-templates/
-— email.htm
+├─ generates/
+│  └─ bienvenue.html    <= template email generate !
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ templates/
+│  └─ email.htm
+└─ webconfig.json
 ```
 
 with as content for `generates/welcome.html`
@@ -5350,9 +5362,9 @@ For example, by launching NodeAtlas in the `site-hello-world` folder
 
 ```
 site-hello-world/
-— templates/
-—— index.htm
-— webconfig.json
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 by running the command
@@ -5443,29 +5455,37 @@ The content of your application will be the site mixed with that of NodeAtlas. S
 
 ```
 node-atlas/
-— node_modules/
-— languages/
-—— default.json
-— node-atlas.js
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+└─ index.js
 site-hello-world/
-— assets/
-— templates/
-—— index.htm
-— webconfig.json
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 becomes this:
 
 ```
 site-hello-world/
-— node_modules/
-— languages/
-—— default.json
-— assets/
-— templates/
-—— index.htm
-— node-atlas.js
-— webconfig.json
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+├─ index.js
+└─ webconfig.json
 ```
 
 You will add to this set of files, additional file named `web.config` whose content is:
@@ -5503,15 +5523,19 @@ to obtain:
 
 ```
 site-hello-world/
-— node_modules/
-— languages/
-—— default.json
-— assets/
-— templates/
-—— index.htm
-— node-atlas.js
-— webconfig.json
-— web.config
+├─ node_modules/
+│  ┊┉
+├─ languages/
+│  ┊┉
+│  └─ default.json
+┊┉
+├─ assets/
+│  ┊┉
+├─ templates/
+│  └─ index.htm
+├─ index.js
+├─ webconfig.json
+└─ web.config
 ```
 
 It will just have to click on "Browse <url-of-Site>" in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.
