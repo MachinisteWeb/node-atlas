@@ -187,55 +187,68 @@ Structure de dossier *NodeAtlas* par défaut:
 
 ```
 my-website/
-    — node_modules/               <= Tous les modules node.js pour votre application.
-        — node-atlas/
-        — ...
-    — assets/                     <= Tous les fichiers publiques peuvent être accédés en HTTP(s) sans route specifique définie.
-        — javascript/
-            ...
-        — stylesheets/
-            ...
-        — media/
-            ...
-        — ...
-    — templates/                  <= La partie Vue avec chaque type de template pour le rendu.
-        home.htm
-        default.htm
-        ...
-    — variations/                 <= Tous les fichiers pour le remplissage de contenu avec "en-gb" par défaut...
-        common.json
-        home.json
-        ...
-        — fr-fr/                  <= ...et également le "fr-fr".
-            common.json
-            home.json
-            ...
-    — controller/                 <= La partie Contrôle pour manipuler le template, la variation et les modèles avec les bases de données ou les paramètres d'url.
-        common.js
-        home.js
-        ...
-    — components/                 <= Toutes les parties mutualisées pour...
-        — templates/              <= ...les templates...
-            head.htm
-            foot.htm
-            ...
-        — controllers/            <= ...et les contrôles.
-            form-contact-us.js
-            ...
-    — models/                     <= La partie Modèle avec des fichiers de modèle utilisés par les contrôles pour remplir les templates.
-        — ...
-    — generates/                  <= Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
-    ...
-    server.js                     <= Fichier utilisé pour faire tourner et configurer NodeAtlas pour une utilisation sous forme d'API.
-    webconfig.json                <= Fichier utilisé pour faire tourner le site sur localhost pour le développement.
-    webconfig.prod.json           <= Fichier utilisé pour faire tourner le site sur le net pour la production.
-    routes.json                   <= Fichier utilisé par "webconfig.json" et "webconfig.prod.json" pour définir les routes.
-    ...
-    webconfig.prod.en-gb.json     <= Fichier exemple utilisé pour faire tourner uniquement les routes "en-gb" sur un port...
-    routes.en-gb.json             <= ...avec le fichier de route anglais...
-    webconfig.prod.fr-fr.json     <= ...et faire tourner les routes "fr-fr" sur un autre port...
-    routes.fr-fr.json             <= ...avec le fichier de route français.
-    ...
+├─ node_modules/             ⤆ Tous les modules node.js pour votre application.
+│  └─ node-atlas/
+│     ┊┉
+│
+├─ assets/                   ⤆ Tous les fichiers publiques peuvent être accédés en HTTP(s) sans route specifique définie.
+│  ├─ javascript/
+│  │  ┊┉
+│  │
+│  ├─ stylesheets/
+│  │  ┊┉
+│  │
+│  ├─ media/
+│  │  ┊┉
+│  │
+│  ┊┉
+│
+├─ templates/                ⤆ La partie Vue avec chaque type de template pour le rendu.
+│  ├─ home.htm
+│  ├─ default.htm
+│  ┊┉
+│
+├─ variations/               ⤆ Tous les fichiers pour le remplissage de contenu avec "en-gb" par défaut…
+│  ├─ common.json
+│  ├─ home.json
+│  ┊┉
+│  │
+│  └─ fr-fr/                 ⤆ …et également le "fr-fr".
+│     ├─ common.json
+│     ├─ home.json
+│     ┊┉
+│
+├─ controller/               ⤆ La partie Contrôle pour manipuler le template, la variation et les modèles avec les bases de données ou les paramètres d'url.
+│  ├─ common.js
+│  ├─ home.js
+│  ┊┉
+│
+├─ components/               ⤆ Toutes les parties mutualisées pour…
+│   ├─ templates/            ⤆ …les templates…
+│   │  ├─ head.htm
+│   │  ├─ foot.htm
+│   │  ┊┉
+│   │  
+│   ├─ controllers/          ⤆ …et les contrôles.
+│      ├─ form-contact-us.js
+│      ┊┉
+│
+├─ models/                   ⤆ La partie Modèle avec des fichiers de modèle utilisés par les contrôles pour remplir les templates.
+│  ┊┉
+│
+├─ generates/                ⤆ Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
+│  ┊┉
+│
+├─ server.js                 ⤆ Fichier utilisé pour faire tourner et configurer NodeAtlas pour une utilisation sous forme d'API.
+├─ webconfig.json            ⤆ Fichier utilisé pour faire tourner le site sur localhost pour le développement.
+├─ webconfig.prod.json       ⤆ Fichier utilisé pour faire tourner le site sur le net pour la production.
+├─ routes.json               ⤆ Fichier utilisé par "webconfig.json" et "webconfig.prod.json" pour définir les routes.
+┊┉
+├─ webconfig.prod.en-gb.json ⤆ Fichier exemple utilisé pour faire tourner uniquement les routes "en-gb" sur un port…
+├─ routes.en-gb.json         ⤆ …avec le fichier de route anglais…
+├─ webconfig.prod.fr-fr.json ⤆ …et faire tourner les routes "fr-fr" sur un autre port…
+├─ routes.fr-fr.json         ⤆ …avec le fichier de route français.
+┊┉
 ```
 
 Étape 4 - Lancement ! ###

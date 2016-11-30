@@ -183,55 +183,68 @@ Create files to develop your website !
 
 ```
 my-website/
-    — node_modules/               <= All node.js module for your application.
-        — node-atlas/
-        — ...
-    — assets/                     <= All public files could be acceded in HTTP(s) without a specific route setted.
-        — javascript/
-            ...
-        — stylesheets/
-            ...
-        — media/
-            ...
-        — ...
-    — templates/                  <= The View part with each type of template for render.
-        home.htm
-        default.htm
-        ...
-    — variations/                 <= All files for content filling with "en-gb" in default...
-        common.json
-        home.json
-        ...
-        — fr-fr/                  <= ...and "fr-fr" too.
-            common.json
-            home.json
-            ...
-    — controller/                 <= The Controller part for manipulate template, variation and models with database and url parameters.
-        common.js
-        home.js
-        ...
-    — components/                 <= All re-usable part for...
-        — templates/              <= ...templates...
-            head.htm
-            foot.htm
-            ...
-        — controllers/            <= ...and controllers.
-            form-contact-us.js
-            ...
-    — models/                     <= The Model part with model files used into controllers for filled templates.
-        — ...
-    — generates/                  <= All HTML mockups generated and usable for Back-end not in Node.js.
-    ...
-    server.js                     <= File used to run and configure NodeAtlas for API usage.
-    webconfig.json                <= File used to run website on localhost for development.
-    webconfig.prod.json           <= File used to run website on world wide web for production.
-    routes.json                   <= File used by "webconfig.json" and "webconfig.prod.json" to address route.
-    ...
-    webconfig.prod.en-gb.json     <= Example file used to run only "en-gb" part on a port...
-    routes.en-gb.json             <= ...with english routes defined in this file...
-    webconfig.prod.fr-fr.json     <= ...and run only "fr-fr" part on an other port...
-    routes.fr-fr.json             <= ...with french routes defined in this file.
-    ...
+├─ node_modules/             ⤆ All node.js module for your application.
+│  └─ node-atlas/
+│     ┊┉
+│
+├─ assets/                   ⤆ All public files could be acceded in HTTP(s) without a specific route setted.
+│  ├─ javascript/
+│  │  ┊┉
+│  │
+│  ├─ stylesheets/
+│  │  ┊┉
+│  │
+│  ├─ media/
+│  │  ┊┉
+│  │
+│  ┊┉
+│
+├─ templates/                ⤆ The View part with each type of template for render.
+│  ├─ home.htm
+│  ├─ default.htm
+│  ┊┉
+│
+├─ variations/               ⤆ All files for content filling with "en-gb" in default...
+│  ├─ common.json
+│  ├─ home.json
+│  ┊┉
+│  │
+│  └─ fr-fr/                 ⤆ …and "fr-fr" too.
+│     ├─ common.json
+│     ├─ home.json
+│     ┊┉
+│
+├─ controller/               ⤆ The Controller part for manipulate template, variation and models with database and url parameters.
+│  ├─ common.js
+│  ├─ home.js
+│  ┊┉
+│
+├─ components/               ⤆ All re-usable part for…
+│   ├─ templates/            ⤆ …templates…
+│   │  ├─ head.htm
+│   │  ├─ foot.htm
+│   │  ┊┉
+│   │  
+│   ├─ controllers/          ⤆ …and controllers.
+│      ├─ form-contact-us.js
+│      ┊┉
+│
+├─ models/                   ⤆ The Model part with model files used into controllers for filled templates.
+│  ┊┉
+│
+├─ generates/                ⤆ All HTML mockups generated and usable for Back-end not in Node.js.
+│  ┊┉
+│
+├─ server.js                 ⤆ File used to run and configure NodeAtlas for API usage.
+├─ webconfig.json            ⤆ File used to run website on localhost for development.
+├─ webconfig.prod.json       ⤆ File used to run website on world wide web for production.
+├─ routes.json               ⤆ File used by "webconfig.json" and "webconfig.prod.json" to address route.
+┊┉
+├─ webconfig.prod.en-gb.json ⤆ Example file used to run only "en-gb" part on a port…
+├─ routes.en-gb.json         ⤆ …with english routes defined in this file…
+├─ webconfig.prod.fr-fr.json ⤆ …and run only "fr-fr" part on an other port…
+├─ routes.fr-fr.json         ⤆ …with french routes defined in this file.
+┊┉
 ```
 
 ### Step 4 - Run ! ###
