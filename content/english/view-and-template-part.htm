@@ -22,11 +22,11 @@
         }
     }
 }
-</code></pre><p>To run this set of file:</p><pre><code>templates/
-— index.htm
-— member.htm
-— error.htm
-webconfig.json
+</code></pre><p>To run this set of file:</p><pre><code>├─ templates/
+│  ├─ index.htm
+│  ├─ member.htm
+│  └─ error.htm
+└─ webconfig.json
 </code></pre><p>with the addresses:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em> (responds to the root)</li>
 <li><em><a href="http://localhost/member.html">http://localhost/member.html</a></em> (will not respond if is POST requested)</li>
@@ -64,17 +64,17 @@ webconfig.json
         }
     }
 }
-</code></pre><p>and this set of files:</p><pre><code>assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-— media/
-—— images/
-——— logo.png
-templates/
-— index.htm
-webconfig.json
+</code></pre><p>and this set of files:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  ├─ javascript/
+│  │  └─ common.js
+│  └─ media/
+│     └─ images/
+│        └─ logo.png
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 </code></pre><p>you will have access to the addresses:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
@@ -101,18 +101,18 @@ webconfig.json
         }
     }
 }
-</code></pre><p>with the following files:</p><pre><code>assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-components/
-— head.htm
-— foot.htm
-templates/
-— index.htm
-— members.htm
-webconfig.json
+</code></pre><p>with the following files:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  └─ javascript/
+│     └─ common.js
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ templates/
+│  ├─ index.htm
+│  └─ members.htm
+└─ webconfig.json
 </code></pre><p><em>components/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -158,25 +158,25 @@ webconfig.json
         }
     }
 }
-</code></pre><p>with the following files:</p><pre><code>assets/
-— stylesheets/
-—— common.css
-—— home.css
-—— members.css
-— javascript/
-—— common.js
-—— home.js
-—— members.js
-components/
-— head.htm
-— foot.htm
-variations/
-— common.json
-— index.json
-— members.json
-templates/
-— template.htm
-webconfig.json
+</code></pre><p>with the following files:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ index.css
+│  │  └─ members.css
+│  └─ javascript/
+│     ├─ common.js
+│     ├─ index.js
+│     └─ members.js
+├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ common.json
+│  ├─ index.json
+│  └─ members.json
+├─ templates/
+│  └─ template.htm
+└─ webconfig.json
 </code></pre><p><em>components/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -237,19 +237,19 @@ webconfig.json
         }
     }
 }
-</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify</em> <strong><em>commonVariation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations</em></strong> <em>to</em> <strong><em>languages</em></strong>.</p><p>with the following files:</p><pre><code>components/
-— head.htm
-— foot.htm
-languages/
-— landing.json
-— en-gb
-—— home.json
-— fr-fr
-—— home.json
-templates/
-— landing.htm
-— home.htm
-webconfig.json
+</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify</em> <strong><em>commonVariation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations</em></strong> <em>to</em> <strong><em>languages</em></strong>.</p><p>with the following files:</p><pre><code>├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ languages/
+│  ├─ landing.json
+│  ├─ en-gb
+│  │  └─ home.json
+│  └─ fr-fr
+│     └─ home.json
+├─ templates/
+│  ├─ landing.htm
+│  └─ home.htm
+└─ webconfig.json
 </code></pre><p><em>components/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;&lt;%= languageCode %&gt;&quot;&gt;
     &lt;head&gt;
@@ -298,35 +298,36 @@ webconfig.json
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/home/">http://localhost/home/</a></em></li>
 <li><em><a href="http://localhost/accueil/">http://localhost/accueil/</a></em></li>
-</ul><p><em>Note : By default is the</em> <strong><em>languageCode</em></strong> <em>root that determines the display language of the wesite. However, specifically by page language, we can be changed also the</em> <strong><em>languageCode*</em></strong>. <em>You should also know that once the site or page has a</em> <strong><em>languageCode</em></strong> <em>in the configuration, variations files must be placed in a subdirectory named with the</em> <strong><em>languageCode</em></strong>.</p><h4 id="use-only-changes-with-the-active-multilingual">Use only changes with the active multilingual</h4><p>You may have noticed in the previous example that the <code>landing.json</code> file was not in the <code>en-gb/</code> or <code>fr-fr/</code>. This is quite possible and means that will be used in languages that do not have it in their file.</p><p>Also, when a <code>languageCode</code> is specified, NodeAtlas seek first hand the value in the corresponding folder file. If it was not there, so he went to fetch the parent folder (the one used as standard for variations without multilingual).</p><p>This will allow you, for example, to manage master language directly in the variation folder. So with the following example:</p><pre><code>...
-variations/
-— common.json
-— home.json
-— fr-fr
-—— common.json
-—— home.json
-...
+</ul><p><em>Note : By default is the</em> <strong><em>languageCode</em></strong> <em>root that determines the display language of the wesite. However, specifically by page language, we can be changed also the</em> <strong><em>languageCode*</em></strong>. <em>You should also know that once the site or page has a</em> <strong><em>languageCode</em></strong> <em>in the configuration, variations files must be placed in a subdirectory named with the</em> <strong><em>languageCode</em></strong>.</p><h4 id="use-only-changes-with-the-active-multilingual">Use only changes with the active multilingual</h4><p>You may have noticed in the previous example that the <code>landing.json</code> file was not in the <code>en-gb/</code> or <code>fr-fr/</code>. This is quite possible and means that will be used in languages that do not have it in their file.</p><p>Also, when a <code>languageCode</code> is specified, NodeAtlas seek first hand the value in the corresponding folder file. If it was not there, so he went to fetch the parent folder (the one used as standard for variations without multilingual).</p><p>This will allow you, for example, to manage master language directly in the variation folder. So with the following example:</p><pre><code>│
+┊┉
+├─ variations/
+│  ├─ common.json
+│  ├─ home.json
+│  ├─ fr-fr
+│  │  ├─ common.json
+│  │  └─ home.json
+┊┉
 </code></pre><p>you can</p><ul>
 <li>manage the version <code>en-gb</code> directly to the root of <code>variations/</code> (as NodeAtlas find nothing in<code>en-gb</code> then it uses the values of the root files) and</li>
 <li>manage the <code>fr-fr</code> release in the<code>fr-fr /</code>,</li>
-</ul><p>thus, if a sentence has not yet translated into a file <code>fr-fr</code>, instead of returning an error, NodeAtlas return the root version or the version<code>en-gb</code>.</p><h4 id="each-language-has-its-configuration">Each language has its configuration</h4><p>You can also choose to configure each language in a &quot;webconfig.json&quot; different. With the following set of file:</p><pre><code>components/
-— head.htm
-— foot.htm
-variations/
-— landing.json
-— en-gb
-—— home.json
-—— members.json
-— fr-fr
-—— home.json
-—— members.json
-templates/
-— landing.htm
-— home.htm
-— members.htm
-webconfig.json
-webconfig.en-gb.json
-webconfig.fr-fr.json
+</ul><p>thus, if a sentence has not yet translated into a file <code>fr-fr</code>, instead of returning an error, NodeAtlas return the root version or the version<code>en-gb</code>.</p><h4 id="each-language-has-its-configuration">Each language has its configuration</h4><p>You can also choose to configure each language in a &quot;webconfig.json&quot; different. With the following set of file:</p><pre><code>├─ components/
+│  ├─ head.htm
+│  └─ foot.htm
+├─ variations/
+│  ├─ landing.json
+│  ├─ en-gb
+│  │  ├─ home.json
+│  │  └─ members.json
+│  └─ fr-fr
+│     ├─ home.json
+│     └─ members.json
+├─ templates/
+│  ├─ landing.htm
+│  ├─ home.htm
+│  └─ members.htm
+├─ webconfig.json
+├─ webconfig.en-gb.json
+└─ webconfig.fr-fr.json
 </code></pre><p>you could have &quot;webconfig.json» next:</p><p><em>webconfig.json</em></p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -428,17 +429,17 @@ webconfig.fr-fr.json
     },
     &quot;_minified&quot;: &quot;.min&quot;
 }
-</code></pre><p>with this set of files</p><pre><code>assets/
-— stylesheets/
-—— common.css
-—— common.min.css
-— javascript/
-—— common.js
-—— common.min.js
-templates/
-— index.htm
-webconfig.json
-webconfig.prod.json
+</code></pre><p>with this set of files</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  └─ common.min.css
+│  └─ javascript/
+│     ├─ common.js
+│     └─ common.min.js
+├─ templates/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
 </code></pre><p>and &quot;index.htm&quot; containing:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -498,31 +499,32 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>and the following set of files:</p><pre><code>{
-assets/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-generates/
-templates/
-— index.htm
-— members.htm
-webconfig.json
-}
-</code></pre><p>can physically create assets:</p><pre><code>{
-generates/
-— index.html
-— members/
-—— list.html
-— no/
-—— generates/
-——— property &lt;== Ceci est un fichier
-templates/
-— index.htm
-— members.htm
-webconfig.json
-}
+</code></pre><p>and the following set of files:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  └─ javascript/
+│     └─ common.js
+├─ generates/
+├─ templates/
+│  ├─ index.htm
+│  └─ members.htm
+└─ webconfig.json
+</code></pre><p>can physically create assets:</p><pre><code>├─ assets/
+│  ┊┉
+├─ generates/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  ├─ javascript/
+│  │  └─ common.js
+│  ├─ index.html
+│  ├─ members/
+│  │  └─ list.html
+│  └─ no/
+│     └─ generate/
+│        └─ property ⤆ Ceci est un fichier
+├─ templates/
+│  ┊┉
+└─ webconfig.json
 </code></pre><p>by going to the address:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
@@ -545,26 +547,26 @@ webconfig.json
         }
     }
 }
-</code></pre><p>and the following set of files:</p><pre><code>HTML/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-engine/
-— variations/
-—— fr-fr/
-——— index.json
-—— en/
-——— index.json
-— templates/
-—— index.htm
-— webconfig.json
-</code></pre><p>To address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>).</p><p>It will do more than, once your work is done, enjoy your HTML site in the folder:</p><pre><code>HTML/
-— stylesheets/
-—— common.css
-— javascript/
-—— common.js
-— cv.html
-— en/
-—— cv.html
+</code></pre><p>and the following set of files:</p><pre><code>├─ HTML/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  └─ javascript/
+│     └─ common.js
+└─ engine/
+   ├─ variations/
+   │  ├─ fr-fr/
+   │  │  └─ index.json
+   │  └─ en/
+   │     └─ index.json
+   ├─ templates/
+   │  └─ index.htm
+   └─ webconfig.json
+</code></pre><p>To address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>).</p><p>It will do more than, once your work is done, enjoy your HTML site in the folder:</p><pre><code>└─ HTML/
+   ├─ stylesheets/
+   │  └─ common.css
+   ├─ javascript/
+   │  └─ common.js
+   ├─ cv.html
+   └─ en/
+      └─ cv.html
 </code></pre>

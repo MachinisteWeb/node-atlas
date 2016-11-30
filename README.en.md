@@ -287,9 +287,9 @@ After installing NodeAtlas somewhere on your machine, you create a set of files 
 
 ```
 site-hello-world/
-— templates/
-—— index.htm
-— webconfig.json
+├─ templates/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
 Here is the "/site-hello-world/templates/index.htm" file:
