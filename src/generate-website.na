@@ -13,7 +13,7 @@ versionFrench.config({
 	}).afterGeneration(function() {
 		versionTest.config({
 			"browse": "index.html",
-			"directory": "../../"
+			"directory": "../"
 		}).init();
 	}).init();
 }).init();
