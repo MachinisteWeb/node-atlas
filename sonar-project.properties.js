@@ -1,7 +1,7 @@
 # Required metadata
 sonar.projectKey=nodeatlas-js
 sonar.projectName=NodeAtlas JS
-sonar.projectVersion=1.7
+sonar.projectVersion=1.8
 
 # Comma-separated paths to directories with sources (required)
 sonar.sources=./

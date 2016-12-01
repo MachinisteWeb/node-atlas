@@ -16,6 +16,8 @@
 	"notFound": {
 		"controller": "The controller « %controller% » is not found (or cannot be loaded)."
 	},
+	"languageNotFound": "The language « %language% » does not exist.",
+	"languageChanged": "NodeAtlas is now in english!",
 	"templateNotFound": "The template file « %templatesPath% » could not be opened.",
 	"variationNotFound": "The variation file « %variationsPath% » could not be opened.",
 	"initNotFound": "No project found for « %initPath% ».",
@@ -60,6 +62,14 @@
 		"init": {
 			"command": "-i, --init [path]",
 			"description": "Install the desired starting project from `tests` directory of NodeAtlas."
+		},
+		"httpSecure": {
+			"command": "-s, --httpSecure [pathName]",
+			"description": "Apply HTTPs in all engine path. With a `pathName` which set `.key` and `.crt` files, the engine is started with HTTPs protocol."
+		},
+		"lang": {
+			"command": "-l, --lang <cultureCode-countryCode>",
+			"description": "Switch all phrase used by engine with an existing other language. If language do not exist, nothing change."
 		}
 	},
 	"emulatedIndexPage": {
