@@ -112,7 +112,7 @@
     website = NA();
 website.config({
     "init": true
-}).afterInitProject(function () {
+}).created(function () {
     website.run({
         "browse": true
     });
@@ -130,7 +130,7 @@ website.config({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v1.7.3</h3>
+									<h3>v1.8.0</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/Haeresis/NodeAtlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/Haeresis/NodeAtlas/releases">Versions stables</a></p>
 								</div>
@@ -274,7 +274,7 @@ website.config({
 </li>
 <li><p>Télécharger NodeAtlas depuis le site dépôt <a href="https://github.com/Haeresis/NodeAtlas">NodeAtlas</a>.</p>
 <p> <em>Une fois téléchargé, dézippez</em> <strong>NodeAtlas</strong> <em>dans le dossier qui vous conviendra.</em></p>
-<p> <strong>Lancer au moins une fois NodeAtlas à la ligne de commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>, pour installer les _node<em>modules</em>.</strong></p>
+<p> <strong>Utilisez <code>npm install</code> depuis le dossier <code>&lt;/path/to/&gt;node-atlas/</code> pour installer toutes les dépendences.</strong></p>
 </li>
 </ul><h3 id="installation-de-node.js">Installation de Node.js</h3><p>NodeAtlas est développé sous la forme d&#39;un <a href="https://www.npmjs.com/">Node.js Module Package</a> ce qui signifie qu&#39;il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l&#39;utilisation du même langage côté front-end et back-end.</p><p><em>Note: Python 2.6 ou 2.7 est requis pour build depuis les sources tarballs.</em></p><h4 id="installer-sur-windows">Installer sur Windows</h4><p>En utilisant un installeur :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Windows Installer</a>.</li>

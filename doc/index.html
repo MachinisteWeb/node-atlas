@@ -43,7 +43,7 @@
 
 
     <section>
-        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.7-brightgreen.svg" alt="Version 1.7"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-4.0%2C_7.1-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/quality_code-A-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
+        <article><h1>node-atlas</h1><p><a href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/donate-%3C3-ddddff.svg" alt="Donate"></a> <a href="https://travis-ci.org/Haeresis/NodeAtlas/"><img src="https://travis-ci.org/Haeresis/NodeAtlas.svg" alt="Travis CI"></a> <a href="https://github.com/Haeresis/NodeAtlas"><img src="https://img.shields.io/badge/version-1.8-brightgreen.svg" alt="Version 1.8"></a> <a href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM"></a> <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/nodejs-4.0%2C_7.2-brightgreen.svg" alt="Node.js"></a> <a href="http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin"><img src="https://img.shields.io/badge/quality_code-A-brightgreen.svg" alt="Technical Debt Ratio"></a> <a href="https://gemnasium.com/Haeresis/NodeAtlas"><img src="https://gemnasium.com/Haeresis/NodeAtlas.svg" alt="Dependency Status"></a></p>
 <p><strong>Vous êtes français ? Le README <a href="https://github.com/Haeresis/NodeAtlas">derrière ce lien</a> vous sera peut-être plus agréable.</strong></p>
 <h2>Overview</h2><p>NodeAtlas is a Server-side MVC(2) JavaScript Framework as an <a href="https://www.npmjs.com/package/node-atlas">npm module</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) and designed to run with <a href="https://nodejs.org/">Node.js</a> verision. NodeAtlas allows you to:</p>
 <ul>
@@ -154,15 +154,18 @@
 <li><a href="#--httphostname-httphostname">--httpHostname &lt;httpHostname&gt;</a></li>
 <li><a href="#--httpport-httpport">--httpPort &lt;httpPort&gt;</a></li>
 <li><a href="#--generate">--generate</a></li>
+<li><a href="#--lang-culture-country">--lang &lt;culture-country&gt;</a></li>
 <li><a href="#--init-path">--init [path]</a>  </li>
+<li><a href="#--httpsecure-pathname">--httpSecure [pathName]</a></li>
 </ul>
 </li>
 <li><a href="#api--nodeatlas-as-npm-module">API / NodeAtlas as npm module</a><ul>
 <li><a href="#node-atlas-instanceinit">&lt;node-atlas-instance&gt;.init()</a></li>
 <li><a href="#node-atlas-instanceconfigobject">&lt;node-atlas-instance&gt;.config(Object)</a></li>
 <li><a href="#node-atlas-instancerunobject">&lt;node-atlas-instance&gt;.run(Object)</a></li>
-<li><a href="#node-atlas-instanceaftergenerationfunction">&lt;node-atlas-instance&gt;.afterGeneration(Function)</a></li>
-<li><a href="#node-atlas-instanceafterinitprojectfunction">&lt;node-atlas-instance&gt;.afterInitProject(Function)</a></li>
+<li><a href="#node-atlas-instancestartedfunction">&lt;node-atlas-instance&gt;.started(Function)</a></li>
+<li><a href="#node-atlas-instancegeneratedfunction">&lt;node-atlas-instance&gt;.generated(Function)</a></li>
+<li><a href="#node-atlas-instancecreatedfunction">&lt;node-atlas-instance&gt;.created(Function)</a></li>
 </ul>
 </li>
 <li><a href="#nodeatlas-as-a-simple-web-server">NodeAtlas as a simple web server</a></li>
@@ -225,7 +228,7 @@
 </li>
 <li><p>Download NodeAtlas from the official repository <a href="https://haeresis.github.com/NodeAtlas">NodeAtlas</a>.</p>
 <p> <em>Once downloaded, unzip</em> <strong>NodeAtlas</strong> <em>in the folder that will suit you.</em></p>
-<p> <strong>Start at least once NodeAtlas with the command line <code>\&gt; node &lt;/path/to/&gt;node-atlas/index.js</code>, to install the _node<em>modules</em> or use <code>npm install</code> command from <code>&lt;/path/to/&gt;node-atlas/</code> directory.</strong></p>
+<p> <strong>Use <code>npm install</code> command from <code>&lt;/path/to/&gt;node-atlas/</code> directory to install all dependencies.</strong></p>
 </li>
 </ul>
 <h3>Install Node.js</h3><p>NodeAtlas is developed as a <a href="https://www.npmjs.com/">Node.js Module Package</a> that means its require Node.js to work. Node.js allows us to quickly and efficiently run JavaScript code outside the browser, making it possible to use the same language on both the front-end and the back-end.</p>
@@ -275,8 +278,6 @@ sudo apt-get install -y nodejs</code></pre><p>There is a naming conflict with th
     }
 }</code></pre><p>equivalent to</p>
 <pre class="prettyprint source lang-js"><code>{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }</code></pre><h3>Run the site with NodeAtlas</h3><h4>With a command line</h4><p>Position yourself with the prompt console in the folder &quot;/Site-hello-world/&quot; and run the following command.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/</code></pre><p>In your first run, NodeAtlas install all the &quot;node_modules&quot; necessary for running (if you downloaded out of npm).</p>
-<p>Rerun.</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/</code></pre><p>You will have access to your &quot;Hello World&quot; to the page: <em>http://localhost/</em> in a browser.</p>
 <h4>With an executable on your OS</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can also use the <code>nodeatlas</code> command. <code>nodeatlas</code> is a shortcut for <code>node &lt;/path/to/&gt;node-atlas/</code>.</p>
 <p>Position yourself with the prompt console in the folder « /site-hello-world/ » and run the following command.</p>
@@ -2448,7 +2449,7 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;template&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> for get a &quot;https&quot; like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. And you will validate certificate by your own other way.</p>
+}</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> for get a &quot;https&quot; like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. But the server will not running in HTTPs and you will validate certificate by your own other way (with a server proxy for example).</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpSecure&quot;: true,
     &quot;routes&quot;: {
@@ -3564,8 +3565,10 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --browse index.html</code></pre><h3>--httpHostname &lt;httpHostname&gt;</h3><p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpHostname 192.168.1.1</code></pre><h3>--httpPort &lt;httpPort&gt;</h3><p>You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpPort 7778</code></pre><h3>--generate</h3><p>If you change an item in your common variation file or even your template components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>. This command will copy the entire contents of the folder <code>assetsRelativePath</code> into <code>generatesRelativePath</code> if their path is different.</p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --generate</code></pre><h3>--init [path]</h3><p>NodeAtlas contain a directory <code>templates</code> with predefined website into. To install them in the current directory for NodeAtlas command, you can use <code>--init</code> with the name of the <code>templates</code> you want use. By default, it's the <code>hello-world</code> value that is used. <em>Possible values: <code>hello-world</code>.</em></p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --init hello-world</code></pre><h2>API / NodeAtlas as npm module</h2><p>You could run NodeAtlas via JavaScript code.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --generate</code></pre><h3>--lang &lt;culture-country&gt;</h3><p>With the <code>--lang</code> parameter you will change language used by NodeAtlas. This command set the content of <code>languages/default.json</code> by the content of <code>languages/fr-fr.json</code> if you use the &quot;fr-fr&quot; parameter for example like below. Start NodeAtlas later will conserve the last language used by engine.</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --lang fr-fr</code></pre><h3>--init [path]</h3><p>NodeAtlas contain a directory <code>templates</code> with predefined website into. To install them in the current directory for NodeAtlas command, you can use <code>--init</code> with the name of the <code>templates</code> you want use. By default, it's the <code>hello-world</code> value that is used. <em>Possible values: <code>hello-world</code>.</em></p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --init hello-world</code></pre><h3>--httpSecure [pathName]</h3><p>If you use the <code>--httpSecure</code> option, all path will be reach in HTTPs. You must defined a <code>.crt</code> and <code>.key</code> files with <code>pathName</code> if you want the engine start in HTTPs. For exemple if you have <code>security/server.crt</code> and <code>security/server.key</code> from root of NodeAtlas website, you can use following command:</p>
+<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpSecure security/server</code></pre><h2>API / NodeAtlas as npm module</h2><p>You could run NodeAtlas via JavaScript code.</p>
 <h3>&lt;node-atlas-instance&gt;.init()</h3><p>Execute a simple NodeAtlas running with <code>init()</code>. By default, it use <code>webconfig.json</code> from directory where file is executed. If no <code>webconfig.json</code> is set, a Simple Web Server will be launched.</p>
 <p><em>server.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().init();</code></pre><pre class="prettyprint source"><code>\> server server.js
@@ -3601,9 +3604,15 @@ websiteEn.run({
 websiteFr.run({
     &quot;browse&quot;: true,
     &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
-});</code></pre><h3>&lt;node-atlas-instance&gt;.afterGeneration(Function)</h3><p>With <code>afterGeneration(Function)</code>, you could also execute other tasks after assets generation:</p>
+});</code></pre><h3>&lt;node-atlas-instance&gt;.started(Function)</h3><p>With <code>started(Function)</code>, you could also execute other tasks after server ran:</p>
 <p><em>servers.js</em></p>
-<pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().afterGeneration(function() {
+<pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().started(function() {
+    console.log(&quot;Server started!&quot;);
+}).run({
+    browse: true
+});</code></pre><h3>&lt;node-atlas-instance&gt;.generated(Function)</h3><p>With <code>generated(Function)</code>, you could also execute other tasks after assets generation:</p>
+<p><em>servers.js</em></p>
+<pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().generated(function() {
     require('child_process').exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
         console.log(&quot;Documentation generation...&quot;);
         console.log(stdout);
@@ -3611,14 +3620,14 @@ websiteFr.run({
     });
 }).run({
     generate: true
-});</code></pre><h3>&lt;node-atlas-instance&gt;.afterInitProject(Function)</h3><p>With <code>afterInitProject(Function)</code>, you could also execute other tasks after init the current directory with template website:</p>
+});</code></pre><h3>&lt;node-atlas-instance&gt;.created(Function)</h3><p>With <code>created(Function)</code>, you could also execute other tasks after init the current directory with template website:</p>
 <p><em>servers.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>var nodeAtlas = require(&quot;node-atlas&quot;),
     website = nodeAtlas();
 
 website.config({
     &quot;init&quot;: true
-}).afterInitProject(function() {
+}).created(function() {
     website.run({
         &quot;browse&quot;: true
     });
@@ -3632,7 +3641,7 @@ website.config({
 └─ webconfig.json</code></pre><p>by running the command</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/</code></pre><p>or even the command</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --webconfig webconfig.not-exist.json</code></pre><p>the server will run in &quot;Simple Web Server&quot; mode and file &quot;http://localhost/webconfig.json&quot; or &quot;http://localhost/templates/webconfig.htm&quot; will be available as the browser could refer as a simple web server.</p>
-<p><em>Note : only commands <code>--webconfig</code>, <code>--browse</code>, <code>--directory</code>, <code>--httpPort</code> and <code>--httpHostname</code> work in this mode.</em></p>
+<p><em>Note : the command <code>--generate</code> not work in this mode.</em></p>
 <h2>Development Environment</h2><p>NodeAtlas use Node.js which is developed on V8 Engine. The V8 Engine is also used by Google Chrome and Chromium which do NodeAtlas could be debug with this environment.</p>
 <h3>Front-end Debug</h3><p>You could debug your HTML render, your CSS files and your JavaScript front-end code in the same way that you'll do that with a simple HTML website or another technology. You have acces with F12 to the JavaScript console, to DOM editable elements, to the CSS property and animation editor and also to the JavaScript file débug system.</p>
 <p>The new thing introduce with NodeAtlas is into the CSS editor. Instead of show you name and line of CSS file for rules of an element, if this CSS file was generated from a Stylus or Less, it's the Stylus or Less name and line that you'll see in the editor.</p>
@@ -3824,7 +3833,6 @@ var server = bouncy(function (request, response, bounce) {
 server.listen(80);</code></pre><p>and you can start with:</p>
 <pre class="prettyprint source"><code>\> forever start &lt;/path/to/>global-server.js</code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p>
 <h2>More About NodeAtlas</h2><p>NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.</p>
-<p>All error messages are in <code>/languages/default.json</code>. If you want to change language, simply replace content of <code>default.json</code> file (currently the same of <code>en-gb</code>) with the content of <code>fr-fr.json</code> or others file translated by you.</p>
 <h3>NodeAtlas VS Others</h3><table>
 <thead>
 <tr>
@@ -3927,7 +3935,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Nov 30 2016 18:16:19 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Dec 01 2016 16:05:55 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

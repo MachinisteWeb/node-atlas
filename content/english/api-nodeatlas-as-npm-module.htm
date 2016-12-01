@@ -32,7 +32,12 @@ websiteFr.run({
     &quot;browse&quot;: true,
     &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
 });
-</code></pre><h3 id="lt-node-atlas-instance-gt-.aftergeneration-function">&lt;node-atlas-instance&gt;.afterGeneration(Function)</h3><p>With <code>afterGeneration(Function)</code>, you could also execute other tasks after assets generation:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().afterGeneration(function() {
+</code></pre><h3 id="lt-node-atlas-instance-gt-.started-function">&lt;node-atlas-instance&gt;.started(Function)</h3><p>With <code>started(Function)</code>, you could also execute other tasks after server ran:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().started(function() {
+    console.log(&quot;Server started!&quot;);
+}).run({
+    browse: true
+});
+</code></pre><h3 id="lt-node-atlas-instance-gt-.generated-function">&lt;node-atlas-instance&gt;.generated(Function)</h3><p>With <code>generated(Function)</code>, you could also execute other tasks after assets generation:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
     require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
         console.log(&quot;Documentation generation...&quot;);
         console.log(stdout);
@@ -41,12 +46,12 @@ websiteFr.run({
 }).run({
     generate: true
 });
-</code></pre><h3 id="lt-node-atlas-instance-gt-.afterinitproject-function">&lt;node-atlas-instance&gt;.afterInitProject(Function)</h3><p>With <code>afterInitProject(Function)</code>, you could also execute other tasks after init the current directory with template website:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><h3 id="lt-node-atlas-instance-gt-.created-function">&lt;node-atlas-instance&gt;.created(Function)</h3><p>With <code>created(Function)</code>, you could also execute other tasks after init the current directory with template website:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
     website = nodeAtlas();
 
 website.config({
     &quot;init&quot;: true
-}).afterInitProject(function() {
+}).created(function() {
     website.run({
         &quot;browse&quot;: true
     });

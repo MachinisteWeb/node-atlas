@@ -112,7 +112,7 @@
     website = NA();
 website.config({
     "init": true
-}).afterInitProject(function () {
+}).created(function () {
     website.run({
         "browse": true
     });
@@ -130,7 +130,7 @@ website.config({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v1.7.3</h3>
+									<h3>v1.8.0</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/Haeresis/NodeAtlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/Haeresis/NodeAtlas/releases">Versions stables</a></p>
 								</div>
@@ -284,21 +284,26 @@ websiteFr.run({
     &quot;browse&quot;: true,
     &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
 });
-</code></pre><h3 id="lt-node-atlas-instance-gt-.aftergeneration-function">&lt;node-atlas-instance&gt;.afterGeneration(Function)</h3><p>Avec <code>afterGeneration(Function)</code>, vous pouvez aussi exécuter d&#39;autres tâches après la génération de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().afterGeneration(function() {
+</code></pre><h3 id="lt-node-atlas-instance-gt-.started-function">&lt;node-atlas-instance&gt;.started(Function)</h3><p>Avec <code>started(Function)</code>, vous pouvez aussi exécuter d&#39;autres tâches après que le serveur web soit lancé :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().started(function() {
+    console.log(&quot;Server started!&quot;);
+}).run({
+    browse: true
+});
+</code></pre><h3 id="lt-node-atlas-instance-gt-.generated-function">&lt;node-atlas-instance&gt;.generated(Function)</h3><p>Avec <code>generated(Function)</code>, vous pouvez aussi exécuter d&#39;autres tâches après la génération de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
     require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
         console.log(&quot;Documentation generation...&quot;);
         console.log(stdout);
-        console.log(&quot;Documentation generation done !&quot;);
+        console.log(&quot;Documentation generation done!&quot;);
     });
 }).run({
     generate: true
 });
-</code></pre><h3 id="lt-node-atlas-instance-gt-.afterinitproject-function">&lt;node-atlas-instance&gt;.afterInitProject(Function)</h3><p>Avec <code>afterInitProject(Function)</code>, vous pouvez aussi exécuter d&#39;autres tâches après avoir initialisé le répertoire courant avec un site template :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><h3 id="lt-node-atlas-instance-gt-.created-function">&lt;node-atlas-instance&gt;.created(Function)</h3><p>Avec <code>created(Function)</code>, vous pouvez aussi exécuter d&#39;autres tâches après avoir initialisé le répertoire courant avec un site template :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
     website = nodeAtlas();
 
 website.config({
     &quot;init&quot;: true
-}).afterInitProject(function() {
+}).created(function() {
     website.run({
         &quot;browse&quot;: true
     });

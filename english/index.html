@@ -112,7 +112,7 @@
     website = NA();
 website.config({
     "init": true
-}).afterInitProject(function () {
+}).created(function () {
     website.run({
         "browse": true
     });
@@ -130,7 +130,7 @@ website.config({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v1.7.3</h3>
+									<h3>v1.8.0</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/Haeresis/NodeAtlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/Haeresis/NodeAtlas/releases">Stables Versions</a></p>
 								</div>
@@ -328,15 +328,18 @@ website.config({
 <li><a href="cli-running-commands.html#httphostname-lt-httphostname-gt" data-href="#--httphostname-httphostname">--httpHostname &lt;httpHostname&gt;</a></li>
 <li><a href="cli-running-commands.html#httpport-lt-httpport-gt" data-href="#--httpport-httpport">--httpPort &lt;httpPort&gt;</a></li>
 <li><a href="cli-running-commands.html#generate" data-href="#--generate">--generate</a></li>
+<li><a href="cli-running-commands.html#lang-lt-culture-country-gt" data-href="#--lang-culture-country">--lang &lt;culture-country&gt;</a></li>
 <li><a href="cli-running-commands.html#init-path" data-href="#--init-path">--init [path]</a>  </li>
+<li><a href="cli-running-commands.html#httpsecure-pathname" data-href="#--httpsecure-pathname">--httpSecure [pathName]</a></li>
 </ul>
 </li>
 <li><a href="api-nodeatlas-as-npm-module.html" data-href="#api--nodeatlas-as-npm-module">API / NodeAtlas as npm module</a><ul>
 <li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.init" data-href="#node-atlas-instanceinit">&lt;node-atlas-instance&gt;.init()</a></li>
 <li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.config-object" data-href="#node-atlas-instanceconfigobject">&lt;node-atlas-instance&gt;.config(Object)</a></li>
 <li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.run-object" data-href="#node-atlas-instancerunobject">&lt;node-atlas-instance&gt;.run(Object)</a></li>
-<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.aftergeneration-function" data-href="#node-atlas-instanceaftergenerationfunction">&lt;node-atlas-instance&gt;.afterGeneration(Function)</a></li>
-<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.afterinitproject-function" data-href="#node-atlas-instanceafterinitprojectfunction">&lt;node-atlas-instance&gt;.afterInitProject(Function)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.started-function" data-href="#node-atlas-instancestartedfunction">&lt;node-atlas-instance&gt;.started(Function)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.generated-function" data-href="#node-atlas-instancegeneratedfunction">&lt;node-atlas-instance&gt;.generated(Function)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#lt-node-atlas-instance-gt-.created-function" data-href="#node-atlas-instancecreatedfunction">&lt;node-atlas-instance&gt;.created(Function)</a></li>
 </ul>
 </li>
 <li><a href="nodeatlas-as-a-simple-web-server.html" data-href="#nodeatlas-as-a-simple-web-server">NodeAtlas as a simple web server</a></li>

@@ -10,11 +10,12 @@ var nodeAtlas = require("node-atlas"),
 	versionEnglish = new nodeAtlas();
 
 // On paramètre la version française et on lance.
-versionFrench.run({
-	"browse": true
-});
+versionFrench.started(function () {
 
-// On paramètre la version internationale et on lance.
-versionEnglish.run({
-	"webconfig": "webconfig.en-us.json"
+	// On paramètre la version internationale et on lance.
+	versionEnglish.run({
+		"webconfig": "webconfig.en-us.json"
+	});	
+}).run({
+	"browse": true
 });

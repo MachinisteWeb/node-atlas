@@ -6,11 +6,11 @@ var nodeAtlas = require("node-atlas"),
 versionFrench.config({
 	"generate": true,
 	"webconfig": "webconfig.generate.json"
-}).afterGeneration(function() {
+}).generated(function() {
 	versionEnglish.config({
 		"generate": true,
 		"webconfig": "webconfig.generate.en-us.json"
-	}).afterGeneration(function() {
+	}).generated(function() {
 		versionTest.config({
 			"browse": "index.html",
 			"directory": "../"

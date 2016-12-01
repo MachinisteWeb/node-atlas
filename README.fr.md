@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.7](https://img.shields.io/badge/version-1.7-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.1-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.8](https://img.shields.io/badge/version-1.8-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
 
 **For an international version of this README.md, [follow this link](https://node-atlas.js.org/doc/index.html).**
 
@@ -127,13 +127,16 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [--httpHostname &lt;httpHostname>](#--httphostname-httphostname)
  - [--httpPort &lt;httpPort>](#--httpport-httpport)
  - [--generate](#--generate)
+ - [--lang &lt;culture-country>](#--lang-culture-country)
  - [--init [path]](#--init-path)
+ - [--httpSecure [pathName]](#--httpsecure-pathName)
 - [API / NodeAtlas comme module npm](#api--nodeatlas-comme-module-npm)
  - [&lt;node-atlas-instance>.init()](#node-atlas-instanceinit)
  - [&lt;node-atlas-instance>.config(Object)](#node-atlas-instanceconfigobject)
  - [&lt;node-atlas-instance>.run(Object)](#node-atlas-instancerunobject)
- - [&lt;node-atlas-instance>.afterGeneration(Function)](#node-atlas-instanceaftergenerationfunction)
- - [&lt;node-atlas-instance>.afterInitProject(Function)](#node-atlas-instanceafterinitprojectfunction)
+ - [&lt;node-atlas-instance>.started(Function)](#node-atlas-instancestartedfunction)
+ - [&lt;node-atlas-instance>.generated(Function)](#node-atlas-instancegeneratedfunction)
+ - [&lt;node-atlas-instance>.created(Function)](#node-atlas-instancecreatedfunction)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
 - [Environnement de Développement](#environnement-de-développement)
  - [Debug du Front-end](#debug-du-front-end)
@@ -212,7 +215,7 @@ Il y a plusieurs manières d'installer NodeAtlas :
 
    *Une fois téléchargé, dézippez* **NodeAtlas** *dans le dossier qui vous conviendra.*
 
-   **Lancer au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
+   **Utilisez `npm install` depuis le dossier `</path/to/>node-atlas/` pour installer toutes les dépendences.**
 
 
 
@@ -337,14 +340,6 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 #### À la ligne de commande en appelant le script ####
 
 Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
-
-```
-\> node </path/to/>node-atlas/
-```
-
-À votre première exécution, NodeAtlas installera tous les « node_modules » nécessaires à son fonctionnement (si vous avez téléchargé hors npm).
-
-Ré-exécutez.
 
 ```
 \> node </path/to/>node-atlas/
@@ -3488,7 +3483,7 @@ Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et
 }
 ```
 
-Pour finir, il est également possible de seulement laisser la valeur de `httpSecure` à `true` pour obtenir un `https` dans vos chemins comme `urlBasePath` ou `urlBase` et de valider vos certificats d'une autre manière.
+Pour finir, il est également possible de seulement laisser la valeur de `httpSecure` à `true` pour obtenir un `https` dans vos chemins comme `urlBasePath` ou `urlBase`. Cependant le serveur ce lancera en HTTP, il vous faudra un proxy qui gère pour vous la lecture du certificat.
 
 ```js
 {
@@ -5226,12 +5221,32 @@ Si vous modifiez un élément dans votre fichier de variation commun ou même da
 
 
 
+### --lang &lt;culture-country> ###
+
+En utilisant `--lang` vous changerez la langue de utilisée par NodeAtlas. En réalité cette commande remplace le contenu du fichier `languages/default.json` par celui de `languages/fr-fr.json` si le paramètre passé est « fr-fr » comme dans l'exemple ci-dessous. Lancer NodeAtlas ultérieurement conservera la dernière langue utilisée.
+
+```
+\> node </path/to/>node-atlas/ --lang fr-fr
+```
+
+
+
 ### --init [path] ###
 
 NodeAtlas contient un dossier `templates` qui contient des exemples de site prèt à l'usage. Pour les installer dans le répertoire dans lequel vous allez exécuter NodeAtlas il faut vous servir de `--init` suivi du dossier contenu dans `templates` que vous souhaitez utiliser. Par défaut, c'est la valeur `hello-world` qui est utilisée. *Valeurs possible : `hello-world`.*
 
 ```
 \> node </path/to/>node-atlas/ --init hello-world
+```
+
+
+
+### --httpSecure [pathName] ###
+
+Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HTTPs. Vous devez définir les fichiers `.crt` and `.key` avec `pathName` si vous souhaitez que le serveur lui-même se lance en HTTPs. Par exemple, si vous avez les fichiers `security/server.crt` et `security/server.key` depuis la racine du site NodeAtlas, vous devez utiliser la commande suivante :
+
+```
+\> node </path/to/>node-atlas/ --httpSecure security/server
 ```
 
 
@@ -5308,18 +5323,34 @@ websiteFr.run({
 
 
 
-### &lt;node-atlas-instance>.afterGeneration(Function) ###
+### &lt;node-atlas-instance>.started(Function) ###
 
-Avec `afterGeneration(Function)`, vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
+Avec `started(Function)`, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit lancé :
 
 *servers.js*
 
 ```javascript
-require("node-atlas")().afterGeneration(function() {
+require("node-atlas")().started(function() {
+    console.log("Server started!");
+}).run({
+    browse: true
+});
+```
+
+
+
+### &lt;node-atlas-instance>.generated(Function) ###
+
+Avec `generated(Function)`, vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
+
+*servers.js*
+
+```javascript
+require("node-atlas")().generated(function() {
     require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
         console.log("Documentation generation...");
         console.log(stdout);
-        console.log("Documentation generation done !");
+        console.log("Documentation generation done!");
     });
 }).run({
     generate: true
@@ -5328,9 +5359,9 @@ require("node-atlas")().afterGeneration(function() {
 
 
 
-### &lt;node-atlas-instance>.afterInitProject(Function) ###
+### &lt;node-atlas-instance>.created(Function) ###
 
-Avec `afterInitProject(Function)`, vous pouvez aussi exécuter d'autres tâches après avoir initialisé le répertoire courant avec un site template :
+Avec `created(Function)`, vous pouvez aussi exécuter d'autres tâches après avoir initialisé le répertoire courant avec un site template :
 
 *servers.js*
 
@@ -5340,7 +5371,7 @@ var nodeAtlas = require("node-atlas"),
 
 website.config({
     "init": true
-}).afterInitProject(function() {
+}).created(function() {
     website.run({
         "browse": true
     });
@@ -5382,7 +5413,7 @@ ou même la commande
 
 le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
 
-*Note : seul les commandes `--webconfig`, `--browse`, `--directory`, `--httpPort` et `--httpHostname` fonctionnent dans ce mode.*
+*Note : la commande `--generate` ne fonctionne pas avec ce mode.*
 
 
 
@@ -5721,8 +5752,6 @@ que vous pouvez lancer avec :
 ## Plus sur NodeAtlas ##
 
 NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.
-
-Tous les messages d'erreurs se trouvent dans `/languages/default.json`. Si vous souhaitez les modifier, il suffit de remplacer le contenu de `default.json` (actuellement identique à celui de `en-gb`) par celui de `fr-fr.json` ou tout autre fichier traduit par vos soins.
 
 ### NodeAtlas VS les autres ###
 

@@ -112,7 +112,7 @@
     website = NA();
 website.config({
     "init": true
-}).afterInitProject(function () {
+}).created(function () {
     website.run({
         "browse": true
     });
@@ -130,7 +130,7 @@ website.config({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v1.7.3</h3>
+									<h3>v1.8.0</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/Haeresis/NodeAtlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/Haeresis/NodeAtlas/releases">Stables Versions</a></p>
 								</div>
@@ -517,7 +517,7 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> for get a &quot;https&quot; like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. And you will validate certificate by your own other way.</p><pre><code class="lang-js">{
+</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> for get a &quot;https&quot; like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. But the server will not running in HTTPs and you will validate certificate by your own other way (with a server proxy for example).</p><pre><code class="lang-js">{
     &quot;httpSecure&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {

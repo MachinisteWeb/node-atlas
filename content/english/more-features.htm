@@ -254,7 +254,7 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> for get a &quot;https&quot; like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. And you will validate certificate by your own other way.</p><pre><code class="lang-js">{
+</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> for get a &quot;https&quot; like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. But the server will not running in HTTPs and you will validate certificate by your own other way (with a server proxy for example).</p><pre><code class="lang-js">{
     &quot;httpSecure&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
