@@ -133,12 +133,15 @@ NA = function () {
     this.saveTemplateRender = assetsGeneration.saveTemplateRender;
     this.atta = assetsGeneration.atta;
     /* $%INIT */
+    this.changeLanguage = init.changeLanguage;
     this.configuration = init.configuration;
     this.config = init.config;
-    this.afterGeneration = init.afterGeneration;
+    this.generated = init.generated;
     this.afterGenerates = init.afterGenerates;
+    this.afterRunning = init.afterRunning;
+    this.started = init.started;
     this.afterNewProject = init.afterNewProject;
-    this.afterInitProject = init.afterInitProject;
+    this.created = init.created;
     this.init = init.init;
     this.run = init.run;
 

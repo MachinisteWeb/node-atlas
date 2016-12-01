@@ -14,8 +14,10 @@
 	},
 	"ifFileExist": "Pas de fichier « %path%  » trouvé.",
 	"notFound": {
-		"controller": "Le controlleur « %controller% » n'a pas été trouvé (ou ne peut pas être chargé).",
+		"controller": "Le controlleur « %controller% » n'a pas été trouvé (ou ne peut pas être chargé)."
 	},
+	"languageNotFound": "La langue « %language% » n'existe pas.",
+	"languageChanged": "NodeAtlas est manitenant en français !",
 	"templateNotFound": "Le fichier de template « %templatesPath% » n'a pas pu être ouvert.",
 	"variationNotFound": "Le fichier de variation « %variationsPath% » n'a pas pu être ouvert.",
 	"initNotFound": "Pas de projet trouvé pour « %initPath% ».",
@@ -60,6 +62,14 @@
 		"init": {
 			"command": "-i, --init [path]",
 			"description": "Installer le projet de démarrage souhaiter depuis le dossier `tests`."
+		},
+		"httpSecure": {
+			"command": "-s, --httpSecure [pathName]",
+			"description": "Applique HTTPs dans tous les chemins du moteur. `pathName` défini le chemin vers les fichiers `.key` et `.crt`, et s'il est défini, le serveur se lance en HTTPs."
+		},
+		"lang": {
+			"command": "-l, --lang <cultureCode-countryCode>",
+			"description": "Change toutes les phrases du moteur par une autre langue. Si la langue n'existe pas, rien ne change."
 		}
 	},
 	"emulatedIndexPage": {

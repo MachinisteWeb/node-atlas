@@ -1,3 +1,23 @@
+## 1.8.0 ##
+
+Features:
+
+- Allows to do something after server was starded with callback `started` for API.
+- Allows to start a Simple Web Server in HTTPs or overload webconfig.json to start it in HTTPs with `httpSecure` in CLI or API.
+- Allows to start a Simple Web Server with other `httpHostname` in CLI or API.
+- Allows to change NodeAtlas language used with `lang` in CLI or API.
+
+Enhancement:
+
+- Allows to start a Simple Web Server with other `httpPort` (support HTTPs) in CLI or API.
+
+Updates:
+
+- `afterInitProject` become `created` for API.
+- `afterGeneration` become `generated` for API.
+
+
+
 ## 1.7.3 ##
 
 Updates:
