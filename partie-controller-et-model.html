@@ -957,7 +957,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
         });
     };
 }(website.index = {}));
-</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> et <code>NA.newRender</code>, il est possible de générer une nouvelle compilation d&#39;un template (composant) et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variation</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><h3 id="utiliser-une-base-de-donnée-mysql-sql">Utiliser une base de donnée MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de donnée. Pour cela nous allons utiliser le module npm <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><h4 id="base-de-donn-e-mysql">Base de donnée MySQL</h4><p>Tout d&#39;abord, nous allons alimenter la base de donnée avec la base <code>demo</code> :</p><pre><code>CREATE DATABASE demo;
+</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> et <code>NA.newRender</code>, il est possible de générer une nouvelle compilation d&#39;un template (composant) et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variation</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><h3 id="utiliser-une-base-de-données-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de donnée. Pour cela nous allons utiliser le module npm <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code>CREATE DATABASE demo;
 </code></pre><p>et la sélectionner :</p><pre><code>USE demo
 </code></pre><p>puis créer la table <code>user</code> :</p><pre><code>CREATE TABLE user
 (
@@ -1008,7 +1008,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
 │  ├─ common.json
 │  └─ index.json
 └─ webconfig.json
-</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de donnée :</p><pre><code>{
+</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -1060,7 +1060,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     &quot;titlePage&quot;: &quot;Table User&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Détail de l&#39;entrée `bruno`.&lt;/p&gt;&quot;
 }
-</code></pre><p>Enfin nous allons nous connecter à la base de donnée avec le controlleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-js">exports.loadModules = function () {
+</code></pre><p>Enfin nous allons nous connecter à la base de données avec le controlleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-js">exports.loadModules = function () {
     var NA = this;
 
     NA.modules.mysql = require(&#39;mysql&#39;);
@@ -1108,7 +1108,7 @@ exports.setConfigurations = function (next) {
         });
     });
 };
-</code></pre><p>en utilisant le model <code>user</code> via le fichier de connexion à la base de donnée <code>models/user.js</code> :</p><pre><code class="lang-js">/* jslint esversion: 6 */
+</code></pre><p>en utilisant le model <code>user</code> via le fichier de connexion à la base de données <code>models/user.js</code> :</p><pre><code class="lang-js">/* jslint esversion: 6 */
 var user = require(&#39;../assets/javascript/models/user.js&#39;);
 
 function User(connection) {
@@ -1311,7 +1311,7 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="utiliser-une-base-de-donnée-mongodb-nosql">Utiliser une base de donnée MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de donnée non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><h4 id="base-de-donn-e-mongodb">Base de donnée MongoDB</h4><p>Tout d&#39;abord, nous allons alimenter la base de donnée avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
+</code></pre><h3 id="utiliser-une-base-de-données-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
 </code></pre><p>puis créer la collection <code>user</code> :</p><pre><code>db.createCollection(&quot;user&quot;)
 </code></pre><p>et la remplir avec un document :</p><pre><code>db.user.insert({
     email: &quot;bruno.lesieur@gmail.com&quot;,
@@ -1341,7 +1341,7 @@ module.exports = User;
 │  ├─ common.json
 │  └─ index.json
 └─ webconfig.json
-</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de donnée :</p><pre><code>{
+</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -1392,7 +1392,7 @@ module.exports = User;
     &quot;titlePage&quot;: &quot;Collection User&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Détail du document `{ \&quot;identity.firstname\&quot;: \&quot;Bruno\&quot; }`.&lt;/p&gt;&quot;
 }
-</code></pre><p>Enfin nous allons nous connecter à la base de donnée avec le controlleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-js">exports.loadModules = function () {
+</code></pre><p>Enfin nous allons nous connecter à la base de données avec le controlleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-js">exports.loadModules = function () {
     var NA = this,
         path = NA.modules.path;
 

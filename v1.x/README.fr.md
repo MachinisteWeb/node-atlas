@@ -100,8 +100,8 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 - [Partie Controller et Model](#partie-controller-et-model)
  - [Cycle de Vie et Hooks](#cycle-de-vie-et-hooks)
  - [Utiliser les Websocket à la place des échanges AJAX](#utiliser-les-websocket-à-la-place-des-échanges-ajax)
- - [Utiliser une base de donnée MySQL (SQL)](#utiliser-une-base-de-donnée-mysql-sql)
- - [Utiliser une base de donnée MongoDB (NoSQL)](#utiliser-une-base-de-donnée-mongodb-nosql)
+ - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
+ - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
 - [Pour aller plus loin](#pour-aller-plus-loin)
  - [Gérer le routage (Url Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
@@ -2361,13 +2361,13 @@ Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers se
 
 
 
-### Utiliser une base de donnée MySQL (SQL) ###
+### Utiliser une base de données MySQL (SQL) ###
 
 Nous allons voir à présent comment utiliser des informations venant d'une base de donnée. Pour cela nous allons utiliser le module npm `mysql`. Il va également nous falloir [installer un serveur MySQL](https://dev.mysql.com/downloads/installer/).
 
-#### Base de donnée MySQL ####
+#### Base de données MySQL ####
 
-Tout d'abord, nous allons alimenter la base de donnée avec la base `demo` :
+Tout d'abord, nous allons alimenter la base de données avec la base `demo` :
 
 ```
 CREATE DATABASE demo;
@@ -2445,7 +2445,7 @@ Avec le jeu de fichier suivant :
 └─ webconfig.json
 ```
 
-Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mysqlConfig` qui contiendra toutes les informations pour se connecter à la base de donnée :
+Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mysqlConfig` qui contiendra toutes les informations pour se connecter à la base de données :
 
 ```
 {
@@ -2519,7 +2519,7 @@ Avec les fichiers suivant pour afficher la page :
 }
 ```
 
-Enfin nous allons nous connecter à la base de donnée avec le controlleur globale `controllers/common.js` :
+Enfin nous allons nous connecter à la base de données avec le controlleur globale `controllers/common.js` :
 
 ```js
 exports.loadModules = function () {
@@ -2577,7 +2577,7 @@ exports.changeVariation = function (params, mainCallback) {
 };
 ```
 
-en utilisant le model `user` via le fichier de connexion à la base de donnée `models/user.js` :
+en utilisant le model `user` via le fichier de connexion à la base de données `models/user.js` :
 
 ```js
 /* jslint esversion: 6 */
@@ -2797,13 +2797,13 @@ Vous obtiendrez la sortie suivante :
 
 
 
-### Utiliser une base de donnée MongoDB (NoSQL) ###
+### Utiliser une base de données MongoDB (NoSQL) ###
 
-Nous allons voir à présent comment utiliser des informations venant d'une base de donnée non sql. Pour cela nous allons utiliser le module npm `mongoose`. Il va également nous falloir [installer un serveur MongoDB](https://www.mongodb.com/).
+Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module npm `mongoose`. Il va également nous falloir [installer un serveur MongoDB](https://www.mongodb.com/).
 
-#### Base de donnée MongoDB ####
+#### Base de données MongoDB ####
 
-Tout d'abord, nous allons alimenter la base de donnée avec la base `demo` et la sélectionner :
+Tout d'abord, nous allons alimenter la base de données avec la base `demo` et la sélectionner :
 
 ```
 use demo
@@ -2855,7 +2855,7 @@ Avec le jeu de fichier suivant :
 └─ webconfig.json
 ```
 
-Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mongodbConfig` qui contiendra toutes les informations pour se connecter à la base de donnée :
+Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mongodbConfig` qui contiendra toutes les informations pour se connecter à la base de données :
 
 ```
 {
@@ -2928,7 +2928,7 @@ Avec les fichiers suivant pour afficher la page :
 }
 ```
 
-Enfin nous allons nous connecter à la base de donnée avec le controlleur globale `controllers/common.js` :
+Enfin nous allons nous connecter à la base de données avec le controlleur globale `controllers/common.js` :
 
 ```js
 exports.loadModules = function () {
