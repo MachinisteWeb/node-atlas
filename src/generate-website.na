@@ -1,4 +1,4 @@
-var nodeAtlas = require("node-atlas"),
+var nodeAtlas = require("../../NodeAtlas/"),
 	versionFrench = new nodeAtlas(),
 	versionEnglish = new nodeAtlas(),
 	versionTest = new nodeAtlas();
