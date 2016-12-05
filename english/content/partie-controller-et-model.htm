@@ -813,7 +813,7 @@ exports.setConfigurations = function (next) {
 
     next();
 };
-</code></pre><p>Et afficher les résultats via le controlleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-js">exports.changeVariation = function (params, mainCallback) {
+</code></pre><p>Et afficher les résultats via le controlleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-js">exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
         User = NA.models.User,
@@ -841,7 +841,7 @@ exports.setConfigurations = function (next) {
             variation.zipcode = bruno.zipcode();
             variation.address = bruno.address();
 
-            mainCallback(variation);
+            next(variation);
         });
     });
 };
@@ -1149,7 +1149,7 @@ exports.setConfigurations = function (next) {
         next();
     });
 };
-</code></pre><p>Et afficher les résultats via le controlleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-js">exports.changeVariation = function (params, mainCallback) {
+</code></pre><p>Et afficher les résultats via le controlleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-js">exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
         mongoose = NA.modules.mongoose,
@@ -1170,7 +1170,7 @@ exports.setConfigurations = function (next) {
         variation.zipcode = bruno.location.zipcode;
         variation.address = bruno.location.address;
 
-        mainCallback(variation);
+        next(variation);
     });
 };
 </code></pre><p>en utilisant sur une classe <code>user</code> partagé entre le Front et le Back <code>assets/javascript/models/user.js</code> :</p><pre><code class="lang-js">var mongoose;

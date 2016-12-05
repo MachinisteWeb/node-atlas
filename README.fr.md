@@ -2543,7 +2543,7 @@ exports.setConfigurations = function (next) {
 Et afficher les résultats via le controlleur spécifique `controllers/index.js` :
 
 ```js
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
         User = NA.models.User,
@@ -2571,7 +2571,7 @@ exports.changeVariation = function (params, mainCallback) {
             variation.zipcode = bruno.zipcode();
             variation.address = bruno.address();
 
-            mainCallback(variation);
+            next(variation);
         });
     });
 };
@@ -2956,7 +2956,7 @@ exports.setConfigurations = function (next) {
 Et afficher les résultats via le controlleur spécifique `controllers/index.js` :
 
 ```js
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
         mongoose = NA.modules.mongoose,
@@ -2977,7 +2977,7 @@ exports.changeVariation = function (params, mainCallback) {
         variation.zipcode = bruno.location.zipcode;
         variation.address = bruno.location.address;
 
-        mainCallback(variation);
+        next(variation);
     });
 };
 ```
