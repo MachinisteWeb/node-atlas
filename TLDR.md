@@ -8,9 +8,9 @@
 
 ## NodeAtlas Official Website ##
 
-> **For a complete documentation, you could refer to [the NodeAtlas Official Website](https://node-atlas.js.org/english/)** ([Mirror README here](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.en.md)).
+> **[For a complete documentation, you could refer to the NodeAtlas Official Website](https://node-atlas.js.org/english/)** ([Mirror README here](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.en.md)).
 
-- [README for v1.x](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/v1.x/README.en.md).
+[README for v1.x](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/v1.x/README.en.md).
 
 
 
