@@ -5,7 +5,7 @@
 **Vous êtes français ? Le README [derrière ce lien](README.fr.md) vous sera peut-être plus agréable.**
 
 
-![NodeAtlas](media/images/ex-logo-node-atlas.png)
+![NodeAtlas](../media/images/ex-logo-node-atlas.png)
 
 
 ## Overview ##

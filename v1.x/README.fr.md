@@ -5,7 +5,7 @@
 **For an international version of this README.md, [follow this link](README.en.md).**
 
 
-![NodeAtlas](media/images/ex-logo-node-atlas.png)
+![NodeAtlas](../media/images/ex-logo-node-atlas.png)
 
 
 ## Avant-propos ##
