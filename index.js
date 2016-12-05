@@ -23,6 +23,7 @@
  * @requires {@link NA#modules.external:extend}
  * @requires {@link NA#modules.external:forcedomain}
  * @requires {@link NA#modules.external:imagemin}
+ * @requires {@link NA#modules.external:less}
  * @requires {@link NA#modules.external:less-middleware}
  * @requires {@link NA#modules.external:mkpath}
  * @requires {@link NA#modules.external:open}
