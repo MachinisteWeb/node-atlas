@@ -1,22 +1,22 @@
 {
-    "templatesRelativePath": "templates",
+    "viewsRelativePath": "views",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/member.html": {
-            "template": "member.htm",
-            "postSupport": false,
+            "view": "member.htm",
+            "postSupport": false
         },
         "/member-without-extension/": {
-            "template": "member.htm",
+            "view": "member.htm",
             "getSupport": false
         },
-        "about.html": {
-            "template": "about.htm"
+        "/about.html": {
+            "view": "about.htm"
         },
         "/error.html": {
-            "template": "error.htm",
+            "view": "error.htm",
             "statusCode": 404,
             "mimeType": "text/plain"
         }

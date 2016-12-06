@@ -18,7 +18,7 @@
 	},
 	"languageNotFound": "The language « %language% » does not exist.",
 	"languageChanged": "NodeAtlas is now in english!",
-	"templateNotFound": "The template file « %templatesPath% » could not be opened.",
+	"viewNotFound": "The view file « %viewsPath% » could not be opened.",
 	"variationNotFound": "The variation file « %variationsPath% » could not be opened.",
 	"initNotFound": "No project found for « %initPath% ».",
 	"webconfigSyntaxError": "The file « %fileName% » has a syntax error : « %syntaxError% ».",
@@ -32,7 +32,7 @@
 	"assetsCopy": "Assets : All `assetsRelativePath` content is copied into `serverlessRelativePath` directory.",
 	"initCopy": "Starting Project create from « %pathName% ».",
 	"templateNotGenerate": "Unable to save file « %pathName% ».",
-	"templateNotSet": "No template file has been defined.",
+	"viewNotSet": "No view file has been defined.",
 	"templateDirectoryNotExist": "HTML : There are no « %templatePath% » directory. No template generated.",
 	"commander": {
 		"directory" : {

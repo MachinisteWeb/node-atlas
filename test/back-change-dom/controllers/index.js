@@ -1,6 +1,6 @@
 // On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeDom = function (params, mainCallback) {
+exports.changeDom = function (params, next) {
  var NA = this,
         dom = params.dom,
         cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
@@ -13,5 +13,5 @@ exports.changeDom = function (params, mainCallback) {
     dom = $.html();
 
     // On réinjecte les modifications.
-    mainCallback(dom);
+    next(dom);
 };

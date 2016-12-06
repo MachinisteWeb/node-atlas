@@ -2,11 +2,11 @@
     "injectCss": "stylesheets/email.css",
     "routes": {
         "/bienvenue/": {
-            "template": "email-a.htm",
+            "view": "email-a.htm",
             "output": "bienvenue.html"
         },
         "/au-revoir/": {
-            "template": "email-b.htm",
+            "view": "email-b.htm",
             "output": "au-revoir.html"
         }
     }

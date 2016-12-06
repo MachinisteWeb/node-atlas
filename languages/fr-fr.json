@@ -18,7 +18,7 @@
 	},
 	"languageNotFound": "La langue « %language% » n'existe pas.",
 	"languageChanged": "NodeAtlas est manitenant en français !",
-	"templateNotFound": "Le fichier de template « %templatesPath% » n'a pas pu être ouvert.",
+	"viewNotFound": "Le fichier de view « %viewsPath% » n'a pas pu être ouvert.",
 	"variationNotFound": "Le fichier de variation « %variationsPath% » n'a pas pu être ouvert.",
 	"initNotFound": "Pas de projet trouvé pour « %initPath% ».",
 	"webconfigSyntaxError": "Le fichier « %fileName% » a une erreur de syntaxe : « %syntaxError% ».",
@@ -32,7 +32,7 @@
 	"assetsCopy": "Assets : Tout le contenu de `assetsRelativePath` a été copié dans le dossier `serverlessRelativePath`.",
 	"initCopy": "Projet de démarrage créé à partir de « %pathName% ».",
 	"templateNotGenerate": "Impossible d'enregistrer le fichier « %pathName% ».",
-	"templateNotSet": "Aucun fichier de template n'a été défini.",
+	"viewNotSet": "Aucun fichier de view n'a été défini.",
 	"templateDirectoryNotExist": "HTML : Il n'y aucun dossier « %templatePath% » existant. Aucune génération.",
 	"commander": {
 		"directory" : {

@@ -1,8 +1,8 @@
 {
     "routes": {
         "/": {
-            "template": "email.htm",
-            "outpute": "bienvenue.html",
+            "view": "email.htm",
+            "output": "bienvenue.html",
             "injectCss": "stylesheets/email.css"
         }
     }

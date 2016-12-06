@@ -1,24 +1,24 @@
 {
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/standard/": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/standard-redirect/": {
             "redirect": "/standard/",
             "statusCode": 301
         },
         "/variable/:test/": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/variable-redirect/:test/": {
             "redirect": "/variable/:test/",
             "statusCode": 301
         },
         "/regex/([a-z0-9]+)/?": {
-            "template": "index.htm",
+            "view": "index.htm",
             "regExp": true
         },
         "/regex-redirect/([a-z0-9]+)/?": {
@@ -27,7 +27,7 @@
             "regExp": true
         },
         "/regex-multi/([a-z]+)/([0-9]+)/?$": {
-            "template": "index.htm",
+            "view": "index.htm",
             "regExp": true
         },
         "/regex-multi-redirect/([a-z]+)/([0-9]+)/?$": {

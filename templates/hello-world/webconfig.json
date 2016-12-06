@@ -6,20 +6,20 @@
 	"routes": {
 		"home_fr-fr": {
 			"url": "/",
-			"template": "index.htm",
+			"view": "index.htm",
 			"variation": "index.json",
 			"controller": "index.js"
 		},
 		"home_en-us": {
 			"url": "/english/",
 			"languageCode": "en-us",
-			"template": "index.htm",
+			"view": "index.htm",
 			"variation": "index.json"
 		},
 		"error": {
 			"url": "/error/",
 			"languageCode": "en-us",
-			"template": "error.htm",
+			"view": "error.htm",
 			"statusCode": 404
 		}
 	}

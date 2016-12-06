@@ -1,5 +1,5 @@
 /* jslint node: true */
-var nodeAtlas = require("node-atlas");
+var nodeAtlas = require("../../");
 
 nodeAtlas().run({
     browse: true
