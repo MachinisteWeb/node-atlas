@@ -4,7 +4,7 @@
 		"downloadStarting": "Download of all modules in progress...",
 		"installationDone": "All modules have been installed correctly.",
 		"restartRequired": "You can restart the application.",
-		"installShortcutsDone": "`nodeatlas` command is available as a shortcut for `node <path/to/node-atlas/>`.",
+		"installShortcutsDone": "`nodeatlas` command is available as a shortcut for `node <path/to/>node-atlas/`.",
 		"installDone": "node-atlas module successfully installed !"
 	},
 	"running": {
@@ -29,7 +29,7 @@
 	"cssGenerate": "CSS : The minified file « %pathName% » was generated !",
 	"imgGenerate": "IMG : The optimized file « %pathName% » was generated !",
 	"jsGenerate": "JS : The obfuscated file « %pathName% » was generated !",
-	"assetsCopy": "Assets : All `assetsRelativePath` content is copied into `generatesRelativePath` directory.",
+	"assetsCopy": "Assets : All `assetsRelativePath` content is copied into `serverlessRelativePath` directory.",
 	"initCopy": "Starting Project create from « %pathName% ».",
 	"templateNotGenerate": "Unable to save file « %pathName% ».",
 	"templateNotSet": "No template file has been defined.",
@@ -59,8 +59,8 @@
 			"command": "-g, --generate",
 			"description": "Start minification of resources and the creation of Html layouts."
 		},
-		"init": {
-			"command": "-i, --init [path]",
+		"create": {
+			"command": "-c, --create [path]",
 			"description": "Install the desired starting project from `tests` directory of NodeAtlas."
 		},
 		"httpSecure": {

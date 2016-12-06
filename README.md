@@ -76,27 +76,27 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
 {
     "home": {                               /* Définir une clé à utiliser comme référence pour manipuler les paramètres définis ou d'url dans le code. */
         "url": "/",                         /* Définir l'url d'accès à la page derrière cette route. */
-        "generate": "home.html",            /* Définir le chemin d'accès pour enregistrer le rendu au format HTML de manière statique. */
+        "output": "home.html",            /* Définir le chemin d'accès pour enregistrer le rendu au format HTML de manière statique. */
         "template": "home.htm",             /* Assigner une un fichier de vue utilisé pour présenter l'information. */
         "variation": "home.json",           /* Assigner un fichier de variation spécifique utilisé pour localiser la page. */
         "controller": "home.js"             /* Assigner un fichier de contrôle spécifique utilisé pour la page d'accueil (afficher les derniers articles, le nombre d'inscrit, etc.). */
     },
     "presentation": {
         "url": "/presentation/",
-        "generate": "presentation.html",
+        "output": "presentation.html",
         "template": "default.htm",          /* Même template utilisé avec... */
         "variation": "presentation.json"    /* ...une variation différente pour générer du contenu de page différent (voir "error"). */
     },
     "members": {
         "url": "/members/",
-        "generate": "members.html",
+        "output": "members.html",
         "template": "members.htm",
         "variation": "members.json",
         "controller": "members.js"
     },
     "memberV2": {                           /* Une nouvelle version de rendu pour les pages "member". */
         "url": "/members/:member/",         /* La partie ":member" représente le membre courrament demandé... */
-        "generate": "members/bob.html",     /* ...et un faux utilisateur est utilisé pour un rendu statique dans le dossier des fichier générés. */
+        "output": "members/bob.html",     /* ...et un faux utilisateur est utilisé pour un rendu statique dans le dossier des fichier générés. */
         "template": "member.htm",
         "variation": "member.json",
         "controller": "member.js"
@@ -108,7 +108,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "contact-us": {
         "url": "/contact-us/",
-        "generate": "contact-us.html",
+        "output": "contact-us.html",
         "template": "contact-us.htm",
         "variation": "contact-us.json",
         "controller": "contact-us.js",
@@ -116,7 +116,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "home-fr-fr": {
         "url": "/francais/",
-        "generate": "francais/bienvenue.html",
+        "output": "francais/bienvenue.html",
         "template": "home.htm",
         "variation": "home.json",
         "controller": "home.js",
@@ -124,14 +124,14 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "presentation-fr-fr": {
         "url": "/francais/presentation/",
-        "generate": "francais/presentation.html",
+        "output": "francais/presentation.html",
         "template": "default.htm",
         "variation": "presentation.json",
         "languageCode": "fr-fr"
     },
     "members-fr-fr": {
         "url": "/francais/membres/",
-        "generate": "francais/members.html",
+        "output": "francais/members.html",
         "template": "members.htm",
         "variation": "members.json",
         "controller": "members.js",
@@ -139,7 +139,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "memberV2-fr-fr": {
         "url": "/francais/membres/:member/",
-        "generate": "francais/members/bob.html",
+        "output": "francais/members/bob.html",
         "template": "member.htm",
         "variation": "member.json",
         "controller": "member.js",
@@ -152,7 +152,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "contact-us-fr-fr": {
         "url": "/francais/contactez-nous/",
-        "generate": "francais/contactez-nous.html",
+        "output": "francais/contactez-nous.html",
         "template": "contact-us.htm",
         "variation": "contact-us.json",
         "languageCode": "fr-fr",
@@ -161,7 +161,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "error-fr-fr": {
         "url": "/francais/*",               /* Toutes les pages commençant par "/francais/" pour la page d'erreur française. */
-        "generate": "francais/page-404.html",
+        "output": "francais/page-404.html",
         "template": "default.htm",          /* Template partagé par différentes routes (voir "presentation"). */
         "variation": "page-404.json",
         "languageCode": "fr-fr",
@@ -169,7 +169,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "error": {
         "url": "/page-404/",                /* Page d'erreur par défaut défini avec "pageNotFound". */
-        "generate": "page-404.html",
+        "output": "page-404.html",
         "template": "default.htm",
         "variation": "page-404.json",
         "statusCode": 404
@@ -238,7 +238,7 @@ my-website/
 ├─ models/                   ⤆ La partie Modèle avec des fichiers de modèle utilisés par les contrôles pour remplir les templates.
 │  ┊┉
 │
-├─ generates/                ⤆ Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
+├─ serverless/                ⤆ Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
 │  ┊┉
 │
 ├─ server.js                 ⤆ Fichier utilisé pour faire tourner et configurer NodeAtlas pour une utilisation sous forme d'API.

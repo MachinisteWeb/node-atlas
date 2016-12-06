@@ -1,6 +1,6 @@
 // On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
-exports.loadModules = function () {
+exports.setModules = function () {
     // Récupérer l'instance « NodeAtlas » du moteur.
     var NA = this;
 

@@ -3,12 +3,12 @@
     "routes": {
         "/bienvenue/": {
             "template": "email-a.htm",
-            "generate": "bienvenue.html",
+            "output": "bienvenue.html",
             "injectCss": "/stylesheets/welcome.css"
         },
         "/au-revoir/": {
             "template": "email-b.htm",
-            "generate": "au-revoir.html",
+            "output": "au-revoir.html",
             "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
         }
     }

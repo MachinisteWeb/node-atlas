@@ -4,7 +4,7 @@
 		"downloadStarting": "Téléchargement de tous les modules en cour...",
 		"installationDone": "Tous les modules ont été correctement installé.",
 		"restartRequired": "Vous pouvez redémarrer l'application.",
-		"installShortcutsDone": "La commande `nodeatlas` est maintenant disponible en tant que raccourci pour `node <path/to/node-atlas/>`.",
+		"installShortcutsDone": "La commande `nodeatlas` est maintenant disponible en tant que raccourci pour `node <path/to/>node-atlas/`.",
 		"installDone": "node-atlas a été installé avec succès !"
 	},
 	"running": {
@@ -29,7 +29,7 @@
 	"cssGenerate": "CSS : Le fichier minifié « %pathName% » a été généré !",
 	"imgGenerate": "IMG : Le fichier optimisé « %pathName% » a été généré !",
 	"jsGenerate": "JS : Le fichier offusqué « %pathName% » a été généré !",
-	"assetsCopy": "Assets : Tout le contenu de `assetsRelativePath` a été copié dans le dossier `generatesRelativePath`.",
+	"assetsCopy": "Assets : Tout le contenu de `assetsRelativePath` a été copié dans le dossier `serverlessRelativePath`.",
 	"initCopy": "Projet de démarrage créé à partir de « %pathName% ».",
 	"templateNotGenerate": "Impossible d'enregistrer le fichier « %pathName% ».",
 	"templateNotSet": "Aucun fichier de template n'a été défini.",
@@ -59,8 +59,8 @@
 			"command": "-g, --generate",
 			"description": "Lancer la minification des ressources et la création des assets Html."
 		},
-		"init": {
-			"command": "-i, --init [path]",
+		"create": {
+			"command": "-i, --create [path]",
 			"description": "Installer le projet de démarrage souhaiter depuis le dossier `tests`."
 		},
 		"httpSecure": {

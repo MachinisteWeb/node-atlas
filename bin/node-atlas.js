@@ -135,14 +135,14 @@ NA = function () {
     /* $%INIT */
     this.changeLanguage = init.changeLanguage;
     this.configuration = init.configuration;
-    this.config = init.config;
+    this.init = init.init;
     this.generated = init.generated;
-    this.afterGenerates = init.afterGenerates;
+    this.afterGeneration = init.afterGeneration;
     this.afterRunning = init.afterRunning;
     this.started = init.started;
     this.afterNewProject = init.afterNewProject;
     this.created = init.created;
-    this.init = init.init;
+    this.start = init.start;
     this.run = init.run;
 
 };
@@ -157,7 +157,7 @@ NA = function () {
 
 /* Run script with CLI. */
 if (require.main === module) {
-    (new NA()).init();
+    (new NA()).start();
 }
 
 /* Run script with require as an API. */

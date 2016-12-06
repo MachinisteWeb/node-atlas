@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "1.8.0",
+  "version": "2.0.0",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -67,19 +67,10 @@
     "uglify-js": "2.7.x"
   },
   "files": [
-    "languages/default.json",
-    "languages/en-gb.json",
-    "languages/fr-fr.json",
-    "lib/assets-generation.js",
-    "lib/back-end-part.js",
-    "lib/configuration.js",
-    "lib/front-end-part.js",
-    "lib/global-functions.js",
-    "lib/init.js",
-    "lib/node-modules.js",
-    "lib/web-server.js",
-    "bin/node-atlas.js",
+    "languages/*",
+    "lib/*",
     "templates/*",
+    "bin/node-atlas.js",
     "LICENSE",
     "README.md",
     "CHANGELOG.md",

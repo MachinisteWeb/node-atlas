@@ -1,4 +1,4 @@
-exports.loadModules = function () {
+exports.setModules = function () {
 	var NA = this,
 		path = NA.modules.path;
 

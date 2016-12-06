@@ -3,11 +3,11 @@
     "routes": {
         "/bienvenue/": {
             "template": "email-a.htm",
-            "generate": "bienvenue.html"
+            "output": "bienvenue.html"
         },
         "/au-revoir/": {
             "template": "email-b.htm",
-            "generate": "au-revoir.html"
+            "output": "au-revoir.html"
         }
     }
 }

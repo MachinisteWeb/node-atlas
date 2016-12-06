@@ -72,27 +72,27 @@ Create a `webconfig.json` file and dependencies files for configured your websit
 {
     "home": {                               /* Set a key to use parameters defined or from url into code. */
         "url": "/",                         /* Set the url to request for a page. */
-        "generate": "home.html",            /* Set the pathname for save an HTML file represent the output in static. */
+        "output": "home.html",            /* Set the pathname for save an HTML file represent the output in static. */
         "template": "home.htm",             /* Assign the view file used to render content information. */
         "variation": "home.json",           /* Assign the specific variation file used for localize page. */
         "controller": "home.js"             /* Assign the specific controller file used for the home page (get last articles, number of suscribers, etc.). */
     },
     "presentation": {
         "url": "/presentation/",
-        "generate": "presentation.html",
+        "output": "presentation.html",
         "template": "default.htm",          /* A same template with... */
         "variation": "presentation.json"    /* ...different variation can generate different content page (see "error"). */
     },
     "members": {
         "url": "/members/",
-        "generate": "members.html",
+        "output": "members.html",
         "template": "members.htm",
         "variation": "members.json",
         "controller": "members.js"
     },
     "memberV2": {                           /* A new version of "member" render for pages. */
         "url": "/members/:member/",         /* The ":member" part represent the current member requested... */
-        "generate": "members/bob.html",     /* ...and a fake user is used for a static render into generated files. */
+        "output": "members/bob.html",     /* ...and a fake user is used for a static render into generated files. */
         "template": "member.htm",
         "variation": "member.json",
         "controller": "member.js"
@@ -104,7 +104,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     },
     "contact-us": {
         "url": "/contact-us/",
-        "generate": "contact-us.html",
+        "output": "contact-us.html",
         "template": "contact-us.htm",
         "variation": "contact-us.json",
         "controller": "contact-us.js",
@@ -112,7 +112,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     },
     "home-fr-fr": {
         "url": "/francais/",
-        "generate": "francais/bienvenue.html",
+        "output": "francais/bienvenue.html",
         "template": "home.htm",
         "variation": "home.json",
         "controller": "home.js",
@@ -120,14 +120,14 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     },
     "presentation-fr-fr": {
         "url": "/francais/presentation/",
-        "generate": "francais/presentation.html",
+        "output": "francais/presentation.html",
         "template": "default.htm",
         "variation": "presentation.json",
         "languageCode": "fr-fr"
     },
     "members-fr-fr": {
         "url": "/francais/membres/",
-        "generate": "francais/members.html",
+        "output": "francais/members.html",
         "template": "members.htm",
         "variation": "members.json",
         "controller": "members.js",
@@ -135,7 +135,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     },
     "memberV2-fr-fr": {
         "url": "/francais/membres/:member/",
-        "generate": "francais/members/bob.html",
+        "output": "francais/members/bob.html",
         "template": "member.htm",
         "variation": "member.json",
         "controller": "member.js",
@@ -148,7 +148,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     },
     "contact-us-fr-fr": {
         "url": "/francais/contactez-nous/",
-        "generate": "francais/contactez-nous.html",
+        "output": "francais/contactez-nous.html",
         "template": "contact-us.htm",
         "variation": "contact-us.json",
         "languageCode": "fr-fr",
@@ -157,7 +157,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     },
     "error-fr-fr": {
         "url": "/francais/*",               /* All pages begining with "/francais/" for french error page. */
-        "generate": "francais/page-404.html",
+        "output": "francais/page-404.html",
         "template": "default.htm",          /* Shared template into different routes (see "presentation"). */
         "variation": "page-404.json",
         "languageCode": "fr-fr",
@@ -165,7 +165,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     },
     "error": {
         "url": "/page-404/",                /* Default error page setted into "pageNotFound". */
-        "generate": "page-404.html",
+        "output": "page-404.html",
         "template": "default.htm",
         "variation": "page-404.json",
         "statusCode": 404
@@ -234,7 +234,7 @@ my-website/
 ├─ models/                   ⤆ The Model part with model files used into controllers for filled templates.
 │  ┊┉
 │
-├─ generates/                ⤆ All HTML mockups generated and usable for Back-end not in Node.js.
+├─ serverless/                ⤆ All HTML mockups generated and usable for Back-end not in Node.js.
 │  ┊┉
 │
 ├─ server.js                 ⤆ File used to run and configure NodeAtlas for API usage.

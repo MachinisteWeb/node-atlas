@@ -2,7 +2,7 @@
     "routes": {
         "/": {
             "template": "email.htm",
-            "generate": "bienvenue.html",
+            "outpute": "bienvenue.html",
             "injectCss": "stylesheets/email.css"
         }
     }

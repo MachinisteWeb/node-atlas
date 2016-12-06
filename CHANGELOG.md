@@ -1,3 +1,30 @@
+## 2.0.0-beta ##
+
+Features:
+
+- `NA#currentVariation.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
+- `NA#currentVariation.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
+- `NA#currentVariation.urlFilePath` is added.
+
+Updates:
+
+- `NA#webconfig.urlWithoutFileName` become `NA#webconfig.urlRoot`.
+- `NA#currentVariation.urlBasePathSlice` removed.
+- `NA#currentVariation.urlBasePath` become `NA#webconfig.urlRoot + NA#webconfig.urlRelativeSubPath` (without ending "/").
+- `NA#afterGenerates` become `NA#afterGeneration`.
+- `NA#webconfig.generatesRelativePath` become `NA#webconfig.serverlessRelativePath`.
+- `NA#webconfig.serverlessRelativePath` default value become `"serverless"`.
+- `NA#currentRouteParameters.generate` become `NA#currentRouteParameters.output`.
+- `NA#init` become `NA#start`.
+- `NA#config` become `NA#init`.
+- `NA#serverPhysicalPath` become `NA#nodeatlasPath`.
+- `NA#websitePhysicalPath` become `NA#serverPath`.
+- `NA#nodeAtlasModulePath` become `NA#nodeatlasModulesRelativePath` and become relatif to `NA#nodeatlasPath`.
+- `NA#websiteModulesPath` become `NA#serverModulesRelativePath` and become relatif to `NA#serverPath`.
+- `--init` command become `--create`.
+
+
+
 ## 1.8.0 ##
 
 Features:
