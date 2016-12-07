@@ -3441,18 +3441,21 @@ Il est tout à fait possible de modifier ses valeurs pour une entrée de route p
 }
 ```
 
-Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l'exception du `statusCode` donc).
+Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l'exception du `statusCode` donc). Mettre une valeur à `false` retire le Headers précédemment mis en place.
 
 ```js
 {
+    "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
+    },
     "routes": {
         "/api/articles": {
             "view": "display-json.htm",
             "controller": "blog/list-of-articles.js",
             "statusCode": 203,
             "headers": {
-                "Content-Type": "application/json; charset=utf-8",
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": false
             }
         }
     }

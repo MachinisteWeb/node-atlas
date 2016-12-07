@@ -228,15 +228,18 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l&#39;exception du <code>statusCode</code> donc).</p><pre><code class="lang-js">{
+</code></pre><p>Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l&#39;exception du <code>statusCode</code> donc). Mettre une valeur à <code>false</code> retire le Headers précédemment mis en place.</p><pre><code class="lang-js">{
+    &quot;headers&quot;: {
+        &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;,
+        &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;
+    },
     &quot;routes&quot;: {
         &quot;/api/articles&quot;: {
             &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;controller&quot;: &quot;blog/list-of-articles.js&quot;,
             &quot;statusCode&quot;: 203,
             &quot;headers&quot;: {
-                &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;,
-                &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;
+                &quot;Access-Control-Allow-Origin&quot;: false
             }
         }
     }

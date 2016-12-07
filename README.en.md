@@ -3441,18 +3441,21 @@ It's possible to modify this values for a specific route (for local API for exam
 }
 ```
 
-It's also possible to modify all Headers values, this erase all shortcuts before (except the `statusCode`).
+It's also possible to modify all Headers values, this erase all shortcuts before (except the `statusCode`). Set a value to false remove this header previously setted.
 
 ```js
 {
+    "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
+    },
     "routes": {
         "/api/articles": {
             "view": "display-json.htm",
             "controller": "blog/list-of-articles.js",
             "statusCode": 203,
             "headers": {
-                "Content-Type": "application/json; charset=utf-8",
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": false
             }
         }
     }

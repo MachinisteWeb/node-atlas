@@ -491,15 +491,18 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>It&#39;s also possible to modify all Headers values, this erase all shortcuts before (except the <code>statusCode</code>).</p><pre><code class="lang-js">{
+</code></pre><p>It&#39;s also possible to modify all Headers values, this erase all shortcuts before (except the <code>statusCode</code>). Set a value to false remove this header previously setted.</p><pre><code class="lang-js">{
+    &quot;headers&quot;: {
+        &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;,
+        &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;
+    },
     &quot;routes&quot;: {
         &quot;/api/articles&quot;: {
             &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;controller&quot;: &quot;blog/list-of-articles.js&quot;,
             &quot;statusCode&quot;: 203,
             &quot;headers&quot;: {
-                &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;,
-                &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;
+                &quot;Access-Control-Allow-Origin&quot;: false
             }
         }
     }
