@@ -1,19 +1,19 @@
-var nodeAtlas = require("node-atlas"),
+var nodeAtlas = require("../../NodeAtlas/"),
 	versionFrench = new nodeAtlas(),
 	versionEnglish = new nodeAtlas(),
 	versionTest = new nodeAtlas();
 
-versionFrench.config({
+versionFrench.init({
 	"generate": true,
 	"webconfig": "webconfig.generate.json"
 }).generated(function() {
-	versionEnglish.config({
+	versionEnglish.init({
 		"generate": true,
 		"webconfig": "webconfig.generate.en-us.json"
 	}).generated(function() {
-		versionTest.config({
+		versionTest.init({
 			"browse": "index.html",
 			"directory": "../"
-		}).init();
-	}).init();
-}).init();
+		}).start();
+	}).start();
+}).start();

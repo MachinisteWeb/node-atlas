@@ -37,20 +37,20 @@
  * @function openTemplate
  * @memberOf NA#
  * @param {Object} currentRouteParameters  Parameters set into `routes[&lt;currentRoute>]`.
- * @param {Object} templatesPath           Path to template file.
+ * @param {Object} viewsPath           Path to template file.
  * @param {openTemplate~callback} callback Next steps after opening file.
  */
-exports.openTemplate = function (currentRouteParameters, templatesPath, callback) {
+exports.openTemplate = function (currentRouteParameters, viewsPath, callback) {
     var NA = this,
         fs = NA.modules.fs;
 
-    fs.readFile(templatesPath, 'utf-8', function (err, data) {
+    fs.readFile(viewsPath, 'utf-8', function (err, data) {
         if (err) {
-            err.templatesPath = templatesPath;
-            if (typeof currentRouteParameters.template === 'undefined') {
-                NA.log(NA.appLabels.templateNotSet);
+            err.viewsPath = viewsPath;
+            if (typeof currentRouteParameters.view === 'undefined') {
+                NA.log(NA.appLabels.viewNotSet);
             } else {
-                NA.log(NA.appLabels.templateNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
+                NA.log(NA.appLabels.viewNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
             }
         } else {
 
@@ -82,7 +82,7 @@ exports.openVariation = function (variationName, languageCode, errorDisabled) {
 
         /* Find the correct path for variations. */
         variationsPath = path.join(
-            NA.websitePhysicalPath,
+            NA.serverPath,
             NA.webconfig.variationsRelativePath,
             (languageCode) ? languageCode : '',
             (variationName) ? variationName : ''
@@ -122,11 +122,11 @@ exports.openVariation = function (variationName, languageCode, errorDisabled) {
  * @param {Object} currentRouteParameters All parameters from current route.
  * @param {Object} request                Information from request.
  * @param {Object} response               Information from response.
- * @param {string} templatesPath          Path to the based template.
+ * @param {string} viewsPath              Path to the based view.
  * @param {string} currentPath            Url from `url` value for this render.
  * @param {string} path                   Url path for this render.
  */
-exports.prepareRenderLanguage = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path) {
+exports.prepareRenderLanguage = function (currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path) {
     var NA = this;
 
     /**
@@ -160,7 +160,7 @@ exports.prepareRenderLanguage = function (currentVariation, currentRouteParamete
         NA.webconfig.languageCode;
 
     /* Next preparation render for variation. */
-    NA.prepareRenderPath(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path);
+    NA.prepareRenderPath(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path);
 };
 
 /**
@@ -172,34 +172,68 @@ exports.prepareRenderLanguage = function (currentVariation, currentRouteParamete
  * @param {Object} currentRouteParameters All parameters from current route.
  * @param {Object} request                Information from request.
  * @param {Object} response               Information from response.
- * @param {string} templatesPath          Path to the based template.
+ * @param {string} viewsPath              Path to the based view.
  * @param {string} currentPath            Url from `url` value for this render.
  * @param {string} path                   Url path for this render.
  */
-exports.prepareRenderPath = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path) {
-    var NA = this;
+exports.prepareRenderPath = function (currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path) {
+    var NA = this,
+        query = (request  &amp;&amp; request.originalUrl &amp;&amp; request.originalUrl.split("?"));
 
     /**
-     * Idem as `NA#variation.urlBasePath` without "/" at the end.
+     * Idem as `NA#webconfig.urlRoot`.
      * @public
-     * @alias urlBasePathSlice
+     * @alias urlRootPath
+     * @type {string}
+     * @memberOf NA#currentVariation
+     * @example http://localhost:7777
+     * https://www.example.here
+     */
+    currentVariation.urlRootPath = NA.webconfig.urlRoot;
+
+    /**
+     * Idem as `NA#webconfig.urlRelativeSubPath`.
+     * @public
+     * @alias urlSubPath
+     * @type {string}
+     * @memberOf NA#currentVariation
+     * @example /subpath
+     * 
+     */
+    currentVariation.urlSubPath = NA.webconfig.urlRelativeSubPath;
+
+    /**
+     * Expose the current URL of page with `NA#webconfig.urlRoot` and `NA#webconfig.urlRelativeSubPath`.
+     * @public
+     * @alias urlBasePath
      * @type {string}
      * @memberOf NA#currentVariation
      * @example http://localhost:7777/subpath
      * https://www.example.here
      */
-    currentVariation.urlBasePathSlice = NA.webconfig.urlWithoutFileName.replace(/\/$/g, "") + NA.webconfig.urlRelativeSubPath;
+    currentVariation.urlBasePath = NA.webconfig.urlRoot + NA.webconfig.urlRelativeSubPath;
 
     /**
-     * Expose the current URL of page with `NA#webconfig.urlWithoutFileName` and `NA#webconfig.urlRelativeSubPath`.
+     * Url from `url` value for current route.
      * @public
-     * @alias urlBasePath
+     * @alias urlFilePath
      * @type {string}
      * @memberOf NA#currentVariation
-     * @example http://localhost:7777/subpath/
-     * https://www.example.here/
+     * @example /example.html
+     * /example/this/
      */
-    currentVariation.urlBasePath = currentVariation.urlBasePathSlice + '/';
+    currentVariation.urlFilePath = currentPath;
+
+    /**
+     * Query from `url` value for current route.
+     * @public
+     * @alias urlQueryPath
+     * @type {string}
+     * @memberOf NA#currentVariation
+     * @example ?title=Haeresis&amp;description=ok
+     * ?title=Haeresis
+     */
+    currentVariation.urlQueryPath = query &amp;&amp; query[1] ? "?" + query[1] : "";
 
     /**
      * Expose the current URL of page with `NA#webconfig.urlBasePath` and the current page route.
@@ -207,12 +241,12 @@ exports.prepareRenderPath = function (currentVariation, currentRouteParameters, 
      * @alias urlPath
      * @type {string}
      * @memberOf NA#currentVariation
-     * @example http://localhost:7777/subpath/example.html (if current route is '/example.html')
-     * https://www.example.here/example/this/ (if current route is '/example/this/')
+     * @example http://localhost:7777/subpath/example.html?title=Haeresis&amp;description=ok
+     * https://www.example.here/example/this/?title=Haeresis
      */
-    currentVariation.urlPath = currentVariation.urlBasePath.replace(/\/$/g, "") + currentPath;
+    currentVariation.urlPath = currentVariation.urlBasePath + currentPath + currentVariation.urlQueryPath;
     if (request) {
-        currentVariation.urlPath = "http" + ((NA.webconfig.httpSecure) ? 's' : '') + '://' + request.get('host') + request.originalUrl;
+        currentVariation.urlPath = "http" + ((NA.webconfig.httpSecure) ? "s" : "") + '://' + request.get("host") + request.originalUrl;
     }
 
     /**
@@ -233,14 +267,8 @@ exports.prepareRenderPath = function (currentVariation, currentRouteParameters, 
      */
     currentVariation.filename = NA.variations.filename;
 
-    console.log("urlWithoutFileName", NA.webconfig.urlWithoutFileName);
-    console.log("urlBasePath", currentVariation.urlBasePath);
-    console.log("urlPath", currentVariation.urlPath);
-    console.log("urlPath", currentVariation.pathname);
-    console.log("urlPath", currentVariation.filename);
-
     /* Next preparation render for variation. */
-    NA.prepareRenderVariation(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path);
+    NA.prepareRenderVariation(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path);
 };
 
 /**
@@ -252,11 +280,11 @@ exports.prepareRenderPath = function (currentVariation, currentRouteParameters, 
  * @param {Object} currentRouteParameters All parameters from current route.
  * @param {Object} request                Information from request.
  * @param {Object} response               Information from response.
- * @param {string} templatesPath          Path to the based template.
+ * @param {string} viewsPath              Path to the based view.
  * @param {string} currentPath            Url from `url` value for this render.
  * @param {string} path                   Url path for this render.
  */
-exports.prepareRenderVariation = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path) {
+exports.prepareRenderVariation = function (currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path) {
     var NA = this,
         extend = NA.modules.extend;
 
@@ -316,7 +344,7 @@ exports.prepareRenderVariation = function (currentVariation, currentRouteParamet
     }
 
     /* Nexts Step for render. */
-    NA.prepareRenderParameters(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path);
+    NA.prepareRenderParameters(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path);
 };
 
 /**
@@ -328,11 +356,11 @@ exports.prepareRenderVariation = function (currentVariation, currentRouteParamet
  * @param {Object} currentRouteParameters All parameters from current route.
  * @param {Object} request                Information from request.
  * @param {Object} response               Information from response.
- * @param {string} templatesPath          Path to the based template.
+ * @param {string} viewsPath              Path to the based view.
  * @param {string} currentPath            Url from `url` value for this render.
  * @param {string} path                   Url path for this render.
  */
-exports.prepareRenderParameters = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path) {
+exports.prepareRenderParameters = function (currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path) {
     var NA = this;
 
     /**
@@ -375,7 +403,7 @@ exports.prepareRenderParameters = function (currentVariation, currentRouteParame
     currentVariation.webconfig = NA.webconfig;
 
     /* Nexts Step for render. */
-    NA.changeVariationCommon(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path);
+    NA.changeVariationCommon(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path);
 };
 
 /**
@@ -387,10 +415,10 @@ exports.prepareRenderParameters = function (currentVariation, currentRouteParame
  * @param {Object} currentRouteParameters All parameters from current route.
  * @param {Object} request                Information from request.
  * @param {Object} response               Information from response.
- * @param {string} templatesPath          Path to the based template.
+ * @param {string} viewsPath              Path to the based view.
  * @param {string} currentPath            Url from `url` value for this render.
  */
-exports.changeVariationCommon = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath) {
+exports.changeVariationCommon = function (currentVariation, currentRouteParameters, request, response, viewsPath, currentPath) {
     var NA = this;
 
     /* Use the `NA.websiteController[&lt;commonController>].changeVariation(...)` function if set... */
@@ -416,11 +444,11 @@ exports.changeVariationCommon = function (currentVariation, currentRouteParamete
              */
             function (tempVariation) {
                 currentVariation = (tempVariation) ? tempVariation : currentVariation;
-                NA.changeVariationSpecific(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath);
+                NA.changeVariationSpecific(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath);
             });
     /* ...else, just continue. */
     } else {
-        NA.changeVariationSpecific(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath);
+        NA.changeVariationSpecific(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath);
     }
 };
 
@@ -433,10 +461,10 @@ exports.changeVariationCommon = function (currentVariation, currentRouteParamete
  * @param {Object} currentRouteParameters All parameters from current route.
  * @param {Object} request                Information from request.
  * @param {Object} response               Information from response.
- * @param {string} templatesPath          Path to the based template.
+ * @param {string} viewsPath              Path to the based view.
  * @param {string} currentPath            Url from `url` value for this render.
  */
-exports.changeVariationSpecific = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath) {
+exports.changeVariationSpecific = function (currentVariation, currentRouteParameters, request, response, viewsPath, currentPath) {
     var NA = this;
 
     if (typeof NA.websiteController[currentRouteParameters.controller] !== 'undefined' &amp;&amp;
@@ -444,11 +472,11 @@ exports.changeVariationSpecific = function (currentVariation, currentRouteParame
             /* Use the `NA.websiteController[&lt;controller>].changeVariation(...)` function if set... */
             NA.websiteController[currentRouteParameters.controller].changeVariation.call(NA, { variation: currentVariation, request: request, response: response }, function (tempVariation) {
                 currentVariation = (tempVariation) ? tempVariation : currentVariation;
-                NA.changeDomCommon(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath);
+                NA.changeDomCommon(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath);
             });
     } else {
         /* ...else, just continue. */
-        NA.changeDomCommon(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath);
+        NA.changeDomCommon(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath);
     }
 };
 
@@ -461,19 +489,19 @@ exports.changeVariationSpecific = function (currentVariation, currentRouteParame
  * @param {Object} currentRouteParameters All parameters from current route.
  * @param {Object} request                Information from request.
  * @param {Object} response               Information from response.
- * @param {string} templatesPath          Path to the based template.
+ * @param {string} viewsPath              Path to the based view.
  * @param {string} currentPath            Url from `url` value for this render.
  */
-exports.changeDomCommon = function (currentVariation, currentRouteParameters, request, response, templatesPath, currentPath) {
+exports.changeDomCommon = function (currentVariation, currentRouteParameters, request, response, viewsPath, currentPath) {
     var NA = this,
         ejs = NA.modules.ejs,
         pathM = NA.modules.path;
 
     /* Open the template file */
-    NA.openTemplate(currentRouteParameters, templatesPath, function (data) {
+    NA.openTemplate(currentRouteParameters, viewsPath, function (data) {
 
         /* Set the file currently in use. */
-        currentVariation.filename = pathM.join(currentVariation.pathname, currentRouteParameters.template);
+        currentVariation.filename = pathM.join(currentVariation.pathname, currentRouteParameters.view);
 
         try {
             /* Transform ejs data and inject incduded file. */
@@ -587,32 +615,32 @@ exports.renderTemplate = function (data, currentVariation, currentRouteParameter
         async = NA.modules.async,
 
         /**
-         * Allow NodeAtlas to generate real file into `NA#webconfig.generatesRelativePath` directory if set to true.
+         * Allow NodeAtlas to generate real file into `NA#webconfig.serverlessRelativePath` directory if set to true.
          * @public
-         * @alias htmlGeneratesBeforeResponse
+         * @alias htmlGenerationBeforeResponse
          * @type {boolean}
          * @memberOf NA#webconfig
          * @default false
          */
-        htmlGeneratesBeforeResponse = NA.webconfig.htmlGeneratesBeforeResponse,
-        htmlGenerateEnable = (typeof NA.webconfig.htmlGenerateEnable === 'boolean') ? NA.webconfig.htmlGenerateEnable : true,
+        htmlGenerationBeforeResponse = NA.webconfig.htmlGenerationBeforeResponse,
+        htmlGenerationEnable = (typeof NA.webconfig.htmlGenerationEnable === 'boolean') ? NA.webconfig.htmlGenerationEnable : true,
         templateRenderName;
 
     /* Create the file for asset mode */
-    if (typeof response === 'undefined' || (htmlGeneratesBeforeResponse &amp;&amp; htmlGenerateEnable)) {
+    if (typeof response === 'undefined' || (htmlGenerationBeforeResponse &amp;&amp; htmlGenerationEnable)) {
 
         /**
-         * Output name of file generate if `NA#webconfig.htmlGeneratesBeforeResponse` is set to true or if `--generate` command is used.
+         * Output name of file generate if `NA#webconfig.htmlGenerationBeforeResponse` is set to true or if `--generate` command is used.
          * If value is set to `false`, no generate page will be generated.
          * @public
-         * @alias generate
+         * @alias output
          * @type {string|boolean}
          * @memberOf NA#currentRouteParameters
          */
         templateRenderName = currentPath;
 
-        if (typeof currentRouteParameters.generate !== 'undefined') {
-            templateRenderName = currentRouteParameters.generate;
+        if (typeof currentRouteParameters.output !== 'undefined') {
+            templateRenderName = currentRouteParameters.output;
         }
 
         NA.saveTemplateRender(data, templateRenderName);
@@ -654,7 +682,7 @@ exports.render = function (path, options, request, response) {
          * @memberOf NA#
          */
         currentRouteParameters = options[path],
-        templatesPath,
+        viewsPath,
 
         /**
          * All variation for a specific page.
@@ -669,25 +697,25 @@ exports.render = function (path, options, request, response) {
 
     /* Inject template shortcut to template. */
     if (typeof currentRouteParameters === 'string') {
-        /* templatesPath is just use like temp var in this if statement. */
-        templatesPath = currentRouteParameters;
+        /* viewsPath is just use like temp var in this if statement. */
+        viewsPath = currentRouteParameters;
         currentRouteParameters = {};
 
         /**
-         * This is the file name of template used for render of page behind the route.
+         * This is the file name of view used for render of page behind the route.
          * @public
-         * @alias template
+         * @alias view
          * @type {string}
          * @memberOf NA#currentRouteParameters
          */
-        currentRouteParameters.template = templatesPath;
+        currentRouteParameters.view = viewsPath;
     }
 
-    /* Generate the server path to the template file. */
-    templatesPath = pathM.join(
-        NA.websitePhysicalPath,
-        NA.webconfig.templatesRelativePath,
-        (currentRouteParameters.template) ? currentRouteParameters.template : ""
+    /* Generate the server path to the view file. */
+    viewsPath = pathM.join(
+        NA.serverPath,
+        NA.webconfig.viewsRelativePath,
+        (currentRouteParameters.view) ? currentRouteParameters.view : ""
     );
 
     /* Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
@@ -708,7 +736,7 @@ exports.render = function (path, options, request, response) {
         currentRouteParameters.controller,
         function () {
             /* Next preparation path render. */
-            NA.prepareRenderLanguage(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path);
+            NA.prepareRenderLanguage(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path);
         }
     );
 };</code></pre>
@@ -727,7 +755,7 @@ exports.render = function (path, options, request, response) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Dec 05 2016 11:16:11 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 07 2016 11:42:44 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

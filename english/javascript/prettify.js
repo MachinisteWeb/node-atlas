@@ -1282,7 +1282,7 @@ var prettyPrint;
            [PR_COMMENT,     /^<\!--[\s\S]*?(?:-\->|$)/],
            // Unescaped content in an unknown language
            ['lang-',        /^<\?([\s\S]+?)(?:\?>|$)/],
-           ['lang-',        /^<%([\s\S]+?)(?:%>|$)/],
+           ['lang-',        /^<?([\s\S]+?)(?:%>|$)/],
            [PR_PUNCTUATION, /^(?:<[%?]|[%?]>)/],
            ['lang-',        /^<xmp\b[^>]*>([\s\S]+?)<\/xmp\b[^>]*>/i],
            // Unescaped content in javascript.  (Or possibly vbscript).

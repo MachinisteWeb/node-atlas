@@ -92,7 +92,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Raccourci de template](#raccourci-de-template)
  - [Héberger des images, polices, CSS, JS, etc.](#héberger-des-images-polices-css-js-etc)
  - [Gérer des inclusions pour éviter la redondance du code](#gérer-des-inclusions-pour-éviter-la-redondance-du-code)
- - [Gérer des variations au sein d'un même template](#gérer-des-variations-au-sein-dun-m%C3%AAme-template)
+ - [Gérer des variations au sein d'une même view](#gérer-des-variations-au-sein-dune-m%C3%AAme-view)
  - [Gérer le multilingue](#gérer-le-multilingue)
  - [Changer les paramètres d'url](#changer-les-paramètres-durl)
  - [Créer ses propres variables de webconfig](#créer-ses-propres-variables-de-webconfig)
@@ -117,7 +117,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Autoriser / Interdire les demandes PUT / DELETE](#autoriser--interdire-les-demandes-put--delete)
  - [Changer les paramètres des Sessions](#changer-les-paramètres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
- - [Changer les chevrons <% %> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
+ - [Changer les chevrons <? ?> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
  - [Générer les urls dynamiquement](#générer-les-urls-dynamiquement)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
@@ -128,11 +128,11 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [--httpPort &lt;httpPort>](#--httpport-httpport)
  - [--generate](#--generate)
  - [--lang &lt;culture-country>](#--lang-culture-country)
- - [--init [path]](#--init-path)
+ - [--create [path]](#--create-path)
  - [--httpSecure [pathName]](#--httpsecure-pathName)
 - [API / NodeAtlas comme module npm](#api--nodeatlas-comme-module-npm)
- - [&lt;node-atlas-instance>.init()](#node-atlas-instanceinit)
- - [&lt;node-atlas-instance>.config(Object)](#node-atlas-instanceconfigobject)
+ - [&lt;node-atlas-instance>.start()](#node-atlas-instancestart)
+ - [&lt;node-atlas-instance>.init(Object)](#node-atlas-instanceinitobject)
  - [&lt;node-atlas-instance>.run(Object)](#node-atlas-instancerunobject)
  - [&lt;node-atlas-instance>.started(Function)](#node-atlas-instancestartedfunction)
  - [&lt;node-atlas-instance>.generated(Function)](#node-atlas-instancegeneratedfunction)
@@ -291,12 +291,12 @@ Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un 
 
 ```
 site-hello-world/
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
 
-Voici le fichier « /site-hello-world/templates/index.htm » :
+Voici le fichier « /site-hello-world/views/index.htm » :
 
 ```html
 <!DOCTYPE html>
@@ -321,7 +321,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 {
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -383,9 +383,9 @@ nodeAtlas().run();
 
 ## Partie View et Template ##
 
-NodeAtlas fonctionne avec une configuration via l'utilisation d'un `webconfig.json` qui lui permet d'étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de controller), il suffit de ne renseigner qu'un `template` pour chaque route.
+NodeAtlas fonctionne avec une configuration via l'utilisation d'un `webconfig.json` qui lui permet d'étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de controller), il suffit de ne renseigner qu'une `view` pour chaque route.
 
-Cependant, vous pourrez toujours utilisé du JavaScript inline dans ses templates grâce à l'utilisation du moteur de template [EJS2](http://ejs.co/) avec lequel fonctionne NodeAtlas.
+Cependant, vous pourrez toujours utilisé du JavaScript inline dans ses views grâce à l'utilisation du moteur de template [EJS2](http://ejs.co/) avec lequel fonctionne NodeAtlas.
 
 Voyons les possibilités de nos sites par agrégat simple de fichiers templates.
 
@@ -395,24 +395,24 @@ Ci-dessous un exemple de configuration.
 
 ```js
 {
-    "templatesRelativePath": "templates",
+    "viewsRelativePath": "views",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/member.html": {
-            "template": "member.htm",
+            "view": "member.htm",
             "postSupport": false
         },
         "/member-without-extension/": {
-            "template": "member.htm",
+            "view": "member.htm",
             "getSupport": false
         },
         "about.html": {
-            "template": "about.htm"
+            "view": "about.htm"
         },
         "/error.html": {
-            "template": "error.htm",
+            "view": "error.htm",
             "statusCode": 404,
             "mimeType": "text/plain"
         }
@@ -423,7 +423,7 @@ Ci-dessous un exemple de configuration.
 Pour faire tourner cet ensemble de fichier :
 
 ```
-├─ templates/
+├─ views/
 │  ├─ index.htm
 │  ├─ member.htm
 │  └─ error.htm
@@ -437,7 +437,7 @@ aux adresses :
 - *http://localhost/member-without-extension/* (ne répondra pas si demandée en GET)
 - *http://localhost/error.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404)
 
-*Note : Si* ***templatesRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des templates est bien* ***templates***. ***templatesRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***viewsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des views est bien* ***views***. ***viewsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -447,20 +447,20 @@ La configuration ci-dessous est équivalente à la configuration de la section j
 
 ```js
 {
-    "templatesRelativePath": "templates",
+    "viewsRelativePath": "views",
     "routes": {
         "/": "index.htm",
         "/member.html": {
-            "template": "member.htm",
+            "view": "member.htm",
             "postSupport": false
         },
         "/member-without-extension/": {
-            "template": "member.htm",
+            "view": "member.htm",
             "getSupport": false
         },
         "about.html": "about.htm",
         "/error.html": {
-            "template": "error.htm",
+            "view": "error.htm",
             "statusCode": 404,
             "mimeType": "text/plain"
         }
@@ -478,11 +478,11 @@ est un raccourci de
 
 ```js
 "about.html": {
-    "template": "about.htm"
+    "view": "about.htm"
 }
 ```
 
-Évidemment ce raccourci ne sert que si `template` est le seul paramètre à déclarer de la route.
+Évidemment ce raccourci ne sert que si `view` est le seul paramètre à déclarer de la route.
 
 
 
@@ -495,7 +495,7 @@ Vous pouvez également héberger tout un tas de fichier sur votre site dans un d
     "assetsRelativePath": "assets",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -512,7 +512,7 @@ et cet ensemble de fichiers :
 │  └─ media/
 │     └─ images/
 │        └─ logo.png
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -539,7 +539,7 @@ Par exemple, pour un webconfig de développement, il peut être intéressant de 
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -553,13 +553,12 @@ Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant 
 
 ```js
 {
-    "componentsRelativePath": "components/",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/liste-des-membres/": {
-            "template": "members.htm"
+            "view": "members.htm"
         }
     }
 }
@@ -573,16 +572,16 @@ avec les fichiers suivants :
 │  │  └─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  ├─ index.htm
 │  └─ members.htm
 └─ webconfig.json
 ```
 
-*components/head.htm*
+*views/partials/head.htm*
 
 ```html
 <!DOCTYPE html>
@@ -596,7 +595,7 @@ avec les fichiers suivants :
     <body>
 ```
 
-*components/foot.htm*
+*views/partials/foot.htm*
 
 ```html
         <script async type="text/javascript" src="javascript/common.js"></script>
@@ -604,30 +603,30 @@ avec les fichiers suivants :
 </html>
 ```
 
-*templates/index.htm*
+*views/index.htm*
 
 ```html
-    <%- include('head.htm') %>
+    <?- include('partials/head.htm') ?>
 
     <div>
         <h1>Bienvenue</h1>
         <p>C'est la page d'accueil.</p>
     </div>
 
-    <%- include('foot.htm') %>
+    <?- include('partials/foot.htm') ?>
 ```
 
-*templates/members.htm*
+*views/members.htm*
 
 ```html
-    <%- include('head.htm') %>
+    <?- include('partials/head.htm') ?>
 
     <div>
         <h1>Liste des members</h1>
         <p>C'est la page des membres.</p>
     </div>
 
-    <%- include('foot.htm') %>
+    <?- include('partials/foot.htm') ?>
 ```
 
 vous aurez accès aux adresses :
@@ -635,13 +634,11 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***componentsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des includes est bien* ***components***. ***componentsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
+### Gérer des variations au sein d'une même view ###
 
-### Gérer des variations au sein d'un même template ###
-
-Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (utile en mode génération d'assets HTML). Activer les variations avec la configuration suivante :
+Il est possible avec la même view et les mêmes includes de générer des pages au contenu différent (utile en mode génération d'assets HTML). Activer les variations avec la configuration suivante :
 
 ```js
 {
@@ -649,11 +646,11 @@ Il est possible avec le même template et les mêmes includes de générer des p
     "variationsRelativePath": "variations",
     "routes": {
         "/": {
-            "template": "template.htm",
+            "view": "template.htm",
             "variation": "index.json",
         },
         "/liste-des-membres/": {
-            "template": "template.htm",
+            "view": "template.htm",
             "variation": "members.json",
         }
     }
@@ -672,54 +669,54 @@ avec les fichiers suivants :
 │     ├─ common.js
 │     ├─ index.js
 │     └─ members.js
-├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
 ├─ variations/
 │  ├─ common.json
 │  ├─ index.json
 │  └─ members.json
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  └─ template.htm
 └─ webconfig.json
 ```
 
-*components/head.htm*
+*views/partials/head.htm*
 
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
     <head>
         <meta charset="utf-8" />
-        <title><%- specific.titlePage %></title>
+        <title><?- specific.titlePage ?></title>
 
-        <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
     </head>
-    <body class="<%= specific.classPage %>">
+    <body class="<?= specific.classPage ?>">
 ```
 
-*components/foot.htm*
+*views/partials/foot.htm*
 
 ```html
-        <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
+        <script async type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
     </body>
 </html>
 ```
 
-*templates/template.htm*
+*views/template.htm*
 
 ```html
-    <%- include('head.htm') %>
+    <?- include('head.htm') ?>
 
-    <div class="title"><%- common.titleWebsite %></div>
+    <div class="title"><?- common.titleWebsite ?></div>
 
     <div>
-        <h1><%- specific.titlePage %></h1>
-        <%- specific.content %>
+        <h1><?- specific.titlePage ?></h1>
+        <?- specific.content ?>
     </div>
 
-    <%- include('foot.htm') %>
+    <?- include('foot.htm') ?>
 ```
 
 *variations/common.json*
@@ -773,15 +770,15 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
     "variationsRelativePath": "languages",
     "routes": {
         "/": {
-            "template": "landing.htm",
+            "view": "landing.htm",
             "variation": "landing.json"
         },
         "/home/": {
-            "template": "home.htm",
+            "view": "home.htm",
             "variation": "home.json"
         },
         "/accueil/": {
-            "template": "home.htm",
+            "view": "home.htm",
             "variation": "home.json",
             "languageCode": "fr-fr"
         }
@@ -794,65 +791,65 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 avec les fichiers suivants :
 
 ```
-├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
 ├─ languages/
 │  ├─ landing.json
 │  ├─ en-gb
 │  │  └─ home.json
 │  └─ fr-fr
 │     └─ home.json
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  ├─ landing.htm
 │  └─ home.htm
 └─ webconfig.json
 ```
 
-*components/head.htm*
+*views/partials/head.htm*
 
 ```html
 <!DOCTYPE html>
-<html lang="<%= languageCode %>">
+<html lang="<?= languageCode ?>">
     <head>
         <meta charset="utf-8" />
-        <title><%= specific.titlePage %></title>
+        <title><?= specific.titlePage ?></title>
     </head>
-    <body class="<%= specific.classPage %>">
+    <body class="<?= specific.classPage ?>">
 ```
 
-*components/foot.htm*
+*views/partials/foot.htm*
 
 ```html
     </body>
 </html>
 ```
 
-*templates/landing.htm*
+*views/landing.htm*
 
 ```html
-    <%- include('head.htm') %>
+    <?- include('head.htm') ?>
 
     <select>
-        <% for (var i = 0; i < specific.selectLabel.length; i++) { %>
-        <option><%= specific.selectLabel[i] %></option>
-        <% } %>
+        <? for (var i = 0; i < specific.selectLabel.length; i++) { ?>
+        <option><?= specific.selectLabel[i] ?></option>
+        <? } ?>
     </select>
 
-    <%- include('foot.htm') %>
+    <?- include('foot.htm') ?>
 ```
 
-*templates/home.htm*
+*views/home.htm*
 
 ```html
-    <%- include('head.htm') %>
+    <?- include('head.htm') ?>
 
     <div>
-        <h1><%- specific.titlePage %></h1>
-        <%- specific.content %>
+        <h1><?- specific.titlePage ?></h1>
+        <?- specific.content ?>
     </div>
 
-    <%- include('foot.htm') %>
+    <?- include('foot.htm') ?>
 ```
 
 *languages/landing.json*
@@ -930,9 +927,6 @@ ainsi, si une phrase n'est pas encore traduite dans un fichier `fr-fr`, au lieu 
 Vous pouvez également décider de faire tourner chaque langue dans un « webconfig.json » différent. Avec l'ensemble de fichier suivant :
 
 ```
-├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
 ├─ variations/
 │  ├─ landing.json
 │  ├─ en-gb
@@ -941,7 +935,10 @@ Vous pouvez également décider de faire tourner chaque langue dans un « webcon
 │  └─ fr-fr
 │     ├─ home.json
 │     └─ members.json
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  ├─ landing.htm
 │  ├─ home.htm
 │  └─ members.htm
@@ -958,7 +955,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 {
     "routes": {
         "/": {
-            "template": "landing.htm",
+            "view": "landing.htm",
             "variation": "landing.json"
         }
     }
@@ -974,11 +971,11 @@ vous pourriez avoir les « webconfig.json » suivant :
     "languageCode": "en-gb",
     "routes": {
         "/": {
-            "template": "home.htm",
+            "view": "home.htm",
             "variation": "home.json"
         },
         "/members-list/": {
-            "template": "members.htm",
+            "view": "members.htm",
             "variation": "members.json"
         }
     }
@@ -994,11 +991,11 @@ vous pourriez avoir les « webconfig.json » suivant :
     "languageCode": "fr-fr",
     "routes": {
         "/": {
-            "template": "home.htm",
+            "view": "home.htm",
             "variation": "home.json"
         },
         "/liste-des-membres/": {
-            "template": "members.htm",
+            "view": "members.htm",
             "variation": "members.json"
         }
     }
@@ -1033,7 +1030,7 @@ Par défaut, si vous utilisez la configuration suivante :
 {
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -1049,7 +1046,7 @@ cela est identique à utiliser celle-ci :
     "urlRelativeSubPath": "",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -1067,7 +1064,7 @@ Changez alors la configuration en ceci :
     "urlRelativeSubPath": "sub/folder",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -1087,7 +1084,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 {
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     },
     "_minified": ""
@@ -1100,7 +1097,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 {
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     },
     "_minified": ".min"
@@ -1117,7 +1114,7 @@ avec cet ensemble de fichiers
 │  └─ javascript/
 │     ├─ common.js
 │     └─ common.min.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -1131,11 +1128,11 @@ et « index.htm » contenant :
     <head>
         <meta charset="utf-8" />
         <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common<%= webconfig._minified %>.css" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/common<?= webconfig._minified ?>.css" />
     </head>
     <body>
         <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-        <script type="text/javascript" src="javascript/common<%= webconfig._minified %>.js"></script>
+        <script type="text/javascript" src="javascript/common<?= webconfig._minified ?>.js"></script>
     </body>
 </html>
 ```
@@ -1198,23 +1195,23 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
 
 ```js
 {
-    "htmlGeneratesBeforeResponse": true,
-    "generatesRelativePath": "generates",
+    "htmlGenerationBeforeResponse": true,
+    "serverlessRelativePath": "serverless",
     "routes": {
         "/": {
-            "template": "index.htm",
-            "generate": "/index.html"
+            "view": "index.htm",
+            "output": "/index.html"
         },
         "/liste-des-membres/": {
-            "template": "members.htm",
-            "generate": "/members/list.html"
+            "view": "members.htm",
+            "output": "/members/list.html"
         },
         "/liste-des-membres/?foo=bar": {
-            "template": "members.htm",
-            "generate": false
+            "view": "members.htm",
+            "output": false
         },
         "/no/generate/property/": {
-            "template": "members.htm"
+            "view": "members.htm"
         }
     }
 }
@@ -1228,8 +1225,8 @@ et l'ensemble de fichiers suivant :
 │  │  ├─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ generates/
-├─ templates/
+├─ serverless/
+├─ views/
 │  ├─ index.htm
 │  └─ members.htm
 └─ webconfig.json
@@ -1240,7 +1237,7 @@ on peut créer physiquement les assets :
 ```
 ├─ assets/
 │  ┊┉
-├─ generates/
+├─ serverless/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  ├─ javascript/
@@ -1251,7 +1248,7 @@ on peut créer physiquement les assets :
 │  └─ no/
 │     └─ generate/
 │        └─ property ⤆ Ceci est un fichier
-├─ templates/
+├─ views/
 │  ┊┉
 └─ webconfig.json
 ```
@@ -1264,13 +1261,13 @@ en se rendant aux adresses :
 
 *Note : Il n'y a pas de génération pour « /liste-des-membres/?foo=bar » car `generate` est à `false`. Utilisez cette valeur pour ignorer des routes à la génération.*
 
-La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGeneratesBeforeResponse*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup uniquement si le dossier de `generatesRelativePath` existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
+La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerationBeforeResponse*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup uniquement si le dossier de `serverlessRelativePath` existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
 
-De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `generatesRelativePath` si les deux dossiers n'ont pas un chemin identique, et que `generatesRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
+De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique, et que `serverlessRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
 
-Vous pouvez également désactiver la génération, même si un dossier `generatesRelativePath` existe dans les dossiers, avec `htmlGenerateEnable` à `false`.
+Vous pouvez également désactiver la génération, même si un dossier `serverlessRelativePath` existe dans les dossiers, avec `htmlGenerationEnable` à `false`.
 
-*Note : Si* ***generatesRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***generates/***. ***generatesRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
+*Note : Si* ***serverlessRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***serverless/***. ***serverlessRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
 
 
 #### Générer un site sans partie serveur ####
@@ -1281,16 +1278,16 @@ Il est également possible de manager la création d'un site en simple page HTML
 {
     "languageCode": "fr-fr",
     "enableIndex": true,
-    "htmlGeneratesBeforeResponse": true,
-    "generatesRelativePath": "../HTML/",
+    "htmlGenerationBeforeResponse": true,
+    "serverlessRelativePath": "../HTML/",
     "assetsRelativePath": "../HTML/",
     "routes": {
         "/cv.html": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json"
         },
         "/en/cv.html": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json",
             "languageCode": "en"
         }
@@ -1312,7 +1309,7 @@ et l'ensemble de fichiers suivant :
    │  │  └─ index.json
    │  └─ en/
    │     └─ index.json
-   ├─ templates/
+   ├─ views/
    │  └─ index.htm
    └─ webconfig.json
 ```
@@ -1361,7 +1358,7 @@ Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous le
     "commonController": "common.js",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json",
             "controller": "index.json"
         }
@@ -1376,7 +1373,7 @@ et voici le détail des endroits ou vous pouvez intervenir :
 **Démarrage de NodeAtlas** 
 > Initialisation des modules
 
-> - *loadModules* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+> - *setModules* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
 > Initialisation des Sessions
 
@@ -1399,7 +1396,7 @@ et voici le détail des endroits ou vous pouvez intervenir :
 
 > - *changeVariation* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
 
-> Assemblage des Templates et Compilation des Variations => DOM complet de la Réponse.
+> Assemblage des Views et Compilation des Variations => DOM complet de la Réponse.
 
 > - *changeDom* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
@@ -1415,11 +1412,12 @@ Voici un exemple utilisant les deux interceptions, d'abord la commune au deux pa
 
 ```js
 {
+    "urlRelativeSubPath": "example",
     "commonController": "common.js",
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json",
             "controller": "index.js"
         }
@@ -1430,21 +1428,21 @@ Voici un exemple utilisant les deux interceptions, d'abord la commune au deux pa
 avec cet ensemble de fichier :
 
 ```
-├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  └─ index.htm
 └─ webconfig.json
 ```
 
-En demandant la page `http://localhost/?title=Haeresis` en POST avec une variable `example=Ceci+est+un+test` dans le corp de requête, les fichiers suivants (entre autre) seront utilisés :
+En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une variable `example=Ceci+est+un+test` dans le corp de requête, les fichiers suivants (entre autre) seront utilisés :
 
 *variations/common.json*
 
@@ -1463,19 +1461,19 @@ En demandant la page `http://localhost/?title=Haeresis` en POST avec une variabl
 }
 ```
 
-*templates/index.htm*
+*views/index.htm*
 
 ```html
-    <%- include('head.htm') %>
+    <?- include('head.htm') ?>
 
-    <div class="title"><%- common.titleWebsite %></div>
+    <div class="title"><?- common.titleWebsite ?></div>
 
     <div>
-        <h1><%- specific.titlePage %></h1>
-        <%- specific.content %>
+        <h1><?- specific.titlePage ?></h1>
+        <?- specific.content ?>
     </div>
 
-    <%- include('foot.htm') %>
+    <?- include('foot.htm') ?>
 ```
 
 *controllers/common.js*
@@ -1493,6 +1491,13 @@ exports.changeVariation = function (params, next) {
     console.log(variation.common.titleWebsite); // "Titre du site"
     console.log(variation.specific.titlePage); // "Bienvenue"
     console.log(variation.specific.content); // "C'est la page d'accueil."
+
+    console.log("urlRootPath", variation.urlRootPath); // "http://localhost"
+    console.log("urlSubPath", variation.urlSubPath); // "/example"
+    console.log("urlBasePath", variation.urlBasePath); // "http://localhost/example"
+    console.log("urlFilePath", variation.urlFilePath); // "/"
+    console.log("urlQueryPath", variation.urlQueryPath); // "?title=Haeresis"
+    console.log("urlPath", variation.urlPath); // "http://localhost/example/?title=Haeresis"
 
     if (request.query["title"]) {
         variation.specific.titlePage = variation.specific.titlePage + " " + request.query.title;
@@ -1565,7 +1570,7 @@ Si vous décidez de désabonner la variation spécifique avec le webconfig suiva
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json"
         }
     }
@@ -1603,7 +1608,7 @@ Voici un exemple utilisant les deux interceptions, d'abord la commune au deux pa
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json",
             "controller": "index.js"
         }
@@ -1619,7 +1624,7 @@ avec cet ensemble de fichier :
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -1643,20 +1648,20 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 }
 ```
 
-*templates/index.htm*
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
     <head>
         <meta charset="utf-8" />
-        <title><%- common.titleWebsite %></title>
+        <title><?- common.titleWebsite ?></title>
     </head>
     <body>
-        <div class="title"><%- common.titleWebsite %></div>
+        <div class="title"><?- common.titleWebsite ?></div>
         <div>
-            <h1><%- specific.titlePage %></h1>
-            <%- specific.content %>
+            <h1><?- specific.titlePage ?></h1>
+            <?- specific.content ?>
         </div>
     </body>
 </html>
@@ -1739,7 +1744,7 @@ ce qui produit la sortie suivante :
 </html>
 ```
 
-#### loadModules ####
+#### setModules ####
 
 Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs.
 
@@ -1750,7 +1755,7 @@ Voici un exemple utilisant un module externe à NodeAtlas :
     "commonController": "common.js",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "controller": "index.js"
         }
     }
@@ -1763,14 +1768,14 @@ avec cet ensemble de fichier :
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-*templates/index.htm*
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -1783,7 +1788,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
         <div class="title">Test Module</div>
         <div>
             <h1>Test Module</h1>
-            <%- example %>
+            <?- example ?>
         </div>
     </body>
 </html>
@@ -1794,7 +1799,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 ```js
 // On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
-exports.loadModules = function () {
+exports.setModules = function () {
     // Récupérer l'instance « NodeAtlas » du moteur.
     var NA = this;
 
@@ -1851,7 +1856,7 @@ Voici un exemple utilisant un middleware pour [ExpressJs](http://expressjs.com/)
     "commonController": "common.js",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "controller": "index.js"
         }
     }
@@ -1863,17 +1868,17 @@ avec cet ensemble de fichier :
 ```
 ├─ controllers/
 │  └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-*templates/index.htm*
+*views/index.htm*
 
 ```html
-<%- content %>
+<?- content ?>
 ```
 
 *controllers/common.js*
@@ -1940,7 +1945,7 @@ Voici l'ensemble de fichier suivant :
 ```
 ├─ controllers/
 │  └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ variations/
 │  ├─ common.json
@@ -1956,7 +1961,7 @@ Avec le `webconfig.json` :
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json"
         }
     }
@@ -1968,7 +1973,7 @@ et avec le fichier « common.js » contenant par exemple :
 ```js
 // On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
-exports.loadModules = function () {
+exports.setModules = function () {
     // Récupérer l'instance « NodeAtlas » du moteur.
     var NA = this;
 
@@ -2000,7 +2005,7 @@ Voici l'ensemble de fichier suivant :
 ```
 ├─ controllers/
 │  └─ common.js
-├─ templates/
+├─ views/
 │  ├─ content.htm
 │  └─ index.htm
 ├─ variations/
@@ -2016,7 +2021,7 @@ Avec le `webconfig.json` :
     "commonVariation": "common.json",
     "routes": {
         "/index.html": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -2037,7 +2042,7 @@ exports.setConfigurations = function (next) {
 
     // ...pour ajouter la route "/content.html" à la liste de nos routes.
     route["/content.html"] = {
-        "template": "content.htm"
+        "view": "content.htm"
     };
 
     // On redonne la main à NodeAtlas pour la suite.
@@ -2060,17 +2065,17 @@ Avec l'ensemble de fichier suivant :
 │  └─ javascript/
 │     ├─ common.js
 │     └─ index.js
-├─ components/
-│  ├─ foot.htm
-│  ├─ head.htm
-│  └─ index.htm
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ foot.htm
+│  │  ├─ head.htm
+│  │  └─ index.htm
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -2083,7 +2088,7 @@ Contenant le `webconfig.json` suivant :
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json",
             "controller": "index.js"
         }
@@ -2093,21 +2098,21 @@ Contenant le `webconfig.json` suivant :
 
 et contenant les fichiers de template suivant :
 
-**components/head.htm**
+**views/partials/head.htm**
 
 ```html
 <!DOCTYPE html>
-<html lang="<%= languageCode %>">
+<html lang="<?= languageCode ?>">
     <head>
         <meta charset="utf-8" />
-        <title><%- common.titleWebsite %></title>
+        <title><?- common.titleWebsite ?></title>
     </head>
-    <body data-hostname="<%= webconfig.urlWithoutFileName %>" data-subpath="<%= webconfig.urlRelativeSubPath.slice(1) %>" data-variation="<%= currentRouteParameters.variation.replace(/\.json/,'') %>">
+    <body data-hostname="<?= webconfig.urlWithoutFileName ?>" data-subpath="<?= webconfig.urlRelativeSubPath.slice(1) ?>" data-variation="<?= currentRouteParameters.variation.replace(/\.json/,'') ?>">
 ```
 
 *Note : `data-hostname` et `data-subpath` va nous aider à paramètrer Socket.io côté Front.*
 
-**components/foot.htm**
+**views/partials/foot.htm**
 
 ```html
         <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -2118,29 +2123,29 @@ et contenant les fichiers de template suivant :
 
 *Note : Le fichier frontal de Socket.IO s'injecte ici en global.*
 
-**components/index.htm**
+**views/partials/index.htm**
 
 ```html
-        <div class="title"><%- common.titleWebsite %></div>
+        <div class="title"><?- common.titleWebsite ?></div>
         <div>
-            <h1><%- specific.titlePage %></h1>
-            <%- specific.content %>
-            <div><%- new Date() %></div>
+            <h1><?- specific.titlePage ?></h1>
+            <?- specific.content ?>
+            <div><?- new Date() ?></div>
         </div>
         <button>Update</button>
 ```
 
-*Note : Chaque clique sur `button` raffraichira le contenu de `components/index.htm`.*
+*Note : Chaque clique sur `button` raffraichira le contenu de `views/partials/index.htm`.*
 
-**templates/index.htm**
+**views/index.htm**
 
 ```html
-    <%- include('head.htm') %>
+    <?- include('head.htm') ?>
     <div class="layout">
-    <%- include('index.htm') %>
+    <?- include('index.htm') ?>
     </div>
     <script src="javascript/index.js"></script>
-    <%- include('foot.htm') %>
+    <?- include('foot.htm') ?>
 ```
 
 *Note : On construit ici la page d'accueil `/`.*
@@ -2174,7 +2179,7 @@ Côté serveur, nous utiliserons les fichiers suivant :
 var privates = {};
 
 // Chargement des modules pour ce site dans l'objet NodeAtlas.
-exports.loadModules = function () {
+exports.setModules = function () {
     // Récupérer l'instance « NodeAtlas » du moteur.
     var NA = this;
 
@@ -2276,8 +2281,8 @@ exports.asynchrone = function (params) {
             // On récupère les variations communes dans la bonne langue.
             variation = NA.addCommonVariation(data.lang, variation);
             
-            // On récupère le fragment HTML depuis le dossier `componentsRelativePath` et on applique les variations.
-            data.render = NA.newRender("index.htm", variation);
+            // On récupère le fragment HTML depuis le dossier `viewsRelativePath` et on applique les variations.
+            data.render = NA.newRender("partials/index.htm", variation);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
             io.sockets.emit('server-render', data);
@@ -2306,7 +2311,7 @@ window.website = window.website || {};
 }(website));
 
 // On exécute le JavaScript Spécifique à la page en cours, ici ["index"].
-website[document.getElementsByTagName("body")[0].getAttribute("data-variation")].init();
+website[document.getElementsByTagName("body")[0].getAttribute("data-variation")].start();
 ```
 
 *Note : Ceci est la configuration global de Socket.IO côté client en ce basant sur `data-subpath` et `data-hostname`.*
@@ -2355,7 +2360,7 @@ window.website = window.website || {};
 
 Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.
 
-Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, il est possible de générer une nouvelle compilation d'un template (composant) et d'une variation commune et spécifique.
+Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, il est possible de générer une nouvelle compilation d'une view et d'une variation commune et spécifique.
 
 Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `variation` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 
@@ -2437,7 +2442,7 @@ Avec le jeu de fichier suivant :
 │  └─ index.js
 ├─ models/
 │  └─ user.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ variations/
 │  ├─ common.json
@@ -2453,7 +2458,7 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mysq
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json",
             "controller": "index.js"
         }
@@ -2469,31 +2474,31 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mysq
 
 Avec les fichiers suivant pour afficher la page :
 
-**templates/index.htm**
+**views/index.htm**
 
 ```html
 <!DOCTYPE html>
-<html lang="<%- languageCode %>">
+<html lang="<?- languageCode ?>">
     <head>
         <meta charset="utf-8" />
-        <title><%- common.titleWebsite %></title>
+        <title><?- common.titleWebsite ?></title>
     </head>
     <body>
-        <div class="title"><%- common.titleWebsite %></div>
+        <div class="title"><?- common.titleWebsite ?></div>
         <div>
-            <h1><%- specific.titlePage %></h1>
-            <%- specific.content %>
+            <h1><?- specific.titlePage ?></h1>
+            <?- specific.content ?>
             <ul>
-                <li>Id: <strong><%- id %></strong></li>
-                <li>Lastname: <strong><%- lastname %></strong></li>
-                <li>Firstname: <strong><%- firstname %></strong></li>
-                <li>Email: <strong><%- email %></strong></li>
-                <li>Birthdate: <strong><%- birthdate %></strong></li>
-                <li>Gender: <strong><%- gender %></strong></li>
-                <li>Country: <strong><%- country %></strong></li>
-                <li>Town: <strong><%- town %></strong></li>
-                <li>Zipcode: <strong><%- zipcode %></strong></li>
-                <li>Address: <strong><%- address %></strong></li>
+                <li>Id: <strong><?- id ?></strong></li>
+                <li>Lastname: <strong><?- lastname ?></strong></li>
+                <li>Firstname: <strong><?- firstname ?></strong></li>
+                <li>Email: <strong><?- email ?></strong></li>
+                <li>Birthdate: <strong><?- birthdate ?></strong></li>
+                <li>Gender: <strong><?- gender ?></strong></li>
+                <li>Country: <strong><?- country ?></strong></li>
+                <li>Town: <strong><?- town ?></strong></li>
+                <li>Zipcode: <strong><?- zipcode ?></strong></li>
+                <li>Address: <strong><?- address ?></strong></li>
             </ul>
         </div>
     </body>
@@ -2522,7 +2527,7 @@ Avec les fichiers suivant pour afficher la page :
 Enfin nous allons nous connecter à la base de données avec le controlleur globale `controllers/common.js` :
 
 ```js
-exports.loadModules = function () {
+exports.setModules = function () {
     var NA = this;
 
     NA.modules.mysql = require('mysql');
@@ -2847,7 +2852,7 @@ Avec le jeu de fichier suivant :
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ variations/
 │  ├─ common.json
@@ -2863,7 +2868,7 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mong
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json",
             "controller": "index.js"
         }
@@ -2878,31 +2883,31 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mong
 
 Avec les fichiers suivant pour afficher la page :
 
-**templates/index.htm**
+**views/index.htm**
 
 ```html
 <!DOCTYPE html>
-<html lang="<%- languageCode %>">
+<html lang="<?- languageCode ?>">
     <head>
         <meta charset="utf-8" />
-        <title><%- common.titleWebsite %></title>
+        <title><?- common.titleWebsite ?></title>
     </head>
     <body>
-        <div class="title"><%- common.titleWebsite %></div>
+        <div class="title"><?- common.titleWebsite ?></div>
         <div>
-            <h1><%- specific.titlePage %></h1>
-            <%- specific.content %>
+            <h1><?- specific.titlePage ?></h1>
+            <?- specific.content ?>
             <ul>
-                <li>Id: <strong><%- id %></strong></li>
-                <li>Lastname: <strong><%- lastname %></strong></li>
-                <li>Firstname: <strong><%- firstname %></strong></li>
-                <li>Email: <strong><%- email %></strong></li>
-                <li>Birthdate: <strong><%- birthdate %></strong></li>
-                <li>Gender: <strong><%- gender %></strong></li>
-                <li>Country: <strong><%- country %></strong></li>
-                <li>Town: <strong><%- town %></strong></li>
-                <li>Zipcode: <strong><%- zipcode %></strong></li>
-                <li>Address: <strong><%- address %></strong></li>
+                <li>Id: <strong><?- id ?></strong></li>
+                <li>Lastname: <strong><?- lastname ?></strong></li>
+                <li>Firstname: <strong><?- firstname ?></strong></li>
+                <li>Email: <strong><?- email ?></strong></li>
+                <li>Birthdate: <strong><?- birthdate ?></strong></li>
+                <li>Gender: <strong><?- gender ?></strong></li>
+                <li>Country: <strong><?- country ?></strong></li>
+                <li>Town: <strong><?- town ?></strong></li>
+                <li>Zipcode: <strong><?- zipcode ?></strong></li>
+                <li>Address: <strong><?- address ?></strong></li>
             </ul>
         </div>
     </body>
@@ -2931,7 +2936,7 @@ Avec les fichiers suivant pour afficher la page :
 Enfin nous allons nous connecter à la base de données avec le controlleur globale `controllers/common.js` :
 
 ```js
-exports.loadModules = function () {
+exports.setModules = function () {
     var NA = this,
         path = NA.modules.path;
 
@@ -3065,13 +3070,13 @@ Avec la configuration suivante :
 {
     "routes": {
         "/liste-des-membres/:member/": {
-            "template": "members.htm"
+            "view": "members.htm"
         },
         "/liste-des-membres/": {
-            "template": "members.htm"
+            "view": "members.htm"
         },
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3111,15 +3116,15 @@ Voyez la configuration suivante :
 {
     "routes": {
         "/liste-des-membres/([-a-z0-9]+)/?": {
-            "template": "members.htm",
+            "view": "members.htm",
             "regExp": "g"
         },
         "/liste-des-membres/?": {
-            "template": "members.htm",
+            "view": "members.htm",
             "regExp": true
         },
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3161,7 +3166,7 @@ Par exemple :
 L'ensemble de fichier suivant
 
 ```
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -3174,7 +3179,7 @@ avec `webconfig.json`
     "httpPort": 7777,
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3189,7 +3194,7 @@ et avec `webconfig.prod.json`
     "urlPort": 80,
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3198,7 +3203,7 @@ et avec `webconfig.prod.json`
 pourrait devenir l'ensemble de fichier suivant
 
 ```
-templates/
+views/
 — index.htm
 routes.json
 webconfig.json
@@ -3230,7 +3235,7 @@ et `routes.json`
 ```json
 {
     "/": {
-        "template": "index.htm"
+        "view": "index.htm"
     }
 }
 ```
@@ -3255,13 +3260,13 @@ Voyez l'exemple ci-dessous :
     "pageNotFound": "/pages-inexistantes/",
     "routes": {
         "/liste-des-membres/": {
-            "template": "members.htm"
+            "view": "members.htm"
         },
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/pages-inexistantes/": {
-            "template": "error.htm",
+            "view": "error.htm",
             "statusCode": 404
         }
     }
@@ -3286,30 +3291,30 @@ Voyez l'exemple ci-dessous :
     "languageCode": "fr-fr",
     "routes": {
         "/liste-des-membres/": {
-            "template": "members.htm",
+            "view": "members.htm",
             "variation": "members.json"
         },
         "/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "variation": "index.json"
         },
         "/pages-inexistantes/": {
-            "template": "error.htm",
+            "view": "error.htm",
             "variation": "error.json",
             "statusCode": 404
         },
         "/english/list-of-members/": {
-            "template": "members.htm",
+            "view": "members.htm",
             "languageCode": "en-gb",
             "variation": "members.json"
         },
         "/english/": {
-            "template": "index.htm",
+            "view": "index.htm",
             "languageCode": "en-gb",
             "variation": "index.json"
         },
         "/english/*": {
-            "template": "error.htm",
+            "view": "error.htm",
             "languageCode": "en-gb",
             "variation": "error.json",
             "statusCode": 404
@@ -3334,7 +3339,7 @@ Voyez l'exemple ci-dessous :
 {
     "routes": {
         "/liste-des-membres/": {
-            "template": "members.htm"
+            "view": "members.htm"
         },
         "/liste-des-membres": {
             "redirect": "/liste-des-membres/",
@@ -3345,7 +3350,7 @@ Voyez l'exemple ci-dessous :
             "statusCode": 302
         },
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3364,14 +3369,14 @@ Voyez l'exemple ci-dessous :
 {
     "routes": {
         "/liste-des-membres/:member/": {
-            "template": "members.htm"
+            "view": "members.htm"
         },
         "/liste-des-membres/:member": {
             "redirect": "/membres/:member/",
             "statusCode": 301
         },
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3387,7 +3392,7 @@ Voyez l'exemple ci-dessous :
 {
     "routes": {
         "/membres/([-a-z0-9]+)/": {
-            "template": "members.htm",
+            "view": "members.htm",
             "regExp": true
         },
         "/liste-des-membres/([-a-z0-9]+)/": {
@@ -3396,10 +3401,10 @@ Voyez l'exemple ci-dessous :
             "regExp": true
         },
         "/liste-des-membres/": {
-            "template": "members.htm"
+            "view": "members.htm"
         },
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3419,25 +3424,30 @@ Il est tout à fait possible de modifier ses valeurs pour une entrée de route p
 
 ```js
 {
+    "mimeType": "application/json"
+    "charset": "utf-16",
     "routes": {
+        "/": {
+            "view": "index.htm",
+            "mimeType": "text/html"
+        },
         "/api/articles": {
-            "template": "display-json.htm",
+            "view": "display-json.htm",
             "controller": "blog/list-of-articles.js",
-            "mimeType": "application/json"
-            "charset": "ISO-8859-1",
+            "charset": "utf-8",
             "statusCode": 203
         }
     }
 }
 ```
 
-Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs à l'exception du `statusCode`.
+Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l'exception du `statusCode` donc).
 
 ```js
 {
     "routes": {
         "/api/articles": {
-            "template": "display-json.htm",
+            "view": "display-json.htm",
             "controller": "blog/list-of-articles.js",
             "statusCode": 203,
             "headers": {
@@ -3464,7 +3474,7 @@ Il ne vous reste plus qu'à utiliser la configuration suivante :
     "httpSecureRelativeCertificatePath": "security/server.crt",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3477,7 +3487,7 @@ Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et
     "httpSecure": "security/server",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3490,7 +3500,7 @@ Pour finir, il est également possible de seulement laisser la valeur de `httpSe
     "httpSecure": true,
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3538,7 +3548,7 @@ Avec la configuration suivante :
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3564,7 +3574,7 @@ et l'ensemble de fichier suivant :
 │     ├─ components/
 │     │  └─ extended-format-date.js
 │     └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -3593,7 +3603,7 @@ vous obtiendrez les nouveaux fichiers suivant :
 │     ├─ boot.min.js        ⤆ nouveau fichier
 │     ├─ framework.min.js   ⤆ nouveau fichier
 │     └─ common.min.js      ⤆ nouveau fichier
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -3624,7 +3634,7 @@ L'ensemble de fichier suivant
 │     ├─ components/
 │     │  └─ extended-format-date.js
 │     └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -3663,7 +3673,7 @@ avec `webconfig.json`
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3704,7 +3714,7 @@ et avec `webconfig.prod.json`
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3730,7 +3740,7 @@ pourrait devenir l'ensemble de fichier suivant
 │     ├─ components/
 │     │  └─ extended-format-date.js
 │     └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ bundles.json              ⤆ nouveau fichier
 ├─ webconfig.json
@@ -3745,7 +3755,7 @@ avec `webconfig.json`
     "bundles": "bundles.json",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3761,7 +3771,7 @@ avec `webconfig.prod.json`
     "bundles": "bundles.json",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3836,7 +3846,7 @@ Il est également possible de ne pas exécuter la minification au démarrage d'u
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3880,7 +3890,7 @@ De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -3900,7 +3910,7 @@ Avec la structure suivante :
 ├─ assets/
 │  └─ stylesheets
 │     └─ common.less
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -3918,7 +3928,7 @@ ainsi que le webconfig suivante :
 
 et le contenu suivant dans :
 
-*templates/index.htm*
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -4044,7 +4054,7 @@ Avec la structure suivante :
 ├─ assets/
 │  └─ stylesheets
 │     └─ common.styl
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -4062,7 +4072,7 @@ ainsi que le webconfig suivante :
 
 et le contenu suivant dans :
 
-*templates/index.htm*
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -4199,7 +4209,7 @@ Avec la configuration suivante :
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4215,7 +4225,7 @@ et l'ensemble de fichier suivant :
 │        ├─ example.jpg
 │        ├─ example.gif
 │        └─ example.svg
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -4235,7 +4245,7 @@ vous obtiendrez les nouveaux fichiers suivant :
 │           ├─ example.jpg   ⤆ nouveau fichier
 │           ├─ example.gif   ⤆ nouveau fichier
 │           └─ example.svg   ⤆ nouveau fichier
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -4253,7 +4263,7 @@ Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indi
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4276,7 +4286,7 @@ Il est possible de redéfinir les options par défaut pour l'optimisation via se
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4304,7 +4314,7 @@ L'ensemble de fichier suivant
 │        ├─ example.jpg
 │        ├─ example.gif
 │        └─ example.svg
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -4325,7 +4335,7 @@ avec `webconfig.json`
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4348,7 +4358,7 @@ et avec `webconfig.prod.json`
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4364,7 +4374,7 @@ pourrait devenir l'ensemble de fichier suivant
 │        ├─ example.jpg
 │        ├─ example.gif
 │        └─ example.svg
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ bundles.json
 ├─ webconfig.json
@@ -4379,7 +4389,7 @@ avec `webconfig.json`
     "optimizations": "optimizations.json",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4395,7 +4405,7 @@ avec `webconfig.prod.json`
     "optimizations": "optimizations.json",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4433,7 +4443,7 @@ Il est également possible de ne pas exécuter l'optimisation au démarrage d'un
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4458,7 +4468,7 @@ Vous pouvez demander à ce que les fichiers soient régénérés avant chaque af
     },
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4482,7 +4492,7 @@ Avec par exemple la configuration suivante :
 {
     "routes": {
         "/": {
-            "template": "email.htm",
+            "view": "email.htm",
             "generate": "bienvenue.html",
             "injectCss": "stylesheets/email.css"
         }
@@ -4493,11 +4503,11 @@ Avec par exemple la configuration suivante :
 et l'ensemble de fichiers suivant :
 
 ```
-├─ generates/
+├─ serverless/
 ├─ assets/
 │  └─ stylesheets/
 │     └─ email.css
-├─ templates/
+├─ views/
 │  └─ email.htm
 └─ webconfig.json
 ```
@@ -4512,7 +4522,7 @@ body {
 }
 ```
 
-**templates/email.htm***
+**views/email.htm***
 
 ```html
 <!DOCTYPE html>
@@ -4530,17 +4540,17 @@ body {
 vous obtiendrez en sortie avec la commande `node </path/to/>node-atlas/ --generate` l'ensemble de fichier suivant :
 
 ```
-├─ generates/
+├─ serverless/
 │  └─ bienvenue.html    <= template email prêt à l'envoi !
 ├─ assets/
 │  └─ stylesheets/
 │     └─ email.css
-├─ templates/
+├─ views/
 │  └─ email.htm
 └─ webconfig.json
 ```
 
-avec comme contenu pour `generates/bienvenue.html`
+avec comme contenu pour `serverless/bienvenue.html`
 
 ```html
 <!DOCTYPE html>
@@ -4557,7 +4567,7 @@ avec comme contenu pour `generates/bienvenue.html`
 
 Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.
 
-> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../" --generate`. Le résultat est dans `generates`.
+> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../" --generate`. Le résultat est dans `serverless`.
 
 #### Injection globale ####
 
@@ -4568,11 +4578,11 @@ Il existe également la même propriété globale impactant toutes les pages.
     "injectCss": "stylesheets/email.css",
     "routes": {
         "/bienvenue/": {
-            "template": "email-a.htm",
+            "view": "email-a.htm",
             "generate": "bienvenue.html"
         },
         "/au-revoir/": {
-            "template": "email-b.htm",
+            "view": "email-b.htm",
             "generate": "au-revoir.html"
         }
     }
@@ -4592,12 +4602,12 @@ Il est possible :
     "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
     "routes": {
         "/bienvenue/": {
-            "template": "email-a.htm",
+            "view": "email-a.htm",
             "generate": "bienvenue.html",
             "injectCss": "/stylesheets/welcome.css"
         },
         "/au-revoir/": {
-            "template": "email-b.htm",
+            "view": "email-b.htm",
             "generate": "au-revoir.html",
             "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
         }
@@ -4605,7 +4615,7 @@ Il est possible :
 }
 ```
 
-> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../" --generate --webconfig webconfig.multiple.json`. Le résultat est dans `generates`.
+> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../" --generate --webconfig webconfig.multiple.json`. Le résultat est dans `serverless`.
 
 
 
@@ -4619,16 +4629,16 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
     "postSupport": false,
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/liste-des-membres/": {
-            "template": "members.htm"
+            "view": "members.htm"
         },
         "/rediger-commentaire/": {
-            "template": "write-com.htm"
+            "view": "write-com.htm"
         },
         "/commentaire-sauvegarde/": {
-            "template": "save-com.htm",
+            "view": "save-com.htm",
             "getSupport": false,
             "postSupport": true
         }
@@ -4651,29 +4661,29 @@ Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, 
     "putSupport": true,
     "routes": {
         "/read-all-entry/": {
-            "template": "display-json.htm",
+            "view": "display-json.htm",
             "variation": "all-entry.json",
             "getSupport": true,
             "putSupport": false
         },
         "/read-entry/:id/": {
-            "template": "display-json.htm",
+            "view": "display-json.htm",
             "variation": "entry.json",
             "getSupport": true,
             "putSupport": false
         },
         "/create-entry/:id/": {
-            "template": "display-json.htm",
+            "view": "display-json.htm",
             "variation": "entry.json",
             "postSupport": true,
             "putSupport": false
         },
         "/update-entry/:id/": {
-            "template": "display-json.htm",
+            "view": "display-json.htm",
             "variation": "entry.json"
         },
         "/delete-entry/:id/": {
-            "template": "display-json.htm",
+            "view": "display-json.htm",
             "variation": "entry.json",
             "deleteSupport": true,
             "putSupport": false
@@ -4752,7 +4762,7 @@ var website = {};
 (function (publics) {
     "use strict";
 
-    publics.loadModules = function () {
+    publics.setModules = function () {
     	var NA = this;
 
         NA.modules.RedisStore = require('connect-redis');
@@ -4770,7 +4780,7 @@ var website = {};
 
 }(website));
 
-exports.loadModules = website.loadModules;
+exports.setModules = website.setModules;
 exports.setSessions = website.setSessions;
 ```
 
@@ -4787,7 +4797,7 @@ var website = {};
 (function (publics) {
     "use strict";
 
-    publics.loadModules = function () {
+    publics.setModules = function () {
     	var NA = this;
 
         NA.modules.MongoStore = require('connect-mongo');
@@ -4807,7 +4817,7 @@ var website = {};
 
 }(website));
 
-exports.loadModules = website.loadModules;
+exports.setModules = website.setModules;
 exports.setSessions = website.setSessions;
 ```
 
@@ -4815,16 +4825,16 @@ Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mo
 
 
 
-### Changer les chevrons <% %> du moteur de template ###
+### Changer les chevrons <? ?> du moteur de template ###
 
-Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<%- include('head.htm') %>***. Il serait possible de le faire avec ***<?- include('head.htm') ?>*** avec la configuration ci-dessous :
+Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<?- include('head.htm') ?>***. Il serait possible de le faire avec ***<$- include('head.htm') $>*** avec la configuration ci-dessous :
 
 ```js
 {
-    "templateEngineDelimiter": "?",
+    "templateEngineDelimiter": "$",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4832,47 +4842,47 @@ Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<%- 
 
 Voyez l'exemple dans les fichiers ci-dessous :
 
-*components/head.htm*
+*views/partials/head.htm*
 
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
     <head>
         <meta charset="utf-8" />
-        <title><?- specific.titlePage ?></title>
+        <title><$- specific.titlePage $></title>
 
-        <link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<$= common.classCssCommon $>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<$= specific.classPage $>.css" media="all" />
     </head>
-    <body class="<?= specific.classPage ?>">
+    <body class="<$= specific.classPage $>">
 ```
 
-*components/foot.htm*
+*views/partials/foot.htm*
 
 ```html
-        <script async type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
+        <script async type="text/javascript" src="javascript/<$= common.classJsCommon $>.js"></script>
     </body>
 </html>
 ```
 
-*templates/template.htm*
+*views/template.htm*
 
 ```html
-    <?- include('head.htm') ?>
+    <$- include('head.htm') $>
 
-    <div class="title"><?- common.titleWebsite ?></div>
+    <div class="title"><$- common.titleWebsite $></div>
 
     <div>
-        <h1><?- specific.titlePage ?></h1>
-        <?- specific.content ?>
+        <h1><$- specific.titlePage $></h1>
+        <$- specific.content $>
     </div>
 
-    <?- include('foot.htm') ?>
+    <$- include('foot.htm') $>
 ```
 
-Pour tout savoir sur les possibilités du moteur de template consulter la documentation [ejs](https://github.com/mde/ejs)
+Pour tout savoir sur les possibilités du moteur de template consulter la documentation [EJS2](http://ejs.co/)
 
-*Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***%***.
+*Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***?***.
 
 
 
@@ -4888,7 +4898,7 @@ Il est possible de générer une url de visite différente des paramètres d'éc
     "urlHostname": "localhost",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4905,7 +4915,7 @@ Il est également possible de faire en sorte qu'aucune autre url ne puisse être
     "urlHostname": "localhost",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4932,11 +4942,11 @@ Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qu
 en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 
 ```
-<link rel="stylesheet" type="text/css" href="<%= urlBasePath %>stylesheets/common.css" />
+<link rel="stylesheet" type="text/css" href="<?= urlBasePath ?>stylesheets/common.css" />
 <!-- ... -->
-<img src="<%= urlBasePath %>media/images/example.jpg" />
+<img src="<?= urlBasePath ?>media/images/example.jpg" />
 <!-- ... -->
-<script type="text/javascript" src="<%= urlBasePath %>javascript/common.js"></script>
+<script type="text/javascript" src="<?= urlBasePath ?>javascript/common.js"></script>
 ```
 
 À noter que dans le cas de la configuration suivante :
@@ -4945,7 +4955,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 {
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4959,7 +4969,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
     "urlRelativeSubPath": "sub/folder",
     "routes": {
         "/": {
-            "template": "index.htm"
+            "view": "index.htm"
         }
     }
 }
@@ -4975,16 +4985,16 @@ En utilisant le webconfig suivant :
 {
     "routes": {
         "/index.html": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/contact.html": {
-            "template": "contact.htm"
+            "view": "contact.htm"
         }
     }
 }
 ```
 
-ainsi que le template `index.htm` correspondant
+ainsi que la view `index.htm` correspondante
 
 ```html
 <!-- ... -->
@@ -5000,10 +5010,10 @@ je serais obligé de changer mon lien dans le template si je change le port d'é
     "httpPort": 7777,
     "routes": {
         "/home.html": {
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "/contact-us.html": {
-            "template": "contact.htm"
+            "view": "contact.htm"
         }
     }
 }
@@ -5027,11 +5037,11 @@ Avec le webconfig suivant :
     "routes": {
         "index": {
             "url": "/index.html",
-            "template": "index.htm"
+            "view": "index.htm"
         },
         "contact": {
             "url": "/contact.html",
-            "template": "contact.htm"
+            "view": "contact.htm"
         }
     }
 }
@@ -5043,8 +5053,8 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 
    ```html
 <!-- ... -->
-<a href="<%= urlBasePath %><%= webconfig.routes.home.url.slice(1) %>">Lien vers l'accueil</a>
-<a href="<%= urlBasePath %><%= webconfig.routes.contact.url.slice(1) %>">Lien pour nous contacter</a>
+<a href="<?= urlBasePath ?><?= webconfig.routes.home.url.slice(1) ?>">Lien vers l'accueil</a>
+<a href="<?= urlBasePath ?><?= webconfig.routes.contact.url.slice(1) ?>">Lien pour nous contacter</a>
 <!-- ... -->
 ```
 
@@ -5054,8 +5064,8 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 
    ```html
 <!-- ... -->
-<a href="<%= urlBasePath %>.<%= webconfig.routes.home.url %>">Lien vers l'accueil</a>
-<a href="<%= urlBasePath %>.<%= webconfig.routes.contact.url %>">Lien pour nous contacter</a>
+<a href="<?= urlBasePath ?>.<?= webconfig.routes.home.url ?>">Lien vers l'accueil</a>
+<a href="<?= urlBasePath ?>.<?= webconfig.routes.contact.url ?>">Lien pour nous contacter</a>
 <!-- ... -->
 ```
 
@@ -5065,8 +5075,8 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 
    ```html
 <!-- ... -->
-<a href="<%= urlBasePathSlice + webconfig.routes.home.url %>">Lien vers l'accueil</a>
-<a href="<%= urlBasePathSlice + webconfig.routes.contact.url %>">Lien pour nous contacter</a>
+<a href="<?= urlBasePathSlice + webconfig.routes.home.url ?>">Lien vers l'accueil</a>
+<a href="<?= urlBasePathSlice + webconfig.routes.contact.url ?>">Lien pour nous contacter</a>
 <!-- ... -->
 ```
 
@@ -5084,20 +5094,20 @@ Avec le webconfig suivant :
     "routes": {
         "index_fr-fr": {
             "url": "/",
-            "template": "/index.htm"
+            "view": "/index.htm"
         },
         "index_en-us": {
             "url": "/english/",
-            "template": "index.htm",
+            "view": "index.htm",
             "languageCode": "en-us"
         },
         "cv_fr-fr": {
             "url": "/cv/",
-            "template": "cv.htm"
+            "view": "cv.htm"
         },
         "cv_en-us": {
             "url": "/english/resume/",
-            "template": "index.htm",
+            "view": "index.htm",
             "languageCode": "en-us"
         }
     }
@@ -5136,9 +5146,9 @@ on peut alors créer un lien entre chaque page multilingue comme ceci :
 
 ```html
 <ul>
-    <% for (var i = 0; i < common.language.length; i++) { %>
-    <li><a href="<%= urlBasePathSlice + webconfig.routes[currentRouteName.split('_')[0] + '_' + common.language[i].code].url %>"><%- common.language[i].name %></a></li>
-    <% } %>
+    <? for (var i = 0; i < common.language.length; i++) { ?>
+    <li><a href="<?= urlBasePathSlice + webconfig.routes[currentRouteName.split('_')[0] + '_' + common.language[i].code].url ?>"><?- common.language[i].name ?></a></li>
+    <? } ?>
 </ul>
 ```
 
@@ -5213,7 +5223,7 @@ Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tou
 
 ### --generate ###
 
-Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser `--generate`. Cette commande copiera l'intégralité du contenu du dossier `assetsRelativePath` dans `generatesRelativePath` si leur chemin est différent.
+Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de view appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser `--generate`. Cette commande copiera l'intégralité du contenu du dossier `assetsRelativePath` dans `serverlessRelativePath` si leur chemin est différent.
 
 ```
 \> node </path/to/>node-atlas/ --generate
@@ -5231,12 +5241,12 @@ En utilisant `--lang` vous changerez la langue de utilisée par NodeAtlas. En r�
 
 
 
-### --init [path] ###
+### --create [path] ###
 
-NodeAtlas contient un dossier `templates` qui contient des exemples de site prèt à l'usage. Pour les installer dans le répertoire dans lequel vous allez exécuter NodeAtlas il faut vous servir de `--init` suivi du dossier contenu dans `templates` que vous souhaitez utiliser. Par défaut, c'est la valeur `hello-world` qui est utilisée. *Valeurs possible : `hello-world`.*
+NodeAtlas contient un dossier `templates` qui contient des exemples de site prèt à l'usage. Pour les installer dans le répertoire dans lequel vous allez exécuter NodeAtlas il faut vous servir de `--create` suivi du dossier contenu dans `templates` que vous souhaitez utiliser. Par défaut, c'est la valeur `hello-world` qui est utilisée. *Valeurs possible : `hello-world`.*
 
 ```
-\> node </path/to/>node-atlas/ --init hello-world
+\> node </path/to/>node-atlas/ --create hello-world
 ```
 
 
@@ -5259,14 +5269,14 @@ Vous pouvez lancez NodeAtlas via du code JavaScript.
 
 
 
-### &lt;node-atlas-instance>.init() ###
+### &lt;node-atlas-instance>.start() ###
 
-Exécuté un simple lancement de NodeAtlas avec `init()`. Par défaut il cherchera le `webconfig.json` dans le dossier où le script est exécuté. Si aucun `webconfig.json` n'est trouvé, un Simple Serveur Web sera lancé.
+Exécuté un simple lancement de NodeAtlas avec `start()`. Par défaut il cherchera le `webconfig.json` dans le dossier où le script est exécuté. Si aucun `webconfig.json` n'est trouvé, un Simple Serveur Web sera lancé.
 
 *server.js*
 
 ```javascript
-require("node-atlas")().init();
+require("node-atlas")().start();
 ```
 
 ```
@@ -5275,21 +5285,21 @@ require("node-atlas")().init();
 
 
 
-### &lt;node-atlas-instance>.config(Object) ###
+### &lt;node-atlas-instance>.init(Object) ###
 
-Vous pouvez également configurer le lancement avec `config(Object)` :
+Vous pouvez également configurer le lancement avec `init(Object)` :
 
 *server.js*
 
 ```javascript
-require("node-atlas")().config({
+require("node-atlas")().init({
     directory: "/path/to/your/website/directory/",
     webconfig: "webconfig.alternatif.json",
     browse: true,
     httpHostname: "192.168.1.1",
     httpPort: 7778,
     generate: true
-}).init();
+}).start();
 ```
 
 ```
@@ -5369,13 +5379,13 @@ Avec `created(Function)`, vous pouvez aussi exécuter d'autres tâches après av
 var nodeAtlas = require("node-atlas"),
     website = nodeAtlas();
 
-website.config({
+website.init({
     "init": true
 }).created(function() {
     website.run({
         "browse": true
     });
-}).init();
+}).start();
 ```
 
 
@@ -5394,7 +5404,7 @@ Par exemple, en lançant NodeAtlas dans le répertoire `site-hello-world`
 
 ```
 site-hello-world/
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -5411,7 +5421,7 @@ ou même la commande
 \> node </path/to/>node-atlas/ --webconfig webconfig.not-exist.json
 ```
 
-le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/templates/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
+le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/views/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
 
 *Note : la commande `--generate` ne fonctionne pas avec ce mode.*
 
@@ -5436,7 +5446,7 @@ La nouveauté avec NodeAtlas vient de l'éditeur de CSS. Là où il vous indiqua
 Créez vous par exemple un fichier de lancement comme celui-ci :
 
 ```javascript
-require("node")().init()
+require("node")().start()
 ```
 
 puis lancez le avec la commande suivante :
@@ -5497,7 +5507,7 @@ node-atlas/
 site-hello-world/
 ├─ assets/
 │  ┊┉
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
@@ -5514,7 +5524,7 @@ site-hello-world/
 ┊┉
 ├─ assets/
 │  ┊┉
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ index.js
 └─ webconfig.json
@@ -5563,7 +5573,7 @@ site-hello-world/
 ┊┉
 ├─ assets/
 │  ┊┉
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ index.js
 ├─ webconfig.json

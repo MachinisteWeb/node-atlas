@@ -157,7 +157,7 @@
 
         
             
-<h4 class="name" id="afterGenerates"><span class="type-signature">(private) </span>afterGenerates<span class="type-signature"> :Object</span></h4>
+<h4 class="name" id="afterGeneration"><span class="type-signature">(private) </span>afterGeneration<span class="type-signature"> :Object</span></h4>
 
 
 
@@ -594,13 +594,13 @@
 
         
             
-<h4 class="name" id="nodeAtlasModulesPath"><span class="type-signature"></span>nodeAtlasModulesPath<span class="type-signature"> :String</span></h4>
+<h4 class="name" id="nodeatlasModulesRelativePath"><span class="type-signature"></span>nodeatlasModulesRelativePath<span class="type-signature"> :String</span></h4>
 
 
 
 
 <div class="description">
-    Folder which contain the `node-atlas` node_modules.
+    Folder which contain the `node-atlas` node modules.
 </div>
 
 
@@ -646,7 +646,7 @@
     
     <dt class="tag-default">Default Value:</dt>
     <dd class="tag-default"><ul class="dummy">
-            <li>« path/to/node-atlas/node_modules/ »</li>
+            <li>"node_modules/"</li>
         </ul></dd>
     
 
@@ -671,7 +671,7 @@
 
         
             
-<h4 class="name" id="serverPhysicalPath"><span class="type-signature"></span>serverPhysicalPath<span class="type-signature"> :string</span></h4>
+<h4 class="name" id="nodeatlasPath"><span class="type-signature"></span>nodeatlasPath<span class="type-signature"> :string</span></h4>
 
 
 
@@ -731,6 +731,160 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line103">line 103</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="serverModulesRelativePath"><span class="type-signature"></span>serverModulesRelativePath<span class="type-signature"> :String</span></h4>
+
+
+
+
+<div class="description">
+    Folder which contain the current website node modules.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">String</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>"node_modules/"</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line638">line 638</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="serverPath"><span class="type-signature"></span>serverPath<span class="type-signature"> :String</span></h4>
+
+
+
+
+<div class="description">
+    OS absolute path that contains webconfig and website.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">String</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>« `--directory` value » || « Path from NodeAtlas is called ».</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line163">line 163</a>
     </li></ul></dd>
     
 
@@ -887,160 +1041,6 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line178">line 178</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="websiteModulesPath"><span class="type-signature"></span>websiteModulesPath<span class="type-signature"> :String</span></h4>
-
-
-
-
-<div class="description">
-    Folder which contain the current website node_modules.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">String</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>« path/to/current/website/node_modules/ »</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line638">line 638</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="websitePhysicalPath"><span class="type-signature"></span>websitePhysicalPath<span class="type-signature"> :String</span></h4>
-
-
-
-
-<div class="description">
-    OS absolute path that contains webconfig and website.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">String</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>« `--directory` value » || « Path from NodeAtlas is called ».</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line163">line 163</a>
     </li></ul></dd>
     
 
@@ -1498,7 +1498,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line952">line 952</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line983">line 983</a>
     </li></ul></dd>
     
 
@@ -1693,7 +1693,7 @@
 
     
 
-    <h4 class="name" id="changeDomCommon"><span class="type-signature">(private) </span>changeDomCommon<span class="signature">(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="changeDomCommon"><span class="type-signature">(private) </span>changeDomCommon<span class="signature">(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1828,7 +1828,7 @@
 
         <tr>
             
-                <td class="name"><code>templatesPath</code></td>
+                <td class="name"><code>viewsPath</code></td>
             
 
             <td class="type">
@@ -1844,7 +1844,7 @@
 
             
 
-            <td class="description last">Path to the based template.</td>
+            <td class="description last">Path to the based view.</td>
         </tr>
 
     
@@ -1908,7 +1908,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line427">line 427</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line455">line 455</a>
     </li></ul></dd>
     
 
@@ -2154,7 +2154,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line492">line 492</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line520">line 520</a>
     </li></ul></dd>
     
 
@@ -2185,7 +2185,7 @@
 
     
 
-    <h4 class="name" id="changeVariationCommon"><span class="type-signature">(private) </span>changeVariationCommon<span class="signature">(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="changeVariationCommon"><span class="type-signature">(private) </span>changeVariationCommon<span class="signature">(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath)</span><span class="type-signature"></span></h4>
 
     
 
@@ -2320,7 +2320,7 @@
 
         <tr>
             
-                <td class="name"><code>templatesPath</code></td>
+                <td class="name"><code>viewsPath</code></td>
             
 
             <td class="type">
@@ -2336,7 +2336,7 @@
 
             
 
-            <td class="description last">Path to the based template.</td>
+            <td class="description last">Path to the based view.</td>
         </tr>
 
     
@@ -2400,7 +2400,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line353">line 353</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line381">line 381</a>
     </li></ul></dd>
     
 
@@ -2431,7 +2431,7 @@
 
     
 
-    <h4 class="name" id="changeVariationSpecific"><span class="type-signature">(private) </span>changeVariationSpecific<span class="signature">(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="changeVariationSpecific"><span class="type-signature">(private) </span>changeVariationSpecific<span class="signature">(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath)</span><span class="type-signature"></span></h4>
 
     
 
@@ -2566,7 +2566,7 @@
 
         <tr>
             
-                <td class="name"><code>templatesPath</code></td>
+                <td class="name"><code>viewsPath</code></td>
             
 
             <td class="type">
@@ -2582,7 +2582,7 @@
 
             
 
-            <td class="description last">Path to the based template.</td>
+            <td class="description last">Path to the based view.</td>
         </tr>
 
     
@@ -2646,7 +2646,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line399">line 399</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line427">line 427</a>
     </li></ul></dd>
     
 
@@ -2859,7 +2859,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_assets-generation.js.html">lib/assets-generation.js</a>, <a href="lib_assets-generation.js.html#line105">line 105</a>
+        <a href="lib_assets-generation.js.html">lib/assets-generation.js</a>, <a href="lib_assets-generation.js.html#line109">line 109</a>
     </li></ul></dd>
     
 
@@ -3292,7 +3292,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line661">line 661</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line692">line 692</a>
     </li></ul></dd>
     
 
@@ -3423,7 +3423,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_assets-generation.js.html">lib/assets-generation.js</a>, <a href="lib_assets-generation.js.html#line245">line 245</a>
+        <a href="lib_assets-generation.js.html">lib/assets-generation.js</a>, <a href="lib_assets-generation.js.html#line249">line 249</a>
     </li></ul></dd>
     
 
@@ -3751,7 +3751,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line638">line 638</a>
+        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line625">line 625</a>
     </li></ul></dd>
     
 
@@ -4649,7 +4649,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line519">line 519</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line547">line 547</a>
     </li></ul></dd>
     
 
@@ -5823,7 +5823,7 @@
 
     
 
-    <h4 class="name" id="openTemplate"><span class="type-signature">(private) </span>openTemplate<span class="signature">(currentRouteParameters, templatesPath, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="openTemplate"><span class="type-signature">(private) </span>openTemplate<span class="signature">(currentRouteParameters, viewsPath, callback)</span><span class="type-signature"></span></h4>
 
     
 
@@ -5889,7 +5889,7 @@
 
         <tr>
             
-                <td class="name"><code>templatesPath</code></td>
+                <td class="name"><code>viewsPath</code></td>
             
 
             <td class="type">
@@ -6256,7 +6256,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line906">line 906</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line937">line 937</a>
     </li></ul></dd>
     
 
@@ -6444,7 +6444,7 @@
 
     
 
-    <h4 class="name" id="prepareRenderLanguage"><span class="type-signature">(private) </span>prepareRenderLanguage<span class="signature">(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="prepareRenderLanguage"><span class="type-signature">(private) </span>prepareRenderLanguage<span class="signature">(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path)</span><span class="type-signature"></span></h4>
 
     
 
@@ -6579,7 +6579,7 @@
 
         <tr>
             
-                <td class="name"><code>templatesPath</code></td>
+                <td class="name"><code>viewsPath</code></td>
             
 
             <td class="type">
@@ -6595,7 +6595,7 @@
 
             
 
-            <td class="description last">Path to the based template.</td>
+            <td class="description last">Path to the based view.</td>
         </tr>
 
     
@@ -6713,7 +6713,7 @@
 
     
 
-    <h4 class="name" id="prepareRenderParameters"><span class="type-signature">(private) </span>prepareRenderParameters<span class="signature">(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="prepareRenderParameters"><span class="type-signature">(private) </span>prepareRenderParameters<span class="signature">(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path)</span><span class="type-signature"></span></h4>
 
     
 
@@ -6848,7 +6848,7 @@
 
         <tr>
             
-                <td class="name"><code>templatesPath</code></td>
+                <td class="name"><code>viewsPath</code></td>
             
 
             <td class="type">
@@ -6864,7 +6864,7 @@
 
             
 
-            <td class="description last">Path to the based template.</td>
+            <td class="description last">Path to the based view.</td>
         </tr>
 
     
@@ -6951,7 +6951,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line294">line 294</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line322">line 322</a>
     </li></ul></dd>
     
 
@@ -6982,7 +6982,7 @@
 
     
 
-    <h4 class="name" id="prepareRenderPath"><span class="type-signature">(private) </span>prepareRenderPath<span class="signature">(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="prepareRenderPath"><span class="type-signature">(private) </span>prepareRenderPath<span class="signature">(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path)</span><span class="type-signature"></span></h4>
 
     
 
@@ -7117,7 +7117,7 @@
 
         <tr>
             
-                <td class="name"><code>templatesPath</code></td>
+                <td class="name"><code>viewsPath</code></td>
             
 
             <td class="type">
@@ -7133,7 +7133,7 @@
 
             
 
-            <td class="description last">Path to the based template.</td>
+            <td class="description last">Path to the based view.</td>
         </tr>
 
     
@@ -7251,7 +7251,7 @@
 
     
 
-    <h4 class="name" id="prepareRenderVariation"><span class="type-signature">(private) </span>prepareRenderVariation<span class="signature">(currentVariation, currentRouteParameters, request, response, templatesPath, currentPath, path)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="prepareRenderVariation"><span class="type-signature">(private) </span>prepareRenderVariation<span class="signature">(currentVariation, currentRouteParameters, request, response, viewsPath, currentPath, path)</span><span class="type-signature"></span></h4>
 
     
 
@@ -7386,7 +7386,7 @@
 
         <tr>
             
-                <td class="name"><code>templatesPath</code></td>
+                <td class="name"><code>viewsPath</code></td>
             
 
             <td class="type">
@@ -7402,7 +7402,7 @@
 
             
 
-            <td class="description last">Path to the based template.</td>
+            <td class="description last">Path to the based view.</td>
         </tr>
 
     
@@ -7489,7 +7489,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line218">line 218</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line246">line 246</a>
     </li></ul></dd>
     
 
@@ -7666,7 +7666,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line595">line 595</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line626">line 626</a>
     </li></ul></dd>
     
 
@@ -7866,7 +7866,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line606">line 606</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line634">line 634</a>
     </li></ul></dd>
     
 
@@ -8112,7 +8112,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line545">line 545</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line573">line 573</a>
     </li></ul></dd>
     
 
@@ -8266,7 +8266,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line734">line 734</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line765">line 765</a>
     </li></ul></dd>
     
 
@@ -8558,7 +8558,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line862">line 862</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line893">line 893</a>
     </li></ul></dd>
     
 
@@ -8912,7 +8912,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line976">line 976</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line1007">line 1007</a>
     </li></ul></dd>
     
 
@@ -8950,7 +8950,7 @@
 
 
 <div class="description">
-    Generate a template into an HTML file in folder `generatesRelativePath`.
+    Generate a template into an HTML file in folder `serverlessRelativePath`.
 </div>
 
 
@@ -9066,7 +9066,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_assets-generation.js.html">lib/assets-generation.js</a>, <a href="lib_assets-generation.js.html#line165">line 165</a>
+        <a href="lib_assets-generation.js.html">lib/assets-generation.js</a>, <a href="lib_assets-generation.js.html#line169">line 169</a>
     </li></ul></dd>
     
 
@@ -9476,7 +9476,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line558">line 558</a>
+        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line545">line 545</a>
     </li></ul></dd>
     
 
@@ -9735,7 +9735,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line634">line 634</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line665">line 665</a>
     </li></ul></dd>
     
 
@@ -10019,7 +10019,7 @@
 
 
 <div class="description">
-    Compress all assets for generate render into `generatesRelativePath`.
+    Compress all assets for generate render into `serverlessRelativePath`.
 </div>
 
 
@@ -10101,7 +10101,7 @@
 
 
 <div class="description">
-    Open all pages for generate render into `generatesRelativePath`.
+    Open all pages for generate render into `serverlessRelativePath`.
 </div>
 
 
@@ -10193,7 +10193,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Dec 05 2016 11:16:11 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 07 2016 11:42:44 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

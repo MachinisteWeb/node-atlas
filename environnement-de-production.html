@@ -91,7 +91,7 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>&gt; nodeatlas --init</pre>
+									<pre>&gt; nodeatlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
@@ -110,13 +110,13 @@
 									<h3>Créer un script</h3>
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
-website.config({
-    "init": true
+website.init({
+    "create": true
 }).created(function () {
     website.run({
         "browse": true
     });
-}).init();</pre>
+}).start();</pre>
 								</div>
 								<div class="download--api--step3">
 									<h3>Lancer le site</h3>
@@ -173,7 +173,7 @@ website.config({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
+						<a href="/english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -276,7 +276,7 @@ website.config({
 site-hello-world/
 ├─ assets/
 │  ┊┉
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>devient ceci :</p><pre><code>site-hello-world/
@@ -288,7 +288,7 @@ site-hello-world/
 ┊┉
 ├─ assets/
 │  ┊┉
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ index.js
 └─ webconfig.json
@@ -327,7 +327,7 @@ site-hello-world/
 ┊┉
 ├─ assets/
 │  ┊┉
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ index.js
 ├─ webconfig.json

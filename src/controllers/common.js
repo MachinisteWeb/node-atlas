@@ -1,5 +1,5 @@
 /* jshint node: true */
-exports.loadModules = function () {
+exports.setModules = function () {
     var NA = this;
 
     NA.modules.marked = require("marked");
@@ -113,7 +113,7 @@ exports.setRoutes = function (next) {
                 if ($title.attr("id")) {
                     fs.writeFile("assets/" + NA.webconfig._content + encodeURIComponent($title.attr("id")) + ".htm", $title + $title.nextUntil("h2"), function () {
                             route["/" + encodeURIComponent($title.attr("id")) + ".html"] = {
-                                "template": "content.htm",
+                                "view": "content.htm",
                                 "controller": "content.js"
                             };
 

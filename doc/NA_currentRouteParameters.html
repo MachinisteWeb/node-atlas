@@ -73,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line620">line 620</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line648">line 648</a>
     </li></ul></dd>
     
 
@@ -110,7 +110,7 @@
 
 
 <div class="description">
-    Charset use for render of this page.
+    Charset used for render of this page.
 </div>
 
 
@@ -163,7 +163,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line561">line 561</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line563">line 563</a>
     </li></ul></dd>
     
 
@@ -235,7 +235,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line680">line 680</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line708">line 708</a>
     </li></ul></dd>
     
 
@@ -312,82 +312,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line855">line 855</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".generate"><span class="type-signature">(static) </span>generate<span class="type-signature"> :string|boolean</span></h4>
-
-
-
-
-<div class="description">
-    Output name of file generate if `NA#webconfig.htmlGeneratesBeforeResponse` is set to true or if `--generate` command is used.If value is set to `false`, no generate page will be generated.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-|
-
-<span class="param-type">boolean</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line584">line 584</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line886">line 886</a>
     </li></ul></dd>
     
 
@@ -464,7 +389,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line789">line 789</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line820">line 820</a>
     </li></ul></dd>
     
 
@@ -640,7 +565,7 @@
 
 
 <div class="description">
-    Content Type use for respond with this page.
+    Headers value used for respond with this page.
 </div>
 
 
@@ -693,7 +618,159 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line581">line 581</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line593">line 593</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".mimeType"><span class="type-signature">(static) </span>mimeType<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Content Type used for respond with this page.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>"text/html"</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line583">line 583</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".output"><span class="type-signature">(static) </span>output<span class="type-signature"> :string|boolean</span></h4>
+
+
+
+
+<div class="description">
+    Output name of file generate if `NA#webconfig.htmlGenerationBeforeResponse` is set to true or if `--generate` command is used.If value is set to `false`, no generate page will be generated.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+|
+
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line612">line 612</a>
     </li></ul></dd>
     
 
@@ -770,7 +847,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line811">line 811</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line842">line 842</a>
     </li></ul></dd>
     
 
@@ -847,7 +924,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line833">line 833</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line864">line 864</a>
     </li></ul></dd>
     
 
@@ -919,7 +996,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line619">line 619</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line650">line 650</a>
     </li></ul></dd>
     
 
@@ -999,7 +1076,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line890">line 890</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line921">line 921</a>
     </li></ul></dd>
     
 
@@ -1023,7 +1100,7 @@
 
 
 <div class="description">
-    Status Code use for respond with this page.
+    Status Code used for respond with this page.
 </div>
 
 
@@ -1076,79 +1153,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line571">line 571</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".template"><span class="type-signature">(static) </span>template<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    This is the file name of template used for render of page behind the route.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line655">line 655</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line573">line 573</a>
     </li></ul></dd>
     
 
@@ -1220,7 +1225,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line762">line 762</a>
+        <a href="lib_web-server.js.html">lib/web-server.js</a>, <a href="lib_web-server.js.html#line793">line 793</a>
     </li></ul></dd>
     
 
@@ -1292,7 +1297,79 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line277">line 277</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line305">line 305</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".view"><span class="type-signature">(static) </span>view<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    This is the file name of view used for render of page behind the route.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line683">line 683</a>
     </li></ul></dd>
     
 
@@ -1332,7 +1409,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Dec 05 2016 11:16:11 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 07 2016 11:42:44 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

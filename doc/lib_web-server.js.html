@@ -59,15 +59,15 @@ exports.simpleWebServer = function () {
 
     if (NA.configuration.httpSecure &amp;&amp; typeof NA.configuration.httpSecure === "string") {
         NA.server = https.createServer({
-            key: fs.readFileSync(path.join(NA.websitePhysicalPath, NA.configuration.httpSecure + ".key"), 'utf-8'),
-            cert: fs.readFileSync(path.join(NA.websitePhysicalPath, NA.configuration.httpSecure + ".crt"), 'utf-8')
+            key: fs.readFileSync(path.join(NA.serverPath, NA.configuration.httpSecure + ".key"), 'utf-8'),
+            cert: fs.readFileSync(path.join(NA.serverPath, NA.configuration.httpSecure + ".crt"), 'utf-8')
         }, NA.httpServer);
     } else {
         NA.server = http.createServer(NA.httpServer);
     }
 
     /* ...from « public » directory. */
-    NA.httpServer.use(express.static(NA.websitePhysicalPath, staticOptions));
+    NA.httpServer.use(express.static(NA.serverPath, staticOptions));
 
     if (NA.configuration.browse) {
         open(urlOutput);
@@ -76,7 +76,7 @@ exports.simpleWebServer = function () {
     /* ...listen HTTP(s) request... */
     NA.server.listen(httpPort, function () {
         var data = {
-                path: path.join(NA.websitePhysicalPath, NA.webconfigName)
+                path: path.join(NA.serverPath, NA.webconfigName)
             },
             message = NA.appLabels.running.publicMode.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }),
             limit = Math.max(message.length + 2, urlOutput.length + 7),
@@ -181,7 +181,7 @@ exports.atlasServer = function () {
         httpPort = commander.httpPort;
     }
 
-    urlOutput = url.resolve(NA.webconfig.urlWithoutFileName, path.join(NA.webconfig.urlRelativeSubPath, ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))),
+    urlOutput = url.resolve(NA.webconfig.urlRoot, path.join(NA.webconfig.urlRelativeSubPath, ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : ""))),
 
     /* Listen HTTP(s) request... */
     NA.server.listen(httpPort, function () {
@@ -242,18 +242,18 @@ exports.enableLessProcess = function () {
         mkpath = NA.modules.mkpath,
         compressValue = false,
         sourceMapValue = true,
-        regex = new RegExp(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, NA.webconfig.urlRelativeSubPath).replace(/(\\|\/)/g, '\\' + path.sep), 'g');
+        regex = new RegExp(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, NA.webconfig.urlRelativeSubPath).replace(/(\\|\/)/g, '\\' + path.sep), 'g');
 
     if (NA.webconfig.enableLess &amp;&amp; !NA.webconfig.stylesheetsBundlesBeforeResponse) {
 
         /* Generate Less on the fly during the development phase. */
         NA.httpServer.use(lessMiddleware(path.join(NA.webconfig.assetsRelativePath), {
             dest: path.join(NA.webconfig.assetsRelativePath),
-            pathRoot: path.join(NA.websitePhysicalPath),
+            pathRoot: path.join(NA.serverPath),
             preprocess: {
                 path: function (pathname) {
                     if (NA.webconfig.urlRelativeSubPath) {
-                        pathname = pathname.replace(regex, path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath) + path.sep);
+                        pathname = pathname.replace(regex, path.join(NA.serverPath, NA.webconfig.assetsRelativePath) + path.sep);
                     }
                     return pathname;
                 }
@@ -265,7 +265,7 @@ exports.enableLessProcess = function () {
             },
             storeSourcemap: function (pathname, sourcemap) {
                 if (NA.webconfig.urlRelativeSubPath) {
-                    pathname = pathname.replace(regex, path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath) + path.sep);
+                    pathname = pathname.replace(regex, path.join(NA.serverPath, NA.webconfig.assetsRelativePath) + path.sep);
                 }
                 fs.exists(path.join(pathname.replace(/\.css\.map/g,".less")), function (exists) {
                     if (exists) {
@@ -281,7 +281,7 @@ exports.enableLessProcess = function () {
             },
             storeCss: function (pathname, css, req, next) {
                 if (NA.webconfig.urlRelativeSubPath) {
-                    pathname = pathname.replace(regex, path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath) + path.sep);
+                    pathname = pathname.replace(regex, path.join(NA.serverPath, NA.webconfig.assetsRelativePath) + path.sep);
                 }
 
                 mkpath(path.dirname(pathname), function (error) {
@@ -318,8 +318,8 @@ exports.enableStylusProcess = function () {
 
     if (NA.webconfig.enableStylus &amp;&amp; !NA.webconfig.stylesheetsBundlesBeforeResponse) {
         stylusMiddleware = NA.modules.stylus.middleware({
-            src: path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath),
-            dest: path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath),
+            src: path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
+            dest: path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
             compress: NA.webconfig.enableStylus.compress || compressValue,
             sourcemap: NA.webconfig.enableStylus.sourceMap || sourceMapValue,
             force: NA.webconfig.enableStylus.force || forceValue,
@@ -454,8 +454,8 @@ exports.startingHttpServer = function () {
 
             /* HTTPs version for a website. */
             NA.server = https.createServer({
-                key: fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.httpSecureRelativeKeyPath), 'utf-8'),
-                cert: fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.httpSecureRelativeCertificatePath), 'utf-8')
+                key: fs.readFileSync(path.join(NA.serverPath, NA.webconfig.httpSecureRelativeKeyPath), 'utf-8'),
+                cert: fs.readFileSync(path.join(NA.serverPath, NA.webconfig.httpSecureRelativeCertificatePath), 'utf-8')
             }, NA.httpServer);
         } else {
 
@@ -561,7 +561,7 @@ exports.httpServerPublicFiles = function () {
     staticOptions = NA.extend(staticOptions, NA.webconfig.staticOptions);
 
     if (!NA.configuration.generate) {
-        NA.httpServer.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath), staticOptions));
+        NA.httpServer.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));
     }
 };
 
@@ -577,19 +577,21 @@ exports.httpServerPublicFiles = function () {
  * @param {Object} currentVariation       Variations for the current page.
  */
 exports.response = function (request, response, data, currentRouteParameters, currentVariation) {
+    var NA = this,
+        header,
 
         /**
-         * Charset use for render of this page.
+         * Charset used for render of this page.
          * @public
          * @alias charset
          * @type {string}
          * @memberOf NA#currentRouteParameters
          * @default "utf-8"
          */
-    var charset = currentVariation.currentRouteParameters.charset || currentRouteParameters.charset || 'utf-8',
+        charset = currentVariation.currentRouteParameters.charset || currentRouteParameters.charset || NA.webconfig.charset,
 
         /**
-         * Status Code use for respond with this page.
+         * Status Code used for respond with this page.
          * @public
          * @alias statusCode
          * @type {number}
@@ -599,21 +601,50 @@ exports.response = function (request, response, data, currentRouteParameters, cu
         statusCode = currentVariation.currentRouteParameters.statusCode || currentRouteParameters.statusCode || 200,
 
         /**
-         * Content Type use for respond with this page.
+         * Content Type used for respond with this page.
          * @public
          * @alias mimeType
          * @type {string}
          * @memberOf NA#currentRouteParameters
          * @default "text/html"
          */
-        contentType = currentVariation.currentRouteParameters.mimeType || currentRouteParameters.mimeType || 'text/html',
-        others = currentVariation.currentRouteParameters.headers || currentRouteParameters.headers || {
-            'Content-Type': contentType + ';' + ' charset=' + charset
-        };
+        mimeType = currentVariation.currentRouteParameters.mimeType || currentRouteParameters.mimeType || NA.webconfig.mimeType,
 
-    /* Set/Send headers */
-    response.charset = charset;
-    response.writeHead(statusCode, others);
+        /**
+         * Headers value used for respond with this page.
+         * @public
+         * @alias mimeType
+         * @type {string}
+         * @memberOf NA#currentRouteParameters
+         * @default "text/html"
+         */
+        headers = currentVariation.currentRouteParameters.headers || currentRouteParameters.headers || {};
+
+    /* Set charset and  */
+    response.statusCode = statusCode;
+
+    /* Set headers into response */
+    response.setHeader("Content-Type", mimeType + ";" + " charset=" + charset);
+    for (header in NA.webconfig.headers) {
+        if (!NA.webconfig.headers.hasOwnProperty(header)) {
+            continue;
+        }
+        if (NA.webconfig.headers[header] === false) {
+            response.removeHeader(header);
+        } else {
+            response.setHeader(header, NA.webconfig.headers[header]);
+        }
+    }
+    for (header in headers) {
+        if (!headers.hasOwnProperty(header)) {
+            continue;
+        }
+        if (headers[header] === false) {
+            response.removeHeader(header);
+        } else {
+            response.setHeader(header, headers[header]);
+        }
+    }
 
     /* Set/Send body */
     response.write(data);
@@ -1049,7 +1080,7 @@ exports.routesPages = function (callback) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Dec 05 2016 11:16:11 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 07 2016 11:42:44 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

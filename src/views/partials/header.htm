@@ -3,7 +3,7 @@
 					<div class="header--information">
 						<div class="header--information--github">
 							<a class="header--information--donate" href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg" alt="Faites un don" data-canonical-src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg"></a>
-							<a class="header--information--follow github-button" href="https://github.com/Haeresis" data-count-href="/Haeresis/followers" data-count-api="/users/Haeresis#followers" data-count-aria-label="# followers on GitHub" aria-label="<%= common.follow %> @Haeresis on GitHub"><%- common.follow %></a>
+							<a class="header--information--follow github-button" href="https://github.com/Haeresis" data-count-href="/Haeresis/followers" data-count-api="/users/Haeresis#followers" data-count-aria-label="# followers on GitHub" aria-label="<?= common.follow ?> @Haeresis on GitHub"><?- common.follow ?></a>
 						</div>
 						<div class="header--information--npm">
 							<a class="header--information--package" href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM" data-canonical-src="https://badge.fury.io/js/node-atlas.svg"></a>
@@ -13,35 +13,35 @@
 					<div class="header--background"></div>
 					<div class="header--title">
 						<h1>
-							<img class="header--title--node" src="<%= (!webconfig._min) ? common.titlePre.src.replace('/min/', '/') : common.titlePre.src %>" alt="<%= common.titlePre.alt %>">
-							<img class="header--title--atlas" src="<%= (!webconfig._min) ? common.title.src.replace('/min/', '/') : common.title.src %>" alt="<%= common.title.alt %>">
-							<img class="header--title--trans" src="<%= (!webconfig._min) ? common.titleBack.src.replace('/min/', '/') : common.titleBack.src %>" alt="<%= common.titleBack.alt %>">
+							<img class="header--title--node" src="<?= (!webconfig._min) ? common.titlePre.src.replace('/min/', '/') : common.titlePre.src ?>" alt="<?= common.titlePre.alt ?>">
+							<img class="header--title--atlas" src="<?= (!webconfig._min) ? common.title.src.replace('/min/', '/') : common.title.src ?>" alt="<?= common.title.alt ?>">
+							<img class="header--title--trans" src="<?= (!webconfig._min) ? common.titleBack.src.replace('/min/', '/') : common.titleBack.src ?>" alt="<?= common.titleBack.alt ?>">
 						</h1>
 					</div>
 					<div class="header--abstract">
-						<p><%- common.abstract %></strong></p>
+						<p><?- common.abstract ?></strong></p>
 					</div>
 					<div class="header--main">
 						<ul>
 							<li>
 								<div class="header--main--first">
-									<h2><%- common.main.first.title %></h2>
-									<p><%- common.main.first.abstract %></p>
-									<p class="small"><%- common.main.first.description %></p>
+									<h2><?- common.main.first.title ?></h2>
+									<p><?- common.main.first.abstract ?></p>
+									<p class="small"><?- common.main.first.description ?></p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--second">
-									<h2><%- common.main.second.title %></h2>
-									<p><%- common.main.second.abstract %></p>
-									<p class="small"><%- common.main.second.description %></p>
+									<h2><?- common.main.second.title ?></h2>
+									<p><?- common.main.second.abstract ?></p>
+									<p class="small"><?- common.main.second.description ?></p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--third">
-									<h2><%- common.main.third.title %></h2>
-									<p><%- common.main.third.abstract %></p>
-									<p class="small"><%- common.main.third.description %></p>
+									<h2><?- common.main.third.title ?></h2>
+									<p><?- common.main.third.abstract ?></p>
+									<p class="small"><?- common.main.third.description ?></p>
 								</div>
 							</li>
 						</ul>

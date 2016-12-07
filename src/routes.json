@@ -1,6 +1,6 @@
 {
 	"/index.html": {
-		"template": "content.htm",
+		"view": "content.htm",
 		"controller": "index.js"
 	}
 }

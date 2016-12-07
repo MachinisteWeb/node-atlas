@@ -32,7 +32,7 @@
 /* jslint node: true */
 
 /**
- * Open all pages for generate render into `generatesRelativePath`.
+ * Open all pages for generate render into `serverlessRelativePath`.
  * @private
  * @function urlGeneratingPages
  * @memberOf NA#
@@ -42,34 +42,34 @@ exports.urlGeneratingPages = function () {
         fs = NA.modules.fs,
         path = NA.modules.path,
         data = {},
-        htmlGenerateEnable = true;
+        htmlGenerationEnable = true;
 
-    /* Avoid copy of `assetsRelativePath` into `generatesRelativePath` even if generatesRelativePath directory exist. */
-    if (typeof NA.webconfig.htmlGenerateEnable === 'boolean') {
+    /* Avoid copy of `assetsRelativePath` into `serverlessRelativePath` even if serverlessRelativePath directory exist. */
+    if (typeof NA.webconfig.htmlGenerationEnable === 'boolean') {
 
         /**
          * Disable HTML generate mechanism.
          * @public
-         * @alias htmlGenerateEnable
+         * @alias htmlGenerationEnable
          * @type {boolean}
          * @memberOf NA#webconfig
          * @default false.
          */
-        htmlGenerateEnable = NA.webconfig.htmlGenerateEnable;
+        htmlGenerationEnable = NA.webconfig.htmlGenerationEnable;
     }
 
     /* Generation only if is configured to « true » in `generate` or set co command line. */
     if (NA.configuration.generate) {
 
         /* Generate all HTML files. */
-        if (htmlGenerateEnable) {
-            fs.exists(path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath), function (exists) {
+        if (htmlGenerationEnable) {
+            fs.exists(path.join(NA.serverPath, NA.webconfig.serverlessRelativePath), function (exists) {
                 if (exists) {
                     NA.forEach(NA.webconfig.routes, function (currentUrl) {
                         NA.render(currentUrl, NA.webconfig.routes);
                     });
                 } else {
-                    data.templatePath = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath);
+                    data.templatePath = path.join(NA.serverPath, NA.webconfig.serverlessRelativePath);
                     NA.log(NA.appLabels.templateDirectoryNotExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 }
             });
@@ -80,7 +80,7 @@ exports.urlGeneratingPages = function () {
 };
 
 /**
- * Compress all assets for generate render into `generatesRelativePath`.
+ * Compress all assets for generate render into `serverlessRelativePath`.
  * @private
  * @function urlGeneratingAssets
  * @memberOf NA#
@@ -91,10 +91,10 @@ exports.urlGeneratingAssets = function () {
         async = NA.modules.async,
         path = NA.modules.path,
         traverseDirectory = NA.modules.traverseDirectory,
-        sourcePath = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath),
-        destinationPath = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath),
+        sourcePath = path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
+        destinationPath = path.join(NA.serverPath, NA.webconfig.serverlessRelativePath),
         traverse,
-        htmlGenerateEnable = true;
+        htmlGenerationEnable = true;
 
     /* Generate all minified CSS, JS and Images files. */
     async.parallel([
@@ -103,8 +103,8 @@ exports.urlGeneratingAssets = function () {
         NA.imgOptimization.bind(NA)
     ], function () {
 
-        /* Copy all content of `assetsRelativePath` into `generatesRelativePath` */
-        if (sourcePath !== destinationPath &amp;&amp; htmlGenerateEnable &amp;&amp; fs.existsSync(destinationPath)) {
+        /* Copy all content of `assetsRelativePath` into `serverlessRelativePath` */
+        if (sourcePath !== destinationPath &amp;&amp; htmlGenerationEnable &amp;&amp; fs.existsSync(destinationPath)) {
             traverse = new traverseDirectory(
               sourcePath,
               destinationPath
@@ -120,12 +120,16 @@ exports.urlGeneratingAssets = function () {
 
             traverse.on('complete', function () {        
                 NA.log(NA.appLabels.assetsCopy);
-                if (NA.afterGenerates) {
-                    NA.afterGenerates();
+                if (NA.afterGeneration) {
+                    NA.afterGeneration();
                 }
             });
 
             traverse.run();
+        } else {
+            if (NA.afterGeneration) {
+                NA.afterGeneration();
+            }
         }
     });
 };
@@ -141,7 +145,7 @@ exports.emulatedIndexPage = function () {
         url = NA.modules.url,
         path = NA.modules.path,
         open = NA.modules.open,
-        urlOutput = url.resolve(NA.webconfig.urlWithoutFileName, path.join(NA.webconfig.urlRelativeSubPath, ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : "")));
+        urlOutput = url.resolve(NA.webconfig.urlRoot, path.join(NA.webconfig.urlRelativeSubPath, ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : "")));
 
     /* Only if server was started and `enableIndex` is set to « true ». */
     if (!NA.configuration.generate &amp;&amp;
@@ -158,7 +162,7 @@ exports.emulatedIndexPage = function () {
     ) {
 
         /* Create a new path to « / ». Erase the route to « / » defined into `routes`. */
-        NA.httpServer.get(NA.webconfig.urlRelativeSubPath + '/', function (request, response) {
+        NA.httpServer.get(NA.webconfig.urlRelativeSubPath + "/", function (request, response) {
             var data = {},
                 matches = function (regex, matches) { return data[matches]; };
 
@@ -191,7 +195,7 @@ exports.emulatedIndexPage = function () {
 };
 
 /**
- * Generate a template into an HTML file in folder `generatesRelativePath`.
+ * Generate a template into an HTML file in folder `serverlessRelativePath`.
  * @private
  * @function saveTemplateRender
  * @memberOf NA#
@@ -205,8 +209,8 @@ exports.saveTemplateRender = function (data, templateRenderName) {
         mkpath = NA.modules.mkpath,
         path = NA.modules.path,
         pathToSaveFileComplete = path.join(
-            NA.websitePhysicalPath,
-            NA.webconfig.generatesRelativePath,
+            NA.serverPath,
+            NA.webconfig.serverlessRelativePath,
             (templateRenderName) ? templateRenderName : ''
         ),
         pathToSaveFile = path.dirname(pathToSaveFileComplete),
@@ -251,7 +255,7 @@ exports.saveTemplateRender = function (data, templateRenderName) {
                 innerHTML = data;
             }
 
-            dataError.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.generatesRelativePath, templateRenderName);
+            dataError.pathName = path.join(NA.serverPath, NA.webconfig.serverlessRelativePath, templateRenderName);
 
             /* Write file */
             fs.writeFile(pathToSaveFileComplete, innerHTML, function (error) {
@@ -281,14 +285,14 @@ exports.generateStartingProject = function (fallback) {
      var NA = this,
         fs = NA.modules.fs,
         path = NA.modules.path,
-        source = (typeof NA.configuration.init === "string") ? NA.configuration.init : "hello-world",
+        source = (typeof NA.configuration.create === "string") ? NA.configuration.create : "hello-world",
         traverseDirectory = NA.modules.traverseDirectory,
-        sourcePath = path.join(NA.serverPhysicalPath, "templates", source),
-        destinationPath = path.join(NA.websitePhysicalPath),
+        sourcePath = path.join(NA.nodeatlasPath, "templates", source),
+        destinationPath = path.join(NA.serverPath),
         data = {},
         traverse;
 
-    if (NA.configuration.init) {
+    if (NA.configuration.create) {
 
         /* Copy starting project from templates directory. By default its "hello-world". */
         if (sourcePath !== destinationPath &amp;&amp; fs.existsSync(sourcePath)) {
@@ -342,7 +346,7 @@ exports.generateStartingProject = function (fallback) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Dec 05 2016 11:16:11 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 07 2016 11:42:44 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

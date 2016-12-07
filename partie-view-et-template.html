@@ -91,7 +91,7 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>&gt; nodeatlas --init</pre>
+									<pre>&gt; nodeatlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
@@ -110,13 +110,13 @@
 									<h3>Créer un script</h3>
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
-website.config({
-    "init": true
+website.init({
+    "create": true
 }).created(function () {
     website.run({
         "browse": true
     });
-}).init();</pre>
+}).start();</pre>
 								</div>
 								<div class="download--api--step3">
 									<h3>Lancer le site</h3>
@@ -173,7 +173,7 @@ website.config({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
+						<a href="/english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -261,31 +261,31 @@ website.config({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="partie-view-et-template">Partie View et Template</h2><p>NodeAtlas fonctionne avec une configuration via l&#39;utilisation d&#39;un <code>webconfig.json</code> qui lui permet d&#39;étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de controller), il suffit de ne renseigner qu&#39;un <code>template</code> pour chaque route.</p><p>Cependant, vous pourrez toujours utilisé du JavaScript inline dans ses templates grâce à l&#39;utilisation du moteur de template <a href="http://ejs.co/">EJS2</a> avec lequel fonctionne NodeAtlas.</p><p>Voyons les possibilités de nos sites par agrégat simple de fichiers templates.</p><h3 id="plusieurs-pages">Plusieurs pages</h3><p>Ci-dessous un exemple de configuration.</p><pre><code class="lang-js">{
-    &quot;templatesRelativePath&quot;: &quot;templates&quot;,
+					<h2 id="partie-view-et-template">Partie View et Template</h2><p>NodeAtlas fonctionne avec une configuration via l&#39;utilisation d&#39;un <code>webconfig.json</code> qui lui permet d&#39;étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de controller), il suffit de ne renseigner qu&#39;une <code>view</code> pour chaque route.</p><p>Cependant, vous pourrez toujours utilisé du JavaScript inline dans ses views grâce à l&#39;utilisation du moteur de template <a href="http://ejs.co/">EJS2</a> avec lequel fonctionne NodeAtlas.</p><p>Voyons les possibilités de nos sites par agrégat simple de fichiers templates.</p><h3 id="plusieurs-pages">Plusieurs pages</h3><p>Ci-dessous un exemple de configuration.</p><pre><code class="lang-js">{
+    &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         },
         &quot;/member.html&quot;: {
-            &quot;template&quot;: &quot;member.htm&quot;,
+            &quot;view&quot;: &quot;member.htm&quot;,
             &quot;postSupport&quot;: false
         },
         &quot;/member-without-extension/&quot;: {
-            &quot;template&quot;: &quot;member.htm&quot;,
+            &quot;view&quot;: &quot;member.htm&quot;,
             &quot;getSupport&quot;: false
         },
         &quot;about.html&quot;: {
-            &quot;template&quot;: &quot;about.htm&quot;
+            &quot;view&quot;: &quot;about.htm&quot;
         },
         &quot;/error.html&quot;: {
-            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;view&quot;: &quot;error.htm&quot;,
             &quot;statusCode&quot;: 404,
             &quot;mimeType&quot;: &quot;text/plain&quot;
         }
     }
 }
-</code></pre><p>Pour faire tourner cet ensemble de fichier :</p><pre><code>├─ templates/
+</code></pre><p>Pour faire tourner cet ensemble de fichier :</p><pre><code>├─ views/
 │  ├─ index.htm
 │  ├─ member.htm
 │  └─ error.htm
@@ -295,21 +295,21 @@ website.config({
 <li><em><a href="http://localhost/member.html">http://localhost/member.html</a></em> (ne répondra pas si demandée en POST)</li>
 <li><em><a href="http://localhost/member-without-extension/">http://localhost/member-without-extension/</a></em> (ne répondra pas si demandée en GET)</li>
 <li><em><a href="http://localhost/error.html">http://localhost/error.html</a></em> (renvoi du contenu plein texte (sans balise) avec une erreur 404)</li>
-</ul><p><em>Note : Si</em> <strong><em>templatesRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des templates est bien</em> <strong><em>templates</em></strong>. <strong><em>templatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h3 id="raccourci-de-template">Raccourci de template</h3><p>La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus</p><pre><code class="lang-js">{
-    &quot;templatesRelativePath&quot;: &quot;templates&quot;,
+</ul><p><em>Note : Si</em> <strong><em>viewsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des views est bien</em> <strong><em>views</em></strong>. <strong><em>viewsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h3 id="raccourci-de-template">Raccourci de template</h3><p>La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus</p><pre><code class="lang-js">{
+    &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;,
         &quot;/member.html&quot;: {
-            &quot;template&quot;: &quot;member.htm&quot;,
+            &quot;view&quot;: &quot;member.htm&quot;,
             &quot;postSupport&quot;: false
         },
         &quot;/member-without-extension/&quot;: {
-            &quot;template&quot;: &quot;member.htm&quot;,
+            &quot;view&quot;: &quot;member.htm&quot;,
             &quot;getSupport&quot;: false
         },
         &quot;about.html&quot;: &quot;about.htm&quot;,
         &quot;/error.html&quot;: {
-            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;view&quot;: &quot;error.htm&quot;,
             &quot;statusCode&quot;: 404,
             &quot;mimeType&quot;: &quot;text/plain&quot;
         }
@@ -317,13 +317,13 @@ website.config({
 }
 </code></pre><p>car</p><pre><code class="lang-js">&quot;about.html&quot;: &quot;about.htm&quot;,
 </code></pre><p>est un raccourci de</p><pre><code class="lang-js">&quot;about.html&quot;: {
-    &quot;template&quot;: &quot;about.htm&quot;
+    &quot;view&quot;: &quot;about.htm&quot;
 }
-</code></pre><p>Évidemment ce raccourci ne sert que si <code>template</code> est le seul paramètre à déclarer de la route.</p><h3 id="héberger-des-images-polices-css-js-etc.">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-js">{
+</code></pre><p>Évidemment ce raccourci ne sert que si <code>view</code> est le seul paramètre à déclarer de la route.</p><h3 id="héberger-des-images-polices-css-js-etc.">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-js">{
     &quot;assetsRelativePath&quot;: &quot;assets&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -335,7 +335,7 @@ website.config({
 │  └─ media/
 │     └─ images/
 │        └─ logo.png
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
@@ -349,18 +349,17 @@ website.config({
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
 </code></pre><h3 id="gérer-des-inclusions-pour-éviter-la-redondance-du-code">Gérer des inclusions pour éviter la redondance du code</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><pre><code class="lang-js">{
-    &quot;componentsRelativePath&quot;: &quot;components/&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         },
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         }
     }
 }
@@ -369,14 +368,14 @@ website.config({
 │  │  └─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  ├─ index.htm
 │  └─ members.htm
 └─ webconfig.json
-</code></pre><p><em>components/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -385,38 +384,38 @@ website.config({
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body&gt;
-</code></pre><p><em>components/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>templates/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include(&#39;partials/head.htm&#39;) ?&gt;
 
     &lt;div&gt;
         &lt;h1&gt;Bienvenue&lt;/h1&gt;
         &lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;
     &lt;/div&gt;
 
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
-</code></pre><p><em>templates/members.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+    &lt;?- include(&#39;partials/foot.htm&#39;) ?&gt;
+</code></pre><p><em>views/members.htm</em></p><pre><code class="lang-html">    &lt;?- include(&#39;partials/head.htm&#39;) ?&gt;
 
     &lt;div&gt;
         &lt;h1&gt;Liste des members&lt;/h1&gt;
         &lt;p&gt;C&#39;est la page des membres.&lt;/p&gt;
     &lt;/div&gt;
 
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
+    &lt;?- include(&#39;partials/foot.htm&#39;) ?&gt;
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><p><em>Note : Si</em> <strong><em>componentsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des includes est bien</em> <strong><em>components</em></strong>. <strong><em>componentsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gérer-des-variations-au-sein-d-#39-un-même-template">Gérer des variations au sein d&#39;un même template</h3><p>Il est possible avec le même template et les mêmes includes de générer des pages au contenu différent (utile en mode génération d&#39;assets HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-js">{
+</ul><h3 id="gérer-des-variations-au-sein-d-#39-une-même-view">Gérer des variations au sein d&#39;une même view</h3><p>Il est possible avec la même view et les mêmes includes de générer des pages au contenu différent (utile en mode génération d&#39;assets HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-js">{
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;template.htm&quot;,
+            &quot;view&quot;: &quot;template.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;,
         },
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;template.htm&quot;,
+            &quot;view&quot;: &quot;template.htm&quot;,
             &quot;variation&quot;: &quot;members.json&quot;,
         }
     }
@@ -430,39 +429,39 @@ website.config({
 │     ├─ common.js
 │     ├─ index.js
 │     └─ members.js
-├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
 ├─ variations/
 │  ├─ common.json
 │  ├─ index.json
 │  └─ members.json
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  └─ template.htm
 └─ webconfig.json
-</code></pre><p><em>components/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;%- specific.titlePage %&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;?- specific.titlePage ?&gt;&lt;/title&gt;
 
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= common.classCssCommon %&gt;.css&quot; media=&quot;all&quot; /&gt;
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %&gt;.css&quot; media=&quot;all&quot; /&gt;
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= common.classCssCommon ?&gt;.css&quot; media=&quot;all&quot; /&gt;
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
-    &lt;body class=&quot;&lt;%= specific.classPage %&gt;&quot;&gt;
-</code></pre><p><em>components/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
+    &lt;body class=&quot;&lt;?= specific.classPage ?&gt;&quot;&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>templates/template.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+</code></pre><p><em>views/template.htm</em></p><pre><code class="lang-html">    &lt;?- include(&#39;head.htm&#39;) ?&gt;
 
-    &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
     &lt;div&gt;
-        &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
-        &lt;%- specific.content %&gt;
+        &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+        &lt;?- specific.content ?&gt;
     &lt;/div&gt;
 
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
+    &lt;?- include(&#39;foot.htm&#39;) ?&gt;
 </code></pre><p><em>variations/common.json</em></p><pre><code class="lang-js">{
     &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
     &quot;classCssCommon&quot;: &quot;common&quot;,
@@ -486,59 +485,59 @@ website.config({
     &quot;variationsRelativePath&quot;: &quot;languages&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;landing.htm&quot;,
+            &quot;view&quot;: &quot;landing.htm&quot;,
             &quot;variation&quot;: &quot;landing.json&quot;
         },
         &quot;/home/&quot;: {
-            &quot;template&quot;: &quot;home.htm&quot;,
+            &quot;view&quot;: &quot;home.htm&quot;,
             &quot;variation&quot;: &quot;home.json&quot;
         },
         &quot;/accueil/&quot;: {
-            &quot;template&quot;: &quot;home.htm&quot;,
+            &quot;view&quot;: &quot;home.htm&quot;,
             &quot;variation&quot;: &quot;home.json&quot;,
             &quot;languageCode&quot;: &quot;fr-fr&quot;
         }
     }
 }
-</code></pre><p><em>Note : Dans cet exemple j&#39;ai décidé de me passer d&#39;un fichier de variation commune, car je n&#39;ai pas précisé de</em> <strong><em>commonVariation</em></strong>. <em>J&#39;ai également totalement arbitrairement décidé de renommer mon dossier</em> <strong><em>variations</em></strong> <em>en</em> <strong><em>languages</em></strong>.</p><p>avec les fichiers suivants :</p><pre><code>├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
-├─ languages/
+</code></pre><p><em>Note : Dans cet exemple j&#39;ai décidé de me passer d&#39;un fichier de variation commune, car je n&#39;ai pas précisé de</em> <strong><em>commonVariation</em></strong>. <em>J&#39;ai également totalement arbitrairement décidé de renommer mon dossier</em> <strong><em>variations</em></strong> <em>en</em> <strong><em>languages</em></strong>.</p><p>avec les fichiers suivants :</p><pre><code>├─ languages/
 │  ├─ landing.json
 │  ├─ en-gb
 │  │  └─ home.json
 │  └─ fr-fr
 │     └─ home.json
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  ├─ landing.htm
 │  └─ home.htm
 └─ webconfig.json
-</code></pre><p><em>components/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;&lt;%= languageCode %&gt;&quot;&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;&lt;?= languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;%= specific.titlePage %&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;?= specific.titlePage ?&gt;&lt;/title&gt;
     &lt;/head&gt;
-    &lt;body class=&quot;&lt;%= specific.classPage %&gt;&quot;&gt;
-</code></pre><p><em>components/foot.htm</em></p><pre><code class="lang-html">    &lt;/body&gt;
+    &lt;body class=&quot;&lt;?= specific.classPage ?&gt;&quot;&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">    &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>templates/landing.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+</code></pre><p><em>views/landing.htm</em></p><pre><code class="lang-html">    &lt;?- include(&#39;head.htm&#39;) ?&gt;
 
     &lt;select&gt;
-        &lt;% for (var i = 0; i &lt; specific.selectLabel.length; i++) { %&gt;
-        &lt;option&gt;&lt;%= specific.selectLabel[i] %&gt;&lt;/option&gt;
-        &lt;% } %&gt;
+        &lt;? for (var i = 0; i &lt; specific.selectLabel.length; i++) { ?&gt;
+        &lt;option&gt;&lt;?= specific.selectLabel[i] ?&gt;&lt;/option&gt;
+        &lt;? } ?&gt;
     &lt;/select&gt;
 
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
-</code></pre><p><em>templates/home.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+    &lt;?- include(&#39;foot.htm&#39;) ?&gt;
+</code></pre><p><em>views/home.htm</em></p><pre><code class="lang-html">    &lt;?- include(&#39;head.htm&#39;) ?&gt;
 
     &lt;div&gt;
-        &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
-        &lt;%- specific.content %&gt;
+        &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+        &lt;?- specific.content ?&gt;
     &lt;/div&gt;
 
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
+    &lt;?- include(&#39;foot.htm&#39;) ?&gt;
 </code></pre><p><em>languages/landing.json</em></p><pre><code class="lang-js">{
     &quot;titlePage&quot;: &quot;Landing&quot;,
     &quot;classPage&quot;: &quot;landing&quot;,
@@ -573,10 +572,7 @@ website.config({
 </code></pre><p>vous pouvez</p><ul>
 <li>gérer la version <code>en-gb</code> directement à la racine de <code>variations/</code> (comme NodeAtlas ne trouve rien dans <code>en-gb</code> il utilise alors les valeurs des fichiers racines) et</li>
 <li>gérer la version <code>fr-fr</code> dans le dossier <code>fr-fr/</code>,</li>
-</ul><p>ainsi, si une phrase n&#39;est pas encore traduite dans un fichier <code>fr-fr</code>, au lieu de renvoyer une erreur, NodeAtlas renverra la version racine, soit la version <code>en-gb</code>.</p><h4 id="-chaque-langue-sa-configuration">À chaque langue sa configuration</h4><p>Vous pouvez également décider de faire tourner chaque langue dans un « webconfig.json » différent. Avec l&#39;ensemble de fichier suivant :</p><pre><code>├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
-├─ variations/
+</ul><p>ainsi, si une phrase n&#39;est pas encore traduite dans un fichier <code>fr-fr</code>, au lieu de renvoyer une erreur, NodeAtlas renverra la version racine, soit la version <code>en-gb</code>.</p><h4 id="-chaque-langue-sa-configuration">À chaque langue sa configuration</h4><p>Vous pouvez également décider de faire tourner chaque langue dans un « webconfig.json » différent. Avec l&#39;ensemble de fichier suivant :</p><pre><code>├─ variations/
 │  ├─ landing.json
 │  ├─ en-gb
 │  │  ├─ home.json
@@ -584,7 +580,10 @@ website.config({
 │  └─ fr-fr
 │     ├─ home.json
 │     └─ members.json
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  ├─ landing.htm
 │  ├─ home.htm
 │  └─ members.htm
@@ -594,7 +593,7 @@ website.config({
 </code></pre><p>vous pourriez avoir les « webconfig.json » suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;landing.htm&quot;,
+            &quot;view&quot;: &quot;landing.htm&quot;,
             &quot;variation&quot;: &quot;landing.json&quot;
         }
     }
@@ -605,11 +604,11 @@ website.config({
     &quot;languageCode&quot;: &quot;en-gb&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;home.htm&quot;,
+            &quot;view&quot;: &quot;home.htm&quot;,
             &quot;variation&quot;: &quot;home.json&quot;
         },
         &quot;/members-list/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;view&quot;: &quot;members.htm&quot;,
             &quot;variation&quot;: &quot;members.json&quot;
         }
     }
@@ -620,11 +619,11 @@ website.config({
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;home.htm&quot;,
+            &quot;view&quot;: &quot;home.htm&quot;,
             &quot;variation&quot;: &quot;home.json&quot;
         },
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;view&quot;: &quot;members.htm&quot;,
             &quot;variation&quot;: &quot;members.json&quot;
         }
     }
@@ -646,7 +645,7 @@ website.config({
 </ul><h3 id="changer-les-paramètres-d-#39-url">Changer les paramètres d&#39;url</h3><p>Par défaut, si vous utilisez la configuration suivante :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -657,7 +656,7 @@ website.config({
     &quot;urlRelativeSubPath&quot;: &quot;&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -668,7 +667,7 @@ website.config({
     &quot;urlRelativeSubPath&quot;: &quot;sub/folder&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -677,7 +676,7 @@ website.config({
 </ol><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     },
     &quot;_minified&quot;: &quot;&quot;
@@ -687,7 +686,7 @@ website.config({
 </ol><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     },
     &quot;_minified&quot;: &quot;.min&quot;
@@ -699,7 +698,7 @@ website.config({
 │  └─ javascript/
 │     ├─ common.js
 │     └─ common.min.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -708,11 +707,11 @@ website.config({
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
         &lt;title&gt;Hello world&lt;/title&gt;
-        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common&lt;%= webconfig._minified %&gt;.css&quot; /&gt;
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common&lt;?= webconfig._minified ?&gt;.css&quot; /&gt;
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common&lt;%= webconfig._minified %&gt;.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>En lançant (depuis le dossier du site) la commande :</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
@@ -742,23 +741,23 @@ website.config({
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="utiliser-nodeatlas-pour-générer-des-maquettes-html">Utiliser NodeAtlas pour générer des maquettes HTML</h3><h4 id="g-n-rer-des-assets-html">Générer des assets HTML</h4><p>Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.</p><pre><code class="lang-js">{
-    &quot;htmlGeneratesBeforeResponse&quot;: true,
-    &quot;generatesRelativePath&quot;: &quot;generates&quot;,
+    &quot;htmlGenerationBeforeResponse&quot;: true,
+    &quot;serverlessRelativePath&quot;: &quot;serverless&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
-            &quot;generate&quot;: &quot;/index.html&quot;
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;output&quot;: &quot;/index.html&quot;
         },
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
-            &quot;generate&quot;: &quot;/members/list.html&quot;
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;output&quot;: &quot;/members/list.html&quot;
         },
         &quot;/liste-des-membres/?foo=bar&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
-            &quot;generate&quot;: false
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;output&quot;: false
         },
         &quot;/no/generate/property/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         }
     }
 }
@@ -767,14 +766,14 @@ website.config({
 │  │  ├─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ generates/
-├─ templates/
+├─ serverless/
+├─ views/
 │  ├─ index.htm
 │  └─ members.htm
 └─ webconfig.json
 </code></pre><p>on peut créer physiquement les assets :</p><pre><code>├─ assets/
 │  ┊┉
-├─ generates/
+├─ serverless/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  ├─ javascript/
@@ -785,26 +784,26 @@ website.config({
 │  └─ no/
 │     └─ generate/
 │        └─ property ⤆ Ceci est un fichier
-├─ templates/
+├─ views/
 │  ┊┉
 └─ webconfig.json
 </code></pre><p>en se rendant aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
 <li><em><a href="http://localhost/no/generate/property/">http://localhost/no/generate/property/</a></em></li>
-</ul><p><em>Note : Il n&#39;y a pas de génération pour « /liste-des-membres/?foo=bar » car <code>generate</code> est à <code>false</code>. Utilisez cette valeur pour ignorer des routes à la génération.</em></p><p>La génération s&#39;enclenche quand on affiche la page uniquement parce que <strong><em>htmlGeneratesBeforeResponse</em></strong> existe et est à <strong><em>true</em></strong>. S&#39;il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d&#39;un coup uniquement si le dossier de <code>generatesRelativePath</code> existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu&#39;une modification dans un composant appelé sur toutes les pages.</p><p>De plus avec <code>--generate</code>, l&#39;intégralité du dossier <code>assetsRelativePath</code> (dossier des fichiers publiques) sera copié dans le dossier <code>generatesRelativePath</code> si les deux dossiers n&#39;ont pas un chemin identique, et que <code>generatesRelativePath</code> existe. Cela vous permet réellement d&#39;obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l&#39;intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).</p><p>Vous pouvez également désactiver la génération, même si un dossier <code>generatesRelativePath</code> existe dans les dossiers, avec <code>htmlGenerateEnable</code> à <code>false</code>.</p><p><em>Note : Si</em> <strong><em>generatesRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>generates/</em></strong>. <strong><em>generatesRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p><h4 id="g-n-rer-un-site-sans-partie-serveur">Générer un site sans partie serveur</h4><p>Il est également possible de manager la création d&#39;un site en simple page HTML avec la configuration suivante :</p><pre><code class="lang-js">{
+</ul><p><em>Note : Il n&#39;y a pas de génération pour « /liste-des-membres/?foo=bar » car <code>generate</code> est à <code>false</code>. Utilisez cette valeur pour ignorer des routes à la génération.</em></p><p>La génération s&#39;enclenche quand on affiche la page uniquement parce que <strong><em>htmlGenerationBeforeResponse</em></strong> existe et est à <strong><em>true</em></strong>. S&#39;il est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/server.js --generate</code> qui génèrera toutes les pages d&#39;un coup uniquement si le dossier de <code>serverlessRelativePath</code> existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu&#39;une modification dans un composant appelé sur toutes les pages.</p><p>De plus avec <code>--generate</code>, l&#39;intégralité du dossier <code>assetsRelativePath</code> (dossier des fichiers publiques) sera copié dans le dossier <code>serverlessRelativePath</code> si les deux dossiers n&#39;ont pas un chemin identique, et que <code>serverlessRelativePath</code> existe. Cela vous permet réellement d&#39;obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l&#39;intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).</p><p>Vous pouvez également désactiver la génération, même si un dossier <code>serverlessRelativePath</code> existe dans les dossiers, avec <code>htmlGenerationEnable</code> à <code>false</code>.</p><p><em>Note : Si</em> <strong><em>serverlessRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p><h4 id="g-n-rer-un-site-sans-partie-serveur">Générer un site sans partie serveur</h4><p>Il est également possible de manager la création d&#39;un site en simple page HTML avec la configuration suivante :</p><pre><code class="lang-js">{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;enableIndex&quot;: true,
-    &quot;htmlGeneratesBeforeResponse&quot;: true,
-    &quot;generatesRelativePath&quot;: &quot;../HTML/&quot;,
+    &quot;htmlGenerationBeforeResponse&quot;: true,
+    &quot;serverlessRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;routes&quot;: {
         &quot;/cv.html&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;
         },
         &quot;/en/cv.html&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;,
             &quot;languageCode&quot;: &quot;en&quot;
         }
@@ -821,7 +820,7 @@ website.config({
    │  │  └─ index.json
    │  └─ en/
    │     └─ index.json
-   ├─ templates/
+   ├─ views/
    │  └─ index.htm
    └─ webconfig.json
 </code></pre><p>À l&#39;adresse <em><a href="http://localhost/">http://localhost/</a></em> s&#39;affichera la liste des pages composants votre site (grâce à <strong>enableIndex</strong> à <strong>true</strong>).</p><p>Il ne restera plus qu&#39;à, une fois votre travail terminé, admirer votre site HTML dans le dossier :</p><pre><code>└─ HTML/

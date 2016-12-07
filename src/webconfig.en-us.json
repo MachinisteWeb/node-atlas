@@ -9,7 +9,7 @@
 	"languageCode": "en-us",
 	"commonController": "common.js",
 	"commonVariation": "common.json",
-	"generatesRelativePath": "../english/",
+	"serverlessRelativePath": "../english/",
     "urlRelativeSubPath": "english",
 	"routes": "routes.json",
 	"_readme": "../readme.en.md",

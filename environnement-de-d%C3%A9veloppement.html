@@ -91,7 +91,7 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>&gt; nodeatlas --init</pre>
+									<pre>&gt; nodeatlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
@@ -110,13 +110,13 @@
 									<h3>Créer un script</h3>
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
-website.config({
-    "init": true
+website.init({
+    "create": true
 }).created(function () {
     website.run({
         "browse": true
     });
-}).init();</pre>
+}).start();</pre>
 								</div>
 								<div class="download--api--step3">
 									<h3>Lancer le site</h3>
@@ -173,7 +173,7 @@ website.config({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
+						<a href="/english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -261,7 +261,7 @@ website.config({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="environnement-de-développement">Environnement de Développement</h2><p>NodeAtlas utilise Node.js qui est développé sur le moteur V8. Le moteur V8 est également utilisé par les navigateurs Google Chrome et Chromium ce qui fait que NodeAtlas peut être complètement débuggué dans cet environnement.</p><h3 id="debug-du-front-end">Debug du Front-end</h3><p>Vous pouvez débugguer vos rendu HTML, vos règles CSS et votre code JavaScript front-end de la même manière que vous l&#39;auriez fait avec un simple site HTML ou une autre technologie. Vous avez donc accès via F12 à la console JavaScript, aux éléments du DOM éditables, à l&#39;éditeur de propriétés et animations CSS ainsi qu&#39;au débuggeur de fichier JavaScript.</p><p>La nouveauté avec NodeAtlas vient de l&#39;éditeur de CSS. Là où il vous indiquait les fichiers CSS et lignes pour vos fichiers source en CSS, il vous indique pour un fichier CSS généré avec Stylus ou Less le fichier Stylus ou Less ainsi que sa ligne.</p><h3 id="debug-du-back-end">Debug du Back-end</h3><p>À partir de Node.js v6.6+, vous pouvez débugguer tout simplement votre code Back-end dans Google Chrome. Il suffit pour cela d&#39;utiliser l&#39;option <code>--inspect</code> de node.</p><p>Créez vous par exemple un fichier de lancement comme celui-ci :</p><pre><code class="lang-javascript">require(&quot;node&quot;)().init()
+					<h2 id="environnement-de-développement">Environnement de Développement</h2><p>NodeAtlas utilise Node.js qui est développé sur le moteur V8. Le moteur V8 est également utilisé par les navigateurs Google Chrome et Chromium ce qui fait que NodeAtlas peut être complètement débuggué dans cet environnement.</p><h3 id="debug-du-front-end">Debug du Front-end</h3><p>Vous pouvez débugguer vos rendu HTML, vos règles CSS et votre code JavaScript front-end de la même manière que vous l&#39;auriez fait avec un simple site HTML ou une autre technologie. Vous avez donc accès via F12 à la console JavaScript, aux éléments du DOM éditables, à l&#39;éditeur de propriétés et animations CSS ainsi qu&#39;au débuggeur de fichier JavaScript.</p><p>La nouveauté avec NodeAtlas vient de l&#39;éditeur de CSS. Là où il vous indiquait les fichiers CSS et lignes pour vos fichiers source en CSS, il vous indique pour un fichier CSS généré avec Stylus ou Less le fichier Stylus ou Less ainsi que sa ligne.</p><h3 id="debug-du-back-end">Debug du Back-end</h3><p>À partir de Node.js v6.6+, vous pouvez débugguer tout simplement votre code Back-end dans Google Chrome. Il suffit pour cela d&#39;utiliser l&#39;option <code>--inspect</code> de node.</p><p>Créez vous par exemple un fichier de lancement comme celui-ci :</p><pre><code class="lang-javascript">require(&quot;node&quot;)().start()
 </code></pre><p>puis lancez le avec la commande suivante :</p><pre><code>node --inspect server.js
 </code></pre><p>Le moteur vous communiquera alors l&#39;url d&#39;une page à afficher dans Chrome. Rendez-vous sur cette page afin de voir les messages de la console dans l&#39;onglet <code>console</code>, de debugguer votre code avec la totalité des fichiers utilisés dans <code>source</code> et des tests de performance avec <code>profile</code>.</p><h3 id="tests-de-périphériques">Tests de Périphériques</h3><p>Pour tester votre site ou application web pendant la phase de développement sur vos téléphones mobiles et tablettes il suffit de connecter votre poste de développement et ces appareils sur le même réseau local.</p><p>Par exemple, connectez tous vos appareils sur le même réseau Wifi. Puis, trouvez sur ce réseau, l&#39;ip de votre poste de développement. Sur Windows, cela ce fait à l&#39;aide de la commande <code>ipconfig</code> par exemple.</p><p>Une fois votre ip connu, il ne vous reste qu&#39;à définir le hostname et le port d&#39;écoute pour votre instance de développement NodeAtlas :</p><pre><code>nodeatlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
 </code></pre><p>Ce qui ouvrira votre site ici : <code>http://192.168.1.24:7777/</code>.</p><p>Il ne vous reste plus qu&#39;à réclamer cette url depuis vos autres appareils et tester vos rendus et cas d&#39;utilisations.</p>

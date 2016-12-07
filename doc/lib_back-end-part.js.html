@@ -45,7 +45,7 @@ exports.cssAlreadyParse = function (newPath, allCssFiles, inject) {
         path = NA.modules.path;
 
     for (var i = 0; i &lt; allCssFiles.length; i++) {
-        if (path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, newPath) === allCssFiles[i]) {
+        if (path.join(NA.serverPath, NA.webconfig.assetsRelativePath, newPath) === allCssFiles[i]) {
             inject = false;
         }
     }
@@ -67,7 +67,7 @@ exports.injectCssAuth = function (pathFile, allCssFiles, inject) {
         path = NA.modules.path;
 
     if (inject) {
-        allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, pathFile));
+        allCssFiles.push(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, pathFile));
     }
 };
 
@@ -104,7 +104,7 @@ exports.prepareCssInjection = function (allCssFiles, injection) {
 
     /* Add common injections. */
     if (typeof commonInjection === 'string') {
-        allCssFiles.push(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, commonInjection));
+        allCssFiles.push(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, commonInjection));
     } else if (commonInjection) {
         for (var i = 0; i &lt; commonInjection.length; i++) {
             /* Inject Css. */
@@ -267,7 +267,7 @@ exports.lessCompilation = function (callback) {
         }
 
         async.each(allLessCompiled, function (compiledFile, next) {
-            var currentFile = fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile), 'utf-8');
+            var currentFile = fs.readFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile), 'utf-8');
 
             less.render(currentFile, {
                 paths: paths
@@ -276,8 +276,8 @@ exports.lessCompilation = function (callback) {
                     NA.log(e);
                 }
 
-                data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css'));
-                fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css')), output.css);
+                data.pathName = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css'));
+                fs.writeFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css')), output.css);
                 NA.log(NA.appLabels.lessGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 next();
             });
@@ -335,7 +335,7 @@ exports.stylusCompilation = function (callback) {
         }
 
         async.each(allStylusCompiled, function (compiledFile, next) {
-            var currentFile = fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile), 'utf-8');
+            var currentFile = fs.readFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile), 'utf-8');
 
             stylus(currentFile)
             .set('paths', paths)
@@ -344,8 +344,8 @@ exports.stylusCompilation = function (callback) {
                     NA.log(e);
                 }
 
-                data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.styl$/g,'.css'));
-                fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.styl$/g,'.css')), output);
+                data.pathName = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.styl$/g,'.css'));
+                fs.writeFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.styl$/g,'.css')), output);
                 NA.log(NA.appLabels.stylusGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 next();
             });
@@ -423,7 +423,7 @@ exports.cssMinification = function (callback) {
 
             async.map(bundles.stylesheets[compressedFile], function (sourceFile, secondCallback) {
                 try {
-                    secondCallback(null, fs.readFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile), 'utf-8'));
+                    secondCallback(null, fs.readFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, sourceFile), 'utf-8'));
                 } catch (e) {
                     secondCallback(e, "");
                 }
@@ -433,8 +433,8 @@ exports.cssMinification = function (callback) {
                 }
 
                 output = (new cleanCss().minify(output)).styles;
-                fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile), output);
-                data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile);
+                fs.writeFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile), output);
+                data.pathName = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile);
                 NA.log(NA.appLabels.cssGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 output = "";
 
@@ -514,8 +514,8 @@ exports.imgOptimization = function (callback) {
 
         async.each(allImgMinified, function (compressedFile, firstCallback) {
 
-            var source = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile),
-                output = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, optimizations.images[compressedFile]);
+            var source = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile),
+                output = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, optimizations.images[compressedFile]);
 
                 imagemin([source], output, { use: [
                         jpegtran(NA.webconfig.optimizations &amp;&amp; NA.webconfig.optimizations.jpg),
@@ -601,14 +601,14 @@ exports.jsObfuscation = function (callback) {
         async.each(allJsMinified, function (compressedFile, firstCallback) {
 
             async.map(bundles.javascript[compressedFile], function (sourceFile, secondCallback) {
-                secondCallback(null, uglifyJs.minify(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, sourceFile)).code);
+                secondCallback(null, uglifyJs.minify(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, sourceFile)).code);
             }, function(error, results) {
                 for (var i = 0; i &lt; results.length; i++) {
                     output += results[i];
                 }
 
-                fs.writeFileSync(path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile), output);
-                data.pathName = path.join(NA.websitePhysicalPath, NA.webconfig.assetsRelativePath, compressedFile);
+                fs.writeFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile), output);
+                data.pathName = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile);
                 NA.log(NA.appLabels.jsGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 output = "";
 
@@ -646,35 +646,35 @@ exports.loadListOfExternalModules = function (callback) {
     NA.loadController(NA.webconfig.commonController, function () {
 
         /**
-         * Folder which contain the `node-atlas` node_modules.
+         * Folder which contain the `node-atlas` node modules.
          * @public
-         * @alias nodeAtlasModulesPath
+         * @alias nodeatlasModulesRelativePath
          * @type {String}
          * @memberOf NA#
-         * @default « path/to/node-atlas/node_modules/ »
+         * @default "node_modules/"
          */
-        NA.nodeAtlasModulesPath = path.join(NA.serverPhysicalPath, 'node_modules');
+        NA.nodeatlasModulesRelativePath = "node_modules/";
 
         /**
-         * Folder which contain the current website node_modules.
+         * Folder which contain the current website node modules.
          * @public
-         * @alias websiteModulesPath
+         * @alias serverModulesRelativePath
          * @type {String}
          * @memberOf NA#
-         * @default « path/to/current/website/node_modules/ »
+         * @default "node_modules/"
          */
-        NA.websiteModulesPath = path.join(NA.websitePhysicalPath, 'node_modules');
+        NA.serverModulesRelativePath = "node_modules/";
 
-        /* Use the `NA.websiteController[&lt;commonController>].loadModules(...)` function if set... */
+        /* Use the `NA.websiteController[&lt;commonController>].setModules(...)` function if set... */
         if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &amp;&amp;
-            typeof NA.websiteController[NA.webconfig.commonController].loadModules !== 'undefined') {
+            typeof NA.websiteController[NA.webconfig.commonController].setModules !== 'undefined') {
 
             /**
              * Define this function for adding npm module into `NA.modules` of application. Only for `common` controller file.
-             * @function loadModules
+             * @function setModules
              * @memberOf NA#websiteController[]
              */
-            NA.websiteController[NA.webconfig.commonController].loadModules.call(NA);
+            NA.websiteController[NA.webconfig.commonController].setModules.call(NA);
         }
 
         /**
@@ -697,7 +697,7 @@ exports.loadController = function (controller, callback) {
     var NA = this,
         path = NA.modules.path,
         commonControllerPath = path.join(
-            NA.websitePhysicalPath,
+            NA.serverPath,
             NA.webconfig.controllersRelativePath,
             (controller) ? controller : ''
         );
@@ -740,7 +740,7 @@ exports.loadController = function (controller, callback) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Dec 05 2016 11:16:11 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 07 2016 11:42:44 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

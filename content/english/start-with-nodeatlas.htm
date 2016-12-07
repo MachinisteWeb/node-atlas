@@ -1,8 +1,8 @@
 <h2 id="start-with-nodeatlas">Start with NodeAtlas</h2><p>We will start with a how to set minimal files to perform a <code>hello-world</code>.</p><h3 id="fileset">Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.</p><pre><code>site-hello-world/
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Here is the &quot;/site-hello-world/templates/index.htm&quot; file:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>Here is the &quot;/site-hello-world/views/index.htm&quot; file:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -15,7 +15,7 @@
 </code></pre><p>and following, the &quot;/site-hello-world/webconfig.json&quot; file.</p><h3 id="minimum-requirements">Minimum Requirements</h3><p>You can turn a simple page with minimal configuration &quot;webconfig.json&quot; below</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }

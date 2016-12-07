@@ -91,7 +91,7 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>&gt; nodeatlas --init</pre>
+									<pre>&gt; nodeatlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
@@ -110,13 +110,13 @@
 									<h3>Créer un script</h3>
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
-website.config({
-    "init": true
+website.init({
+    "create": true
 }).created(function () {
     website.run({
         "browse": true
     });
-}).init();</pre>
+}).start();</pre>
 								</div>
 								<div class="download--api--step3">
 									<h3>Lancer le site</h3>
@@ -173,7 +173,7 @@ website.config({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
+						<a href="/english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -264,13 +264,13 @@ website.config({
 					<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gérer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d&#39;url dynamiques !</p><h4 id="standard">Standard</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -292,15 +292,15 @@ website.config({
 </code></pre><p>Les règles de création d&#39;url dynamique sont celles de <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p><h4 id="expressions-r-guli-res">Expressions Régulières</h4><p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si <code>regExp</code> est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).</p><p>Voyez la configuration suivante :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/([-a-z0-9]+)/?&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;view&quot;: &quot;members.htm&quot;,
             &quot;regExp&quot;: &quot;g&quot;
         },
         &quot;/liste-des-membres/?&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;view&quot;: &quot;members.htm&quot;,
             &quot;regExp&quot;: true
         },
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -322,7 +322,7 @@ website.config({
 
     next(variation);
 }
-</code></pre><p>Les règles de création d&#39;url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h4 id="routage-dans-un-fichier-partag-">Routage dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c&#39;est le fichier <code>routes.json</code>.</p><p>Par exemple :</p><p>L&#39;ensemble de fichier suivant</p><pre><code>├─ templates/
+</code></pre><p>Les règles de création d&#39;url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h4 id="routage-dans-un-fichier-partag-">Routage dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c&#39;est le fichier <code>routes.json</code>.</p><p>Par exemple :</p><p>L&#39;ensemble de fichier suivant</p><pre><code>├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -330,7 +330,7 @@ website.config({
     &quot;httpPort&quot;: 7777,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -340,11 +340,11 @@ website.config({
     &quot;urlPort&quot;: 80,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
-</code></pre><p>pourrait devenir l&#39;ensemble de fichier suivant</p><pre><code>templates/
+</code></pre><p>pourrait devenir l&#39;ensemble de fichier suivant</p><pre><code>views/
 — index.htm
 routes.json
 webconfig.json
@@ -361,7 +361,7 @@ webconfig.prod.json
 }
 </code></pre><p>et <code>routes.json</code></p><pre><code class="lang-json">{
     &quot;/&quot;: {
-        &quot;template&quot;: &quot;index.htm&quot;
+        &quot;view&quot;: &quot;index.htm&quot;
     }
 }
 </code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichier de route comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d&#39;eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="gérer-les-pages-inexistantes">Gérer les pages inexistantes</h3><h4 id="-couter-toutes-les-urls-m-me-les-adresses-du-dossier-assetsrelativepath-">Écouter toutes les urls, même les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalisée quand une ressource n&#39;est pas trouvée il faut :</p><ol>
@@ -371,13 +371,13 @@ webconfig.prod.json
     &quot;pageNotFound&quot;: &quot;/pages-inexistantes/&quot;,
     &quot;routes&quot;: {
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         },
         &quot;/pages-inexistantes/&quot;: {
-            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;view&quot;: &quot;error.htm&quot;,
             &quot;statusCode&quot;: 404
         }
     }
@@ -391,30 +391,30 @@ webconfig.prod.json
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;routes&quot;: {
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;view&quot;: &quot;members.htm&quot;,
             &quot;variation&quot;: &quot;members.json&quot;
         },
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;
         },
         &quot;/pages-inexistantes/&quot;: {
-            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;view&quot;: &quot;error.htm&quot;,
             &quot;variation&quot;: &quot;error.json&quot;,
             &quot;statusCode&quot;: 404
         },
         &quot;/english/list-of-members/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;view&quot;: &quot;members.htm&quot;,
             &quot;languageCode&quot;: &quot;en-gb&quot;,
             &quot;variation&quot;: &quot;members.json&quot;
         },
         &quot;/english/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;languageCode&quot;: &quot;en-gb&quot;,
             &quot;variation&quot;: &quot;index.json&quot;
         },
         &quot;/english/*&quot;: {
-            &quot;template&quot;: &quot;error.htm&quot;,
+            &quot;view&quot;: &quot;error.htm&quot;,
             &quot;languageCode&quot;: &quot;en-gb&quot;,
             &quot;variation&quot;: &quot;error.json&quot;,
             &quot;statusCode&quot;: 404
@@ -424,7 +424,7 @@ webconfig.prod.json
 </code></pre><h3 id="gérer-les-redirections">Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p><p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p><h4 id="en-statique">En statique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/liste-des-membres&quot;: {
             &quot;redirect&quot;: &quot;/liste-des-membres/&quot;,
@@ -435,7 +435,7 @@ webconfig.prod.json
             &quot;statusCode&quot;: 302
         },
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -445,21 +445,21 @@ webconfig.prod.json
 </ul><h4 id="en-dynamique">En dynamique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/liste-des-membres/:member&quot;: {
             &quot;redirect&quot;: &quot;/membres/:member/&quot;,
             &quot;statusCode&quot;: 301
         },
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
 </code></pre><p>Vous serez redirigé sur <code>http://localhost/liste-des-membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis</code> avec une entête <em>redirection permanente</em>.</p><h4 id="avec-expressions-r-guli-res">Avec expressions régulières</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/membres/([-a-z0-9]+)/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;,
+            &quot;view&quot;: &quot;members.htm&quot;,
             &quot;regExp&quot;: true
         },
         &quot;/liste-des-membres/([-a-z0-9]+)/&quot;: {
@@ -468,28 +468,33 @@ webconfig.prod.json
             &quot;regExp&quot;: true
         },
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
 </code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p><p>Pour le second <em>match</em> utilisez $1, pour le troisième $2, etc.</p><h3 id="gérer-les-headers-de-page">Gérer les Headers de page</h3><p>Par défaut, les Headers envoyé par NodeAtlas sont les suivants : <code>Content-Type:text/html; charset=utf-8</code> avec un <code>statusCode</code> à 200.</p><p>Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.</p><pre><code class="lang-js">{
+    &quot;mimeType&quot;: &quot;application/json&quot;
+    &quot;charset&quot;: &quot;utf-16&quot;,
     &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;mimeType&quot;: &quot;text/html&quot;
+        },
         &quot;/api/articles&quot;: {
-            &quot;template&quot;: &quot;display-json.htm&quot;,
+            &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;controller&quot;: &quot;blog/list-of-articles.js&quot;,
-            &quot;mimeType&quot;: &quot;application/json&quot;
-            &quot;charset&quot;: &quot;ISO-8859-1&quot;,
+            &quot;charset&quot;: &quot;utf-8&quot;,
             &quot;statusCode&quot;: 203
         }
     }
 }
-</code></pre><p>Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs à l&#39;exception du <code>statusCode</code>.</p><pre><code class="lang-js">{
+</code></pre><p>Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l&#39;exception du <code>statusCode</code> donc).</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/api/articles&quot;: {
-            &quot;template&quot;: &quot;display-json.htm&quot;,
+            &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;controller&quot;: &quot;blog/list-of-articles.js&quot;,
             &quot;statusCode&quot;: 203,
             &quot;headers&quot;: {
@@ -505,7 +510,7 @@ webconfig.prod.json
     &quot;httpSecureRelativeCertificatePath&quot;: &quot;security/server.crt&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -513,7 +518,7 @@ webconfig.prod.json
     &quot;httpSecure&quot;: &quot;security/server&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -521,7 +526,7 @@ webconfig.prod.json
     &quot;httpSecure&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -554,7 +559,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -575,7 +580,7 @@ webconfig.prod.json
 │     ├─ components/
 │     │  └─ extended-format-date.js
 │     └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>vous obtiendrez les nouveaux fichiers suivant :</p><pre><code>├─ assets/
@@ -599,7 +604,7 @@ webconfig.prod.json
 │     ├─ boot.min.js        ⤆ nouveau fichier
 │     ├─ framework.min.js   ⤆ nouveau fichier
 │     └─ common.min.js      ⤆ nouveau fichier
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><h4 id="bundles-dans-un-fichier-partag-">Bundles dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c&#39;est le fichier <code>bundles.json</code>.</p><p>Par exemple :</p><p>L&#39;ensemble de fichier suivant</p><pre><code>├─ assets/
@@ -619,7 +624,7 @@ webconfig.prod.json
 │     ├─ components/
 │     │  └─ extended-format-date.js
 │     └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -653,7 +658,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -689,7 +694,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -710,7 +715,7 @@ webconfig.prod.json
 │     ├─ components/
 │     │  └─ extended-format-date.js
 │     └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ bundles.json              ⤆ nouveau fichier
 ├─ webconfig.json
@@ -720,7 +725,7 @@ webconfig.prod.json
     &quot;bundles&quot;: &quot;bundles.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -731,7 +736,7 @@ webconfig.prod.json
     &quot;bundles&quot;: &quot;bundles.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -792,7 +797,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -827,14 +832,14 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
 </code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h3 id="générer-les-css-avec-less">Générer les CSS avec Less</h3><p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu&#39;une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l&#39;opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
 │  └─ stylesheets
 │     └─ common.less
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-js">{
@@ -843,7 +848,7 @@ webconfig.prod.json
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p>et le contenu suivant dans :</p><p><em>templates/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -910,7 +915,7 @@ webconfig.prod.json
 </code></pre><h3 id="générer-les-css-avec-stylus">Générer les CSS avec Stylus</h3><p>Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu&#39;une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère le CSS. Une fois l&#39;opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
 │  └─ stylesheets
 │     └─ common.styl
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-js">{
@@ -919,7 +924,7 @@ webconfig.prod.json
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p>et le contenu suivant dans :</p><p><em>templates/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -993,7 +998,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1004,7 +1009,7 @@ webconfig.prod.json
 │        ├─ example.jpg
 │        ├─ example.gif
 │        └─ example.svg
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>vous obtiendrez les nouveaux fichiers suivant :</p><pre><code>├─ assets/
@@ -1019,7 +1024,7 @@ webconfig.prod.json
 │           ├─ example.jpg   ⤆ nouveau fichier
 │           ├─ example.gif   ⤆ nouveau fichier
 │           └─ example.svg   ⤆ nouveau fichier
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><h4 id="cr-er-des-optimizations-par-groupes-de-fichier">Créer des Optimizations par groupes de fichier</h4><p>Vous pouvez par exemple, plutôt que d&#39;indiquer les fichiers un par un, les indiquer en groupe :</p><pre><code class="lang-js">{
@@ -1030,7 +1035,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1046,7 +1051,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1062,7 +1067,7 @@ webconfig.prod.json
 │        ├─ example.jpg
 │        ├─ example.gif
 │        └─ example.svg
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -1078,7 +1083,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1096,7 +1101,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1107,7 +1112,7 @@ webconfig.prod.json
 │        ├─ example.jpg
 │        ├─ example.gif
 │        └─ example.svg
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ bundles.json
 ├─ webconfig.json
@@ -1117,7 +1122,7 @@ webconfig.prod.json
     &quot;optimizations&quot;: &quot;optimizations.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1128,7 +1133,7 @@ webconfig.prod.json
     &quot;optimizations&quot;: &quot;optimizations.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1152,7 +1157,7 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1168,30 +1173,30 @@ webconfig.prod.json
     },
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
 </code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h3 id="injecter-du-css-inline-pour-maintenir-des-assets-email">Injecter du CSS inline pour maintenir des assets Email</h3><p>Quand on créer des templates pour envoyer des Newsletters par email, ou même de simple message, on ne peut pas attacher de feuille de style. Le seul moyen à notre disposition est d&#39;écrire les instructions CSS dans le template à l&#39;intérieur de l&#39;attribut <code>style</code> brisant ainsi la séparation du font et de la forme.</p><h4 id="injection-sp-cifique">Injection spécifique</h4><p>Avec <code>injectCss</code>, il vous suffit d&#39;habiller votre template comme à votre habitude via une feuille de style et NodeAtlas injectera à chaque rendu les styles dans l&#39;attribut <code>style</code>. Il ne vous restera plus qu&#39;à générer vos templates.</p><p>Avec par exemple la configuration suivante :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;email.htm&quot;,
+            &quot;view&quot;: &quot;email.htm&quot;,
             &quot;generate&quot;: &quot;bienvenue.html&quot;,
             &quot;injectCss&quot;: &quot;stylesheets/email.css&quot;
         }
     }
 }
-</code></pre><p>et l&#39;ensemble de fichiers suivant :</p><pre><code>├─ generates/
+</code></pre><p>et l&#39;ensemble de fichiers suivant :</p><pre><code>├─ serverless/
 ├─ assets/
 │  └─ stylesheets/
 │     └─ email.css
-├─ templates/
+├─ views/
 │  └─ email.htm
 └─ webconfig.json
 </code></pre><p>dont les contenus sont :</p><p><strong>stylesheets/common.css</strong></p><pre><code class="lang-css">body {
     color: #f00;
 }
-</code></pre><p><strong>templates/email.htm*</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><strong>views/email.htm*</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -1201,15 +1206,15 @@ webconfig.prod.json
         &lt;p&gt;This is a template email.&lt;/p&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>vous obtiendrez en sortie avec la commande <code>node &lt;/path/to/&gt;node-atlas/ --generate</code> l&#39;ensemble de fichier suivant :</p><pre><code>├─ generates/
+</code></pre><p>vous obtiendrez en sortie avec la commande <code>node &lt;/path/to/&gt;node-atlas/ --generate</code> l&#39;ensemble de fichier suivant :</p><pre><code>├─ serverless/
 │  └─ bienvenue.html    &lt;= template email prêt à l&#39;envoi !
 ├─ assets/
 │  └─ stylesheets/
 │     └─ email.css
-├─ templates/
+├─ views/
 │  └─ email.htm
 └─ webconfig.json
-</code></pre><p>avec comme contenu pour <code>generates/bienvenue.html</code></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>avec comme contenu pour <code>serverless/bienvenue.html</code></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -1220,16 +1225,16 @@ webconfig.prod.json
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>Ce mécanisme marche également si vous n&#39;avez pas l&#39;intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.</p><blockquote>
-<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node &quot;../../../&quot; --generate</code>. Le résultat est dans <code>generates</code>.</p>
+<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node &quot;../../../&quot; --generate</code>. Le résultat est dans <code>serverless</code>.</p>
 </blockquote><h4 id="injection-globale">Injection globale</h4><p>Il existe également la même propriété globale impactant toutes les pages.</p><pre><code class="lang-json">{
     &quot;injectCss&quot;: &quot;stylesheets/email.css&quot;,
     &quot;routes&quot;: {
         &quot;/bienvenue/&quot;: {
-            &quot;template&quot;: &quot;email-a.htm&quot;,
+            &quot;view&quot;: &quot;email-a.htm&quot;,
             &quot;generate&quot;: &quot;bienvenue.html&quot;
         },
         &quot;/au-revoir/&quot;: {
-            &quot;template&quot;: &quot;email-b.htm&quot;,
+            &quot;view&quot;: &quot;email-b.htm&quot;,
             &quot;generate&quot;: &quot;au-revoir.html&quot;
         }
     }
@@ -1241,34 +1246,34 @@ webconfig.prod.json
     &quot;injectCss&quot;: [&quot;stylesheets/reset.css&quot;, &quot;stylesheets/email.css&quot;],
     &quot;routes&quot;: {
         &quot;/bienvenue/&quot;: {
-            &quot;template&quot;: &quot;email-a.htm&quot;,
+            &quot;view&quot;: &quot;email-a.htm&quot;,
             &quot;generate&quot;: &quot;bienvenue.html&quot;,
             &quot;injectCss&quot;: &quot;/stylesheets/welcome.css&quot;
         },
         &quot;/au-revoir/&quot;: {
-            &quot;template&quot;: &quot;email-b.htm&quot;,
+            &quot;view&quot;: &quot;email-b.htm&quot;,
             &quot;generate&quot;: &quot;au-revoir.html&quot;,
             &quot;injectCss&quot;: [&quot;stylesheets/good-bye.css&quot;, &quot;/stylesheets/others.css&quot;]
         }
     }
 }
 </code></pre><blockquote>
-<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node &quot;../../../&quot; --generate --webconfig webconfig.multiple.json</code>. Le résultat est dans <code>generates</code>.</p>
+<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node &quot;../../../&quot; --generate --webconfig webconfig.multiple.json</code>. Le résultat est dans <code>serverless</code>.</p>
 </blockquote><h3 id="autoriser-interdire-les-demandes-get-post">Autoriser / Interdire les demandes GET / POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l&#39;accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p><pre><code class="lang-js">{
     &quot;getSupport&quot;: true,
     &quot;postSupport&quot;: false,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         },
         &quot;/liste-des-membres/&quot;: {
-            &quot;template&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/rediger-commentaire/&quot;: {
-            &quot;template&quot;: &quot;write-com.htm&quot;
+            &quot;view&quot;: &quot;write-com.htm&quot;
         },
         &quot;/commentaire-sauvegarde/&quot;: {
-            &quot;template&quot;: &quot;save-com.htm&quot;,
+            &quot;view&quot;: &quot;save-com.htm&quot;,
             &quot;getSupport&quot;: false,
             &quot;postSupport&quot;: true
         }
@@ -1280,29 +1285,29 @@ webconfig.prod.json
     &quot;putSupport&quot;: true,
     &quot;routes&quot;: {
         &quot;/read-all-entry/&quot;: {
-            &quot;template&quot;: &quot;display-json.htm&quot;,
+            &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;all-entry.json&quot;,
             &quot;getSupport&quot;: true,
             &quot;putSupport&quot;: false
         },
         &quot;/read-entry/:id/&quot;: {
-            &quot;template&quot;: &quot;display-json.htm&quot;,
+            &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;entry.json&quot;,
             &quot;getSupport&quot;: true,
             &quot;putSupport&quot;: false
         },
         &quot;/create-entry/:id/&quot;: {
-            &quot;template&quot;: &quot;display-json.htm&quot;,
+            &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;entry.json&quot;,
             &quot;postSupport&quot;: true,
             &quot;putSupport&quot;: false
         },
         &quot;/update-entry/:id/&quot;: {
-            &quot;template&quot;: &quot;display-json.htm&quot;,
+            &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;entry.json&quot;
         },
         &quot;/delete-entry/:id/&quot;: {
-            &quot;template&quot;: &quot;display-json.htm&quot;,
+            &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;entry.json&quot;,
             &quot;deleteSupport&quot;: true,
             &quot;putSupport&quot;: false
@@ -1336,7 +1341,7 @@ webconfig.prod.json
 (function (publics) {
     &quot;use strict&quot;;
 
-    publics.loadModules = function () {
+    publics.setModules = function () {
         var NA = this;
 
         NA.modules.RedisStore = require(&#39;connect-redis&#39;);
@@ -1354,14 +1359,14 @@ webconfig.prod.json
 
 }(website));
 
-exports.loadModules = website.loadModules;
+exports.setModules = website.setModules;
 exports.setSessions = website.setSessions;
 </code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a>.</p><h4 id="session-g-r-es-avec-mongodb">Session gérées avec MongoDB</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans la database <code>sessions</code> d&#39;une MongoDB locale.</p><pre><code>var website = {};
 
 (function (publics) {
     &quot;use strict&quot;;
 
-    publics.loadModules = function () {
+    publics.setModules = function () {
         var NA = this;
 
         NA.modules.MongoStore = require(&#39;connect-mongo&#39;);
@@ -1381,47 +1386,47 @@ exports.setSessions = website.setSessions;
 
 }(website));
 
-exports.loadModules = website.loadModules;
+exports.setModules = website.setModules;
 exports.setSessions = website.setSessions;
-</code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p><h3 id="changer-les-chevrons-lt-gt-du-moteur-de-template">Changer les chevrons &lt;% %&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <strong><em>&lt;%- include(&#39;head.htm&#39;) %&gt;</em></strong>. Il serait possible de le faire avec <strong><em>&lt;?- include(&#39;head.htm&#39;) ?&gt;</em></strong> avec la configuration ci-dessous :</p><pre><code class="lang-js">{
-    &quot;templateEngineDelimiter&quot;: &quot;?&quot;,
+</code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p><h3 id="changer-les-chevrons-lt-gt-du-moteur-de-template">Changer les chevrons &lt;? ?&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <strong><em>&lt;?- include(&#39;head.htm&#39;) ?&gt;</em></strong>. Il serait possible de le faire avec <strong><em>&lt;$- include(&#39;head.htm&#39;) $&gt;</em></strong> avec la configuration ci-dessous :</p><pre><code class="lang-js">{
+    &quot;templateEngineDelimiter&quot;: &quot;$&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
-</code></pre><p>Voyez l&#39;exemple dans les fichiers ci-dessous :</p><p><em>components/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>Voyez l&#39;exemple dans les fichiers ci-dessous :</p><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;?- specific.titlePage ?&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;$- specific.titlePage $&gt;&lt;/title&gt;
 
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= common.classCssCommon ?&gt;.css&quot; media=&quot;all&quot; /&gt;
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?&gt;.css&quot; media=&quot;all&quot; /&gt;
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;$= common.classCssCommon $&gt;.css&quot; media=&quot;all&quot; /&gt;
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;$= specific.classPage $&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
-    &lt;body class=&quot;&lt;?= specific.classPage ?&gt;&quot;&gt;
-</code></pre><p><em>components/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
+    &lt;body class=&quot;&lt;$= specific.classPage $&gt;&quot;&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;$= common.classJsCommon $&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>templates/template.htm</em></p><pre><code class="lang-html">    &lt;?- include(&#39;head.htm&#39;) ?&gt;
+</code></pre><p><em>views/template.htm</em></p><pre><code class="lang-html">    &lt;$- include(&#39;head.htm&#39;) $&gt;
 
-    &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;$- common.titleWebsite $&gt;&lt;/div&gt;
 
     &lt;div&gt;
-        &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
-        &lt;?- specific.content ?&gt;
+        &lt;h1&gt;&lt;$- specific.titlePage $&gt;&lt;/h1&gt;
+        &lt;$- specific.content $&gt;
     &lt;/div&gt;
 
-    &lt;?- include(&#39;foot.htm&#39;) ?&gt;
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="https://github.com/mde/ejs">ejs</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>%</em></strong>.</p><h3 id="changer-l-#39-url-final-des-hostname-et-port-d-#39-écoute">Changer l&#39;url final des hostname et port d&#39;écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d&#39;écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p><pre><code class="lang-js">{
+    &lt;$- include(&#39;foot.htm&#39;) $&gt;
+</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>?</em></strong>.</p><h3 id="changer-l-#39-url-final-des-hostname-et-port-d-#39-écoute">Changer l&#39;url final des hostname et port d&#39;écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d&#39;écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p><pre><code class="lang-js">{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;urlPort&quot;: 80,
     &quot;urlHostname&quot;: &quot;localhost&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1433,7 +1438,7 @@ exports.setSessions = website.setSessions;
     &quot;urlHostname&quot;: &quot;localhost&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1442,15 +1447,15 @@ exports.setSessions = website.setSessions;
 &lt;img src=&quot;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>en urls absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&lt;%= urlBasePath %&gt;stylesheets/common.css&quot; /&gt;
+</code></pre><p>en urls absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&lt;?= urlBasePath ?&gt;stylesheets/common.css&quot; /&gt;
 &lt;!-- ... --&gt;
-&lt;img src=&quot;&lt;%= urlBasePath %&gt;media/images/example.jpg&quot; /&gt;
+&lt;img src=&quot;&lt;?= urlBasePath ?&gt;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;%= urlBasePath %&gt;javascript/common.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?= urlBasePath ?&gt;javascript/common.js&quot;&gt;&lt;/script&gt;
 </code></pre><p>À noter que dans le cas de la configuration suivante :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -1459,21 +1464,21 @@ exports.setSessions = website.setSessions;
     &quot;urlRelativeSubPath&quot;: &quot;sub/folder&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
 </code></pre><p><code>urlBasePath</code> retourne <code>http://localhost:7777/sub/folder/</code>.</p><h4 id="les-chemins-des-templates">Les chemins des templates</h4><p>En utilisant le webconfig suivant :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/index.html&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         },
         &quot;/contact.html&quot;: {
-            &quot;template&quot;: &quot;contact.htm&quot;
+            &quot;view&quot;: &quot;contact.htm&quot;
         }
     }
 }
-</code></pre><p>ainsi que le template <code>index.htm</code> correspondant</p><pre><code class="lang-html">&lt;!-- ... --&gt;
+</code></pre><p>ainsi que la view <code>index.htm</code> correspondante</p><pre><code class="lang-html">&lt;!-- ... --&gt;
 &lt;a href=&quot;http://localhost/index.html&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
 &lt;a href=&quot;http://localhost/contact.html&quot;&gt;Lien pour nous contacter&lt;/a&gt;
 &lt;!-- ... --&gt;
@@ -1481,10 +1486,10 @@ exports.setSessions = website.setSessions;
     &quot;httpPort&quot;: 7777,
     &quot;routes&quot;: {
         &quot;/home.html&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         },
         &quot;/contact-us.html&quot;: {
-            &quot;template&quot;: &quot;contact.htm&quot;
+            &quot;view&quot;: &quot;contact.htm&quot;
         }
     }
 }
@@ -1496,35 +1501,35 @@ exports.setSessions = website.setSessions;
     &quot;routes&quot;: {
         &quot;index&quot;: {
             &quot;url&quot;: &quot;/index.html&quot;,
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         },
         &quot;contact&quot;: {
             &quot;url&quot;: &quot;/contact.html&quot;,
-            &quot;template&quot;: &quot;contact.htm&quot;
+            &quot;view&quot;: &quot;contact.htm&quot;
         }
     }
 }
 </code></pre><p>je peux à présent écrire le lien dans le template de manière dynamique :</p><ol>
 <li><p>comme suit</p>
 <pre><code class="lang-html">&lt;!-- ... --&gt;
-&lt;a href=&quot;&lt;%= urlBasePath %&gt;&lt;%= webconfig.routes.home.url.slice(1) %&gt;&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
-&lt;a href=&quot;&lt;%= urlBasePath %&gt;&lt;%= webconfig.routes.contact.url.slice(1) %&gt;&quot;&gt;Lien pour nous contacter&lt;/a&gt;
+&lt;a href=&quot;&lt;?= urlBasePath ?&gt;&lt;?= webconfig.routes.home.url.slice(1) ?&gt;&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
+&lt;a href=&quot;&lt;?= urlBasePath ?&gt;&lt;?= webconfig.routes.contact.url.slice(1) ?&gt;&quot;&gt;Lien pour nous contacter&lt;/a&gt;
 &lt;!-- ... --&gt;
 </code></pre>
 <p><em>Note : <code>.slice(1)</code> permet de supprimer facilement le double <code>/</code> pour une url fonctionnelle.</em></p>
 </li>
 <li><p>ou comme suit</p>
 <pre><code class="lang-html">&lt;!-- ... --&gt;
-&lt;a href=&quot;&lt;%= urlBasePath %&gt;.&lt;%= webconfig.routes.home.url %&gt;&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
-&lt;a href=&quot;&lt;%= urlBasePath %&gt;.&lt;%= webconfig.routes.contact.url %&gt;&quot;&gt;Lien pour nous contacter&lt;/a&gt;
+&lt;a href=&quot;&lt;?= urlBasePath ?&gt;.&lt;?= webconfig.routes.home.url ?&gt;&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
+&lt;a href=&quot;&lt;?= urlBasePath ?&gt;.&lt;?= webconfig.routes.contact.url ?&gt;&quot;&gt;Lien pour nous contacter&lt;/a&gt;
 &lt;!-- ... --&gt;
 </code></pre>
 <p><em>Note : Cela donnerait par exemple <code>http://localhost/./home.html</code>, ce qui est une url fonctionnelle.</em></p>
 </li>
 <li><p>ou comme suit</p>
 <pre><code class="lang-html">&lt;!-- ... --&gt;
-&lt;a href=&quot;&lt;%= urlBasePathSlice + webconfig.routes.home.url %&gt;&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
-&lt;a href=&quot;&lt;%= urlBasePathSlice + webconfig.routes.contact.url %&gt;&quot;&gt;Lien pour nous contacter&lt;/a&gt;
+&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes.home.url ?&gt;&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
+&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes.contact.url ?&gt;&quot;&gt;Lien pour nous contacter&lt;/a&gt;
 &lt;!-- ... --&gt;
 </code></pre>
 <p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
@@ -1534,20 +1539,20 @@ exports.setSessions = website.setSessions;
     &quot;routes&quot;: {
         &quot;index_fr-fr&quot;: {
             &quot;url&quot;: &quot;/&quot;,
-            &quot;template&quot;: &quot;/index.htm&quot;
+            &quot;view&quot;: &quot;/index.htm&quot;
         },
         &quot;index_en-us&quot;: {
             &quot;url&quot;: &quot;/english/&quot;,
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;languageCode&quot;: &quot;en-us&quot;
         },
         &quot;cv_fr-fr&quot;: {
             &quot;url&quot;: &quot;/cv/&quot;,
-            &quot;template&quot;: &quot;cv.htm&quot;
+            &quot;view&quot;: &quot;cv.htm&quot;
         },
         &quot;cv_en-us&quot;: {
             &quot;url&quot;: &quot;/english/resume/&quot;,
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;languageCode&quot;: &quot;en-us&quot;
         }
     }
@@ -1571,9 +1576,9 @@ exports.setSessions = website.setSessions;
     }]
 }
 </code></pre><p>on peut alors créer un lien entre chaque page multilingue comme ceci :</p><pre><code class="lang-html">&lt;ul&gt;
-    &lt;% for (var i = 0; i &lt; common.language.length; i++) { %&gt;
-    &lt;li&gt;&lt;a href=&quot;&lt;%= urlBasePathSlice + webconfig.routes[currentRouteName.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url %&gt;&quot;&gt;&lt;%- common.language[i].name %&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;% } %&gt;
+    &lt;? for (var i = 0; i &lt; common.language.length; i++) { ?&gt;
+    &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes[currentRouteName.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;? } ?&gt;
 &lt;/ul&gt;
 </code></pre>
 				</div>

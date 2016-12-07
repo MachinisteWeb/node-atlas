@@ -91,7 +91,7 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>&gt; nodeatlas --init</pre>
+									<pre>&gt; nodeatlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
@@ -110,13 +110,13 @@
 									<h3>Créer un script</h3>
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
-website.config({
-    "init": true
+website.init({
+    "create": true
 }).created(function () {
     website.run({
         "browse": true
     });
-}).init();</pre>
+}).start();</pre>
 								</div>
 								<div class="download--api--step3">
 									<h3>Lancer le site</h3>
@@ -173,7 +173,7 @@ website.config({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
+						<a href="/english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -261,16 +261,16 @@ website.config({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module npm</h2><p>Vous pouvez lancez NodeAtlas via du code JavaScript.</p><h3 id="lt-node-atlas-instance-gt-.init">&lt;node-atlas-instance&gt;.init()</h3><p>Exécuté un simple lancement de NodeAtlas avec <code>init()</code>. Par défaut il cherchera le <code>webconfig.json</code> dans le dossier où le script est exécuté. Si aucun <code>webconfig.json</code> n&#39;est trouvé, un Simple Serveur Web sera lancé.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().init();
+					<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module npm</h2><p>Vous pouvez lancez NodeAtlas via du code JavaScript.</p><h3 id="lt-node-atlas-instance-gt-.start">&lt;node-atlas-instance&gt;.start()</h3><p>Exécuté un simple lancement de NodeAtlas avec <code>start()</code>. Par défaut il cherchera le <code>webconfig.json</code> dans le dossier où le script est exécuté. Si aucun <code>webconfig.json</code> n&#39;est trouvé, un Simple Serveur Web sera lancé.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
 </code></pre><pre><code>\&gt; node server.js
-</code></pre><h3 id="lt-node-atlas-instance-gt-.config-object">&lt;node-atlas-instance&gt;.config(Object)</h3><p>Vous pouvez également configurer le lancement avec <code>config(Object)</code> :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().config({
+</code></pre><h3 id="lt-node-atlas-instance-gt-.init-object">&lt;node-atlas-instance&gt;.init(Object)</h3><p>Vous pouvez également configurer le lancement avec <code>init(Object)</code> :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().init({
     directory: &quot;/path/to/your/website/directory/&quot;,
     webconfig: &quot;webconfig.alternatif.json&quot;,
     browse: true,
     httpHostname: &quot;192.168.1.1&quot;,
     httpPort: 7778,
     generate: true
-}).init();
+}).start();
 </code></pre><pre><code>\&gt; node server.js
 </code></pre><h3 id="lt-node-atlas-instance-gt-.run-object">&lt;node-atlas-instance&gt;.run(Object)</h3><p>Avec <code>run(Object)</code> vous pouvez configurer et lancer NodeAtlas en une commande.</p><p>Vous pouvez par exemple lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
     websiteEn = new nodeAtlas(),
@@ -301,13 +301,13 @@ websiteFr.run({
 </code></pre><h3 id="lt-node-atlas-instance-gt-.created-function">&lt;node-atlas-instance&gt;.created(Function)</h3><p>Avec <code>created(Function)</code>, vous pouvez aussi exécuter d&#39;autres tâches après avoir initialisé le répertoire courant avec un site template :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
     website = nodeAtlas();
 
-website.config({
+website.init({
     &quot;init&quot;: true
 }).created(function() {
     website.run({
         &quot;browse&quot;: true
     });
-}).init();
+}).start();
 </code></pre>
 				</div>
 			</div>

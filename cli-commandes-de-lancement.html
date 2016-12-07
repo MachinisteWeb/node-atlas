@@ -91,7 +91,7 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>&gt; nodeatlas --init</pre>
+									<pre>&gt; nodeatlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
@@ -110,13 +110,13 @@
 									<h3>Créer un script</h3>
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
-website.config({
-    "init": true
+website.init({
+    "create": true
 }).created(function () {
     website.run({
         "browse": true
     });
-}).init();</pre>
+}).start();</pre>
 								</div>
 								<div class="download--api--step3">
 									<h3>Lancer le site</h3>
@@ -173,7 +173,7 @@ website.config({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
+						<a href="/english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -268,9 +268,9 @@ website.config({
 </code></pre><p>Vous pouvez également cibler une page précise en ajoutant la fin de l&#39;url.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --browse index.html
 </code></pre><h3 id="httphostname-lt-httphostname-gt">--httpHostname &lt;httpHostname&gt;</h3><p>Il est parfois utile de demander son adresse IP via un <code>ipconfig</code> pour le paramettrer dans l&#39;url afin de rendre son site entièrement disponible sur un périphérique du réseau local (smartphone par exemple). Vous pourrez le faire avec cette commande.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --httpHostname 192.168.1.1
 </code></pre><h3 id="httpport-lt-httpport-gt">--httpPort &lt;httpPort&gt;</h3><p>Vous n&#39;allez peut être pas vous ennuyer à changer votre port d&#39;écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n&#39;aurez pas besoin de couper vos sites alternativement pour libérer le port d&#39;écoute, il suffira d&#39;en choisir un au lancement.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --httpPort 7778
-</code></pre><h3 id="generate">--generate</h3><p>Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de template appelé sur plusieurs pages, vous n&#39;allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d&#39;utiliser <code>--generate</code>. Cette commande copiera l&#39;intégralité du contenu du dossier <code>assetsRelativePath</code> dans <code>generatesRelativePath</code> si leur chemin est différent.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --generate
+</code></pre><h3 id="generate">--generate</h3><p>Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de view appelé sur plusieurs pages, vous n&#39;allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d&#39;utiliser <code>--generate</code>. Cette commande copiera l&#39;intégralité du contenu du dossier <code>assetsRelativePath</code> dans <code>serverlessRelativePath</code> si leur chemin est différent.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --generate
 </code></pre><h3 id="lang-lt-culture-country-gt">--lang &lt;culture-country&gt;</h3><p>En utilisant <code>--lang</code> vous changerez la langue de utilisée par NodeAtlas. En réalité cette commande remplace le contenu du fichier <code>languages/default.json</code> par celui de <code>languages/fr-fr.json</code> si le paramètre passé est « fr-fr » comme dans l&#39;exemple ci-dessous. Lancer NodeAtlas ultérieurement conservera la dernière langue utilisée.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --lang fr-fr
-</code></pre><h3 id="init-path">--init [path]</h3><p>NodeAtlas contient un dossier <code>templates</code> qui contient des exemples de site prèt à l&#39;usage. Pour les installer dans le répertoire dans lequel vous allez exécuter NodeAtlas il faut vous servir de <code>--init</code> suivi du dossier contenu dans <code>templates</code> que vous souhaitez utiliser. Par défaut, c&#39;est la valeur <code>hello-world</code> qui est utilisée. <em>Valeurs possible : <code>hello-world</code>.</em></p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --init hello-world
+</code></pre><h3 id="create-path">--create [path]</h3><p>NodeAtlas contient un dossier <code>templates</code> qui contient des exemples de site prèt à l&#39;usage. Pour les installer dans le répertoire dans lequel vous allez exécuter NodeAtlas il faut vous servir de <code>--create</code> suivi du dossier contenu dans <code>templates</code> que vous souhaitez utiliser. Par défaut, c&#39;est la valeur <code>hello-world</code> qui est utilisée. <em>Valeurs possible : <code>hello-world</code>.</em></p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --create hello-world
 </code></pre><h3 id="httpsecure-pathname">--httpSecure [pathName]</h3><p>Si vous utilisez l&#39;option <code>--httpSecure</code>, tous les chemins seront accédez en HTTPs. Vous devez définir les fichiers <code>.crt</code> and <code>.key</code> avec <code>pathName</code> si vous souhaitez que le serveur lui-même se lance en HTTPs. Par exemple, si vous avez les fichiers <code>security/server.crt</code> et <code>security/server.key</code> depuis la racine du site NodeAtlas, vous devez utiliser la commande suivante :</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --httpSecure security/server
 </code></pre>
 				</div>

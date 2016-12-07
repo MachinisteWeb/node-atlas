@@ -10,7 +10,7 @@
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;,
             &quot;controller&quot;: &quot;index.json&quot;
         }
@@ -19,7 +19,7 @@
 </code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks :</p><p><strong>Start NodeAtlas</strong> </p><blockquote>
 <p>Init of Modules</p>
 <ul>
-<li><em>loadModules</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
+<li><em>setModules</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
 <p>Init of Sessions</p>
 <ul>
@@ -42,7 +42,7 @@
 <li><p><em>changeVariation</em> --&gt; into <code>routes[&lt;route&gt;].controller</code> file (<code>index.js</code> for example).</p>
 </li>
 </ul>
-<p>Templates and Variations Compilation =&gt; Complete DOM.</p>
+<p>Views and Variations Compilation =&gt; Complete DOM.</p>
 <ul>
 <li><p><em>changeDom</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</p>
 </li>
@@ -51,45 +51,46 @@
 </ul>
 <p>Sending of Response to Client</p>
 </blockquote><h4 id="changevariation">changeVariation</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-js">{
+    &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;,
             &quot;controller&quot;: &quot;index.js&quot;
         }
     }
 }
-</code></pre><p>with this files :</p><pre><code>├─ components/
-│  ├─ head.htm
-│  └─ foot.htm
-├─ variations/
+</code></pre><p>with this files :</p><pre><code>├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-js">{
+</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-js">{
     &quot;titleWebsite&quot;: &quot;Site Title&quot;
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-js">{
     &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;This is the Home Page.&lt;/p&gt;&quot;
 }
-</code></pre><p><em>templates/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include(&#39;head.htm&#39;) ?&gt;
 
-    &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
+    &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
     &lt;div&gt;
-        &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
-        &lt;%- specific.content %&gt;
+        &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+        &lt;?- specific.content ?&gt;
     &lt;/div&gt;
 
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
+    &lt;?- include(&#39;foot.htm&#39;) ?&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
 exports.changeVariation = function (params, next) {
@@ -102,6 +103,13 @@ exports.changeVariation = function (params, next) {
     console.log(variation.common.titleWebsite); // &quot;Site Title&quot;
     console.log(variation.specific.titlePage); // &quot;Welcome&quot;
     console.log(variation.specific.content); // &quot;This is the Home Page.&quot;
+
+    console.log(&quot;urlRootPath&quot;, variation.urlRootPath); // &quot;http://localhost&quot;
+    console.log(&quot;urlSubPath&quot;, variation.urlSubPath); // &quot;/example&quot;
+    console.log(&quot;urlBasePath&quot;, variation.urlBasePath); // &quot;http://localhost/example&quot;
+    console.log(&quot;urlFilePath&quot;, variation.urlFilePath); // &quot;/&quot;
+    console.log(&quot;urlQueryPath&quot;, variation.urlQueryPath); // &quot;?title=Haeresis&quot;
+    console.log(&quot;urlPath&quot;, variation.urlPath); // &quot;http://localhost/example/?title=Haeresis&quot;
 
     if (request.query[&quot;title&quot;]) {
         variation.specific.titlePage = variation.specific.titlePage + &quot; &quot; + request.query.title;
@@ -159,7 +167,7 @@ exports.changeVariation = function (params, next) {
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;
         }
     }
@@ -183,7 +191,7 @@ exports.changeVariation = function (params, next) {
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;,
             &quot;controller&quot;: &quot;index.js&quot;
         }
@@ -194,7 +202,7 @@ exports.changeVariation = function (params, next) {
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-js">{
@@ -204,17 +212,17 @@ exports.changeVariation = function (params, next) {
     &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;This is Home Page.&lt;/p&gt;&quot;
 }
-</code></pre><p><em>templates/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;%- common.titleWebsite %&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
+        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
-            &lt;%- specific.content %&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
@@ -280,11 +288,11 @@ exports.changeDom = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="loadmodules">loadModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-js">{
+</code></pre><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-js">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;controller&quot;: &quot;index.js&quot;
         }
     }
@@ -292,10 +300,10 @@ exports.changeDom = function (params, next) {
 </code></pre><p>with this set of files:</p><pre><code>├─ controllers/
 │  ├─ common.js
 │  └─ index.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>templates/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -305,13 +313,13 @@ exports.changeDom = function (params, next) {
         &lt;div class=&quot;title&quot;&gt;Test Module&lt;/div&gt;
         &lt;div&gt;
             &lt;h1&gt;Test Module&lt;/h1&gt;
-            &lt;%- example %&gt;
+            &lt;?- example ?&gt;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
-exports.loadModules = function () {
+exports.setModules = function () {
     // Use the « NodeAtlas » instance from engine.
     var NA = this;
 
@@ -349,17 +357,17 @@ exports.changeVariation = function (params, next) {
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;controller&quot;: &quot;index.js&quot;
         }
     }
 }
 </code></pre><p>with this set of files:</p><pre><code>├─ controllers/
 │  └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>templates/index.htm</em></p><pre><code class="lang-html">&lt;%- content %&gt;
+</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;?- content ?&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
 // This code will be executed when NodeAtlas starting.
 exports.setConfigurations = function (next) {
@@ -402,7 +410,7 @@ exports.changeVariation = function (params, next) {
 }
 </code></pre><h4 id="setsessions">setSessions</h4><p>To configure client-server Sessions of NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers, this is an example with <a href="http://redis.io/">Redis</a> sessions.</p><p>This is all files for example:</p><pre><code>├─ controllers/
 │  └─ common.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ variations/
 │  ├─ common.json
@@ -413,14 +421,14 @@ exports.changeVariation = function (params, next) {
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;
         }
     }
 }
 </code></pre><p>And &quot;common.js&quot; file containing e.g.:</p><pre><code class="lang-js">// This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
-exports.loadModules = function () {
+exports.setModules = function () {
     // Find instance of « NodeAtlas » engine.
     var NA = this;
 
@@ -443,7 +451,7 @@ exports.setSessions = function (next) {
 };
 </code></pre><h4 id="setroutes">setRoutes</h4><p>To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is all files for example:</p><pre><code>├─ controllers/
 │  └─ common.js
-├─ templates/
+├─ views/
 │  ├─ content.htm
 │  └─ index.htm
 ├─ variations/
@@ -454,7 +462,7 @@ exports.setSessions = function (next) {
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/index.html&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -470,7 +478,7 @@ exports.setConfigurations = function (next) {
 
     // ...to add &quot;/content.html&quot; route amongs others routes.
     route[&quot;/content.html&quot;] = {
-        &quot;template&quot;: &quot;content.htm&quot;
+        &quot;view&quot;: &quot;content.htm&quot;
     };
 
     // We update modification here.
@@ -480,17 +488,17 @@ exports.setConfigurations = function (next) {
 │  └─ javascript/
 │     ├─ common.js
 │     └─ index.js
-├─ components/
-│  ├─ foot.htm
-│  ├─ head.htm
-│  └─ index.htm
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
-├─ templates/
+├─ views/
+│  ├─ partials/
+│  │  ├─ foot.htm
+│  │  ├─ head.htm
+│  │  └─ index.htm
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>With this <code>webconfig.json</code>:</p><pre><code class="lang-json">{
@@ -498,36 +506,36 @@ exports.setConfigurations = function (next) {
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;,
             &quot;controller&quot;: &quot;index.js&quot;
         }
     }
 }
-</code></pre><p>and with this templates files:</p><p><strong>components/head.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;&lt;%= languageCode %&gt;&quot;&gt;
+</code></pre><p>and with this views files:</p><p><strong>views/partials/head.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;&lt;?= languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;%- common.titleWebsite %&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
     &lt;/head&gt;
-    &lt;body data-hostname=&quot;&lt;%= webconfig.urlWithoutFileName %&gt;&quot; data-subpath=&quot;&lt;%= webconfig.urlRelativeSubPath.slice(1) %&gt;&quot; data-variation=&quot;&lt;%= currentRouteParameters.variation.replace(/\.json/,&#39;&#39;) %&gt;&quot;&gt;
-</code></pre><p><em>Note : <code>data-hostname</code> and <code>data-subpath</code> will help us to set Socket.IO front configuration.</em></p><p><strong>components/foot.htm</strong></p><pre><code class="lang-html">        &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdn.socket.io/socket.io-1.2.0.js&quot;&gt;&lt;/script&gt;
+    &lt;body data-hostname=&quot;&lt;?= webconfig.urlWithoutFileName ?&gt;&quot; data-subpath=&quot;&lt;?= webconfig.urlRelativeSubPath.slice(1) ?&gt;&quot; data-variation=&quot;&lt;?= currentRouteParameters.variation.replace(/\.json/,&#39;&#39;) ?&gt;&quot;&gt;
+</code></pre><p><em>Note : <code>data-hostname</code> and <code>data-subpath</code> will help us to set Socket.IO front configuration.</em></p><p><strong>views/partials/foot.htm</strong></p><pre><code class="lang-html">        &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdn.socket.io/socket.io-1.2.0.js&quot;&gt;&lt;/script&gt;
         &lt;script src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : The Front file of Socket.IO is calling here.</em></p><p><strong>components/index.htm</strong></p><pre><code class="lang-html">        &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
+</code></pre><p><em>Note : The Front file of Socket.IO is calling here.</em></p><p><strong>views/partials/index.htm</strong></p><pre><code class="lang-html">        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
-            &lt;%- specific.content %&gt;
-            &lt;div&gt;&lt;%- new Date() %&gt;&lt;/div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
+            &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;button&gt;Update&lt;/button&gt;
-</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>components/index.htm</code>.</em></p><p><strong>templates/index.htm</strong></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">    &lt;?- include(&#39;head.htm&#39;) ?&gt;
     &lt;div class=&quot;layout&quot;&gt;
-    &lt;%- include(&#39;index.htm&#39;) %&gt;
+    &lt;?- include(&#39;index.htm&#39;) ?&gt;
     &lt;/div&gt;
     &lt;script src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
+    &lt;?- include(&#39;foot.htm&#39;) ?&gt;
 </code></pre><p><em>Note : We parse here the home page <code>/</code>.</em></p><p>and the following variations files :</p><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Socket.IO Example&quot;
 }
@@ -538,7 +546,7 @@ exports.setConfigurations = function (next) {
 </code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side. </p><p>On server, we will use the following files:</p><p><strong>controllers/common.js</strong></p><pre><code class="lang-js">var privates = {};
 
 // Load modules for this site in the NodeAtlas object.
-exports.loadModules = function () {
+exports.setModules = function () {
     // Find instance of « NodeAtlas » engine.
     var NA = this;
 
@@ -633,8 +641,8 @@ exports.asynchrone = function (params) {
             // Common variations in the good language.
             variation = NA.addCommonVariation(data.lang, variation);
 
-            // HTML part from `componentsRelativePath` directory and render with variations.
-            result = NA.newRender(&quot;index.htm&quot;, variation);
+            // HTML part from `viewsRelativePath` directory and render with variations.
+            result = NA.newRender(&quot;partials/index.htm&quot;, variation);
 
             // And responds to all customers with a set of data in data.
             io.sockets.emit(&#39;create-article-button&#39;, data);
@@ -656,7 +664,7 @@ exports.asynchrone = function (params) {
 }(website));
 
 // We execute specific JavaScript, here it&#39;s [&quot;index&quot;].
-website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;data-variation&quot;)].init();
+website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;data-variation&quot;)].start();
 </code></pre><p><em>Note : This is the global Socket.IO configuration client-side with <code>data-subpath</code> and <code>data-hostname</code>.</em></p><p><strong>assets/javascript/index.js</strong></p><pre><code class="lang-js">window.website = window.website || {};
 
 (function (publics) {
@@ -694,7 +702,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
         });
     };
 }(website.index = {}));
-</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it&#39;s possible to generate a new template and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>currentVariation</code> is type of <code>undefined</code> an empty object will be created.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code>CREATE DATABASE demo;
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>currentVariation</code> is type of <code>undefined</code> an empty object will be created.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code>CREATE DATABASE demo;
 </code></pre><p>and select it:</p><pre><code>USE demo
 </code></pre><p>and create a <code>user</code> table:</p><pre><code>CREATE TABLE user
 (
@@ -739,7 +747,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
 │  └─ index.js
 ├─ models/
 │  └─ user.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ variations/
 │  ├─ common.json
@@ -750,7 +758,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;,
             &quot;controller&quot;: &quot;index.js&quot;
         }
@@ -762,28 +770,28 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
         &quot;database&quot;: &quot;demo&quot;
     }
 }
-</code></pre><p>With following files to display page:</p><p><strong>templates/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;&lt;%- languageCode %&gt;&quot;&gt;
+</code></pre><p>With following files to display page:</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;&lt;?- languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;%- common.titleWebsite %&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
+        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
-            &lt;%- specific.content %&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
             &lt;ul&gt;
-                &lt;li&gt;Id: &lt;strong&gt;&lt;%- id %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Lastname: &lt;strong&gt;&lt;%- lastname %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Firstname: &lt;strong&gt;&lt;%- firstname %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Email: &lt;strong&gt;&lt;%- email %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Birthdate: &lt;strong&gt;&lt;%- birthdate %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Gender: &lt;strong&gt;&lt;%- gender %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Country: &lt;strong&gt;&lt;%- country %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Town: &lt;strong&gt;&lt;%- town %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Zipcode: &lt;strong&gt;&lt;%- zipcode %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Address: &lt;strong&gt;&lt;%- address %&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Id: &lt;strong&gt;&lt;?- id ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- lastname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- firstname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Email: &lt;strong&gt;&lt;?- email ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- birthdate ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Gender: &lt;strong&gt;&lt;?- gender ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Country: &lt;strong&gt;&lt;?- country ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Town: &lt;strong&gt;&lt;?- town ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- zipcode ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Address: &lt;strong&gt;&lt;?- address ?&gt;&lt;/strong&gt;&lt;/li&gt;
             &lt;/ul&gt;
         &lt;/div&gt;
     &lt;/body&gt;
@@ -797,7 +805,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     &quot;titlePage&quot;: &quot;User Table&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;`bruno` entry details.&lt;/p&gt;&quot;
 }
-</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.loadModules = function () {
+</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.setModules = function () {
     var NA = this;
 
     NA.modules.mysql = require(&#39;mysql&#39;);
@@ -813,7 +821,7 @@ exports.setConfigurations = function (next) {
 
     next();
 };
-</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariation = function (params, mainCallback) {
+</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
         User = NA.models.User,
@@ -841,7 +849,7 @@ exports.setConfigurations = function (next) {
             variation.zipcode = bruno.zipcode();
             variation.address = bruno.address();
 
-            mainCallback(variation);
+            next(variation);
         });
     });
 };
@@ -1072,7 +1080,7 @@ module.exports = User;
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
-├─ templates/
+├─ views/
 │  └─ index.htm
 ├─ variations/
 │  ├─ common.json
@@ -1083,7 +1091,7 @@ module.exports = User;
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;template&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.htm&quot;,
             &quot;variation&quot;: &quot;index.json&quot;,
             &quot;controller&quot;: &quot;index.js&quot;
         }
@@ -1094,28 +1102,28 @@ module.exports = User;
         &quot;database&quot;: &quot;demo&quot;
     }
 }
-</code></pre><p>With following files to display page:</p><p><strong>templates/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;&lt;%- languageCode %&gt;&quot;&gt;
+</code></pre><p>With following files to display page:</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;&lt;?- languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;%- common.titleWebsite %&gt;&lt;/title&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
+        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
-            &lt;%- specific.content %&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
             &lt;ul&gt;
-                &lt;li&gt;Id: &lt;strong&gt;&lt;%- id %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Lastname: &lt;strong&gt;&lt;%- lastname %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Firstname: &lt;strong&gt;&lt;%- firstname %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Email: &lt;strong&gt;&lt;%- email %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Birthdate: &lt;strong&gt;&lt;%- birthdate %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Gender: &lt;strong&gt;&lt;%- gender %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Country: &lt;strong&gt;&lt;%- country %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Town: &lt;strong&gt;&lt;%- town %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Zipcode: &lt;strong&gt;&lt;%- zipcode %&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Address: &lt;strong&gt;&lt;%- address %&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Id: &lt;strong&gt;&lt;?- id ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- lastname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- firstname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Email: &lt;strong&gt;&lt;?- email ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- birthdate ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Gender: &lt;strong&gt;&lt;?- gender ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Country: &lt;strong&gt;&lt;?- country ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Town: &lt;strong&gt;&lt;?- town ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- zipcode ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Address: &lt;strong&gt;&lt;?- address ?&gt;&lt;/strong&gt;&lt;/li&gt;
             &lt;/ul&gt;
         &lt;/div&gt;
     &lt;/body&gt;
@@ -1129,7 +1137,7 @@ module.exports = User;
     &quot;titlePage&quot;: &quot;User Collection&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Document `{ \&quot;identity.firstname\&quot;: \&quot;Bruno\&quot; }` details.&lt;/p&gt;&quot;
 }
-</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.loadModules = function () {
+</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.setModules = function () {
     var NA = this,
         path = NA.modules.path;
 
@@ -1149,7 +1157,7 @@ exports.setConfigurations = function (next) {
         next();
     });
 };
-</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariation = function (params, mainCallback) {
+</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
         mongoose = NA.modules.mongoose,
@@ -1170,7 +1178,7 @@ exports.setConfigurations = function (next) {
         variation.zipcode = bruno.location.zipcode;
         variation.address = bruno.location.address;
 
-        mainCallback(variation);
+        next(variation);
     });
 };
 </code></pre><p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p><pre><code class="lang-js">var mongoose;
