@@ -1,5 +1,5 @@
 {
-	"mainTitle": "NodeAtlas —The MVC(2) Server-side JavaScript Framework—",
+	"mainTitle": "NodeAtlas —The Progressive Server-side JavaScript Framework—",
 	"follow": "Follow",
 	"noJs": "No JavaScript enabled.",
 	"titlePre": {
@@ -15,7 +15,7 @@
 		"src": "media/images/min/transparent.png"
 	},
 	"content": "Content for documentation.",
-	"abstract": "The MVC(2) Server-side JavaScript Framework.",
+	"abstract": "The Progressive Server-side JavaScript Framework",
 	"main": {
 		"first": {
 			"title": "<strong>Simple</strong> <span>set-up</span>",

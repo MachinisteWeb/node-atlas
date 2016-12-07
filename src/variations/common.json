@@ -1,5 +1,5 @@
 {
-	"mainTitle": "NodeAtlas —Le Framework JavaScript Serveur MVC(2)—",
+	"mainTitle": "NodeAtlas —Le Framework JavaScript Serveur Évolutif—",
 	"noJs": "Le JavaScript n'est pas activé.",
 	"follow": "Suivre",
 	"titlePre": {
@@ -15,7 +15,7 @@
 		"src": "media/images/min/transparent.png"
 	},
 	"content": "Contenu pour la documentation.",
-	"abstract": "Le Framework JavaScript Serveur MVC(2).",
+	"abstract": "Le Framework JavaScript Serveur Évolutif",
 	"main": {
 		"first": {
 			"title": "<span>Mise en place</span> <strong>Simple</strong>",
