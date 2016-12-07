@@ -5,6 +5,9 @@ Features:
 - `NA#currentVariation.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
 - `NA#currentVariation.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
 - `NA#currentVariation.urlFilePath` is added.
+- `NA#webconfig.mimeType` is added.
+- `NA#webconfig.charset` is added.
+- `NA#webconfig.headers` is added.
 
 Updates:
 
