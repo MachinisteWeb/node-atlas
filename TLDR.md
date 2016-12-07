@@ -295,7 +295,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 ### About NodeAtlas ##
 
-- [Complete and detailed Website](https://haeresis.github.com/NodeAtlas/english/)
+- [Complete and detailed Website](https://node-atlas.js.org/english/)
 - [node-atlas.js documentation for maintainers](https://node-atlas.js.org/doc/index.html)
 
 
