@@ -1,4 +1,4 @@
-exports.loadModules = function () {
+exports.setModules = function () {
 	var NA = this;
 	NA.modules.marked = require("marked");
 };
@@ -30,7 +30,7 @@ exports.setRoutes = function (next) {
 				fs.writeFile("assets/content/" + $title.attr("id") + ".htm", $title + $title.nextUntil("h2"), function () {
 
 					route["/" + $title.attr("id") + ".html"] = {
-						"template": "content.htm"
+						"view": "content.htm"
 					};
 
 					nextRoute();

@@ -1,3 +1,44 @@
+## 2.0.0-beta ##
+
+Features:
+
+- `NA#currentVariation.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
+- `NA#currentVariation.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
+- `NA#currentVariation.urlFilePath` is added.
+- `NA#webconfig.mimeType` is added.
+- `NA#webconfig.charset` is added.
+- `NA#webconfig.headers` is added.
+
+Updates:
+
+- `NA#webconfig.urlWithoutFileName` become `NA#webconfig.urlRoot`.
+- `NA#currentVariation.urlBasePathSlice` removed.
+- `NA#currentVariation.urlBasePath` become `NA#webconfig.urlRoot + NA#webconfig.urlRelativeSubPath` (without ending "/").
+- `NA#afterGenerates` become `NA#afterGeneration`.
+- `NA#webconfig.generatesRelativePath` become `NA#webconfig.serverlessRelativePath`.
+- `NA#webconfig.serverlessRelativePath` default value become `"serverless"`.
+- `NA#currentRouteParameters.generate` become `NA#currentRouteParameters.output`.
+- `NA#init` become `NA#start`.
+- `NA#config` become `NA#init`.
+- `NA#serverPhysicalPath` become `NA#nodeatlasPath`.
+- `NA#websitePhysicalPath` become `NA#serverPath`.
+- `NA#nodeAtlasModulePath` become `NA#nodeatlasModulesRelativePath` and become relatif to `NA#nodeatlasPath`.
+- `NA#websiteModulesPath` become `NA#serverModulesRelativePath` and become relatif to `NA#serverPath`.
+- `--init` command become `--create`.
+- `NA#websiteController[].loadModules` become `NA#websiteController[].setModules`.
+- `templatesPath` var become `viewsPath` var.
+- `templateFile` var become `viewFile` var.
+- `NA#webconfig.templatesRelativePath` become `NA#webconfig.viewsRelativePath`.
+- `NA#webconfig.viewsRelativePath` default value become `"views"`.
+- `NA#currentRouteParameters.template` become `NA#currentRouteParameters.view`.
+- Language `templateNotFound` become `viewNotFound`.
+- Language `templateNotSet` become `viewNotSet`.
+- `NA#webconfig.htmlGeneratesBeforeResponse` become `NA#webconfig.htmlGenerationBeforeResponse`.
+- EJS engine become ATLAS engine and `<% %>` become `<? ?>`.
+- `NA#webconfig.componentsRelativePath` removed.
+- `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
+
+
 ## 1.8.0 ##
 
 Features:

@@ -1,9 +1,0 @@
-{
-    "commonController": "common.js",
-    "routes": {
-        "/": {
-            "template": "index.htm",
-            "controller": "index.js"
-        }
-    }
-}

@@ -2,13 +2,13 @@
     "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
     "routes": {
         "/bienvenue/": {
-            "template": "email-a.htm",
-            "generate": "bienvenue.html",
+            "view": "email-a.htm",
+            "output": "bienvenue.html",
             "injectCss": "/stylesheets/welcome.css"
         },
         "/au-revoir/": {
-            "template": "email-b.htm",
-            "generate": "au-revoir.html",
+            "view": "email-b.htm",
+            "output": "au-revoir.html",
             "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
         }
     }

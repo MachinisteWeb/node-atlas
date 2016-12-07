@@ -1,5 +1,5 @@
 
-exports.loadModules = function () {
+exports.setModules = function () {
     var NA = this;
 
     NA.modules.mysql = require('mysql');

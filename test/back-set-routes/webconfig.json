@@ -5,7 +5,7 @@
 	"commonVariation": "common.json",
 	"routes": {
 		"/index.html": {
-			"template": "index.htm"
+			"view": "index.htm"
 		}
 	}
 }

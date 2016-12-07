@@ -1,5 +1,5 @@
 // Chargement des modules pour ce site dans l'objet NodeAtlas.
-exports.loadModules = function () {
+exports.setModules = function () {
     // Récupérer l'instance « NodeAtlas » du moteur.
     var NA = this;
 

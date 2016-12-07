@@ -6,7 +6,7 @@ Créer facilement des sites JavaScript côté serveur et orienté composant !
 
 **For an international version of this document, [follow this link](https://www.npmjs.com/package/node-atlas).**
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.8](https://img.shields.io/badge/version-1.8-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas) [![Chat pour de l'Aide](https://img.shields.io/badge/gitter-rejoindre%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Aide)
 
 
 
@@ -44,7 +44,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "postSupport": false,                   /* Par défaut, empêcher les requêtes de page en POST. */
     "bundles": "bundles.json",              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
     "optimizations": "optimizations.json",  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
-    "htmlGeneratesBeforeResponse": true,     /* Générer la page couramment affichée dans le dossier "generates". */
+    "htmlGenerationBeforeResponse": true,    /* Générer la page couramment affichée dans le dossier "serverless". */
     "stylesheetsBundlesEnable": true,       /* Minifier les CSS dans des fichiers ".min" avant de renvoyer la page. */
     "javascriptBundlesEnable": true,        /* Offusquer les JS dans des fichiers ".min" avant de renvoyer la page. */
     "enableLess": true,                     /* Utiliser des fichiers Less avec des fichiers ".map" pour la partie développement. */
@@ -60,7 +60,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "urlPort": 80,                          /* Définir le port d'accès pour l'application depuis le net (proxy). */
     "httpSecure": "security/server",        /* Définir le répertoire où trouver les fichiers "server.key" et "server.crt" pour le HTTPs. */
     "urlHostname": "www.my-website.com",    /* Définir le hostname pour l'application sur le net. */
-    "urlRelativeSubPath": "example",       /* Définir un sous dossier d'exécution pour l'url de l'application. Par exemple : "https://www.my-website.com/example/". */
+    "urlRelativeSubPath": "example",        /* Définir un sous dossier d'exécution pour l'url de l'application. Par exemple : "https://www.my-website.com/example/". */
     "languageCode": "en-gb",
     "pageNotFound": "/page-404/",
     "commonVariation": "common.json",
@@ -76,28 +76,28 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
 {
     "home": {                               /* Définir une clé à utiliser comme référence pour manipuler les paramètres définis ou d'url dans le code. */
         "url": "/",                         /* Définir l'url d'accès à la page derrière cette route. */
-        "generate": "home.html",            /* Définir le chemin d'accès pour enregistrer le rendu au format HTML de manière statique. */
-        "template": "home.htm",             /* Assigner une un fichier de vue utilisé pour présenter l'information. */
+        "output": "home.html",              /* Définir le chemin d'accès pour enregistrer le rendu au format HTML de manière statique. */
+        "view": "home.htm",                 /* Assigner une un fichier de vue utilisé pour présenter l'information. */
         "variation": "home.json",           /* Assigner un fichier de variation spécifique utilisé pour localiser la page. */
         "controller": "home.js"             /* Assigner un fichier de contrôle spécifique utilisé pour la page d'accueil (afficher les derniers articles, le nombre d'inscrit, etc.). */
     },
     "presentation": {
         "url": "/presentation/",
-        "generate": "presentation.html",
-        "template": "default.htm",          /* Même template utilisé avec... */
+        "output": "presentation.html",
+        "view": "default.htm",              /* Même view utilisé avec... */
         "variation": "presentation.json"    /* ...une variation différente pour générer du contenu de page différent (voir "error"). */
     },
     "members": {
         "url": "/members/",
-        "generate": "members.html",
-        "template": "members.htm",
+        "output": "members.html",
+        "view": "members.htm",
         "variation": "members.json",
         "controller": "members.js"
     },
     "memberV2": {                           /* Une nouvelle version de rendu pour les pages "member". */
         "url": "/members/:member/",         /* La partie ":member" représente le membre courrament demandé... */
-        "generate": "members/bob.html",     /* ...et un faux utilisateur est utilisé pour un rendu statique dans le dossier des fichier générés. */
-        "template": "member.htm",
+        "output": "members/bob.html",       /* ...et un faux utilisateur est utilisé pour un rendu statique dans le dossier des fichier générés. */
+        "view": "member.htm",
         "variation": "member.json",
         "controller": "member.js"
     },
@@ -108,39 +108,39 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "contact-us": {
         "url": "/contact-us/",
-        "generate": "contact-us.html",
-        "template": "contact-us.htm",
+        "output": "contact-us.html",
+        "view": "contact-us.htm",
         "variation": "contact-us.json",
         "controller": "contact-us.js",
         "postSupport": true                 /* Permettre d'accéder à la page par demande en POST pour envoyer un email avec un formulaire. */
     },
     "home-fr-fr": {
         "url": "/francais/",
-        "generate": "francais/bienvenue.html",
-        "template": "home.htm",
+        "output": "francais/bienvenue.html",
+        "view": "home.htm",
         "variation": "home.json",
         "controller": "home.js",
         "languageCode": "fr-fr"             /* Un code de langue spécifique pour cette page. */
     },
     "presentation-fr-fr": {
         "url": "/francais/presentation/",
-        "generate": "francais/presentation.html",
-        "template": "default.htm",
+        "output": "francais/presentation.html",
+        "view": "default.htm",
         "variation": "presentation.json",
         "languageCode": "fr-fr"
     },
     "members-fr-fr": {
         "url": "/francais/membres/",
-        "generate": "francais/members.html",
-        "template": "members.htm",
+        "output": "francais/members.html",
+        "view": "members.htm",
         "variation": "members.json",
         "controller": "members.js",
         "languageCode": "fr-fr"
     },
     "memberV2-fr-fr": {
         "url": "/francais/membres/:member/",
-        "generate": "francais/members/bob.html",
-        "template": "member.htm",
+        "output": "francais/members/bob.html",
+        "view": "member.htm",
         "variation": "member.json",
         "controller": "member.js",
         "languageCode": "fr-fr"
@@ -152,8 +152,8 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "contact-us-fr-fr": {
         "url": "/francais/contactez-nous/",
-        "generate": "francais/contactez-nous.html",
-        "template": "contact-us.htm",
+        "output": "francais/contactez-nous.html",
+        "view": "contact-us.htm",
         "variation": "contact-us.json",
         "languageCode": "fr-fr",
         "controller": "contact-us.js",
@@ -161,16 +161,16 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "error-fr-fr": {
         "url": "/francais/*",               /* Toutes les pages commençant par "/francais/" pour la page d'erreur française. */
-        "generate": "francais/page-404.html",
-        "template": "default.htm",          /* Template partagé par différentes routes (voir "presentation"). */
+        "output": "francais/page-404.html",
+        "view": "default.htm",              /* View partagé par différentes routes (voir "presentation"). */
         "variation": "page-404.json",
         "languageCode": "fr-fr",
         "statusCode": 404                   /* Un statu 404 approprié pour les pages d'erreur. */
     },
     "error": {
         "url": "/page-404/",                /* Page d'erreur par défaut défini avec "pageNotFound". */
-        "generate": "page-404.html",
-        "template": "default.htm",
+        "output": "page-404.html",
+        "view": "default.htm",
         "variation": "page-404.json",
         "statusCode": 404
     }
@@ -205,7 +205,7 @@ my-website/
 │  │
 │  ┊┉
 │
-├─ templates/                ⤆ La partie Vue avec chaque type de template pour le rendu.
+├─ views/                    ⤆ La partie Vue avec chaque type de view pour le rendu.
 │  ├─ home.htm
 │  ├─ default.htm
 │  ┊┉
@@ -220,13 +220,13 @@ my-website/
 │     ├─ home.json
 │     ┊┉
 │
-├─ controller/               ⤆ La partie Contrôle pour manipuler le template, la variation et les modèles avec les bases de données ou les paramètres d'url.
+├─ controller/               ⤆ La partie Contrôle pour manipuler le view, la variation et les modèles avec les bases de données ou les paramètres d'url.
 │  ├─ common.js
 │  ├─ home.js
 │  ┊┉
 │
 ├─ components/               ⤆ Toutes les parties mutualisées pour…
-│   ├─ templates/            ⤆ …les templates…
+│   ├─ views/                ⤆ …les views…
 │   │  ├─ head.htm
 │   │  ├─ foot.htm
 │   │  ┊┉
@@ -235,10 +235,10 @@ my-website/
 │      ├─ form-contact-us.js
 │      ┊┉
 │
-├─ models/                   ⤆ La partie Modèle avec des fichiers de modèle utilisés par les contrôles pour remplir les templates.
+├─ models/                   ⤆ La partie Modèle avec des fichiers de modèle utilisés par les controllers pour remplir les views.
 │  ┊┉
 │
-├─ generates/                ⤆ Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
+├─ serverless/                ⤆ Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
 │  ┊┉
 │
 ├─ server.js                 ⤆ Fichier utilisé pour faire tourner et configurer NodeAtlas pour une utilisation sous forme d'API.
@@ -297,7 +297,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 ### À propos de NodeAtlas ##
 
-- [Site complet et détaillé](https://haeresis.github.com/NodeAtlas/)
+- [Site complet et détaillé](https://node-atlas.js.org/NodeAtlas/)
 - [Pour maintenir et développer node-atlas.js](https://node-atlas.js.org/doc/index.html)
 
 

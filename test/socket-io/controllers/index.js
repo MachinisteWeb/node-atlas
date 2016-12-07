@@ -21,8 +21,8 @@ exports.asynchrone = function (params) {
             // On récupère les variations communes dans la bonne langue.
             variation = NA.addCommonVariation(data.lang, variation);
             
-            // On récupère le fragment HTML depuis le dossier `componentsRelativePath` et on applique les variations.
-            data.render = NA.newRender(data.variation + ".htm", variation);
+            // On récupère le fragment HTML depuis le dossier `viewsRelativePath` et on applique les variations.
+            data.render = NA.newRender("partials/" + data.variation + ".htm", variation);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
             io.sockets.emit('server-render', data);

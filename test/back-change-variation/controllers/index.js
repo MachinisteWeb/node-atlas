@@ -1,6 +1,6 @@
 // On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var variation = params.variation,
         request = params.request,
         response = params.response;
@@ -19,5 +19,5 @@ exports.changeVariation = function (params, mainCallback) {
     console.log(variation.specific.content); // "C'est l'accueil, c'est tout."
 
     // On ré-injecte les modifications.
-    mainCallback(variation);
+    next(variation);
 };
