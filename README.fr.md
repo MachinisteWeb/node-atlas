@@ -5498,7 +5498,7 @@ Il ne vous reste plus qu'à réclamer cette url depuis vos autres appareils et t
 
 C'est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.
 
-> IMPORTANT : il est fortement recommandé d'utiliser l'option `cache: true` dans le webconfig de production afin de permettre au moteur d'être optimiser.
+> IMPORTANT : il est fortement recommandé d'utiliser l'option `cache: true` dans le webconfig de production afin de permettre au moteur d'être optimisé.
 
 ### Dans un environnement Windows Server avec iisnode ###
 
