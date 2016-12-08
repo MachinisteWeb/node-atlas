@@ -1320,4 +1320,10 @@ exports.setSessions = website.setSessions;
     &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes[currentRouteName.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
+</code></pre><h3 id="activer-le-cache">Activer le Cache</h3><p>C&#39;est une bonne chose de ne pas reservir des fichiers qui n&#39;ont pas bougé pour la production. Vous pouvez mettre à <code>true</code> la valeur du webconfig <code>cache</code> pour ça:</p><pre><code class="lang-json">{
+    cache: true,
+    route: {
+      &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
 </code></pre>

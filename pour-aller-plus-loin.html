@@ -151,7 +151,7 @@ website.init({
 							<h2>À propos</h2>
 							<div class="download--about--inner">
 								<div class="download--about--step1">
-									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C&#39;est-à-dire qu&#39;il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés Composants respectant les nouveaux standards !
+									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C&#39;est-à-dire qu&#39;il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !
 								</div>
 							</div>
 						</div>
@@ -1583,6 +1583,12 @@ exports.setSessions = website.setSessions;
     &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes[currentRouteName.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
+</code></pre><h3 id="activer-le-cache">Activer le Cache</h3><p>C&#39;est une bonne chose de ne pas reservir des fichiers qui n&#39;ont pas bougé pour la production. Vous pouvez mettre à <code>true</code> la valeur du webconfig <code>cache</code> pour ça:</p><pre><code class="lang-json">{
+    cache: true,
+    route: {
+      &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
 </code></pre>
 				</div>
 			</div>

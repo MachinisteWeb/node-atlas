@@ -1320,4 +1320,10 @@ exports.setSessions = website.setSessions;
     &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes[currentRouteName.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
+</code></pre><h3 id="enable-cache">Enable Cache</h3><p>It&#39;s a good thing to not serve file with no modification in production. You could set the websconfig&#39;s <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
+    cache: true,
+    route: {
+      &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
 </code></pre>

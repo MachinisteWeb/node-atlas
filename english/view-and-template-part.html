@@ -151,7 +151,7 @@ website.init({
 							<h2>Overview</h2>
 							<div class="download--about--inner">
 								<div class="download--about--step1">
-									NodeAtlas is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy Component-based websites in order to create great things with standards compliance!
+									NodeAtlas is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy component-based and/or service-oriented websites in order to create great things with standards compliance!
 								</div>
 							</div>
 						</div>
@@ -343,17 +343,7 @@ website.init({
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascript/common.js">http://localhost/javascript/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default public folder is</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage informations provided by NodeAtlas when a ressource is requested (like <code>maxAge</code>, <code>etag</code>, etc.) via the <code>staticOptions</code> property in webconfig. For more informations, see the <a href="http://expressjs.com/api.html#express.static">Express</a> documentation about static files.</p><p>For exemple, for a devlopment webconfig, it&#39;s interresting to put the <code>maxAge</code> to 0 in order to always get the last modifications into a file and avoid frenetic browser reload.</p><pre><code>{
-    &quot;staticOptions&quot;: {
-        &quot;maxAge&quot;: 0
-    },
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><h3 id="manage-inclusions-to-avoid-redundancy-code">Manage inclusions to avoid redundancy code</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p><pre><code class="lang-js">{
+</ul><p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default public folder is</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage informations provided by NodeAtlas when a public ressource is requested (like <code>maxAge</code>, <code>etag</code>, etc.) via the <code>staticOptions</code> property in webconfig. For more informations, see the <a href="http://expressjs.com/api.html#express.static">Express</a> documentation about static files.</p><h3 id="manage-inclusions-to-avoid-redundancy-code">Manage inclusions to avoid redundancy code</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;

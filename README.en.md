@@ -120,6 +120,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Changing the template engine brackets <? ?>](#Changing-the-template-engine-brackets--)
  - [Change the url hostname and listening port](#change-the-url-hostname-and-listening-port)
  - [Generate urls dynamically](#generate-urls-dynamically)
+ - [Enable Cache](#enable-cache)
 - [CLI / Running commands](#cli--running-commands)
  - [--directory &lt;path>](#--directory-path)
  - [--webconfig &lt;webconfigName>](#--webconfig-webconfigname)
@@ -127,6 +128,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [--httpHostname &lt;httpHostname>](#--httphostname-httphostname)
  - [--httpPort &lt;httpPort>](#--httpport-httpport)
  - [--generate](#--generate)
+ - [--cache](#--cache)
  - [--lang &lt;culture-country>](#--lang-culture-country)
  - [--create [path]](#--create-path)  
  - [--httpSecure [pathName]](#--httpsecure-pathname)
@@ -528,22 +530,7 @@ you will have access to the addresses:
 
 #### maxAge, Etag, etc. ####
 
-It's possible to manage informations provided by NodeAtlas when a ressource is requested (like `maxAge`, `etag`, etc.) via the `staticOptions` property in webconfig. For more informations, see the [Express](http://expressjs.com/api.html#express.static) documentation about static files.
-
-For exemple, for a devlopment webconfig, it's interresting to put the `maxAge` to 0 in order to always get the last modifications into a file and avoid frenetic browser reload.
-
-```
-{
-    "staticOptions": {
-        "maxAge": 0
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-```
+It's possible to manage informations provided by NodeAtlas when a public ressource is requested (like `maxAge`, `etag`, etc.) via the `staticOptions` property in webconfig. For more informations, see the [Express](http://expressjs.com/api.html#express.static) documentation about static files.
 
 
 
@@ -5157,6 +5144,23 @@ we could create link between each page as following :
 
 
 
+### Enable Cache ###
+
+It's a good thing to not serve file with no modification in production. You could set the websconfig's `cache` option to `true` for this:
+
+```json
+{
+    cache: true,
+    route: {
+      "/": "index.htm"
+    }
+}
+```
+
+
+
+
+
 ## CLI / Running commands ##
 
 The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command `\> node </path/to/>node-atlas/`. However there are options to launch more than launch the site.
@@ -5230,6 +5234,16 @@ If you change an item in your common variation file or even your view components
 
 ```
 \> node </path/to/>node-atlas/ --generate
+```
+
+
+
+### --cache ###
+
+You maybe want not use cached file during the development phase, the most easy way is to use this option. It's your only possibility for run a « Simple Web Server » with no cache.
+
+```
+\> node </path/to/>node-atlas/ --cache
 ```
 
 
@@ -5483,6 +5497,8 @@ You just now reach the url from your other devices to test the render of your ap
 ## Production Environment ##
 
 It's a good thing to develop, but it's time to run your website or apps on online production server. See this examples.
+
+> IMPORTANT : you must use the `cache: true` option in the production's webconfig to allows engine to be optimised.
 
 ### In a Windows Server environment with iisnode ###
 

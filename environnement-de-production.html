@@ -151,7 +151,7 @@ website.init({
 							<h2>À propos</h2>
 							<div class="download--about--inner">
 								<div class="download--about--step1">
-									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C&#39;est-à-dire qu&#39;il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés Composants respectant les nouveaux standards !
+									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C&#39;est-à-dire qu&#39;il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !
 								</div>
 							</div>
 						</div>
@@ -261,7 +261,9 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="environnement-de-production">Environnement de Production</h2><p>C&#39;est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.</p><h3 id="dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</h3><p>Dans un environnement Windows Server 2013 avec IIS8 il faut :</p><ol>
+					<h2 id="environnement-de-production">Environnement de Production</h2><p>C&#39;est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.</p><blockquote>
+<p>IMPORTANT : il est fortement recommandé d&#39;utiliser l&#39;option <code>cache: true</code> dans le webconfig de production afin de permettre au moteur d&#39;être optimiser.</p>
+</blockquote><h3 id="dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</h3><p>Dans un environnement Windows Server 2013 avec IIS8 il faut :</p><ol>
 <li>Installer <a href="http://nodejs.org/download/">l’exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
 <li>Installer <a href="https://github.com/tjanczuk/iisnode/downloads">le module IIS8 issnode</a> pour lire des web.config et manager des site via IIS (Management de pool d’application, démarrage/arrêt de site, etc...).</li>

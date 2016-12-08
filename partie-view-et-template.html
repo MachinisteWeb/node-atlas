@@ -151,7 +151,7 @@ website.init({
 							<h2>À propos</h2>
 							<div class="download--about--inner">
 								<div class="download--about--step1">
-									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C&#39;est-à-dire qu&#39;il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés Composants respectant les nouveaux standards !
+									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C&#39;est-à-dire qu&#39;il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !
 								</div>
 							</div>
 						</div>
@@ -343,17 +343,7 @@ website.init({
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascript/common.js">http://localhost/javascript/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de manager les informations livrées par NodeAtlas à la demande d&#39;une ressource (comme le <code>maxAge</code>, l&#39;<code>etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/api.html#express.static">Express</a>.</p><p>Par exemple, pour un webconfig de développement, il peut être intéressant de mettre le <code>maxAge</code> à 0 de manière à toujours avoir la dernière modification d&#39;un fichier sans s&#39;acharner sur le rechargement de page.</p><pre><code>{
-    &quot;staticOptions&quot;: {
-        &quot;maxAge&quot;: 0
-    },
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><h3 id="gérer-des-inclusions-pour-éviter-la-redondance-du-code">Gérer des inclusions pour éviter la redondance du code</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><pre><code class="lang-js">{
+</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de manager les informations livrées par NodeAtlas à la demande d&#39;une ressource public (comme le <code>maxAge</code>, l&#39;<code>etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/api.html#express.static">Express</a>.</p><h3 id="gérer-des-inclusions-pour-éviter-la-redondance-du-code">Gérer des inclusions pour éviter la redondance du code</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;

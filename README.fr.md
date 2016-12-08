@@ -120,6 +120,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Changer les chevrons <? ?> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
  - [Générer les urls dynamiquement](#générer-les-urls-dynamiquement)
+ - [Activer le cache](#activer-le-cache)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
  - [--directory &lt;path>](#--directory-path)
  - [--webconfig &lt;webconfigName>](#--webconfig-webconfigname)
@@ -127,6 +128,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [--httpHostname &lt;httpHostname>](#--httphostname-httphostname)
  - [--httpPort &lt;httpPort>](#--httpport-httpport)
  - [--generate](#--generate)
+ - [--cache](#--cache)
  - [--lang &lt;culture-country>](#--lang-culture-country)
  - [--create [path]](#--create-path)
  - [--httpSecure [pathName]](#--httpsecure-pathName)
@@ -528,22 +530,7 @@ vous aurez accès aux adresses :
 
 #### maxAge, Etag, etc. ####
 
-Il est possible de manager les informations livrées par NodeAtlas à la demande d'une ressource (comme le `maxAge`, l'`etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/api.html#express.static).
-
-Par exemple, pour un webconfig de développement, il peut être intéressant de mettre le `maxAge` à 0 de manière à toujours avoir la dernière modification d'un fichier sans s'acharner sur le rechargement de page.
-
-```
-{
-    "staticOptions": {
-        "maxAge": 0
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-```
+Il est possible de manager les informations livrées par NodeAtlas à la demande d'une ressource public (comme le `maxAge`, l'`etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/api.html#express.static).
 
 
 
@@ -5157,6 +5144,23 @@ on peut alors créer un lien entre chaque page multilingue comme ceci :
 
 
 
+### Activer le Cache ###
+
+C'est une bonne chose de ne pas reservir des fichiers qui n'ont pas bougé pour la production. Vous pouvez mettre à `true` la valeur du webconfig `cache` pour ça:
+
+```json
+{
+    cache: true,
+    route: {
+      "/": "index.htm"
+    }
+}
+```
+
+
+
+
+
 ## CLI / Commandes de lancement ##
 
 La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node </path/to/>node-atlas/`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
@@ -5230,6 +5234,16 @@ Si vous modifiez un élément dans votre fichier de variation commun ou même da
 
 ```
 \> node </path/to/>node-atlas/ --generate
+```
+
+
+
+### --cache ###
+
+Si vous souhaitez éviter d'avoir des ressources en cache pendant votre phase de développement, le plus simple est d'utiliser cette option. C'est votre unique possiblilité d'avoir un « Simple Serveur Web » sans cache.
+
+```
+\> node </path/to/>node-atlas/ --cache
 ```
 
 
@@ -5483,6 +5497,8 @@ Il ne vous reste plus qu'à réclamer cette url depuis vos autres appareils et t
 ## Environnement de Production ##
 
 C'est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.
+
+> IMPORTANT : il est fortement recommandé d'utiliser l'option `cache: true` dans le webconfig de production afin de permettre au moteur d'être optimiser.
 
 ### Dans un environnement Windows Server avec iisnode ###
 
