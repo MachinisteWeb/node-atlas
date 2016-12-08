@@ -2,7 +2,7 @@
 
 Créer facilement des sites JavaScript côté serveur et orienté composant !
 
-> *NodeAtlas* est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés Composants respectant les nouveaux standards !
+> *NodeAtlas* est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !
 
 **For an international version of this document, [follow this link](https://www.npmjs.com/package/node-atlas).**
 
@@ -42,11 +42,11 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "languageCode": "en-gb",                /* Définir la langue principale. */
     "pageNotFound": "/page-404/",           /* Assigner une vue dédiée à la page 404. */
     "commonVariation": "common.json",       /* Assigner les fichiers de variations communes pour la localisation. */
-    "commonController": "common.js",        /* Assigner les fichiers des contrôles appelés sur toutes les pages. */
+    "commonController": "common.js",        /* Assigner les fonctions du contrôleur appelé sur toutes les pages. */
     "postSupport": false,                   /* Par défaut, empêcher les requêtes de page en POST. */
     "bundles": "bundles.json",              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
     "optimizations": "optimizations.json",  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
-    "htmlGenerationBeforeResponse": true,    /* Générer la page couramment affichée dans le dossier "serverless". */
+    "htmlGenerationBeforeResponse": true,   /* Générer la page couramment affichée dans le dossier "serverless". */
     "stylesheetsBundlesEnable": true,       /* Minifier les CSS dans des fichiers ".min" avant de renvoyer la page. */
     "javascriptBundlesEnable": true,        /* Offusquer les JS dans des fichiers ".min" avant de renvoyer la page. */
     "enableLess": true,                     /* Utiliser des fichiers Less avec des fichiers ".map" pour la partie développement. */
@@ -79,14 +79,14 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "home": {                               /* Définir une clé à utiliser comme référence pour manipuler les paramètres définis ou d'url dans le code. */
         "url": "/",                         /* Définir l'url d'accès à la page derrière cette route. */
         "output": "home.html",              /* Définir le chemin d'accès pour enregistrer le rendu au format HTML de manière statique. */
-        "view": "home.htm",                 /* Assigner une un fichier de vue utilisé pour présenter l'information. */
-        "variation": "home.json",           /* Assigner un fichier de variation spécifique utilisé pour localiser la page. */
-        "controller": "home.js"             /* Assigner un fichier de contrôle spécifique utilisé pour la page d'accueil (afficher les derniers articles, le nombre d'inscrit, etc.). */
+        "view": "home.htm",                 /* Assigner une vue utilisée pour présenter l'information. */
+        "variation": "home.json",           /* Assigner une variation spécifique utilisée pour localiser la page. */
+        "controller": "home.js"             /* Assigner un contrôleur spécifique utilisé pour la page d'accueil (afficher les derniers articles, le nombre d'inscrit, etc.). */
     },
     "presentation": {
         "url": "/presentation/",
         "output": "presentation.html",
-        "view": "default.htm",              /* Même view utilisé avec... */
+        "view": "default.htm",              /* Même vue utilisée avec... */
         "variation": "presentation.json"    /* ...une variation différente pour générer du contenu de page différent (voir "error"). */
     },
     "members": {
@@ -164,10 +164,10 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "error-fr-fr": {
         "url": "/francais/*",               /* Toutes les pages commençant par "/francais/" pour la page d'erreur française. */
         "output": "francais/page-404.html",
-        "view": "default.htm",              /* View partagé par différentes routes (voir "presentation"). */
+        "view": "default.htm",              /* Vue partagée par différentes routes (voir "presentation"). */
         "variation": "page-404.json",
         "languageCode": "fr-fr",
-        "statusCode": 404                   /* Un statu 404 approprié pour les pages d'erreur. */
+        "statusCode": 404                   /* Un status 404 approprié pour les pages d'erreur. */
     },
     "error": {
         "url": "/page-404/",                /* Page d'erreur par défaut défini avec "pageNotFound". */
@@ -207,10 +207,14 @@ my-website/
 │  │
 │  ┊┉
 │
-├─ views/                    ⤆ La partie Vue avec chaque type de view pour le rendu.
+├─ views/                    ⤆ La partie vue avec chaque type de vue pour le rendu.
 │  ├─ home.htm
 │  ├─ default.htm
 │  ┊┉
+│  └─ partials/              ⤆ Toutes les vues réutilisables.
+│     ├─ head.htm
+│     ├─ foot.htm
+│     ┊┉ 
 │
 ├─ variations/               ⤆ Tous les fichiers pour le remplissage de contenu avec "en-gb" par défaut…
 │  ├─ common.json
@@ -222,25 +226,18 @@ my-website/
 │     ├─ home.json
 │     ┊┉
 │
-├─ controller/               ⤆ La partie Contrôle pour manipuler le view, la variation et les modèles avec les bases de données ou les paramètres d'url.
+├─ controllers/              ⤆ La partie contrôleur pour manipuler la vue, la variation et les modèles avec les bases de données ou les paramètres d'url.
 │  ├─ common.js
 │  ├─ home.js
 │  ┊┉
+│  ├─ modules/               ⤆ Tous les modules internes.
+│     ├─ form-contact-us.js
+│     ┊┉
 │
-├─ components/               ⤆ Toutes les parties mutualisées pour…
-│   ├─ views/                ⤆ …les views…
-│   │  ├─ head.htm
-│   │  ├─ foot.htm
-│   │  ┊┉
-│   │  
-│   ├─ controllers/          ⤆ …et les contrôles.
-│      ├─ form-contact-us.js
-│      ┊┉
-│
-├─ models/                   ⤆ La partie Modèle avec des fichiers de modèle utilisés par les controllers pour remplir les views.
+├─ models/                   ⤆ La partie modèle avec des fichiers de modèle utilisés par les contrôleurs pour remplir les vues.
 │  ┊┉
 │
-├─ serverless/                ⤆ Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
+├─ serverless/               ⤆ Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
 │  ┊┉
 │
 ├─ server.js                 ⤆ Fichier utilisé pour faire tourner et configurer NodeAtlas pour une utilisation sous forme d'API.

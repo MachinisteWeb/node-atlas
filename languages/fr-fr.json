@@ -9,7 +9,7 @@
 	},
 	"running": {
 		"isRunning": "Votre site NodeAtlas est lancé sur le port %httpPort%.",
-		"publicMode": "NodeAtlas c'est lancer en mode « Simple Serveur Web » car aucun « %path% » n'a été trouvé.",
+		"publicMode": "NodeAtlas c'est lancé en mode « Simple Serveur Web » car aucun « %path% » n'a été trouvé.",
 		"portAlreadyListened": "NodeAtlas c'est arrêté car le port %port% est déjà écouté par une autre application."
 	},
 	"ifFileExist": "Pas de fichier « %path%  » trouvé.",
@@ -17,7 +17,7 @@
 		"controller": "Le controlleur « %controller% » n'a pas été trouvé (ou ne peut pas être chargé)."
 	},
 	"languageNotFound": "La langue « %language% » n'existe pas.",
-	"languageChanged": "NodeAtlas est manitenant en français !",
+	"languageChanged": "NodeAtlas est maintenant en français !",
 	"viewNotFound": "Le fichier de view « %viewsPath% » n'a pas pu être ouvert.",
 	"variationNotFound": "Le fichier de variation « %variationsPath% » n'a pas pu être ouvert.",
 	"initNotFound": "Pas de projet trouvé pour « %initPath% ».",
@@ -58,6 +58,10 @@
 		"generate": {
 			"command": "-g, --generate",
 			"description": "Lancer la minification des ressources et la création des assets Html."
+		},
+		"cache": {
+			"command": "-c, --cache",
+			"description": "Empèche tout cache à tout les niveaux (serveur, moteur de template...)."
 		},
 		"create": {
 			"command": "-i, --create [path]",

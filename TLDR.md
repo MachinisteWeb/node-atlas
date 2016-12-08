@@ -1,4 +1,4 @@
-> *NodeAtlas* is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy Component-based websites in order to create great things with standards compliance!
+> *NodeAtlas* is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy component-based and/or service-oriented websites in order to create great things with standards compliance!
 
 **Vous êtes français ? Le document [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
@@ -40,11 +40,11 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "languageCode": "en-gb",                /* Set the principal language. */
     "pageNotFound": "/page-404/",           /* Assign the 404 dedicated view. */
     "commonVariation": "common.json",       /* Assign the common variation files for localisation. */
-    "commonController": "common.js",        /* Assign the common controller files for all pages called. */
+    "commonController": "common.js",        /* Assign the common controller file for all pages called. */
     "postSupport": false,                   /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
     "optimizations": "optimizations.json",  /* Set images to optimize for the web with an external file. */
-    "htmlGenerationBeforeResponse": true,    /* Generate page currently displayed into "serverless" directory. */
+    "htmlGenerationBeforeResponse": true,   /* Generate page currently displayed into "serverless" directory. */
     "stylesheetsBundlesEnable": true,       /* Minify CSS into ".min" files before response pages. */
     "javascriptBundlesEnable": true,        /* Obfuscate JS into ".min" files before response pages. */
     "enableLess": true,                     /* Use Less files with ".map" for development phase. */
@@ -209,6 +209,10 @@ my-website/
 │  ├─ home.htm
 │  ├─ default.htm
 │  ┊┉
+│  └─ partials/              ⤆ All re-usable view.
+│     ├─ head.htm
+│     ├─ foot.htm
+│     ┊┉ 
 │
 ├─ variations/               ⤆ All files for content filling with "en-gb" in default...
 │  ├─ common.json
@@ -220,20 +224,13 @@ my-website/
 │     ├─ home.json
 │     ┊┉
 │
-├─ controller/               ⤆ The Controller part for manipulate view, variation and models with database and url parameters.
+├─ controllers/              ⤆ The controller part for manipulate view, variation and models with database and url parameters.
 │  ├─ common.js
 │  ├─ home.js
 │  ┊┉
-│
-├─ components/               ⤆ All re-usable part for…
-│   ├─ views/                ⤆ …views…
-│   │  ├─ head.htm
-│   │  ├─ foot.htm
-│   │  ┊┉
-│   │  
-│   ├─ controllers/          ⤆ …and controllers.
-│      ├─ form-contact-us.js
-│      ┊┉
+│  ├─ modules/               ⤆ All internal modules.
+│     ├─ form-contact-us.js
+│     ┊┉
 │
 ├─ models/                   ⤆ The Model part with model files used into controllers for filled views.
 │  ┊┉
