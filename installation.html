@@ -261,25 +261,31 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="installation">Installation</h2><p>Avant de pouvoir installer NodeAtlas, assurez-vous d&#39;avoir installé <a href="https://nodejs.org/">Node.js</a>, nous verrons cela dans la section : <a href="installation.html#installation-de-node.js">Installation de Node.js</a> plus bas.</p><h3 id="installation-de-nodeatlas">Installation de NodeAtlas</h3><p><em>Note: Si vous êtes sous Linux, il faudra ajouter <code>sudo</code> en amont des commandes si vous n&#39;êtes pas root.</em></p><p>Il y a plusieurs manières d&#39;installer NodeAtlas :</p><ul>
-<li><p><code>npm install node-atlas</code> (recommandé pour un <a href="api-nodeatlas-comme-module-npm.html">usage sous forme de module</a> dans un projet).</p>
-<p> <em>Ceci installera</em> <strong>NodeAtlas</strong> <em>dans le dossier <code>node_modules/node-atlas</code> du dossier d&#39;exécution de la commande.</em></p>
+					<h2 id="installation">Installation</h2><p>Avant de pouvoir installer NodeAtlas, assurez-vous d&#39;avoir installé <a href="https://nodejs.org/">Node.js</a>, vous pouvez voir cela dans la section : <a href="installation.html#installation-de-node.js">Installation de Node.js</a> plus bas.</p><h3 id="installation-de-nodeatlas">Installation de NodeAtlas</h3><p><em>Note: Si vous êtes sous Linux, il faudra ajouter <code>sudo</code> en amont des commandes si vous n&#39;êtes pas root.</em></p><p>Il y a plusieurs manières d&#39;installer NodeAtlas :</p><ul>
+<li><p><strong>Avec npm, dans le dossier du projet</strong> avec la commande suivante :</p>
+<blockquote>
+<p><code>npm install node-atlas</code></p>
+</blockquote>
+<p> <em>Ceci installera</em> NodeAtlas <em>dans le dossier « node_modules/node-atlas » du dossier d&#39;exécution de la commande. Recommandé pour un <a href="api-nodeatlas-comme-module-npm.html">usage sous forme de module</a> dans un projet.</em></p>
 </li>
-<li><p><code>npm install -g node-atlas</code> (recommandé pour un <a href="api-nodeatlas-comme-module-npm.html">usage sous forme de module</a> dans beaucoup de projet ou pour <a href="cli-commandes-de-lancement.html">un usage à la ligne de commande</a>).</p>
-<p> <em>Ceci installera</em> <strong>NodeAtlas</strong> <em>dans le dossier <code>node_modules/node-atlas</code> global.</em></p>
+<li><p><strong>Avec npm, dans le dossier des modules globaux</strong> avec la commande suivante :</p>
+<blockquote>
+<p><code>npm install -g node-atlas</code></p>
+</blockquote>
+<p> <em>Ceci installera</em> NodeAtlas <em>dans le dossier « node_modules/node-atlas/ » global. Recommandé pour un <a href="api-nodeatlas-comme-module-npm.html">usage sous forme de module</a> dans beaucoup de projet ou pour <a href="cli-commandes-de-lancement.html">un usage à la ligne de commande</a>.</em></p>
 </li>
-<li><p>Cloner le répertoire depuis <a href="https://github.com/Haeresis/NodeAtlas/">GitHub</a> (recommandé pour participer au développement).</p>
-<p> <em>Ceci installera</em> <strong>NodeAtlas</strong> <em>dans le dossier d&#39;accueil du clonage.</em></p>
-<p> <strong>Lancez au moins une fois NodeAtlas à la ligne de commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>, pour installer les _node<em>modules</em>.</strong></p>
+<li><p><strong>Cloner le répertoire</strong> depuis le dépôt officiel <a href="https://github.com/Haeresis/NodeAtlas/">GitHub</a>.</p>
+<p> <em>Ceci installera</em> NodeAtlas <em>dans le dossier de votre dépôt local.</em></p>
+<p> <em>Lancez au moins une fois NodeAtlas à la ligne de commande <code>\&gt; node &lt;/path/to/&gt;node-atlas/</code>, pour installer les _node<em>modules</em>. Recommandé pour participer au développement.</em></p>
 </li>
-<li><p>Télécharger NodeAtlas depuis le site dépôt <a href="https://github.com/Haeresis/NodeAtlas">NodeAtlas</a>.</p>
-<p> <em>Une fois téléchargé, dézippez</em> <strong>NodeAtlas</strong> <em>dans le dossier qui vous conviendra.</em></p>
-<p> <strong>Utilisez <code>npm install</code> depuis le dossier <code>&lt;/path/to/&gt;node-atlas/</code> pour installer toutes les dépendences.</strong></p>
+<li><p><strong>Télécharger NodeAtlas</strong> depuis le site officiel <a href="https://node-atlas.js.org/">NodeAtlas</a>.</p>
+<p> <em>Une fois téléchargé, dézippez</em> NodeAtlas <em>dans le dossier « node_modules/ » qui vous conviendra.</em></p>
+<p> <em>Utilisez <code>npm install</code> depuis le dossier <code>&lt;/path/to/&gt;node-atlas/</code> pour installer toutes les dépendences.</em></p>
 </li>
-</ul><h3 id="installation-de-node.js">Installation de Node.js</h3><p>NodeAtlas est développé sous la forme d&#39;un <a href="https://www.npmjs.com/">Node.js Module Package</a> ce qui signifie qu&#39;il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l&#39;utilisation du même langage côté front-end et back-end.</p><p><em>Note: Python 2.6 ou 2.7 est requis pour build depuis les sources tarballs.</em></p><h4 id="installer-sur-windows">Installer sur Windows</h4><p>En utilisant un installeur :</p><ul>
+</ul><h3 id="installation-de-node.js">Installation de Node.js</h3><p>NodeAtlas est développé sous la forme d&#39;un <a href="https://www.npmjs.com/">Node.js Module Package</a> ce qui signifie qu&#39;il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l&#39;utilisation du même langage côté client et serveur.</p><p><em>Note: Python 2.6 ou 2.7 est requis pour les sources tarballs.</em></p><h4 id="installer-sur-windows">Installer sur Windows</h4><p>En utilisant un installeur :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Windows Installer</a>.</li>
 </ul><p>En utilisant <a href="http://chocolatey.org/">chocolatey</a> pour installer Node:</p><pre><code>cinst nodejs
-</code></pre><p>ou en l&#39;installant avec NPM :</p><pre><code>cinst nodejs.install
+</code></pre><p>ou en l&#39;installant avec npm :</p><pre><code>cinst nodejs.install
 </code></pre><h4 id="installer-sur-osx">Installer sur OSX</h4><p>En utilisant un installeur :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Macintosh Installer</a>.</li>
 </ul><p>En utilisant <a href="https://github.com/mxcl/homebrew">homebrew</a>:</p><pre><code>brew install node

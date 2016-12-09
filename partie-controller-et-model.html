@@ -731,7 +731,7 @@ exports.setSessions = function (next) {
 }
 </code></pre><p>et avec le fichier « common.js » contenant par exemple :</p><pre><code class="lang-js">// On intervient au niveau des routes pendant qu&#39;elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
-exports.setConfigurations = function (next) {
+exports.setRoutes = function (next) {
 
     // On récupère l&#39;instance de NodeAtlas en cours.
     var NA = this,

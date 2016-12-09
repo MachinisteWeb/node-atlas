@@ -468,7 +468,7 @@ exports.setSessions = function (next) {
 }
 </code></pre><p>And &quot;common.js&quot; file containing e.g.:</p><pre><code class="lang-js">// This code is executing while route are added.
 // This code will be executed when NodeAtlas starting.
-exports.setConfigurations = function (next) {
+exports.setRoutes = function (next) {
 
     // We use instance of NodeAtlas.
     var NA = this,
