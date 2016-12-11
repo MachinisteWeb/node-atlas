@@ -106,6 +106,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 - [Pour aller plus loin](#pour-aller-plus-loin)
  - [Gérer le routage (Url Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
+ - [Injecter des routes dynamiquement](#injecter-des-routes-dynamiquement)
  - [Gérer les redirections](#gérer-les-redirections)
  - [Gérer les Headers de page](#gérer-les-headers-de-page)
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
@@ -294,16 +295,16 @@ Nous allons voir pour commencer mettre en place l'ensemble de fichier minimal af
 
 ### Ensemble de fichiers ###
 
-Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs comme la structure ci-dessous.
+Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs comme la structure ci-dessous :
 
 ```
-site-hello-world/
+hello-world/
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
 
-Voici le fichier « /site-hello-world/views/index.htm » :
+Nous allons donc délivrer derrière une adresse HTTP le contenu de la vue `views/index.htm` :
 
 ```html
 <!DOCTYPE html>
@@ -318,7 +319,7 @@ Voici le fichier « /site-hello-world/views/index.htm » :
 </html>
 ```
 
-et ci-après, le fichier « /site-hello-world/webconfig.json ».
+Voyons ci-après le contenu du fichier `webconfig.json`.
 
 ### Configuration minimale ###
 
@@ -3317,6 +3318,85 @@ Voyez l'exemple ci-dessous :
 
 
 
+### Injecter des routes dynamiquement ###
+
+Nous avons pu voir qu'avec `setRoutes` il était possible d'injecter dynamiquement des routes. Cependant, l'injection de route ne se fait qu'à la fin car `NA.webconfig.routes` est un objet. Il n'y a donc pas de moyen d'ordonner les routes, ce qui est génant car les routes sont résolu dans l'ordre dans lesquels elles ont été injectées.
+
+Nous allons résoudre ça en changeant la manière de créer les routes de `routes: { <key>: { ... } }` à `routes: [{ "key": <key>, ... }]`.
+
+Voici l'ensemble de fichier suivant :
+
+```
+├─ controllers/
+│  └─ common.js
+├─ views/
+│  ├─ index.htm
+│  ├─ content.htm
+│  └─ error.htm
+└─ webconfig.json
+```
+
+Avec le `webconfig.json` initialement comme ceci avec `routes: <Object>` :
+
+```js
+{
+    "commonController": "common.js",
+    "routes": {
+        "/doc/index.html": {
+            "view": "index.htm"
+        },
+        "/doc/*": {
+            "view": "error.htm",
+            "statusCode": 404
+        }
+    }
+}
+```
+
+se transformant en cela avec `routes: <Array>` :
+
+```js
+{
+    "commonController": "common.js",
+    "routes": [{
+        "url": "/doc/index.html
+        "view": "index.htm"
+    }, {
+        "url": "/doc/*",
+        "view": "error.htm",
+        "statusCode": 404
+    }]
+}
+```
+
+Avec le fichier « common.js » nous pouvons maintenant injecter les routes à des positions précise. Nous allons les ajoutés au début.
+
+```js
+// On intervient au niveau des routes pendant qu'elles sont ajoutées.
+// Ce code sera exécuté au lancement de NodeAtlas.
+exports.setRoutes = function (next) {
+
+    // On récupère l'instance de NodeAtlas en cours.
+    var NA = this,
+
+        // Et nous récupérons les routes en provenance du webconfig...
+        route = NA.webconfig.routes;
+
+    // ...pour ajouter la route "/content.html" au débuts de nos routes.
+    route.unshift({
+        "url": "/doc/content.html",
+        "view": "content.htm"
+    });
+
+    // On redonne la main à NodeAtlas pour la suite.
+    next(); 
+};
+```
+
+De cette manière l'adresse `http://localhost/doc/content.html` renverra la vue `content.htm` et non la vue `error.htm` en 404.
+
+
+
 ### Gérer les redirections ###
 
 Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre `redirect`.
@@ -5468,7 +5548,7 @@ La nouveauté avec NodeAtlas vient de l'éditeur de CSS. Là où il vous indiqua
 Créez vous par exemple un fichier de lancement comme celui-ci :
 
 ```javascript
-require("node")().start()
+require("node-start")().start()
 ```
 
 puis lancez le avec la commande suivante :

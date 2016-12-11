@@ -1,8 +1,8 @@
-<h2 id="commencer-avec-nodeatlas">Commencer avec NodeAtlas</h2><p>Nous allons voir pour commencer mettre en place l&#39;ensemble de fichier minimal afin de réaliser un <code>hello-world</code>.</p><h3 id="ensemble-de-fichiers">Ensemble de fichiers</h3><p>Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n&#39;importe où ailleurs comme la structure ci-dessous.</p><pre><code>site-hello-world/
+<h2 id="commencer-avec-nodeatlas">Commencer avec NodeAtlas</h2><p>Nous allons voir pour commencer mettre en place l&#39;ensemble de fichier minimal afin de réaliser un <code>hello-world</code>.</p><h3 id="ensemble-de-fichiers">Ensemble de fichiers</h3><p>Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n&#39;importe où ailleurs comme la structure ci-dessous :</p><pre><code>hello-world/
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Voici le fichier « /site-hello-world/views/index.htm » :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>Nous allons donc délivrer derrière une adresse HTTP le contenu de la vue <code>views/index.htm</code> :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -12,7 +12,7 @@
         &lt;div&gt;Ceci est un Hello World !&lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>et ci-après, le fichier « /site-hello-world/webconfig.json ».</p><h3 id="configuration-minimale">Configuration minimale</h3><p>Vous pouvez faire tourner une page simple avec la configuration minimale du « webconfig.json » ci-dessous</p><pre><code class="lang-js">{
+</code></pre><p>Voyons ci-après le contenu du fichier <code>webconfig.json</code>.</p><h3 id="configuration-minimale">Configuration minimale</h3><p>Vous pouvez faire tourner une page simple avec la configuration minimale du « webconfig.json » ci-dessous</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;

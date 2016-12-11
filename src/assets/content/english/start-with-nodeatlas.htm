@@ -1,9 +1,9 @@
-<h2 id="start-with-nodeatlas">Start with NodeAtlas</h2><p>We will start with a how to set minimal files to perform a <code>hello-world</code>.</p><h3 id="fileset">Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.</p><pre><code>site-hello-world/
+<h2 id="start-with-nodeatlas">Start with NodeAtlas</h2><p>We will start with a how to set minimal files to perform a <code>hello-world</code>.</p><h3 id="fileset">Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below:</p><pre><code>hello-world/
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Here is the &quot;/site-hello-world/views/index.htm&quot; file:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;fr-fr&quot;&gt;
+</code></pre><p>We will display to the HTTP address the content of the <code>views/index.htm</code> file:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
         &lt;title&gt;Hello world&lt;/title&gt;
@@ -12,7 +12,7 @@
         &lt;div&gt;This is a Hello World!&lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>and following, the &quot;/site-hello-world/webconfig.json&quot; file.</p><h3 id="minimum-requirements">Minimum Requirements</h3><p>You can turn a simple page with minimal configuration &quot;webconfig.json&quot; below</p><pre><code class="lang-js">{
+</code></pre><p>and see just below following, the content of <code>webconfig.json</code> file.</p><h3 id="minimum-requirements">Minimum Requirements</h3><p>You can turn a simple page with minimal configuration &quot;webconfig.json&quot; below</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;

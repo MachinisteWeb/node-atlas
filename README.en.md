@@ -106,6 +106,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
 - [More features](#more-features)
  - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a page not found](#manage-a-page-not-found)
+ - [Inject routes dynamically](#inject-routes-dynamically)
  - [Manage redirects](#manage-redirects)
  - [Manage Headers](#manage-headers)
  - [Run Website with HTTPs](#run-website-with-https)
@@ -294,20 +295,20 @@ We will start with a how to set minimal files to perform a `hello-world`.
 
 ### Fileset ###
 
-After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.
+After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below:
 
 ```
-site-hello-world/
+hello-world/
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
 ```
 
-Here is the "/site-hello-world/views/index.htm" file:
+We will display to the HTTP address the content of the `views/index.htm` file:
 
 ```html
 <!DOCTYPE html>
-<html lang="fr-fr">
+<html lang="en-us">
     <head>
         <meta charset="utf-8" />
         <title>Hello world</title>
@@ -318,7 +319,7 @@ Here is the "/site-hello-world/views/index.htm" file:
 </html>
 ```
 
-and following, the "/site-hello-world/webconfig.json" file.
+and see just below following, the content of `webconfig.json` file.
 
 ### Minimum Requirements ###
 
@@ -3317,6 +3318,85 @@ See below :
 
 
 
+### Inject routes dynamically ###
+
+`setRoutes` allows us to dynamically inject routes. However, the route injection add route at the end of `NA.webconfig.routes` because `NA.webconfig.routes` is an object. There are no possibility to ordonate routes, but this is a problem because routes path are resolved in order of injection.
+
+We will resolved that with new way to set routes from `routes: { <key>: { ... } }` to `routes: [{ "key": <key>, ... }]`.
+
+This is all files for example:
+
+```
+├─ controllers/
+│  └─ common.js
+├─ views/
+│  ├─ index.htm
+│  ├─ content.htm
+│  └─ error.htm
+└─ webconfig.json
+```
+
+With the `webconfig.json` originaly like this `routes: <Object>` :
+
+```js
+{
+    "commonController": "common.js",
+    "routes": {
+        "/doc/index.html": {
+            "view": "index.htm"
+        },
+        "/doc/*": {
+            "view": "error.htm",
+            "statusCode": 404
+        }
+    }
+}
+```
+
+and transformed like this `routes: <Array>` :
+
+```js
+{
+    "commonController": "common.js",
+    "routes": [{
+        "url": "/doc/index.html
+        "view": "index.htm"
+    }, {
+        "url": "/doc/*",
+        "view": "error.htm",
+        "statusCode": 404
+    }]
+}
+```
+
+With the "common.js" file, it's now possible to inject routes at the position we want. We will see an example with first position.
+
+```js
+// This code is executing while route are added.
+// This code will be executed when NodeAtlas starting.
+exports.setRoutes = function (next) {
+
+    // We use instance of NodeAtlas.
+    var NA = this,
+
+        // And we keep routes from NodeAtlas webconfig...
+        route = NA.webconfig.routes;
+
+    // ...to add "/content.html" route in first place.
+    route.unshift({
+        "url": "/doc/content.html",
+        "view": "content.htm"
+    });
+
+    // We update modification here.
+    next(); 
+};
+```
+
+In this way, address `http://localhost/doc/content.html` will return the `content.htm` view and not the `error.htm` view with 404.
+
+
+
 ### Manage redirects ###
 
 To go to a different address (redirect 301 or 302) when you get to a url you must use the `redirect` parameter.
@@ -5468,7 +5548,7 @@ From Node.js v6.6+, you could debug your Back-end code with Google Chrome. You h
 Create for example a starting point file like this :
 
 ```javascript
-require("node")().start()
+require("node-start")().start()
 ```
 
 and run the following command :

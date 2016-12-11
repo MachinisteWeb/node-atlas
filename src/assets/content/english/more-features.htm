@@ -158,7 +158,56 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><h3 id="manage-redirects">Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p><p><em>Note : if you don&#39;t set <code>statusCode</code>, no redirect will be executed. The <code>statusCode</code> is mandatory for redirection.</em></p><h4 id="static">Static</h4><p>See the example below:</p><pre><code class="lang-js">{
+</code></pre><h3 id="inject-routes-dynamically">Inject routes dynamically</h3><p><code>setRoutes</code> allows us to dynamically inject routes. However, the route injection add route at the end of <code>NA.webconfig.routes</code> because <code>NA.webconfig.routes</code> is an object. There are no possibility to ordonate routes, but this is a problem because routes path are resolved in order of injection.</p><p>We will resolved that with new way to set routes from <code>routes: { &lt;key&gt;: { ... } }</code> to <code>routes: [{ &quot;key&quot;: &lt;key&gt;, ... }]</code>.</p><p>This is all files for example:</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ views/
+│  ├─ index.htm
+│  ├─ content.htm
+│  └─ error.htm
+└─ webconfig.json
+</code></pre><p>With the <code>webconfig.json</code> originaly like this <code>routes: &lt;Object&gt;</code> :</p><pre><code class="lang-js">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: {
+        &quot;/doc/index.html&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        },
+        &quot;/doc/*&quot;: {
+            &quot;view&quot;: &quot;error.htm&quot;,
+            &quot;statusCode&quot;: 404
+        }
+    }
+}
+</code></pre><p>and transformed like this <code>routes: &lt;Array&gt;</code> :</p><pre><code class="lang-js">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: [{
+        &quot;url&quot;: &quot;/doc/index.html
+        &quot;view&quot;: &quot;index.htm&quot;
+    }, {
+        &quot;url&quot;: &quot;/doc/*&quot;,
+        &quot;view&quot;: &quot;error.htm&quot;,
+        &quot;statusCode&quot;: 404
+    }]
+}
+</code></pre><p>With the &quot;common.js&quot; file, it&#39;s now possible to inject routes at the position we want. We will see an example with first position.</p><pre><code class="lang-js">// This code is executing while route are added.
+// This code will be executed when NodeAtlas starting.
+exports.setRoutes = function (next) {
+
+    // We use instance of NodeAtlas.
+    var NA = this,
+
+        // And we keep routes from NodeAtlas webconfig...
+        route = NA.webconfig.routes;
+
+    // ...to add &quot;/content.html&quot; route in first place.
+    route.unshift({
+        &quot;url&quot;: &quot;/doc/content.html&quot;,
+        &quot;view&quot;: &quot;content.htm&quot;
+    });
+
+    // We update modification here.
+    next(); 
+};
+</code></pre><p>In this way, address <code>http://localhost/doc/content.html</code> will return the <code>content.htm</code> view and not the <code>error.htm</code> view with 404.</p><h3 id="manage-redirects">Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p><p><em>Note : if you don&#39;t set <code>statusCode</code>, no redirect will be executed. The <code>statusCode</code> is mandatory for redirection.</em></p><h4 id="static">Static</h4><p>See the example below:</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/list-of-members/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
