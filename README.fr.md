@@ -2358,6 +2358,8 @@ Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, 
 
 Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `variation` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 
+Note : pour permettre à `newRender` d'utiliser le moteur PUG au lieu de celui d'EJS, il faut mettre la valeur `variation.enablePug` à `true` avant d'utiliser `NA.addCommonVariation` et `NA.addSpecificVariation`.
+
 
 
 ### Utiliser une base de données MySQL (SQL) ###
@@ -3976,7 +3978,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
     <%- include('foot.htm') %>
 ```
 
-Pour tout savoir sur les possibilités du moteur de template consulter la documentation [EJS2](http://ejs.co/)
+Pour tout savoir sur les possibilités du moteur de template consultez la documentation [EJS2](http://ejs.co/)
 
 *Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***?***.
 
@@ -3984,7 +3986,7 @@ Pour tout savoir sur les possibilités du moteur de template consulter la docume
 
 ### Générer le HTML avec Pug ###
 
-Il est possible d'utiliser en lieu et place du moteur EJS le moteur PUG (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
+Il est possible d'utiliser en lieu et place du moteur EJS le moteur PUGe (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
 
 ```
 {
@@ -4101,7 +4103,7 @@ div
 include partials/foot.pug
 ```
 
-Pour tout savoir sur les possibilités du moteur de template consulter la documentation [PUG](https://pugjs.org/)
+Pour tout savoir sur les possibilités du moteur de template consultez la documentation [PUG](https://pugjs.org/)
 
 *Note : Si rien n'est précisé,* ***enablePug*** *vaut* ***false***.
 

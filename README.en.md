@@ -2358,6 +2358,8 @@ Thanks to `NA.addSpecificVariation`, `NA.addCommonVariation` and `NA.newRender`,
 
 If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `currentVariation` is type of `undefined` an empty object will be created.
 
+Note : to allows `newRender` to use PUG template engine and not EJS, you must defined `variation.enablePug` to `true` before use `NA.addCommonVariation` and `NA.addSpecificVariation`.
+
 
 
 ### Use MySQL Database (SQL) ###
