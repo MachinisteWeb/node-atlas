@@ -2610,39 +2610,44 @@ function User(connection) {
         if (publics.zipcode()) { where += addWhere + '`zipcode` = "' + publics.zipcode() + '"'; addWhere = ' && '; }
         if (publics.address()) { where += addWhere + '`address` = "' + publics.address() + '"'; addWhere = ' && '; }
 
-        privates.connection.query(select + where + limit, function(err, rows, fields) {
-            if (err) console.log(err);
+        privates.connection.query(select + where + limit, function(err, rows) {
+            var users = [],
+                user;
 
-           if (rows[0]) {
-              publics.id(rows[0].id);
-              publics.lastname(rows[0].lastname);
-              publics.firstname(rows[0].firstname);
-              publics.email(rows[0].email);
-              publics.birthdate(rows[0].birthdate);
-              publics.gender((rows[0].gender) ? true : false);
-              publics.country(rows[0].country);
-              publics.town(rows[0].town);
-              publics.zipcode(rows[0].zipcode);
-              publics.address(rows[0].address);
+            if (err) {
+                console.log(err);
+            }
+
+            if (rows[0]) {
+                publics.id(rows[0].id);
+                publics.lastname(rows[0].lastname);
+                publics.firstname(rows[0].firstname);
+                publics.email(rows[0].email);
+                publics.birthdate(rows[0].birthdate);
+                publics.gender((rows[0].gender) ? true : false);
+                publics.country(rows[0].country);
+                publics.town(rows[0].town);
+                publics.zipcode(rows[0].zipcode);
+                publics.address(rows[0].address);
             }
 
             for (var i = 0; i < rows.length; i++) {
-              user = new User();
-              user.id(rows[i].id);
-              user.lastname(rows[i].lastname);
-              user.firstname(rows[i].firstname);
-              user.email(rows[i].email);
-              user.birthdate(rows[i].birthdate);
-              user.gender((rows[i].gender) ? true : false);
-              user.country(rows[i].country);
-              user.town(rows[i].town);
-              user.zipcode(rows[i].zipcode);
-              user.address(rows[i].address);
-              users.push(user);
+                user = new User();
+                user.id(rows[i].id);
+                user.lastname(rows[i].lastname);
+                user.firstname(rows[i].firstname);
+                user.email(rows[i].email);
+                user.birthdate(rows[i].birthdate);
+                user.gender((rows[i].gender) ? true : false);
+                user.country(rows[i].country);
+                user.town(rows[i].town);
+                user.zipcode(rows[i].zipcode);
+                user.address(rows[i].address);
+                users.push(user);
             }
 
             if (callback) {
-              callback(users);
+                callback(users);
             }
         });
 
