@@ -1,8 +1,8 @@
 // Intégralité des actions Websocket possible pour ce template.
 // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
-exports.asynchrone = function (params) {
+exports.changeSocket = function () {
     var NA = this,
-        io = params.io;
+        io = NA.io;
 
     // Dès qu'on a un lien valide entre le client et notre back...
     io.sockets.on("connection", function (socket) {
@@ -12,8 +12,8 @@ exports.asynchrone = function (params) {
                 session = socket.request.session,
                 variation = {};
 
-            console.log(sessionID);
             console.log(session);
+            console.log(sessionID);
 
             // On récupère les variations spécifiques dans la bonne langue.
             variation = NA.addSpecificVariation(data.variation + ".json", data.lang, variation);

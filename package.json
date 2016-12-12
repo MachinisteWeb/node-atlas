@@ -63,6 +63,7 @@
     "mkpath": "1.0.x",
     "open": "0.0.x",
     "pug": "2.0.0-beta6",
+    "socket.io": "1.7.x",
     "stylus": "0.54.x",
     "traverse-directory": "0.3.x",
     "uglify-js": "2.7.x"
