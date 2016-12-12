@@ -8,10 +8,6 @@
     var privates = {},
         publics = this;
 
-    if (!(publics instanceof User)) {
-        return new User();
-    }
-
     publics.id = function (id) {
         if (typeof id === 'undefined') {
             return privates.id;

@@ -1,5 +1,11 @@
-<?- include("head.htm") ?>
-
-		<h1>Error 404</h1>
-
-<?- include("foot.htm") ?>
+doctype html
+html(lang=languageCode)
+	head
+		meta(charset="utf-8")
+		title #{common.title}
+		base(href=urlBasePath + "/")
+		link(rel="stylesheet", href="stylesheets/common.css")
+	body
+		div.layout
+			div
+				h1 #{common.error}

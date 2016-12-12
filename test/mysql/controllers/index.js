@@ -1,32 +1,58 @@
-exports.changeVariation = function (params, mainCallback) {
+exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
-        User = NA.models.User,
-        bruno = User();
+        user = new NA.models.User(),
+        user2 = new NA.models.User(),
+        user3 = new NA.models.User(),
+        user4 = new NA.models.User();
 
     NA.mySql.getConnection(function(err, connection) {
         if (err) {
-            console.log(err);
-            return false;
+            throw err;
         }
 
-        bruno
+        // Exemple de lecture.
+        user
         .setConnection(connection)
-        .firstname("bruno")
-        .readFirst(function () {
+        .lastname("Elric")
+        .read(function (allUsers) {
+            variation.user = user;
+            variation.users = allUsers;
 
-            variation.id = bruno.id();
-            variation.lastname = bruno.lastname();
-            variation.firstname = bruno.firstname();
-            variation.email = bruno.email();
-            variation.birthdate = bruno.birthdate();
-            variation.gender = (bruno.gender()) ? variation.common.male : variation.common.female;
-            variation.country = bruno.country();
-            variation.town = bruno.town();
-            variation.zipcode = bruno.zipcode();
-            variation.address = bruno.address();
+            // Exemple de création.
+            user2
+            .setConnection(connection)
+            .firstname("Winry")
+            .lastname("Rockbell")
+            .email("winry.rockbell@fma.br")
+            .gender(true)
+            .create(function (infos) {
+                variation.insertId = infos.insertId;
+                variation.user2 = user2;
 
-            mainCallback(variation);
+                // Exemple de modification.
+                user3
+                .gender(false)
+                .birthdate("2008-01-01")
+                .country("Amestris")
+                .town("Resembool")
+                .zipcode("99999")
+                .address("The Rockbell's house");
+
+                user2.update(user3, function (infos) {
+                    variation.affectedRows = infos.affectedRows;
+                    variation.user2 = user2;
+
+                    // Exemple de suppression.
+                    user4
+                    .setConnection(connection)
+                    .gender(false)
+                    .delete(function (infos) {
+                        variation.deletedRows = infos.affectedRows;
+                        next(variation);
+                    });
+                });
+            });
         });
     });
 };

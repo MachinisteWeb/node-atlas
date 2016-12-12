@@ -1,26 +1,37 @@
 {
 	"languageCode": "fr-fr",
-	"commonVariation": "common.json",
 	"commonController": "common.js",
-	"pageNotFound": "error",
-	"routes": {
-		"home_fr-fr": {
-			"url": "/",
-			"view": "index.htm",
-			"variation": "index.json",
-			"controller": "index.js"
-		},
-		"home_en-us": {
-			"url": "/english/",
-			"languageCode": "en-us",
-			"view": "index.htm",
-			"variation": "index.json"
-		},
-		"error": {
-			"url": "/error/",
-			"languageCode": "en-us",
-			"view": "error.htm",
-			"statusCode": 404
-		}
-	}
+	"commonVariation": "common.json",
+	"pageNotFound": "error_fr-fr",
+	"routes": [{
+		"key": "home_fr-fr",
+		"url": "/",
+		"output": "index.html",
+		"view": "index.htm",
+		"variation": "index.json",
+		"controller": "index.js"
+	}, {
+		"key": "home_en-us",
+		"url": "/english/",
+		"output": "/english/index.html",
+		"view": "index.htm",
+		"variation": "index.json",
+		"controller": "index.js",
+		"languageCode": "en-us"
+	}, {
+		"enablePug": true,
+		"key": "error_en-us",
+		"url": "/english/*",
+		"output": "/english/error.html",
+		"view": "error.htm",
+		"statusCode": 404,
+		"languageCode": "en-us"
+	}, {
+		"enablePug": true,
+		"key": "error_fr-fr",
+		"url": "/erreur/",
+		"output": "/erreur.html",
+		"view": "error.htm",
+		"statusCode": 404
+	}]
 }
