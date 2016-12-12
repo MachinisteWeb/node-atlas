@@ -2,12 +2,16 @@
 
 Features:
 
+- Gitter Chat for both fr (Aide) and en (Help) language: `https://gitter.im/NodeAtlas/`.
 - `NA#currentVariation.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
 - `NA#currentVariation.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
 - `NA#currentVariation.urlFilePath` is added.
 - `NA#webconfig.mimeType` is added.
 - `NA#webconfig.charset` is added.
 - `NA#webconfig.headers` is added.
+- `NA#webconfig.cache` is added.
+- `NA#configuration.cache` is added.
+- `--cache` command is added.
 
 Updates:
 
@@ -37,6 +41,7 @@ Updates:
 - EJS engine become ATLAS engine and `<% %>` become `<? ?>`.
 - `NA#webconfig.componentsRelativePath` removed.
 - `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
+
 
 
 ## 1.8.0 ##

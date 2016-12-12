@@ -3,5 +3,6 @@
 	"menu": {
 		"href": "en-us",
 		"title": "International Version"
-	}
+	},
+	"error": "Erreur 404"
 }

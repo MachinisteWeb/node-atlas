@@ -59,8 +59,12 @@
 			"command": "-g, --generate",
 			"description": "Start minification of resources and the creation of Html layouts."
 		},
+		"cache": {
+			"command": "-c, --cache",
+			"description": "Avoid all cache system from all levels (server, template engine...)."
+		},
 		"create": {
-			"command": "-c, --create [path]",
+			"command": "-i, --create [path]",
 			"description": "Install the desired starting project from `tests` directory of NodeAtlas."
 		},
 		"httpSecure": {

@@ -1,3 +1,10 @@
 {
-	"helloWorld": "Bonjour le monde !"
+	"helloWorld": "Bonjour le monde !",
+	"menu": [{
+		"title": "Cette page n'existe pas.",
+		"href": "page-qui-n-existe-pas/"
+	}, {
+		"title": "Cette page a été ajoutée par `controllers/common.js`.",
+		"href": "ajoutee/"
+	}]
 }

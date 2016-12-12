@@ -27,6 +27,7 @@
  * @requires {@link NA#modules.external:less-middleware}
  * @requires {@link NA#modules.external:mkpath}
  * @requires {@link NA#modules.external:open}
+ * @requires {@link NA#modules.external:pug}
  * @requires {@link NA#modules.external:stylus}
  * @requires {@link NA#modules.external:traverse-directory}
  * @requires {@link NA#modules.external:uglify-js}

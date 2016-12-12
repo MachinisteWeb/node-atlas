@@ -1,0 +1,10 @@
+{
+    "enablePug": true,
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
