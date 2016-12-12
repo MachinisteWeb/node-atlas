@@ -2409,32 +2409,52 @@ INSERT INTO user (
     zipcode,
     address
 ) VALUES (
-    "Lesieur",
-    "Bruno",
-    "bruno.lesieur@gmail.com",
-    "1988/07/18",
+    "Elric",
+    "Edward",
+    "edward.elric@fma.br",
+    "2006/01/01",
     true,
-    "France",
-    "Annecy",
-    74000,
-    "66 avenue de Genève"
+    "Amestris",
+    "Resembool",
+    00000,
+    "The Elric's house"
+);
+INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    "Elric",
+    "Alphonse",
+    "alphonse.elric@fma.br",
+    "2008/01/01",
+    true,
+    "Amestris",
+    "Resembool",
+    00000,
+    "The Elric's house"
 );
 ```
 
 #### NodeAtlas Files ####
 
-With the following data set:
+See now what files we will created to present our example:
 
 ```
-├─ assets/
-│  └─ javascript/
-│     └─ models/
-│        └─ user.js
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ models/
-│  └─ user.js
+│  ├─ objects/
+│  │  └─ user.js
+│  └─ connectors/
+│     └─ user.js
 ├─ views/
 │  └─ index.htm
 ├─ variations/
@@ -2465,73 +2485,33 @@ We will use the following `webconfig.json` with the custom `_mysqlConfig` variab
 }
 ```
 
-With following files to display page:
-
-**views/index.htm**
-
-```html
-<!DOCTYPE html>
-<html lang="<?- languageCode ?>">
-    <head>
-        <meta charset="utf-8" />
-        <title><?- common.titleWebsite ?></title>
-    </head>
-    <body>
-        <div class="title"><?- common.titleWebsite ?></div>
-        <div>
-            <h1><?- specific.titlePage ?></h1>
-            <?- specific.content ?>
-            <ul>
-                <li>Id: <strong><?- user.id() ?></strong></li>
-                <li>Lastname: <strong><?- user.lastname() ?></strong></li>
-                <li>Firstname: <strong><?- user.firstname() ?></strong></li>
-                <li>Email: <strong><?- user.email() ?></strong></li>
-                <li>Birthdate: <strong><?- user.birthdate() ?></strong></li>
-                <li>Gender: <strong><?- user.gender() ?></strong></li>
-                <li>Country: <strong><?- user.country() ?></strong></li>
-                <li>Town: <strong><?- user.town() ?></strong></li>
-                <li>Zipcode: <strong><?- user.zipcode() ?></strong></li>
-                <li>Address: <strong><?- user.address() ?></strong></li>
-            </ul>
-        </div>
-    </body>
-</html>
-```
-
-**variations/common.json**
-
-```js
-{
-    "titleWebsite": "Example MySql",
-    "male": "Man",
-    "female": "Woman"
-}
-```
-
-**variations/index.json**
-
-```js
-{
-    "titlePage": "User Table",
-    "content": "<p>`bruno` entry details.</p>"
-}
-```
-
-And last, we will be connect to the database with the common controller `controllers/common.js`:
+Then, we will be connect to the database with the common controller `controllers/common.js`:
 
 ```js
 exports.setModules = function () {
     var NA = this;
 
+    // Import of `mysql` module.
     NA.modules.mysql = require('mysql');
+
+    // Create a model collection...
     NA.models = {};
-    NA.models.User = require('../models/user.js');
+    // ...and use the User model with MySQL connection capability.
+    NA.models.User = require('../models/connectors/user.js');
 };
 
 exports.setConfigurations = function (next) {
     var NA = this,
+        path = NA.modules.path,
         mysql = NA.modules.mysql;
 
+    // Offer the User model client-side at `models/user.js` url.
+    NA.httpServer.use(
+        NA.webconfig.urlRelativeSubPath + "/models", 
+        NA.modules.express.static(path.join(NA.serverPath, "models/objects"), { maxAge: 86400000 * 30 })
+    );
+
+    // Create a connection pool to MySQL.
     NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
 
     next();
@@ -2544,114 +2524,292 @@ And display result via specific controller `controllers/index.js`:
 exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
-        bruno = new NA.models.User();
+        user = new NA.models.User(),
+        user2 = new NA.models.User(),
+        user3 = new NA.models.User(),
+        user4 = new NA.models.User();
 
+    // Get the MySql connection.
     NA.mySql.getConnection(function(err, connection) {
         if (err) {
-            console.log(err);
-            return false;
+            throw err;
         }
 
-        bruno
+        // Read example.
+        user
         .setConnection(connection)
-        .firstname("bruno")
-        .readFirst(function () {
+        .lastname("Elric")
+        .read(function (allUsers) {
+            variation.user = user;
+            variation.users = allUsers;
 
-            variation.user = bruno;
+            // Create Example.
+            user2
+            .setConnection(connection)
+            .firstname("Winry")
+            .lastname("Rockbell")
+            .email("winry.rockbell@fma.br")
+            .gender(true)
+            .create(function (infos) {
+                variation.insertId = infos.insertId;
+                variation.user2 = user2;
 
-            next(variation);
+                // Update Example.
+                user3
+                .gender(false)
+                .birthdate("2008-01-01")
+                .country("Amestris")
+                .town("Resembool")
+                .zipcode("99999")
+                .address("The Rockbell's house");
+
+                user2.update(user3, function (infos) {
+                    variation.affectedRows = infos.affectedRows;
+                    variation.user2 = user2;
+
+                    // Delete Example.
+                    user4
+                    .setConnection(connection)
+                    .gender(false)
+                    .delete(function (infos) {
+                        variation.deletedRows = infos.affectedRows;
+                        next(variation);
+                    });
+                });
+            });
         });
     });
 };
 ```
 
-with the `user` model via connect file to database `models/user.js`:
+with the `user` model via connect file to database `models/connectors/user.js`:
 
 ```js
-var user = require('../assets/javascript/models/user.js');
+var user = require('../objects/user.js');
 
 function User(connection) {
     var privates = {},
-        publics = this;
-
-    privates.connection = connection;
+      publics = this;
 
     user.call(publics);
 
+    privates.connection = connection;
+
     publics.setConnection = function (connection) {
-        privates.connection = connection;
-        return publics;
+    privates.connection = connection;
+      return publics;
     };
 
     publics.read = function (callback) {
-        var select = `SELECT
-                    id,
-                    lastname,
-                    firstname,
-                    email,
-                    birthdate,
-                    gender,
-                    country,
-                    town,
-                    zipcode,
-                    address
-                FROM user`, 
-            where = "",
-            addWhere = " WHERE ";
+      var select = `SELECT
+            id,
+          lastname,
+          firstname,
+          email,
+          birthdate,
+          gender,
+          country,
+          town,
+          zipcode,
+          address
+        FROM user`, 
+        where = "";
 
-        if (publics.id()) { where += addWhere + '`id` = "' + publics.id() + '"'; addWhere = ' && '; }
-        if (publics.lastname()) { where += addWhere + '`lastname` = "' + publics.lastname() + '"'; addWhere = ' && '; }
-        if (publics.firstname()) { where += addWhere + '`firstname` = "' + publics.firstname() + '"'; addWhere = ' && '; }
-        if (publics.email()) { where += addWhere + '`email` = "' + publics.email() + '"'; addWhere = ' && '; }
-        if (publics.birthdate()) { where += addWhere + '`birthdate` = "' + publics.birthdate() + '"'; addWhere = ' && '; }
-        if (publics.gender()) { where += addWhere + '`gender` = "' + publics.gender() + '"'; addWhere = ' && '; }
-        if (publics.country()) { where += addWhere + '`country` = "' + publics.country() + '"'; addWhere = ' && '; }
-        if (publics.town()) { where += addWhere + '`town` = "' + publics.town() + '"'; addWhere = ' && '; }
-        if (publics.zipcode()) { where += addWhere + '`zipcode` = "' + publics.zipcode() + '"'; addWhere = ' && '; }
-        if (publics.address()) { where += addWhere + '`address` = "' + publics.address() + '"'; addWhere = ' && '; }
+    if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+    if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
+    if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
+    if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
+    if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
+    if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+    if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
+    if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
+    if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
+    if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
 
-        privates.connection.query(select + where + limit, function(err, rows) {
-            var users = [],
-                user;
+    where = where.replace("&&", "WHERE");
 
-            if (err) {
-                console.log(err);
-            }
+    privates.connection.query(select + where, function (err, rows) {
+      var users = [],
+        user;
 
-            if (rows[0]) {
-                publics.id(rows[0].id);
-                publics.lastname(rows[0].lastname);
-                publics.firstname(rows[0].firstname);
-                publics.email(rows[0].email);
-                publics.birthdate(rows[0].birthdate);
-                publics.gender((rows[0].gender) ? true : false);
-                publics.country(rows[0].country);
-                publics.town(rows[0].town);
-                publics.zipcode(rows[0].zipcode);
-                publics.address(rows[0].address);
-            }
+      if (err) {
+        throw err;
+      }
 
-            for (var i = 0; i < rows.length; i++) {
-                user = new User();
-                user.id(rows[i].id);
-                user.lastname(rows[i].lastname);
-                user.firstname(rows[i].firstname);
-                user.email(rows[i].email);
-                user.birthdate(rows[i].birthdate);
-                user.gender((rows[i].gender) ? true : false);
-                user.country(rows[i].country);
-                user.town(rows[i].town);
-                user.zipcode(rows[i].zipcode);
-                user.address(rows[i].address);
-                users.push(user);
-            }
+      if (rows[0]) {
+        publics.id(rows[0].id);
+        publics.lastname(rows[0].lastname);
+        publics.firstname(rows[0].firstname);
+        publics.email(rows[0].email);
+        publics.birthdate(rows[0].birthdate);
+        publics.gender((rows[0].gender) ? true : false);
+        publics.country(rows[0].country);
+        publics.town(rows[0].town);
+        publics.zipcode(rows[0].zipcode);
+        publics.address(rows[0].address);
+      }
 
-            if (callback) {
-                callback(users);
-            }
-        });
+      for (var i = 0; i < rows.length; i++) {
+        user = new User();
+        user.id(rows[i].id);
+        user.lastname(rows[i].lastname);
+        user.firstname(rows[i].firstname);
+        user.email(rows[i].email);
+        user.birthdate(rows[i].birthdate);
+        user.gender((rows[i].gender) ? true : false);
+        user.country(rows[i].country);
+        user.town(rows[i].town);
+        user.zipcode(rows[i].zipcode);
+        user.address(rows[i].address);
+        users.push(user);
+      }
 
-        return publics;
+      if (callback) {
+        callback(users);
+      }
+    });
+
+    return publics;
+    };
+
+    publics.create = function (callback) {
+      var insert = "INSERT INTO user (",
+        values = ") VALUES (";
+
+    if (publics.id()) { insert += "`id`, "; }
+    if (publics.lastname()) { insert += "`lastname`, "; }
+    if (publics.firstname()) { insert += "`firstname`, "; }
+    if (publics.email()) { insert += "`email`, "; }
+    if (publics.birthdate()) { insert += "`birthdate`, "; }
+    if (typeof publics.gender() === "boolean") { insert += "`gender`, "; }
+    if (publics.country()) { insert += "`country`, "; }
+    if (publics.town()) { insert += "`town`, "; }
+    if (publics.zipcode()) { insert += "`zipcode`, "; }
+    if (publics.address()) { insert += "`address`, "; }
+
+    insert = insert.replace(/, $/g, "");
+
+    if (publics.id()) { values += publics.id() + ', '; }
+    if (publics.lastname()) { values += '"' + publics.lastname() + '", '; }
+    if (publics.firstname()) { values += '"' + publics.firstname() + '", '; }
+    if (publics.email()) { values += '"' + publics.email() + '", '; }
+    if (publics.birthdate()) { values += '"' + publics.birthdate() + '", '; }
+    if (typeof publics.gender() === "boolean") { values += (publics.gender() ? 1 : 0) + ', '; }
+    if (publics.country()) { values += '"' + publics.country() + '", '; }
+    if (publics.town()) { values += '"' + publics.town() + '", '; }
+    if (publics.zipcode()) { values += '"' + publics.zipcode() + '", '; }
+    if (publics.address()) { values += '"' + publics.address() + '", '; }
+
+    values = values.replace(/, $/g, ")");
+
+    privates.connection.query(insert + values, function (err, infos) {
+      if (err) { 
+        throw err;
+      }
+
+      publics.id(infos.insertId);
+
+      if (callback) {
+        callback(infos);
+      }
+    });
+
+    return publics;
+    };
+
+    publics.update = function (user, callback) {
+      var update = "UPDATE user SET",
+        where = "";
+
+    if (user.id()) { update += '`id` = ' + user.id() + ', '; }
+    if (user.lastname()) { update += '`lastname` = "' + user.lastname() + '", '; }
+    if (user.firstname()) { update += '`firstname` = "' + user.firstname() + '", '; }
+    if (user.email()) { update += '`email` = "' + user.email() + '", '; }
+    if (user.birthdate()) { update += '`birthdate` = "' + user.birthdate() + '", '; }
+    if (typeof user.gender() === "boolean") { update += '`gender` = ' + (user.gender() ? 1 : 0) + ', '; }
+    if (user.country()) { update += '`country` = "' + user.country() + '", '; }
+    if (user.town()) { update += '`town` = "' + user.town() + '", '; }
+    if (user.zipcode()) { update += '`zipcode` = "' + user.zipcode() + '", '; }
+    if (user.address()) { update += '`address` = "' + user.address() + '", '; }
+
+    update = update.replace(/, $/g, "");
+
+    if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+    if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
+    if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
+    if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
+    if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
+    if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+    if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
+    if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
+    if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
+    if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
+
+    where = where.replace("&&", "WHERE");
+
+    privates.connection.query(update + where, function (err, infos) {
+      if (err) { 
+        throw err;
+      }
+
+      if (user.id()) { publics.id(user.id()); }
+      if (user.lastname()) { publics.lastname(user.lastname()); }
+      if (user.firstname()) { publics.firstname(user.firstname()); }
+      if (user.email()) { publics.email(user.email()); }
+      if (user.birthdate()) { publics.birthdate(user.birthdate()); }
+      if (typeof publics.gender() === "boolean") { publics.gender(user.gender()); }
+      if (user.country()) { publics.country(user.country()); }
+      if (user.town()) { publics.town(user.town()); }
+      if (user.zipcode()) { publics.zipcode(user.zipcode()); }
+      if (user.address()) { publics.address(user.address()); }
+
+      if (callback) {
+        callback(infos);
+      }
+    });
+
+    return publics;
+    };
+
+    publics.delete = function (callback) {
+      var del = "DELETE FROM user",
+        where = "";
+
+    if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+    if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
+    if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
+    if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
+    if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
+    if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+    if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
+    if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
+    if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
+    if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
+
+    where = where.replace("&&", "WHERE");
+
+    privates.connection.query(del + where, function (err, infos) {
+      if (err) { 
+        throw err;
+      }
+
+      if (publics.id()) { publics.id(undefined); }
+      if (publics.lastname()) { publics.lastname(undefined); }
+      if (publics.firstname()) { publics.firstname(undefined); }
+      if (publics.email()) { publics.email(undefined); }
+      if (publics.birthdate()) { publics.birthdate(undefined); }
+      if (typeof publics.gender() === "boolean") { publics.gender(undefined); }
+      if (publics.country()) { publics.country(undefined); }
+      if (publics.town()) { publics.town(undefined); }
+      if (publics.zipcode()) { publics.zipcode(undefined); }
+      if (publics.address()) { publics.address(undefined); }
+
+      if (callback) {
+        callback(infos);
+      }
+    });
+
+    return publics;
     };
 }
 
@@ -2661,7 +2819,7 @@ User.prototype.constructor = User;
 module.exports = User;
 ```
 
-based on `user` classe shared between Front and Back part `assets/javascript/models/user.js`:
+based on `user` classe shared between client-side and server-side `models/objects/user.js`:
 
 ```js
 (function (expose, factory) {
@@ -2766,32 +2924,170 @@ based on `user` classe shared between Front and Back part `assets/javascript/mod
 }));
 ```
 
+With following files to display page:
+
+**views/index.htm**
+
+```html
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
+        <title><?- common.titleWebsite ?></title>
+    </head>
+    <body>
+        <div class="title"><?- common.titleWebsite ?></div>
+        <div>
+            <h1><?- specific.titlePage ?></h1>
+            <div class="first">
+                <?- specific.content ?>
+                <ul>
+                    <li>Id: <strong><?- user.id() ?></strong></li>
+                    <li>Lastname: <strong><?- user.lastname() ?></strong></li>
+                    <li>Firstname: <strong><?- user.firstname() ?></strong></li>
+                    <li>Email: <strong><?- user.email() ?></strong></li>
+                    <li>Birthdate: <strong><?- user.birthdate() ?></strong></li>
+                    <li>Gender: <strong><?- user.gender() ?></strong></li>
+                    <li>Country: <strong><?- user.country() ?></strong></li>
+                    <li>Town: <strong><?- user.town() ?></strong></li>
+                    <li>Zipcode: <strong><?- user.zipcode() ?></strong></li>
+                    <li>Address: <strong><?- user.address() ?></strong></li>
+                </ul>
+            </div>
+            <div class="all">
+                <?- specific.contents ?>
+                <? for (var i = 0; i < users.length; i++) { ?>
+                <ul>
+                    <li>Id: <strong><?- users[i].id() ?></strong></li>
+                    <li>Lastname: <strong><?- users[i].lastname() ?></strong></li>
+                    <li>Firstname: <strong><?- users[i].firstname() ?></strong></li>
+                    <li>Email: <strong><?- users[i].email() ?></strong></li>
+                    <li>Birthdate: <strong><?- users[i].birthdate() ?></strong></li>
+                    <li>Gender: <strong><?- users[i].gender() ?></strong></li>
+                    <li>Country: <strong><?- users[i].country() ?></strong></li>
+                    <li>Town: <strong><?- users[i].town() ?></strong></li>
+                    <li>Zipcode: <strong><?- users[i].zipcode() ?></strong></li>
+                    <li>Address: <strong><?- users[i].address() ?></strong></li>
+                </ul>
+                <? } ?>
+            </div>
+            <div class="last">
+                <?- specific.contentInsert ?>
+                <p>insertId: <?- insertId ?></p>
+                <p>numberUpdate: <?- affectedRows ?></p>
+                <ul>
+                    <li>Id: <strong><?- user2.id() ?></strong></li>
+                    <li>Lastname: <strong><?- user2.lastname() ?></strong></li>
+                    <li>Firstname: <strong><?- user2.firstname() ?></strong></li>
+                    <li>Email: <strong><?- user2.email() ?></strong></li>
+                    <li>Birthdate: <strong><?- user2.birthdate() ?></strong></li>
+                    <li>Gender: <strong><?- user2.gender() ?></strong></li>
+                    <li>Country: <strong><?- user2.country() ?></strong></li>
+                    <li>Town: <strong><?- user2.town() ?></strong></li>
+                    <li>Zipcode: <strong><?- user2.zipcode() ?></strong></li>
+                    <li>Address: <strong><?- user2.address() ?></strong></li>
+                </ul>
+                <p>numberDelete: <?- deletedRows ?></p>
+            </div>
+        </div>
+    </body>
+</html>
+```
+
+**variations/common.json**
+
+```js
+{
+    "titleWebsite": "Example MySql",
+    "male": "Man",
+    "female": "Woman"
+}
+```
+
+**variations/index.json**
+
+```js
+{
+    "titlePage": "User Table",
+    "content": "<p>First entry details.</p>",
+    "contents": "<p>All entries details.</p>",
+    "contentInsert": "<p>Added and Updated user details.</p>"
+}
+```
+
 You will get the following output:
 
 ```html
 <!DOCTYPE html>
-<html lang="">
+<html lang="en-us">
     <head>
         <meta charset="utf-8" />
-        <title>MySql Example</title>
+        <title>MySql Exemple</title>
     </head>
     <body>
-        <div class="title">MySql Example</div>
+        <div class="title">MySql Exemple</div>
         <div>
-            <h1>User Table</h1>
-            <p>`bruno` entry details.</p>
-            <ul>
-                <li>Id: <strong>1</strong></li>
-                <li>Lastname: <strong>Lesieur</strong></li>
-                <li>Firstname: <strong>Bruno</strong></li>
-                <li>Email: <strong>bruno.lesieur@gmail.com</strong></li>
-                <li>Birthdate: <strong>Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))</strong></li>
-                <li>Gender: <strong>Homme</strong></li>
-                <li>Country: <strong>France</strong></li>
-                <li>Town: <strong>Annecy</strong></li>
-                <li>Zipcode: <strong>74000</strong></li>
-                <li>Address: <strong>66 avenue de Genève</strong></li>
-            </ul>
+            <h1>Table User</h1>
+            <div class="first">
+                <p>Détail de la première entrée.</p>
+                <ul>
+                    <li>Id: <strong>1</strong></li>
+                    <li>Lastname: <strong>Elric</strong></li>
+                    <li>Firstname: <strong>Edward</strong></li>
+                    <li>Email: <strong>edward.elric@fma.br</strong></li>
+                    <li>Birthdate: <strong>Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
+                    <li>Gender: <strong>true</strong></li>
+                    <li>Country: <strong>Amestris</strong></li>
+                    <li>Town: <strong>Resembool</strong></li>
+                    <li>Zipcode: <strong>0</strong></li>
+                    <li>Address: <strong>The Elric's house</strong></li>
+                </ul>
+            </div>
+            <div class="all">
+                <p>Détail de toutes les entrées.</p>
+                <ul>
+                    <li>Id: <strong>1</strong></li>
+                    <li>Lastname: <strong>Elric</strong></li>
+                    <li>Firstname: <strong>Edward</strong></li>
+                    <li>Email: <strong>edward.elric@fma.br</strong></li>
+                    <li>Birthdate: <strong>Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
+                    <li>Gender: <strong>true</strong></li>
+                    <li>Country: <strong>Amestris</strong></li>
+                    <li>Town: <strong>Resembool</strong></li>
+                    <li>Zipcode: <strong>0</strong></li>
+                    <li>Address: <strong>The Elric's house</strong></li>
+                </ul>
+                <ul>
+                    <li>Id: <strong>2</strong></li>
+                    <li>Lastname: <strong>Elric</strong></li>
+                    <li>Firstname: <strong>Alphonse</strong></li>
+                    <li>Email: <strong>alphonse.elric@fma.br</strong></li>
+                    <li>Birthdate: <strong>Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
+                    <li>Gender: <strong>true</strong></li>
+                    <li>Country: <strong>Amestris</strong></li>
+                    <li>Town: <strong>Resembool</strong></li>
+                    <li>Zipcode: <strong>0</strong></li>
+                    <li>Address: <strong>The Elric's house</strong></li>
+                </ul>
+            </div>
+            <div class="last">
+                <p>Détail de l'utilisateur ajouté puis modifié.</p>
+                <p>insertId: 3</p>
+                <p>numberUpdate: 1</p>
+                <ul>
+                    <li>Id: <strong>3</strong></li>
+                    <li>Lastname: <strong>Rockbell</strong></li>
+                    <li>Firstname: <strong>Winry</strong></li>
+                    <li>Email: <strong>winry.rockbell@fma.br</strong></li>
+                    <li>Birthdate: <strong>2008-01-01</strong></li>
+                    <li>Gender: <strong>false</strong></li>
+                    <li>Country: <strong>Amestris</strong></li>
+                    <li>Town: <strong>Resembool</strong></li>
+                    <li>Zipcode: <strong>99999</strong></li>
+                    <li>Address: <strong>The Rockbell's house</strong></li>
+                </ul>
+                <p>numberDelete: 1</p>
+            </div>
         </div>
     </body>
 </html>
