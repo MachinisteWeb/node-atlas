@@ -965,9 +965,9 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
         });
     };
 }(website.index = {}));
-</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>currentVariation</code> is type of <code>undefined</code> an empty object will be created.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code>CREATE DATABASE demo;
-</code></pre><p>and select it:</p><pre><code>USE demo
-</code></pre><p>and create a <code>user</code> table:</p><pre><code>CREATE TABLE user
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>currentVariation</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>newRender</code> to use PUG template engine and not EJS, you must defined <code>variation.enablePug</code> to <code>true</code> before use <code>NA.addCommonVariation</code> and <code>NA.addSpecificVariation</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
+</code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
+</code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user
 (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     lastname VARCHAR(100),
@@ -980,7 +980,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     zipcode VARCHAR(5),
     address VARCHAR(255)
 );
-</code></pre><p>and fill it with this set of data:</p><pre><code>INSERT INTO user (
+</code></pre><p>and fill it with this set of data:</p><pre><code class="lang-sql">INSERT INTO user (
     lastname,
     firstname,
     email,
@@ -1144,227 +1144,227 @@ exports.setConfigurations = function (next) {
 
 function User(connection) {
     var privates = {},
-      publics = this;
+        publics = this;
 
     user.call(publics);
 
     privates.connection = connection;
 
     publics.setConnection = function (connection) {
-    privates.connection = connection;
-      return publics;
+        privates.connection = connection;
+        return publics;
     };
 
     publics.read = function (callback) {
-      var select = `SELECT
-            id,
-          lastname,
-          firstname,
-          email,
-          birthdate,
-          gender,
-          country,
-          town,
-          zipcode,
-          address
-        FROM user`, 
-        where = &quot;&quot;;
+        var select = `SELECT
+                    id,
+                    lastname,
+                    firstname,
+                    email,
+                    birthdate,
+                    gender,
+                    country,
+                    town,
+                    zipcode,
+                    address
+                FROM user`, 
+            where = &quot;&quot;;
 
-    if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
-    if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
-    if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
-    if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
-    if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
-    if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
-    if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
-    if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
-    if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
-    if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
+        if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
+        if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
+        if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
+        if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
+        if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
+        if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
+        if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
+        if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
+        if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
 
-    where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
+        where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
 
-    privates.connection.query(select + where, function (err, rows) {
-      var users = [],
-        user;
+        privates.connection.query(select + where, function (err, rows) {
+            var users = [],
+                user;
 
-      if (err) {
-        throw err;
-      }
+            if (err) {
+                throw err;
+            }
 
-      if (rows[0]) {
-        publics.id(rows[0].id);
-        publics.lastname(rows[0].lastname);
-        publics.firstname(rows[0].firstname);
-        publics.email(rows[0].email);
-        publics.birthdate(rows[0].birthdate);
-        publics.gender((rows[0].gender) ? true : false);
-        publics.country(rows[0].country);
-        publics.town(rows[0].town);
-        publics.zipcode(rows[0].zipcode);
-        publics.address(rows[0].address);
-      }
+            if (rows[0]) {
+                publics.id(rows[0].id);
+                publics.lastname(rows[0].lastname);
+                publics.firstname(rows[0].firstname);
+                publics.email(rows[0].email);
+                publics.birthdate(rows[0].birthdate);
+                publics.gender((rows[0].gender) ? true : false);
+                publics.country(rows[0].country);
+                publics.town(rows[0].town);
+                publics.zipcode(rows[0].zipcode);
+                publics.address(rows[0].address);
+            }
 
-      for (var i = 0; i &lt; rows.length; i++) {
-        user = new User();
-        user.id(rows[i].id);
-        user.lastname(rows[i].lastname);
-        user.firstname(rows[i].firstname);
-        user.email(rows[i].email);
-        user.birthdate(rows[i].birthdate);
-        user.gender((rows[i].gender) ? true : false);
-        user.country(rows[i].country);
-        user.town(rows[i].town);
-        user.zipcode(rows[i].zipcode);
-        user.address(rows[i].address);
-        users.push(user);
-      }
+            for (var i = 0; i &lt; rows.length; i++) {
+                user = new User();
+                user.id(rows[i].id);
+                user.lastname(rows[i].lastname);
+                user.firstname(rows[i].firstname);
+                user.email(rows[i].email);
+                user.birthdate(rows[i].birthdate);
+                user.gender((rows[i].gender) ? true : false);
+                user.country(rows[i].country);
+                user.town(rows[i].town);
+                user.zipcode(rows[i].zipcode);
+                user.address(rows[i].address);
+                users.push(user);
+            }
 
-      if (callback) {
-        callback(users);
-      }
-    });
+            if (callback) {
+                callback(users);
+            }
+        });
 
-    return publics;
+        return publics;
     };
 
     publics.create = function (callback) {
-      var insert = &quot;INSERT INTO user (&quot;,
-        values = &quot;) VALUES (&quot;;
+        var insert = &quot;INSERT INTO user (&quot;,
+            values = &quot;) VALUES (&quot;;
 
-    if (publics.id()) { insert += &quot;`id`, &quot;; }
-    if (publics.lastname()) { insert += &quot;`lastname`, &quot;; }
-    if (publics.firstname()) { insert += &quot;`firstname`, &quot;; }
-    if (publics.email()) { insert += &quot;`email`, &quot;; }
-    if (publics.birthdate()) { insert += &quot;`birthdate`, &quot;; }
-    if (typeof publics.gender() === &quot;boolean&quot;) { insert += &quot;`gender`, &quot;; }
-    if (publics.country()) { insert += &quot;`country`, &quot;; }
-    if (publics.town()) { insert += &quot;`town`, &quot;; }
-    if (publics.zipcode()) { insert += &quot;`zipcode`, &quot;; }
-    if (publics.address()) { insert += &quot;`address`, &quot;; }
+        if (publics.id()) { insert += &quot;`id`, &quot;; }
+        if (publics.lastname()) { insert += &quot;`lastname`, &quot;; }
+        if (publics.firstname()) { insert += &quot;`firstname`, &quot;; }
+        if (publics.email()) { insert += &quot;`email`, &quot;; }
+        if (publics.birthdate()) { insert += &quot;`birthdate`, &quot;; }
+        if (typeof publics.gender() === &quot;boolean&quot;) { insert += &quot;`gender`, &quot;; }
+        if (publics.country()) { insert += &quot;`country`, &quot;; }
+        if (publics.town()) { insert += &quot;`town`, &quot;; }
+        if (publics.zipcode()) { insert += &quot;`zipcode`, &quot;; }
+        if (publics.address()) { insert += &quot;`address`, &quot;; }
 
-    insert = insert.replace(/, $/g, &quot;&quot;);
+        insert = insert.replace(/, $/g, &quot;&quot;);
 
-    if (publics.id()) { values += publics.id() + &#39;, &#39;; }
-    if (publics.lastname()) { values += &#39;&quot;&#39; + publics.lastname() + &#39;&quot;, &#39;; }
-    if (publics.firstname()) { values += &#39;&quot;&#39; + publics.firstname() + &#39;&quot;, &#39;; }
-    if (publics.email()) { values += &#39;&quot;&#39; + publics.email() + &#39;&quot;, &#39;; }
-    if (publics.birthdate()) { values += &#39;&quot;&#39; + publics.birthdate() + &#39;&quot;, &#39;; }
-    if (typeof publics.gender() === &quot;boolean&quot;) { values += (publics.gender() ? 1 : 0) + &#39;, &#39;; }
-    if (publics.country()) { values += &#39;&quot;&#39; + publics.country() + &#39;&quot;, &#39;; }
-    if (publics.town()) { values += &#39;&quot;&#39; + publics.town() + &#39;&quot;, &#39;; }
-    if (publics.zipcode()) { values += &#39;&quot;&#39; + publics.zipcode() + &#39;&quot;, &#39;; }
-    if (publics.address()) { values += &#39;&quot;&#39; + publics.address() + &#39;&quot;, &#39;; }
+        if (publics.id()) { values += publics.id() + &#39;, &#39;; }
+        if (publics.lastname()) { values += &#39;&quot;&#39; + publics.lastname() + &#39;&quot;, &#39;; }
+        if (publics.firstname()) { values += &#39;&quot;&#39; + publics.firstname() + &#39;&quot;, &#39;; }
+        if (publics.email()) { values += &#39;&quot;&#39; + publics.email() + &#39;&quot;, &#39;; }
+        if (publics.birthdate()) { values += &#39;&quot;&#39; + publics.birthdate() + &#39;&quot;, &#39;; }
+        if (typeof publics.gender() === &quot;boolean&quot;) { values += (publics.gender() ? 1 : 0) + &#39;, &#39;; }
+        if (publics.country()) { values += &#39;&quot;&#39; + publics.country() + &#39;&quot;, &#39;; }
+        if (publics.town()) { values += &#39;&quot;&#39; + publics.town() + &#39;&quot;, &#39;; }
+        if (publics.zipcode()) { values += &#39;&quot;&#39; + publics.zipcode() + &#39;&quot;, &#39;; }
+        if (publics.address()) { values += &#39;&quot;&#39; + publics.address() + &#39;&quot;, &#39;; }
 
-    values = values.replace(/, $/g, &quot;)&quot;);
+        values = values.replace(/, $/g, &quot;)&quot;);
 
-    privates.connection.query(insert + values, function (err, infos) {
-      if (err) { 
-        throw err;
-      }
+        privates.connection.query(insert + values, function (err, infos) {
+            if (err) { 
+                throw err;
+            }
 
-      publics.id(infos.insertId);
+            publics.id(infos.insertId);
 
-      if (callback) {
-        callback(infos);
-      }
-    });
+            if (callback) {
+                callback(infos);
+            }
+        });
 
-    return publics;
+        return publics;
     };
 
     publics.update = function (user, callback) {
-      var update = &quot;UPDATE user SET&quot;,
-        where = &quot;&quot;;
+        var update = &quot;UPDATE user SET&quot;,
+            where = &quot;&quot;;
 
-    if (user.id()) { update += &#39;`id` = &#39; + user.id() + &#39;, &#39;; }
-    if (user.lastname()) { update += &#39;`lastname` = &quot;&#39; + user.lastname() + &#39;&quot;, &#39;; }
-    if (user.firstname()) { update += &#39;`firstname` = &quot;&#39; + user.firstname() + &#39;&quot;, &#39;; }
-    if (user.email()) { update += &#39;`email` = &quot;&#39; + user.email() + &#39;&quot;, &#39;; }
-    if (user.birthdate()) { update += &#39;`birthdate` = &quot;&#39; + user.birthdate() + &#39;&quot;, &#39;; }
-    if (typeof user.gender() === &quot;boolean&quot;) { update += &#39;`gender` = &#39; + (user.gender() ? 1 : 0) + &#39;, &#39;; }
-    if (user.country()) { update += &#39;`country` = &quot;&#39; + user.country() + &#39;&quot;, &#39;; }
-    if (user.town()) { update += &#39;`town` = &quot;&#39; + user.town() + &#39;&quot;, &#39;; }
-    if (user.zipcode()) { update += &#39;`zipcode` = &quot;&#39; + user.zipcode() + &#39;&quot;, &#39;; }
-    if (user.address()) { update += &#39;`address` = &quot;&#39; + user.address() + &#39;&quot;, &#39;; }
+        if (user.id()) { update += &#39;`id` = &#39; + user.id() + &#39;, &#39;; }
+        if (user.lastname()) { update += &#39;`lastname` = &quot;&#39; + user.lastname() + &#39;&quot;, &#39;; }
+        if (user.firstname()) { update += &#39;`firstname` = &quot;&#39; + user.firstname() + &#39;&quot;, &#39;; }
+        if (user.email()) { update += &#39;`email` = &quot;&#39; + user.email() + &#39;&quot;, &#39;; }
+        if (user.birthdate()) { update += &#39;`birthdate` = &quot;&#39; + user.birthdate() + &#39;&quot;, &#39;; }
+        if (typeof user.gender() === &quot;boolean&quot;) { update += &#39;`gender` = &#39; + (user.gender() ? 1 : 0) + &#39;, &#39;; }
+        if (user.country()) { update += &#39;`country` = &quot;&#39; + user.country() + &#39;&quot;, &#39;; }
+        if (user.town()) { update += &#39;`town` = &quot;&#39; + user.town() + &#39;&quot;, &#39;; }
+        if (user.zipcode()) { update += &#39;`zipcode` = &quot;&#39; + user.zipcode() + &#39;&quot;, &#39;; }
+        if (user.address()) { update += &#39;`address` = &quot;&#39; + user.address() + &#39;&quot;, &#39;; }
 
-    update = update.replace(/, $/g, &quot;&quot;);
+        update = update.replace(/, $/g, &quot;&quot;);
 
-    if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
-    if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
-    if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
-    if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
-    if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
-    if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
-    if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
-    if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
-    if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
-    if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
+        if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
+        if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
+        if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
+        if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
+        if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
+        if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
+        if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
+        if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
+        if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
 
-    where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
+        where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
 
-    privates.connection.query(update + where, function (err, infos) {
-      if (err) { 
-        throw err;
-      }
+        privates.connection.query(update + where, function (err, infos) {
+            if (err) { 
+                throw err;
+            }
 
-      if (user.id()) { publics.id(user.id()); }
-      if (user.lastname()) { publics.lastname(user.lastname()); }
-      if (user.firstname()) { publics.firstname(user.firstname()); }
-      if (user.email()) { publics.email(user.email()); }
-      if (user.birthdate()) { publics.birthdate(user.birthdate()); }
-      if (typeof publics.gender() === &quot;boolean&quot;) { publics.gender(user.gender()); }
-      if (user.country()) { publics.country(user.country()); }
-      if (user.town()) { publics.town(user.town()); }
-      if (user.zipcode()) { publics.zipcode(user.zipcode()); }
-      if (user.address()) { publics.address(user.address()); }
+            if (user.id()) { publics.id(user.id()); }
+            if (user.lastname()) { publics.lastname(user.lastname()); }
+            if (user.firstname()) { publics.firstname(user.firstname()); }
+            if (user.email()) { publics.email(user.email()); }
+            if (user.birthdate()) { publics.birthdate(user.birthdate()); }
+            if (typeof publics.gender() === &quot;boolean&quot;) { publics.gender(user.gender()); }
+            if (user.country()) { publics.country(user.country()); }
+            if (user.town()) { publics.town(user.town()); }
+            if (user.zipcode()) { publics.zipcode(user.zipcode()); }
+            if (user.address()) { publics.address(user.address()); }
 
-      if (callback) {
-        callback(infos);
-      }
-    });
+            if (callback) {
+                callback(infos);
+            }
+        });
 
-    return publics;
+        return publics;
     };
 
     publics.delete = function (callback) {
-      var del = &quot;DELETE FROM user&quot;,
-        where = &quot;&quot;;
+        var del = &quot;DELETE FROM user&quot;,
+            where = &quot;&quot;;
 
-    if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
-    if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
-    if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
-    if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
-    if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
-    if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
-    if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
-    if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
-    if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
-    if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
+        if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
+        if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
+        if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
+        if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
+        if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
+        if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
+        if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
+        if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
+        if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
 
-    where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
+        where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
 
-    privates.connection.query(del + where, function (err, infos) {
-      if (err) { 
-        throw err;
-      }
+        privates.connection.query(del + where, function (err, infos) {
+            if (err) { 
+                throw err;
+            }
 
-      if (publics.id()) { publics.id(undefined); }
-      if (publics.lastname()) { publics.lastname(undefined); }
-      if (publics.firstname()) { publics.firstname(undefined); }
-      if (publics.email()) { publics.email(undefined); }
-      if (publics.birthdate()) { publics.birthdate(undefined); }
-      if (typeof publics.gender() === &quot;boolean&quot;) { publics.gender(undefined); }
-      if (publics.country()) { publics.country(undefined); }
-      if (publics.town()) { publics.town(undefined); }
-      if (publics.zipcode()) { publics.zipcode(undefined); }
-      if (publics.address()) { publics.address(undefined); }
+            if (publics.id()) { publics.id(undefined); }
+            if (publics.lastname()) { publics.lastname(undefined); }
+            if (publics.firstname()) { publics.firstname(undefined); }
+            if (publics.email()) { publics.email(undefined); }
+            if (publics.birthdate()) { publics.birthdate(undefined); }
+            if (typeof publics.gender() === &quot;boolean&quot;) { publics.gender(undefined); }
+            if (publics.country()) { publics.country(undefined); }
+            if (publics.town()) { publics.town(undefined); }
+            if (publics.zipcode()) { publics.zipcode(undefined); }
+            if (publics.address()) { publics.address(undefined); }
 
-      if (callback) {
-        callback(infos);
-      }
-    });
+            if (callback) {
+                callback(infos);
+            }
+        });
 
-    return publics;
+        return publics;
     };
 }
 

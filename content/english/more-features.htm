@@ -319,7 +319,128 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don&#39;t forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="minify-css-js">Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p><h4 id="creating-bundles">Creating Bundles</h4><p>With the following configuration:</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don&#39;t forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="changing-the-template-engine-brackets-lt-gt">Changing the template engine brackets &lt;? ?&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;?- include(&#39;head.htm&#39;) ?&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;$- include(&#39;head.htm&#39;) $&gt;</em></strong> (like with EJS) with the configuration below:</p><pre><code class="lang-js">{
+    &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>See the exemple in files below:</p><p><em>webconfig.json</em></p><pre><code>{
+    &quot;templateEngineDelimiter&quot;: true,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        }
+    }
+}
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-js">{
+    &quot;titleWebsite&quot;: &quot;Website Title&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-js">{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;This is the Homepage.&lt;/p&gt;&quot;
+}
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;&lt;%- specific.titlePage %&gt;&lt;/title&gt;
+
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= common.classCssCommon %&gt;.css&quot; media=&quot;all&quot; /&gt;
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %&gt;.css&quot; media=&quot;all&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body class=&quot;&lt;%= specific.classPage %&gt;&quot;&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+
+    &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
+        &lt;%- specific.content %&gt;
+    &lt;/div&gt;
+
+    &lt;%- include(&#39;foot.htm&#39;) %&gt;
+</code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p><h3 id="html-generation-with-pug">HTML generation with Pug</h3><p>It&#39;s also possible to change EJS template to PUG template (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p><pre><code>{
+    &quot;enablePug&quot;: true,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        },
+        &quot;/contenu/&quot;: {
+            &quot;view&quot;: &quot;content.htm&quot;
+        }
+    }
+}
+</code></pre><p>or just for one page like this:</p><pre><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        },
+        &quot;/contenu/&quot;: {
+            &quot;enablePug&quot;: true,
+            &quot;view&quot;: &quot;content.htm&quot;
+        }
+    }
+}
+</code></pre><p>It&#39;s also possible to reset EJS only for one page.</p><pre><code>{
+    &quot;enablePug&quot;: true,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;enablePug&quot;: false,
+            &quot;view&quot;: &quot;index.htm&quot;
+        },
+        &quot;/contenu/&quot;: {
+            &quot;view&quot;: &quot;content.htm&quot;
+        }
+    }
+}
+</code></pre><p>We can see now an example with same set of files from previous example (with <code>&lt;? ?&gt;</code> become <code>&lt;% %&gt;</code>):</p><p><em>webconfig.json</em></p><pre><code>{
+    &quot;enablePug&quot;: true,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        }
+    }
+}
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-js">{
+    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-js">{
+    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
+}
+</code></pre><p><em>views/partials/head.pug</em></p><pre><code class="lang-html">doctype html
+html(lang=&quot;fr-fr&quot;)
+    head
+        meta(charset=&quot;utf-8&quot;)
+        title #{specific.titlePage}
+        link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + common.classCssCommon + &quot;.css&quot;, media=&quot;all&quot;)
+        link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + specific.classPage + &quot;.css&quot;, media=&quot;all&quot;)
+    body(class=specific.classPage)
+</code></pre><p><em>views/partials/foot.pug</em></p><pre><code class="lang-html">script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">include partials/head.pug
+
+div
+    h1 #{specific.titlePage}
+    | !{specific.content}
+
+include partials/foot.pug
+</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="https://pugjs.org/">PUG</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>enablePug</em></strong> <em>vaut</em> <strong><em>false</em></strong>.</p><h3 id="minify-css-js">Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p><h4 id="creating-bundles">Creating Bundles</h4><p>With the following configuration:</p><pre><code class="lang-js">{
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
             &quot;javascript/boot.min.js&quot;: [
@@ -1177,38 +1298,7 @@ exports.setSessions = website.setSessions;
 
 exports.setModules = website.setModules;
 exports.setSessions = website.setSessions;
-</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p><h3 id="changing-the-template-engine-brackets-lt-gt">Changing the template engine brackets &lt;? ?&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;?- include(&#39;head.htm&#39;) ?&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;$- include(&#39;head.htm&#39;) $&gt;</em></strong> with the configuration below:</p><pre><code class="lang-js">{
-    &quot;templateEngineDelimiter&quot;: &quot;$&quot;,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><p>See the exemple in files below:</p><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;fr-fr&quot;&gt;
-    &lt;head&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;$- specific.titlePage $&gt;&lt;/title&gt;
-
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;$= common.classCssCommon $&gt;.css&quot; media=&quot;all&quot; /&gt;
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;$= specific.classPage $&gt;.css&quot; media=&quot;all&quot; /&gt;
-    &lt;/head&gt;
-    &lt;body class=&quot;&lt;$= specific.classPage $&gt;&quot;&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;$= common.classJsCommon $&gt;.js&quot;&gt;&lt;/script&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>views/template.htm</em></p><pre><code class="lang-html">    &lt;$- include(&#39;head.htm&#39;) $&gt;
-
-    &lt;div class=&quot;title&quot;&gt;&lt;$- common.titleWebsite $&gt;&lt;/div&gt;
-
-    &lt;div&gt;
-        &lt;h1&gt;&lt;$- specific.titlePage $&gt;&lt;/h1&gt;
-        &lt;$- specific.content $&gt;
-    &lt;/div&gt;
-
-    &lt;$- include(&#39;foot.htm&#39;) $&gt;
-</code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p><h3 id="change-the-url-hostname-and-listening-port">Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p><pre><code class="lang-js">{
+</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p><h3 id="change-the-url-hostname-and-listening-port">Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p><pre><code class="lang-js">{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;urlPort&quot;: 80,

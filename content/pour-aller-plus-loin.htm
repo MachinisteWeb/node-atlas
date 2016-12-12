@@ -370,7 +370,7 @@ exports.setRoutes = function (next) {
     &lt;/div&gt;
 
     &lt;%- include(&#39;foot.htm&#39;) %&gt;
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>?</em></strong>.</p><h3 id="générer-le-html-avec-pug">Générer le HTML avec Pug</h3><p>Il est possible d&#39;utiliser en lieu et place du moteur EJS le moteur PUG (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l&#39;intégralité du site avec par exemple ce webconfig :</p><pre><code>{
+</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez la documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>?</em></strong>.</p><h3 id="générer-le-html-avec-pug">Générer le HTML avec Pug</h3><p>Il est possible d&#39;utiliser en lieu et place du moteur EJS le moteur PUGe (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l&#39;intégralité du site avec par exemple ce webconfig :</p><pre><code>{
     &quot;enablePug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -440,7 +440,7 @@ div
     | !{specific.content}
 
 include partials/foot.pug
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="https://pugjs.org/">PUG</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>enablePug</em></strong> <em>vaut</em> <strong><em>false</em></strong>.</p><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d&#39;entré par leur chemin d&#39;accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu&#39;un Bundle existe dans le Webconfig.</p><h4 id="cr-er-des-bundles">Créer des Bundles</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
+</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez la documentation <a href="https://pugjs.org/">PUG</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>enablePug</em></strong> <em>vaut</em> <strong><em>false</em></strong>.</p><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d&#39;entré par leur chemin d&#39;accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu&#39;un Bundle existe dans le Webconfig.</p><h4 id="cr-er-des-bundles">Créer des Bundles</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
             &quot;javascript/boot.min.js&quot;: [
