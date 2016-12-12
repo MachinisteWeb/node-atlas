@@ -2482,16 +2482,16 @@ Avec les fichiers suivant pour afficher la page :
             <h1><?- specific.titlePage ?></h1>
             <?- specific.content ?>
             <ul>
-                <li>Id: <strong><?- id ?></strong></li>
-                <li>Lastname: <strong><?- lastname ?></strong></li>
-                <li>Firstname: <strong><?- firstname ?></strong></li>
-                <li>Email: <strong><?- email ?></strong></li>
-                <li>Birthdate: <strong><?- birthdate ?></strong></li>
-                <li>Gender: <strong><?- gender ?></strong></li>
-                <li>Country: <strong><?- country ?></strong></li>
-                <li>Town: <strong><?- town ?></strong></li>
-                <li>Zipcode: <strong><?- zipcode ?></strong></li>
-                <li>Address: <strong><?- address ?></strong></li>
+                <li>Id: <strong><?- user.id() ?></strong></li>
+                <li>Lastname: <strong><?- user.lastname() ?></strong></li>
+                <li>Firstname: <strong><?- user.firstname() ?></strong></li>
+                <li>Email: <strong><?- user.email() ?></strong></li>
+                <li>Birthdate: <strong><?- user.birthdate() ?></strong></li>
+                <li>Gender: <strong><?- user.gender() ?></strong></li>
+                <li>Country: <strong><?- user.country() ?></strong></li>
+                <li>Town: <strong><?- user.town() ?></strong></li>
+                <li>Zipcode: <strong><?- user.zipcode() ?></strong></li>
+                <li>Address: <strong><?- user.address() ?></strong></li>
             </ul>
         </div>
     </body>
@@ -2544,8 +2544,7 @@ Et afficher les résultats via le controlleur spécifique `controllers/index.js`
 exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
-        User = NA.models.User,
-        bruno = User();
+        bruno = new NA.models.User();
 
     NA.mySql.getConnection(function(err, connection) {
         if (err) {
@@ -2558,16 +2557,7 @@ exports.changeVariation = function (params, next) {
         .firstname("bruno")
         .readFirst(function () {
 
-            variation.id = bruno.id();
-            variation.lastname = bruno.lastname();
-            variation.firstname = bruno.firstname();
-            variation.email = bruno.email();
-            variation.birthdate = bruno.birthdate();
-            variation.gender = (bruno.gender()) ? variation.common.male : variation.common.female;
-            variation.country = bruno.country();
-            variation.town = bruno.town();
-            variation.zipcode = bruno.zipcode();
-            variation.address = bruno.address();
+            variation.user = bruno;
 
             next(variation);
         });
@@ -2578,7 +2568,6 @@ exports.changeVariation = function (params, next) {
 en utilisant le model `user` via le fichier de connexion à la base de données `models/user.js` :
 
 ```js
-/* jslint esversion: 6 */
 var user = require('../assets/javascript/models/user.js');
 
 function User(connection) {
@@ -2587,18 +2576,14 @@ function User(connection) {
 
     privates.connection = connection;
 
-    if (!(publics instanceof User)) {
-        return new User();
-    }
+    user.call(publics);
 
     publics.setConnection = function (connection) {
         privates.connection = connection;
         return publics;
     };
 
-    user.call(publics);
-
-    publics.readFirst = function (callback) {
+    publics.read = function (callback) {
         var select = `SELECT
                     id,
                     lastname,
@@ -2611,39 +2596,57 @@ function User(connection) {
                     zipcode,
                     address
                 FROM user`, 
-            where = "", 
-            limit = " LIMIT 0,1 ",
+            where = "",
             addWhere = " WHERE ";
 
-        if (publics.id()) { where += addWhere + "`id` = '" + publics.id().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.lastname()) { where += addWhere + "`lastname` = '" + publics.lastname().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.firstname()) { where += addWhere + "`firstname` = '" + publics.firstname().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.email()) { where += addWhere + "`email` = '" + publics.email().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.birthdate()) { where += addWhere + "`birthdate` = '" + publics.birthdate().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.gender()) { where += addWhere + "`gender` = '" + publics.gender().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.country()) { where += addWhere + "`country` = '" + publics.country().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.town()) { where += addWhere + "`town` = '" + publics.town().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.zipcode()) { where += addWhere + "`zipcode` = '" + publics.zipcode().replace(/'/g, "''") + "'"; addWhere = ' && '; }
-        if (publics.address()) { where += addWhere + "`address` = '" + publics.address().replace(/'/g, "''") + "'"; addWhere = ' && '; }
+        if (publics.id()) { where += addWhere + '`id` = "' + publics.id() + '"'; addWhere = ' && '; }
+        if (publics.lastname()) { where += addWhere + '`lastname` = "' + publics.lastname() + '"'; addWhere = ' && '; }
+        if (publics.firstname()) { where += addWhere + '`firstname` = "' + publics.firstname() + '"'; addWhere = ' && '; }
+        if (publics.email()) { where += addWhere + '`email` = "' + publics.email() + '"'; addWhere = ' && '; }
+        if (publics.birthdate()) { where += addWhere + '`birthdate` = "' + publics.birthdate() + '"'; addWhere = ' && '; }
+        if (publics.gender()) { where += addWhere + '`gender` = "' + publics.gender() + '"'; addWhere = ' && '; }
+        if (publics.country()) { where += addWhere + '`country` = "' + publics.country() + '"'; addWhere = ' && '; }
+        if (publics.town()) { where += addWhere + '`town` = "' + publics.town() + '"'; addWhere = ' && '; }
+        if (publics.zipcode()) { where += addWhere + '`zipcode` = "' + publics.zipcode() + '"'; addWhere = ' && '; }
+        if (publics.address()) { where += addWhere + '`address` = "' + publics.address() + '"'; addWhere = ' && '; }
 
         privates.connection.query(select + where + limit, function(err, rows, fields) {
             if (err) console.log(err);
 
-            if (rows[0]) {
-                publics.id(rows[0].id);
-                publics.lastname(rows[0].lastname);
-                publics.firstname(rows[0].firstname);
-                publics.email(rows[0].email);
-                publics.birthdate(rows[0].birthdate);
-                publics.gender((rows[0].gender) ? true : false);
-                publics.country(rows[0].country);
-                publics.town(rows[0].town);
-                publics.zipcode(rows[0].zipcode);
-                publics.address(rows[0].address);
+           if (rows[0]) {
+              publics.id(rows[0].id);
+              publics.lastname(rows[0].lastname);
+              publics.firstname(rows[0].firstname);
+              publics.email(rows[0].email);
+              publics.birthdate(rows[0].birthdate);
+              publics.gender((rows[0].gender) ? true : false);
+              publics.country(rows[0].country);
+              publics.town(rows[0].town);
+              publics.zipcode(rows[0].zipcode);
+              publics.address(rows[0].address);
             }
 
-            callback();
+            for (var i = 0; i < rows.length; i++) {
+              user = new User();
+              user.id(rows[i].id);
+              user.lastname(rows[i].lastname);
+              user.firstname(rows[i].firstname);
+              user.email(rows[i].email);
+              user.birthdate(rows[i].birthdate);
+              user.gender((rows[i].gender) ? true : false);
+              user.country(rows[i].country);
+              user.town(rows[i].town);
+              user.zipcode(rows[i].zipcode);
+              user.address(rows[i].address);
+              users.push(user);
+            }
+
+            if (callback) {
+              callback(users);
+            }
         });
+
+        return publics;
     };
 }
 
@@ -2665,10 +2668,6 @@ basé sur une classe `user` partagé entre le Front et le Back `assets/javascrip
 }(this, function User() {
     var privates = {},
         publics = this;
-
-    if (!(publics instanceof User)) {
-        return new User();
-    }
 
     publics.id = function (id) {
         if (typeof id === 'undefined') {
