@@ -106,7 +106,7 @@ exports.simpleWebServer = function () {
         NA.log("\u001B[32m", separator);
         NA.log(" " + message);
         NA.log("\u001B[32m", " URL: \u001B[35m" + urlOutput);
-        NA.log("\u001B[32m", separator);
+        NA.log(separator, "\u001B[32m");
         NA.log("");
 
         if (NA.afterRunning) {
@@ -752,7 +752,7 @@ exports.setSupport = function (support, common, specific) {
 };
 
 /**
- * Ask for a page in GET and in POST.
+ * Ask for a page in GET, POST, UPDATE or DELETE.
  * @private
  * @function executeRequest
  * @memberOf NA#
@@ -765,15 +765,23 @@ exports.setSupport = function (support, common, specific) {
  * @param {string} path         The Url in routes' webconfig.
  */
 exports.executeRequest = function (getSupport, postSupport, putSupport, deleteSupport, objectPath, options, path) {
-    var NA = this;
+    var NA = this,
+        currentRouteParameters;
+
+    /* Case of `path` is an object because `NA.webconfig.routes` is an array and not an object. */
+    if (typeof path === "object") {
+        currentRouteParameters = path;
+    } else {
+        currentRouteParameters = options[path];
+    }
 
     /** Execute Get Request */
     if (getSupport) {
         NA.httpServer.get(objectPath, function (request, response) {
             /* Verify if route is a redirection... */
-            if (options[path].redirect &amp;&amp; options[path].statusCode) {
+            if (currentRouteParameters.redirect &amp;&amp; currentRouteParameters.statusCode) {
                 /* ...and if is it, redirect... */
-                NA.redirect(options[path], request, response);
+                NA.redirect(currentRouteParameters, request, response);
             } else {
                 /* ...else execute render... */
                 NA.render(path, options, request, response);
@@ -785,9 +793,9 @@ exports.executeRequest = function (getSupport, postSupport, putSupport, deleteSu
     if (postSupport) {
         NA.httpServer.post(objectPath, function (request, response) {
             /* Verify if route is a redirection... */
-            if (options[path].redirect &amp;&amp; options[path].statusCode) {
+            if (currentRouteParameters.redirect &amp;&amp; currentRouteParameters.statusCode) {
                  /* ...and if is it, redirect... */
-                NA.redirect(options[path], request, response);
+                NA.redirect(currentRouteParameters, request, response);
             } else {
                 /* ...else execute render... */
                 NA.render(path, options, request, response);
@@ -799,9 +807,9 @@ exports.executeRequest = function (getSupport, postSupport, putSupport, deleteSu
     if (putSupport) {
         NA.httpServer.put(objectPath, function (request, response) {
             /* Verify if route is a redirection... */
-            if (options[path].redirect &amp;&amp; options[path].statusCode) {
+            if (currentRouteParameters.redirect &amp;&amp; currentRouteParameters.statusCode) {
                 /* ...and if is it, redirect... */
-                NA.redirect(options[path], request, response);
+                NA.redirect(currentRouteParameters, request, response);
             } else {
                 /* ...else execute render... */
                 NA.render(path, options, request, response);
@@ -813,9 +821,9 @@ exports.executeRequest = function (getSupport, postSupport, putSupport, deleteSu
     if (deleteSupport) {
         NA.httpServer.delete(objectPath, function (request, response) {
             /* Verify if route is a redirection... */
-            if (options[path].redirect &amp;&amp; options[path].statusCode) {
+            if (currentRouteParameters.redirect &amp;&amp; currentRouteParameters.statusCode) {
                  /* ...and if is it, redirect... */
-                NA.redirect(options[path], request, response);
+                NA.redirect(currentRouteParameters, request, response);
             } else {
                 /* ...else execute render... */
                 NA.render(path, options, request, response);
@@ -834,13 +842,20 @@ exports.executeRequest = function (getSupport, postSupport, putSupport, deleteSu
  */
 exports.request = function (path, options) {
     var NA = this,
-        currentRouteParameters = options[path],
+        currentRouteParameters,
         getSupport = true,
         postSupport = true,
         putSupport = false,
         deleteSupport = false,
         currentPath = path,
         objectPath;
+
+    /* Case of `path` is an object because `NA.webconfig.routes` is an array and not an object. */
+    if (typeof path === "object") {
+        currentRouteParameters = path;
+    } else {
+        currentRouteParameters = options[path];
+    }
 
     /* Case of `currentRouteParameters.url` replace `path` because `path` is used like a key. */
     if (currentRouteParameters.url) {
@@ -1003,20 +1018,32 @@ exports.requestRegex = function (getSupport, postSupport, putSupport, deleteSupp
  * @memberOf NA#
  */
 exports.pageNotFound = function () {
-    var NA = this;
+    var NA = this,
+        pageNotFound,
+        key,
 
-    if (NA.webconfig.pageNotFound &amp;&amp; NA.webconfig.routes[NA.webconfig.pageNotFound]) {
-        var pageNotFound = NA.webconfig.routes[NA.webconfig.pageNotFound],
+        /**
+         * Represent route to use if no route match in all route.
+         * @public
+         * @alias pageNotFound
+         * @type {string}
+         * @memberOf NA#webconfig
+         */
+        pageNotFoundUrl = NA.webconfig.pageNotFound;
 
-            /**
-             * Represent route to use if no route match in all route.
-             * @public
-             * @alias pageNotFound
-             * @type {string}
-             * @memberOf NA#webconfig
-             */
-            pageNotFoundUrl = NA.webconfig.pageNotFound;
+    if (NA.webconfig.routes instanceof Array) {
+        for (let route of NA.webconfig.routes) {
+            key = route.key || route.url;
+            if (NA.webconfig.pageNotFound &amp;&amp; key === NA.webconfig.pageNotFound) {
+                pageNotFound = route;
+                pageNotFoundUrl = route;
+            }
+        }
+    } else if (NA.webconfig.pageNotFound &amp;&amp; NA.webconfig.routes[NA.webconfig.pageNotFound]) {
+        pageNotFound = NA.webconfig.routes[NA.webconfig.pageNotFound];
+    }
 
+    if (pageNotFound) {
         /* Match all Get Request */
         NA.httpServer.get("*", function (request, response) {
             /* Verify if route for `pageNotFound` is a redirection... */
@@ -1108,13 +1135,13 @@ exports.routesPages = function (callback) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enablePug.html">enablePug</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 09 2016 10:48:54 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Dec 12 2016 16:01:17 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

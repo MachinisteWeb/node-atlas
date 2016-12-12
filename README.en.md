@@ -110,6 +110,8 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Manage redirects](#manage-redirects)
  - [Manage Headers](#manage-headers)
  - [Run Website with HTTPs](#run-website-with-https)
+ - [Changing the template engine brackets <? ?>](#Changing-the-template-engine-brackets--)
+ - [HTML generation with Pug](#html-generation-with-pug)
  - [Minify CSS / JS](#minify-css--js)
  - [CSS generation with Less](#css-generation-with-less)
  - [CSS generation with Stylus](#css-generation-with-stylus)
@@ -119,7 +121,6 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Allow / Disallow PUT / DELETE requests](#allow--disallow-put--delete-requests)
  - [Change settings of Sessions](#change-settings-of-sessions)
  - [External Storage Sessions](#external-storage-sessions)
- - [Changing the template engine brackets <? ?>](#Changing-the-template-engine-brackets--)
  - [Change the url hostname and listening port](#change-the-url-hostname-and-listening-port)
  - [Generate urls dynamically](#generate-urls-dynamically)
  - [Enable Cache](#enable-cache)
@@ -3885,6 +3886,227 @@ This is also possible to just set the `httpSecure` value to `true` for get a "ht
 
 
 
+### Changing the template engine brackets <? ?> ###
+
+For example, to include part of a file instruction is used ***<?- include('head.htm') ?>***. It would be possible to do it with ***<$- include('head.htm') $>*** (like with EJS) with the configuration below:
+
+```js
+{
+    "templateEngineDelimiter": "%",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+```
+
+See the exemple in files below:
+
+*webconfig.json*
+
+```
+{
+    "templateEngineDelimiter": true,
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+*variations/common.json*
+
+```js
+{
+    "titleWebsite": "Website Title",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
+}
+```
+
+*variations/index.json*
+
+```js
+{
+    "titlePage": "Welcome",
+    "classPage": "index",
+    "content": "<p>This is the Homepage.</p>"
+}
+```
+
+*views/partials/head.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title><%- specific.titlePage %></title>
+
+        <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
+    </head>
+    <body class="<%= specific.classPage %>">
+```
+
+*views/partials/foot.htm*
+
+```html
+        <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
+    </body>
+</html>
+```
+
+*views/index.htm*
+
+```html
+    <%- include('head.htm') %>
+
+    <div class="title"><%- common.titleWebsite %></div>
+
+    <div>
+        <h1><%- specific.titlePage %></h1>
+        <%- specific.content %>
+    </div>
+
+    <%- include('foot.htm') %>
+```
+
+Learn all about the possibilities of the template engine consult the documentation [EJS2](http://ejs.co/)
+
+*Note : If nothing is set,* ***templateEngineDelimiter*** *is set to* ***?***.
+
+
+
+### HTML generation with Pug ###
+
+It's also possible to change EJS template to PUG template (new Jade template name) to generate pages with variations. This is possible for all pages like this:
+
+```
+{
+    "enablePug": true,
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+or just for one page like this:
+
+```
+{
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "enablePug": true,
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+It's also possible to reset EJS only for one page.
+
+```
+{
+    "enablePug": true,
+    "routes": {
+        "/": {
+            "enablePug": false,
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+We can see now an example with same set of files from previous example (with `<? ?>` become `<% %>`):
+
+*webconfig.json*
+
+```
+{
+    "enablePug": true,
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+*variations/common.json*
+
+```js
+{
+    "titleWebsite": "Titre du site",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
+}
+```
+
+*variations/index.json*
+
+```js
+{
+    "titlePage": "Bienvenue",
+    "classPage": "index",
+    "content": "<p>C'est la page d'accueil.</p>"
+}
+```
+
+*views/partials/head.pug*
+
+```html
+doctype html
+html(lang="fr-fr")
+    head
+        meta(charset="utf-8")
+        title #{specific.titlePage}
+        link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
+        link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
+    body(class=specific.classPage)
+```
+
+*views/partials/foot.pug*
+
+```html
+script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
+```
+
+*views/index.htm*
+
+```html
+include partials/head.pug
+
+div
+    h1 #{specific.titlePage}
+    | !{specific.content}
+
+include partials/foot.pug
+```
+
+Pour tout savoir sur les possibilités du moteur de template consulter la documentation [PUG](https://pugjs.org/)
+
+*Note : Si rien n'est précisé,* ***enablePug*** *vaut* ***false***.
+
+
+
 ### Minify CSS / JS ###
 
 You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the `--generate` command if a Bundle exists in the Webconfig.
@@ -5197,67 +5419,6 @@ exports.setSessions = website.setSessions;
 ```
 
 More information to [connect-redis](https://www.npmjs.org/package/connect-mongo) page.
-
-
-
-### Changing the template engine brackets <? ?> ###
-
-For example, to include part of a file instruction is used ***<?- include('head.htm') ?>***. It would be possible to do it with ***<$- include('head.htm') $>*** with the configuration below:
-
-```js
-{
-    "templateEngineDelimiter": "$",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-```
-
-See the exemple in files below:
-
-*views/partials/head.htm*
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title><$- specific.titlePage $></title>
-
-        <link type="text/css" rel="stylesheet" href="stylesheets/<$= common.classCssCommon $>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<$= specific.classPage $>.css" media="all" />
-    </head>
-    <body class="<$= specific.classPage $>">
-```
-
-*views/partials/foot.htm*
-
-```html
-        <script async type="text/javascript" src="javascript/<$= common.classJsCommon $>.js"></script>
-    </body>
-</html>
-```
-
-*views/template.htm*
-
-```html
-    <$- include('head.htm') $>
-
-    <div class="title"><$- common.titleWebsite $></div>
-
-    <div>
-        <h1><$- specific.titlePage $></h1>
-        <$- specific.content $>
-    </div>
-
-    <$- include('foot.htm') $>
-```
-
-Learn all about the possibilities of the template engine consult the documentation [EJS2](http://ejs.co/)
-
-*Note : If nothing is set,* ***templateEngineDelimiter*** *is set to* ***?***.
 
 
 

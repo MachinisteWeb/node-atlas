@@ -137,9 +137,12 @@
 <li><a href="#more-features">More features</a><ul>
 <li><a href="#manage-routing-url-rewriting">Manage routing (URL Rewriting)</a></li>
 <li><a href="#manage-a-page-not-found">Manage a page not found</a></li>
+<li><a href="#inject-routes-dynamically">Inject routes dynamically</a></li>
 <li><a href="#manage-redirects">Manage redirects</a></li>
 <li><a href="#manage-headers">Manage Headers</a></li>
 <li><a href="#run-website-with-https">Run Website with HTTPs</a></li>
+<li><a href="#Changing-the-template-engine-brackets--">Changing the template engine brackets &lt;? ?&gt;</a></li>
+<li><a href="#html-generation-with-pug">HTML generation with Pug</a></li>
 <li><a href="#minify-css--js">Minify CSS / JS</a></li>
 <li><a href="#css-generation-with-less">CSS generation with Less</a></li>
 <li><a href="#css-generation-with-stylus">CSS generation with Stylus</a></li>
@@ -149,7 +152,6 @@
 <li><a href="#allow--disallow-put--delete-requests">Allow / Disallow PUT / DELETE requests</a></li>
 <li><a href="#change-settings-of-sessions">Change settings of Sessions</a></li>
 <li><a href="#external-storage-sessions">External Storage Sessions</a></li>
-<li><a href="#Changing-the-template-engine-brackets--">Changing the template engine brackets &lt;? ?&gt;</a></li>
 <li><a href="#change-the-url-hostname-and-listening-port">Change the url hostname and listening port</a></li>
 <li><a href="#generate-urls-dynamically">Generate urls dynamically</a></li>
 <li><a href="#enable-cache">Enable Cache</a></li>
@@ -269,13 +271,13 @@
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs</code></pre><p>There is a naming conflict with the node package (Amateur Packet Radio Node Program), and the nodejs binary has been renamed from node to nodejs. You'll need to symlink /usr/bin/node to /usr/bin/nodejs or you could uninstall the Amateur Packet Radio Node Program to avoid that conflict.</p>
 <h2>Start with NodeAtlas</h2><p>We will start with a how to set minimal files to perform a <code>hello-world</code>.</p>
-<h3>Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below.</p>
-<pre class="prettyprint source"><code>site-hello-world/
+<h3>Fileset</h3><p>After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below:</p>
+<pre class="prettyprint source"><code>hello-world/
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json</code></pre><p>Here is the &quot;/site-hello-world/views/index.htm&quot; file:</p>
+└─ webconfig.json</code></pre><p>We will display to the HTTP address the content of the <code>views/index.htm</code> file:</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
-&lt;html lang=&quot;fr-fr&quot;>
+&lt;html lang=&quot;en-us&quot;>
     &lt;head>
         &lt;meta charset=&quot;utf-8&quot; />
         &lt;title>Hello world&lt;/title>
@@ -283,7 +285,7 @@ sudo apt-get install -y nodejs</code></pre><p>There is a naming conflict with th
     &lt;body>
         &lt;div>This is a Hello World!&lt;/div>
     &lt;/body>
-&lt;/html></code></pre><p>and following, the &quot;/site-hello-world/webconfig.json&quot; file.</p>
+&lt;/html></code></pre><p>and see just below following, the content of <code>webconfig.json</code> file.</p>
 <h3>Minimum Requirements</h3><p>You can turn a simple page with minimal configuration &quot;webconfig.json&quot; below</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
@@ -1670,25 +1672,45 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
     zipcode,
     address
 ) VALUES (
-    &quot;Lesieur&quot;,
-    &quot;Bruno&quot;,
-    &quot;bruno.lesieur@gmail.com&quot;,
-    &quot;1988/07/18&quot;,
+    &quot;Elric&quot;,
+    &quot;Edward&quot;,
+    &quot;edward.elric@fma.br&quot;,
+    &quot;2006/01/01&quot;,
     true,
-    &quot;France&quot;,
-    &quot;Annecy&quot;,
-    74000,
-    &quot;66 avenue de Genève&quot;
-);</code></pre><h4>NodeAtlas Files</h4><p>With the following data set:</p>
-<pre class="prettyprint source"><code>├─ assets/
-│  └─ javascript/
-│     └─ models/
-│        └─ user.js
-├─ controllers/
+    &quot;Amestris&quot;,
+    &quot;Resembool&quot;,
+    00000,
+    &quot;The Elric's house&quot;
+);
+INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    &quot;Elric&quot;,
+    &quot;Alphonse&quot;,
+    &quot;alphonse.elric@fma.br&quot;,
+    &quot;2008/01/01&quot;,
+    true,
+    &quot;Amestris&quot;,
+    &quot;Resembool&quot;,
+    00000,
+    &quot;The Elric's house&quot;
+);</code></pre><h4>NodeAtlas Files</h4><p>See now what files we will created to present our example:</p>
+<pre class="prettyprint source"><code>├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ models/
-│  └─ user.js
+│  ├─ objects/
+│  │  └─ user.js
+│  └─ connectors/
+│     └─ user.js
 ├─ views/
 │  └─ index.htm
 ├─ variations/
@@ -1711,55 +1733,31 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
         &quot;password&quot;: &quot;root&quot;,
         &quot;database&quot;: &quot;demo&quot;
     }
-}</code></pre><p>With following files to display page:</p>
-<p><strong>views/index.htm</strong></p>
-<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
-&lt;html lang=&quot;&lt;?- languageCode ?>&quot;>
-    &lt;head>
-        &lt;meta charset=&quot;utf-8&quot; />
-        &lt;title>&lt;?- common.titleWebsite ?>&lt;/title>
-    &lt;/head>
-    &lt;body>
-        &lt;div class=&quot;title&quot;>&lt;?- common.titleWebsite ?>&lt;/div>
-        &lt;div>
-            &lt;h1>&lt;?- specific.titlePage ?>&lt;/h1>
-            &lt;?- specific.content ?>
-            &lt;ul>
-                &lt;li>Id: &lt;strong>&lt;?- id ?>&lt;/strong>&lt;/li>
-                &lt;li>Lastname: &lt;strong>&lt;?- lastname ?>&lt;/strong>&lt;/li>
-                &lt;li>Firstname: &lt;strong>&lt;?- firstname ?>&lt;/strong>&lt;/li>
-                &lt;li>Email: &lt;strong>&lt;?- email ?>&lt;/strong>&lt;/li>
-                &lt;li>Birthdate: &lt;strong>&lt;?- birthdate ?>&lt;/strong>&lt;/li>
-                &lt;li>Gender: &lt;strong>&lt;?- gender ?>&lt;/strong>&lt;/li>
-                &lt;li>Country: &lt;strong>&lt;?- country ?>&lt;/strong>&lt;/li>
-                &lt;li>Town: &lt;strong>&lt;?- town ?>&lt;/strong>&lt;/li>
-                &lt;li>Zipcode: &lt;strong>&lt;?- zipcode ?>&lt;/strong>&lt;/li>
-                &lt;li>Address: &lt;strong>&lt;?- address ?>&lt;/strong>&lt;/li>
-            &lt;/ul>
-        &lt;/div>
-    &lt;/body>
-&lt;/html></code></pre><p><strong>variations/common.json</strong></p>
-<pre class="prettyprint source lang-js"><code>{
-    &quot;titleWebsite&quot;: &quot;Example MySql&quot;,
-    &quot;male&quot;: &quot;Man&quot;,
-    &quot;female&quot;: &quot;Woman&quot;
-}</code></pre><p><strong>variations/index.json</strong></p>
-<pre class="prettyprint source lang-js"><code>{
-    &quot;titlePage&quot;: &quot;User Table&quot;,
-    &quot;content&quot;: &quot;&lt;p>`bruno` entry details.&lt;/p>&quot;
-}</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p>
+}</code></pre><p>Then, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p>
 <pre class="prettyprint source lang-js"><code>exports.setModules = function () {
     var NA = this;
 
+    // Import of `mysql` module.
     NA.modules.mysql = require('mysql');
+
+    // Create a model collection...
     NA.models = {};
-    NA.models.User = require('../models/user.js');
+    // ...and use the User model with MySQL connection capability.
+    NA.models.User = require('../models/connectors/user.js');
 };
 
 exports.setConfigurations = function (next) {
     var NA = this,
+        path = NA.modules.path,
         mysql = NA.modules.mysql;
 
+    // Offer the User model client-side at `models/user.js` url.
+    NA.httpServer.use(
+        NA.webconfig.urlRelativeSubPath + &quot;/models&quot;, 
+        NA.modules.express.static(path.join(NA.serverPath, &quot;models/objects&quot;), { maxAge: 86400000 * 30 })
+    );
+
+    // Create a connection pool to MySQL.
     NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
 
     next();
@@ -1767,108 +1765,294 @@ exports.setConfigurations = function (next) {
 <pre class="prettyprint source lang-js"><code>exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
-        User = NA.models.User,
-        bruno = User();
+        user = new NA.models.User(),
+        user2 = new NA.models.User(),
+        user3 = new NA.models.User(),
+        user4 = new NA.models.User();
 
+    // Get the MySql connection.
     NA.mySql.getConnection(function(err, connection) {
         if (err) {
-            console.log(err);
-            return false;
+            throw err;
         }
 
-        bruno
+        // Read example.
+        user
         .setConnection(connection)
-        .firstname(&quot;bruno&quot;)
-        .readFirst(function () {
+        .lastname(&quot;Elric&quot;)
+        .read(function (allUsers) {
+            variation.user = user;
+            variation.users = allUsers;
 
-            variation.id = bruno.id();
-            variation.lastname = bruno.lastname();
-            variation.firstname = bruno.firstname();
-            variation.email = bruno.email();
-            variation.birthdate = bruno.birthdate();
-            variation.gender = (bruno.gender()) ? variation.common.male : variation.common.female;
-            variation.country = bruno.country();
-            variation.town = bruno.town();
-            variation.zipcode = bruno.zipcode();
-            variation.address = bruno.address();
+            // Create Example.
+            user2
+            .setConnection(connection)
+            .firstname(&quot;Winry&quot;)
+            .lastname(&quot;Rockbell&quot;)
+            .email(&quot;winry.rockbell@fma.br&quot;)
+            .gender(true)
+            .create(function (infos) {
+                variation.insertId = infos.insertId;
+                variation.user2 = user2;
 
-            next(variation);
+                // Update Example.
+                user3
+                .gender(false)
+                .birthdate(&quot;2008-01-01&quot;)
+                .country(&quot;Amestris&quot;)
+                .town(&quot;Resembool&quot;)
+                .zipcode(&quot;99999&quot;)
+                .address(&quot;The Rockbell's house&quot;);
+
+                user2.update(user3, function (infos) {
+                    variation.affectedRows = infos.affectedRows;
+                    variation.user2 = user2;
+
+                    // Delete Example.
+                    user4
+                    .setConnection(connection)
+                    .gender(false)
+                    .delete(function (infos) {
+                        variation.deletedRows = infos.affectedRows;
+                        next(variation);
+                    });
+                });
+            });
         });
     });
-};</code></pre><p>with the <code>user</code> model via connect file to database <code>models/user.js</code>:</p>
-<pre class="prettyprint source lang-js"><code>/* jslint esversion: 6 */
-var user = require('../assets/javascript/models/user.js');
+};</code></pre><p>with the <code>user</code> model via connect file to database <code>models/connectors/user.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>var user = require('../objects/user.js');
 
 function User(connection) {
     var privates = {},
-        publics = this;
-
-    privates.connection = connection;
-
-    if (!(publics instanceof User)) {
-        return new User();
-    }
-
-    publics.setConnection = function (connection) {
-        privates.connection = connection;
-        return publics;
-    };
+      publics = this;
 
     user.call(publics);
 
-    publics.readFirst = function (callback) {
-        var select = `SELECT
-                    id,
-                    lastname,
-                    firstname,
-                    email,
-                    birthdate,
-                    gender,
-                    country,
-                    town,
-                    zipcode,
-                    address
-                FROM user`, 
-            where = &quot;&quot;, 
-            limit = &quot; LIMIT 0,1 &quot;,
-            addWhere = &quot; WHERE &quot;;
+    privates.connection = connection;
 
-        if (publics.id()) { where += addWhere + &quot;`id` = '&quot; + publics.id().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.lastname()) { where += addWhere + &quot;`lastname` = '&quot; + publics.lastname().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.firstname()) { where += addWhere + &quot;`firstname` = '&quot; + publics.firstname().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.email()) { where += addWhere + &quot;`email` = '&quot; + publics.email().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.birthdate()) { where += addWhere + &quot;`birthdate` = '&quot; + publics.birthdate().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.gender()) { where += addWhere + &quot;`gender` = '&quot; + publics.gender().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.country()) { where += addWhere + &quot;`country` = '&quot; + publics.country().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.town()) { where += addWhere + &quot;`town` = '&quot; + publics.town().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.zipcode()) { where += addWhere + &quot;`zipcode` = '&quot; + publics.zipcode().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
-        if (publics.address()) { where += addWhere + &quot;`address` = '&quot; + publics.address().replace(/'/g, &quot;''&quot;) + &quot;'&quot;; addWhere = ' && '; }
+    publics.setConnection = function (connection) {
+    privates.connection = connection;
+      return publics;
+    };
 
-        privates.connection.query(select + where + limit, function(err, rows, fields) {
-            if (err) console.log(err);
+    publics.read = function (callback) {
+      var select = `SELECT
+            id,
+          lastname,
+          firstname,
+          email,
+          birthdate,
+          gender,
+          country,
+          town,
+          zipcode,
+          address
+        FROM user`, 
+        where = &quot;&quot;;
 
-            if (rows[0]) {
-                publics.id(rows[0].id);
-                publics.lastname(rows[0].lastname);
-                publics.firstname(rows[0].firstname);
-                publics.email(rows[0].email);
-                publics.birthdate(rows[0].birthdate);
-                publics.gender((rows[0].gender) ? true : false);
-                publics.country(rows[0].country);
-                publics.town(rows[0].town);
-                publics.zipcode(rows[0].zipcode);
-                publics.address(rows[0].address);
-            }
+    if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+    if (publics.lastname()) { where += ' && `lastname` = &quot;' + publics.lastname() + '&quot;'; }
+    if (publics.firstname()) { where += ' && `firstname` = &quot;' + publics.firstname() + '&quot;'; }
+    if (publics.email()) { where += ' && `email` = &quot;' + publics.email() + '&quot;'; }
+    if (publics.birthdate()) { where += ' && `birthdate` = &quot;' + publics.birthdate() + '&quot;'; }
+    if (typeof publics.gender() === &quot;boolean&quot;) { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+    if (publics.country()) { where += ' && `country` = &quot;' + publics.country() + '&quot;'; }
+    if (publics.town()) { where += ' && `town` = &quot;' + publics.town() + '&quot;'; }
+    if (publics.zipcode()) { where += ' && `zipcode` = &quot;' + publics.zipcode() + '&quot;'; }
+    if (publics.address()) { where += ' && `address` = &quot;' + publics.address() + '&quot;'; }
 
-            callback();
-        });
+    where = where.replace(&quot;&&&quot;, &quot;WHERE&quot;);
+
+    privates.connection.query(select + where, function (err, rows) {
+      var users = [],
+        user;
+
+      if (err) {
+        throw err;
+      }
+
+      if (rows[0]) {
+        publics.id(rows[0].id);
+        publics.lastname(rows[0].lastname);
+        publics.firstname(rows[0].firstname);
+        publics.email(rows[0].email);
+        publics.birthdate(rows[0].birthdate);
+        publics.gender((rows[0].gender) ? true : false);
+        publics.country(rows[0].country);
+        publics.town(rows[0].town);
+        publics.zipcode(rows[0].zipcode);
+        publics.address(rows[0].address);
+      }
+
+      for (var i = 0; i &lt; rows.length; i++) {
+        user = new User();
+        user.id(rows[i].id);
+        user.lastname(rows[i].lastname);
+        user.firstname(rows[i].firstname);
+        user.email(rows[i].email);
+        user.birthdate(rows[i].birthdate);
+        user.gender((rows[i].gender) ? true : false);
+        user.country(rows[i].country);
+        user.town(rows[i].town);
+        user.zipcode(rows[i].zipcode);
+        user.address(rows[i].address);
+        users.push(user);
+      }
+
+      if (callback) {
+        callback(users);
+      }
+    });
+
+    return publics;
+    };
+
+    publics.create = function (callback) {
+      var insert = &quot;INSERT INTO user (&quot;,
+        values = &quot;) VALUES (&quot;;
+
+    if (publics.id()) { insert += &quot;`id`, &quot;; }
+    if (publics.lastname()) { insert += &quot;`lastname`, &quot;; }
+    if (publics.firstname()) { insert += &quot;`firstname`, &quot;; }
+    if (publics.email()) { insert += &quot;`email`, &quot;; }
+    if (publics.birthdate()) { insert += &quot;`birthdate`, &quot;; }
+    if (typeof publics.gender() === &quot;boolean&quot;) { insert += &quot;`gender`, &quot;; }
+    if (publics.country()) { insert += &quot;`country`, &quot;; }
+    if (publics.town()) { insert += &quot;`town`, &quot;; }
+    if (publics.zipcode()) { insert += &quot;`zipcode`, &quot;; }
+    if (publics.address()) { insert += &quot;`address`, &quot;; }
+
+    insert = insert.replace(/, $/g, &quot;&quot;);
+
+    if (publics.id()) { values += publics.id() + ', '; }
+    if (publics.lastname()) { values += '&quot;' + publics.lastname() + '&quot;, '; }
+    if (publics.firstname()) { values += '&quot;' + publics.firstname() + '&quot;, '; }
+    if (publics.email()) { values += '&quot;' + publics.email() + '&quot;, '; }
+    if (publics.birthdate()) { values += '&quot;' + publics.birthdate() + '&quot;, '; }
+    if (typeof publics.gender() === &quot;boolean&quot;) { values += (publics.gender() ? 1 : 0) + ', '; }
+    if (publics.country()) { values += '&quot;' + publics.country() + '&quot;, '; }
+    if (publics.town()) { values += '&quot;' + publics.town() + '&quot;, '; }
+    if (publics.zipcode()) { values += '&quot;' + publics.zipcode() + '&quot;, '; }
+    if (publics.address()) { values += '&quot;' + publics.address() + '&quot;, '; }
+
+    values = values.replace(/, $/g, &quot;)&quot;);
+
+    privates.connection.query(insert + values, function (err, infos) {
+      if (err) { 
+        throw err;
+      }
+
+      publics.id(infos.insertId);
+
+      if (callback) {
+        callback(infos);
+      }
+    });
+
+    return publics;
+    };
+
+    publics.update = function (user, callback) {
+      var update = &quot;UPDATE user SET&quot;,
+        where = &quot;&quot;;
+
+    if (user.id()) { update += '`id` = ' + user.id() + ', '; }
+    if (user.lastname()) { update += '`lastname` = &quot;' + user.lastname() + '&quot;, '; }
+    if (user.firstname()) { update += '`firstname` = &quot;' + user.firstname() + '&quot;, '; }
+    if (user.email()) { update += '`email` = &quot;' + user.email() + '&quot;, '; }
+    if (user.birthdate()) { update += '`birthdate` = &quot;' + user.birthdate() + '&quot;, '; }
+    if (typeof user.gender() === &quot;boolean&quot;) { update += '`gender` = ' + (user.gender() ? 1 : 0) + ', '; }
+    if (user.country()) { update += '`country` = &quot;' + user.country() + '&quot;, '; }
+    if (user.town()) { update += '`town` = &quot;' + user.town() + '&quot;, '; }
+    if (user.zipcode()) { update += '`zipcode` = &quot;' + user.zipcode() + '&quot;, '; }
+    if (user.address()) { update += '`address` = &quot;' + user.address() + '&quot;, '; }
+
+    update = update.replace(/, $/g, &quot;&quot;);
+
+    if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+    if (publics.lastname()) { where += ' && `lastname` = &quot;' + publics.lastname() + '&quot;'; }
+    if (publics.firstname()) { where += ' && `firstname` = &quot;' + publics.firstname() + '&quot;'; }
+    if (publics.email()) { where += ' && `email` = &quot;' + publics.email() + '&quot;'; }
+    if (publics.birthdate()) { where += ' && `birthdate` = &quot;' + publics.birthdate() + '&quot;'; }
+    if (typeof publics.gender() === &quot;boolean&quot;) { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+    if (publics.country()) { where += ' && `country` = &quot;' + publics.country() + '&quot;'; }
+    if (publics.town()) { where += ' && `town` = &quot;' + publics.town() + '&quot;'; }
+    if (publics.zipcode()) { where += ' && `zipcode` = &quot;' + publics.zipcode() + '&quot;'; }
+    if (publics.address()) { where += ' && `address` = &quot;' + publics.address() + '&quot;'; }
+
+    where = where.replace(&quot;&&&quot;, &quot;WHERE&quot;);
+
+    privates.connection.query(update + where, function (err, infos) {
+      if (err) { 
+        throw err;
+      }
+
+      if (user.id()) { publics.id(user.id()); }
+      if (user.lastname()) { publics.lastname(user.lastname()); }
+      if (user.firstname()) { publics.firstname(user.firstname()); }
+      if (user.email()) { publics.email(user.email()); }
+      if (user.birthdate()) { publics.birthdate(user.birthdate()); }
+      if (typeof publics.gender() === &quot;boolean&quot;) { publics.gender(user.gender()); }
+      if (user.country()) { publics.country(user.country()); }
+      if (user.town()) { publics.town(user.town()); }
+      if (user.zipcode()) { publics.zipcode(user.zipcode()); }
+      if (user.address()) { publics.address(user.address()); }
+
+      if (callback) {
+        callback(infos);
+      }
+    });
+
+    return publics;
+    };
+
+    publics.delete = function (callback) {
+      var del = &quot;DELETE FROM user&quot;,
+        where = &quot;&quot;;
+
+    if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+    if (publics.lastname()) { where += ' && `lastname` = &quot;' + publics.lastname() + '&quot;'; }
+    if (publics.firstname()) { where += ' && `firstname` = &quot;' + publics.firstname() + '&quot;'; }
+    if (publics.email()) { where += ' && `email` = &quot;' + publics.email() + '&quot;'; }
+    if (publics.birthdate()) { where += ' && `birthdate` = &quot;' + publics.birthdate() + '&quot;'; }
+    if (typeof publics.gender() === &quot;boolean&quot;) { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+    if (publics.country()) { where += ' && `country` = &quot;' + publics.country() + '&quot;'; }
+    if (publics.town()) { where += ' && `town` = &quot;' + publics.town() + '&quot;'; }
+    if (publics.zipcode()) { where += ' && `zipcode` = &quot;' + publics.zipcode() + '&quot;'; }
+    if (publics.address()) { where += ' && `address` = &quot;' + publics.address() + '&quot;'; }
+
+    where = where.replace(&quot;&&&quot;, &quot;WHERE&quot;);
+
+    privates.connection.query(del + where, function (err, infos) {
+      if (err) { 
+        throw err;
+      }
+
+      if (publics.id()) { publics.id(undefined); }
+      if (publics.lastname()) { publics.lastname(undefined); }
+      if (publics.firstname()) { publics.firstname(undefined); }
+      if (publics.email()) { publics.email(undefined); }
+      if (publics.birthdate()) { publics.birthdate(undefined); }
+      if (typeof publics.gender() === &quot;boolean&quot;) { publics.gender(undefined); }
+      if (publics.country()) { publics.country(undefined); }
+      if (publics.town()) { publics.town(undefined); }
+      if (publics.zipcode()) { publics.zipcode(undefined); }
+      if (publics.address()) { publics.address(undefined); }
+
+      if (callback) {
+        callback(infos);
+      }
+    });
+
+    return publics;
     };
 }
 
 User.prototype = Object.create(user.prototype);
 User.prototype.constructor = User;
 
-module.exports = User;</code></pre><p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p>
+module.exports = User;</code></pre><p>based on <code>user</code> classe shared between client-side and server-side <code>models/objects/user.js</code>:</p>
 <pre class="prettyprint source lang-js"><code>(function (expose, factory) {
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = factory;
@@ -1878,10 +2062,6 @@ module.exports = User;</code></pre><p>based on <code>user</code> classe shared b
 }(this, function User() {
     var privates = {},
         publics = this;
-
-    if (!(publics instanceof User)) {
-        return new User();
-    }
 
     publics.id = function (id) {
         if (typeof id === 'undefined') {
@@ -1972,30 +2152,152 @@ module.exports = User;</code></pre><p>based on <code>user</code> classe shared b
             return publics;
         }
     };
-}));</code></pre><p>You will get the following output:</p>
+}));</code></pre><p>With following files to display page:</p>
+<p><strong>views/index.htm</strong></p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
-&lt;html lang=&quot;&quot;>
+&lt;html lang=&quot;en-us&quot;>
     &lt;head>
         &lt;meta charset=&quot;utf-8&quot; />
-        &lt;title>MySql Example&lt;/title>
+        &lt;title>&lt;?- common.titleWebsite ?>&lt;/title>
     &lt;/head>
     &lt;body>
-        &lt;div class=&quot;title&quot;>MySql Example&lt;/div>
+        &lt;div class=&quot;title&quot;>&lt;?- common.titleWebsite ?>&lt;/div>
         &lt;div>
-            &lt;h1>User Table&lt;/h1>
-            &lt;p>`bruno` entry details.&lt;/p>
-            &lt;ul>
-                &lt;li>Id: &lt;strong>1&lt;/strong>&lt;/li>
-                &lt;li>Lastname: &lt;strong>Lesieur&lt;/strong>&lt;/li>
-                &lt;li>Firstname: &lt;strong>Bruno&lt;/strong>&lt;/li>
-                &lt;li>Email: &lt;strong>bruno.lesieur@gmail.com&lt;/strong>&lt;/li>
-                &lt;li>Birthdate: &lt;strong>Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong>&lt;/li>
-                &lt;li>Gender: &lt;strong>Homme&lt;/strong>&lt;/li>
-                &lt;li>Country: &lt;strong>France&lt;/strong>&lt;/li>
-                &lt;li>Town: &lt;strong>Annecy&lt;/strong>&lt;/li>
-                &lt;li>Zipcode: &lt;strong>74000&lt;/strong>&lt;/li>
-                &lt;li>Address: &lt;strong>66 avenue de Genève&lt;/strong>&lt;/li>
-            &lt;/ul>
+            &lt;h1>&lt;?- specific.titlePage ?>&lt;/h1>
+            &lt;div class=&quot;first&quot;>
+                &lt;?- specific.content ?>
+                &lt;ul>
+                    &lt;li>Id: &lt;strong>&lt;?- user.id() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Lastname: &lt;strong>&lt;?- user.lastname() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Firstname: &lt;strong>&lt;?- user.firstname() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Email: &lt;strong>&lt;?- user.email() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Birthdate: &lt;strong>&lt;?- user.birthdate() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Gender: &lt;strong>&lt;?- user.gender() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Country: &lt;strong>&lt;?- user.country() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Town: &lt;strong>&lt;?- user.town() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Zipcode: &lt;strong>&lt;?- user.zipcode() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Address: &lt;strong>&lt;?- user.address() ?>&lt;/strong>&lt;/li>
+                &lt;/ul>
+            &lt;/div>
+            &lt;div class=&quot;all&quot;>
+                &lt;?- specific.contents ?>
+                &lt;? for (var i = 0; i &lt; users.length; i++) { ?>
+                &lt;ul>
+                    &lt;li>Id: &lt;strong>&lt;?- users[i].id() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Lastname: &lt;strong>&lt;?- users[i].lastname() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Firstname: &lt;strong>&lt;?- users[i].firstname() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Email: &lt;strong>&lt;?- users[i].email() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Birthdate: &lt;strong>&lt;?- users[i].birthdate() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Gender: &lt;strong>&lt;?- users[i].gender() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Country: &lt;strong>&lt;?- users[i].country() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Town: &lt;strong>&lt;?- users[i].town() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Zipcode: &lt;strong>&lt;?- users[i].zipcode() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Address: &lt;strong>&lt;?- users[i].address() ?>&lt;/strong>&lt;/li>
+                &lt;/ul>
+                &lt;? } ?>
+            &lt;/div>
+            &lt;div class=&quot;last&quot;>
+                &lt;?- specific.contentInsert ?>
+                &lt;p>insertId: &lt;?- insertId ?>&lt;/p>
+                &lt;p>numberUpdate: &lt;?- affectedRows ?>&lt;/p>
+                &lt;ul>
+                    &lt;li>Id: &lt;strong>&lt;?- user2.id() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Lastname: &lt;strong>&lt;?- user2.lastname() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Firstname: &lt;strong>&lt;?- user2.firstname() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Email: &lt;strong>&lt;?- user2.email() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Birthdate: &lt;strong>&lt;?- user2.birthdate() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Gender: &lt;strong>&lt;?- user2.gender() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Country: &lt;strong>&lt;?- user2.country() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Town: &lt;strong>&lt;?- user2.town() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Zipcode: &lt;strong>&lt;?- user2.zipcode() ?>&lt;/strong>&lt;/li>
+                    &lt;li>Address: &lt;strong>&lt;?- user2.address() ?>&lt;/strong>&lt;/li>
+                &lt;/ul>
+                &lt;p>numberDelete: &lt;?- deletedRows ?>&lt;/p>
+            &lt;/div>
+        &lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><p><strong>variations/common.json</strong></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titleWebsite&quot;: &quot;Example MySql&quot;,
+    &quot;male&quot;: &quot;Man&quot;,
+    &quot;female&quot;: &quot;Woman&quot;
+}</code></pre><p><strong>variations/index.json</strong></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;User Table&quot;,
+    &quot;content&quot;: &quot;&lt;p>First entry details.&lt;/p>&quot;,
+    &quot;contents&quot;: &quot;&lt;p>All entries details.&lt;/p>&quot;,
+    &quot;contentInsert&quot;: &quot;&lt;p>Added and Updated user details.&lt;/p>&quot;
+}</code></pre><p>You will get the following output:</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en-us&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>MySql Exemple&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div class=&quot;title&quot;>MySql Exemple&lt;/div>
+        &lt;div>
+            &lt;h1>Table User&lt;/h1>
+            &lt;div class=&quot;first&quot;>
+                &lt;p>Détail de la première entrée.&lt;/p>
+                &lt;ul>
+                    &lt;li>Id: &lt;strong>1&lt;/strong>&lt;/li>
+                    &lt;li>Lastname: &lt;strong>Elric&lt;/strong>&lt;/li>
+                    &lt;li>Firstname: &lt;strong>Edward&lt;/strong>&lt;/li>
+                    &lt;li>Email: &lt;strong>edward.elric@fma.br&lt;/strong>&lt;/li>
+                    &lt;li>Birthdate: &lt;strong>Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong>&lt;/li>
+                    &lt;li>Gender: &lt;strong>true&lt;/strong>&lt;/li>
+                    &lt;li>Country: &lt;strong>Amestris&lt;/strong>&lt;/li>
+                    &lt;li>Town: &lt;strong>Resembool&lt;/strong>&lt;/li>
+                    &lt;li>Zipcode: &lt;strong>0&lt;/strong>&lt;/li>
+                    &lt;li>Address: &lt;strong>The Elric's house&lt;/strong>&lt;/li>
+                &lt;/ul>
+            &lt;/div>
+            &lt;div class=&quot;all&quot;>
+                &lt;p>Détail de toutes les entrées.&lt;/p>
+                &lt;ul>
+                    &lt;li>Id: &lt;strong>1&lt;/strong>&lt;/li>
+                    &lt;li>Lastname: &lt;strong>Elric&lt;/strong>&lt;/li>
+                    &lt;li>Firstname: &lt;strong>Edward&lt;/strong>&lt;/li>
+                    &lt;li>Email: &lt;strong>edward.elric@fma.br&lt;/strong>&lt;/li>
+                    &lt;li>Birthdate: &lt;strong>Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong>&lt;/li>
+                    &lt;li>Gender: &lt;strong>true&lt;/strong>&lt;/li>
+                    &lt;li>Country: &lt;strong>Amestris&lt;/strong>&lt;/li>
+                    &lt;li>Town: &lt;strong>Resembool&lt;/strong>&lt;/li>
+                    &lt;li>Zipcode: &lt;strong>0&lt;/strong>&lt;/li>
+                    &lt;li>Address: &lt;strong>The Elric's house&lt;/strong>&lt;/li>
+                &lt;/ul>
+                &lt;ul>
+                    &lt;li>Id: &lt;strong>2&lt;/strong>&lt;/li>
+                    &lt;li>Lastname: &lt;strong>Elric&lt;/strong>&lt;/li>
+                    &lt;li>Firstname: &lt;strong>Alphonse&lt;/strong>&lt;/li>
+                    &lt;li>Email: &lt;strong>alphonse.elric@fma.br&lt;/strong>&lt;/li>
+                    &lt;li>Birthdate: &lt;strong>Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong>&lt;/li>
+                    &lt;li>Gender: &lt;strong>true&lt;/strong>&lt;/li>
+                    &lt;li>Country: &lt;strong>Amestris&lt;/strong>&lt;/li>
+                    &lt;li>Town: &lt;strong>Resembool&lt;/strong>&lt;/li>
+                    &lt;li>Zipcode: &lt;strong>0&lt;/strong>&lt;/li>
+                    &lt;li>Address: &lt;strong>The Elric's house&lt;/strong>&lt;/li>
+                &lt;/ul>
+            &lt;/div>
+            &lt;div class=&quot;last&quot;>
+                &lt;p>Détail de l'utilisateur ajouté puis modifié.&lt;/p>
+                &lt;p>insertId: 3&lt;/p>
+                &lt;p>numberUpdate: 1&lt;/p>
+                &lt;ul>
+                    &lt;li>Id: &lt;strong>3&lt;/strong>&lt;/li>
+                    &lt;li>Lastname: &lt;strong>Rockbell&lt;/strong>&lt;/li>
+                    &lt;li>Firstname: &lt;strong>Winry&lt;/strong>&lt;/li>
+                    &lt;li>Email: &lt;strong>winry.rockbell@fma.br&lt;/strong>&lt;/li>
+                    &lt;li>Birthdate: &lt;strong>2008-01-01&lt;/strong>&lt;/li>
+                    &lt;li>Gender: &lt;strong>false&lt;/strong>&lt;/li>
+                    &lt;li>Country: &lt;strong>Amestris&lt;/strong>&lt;/li>
+                    &lt;li>Town: &lt;strong>Resembool&lt;/strong>&lt;/li>
+                    &lt;li>Zipcode: &lt;strong>99999&lt;/strong>&lt;/li>
+                    &lt;li>Address: &lt;strong>The Rockbell's house&lt;/strong>&lt;/li>
+                &lt;/ul>
+                &lt;p>numberDelete: 1&lt;/p>
+            &lt;/div>
         &lt;/div>
     &lt;/body>
 &lt;/html></code></pre><h3>Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p>
@@ -2355,7 +2657,59 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
             &quot;statusCode&quot;: 404
         }
     }
-}</code></pre><h3>Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p>
+}</code></pre><h3>Inject routes dynamically</h3><p><code>setRoutes</code> allows us to dynamically inject routes. However, the route injection add route at the end of <code>NA.webconfig.routes</code> because <code>NA.webconfig.routes</code> is an object. There are no possibility to ordonate routes, but this is a problem because routes path are resolved in order of injection.</p>
+<p>We will resolved that with new way to set routes from <code>routes: { &lt;key&gt;: { ... } }</code> to <code>routes: [{ &quot;key&quot;: &lt;key&gt;, ... }]</code>.</p>
+<p>This is all files for example:</p>
+<pre class="prettyprint source"><code>├─ controllers/
+│  └─ common.js
+├─ views/
+│  ├─ index.htm
+│  ├─ content.htm
+│  └─ error.htm
+└─ webconfig.json</code></pre><p>With the <code>webconfig.json</code> originaly like this <code>routes: &lt;Object&gt;</code> :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: {
+        &quot;/doc/index.html&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        },
+        &quot;/doc/*&quot;: {
+            &quot;view&quot;: &quot;error.htm&quot;,
+            &quot;statusCode&quot;: 404
+        }
+    }
+}</code></pre><p>and transformed like this <code>routes: &lt;Array&gt;</code> :</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: [{
+        &quot;url&quot;: &quot;/doc/index.html
+        &quot;view&quot;: &quot;index.htm&quot;
+    }, {
+        &quot;url&quot;: &quot;/doc/*&quot;,
+        &quot;view&quot;: &quot;error.htm&quot;,
+        &quot;statusCode&quot;: 404
+    }]
+}</code></pre><p>With the &quot;common.js&quot; file, it's now possible to inject routes at the position we want. We will see an example with first position.</p>
+<pre class="prettyprint source lang-js"><code>// This code is executing while route are added.
+// This code will be executed when NodeAtlas starting.
+exports.setRoutes = function (next) {
+
+    // We use instance of NodeAtlas.
+    var NA = this,
+
+        // And we keep routes from NodeAtlas webconfig...
+        route = NA.webconfig.routes;
+
+    // ...to add &quot;/content.html&quot; route in first place.
+    route.unshift({
+        &quot;url&quot;: &quot;/doc/content.html&quot;,
+        &quot;view&quot;: &quot;content.htm&quot;
+    });
+
+    // We update modification here.
+    next(); 
+};</code></pre><p>In this way, address <code>http://localhost/doc/content.html</code> will return the <code>content.htm</code> view and not the <code>error.htm</code> view with 404.</p>
+<h3>Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p>
 <p><em>Note : if you don't set <code>statusCode</code>, no redirect will be executed. The <code>statusCode</code> is mandatory for redirection.</em></p>
 <h4>Static</h4><p>See the example below:</p>
 <pre class="prettyprint source lang-js"><code>{
@@ -2477,6 +2831,133 @@ webconfig.prod.json</code></pre><p>with <code>webconfig.json</code></p>
         }
     }
 }</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don't forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p>
+<h3>Changing the template engine brackets &lt;? ?&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;?- include('head.htm') ?&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;$- include('head.htm') $&gt;</em></strong> (like with EJS) with the configuration below:</p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>See the exemple in files below:</p>
+<p><em>webconfig.json</em></p>
+<pre class="prettyprint source"><code>{
+    &quot;templateEngineDelimiter&quot;: true,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        }
+    }
+}</code></pre><p><em>variations/common.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titleWebsite&quot;: &quot;Website Title&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}</code></pre><p><em>variations/index.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p>This is the Homepage.&lt;/p>&quot;
+}</code></pre><p><em>views/partials/head.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>&lt;%- specific.titlePage %>&lt;/title>
+
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= common.classCssCommon %>.css&quot; media=&quot;all&quot; />
+        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %>.css&quot; media=&quot;all&quot; />
+    &lt;/head>
+    &lt;body class=&quot;&lt;%= specific.classPage %>&quot;></code></pre><p><em>views/partials/foot.htm</em></p>
+<pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %>.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p><em>views/index.htm</em></p>
+<pre class="prettyprint source lang-html"><code>    &lt;%- include('head.htm') %>
+
+    &lt;div class=&quot;title&quot;>&lt;%- common.titleWebsite %>&lt;/div>
+
+    &lt;div>
+        &lt;h1>&lt;%- specific.titlePage %>&lt;/h1>
+        &lt;%- specific.content %>
+    &lt;/div>
+
+    &lt;%- include('foot.htm') %></code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="http://ejs.co/">EJS2</a></p>
+<p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p>
+<h3>HTML generation with Pug</h3><p>It's also possible to change EJS template to PUG template (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p>
+<pre class="prettyprint source"><code>{
+    &quot;enablePug&quot;: true,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        },
+        &quot;/contenu/&quot;: {
+            &quot;view&quot;: &quot;content.htm&quot;
+        }
+    }
+}</code></pre><p>or just for one page like this:</p>
+<pre class="prettyprint source"><code>{
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        },
+        &quot;/contenu/&quot;: {
+            &quot;enablePug&quot;: true,
+            &quot;view&quot;: &quot;content.htm&quot;
+        }
+    }
+}</code></pre><p>It's also possible to reset EJS only for one page.</p>
+<pre class="prettyprint source"><code>{
+    &quot;enablePug&quot;: true,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;enablePug&quot;: false,
+            &quot;view&quot;: &quot;index.htm&quot;
+        },
+        &quot;/contenu/&quot;: {
+            &quot;view&quot;: &quot;content.htm&quot;
+        }
+    }
+}</code></pre><p>We can see now an example with same set of files from previous example (with <code>&lt;? ?&gt;</code> become <code>&lt;% %&gt;</code>):</p>
+<p><em>webconfig.json</em></p>
+<pre class="prettyprint source"><code>{
+    &quot;enablePug&quot;: true,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        }
+    }
+}</code></pre><p><em>variations/common.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}</code></pre><p><em>variations/index.json</em></p>
+<pre class="prettyprint source lang-js"><code>{
+    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p>C'est la page d'accueil.&lt;/p>&quot;
+}</code></pre><p><em>views/partials/head.pug</em></p>
+<pre class="prettyprint source lang-html"><code>doctype html
+html(lang=&quot;fr-fr&quot;)
+    head
+        meta(charset=&quot;utf-8&quot;)
+        title #{specific.titlePage}
+        link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + common.classCssCommon + &quot;.css&quot;, media=&quot;all&quot;)
+        link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + specific.classPage + &quot;.css&quot;, media=&quot;all&quot;)
+    body(class=specific.classPage)</code></pre><p><em>views/partials/foot.pug</em></p>
+<pre class="prettyprint source lang-html"><code>script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)</code></pre><p><em>views/index.htm</em></p>
+<pre class="prettyprint source lang-html"><code>include partials/head.pug
+
+div
+    h1 #{specific.titlePage}
+    | !{specific.content}
+
+include partials/foot.pug</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consulter la documentation <a href="https://pugjs.org/">PUG</a></p>
+<p><em>Note : Si rien n'est précisé,</em> <strong><em>enablePug</em></strong> <em>vaut</em> <strong><em>false</em></strong>.</p>
 <h3>Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p>
 <h4>Creating Bundles</h4><p>With the following configuration:</p>
 <pre class="prettyprint source lang-js"><code>{
@@ -3380,40 +3861,6 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 
 exports.setModules = website.setModules;
 exports.setSessions = website.setSessions;</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p>
-<h3>Changing the template engine brackets &lt;? ?&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;?- include('head.htm') ?&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;$- include('head.htm') $&gt;</em></strong> with the configuration below:</p>
-<pre class="prettyprint source lang-js"><code>{
-    &quot;templateEngineDelimiter&quot;: &quot;$&quot;,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}</code></pre><p>See the exemple in files below:</p>
-<p><em>views/partials/head.htm</em></p>
-<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
-&lt;html lang=&quot;fr-fr&quot;>
-    &lt;head>
-        &lt;meta charset=&quot;utf-8&quot; />
-        &lt;title>&lt;$- specific.titlePage $>&lt;/title>
-
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;$= common.classCssCommon $>.css&quot; media=&quot;all&quot; />
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;$= specific.classPage $>.css&quot; media=&quot;all&quot; />
-    &lt;/head>
-    &lt;body class=&quot;&lt;$= specific.classPage $>&quot;></code></pre><p><em>views/partials/foot.htm</em></p>
-<pre class="prettyprint source lang-html"><code>        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;$= common.classJsCommon $>.js&quot;>&lt;/script>
-    &lt;/body>
-&lt;/html></code></pre><p><em>views/template.htm</em></p>
-<pre class="prettyprint source lang-html"><code>    &lt;$- include('head.htm') $>
-
-    &lt;div class=&quot;title&quot;>&lt;$- common.titleWebsite $>&lt;/div>
-
-    &lt;div>
-        &lt;h1>&lt;$- specific.titlePage $>&lt;/h1>
-        &lt;$- specific.content $>
-    &lt;/div>
-
-    &lt;$- include('foot.htm') $></code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="http://ejs.co/">EJS2</a></p>
-<p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p>
 <h3>Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpPort&quot;: 7777,
@@ -3673,7 +4120,7 @@ website.init({
 <p>The new thing introduce with NodeAtlas is into the CSS editor. Instead of show you name and line of CSS file for rules of an element, if this CSS file was generated from a Stylus or Less, it's the Stylus or Less name and line that you'll see in the editor.</p>
 <h3>Back-end Debug</h3><p>From Node.js v6.6+, you could debug your Back-end code with Google Chrome. You have just to do that to use the <code>--inspect</code> option of node.</p>
 <p>Create for example a starting point file like this :</p>
-<pre class="prettyprint source lang-javascript"><code>require(&quot;node&quot;)().start()</code></pre><p>and run the following command :</p>
+<pre class="prettyprint source lang-javascript"><code>require(&quot;node-start&quot;)().start()</code></pre><p>and run the following command :</p>
 <pre class="prettyprint source"><code>node --inspect server.js</code></pre><p>The engine will communicate you the url of a page to display in Chrome. Go to this page to see all messages from console into the <code>console</code> tab, to debug your code with all Back-end files used in <code>source</code> and tests the perfs with <code>profile</code>.</p>
 <h3>Devices Tests</h3><p>For test your app or website during the development phase on your mobile and pad you must connect your development machine and all devices on the same local network.</p>
 <p>For example, connect all your devices on the same Wifi network. Then, find on this network the ip address of your development machine. On Windows, this could be done with the <code>ipconfig</code> for example.</p>
@@ -3958,13 +4405,13 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enablePug.html">enablePug</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 09 2016 10:48:54 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Dec 12 2016 16:01:17 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

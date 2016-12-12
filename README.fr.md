@@ -110,6 +110,8 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer les redirections](#gérer-les-redirections)
  - [Gérer les Headers de page](#gérer-les-headers-de-page)
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
+ - [Changer les chevrons <? ?> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
+ - [Générer le HTML avec Pug](#générer-le-html-avec-pug)
  - [Minifier les CSS / JS](#minifier-les-css--js)
  - [Générer les CSS avec Less](#générer-les-css-avec-less)
  - [Générer les CSS avec Stylus](#générer-les-css-avec-stylus)
@@ -119,7 +121,6 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Autoriser / Interdire les demandes PUT / DELETE](#autoriser--interdire-les-demandes-put--delete)
  - [Changer les paramètres des Sessions](#changer-les-paramètres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
- - [Changer les chevrons <? ?> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
  - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
  - [Générer les urls dynamiquement](#générer-les-urls-dynamiquement)
  - [Activer le cache](#activer-le-cache)
@@ -3885,6 +3886,227 @@ Pour finir, il est également possible de seulement laisser la valeur de `httpSe
 
 
 
+### Changer les chevrons <? ?> du moteur de template ###
+
+Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<?- include('head.htm') ?>***. Il serait possible de le faire avec ***<%- include('head.htm') %>*** (comme pour EJS) avec la configuration ci-dessous :
+
+```js
+{
+    "templateEngineDelimiter": "%",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+```
+
+Voyez l'exemple dans les fichiers ci-dessous :
+
+*webconfig.json*
+
+```
+{
+    "templateEngineDelimiter": true,
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+*variations/common.json*
+
+```js
+{
+    "titleWebsite": "Titre du site",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
+}
+```
+
+*variations/index.json*
+
+```js
+{
+    "titlePage": "Bienvenue",
+    "classPage": "index",
+    "content": "<p>C'est la page d'accueil.</p>"
+}
+```
+
+*views/partials/head.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title><%- specific.titlePage %></title>
+
+        <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
+    </head>
+    <body class="<%= specific.classPage %>">
+```
+
+*views/partials/foot.htm*
+
+```html
+        <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
+    </body>
+</html>
+```
+
+*views/index.htm*
+
+```html
+    <%- include('head.htm') %>
+
+    <div class="title"><%- common.titleWebsite %></div>
+
+    <div>
+        <h1><%- specific.titlePage %></h1>
+        <%- specific.content %>
+    </div>
+
+    <%- include('foot.htm') %>
+```
+
+Pour tout savoir sur les possibilités du moteur de template consulter la documentation [EJS2](http://ejs.co/)
+
+*Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***?***.
+
+
+
+### Générer le HTML avec Pug ###
+
+Il est possible d'utiliser en lieu et place du moteur EJS le moteur PUG (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
+
+```
+{
+    "enablePug": true,
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+ou seulement pour une page précise :
+
+```
+{
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "enablePug": true,
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+Il est également possible pour un moteur complet en PUG de repasse une page spécifique en EJS.
+
+```
+{
+    "enablePug": true,
+    "routes": {
+        "/": {
+            "enablePug": false,
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+Voyons ce que cela donnerait avec l'exemple utiliser précédemment avec `<? ?>` et `<% %>` :
+
+*webconfig.json*
+
+```
+{
+    "enablePug": true,
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+*variations/common.json*
+
+```js
+{
+    "titleWebsite": "Titre du site",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
+}
+```
+
+*variations/index.json*
+
+```js
+{
+    "titlePage": "Bienvenue",
+    "classPage": "index",
+    "content": "<p>C'est la page d'accueil.</p>"
+}
+```
+
+*views/partials/head.pug*
+
+```html
+doctype html
+html(lang="fr-fr")
+    head
+        meta(charset="utf-8")
+        title #{specific.titlePage}
+        link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
+        link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
+    body(class=specific.classPage)
+```
+
+*views/partials/foot.pug*
+
+```html
+script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
+```
+
+*views/index.htm*
+
+```html
+include partials/head.pug
+
+div
+    h1 #{specific.titlePage}
+    | !{specific.content}
+
+include partials/foot.pug
+```
+
+Pour tout savoir sur les possibilités du moteur de template consulter la documentation [PUG](https://pugjs.org/)
+
+*Note : Si rien n'est précisé,* ***enablePug*** *vaut* ***false***.
+
+
+
 ### Minifier les CSS / JS ###
 
 Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu qu'un Bundle existe dans le Webconfig.
@@ -5197,67 +5419,6 @@ exports.setSessions = website.setSessions;
 ```
 
 Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mongo).
-
-
-
-### Changer les chevrons <? ?> du moteur de template ###
-
-Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<?- include('head.htm') ?>***. Il serait possible de le faire avec ***<$- include('head.htm') $>*** avec la configuration ci-dessous :
-
-```js
-{
-    "templateEngineDelimiter": "$",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-```
-
-Voyez l'exemple dans les fichiers ci-dessous :
-
-*views/partials/head.htm*
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title><$- specific.titlePage $></title>
-
-        <link type="text/css" rel="stylesheet" href="stylesheets/<$= common.classCssCommon $>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<$= specific.classPage $>.css" media="all" />
-    </head>
-    <body class="<$= specific.classPage $>">
-```
-
-*views/partials/foot.htm*
-
-```html
-        <script async type="text/javascript" src="javascript/<$= common.classJsCommon $>.js"></script>
-    </body>
-</html>
-```
-
-*views/template.htm*
-
-```html
-    <$- include('head.htm') $>
-
-    <div class="title"><$- common.titleWebsite $></div>
-
-    <div>
-        <h1><$- specific.titlePage $></h1>
-        <$- specific.content $>
-    </div>
-
-    <$- include('foot.htm') $>
-```
-
-Pour tout savoir sur les possibilités du moteur de template consulter la documentation [EJS2](http://ejs.co/)
-
-*Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***?***.
 
 
 
