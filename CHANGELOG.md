@@ -15,8 +15,7 @@ Features:
 - `--cache` command is added.
 - `NA#webconfig.enablePug` is added.
 - `NA#currentRouteParameters.enablePug` is added.
-- `NA#websiteController[].setSockets` is added.
-- `NA#websiteController[].changeSockets` is added.
+- `NA#websiteController[].setSockets` is added for both common and specific controller.
 
 Updates:
 
