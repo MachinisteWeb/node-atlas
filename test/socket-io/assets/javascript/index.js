@@ -10,7 +10,7 @@ window.website = window.website || {};
     function setServerRender() {
         var button = document.getElementsByTagName("button")[0];
         button.addEventListener("click", function () {
-            website.socket.emit("server-render", {
+            NA.socket.emit("server-render", {
                 lang: html.getAttribute("lang"),
                 variation: body.getAttribute("data-variation")
             });
@@ -19,7 +19,7 @@ window.website = window.website || {};
 
     publics.init = function () {
         setServerRender();
-        website.socket.on("server-render", function (data) {
+        NA.socket.on("server-render", function (data) {
             layout.innerHTML = data.render;
             setServerRender();
         });

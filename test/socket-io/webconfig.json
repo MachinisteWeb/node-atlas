@@ -2,11 +2,10 @@
     "commonController": "common.js",
     "commonVariation": "common.json",
     "controllersRelativePath": "controllers",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "controller": "index.js"
-        }
-    }
+    "routes": [{
+        "url": "/",
+        "view": "index.htm",
+        "variation": "index.json",
+        "controller": "index.js"
+    }]
 }
