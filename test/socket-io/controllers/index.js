@@ -1,6 +1,6 @@
 // Intégralité des actions Websocket possible pour ce template.
 // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
-exports.changeSocket = function () {
+exports.changeSockets = function () {
     var NA = this,
         io = NA.io;
 
