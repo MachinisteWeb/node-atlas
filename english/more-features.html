@@ -582,7 +582,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don&#39;t forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="changing-the-template-engine-brackets-lt-gt">Changing the template engine brackets &lt;? ?&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;?- include(&#39;head.htm&#39;) ?&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;$- include(&#39;head.htm&#39;) $&gt;</em></strong> (like with EJS) with the configuration below:</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don&#39;t forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="changing-the-template-engine-brackets-lt-gt">Changing the template engine brackets &lt;? ?&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;$- include(&quot;head.htm&quot;) $&gt;</em></strong> (like with EJS) with the configuration below:</p><pre><code class="lang-js">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -623,7 +623,7 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&quot;head.htm&quot;) %&gt;
 
     &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
 
@@ -632,7 +632,7 @@ exports.setRoutes = function (next) {
         &lt;%- specific.content %&gt;
     &lt;/div&gt;
 
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
+    &lt;%- include(&quot;foot.htm&quot;) %&gt;
 </code></pre><p>Learn all about the possibilities of the template engine consult the documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p><h3 id="html-generation-with-pug">HTML generation with Pug</h3><p>It&#39;s also possible to change EJS template to PUG template (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p><pre><code>{
     &quot;enablePug&quot;: true,
     &quot;routes&quot;: {

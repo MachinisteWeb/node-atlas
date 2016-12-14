@@ -88,17 +88,17 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Ensemble de fichiers](#ensemble-de-fichiers)
  - [Configuration minimale](#configuration-minimale)
  - [Lancer le site avec NodeAtlas](#lancer-le-site-avec-nodeatlas)
-- [Partie View et Template](#partie-view-et-template)
+- [Partie Vue et Template](#partie-vue-et-template)
  - [Plusieurs pages](#plusieurs-pages)
- - [Raccourci de template](#raccourci-de-template)
+ - [Référencer ses routes](#référencer-ses-routes)
  - [Héberger des images, polices, CSS, JS, etc.](#héberger-des-images-polices-css-js-etc)
- - [Gérer des inclusions pour éviter la redondance du code](#gérer-des-inclusions-pour-éviter-la-redondance-du-code)
- - [Gérer des variations au sein d'une même view](#gérer-des-variations-au-sein-dune-m%C3%AAme-view)
- - [Gérer le multilingue](#gérer-le-multilingue)
- - [Changer les paramètres d'url](#changer-les-paramètres-durl)
- - [Créer ses propres variables de webconfig](#créer-ses-propres-variables-de-webconfig)
- - [Utiliser NodeAtlas pour générer des maquettes HTML](#utiliser-nodeatlas-pour-générer-des-maquettes-html)
-- [Partie Controller et Model](#partie-controller-et-model)
+ - [Gérer l'inclusion de fichiers partiels](#gérer-linclusion-de-fichiers-partiels)
+ - [Gérer des variations au sein d'une même vue](#gérer-des-variations-au-sein-dune-même-vue)
+ - [Gérer l'internationalisation (i18n)](#gérer-linternationalisation-i18n)
+ - [Changer l'anatomie des URLs](#changer-lanatomie-des-urls)
+ - [Créer ses propres Variables de Webconfig](#créer-ses-propres-variables-de webconfig)
+ - [Générer des maquettes HTML](#générer-des-maquettes-html)
+- [Partie Contrôleur et Modèle](#partie-contrôleur-et-modèle)
  - [Cycle de Vie et Hooks](#cycle-de-vie-et-hooks)
  - [Utiliser les Websocket à la place des échanges AJAX](#utiliser-les-websocket-à-la-place-des-échanges-ajax)
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
@@ -292,7 +292,11 @@ Il y a un conflit de nom entre le node de package (Amateur Packet Radio Node Pro
 
 ## Commencer avec NodeAtlas ##
 
-Nous allons voir pour commencer mettre en place l'ensemble de fichier minimal afin de réaliser un `hello-world`.
+NodeAtlas est piloté par le fichier `webconfig.json`. Tout site NodeAtlas en possède un, c'est ce qui force le moteur à passer de « Simple Serveur Web » à « Serveur Web NodeAtlas ».
+
+NodeAtlas n'est pas une architecture MVC standard. L'une des particularités de NodeAtlas est que le contrôleur s'occupe lui-même de rendre la page. Aussi le minimum vital pour créer une page est d'activé la partie vue.
+
+Nous allons voir pour commencer mettre en place l'ensemble de fichiers minimals afin de réaliser un `hello-world`.
 
 ### Ensemble de fichiers ###
 
@@ -348,7 +352,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 #### À la ligne de commande en appelant le script ####
 
-Placez-vous avec un invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
+Placez-vous avec un invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
 ```
 \> node </path/to/>node-atlas/
@@ -361,7 +365,7 @@ Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans
 
 **Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez également utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/>node-atlas/`.
 
-Placez-vous toujours avec votre invité de commande dans le dossier « /site-hello-world/ » et exécutez la commande suivante.
+Placez-vous toujours avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
 ```
 \> nodeatlas
@@ -390,13 +394,13 @@ nodeAtlas().run();
 
 
 
-## Partie View et Template ##
+## Partie Vue et Template ##
 
-NodeAtlas fonctionne avec une configuration via l'utilisation d'un `webconfig.json` qui lui permet d'étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de controller), il suffit de ne renseigner qu'une `view` pour chaque route.
+NodeAtlas fonctionne avec une configuration via l'utilisation d'un `webconfig.json` qui lui permet d'étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de contrôleur), il suffit de ne renseigner qu'un paramètre `view` pour chaque route.
 
-Cependant, vous pourrez toujours utilisé du JavaScript inline dans ses views grâce à l'utilisation du moteur de template [EJS2](http://ejs.co/) avec lequel fonctionne NodeAtlas.
+Cependant, vous pourrez toujours utiliser du JavaScript dans les templates des vues grâce à l'utilisation du moteur de template [EJS](http://ejs.co/) avec lequel fonctionne NodeAtlas.
 
-Voyons les possibilités de nos sites par agrégat simple de fichiers templates.
+Voyons les possibilités de nos sites par agrégat simple de fichiers de vue.
 
 ### Plusieurs pages ###
 
@@ -409,18 +413,18 @@ Ci-dessous un exemple de configuration.
         "/": {
             "view": "index.htm"
         },
-        "/member.html": {
+        "/membre.html": {
             "view": "member.htm",
             "postSupport": false
         },
-        "/member-without-extension/": {
+        "/membre-sans-extension/": {
             "view": "member.htm",
             "getSupport": false
         },
-        "about.html": {
+        "a-propos.html": {
             "view": "about.htm"
         },
-        "/error.html": {
+        "/erreur.html": {
             "view": "error.htm",
             "statusCode": 404,
             "mimeType": "text/plain"
@@ -433,24 +437,26 @@ Pour faire tourner cet ensemble de fichier :
 
 ```
 ├─ views/
+│  ├─ about.htm
+│  ├─ error.htm
 │  ├─ index.htm
-│  ├─ member.htm
-│  └─ error.htm
+│  └─ member.htm
 └─ webconfig.json
 ```
 
 aux adresses :
 
-- *http://localhost/* (répond à la racine)
-- *http://localhost/member.html* (ne répondra pas si demandée en POST)
-- *http://localhost/member-without-extension/* (ne répondra pas si demandée en GET)
-- *http://localhost/error.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404)
+- *http://localhost/* (répond à la racine),
+- *http://localhost/membre.html* (ne répondra pas si demandée en POST),
+- *http://localhost/membre-sans-extension/* (ne répondra pas si demandée en GET),
+- *http://localhost/a-propos.html* (renvoi « Cannot GET about.html » car le contenu d'une route doit __obligatoirement__ commencer par un `/` pour être référencée),
+- *http://localhost/erreur.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404).
 
-*Note : Si* ***viewsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des views est bien* ***views***. ***viewsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***viewsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des vues est bien* ***views***. ***viewsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
-### Raccourci de template ###
+### Référencer ses routes ###
 
 La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus
 
@@ -459,16 +465,16 @@ La configuration ci-dessous est équivalente à la configuration de la section j
     "viewsRelativePath": "views",
     "routes": {
         "/": "index.htm",
-        "/member.html": {
+        "/membre.html": {
             "view": "member.htm",
             "postSupport": false
         },
-        "/member-without-extension/": {
+        "/membre-sans-extension/": {
             "view": "member.htm",
             "getSupport": false
         },
-        "about.html": "about.htm",
-        "/error.html": {
+        "a-propos.html": "about.htm",
+        "/erreur.html": {
             "view": "error.htm",
             "statusCode": 404,
             "mimeType": "text/plain"
@@ -480,18 +486,48 @@ La configuration ci-dessous est équivalente à la configuration de la section j
 car
 
 ```js
-"about.html": "about.htm",
+"a-propos.html": "about.htm",
 ```
 
 est un raccourci de
 
 ```js
-"about.html": {
+"a-propos.html": {
     "view": "about.htm"
 }
 ```
 
 Évidemment ce raccourci ne sert que si `view` est le seul paramètre à déclarer de la route.
+
+Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.
+
+Dans ce cas le chemin devient le paramètre `url`.
+
+```js
+{
+    "viewsRelativePath": "views",
+    "routes": [{
+        "url": /",
+        "view": "index.htm",
+    }, {
+        "url": "/membre.html",
+        "view": "member.htm",
+        "postSupport": false
+    }, {
+        "url": /membre-sans-extension/",
+        "view": "member.htm",
+        "getSupport": false
+    }, { 
+        "url": "a-propos.html",
+        "view": "about.htm"
+    }, { 
+        "url": "/erreur.html",
+        "view": "error.htm",
+        "statusCode": 404,
+        "mimeType": "text/plain"
+    }]
+}
+```
 
 
 
@@ -537,13 +573,15 @@ vous aurez accès aux adresses :
 
 #### maxAge, Etag, etc. ####
 
-Il est possible de manager les informations livrées par NodeAtlas à la demande d'une ressource public (comme le `maxAge`, l'`etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/api.html#express.static).
+Il est possible de configurer les informations livrées par NodeAtlas à la demande d'une ressource publique (comme le `maxAge`, l'`Etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/en/api.html).
 
 
 
-### Gérer des inclusions pour éviter la redondance du code ###
+### Gérer l'inclusion de fichiers partiels ###
 
 Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :
+
+**webconfig.json**
 
 ```js
 {
@@ -575,7 +613,7 @@ avec les fichiers suivants :
 └─ webconfig.json
 ```
 
-*views/partials/head.htm*
+**views/partials/head.htm**
 
 ```html
 <!DOCTYPE html>
@@ -583,13 +621,12 @@ avec les fichiers suivants :
     <head>
         <meta charset="utf-8" />
         <title>Hello world</title>
-
         <link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" />
     </head>
     <body>
 ```
 
-*views/partials/foot.htm*
+**views/partials/foot.htm**
 
 ```html
         <script async type="text/javascript" src="javascript/common.js"></script>
@@ -597,30 +634,30 @@ avec les fichiers suivants :
 </html>
 ```
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
-    <?- include('partials/head.htm') ?>
+    <?- include("partials/head.htm") ?>
 
     <div>
         <h1>Bienvenue</h1>
         <p>C'est la page d'accueil.</p>
     </div>
 
-    <?- include('partials/foot.htm') ?>
+    <?- include("partials/foot.htm") ?>
 ```
 
-*views/members.htm*
+**views/members.htm**
 
 ```html
-    <?- include('partials/head.htm') ?>
+    <?- include("partials/head.htm") ?>
 
     <div>
         <h1>Liste des members</h1>
         <p>C'est la page des membres.</p>
     </div>
 
-    <?- include('partials/foot.htm') ?>
+    <?- include("partials/foot.htm") ?>
 ```
 
 vous aurez accès aux adresses :
@@ -630,9 +667,9 @@ vous aurez accès aux adresses :
 
 
 
-### Gérer des variations au sein d'une même view ###
+### Gérer des variations au sein d'une même vue ###
 
-Il est possible avec la même view et les mêmes includes de générer des pages au contenu différent (utile en mode génération d'assets HTML). Activer les variations avec la configuration suivante :
+Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :
 
 ```js
 {
@@ -675,7 +712,7 @@ avec les fichiers suivants :
 └─ webconfig.json
 ```
 
-*views/partials/head.htm*
+**views/partials/head.htm**
 
 ```html
 <!DOCTYPE html>
@@ -690,7 +727,7 @@ avec les fichiers suivants :
     <body class="<?= specific.classPage ?>">
 ```
 
-*views/partials/foot.htm*
+**views/partials/foot.htm**
 
 ```html
         <script async type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
@@ -698,10 +735,10 @@ avec les fichiers suivants :
 </html>
 ```
 
-*views/template.htm*
+**views/template.htm**
 
 ```html
-    <?- include('head.htm') ?>
+    <?- include("partials/head.htm") ?>
 
     <div class="title"><?- common.titleWebsite ?></div>
 
@@ -710,10 +747,10 @@ avec les fichiers suivants :
         <?- specific.content ?>
     </div>
 
-    <?- include('foot.htm') ?>
+    <?- include("partials/foot.htm") ?>
 ```
 
-*variations/common.json*
+**variations/common.json**
 
 ```js
 {
@@ -723,7 +760,7 @@ avec les fichiers suivants :
 }
 ```
 
-*variations/index.json*
+**variations/index.json**
 
 ```js
 {
@@ -733,7 +770,7 @@ avec les fichiers suivants :
 }
 ```
 
-*variations/members.json*
+**variations/members.json**
 
 ```js
 {
@@ -752,7 +789,7 @@ vous aurez accès aux adresses :
 
 
 
-### Gérer le multilingue ###
+### Gérer l'internationalisation (i18n) ###
 
 #### Toutes les langues sur le même site ####
 
@@ -760,8 +797,8 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 
 ```js
 {
-    "languageCode": "en-gb",
-    "variationsRelativePath": "languages",
+    "languageCode": "en-us",
+    "variationsRelativePath": "l10n",
     "routes": {
         "/": {
             "view": "landing.htm",
@@ -780,14 +817,14 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 }
 ```
 
-*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de* ***commonVariation***. *J'ai également totalement arbitrairement décidé de renommer mon dossier* ***variations*** *en* ***languages***.
+*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de* ***commonVariation***. *J'ai également totalement arbitrairement décidé de renommer mon dossier* ***variations*** *en* ***l10n*** (localisation).
 
 avec les fichiers suivants :
 
 ```
-├─ languages/
+├─ l10n/
 │  ├─ landing.json
-│  ├─ en-gb
+│  ├─ en-us
 │  │  └─ home.json
 │  └─ fr-fr
 │     └─ home.json
@@ -800,7 +837,7 @@ avec les fichiers suivants :
 └─ webconfig.json
 ```
 
-*views/partials/head.htm*
+**views/partials/head.htm**
 
 ```html
 <!DOCTYPE html>
@@ -812,17 +849,17 @@ avec les fichiers suivants :
     <body class="<?= specific.classPage ?>">
 ```
 
-*views/partials/foot.htm*
+**views/partials/foot.htm**
 
 ```html
     </body>
 </html>
 ```
 
-*views/landing.htm*
+**views/landing.htm**
 
 ```html
-    <?- include('head.htm') ?>
+    <?- include("partials/head.htm") ?>
 
     <select>
         <? for (var i = 0; i < specific.selectLabel.length; i++) { ?>
@@ -830,23 +867,23 @@ avec les fichiers suivants :
         <? } ?>
     </select>
 
-    <?- include('foot.htm') ?>
+    <?- include("partials/foot.htm") ?>
 ```
 
-*views/home.htm*
+**views/home.htm**
 
 ```html
-    <?- include('head.htm') ?>
+    <?- include("partials/head.htm") ?>
 
     <div>
         <h1><?- specific.titlePage ?></h1>
         <?- specific.content ?>
     </div>
 
-    <?- include('foot.htm') ?>
+    <?- include("partials/foot.htm") ?>
 ```
 
-*languages/landing.json*
+**l10n/landing.json**
 
 ```js
 {
@@ -859,7 +896,7 @@ avec les fichiers suivants :
 }
 ```
 
-*languages/en-gb/home.json*
+**l10n/en-us/home.json**
 
 ```js
 {
@@ -869,7 +906,7 @@ avec les fichiers suivants :
 }
 ```
 
-*languages/fr-fr/home.json*
+**l10n/fr-fr/home.json**
 
 ```js
 {
@@ -888,16 +925,15 @@ vous aurez accès aux adresses :
 *Note : Par défaut c'est le* ***languageCode*** *racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le* ***languageCode***. *Il faut également savoir que dès que le site ou une page à un* ***languageCode*** *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* ***languageCode***.
 
 
-#### Utiliser seulement les variations avec le multilingue actif ####
+#### Utiliser variations et localisations ensemble ####
 
-Vous avez peut-être constaté dans l'exemple précédent que le fichier `landing.json` n'était pas dans le dossier `en-gb/` ou `fr-fr/`. Cela est tout à fait possible et signifie qu'il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.
+Vous avez peut-être constaté dans l'exemple précédent que le fichier `landing.json` n'était pas dans le dossier `en-us/` ou `fr-fr/`. Cela est tout à fait possible et signifie qu'il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.
 
-Aussi, quand un `languageCode` est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y ai pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans multilingue).
+Aussi, quand un `languageCode` est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y ai pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans localisation).
 
-Cela va vous permettre par exemple de manager la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :
+Cela va vous permettre par exemple de gérer la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :
 
 ```
-│
 ┊┉
 ├─ variations/
 │  ├─ common.json
@@ -910,10 +946,10 @@ Cela va vous permettre par exemple de manager la langue maître directement dans
 
 vous pouvez
 
-- gérer la version `en-gb` directement à la racine de `variations/` (comme NodeAtlas ne trouve rien dans `en-gb` il utilise alors les valeurs des fichiers racines) et
+- gérer la version `en-us` directement à la racine de `variations/` (comme NodeAtlas ne trouve rien dans `en-us` il utilise alors les valeurs des fichiers racines) et
 - gérer la version `fr-fr` dans le dossier `fr-fr/`,
 
-ainsi, si une phrase n'est pas encore traduite dans un fichier `fr-fr`, au lieu de renvoyer une erreur, NodeAtlas renverra la version racine, soit la version `en-gb`.
+ainsi, si une phrase n'est pas encore traduite dans un fichier `fr-fr`, au lieu de renvoyer une erreur, NodeAtlas renverra la version racine, soit la version `en-us`.
 
 
 #### À chaque langue sa configuration ####
@@ -923,7 +959,7 @@ Vous pouvez également décider de faire tourner chaque langue dans un « webcon
 ```
 ├─ variations/
 │  ├─ landing.json
-│  ├─ en-gb
+│  ├─ en-us
 │  │  ├─ home.json
 │  │  └─ members.json
 │  └─ fr-fr
@@ -937,13 +973,13 @@ Vous pouvez également décider de faire tourner chaque langue dans un « webcon
 │  ├─ home.htm
 │  └─ members.htm
 ├─ webconfig.json
-├─ webconfig.en-gb.json
+├─ webconfig.en-us.json
 └─ webconfig.fr-fr.json
 ```
 
 vous pourriez avoir les « webconfig.json » suivant :
 
-*webconfig.json*
+**webconfig.json**
 
 ```js
 {
@@ -956,13 +992,13 @@ vous pourriez avoir les « webconfig.json » suivant :
 }
 ```
 
-*webconfig.en-gb.json*
+**webconfig.en-us.json**
 
 ```js
 {
     "httpPort": 81,
     "urlRelativeSubPath": "english",
-    "languageCode": "en-gb",
+    "languageCode": "en-us",
     "routes": {
         "/": {
             "view": "home.htm",
@@ -976,7 +1012,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 }
 ```
 
-*webconfig.fr-fr.json*
+**webconfig.fr-fr.json**
 
 ```js
 {
@@ -1016,7 +1052,7 @@ Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exe
 
 
 
-### Changer les paramètres d'url ###
+### Changer l'anatomie des URLs ###
 
 Par défaut, si vous utilisez la configuration suivante :
 
@@ -1068,7 +1104,7 @@ pour accéder à : *https://127.0.0.1:7777/sub/folder/*
 
 
 
-### Créer ses propres variables de webconfig ###
+### Créer ses propres Variables de Webconfig ###
 
 Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
 
@@ -1157,7 +1193,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 Cependant en lançant la commande :
 
 ```
-\> node </path/to/>node-atlas/server.js --webconfig webconfig.prod.json
+\> node </path/to/>node-atlas/ --webconfig webconfig.prod.json
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
@@ -1181,16 +1217,17 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 
 
-### Utiliser NodeAtlas pour générer des maquettes HTML ###
+### Générer des maquettes HTML ###
 
-#### Générer des assets HTML ####
+#### Générer des designs HTML ####
 
-Avec la configuration suivante il est possible de générer des assets HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.
+Avec la configuration suivante il est possible de générer des aperçu HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.
 
 ```js
 {
     "htmlGenerationBeforeResponse": true,
-    "serverlessRelativePath": "serverless",
+    "assetsRelativePath": "../HTML/",
+    "serverlessRelativePath": "../HTML/",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -1198,13 +1235,13 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
         },
         "/liste-des-membres/": {
             "view": "members.htm",
-            "output": "/members/list.html"
+            "output": "/membres/liste.html"
         },
         "/liste-des-membres/?foo=bar": {
             "view": "members.htm",
             "output": false
         },
-        "/no/generate/property/": {
+        "/aucun/parametre/output/": {
             "view": "members.htm"
         }
     }
@@ -1214,24 +1251,21 @@ Avec la configuration suivante il est possible de générer des assets HTML du r
 et l'ensemble de fichiers suivant :
 
 ```
-├─ assets/
+├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ serverless/
 ├─ views/
 │  ├─ index.htm
 │  └─ members.htm
 └─ webconfig.json
 ```
 
-on peut créer physiquement les assets :
+on peut créer physiquement la sortie suivante :
 
 ```
-├─ assets/
-│  ┊┉
-├─ serverless/
+├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  ├─ javascript/
@@ -1239,9 +1273,9 @@ on peut créer physiquement les assets :
 │  ├─ index.html
 │  ├─ members/
 │  │  └─ list.html
-│  └─ no/
-│     └─ generate/
-│        └─ property ⤆ Ceci est un fichier
+│  └─ aucun/
+│     └─ parametre/
+│        └─ output ⤆ Ceci est un fichier
 ├─ views/
 │  ┊┉
 └─ webconfig.json
@@ -1251,30 +1285,30 @@ en se rendant aux adresses :
 
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
-- *http://localhost/no/generate/property/*
+- *http://localhost/parametre/output/*
 
-*Note : Il n'y a pas de génération pour « /liste-des-membres/?foo=bar » car `generate` est à `false`. Utilisez cette valeur pour ignorer des routes à la génération.*
+*Note : Il n'y a pas de génération pour « /liste-des-membres/?foo=bar » car `output` est à `false`. Utilisez cette valeur pour ignorer des routes à la génération.*
 
-La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerationBeforeResponse*** existe et est à ***true***. S'il est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/server.js --generate` qui génèrera toutes les pages d'un coup uniquement si le dossier de `serverlessRelativePath` existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement telle qu'une modification dans un composant appelé sur toutes les pages.
-
-De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publiques) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique, et que `serverlessRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquelles elles font appel (CSS / JS / Images, etc.).
-
-Vous pouvez également désactiver la génération, même si un dossier `serverlessRelativePath` existe dans les dossiers, avec `htmlGenerationEnable` à `false`.
-
-*Note : Si* ***serverlessRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***serverless/***. ***serverlessRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
+La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerationBeforeResponse*** existe et est à ***true***.
 
 
 #### Générer un site sans partie serveur ####
 
-Il est également possible de manager la création d'un site en simple page HTML avec la configuration suivante :
+Il est également possible de gérer la création d'un site en simple page HTML avec la commande `--generate`.
+
+Si `htmlGenerationBeforeResponse` est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/ --generate` qui génèrera toutes les pages d'un coup uniquement si le dossier de `serverlessRelativePath` existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.
+
+De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publics) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique, et que le dossier de `serverlessRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).
+
+Vous pouvez également désactiver la génération, même si un dossier `serverlessRelativePath` existe dans les dossiers, avec `htmlGenerationEnable` à `false`.
+
+Voyons cela avec la configuration suivante :
 
 ```js
 {
     "languageCode": "fr-fr",
     "enableIndex": true,
-    "htmlGenerationBeforeResponse": true,
-    "serverlessRelativePath": "../HTML/",
-    "assetsRelativePath": "../HTML/",
+    "serverlessRelativePath": "serverless",
     "routes": {
         "/cv.html": {
             "view": "index.htm",
@@ -1292,42 +1326,46 @@ Il est également possible de manager la création d'un site en simple page HTML
 et l'ensemble de fichiers suivant :
 
 ```
-├─ HTML/
+├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
 │  └─ javascript/
 │     └─ common.js
-└─ engine/
-   ├─ variations/
-   │  ├─ fr-fr/
-   │  │  └─ index.json
-   │  └─ en/
-   │     └─ index.json
-   ├─ views/
-   │  └─ index.htm
-   └─ webconfig.json
+├─ serverless/
+├─ variations/
+│  ├─ fr-fr/
+│  │  └─ index.json
+│  └─ en/
+│     └─ index.json
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
 ```
 
-À l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **enableIndex** à **true**).
+Avec `node <path/to/>node-atlas/ --browse`, à l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **enableIndex** à **true**).
 
-Il ne restera plus qu'à, une fois votre travail terminé, admirer votre site HTML dans le dossier :
+Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTML dans le dossier :
 
 ```
-└─ HTML/
-   ├─ stylesheets/
-   │  └─ common.css
-   ├─ javascript/
-   │  └─ common.js
-   ├─ cv.html
-   └─ en/
-      └─ cv.html
+┊┉
+├─ serverless/
+│  ├─ stylesheets/
+│  │  └─ common.css
+│  ├─ javascript/
+│  │  └─ common.js
+│  ├─ cv.html
+│  └─ en/
+│     └─ cv.html
+┊┉
 ```
 
+*Note : Si* ***serverlessRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***serverless/***. ***serverlessRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
 
 
 
 
-## Partie Controller et Model ##
+
+## Partie Contrôleur et Modèle ##
 
 NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 
@@ -1458,7 +1496,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 *views/index.htm*
 
 ```html
-    <?- include('head.htm') ?>
+    <?- include("partials/head.htm") ?>
 
     <div class="title"><?- common.titleWebsite ?></div>
 
@@ -1467,7 +1505,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
         <?- specific.content ?>
     </div>
 
-    <?- include('foot.htm') ?>
+    <?- include("partials/foot.htm") ?>
 ```
 
 *controllers/common.js*
@@ -2134,12 +2172,12 @@ et contenant les fichiers de template suivant :
 **views/index.htm**
 
 ```html
-    <?- include('head.htm') ?>
+    <?- include("partials/head.htm") ?>
     <div class="layout">
-    <?- include('index.htm') ?>
+    <?- include("index.htm") ?>
     </div>
     <script src="javascript/index.js"></script>
-    <?- include('foot.htm') ?>
+    <?- include("partials/foot.htm") ?>
 ```
 
 *Note : On construit ici la page d'accueil `/`.*
@@ -3890,7 +3928,7 @@ Pour finir, il est également possible de seulement laisser la valeur de `httpSe
 
 ### Changer les chevrons <? ?> du moteur de template ###
 
-Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<?- include('head.htm') ?>***. Il serait possible de le faire avec ***<%- include('head.htm') %>*** (comme pour EJS) avec la configuration ci-dessous :
+Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<?- include("partials/head.htm") ?>***. Il serait possible de le faire avec ***<%- include("head.htm") %>*** (comme pour EJS) avec la configuration ci-dessous :
 
 ```js
 {
@@ -3966,7 +4004,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 *views/index.htm*
 
 ```html
-    <%- include('head.htm') %>
+    <%- include("head.htm") %>
 
     <div class="title"><%- common.titleWebsite %></div>
 
@@ -3975,7 +4013,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
         <%- specific.content %>
     </div>
 
-    <%- include('foot.htm') %>
+    <%- include("foot.htm") %>
 ```
 
 Pour tout savoir sur les possibilités du moteur de template consultez la documentation [EJS2](http://ejs.co/)
@@ -5362,14 +5400,14 @@ var website = {};
     "use strict";
 
     publics.setModules = function () {
-    	var NA = this;
+      var NA = this;
 
         NA.modules.RedisStore = require('connect-redis');
     };
 
     publics.setSessions = function (next) {
         var NA = this,
-    		session = NA.modules.session,
+        session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
 
         NA.sessionStore = new RedisStore();
@@ -5397,14 +5435,14 @@ var website = {};
     "use strict";
 
     publics.setModules = function () {
-    	var NA = this;
+      var NA = this;
 
         NA.modules.MongoStore = require('connect-mongo');
     };
 
     publics.setSessions = function (next) {
         var NA = this,
-        	session = NA.modules.session,
+          session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
 
         NA.sessionStore = new MongoStore({

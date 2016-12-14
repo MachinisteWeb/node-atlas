@@ -319,7 +319,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n&#39;oubliez pas qu&#39;en HTTPs ce n&#39;est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="changer-les-chevrons-lt-gt-du-moteur-de-template">Changer les chevrons &lt;? ?&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <strong><em>&lt;?- include(&#39;head.htm&#39;) ?&gt;</em></strong>. Il serait possible de le faire avec <strong><em>&lt;%- include(&#39;head.htm&#39;) %&gt;</em></strong> (comme pour EJS) avec la configuration ci-dessous :</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n&#39;oubliez pas qu&#39;en HTTPs ce n&#39;est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="changer-les-chevrons-lt-gt-du-moteur-de-template">Changer les chevrons &lt;? ?&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <strong><em>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</em></strong>. Il serait possible de le faire avec <strong><em>&lt;%- include(&quot;head.htm&quot;) %&gt;</em></strong> (comme pour EJS) avec la configuration ci-dessous :</p><pre><code class="lang-js">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -360,7 +360,7 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&#39;head.htm&#39;) %&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&quot;head.htm&quot;) %&gt;
 
     &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
 
@@ -369,7 +369,7 @@ exports.setRoutes = function (next) {
         &lt;%- specific.content %&gt;
     &lt;/div&gt;
 
-    &lt;%- include(&#39;foot.htm&#39;) %&gt;
+    &lt;%- include(&quot;foot.htm&quot;) %&gt;
 </code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez la documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>?</em></strong>.</p><h3 id="générer-le-html-avec-pug">Générer le HTML avec Pug</h3><p>Il est possible d&#39;utiliser en lieu et place du moteur EJS le moteur PUGe (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l&#39;intégralité du site avec par exemple ce webconfig :</p><pre><code>{
     &quot;enablePug&quot;: true,
     &quot;routes&quot;: {
@@ -1246,20 +1246,20 @@ include partials/foot.pug
         ...
     }
 }
-</code></pre><p>L&#39;intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="stockage-externe-des-sessions">Stockage externe des Sessions</h3><p>Par défaut, c&#39;est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p><p>Pour résoudre ce souci, il convient de prendre en charge l&#39;enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p><p>Pour cela il suffit d&#39;utiliser la fonction <code>setSessions</code> dans le fichier <code>controllers/common.js</code> de la <a href="partie-controller-et-model.html">partie Back-end</a>.</p><h4 id="session-g-r-es-avec-redis">Session gérées avec Redis</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans Redis en local.</p><pre><code>var website = {};
+</code></pre><p>L&#39;intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="stockage-externe-des-sessions">Stockage externe des Sessions</h3><p>Par défaut, c&#39;est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p><p>Pour résoudre ce souci, il convient de prendre en charge l&#39;enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p><p>Pour cela il suffit d&#39;utiliser la fonction <code>setSessions</code> dans le fichier <code>controllers/common.js</code> de la <a href="#partie-controller-et-model">partie Back-end</a>.</p><h4 id="session-g-r-es-avec-redis">Session gérées avec Redis</h4><p>Implémenter le code suivant dans <code>controllers/common.js</code> pour stocker vos sessions dans Redis en local.</p><pre><code>var website = {};
 
 (function (publics) {
     &quot;use strict&quot;;
 
     publics.setModules = function () {
-        var NA = this;
+      var NA = this;
 
         NA.modules.RedisStore = require(&#39;connect-redis&#39;);
     };
 
     publics.setSessions = function (next) {
         var NA = this,
-            session = NA.modules.session,
+        session = NA.modules.session,
             RedisStore = NA.modules.RedisStore(session);
 
         NA.sessionStore = new RedisStore();
@@ -1277,14 +1277,14 @@ exports.setSessions = website.setSessions;
     &quot;use strict&quot;;
 
     publics.setModules = function () {
-        var NA = this;
+      var NA = this;
 
         NA.modules.MongoStore = require(&#39;connect-mongo&#39;);
     };
 
     publics.setSessions = function (next) {
         var NA = this,
-            session = NA.modules.session,
+          session = NA.modules.session,
             MongoStore = NA.modules.MongoStore(session);
 
         NA.sessionStore = new MongoStore({
