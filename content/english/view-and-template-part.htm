@@ -385,21 +385,35 @@
 <li><em><a href="http://localhost:81/english/members-list/">http://localhost:81/english/members-list/</a></em></li>
 <li><em><a href="http://localhost:82/francais/">http://localhost:82/francais/</a></em></li>
 <li><em><a href="http://localhost:82/francais/list-of-members/">http://localhost:82/francais/list-of-members/</a></em></li>
-</ul><p>It is then possible to reverse proxy with <a href="production-environment.html#proxy">Bouncy</a> (for example) to bring all urls on port 80 to obtain:</p><ul>
+</ul><p>It is then possible to reverse proxy with <a href="production-environment.html#proxy">Bouncy</a> (for example) to bring all URLs on port 80 to obtain:</p><ul>
 <li><em><a href="http://www.website.ext/">http://www.website.ext/</a></em></li>
 <li><em><a href="http://www.website.ext/english/">http://www.website.ext/english/</a></em></li>
 <li><em><a href="http://www.website.ext/english/">http://www.website.ext/english/</a></em></li>
 <li><em><a href="http://www.website.ext/english/members-list/">http://www.website.ext/english/members-list/</a></em></li>
 <li><em><a href="http://www.website.ext/francais/">http://www.website.ext/francais/</a></em></li>
 <li><em><a href="http://www.website.ext/francais/list-of-members/">http://www.website.ext/francais/list-of-members/</a></em></li>
-</ul><h3 id="change-the-urls-anatomy">Change the URLs&#39; anatomy</h3><p>By default, if you use the following configuration:</p><pre><code class="lang-js">{
+</ul><h3 id="manage-the-urls-anatomy">Manage the URLs&#39; anatomy</h3><p>By default, if you use the following configuration:</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
-</code></pre><p>This is the same to using it:</p><pre><code class="lang-js">{
+</code></pre><p>with the following view :</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;URLs&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;&lt;?- urlRootPath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlSubPath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlBasePath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlFilePath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlPath ?&gt;&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>This is the same to using it:</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
     &quot;httpHostname&quot;: &quot;localhost&quot;,
     &quot;httpPort&quot;: 80,
     &quot;httpSecure&quot;: false,
@@ -410,10 +424,24 @@
         }
     }
 }
-</code></pre><p>and you will be access to the url: <em><a href="http://localhost/">http://localhost/</a></em>.</p><p>Then change the configuration to this:</p><pre><code class="lang-js">{
+</code></pre><p>and you will be access to the URL: <em><a href="http://localhost/">http://localhost/</a></em> to see this content:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;URLs&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;http://localhost&lt;/div&gt;
+        &lt;div&gt;&lt;/div&gt;
+        &lt;div&gt;http://localhost&lt;/div&gt;
+        &lt;div&gt;/&lt;/div&gt;
+        &lt;div&gt;http://localhost/&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Then change the configuration to this:</p><pre><code class="lang-js">{
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;httpPort&quot;: 7777,
-    &quot;httpSecure&quot;: true,
+    &quot;httpSecure&quot;: &quot;security/server&quot;,
     &quot;urlRelativeSubPath&quot;: &quot;sub/folder&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -421,7 +449,21 @@
         }
     }
 }
-</code></pre><p>for access to : <em><a href="https://127.0.0.1:7777/sub/folder/">https://127.0.0.1:7777/sub/folder/</a></em></p><h3 id="create-your-own-webconfig-s-variables">Create your own Webconfig&#39;s Variables</h3><p>Imagine two webconfigs in which we create our own variables as follows:</p><ol>
+</code></pre><p>to access this time to : <em><a href="https://127.0.0.1:7777/sub/folder/index.html">https://127.0.0.1:7777/sub/folder/index.html</a></em> to see this content:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;URLs&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;https://127.0.0.1:7777&lt;/div&gt;
+        &lt;div&gt;/sub/folder&lt;/div&gt;
+        &lt;div&gt;https://127.0.0.1:7777/sub/folder&lt;/div&gt;
+        &lt;div&gt;/index.html&lt;/div&gt;
+        &lt;div&gt;https://127.0.0.1:7777/sub/folder/index.html&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Note : This example work only if you have <code>server.crt</code> and <code>server.key</code> files valide into <code>security/</code> folder. Try without <code>&quot;httpSecure&quot;: &quot;security/server&quot;</code> to see it work without <code>https</code> in URLs.</p><h3 id="create-your-own-webconfig-s-variables">Create your own Webconfig&#39;s Variables</h3><p>Imagine two webconfigs in which we create our own variables as follows:</p><ol>
 <li>&quot;webconfig.json&quot;</li>
 </ol><pre><code class="lang-js">{
     &quot;routes&quot;: {
