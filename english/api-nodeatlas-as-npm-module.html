@@ -261,7 +261,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="api-nodeatlas-as-npm-module">API / NodeAtlas as npm module</h2><p>You could run NodeAtlas via JavaScript code.</p><h3 id="lt-node-atlas-instance-gt-.start">&lt;node-atlas-instance&gt;.start()</h3><p>Execute a simple NodeAtlas running with <code>start()</code>. By default, it use <code>webconfig.json</code> from directory where file is executed. If no <code>webconfig.json</code> is set, a Simple Web Server will be launched.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
+					<h2 id="api-nodeatlas-as-npm-module">API / NodeAtlas as npm module</h2><p>You could run NodeAtlas via JavaScript code.</p><h3 id="node-atlas-instance-.start">&lt;node-atlas-instance&gt;.start()</h3><p>Execute a simple NodeAtlas running with <code>start()</code>. By default, it use <code>webconfig.json</code> from directory where file is executed. If no <code>webconfig.json</code> is set, a Simple Web Server will be launched.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
 </code></pre><pre><code>\&gt; server server.js
 ``
 
@@ -283,7 +283,7 @@ require(&quot;node-atlas&quot;)().init({
     generate: true
 }).start();
 </code></pre><pre><code>\&gt; node server.js
-</code></pre><h3 id="lt-node-atlas-instance-gt-.run-object">&lt;node-atlas-instance&gt;.run(Object)</h3><p>With <code>run(Object)</code> you could configure and lanch NodeAtlas with one command.</p><p>You can for example run multiple websites in same time. Each webconfig must listen a different port.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><h3 id="node-atlas-instance-.run-object">&lt;node-atlas-instance&gt;.run(Object)</h3><p>With <code>run(Object)</code> you could configure and lanch NodeAtlas with one command.</p><p>You can for example run multiple websites in same time. Each webconfig must listen a different port.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
     websiteEn = new nodeAtlas(),
     websiteFr = new nodeAtlas();
 
@@ -295,12 +295,12 @@ websiteFr.run({
     &quot;browse&quot;: true,
     &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
 });
-</code></pre><h3 id="lt-node-atlas-instance-gt-.started-function">&lt;node-atlas-instance&gt;.started(Function)</h3><p>With <code>started(Function)</code>, you could also execute other tasks after server ran:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().started(function() {
+</code></pre><h3 id="node-atlas-instance-.started-function">&lt;node-atlas-instance&gt;.started(Function)</h3><p>With <code>started(Function)</code>, you could also execute other tasks after server ran:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().started(function() {
     console.log(&quot;Server started!&quot;);
 }).run({
     browse: true
 });
-</code></pre><h3 id="lt-node-atlas-instance-gt-.generated-function">&lt;node-atlas-instance&gt;.generated(Function)</h3><p>With <code>generated(Function)</code>, you could also execute other tasks after assets generation:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
+</code></pre><h3 id="node-atlas-instance-.generated-function">&lt;node-atlas-instance&gt;.generated(Function)</h3><p>With <code>generated(Function)</code>, you could also execute other tasks after assets generation:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
     require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
         console.log(&quot;Documentation generation...&quot;);
         console.log(stdout);
@@ -309,7 +309,7 @@ websiteFr.run({
 }).run({
     generate: true
 });
-</code></pre><h3 id="lt-node-atlas-instance-gt-.created-function">&lt;node-atlas-instance&gt;.created(Function)</h3><p>With <code>created(Function)</code>, you could also execute other tasks after init the current directory with template website:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><h3 id="node-atlas-instance-.created-function">&lt;node-atlas-instance&gt;.created(Function)</h3><p>With <code>created(Function)</code>, you could also execute other tasks after init the current directory with template website:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
     website = nodeAtlas();
 
 website.init({

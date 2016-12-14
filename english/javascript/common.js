@@ -30,7 +30,7 @@ website.component = website.component || {};
     };
 
     publics.xhrFallback = function (url) {
-        location.href = encodeURIComponent(url) + ".html";
+        location.href = url;
     };
 
     publics.smartTargetInjection = function () {

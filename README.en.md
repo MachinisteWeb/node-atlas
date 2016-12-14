@@ -49,7 +49,7 @@ Starting with a single HTML page,
 
 ### And what about others JavaScript Frameworks? ###
 
-In opposition to others client-side JavaScript Frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real urls by HTTP response. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by AJAX or Websocket mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side by default. It's your responsability to spread server-side mechanism to client-side.
+In opposition to others client-side JavaScript Frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by AJAX or Websocket mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side by default. It's your responsability to spread server-side mechanism to client-side.
 
 To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API, [you could check this grid](#nodeatlas-vs-others).
 
@@ -95,7 +95,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Manage Include of Partial Files](#manage-include-of-partial-files)
  - [Manage variations within the same view](#manage-variations-within-the-same-view)
  - [Manage Internationalization (i18n)](#manage-internationalization-i18n)
- - [Change the URLs' anatomy](#change-the-urls-anatomy)
+ - [Manage the URLs' anatomy](#manage-the-urls-anatomy)
  - [Create your own Webconfig's Variables](#create-your-own-webconfigs-variables)
  - [Generate HTML Templates](#generate-html-templates)
 - [Controller and Model Part](#controller-and-model-part)
@@ -121,8 +121,8 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Allow / Disallow PUT / DELETE requests](#allow--disallow-put--delete-requests)
  - [Change settings of Sessions](#change-settings-of-sessions)
  - [External Storage Sessions](#external-storage-sessions)
- - [Change the url hostname and listening port](#change-the-url-hostname-and-listening-port)
- - [Generate urls dynamically](#generate-urls-dynamically)
+ - [Change the URL hostname and listening port](#change-the-url-hostname-and-listening-port)
+ - [Generate URLs dynamically](#generate-urls-dynamically)
  - [Enable Cache](#enable-cache)
 - [CLI / Running commands](#cli--running-commands)
  - [--directory &lt;path>](#--directory-path)
@@ -1041,7 +1041,7 @@ and have access to addresses:
 - *http://localhost:82/francais/*
 - *http://localhost:82/francais/list-of-members/*
 
-It is then possible to reverse proxy with [Bouncy](#proxy) (for example) to bring all urls on port 80 to obtain:
+It is then possible to reverse proxy with [Bouncy](#proxy) (for example) to bring all URLs on port 80 to obtain:
 
 - *http://www.website.ext/*
 - *http://www.website.ext/english/*
@@ -1052,9 +1052,11 @@ It is then possible to reverse proxy with [Bouncy](#proxy) (for example) to brin
 
 
 
-### Change the URLs' anatomy ###
+### Manage the URLs' anatomy ###
 
 By default, if you use the following configuration:
+
+**webconfig.json**
 
 ```js
 {
@@ -1066,7 +1068,30 @@ By default, if you use the following configuration:
 }
 ```
 
+with the following view :
+
+**views/index.htm**
+
+```html
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
+        <title>URLs</title>
+    </head>
+    <body>
+        <div><?- urlRootPath ?></div>
+        <div><?- urlSubPath ?></div>
+        <div><?- urlBasePath ?></div>
+        <div><?- urlFilePath ?></div>
+        <div><?- urlPath ?></div>
+    </body>
+</html>
+```
+
 This is the same to using it:
+
+**webconfig.json**
 
 ```js
 {
@@ -1082,7 +1107,24 @@ This is the same to using it:
 }
 ```
 
-and you will be access to the url: *http://localhost/*.
+and you will be access to the URL: *http://localhost/* to see this content:
+
+```html
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
+        <title>URLs</title>
+    </head>
+    <body>
+        <div>http://localhost</div>
+        <div></div>
+        <div>http://localhost</div>
+        <div>/</div>
+        <div>http://localhost/</div>
+    </body>
+</html>
+```
 
 Then change the configuration to this:
 
@@ -1090,7 +1132,7 @@ Then change the configuration to this:
 {
     "httpHostname": "127.0.0.1",
     "httpPort": 7777,
-    "httpSecure": true,
+    "httpSecure": "security/server",
     "urlRelativeSubPath": "sub/folder",
     "routes": {
         "/": {
@@ -1100,7 +1142,26 @@ Then change the configuration to this:
 }
 ```
 
-for access to : *https://127.0.0.1:7777/sub/folder/*
+to access this time to : *https://127.0.0.1:7777/sub/folder/index.html* to see this content:
+
+```html
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
+        <title>URLs</title>
+    </head>
+    <body>
+        <div>https://127.0.0.1:7777</div>
+        <div>/sub/folder</div>
+        <div>https://127.0.0.1:7777/sub/folder</div>
+        <div>/index.html</div>
+        <div>https://127.0.0.1:7777/sub/folder/index.html</div>
+    </body>
+</html>
+```
+
+Note : This example work only if you have `server.crt` and `server.key` files valide into `security/` folder. Try without `"httpSecure": "security/server"` to see it work without `https` in URLs.
 
 
 

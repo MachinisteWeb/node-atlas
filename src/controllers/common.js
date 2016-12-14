@@ -14,7 +14,10 @@ exports.setRoutes = function (next) {
         route = NA.webconfig.routes;
 
     function toUrl(text) {
-        return text.toLowerCase().replace(/'| |\(|\)|\/|\!|\?|,|\&|\;|\[|\]|\%/g, "-").replace(/-+/g, "-").replace(/^-/g, "").replace(/-$/g, "");
+        return text.toLowerCase().replace(/\&#39\;|'|\&lt\;|<|\&gt\;|>| |\(|\)|\/|\!|\?|,|\&|\;|\[|\]|\%/g, "-").replace(/-+/g, "-").replace(/^-/g, "").replace(/-$/g, "");
+    }
+    function toSafeChar(text) {
+        return text.replace(/é|è|ê/g, "e").replace(/ô/g, "o").replace(/à/g, "a").replace(/û|ù/g, "u");
     }
 
     fs.readFile(NA.webconfig._readme, "utf-8", function (err, content) {
@@ -31,7 +34,7 @@ exports.setRoutes = function (next) {
         $("h2, h3").each(function () {
             var $title = $(this);
 
-            $title.attr("id", toUrl($title.text()));
+            $title.attr("id", toSafeChar(toUrl($title.text())));
         });
         $("table").each(function () {
             var $table = $(this),
@@ -56,7 +59,7 @@ exports.setRoutes = function (next) {
             $toc.find("> li").each(function () {
                 var $sublink = $(this),
                     $subtitle = $sublink.find("> a"),
-                    url = encodeURIComponent(toUrl($subtitle.text())) + ".html";
+                    url = toSafeChar(toUrl($subtitle.text())) + ".html";
 
                 $subtitle.attr("data-href", $subtitle.attr("href"));
                 $subtitle.attr("href", url);
@@ -66,9 +69,9 @@ exports.setRoutes = function (next) {
                         $subtitle = $sublink.find("> a");
 
                     $subtitle.attr("data-href", $subtitle.attr("href"));
-                	$subtitle.attr("href", url + "#" + encodeURIComponent(toUrl($subtitle.text())));
+                	$subtitle.attr("href", url + "#" + toSafeChar(toUrl($subtitle.text())));
 
-                    if (toUrl($subtitle.text()) === key) {
+                    if (toSafeChar(toUrl($subtitle.text())) === key) {
                         $sublink.remove();
                     }
                 });
@@ -111,8 +114,8 @@ exports.setRoutes = function (next) {
 
             allRoutes.push(function (nextRoute) {
                 if ($title.attr("id")) {
-                    fs.writeFile("assets/" + NA.webconfig._content + encodeURIComponent($title.attr("id")) + ".htm", $title + $title.nextUntil("h2"), function () {
-                            route["/" + encodeURIComponent($title.attr("id")) + ".html"] = {
+                    fs.writeFile("assets/" + NA.webconfig._content + toSafeChar($title.attr("id")) + ".htm", $title + $title.nextUntil("h2"), function () {
+                            route["/" + toSafeChar($title.attr("id")) + ".html"] = {
                                 "view": "content.htm",
                                 "controller": "content.js"
                             };

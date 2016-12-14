@@ -582,7 +582,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don&#39;t forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="changing-the-template-engine-brackets-lt-gt">Changing the template engine brackets &lt;? ?&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;$- include(&quot;head.htm&quot;) $&gt;</em></strong> (like with EJS) with the configuration below:</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don&#39;t forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="changing-the-template-engine-brackets">Changing the template engine brackets &lt;? ?&gt;</h3><p>For example, to include part of a file instruction is used <strong><em>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</em></strong>. It would be possible to do it with <strong><em>&lt;$- include(&quot;head.htm&quot;) $&gt;</em></strong> (like with EJS) with the configuration below:</p><pre><code class="lang-js">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {

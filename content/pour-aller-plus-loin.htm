@@ -1,4 +1,4 @@
-<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gérer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d&#39;url dynamiques !</p><h4 id="standard">Standard</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
+<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d&#39;url dynamiques !</p><h4 id="standard">Standard</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
@@ -101,7 +101,7 @@ webconfig.prod.json
         &quot;view&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichier de route comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d&#39;eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="gérer-les-pages-inexistantes">Gérer les pages inexistantes</h3><h4 id="-couter-toutes-les-urls-m-me-les-adresses-du-dossier-assetsrelativepath-">Écouter toutes les urls, même les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalisée quand une ressource n&#39;est pas trouvée il faut :</p><ol>
+</code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichier de route comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d&#39;eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="gerer-les-pages-inexistantes">Gérer les pages inexistantes</h3><h4 id="-couter-toutes-les-urls-m-me-les-adresses-du-dossier-assetsrelativepath-">Écouter toutes les urls, même les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalisée quand une ressource n&#39;est pas trouvée il faut :</p><ol>
 <li>Préparer une page 404.</li>
 <li>Remplir le paramètre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 préparée.</li>
 </ol><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
@@ -207,7 +207,7 @@ exports.setRoutes = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next(); 
 };
-</code></pre><p>De cette manière l&#39;adresse <code>http://localhost/doc/content.html</code> renverra la vue <code>content.htm</code> et non la vue <code>error.htm</code> en 404.</p><h3 id="gérer-les-redirections">Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p><p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p><h4 id="en-statique">En statique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
+</code></pre><p>De cette manière l&#39;adresse <code>http://localhost/doc/content.html</code> renverra la vue <code>content.htm</code> et non la vue <code>error.htm</code> en 404.</p><h3 id="gerer-les-redirections">Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p><p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p><h4 id="en-statique">En statique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
@@ -261,7 +261,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p><p>Pour le second <em>match</em> utilisez $1, pour le troisième $2, etc.</p><h3 id="gérer-les-headers-de-page">Gérer les Headers de page</h3><p>Par défaut, les Headers envoyé par NodeAtlas sont les suivants : <code>Content-Type:text/html; charset=utf-8</code> avec un <code>statusCode</code> à 200.</p><p>Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.</p><pre><code class="lang-js">{
+</code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p><p>Pour le second <em>match</em> utilisez $1, pour le troisième $2, etc.</p><h3 id="gerer-les-headers-de-page">Gérer les Headers de page</h3><p>Par défaut, les Headers envoyé par NodeAtlas sont les suivants : <code>Content-Type:text/html; charset=utf-8</code> avec un <code>statusCode</code> à 200.</p><p>Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.</p><pre><code class="lang-js">{
     &quot;mimeType&quot;: &quot;application/json&quot;
     &quot;charset&quot;: &quot;utf-16&quot;,
     &quot;routes&quot;: {
@@ -319,7 +319,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n&#39;oubliez pas qu&#39;en HTTPs ce n&#39;est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="changer-les-chevrons-lt-gt-du-moteur-de-template">Changer les chevrons &lt;? ?&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <strong><em>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</em></strong>. Il serait possible de le faire avec <strong><em>&lt;%- include(&quot;head.htm&quot;) %&gt;</em></strong> (comme pour EJS) avec la configuration ci-dessous :</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n&#39;oubliez pas qu&#39;en HTTPs ce n&#39;est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="changer-les-chevrons-du-moteur-de-template">Changer les chevrons &lt;? ?&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <strong><em>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</em></strong>. Il serait possible de le faire avec <strong><em>&lt;%- include(&quot;head.htm&quot;) %&gt;</em></strong> (comme pour EJS) avec la configuration ci-dessous :</p><pre><code class="lang-js">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -370,7 +370,7 @@ exports.setRoutes = function (next) {
     &lt;/div&gt;
 
     &lt;%- include(&quot;foot.htm&quot;) %&gt;
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez la documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>?</em></strong>.</p><h3 id="générer-le-html-avec-pug">Générer le HTML avec Pug</h3><p>Il est possible d&#39;utiliser en lieu et place du moteur EJS le moteur PUGe (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l&#39;intégralité du site avec par exemple ce webconfig :</p><pre><code>{
+</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez la documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>?</em></strong>.</p><h3 id="generer-le-html-avec-pug">Générer le HTML avec Pug</h3><p>Il est possible d&#39;utiliser en lieu et place du moteur EJS le moteur PUGe (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l&#39;intégralité du site avec par exemple ce webconfig :</p><pre><code>{
     &quot;enablePug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -746,7 +746,7 @@ include partials/foot.pug
         }
     }
 }
-</code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h3 id="générer-les-css-avec-less">Générer les CSS avec Less</h3><p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu&#39;une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l&#39;opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
+</code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h3 id="generer-les-css-avec-less">Générer les CSS avec Less</h3><p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu&#39;une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l&#39;opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
 │  └─ stylesheets
 │     └─ common.less
 ├─ views/
@@ -822,7 +822,7 @@ include partials/foot.pug
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><h3 id="générer-les-css-avec-stylus">Générer les CSS avec Stylus</h3><p>Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu&#39;une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère le CSS. Une fois l&#39;opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
+</code></pre><h3 id="generer-les-css-avec-stylus">Générer les CSS avec Stylus</h3><p>Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu&#39;une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère le CSS. Une fois l&#39;opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
 │  └─ stylesheets
 │     └─ common.styl
 ├─ views/
@@ -1224,7 +1224,7 @@ include partials/foot.pug
         }
     }
 }
-</code></pre><p>Avec la configuration ci-dessus, seulement une action HTTP n&#39;est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.</p><h3 id="changer-les-paramètres-des-sessions">Changer les paramètres des Sessions</h3><h4 id="cl-et-secret">Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p><ul>
+</code></pre><p>Avec la configuration ci-dessus, seulement une action HTTP n&#39;est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.</p><h3 id="changer-les-parametres-des-sessions">Changer les paramètres des Sessions</h3><h4 id="cl-et-secret">Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p><ul>
 <li>Key : <code>nodeatlas.sid</code></li>
 <li>Secret : <code>1234567890bépo</code></li>
 </ul><p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p><p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p><pre><code class="lang-js">{
@@ -1298,7 +1298,7 @@ exports.setSessions = website.setSessions;
 
 exports.setModules = website.setModules;
 exports.setSessions = website.setSessions;
-</code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p><h3 id="changer-l-#39-url-final-des-hostname-et-port-d-#39-écoute">Changer l&#39;url final des hostname et port d&#39;écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d&#39;écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p><pre><code class="lang-js">{
+</code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p><h3 id="changer-l-url-final-des-hostname-et-port-d-ecoute">Changer l&#39;url final des hostname et port d&#39;écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d&#39;écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p><pre><code class="lang-js">{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;urlPort&quot;: 80,
@@ -1321,7 +1321,7 @@ exports.setSessions = website.setSessions;
         }
     }
 }
-</code></pre><h3 id="générer-les-urls-dynamiquement">Générer les urls dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n&#39;ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l&#39;adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong><a href="http://localhost">http://localhost</a></strong> impossible à récupérer quand le template est affiché à <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu&#39;il faudrait alors que notre chemin soit plutôt <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir à se soucier de l&#39;accès aux ressources peu importe l&#39;url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; /&gt;
+</code></pre><h3 id="generer-les-urls-dynamiquement">Générer les urls dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n&#39;ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l&#39;adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong><a href="http://localhost">http://localhost</a></strong> impossible à récupérer quand le template est affiché à <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu&#39;il faudrait alors que notre chemin soit plutôt <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir à se soucier de l&#39;accès aux ressources peu importe l&#39;url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;img src=&quot;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;

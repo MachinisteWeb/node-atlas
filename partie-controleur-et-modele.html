@@ -1,4 +1,267 @@
-<h2 id="partie-contrôleur-et-modèle">Partie Contrôleur et Modèle</h2><p>NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d&#39;intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;</p><ul>
+<!DOCTYPE html>
+<html lang="fr-fr">
+	<head>
+		<meta charset="utf-8">
+		<title>NodeAtlas —Le Framework JavaScript Serveur Évolutif—</title>
+
+		<base href="">
+
+		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur.">
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/" data-subpath="" style="background-image: url('media/images/min/main-background.jpg');">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>Le JavaScript n'est pas activé.</p>
+				</div>
+			</noscript>
+			<div class="background"></div>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--information">
+						<div class="header--information--github">
+							<a class="header--information--donate" href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg" alt="Faites un don" data-canonical-src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg"></a>
+							<a class="header--information--follow github-button" href="https://github.com/Haeresis" data-count-href="/Haeresis/followers" data-count-api="/users/Haeresis#followers" data-count-aria-label="# followers on GitHub" aria-label="Suivre @Haeresis on GitHub">Suivre</a>
+						</div>
+						<div class="header--information--npm">
+							<a class="header--information--package" href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM" data-canonical-src="https://badge.fury.io/js/node-atlas.svg"></a>
+							<a class="header--information--star github-button" href="https://github.com/Haeresis/NodeAtlas" data-icon="octicon-star" data-count-href="/Haeresis/NodeAtlas/stargazers" data-count-api="/repos/Haeresis/NodeAtlas#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star Haeresis/NodeAtlas on GitHub">Star</a>
+						</div>
+					</div>
+					<div class="header--background"></div>
+					<div class="header--title">
+						<h1>
+							<img class="header--title--node" src="media/images/min/ode.png" alt="Node">
+							<img class="header--title--atlas" src="media/images/min/tlas.png" alt="Atlas">
+							<img class="header--title--trans" src="media/images/min/transparent.png" alt="NodeAtlas">
+						</h1>
+					</div>
+					<div class="header--abstract">
+						<p>Le Framework JavaScript Serveur Évolutif</p>
+					</div>
+					<div class="header--main">
+						<ul>
+							<li>
+								<div class="header--main--first">
+									<h2><span>Mise en place</span> <strong>Simple</strong></h2>
+									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>Débutant</strong> en JavaScript ?</p>
+									<p class="small">Réalisez rapidement des sites vitrines multilingues sans effort avec de simple Routes, Views ou Variations.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--second">
+									<h2><span>Site vivant et</span> <strong>Évolutif</strong></h2>
+									<p><strong>Expert</strong> en JavaScript client ?<br>Prêt à embrasser <strong>Node.js</strong> ?</p>
+									<p class="small">Améliorer progressivement votre base à mesure de vos besoins en utilisant des Controllers, Modèles ou Modules.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--third">
+									<h2><span>Partie Cliente</span> <strong>Agnostique</strong></h2>
+									<p>Déjà vos habitudes <strong>Front-end</strong> ?<br>Habitué(e) du <strong>Data Binding</strong> ?</p>
+									<p class="small">Du léger Vanilla JS au simple jQuery en passant par Vue, Angular ou React : utiliser vos outils clients favoris !</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+			<aside class="download cmpt">
+				<div class="download--inner">
+					<div class="download--install">
+						<div class="download--cli is-active">
+							<h2>Utilisation CLI</h2>
+							<div class="download--cli--inner">
+								<div class="download--cli--step1">
+									<h3>Installer NodeAtlas</h3>
+									<pre>&gt; npm install -g node-atlas</pre>
+								</div>					
+								<div class="download--cli--step2">
+									<h3>Créer un site test</h3>
+									<pre>&gt; nodeatlas --create</pre>
+								</div>					
+								<div class="download--cli--step3">
+									<h3>Lancer le site</h3>
+									<pre>&gt; nodeatlas --browse</pre>
+								</div>
+							</div>							
+						</div>
+						<div class="download--api">
+							<h2>Utilisation API</h2>
+							<div class="download--api--inner">
+								<div class="download--api--step1">
+									<h3>Installer NodeAtlas</h3>
+									<pre>&gt; npm install node-atlas</pre>
+								</div>
+								<div class="download--api--step2">
+									<h3>Créer un script</h3>
+									<pre><span>server.js</span>var NA = require("node-atlas"),
+    website = NA();
+website.init({
+    "create": true
+}).created(function () {
+    website.run({
+        "browse": true
+    });
+}).start();</pre>
+								</div>
+								<div class="download--api--step3">
+									<h3>Lancer le site</h3>
+									<pre>&gt; node server.js</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--clone">
+						<div class="download--version">						
+							<h2>Télécharger</h2>
+							<div class="download--version--inner">
+								<div class="download--version--step1">
+									<h3>v2.0.0-beta</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/Haeresis/NodeAtlas/archive/master.zip" target="_blank">Dernière version</a></p>
+									<p class="aside"><a href="https://github.com/Haeresis/NodeAtlas/releases">Versions stables</a></p>
+								</div>
+								<div class="download--version--step2">
+									<h3>Cloner</h3>
+									<p><input type="text" name="clone" data-instruction="Copier dans le presse-papier: Ctrl+C, Entrer" class="download--clone--text" value="https://github.com/Haeresis/NodeAtlas.git"><button><span class="fa fa-clipboard" aria-hidden="true"></span></button></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--plugin">
+						<div class="download--plugin--inner">
+							Prochainement...
+						</div>
+					</div>
+					<div class="download--info">
+						<div class="download--about is-active">
+							<h2>À propos</h2>
+							<div class="download--about--inner">
+								<div class="download--about--step1">
+									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C&#39;est-à-dire qu&#39;il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !
+								</div>
+							</div>
+						</div>
+						<div class="download--tuto">
+							<h2>Tutoriaux</h2>
+							<div class="download--tuto--inner">
+								<div class="download--tuto--step1">
+									Prochainement...
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<nav class="navigation cmpt">
+				<div class="navigation--outer">
+					<div class="navigation--start"><button class="button">Commencer</button></div>
+					<div class="navigation--documentation"><button class="button">Documentation</button></div>
+				</div>
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+						<a href="/english/index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; International Version"><span class="fa fa-globe"></span> International Version</a>
+					</div>
+					<div class="navigation--home">
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
+					</div>
+					<div class="navigation--menu">
+						<div class="navigation--menu--toggle">
+							<span class="top"></span>
+							<span class="middle"></span>
+							<span class="bottom"></span>
+						</div>
+						<div class="navigation--menu--list">
+							<div class="navigation--menu--list--inner">
+								<h2>Menu</h2>
+								<ul>
+									
+									<li>
+										<a href="avant-propos.html" title="Présentation">Présentation</a> 
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="installation.html" title="Installation">Installation</a>
+											</li>
+											
+											<li>
+												<a href="commencer-avec-nodeatlas.html" title="Démarrage rapide">Démarrage rapide</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="partie-vue-et-template.html" title="Vue et Template">Vue et Template</a> 
+										
+									</li>
+									
+									<li>
+										<a href="partie-contr%C3%B4leur-et-mod%C3%A8le.html" title="Contrôleur et Modèle">Contrôleur et Modèle</a> 
+										
+									</li>
+									
+									<li>
+										<a href="pour-aller-plus-loin.html" title="Route et Plus">Route et Plus</a> 
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="api-nodeatlas-comme-module-npm.html" title="API">API</a>
+											</li>
+											
+											<li>
+												<a href="cli-commandes-de-lancement.html" title="CLI">CLI</a>
+											</li>
+											
+											<li>
+												<a href="nodeatlas-comme-simple-serveur-web.html" title="Simple Serveur">Simple Serveur</a>
+											</li>
+											
+											<li>
+												<a href="environnement-de-d%C3%A9veloppement.html" title="Développement">Développement</a>
+											</li>
+											
+											<li>
+												<a href="environnement-de-production.html" title="Production">Production</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="plus-sur-nodeatlas.html" title="Et les autres ?">Et les autres ?</a> 
+										
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
+				<div class="content--inner">
+					<h2 id="partie-controleur-et-modele">Partie Contrôleur et Modèle</h2><p>NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d&#39;intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;</p><ul>
 <li>des paramètres dans la partie query de l&#39;url (GET),</li>
 <li>des paramètres dans le body de la requête (POST),</li>
 <li>de vous connecter à des bases de donner,</li>
@@ -484,7 +747,7 @@ exports.setRoutes = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next(); 
 };
-</code></pre><h3 id="utiliser-les-websocket-à-la-place-des-échanges-ajax">Utiliser les Websocket à la place des échanges AJAX</h3><p>Afin de conserver une liaison ouverte entre la partie Frontale et la partie Serveur de vos applications, NodeAtlas est à même d&#39;utiliser <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres page ouvertes à travers tous les autres navigateurs.</p><p>Avec l&#39;ensemble de fichier suivant :</p><pre><code>├─ assets/
+</code></pre><h3 id="utiliser-les-websocket-a-la-place-des-echanges-ajax">Utiliser les Websocket à la place des échanges AJAX</h3><p>Afin de conserver une liaison ouverte entre la partie Frontale et la partie Serveur de vos applications, NodeAtlas est à même d&#39;utiliser <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres page ouvertes à travers tous les autres navigateurs.</p><p>Avec l&#39;ensemble de fichier suivant :</p><pre><code>├─ assets/
 │  └─ javascript/
 │     ├─ common.js
 │     └─ index.js
@@ -702,7 +965,7 @@ website[document.getElementsByTagName(&quot;body&quot;)[0].getAttribute(&quot;da
         });
     };
 }(website.index = {}));
-</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> et <code>NA.newRender</code>, il est possible de générer une nouvelle compilation d&#39;une view et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variation</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>newRender</code> d&#39;utiliser le moteur PUG au lieu de celui d&#39;EJS, il faut mettre la valeur <code>variation.enablePug</code> à <code>true</code> avant d&#39;utiliser <code>NA.addCommonVariation</code> et <code>NA.addSpecificVariation</code>.</p><h3 id="utiliser-une-base-de-données-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données. Pour cela nous allons utiliser le module npm <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
+</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> et <code>NA.newRender</code>, il est possible de générer une nouvelle compilation d&#39;une view et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variation</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>newRender</code> d&#39;utiliser le moteur PUG au lieu de celui d&#39;EJS, il faut mettre la valeur <code>variation.enablePug</code> à <code>true</code> avant d&#39;utiliser <code>NA.addCommonVariation</code> et <code>NA.addSpecificVariation</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données. Pour cela nous allons utiliser le module npm <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>et la sélectionner :</p><pre><code class="lang-sql">USE demo
 </code></pre><p>puis créer la table <code>user</code> :</p><pre><code class="lang-sql">CREATE TABLE user
 (
@@ -1356,7 +1619,7 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="utiliser-une-base-de-données-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
+</code></pre><h3 id="utiliser-une-base-de-donnees-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
 </code></pre><p>puis créer la collection <code>user</code> :</p><pre><code>db.createCollection(&quot;user&quot;)
 </code></pre><p>et la remplir avec un document :</p><pre><code>db.user.insert({
     email: &quot;bruno.lesieur@gmail.com&quot;,
@@ -1535,3 +1798,12 @@ if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
+				</div>
+			</div>
+			
+			<script src="javascript/common.min.js"></script>
+			
+			<script src="https://buttons.github.io/buttons.js"></script>
+		</div>
+	</body>
+</html>

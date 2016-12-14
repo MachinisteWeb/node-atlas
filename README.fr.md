@@ -49,7 +49,7 @@ Commencez avec une simple page HTML,
 
 ### Et les autres Frameworks JavaScript ? ###
 
-Contrairement aux Frameworks JavaScript côté client comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des urls par réponse HTTP. Les sites sont indexables et valides W3C : c'est à dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifiée par requête AJAX ou Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks JavaScript côté client qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, JAVA ou encore C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur par défaut. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
+Contrairement aux Frameworks JavaScript côté client comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des URLs par réponse HTTP. Les sites sont indexables et valides W3C : c'est à dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifiée par requête AJAX ou Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative au nombreux Frameworks JavaScript côté client qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, JAVA ou encore C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur par défaut. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
 Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur, [vous pouvez consulter cette grille](#nodeatlas-vs-les-autres).
 
@@ -95,7 +95,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer l'inclusion de fichiers partiels](#gérer-linclusion-de-fichiers-partiels)
  - [Gérer des variations au sein d'une même vue](#gérer-des-variations-au-sein-dune-même-vue)
  - [Gérer l'internationalisation (i18n)](#gérer-linternationalisation-i18n)
- - [Changer l'anatomie des URLs](#changer-lanatomie-des-urls)
+ - [Gérer l'anatomie des URLs](#gérer-lanatomie-des-urls)
  - [Créer ses propres Variables de Webconfig](#créer-ses-propres-variables-de webconfig)
  - [Générer des maquettes HTML](#générer-des-maquettes-html)
 - [Partie Contrôleur et Modèle](#partie-contrôleur-et-modèle)
@@ -104,7 +104,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
  - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
 - [Pour aller plus loin](#pour-aller-plus-loin)
- - [Gérer le routage (Url Rewriting)](#gérer-le-routage-url-rewriting)
+ - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
  - [Injecter des routes dynamiquement](#injecter-des-routes-dynamiquement)
  - [Gérer les redirections](#gérer-les-redirections)
@@ -121,8 +121,8 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Autoriser / Interdire les demandes PUT / DELETE](#autoriser--interdire-les-demandes-put--delete)
  - [Changer les paramètres des Sessions](#changer-les-paramètres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
- - [Changer l'url final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
- - [Générer les urls dynamiquement](#générer-les-urls-dynamiquement)
+ - [Changer l'URL final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
+ - [Générer les URLs dynamiquement](#générer-les-urls-dynamiquement)
  - [Activer le cache](#activer-le-cache)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
  - [--directory &lt;path>](#--directory-path)
@@ -1041,7 +1041,7 @@ et avoir accès aux adresses :
 - *http://localhost:82/francais/*
 - *http://localhost:82/francais/liste-des-membres/*
 
-Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exemple) pour ramener l'ensemble des urls sur le port 80 afin d'obtenir :
+Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exemple) pour ramener l'ensemble des URLs sur le port 80 afin d'obtenir :
 
 - *http://www.website.ext/*
 - *http://www.website.ext/english/*
@@ -1052,9 +1052,11 @@ Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exe
 
 
 
-### Changer l'anatomie des URLs ###
+### Gérer l'anatomie des URLs ###
 
 Par défaut, si vous utilisez la configuration suivante :
+
+**webconfig.json**
 
 ```js
 {
@@ -1066,7 +1068,30 @@ Par défaut, si vous utilisez la configuration suivante :
 }
 ```
 
+avec la vue suivante :
+
+**views/index.htm**
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>URLs</title>
+    </head>
+    <body>
+        <div><?- urlRootPath ?></div>
+        <div><?- urlSubPath ?></div>
+        <div><?- urlBasePath ?></div>
+        <div><?- urlFilePath ?></div>
+        <div><?- urlPath ?></div>
+    </body>
+</html>
+```
+
 cela est identique à utiliser celle-ci :
+
+**webconfig.json**
 
 ```js
 {
@@ -1082,7 +1107,24 @@ cela est identique à utiliser celle-ci :
 }
 ```
 
-et vous pourrez accéder à l'url : *http://localhost/*.
+Vous pourrez accéder à l'URL : *http://localhost/* et au contenu :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>URLs</title>
+    </head>
+    <body>
+        <div>http://localhost</div>
+        <div></div>
+        <div>http://localhost</div>
+        <div>/</div>
+        <div>http://localhost/</div>
+    </body>
+</html>
+```
 
 Changez alors la configuration en ceci :
 
@@ -1090,17 +1132,36 @@ Changez alors la configuration en ceci :
 {
     "httpHostname": "127.0.0.1",
     "httpPort": 7777,
-    "httpSecure": true,
+    "httpSecure": "security/server",
     "urlRelativeSubPath": "sub/folder",
     "routes": {
-        "/": {
+        "/index.html": {
             "view": "index.htm"
         }
     }
 }
 ```
 
-pour accéder à : *https://127.0.0.1:7777/sub/folder/*
+Vous pourrez cette fois accéder à l'URL : *https://127.0.0.1:7777/sub/folder/index.html* et au contenu :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>URLs</title>
+    </head>
+    <body>
+        <div>https://127.0.0.1:7777</div>
+        <div>/sub/folder</div>
+        <div>https://127.0.0.1:7777/sub/folder</div>
+        <div>/index.html</div>
+        <div>https://127.0.0.1:7777/sub/folder/index.html</div>
+    </body>
+</html>
+```
+
+Note : Cette exemple ne fonctionnera que si vous avez des fichiers `server.crt` et `server.key` valide dans le dossier `security/`. Essayez le sans `"httpSecure": "security/server"` et il fonctionnera avec des URLs sans `https`.
 
 
 

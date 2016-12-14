@@ -297,7 +297,7 @@ website.init({
 <li><em><a href="http://localhost/membre-sans-extension/">http://localhost/membre-sans-extension/</a></em> (ne répondra pas si demandée en GET),</li>
 <li><em><a href="http://localhost/a-propos.html">http://localhost/a-propos.html</a></em> (renvoi « Cannot GET about.html » car le contenu d&#39;une route doit <strong>obligatoirement</strong> commencer par un <code>/</code> pour être référencée),</li>
 <li><em><a href="http://localhost/erreur.html">http://localhost/erreur.html</a></em> (renvoi du contenu plein texte (sans balise) avec une erreur 404).</li>
-</ul><p><em>Note : Si</em> <strong><em>viewsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des vues est bien</em> <strong><em>views</em></strong>. <strong><em>viewsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h3 id="référencer-ses-routes">Référencer ses routes</h3><p>La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus</p><pre><code class="lang-js">{
+</ul><p><em>Note : Si</em> <strong><em>viewsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des vues est bien</em> <strong><em>views</em></strong>. <strong><em>viewsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h3 id="referencer-ses-routes">Référencer ses routes</h3><p>La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus</p><pre><code class="lang-js">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;,
@@ -344,7 +344,7 @@ website.init({
         &quot;mimeType&quot;: &quot;text/plain&quot;
     }]
 }
-</code></pre><h3 id="héberger-des-images-polices-css-js-etc.">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-js">{
+</code></pre><h3 id="heberger-des-images-polices-css-js-etc.">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-js">{
     &quot;assetsRelativePath&quot;: &quot;assets&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -368,7 +368,7 @@ website.init({
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascript/common.js">http://localhost/javascript/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource publique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/en/api.html">Express</a>.</p><h3 id="gérer-l-#39-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource publique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/en/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -420,7 +420,7 @@ website.init({
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><h3 id="gérer-des-variations-au-sein-d-#39-une-même-vue">Gérer des variations au sein d&#39;une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-js">{
+</ul><h3 id="gerer-des-variations-au-sein-d-une-meme-vue">Gérer des variations au sein d&#39;une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-js">{
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
@@ -494,7 +494,7 @@ website.init({
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des variations est bien</em> <strong><em>variations</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gérer-l-#39-internationalisation-i18n">Gérer l&#39;internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :</p><pre><code class="lang-js">{
+</ul><p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des variations est bien</em> <strong><em>variations</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l&#39;internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :</p><pre><code class="lang-js">{
     &quot;languageCode&quot;: &quot;en-us&quot;,
     &quot;variationsRelativePath&quot;: &quot;l10n&quot;,
     &quot;routes&quot;: {
@@ -648,21 +648,35 @@ website.init({
 <li><em><a href="http://localhost:81/english/members-list/">http://localhost:81/english/members-list/</a></em></li>
 <li><em><a href="http://localhost:82/francais/">http://localhost:82/francais/</a></em></li>
 <li><em><a href="http://localhost:82/francais/liste-des-membres/">http://localhost:82/francais/liste-des-membres/</a></em></li>
-</ul><p>Il est ensuite possible de faire du reverse proxy avec <a href="environnement-de-production.html#proxy">Bouncy</a> (par exemple) pour ramener l&#39;ensemble des urls sur le port 80 afin d&#39;obtenir :</p><ul>
+</ul><p>Il est ensuite possible de faire du reverse proxy avec <a href="environnement-de-production.html#proxy">Bouncy</a> (par exemple) pour ramener l&#39;ensemble des URLs sur le port 80 afin d&#39;obtenir :</p><ul>
 <li><em><a href="http://www.website.ext/">http://www.website.ext/</a></em></li>
 <li><em><a href="http://www.website.ext/english/">http://www.website.ext/english/</a></em></li>
 <li><em><a href="http://www.website.ext/english/">http://www.website.ext/english/</a></em></li>
 <li><em><a href="http://www.website.ext/english/members-list/">http://www.website.ext/english/members-list/</a></em></li>
 <li><em><a href="http://www.website.ext/francais/">http://www.website.ext/francais/</a></em></li>
 <li><em><a href="http://www.website.ext/francais/liste-des-membres/">http://www.website.ext/francais/liste-des-membres/</a></em></li>
-</ul><h3 id="changer-l-#39-anatomie-des-urls">Changer l&#39;anatomie des URLs</h3><p>Par défaut, si vous utilisez la configuration suivante :</p><pre><code class="lang-js">{
+</ul><h3 id="gerer-l-anatomie-des-urls">Gérer l&#39;anatomie des URLs</h3><p>Par défaut, si vous utilisez la configuration suivante :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
-</code></pre><p>cela est identique à utiliser celle-ci :</p><pre><code class="lang-js">{
+</code></pre><p>avec la vue suivante :</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;URLs&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;&lt;?- urlRootPath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlSubPath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlBasePath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlFilePath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlPath ?&gt;&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>cela est identique à utiliser celle-ci :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
     &quot;httpHostname&quot;: &quot;localhost&quot;,
     &quot;httpPort&quot;: 80,
     &quot;httpSecure&quot;: false,
@@ -673,18 +687,46 @@ website.init({
         }
     }
 }
-</code></pre><p>et vous pourrez accéder à l&#39;url : <em><a href="http://localhost/">http://localhost/</a></em>.</p><p>Changez alors la configuration en ceci :</p><pre><code class="lang-js">{
+</code></pre><p>Vous pourrez accéder à l&#39;URL : <em><a href="http://localhost/">http://localhost/</a></em> et au contenu :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;URLs&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;http://localhost&lt;/div&gt;
+        &lt;div&gt;&lt;/div&gt;
+        &lt;div&gt;http://localhost&lt;/div&gt;
+        &lt;div&gt;/&lt;/div&gt;
+        &lt;div&gt;http://localhost/&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Changez alors la configuration en ceci :</p><pre><code class="lang-js">{
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;httpPort&quot;: 7777,
-    &quot;httpSecure&quot;: true,
+    &quot;httpSecure&quot;: &quot;security/server&quot;,
     &quot;urlRelativeSubPath&quot;: &quot;sub/folder&quot;,
     &quot;routes&quot;: {
-        &quot;/&quot;: {
+        &quot;/index.html&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
-</code></pre><p>pour accéder à : <em><a href="https://127.0.0.1:7777/sub/folder/">https://127.0.0.1:7777/sub/folder/</a></em></p><h3 id="créer-ses-propres-variables-de-webconfig">Créer ses propres Variables de Webconfig</h3><p>Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :</p><ol>
+</code></pre><p>Vous pourrez cette fois accéder à l&#39;URL : <em><a href="https://127.0.0.1:7777/sub/folder/index.html">https://127.0.0.1:7777/sub/folder/index.html</a></em> et au contenu :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;URLs&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;https://127.0.0.1:7777&lt;/div&gt;
+        &lt;div&gt;/sub/folder&lt;/div&gt;
+        &lt;div&gt;https://127.0.0.1:7777/sub/folder&lt;/div&gt;
+        &lt;div&gt;/index.html&lt;/div&gt;
+        &lt;div&gt;https://127.0.0.1:7777/sub/folder/index.html&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Note : Cette exemple ne fonctionnera que si vous avez des fichiers <code>server.crt</code> et <code>server.key</code> valide dans le dossier <code>security/</code>. Essayez le sans <code>&quot;httpSecure&quot;: &quot;security/server&quot;</code> et il fonctionnera avec des URLs sans <code>https</code>.</p><h3 id="creer-ses-propres-variables-de-webconfig">Créer ses propres Variables de Webconfig</h3><p>Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :</p><ol>
 <li>« webconfig.json »</li>
 </ol><pre><code class="lang-js">{
     &quot;routes&quot;: {
@@ -753,7 +795,7 @@ website.init({
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.min.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="générer-des-maquettes-html">Générer des maquettes HTML</h3><h4 id="g-n-rer-des-designs-html">Générer des designs HTML</h4><p>Avec la configuration suivante il est possible de générer des aperçu HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="generer-des-maquettes-html">Générer des maquettes HTML</h3><h4 id="g-n-rer-des-designs-html">Générer des designs HTML</h4><p>Avec la configuration suivante il est possible de générer des aperçu HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.</p><pre><code class="lang-js">{
     &quot;htmlGenerationBeforeResponse&quot;: true,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;serverlessRelativePath&quot;: &quot;../HTML/&quot;,

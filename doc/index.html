@@ -79,7 +79,7 @@
 <li>then create plugins,</li>
 <li>then...</li>
 </ul>
-<h3>And what about others JavaScript Frameworks?</h3><p>In opposition to others client-side JavaScript Frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real urls by HTTP response. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by AJAX or Websocket mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript Frameworks that only use <a href="https://nodejs.org/en/">Node.js</a> for use after <a href="https://www.npmjs.com/">npm</a>, <a href="http://jspm.io/">jspm</a> or <a href="http://gulpjs.com/">gulp</a>. So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as <a href="https://www.meteor.com/">Meteor.js</a>, NodeAtlas allow you to set your working environment and you have not need of <a href="http://gulpjs.com/">gulp</a> but to oposition of <a href="https://www.meteor.com/">Meteor.js</a>, the <code>NA</code> object is not provided client-side by default. It's your responsability to spread server-side mechanism to client-side.</p>
+<h3>And what about others JavaScript Frameworks?</h3><p>In opposition to others client-side JavaScript Frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by AJAX or Websocket mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript Frameworks that only use <a href="https://nodejs.org/en/">Node.js</a> for use after <a href="https://www.npmjs.com/">npm</a>, <a href="http://jspm.io/">jspm</a> or <a href="http://gulpjs.com/">gulp</a>. So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as <a href="https://www.meteor.com/">Meteor.js</a>, NodeAtlas allow you to set your working environment and you have not need of <a href="http://gulpjs.com/">gulp</a> but to oposition of <a href="https://www.meteor.com/">Meteor.js</a>, the <code>NA</code> object is not provided client-side by default. It's your responsability to spread server-side mechanism to client-side.</p>
 <p>To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API, <a href="#nodeatlas-vs-others">you could check this grid</a>.</p>
 <h3>Examples of websites with NodeAtlas</h3><p>This is a list of repository you could analyse to understand NodeAtlas:</p>
 <ul>
@@ -122,7 +122,7 @@
 <li><a href="#manage-include-of-partial-files">Manage Include of Partial Files</a></li>
 <li><a href="#manage-variations-within-the-same-view">Manage variations within the same view</a></li>
 <li><a href="#manage-internationalization-i18n">Manage Internationalization (i18n)</a></li>
-<li><a href="#change-the-urls-anatomy">Change the URLs' anatomy</a></li>
+<li><a href="#manage-the-urls-anatomy">Manage the URLs' anatomy</a></li>
 <li><a href="#create-your-own-webconfigs-variables">Create your own Webconfig's Variables</a></li>
 <li><a href="#generate-html-templates">Generate HTML Templates</a></li>
 </ul>
@@ -152,8 +152,8 @@
 <li><a href="#allow--disallow-put--delete-requests">Allow / Disallow PUT / DELETE requests</a></li>
 <li><a href="#change-settings-of-sessions">Change settings of Sessions</a></li>
 <li><a href="#external-storage-sessions">External Storage Sessions</a></li>
-<li><a href="#change-the-url-hostname-and-listening-port">Change the url hostname and listening port</a></li>
-<li><a href="#generate-urls-dynamically">Generate urls dynamically</a></li>
+<li><a href="#change-the-url-hostname-and-listening-port">Change the URL hostname and listening port</a></li>
+<li><a href="#generate-urls-dynamically">Generate URLs dynamically</a></li>
 <li><a href="#enable-cache">Enable Cache</a></li>
 </ul>
 </li>
@@ -722,7 +722,7 @@ nodeAtlas().run();</code></pre><pre class="prettyprint source"><code>\> node ser
 <li><em>http://localhost:82/francais/</em></li>
 <li><em>http://localhost:82/francais/list-of-members/</em></li>
 </ul>
-<p>It is then possible to reverse proxy with <a href="#proxy">Bouncy</a> (for example) to bring all urls on port 80 to obtain:</p>
+<p>It is then possible to reverse proxy with <a href="#proxy">Bouncy</a> (for example) to bring all URLs on port 80 to obtain:</p>
 <ul>
 <li><em>http://www.website.ext/</em></li>
 <li><em>http://www.website.ext/english/</em></li>
@@ -731,14 +731,31 @@ nodeAtlas().run();</code></pre><pre class="prettyprint source"><code>\> node ser
 <li><em>http://www.website.ext/francais/</em></li>
 <li><em>http://www.website.ext/francais/list-of-members/</em></li>
 </ul>
-<h3>Change the URLs' anatomy</h3><p>By default, if you use the following configuration:</p>
+<h3>Manage the URLs' anatomy</h3><p>By default, if you use the following configuration:</p>
+<p><strong>webconfig.json</strong></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>This is the same to using it:</p>
+}</code></pre><p>with the following view :</p>
+<p><strong>views/index.htm</strong></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en-us&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>URLs&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div>&lt;?- urlRootPath ?>&lt;/div>
+        &lt;div>&lt;?- urlSubPath ?>&lt;/div>
+        &lt;div>&lt;?- urlBasePath ?>&lt;/div>
+        &lt;div>&lt;?- urlFilePath ?>&lt;/div>
+        &lt;div>&lt;?- urlPath ?>&lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><p>This is the same to using it:</p>
+<p><strong>webconfig.json</strong></p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpHostname&quot;: &quot;localhost&quot;,
     &quot;httpPort&quot;: 80,
@@ -749,19 +766,46 @@ nodeAtlas().run();</code></pre><pre class="prettyprint source"><code>\> node ser
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>and you will be access to the url: <em>http://localhost/</em>.</p>
-<p>Then change the configuration to this:</p>
+}</code></pre><p>and you will be access to the URL: <em>http://localhost/</em> to see this content:</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en-us&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>URLs&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div>http://localhost&lt;/div>
+        &lt;div>&lt;/div>
+        &lt;div>http://localhost&lt;/div>
+        &lt;div>/&lt;/div>
+        &lt;div>http://localhost/&lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><p>Then change the configuration to this:</p>
 <pre class="prettyprint source lang-js"><code>{
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;httpPort&quot;: 7777,
-    &quot;httpSecure&quot;: true,
+    &quot;httpSecure&quot;: &quot;security/server&quot;,
     &quot;urlRelativeSubPath&quot;: &quot;sub/folder&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>for access to : <em>https://127.0.0.1:7777/sub/folder/</em></p>
+}</code></pre><p>to access this time to : <em>https://127.0.0.1:7777/sub/folder/index.html</em> to see this content:</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en-us&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot; />
+        &lt;title>URLs&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div>https://127.0.0.1:7777&lt;/div>
+        &lt;div>/sub/folder&lt;/div>
+        &lt;div>https://127.0.0.1:7777/sub/folder&lt;/div>
+        &lt;div>/index.html&lt;/div>
+        &lt;div>https://127.0.0.1:7777/sub/folder/index.html&lt;/div>
+    &lt;/body>
+&lt;/html></code></pre><p>Note : This example work only if you have <code>server.crt</code> and <code>server.key</code> files valide into <code>security/</code> folder. Try without <code>&quot;httpSecure&quot;: &quot;security/server&quot;</code> to see it work without <code>https</code> in URLs.</p>
 <h3>Create your own Webconfig's Variables</h3><p>Imagine two webconfigs in which we create our own variables as follows:</p>
 <ol>
 <li>&quot;webconfig.json&quot;</li>
@@ -4439,7 +4483,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 14 2016 16:29:36 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 14 2016 18:43:05 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -10,7 +10,7 @@
 	"routes": "routes.json",
 	"_readme": "../readme.fr.md",
 	"_content": "content/",
-	"_toc": "table-des-matières",
+	"_toc": "table-des-matieres",
 	"_otherPort": 7778,
 	"_min": ""
 }

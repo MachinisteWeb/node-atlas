@@ -22,7 +22,7 @@ website.component.Content = function () {
 			link.addEventListener("click", function (e) {
 				var url = link.getAttribute("href").replace(".html", "").split("#"),
 					urn = url[0],
-					hash = (url[1]) ? decodeURIComponent(url[1]) : undefined,
+					hash = (url[1]) ? url[1] : undefined,
 					contentAfter = document.getElementsByClassName(publics.name + "--inner")[0],
 					contentBefore = document.createElement("div");
 				e.preventDefault();
@@ -33,7 +33,7 @@ website.component.Content = function () {
 
 				contentAfter.classList.add("is-hidden");
 
-		        website.xhrRequest(fragmentPath + encodeURIComponent(urn) + ".htm", function (err, response) {
+		        website.xhrRequest(fragmentPath + urn + ".htm", function (err, response) {
 		            if (err) {
 		            	contentAfter.classList.remove("is-hidden");
 		                return website.xhrFallback(urn + ".html" + ((hash) ? '#' + hash : ''));
@@ -74,7 +74,7 @@ website.component.Content = function () {
 
 				contentBefore.classList.add("is-hidden");
 
-		        website.xhrRequest("content/" + encodeURIComponent(e.state.urn) + ".htm", function (err, response) {
+		        website.xhrRequest("content/" + e.state.urn + ".htm", function (err, response) {
 		            if (err) {
 						contentBefore.classList.remove("is-hidden");
 		                return website.xhrFallback(e.state.urn);
