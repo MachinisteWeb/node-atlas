@@ -1,4 +1,4 @@
-/* global prettyPrint */
+/* global hljs */
 
 var website = window.website || {};
 website.component = website.component || {};
@@ -104,10 +104,8 @@ website.component = website.component || {};
 
     publics.highlightCode = function () {
         Array.prototype.forEach.call(document.querySelectorAll("pre code"), function (item) {
-            item.classList.add("prettyprint");
-            item.classList.add("linenums");
+            hljs.highlightBlock(item);
         });
-        prettyPrint();
     };
 
     publics.manageHeight = function () {

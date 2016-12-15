@@ -14,6 +14,8 @@
 		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
 		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
 
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+
 		<!-- Inclusion du fichiers minifié après génération. -->
 		
 		<link rel="stylesheet" href="stylesheets/common.min.css">
@@ -334,7 +336,7 @@ site-hello-world/
 ├─ index.js
 ├─ webconfig.json
 └─ web.config
-</code></pre><p>It will just have to click on &quot;Browse <url-of-site>&quot; in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</url-of-site></p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-js">{
+</code></pre><p>It will just have to click on &quot;Browse <url-of-site>&quot; in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</url-of-site></p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
     &quot;urlPort&quot;: 80,
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;www.example.com&quot;,
@@ -349,7 +351,7 @@ site-hello-world/
 </ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
 </code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p><pre><code>\&gt; forever list
 </code></pre><p>and then use the command:</p><pre><code>\&gt; forever stop &lt;uid&gt;
-</code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-js">{
+</code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
     &quot;urlPort&quot;: 80,
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;www.example.com&quot;,
@@ -427,6 +429,7 @@ server.listen(80);
 </code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p>
 				</div>
 			</div>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 			
 			<script src="javascript/common.min.js"></script>
 			

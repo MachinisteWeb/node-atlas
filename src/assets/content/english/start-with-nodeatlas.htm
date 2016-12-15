@@ -12,18 +12,18 @@
         &lt;div&gt;This is a Hello World!&lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>See just below following, the content of <code>webconfig.json</code> file.</p><h3 id="minimum-requirements">Minimum Requirements</h3><p>You can turn a simple page with minimal configuration &quot;webconfig.json&quot; below</p><pre><code class="lang-js">{
+</code></pre><p>See just below following, the content of <code>webconfig.json</code> file.</p><h3 id="minimum-requirements">Minimum Requirements</h3><p>You can turn a simple page with minimal configuration &quot;webconfig.json&quot; below</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
-</code></pre><p>equivalent to</p><pre><code class="lang-js">{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }
-</code></pre><h3 id="run-the-site-with-nodeatlas">Run the site with NodeAtlas</h3><h4 id="with-a-command-line">With a command line</h4><p>Position yourself with the prompt console in the folder &quot;hello-world/&quot; and run the following command.</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
-</code></pre><p>You will have access to your &quot;Hello World&quot; to the page: <em><a href="http://localhost/">http://localhost/</a></em> in a browser.</p><h4 id="with-an-executable-on-your-os">With an executable on your OS</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can also use the <code>nodeatlas</code> command. <code>nodeatlas</code> is a shortcut for <code>node &lt;/path/to/&gt;node-atlas/</code>.</p><p>Position yourself with the prompt console in the folder « hello-world/ » and run the following command.</p><pre><code>\&gt; nodeatlas
+</code></pre><p>equivalent to</p><pre><code class="lang-json">{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }
+</code></pre><h3 id="run-the-site-with-nodeatlas">Run the site with NodeAtlas</h3><h4 id="with-a-command-line">With a command line</h4><p>Position yourself with the prompt console in the folder &quot;hello-world/&quot; and run the following command.</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/
+</code></pre><p>You will have access to your &quot;Hello World&quot; to the page: <em><a href="http://localhost/">http://localhost/</a></em> in a browser.</p><h4 id="with-an-executable-on-your-os">With an executable on your OS</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can also use the <code>nodeatlas</code> command. <code>nodeatlas</code> is a shortcut for <code>node &lt;/path/to/&gt;node-atlas/</code>.</p><p>Position yourself with the prompt console in the folder « hello-world/ » and run the following command.</p><pre><code class="lang-bash">\&gt; nodeatlas
 </code></pre><p><em>Note : </em>if the <code>nodeatlas</code> command do not work on unix OS after installation, it&#39;s probably because of right problem. If you are root, the command <code>chown -R root:root /usr/local/bin/</code> before re-execuse <code>npm install -g node-atlas</code> command will fix issue, else, use the command <code>sudo npm install -g node-atlas</code>.*</p><h4 id="via-a-javascript-file">Via a JavaScript file</h4><p>You can also use NodeAtlas as a npm module.</p><p><em>server.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;);
 
 nodeAtlas().run();
-</code></pre><pre><code>\&gt; node server.js
+</code></pre><pre><code class="lang-bash">\&gt; node server.js
 </code></pre>

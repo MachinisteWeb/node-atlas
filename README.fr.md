@@ -98,6 +98,8 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer l'anatomie des URLs](#gérer-lanatomie-des-urls)
  - [Créer ses propres Variables de Webconfig](#créer-ses-propres-variables-de webconfig)
  - [Générer des maquettes HTML](#générer-des-maquettes-html)
+ - [Moteur de Template EJS](#moteur-de-template-ejs)
+ - [Moteur de Template PUG](#moteur-de-template-pug)
 - [Partie Contrôleur et Modèle](#partie-contrôleur-et-modèle)
  - [Cycle de Vie et Hooks](#cycle-de-vie-et-hooks)
  - [Utiliser les Websocket à la place des échanges AJAX](#utiliser-les-websocket-à-la-place-des-échanges-ajax)
@@ -110,8 +112,6 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer les redirections](#gérer-les-redirections)
  - [Gérer les Headers de page](#gérer-les-headers-de-page)
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
- - [Changer les chevrons <? ?> du moteur de template](#changer-les-chevrons---du-moteur-de-template)
- - [Générer le HTML avec Pug](#générer-le-html-avec-pug)
  - [Minifier les CSS / JS](#minifier-les-css--js)
  - [Générer les CSS avec Less](#générer-les-css-avec-less)
  - [Générer les CSS avec Stylus](#générer-les-css-avec-stylus)
@@ -242,13 +242,13 @@ En utilisant un installeur :
 
 En utilisant [chocolatey](http://chocolatey.org/) pour installer Node:
 
-```
+```bash
 cinst nodejs
 ```
 
 ou en l'installant avec npm :
 
-```
+```bash
 cinst nodejs.install
 ```
 
@@ -260,13 +260,13 @@ En utilisant un installeur :
 
 En utilisant [homebrew](https://github.com/mxcl/homebrew):
 
-```
+```bash
 brew install node
 ```
 
 En utilisant [macports](http://www.macports.org/):
 
-```
+```bash
 port install nodejs
 ```
 
@@ -278,7 +278,7 @@ Using a package:
 
 Example install with apt-get:
 
-```
+```bash
 sudo apt-get install python-software-properties python g++ make
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -330,7 +330,7 @@ Voyons ci-après le contenu du fichier `webconfig.json`.
 
 Vous pouvez faire tourner une page simple avec la configuration minimale du « webconfig.json » ci-dessous
 
-```js
+```json
 {
     "routes": {
         "/": {
@@ -342,7 +342,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 équivalente à
 
-```js
+```json
 { "routes": { "/": "index.htm" } }
 ```
 
@@ -354,7 +354,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 Placez-vous avec un invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
-```
+```bash
 \> node </path/to/>node-atlas/
 ```
 
@@ -367,7 +367,7 @@ Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans
 
 Placez-vous toujours avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
-```
+```bash
 \> nodeatlas
 ```
 
@@ -386,7 +386,7 @@ var nodeAtlas = require("node-atlas");
 nodeAtlas().run();
 ```
 
-```
+```bash
 \> node server.js
 ```
 
@@ -406,7 +406,7 @@ Voyons les possibilités de nos sites par agrégat simple de fichiers de vue.
 
 Ci-dessous un exemple de configuration.
 
-```js
+```json
 {
     "viewsRelativePath": "views",
     "routes": {
@@ -460,7 +460,7 @@ aux adresses :
 
 La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus
 
-```js
+```json
 {
     "viewsRelativePath": "views",
     "routes": {
@@ -485,13 +485,13 @@ La configuration ci-dessous est équivalente à la configuration de la section j
 
 car
 
-```js
+```json
 "a-propos.html": "about.htm",
 ```
 
 est un raccourci de
 
-```js
+```json
 "a-propos.html": {
     "view": "about.htm"
 }
@@ -503,18 +503,18 @@ Il est également possible de placer ses routes dans un tableau, ce qui permettr
 
 Dans ce cas le chemin devient le paramètre `url`.
 
-```js
+```json
 {
     "viewsRelativePath": "views",
     "routes": [{
-        "url": /",
+        "url": "/",
         "view": "index.htm",
     }, {
         "url": "/membre.html",
         "view": "member.htm",
         "postSupport": false
     }, {
-        "url": /membre-sans-extension/",
+        "url": "/membre-sans-extension/",
         "view": "member.htm",
         "getSupport": false
     }, { 
@@ -535,7 +535,7 @@ Dans ce cas le chemin devient le paramètre `url`.
 
 Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :
 
-```js
+```json
 {
     "assetsRelativePath": "assets",
     "routes": {
@@ -583,7 +583,7 @@ Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant 
 
 **webconfig.json**
 
-```js
+```json
 {
     "routes": {
         "/": {
@@ -671,7 +671,7 @@ vous aurez accès aux adresses :
 
 Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :
 
-```js
+```json
 {
     "commonVariation": "common.json",
     "variationsRelativePath": "variations",
@@ -752,7 +752,7 @@ avec les fichiers suivants :
 
 **variations/common.json**
 
-```js
+```json
 {
     "titleWebsite": "Titre du site",
     "classCssCommon": "common",
@@ -762,7 +762,7 @@ avec les fichiers suivants :
 
 **variations/index.json**
 
-```js
+```json
 {
     "titlePage": "Bienvenue",
     "classPage": "index",
@@ -772,7 +772,7 @@ avec les fichiers suivants :
 
 **variations/members.json**
 
-```js
+```json
 {
     "titlePage": "Liste des membres",
     "classPage": "members",
@@ -795,7 +795,7 @@ vous aurez accès aux adresses :
 
 Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :
 
-```js
+```json
 {
     "languageCode": "en-us",
     "variationsRelativePath": "l10n",
@@ -885,7 +885,7 @@ avec les fichiers suivants :
 
 **l10n/landing.json**
 
-```js
+```json
 {
     "titlePage": "Landing",
     "classPage": "landing",
@@ -898,7 +898,7 @@ avec les fichiers suivants :
 
 **l10n/en-us/home.json**
 
-```js
+```json
 {
     "titlePage": "Welcome",
     "classPage": "home",
@@ -908,7 +908,7 @@ avec les fichiers suivants :
 
 **l10n/fr-fr/home.json**
 
-```js
+```json
 {
     "titlePage": "Bienvenue",
     "classPage": "home",
@@ -981,7 +981,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 **webconfig.json**
 
-```js
+```json
 {
     "routes": {
         "/": {
@@ -994,7 +994,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 **webconfig.en-us.json**
 
-```js
+```json
 {
     "httpPort": 81,
     "urlRelativeSubPath": "english",
@@ -1014,7 +1014,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 **webconfig.fr-fr.json**
 
-```js
+```json
 {
     "httpPort": 82,
     "urlRelativeSubPath": "francais",
@@ -1058,7 +1058,7 @@ Par défaut, si vous utilisez la configuration suivante :
 
 **webconfig.json**
 
-```js
+```json
 {
     "routes": {
         "/": {
@@ -1093,7 +1093,7 @@ cela est identique à utiliser celle-ci :
 
 **webconfig.json**
 
-```js
+```json
 {
     "httpHostname": "localhost",
     "httpPort": 80,
@@ -1128,7 +1128,7 @@ Vous pourrez accéder à l'URL : *http://localhost/* et au contenu :
 
 Changez alors la configuration en ceci :
 
-```js
+```json
 {
     "httpHostname": "127.0.0.1",
     "httpPort": 7777,
@@ -1171,7 +1171,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 
 1. « webconfig.json »
 
-```js
+```json
 {
     "routes": {
         "/": {
@@ -1184,7 +1184,7 @@ Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables
 
 2. « webconfig.prod.json »
 
-```js
+```json
 {
     "routes": {
         "/": {
@@ -1230,7 +1230,7 @@ et « index.htm » contenant :
 
 En lançant (depuis le dossier du site) la commande :
 
-```
+```bash
 \> node </path/to/>node-atlas/
 ```
 
@@ -1253,7 +1253,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 Cependant en lançant la commande :
 
-```
+```bash
 \> node </path/to/>node-atlas/ --webconfig webconfig.prod.json
 ```
 
@@ -1284,7 +1284,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 Avec la configuration suivante il est possible de générer des aperçu HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.
 
-```js
+```json
 {
     "htmlGenerationBeforeResponse": true,
     "assetsRelativePath": "../HTML/",
@@ -1365,7 +1365,7 @@ Vous pouvez également désactiver la génération, même si un dossier `serverl
 
 Voyons cela avec la configuration suivante :
 
-```js
+```json
 {
     "languageCode": "fr-fr",
     "enableIndex": true,
@@ -1424,6 +1424,228 @@ Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTM
 
 
 
+### Moteur de Template EJS ###
+
+Par défaut, NodeAtlas utilise déjà le [moteur de template EJS](http://ejs.co/), c'est ce qui vous permet d'utiliser du JavaScript dans les balises `<?` et `?>`. Cependant, EJS fonctionne normalement avec les balises `<%` et `%>`. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.
+
+```json
+{
+    "templateEngineDelimiter": "%",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+```
+
+Par exemple, pour inclure une partie de fichier on utilise l'instruction `<?- include("partials/head.htm") ?>`. Il serait possible de le faire avec `<%- include("partials/head.htm") %>` avec la configuration ci-dessous :
+
+Voyez l'exemple dans les fichiers ci-dessous :
+
+**webconfig.json**
+
+```json
+{
+    "templateEngineDelimiter": true,
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+**variations/common.json**
+
+```json
+{
+    "titleWebsite": "Titre du site",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
+}
+```
+
+**variations/index.json**
+
+```json
+{
+    "titlePage": "Bienvenue",
+    "classPage": "index",
+    "content": "<p>C'est la page d'accueil.</p>"
+}
+```
+
+**views/partials/head.htm**
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title><%- specific.titlePage %></title>
+        <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
+    </head>
+    <body class="<%= specific.classPage %>">
+```
+
+**views/partials/foot.htm**
+
+```html
+        <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
+    </body>
+</html>
+```
+
+**views/index.htm**
+
+```html
+    <%- include("partials/head.htm") %>
+
+    <div class="title"><%- common.titleWebsite %></div>
+
+    <div>
+        <h1><%- specific.titlePage %></h1>
+        <%- specific.content %>
+    </div>
+
+    <%- include("partials/foot.htm") %>
+```
+
+Pour tout savoir sur les possibilités du moteur de template consultez [la documentation EJS](http://ejs.co/)
+
+*Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***?***.
+
+
+
+### Moteur de Template PUG ###
+
+Il est possible d'utiliser en lieu et place de EJS le [moteur de template PUG](https://pugjs.org/) (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
+
+```json
+{
+    "enablePug": true,
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+ou seulement pour une page précise :
+
+```
+{
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "enablePug": true,
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+Il est également possible pour un moteur complet en PUG de repasser une page spécifique en EJS.
+
+```
+{
+    "enablePug": true,
+    "routes": {
+        "/": {
+            "enablePug": false,
+            "view": "index.htm"
+        },
+        "/contenu/": {
+            "view": "content.htm"
+        }
+    }
+}
+```
+
+Voyons ce que cela donnerait avec l'exemple suivant :
+
+**webconfig.json**
+
+```
+{
+    "enablePug": true,
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+**variations/common.json**
+
+```json
+{
+    "titleWebsite": "Titre du site",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
+}
+```
+
+**variations/index.json**
+
+```json
+{
+    "titlePage": "Bienvenue",
+    "classPage": "index",
+    "content": "<p>C'est la page d'accueil.</p>"
+}
+```
+
+**views/partials/head.pug**
+
+```html
+doctype html
+html(lang="fr-fr")
+    head
+        meta(charset="utf-8")
+        title #{specific.titlePage}
+        link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
+        link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
+    body(class=specific.classPage)
+```
+
+**views/partials/foot.pug**
+
+```html
+script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
+```
+
+**views/index.htm**
+
+```html
+include partials/head.pug
+
+div
+    h1 #{specific.titlePage}
+    | !{specific.content}
+
+include partials/foot.pug
+```
+
+Pour tout savoir sur les possibilités du moteur de template consultez [la documentation PUG](https://pugjs.org/)
+
+*Note : Si rien n'est précisé,* ***enablePug*** *vaut* ***false***.
+
+
+
 
 
 ## Partie Contrôleur et Modèle ##
@@ -1445,7 +1667,7 @@ Pour cela, il vous est possible d'intéragir à divers endroit (Hooks) du cycle 
 
 Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous les points du cycle de vie d'une page.
 
-```js
+```json
 {
     "controllersRelativePath": "controllers",
     "commonController": "common.js",
@@ -1503,7 +1725,7 @@ Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun
 
 Voici un exemple utilisant les deux interceptions, d'abord la commune au deux pages, puis celle de chaque page :
 
-```js
+```json
 {
     "urlRelativeSubPath": "example",
     "commonController": "common.js",
@@ -1539,7 +1761,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 
 *variations/common.json*
 
-```js
+```json
 {
     "titleWebsite": "Titre du site"
 }
@@ -1547,7 +1769,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 
 *variations/index.json*
 
-```js
+```json
 {
     "titlePage": "Bienvenue",
     "content": "<p>C'est la page d'accueil.</p>"
@@ -1571,7 +1793,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 
 *controllers/common.js*
 
-```js
+```json
 // On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté pour toute request HTTP, toute page confondue.
 exports.changeVariation = function (params, next) {
@@ -1610,7 +1832,7 @@ exports.changeVariation = function (params, next) {
 
 *controllers/index.js*
 
-```js
+```json
 // On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, next) {
@@ -1657,7 +1879,7 @@ ce qui produit la sortie suivante :
 
 Si vous décidez de désabonner la variation spécifique avec le webconfig suivant :
 
-```js
+```json
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
@@ -1695,7 +1917,7 @@ Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser 
 
 Voici un exemple utilisant les deux interceptions, d'abord la commune au deux pages, puis celle de chaque page :
 
-```js
+```json
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
@@ -1726,7 +1948,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 
 *variations/common.json*
 
-```js
+```json
 {
     "titleWebsite": "Titre du site"
 }
@@ -1734,7 +1956,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 
 *variations/index.json*
 
-```js
+```json
 {
     "titlePage": "Bienvenue",
     "content": "<p>C'est la page d'accueil.</p>"
@@ -1762,7 +1984,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 
 *controllers/common.js*
 
-```js
+```json
 // On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté pour toute request HTTP, toute page confondue.
 exports.changeDom = function (params, next) {
@@ -1796,7 +2018,7 @@ exports.changeDom = function (params, next) {
 
 *controllers/index.js*
 
-```js
+```json
 // On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeDom = function (params, next) {
@@ -1843,7 +2065,7 @@ Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez
 
 Voici un exemple utilisant un module externe à NodeAtlas :
 
-```js
+```json
 {
     "commonController": "common.js",
     "routes": {
@@ -1889,7 +2111,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 
 *controllers/common.js*
 
-```js
+```json
 // On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
@@ -1903,7 +2125,7 @@ exports.setModules = function () {
 
 *controllers/index.js*
 
-```js
+```json
 // On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, next) {
@@ -1944,7 +2166,7 @@ Pour configurer le serveur web de NodeAtlas ([ExpressJs](http://expressjs.com/))
 
 Voici un exemple utilisant un middleware pour [ExpressJs](http://expressjs.com/) :
 
-```js
+```json
 {
     "commonController": "common.js",
     "routes": {
@@ -1976,7 +2198,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 
 *controllers/common.js*
 
-```js
+```json
 // On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setConfigurations = function (next) {
@@ -1996,7 +2218,7 @@ exports.setConfigurations = function (next) {
 
 *controllers/index.js*
 
-```js
+```json
 // On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, next) {
@@ -2048,7 +2270,7 @@ Voici l'ensemble de fichier suivant :
 
 Avec le `webconfig.json` :
 
-```js
+```json
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
@@ -2063,7 +2285,7 @@ Avec le `webconfig.json` :
 
 et avec le fichier « common.js » contenant par exemple :
 
-```js
+```json
 // On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
@@ -2108,7 +2330,7 @@ Voici l'ensemble de fichier suivant :
 
 Avec le `webconfig.json` :
 
-```js
+```json
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
@@ -2122,7 +2344,7 @@ Avec le `webconfig.json` :
 
 et avec le fichier « common.js » contenant par exemple :
 
-```js
+```json
 // On intervient au niveau des routes pendant qu'elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setRoutes = function (next) {
@@ -2268,7 +2490,7 @@ Côté serveur, nous utiliserons les fichiers suivant :
 
 **controllers/common.js**
 
-```js
+```json
 var privates = {};
 
 // Chargement des modules pour ce site dans l'objet NodeAtlas.
@@ -2352,7 +2574,7 @@ exports.setConfigurations = function (next) {
 
 **controllers/index.js**
 
-```js
+```json
 // Intégralité des actions Websocket possible pour ce template.
 // Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
 exports.asynchrone = function (params) {
@@ -2388,7 +2610,7 @@ Quand au côté client, nous utiliserons les fichiers suivant :
 
 **assets/javascript/common.js**
 
-```js
+```json
 window.website = window.website || {};
 
 (function (publics) {
@@ -2411,7 +2633,7 @@ website[document.getElementsByTagName("body")[0].getAttribute("data-variation")]
 
 **assets/javascript/index.js**
 
-```js
+```json
 window.website = window.website || {};
 
 (function (publics) {
@@ -2589,7 +2811,7 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mysq
 
 Nous allons ensuite nous connecter à la base de données avec le controlleur globale `controllers/common.js` :
 
-```js
+```json
 exports.setModules = function () {
     var NA = this;
 
@@ -2622,7 +2844,7 @@ exports.setConfigurations = function (next) {
 
 Et afficher les résultats via le controlleur spécifique `controllers/index.js` :
 
-```js
+```json
 exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
@@ -2686,7 +2908,7 @@ exports.changeVariation = function (params, next) {
 
 en utilisant le modèle `user` via le fichier de connexion à la base de données `models/connectors/user.js` :
 
-```js
+```json
 var user = require('../objects/user.js');
 
 function User(connection) {
@@ -2923,7 +3145,7 @@ module.exports = User;
 
 basé sur une classe `user` partagée entre la partie cliente et serveur `models/objects/user.js` :
 
-```js
+```json
 (function (expose, factory) {
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = factory;
@@ -3098,7 +3320,7 @@ Avec les fichiers suivant pour afficher la page :
 
 **variations/common.json**
 
-```js
+```json
 {
     "titleWebsite": "Exemple MySql",
     "male": "Homme",
@@ -3108,7 +3330,7 @@ Avec les fichiers suivant pour afficher la page :
 
 **variations/index.json**
 
-```js
+```json
 {
     "titlePage": "Table User",
     "content": "<p>Détail de la première entrée.</p>",
@@ -3311,7 +3533,7 @@ Avec les fichiers suivant pour afficher la page :
 
 **variations/common.json**
 
-```js
+```json
 {
     "titleWebsite": "MongoDB Exemple",
     "male": "Homme",
@@ -3321,7 +3543,7 @@ Avec les fichiers suivant pour afficher la page :
 
 **variations/index.json**
 
-```js
+```json
 {
     "titlePage": "Collection User",
     "content": "<p>Détail du document `{ \"identity.firstname\": \"Bruno\" }`.</p>"
@@ -3330,7 +3552,7 @@ Avec les fichiers suivant pour afficher la page :
 
 Enfin nous allons nous connecter à la base de données avec le controlleur globale `controllers/common.js` :
 
-```js
+```json
 exports.setModules = function () {
     var NA = this,
         path = NA.modules.path;
@@ -3355,7 +3577,7 @@ exports.setConfigurations = function (next) {
 
 Et afficher les résultats via le controlleur spécifique `controllers/index.js` :
 
-```js
+```json
 exports.changeVariation = function (params, next) {
     var NA = this,
         variation = params.variation,
@@ -3384,7 +3606,7 @@ exports.changeVariation = function (params, next) {
 
 en utilisant sur une classe `user` partagé entre le Front et le Back `assets/javascript/models/user.js` :
 
-```js
+```json
 var mongoose;
 if (typeof module !== 'undefined' && module.exports) {
      mongoose = require('mongoose');
@@ -3461,7 +3683,7 @@ Bien que vous puissiez paramétrer des urls statiques, vous pouvez également pa
 
 Avec la configuration suivante :
 
-```js
+```json
 {
     "routes": {
         "/liste-des-membres/:member/": {
@@ -3488,7 +3710,7 @@ vous pourrez accéder à :
 
 et récupérer les valeurs de `:member` dans le `changeVariation` (common et specific).
 
-```js
+```json
 exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
@@ -3507,7 +3729,7 @@ Vous pouvez également activer les expressions régulières pour un chemin préc
 
 Voyez la configuration suivante :
 
-```js
+```json
 {
     "routes": {
         "/liste-des-membres/([-a-z0-9]+)/?": {
@@ -3536,7 +3758,7 @@ vous pourrez accéder à :
 
 et récupérer les valeurs de `([-a-z0-9]+)` dans le `changeVariation` (common et specific).
 
-```js
+```json
 exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
@@ -3650,7 +3872,7 @@ Pour afficher une page personnalisée quand une ressource n'est pas trouvée il 
 
 Voyez l'exemple ci-dessous :
 
-```js
+```json
 {
     "pageNotFound": "/pages-inexistantes/",
     "routes": {
@@ -3680,7 +3902,7 @@ Il vous suffit de créer une nouvelle route finissant par `*` dans la langue sou
 
 Voyez l'exemple ci-dessous :
 
-```js
+```json
 {
     "pageNotFound": "/pages-inexistantes/",
     "languageCode": "fr-fr",
@@ -3740,7 +3962,7 @@ Voici l'ensemble de fichier suivant :
 
 Avec le `webconfig.json` initialement comme ceci avec `routes: <Object>` :
 
-```js
+```json
 {
     "commonController": "common.js",
     "routes": {
@@ -3757,7 +3979,7 @@ Avec le `webconfig.json` initialement comme ceci avec `routes: <Object>` :
 
 se transformant en cela avec `routes: <Array>` :
 
-```js
+```json
 {
     "commonController": "common.js",
     "routes": [{
@@ -3773,7 +3995,7 @@ se transformant en cela avec `routes: <Array>` :
 
 Avec le fichier « common.js » nous pouvons maintenant injecter les routes à des positions précise. Nous allons les ajoutés au début.
 
-```js
+```json
 // On intervient au niveau des routes pendant qu'elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setRoutes = function (next) {
@@ -3809,7 +4031,7 @@ Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à u
 
 Voyez l'exemple ci-dessous :
 
-```js
+```json
 {
     "routes": {
         "/liste-des-membres/": {
@@ -3839,7 +4061,7 @@ Vous serez redirigé :
 
 Voyez l'exemple ci-dessous :
 
-```js
+```json
 {
     "routes": {
         "/liste-des-membres/:member/": {
@@ -3862,7 +4084,7 @@ Vous serez redirigé sur `http://localhost/liste-des-membres/haeresis/` quand vo
 
 Voyez l'exemple ci-dessous :
 
-```js
+```json
 {
     "routes": {
         "/membres/([-a-z0-9]+)/": {
@@ -3896,7 +4118,7 @@ Par défaut, les Headers envoyé par NodeAtlas sont les suivants : `Content-Type
 
 Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.
 
-```js
+```json
 {
     "mimeType": "application/json"
     "charset": "utf-16",
@@ -3917,7 +4139,7 @@ Il est tout à fait possible de modifier ses valeurs pour une entrée de route p
 
 Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l'exception du `statusCode` donc). Mettre une valeur à `false` retire le Headers précédemment mis en place.
 
-```js
+```json
 {
     "headers": {
         "Content-Type": "application/json; charset=utf-8",
@@ -3944,7 +4166,7 @@ Il est très simple de faire tourner une instance de NodeAtlas avec le protocol 
 
 Il ne vous reste plus qu'à utiliser la configuration suivante :
 
-```js
+```json
 {
     "httpSecure": true,
     "httpSecureRelativeKeyPath": "security/server.key",
@@ -3959,7 +4181,7 @@ Il ne vous reste plus qu'à utiliser la configuration suivante :
 
 Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration :
 
-```js
+```json
 {
     "httpSecure": "security/server",
     "routes": {
@@ -3972,7 +4194,7 @@ Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et
 
 Pour finir, il est également possible de seulement laisser la valeur de `httpSecure` à `true` pour obtenir un `https` dans vos chemins comme `urlBasePath` ou `urlBase`. Cependant le serveur ce lancera en HTTP, il vous faudra un proxy qui gère pour vous la lecture du certificat.
 
-```js
+```json
 {
     "httpSecure": true,
     "routes": {
@@ -3987,227 +4209,6 @@ Pour finir, il est également possible de seulement laisser la valeur de `httpSe
 
 
 
-### Changer les chevrons <? ?> du moteur de template ###
-
-Par exemple, pour inclure une partie de fichier on utilise l'instruction ***<?- include("partials/head.htm") ?>***. Il serait possible de le faire avec ***<%- include("head.htm") %>*** (comme pour EJS) avec la configuration ci-dessous :
-
-```js
-{
-    "templateEngineDelimiter": "%",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-```
-
-Voyez l'exemple dans les fichiers ci-dessous :
-
-*webconfig.json*
-
-```
-{
-    "templateEngineDelimiter": true,
-    "commonVariation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json"
-        }
-    }
-}
-```
-
-*variations/common.json*
-
-```js
-{
-    "titleWebsite": "Titre du site",
-    "classCssCommon": "common",
-    "classJsCommon": "common"
-}
-```
-
-*variations/index.json*
-
-```js
-{
-    "titlePage": "Bienvenue",
-    "classPage": "index",
-    "content": "<p>C'est la page d'accueil.</p>"
-}
-```
-
-*views/partials/head.htm*
-
-```html
-<!DOCTYPE html>
-<html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title><%- specific.titlePage %></title>
-
-        <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
-    </head>
-    <body class="<%= specific.classPage %>">
-```
-
-*views/partials/foot.htm*
-
-```html
-        <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
-    </body>
-</html>
-```
-
-*views/index.htm*
-
-```html
-    <%- include("head.htm") %>
-
-    <div class="title"><%- common.titleWebsite %></div>
-
-    <div>
-        <h1><%- specific.titlePage %></h1>
-        <%- specific.content %>
-    </div>
-
-    <%- include("foot.htm") %>
-```
-
-Pour tout savoir sur les possibilités du moteur de template consultez la documentation [EJS2](http://ejs.co/)
-
-*Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***?***.
-
-
-
-### Générer le HTML avec Pug ###
-
-Il est possible d'utiliser en lieu et place du moteur EJS le moteur PUGe (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
-
-```
-{
-    "enablePug": true,
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        },
-        "/contenu/": {
-            "view": "content.htm"
-        }
-    }
-}
-```
-
-ou seulement pour une page précise :
-
-```
-{
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        },
-        "/contenu/": {
-            "enablePug": true,
-            "view": "content.htm"
-        }
-    }
-}
-```
-
-Il est également possible pour un moteur complet en PUG de repasse une page spécifique en EJS.
-
-```
-{
-    "enablePug": true,
-    "routes": {
-        "/": {
-            "enablePug": false,
-            "view": "index.htm"
-        },
-        "/contenu/": {
-            "view": "content.htm"
-        }
-    }
-}
-```
-
-Voyons ce que cela donnerait avec l'exemple utiliser précédemment avec `<? ?>` et `<% %>` :
-
-*webconfig.json*
-
-```
-{
-    "enablePug": true,
-    "commonVariation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json"
-        }
-    }
-}
-```
-
-*variations/common.json*
-
-```js
-{
-    "titleWebsite": "Titre du site",
-    "classCssCommon": "common",
-    "classJsCommon": "common"
-}
-```
-
-*variations/index.json*
-
-```js
-{
-    "titlePage": "Bienvenue",
-    "classPage": "index",
-    "content": "<p>C'est la page d'accueil.</p>"
-}
-```
-
-*views/partials/head.pug*
-
-```html
-doctype html
-html(lang="fr-fr")
-    head
-        meta(charset="utf-8")
-        title #{specific.titlePage}
-        link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
-        link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
-    body(class=specific.classPage)
-```
-
-*views/partials/foot.pug*
-
-```html
-script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
-```
-
-*views/index.htm*
-
-```html
-include partials/head.pug
-
-div
-    h1 #{specific.titlePage}
-    | !{specific.content}
-
-include partials/foot.pug
-```
-
-Pour tout savoir sur les possibilités du moteur de template consultez la documentation [PUG](https://pugjs.org/)
-
-*Note : Si rien n'est précisé,* ***enablePug*** *vaut* ***false***.
-
-
-
 ### Minifier les CSS / JS ###
 
 Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu qu'un Bundle existe dans le Webconfig.
@@ -4216,7 +4217,7 @@ Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusq
 
 Avec la configuration suivante :
 
-```js
+```json
 {
     "bundles": {
         "javascript": {
@@ -4512,7 +4513,7 @@ et `bundles.json`
 
 Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés `"stylesheetsBundlesEnable": false` et `"javascriptBundlesEnable": false` pour chaque type de Bundle.
 
-```js
+```json
 {
     "stylesheetsBundlesEnable": false,
     "javascriptBundlesEnable": false,
@@ -4556,7 +4557,7 @@ Il est également possible de ne pas exécuter la minification au démarrage d'u
 
 De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés `"stylesheetsBundlesBeforeResponse": true` et `"javascriptBundlesBeforeResponse": true` pour chaque type de Bundle.
 
-```js
+```json
 {
     "stylesheetsBundlesBeforeResponse": false,
     "javascriptBundlesBeforeResponse": false,
@@ -4615,7 +4616,7 @@ Avec la structure suivante :
 
 ainsi que le webconfig suivante :
 
-```js
+```json
 {
     "enableLess": true,
     "routes": {
@@ -4684,7 +4685,7 @@ Comme les Less sont compilés a la volé, quand le fichier est demandé en http(
 
 Avec le `webconfig.json` suivant :
 
-```js
+```json
 {
     "enableLess": {
         "less": [
@@ -4702,7 +4703,7 @@ Avec le `webconfig.json` suivant :
 
 ou suivante :
 
-```js
+```json
 {
     "enableLess": {
         "less": "less.json"
@@ -4715,7 +4716,7 @@ ou suivante :
 
 avec `less.json` qui contient :
 
-```js
+```json
 [
     "stylesheets/common.less",
     "stylesheets/component-1.less",
@@ -4726,7 +4727,7 @@ avec `less.json` qui contient :
 
 Par défaut, les `@import` utilisés par Less seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
 
-```js
+```json
 {
     "enableLess": {
         "paths": [
@@ -4759,7 +4760,7 @@ Avec la structure suivante :
 
 ainsi que le webconfig suivante :
 
-```js
+```json
 {
     "enableStylus": true,
     "routes": {
@@ -4829,7 +4830,7 @@ Comme les Stylus sont compilés a la volé, quand le fichier est demandé en htt
 
 Avec le `webconfig.json` suivant :
 
-```js
+```json
 {
     "enableStylus": {
         "stylus": [
@@ -4847,7 +4848,7 @@ Avec le `webconfig.json` suivant :
 
 ou suivante :
 
-```js
+```json
 {
     "enableLess": {
         "stylus": "stylus.json"
@@ -4860,7 +4861,7 @@ ou suivante :
 
 avec `stylus.json` qui contient :
 
-```js
+```json
 [
     "stylesheets/common.styl",
     "stylesheets/component-1.styl",
@@ -4871,7 +4872,7 @@ avec `stylus.json` qui contient :
 
 Par défaut, les `@import` utilisés par Less seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
 
-```js
+```json
 {
     "enableStylus": {
         "paths": [
@@ -4895,7 +4896,7 @@ Vous pouvez automatiquement optimiser les images que vous allez utiliser dans vo
 
 Avec la configuration suivante :
 
-```js
+```json
 {
     "optimizations": {
         "images": {
@@ -4952,7 +4953,7 @@ vous obtiendrez les nouveaux fichiers suivant :
 
 Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indiquer en groupe :
 
-```js
+```json
 {
     "optimizations": {
         "images": {
@@ -4971,7 +4972,7 @@ Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indi
 
 Il est possible de redéfinir les options par défaut pour l'optimisation via ses 4 objets :
 
-```js
+```json
 {
     "optimizations": {
         "jpg": { "progressive": false },
@@ -5128,7 +5129,7 @@ et `optimizations.json`
 
 Il est également possible de ne pas exécuter l'optimisation au démarrage d'un site web avec NodeAtlas avec les propriétés `"imagesOptimizationsEnable": false`.
 
-```js
+```json
 {
     "imagesOptimizationsEnable": false,
     "optimizations": {
@@ -5153,7 +5154,7 @@ Il est également possible de ne pas exécuter l'optimisation au démarrage d'un
 
 Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés `"imagesOptimizationsBeforeResponse": true`.
 
-```js
+```json
 {
     "imagesOptimizationsBeforeResponse": false,
     "optimizations": {
@@ -5321,7 +5322,7 @@ Il est possible :
 
 Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).
 
-```js
+```json
 {
     "getSupport": true,
     "postSupport": false,
@@ -5352,7 +5353,7 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 
 Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `putSupport` et `deleteSupport`.
 
-```js
+```json
 {
     "getSupport": false,
     "postSupport": false,
@@ -5407,7 +5408,7 @@ qui permettent à un client de rester connecté à travers les pages à un même
 
 Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de `webconfig.json` suivant :
 
-```js
+```json
 {
     sessionKey: "clé personnelle",
     sessionSecret: "secret personnel"
@@ -5420,7 +5421,7 @@ NodeAtlas utilise également un objet de stockage mémoire (MemoryStore) qui sto
 
 Il est possible de changer l'intégralité des paramètres des sessions (sauf le MemoryStore) en utilisant la configuration de `webconfig.json` suivante :
 
-```js
+```json
 {
     "session": {
         "key": "clé personnelle",
@@ -5527,7 +5528,7 @@ Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mo
 
 Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec ***urlHostname*** et ***urlPort***. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
 
-```js
+```json
 {
     "httpPort": 7777,
     "httpHostname": "127.0.0.1",
@@ -5543,7 +5544,7 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 Il est également possible de faire en sorte qu'aucune autre url ne puisse être tapé. Ainsi si on réclame `www.localhost` ou `localhost:7777` c'est bien sur `localhost` que sera le visiteur :
 
-```js
+```json
 {
     "enableForceDomain": true,
     "httpPort": 7777,
@@ -5588,7 +5589,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 
 À noter que dans le cas de la configuration suivante :
 
-```js
+```json
 {
     "routes": {
         "/": {
@@ -5600,7 +5601,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 
 `urlBasePath` retourne `http://localhost/` alors que dans celle-ci :
 
-```js
+```json
 {
     "httpPort": 7777,
     "urlRelativeSubPath": "sub/folder",
@@ -5618,7 +5619,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 
 En utilisant le webconfig suivant :
 
-```js
+```json
 {
     "routes": {
         "/index.html": {
@@ -5642,7 +5643,7 @@ ainsi que la view `index.htm` correspondante
 
 je serais obligé de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :
 
-```js
+```json
 {
     "httpPort": 7777,
     "routes": {
@@ -5669,7 +5670,7 @@ Il est possible de solutionner ce problème en donnant une clé à un chemin pr�
 
 Avec le webconfig suivant :
 
-```js
+```json
 {
     "routes": {
         "index": {
@@ -5725,7 +5726,7 @@ Il est parfois utile de connaître la clé utilisé pour la page courante afin d
 
 Avec le webconfig suivant :
 
-```js
+```json
 {
     "languageCode": "fr-fr",
     "routes": {
@@ -5753,7 +5754,7 @@ Avec le webconfig suivant :
 
 et les fichiers de variation commun suivant en fr :
 
-```js
+```json
 {
     "language": [{
         "name": "Anglais",
@@ -5767,7 +5768,7 @@ et les fichiers de variation commun suivant en fr :
 
 et en en :
 
-```js
+```json
 {
     "language": [{
         "name": "English",
@@ -6252,7 +6253,7 @@ Il ne vous restera plus qu'à cliquer sur « Browse <url-of-site> » dans votre 
 
 Un webconfig exemple pour une production :
 
-```js
+```json
 {
     "urlPort": 80,
     "httpPort": 7777,
@@ -6301,7 +6302,7 @@ ou `<uid>` est l'**uid** du site qui tourne.
 
 Un webconfig exemple pour une production :
 
-```js
+```json
 {
     "urlPort": 80,
     "httpPort": 7777,

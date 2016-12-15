@@ -1,4 +1,4 @@
-<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d&#39;url dynamiques !</p><h4 id="standard">Standard</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
+<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d&#39;url dynamiques !</p><h4 id="standard">Standard</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
@@ -18,7 +18,7 @@
 <li><em><a href="http://localhost/liste-des-membres/bob-eponge99/">http://localhost/liste-des-membres/bob-eponge99/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/node-atlas/">http://localhost/liste-des-membres/node-atlas/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/etc/">http://localhost/liste-des-membres/etc/</a></em></li>
-</ul><p>et récupérer les valeurs de <code>:member</code> dans le <code>changeVariation</code> (common et specific).</p><pre><code class="lang-js">exports.changeVariation = function (params, next) {
+</ul><p>et récupérer les valeurs de <code>:member</code> dans le <code>changeVariation</code> (common et specific).</p><pre><code class="lang-json">exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     console.log(variation.params.member);
@@ -26,7 +26,7 @@
 
     next(variation);
 }
-</code></pre><p>Les règles de création d&#39;url dynamique sont celles de <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p><h4 id="expressions-r-guli-res">Expressions Régulières</h4><p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si <code>regExp</code> est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).</p><p>Voyez la configuration suivante :</p><pre><code class="lang-js">{
+</code></pre><p>Les règles de création d&#39;url dynamique sont celles de <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p><h4 id="expressions-r-guli-res">Expressions Régulières</h4><p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si <code>regExp</code> est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).</p><p>Voyez la configuration suivante :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/([-a-z0-9]+)/?&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;,
@@ -48,7 +48,7 @@
 <li><em><a href="http://localhost/liste-des-membres/bob-eponge99/">http://localhost/liste-des-membres/bob-eponge99/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/bob-eponge99">https://localhost/liste-des-membres/bob-eponge99</a></em>)</em></li>
 <li><em><a href="http://localhost/liste-des-membres/node-atlas/">http://localhost/liste-des-membres/node-atlas/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/node-atlas">https://localhost/liste-des-membres/node-atlas</a></em>)</em></li>
 <li><em><a href="http://localhost/liste-des-membres/etc/">http://localhost/liste-des-membres/etc/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/etc">https://localhost/liste-des-membres/etc</a></em>)</em></li>
-</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariation</code> (common et specific).</p><pre><code class="lang-js">exports.changeVariation = function (params, next) {
+</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariation</code> (common et specific).</p><pre><code class="lang-json">exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     if (variation.params &amp;&amp; variation.params[0]) { variation.params.member = variation.params[0]; }
@@ -104,7 +104,7 @@ webconfig.prod.json
 </code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichier de route comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d&#39;eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="gerer-les-pages-inexistantes">Gérer les pages inexistantes</h3><h4 id="-couter-toutes-les-urls-m-me-les-adresses-du-dossier-assetsrelativepath-">Écouter toutes les urls, même les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalisée quand une ressource n&#39;est pas trouvée il faut :</p><ol>
 <li>Préparer une page 404.</li>
 <li>Remplir le paramètre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 préparée.</li>
-</ol><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
+</ol><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-json">{
     &quot;pageNotFound&quot;: &quot;/pages-inexistantes/&quot;,
     &quot;routes&quot;: {
         &quot;/liste-des-membres/&quot;: {
@@ -123,7 +123,7 @@ webconfig.prod.json
 <li><em><a href="http://localhost/cette-page-n-existe-pas.html">http://localhost/cette-page-n-existe-pas.html</a></em></li>
 <li><em><a href="http://localhost/elle/non/plus/">http://localhost/elle/non/plus/</a></em></li>
 <li><em><a href="http://localhost/etc">http://localhost/etc</a></em></li>
-</ul><h4 id="page-d-erreur-multilingue">Page d&#39;erreur multilingue</h4><p>Il vous suffit de créer une nouvelle route finissant par <code>*</code> dans la langue souhaitée.</p><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
+</ul><h4 id="page-d-erreur-multilingue">Page d&#39;erreur multilingue</h4><p>Il vous suffit de créer une nouvelle route finissant par <code>*</code> dans la langue souhaitée.</p><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-json">{
     &quot;pageNotFound&quot;: &quot;/pages-inexistantes/&quot;,
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;routes&quot;: {
@@ -165,7 +165,7 @@ webconfig.prod.json
 │  ├─ content.htm
 │  └─ error.htm
 └─ webconfig.json
-</code></pre><p>Avec le <code>webconfig.json</code> initialement comme ceci avec <code>routes: &lt;Object&gt;</code> :</p><pre><code class="lang-js">{
+</code></pre><p>Avec le <code>webconfig.json</code> initialement comme ceci avec <code>routes: &lt;Object&gt;</code> :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/doc/index.html&quot;: {
@@ -177,7 +177,7 @@ webconfig.prod.json
         }
     }
 }
-</code></pre><p>se transformant en cela avec <code>routes: &lt;Array&gt;</code> :</p><pre><code class="lang-js">{
+</code></pre><p>se transformant en cela avec <code>routes: &lt;Array&gt;</code> :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: [{
         &quot;url&quot;: &quot;/doc/index.html
@@ -188,7 +188,7 @@ webconfig.prod.json
         &quot;statusCode&quot;: 404
     }]
 }
-</code></pre><p>Avec le fichier « common.js » nous pouvons maintenant injecter les routes à des positions précise. Nous allons les ajoutés au début.</p><pre><code class="lang-js">// On intervient au niveau des routes pendant qu&#39;elles sont ajoutées.
+</code></pre><p>Avec le fichier « common.js » nous pouvons maintenant injecter les routes à des positions précise. Nous allons les ajoutés au début.</p><pre><code class="lang-json">// On intervient au niveau des routes pendant qu&#39;elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setRoutes = function (next) {
 
@@ -207,7 +207,7 @@ exports.setRoutes = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next(); 
 };
-</code></pre><p>De cette manière l&#39;adresse <code>http://localhost/doc/content.html</code> renverra la vue <code>content.htm</code> et non la vue <code>error.htm</code> en 404.</p><h3 id="gerer-les-redirections">Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p><p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p><h4 id="en-statique">En statique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
+</code></pre><p>De cette manière l&#39;adresse <code>http://localhost/doc/content.html</code> renverra la vue <code>content.htm</code> et non la vue <code>error.htm</code> en 404.</p><h3 id="gerer-les-redirections">Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p><p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p><h4 id="en-statique">En statique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
@@ -228,7 +228,7 @@ exports.setRoutes = function (next) {
 </code></pre><p>Vous serez redirigé :</p><ul>
 <li>sur <code>http://localhost/liste-des-membres/</code> quand vous accéderez à <code>http://localhost/liste-des-membres</code> avec une entête <em>redirection permanente</em>.</li>
 <li>sur <code>https://node-atlas.js.org/</code> quand vous accéderez à <code>http://localhost/aller-sur-node-atlas/</code> avec une entête <em>redirection temporaire</em>.</li>
-</ul><h4 id="en-dynamique">En dynamique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
+</ul><h4 id="en-dynamique">En dynamique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
@@ -242,7 +242,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Vous serez redirigé sur <code>http://localhost/liste-des-membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis</code> avec une entête <em>redirection permanente</em>.</p><h4 id="avec-expressions-r-guli-res">Avec expressions régulières</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-js">{
+</code></pre><p>Vous serez redirigé sur <code>http://localhost/liste-des-membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis</code> avec une entête <em>redirection permanente</em>.</p><h4 id="avec-expressions-r-guli-res">Avec expressions régulières</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/membres/([-a-z0-9]+)/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;,
@@ -261,7 +261,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p><p>Pour le second <em>match</em> utilisez $1, pour le troisième $2, etc.</p><h3 id="gerer-les-headers-de-page">Gérer les Headers de page</h3><p>Par défaut, les Headers envoyé par NodeAtlas sont les suivants : <code>Content-Type:text/html; charset=utf-8</code> avec un <code>statusCode</code> à 200.</p><p>Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.</p><pre><code class="lang-js">{
+</code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p><p>Pour le second <em>match</em> utilisez $1, pour le troisième $2, etc.</p><h3 id="gerer-les-headers-de-page">Gérer les Headers de page</h3><p>Par défaut, les Headers envoyé par NodeAtlas sont les suivants : <code>Content-Type:text/html; charset=utf-8</code> avec un <code>statusCode</code> à 200.</p><p>Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.</p><pre><code class="lang-json">{
     &quot;mimeType&quot;: &quot;application/json&quot;
     &quot;charset&quot;: &quot;utf-16&quot;,
     &quot;routes&quot;: {
@@ -277,7 +277,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l&#39;exception du <code>statusCode</code> donc). Mettre une valeur à <code>false</code> retire le Headers précédemment mis en place.</p><pre><code class="lang-js">{
+</code></pre><p>Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l&#39;exception du <code>statusCode</code> donc). Mettre une valeur à <code>false</code> retire le Headers précédemment mis en place.</p><pre><code class="lang-json">{
     &quot;headers&quot;: {
         &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;,
         &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;
@@ -293,7 +293,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><h3 id="faire-tourner-le-site-en-https">Faire tourner le site en HTTPs</h3><p>Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier <code>security</code> dans lequel vous allez placer vos fichiers <code>server.key</code> et <code>server.crt</code> afin d&#39;alimenter le protocol.</p><p>Il ne vous reste plus qu&#39;à utiliser la configuration suivante :</p><pre><code class="lang-js">{
+</code></pre><h3 id="faire-tourner-le-site-en-https">Faire tourner le site en HTTPs</h3><p>Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier <code>security</code> dans lequel vous allez placer vos fichiers <code>server.key</code> et <code>server.crt</code> afin d&#39;alimenter le protocol.</p><p>Il ne vous reste plus qu&#39;à utiliser la configuration suivante :</p><pre><code class="lang-json">{
     &quot;httpSecure&quot;: true,
     &quot;httpSecureRelativeKeyPath&quot;: &quot;security/server.key&quot;,
     &quot;httpSecureRelativeCertificatePath&quot;: &quot;security/server.crt&quot;,
@@ -303,7 +303,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Vous pouvez également, si —comme c&#39;est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration :</p><pre><code class="lang-js">{
+</code></pre><p>Vous pouvez également, si —comme c&#39;est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration :</p><pre><code class="lang-json">{
     &quot;httpSecure&quot;: &quot;security/server&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -311,7 +311,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Pour finir, il est également possible de seulement laisser la valeur de <code>httpSecure</code> à <code>true</code> pour obtenir un <code>https</code> dans vos chemins comme <code>urlBasePath</code> ou <code>urlBase</code>. Cependant le serveur ce lancera en HTTP, il vous faudra un proxy qui gère pour vous la lecture du certificat.</p><pre><code class="lang-js">{
+</code></pre><p>Pour finir, il est également possible de seulement laisser la valeur de <code>httpSecure</code> à <code>true</code> pour obtenir un <code>https</code> dans vos chemins comme <code>urlBasePath</code> ou <code>urlBase</code>. Cependant le serveur ce lancera en HTTP, il vous faudra un proxy qui gère pour vous la lecture du certificat.</p><pre><code class="lang-json">{
     &quot;httpSecure&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -319,128 +319,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n&#39;oubliez pas qu&#39;en HTTPs ce n&#39;est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="changer-les-chevrons-du-moteur-de-template">Changer les chevrons &lt;? ?&gt; du moteur de template</h3><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <strong><em>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</em></strong>. Il serait possible de le faire avec <strong><em>&lt;%- include(&quot;head.htm&quot;) %&gt;</em></strong> (comme pour EJS) avec la configuration ci-dessous :</p><pre><code class="lang-js">{
-    &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><p>Voyez l&#39;exemple dans les fichiers ci-dessous :</p><p><em>webconfig.json</em></p><pre><code>{
-    &quot;templateEngineDelimiter&quot;: true,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;,
-            &quot;variation&quot;: &quot;index.json&quot;
-        }
-    }
-}
-</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-js">{
-    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
-    &quot;classCssCommon&quot;: &quot;common&quot;,
-    &quot;classJsCommon&quot;: &quot;common&quot;
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-js">{
-    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
-    &quot;classPage&quot;: &quot;index&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
-}
-</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;fr-fr&quot;&gt;
-    &lt;head&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;&lt;%- specific.titlePage %&gt;&lt;/title&gt;
-
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= common.classCssCommon %&gt;.css&quot; media=&quot;all&quot; /&gt;
-        &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %&gt;.css&quot; media=&quot;all&quot; /&gt;
-    &lt;/head&gt;
-    &lt;body class=&quot;&lt;%= specific.classPage %&gt;&quot;&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&quot;head.htm&quot;) %&gt;
-
-    &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
-
-    &lt;div&gt;
-        &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
-        &lt;%- specific.content %&gt;
-    &lt;/div&gt;
-
-    &lt;%- include(&quot;foot.htm&quot;) %&gt;
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez la documentation <a href="http://ejs.co/">EJS2</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>?</em></strong>.</p><h3 id="generer-le-html-avec-pug">Générer le HTML avec Pug</h3><p>Il est possible d&#39;utiliser en lieu et place du moteur EJS le moteur PUGe (anciennement Jade) pour générer ses pages et manipuler ses variations. Cela est possible pour l&#39;intégralité du site avec par exemple ce webconfig :</p><pre><code>{
-    &quot;enablePug&quot;: true,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        },
-        &quot;/contenu/&quot;: {
-            &quot;view&quot;: &quot;content.htm&quot;
-        }
-    }
-}
-</code></pre><p>ou seulement pour une page précise :</p><pre><code>{
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        },
-        &quot;/contenu/&quot;: {
-            &quot;enablePug&quot;: true,
-            &quot;view&quot;: &quot;content.htm&quot;
-        }
-    }
-}
-</code></pre><p>Il est également possible pour un moteur complet en PUG de repasse une page spécifique en EJS.</p><pre><code>{
-    &quot;enablePug&quot;: true,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;enablePug&quot;: false,
-            &quot;view&quot;: &quot;index.htm&quot;
-        },
-        &quot;/contenu/&quot;: {
-            &quot;view&quot;: &quot;content.htm&quot;
-        }
-    }
-}
-</code></pre><p>Voyons ce que cela donnerait avec l&#39;exemple utiliser précédemment avec <code>&lt;? ?&gt;</code> et <code>&lt;% %&gt;</code> :</p><p><em>webconfig.json</em></p><pre><code>{
-    &quot;enablePug&quot;: true,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;,
-            &quot;variation&quot;: &quot;index.json&quot;
-        }
-    }
-}
-</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-js">{
-    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
-    &quot;classCssCommon&quot;: &quot;common&quot;,
-    &quot;classJsCommon&quot;: &quot;common&quot;
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-js">{
-    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
-    &quot;classPage&quot;: &quot;index&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
-}
-</code></pre><p><em>views/partials/head.pug</em></p><pre><code class="lang-html">doctype html
-html(lang=&quot;fr-fr&quot;)
-    head
-        meta(charset=&quot;utf-8&quot;)
-        title #{specific.titlePage}
-        link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + common.classCssCommon + &quot;.css&quot;, media=&quot;all&quot;)
-        link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + specific.classPage + &quot;.css&quot;, media=&quot;all&quot;)
-    body(class=specific.classPage)
-</code></pre><p><em>views/partials/foot.pug</em></p><pre><code class="lang-html">script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">include partials/head.pug
-
-div
-    h1 #{specific.titlePage}
-    | !{specific.content}
-
-include partials/foot.pug
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez la documentation <a href="https://pugjs.org/">PUG</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>enablePug</em></strong> <em>vaut</em> <strong><em>false</em></strong>.</p><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d&#39;entré par leur chemin d&#39;accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu&#39;un Bundle existe dans le Webconfig.</p><h4 id="cr-er-des-bundles">Créer des Bundles</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n&#39;oubliez pas qu&#39;en HTTPs ce n&#39;est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d&#39;entré par leur chemin d&#39;accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu&#39;un Bundle existe dans le Webconfig.</p><h4 id="cr-er-des-bundles">Créer des Bundles</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;bundles&quot;: {
         &quot;javascript&quot;: {
             &quot;javascript/boot.min.js&quot;: [
@@ -676,7 +555,7 @@ include partials/foot.pug
         ]
     }
 }
-</code></pre><p><em>Note : il est possible de désactiver les Bundles en ne les incluant pas dans le <code>webconfig</code> en question.</em></p><h4 id="d-sactiver-des-bundles">Désactiver des Bundles</h4><p>Il est également possible de ne pas exécuter la minification au démarrage d&#39;un site web avec NodeAtlas avec les propriétés <code>&quot;stylesheetsBundlesEnable&quot;: false</code> et <code>&quot;javascriptBundlesEnable&quot;: false</code> pour chaque type de Bundle.</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : il est possible de désactiver les Bundles en ne les incluant pas dans le <code>webconfig</code> en question.</em></p><h4 id="d-sactiver-des-bundles">Désactiver des Bundles</h4><p>Il est également possible de ne pas exécuter la minification au démarrage d&#39;un site web avec NodeAtlas avec les propriétés <code>&quot;stylesheetsBundlesEnable&quot;: false</code> et <code>&quot;javascriptBundlesEnable&quot;: false</code> pour chaque type de Bundle.</p><pre><code class="lang-json">{
     &quot;stylesheetsBundlesEnable&quot;: false,
     &quot;javascriptBundlesEnable&quot;: false,
     &quot;bundles&quot;: {
@@ -711,7 +590,7 @@ include partials/foot.pug
         }
     }
 }
-</code></pre><p><em>Note : si vos bundles sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne <code>&quot;bundles&quot;: &quot;bundles.json&quot;</code>.</em></p><h4 id="r-g-n-rer-les-bundles-avant-chaque-rendu-de-page">Ré-générer les Bundles avant chaque rendu de page</h4><p>De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu&#39;ils soient régénérés avant chaque affichage de page avec les propriétés <code>&quot;stylesheetsBundlesBeforeResponse&quot;: true</code> et <code>&quot;javascriptBundlesBeforeResponse&quot;: true</code> pour chaque type de Bundle.</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : si vos bundles sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne <code>&quot;bundles&quot;: &quot;bundles.json&quot;</code>.</em></p><h4 id="r-g-n-rer-les-bundles-avant-chaque-rendu-de-page">Ré-générer les Bundles avant chaque rendu de page</h4><p>De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu&#39;ils soient régénérés avant chaque affichage de page avec les propriétés <code>&quot;stylesheetsBundlesBeforeResponse&quot;: true</code> et <code>&quot;javascriptBundlesBeforeResponse&quot;: true</code> pour chaque type de Bundle.</p><pre><code class="lang-json">{
     &quot;stylesheetsBundlesBeforeResponse&quot;: false,
     &quot;javascriptBundlesBeforeResponse&quot;: false,
     &quot;bundles&quot;: {
@@ -752,7 +631,7 @@ include partials/foot.pug
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-js">{
+</code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-json">{
     &quot;enableLess&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -784,7 +663,7 @@ include partials/foot.pug
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><h4 id="compiler-les-less-avec-generate-">Compiler les Less avec <code>--generate</code></h4><p>Comme les Less sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d&#39;automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>enableLess.less</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-js">{
+</code></pre><h4 id="compiler-les-less-avec-generate-">Compiler les Less avec <code>--generate</code></h4><p>Comme les Less sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d&#39;automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>enableLess.less</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
     &quot;enableLess&quot;: {
         &quot;less&quot;: [
             &quot;stylesheets/common.less&quot;,
@@ -797,7 +676,7 @@ include partials/foot.pug
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p>ou suivante :</p><pre><code class="lang-js">{
+</code></pre><p>ou suivante :</p><pre><code class="lang-json">{
     &quot;enableLess&quot;: {
         &quot;less&quot;: &quot;less.json&quot;
     },
@@ -805,13 +684,13 @@ include partials/foot.pug
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p>avec <code>less.json</code> qui contient :</p><pre><code class="lang-js">[
+</code></pre><p>avec <code>less.json</code> qui contient :</p><pre><code class="lang-json">[
     &quot;stylesheets/common.less&quot;,
     &quot;stylesheets/component-1.less&quot;,
     &quot;stylesheets/component-2.less&quot;,
     &quot;stylesheets/component-3.less&quot;
 ]
-</code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-js">{
+</code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
     &quot;enableLess&quot;: {
         &quot;paths&quot;: [
             &quot;subdirectory/styles-files&quot;,
@@ -828,7 +707,7 @@ include partials/foot.pug
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-js">{
+</code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-json">{
     &quot;enableStylus&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -859,7 +738,7 @@ include partials/foot.pug
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><p><em>Note:</em> Plus d&#39;options sur <a href="https://www.npmjs.com/package/stylus">la documentation du module stylus</a>.</p><h4 id="compiler-les-stylus-avec-generate-">Compiler les Stylus avec <code>--generate</code></h4><p>Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d&#39;automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>enableStylus.stylus</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-js">{
+</code></pre><p><em>Note:</em> Plus d&#39;options sur <a href="https://www.npmjs.com/package/stylus">la documentation du module stylus</a>.</p><h4 id="compiler-les-stylus-avec-generate-">Compiler les Stylus avec <code>--generate</code></h4><p>Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d&#39;automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>enableStylus.stylus</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
     &quot;enableStylus&quot;: {
         &quot;stylus&quot;: [
             &quot;stylesheets/common.styl&quot;,
@@ -872,7 +751,7 @@ include partials/foot.pug
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p>ou suivante :</p><pre><code class="lang-js">{
+</code></pre><p>ou suivante :</p><pre><code class="lang-json">{
     &quot;enableLess&quot;: {
         &quot;stylus&quot;: &quot;stylus.json&quot;
     },
@@ -880,13 +759,13 @@ include partials/foot.pug
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p>avec <code>stylus.json</code> qui contient :</p><pre><code class="lang-js">[
+</code></pre><p>avec <code>stylus.json</code> qui contient :</p><pre><code class="lang-json">[
     &quot;stylesheets/common.styl&quot;,
     &quot;stylesheets/component-1.styl&quot;,
     &quot;stylesheets/component-2.styl&quot;,
     &quot;stylesheets/component-3.styl&quot;
 ]
-</code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-js">{
+</code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
     &quot;enableStylus&quot;: {
         &quot;paths&quot;: [
             &quot;subdirectory/styles-files&quot;,
@@ -897,7 +776,7 @@ include partials/foot.pug
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><h3 id="optimiser-les-images">Optimiser les Images</h3><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d&#39;entrés par leur chemin d&#39;accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L&#39;optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des Optimizations existe dans le Webconfig.</p><h4 id="cr-er-des-optimizations">Créer des Optimizations</h4><p>Avec la configuration suivante :</p><pre><code class="lang-js">{
+</code></pre><h3 id="optimiser-les-images">Optimiser les Images</h3><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d&#39;entrés par leur chemin d&#39;accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L&#39;optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des Optimizations existe dans le Webconfig.</p><h4 id="cr-er-des-optimizations">Créer des Optimizations</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
             &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
@@ -937,7 +816,7 @@ include partials/foot.pug
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><h4 id="cr-er-des-optimizations-par-groupes-de-fichier">Créer des Optimizations par groupes de fichier</h4><p>Vous pouvez par exemple, plutôt que d&#39;indiquer les fichiers un par un, les indiquer en groupe :</p><pre><code class="lang-js">{
+</code></pre><h4 id="cr-er-des-optimizations-par-groupes-de-fichier">Créer des Optimizations par groupes de fichier</h4><p>Vous pouvez par exemple, plutôt que d&#39;indiquer les fichiers un par un, les indiquer en groupe :</p><pre><code class="lang-json">{
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
             &quot;media/images/*.{gif,jpg,png,svg}&quot;: &quot;media/images/optimized/&quot;
@@ -949,7 +828,7 @@ include partials/foot.pug
         }
     }
 }
-</code></pre><h4 id="ajouter-des-options-aux-optimizations">Ajouter des options aux Optimizations</h4><p>Il est possible de redéfinir les options par défaut pour l&#39;optimisation via ses 4 objets :</p><pre><code class="lang-js">{
+</code></pre><h4 id="ajouter-des-options-aux-optimizations">Ajouter des options aux Optimizations</h4><p>Il est possible de redéfinir les options par défaut pour l&#39;optimisation via ses 4 objets :</p><pre><code class="lang-json">{
     &quot;optimizations&quot;: {
         &quot;jpg&quot;: { &quot;progressive&quot;: false },
         &quot;gif&quot;: { &quot;interlaced&quot;: false },
@@ -1055,7 +934,7 @@ include partials/foot.pug
         &quot;media/images/example.svg&quot;: &quot;media/images/optimized/&quot;
     }
 }
-</code></pre><p><em>Note : il est possible de désactiver les Optimizations en ne les incluant pas dans le <code>webconfig</code> en question.</em></p><h4 id="d-sactiver-des-optimizations">Désactiver des Optimizations</h4><p>Il est également possible de ne pas exécuter l&#39;optimisation au démarrage d&#39;un site web avec NodeAtlas avec les propriétés <code>&quot;imagesOptimizationsEnable&quot;: false</code>.</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : il est possible de désactiver les Optimizations en ne les incluant pas dans le <code>webconfig</code> en question.</em></p><h4 id="d-sactiver-des-optimizations">Désactiver des Optimizations</h4><p>Il est également possible de ne pas exécuter l&#39;optimisation au démarrage d&#39;un site web avec NodeAtlas avec les propriétés <code>&quot;imagesOptimizationsEnable&quot;: false</code>.</p><pre><code class="lang-json">{
     &quot;imagesOptimizationsEnable&quot;: false,
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
@@ -1071,7 +950,7 @@ include partials/foot.pug
         }
     }
 }
-</code></pre><p><em>Note : si vos optimizations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne <code>&quot;optimizations&quot;: &quot;optimizations.json&quot;</code>.</em></p><h4 id="r-g-n-rer-les-optimizations-avant-chaque-rendu-de-page">Ré-générer les Optimizations avant chaque rendu de page</h4><p>Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés <code>&quot;imagesOptimizationsBeforeResponse&quot;: true</code>.</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : si vos optimizations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne <code>&quot;optimizations&quot;: &quot;optimizations.json&quot;</code>.</em></p><h4 id="r-g-n-rer-les-optimizations-avant-chaque-rendu-de-page">Ré-générer les Optimizations avant chaque rendu de page</h4><p>Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés <code>&quot;imagesOptimizationsBeforeResponse&quot;: true</code>.</p><pre><code class="lang-json">{
     &quot;imagesOptimizationsBeforeResponse&quot;: false,
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
@@ -1169,7 +1048,7 @@ include partials/foot.pug
 }
 </code></pre><blockquote>
 <p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node &quot;../../../&quot; --generate --webconfig webconfig.multiple.json</code>. Le résultat est dans <code>serverless</code>.</p>
-</blockquote><h3 id="autoriser-interdire-les-demandes-get-post">Autoriser / Interdire les demandes GET / POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l&#39;accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p><pre><code class="lang-js">{
+</blockquote><h3 id="autoriser-interdire-les-demandes-get-post">Autoriser / Interdire les demandes GET / POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l&#39;accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p><pre><code class="lang-json">{
     &quot;getSupport&quot;: true,
     &quot;postSupport&quot;: false,
     &quot;routes&quot;: {
@@ -1189,7 +1068,7 @@ include partials/foot.pug
         }
     }
 }
-</code></pre><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>getSupport</em></strong> <em>et</em> <strong><em>postSupport</em></strong> <em>sont à</em> <strong><em>true</em></strong> <em>au niveau global et par page.</em></p><h3 id="autoriser-interdire-les-demandes-put-delete">Autoriser / Interdire les demandes PUT / DELETE</h3><p>Fonctionnant exactement de la même manière que <code>getSupport</code> et <code>postSupport</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>putSupport</code> et <code>deleteSupport</code>.</p><pre><code class="lang-js">{
+</code></pre><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>getSupport</em></strong> <em>et</em> <strong><em>postSupport</em></strong> <em>sont à</em> <strong><em>true</em></strong> <em>au niveau global et par page.</em></p><h3 id="autoriser-interdire-les-demandes-put-delete">Autoriser / Interdire les demandes PUT / DELETE</h3><p>Fonctionnant exactement de la même manière que <code>getSupport</code> et <code>postSupport</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>putSupport</code> et <code>deleteSupport</code>.</p><pre><code class="lang-json">{
     &quot;getSupport&quot;: false,
     &quot;postSupport&quot;: false,
     &quot;putSupport&quot;: true,
@@ -1227,11 +1106,11 @@ include partials/foot.pug
 </code></pre><p>Avec la configuration ci-dessus, seulement une action HTTP n&#39;est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.</p><h3 id="changer-les-parametres-des-sessions">Changer les paramètres des Sessions</h3><h4 id="cl-et-secret">Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p><ul>
 <li>Key : <code>nodeatlas.sid</code></li>
 <li>Secret : <code>1234567890bépo</code></li>
-</ul><p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p><p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p><pre><code class="lang-js">{
+</ul><p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p><p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
     sessionKey: &quot;clé personnelle&quot;,
     sessionSecret: &quot;secret personnel&quot;
 }
-</code></pre><p>NodeAtlas utilise également un objet de stockage mémoire (MemoryStore) qui stocke les informations dans la RAM du serveur.</p><h4 id="autres-param-tres">Autres paramètres</h4><p>Il est possible de changer l&#39;intégralité des paramètres des sessions (sauf le MemoryStore) en utilisant la configuration de <code>webconfig.json</code> suivante :</p><pre><code class="lang-js">{
+</code></pre><p>NodeAtlas utilise également un objet de stockage mémoire (MemoryStore) qui stocke les informations dans la RAM du serveur.</p><h4 id="autres-param-tres">Autres paramètres</h4><p>Il est possible de changer l&#39;intégralité des paramètres des sessions (sauf le MemoryStore) en utilisant la configuration de <code>webconfig.json</code> suivante :</p><pre><code class="lang-json">{
     &quot;session&quot;: {
         &quot;key&quot;: &quot;clé personnelle&quot;,
         &quot;secret&quot;: &quot;secret personnel&quot;,
@@ -1298,7 +1177,7 @@ exports.setSessions = website.setSessions;
 
 exports.setModules = website.setModules;
 exports.setSessions = website.setSessions;
-</code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p><h3 id="changer-l-url-final-des-hostname-et-port-d-ecoute">Changer l&#39;url final des hostname et port d&#39;écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d&#39;écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p><pre><code class="lang-js">{
+</code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p><h3 id="changer-l-url-final-des-hostname-et-port-d-ecoute">Changer l&#39;url final des hostname et port d&#39;écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d&#39;écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;urlPort&quot;: 80,
@@ -1309,7 +1188,7 @@ exports.setSessions = website.setSessions;
         }
     }
 }
-</code></pre><p>Il est également possible de faire en sorte qu&#39;aucune autre url ne puisse être tapé. Ainsi si on réclame <code>www.localhost</code> ou <code>localhost:7777</code> c&#39;est bien sur <code>localhost</code> que sera le visiteur :</p><pre><code class="lang-js">{
+</code></pre><p>Il est également possible de faire en sorte qu&#39;aucune autre url ne puisse être tapé. Ainsi si on réclame <code>www.localhost</code> ou <code>localhost:7777</code> c&#39;est bien sur <code>localhost</code> que sera le visiteur :</p><pre><code class="lang-json">{
     &quot;enableForceDomain&quot;: true,
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
@@ -1331,14 +1210,14 @@ exports.setSessions = website.setSessions;
 &lt;img src=&quot;&lt;?= urlBasePath ?&gt;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?= urlBasePath ?&gt;javascript/common.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>À noter que dans le cas de la configuration suivante :</p><pre><code class="lang-js">{
+</code></pre><p>À noter que dans le cas de la configuration suivante :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
-</code></pre><p><code>urlBasePath</code> retourne <code>http://localhost/</code> alors que dans celle-ci :</p><pre><code class="lang-js">{
+</code></pre><p><code>urlBasePath</code> retourne <code>http://localhost/</code> alors que dans celle-ci :</p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;urlRelativeSubPath&quot;: &quot;sub/folder&quot;,
     &quot;routes&quot;: {
@@ -1347,7 +1226,7 @@ exports.setSessions = website.setSessions;
         }
     }
 }
-</code></pre><p><code>urlBasePath</code> retourne <code>http://localhost:7777/sub/folder/</code>.</p><h4 id="les-chemins-des-templates">Les chemins des templates</h4><p>En utilisant le webconfig suivant :</p><pre><code class="lang-js">{
+</code></pre><p><code>urlBasePath</code> retourne <code>http://localhost:7777/sub/folder/</code>.</p><h4 id="les-chemins-des-templates">Les chemins des templates</h4><p>En utilisant le webconfig suivant :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/index.html&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -1361,7 +1240,7 @@ exports.setSessions = website.setSessions;
 &lt;a href=&quot;http://localhost/index.html&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
 &lt;a href=&quot;http://localhost/contact.html&quot;&gt;Lien pour nous contacter&lt;/a&gt;
 &lt;!-- ... --&gt;
-</code></pre><p>je serais obligé de changer mon lien dans le template si je change le port d&#39;écoute ou si je change le chemin de l&#39;url. Le changement de configuration suivant :</p><pre><code class="lang-js">{
+</code></pre><p>je serais obligé de changer mon lien dans le template si je change le port d&#39;écoute ou si je change le chemin de l&#39;url. Le changement de configuration suivant :</p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;routes&quot;: {
         &quot;/home.html&quot;: {
@@ -1376,7 +1255,7 @@ exports.setSessions = website.setSessions;
 &lt;a href=&quot;http://localhost:7777/home.html&quot;&gt;Lien vers l&#39;accueil&lt;/a&gt;
 &lt;a href=&quot;http://localhost:7777/contact-us.html&quot;&gt;Lien pour nous contacter&lt;/a&gt;
 &lt;!-- ... --&gt;
-</code></pre><p>Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant son chemin dans la propriété <code>url</code>.</p><p>Avec le webconfig suivant :</p><pre><code class="lang-js">{
+</code></pre><p>Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant son chemin dans la propriété <code>url</code>.</p><p>Avec le webconfig suivant :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;index&quot;: {
             &quot;url&quot;: &quot;/index.html&quot;,
@@ -1413,7 +1292,7 @@ exports.setSessions = website.setSessions;
 </code></pre>
 <p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
-</ol><h4 id="utilisation-de-la-cl-pour-mapper-les-pages">Utilisation de la clé pour mapper les pages</h4><p>Il est parfois utile de connaître la clé utilisé pour la page courante afin de trouver une équivalence dans une autre langue par exemple.</p><p>Avec le webconfig suivant :</p><pre><code class="lang-js">{
+</ol><h4 id="utilisation-de-la-cl-pour-mapper-les-pages">Utilisation de la clé pour mapper les pages</h4><p>Il est parfois utile de connaître la clé utilisé pour la page courante afin de trouver une équivalence dans une autre langue par exemple.</p><p>Avec le webconfig suivant :</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;routes&quot;: {
         &quot;index_fr-fr&quot;: {
@@ -1436,7 +1315,7 @@ exports.setSessions = website.setSessions;
         }
     }
 }
-</code></pre><p>et les fichiers de variation commun suivant en fr :</p><pre><code class="lang-js">{
+</code></pre><p>et les fichiers de variation commun suivant en fr :</p><pre><code class="lang-json">{
     &quot;language&quot;: [{
         &quot;name&quot;: &quot;Anglais&quot;,
         &quot;code&quot;: &quot;en-us&quot;
@@ -1445,7 +1324,7 @@ exports.setSessions = website.setSessions;
         &quot;code&quot;: &quot;fr-fr&quot;
     }]
 }
-</code></pre><p>et en en :</p><pre><code class="lang-js">{
+</code></pre><p>et en en :</p><pre><code class="lang-json">{
     &quot;language&quot;: [{
         &quot;name&quot;: &quot;English&quot;,
         &quot;code&quot;: &quot;en-us&quot;

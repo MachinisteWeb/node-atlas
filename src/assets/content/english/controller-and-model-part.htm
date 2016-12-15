@@ -5,7 +5,7 @@
 <li>management of sessions or,</li>
 <li>do AJAX or Websocket request/response and</li>
 <li>do more !</li>
-</ul><h3 id="lifecycle-and-hooks">Lifecycle and Hooks</h3><p>For that, you could hook to some point of life cycle of the page generation with common controller (<code>commonController</code>) and with specific controller for each page (<code>routes[&lt;route&gt;].controller</code>).</p><p>This is a <code>webconfig.json</code> allows you to manipulate each part of life cycle of a page.</p><pre><code class="lang-js">{
+</ul><h3 id="lifecycle-and-hooks">Lifecycle and Hooks</h3><p>For that, you could hook to some point of life cycle of the page generation with common controller (<code>commonController</code>) and with specific controller for each page (<code>routes[&lt;route&gt;].controller</code>).</p><p>This is a <code>webconfig.json</code> allows you to manipulate each part of life cycle of a page.</p><pre><code class="lang-json">{
     &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
@@ -50,7 +50,7 @@
 </li>
 </ul>
 <p>Sending of Response to Client</p>
-</blockquote><h4 id="changevariation">changeVariation</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-js">{
+</blockquote><h4 id="changevariation">changeVariation</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -74,10 +74,10 @@
 │  │  └─ foot.htm
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-js">{
+</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Site Title&quot;
 }
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-js">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;This is the Home Page.&lt;/p&gt;&quot;
 }
@@ -162,7 +162,7 @@ exports.changeVariation = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>If you delete the variation entry of specific page from webconfig:</p><pre><code class="lang-js">{
+</code></pre><p>If you delete the variation entry of specific page from webconfig:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -186,7 +186,7 @@ exports.changeVariation = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="changedom">changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-js">{
+</code></pre><h4 id="changedom">changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -205,10 +205,10 @@ exports.changeVariation = function (params, next) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-js">{
+</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Site Title&quot;
 }
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-js">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;This is Home Page.&lt;/p&gt;&quot;
 }
@@ -288,7 +288,7 @@ exports.changeDom = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-js">{
+</code></pre><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -353,7 +353,7 @@ exports.changeVariation = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="setconfigurations">setConfigurations</h4><p>To configure NodeAtlas web server others (<a href="http://expressjs.com/">ExpressJs</a>), you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is an exemple using a middleware for <a href="http://expressjs.com/">ExpressJs</a>:</p><pre><code class="lang-js">{
+</code></pre><h4 id="setconfigurations">setConfigurations</h4><p>To configure NodeAtlas web server others (<a href="http://expressjs.com/">ExpressJs</a>), you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is an exemple using a middleware for <a href="http://expressjs.com/">ExpressJs</a>:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -416,7 +416,7 @@ exports.changeVariation = function (params, next) {
 │  ├─ common.json
 │  └─ index.json
 └─ webconfig.json
-</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-js">{
+</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -457,7 +457,7 @@ exports.setSessions = function (next) {
 ├─ variations/
 │  └─ common.json
 └─ webconfig.json
-</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-js">{
+</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -1272,12 +1272,12 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-js">{
+</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Example MySql&quot;,
     &quot;male&quot;: &quot;Man&quot;,
     &quot;female&quot;: &quot;Woman&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-js">{
+</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;User Table&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;First entry details.&lt;/p&gt;&quot;,
     &quot;contents&quot;: &quot;&lt;p&gt;All entries details.&lt;/p&gt;&quot;,
@@ -1428,12 +1428,12 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-js">{
+</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Example MongoDB&quot;,
     &quot;male&quot;: &quot;Man&quot;,
     &quot;female&quot;: &quot;Woman&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-js">{
+</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;User Collection&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Document `{ \&quot;identity.firstname\&quot;: \&quot;Bruno\&quot; }` details.&lt;/p&gt;&quot;
 }
