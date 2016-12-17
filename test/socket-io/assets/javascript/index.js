@@ -1,27 +1,25 @@
-window.website = window.website || {};
+var html = document.getElementsByTagName("html")[0],
+    layout = document.getElementsByClassName("layout")[0];
 
-(function (publics) {
-    "use strict";
-
-    var html = document.getElementsByTagName("html")[0],
-        body = document.getElementsByTagName("body")[0],
-        layout = document.getElementsByClassName("layout")[0];
-
-    function setServerRender() {
-        var button = document.getElementsByTagName("button")[0];
-        button.addEventListener("click", function () {
-            NA.socket.emit("server-render", {
-                lang: html.getAttribute("lang"),
-                variation: body.getAttribute("data-variation")
-            });
+// On associe sur le bouton l'action de communiquer avec le serveur en cliquant dessus.
+function setServerRender() {
+    var button = document.getElementsByTagName("button")[0];
+    button.addEventListener("click", function () {
+        NA.socket.emit("server-render", {
+            lang: html.getAttribute("lang")
         });
-    }
+    });
+}
 
-    publics.init = function () {
-        setServerRender();
-        NA.socket.on("server-render", function (data) {
-            layout.innerHTML = data.render;
-            setServerRender();
-        });
-    };
-}(website.index = {}));
+// On affecte l'action au bouton.
+setServerRender();
+
+// Quand le serveur répond après notre demande auprès de lui...
+NA.socket.on("server-render", function (data) {
+
+    // ...on met à jour le contenu...
+    layout.innerHTML = data.render;
+
+    // ...et ré-affectons l'action au bouton du nouveau contenu.
+    setServerRender();
+});

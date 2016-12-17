@@ -1,15 +1,14 @@
 // Configuration de tous les modules.
-exports.setConfigurations = function (callback) {
-    var NA = this;
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
 
-    NA.io.on('connection', function (socket) {
+    io.on('connection', function (socket) {
         console.log('A user connected');
         socket.on('disconnect', function () {
             console.log('A user disconnected');
         });
     });
-
-    callback();
 };
 
 
