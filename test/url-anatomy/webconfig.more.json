@@ -1,0 +1,10 @@
+{
+    "httpHostname": "127.0.0.1",
+    "httpPort": 7777,
+    "urlRelativeSubPath": "sub/folder",
+    "routes": {
+        "/index.html": {
+            "view": "index.htm"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "httpHostname": "localhost",
+    "httpPort": 80,
+    "httpSecure": false,
+    "urlRelativeSubPath": "",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
