@@ -581,7 +581,7 @@ Il est possible de configurer les informations livrées par NodeAtlas à la dema
 
 Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :
 
-**webconfig.json**
+*webconfig.json*
 
 ```json
 {
@@ -613,7 +613,7 @@ avec les fichiers suivants :
 └─ webconfig.json
 ```
 
-**views/partials/head.htm**
+*views/partials/head.htm*
 
 ```html
 <!DOCTYPE html>
@@ -626,7 +626,7 @@ avec les fichiers suivants :
     <body>
 ```
 
-**views/partials/foot.htm**
+*views/partials/foot.htm*
 
 ```html
         <script async type="text/javascript" src="javascript/common.js"></script>
@@ -634,7 +634,7 @@ avec les fichiers suivants :
 </html>
 ```
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
     <?- include("partials/head.htm") ?>
@@ -647,7 +647,7 @@ avec les fichiers suivants :
     <?- include("partials/foot.htm") ?>
 ```
 
-**views/members.htm**
+*views/members.htm*
 
 ```html
     <?- include("partials/head.htm") ?>
@@ -712,7 +712,7 @@ avec les fichiers suivants :
 └─ webconfig.json
 ```
 
-**views/partials/head.htm**
+*views/partials/head.htm*
 
 ```html
 <!DOCTYPE html>
@@ -727,7 +727,7 @@ avec les fichiers suivants :
     <body class="<?= specific.classPage ?>">
 ```
 
-**views/partials/foot.htm**
+*views/partials/foot.htm*
 
 ```html
         <script async type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
@@ -735,7 +735,7 @@ avec les fichiers suivants :
 </html>
 ```
 
-**views/template.htm**
+*views/template.htm*
 
 ```html
     <?- include("partials/head.htm") ?>
@@ -750,7 +750,7 @@ avec les fichiers suivants :
     <?- include("partials/foot.htm") ?>
 ```
 
-**variations/common.json**
+*variations/common.json*
 
 ```json
 {
@@ -760,7 +760,7 @@ avec les fichiers suivants :
 }
 ```
 
-**variations/index.json**
+*variations/index.json*
 
 ```json
 {
@@ -770,7 +770,7 @@ avec les fichiers suivants :
 }
 ```
 
-**variations/members.json**
+*variations/members.json*
 
 ```json
 {
@@ -837,7 +837,7 @@ avec les fichiers suivants :
 └─ webconfig.json
 ```
 
-**views/partials/head.htm**
+*views/partials/head.htm*
 
 ```html
 <!DOCTYPE html>
@@ -849,14 +849,14 @@ avec les fichiers suivants :
     <body class="<?= specific.classPage ?>">
 ```
 
-**views/partials/foot.htm**
+*views/partials/foot.htm*
 
 ```html
     </body>
 </html>
 ```
 
-**views/landing.htm**
+*views/landing.htm*
 
 ```html
     <?- include("partials/head.htm") ?>
@@ -870,7 +870,7 @@ avec les fichiers suivants :
     <?- include("partials/foot.htm") ?>
 ```
 
-**views/home.htm**
+*views/home.htm*
 
 ```html
     <?- include("partials/head.htm") ?>
@@ -883,7 +883,7 @@ avec les fichiers suivants :
     <?- include("partials/foot.htm") ?>
 ```
 
-**l10n/landing.json**
+*l10n/landing.json*
 
 ```json
 {
@@ -896,7 +896,7 @@ avec les fichiers suivants :
 }
 ```
 
-**l10n/en-us/home.json**
+*l10n/en-us/home.json*
 
 ```json
 {
@@ -906,7 +906,7 @@ avec les fichiers suivants :
 }
 ```
 
-**l10n/fr-fr/home.json**
+*l10n/fr-fr/home.json*
 
 ```json
 {
@@ -979,7 +979,7 @@ Vous pouvez également décider de faire tourner chaque langue dans un « webcon
 
 vous pourriez avoir les « webconfig.json » suivant :
 
-**webconfig.json**
+*webconfig.json*
 
 ```json
 {
@@ -992,7 +992,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 }
 ```
 
-**webconfig.en-us.json**
+*webconfig.en-us.json*
 
 ```json
 {
@@ -1012,7 +1012,7 @@ vous pourriez avoir les « webconfig.json » suivant :
 }
 ```
 
-**webconfig.fr-fr.json**
+*webconfig.fr-fr.json*
 
 ```json
 {
@@ -1056,7 +1056,7 @@ Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exe
 
 Par défaut, si vous utilisez la configuration suivante :
 
-**webconfig.json**
+*webconfig.json*
 
 ```json
 {
@@ -1070,7 +1070,7 @@ Par défaut, si vous utilisez la configuration suivante :
 
 avec la vue suivante :
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -1092,7 +1092,7 @@ avec la vue suivante :
 
 cela est identique à utiliser celle-ci :
 
-**webconfig.json**
+*webconfig.json*
 
 ```json
 {
@@ -1446,7 +1446,7 @@ Par exemple, pour inclure une partie de fichier on utilise l'instruction `<?- in
 
 Voyez l'exemple dans les fichiers ci-dessous :
 
-**webconfig.json**
+*webconfig.json*
 
 ```json
 {
@@ -1461,7 +1461,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 }
 ```
 
-**variations/common.json**
+*variations/common.json*
 
 ```json
 {
@@ -1471,7 +1471,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 }
 ```
 
-**variations/index.json**
+*variations/index.json*
 
 ```json
 {
@@ -1481,7 +1481,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 }
 ```
 
-**views/partials/head.htm**
+*views/partials/head.htm*
 
 ```html
 <!DOCTYPE html>
@@ -1495,7 +1495,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
     <body class="<%= specific.classPage %>">
 ```
 
-**views/partials/foot.htm**
+*views/partials/foot.htm*
 
 ```html
         <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
@@ -1503,7 +1503,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 </html>
 ```
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
     <%- include("partials/head.htm") %>
@@ -1577,7 +1577,7 @@ Il est également possible pour un moteur complet en PUG de repasser une page sp
 
 Voyons ce que cela donnerait avec l'exemple suivant :
 
-**webconfig.json**
+*webconfig.json*
 
 ```
 {
@@ -1592,7 +1592,7 @@ Voyons ce que cela donnerait avec l'exemple suivant :
 }
 ```
 
-**variations/common.json**
+*variations/common.json*
 
 ```json
 {
@@ -1602,7 +1602,7 @@ Voyons ce que cela donnerait avec l'exemple suivant :
 }
 ```
 
-**variations/index.json**
+*variations/index.json*
 
 ```json
 {
@@ -1612,7 +1612,7 @@ Voyons ce que cela donnerait avec l'exemple suivant :
 }
 ```
 
-**views/partials/head.pug**
+*views/partials/head.pug*
 
 ```html
 doctype html
@@ -1625,13 +1625,13 @@ html(lang="fr-fr")
     body(class=specific.classPage)
 ```
 
-**views/partials/foot.pug**
+*views/partials/foot.pug*
 
 ```html
 script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
 ```
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 include partials/head.pug
@@ -1688,7 +1688,7 @@ Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous le
 
 et voici le détail des endroits ou vous pouvez intervenir :
 
-**Démarrage de NodeAtlas** 
+*Démarrage de NodeAtlas*
 
 Initialisation des modules
 
@@ -1713,7 +1713,7 @@ Initialisation des routes
 
 Lancement du serveur web
 
-**Requête/Réponse HTTP de NodeAtlas** 
+*Requête/Réponse HTTP de NodeAtlas*
 
 Traitement de la Requête du Client
 
@@ -1769,7 +1769,7 @@ avec cet ensemble de fichier :
 
 En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une variable `example=Ceci+est+un+test` dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :
 
-**variations/common.json**
+*variations/common.json*
 
 ```json
 {
@@ -1777,7 +1777,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 }
 ```
 
-**variations/index.json**
+*variations/index.json*
 
 ```json
 {
@@ -1786,7 +1786,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 }
 ```
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
     <?- include("partials/head.htm") ?>
@@ -1801,7 +1801,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
     <?- include("partials/foot.htm") ?>
 ```
 
-**controllers/common.js**
+*controllers/common.js*
 
 ```json
 // On intervient avant que les variables soient injectées dans le moteur de template.
@@ -1840,7 +1840,7 @@ exports.changeVariation = function (params, next) {
 };
 ```
 
-**controllers/index.js**
+*controllers/index.js*
 
 ```json
 // On intervient avant que les variables soient injectées dans le moteur de template.
@@ -1957,7 +1957,7 @@ avec cet ensemble de fichier :
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-**variations/common.json**
+*variations/common.json*
 
 ```json
 {
@@ -1965,7 +1965,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 }
 ```
 
-**variations/index.json**
+*variations/index.json*
 
 ```json
 {
@@ -1974,7 +1974,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 }
 ```
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -1993,7 +1993,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-**controllers/common.js**
+*controllers/common.js*
 
 ```json
 // On intervient avant que le DOM ne soit renvoyé au Client.
@@ -2027,7 +2027,7 @@ exports.changeDom = function (params, next) {
 };
 ```
 
-**controllers/index.js**
+*controllers/index.js*
 
 ```json
 // On intervient avant que le DOM ne soit renvoyé au Client.
@@ -2106,7 +2106,7 @@ avec cet ensemble de fichier :
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -2127,7 +2127,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-**controllers/common.js**
+*controllers/common.js*
 
 ```json
 // On référence les actions de réponse et d'envoi globaux côté serveur.
@@ -2145,7 +2145,7 @@ exports.setSockets = function () {
 };
 ```
 
-**controllers/index.js**
+*controllers/index.js*
 
 ```json
 // On référence les actions de réponse et d'envoi globaux côté serveur.
@@ -2167,7 +2167,7 @@ exports.setSockets = function () {
 };
 ```
 
-**assets/javascript/index.js**
+*assets/javascript/index.js*
 
 ```json
 var content = document.getElementsByClassName("content")[0],
@@ -2223,7 +2223,7 @@ avec cet ensemble de fichier :
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -2242,7 +2242,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-**controllers/common.js**
+*controllers/common.js*
 
 ```json
 // On intervient avant que la phase de chargement des modules ne soit achevée.
@@ -2256,7 +2256,7 @@ exports.setModules = function () {
 };
 ```
 
-**controllers/index.js**
+*controllers/index.js*
 
 ```json
 // On intervient avant que les variables soient injectées dans le système de template.
@@ -2324,13 +2324,13 @@ avec cet ensemble de fichier :
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 <?- content ?>
 ```
 
-**controllers/common.js**
+*controllers/common.js*
 
 ```json
 // On intervient au niveau du serveur avant que celui-ci ne soit démarré.
@@ -2351,7 +2351,7 @@ exports.setConfigurations = function (next) {
 };
 ```
 
-**controllers/index.js**
+*controllers/index.js*
 
 ```json
 // On intervient avant que les variables soient injectées dans le moteur de template.
@@ -2543,7 +2543,7 @@ Contenant le `webconfig.json` suivant :
 
 et contenant les fichiers de template suivant :
 
-**views/partials/index.htm**
+*views/partials/index.htm*
 
 ```html
         <div class="title"><?- common.titleWebsite ?></div>
@@ -2557,7 +2557,7 @@ et contenant les fichiers de template suivant :
 
 *Note : Chaque clique sur `button` raffraichira le contenu de `views/partials/index.htm`.*
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -2581,7 +2581,7 @@ et contenant les fichiers de template suivant :
 
 ainsi que les fichiers de variations suivant :
 
-**variations/common.json**
+*variations/common.json*
 
 ```json
 {
@@ -2589,7 +2589,7 @@ ainsi que les fichiers de variations suivant :
 }
 ```
 
-**variations/index.json**
+*variations/index.json*
 
 ```json
 {
@@ -2602,7 +2602,7 @@ Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Ma
 
 Côté serveur, nous utiliserons le contrôleur commun suivant :
 
-**controllers/index.js**
+*controllers/index.js*
 
 ```json
 // Intégralité des actions Websocket possible avec `setSockets`.
@@ -2637,7 +2637,7 @@ exports.setSockets = function () {
 
 Quand au côté client, nous utiliserons les fichiers suivant :
 
-**assets/javascript/index.js**
+*assets/javascript/index.js*
 
 ```json
 var html = document.getElementsByTagName("html")[0],
@@ -3244,7 +3244,7 @@ basé sur une classe `user` partagée entre la partie cliente et serveur `models
 
 Avec les fichiers suivant pour afficher la page :
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -3312,7 +3312,7 @@ Avec les fichiers suivant pour afficher la page :
 </html>
 ```
 
-**variations/common.json**
+*variations/common.json*
 
 ```json
 {
@@ -3322,7 +3322,7 @@ Avec les fichiers suivant pour afficher la page :
 }
 ```
 
-**variations/index.json**
+*variations/index.json*
 
 ```json
 {
@@ -3494,7 +3494,7 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mong
 
 Avec les fichiers suivant pour afficher la page :
 
-**views/index.htm**
+*views/index.htm*
 
 ```html
 <!DOCTYPE html>
@@ -3525,7 +3525,7 @@ Avec les fichiers suivant pour afficher la page :
 </html>
 ```
 
-**variations/common.json**
+*variations/common.json*
 
 ```json
 {
@@ -3535,7 +3535,7 @@ Avec les fichiers suivant pour afficher la page :
 }
 ```
 
-**variations/index.json**
+*variations/index.json*
 
 ```json
 {
@@ -5207,7 +5207,7 @@ et l'ensemble de fichiers suivant :
 
 dont les contenus sont :
 
-**stylesheets/common.css**
+*stylesheets/common.css*
 
 ```css
 body {
@@ -5215,7 +5215,7 @@ body {
 }
 ```
 
-**views/email.htm***
+*views/email.htm**
 
 ```html
 <!DOCTYPE html>
@@ -6384,7 +6384,7 @@ et rendre tous vos sites accessibles derrière des noms de domaines sur le port 
 
 Voici un exemple de configuration avec Bouncy :
 
-**global-server.js**
+*global-server.js*
 
 ```javascript
 var bouncy = require('bouncy');

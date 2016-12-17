@@ -16,7 +16,7 @@
         }
     }
 }
-</code></pre><p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir :</p><p><strong>Démarrage de NodeAtlas</strong> </p><p>Initialisation des modules</p><blockquote>
+</code></pre><p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir :</p><p><em>Démarrage de NodeAtlas</em></p><p>Initialisation des modules</p><blockquote>
 <ul>
 <li><em>setModules</em> --&gt; à manipuler depuis le fichier <code>commonController</code> (<code>common.js</code> dans l&#39;exemple).</li>
 </ul>
@@ -37,7 +37,7 @@
 <ul>
 <li><em>setRoutes</em> --&gt; à manipuler depuis le fichier <code>commonController</code> (<code>common.js</code> dans l&#39;exemple).</li>
 </ul>
-</blockquote><p>Lancement du serveur web</p><p><strong>Requête/Réponse HTTP de NodeAtlas</strong> </p><p>Traitement de la Requête du Client</p><blockquote>
+</blockquote><p>Lancement du serveur web</p><p><em>Requête/Réponse HTTP de NodeAtlas</em></p><p>Traitement de la Requête du Client</p><blockquote>
 <ul>
 <li><p><em>changeVariation</em> --&gt; à manipuler depuis le fichier <code>commonController</code> (<code>common.js</code> dans l&#39;exemple).</p>
 </li>
@@ -75,14 +75,14 @@
 │  │  └─ foot.htm
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/example/?title=Haeresis</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p>En demandant la page <code>http://localhost/example/?title=Haeresis</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Titre du site&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Bienvenue&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
 }
-</code></pre><p><strong>views/index.htm</strong></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
 
     &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
@@ -92,7 +92,7 @@
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté pour toute requête HTTP, toute page confondue.
 exports.changeVariation = function (params, next) {
     var variation = params.variation,
@@ -126,7 +126,7 @@ exports.changeVariation = function (params, next) {
     // On ré-injecte les modifications.
     next(variation);
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, next) {
     var variation = params.variation,
@@ -207,14 +207,14 @@ exports.changeVariation = function (params, next) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Titre du site&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Bienvenue&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
 }
-</code></pre><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -228,7 +228,7 @@ exports.changeVariation = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-json">// On intervient avant que le DOM ne soit renvoyé au Client.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté pour toute requête HTTP, toute page confondue.
 exports.changeDom = function (params, next) {
     var NA = this,
@@ -257,7 +257,7 @@ exports.changeDom = function (params, next) {
     // On réinjecte les modifications.
     next(dom);
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-json">// On intervient avant que le DOM ne soit renvoyé au Client.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeDom = function (params, next) {
     var NA = this,
@@ -310,7 +310,7 @@ exports.changeDom = function (params, next) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -326,7 +326,7 @@ exports.changeDom = function (params, next) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-json">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -339,7 +339,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-json">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -356,7 +356,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p><strong>assets/javascript/index.js</strong></p><pre><code class="lang-json">var content = document.getElementsByClassName(&quot;content&quot;)[0],
+</code></pre><p><em>assets/javascript/index.js</em></p><pre><code class="lang-json">var content = document.getElementsByClassName(&quot;content&quot;)[0],
     input = document.getElementsByClassName(&quot;input&quot;)[0];
 
 // On alerte les autres de nos modifications.
@@ -387,7 +387,7 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -401,7 +401,7 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-json">// On intervient avant que la phase de chargement des modules ne soit achevée.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
     // Récupérer l&#39;instance « NodeAtlas » du moteur.
@@ -410,7 +410,7 @@ exports.setModules = function () {
     // Associations de chaque module pour y avoir accès partout.
     NA.modules.marked = require(&#39;marked&#39;);
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le système de template.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, next) {
     // Récupérer l&#39;instance « NodeAtlas » du moteur.
@@ -452,8 +452,8 @@ exports.changeVariation = function (params, next) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;?- content ?&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-json">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
+</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;?- content ?&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setConfigurations = function (next) {
     // Récupérer l&#39;instance « NodeAtlas » du moteur.
@@ -469,7 +469,7 @@ exports.setConfigurations = function (next) {
     // On ré-injecte les modifications.
     next();
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, next) {
     var variation = params.variation;
@@ -593,14 +593,14 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>et contenant les fichiers de template suivant :</p><p><strong>views/partials/index.htm</strong></p><pre><code class="lang-html">        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+</code></pre><p>et contenant les fichiers de template suivant :</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
         &lt;div&gt;
             &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
             &lt;?- specific.content ?&gt;
             &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;button&gt;Update&lt;/button&gt;
-</code></pre><p><em>Note : Chaque clique sur <code>button</code> raffraichira le contenu de <code>views/partials/index.htm</code>.</em></p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>Note : Chaque clique sur <code>button</code> raffraichira le contenu de <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -615,14 +615,14 @@ exports.setRoutes = function (next) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : On construit ici la page d&#39;accueil <code>/</code>.</em></p><p>ainsi que les fichiers de variations suivant :</p><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>Note : On construit ici la page d&#39;accueil <code>/</code>.</em></p><p>ainsi que les fichiers de variations suivant :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Exemple Socket.IO&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Date&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;La date actuelle est :&lt;/p&gt;&quot;
 }
-</code></pre><p>Jusque là, rien d&#39;inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><strong>controllers/index.js</strong></p><pre><code class="lang-json">// Intégralité des actions Websocket possible avec `setSockets`.
+</code></pre><p>Jusque là, rien d&#39;inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><em>controllers/index.js</em></p><pre><code class="lang-json">// Intégralité des actions Websocket possible avec `setSockets`.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -650,7 +650,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p>Quand au côté client, nous utiliserons les fichiers suivant :</p><p><strong>assets/javascript/index.js</strong></p><pre><code class="lang-json">var html = document.getElementsByTagName(&quot;html&quot;)[0],
+</code></pre><p>Quand au côté client, nous utiliserons les fichiers suivant :</p><p><em>assets/javascript/index.js</em></p><pre><code class="lang-json">var html = document.getElementsByTagName(&quot;html&quot;)[0],
     layout = document.getElementsByClassName(&quot;layout&quot;)[0];
 
 // On associe sur le bouton l&#39;action de communiquer avec le serveur en cliquant dessus.
@@ -1182,7 +1182,7 @@ module.exports = User;
         }
     };
 }));
-</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -1245,12 +1245,12 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Exemple MySql&quot;,
     &quot;male&quot;: &quot;Homme&quot;,
     &quot;female&quot;: &quot;Femme&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Table User&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Détail de la première entrée.&lt;/p&gt;&quot;,
     &quot;contents&quot;: &quot;&lt;p&gt;Détail de toutes les entrées.&lt;/p&gt;&quot;,
@@ -1375,7 +1375,7 @@ module.exports = User;
         &quot;database&quot;: &quot;demo&quot;
     }
 }
-</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;&lt;?- languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -1401,12 +1401,12 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;MongoDB Exemple&quot;,
     &quot;male&quot;: &quot;Homme&quot;,
     &quot;female&quot;: &quot;Femme&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Collection User&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Détail du document `{ \&quot;identity.firstname\&quot;: \&quot;Bruno\&quot; }`.&lt;/p&gt;&quot;
 }

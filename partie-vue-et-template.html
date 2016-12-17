@@ -370,7 +370,7 @@ website.init({
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascript/common.js">http://localhost/javascript/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource publique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/en/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-json">{
+</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource publique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/en/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -392,7 +392,7 @@ website.init({
 │  ├─ index.htm
 │  └─ members.htm
 └─ webconfig.json
-</code></pre><p><strong>views/partials/head.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -400,10 +400,10 @@ website.init({
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body&gt;
-</code></pre><p><strong>views/partials/foot.htm</strong></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>views/index.htm</strong></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
 
     &lt;div&gt;
         &lt;h1&gt;Bienvenue&lt;/h1&gt;
@@ -411,7 +411,7 @@ website.init({
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><strong>views/members.htm</strong></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
+</code></pre><p><em>views/members.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
 
     &lt;div&gt;
         &lt;h1&gt;Liste des members&lt;/h1&gt;
@@ -455,7 +455,7 @@ website.init({
 │  │  └─ foot.htm
 │  └─ template.htm
 └─ webconfig.json
-</code></pre><p><strong>views/partials/head.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -465,10 +465,10 @@ website.init({
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body class=&quot;&lt;?= specific.classPage ?&gt;&quot;&gt;
-</code></pre><p><strong>views/partials/foot.htm</strong></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>views/template.htm</strong></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
+</code></pre><p><em>views/template.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
 
     &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
@@ -478,17 +478,17 @@ website.init({
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
     &quot;classCssCommon&quot;: &quot;common&quot;,
     &quot;classJsCommon&quot;: &quot;common&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Bienvenue&quot;,
     &quot;classPage&quot;: &quot;index&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
 }
-</code></pre><p><strong>variations/members.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/members.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Liste des membres&quot;,
     &quot;classPage&quot;: &quot;members&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page des membres.&lt;/p&gt;&quot;
@@ -528,16 +528,16 @@ website.init({
 │  ├─ landing.htm
 │  └─ home.htm
 └─ webconfig.json
-</code></pre><p><strong>views/partials/head.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;&lt;?= languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
         &lt;title&gt;&lt;?= specific.titlePage ?&gt;&lt;/title&gt;
     &lt;/head&gt;
     &lt;body class=&quot;&lt;?= specific.classPage ?&gt;&quot;&gt;
-</code></pre><p><strong>views/partials/foot.htm</strong></p><pre><code class="lang-html">    &lt;/body&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">    &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>views/landing.htm</strong></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
+</code></pre><p><em>views/landing.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
 
     &lt;select&gt;
         &lt;? for (var i = 0; i &lt; specific.selectLabel.length; i++) { ?&gt;
@@ -546,7 +546,7 @@ website.init({
     &lt;/select&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><strong>views/home.htm</strong></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
+</code></pre><p><em>views/home.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
 
     &lt;div&gt;
         &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
@@ -554,7 +554,7 @@ website.init({
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><strong>l10n/landing.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>l10n/landing.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Landing&quot;,
     &quot;classPage&quot;: &quot;landing&quot;,
     &quot;selectLabel&quot;: [
@@ -562,12 +562,12 @@ website.init({
         &quot;Français&quot;
     ]
 }
-</code></pre><p><strong>l10n/en-us/home.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>l10n/en-us/home.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;classPage&quot;: &quot;home&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;This is a home page.&lt;/p&gt;&quot;
 }
-</code></pre><p><strong>l10n/fr-fr/home.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>l10n/fr-fr/home.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Bienvenue&quot;,
     &quot;classPage&quot;: &quot;home&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
@@ -605,7 +605,7 @@ website.init({
 ├─ webconfig.json
 ├─ webconfig.en-us.json
 └─ webconfig.fr-fr.json
-</code></pre><p>vous pourriez avoir les « webconfig.json » suivant :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-json">{
+</code></pre><p>vous pourriez avoir les « webconfig.json » suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;landing.htm&quot;,
@@ -613,7 +613,7 @@ website.init({
         }
     }
 }
-</code></pre><p><strong>webconfig.en-us.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>webconfig.en-us.json</em></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 81,
     &quot;urlRelativeSubPath&quot;: &quot;english&quot;,
     &quot;languageCode&quot;: &quot;en-us&quot;,
@@ -628,7 +628,7 @@ website.init({
         }
     }
 }
-</code></pre><p><strong>webconfig.fr-fr.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>webconfig.fr-fr.json</em></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 82,
     &quot;urlRelativeSubPath&quot;: &quot;francais&quot;,
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
@@ -657,14 +657,14 @@ website.init({
 <li><em><a href="http://www.website.ext/english/members-list/">http://www.website.ext/english/members-list/</a></em></li>
 <li><em><a href="http://www.website.ext/francais/">http://www.website.ext/francais/</a></em></li>
 <li><em><a href="http://www.website.ext/francais/liste-des-membres/">http://www.website.ext/francais/liste-des-membres/</a></em></li>
-</ul><h3 id="gerer-l-anatomie-des-urls">Gérer l&#39;anatomie des URLs</h3><p>Par défaut, si vous utilisez la configuration suivante :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-json">{
+</ul><h3 id="gerer-l-anatomie-des-urls">Gérer l&#39;anatomie des URLs</h3><p>Par défaut, si vous utilisez la configuration suivante :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
-</code></pre><p>avec la vue suivante :</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>avec la vue suivante :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -679,7 +679,7 @@ website.init({
         &lt;div&gt;&lt;?- urlPath ?&gt;&lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>cela est identique à utiliser celle-ci :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-json">{
+</code></pre><p>cela est identique à utiliser celle-ci :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;httpHostname&quot;: &quot;localhost&quot;,
     &quot;httpPort&quot;: 80,
     &quot;httpSecure&quot;: false,
@@ -897,7 +897,7 @@ website.init({
         }
     }
 }
-</code></pre><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. Il serait possible de le faire avec <code>&lt;%- include(&quot;partials/head.htm&quot;) %&gt;</code> avec la configuration ci-dessous :</p><p>Voyez l&#39;exemple dans les fichiers ci-dessous :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-json">{
+</code></pre><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. Il serait possible de le faire avec <code>&lt;%- include(&quot;partials/head.htm&quot;) %&gt;</code> avec la configuration ci-dessous :</p><p>Voyez l&#39;exemple dans les fichiers ci-dessous :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: true,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -907,17 +907,17 @@ website.init({
         }
     }
 }
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
     &quot;classCssCommon&quot;: &quot;common&quot;,
     &quot;classJsCommon&quot;: &quot;common&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Bienvenue&quot;,
     &quot;classPage&quot;: &quot;index&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
 }
-</code></pre><p><strong>views/partials/head.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -926,10 +926,10 @@ website.init({
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body class=&quot;&lt;%= specific.classPage %&gt;&quot;&gt;
-</code></pre><p><strong>views/partials/foot.htm</strong></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>views/index.htm</strong></p><pre><code class="lang-html">    &lt;%- include(&quot;partials/head.htm&quot;) %&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&quot;partials/head.htm&quot;) %&gt;
 
     &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
 
@@ -973,7 +973,7 @@ website.init({
         }
     }
 }
-</code></pre><p>Voyons ce que cela donnerait avec l&#39;exemple suivant :</p><p><strong>webconfig.json</strong></p><pre><code>{
+</code></pre><p>Voyons ce que cela donnerait avec l&#39;exemple suivant :</p><p><em>webconfig.json</em></p><pre><code>{
     &quot;enablePug&quot;: true,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -983,17 +983,17 @@ website.init({
         }
     }
 }
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
     &quot;classCssCommon&quot;: &quot;common&quot;,
     &quot;classJsCommon&quot;: &quot;common&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Bienvenue&quot;,
     &quot;classPage&quot;: &quot;index&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
 }
-</code></pre><p><strong>views/partials/head.pug</strong></p><pre><code class="lang-html">doctype html
+</code></pre><p><em>views/partials/head.pug</em></p><pre><code class="lang-html">doctype html
 html(lang=&quot;fr-fr&quot;)
     head
         meta(charset=&quot;utf-8&quot;)
@@ -1001,8 +1001,8 @@ html(lang=&quot;fr-fr&quot;)
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + common.classCssCommon + &quot;.css&quot;, media=&quot;all&quot;)
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + specific.classPage + &quot;.css&quot;, media=&quot;all&quot;)
     body(class=specific.classPage)
-</code></pre><p><strong>views/partials/foot.pug</strong></p><pre><code class="lang-html">script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
-</code></pre><p><strong>views/index.htm</strong></p><pre><code class="lang-html">include partials/head.pug
+</code></pre><p><em>views/partials/foot.pug</em></p><pre><code class="lang-html">script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">include partials/head.pug
 
 div
     h1 #{specific.titlePage}
