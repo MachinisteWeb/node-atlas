@@ -281,46 +281,43 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks :</p><p><strong>Start NodeAtlas</strong> </p><blockquote>
-<p>Init of Modules</p>
+</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks :</p><p><strong>Start NodeAtlas</strong> </p><p>Init of Modules</p><blockquote>
 <ul>
 <li><em>setModules</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
-<p>Init of Sessions</p>
+</blockquote><p>Init of Sessions</p><blockquote>
 <ul>
 <li><em>setSessions</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
-<p>Init of Sockets</p>
+</blockquote><p>Init of Sockets</p><blockquote>
 <ul>
 <li><em>setSockets</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 <li><em>setSockets</em> --&gt; into <code>routes[&lt;route&gt;].controller</code> file (<code>index.js</code> for example).</li>
 </ul>
-<p>Init of server configuration</p>
+</blockquote><p>Init of server configuration</p><blockquote>
 <ul>
 <li><em>setConfigurations</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
-<p>Init of routes</p>
+</blockquote><p>Init of routes</p><blockquote>
 <ul>
 <li><em>setRoutes</em> --&gt; à manipuler depuis le fichier <code>commonController</code> (<code>common.js</code> dans l&#39;exemple).</li>
 </ul>
 <p>Start Web Server</p>
-</blockquote><p><strong>HTTP Request/Response of NodeAtlas</strong></p><blockquote>
-<p>Client Request Processing</p>
+</blockquote><p><strong>HTTP Request/Response of NodeAtlas</strong></p><p>Client Request Processing</p><blockquote>
 <ul>
 <li><p><em>changeVariation</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</p>
 </li>
 <li><p><em>changeVariation</em> --&gt; into <code>routes[&lt;route&gt;].controller</code> file (<code>index.js</code> for example).</p>
 </li>
 </ul>
-<p>Views and Variations Compilation =&gt; Complete DOM.</p>
+</blockquote><p>Views and Variations Compilation =&gt; Complete DOM.</p><blockquote>
 <ul>
 <li><p><em>changeDom</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</p>
 </li>
 <li><p><em>changeDom</em> --&gt; into <code>routes[&lt;route&gt;].controller</code> file (<code>index.js</code> for example).</p>
 </li>
 </ul>
-<p>Sending of Response to Client</p>
-</blockquote><h4 id="changevariation">changeVariation</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+</blockquote><p>Sending of Response to Client</p><h4 id="changevariation">changeVariation</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
