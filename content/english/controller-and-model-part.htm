@@ -16,7 +16,7 @@
         }
     }
 }
-</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks :</p><p><strong>Start NodeAtlas</strong> </p><p>Init of Modules</p><blockquote>
+</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks :</p><p><em>Start NodeAtlas</em></p><p>Init of Modules</p><blockquote>
 <ul>
 <li><em>setModules</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</li>
 </ul>
@@ -38,7 +38,7 @@
 <li><em>setRoutes</em> --&gt; à manipuler depuis le fichier <code>commonController</code> (<code>common.js</code> dans l&#39;exemple).</li>
 </ul>
 <p>Start Web Server</p>
-</blockquote><p><strong>HTTP Request/Response of NodeAtlas</strong></p><p>Client Request Processing</p><blockquote>
+</blockquote><p><em>HTTP Request/Response of NodeAtlas</em></p><p>Client Request Processing</p><blockquote>
 <ul>
 <li><p><em>changeVariation</em> --&gt; into <code>commonController</code> file (<code>common.js</code> for example).</p>
 </li>
@@ -76,14 +76,14 @@
 │  │  └─ foot.htm
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Site Title&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;This is the Home Page.&lt;/p&gt;&quot;
 }
-</code></pre><p><strong>views/index.htm</strong></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
 
     &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
@@ -93,7 +93,7 @@
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
 exports.changeVariation = function (params, next) {
     var variation = params.variation,
@@ -127,7 +127,7 @@ exports.changeVariation = function (params, next) {
     // We update modification here.
     next(variation);
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page.
 exports.changeVariation = function (params, next) {
     var variation = params.variation,
@@ -208,14 +208,14 @@ exports.changeVariation = function (params, next) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Site Title&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;This is Home Page.&lt;/p&gt;&quot;
 }
-</code></pre><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -229,7 +229,7 @@ exports.changeVariation = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
 // This code is executed for all HTTP request, for all pages.
 exports.changeDom = function (params, next) {
     var NA = this,
@@ -258,7 +258,7 @@ exports.changeDom = function (params, next) {
     // We update modification here.
     next(dom);
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
 // This code is executed only for the « / » page .
 exports.changeDom = function (params, next) {
     var NA = this,
@@ -311,7 +311,7 @@ exports.changeDom = function (params, next) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -327,7 +327,7 @@ exports.changeDom = function (params, next) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
     var NA = this,
@@ -340,7 +340,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
     var NA = this,
@@ -357,7 +357,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p><strong>assets/javascript/index.js</strong></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
+</code></pre><p><em>assets/javascript/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
     input = document.getElementsByClassName(&quot;input&quot;)[0];
 
 // We say to others we just change text.
@@ -388,7 +388,7 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -402,7 +402,7 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-js">// This code is executing during the modules loading phase.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
 exports.setModules = function () {
     // Use the « NodeAtlas » instance from engine.
@@ -411,7 +411,7 @@ exports.setModules = function () {
     // Associate each modules to allow us to use them anywhare.
     NA.modules.marked = require(&#39;marked&#39;);
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
 exports.changeVariation = function (params, next) {
     // Use the « NodeAtlas » instance from engine.
@@ -453,8 +453,8 @@ exports.changeVariation = function (params, next) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;?- content ?&gt;
-</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-js">// This code is executing before starting of the web server.
+</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;?- content ?&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
 // This code will be executed when NodeAtlas starting.
 exports.setConfigurations = function (next) {
     // Use the « NodeAtlas » instance from engine.
@@ -470,7 +470,7 @@ exports.setConfigurations = function (next) {
     // We update modification here.
     next();
 };
-</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-js">// This code is executing before starting of the web server.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
 // This code is executed only for the « / » page .
 exports.changeVariation = function (params, next) {
     var variation = params.variation;
@@ -594,14 +594,14 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>and with this views files:</p><p><strong>views/partials/index.htm</strong></p><pre><code class="lang-html">        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+</code></pre><p>and with this views files:</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
         &lt;div&gt;
             &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
             &lt;?- specific.content ?&gt;
             &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;button&gt;Update&lt;/button&gt;
-</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -616,14 +616,14 @@ exports.setRoutes = function (next) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : We parse here the home page <code>/</code>.</em></p><p>and the following variations files :</p><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>Note : We parse here the home page <code>/</code>.</em></p><p>and the following variations files :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Socket.IO Example&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;Date&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Current date is:&lt;/p&gt;&quot;
 }
-</code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side. </p><p>On server, we will use the following controller file:</p><p><strong>controllers/index.js</strong></p><pre><code class="lang-js">// All Websocket action possible with `setSockets`.
+</code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side. </p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// All Websocket action possible with `setSockets`.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -651,7 +651,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p>And for client-side, we use the following files:</p><p><strong>assets/javascript/index.js</strong></p><pre><code class="lang-js">var html = document.getElementsByTagName(&quot;html&quot;)[0],
+</code></pre><p>And for client-side, we use the following files:</p><p><em>assets/javascript/index.js</em></p><pre><code class="lang-js">var html = document.getElementsByTagName(&quot;html&quot;)[0],
     layout = document.getElementsByClassName(&quot;layout&quot;)[0];
 
 // We associate on the button the action to contact server.
@@ -1183,7 +1183,7 @@ module.exports = User;
         }
     };
 }));
-</code></pre><p>With following files to display page:</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -1246,12 +1246,12 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Example MySql&quot;,
     &quot;male&quot;: &quot;Man&quot;,
     &quot;female&quot;: &quot;Woman&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;User Table&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;First entry details.&lt;/p&gt;&quot;,
     &quot;contents&quot;: &quot;&lt;p&gt;All entries details.&lt;/p&gt;&quot;,
@@ -1376,7 +1376,7 @@ module.exports = User;
         &quot;database&quot;: &quot;demo&quot;
     }
 }
-</code></pre><p>With following files to display page:</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;&lt;?- languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -1402,12 +1402,12 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><strong>variations/common.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     &quot;titleWebsite&quot;: &quot;Example MongoDB&quot;,
     &quot;male&quot;: &quot;Man&quot;,
     &quot;female&quot;: &quot;Woman&quot;
 }
-</code></pre><p><strong>variations/index.json</strong></p><pre><code class="lang-json">{
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     &quot;titlePage&quot;: &quot;User Collection&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Document `{ \&quot;identity.firstname\&quot;: \&quot;Bruno\&quot; }` details.&lt;/p&gt;&quot;
 }

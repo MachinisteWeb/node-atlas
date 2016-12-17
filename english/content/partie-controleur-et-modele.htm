@@ -292,11 +292,9 @@ exports.changeDom = function (params, next) {
 &lt;/html&gt;
 </code></pre><h4 id="setsockets">setSockets</h4><p>Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos Websockets ici <a href="#echange-client-serveur-en-temps-reel-avec-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
-            &quot;variation&quot;: &quot;index.json&quot;,
             &quot;controller&quot;: &quot;index.js&quot;
         }
     }

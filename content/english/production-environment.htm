@@ -141,7 +141,7 @@ server {
 </code></pre><p><code>Ip_backend</code> must be replaced by your private subnetwork IP. That can be <code>127.0.0.1</code> if node run in same server as Nginx.</p><p><code>websocket</code> should be replaced by any word, it will be also moddify the <code>proxy_pass</code>. It must be unique to each node.</p><h3 id="proxy">Proxy</h3><h4 id="bouncy">Bouncy</h4><p>Bouncy is an example of reverse-proxy that you can use to run various NodeAtlas websites (with other types of websites) together on the same port (80).</p><p>You can for example:</p><ul>
 <li>run 3 Node.js apps on ports 7777, 7778 and 7779 with forever,</li>
 <li>and besides launching a apache server on port 81</li>
-</ul><p>and make all your websites accessible behind domain names on port 80 with Bouncy example.</p><p>Here is a sample configuration with Bouncy:</p><p><strong>global-server.js</strong></p><pre><code class="lang-javascript">var bouncy = require(&#39;bouncy&#39;);
+</ul><p>and make all your websites accessible behind domain names on port 80 with Bouncy example.</p><p>Here is a sample configuration with Bouncy:</p><p><em>global-server.js</em></p><pre><code class="lang-javascript">var bouncy = require(&#39;bouncy&#39;);
 
 var server = bouncy(function (request, response, bounce) {
     if (request.headers.host === &#39;beep.example.com&#39;) {

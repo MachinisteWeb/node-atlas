@@ -2079,11 +2079,9 @@ This is an example using the two hooks, the common in first and after the specif
 ```json
 {
     "commonController": "common.js",
-    "commonVariation": "common.json",
     "routes": {
         "/": {
             "view": "index.htm",
-            "variation": "index.json",
             "controller": "index.js"
         }
     }

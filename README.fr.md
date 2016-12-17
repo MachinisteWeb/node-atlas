@@ -2079,11 +2079,9 @@ Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plus
 ```json
 {
     "commonController": "common.js",
-    "commonVariation": "common.json",
     "routes": {
         "/": {
             "view": "index.htm",
-            "variation": "index.json",
             "controller": "index.js"
         }
     }
