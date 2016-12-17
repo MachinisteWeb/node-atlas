@@ -102,7 +102,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Moteur de Template PUG](#moteur-de-template-pug)
 - [Partie Contrôleur et Modèle](#partie-contrôleur-et-modèle)
  - [Cycle de Vie et Hooks](#cycle-de-vie-et-hooks)
- - [Utiliser les Websocket à la place des échanges AJAX](#utiliser-les-websocket-à-la-place-des-échanges-ajax)
+ - [Échange Client-Serveur en temps réel avec Websockets](#échange-client-serveur-en-temps réel-avec-websockets)
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
  - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
 - [Pour aller plus loin](#pour-aller-plus-loin)
@@ -1084,6 +1084,7 @@ avec la vue suivante :
         <div><?- urlSubPath ?></div>
         <div><?- urlBasePath ?></div>
         <div><?- urlFilePath ?></div>
+        <div><?- urlQueryPath ?></div>
         <div><?- urlPath ?></div>
     </body>
 </html>
@@ -1121,6 +1122,7 @@ Vous pourrez accéder à l'URL : *http://localhost/* et au contenu :
         <div></div>
         <div>http://localhost</div>
         <div>/</div>
+        <div></div>
         <div>http://localhost/</div>
     </body>
 </html>
@@ -1142,7 +1144,7 @@ Changez alors la configuration en ceci :
 }
 ```
 
-Vous pourrez cette fois accéder à l'URL : *https://127.0.0.1:7777/sub/folder/index.html* et au contenu :
+Vous pourrez cette fois accéder à l'URL : *https://127.0.0.1:7777/sub/folder/index.html?test=ok* et au contenu :
 
 ```html
 <!DOCTYPE html>
@@ -1156,6 +1158,7 @@ Vous pourrez cette fois accéder à l'URL : *https://127.0.0.1:7777/sub/folder/i
         <div>/sub/folder</div>
         <div>https://127.0.0.1:7777/sub/folder</div>
         <div>/index.html</div>
+        <div>?test=ok</div>
         <div>https://127.0.0.1:7777/sub/folder/index.html</div>
     </body>
 </html>
@@ -1650,20 +1653,20 @@ Pour tout savoir sur les possibilités du moteur de template consultez [la docum
 
 ## Partie Contrôleur et Modèle ##
 
-NodeAtlas ne se contente pas que de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
+NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 
-- des paramètres dans la partie query de l'url (GET),
+- des paramètres dans la partie query de l'URL (GET),
 - des paramètres dans le body de la requête (POST),
-- de vous connecter à des bases de donner,
+- de vous connecter à des bases de données,
 - de maintenir des sessions, 
-- de faire des échange AJAX ou même Websocket et
+- de faire des échanges Websockets et
 - de faire bien plus encore !
 
 
 
-### Cycle de vie et Hooks ###
+### Cycle de vie et Points d'entrée ###
 
-Pour cela, il vous est possible d'intéragir à divers endroit (Hooks) du cycle de vie de création d'une page grâce à un contrôleur commun (`commonController`) et à un controlleur spécifique à chaque page (`routes[<route>].controller`).
+Le cycle de vie de NodeAtlas est le suivant. D'abord, une et une seule fois, les ressources ce charge, le serveur démarre, les routes s'initialise et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'entrée pendant le démarrage, et pendant la création d'une page.
 
 Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous les points du cycle de vie d'une page.
 
@@ -1681,7 +1684,7 @@ Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous le
 }
 ```
 
-*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des controlleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 et voici le détail des endroits ou vous pouvez intervenir :
 
@@ -1694,6 +1697,11 @@ et voici le détail des endroits ou vous pouvez intervenir :
 
 > - *setSessions* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
+> Initialisation des Sockets
+
+> - *setSockets* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+> - *setSockets* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
+
 > Initialisation de la configuration du serveur
 
 > - *setConfigurations* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
@@ -1705,25 +1713,25 @@ et voici le détail des endroits ou vous pouvez intervenir :
 > Lancement du serveur web
 
 **Requête/Réponse HTTP de NodeAtlas** 
-> Traitement de la Request du Client
+> Traitement de la Requête du Client
 
 > - *changeVariation* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
 > - *changeVariation* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
 
-> Assemblage des Views et Compilation des Variations => DOM complet de la Réponse.
+> Assemblage des Vues et Compilation des Variations => DOM complet de la Réponse.
 
 > - *changeDom* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
 > - *changeDom* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
 
-> Envoi de la Response au Client
+> Envoi de la Réponse au Client
 
 #### changeVariation ####
 
 Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.
 
-Voici un exemple utilisant les deux interceptions, d'abord la commune au deux pages, puis celle de chaque page :
+Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
 ```json
 {
@@ -1757,9 +1765,9 @@ avec cet ensemble de fichier :
 └─ webconfig.json
 ```
 
-En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une variable `example=Ceci+est+un+test` dans le corp de requête, les fichiers suivants (entre autre) seront utilisés :
+En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une variable `example=Ceci+est+un+test` dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :
 
-*variations/common.json*
+**variations/common.json**
 
 ```json
 {
@@ -1767,7 +1775,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 }
 ```
 
-*variations/index.json*
+**variations/index.json**
 
 ```json
 {
@@ -1776,7 +1784,7 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 }
 ```
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
     <?- include("partials/head.htm") ?>
@@ -1791,11 +1799,11 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
     <?- include("partials/foot.htm") ?>
 ```
 
-*controllers/common.js*
+**controllers/common.js**
 
 ```json
-// On intervient avant que les variables soient injectées dans le système de template.
-// Ce code sera exécuté pour toute request HTTP, toute page confondue.
+// On intervient avant que les variables soient injectées dans le moteur de template.
+// Ce code sera exécuté pour toute requête HTTP, toute page confondue.
 exports.changeVariation = function (params, next) {
     var variation = params.variation,
         request = params.request,
@@ -1830,10 +1838,10 @@ exports.changeVariation = function (params, next) {
 };
 ```
 
-*controllers/index.js*
+**controllers/index.js**
 
 ```json
-// On intervient avant que les variables soient injectées dans le système de template.
+// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, next) {
     var variation = params.variation,
@@ -1915,7 +1923,7 @@ alors la sortie sera :
 
 Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.
 
-Voici un exemple utilisant les deux interceptions, d'abord la commune au deux pages, puis celle de chaque page :
+Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
 ```json
 {
@@ -1935,6 +1943,7 @@ avec cet ensemble de fichier :
 
 ```
 ├─ variations/
+│  ├─ common.json
 │  └─ index.json
 ├─ controllers/
 │  ├─ common.js
@@ -1946,7 +1955,7 @@ avec cet ensemble de fichier :
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-*variations/common.json*
+**variations/common.json**
 
 ```json
 {
@@ -1954,7 +1963,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 }
 ```
 
-*variations/index.json*
+**variations/index.json**
 
 ```json
 {
@@ -1963,7 +1972,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 }
 ```
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
 <!DOCTYPE html>
@@ -1982,11 +1991,11 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-*controllers/common.js*
+**controllers/common.js**
 
 ```json
 // On intervient avant que le DOM ne soit renvoyé au Client.
-// Ce code sera exécuté pour toute request HTTP, toute page confondue.
+// Ce code sera exécuté pour toute requête HTTP, toute page confondue.
 exports.changeDom = function (params, next) {
     var NA = this,
         dom = params.dom,
@@ -2016,7 +2025,7 @@ exports.changeDom = function (params, next) {
 };
 ```
 
-*controllers/index.js*
+**controllers/index.js**
 
 ```json
 // On intervient avant que le DOM ne soit renvoyé au Client.
@@ -2061,7 +2070,7 @@ ce qui produit la sortie suivante :
 
 #### setModules ####
 
-Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs.
+Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.
 
 Voici un exemple utilisant un module externe à NodeAtlas :
 
@@ -2090,7 +2099,7 @@ avec cet ensemble de fichier :
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
 <!DOCTYPE html>
@@ -2109,7 +2118,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-*controllers/common.js*
+**controllers/common.js**
 
 ```json
 // On intervient avant que la phase de chargement des modules ne soit achevée.
@@ -2123,7 +2132,7 @@ exports.setModules = function () {
 };
 ```
 
-*controllers/index.js*
+**controllers/index.js**
 
 ```json
 // On intervient avant que les variables soient injectées dans le système de template.
@@ -2162,7 +2171,7 @@ ce qui produit la sortie suivante :
 
 #### setConfigurations ####
 
-Pour configurer le serveur web de NodeAtlas ([ExpressJs](http://expressjs.com/)) vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs.
+Pour configurer le serveur web de NodeAtlas ([ExpressJs](http://expressjs.com/)) vous pouvez utiliser le contrôleur commun pour tout le site afin faire vos modifications avant le démarrage du serveur.
 
 Voici un exemple utilisant un middleware pour [ExpressJs](http://expressjs.com/) :
 
@@ -2182,7 +2191,8 @@ avec cet ensemble de fichier :
 
 ```
 ├─ controllers/
-│  └─ common.js
+│  ├─ common.js
+│  └─ index.js
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
@@ -2190,13 +2200,13 @@ avec cet ensemble de fichier :
 
 En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
 <?- content ?>
 ```
 
-*controllers/common.js*
+**controllers/common.js**
 
 ```json
 // On intervient au niveau du serveur avant que celui-ci ne soit démarré.
@@ -2208,6 +2218,7 @@ exports.setConfigurations = function (next) {
     // Middleware utilisé lors de chaque requête.
     NA.httpServer.use(function (request, response, next) {
         response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+        response.setHeader("Content-Type", "application/json; charset=utf-8");
         next();
     });
 
@@ -2216,18 +2227,15 @@ exports.setConfigurations = function (next) {
 };
 ```
 
-*controllers/index.js*
+**controllers/index.js**
 
 ```json
-// On intervient avant que les variables soient injectées dans le système de template.
+// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     // On prépare le fichier pour un affichage JSON.
-    variation.currentRouteParameters.headers = {
-        "Content-Type": "application/json; charset=utf-8"
-    };
     variation.content = JSON.stringify(variation, null, "    ");
 
     // On ré-injecte les modifications.
@@ -2239,8 +2247,11 @@ ce qui produit la sortie suivante :
 
 ```html
 {
-    "urlBasePathSlice": "http://localhost",
-    "urlBasePath": "http://localhost/",
+    "urlRootPath": "http://localhost",
+    "urlSubPath": "",
+    "urlBasePath": "http://localhost",
+    "urlFilePath": "/",
+    "urlQueryPath": "",
     "urlPath": "http://localhost/",
     "pathname": /* ... */,
     "filename": /* ... */,
@@ -2253,7 +2264,7 @@ ce qui produit la sortie suivante :
 
 #### setSessions ####
 
-Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs, voici un exemple de management de Session avec [Redis](http://redis.io/).
+Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de management de Session avec [Redis](http://redis.io/).
 
 Voici l'ensemble de fichier suivant :
 
@@ -2313,7 +2324,7 @@ exports.setSessions = function (next) {
 
 #### setRoutes ####
 
-Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos controlleurs.
+Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.
 
 Voici l'ensemble de fichier suivant :
 
@@ -2367,29 +2378,25 @@ exports.setRoutes = function (next) {
 
 
 
-### Utiliser les Websocket à la place des échanges AJAX ###
+### Échange Client-Serveur en temps réel avec Websockets ###
 
-Afin de conserver une liaison ouverte entre la partie Frontale et la partie Serveur de vos applications, NodeAtlas est à même d'utiliser [Socket.IO](http://socket.io/) dont vous trouverez plus de détail sur le site officiel.
+Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise [Socket.IO](http://socket.io/) dont vous trouverez plus de détail sur le site officiel.
 
-Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres page ouvertes à travers tous les autres navigateurs.
+Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.
 
 Avec l'ensemble de fichier suivant :
 
 ```
 ├─ assets/
 │  └─ javascript/
-│     ├─ common.js
 │     └─ index.js
 ├─ controllers/
-│  ├─ common.js
 │  └─ index.js
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ views/
 │  ├─ partials/
-│  │  ├─ foot.htm
-│  │  ├─ head.htm
 │  │  └─ index.htm
 │  └─ index.htm
 └─ webconfig.json
@@ -2399,7 +2406,6 @@ Contenant le `webconfig.json` suivant :
 
 ```json
 {
-    "commonController": "common.js",
     "commonVariation": "common.json",
     "routes": {
         "/": {
@@ -2412,31 +2418,6 @@ Contenant le `webconfig.json` suivant :
 ```
 
 et contenant les fichiers de template suivant :
-
-**views/partials/head.htm**
-
-```html
-<!DOCTYPE html>
-<html lang="<?= languageCode ?>">
-    <head>
-        <meta charset="utf-8" />
-        <title><?- common.titleWebsite ?></title>
-    </head>
-    <body data-hostname="<?= webconfig.urlWithoutFileName ?>" data-subpath="<?= webconfig.urlRelativeSubPath.slice(1) ?>" data-variation="<?= currentRouteParameters.variation.replace(/\.json/,'') ?>">
-```
-
-*Note : `data-hostname` et `data-subpath` va nous aider à paramètrer Socket.io côté Front.*
-
-**views/partials/foot.htm**
-
-```html
-        <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-        <script src="javascript/common.js"></script>
-    </body>
-</html>
-```
-
-*Note : Le fichier frontal de Socket.IO s'injecte ici en global.*
 
 **views/partials/index.htm**
 
@@ -2455,12 +2436,21 @@ et contenant les fichiers de template suivant :
 **views/index.htm**
 
 ```html
-    <?- include("partials/head.htm") ?>
-    <div class="layout">
-    <?- include("index.htm") ?>
-    </div>
-    <script src="javascript/index.js"></script>
-    <?- include("partials/foot.htm") ?>
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title><?- common.titleWebsite ?></title>
+    </head>
+    <body>
+		<div class="layout">
+			<?- include('partials/index.htm') ?>
+		</div>
+        <script type="text/javascript" src="socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="node-atlas/socket.io.js"></script>
+        <script type="text/javascript" src="javascript/index.js"></script>
+    </body>
+</html>
 ```
 
 *Note : On construit ici la page d'accueil `/`.*
@@ -2471,7 +2461,7 @@ ainsi que les fichiers de variations suivant :
 
 ```json
 {
-    "titleWebsite": "Socket.IO Exemple"
+    "titleWebsite": "Exemple Socket.IO"
 }
 ```
 
@@ -2486,100 +2476,15 @@ ainsi que les fichiers de variations suivant :
 
 Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.
 
-Côté serveur, nous utiliserons les fichiers suivant :
-
-**controllers/common.js**
-
-```json
-var privates = {};
-
-// Chargement des modules pour ce site dans l'objet NodeAtlas.
-exports.setModules = function () {
-    // Récupérer l'instance « NodeAtlas » du moteur.
-    var NA = this;
-
-    // Associations de chaque module pour y avoir accès partout.
-    NA.modules.socketio = require('socket.io');
-    NA.modules.cookie = require('cookie');
-};
-
-// Exemple d'utilisation de Socket.IO.
-privates.socketIoInitialisation = function (socketio, NA, next) {
-    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
-        io = socketio(NA.server, optionIo),
-        cookie = NA.modules.cookie,
-        cookieParser = NA.modules.cookieParser;
-
-    // Synchronisation des Sessions avec Socket.IO.
-    io.use(function(socket, next) {
-        var handshakeData = socket.request;
-
-        // Fallback si les cookies ne sont pas gérés.
-        if (!handshakeData.headers.cookie) {
-            return next(new Error('Cookie de session requis.'));
-        }
-
-        // Transformation de la String cookie en Objet JSON.
-        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
-
-        // Vérification de la signature du cookie.
-        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
-
-        // Garder à portée l'ID de Session.
-        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
-
-        // Accepter le cookie.
-        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
-            if (error || !session) {
-                return next(new Error('Aucune session récupérée.'));
-            } else {
-                handshakeData.session = session;
-                next();
-            }
-        });
-    });
-
-    // Suite.
-    next(io);
-};
-
-// Ajout d'évènements d'écoute pour un controller spécifique « index.js » (voir exemple dans le fichier d'après).
-privates.socketIoEvents = function (io, NA) {
-    var params = {};
-
-    params.io = io;
-
-    // Evènements pour la page index (voir exemple dans le fichier d'après).
-    require('./index').asynchrone.call(NA, params);
-};
-
-// Configuration de tous les modules.
-exports.setConfigurations = function (next) {
-    var NA = this,
-        socketio = NA.modules.socketio;
-
-    // Initialisation de Socket IO.
-    privates.socketIoInitialisation(socketio, NA, function (io) {
-
-        // Écoute d'action Socket IO.
-        privates.socketIoEvents(io, NA);
-
-        // Étapes suivante du moteur.
-        next();
-    });
-};
-```
-
-*Note : Ceci est la configuration global de Socket.IO côté serveur.*
+Côté serveur, nous utiliserons le contrôleur commun suivant :
 
 **controllers/index.js**
 
 ```json
-// Intégralité des actions Websocket possible pour ce template.
-// Utilisé non pas par « NodeAtlas » mais par « common.js » (voir fichier précédent).
-exports.asynchrone = function (params) {
+// Intégralité des actions Websocket possible avec `setSockets`.
+exports.setSockets = function () {
     var NA = this,
-        io = params.io;
+        io = NA.io;
 
     // Dès qu'on a un lien valide entre le client et notre back...
     io.sockets.on("connection", function (socket) {
@@ -2608,74 +2513,39 @@ exports.asynchrone = function (params) {
 
 Quand au côté client, nous utiliserons les fichiers suivant :
 
-**assets/javascript/common.js**
-
-```json
-window.website = window.website || {};
-
-(function (publics) {
-    "use strict";
-
-    var privates = {},
-        optionsSocket,
-        body = document.getElementsByTagName("body")[0];
-
-    // On configure Socket.IO côté Client.
-    optionsSocket = (body.getAttribute("data-subpath") !== "") ? { path: "/" + body.getAttribute("data-subpath") + ((body.getAttribute("data-subpath")) ? "/" : "") + "socket.io" } : undefined;
-    publics.socket = io.connect((body.getAttribute("data-subpath") !== "") ? body.getAttribute("data-hostname") : undefined, optionsSocket);
-}(website));
-
-// On exécute le JavaScript Spécifique à la page en cours, ici ["index"].
-website[document.getElementsByTagName("body")[0].getAttribute("data-variation")].start();
-```
-
-*Note : Ceci est la configuration global de Socket.IO côté client en ce basant sur `data-subpath` et `data-hostname`.*
-
 **assets/javascript/index.js**
 
 ```json
-window.website = window.website || {};
+var html = document.getElementsByTagName("html")[0],
+    layout = document.getElementsByClassName("layout")[0];
 
-(function (publics) {
-    "use strict";
-
-    var html = document.getElementsByTagName("html")[0],
-        body = document.getElementsByTagName("body")[0],
-        layout = document.getElementsByClassName("layout")[0];
-
-    // On associe sur le bouton l'action de communiquer avec le serveur en cliquant dessus.
-    function setServerRender() {
-        var button = document.getElementsByTagName("button")[0];
-        button.addEventListener("click", function () {
-            website.socket.emit("server-render", {
-                lang: html.getAttribute("lang"),
-                variation: body.getAttribute("data-variation")
-            });
+// On associe sur le bouton l'action de communiquer avec le serveur en cliquant dessus.
+function setServerRender() {
+    var button = document.getElementsByTagName("button")[0];
+    button.addEventListener("click", function () {
+        NA.socket.emit("server-render", {
+            lang: html.getAttribute("lang")
         });
-    }
+    });
+}
 
-    // On créer le code qui s'exécutera au lancement de la page.
-    publics.init = function () {
+// On affecte l'action au bouton.
+setServerRender();
 
-        // On affecte l'action au bouton.
-        setServerRender();
+// Quand le serveur répond après notre demande auprès de lui...
+NA.socket.on("server-render", function (data) {
 
-        // Quand le serveur répond après notre demande auprès de lui...
-        website.socket.on("server-render", function (data) {
+    // ...on met à jour le contenu...
+    layout.innerHTML = data.render;
 
-            // ...on met à jour le contenu...
-            layout.innerHTML = data.render;
-
-            // ...et ré-affectons l'action au bouton du nouveau contenu.
-            setServerRender();
-        });
-    };
-}(website.index = {}));
+    // ...et ré-affectons l'action au bouton du nouveau contenu.
+    setServerRender();
+});
 ```
 
 Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.
 
-Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, il est possible de générer une nouvelle compilation d'une view et d'une variation commune et spécifique.
+Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.
 
 Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `variation` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 

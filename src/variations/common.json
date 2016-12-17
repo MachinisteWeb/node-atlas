@@ -20,12 +20,12 @@
 		"first": {
 			"title": "<span>Mise en place</span> <strong>Simple</strong>",
 			"abstract": "Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>Débutant</strong> en JavaScript ?",
-			"description": "Réalisez rapidement des sites vitrines multilingues sans effort avec de simple Routes, Views ou Variations."
+			"description": "Réalisez rapidement des sites vitrines multilingues sans effort avec de simple Routes, Vues ou Variations."
 		},
 		"second": {
 			"title": "<span>Site vivant et</span> <strong>Évolutif</strong>",
 			"abstract": "<strong>Expert</strong> en JavaScript client ?<br>Prêt à embrasser <strong>Node.js</strong> ?",
-			"description": "Améliorer progressivement votre base à mesure de vos besoins en utilisant des Controllers, Modèles ou Modules."
+			"description": "Améliorer progressivement votre base à mesure de vos besoins en utilisant des Contrôleurs, Modèles ou Modules."
 		},
 		"third": {
 			"title": "<span>Partie Cliente</span> <strong>Agnostique</strong>",
@@ -83,7 +83,7 @@
 		},
 		"abstract": {
 			"title": "À propos",
-			"description": "NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des Views avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !"
+			"description": "NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des vues avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !"
 		},
 		"tuto": {
 			"title": "Tutoriaux",

@@ -102,7 +102,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [PUG Template Engine](#pug-template-engine)
 - [Controller and Model Part](#controller-and-model-part)
  - [Lifecycle and Hooks](#lifecycle-and-hooks)
- - [Use Websocket instead of AJAX](#use-websocket-instead-of-ajax)
+ - [Use Reliable Client-Server Real-Time with Websockets](#use-reliable-client-server real-time-with-websockets)
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
 - [More features](#more-features)
@@ -1084,6 +1084,7 @@ with the following view :
         <div><?- urlSubPath ?></div>
         <div><?- urlBasePath ?></div>
         <div><?- urlFilePath ?></div>
+        <div><?- urlQueryPath ?></div>
         <div><?- urlPath ?></div>
     </body>
 </html>
@@ -1121,6 +1122,7 @@ and you will be access to the URL: *http://localhost/* to see this content:
         <div></div>
         <div>http://localhost</div>
         <div>/</div>
+        <div></div>
         <div>http://localhost/</div>
     </body>
 </html>
@@ -1135,14 +1137,14 @@ Then change the configuration to this:
     "httpSecure": "security/server",
     "urlRelativeSubPath": "sub/folder",
     "routes": {
-        "/": {
+        "/index.html": {
             "view": "index.htm"
         }
     }
 }
 ```
 
-to access this time to : *https://127.0.0.1:7777/sub/folder/index.html* to see this content:
+to access this time to : *https://127.0.0.1:7777/sub/folder/index.html?test=ok* to see this content:
 
 ```html
 <!DOCTYPE html>
@@ -1156,6 +1158,7 @@ to access this time to : *https://127.0.0.1:7777/sub/folder/index.html* to see t
         <div>/sub/folder</div>
         <div>https://127.0.0.1:7777/sub/folder</div>
         <div>/index.html</div>
+        <div>?test=ok</div>
         <div>https://127.0.0.1:7777/sub/folder/index.html</div>
     </body>
 </html>
@@ -1652,20 +1655,20 @@ Learn all about the possibilities of the template engine consult [the documentat
 
 NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;
 
-- parameters in query part of url (GET),
+- parameters in query part of URL (GET),
 - parameters in request body (POST),
-- connection with database or,
-- management of sessions or,
-- do AJAX or Websocket request/response and
+- connection with database,
+- management of sessions,
+- do Websockets request/response and
 - do more !
 
 
 
 ### Lifecycle and Hooks ###
 
-For that, you could hook to some point of life cycle of the page generation with common controller (`commonController`) and with specific controller for each page (`routes[<route>].controller`).
+NodeAtlas lyfecycle works as following. First, one time, ressources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generate. You could use hooks whire server start and while response is construct.
 
-This is a `webconfig.json` allows you to manipulate each part of life cycle of a page.
+This is a `webconfig.json` allows you to manipulate each hook of life cycle of a page.
 
 ```json
 {
@@ -1693,6 +1696,11 @@ and this is the detail of all hooks :
 > Init of Sessions
 
 > - *setSessions* --> into `commonController` file (`common.js` for example).
+
+> Init of Sockets
+
+> - *setSockets* --> into `commonController` file (`common.js` for example).
+> - *setSockets* --> into `routes[<route>].controller` file (`index.js` for example).
 
 > Init of server configuration
 
@@ -1759,7 +1767,7 @@ with this files :
 
 Do a POST request on `http://localhost/example/?title=Haeresis` with `example=This+is+a+test` variable in body will use the following files:
 
-*variations/common.json*
+**variations/common.json**
 
 ```json
 {
@@ -1767,7 +1775,7 @@ Do a POST request on `http://localhost/example/?title=Haeresis` with `example=Th
 }
 ```
 
-*variations/index.json*
+**variations/index.json**
 
 ```json
 {
@@ -1776,7 +1784,7 @@ Do a POST request on `http://localhost/example/?title=Haeresis` with `example=Th
 }
 ```
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
     <?- include("partials/head.htm") ?>
@@ -1791,7 +1799,7 @@ Do a POST request on `http://localhost/example/?title=Haeresis` with `example=Th
     <?- include("partials/foot.htm") ?>
 ```
 
-*controllers/common.js*
+**controllers/common.js**
 
 ```js
 // This code is executed before variation are injected into template engine.
@@ -1830,11 +1838,11 @@ exports.changeVariation = function (params, next) {
 };
 ```
 
-*controllers/index.js*
+**controllers/index.js**
 
 ```js
 // This code is executed before variation are injected into template engine.
-// This code is executed only for the « / » page .
+// This code is executed only for the « / » page.
 exports.changeVariation = function (params, next) {
     var variation = params.variation,
         request = params.request,
@@ -1858,11 +1866,11 @@ exports.changeVariation = function (params, next) {
 };
 ```
 
-en this produce the following output :
+en this produce the following output:
 
 ```html
 <!DOCTYPE html>
-<html lang="fr-fr">
+<html lang="en-us">
     <head>
         <meta charset="utf-8" />
         <title>It's Home, no way.</title>
@@ -1896,7 +1904,7 @@ the output will be as following:
 
 ```html
 <!DOCTYPE html>
-<html lang="fr-fr">
+<html lang="en-us">
     <head>
         <meta charset="utf-8" />
         <title>Site Title</title>
@@ -1935,6 +1943,7 @@ with this files :
 
 ```
 ├─ variations/
+│  ├─ common.json
 │  └─ index.json
 ├─ controllers/
 │  ├─ common.js
@@ -1946,7 +1955,7 @@ with this files :
 
 Do a POST request on `http://localhost/` will use the following files:
 
-*variations/common.json*
+**variations/common.json**
 
 ```json
 {
@@ -1954,7 +1963,7 @@ Do a POST request on `http://localhost/` will use the following files:
 }
 ```
 
-*variations/index.json*
+**variations/index.json**
 
 ```json
 {
@@ -1963,11 +1972,11 @@ Do a POST request on `http://localhost/` will use the following files:
 }
 ```
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
 <!DOCTYPE html>
-<html lang="fr-fr">
+<html lang="en-us">
     <head>
         <meta charset="utf-8" />
         <title><?- common.titleWebsite ?></title>
@@ -1982,7 +1991,7 @@ Do a POST request on `http://localhost/` will use the following files:
 </html>
 ```
 
-*controllers/common.js*
+**controllers/common.js**
 
 ```js
 // This code is executed before DOM was sent to Client.
@@ -2016,7 +2025,7 @@ exports.changeDom = function (params, next) {
 };
 ```
 
-*controllers/index.js*
+**controllers/index.js**
 
 ```js
 // This code is executed before DOM was sent to Client.
@@ -2044,7 +2053,7 @@ the output will be as following:
 
 ```html
 <!DOCTYPE html>
-<html lang="fr-fr">
+<html lang="en-us">
     <head>
         <meta charset="utf-8">
         <title>Site Title</title>
@@ -2090,11 +2099,11 @@ with this set of files:
 
 Do a POST request on `http://localhost/` will use the following files:
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
 <!DOCTYPE html>
-<html lang="fr-fr">
+<html lang="en-us">
     <head>
         <meta charset="utf-8" />
         <title>Test Module</title>
@@ -2109,7 +2118,7 @@ Do a POST request on `http://localhost/` will use the following files:
 </html>
 ```
 
-*controllers/common.js*
+**controllers/common.js**
 
 ```js
 // This code is executing during the modules loading phase.
@@ -2123,7 +2132,7 @@ exports.setModules = function () {
 };
 ```
 
-*controllers/index.js*
+**controllers/index.js**
 
 ```js
 // This code is executed before variation are injected into template engine.
@@ -2145,7 +2154,7 @@ this will produce the following output:
 
 ```html
 <!DOCTYPE html>
-<html lang="fr-fr">
+<html lang="en-us">
     <head>
         <meta charset="utf-8" />
         <title>Test Module</title>
@@ -2162,7 +2171,7 @@ this will produce the following output:
 
 #### setConfigurations ####
 
-To configure NodeAtlas web server others ([ExpressJs](http://expressjs.com/)), you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.
+To configure NodeAtlas web server others ([ExpressJs](http://expressjs.com/)), you can use the common controller to set configurations before the server start.
 
 This is an exemple using a middleware for [ExpressJs](http://expressjs.com/):
 
@@ -2182,7 +2191,8 @@ with this set of files:
 
 ```
 ├─ controllers/
-│  └─ common.js
+│  ├─ common.js
+│  └─ index.js
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
@@ -2190,13 +2200,13 @@ with this set of files:
 
 Do a POST request on `http://localhost/` will use the following files:
 
-*views/index.htm*
+**views/index.htm**
 
 ```html
 <?- content ?>
 ```
 
-*controllers/common.js*
+**controllers/common.js**
 
 ```js
 // This code is executing before starting of the web server.
@@ -2208,6 +2218,7 @@ exports.setConfigurations = function (next) {
     // Middleware utilisé lors de chaque requête.
     NA.httpServer.use(function (request, response, next) {
         response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
+        response.setHeader("Content-Type", "application/json; charset=utf-8");
         next();
     });
 
@@ -2216,7 +2227,7 @@ exports.setConfigurations = function (next) {
 };
 ```
 
-*controllers/index.js*
+**controllers/index.js**
 
 ```js
 // This code is executing before starting of the web server.
@@ -2225,9 +2236,6 @@ exports.changeVariation = function (params, next) {
     var variation = params.variation;
 
     // We prepare file for JSON displaying.
-    variation.currentRouteParameters.headers = {
-        "Content-Type": "application/json; charset=utf-8"
-    };
     variation.content = JSON.stringify(variation, null, "    ");
 
     // We update modification here.
@@ -2239,8 +2247,11 @@ this will produce the following output:
 
 ```html
 {
-    "urlBasePathSlice": "http://localhost",
-    "urlBasePath": "http://localhost/",
+    "urlRootPath": "http://localhost",
+    "urlSubPath": "",
+    "urlBasePath": "http://localhost",
+    "urlFilePath": "/",
+    "urlQueryPath": "",
     "urlPath": "http://localhost/",
     "pathname": /* ... */,
     "filename": /* ... */,
@@ -2253,7 +2264,7 @@ this will produce the following output:
 
 #### setSessions ####
 
-To configure client-server Sessions of NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers, this is an example with [Redis](http://redis.io/) sessions.
+To configure client-server Sessions of NodeAtlas, you can use the common controller to set sessions before the server start. this is an example with [Redis](http://redis.io/) sessions.
 
 This is all files for example:
 
@@ -2367,9 +2378,9 @@ exports.setRoutes = function (next) {
 
 
 
-### Use Websocket instead of AJAX ###
+### Use Reliable Client-Server Real-Time with Websockets ###
 
-To keep a link between Front and Back part of website, NodeAtlas can use [Socket.IO](http://socket.io/) (more details on official website).
+To keep a link between Client-side and Server-side part of website, NodeAtlas use [Socket.IO](http://socket.io/) (more details on official website).
 
 Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.
 
@@ -2378,18 +2389,14 @@ With this following files:
 ```
 ├─ assets/
 │  └─ javascript/
-│     ├─ common.js
 │     └─ index.js
 ├─ controllers/
-│  ├─ common.js
 │  └─ index.js
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ views/
 │  ├─ partials/
-│  │  ├─ foot.htm
-│  │  ├─ head.htm
 │  │  └─ index.htm
 │  └─ index.htm
 └─ webconfig.json
@@ -2399,7 +2406,6 @@ With this `webconfig.json`:
 
 ```json
 {
-    "commonController": "common.js",
     "commonVariation": "common.json",
     "routes": {
         "/": {
@@ -2412,31 +2418,6 @@ With this `webconfig.json`:
 ```
 
 and with this views files:
-
-**views/partials/head.htm**
-
-```html
-<!DOCTYPE html>
-<html lang="<?= languageCode ?>">
-    <head>
-        <meta charset="utf-8" />
-        <title><?- common.titleWebsite ?></title>
-    </head>
-    <body data-hostname="<?= webconfig.urlWithoutFileName ?>" data-subpath="<?= webconfig.urlRelativeSubPath.slice(1) ?>" data-variation="<?= currentRouteParameters.variation.replace(/\.json/,'') ?>">
-```
-
-*Note : `data-hostname` and `data-subpath` will help us to set Socket.IO front configuration.*
-
-**views/partials/foot.htm**
-
-```html
-        <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-        <script src="javascript/common.js"></script>
-    </body>
-</html>
-```
-
-*Note : The Front file of Socket.IO is calling here.*
 
 **views/partials/index.htm**
 
@@ -2455,12 +2436,21 @@ and with this views files:
 **views/index.htm**
 
 ```html
-    <?- include("partials/head.htm") ?>
-    <div class="layout">
-    <?- include('index.htm') ?>
-    </div>
-    <script src="javascript/index.js"></script>
-    <?- include("partials/foot.htm") ?>
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title><?- common.titleWebsite ?></title>
+    </head>
+    <body>
+        <div class="layout">
+            <?- include('partials/index.htm') ?>
+        </div>
+        <script type="text/javascript" src="socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="node-atlas/socket.io.js"></script>
+        <script type="text/javascript" src="javascript/index.js"></script>
+    </body>
+</html>
 ```
 
 *Note : We parse here the home page `/`.*
@@ -2486,100 +2476,15 @@ and the following variations files :
 
 All work fine here, but see what we will do with controller part on Server-side and on Client-side. 
 
-On server, we will use the following files:
-
-**controllers/common.js**
-
-```js
-var privates = {};
-
-// Load modules for this site in the NodeAtlas object.
-exports.setModules = function () {
-    // Find instance of « NodeAtlas » engine.
-    var NA = this;
-
-    // Associations of each module to access it anywhere.
-    NA.modules.socketio = require('socket.io');
-    NA.modules.cookie = require('cookie');
-};
-
-// Example using Socket.IO.
-privates.socketIoInitialisation = function (socketio, NA, next) {
-    var optionIo = (NA.webconfig.urlRelativeSubPath) ? { path: NA.webconfig.urlRelativeSubPath + '/socket.io', secure: ((NA.webconfig.httpSecure) ? true : false) } : undefined,
-        io = socketio(NA.server, optionIo),
-        cookie = NA.modules.cookie,
-        cookieParser = NA.modules.cookieParser;
-
-    // Synchronizing sessions with Socket.IO.
-    io.use(function(socket, next) {
-        var handshakeData = socket.request;
-
-        // Fallback if cookies are not supported.
-        if (!handshakeData.headers.cookie) {
-            return next(new Error('Session cookie required.'));
-        }
-
-        // Transformation of the cookie String to JSON object.
-        handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
-
-        // Verification of the signature of the cookie.
-        handshakeData.cookie = cookieParser.signedCookies(handshakeData.cookie, NA.webconfig.session.secret);
-
-        // Keep worn the Session ID.
-        handshakeData.sessionID = handshakeData.cookie[NA.webconfig.session.key];
-
-        // Accept the cookie.
-        NA.sessionStore.load(handshakeData.sessionID, function (error, session) {
-            if (error || !session) {
-                return next(new Error('No recovered session.'));
-            } else {
-                handshakeData.session = session;
-                next();
-            }
-        });
-    });
-
-    // Next.
-    next(io);
-};
-
-// Adding listener for a specific controller "index.js" (see example in the next file).
-privates.socketIoEvents = function (io, NA) {
-    var params = {};
-
-    params.io = io;
-
-    // Event for the index page (see example in the next file).
-    require('./index').asynchrone.call(NA, params);
-};
-
-// Configuration of all modules.
-exports.setConfigurations = function (next) {
-    var NA = this,
-        socketio = NA.modules.socketio;
-
-    // Initialize Socket IO.
-    privates.socketIoInitialisation(socketio, NA, function (io) {
-
-        // Socket IO listening.
-        privates.socketIoEvents(io, NA);
-
-        // Next steps of engine.
-        next();
-    });
-};
-```
-
-*Note : This is Socket.IO server global configuration.*
+On server, we will use the following controller file:
 
 **controllers/index.js**
 
 ```js
-// All Websocket action possible for this template.
-// Used not by "NodeAtlas" but with "common.js" (see previous file).
-exports.asynchrone = function (params) {
+// All Websocket action possible with `setSockets`.
+exports.setSockets = function () {
     var NA = this,
-        io = params.io;
+        io = NA.io;
 
     // Once we have a valid connection between the client and our back-end...
     io.sockets.on('connection', function (socket) {
@@ -2608,69 +2513,34 @@ exports.asynchrone = function (params) {
 
 And for client-side, we use the following files:
 
-**assets/javascript/common.js**
-
-```js
-window.website = window.website || {};
-
-(function (publics) {
-    "use strict";
-
-    var privates = {},
-        optionsSocket,
-        body = document.getElementsByTagName("body")[0];
-
-    // We configure Socket.IO client-side.
-    optionsSocket = (body.getAttribute("data-subpath") !== "") ? { path: "/" + body.getAttribute("data-subpath") + ((body.getAttribute("data-subpath")) ? "/" : "") + "socket.io" } : undefined;
-    publics.socket = io.connect((body.getAttribute("data-subpath") !== "") ? body.getAttribute("data-hostname") : undefined, optionsSocket);
-}(website));
-
-// We execute specific JavaScript, here it's ["index"].
-website[document.getElementsByTagName("body")[0].getAttribute("data-variation")].start();
-```
-
-*Note : This is the global Socket.IO configuration client-side with `data-subpath` and `data-hostname`.*
-
 **assets/javascript/index.js**
 
 ```js
-window.website = window.website || {};
+var html = document.getElementsByTagName("html")[0],
+    layout = document.getElementsByClassName("layout")[0];
 
-(function (publics) {
-    "use strict";
-
-    var html = document.getElementsByTagName("html")[0],
-        body = document.getElementsByTagName("body")[0],
-        layout = document.getElementsByClassName("layout")[0];
-
-    // We associate on the button the action to contact server.
-    function setServerRender() {
-        var button = document.getElementsByTagName("button")[0];
-        button.addEventListener("click", function () {
-            website.socket.emit("server-render", {
-                lang: html.getAttribute("lang"),
-                variation: body.getAttribute("data-variation")
-            });
+// We associate on the button the action to contact server.
+function setServerRender() {
+    var button = document.getElementsByTagName("button")[0];
+    button.addEventListener("click", function () {
+        NA.socket.emit("server-render", {
+            lang: html.getAttribute("lang")
         });
-    }
+    });
+}
 
-    // We create the code will be executed when page run.
-    publics.init = function () {
+// We set action on button.
+setServerRender();
 
-        // We set action on button.
-        setServerRender();
+// When server response come back...
+NA.socket.on("server-render", function (data) {
 
-        // When server response come back...
-        website.socket.on("server-render", function (data) {
+    // ...we update data content...
+    layout.innerHTML = data.render;
 
-            // ...we update data content...
-            layout.innerHTML = data.render;
-
-            // ...and we set again button action.
-            setServerRender();
-        });
-    };
-}(website.index = {}));
+    // ...and we set again button action.
+    setServerRender();
+});
 ```
 
 Run your project and go on `http://localhost/` across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.
