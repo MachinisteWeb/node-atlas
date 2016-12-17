@@ -54,8 +54,8 @@
         }
     }
 }
-</code></pre><p>because</p><pre><code class="lang-js">&quot;/about.html&quot;: &quot;about.htm&quot;,
-</code></pre><p>is a shortcut for</p><pre><code class="lang-js">&quot;about.html&quot;: {
+</code></pre><p>because</p><pre><code class="lang-json">&quot;/about.html&quot;: &quot;about.htm&quot;,
+</code></pre><p>is a shortcut for</p><pre><code class="lang-json">&quot;about.html&quot;: {
     &quot;view&quot;: &quot;about.htm&quot;
 }
 </code></pre><p>Obviously this shortcut is used only if <code>view</code> is the only parameter to declare in the route.</p><p>It&#39;s also possible to place routes into an array, that allows you to ordonate routes for an advanced usage in controllers section.</p><p>In this case, the path become the <code>url</code> parameter.</p><pre><code class="lang-json">{
@@ -506,7 +506,7 @@
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>To run (from the site folder) the the command:</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/
+</code></pre><p>To run (from the site folder) the the command:</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/
 </code></pre><p>We will have to address &quot;<a href="http://localhost/">http://localhost/</a>&quot; the following output with non-minified files:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -519,7 +519,7 @@
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>However, running the command:</p><pre><code>\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.prod.json
+</code></pre><p>However, running the command:</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.prod.json
 </code></pre><p>We will have to address &quot;<a href="http://localhost/">http://localhost/</a>&quot; the following output with minified files:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -629,7 +629,7 @@
         }
     }
 }
-</code></pre><p>For example, to include part of a file instruction is used <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. It would be possible to do it with <code>&lt;$- include(&quot;partials/head.htm&quot;) $&gt;</code> with the configuration below:</p><p>See the exemple in files below:</p><p><strong>webconfig.json</strong></p><pre><code>{
+</code></pre><p>For example, to include part of a file instruction is used <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. It would be possible to do it with <code>&lt;$- include(&quot;partials/head.htm&quot;) $&gt;</code> with the configuration below:</p><p>See the exemple in files below:</p><p><strong>webconfig.json</strong></p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: true,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -671,7 +671,7 @@
     &lt;/div&gt;
 
     &lt;%- include(&quot;partials/foot.htm&quot;) %&gt;
-</code></pre><p>Learn all about the possibilities of the template engine consult <a href="http://ejs.co/">the documentation EJS</a></p><p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p><h3 id="pug-template-engine">PUG Template Engine</h3><p>It&#39;s also possible to change EJS template to <a href="https://pugjs.org/">PUG Template Engine</a> (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p><pre><code>{
+</code></pre><p>Learn all about the possibilities of the template engine consult <a href="http://ejs.co/">the documentation EJS</a></p><p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p><h3 id="pug-template-engine">PUG Template Engine</h3><p>It&#39;s also possible to change EJS template to <a href="https://pugjs.org/">PUG Template Engine</a> (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p><pre><code class="lang-json">{
     &quot;enablePug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
