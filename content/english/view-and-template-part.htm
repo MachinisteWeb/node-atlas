@@ -632,12 +632,12 @@
         }
     }
 }
-</code></pre><p>For example, to include part of a file instruction is used <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. It would be possible to do it with <code>&lt;$- include(&quot;partials/head.htm&quot;) $&gt;</code> with the configuration below:</p><p>See the exemple in files below:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</code></pre><p>For example, to include part of a file instruction is used <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. It would be possible to do it with <code>&lt;%- include(&quot;partials/head&quot;) %&gt;</code> with the configuration below:</p><p>See the exemple in files below:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: true,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.ejs&quot;,
             &quot;variation&quot;: &quot;index.json&quot;
         }
     }
@@ -652,7 +652,7 @@
     &quot;classPage&quot;: &quot;index&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;This is the Homepage.&lt;/p&gt;&quot;
 }
-</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>views/partials/head.ejs</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -661,10 +661,10 @@
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body class=&quot;&lt;%= specific.classPage %&gt;&quot;&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.ejs</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;%- include(&quot;partials/head.htm&quot;) %&gt;
+</code></pre><p><em>views/index.ejs</em></p><pre><code class="lang-html">    &lt;%- include(&quot;partials/head&quot;) %&gt;
 
     &lt;div class=&quot;title&quot;&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
 
@@ -673,26 +673,26 @@
         &lt;%- specific.content %&gt;
     &lt;/div&gt;
 
-    &lt;%- include(&quot;partials/foot.htm&quot;) %&gt;
+    &lt;%- include(&quot;partials/foot&quot;) %&gt;
 </code></pre><p>Learn all about the possibilities of the template engine consult <a href="http://ejs.co/">the documentation EJS</a></p><p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p><h3 id="pug-template-engine">PUG Template Engine</h3><p>It&#39;s also possible to change EJS template to <a href="https://pugjs.org/">PUG Template Engine</a> (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p><pre><code class="lang-json">{
     &quot;enablePug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.pug&quot;
         },
         &quot;/contenu/&quot;: {
-            &quot;view&quot;: &quot;content.htm&quot;
+            &quot;view&quot;: &quot;content.pug&quot;
         }
     }
 }
 </code></pre><p>or just for one page like this:</p><pre><code>{
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.pug&quot;
         },
         &quot;/contenu/&quot;: {
             &quot;enablePug&quot;: true,
-            &quot;view&quot;: &quot;content.htm&quot;
+            &quot;view&quot;: &quot;content.pug&quot;
         }
     }
 }
@@ -701,10 +701,10 @@
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;enablePug&quot;: false,
-            &quot;view&quot;: &quot;index.htm&quot;
+            &quot;view&quot;: &quot;index.pug&quot;
         },
         &quot;/contenu/&quot;: {
-            &quot;view&quot;: &quot;content.htm&quot;
+            &quot;view&quot;: &quot;content.pug&quot;
         }
     }
 }
@@ -713,7 +713,7 @@
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;view&quot;: &quot;index.pug&quot;,
             &quot;variation&quot;: &quot;index.json&quot;
         }
     }
@@ -737,11 +737,11 @@ html(lang=&quot;fr-fr&quot;)
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + specific.classPage + &quot;.css&quot;, media=&quot;all&quot;)
     body(class=specific.classPage)
 </code></pre><p><em>views/partials/foot.pug</em></p><pre><code class="lang-html">script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">include partials/head.pug
+</code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">include partials/head
 
 div
     h1 #{specific.titlePage}
     | !{specific.content}
 
-include partials/foot.pug
+include partials/foot
 </code></pre><p>Learn all about the possibilities of the template engine consult <a href="https://pugjs.org/">the documentation PUG</a></p><p><em>Note : If nothing is set,</em> <strong><em>enablePug</em></strong> <em>is set to</em> <strong><em>false</em></strong>.</p>

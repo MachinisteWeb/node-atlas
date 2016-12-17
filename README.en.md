@@ -1442,7 +1442,7 @@ By default, NodeAtlas already use [EJS template engine](http://ejs.co/), it's th
 }
 ```
 
-For example, to include part of a file instruction is used `<?- include("partials/head.htm") ?>`. It would be possible to do it with `<$- include("partials/head.htm") $>` with the configuration below:
+For example, to include part of a file instruction is used `<?- include("partials/head.htm") ?>`. It would be possible to do it with `<%- include("partials/head") %>` with the configuration below:
 
 See the exemple in files below:
 
@@ -1454,7 +1454,7 @@ See the exemple in files below:
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "view": "index.htm",
+            "view": "index.ejs",
             "variation": "index.json"
         }
     }
@@ -1481,7 +1481,7 @@ See the exemple in files below:
 }
 ```
 
-*views/partials/head.htm*
+*views/partials/head.ejs*
 
 ```html
 <!DOCTYPE html>
@@ -1495,7 +1495,7 @@ See the exemple in files below:
     <body class="<%= specific.classPage %>">
 ```
 
-*views/partials/foot.htm*
+*views/partials/foot.ejs*
 
 ```html
         <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
@@ -1503,10 +1503,10 @@ See the exemple in files below:
 </html>
 ```
 
-*views/index.htm*
+*views/index.ejs*
 
 ```html
-    <%- include("partials/head.htm") %>
+    <%- include("partials/head") %>
 
     <div class="title"><%- common.titleWebsite %></div>
 
@@ -1515,7 +1515,7 @@ See the exemple in files below:
         <%- specific.content %>
     </div>
 
-    <%- include("partials/foot.htm") %>
+    <%- include("partials/foot") %>
 ```
 
 Learn all about the possibilities of the template engine consult [the documentation EJS](http://ejs.co/)
@@ -1533,10 +1533,10 @@ It's also possible to change EJS template to [PUG Template Engine](https://pugjs
     "enablePug": true,
     "routes": {
         "/": {
-            "view": "index.htm"
+            "view": "index.pug"
         },
         "/contenu/": {
-            "view": "content.htm"
+            "view": "content.pug"
         }
     }
 }
@@ -1548,11 +1548,11 @@ or just for one page like this:
 {
     "routes": {
         "/": {
-            "view": "index.htm"
+            "view": "index.pug"
         },
         "/contenu/": {
             "enablePug": true,
-            "view": "content.htm"
+            "view": "content.pug"
         }
     }
 }
@@ -1566,10 +1566,10 @@ It's also possible to reset EJS only for one page.
     "routes": {
         "/": {
             "enablePug": false,
-            "view": "index.htm"
+            "view": "index.pug"
         },
         "/contenu/": {
-            "view": "content.htm"
+            "view": "content.pug"
         }
     }
 }
@@ -1585,7 +1585,7 @@ We can see now an example with set of files below:
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "view": "index.htm",
+            "view": "index.pug",
             "variation": "index.json"
         }
     }
@@ -1631,16 +1631,16 @@ html(lang="fr-fr")
 script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
 ```
 
-*views/index.htm*
+*views/index.pug*
 
 ```html
-include partials/head.pug
+include partials/head
 
 div
     h1 #{specific.titlePage}
     | !{specific.content}
 
-include partials/foot.pug
+include partials/foot
 ```
 
 Learn all about the possibilities of the template engine consult [the documentation PUG](https://pugjs.org/)

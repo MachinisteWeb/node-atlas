@@ -1436,13 +1436,13 @@ Par défaut, NodeAtlas utilise déjà le [moteur de template EJS](http://ejs.co/
     "templateEngineDelimiter": "%",
     "routes": {
         "/": {
-            "view": "index.htm"
+            "view": "index.ejs"
         }
     }
 }
 ```
 
-Par exemple, pour inclure une partie de fichier on utilise l'instruction `<?- include("partials/head.htm") ?>`. Il serait possible de le faire avec `<%- include("partials/head.htm") %>` avec la configuration ci-dessous :
+Par exemple, pour inclure une partie de fichier on utilise l'instruction `<?- include("partials/head.htm") ?>`. Il serait possible de le faire avec `<%- include("partials/head") %>` avec la configuration ci-dessous :
 
 Voyez l'exemple dans les fichiers ci-dessous :
 
@@ -1454,7 +1454,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "view": "index.htm",
+            "view": "index.ejs",
             "variation": "index.json"
         }
     }
@@ -1481,7 +1481,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 }
 ```
 
-*views/partials/head.htm*
+*views/partials/head.ejs*
 
 ```html
 <!DOCTYPE html>
@@ -1495,7 +1495,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
     <body class="<%= specific.classPage %>">
 ```
 
-*views/partials/foot.htm*
+*views/partials/foot.ejs*
 
 ```html
         <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
@@ -1503,10 +1503,10 @@ Voyez l'exemple dans les fichiers ci-dessous :
 </html>
 ```
 
-*views/index.htm*
+*views/index.ejs*
 
 ```html
-    <%- include("partials/head.htm") %>
+    <%- include("partials/head") %>
 
     <div class="title"><%- common.titleWebsite %></div>
 
@@ -1515,7 +1515,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
         <%- specific.content %>
     </div>
 
-    <%- include("partials/foot.htm") %>
+    <%- include("partials/foot") %>
 ```
 
 Pour tout savoir sur les possibilités du moteur de template consultez [la documentation EJS](http://ejs.co/)
@@ -1533,10 +1533,10 @@ Il est possible d'utiliser en lieu et place de EJS le [moteur de template PUG](h
     "enablePug": true,
     "routes": {
         "/": {
-            "view": "index.htm"
+            "view": "index.pug"
         },
         "/contenu/": {
-            "view": "content.htm"
+            "view": "content.pug"
         }
     }
 }
@@ -1548,11 +1548,11 @@ ou seulement pour une page précise :
 {
     "routes": {
         "/": {
-            "view": "index.htm"
+            "view": "index.pug"
         },
         "/contenu/": {
             "enablePug": true,
-            "view": "content.htm"
+            "view": "content.pug"
         }
     }
 }
@@ -1566,10 +1566,10 @@ Il est également possible pour un moteur complet en PUG de repasser une page sp
     "routes": {
         "/": {
             "enablePug": false,
-            "view": "index.htm"
+            "view": "index.pug"
         },
         "/contenu/": {
-            "view": "content.htm"
+            "view": "content.pug"
         }
     }
 }
@@ -1585,7 +1585,7 @@ Voyons ce que cela donnerait avec l'exemple suivant :
     "commonVariation": "common.json",
     "routes": {
         "/": {
-            "view": "index.htm",
+            "view": "index.pug",
             "variation": "index.json"
         }
     }
@@ -1631,16 +1631,16 @@ html(lang="fr-fr")
 script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
 ```
 
-*views/index.htm*
+*views/index.pug*
 
 ```html
-include partials/head.pug
+include partials/head
 
 div
     h1 #{specific.titlePage}
     | !{specific.content}
 
-include partials/foot.pug
+include partials/foot
 ```
 
 Pour tout savoir sur les possibilités du moteur de template consultez [la documentation PUG](https://pugjs.org/)
