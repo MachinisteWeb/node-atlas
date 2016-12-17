@@ -1450,7 +1450,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 
 ```json
 {
-    "templateEngineDelimiter": true,
+    "templateEngineDelimiter": "%",
     "commonVariation": "common.json",
     "routes": {
         "/": {

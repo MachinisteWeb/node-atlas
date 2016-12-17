@@ -633,7 +633,7 @@
     }
 }
 </code></pre><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. Il serait possible de le faire avec <code>&lt;%- include(&quot;partials/head&quot;) %&gt;</code> avec la configuration ci-dessous :</p><p>Voyez l&#39;exemple dans les fichiers ci-dessous :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
-    &quot;templateEngineDelimiter&quot;: true,
+    &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
