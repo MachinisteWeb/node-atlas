@@ -1689,43 +1689,45 @@ Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous le
 et voici le détail des endroits ou vous pouvez intervenir :
 
 **Démarrage de NodeAtlas** 
-> Initialisation des modules
+
+Initialisation des modules
 
 > - *setModules* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
-> Initialisation des Sessions
+Initialisation des Sessions
 
 > - *setSessions* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
-> Initialisation des Sockets
+Initialisation des Sockets
 
 > - *setSockets* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 > - *setSockets* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
 
-> Initialisation de la configuration du serveur
+Initialisation de la configuration du serveur
 
 > - *setConfigurations* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
-> Initialisation des routes
+Initialisation des routes
 
 > - *setRoutes* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
-> Lancement du serveur web
+Lancement du serveur web
 
 **Requête/Réponse HTTP de NodeAtlas** 
-> Traitement de la Requête du Client
+
+Traitement de la Requête du Client
 
 > - *changeVariation* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
 > - *changeVariation* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
 
-> Assemblage des Vues et Compilation des Variations => DOM complet de la Réponse.
+Assemblage des Vues et Compilation des Variations => DOM complet de la Réponse.
 
 > - *changeDom* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
 > - *changeDom* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
 
-> Envoi de la Réponse au Client
+Envoi de la Réponse au Client
 
 #### changeVariation ####
 

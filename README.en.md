@@ -1689,43 +1689,45 @@ This is a `webconfig.json` allows you to manipulate each hook of life cycle of a
 and this is the detail of all hooks :
 
 **Start NodeAtlas** 
-> Init of Modules
+
+Init of Modules
 
 > - *setModules* --> into `commonController` file (`common.js` for example).
 
-> Init of Sessions
+Init of Sessions
 
 > - *setSessions* --> into `commonController` file (`common.js` for example).
 
-> Init of Sockets
+Init of Sockets
 
 > - *setSockets* --> into `commonController` file (`common.js` for example).
 > - *setSockets* --> into `routes[<route>].controller` file (`index.js` for example).
 
-> Init of server configuration
+Init of server configuration
 
 > - *setConfigurations* --> into `commonController` file (`common.js` for example).
 
-> Init of routes
+Init of routes
 
 > - *setRoutes* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
 
 > Start Web Server
 
 **HTTP Request/Response of NodeAtlas**
-> Client Request Processing
+
+Client Request Processing
 
 > - *changeVariation* --> into `commonController` file (`common.js` for example).
 
 > - *changeVariation* --> into `routes[<route>].controller` file (`index.js` for example).
 
-> Views and Variations Compilation => Complete DOM.
+Views and Variations Compilation => Complete DOM.
 
 > - *changeDom* --> into `commonController` file (`common.js` for example).
 
 > - *changeDom* --> into `routes[<route>].controller` file (`index.js` for example).
 
-> Sending of Response to Client
+Sending of Response to Client
 
 #### changeVariation ####
 

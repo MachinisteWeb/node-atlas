@@ -106,7 +106,7 @@
 		"url": "partie-vue-et-template.html"
 	}, {
 		"title": "Contrôleur et Modèle",
-		"url": "partie-contr%C3%B4leur-et-mod%C3%A8le.html"
+		"url": "partie-controleur-et-modele.html"
 	}, {
 		"title": "Route et Plus",
 		"url": "pour-aller-plus-loin.html",
@@ -121,7 +121,7 @@
 			"url": "nodeatlas-comme-simple-serveur-web.html"
 		}, {
 			"title": "Développement",
-			"url": "environnement-de-d%C3%A9veloppement.html"
+			"url": "environnement-de-developpement.html"
 		}, {
 			"title": "Production",
 			"url": "environnement-de-production.html"
