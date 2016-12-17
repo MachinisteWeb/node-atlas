@@ -2070,6 +2070,128 @@ ce qui produit la sortie suivante :
 </html>
 ```
 
+#### setSockets ####
+
+Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos Websockets ici [Plus de détail dans la partie Socket.IO](#echange-client-serveur-en-temps-reel-avec-websockets).
+
+Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
+
+```json
+{
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
+```
+
+avec cet ensemble de fichier :
+
+```
+├─ assets/
+│  └─ javascript/
+│     └─ index.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+```
+
+En demandant la page `http://localhost/` les fichiers suivants (entre autre) seront utilisés :
+
+**views/index.htm**
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Exemple Websocket</title>
+    </head>
+    <body>
+		<div class="layout">
+			<div class="content"></div>
+			<div class="field">Tape du texte : <input class="input" type="text"></div>
+		</div>
+        <script type="text/javascript" src="socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="node-atlas/socket.io.js"></script>
+        <script type="text/javascript" src="javascript/index.js"></script>
+    </body>
+</html>
+```
+
+**controllers/common.js**
+
+```json
+// On référence les actions de réponse et d'envoi globaux côté serveur.
+// Ce code sera exécuté pour toute entrée Websocket entrante.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    io.on('connection', function (socket) {
+        console.log("Un onglet est ouvert.");
+        socket.on('disconnect', function () {
+            console.log("Un onglet est fermé.");
+        });
+    });
+};
+```
+
+**controllers/index.js**
+
+```json
+// On référence les actions de réponse et d'envoi globaux côté serveur.
+// Ce code sera exécuté pour toute entrée Websocket entrante.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    // Attendre un lien valide entre client et serveur
+    io.sockets.on("connection", function (socket) {
+
+        // Quelqu'un nous informe que le texte à changé.
+        socket.on("update-text", function (data) {
+
+        	// On informe les autres que le texte à changé.
+            io.sockets.emit("update-text", data);
+        });
+    });
+};
+```
+
+**assets/javascript/index.js**
+
+```json
+var content = document.getElementsByClassName("content")[0],
+    input = document.getElementsByClassName("input")[0];
+
+// On alerte les autres de nos modifications.
+input.addEventListener("keyup", function () {
+	content.innerHTML = input.value;
+    NA.socket.emit("update-text", {
+        text: input.value
+    });
+});
+
+// On récupère les modifications des autres.
+NA.socket.on("update-text", function (data) {
+	content.innerHTML = data.text;
+	input.value = data.text;
+});
+```
+
+Vous pourrez, en ouvrant divers navigateurs, et divers onglet, constaté que tout est bien mis à jour chez tout le monde. Chaque nouvel ongle ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.
+
+
+
 #### setModules ####
 
 Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.
@@ -2488,7 +2610,7 @@ exports.setSockets = function () {
     var NA = this,
         io = NA.io;
 
-    // Dès qu'on a un lien valide entre le client et notre back...
+    // Dès qu'on a un lien valide entre le client et notre serveur...
     io.sockets.on("connection", function (socket) {
 
         // ...rester à l'écoute de la demande « create-article-button »...
@@ -2507,7 +2629,7 @@ exports.setSockets = function () {
             data.render = NA.newRender("partials/index.htm", variation);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
-            io.sockets.emit('server-render', data);
+            io.sockets.emit("server-render", data);
         });
     });
 };

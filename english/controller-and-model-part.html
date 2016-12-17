@@ -556,7 +556,89 @@ exports.changeDom = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-json">{
+</code></pre><h4 id="setsockets">setSockets</h4><p>In order to keep a real-time connection between your Client-side and Server-side between all pages opened on all browsers that run on all OS, you could define your Websockets here. <a href="#use-reliable-client-server-real-time-with-websockets#use-reliable-client-server-real-time-with-websockets">More details in Socket.IO part</a>.</p><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    }
+}
+</code></pre><p>with this files :</p><pre><code>├─ assets/
+│  └─ javascript/
+│     └─ index.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a POST request on <code>http://localhost/</code> will use the following files:</p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;Websocket Example&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;layout&quot;&gt;
+            &lt;div class=&quot;content&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;field&quot;&gt;Write something : &lt;input class=&quot;input&quot; type=&quot;text&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;node-atlas/socket.io.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><strong>controllers/common.js</strong></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+// This code is executed for all Websocket from Client.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    io.on(&#39;connection&#39;, function (socket) {
+        console.log(&quot;A tab is opened.&quot;);
+        socket.on(&#39;disconnect&#39;, function () {
+            console.log(&quot;A tab is closed.&quot;);
+        });
+    });
+};
+</code></pre><p><strong>controllers/index.js</strong></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+// This code is executed for all Websocket from Client.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    // Wait for a valid connection between client and servere.
+    io.sockets.on(&quot;connection&quot;, function (socket) {
+
+        // A page says the text has changed.
+        socket.on(&quot;update-text&quot;, function (data) {
+
+            // We say to all others page the page has changed.
+            io.sockets.emit(&quot;update-text&quot;, data);
+        });
+    });
+};
+</code></pre><p><strong>assets/javascript/index.js</strong></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
+    input = document.getElementsByClassName(&quot;input&quot;)[0];
+
+// We say to others we just change text.
+input.addEventListener(&quot;keyup&quot;, function () {
+    content.innerHTML = input.value;
+    NA.socket.emit(&quot;update-text&quot;, {
+        text: input.value
+    });
+});
+
+// Others says they changed the text.
+NA.socket.on(&quot;update-text&quot;, function (data) {
+    content.innerHTML = data.text;
+    input.value = data.text;
+});
+</code></pre><p>You will see, opening different browsers and tabs. All is update in all tabs. Each tab open display the connection message and each tab closed display the deconnection message on the server console.</p><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -785,7 +867,7 @@ exports.setRoutes = function (next) {
         &lt;/div&gt;
         &lt;button&gt;Update&lt;/button&gt;
 </code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><strong>views/index.htm</strong></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;fr-fr&quot;&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
         &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
@@ -811,7 +893,7 @@ exports.setSockets = function () {
     var NA = this,
         io = NA.io;
 
-    // Once we have a valid connection between the client and our back-end...
+    // Once we have a valid connection between the client and our server...
     io.sockets.on(&#39;connection&#39;, function (socket) {
 
         // ...stay tuned on the &quot;create-item-button&quot; demand...
@@ -830,7 +912,7 @@ exports.setSockets = function () {
             result = NA.newRender(&quot;partials/index.htm&quot;, variation);
 
             // And responds to all customers with a set of data in data.
-            io.sockets.emit(&#39;create-article-button&#39;, data);
+            io.sockets.emit(&quot;server-render&quot;, data);
         });
     });
 };
