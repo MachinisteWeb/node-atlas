@@ -102,7 +102,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [PUG Template Engine](#pug-template-engine)
 - [Controller and Model Part](#controller-and-model-part)
  - [Lifecycle and Hooks](#lifecycle-and-hooks)
- - [Use Reliable Client-Server Real-Time with Websockets](#use-reliable-client-server real-time-with-websockets)
+ - [Use Reliable Client-Server Real-Time with Websockets](#use-reliable-client-server-real-time-with-websockets)
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
 - [More features](#more-features)
@@ -2072,7 +2072,7 @@ the output will be as following:
 
 #### setSockets ####
 
-In order to keep a real-time connection between your Client-side and Server-side between all pages opened on all browsers that run on all OS, you could define your Websockets here. [More details in Socket.IO part](#use-reliable-client-server-real-time-with-websockets#use-reliable-client-server-real-time-with-websockets).
+In order to keep a real-time connection between your Client-side and Server-side between all pages opened on all browsers that run on all OS, you could define your Websockets here. [More details in Socket.IO part](#use-reliable-client-server-real-time-with-websockets).
 
 This is an example using the two hooks, the common in first and after the specific:
 

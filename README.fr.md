@@ -2072,7 +2072,7 @@ ce qui produit la sortie suivante :
 
 #### setSockets ####
 
-Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos Websockets ici [Plus de détail dans la partie Socket.IO](#echange-client-serveur-en-temps-reel-avec-websockets).
+Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos Websockets ici [Plus de détail dans la partie Socket.IO](#échange-client-serveur-en-temps réel-avec-websockets).
 
 Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
