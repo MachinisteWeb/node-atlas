@@ -46,6 +46,10 @@ Updates:
 - `NA#webconfig.componentsRelativePath` removed.
 - `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
 
+Removed:
+
+- `NA#modulesRequired` and `NA#downloadAllModules` removed. Use `npm install` manually instead if you download package manually.
+
 
 
 ## 1.8.0 ##
