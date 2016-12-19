@@ -1,12 +1,4 @@
 {
-	"downloadAllModules": {
-		"moduleNotExist": "Tous les modules Node.js nécéssaire à l'application ne sont pas installés.",
-		"downloadStarting": "Téléchargement de tous les modules en cour...",
-		"installationDone": "Tous les modules ont été correctement installé.",
-		"restartRequired": "Vous pouvez redémarrer l'application.",
-		"installShortcutsDone": "La commande `nodeatlas` est maintenant disponible en tant que raccourci pour `node <path/to/>node-atlas/`.",
-		"installDone": "node-atlas a été installé avec succès !"
-	},
 	"running": {
 		"isRunning": "Votre site NodeAtlas est lancé sur le port %httpPort%.",
 		"publicMode": "NodeAtlas c'est lancé en mode « Simple Serveur Web » car aucun « %path% » n'a été trouvé.",
