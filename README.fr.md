@@ -1656,7 +1656,10 @@ Pour tout savoir sur les possibilités du moteur de template consultez [la docum
 NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 
 - des paramètres dans la partie query de l'URL (GET),
-- des paramètres dans le body de la requête (POST),
+- des paramètres dans le body de la requête (POST)
+
+mais également ;
+
 - de vous connecter à des bases de données,
 - de maintenir des sessions, 
 - de faire des échanges Websockets et
@@ -1664,11 +1667,11 @@ NodeAtlas ne se contente pas uniquement de faciliter la génération de page web
 
 
 
-### Cycle de vie et Points d'entrée ###
+### Cycle de vie et Points d'ancrage ###
 
-Le cycle de vie de NodeAtlas est le suivant. D'abord, une et une seule fois, les ressources ce charge, le serveur démarre, les routes s'initialise et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'entrée pendant le démarrage, et pendant la création d'une page.
+Le cycle de vie de NodeAtlas est le suivant. D'abord, une et une seule fois, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.
 
-Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous les points du cycle de vie d'une page.
+Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous les points d'ancrage du cycle de vie d'une page.
 
 ```json
 {
@@ -1686,48 +1689,77 @@ Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous le
 
 *Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
-et voici le détail des endroits ou vous pouvez intervenir :
+et voici le détail des endroits ou vous pouvez intervenir pendant :
 
-*Démarrage de NodeAtlas*
+*Le lancement du serveur*
 
-Initialisation des modules
+```
+┌─[Chargement des modules Node.js]
+┊
+├─[Chargement des variables d'initialisation]
+┊
+├─[Chargement des modules npm]
+┊
+├─[Prise en compte des commandes et de la langue du CLI]
+┊
+├─[Prise en compte des options de l'API]
+┊
+└─[Chargement de la langue du CLI]
+  ┊
+  ├─[Chargement des variables globales]
+  ┊
+  ├─[Prise en compte des instructions du Webconfig]
+  ┊
+  └─[Chargement du contrôleur commun]
+    ┊  _______________________________________________
+    ├─{Point d'ancrage : <commonController>.setModules}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ├─[Initialisation du serveur]
+    ┊  ________________________________________________
+    ├─{Point d'ancrage : <commonController>.setSessions}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ├─[Initialisation des sessions]
+    ┊ 
+    ├─[Initialisation des sockets]
+    ┊ ┊  _______________________________________________
+    ┊ ├─{Point d'ancrage : <commonController>.setSockets}
+    ┊ └─{Point d'ancrage : routes[<controller>].setSockets}
+    ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ______________________________________________________
+    ├─{Point d'ancrage : <commonController>.setConfigurations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    └─[Démarrage du serveur]
+      ┊
+      ├─[Initialisation du moteur de template]
+      ┊  ______________________________________________
+      ├─{Point d'ancrage : <commonController>.setRoutes}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      └─[Initialisation des routes]
+        ┊
+        ∞
+```
 
-> - *setModules* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
+*Le traitement des requêtes de chaque route*
 
-Initialisation des Sessions
-
-> - *setSessions* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
-
-Initialisation des Sockets
-
-> - *setSockets* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
-> - *setSockets* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
-
-Initialisation de la configuration du serveur
-
-> - *setConfigurations* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
-
-Initialisation des routes
-
-> - *setRoutes* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
-
-Lancement du serveur web
-
-*Requête/Réponse HTTP de NodeAtlas*
-
-Traitement de la Requête du Client
-
-> - *changeVariation* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
-
-> - *changeVariation* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
-
-Assemblage des Vues et Compilation des Variations => DOM complet de la Réponse.
-
-> - *changeDom* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
-
-> - *changeDom* --> à manipuler depuis le fichier `routes[<route>].controller` (`index.js` dans l'exemple).
-
-Envoi de la Réponse au Client
+```
+∞
+┊
+└─[Traitement d'une requête]
+  ┊
+  └─[Chargement du contrôleur spécifique]
+    ┊  ____________________________________________________
+    ├─{Point d'ancrage : <commonController>.changeVariation}
+    ├─{Point d'ancrage : routes[<controller>].changeVariation}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    └─[Compilation du moteur de template]
+      ┊  ______________________________________________
+      ├─{Point d'ancrage : <commonController>.changeDom}
+      ├─{Point d'ancrage : routes[<controller>].changeDom}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      └─[Envoi de la réponse]
+        ┊ 
+        ∞
+```
 
 #### changeVariation ####
 

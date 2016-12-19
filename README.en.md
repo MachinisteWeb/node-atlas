@@ -1657,10 +1657,13 @@ NodeAtlas is useful for more than simply generate template web page easily based
 
 - parameters in query part of URL (GET),
 - parameters in request body (POST),
-- connection with database,
+
+but also provide;
+
+- connections with database,
 - management of sessions,
-- do Websockets request/response and
-- do more !
+- Websockets request/response and
+- and more !
 
 
 
@@ -1686,48 +1689,77 @@ This is a `webconfig.json` allows you to manipulate each hook of life cycle of a
 
 *Note : If* ***controllersRelativePath*** *is not present in "webconfig.json", default controller folder is* ***controllers***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
 
-and this is the detail of all hooks :
+and this is the detail of all hooks while:
 
-*Start NodeAtlas*
+*Starting the server*
 
-Init of Modules
+```
+┌─[Loading Node.js Modules]
+┊
+├─[Loading Init Vars]
+┊
+├─[Loading npm Modules]
+┊
+├─[Setting CLI commands and language]
+┊
+├─[Setting API options]
+┊
+└─[Loading CLI language]
+  ┊
+  ├─[Loading Global Vars]
+  ┊
+  ├─[Setting Webconfig instructions]
+  ┊
+  └─[Loading Common Controller]
+    ┊  _______________________________________________
+    ├─{Hook : <commonController>.setModules}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ├─[Server Init]
+    ┊  ________________________________________________
+    ├─{Hook : <commonController>.setSessions}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ├─[Sessions Init]
+    ┊ 
+    ├─[Sockets Init]
+    ┊ ┊  _______________________________________________
+    ┊ ├─{Hook : <commonController>.setSockets}
+    ┊ └─{Hook : routes[<controller>].setSockets}
+    ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ______________________________________________________
+    ├─{Hook : <commonController>.setConfigurations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    └─[Starting the server]
+      ┊
+      ├─[Template Engine Init]
+      ┊  ______________________________________________
+      ├─{Hook : <commonController>.setRoutes}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      └─[Routes Init]
+        ┊
+        ∞
+```
 
-> - *setModules* --> into `commonController` file (`common.js` for example).
+*Processing a request*
 
-Init of Sessions
-
-> - *setSessions* --> into `commonController` file (`common.js` for example).
-
-Init of Sockets
-
-> - *setSockets* --> into `commonController` file (`common.js` for example).
-> - *setSockets* --> into `routes[<route>].controller` file (`index.js` for example).
-
-Init of server configuration
-
-> - *setConfigurations* --> into `commonController` file (`common.js` for example).
-
-Init of routes
-
-> - *setRoutes* --> à manipuler depuis le fichier `commonController` (`common.js` dans l'exemple).
-
-> Start Web Server
-
-*HTTP Request/Response of NodeAtlas*
-
-Client Request Processing
-
-> - *changeVariation* --> into `commonController` file (`common.js` for example).
-
-> - *changeVariation* --> into `routes[<route>].controller` file (`index.js` for example).
-
-Views and Variations Compilation => Complete DOM.
-
-> - *changeDom* --> into `commonController` file (`common.js` for example).
-
-> - *changeDom* --> into `routes[<route>].controller` file (`index.js` for example).
-
-Sending of Response to Client
+```
+∞
+┊
+└─[Processing a request]
+  ┊
+  └─[Loading Specific Controller]
+    ┊  ____________________________________________________
+    ├─{Hook : <commonController>.changeVariation}
+    ├─{Hook : routes[<controller>].changeVariation}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    └─[Template Engine Compilation]
+      ┊  ______________________________________________
+      ├─{Hook : <commonController>.changeDom}
+      ├─{Hook : routes[<controller>].changeDom}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      └─[Send Response]
+        ┊ 
+        ∞
+```
 
 #### changeVariation ####
 
