@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta3",
+  "version": "2.0.0-beta4",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -71,6 +71,7 @@
   "files": [
     "languages/*",
     "lib/*",
+    "src/*",
     "templates/*",
     "bin/node-atlas.js",
     "LICENSE",

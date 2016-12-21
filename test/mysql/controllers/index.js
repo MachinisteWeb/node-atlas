@@ -1,6 +1,6 @@
-exports.changeVariation = function (params, next) {
+exports.changeVariations = function (params, next) {
     var NA = this,
-        variation = params.variation,
+        variations = params.variations,
         user = new NA.models.User(),
         user2 = new NA.models.User(),
         user3 = new NA.models.User(),
@@ -16,8 +16,8 @@ exports.changeVariation = function (params, next) {
         .setConnection(connection)
         .lastname("Elric")
         .read(function (allUsers) {
-            variation.user = user;
-            variation.users = allUsers;
+            variations.user = user;
+            variations.users = allUsers;
 
             // Exemple de création.
             user2
@@ -27,8 +27,8 @@ exports.changeVariation = function (params, next) {
             .email("winry.rockbell@fma.br")
             .gender(true)
             .create(function (infos) {
-                variation.insertId = infos.insertId;
-                variation.user2 = user2;
+                variations.insertId = infos.insertId;
+                variations.user2 = user2;
 
                 // Exemple de modification.
                 user3
@@ -40,16 +40,16 @@ exports.changeVariation = function (params, next) {
                 .address("The Rockbell's house");
 
                 user2.update(user3, function (infos) {
-                    variation.affectedRows = infos.affectedRows;
-                    variation.user2 = user2;
+                    variations.affectedRows = infos.affectedRows;
+                    variations.user2 = user2;
 
                     // Exemple de suppression.
                     user4
                     .setConnection(connection)
                     .gender(false)
                     .delete(function (infos) {
-                        variation.deletedRows = infos.affectedRows;
-                        next(variation);
+                        variations.deletedRows = infos.affectedRows;
+                        next(variations);
                     });
                 });
             });

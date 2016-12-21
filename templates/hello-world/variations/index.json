@@ -6,5 +6,14 @@
 	}, {
 		"title": "Cette page a été ajoutée par `controllers/common.js`.",
 		"href": "ajoutee/"
+	}, {
+		"title": "Cette page demande d'afficher l'utilisateur John Doe.",
+		"href": "john-doe/show/"
+	}, {
+		"title": "Cette page autorise le retrait de « / » à la fin de l'URL.",
+		"href": "john-doe/create"
+	}, {
+		"title": "Cette page n'existe pas car `delete` n'est pas une action possible.",
+		"href": "john-doe/delete/"
 	}]
 }

@@ -12,17 +12,16 @@ exports.setSockets = function () {
 };
 
 
-exports.changeVariation = function (params, callback) {
-	var NA = this,
-		variation = params.variation,
+exports.changeVariations = function (params, callback) {
+	var variations = params.variations,
         session = params.request.session,
 		sessionID = params.request.sessionID;
 
 	session.name = "Bruno";
-    variation.session = session;
-	variation.sessionID = sessionID;
-    console.log(variation.session);
-	console.log(variation.sessionID);
+    variations.session = session;
+	variations.sessionID = sessionID;
+    console.log(variations.session);
+	console.log(variations.sessionID);
 
-	callback(variation);
+	callback(variations);
 };

@@ -19,6 +19,17 @@
 		"controller": "index.js",
 		"languageCode": "en-us"
 	}, {
+		"key": "member_fr-fr",
+		"url": "/:member([-a-z0-9]+)/:action(show|create)/?",
+		"output": false,
+		"view": "member.htm"
+	}, {
+		"key": "member_en-us",
+		"url": "/english/:member([-a-z0-9]+)/:action(show|create)/?",
+		"output": false,
+		"view": "member.htm",
+		"languageCode": "en-us"
+	}, {
 		"enablePug": true,
 		"key": "error_en-us",
 		"url": "/english/*",
