@@ -997,30 +997,48 @@ function User(connection) {
         var insert = &quot;INSERT INTO user (&quot;,
             values = &quot;) VALUES (&quot;;
 
-        if (publics.id()) { insert += &quot;`id`, &quot;; }
-        if (publics.lastname()) { insert += &quot;`lastname`, &quot;; }
-        if (publics.firstname()) { insert += &quot;`firstname`, &quot;; }
-        if (publics.email()) { insert += &quot;`email`, &quot;; }
-        if (publics.birthdate()) { insert += &quot;`birthdate`, &quot;; }
-        if (typeof publics.gender() === &quot;boolean&quot;) { insert += &quot;`gender`, &quot;; }
-        if (publics.country()) { insert += &quot;`country`, &quot;; }
-        if (publics.town()) { insert += &quot;`town`, &quot;; }
-        if (publics.zipcode()) { insert += &quot;`zipcode`, &quot;; }
-        if (publics.address()) { insert += &quot;`address`, &quot;; }
+        if (publics.id()) {
+            insert += &quot;`id`, &quot;;
+            values += publics.id() + &#39;, &#39;;
+        }
+        if (publics.lastname()) {
+            insert += &quot;`lastname`, &quot;;
+            values += &#39;&quot;&#39; + publics.lastname() + &#39;&quot;, &#39;;
+        }
+        if (publics.firstname()) {
+            insert += &quot;`firstname`, &quot;;
+            values += &#39;&quot;&#39; + publics.firstname() + &#39;&quot;, &#39;;
+        }
+        if (publics.email()) {
+            insert += &quot;`email`, &quot;;
+            values += &#39;&quot;&#39; + publics.email() + &#39;&quot;, &#39;;
+        }
+        if (publics.birthdate()) {
+            insert += &quot;`birthdate`, &quot;;
+            values += &#39;&quot;&#39; + publics.birthdate() + &#39;&quot;, &#39;;
+        }
+        if (typeof publics.gender() === &quot;boolean&quot;) { 
+            insert += &quot;`gender`, &quot;;
+            values += (publics.gender() ? 1 : 0) + &#39;, &#39;;
+        }
+        if (publics.country()) {
+            insert += &quot;`country`, &quot;;
+            values += &#39;&quot;&#39; + publics.country() + &#39;&quot;, &#39;;
+        }
+        if (publics.town()) {
+            insert += &quot;`town`, &quot;;
+            values += &#39;&quot;&#39; + publics.town() + &#39;&quot;, &#39;;
+        }
+        if (publics.zipcode()) {
+            insert += &quot;`zipcode`, &quot;;
+            values += &#39;&quot;&#39; + publics.zipcode() + &#39;&quot;, &#39;;
+        }
+        if (publics.address()) {
+            insert += &quot;`address`, &quot;;
+            values += &#39;&quot;&#39; + publics.address() + &#39;&quot;, &#39;;
+        }
 
         insert = insert.replace(/, $/g, &quot;&quot;);
-
-        if (publics.id()) { values += publics.id() + &#39;, &#39;; }
-        if (publics.lastname()) { values += &#39;&quot;&#39; + publics.lastname() + &#39;&quot;, &#39;; }
-        if (publics.firstname()) { values += &#39;&quot;&#39; + publics.firstname() + &#39;&quot;, &#39;; }
-        if (publics.email()) { values += &#39;&quot;&#39; + publics.email() + &#39;&quot;, &#39;; }
-        if (publics.birthdate()) { values += &#39;&quot;&#39; + publics.birthdate() + &#39;&quot;, &#39;; }
-        if (typeof publics.gender() === &quot;boolean&quot;) { values += (publics.gender() ? 1 : 0) + &#39;, &#39;; }
-        if (publics.country()) { values += &#39;&quot;&#39; + publics.country() + &#39;&quot;, &#39;; }
-        if (publics.town()) { values += &#39;&quot;&#39; + publics.town() + &#39;&quot;, &#39;; }
-        if (publics.zipcode()) { values += &#39;&quot;&#39; + publics.zipcode() + &#39;&quot;, &#39;; }
-        if (publics.address()) { values += &#39;&quot;&#39; + publics.address() + &#39;&quot;, &#39;; }
-
         values = values.replace(/, $/g, &quot;)&quot;);
 
         privates.connection.query(insert + values, function (err, infos) {
@@ -1393,13 +1411,13 @@ module.exports = User;
         lastname: &quot;Lesieur&quot;,
         firstname: &quot;Bruno&quot;,
         gender: true,
-        birthdate : new Date(&quot;1988/07/18&quot;)
+        birthdate : new Date(&quot;1900/07/18&quot;)
     },
     location: {
         country: &quot;France&quot;,
         town: &quot;Annecy&quot;,
         zipcode: &quot;74000&quot;,
-        address: &quot;66 avenue de Genève&quot;
+        address: &quot;avenue&quot;
     }
 })
 </code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>With the following data set:</p><pre><code>├─ assets/

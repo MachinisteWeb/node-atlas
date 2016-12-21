@@ -3763,7 +3763,7 @@ NodeAtlas offre également tout un système de fonctionnalités de développemen
 
 ### Gérer le routage (Url Rewriting) ###
 
-Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d'url dynamiques !
+Bien que vous puissiez paramétrer des URLs statiques, vous pouvez également paramétrer une écoute d'URLs dynamiques !
 
 #### Standard ###
 
@@ -3807,24 +3807,20 @@ exports.changeVariations = function (params, next) {
 }
 ```
 
-Les règles de création d'url dynamique sont celles de [Express.js](http://expressjs.com/4x/api.html#req.params).
+### Expressions Régulières ###
 
-#### Expressions Régulières ###
+Vous pouvez également vous aider d'expression régulière pour définir ce qui peut varier pour accéder à votre URL ou préciser quels sont les paramètres valides dans l'URL.
 
-Vous pouvez également activer les expressions régulières pour un chemin précis avec `regExp`. Si celui-ci vaut `true`, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si `regExp` est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).
-
-Voyez la configuration suivante :
+Avec la configuration suivante :
 
 ```json
 {
     "routes": {
-        "/liste-des-membres/([-a-z0-9]+)/?": {
-            "view": "members.htm",
-            "regExp": "g"
+        "/liste-des-membres/:member([-a-zA-Z0-9]+)/:action(afficher|editer)/?": {
+            "view": "members.htm"
         },
-        "/liste-des-membres/?": {
-            "view": "members.htm",
-            "regExp": true
+        "/liste-des-membres/": {
+            "view": "members.htm"
         },
         "/": {
             "view": "index.htm"
@@ -3836,29 +3832,16 @@ Voyez la configuration suivante :
 vous pourrez accéder à :
 
 - *http://localhost/*
-- *http://localhost/liste-des-membres/* _(ou *https://localhost/liste-des-membres*)_
-- *http://localhost/liste-des-membres/toto/* _(ou *https://localhost/liste-des-membres/toto*)_
-- *http://localhost/liste-des-membres/bob-eponge99/* _(ou *https://localhost/liste-des-membres/bob-eponge99*)_
-- *http://localhost/liste-des-membres/node-atlas/* _(ou *https://localhost/liste-des-membres/node-atlas*)_
-- *http://localhost/liste-des-membres/etc/* _(ou *https://localhost/liste-des-membres/etc*)_
+- *http://localhost/liste-des-membres/*
+- *http://localhost/liste-des-membres/toto/afficher*
+- *http://localhost/liste-des-membres/toto-48/afficher/*
+- *http://localhost/liste-des-membres/toto-13/editer/*
 
-et récupérer les valeurs de `([-a-z0-9]+)` dans le `changeVariations` (common et specific).
+vous ne pourrez pas accéder à :
 
-```json
-exports.changeVariations = function (params, next) {
-    var variations = params.variations;
-
-    if (variations.params && variations.params[0]) { variations.params.member = variations.params[0]; }
-    // variations.params[1] pour le deuxième match, etc...
-
-    console.log(variations.params.member);
-    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
-
-    next(variations);
-}
-```
-
-Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+- *http://localhost/liste-des-membres/toto/*
+- *http://localhost/liste-des-membres/`toto_16`/afficher/*
+- *http://localhost/liste-des-membres/toto/`supprimer`/*
 
 #### Routage dans un fichier partagé ####
 

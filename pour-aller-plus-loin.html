@@ -263,7 +263,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des urls statiques, vous pouvez également paramétrer une écoute d&#39;url dynamiques !</p><h4 id="standard">Standard</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+					<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des URLs statiques, vous pouvez également paramétrer une écoute d&#39;URLs dynamiques !</p><h4 id="standard">Standard</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
@@ -291,15 +291,13 @@ website.init({
 
     next(variations);
 }
-</code></pre><p>Les règles de création d&#39;url dynamique sont celles de <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p><h4 id="expressions-r-guli-res">Expressions Régulières</h4><p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si <code>regExp</code> est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).</p><p>Voyez la configuration suivante :</p><pre><code class="lang-json">{
+</code></pre><h3 id="expressions-regulieres">Expressions Régulières</h3><p>Vous pouvez également vous aider d&#39;expression régulière pour définir ce qui peut varier pour accéder à votre URL ou préciser quels sont les paramètres valides dans l&#39;URL.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
-        &quot;/liste-des-membres/([-a-z0-9]+)/?&quot;: {
-            &quot;view&quot;: &quot;members.htm&quot;,
-            &quot;regExp&quot;: &quot;g&quot;
+        &quot;/liste-des-membres/:member([-a-zA-Z0-9]+)/:action(afficher|editer)/?&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;
         },
-        &quot;/liste-des-membres/?&quot;: {
-            &quot;view&quot;: &quot;members.htm&quot;,
-            &quot;regExp&quot;: true
+        &quot;/liste-des-membres/&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -308,23 +306,15 @@ website.init({
 }
 </code></pre><p>vous pourrez accéder à :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
-<li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres">https://localhost/liste-des-membres</a></em>)</em></li>
-<li><em><a href="http://localhost/liste-des-membres/toto/">http://localhost/liste-des-membres/toto/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/toto">https://localhost/liste-des-membres/toto</a></em>)</em></li>
-<li><em><a href="http://localhost/liste-des-membres/bob-eponge99/">http://localhost/liste-des-membres/bob-eponge99/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/bob-eponge99">https://localhost/liste-des-membres/bob-eponge99</a></em>)</em></li>
-<li><em><a href="http://localhost/liste-des-membres/node-atlas/">http://localhost/liste-des-membres/node-atlas/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/node-atlas">https://localhost/liste-des-membres/node-atlas</a></em>)</em></li>
-<li><em><a href="http://localhost/liste-des-membres/etc/">http://localhost/liste-des-membres/etc/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/etc">https://localhost/liste-des-membres/etc</a></em>)</em></li>
-</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariations</code> (common et specific).</p><pre><code class="lang-json">exports.changeVariations = function (params, next) {
-    var variations = params.variations;
-
-    if (variations.params &amp;&amp; variations.params[0]) { variations.params.member = variations.params[0]; }
-    // variations.params[1] pour le deuxième match, etc...
-
-    console.log(variations.params.member);
-    // \&gt; &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; ou &#39;etc&#39;.
-
-    next(variations);
-}
-</code></pre><p>Les règles de création d&#39;url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h4 id="routage-dans-un-fichier-partag-">Routage dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c&#39;est le fichier <code>routes.json</code>.</p><p>Par exemple :</p><p>L&#39;ensemble de fichier suivant</p><pre><code>├─ views/
+<li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
+<li><em><a href="http://localhost/liste-des-membres/toto/afficher">http://localhost/liste-des-membres/toto/afficher</a></em></li>
+<li><em><a href="http://localhost/liste-des-membres/toto-48/afficher/">http://localhost/liste-des-membres/toto-48/afficher/</a></em></li>
+<li><em><a href="http://localhost/liste-des-membres/toto-13/editer/">http://localhost/liste-des-membres/toto-13/editer/</a></em></li>
+</ul><p>vous ne pourrez pas accéder à :</p><ul>
+<li><em><a href="http://localhost/liste-des-membres/toto/">http://localhost/liste-des-membres/toto/</a></em></li>
+<li><em><a href="http://localhost/liste-des-membres/`toto_16`/afficher/">http://localhost/liste-des-membres/`toto_16`/afficher/</a></em></li>
+<li><em><a href="http://localhost/liste-des-membres/toto/`supprimer`/">http://localhost/liste-des-membres/toto/`supprimer`/</a></em></li>
+</ul><h4 id="routage-dans-un-fichier-partag-">Routage dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c&#39;est le fichier <code>routes.json</code>.</p><p>Par exemple :</p><p>L&#39;ensemble de fichier suivant</p><pre><code>├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
