@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Container for all variables usable from variation files.</div>
+            <div class="description">All variation for a specific page.</div>
         
 
         
@@ -73,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line212">line 212</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line661">line 661</a>
     </li></ul></dd>
     
 
@@ -104,13 +104,13 @@
 
         
             
-<h4 class="name" id=".filename"><span class="type-signature">(static) </span>filename<span class="type-signature"> :string</span></h4>
+<h4 class="name" id=".common"><span class="type-signature">(static) </span>common<span class="type-signature"> :Object</span></h4>
 
 
 
 
 <div class="description">
-    Same as `NA#variations.pathname` with arbitrary value setted next.This value will be represent current page generated for all page generated with template engine.
+    Expose all JSON data from `commonVariation` file.
 </div>
 
 
@@ -119,7 +119,7 @@
     <ul>
         <li>
             
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
         </li>
@@ -154,16 +154,11 @@
     
 
     
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>« Arbitrarily setted to "all-component.here". »</li>
-        </ul></dd>
-    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line241">line 241</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line277">line 277</a>
     </li></ul></dd>
     
 
@@ -181,13 +176,85 @@
 
         
             
-<h4 class="name" id=".pathname"><span class="type-signature">(static) </span>pathname<span class="type-signature"> :string</span></h4>
+<h4 class="name" id=".filename"><span class="type-signature">(static) </span>filename<span class="type-signature"> :string</span></h4>
 
 
 
 
 <div class="description">
-    OS absolute directory for template engine's file included with `include` statement.
+    Allow template engine know which file is currently in use.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line478">line 478</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".languageCode"><span class="type-signature">(static) </span>languageCode<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Expose the current language code for the page if setted else expose the global if setted.
 </div>
 
 
@@ -233,14 +300,846 @@
     
     <dt class="tag-default">Default Value:</dt>
     <dd class="tag-default"><ul class="dummy">
-            <li>« The `NA#serverPath` value with webconfig's `viewsRelativePath` next ».</li>
+            <li>undefined</li>
         </ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line230">line 230</a>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line112">line 112</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".params"><span class="type-signature">(static) </span>params<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Expose list of selector used into page.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line257">line 257</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>If current route is '/example/:selector/'At http://localhost/example/test/ the value of `NA.variations#params` is{ "selector": "test" }</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".route"><span class="type-signature">(static) </span>route<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Expose route of current page from current webconfig `routes`.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line348">line 348</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>/categories/:category/</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".routeParameters"><span class="type-signature">(static) </span>routeParameters<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    Expose all data from `routes[<currentRoute>]` object from webconfig.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line327">line 327</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".specific"><span class="type-signature">(static) </span>specific<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    Expose all JSON data from `routes[<currentRoute>].variation` file.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line297">line 297</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".urlBasePath"><span class="type-signature">(static) </span>urlBasePath<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Expose the current URL of page with `NA#webconfig.urlRoot` and `NA#webconfig.urlRelativeSubPath`.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line186">line 186</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>http://localhost:7777/subpathhttps://www.example.here</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".urlFilePath"><span class="type-signature">(static) </span>urlFilePath<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Url from `url` value for current route.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line197">line 197</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>/example.html/example/this/</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".urlPath"><span class="type-signature">(static) </span>urlPath<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Expose the current URL of page with `NA#webconfig.urlBasePath` and the current page route.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>http://localhost:7777/subpath/example.html?title=Haeresis&amp;description=okhttps://www.example.here/example/this/?title=Haeresis</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".urlQueryPath"><span class="type-signature">(static) </span>urlQueryPath<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Query from `url` value for current route.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line208">line 208</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>?title=Haeresis&amp;description=ok?title=Haeresis</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".urlRootPath"><span class="type-signature">(static) </span>urlRootPath<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Idem as `NA#webconfig.urlRoot`.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line164">line 164</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>http://localhost:7777https://www.example.here</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".urlSubPath"><span class="type-signature">(static) </span>urlSubPath<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    Idem as `NA#webconfig.urlRelativeSubPath`.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line175">line 175</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>/subpath</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".webconfig"><span class="type-signature">(static) </span>webconfig<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    Expose all webconfig values.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line357">line 357</a>
     </li></ul></dd>
     
 
@@ -274,13 +1173,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enablePug.html">enablePug</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 14 2016 18:57:26 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 21 2016 17:57:56 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

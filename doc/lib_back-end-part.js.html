@@ -34,7 +34,7 @@
 /**
  * Check if a file have been already parsed.
  * @private
- * @function alreadyParse
+ * @function cssAlreadyParse
  * @memberOf NA#
  * @param {string}         newPath     Current file tested.
  * @param {Array.&lt;string>} allCssFiles Files already tested.
@@ -89,7 +89,7 @@ exports.prepareCssInjection = function (allCssFiles, injection) {
          * @public
          * @alias injectCss
          * @type {string|Array.&lt;string>}
-         * @memberOf NA#currentRouteParameters
+         * @memberOf NA#routeParameters
          */
         specificInjection = injection,
 
@@ -278,7 +278,7 @@ exports.lessCompilation = function (callback) {
 
                 data.pathName = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css'));
                 fs.writeFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.less$/g,'.css')), output.css);
-                NA.log(NA.appLabels.lessGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                NA.log(NA.cliLabels.lessGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 next();
             });
         }, function () {
@@ -346,7 +346,7 @@ exports.stylusCompilation = function (callback) {
 
                 data.pathName = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.styl$/g,'.css'));
                 fs.writeFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compiledFile.replace(/\.styl$/g,'.css')), output);
-                NA.log(NA.appLabels.stylusGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                NA.log(NA.cliLabels.stylusGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 next();
             });
         }, function () {
@@ -431,11 +431,11 @@ exports.cssMinification = function (callback) {
                 for (var i = 0; i &lt; results.length; i++) {
                     output += results[i];
                 }
-
+                
                 output = (new cleanCss().minify(output)).styles;
                 fs.writeFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile), output);
                 data.pathName = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile);
-                NA.log(NA.appLabels.cssGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                NA.log(NA.cliLabels.cssGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 output = "";
 
                 firstCallback();
@@ -525,7 +525,7 @@ exports.imgOptimization = function (callback) {
                     ] }).then(function () {
                     data.pathName = path.normalize(source);
                     
-                    NA.log(NA.appLabels.imgGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                    NA.log(NA.cliLabels.imgGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
 
                     firstCallback();
                 });
@@ -601,7 +601,20 @@ exports.jsObfuscation = function (callback) {
         async.each(allJsMinified, function (compressedFile, firstCallback) {
 
             async.map(bundles.javascript[compressedFile], function (sourceFile, secondCallback) {
-                secondCallback(null, uglifyJs.minify(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, sourceFile)).code);
+                var code,
+                    file;
+                /* For the NA.socket and NA.io auto configuration. */ 
+                if (path.join("/", NA.webconfig.urlSocketsFile) === path.join("/", sourceFile)) {
+                    file = fs.readFileSync(path.join(NA.nodeatlasPath, "src", "socket.io.js"), "utf-8")
+                        .replace(/%urlRelativeSubPath%/g, NA.webconfig.urlRelativeSubPath.slice(1))
+                        .replace(/%urlRoot%/g, NA.webconfig.urlRoot);
+
+                    code = uglifyJs.minify(file, {fromString: true}).code;
+                /* And for others real files. */
+                } else {
+                    code = uglifyJs.minify(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, sourceFile)).code;
+                }
+                secondCallback(null, code);
             }, function(error, results) {
                 for (var i = 0; i &lt; results.length; i++) {
                     output += results[i];
@@ -609,7 +622,7 @@ exports.jsObfuscation = function (callback) {
 
                 fs.writeFileSync(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile), output);
                 data.pathName = path.join(NA.serverPath, NA.webconfig.assetsRelativePath, compressedFile);
-                NA.log(NA.appLabels.jsGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+                NA.log(NA.cliLabels.jsGenerate.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 output = "";
 
                 firstCallback();
@@ -665,16 +678,16 @@ exports.loadListOfExternalModules = function (callback) {
          */
         NA.serverModulesRelativePath = "node_modules/";
 
-        /* Use the `NA.websiteController[&lt;commonController>].setModules(...)` function if set... */
-        if (typeof NA.websiteController[NA.webconfig.commonController] !== 'undefined' &amp;&amp;
-            typeof NA.websiteController[NA.webconfig.commonController].setModules !== 'undefined') {
+        /* Use the `NA.controllers[&lt;commonController>].setModules(...)` function if set... */
+        if (typeof NA.controllers[NA.webconfig.commonController] !== 'undefined' &amp;&amp;
+            typeof NA.controllers[NA.webconfig.commonController].setModules !== 'undefined') {
 
             /**
              * Define this function for adding npm module into `NA.modules` of application. Only for `common` controller file.
              * @function setModules
-             * @memberOf NA#websiteController[]
+             * @memberOf NA#controllers[]
              */
-            NA.websiteController[NA.webconfig.commonController].setModules.call(NA);
+            NA.controllers[NA.webconfig.commonController].setModules.call(NA);
         }
 
         /**
@@ -707,12 +720,12 @@ exports.loadController = function (controller, callback) {
 
         /* Open controller and load it */
         try {
-            NA.websiteController[controller] = require(commonControllerPath);
+            NA.controllers[controller] = require(commonControllerPath);
         /* In case of error. */
         } catch (err) {
             if (err &amp;&amp; err.code === 'MODULE_NOT_FOUND') {
                 err.controller = commonControllerPath;
-                return NA.log(NA.appLabels.notFound.controller.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
+                return NA.log(NA.cliLabels.notFound.controller.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
             } else if (err) {
                 return NA.log(err);
             }
@@ -734,13 +747,13 @@ exports.loadController = function (controller, callback) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enablePug.html">enablePug</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 14 2016 18:57:26 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 21 2016 17:57:55 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

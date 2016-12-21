@@ -47,34 +47,34 @@ exports.lineCommandConfiguration = function () {
         .version("2.0.0")
 
         /* Automaticly run default browser with `--browse` options. If a param is setted, the param is added to the and of url. */
-        .option(NA.appLabels.commander.browse.command, NA.appLabels.commander.browse.description, String)
+        .option(NA.cliLabels.commander.browse.command, NA.cliLabels.commander.browse.description, String)
 
         /* Target the directory in which website and NodeAtlas will be running. */
-        .option(NA.appLabels.commander.directory.command, NA.appLabels.commander.directory.description, String)
+        .option(NA.cliLabels.commander.directory.command, NA.cliLabels.commander.directory.description, String)
 
         /* Change name of JSON file used as the webconfig file. */
-        .option(NA.appLabels.commander.webconfig.command, NA.appLabels.commander.webconfig.description, String)
+        .option(NA.cliLabels.commander.webconfig.command, NA.cliLabels.commander.webconfig.description, String)
 
         /* Change the hostname that runs the NodeAtlas website. */
-        .option(NA.appLabels.commander.httpHostname.command, NA.appLabels.commander.httpHostname.description, String)
+        .option(NA.cliLabels.commander.httpHostname.command, NA.cliLabels.commander.httpHostname.description, String)
 
         /* Change the port that runs the NodeAtlas website. */
-        .option(NA.appLabels.commander.httpPort.command, NA.appLabels.commander.httpPort.description, String)
+        .option(NA.cliLabels.commander.httpPort.command, NA.cliLabels.commander.httpPort.description, String)
 
         /* Minify all files and re-create all HTML assets into generates folder. */
-        .option(NA.appLabels.commander.generate.command, NA.appLabels.commander.generate.description)
+        .option(NA.cliLabels.commander.generate.command, NA.cliLabels.commander.generate.description)
 
         /* Avoid cache at all levels (Server, Template Engine...). */
-        .option(NA.appLabels.commander.cache.command, NA.appLabels.commander.cache.description)
+        .option(NA.cliLabels.commander.cache.command, NA.cliLabels.commander.cache.description)
 
         /* Copy all data from `test/&lt;project-name>` from NodeAtlas package to current directory. */
-        .option(NA.appLabels.commander.create.command, NA.appLabels.commander.create.description)
+        .option(NA.cliLabels.commander.create.command, NA.cliLabels.commander.create.description)
 
         /* Start the server with HTTPs Protocol. */
-        .option(NA.appLabels.commander.httpSecure.command, NA.appLabels.commander.httpSecure.description)
+        .option(NA.cliLabels.commander.httpSecure.command, NA.cliLabels.commander.httpSecure.description)
 
         /* Change language used by NodeAtlas. */
-        .option(NA.appLabels.commander.lang.command, NA.appLabels.commander.lang.description)
+        .option(NA.cliLabels.commander.lang.command, NA.cliLabels.commander.lang.description)
         .parse(process.argv);
 
     /* `generate` manually setted value with `--generate`. */
@@ -121,12 +121,12 @@ exports.initGlobalVar = function () {
     /**
      * Name of file which contains language error messages. The name of file is without extension.
      * @public
-     * @alias appLanguage
+     * @alias cliLanguage
      * @type {String}
      * @memberOf NA#
      * @default "default"
      */
-    NA.appLanguage = 'default';
+    NA.cliLanguage = 'default';
 
     /**
      * OS absolute path which contains NodeAtlas folders and files.
@@ -139,36 +139,36 @@ exports.initGlobalVar = function () {
     NA.nodeatlasPath = path.join(__dirname, "..");
 
     /**
-     * All internationalize labels from `NA#appLanguage` file.
+     * All internationalize labels from `NA#cliLanguage` file.
      * @public
-     * @alias appLabels
+     * @alias cliLabels
      * @type {Object}
      * @memberOf NA#
      */
-    NA.appLabels = require('../languages/' + NA.appLanguage + '.json');
+    NA.cliLabels = require('../languages/' + NA.cliLanguage + '.json');
 
     /**
      * Contain all functions of controllers both common and specific.
-     * @namespace websiteController[]
+     * @namespace controllers[]
      * @private
-     * @alias websiteController
+     * @alias controllers
      * @type {Array.&lt;Object>}
      * @memberOf NA#
      * @example // Functions for common controller if `commonController` value is "common.json".
-     * NA.websiteController["common.json"].setModules(...);
-     * NA.websiteController["common.json"].setSessions(...);
-     * NA.websiteController["common.json"].setSockets(...);
-     * NA.websiteController["common.json"].setConfigurations(...);
-     * NA.websiteController["common.json"].setRoutes(...);
-     * NA.websiteController["common.json"].changeVariation(...);
-     * NA.websiteController["common.json"].changeDom(...);
+     * NA.controllers["common.json"].setModules(...);
+     * NA.controllers["common.json"].setSessions(...);
+     * NA.controllers["common.json"].setSockets(...);
+     * NA.controllers["common.json"].setConfigurations(...);
+     * NA.controllers["common.json"].setRoutes(...);
+     * NA.controllers["common.json"].changeVariations(...);
+     * NA.controllers["common.json"].changeDom(...);
      *
      * // Functions for specific controller if a route `controller` value is "index.json".
-     * NA.websiteController["index.json"].setSockets(...);
-     * NA.websiteController["index.json"].changeVariation(...);
-     * NA.websiteController["index.json"].changeDom(...);
+     * NA.controllers["index.json"].setSockets(...);
+     * NA.controllers["index.json"].changeVariations(...);
+     * NA.controllers["index.json"].changeDom(...);
      */
-    NA.websiteController = [];
+    NA.controllers = [];
 };
 
 /**
@@ -224,59 +224,6 @@ exports.initGlobalVarRequiredNpmModules = function () {
     if (NA.configuration.webconfig) {
         NA.webconfigName = NA.configuration.webconfig;
     }
-};
-
-/**
- * Set configuration of Template Engine.
- * @private
- * @function templateEngineConfiguration
- * @memberOf NA#
- */
-exports.templateEngineConfiguration = function () {
-    var NA = this,
-        ejs = NA.modules.ejs,
-        path = NA.modules.path;
-
-    /**
-     * Container for all variables usable from variation files.
-     * @namespace variations
-     * @public
-     * @alias variations
-     * @type {Object}
-     * @memberOf NA#
-     */
-    NA.variations = {};
-
-    /**
-     * OS absolute directory for template engine's file included with `include` statement.
-     * @public
-     * @alias pathname
-     * @type {string}
-     * @memberOf NA#variations
-     * @default « The `NA#serverPath` value with webconfig's `viewsRelativePath` next ».
-     */
-    NA.variations.pathname = path.join(NA.serverPath, NA.webconfig.viewsRelativePath);
-
-    /**
-     * Same as `NA#variations.pathname` with arbitrary value setted next.
-     * This value will be represent current page generated for all page generated with template engine.
-     * @public
-     * @alias filename
-     * @type {string}
-     * @memberOf NA#variations
-     * @default « Arbitrarily setted to "all-component.here". »
-     */
-    NA.variations.filename = path.join(NA.variations.pathname, "all-component.here");
-
-    /**
-     * Set open and close bracket used by Teplate Engine.
-     * @public
-     * @alias templateEngineDelimiter
-     * @type {string}
-     * @memberOf NA#webconfig
-     * @default '?'.
-     */
-    ejs.delimiter = NA.webconfig.templateEngineDelimiter || "?";
 };
 
 /**
@@ -388,7 +335,6 @@ exports.setPreprocessorDirectiveAsWebconfigBase = function () {
 
     /**
      * Enable Pug preprocessor.
-     * @namespace enablePug
      * @public
      * @alias enablePug
      * @type {boolean}
@@ -693,7 +639,8 @@ exports.setHttpValuesAsWebconfigBase = function () {
  * @memberOf NA#
  */
 exports.improveWebconfigBase = function () {
-    var NA = this;
+    var NA = this,
+        ejs = NA.modules.ejs;
 
     /**
      * Contain Webconfig file on JSON format.
@@ -719,6 +666,26 @@ exports.improveWebconfigBase = function () {
 
     /* Set the httpPort, httpHost, urlPort and urlHost for default webconfig. */
     NA.setHttpValuesAsWebconfigBase();
+
+    /**
+     * Set open and close bracket used by Teplate Engine.
+     * @public
+     * @alias templateEngineDelimiter
+     * @type {string}
+     * @memberOf NA#webconfig
+     * @default '?'.
+     */
+    ejs.delimiter = NA.webconfig.templateEngineDelimiter || "?";
+
+    /**
+     * Deliver the client-side window.NA.socket and window.NA.io object.
+     * @public
+     * @alias urlSocketsFile
+     * @type {string}
+     * @memberOf NA#webconfig
+     * @default "/node-atlas/socket.io.js"
+     */
+    NA.webconfig.urlSocketsFile = (NA.webconfig.urlSocketsFile === false) ? false : (NA.webconfig.urlSocketsFile || "/node-atlas/socket.io.js");
 
     /**
      * Default Content Type used for all pages.
@@ -787,13 +754,13 @@ exports.improveWebconfigBase = function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_currentRouteParameters.html">currentRouteParameters</a></li><li><a href="NA_currentVariation.html">currentVariation</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enablePug.html">enablePug</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li><li><a href="NA_websiteController%255B%255D.html">websiteController[]</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 14 2016 18:57:26 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 21 2016 17:57:55 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

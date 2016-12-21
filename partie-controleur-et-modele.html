@@ -271,13 +271,12 @@ website.init({
 <li>de maintenir des sessions, </li>
 <li>de faire des échanges Websockets et</li>
 <li>de faire bien plus encore !</li>
-</ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et Points d&#39;ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D&#39;abord, une et une seule fois, les ressources se chargent, le serveur démarre, les routes s&#39;initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d&#39;ancrage pendant le démarrage, et pendant la création d&#39;une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d&#39;atteindre tous les points d&#39;ancrage du cycle de vie d&#39;une page.</p><pre><code class="lang-json">{
+</ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et Points d&#39;ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D&#39;abord, les ressources se chargent, le serveur démarre, les routes s&#39;initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d&#39;ancrage pendant le démarrage, et pendant la création d&#39;une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d&#39;atteindre tous les points d&#39;ancrage du cycle de vie d&#39;une page.</p><pre><code class="lang-json">{
     &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
-            &quot;variation&quot;: &quot;index.json&quot;,
             &quot;controller&quot;: &quot;index.json&quot;
         }
     }
@@ -286,7 +285,7 @@ website.init({
 ┊
 ├─[Chargement des variables d&#39;initialisation]
 ┊
-├─[Chargement des modules npm]
+├─[Chargement des modules NPM]
 ┊
 ├─[Prise en compte des commandes et de la langue du CLI]
 ┊
@@ -330,10 +329,10 @@ website.init({
 └─[Traitement d&#39;une requête]
   ┊
   └─[Chargement du contrôleur spécifique]
-    ┊  ____________________________________________________
-    ├─{Point d&#39;ancrage : &lt;commonController&gt;.changeVariation}
-    ├─{Point d&#39;ancrage : routes[&lt;controller&gt;].changeVariation}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  _____________________________________________________
+    ├─{Point d&#39;ancrage : &lt;commonController&gt;.changeVariations}
+    ├─{Point d&#39;ancrage : routes[&lt;controller&gt;].changeVariations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Compilation du moteur de template]
       ┊  ______________________________________________
       ├─{Point d&#39;ancrage : &lt;commonController&gt;.changeDom}
@@ -342,7 +341,16 @@ website.init({
       └─[Envoi de la réponse]
         ┊ 
         ∞
-</code></pre><h4 id="changevariation">changeVariation</h4><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
+</code></pre><h4 id="changevariations">changeVariations</h4><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeVariations(params, next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+<li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
+<li>En premier paramètre l&#39;objet <code>params</code> contenant <ul>
+<li>l&#39;objet <code>params.variations</code> contenant les variables des JSON, </li>
+<li>la <code>params.request</code> faites pour cette page et </li>
+<li>la <code>params.response</code> qui va être faites.</li>
+</ul>
+</li>
+<li>En second paramètre la fonction de retour <code>next([variations])</code> pouvant accepter optionnellement en premier paramètre l&#39;objet <code>params.variations</code> mise à jour.</li>
+</ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -385,60 +393,60 @@ website.init({
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté pour toute requête HTTP, toute page confondue.
-exports.changeVariation = function (params, next) {
-    var variation = params.variation,
+exports.changeVariations = function (params, next) {
+    var variations = params.variations,
         request = params.request,
         response = params.response;
 
     // Ici on modifie les variables de variations.
 
-    console.log(variation.common.titleWebsite); // &quot;Titre du site&quot;
-    console.log(variation.specific.titlePage); // &quot;Bienvenue&quot;
-    console.log(variation.specific.content); // &quot;C&#39;est la page d&#39;accueil.&quot;
+    console.log(variations.common.titleWebsite); // &quot;Titre du site&quot;
+    console.log(variations.specific.titlePage); // &quot;Bienvenue&quot;
+    console.log(variations.specific.content); // &quot;C&#39;est la page d&#39;accueil.&quot;
 
-    console.log(&quot;urlRootPath&quot;, variation.urlRootPath); // &quot;http://localhost&quot;
-    console.log(&quot;urlSubPath&quot;, variation.urlSubPath); // &quot;/example&quot;
-    console.log(&quot;urlBasePath&quot;, variation.urlBasePath); // &quot;http://localhost/example&quot;
-    console.log(&quot;urlFilePath&quot;, variation.urlFilePath); // &quot;/&quot;
-    console.log(&quot;urlQueryPath&quot;, variation.urlQueryPath); // &quot;?title=Haeresis&quot;
-    console.log(&quot;urlPath&quot;, variation.urlPath); // &quot;http://localhost/example/?title=Haeresis&quot;
+    console.log(&quot;urlRootPath&quot;, variations.urlRootPath); // &quot;http://localhost&quot;
+    console.log(&quot;urlSubPath&quot;, variations.urlSubPath); // &quot;/example&quot;
+    console.log(&quot;urlBasePath&quot;, variations.urlBasePath); // &quot;http://localhost/example&quot;
+    console.log(&quot;urlFilePath&quot;, variations.urlFilePath); // &quot;/&quot;
+    console.log(&quot;urlQueryPath&quot;, variations.urlQueryPath); // &quot;?title=Haeresis&quot;
+    console.log(&quot;urlPath&quot;, variations.urlPath); // &quot;http://localhost/example/?title=Haeresis&quot;
 
     if (request.query[&quot;title&quot;]) {
-        variation.specific.titlePage = variation.specific.titlePage + &quot; &quot; + request.query.title;
+        variations.specific.titlePage = variations.specific.titlePage + &quot; &quot; + request.query.title;
     }
     if (request.body[&quot;example&quot;]) {
-        variation.specific.content = request.body.example;
+        variations.specific.content = request.body.example;
     }
 
-    console.log(variation.common.titleWebsite); // &quot;Titre du site&quot;
-    console.log(variation.specific.titlePage); // &quot;Bienvenue Haeresis&quot;
-    console.log(variation.specific.content); // &quot;Ceci est un test&quot;
+    console.log(variations.common.titleWebsite); // &quot;Titre du site&quot;
+    console.log(variations.specific.titlePage); // &quot;Bienvenue Haeresis&quot;
+    console.log(variations.specific.content); // &quot;Ceci est un test&quot;
 
     // On ré-injecte les modifications.
-    next(variation);
+    next(variations);
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariation = function (params, next) {
-    var variation = params.variation,
+exports.changeVariations = function (params, next) {
+    var variations = params.variations,
         request = params.request,
         response = params.response;
 
     // Ici on modifie les variables de variations.
 
-    console.log(variation.common.titleWebsite); // &quot;Titre du site&quot;
-    console.log(variation.specific.titlePage); // &quot;Bienvenue Haeresis&quot;
-    console.log(variation.specific.content); // &quot;Ceci est un test&quot;
+    console.log(variations.common.titleWebsite); // &quot;Titre du site&quot;
+    console.log(variations.specific.titlePage); // &quot;Bienvenue Haeresis&quot;
+    console.log(variations.specific.content); // &quot;Ceci est un test&quot;
 
-    variation.common.titleWebsite = &quot;C&#39;est l&#39;accueil, c&#39;est tout.&quot;;
-    variation.specific.content = &quot;C&#39;est l&#39;accueil, c&#39;est tout.&quot;;
+    variations.common.titleWebsite = &quot;C&#39;est l&#39;accueil, c&#39;est tout.&quot;;
+    variations.specific.content = &quot;C&#39;est l&#39;accueil, c&#39;est tout.&quot;;
 
-    console.log(variation.common.titleWebsite); // &quot;C&#39;est l&#39;accueil, c&#39;est tout.&quot;
-    console.log(variation.specific.titlePage); // &quot;Bienvenue Haeresis&quot;
-    console.log(variation.specific.content); // &quot;C&#39;est l&#39;accueil, c&#39;est tout.&quot;
+    console.log(variations.common.titleWebsite); // &quot;C&#39;est l&#39;accueil, c&#39;est tout.&quot;
+    console.log(variations.specific.titlePage); // &quot;Bienvenue Haeresis&quot;
+    console.log(variations.specific.content); // &quot;C&#39;est l&#39;accueil, c&#39;est tout.&quot;
 
     // On ré-injecte les modifications.
-    next(variation);
+    next(variations);
 };
 </code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
@@ -478,7 +486,17 @@ exports.changeVariation = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="changedom">changeDom</h4><p>Pour intercepter le DOM avant qu&#39;il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
+</code></pre><h4 id="changedom">changeDom</h4><p>Pour intercepter le DOM avant qu&#39;il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeDom(params, next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+<li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
+<li>En premier paramètre l&#39;objet <code>params</code> contenant <ul>
+<li>la string <code>params.dom</code> contenant la réponse, </li>
+<li>l&#39;objet <code>params.variations</code> contenant les variables des JSON, </li>
+<li>la <code>params.request</code> faites pour cette page et </li>
+<li>la <code>params.response</code> qui va être faites.</li>
+</ul>
+</li>
+<li>En second paramètre la fonction de retour <code>next(dom)</code> acceptant en premier paramètre la chaîne <code>params.dom</code> mise à jour.</li>
+</ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
@@ -581,7 +599,10 @@ exports.changeDom = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="setsockets">setSockets</h4><p>Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos Websockets ici <a href="partie-controleur-et-modele.html#echange-client-serveur-en-temps-reel-avec-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
+</code></pre><h4 id="setsockets">setSockets</h4><p>Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos Websockets ici <a href="partie-controleur-et-modele.html#echange-client-serveur-en-temps-reel-avec-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+<li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
+</ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
+    &quot;urlSocketsFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -615,7 +636,7 @@ exports.changeDom = function (params, next) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>Note : Si</em> <strong><em>urlSocketsFile</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>urlSocketsFile</em></strong> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez **</em>urlSocketsFile<em>** à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -661,7 +682,9 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
     content.innerHTML = data.text;
     input.value = data.text;
 });
-</code></pre><p>Vous pourrez, en ouvrant divers navigateurs, et divers onglet, constaté que tout est bien mis à jour chez tout le monde. Chaque nouvel ongle ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.</p><h4 id="setmodules">setModules</h4><p>Pour charger d&#39;autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p>Voici un exemple utilisant un module externe à NodeAtlas :</p><pre><code class="lang-json">{
+</code></pre><p>Vous pourrez, en ouvrant divers navigateurs, et divers onglet, constaté que tout est bien mis à jour chez tout le monde. Chaque nouvel ongle ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.</p><h4 id="setmodules">setModules</h4><p>Pour charger d&#39;autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setModules()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+<li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
+</ul><p>Voici un exemple utilisant un module externe à NodeAtlas :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -701,16 +724,16 @@ exports.setModules = function () {
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariation = function (params, next) {
+exports.changeVariations = function (params, next) {
     // Récupérer l&#39;instance « NodeAtlas » du moteur.
     var NA = this,
-        variation = params.variation,
+        variations = params.variations,
         marked = NA.modules.marked;
 
-    variation.example = marked(&quot;I am using __markdown__.&quot;);
+    variations.example = marked(&quot;I am using __markdown__.&quot;);
 
     // On ré-injecte les modifications.
-    next(variation);
+    next(variations);
 };
 </code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
@@ -726,7 +749,10 @@ exports.changeVariation = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="setconfigurations">setConfigurations</h4><p>Pour configurer le serveur web de NodeAtlas (<a href="http://expressjs.com/">ExpressJs</a>) vous pouvez utiliser le contrôleur commun pour tout le site afin faire vos modifications avant le démarrage du serveur.</p><p>Voici un exemple utilisant un middleware pour <a href="http://expressjs.com/">ExpressJs</a> :</p><pre><code class="lang-json">{
+</code></pre><h4 id="setconfigurations">setConfigurations</h4><p>Pour configurer le serveur web de NodeAtlas (<a href="http://expressjs.com/">ExpressJs</a>) vous pouvez utiliser le contrôleur commun pour tout le site afin faire vos modifications avant le démarrage du serveur.</p><p><code>setConfigurations(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+<li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
+<li>En premier paramètre la fonction de retour <code>next()</code>.</li>
+</ul><p>Voici un exemple utilisant un middleware pour <a href="http://expressjs.com/">ExpressJs</a> :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -760,14 +786,14 @@ exports.setConfigurations = function (next) {
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariation = function (params, next) {
-    var variation = params.variation;
+exports.changeVariations = function (params, next) {
+    var variations = params.variations;
 
     // On prépare le fichier pour un affichage JSON.
-    variation.content = JSON.stringify(variation, null, &quot;    &quot;);
+    variations.content = JSON.stringify(variations, null, &quot;    &quot;);
 
     // On ré-injecte les modifications.
-    next(variation);
+    next(variations);
 };
 </code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">{
     &quot;urlRootPath&quot;: &quot;http://localhost&quot;,
@@ -779,11 +805,14 @@ exports.changeVariation = function (params, next) {
     &quot;pathname&quot;: /* ... */,
     &quot;filename&quot;: /* ... */,
     &quot;params&quot;: {},
-    &quot;currentRouteParameters&quot;: { /* ... */ },
-    &quot;currentRoute&quot;: &quot;/&quot;,
+    &quot;routeParameters&quot;: { /* ... */ },
+    &quot;route&quot;: &quot;/&quot;,
     &quot;webconfig&quot;: { /* ... */ }
 }
-</code></pre><h4 id="setsessions">setSessions</h4><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de management de Session avec <a href="http://redis.io/">Redis</a>.</p><p>Voici l&#39;ensemble de fichier suivant :</p><pre><code>├─ controllers/
+</code></pre><h4 id="setsessions">setSessions</h4><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de management de Session avec <a href="http://redis.io/">Redis</a>.</p><p><code>setSessions(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+<li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
+<li>En premier paramètre la fonction de retour <code>next()</code>.</li>
+</ul><p>Voici l&#39;ensemble de fichier suivant :</p><pre><code>├─ controllers/
 │  └─ common.js
 ├─ views/
 │  └─ index.htm
@@ -824,7 +853,10 @@ exports.setSessions = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next();
 };
-</code></pre><h4 id="setroutes">setRoutes</h4><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p>Voici l&#39;ensemble de fichier suivant :</p><pre><code>├─ controllers/
+</code></pre><h4 id="setroutes">setRoutes</h4><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setRoutes(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+<li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
+<li>En premier paramètre la fonction de retour <code>next()</code>.</li>
+</ul><p>Voici l&#39;ensemble de fichier suivant :</p><pre><code>├─ controllers/
 │  └─ common.js
 ├─ views/
 │  ├─ content.htm
@@ -923,16 +955,16 @@ exports.setSockets = function () {
         socket.on(&quot;server-render&quot;, function (data) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session,
-                variation = {};
+                variations = {};
 
             // On récupère les variations spécifiques dans la bonne langue.
-            variation = NA.addSpecificVariation(&quot;index.json&quot;, data.lang, variation);
+            variations = NA.addSpecificVariation(&quot;index.json&quot;, data.lang, variations);
 
             // On récupère les variations communes dans la bonne langue.
-            variation = NA.addCommonVariation(data.lang, variation);
+            variations = NA.addCommonVariation(data.lang, variations);
 
             // On récupère le fragment HTML depuis le dossier `viewsRelativePath` et on applique les variations.
-            data.render = NA.newRender(&quot;partials/index.htm&quot;, variation);
+            data.render = NA.newRender(&quot;partials/index.htm&quot;, variations);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
             io.sockets.emit(&quot;server-render&quot;, data);
@@ -964,7 +996,7 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...et ré-affectons l&#39;action au bouton du nouveau contenu.
     setServerRender();
 });
-</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> et <code>NA.newRender</code>, il est possible de générer une nouvelle compilation d&#39;une vue et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variation</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>newRender</code> d&#39;utiliser le moteur PUG au lieu de celui d&#39;EJS, il faut mettre la valeur <code>variation.enablePug</code> à <code>true</code> avant d&#39;utiliser <code>NA.addCommonVariation</code> et <code>NA.addSpecificVariation</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données. Pour cela nous allons utiliser le module npm <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
+</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> et <code>NA.newRender</code>, il est possible de générer une nouvelle compilation d&#39;une vue et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variations</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>newRender</code> d&#39;utiliser le moteur PUG au lieu de celui d&#39;EJS, il faut mettre la valeur <code>variations.enablePug</code> à <code>true</code> avant d&#39;utiliser <code>NA.addCommonVariation</code> et <code>NA.addSpecificVariation</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données. Pour cela nous allons utiliser le module NPM <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>et la sélectionner :</p><pre><code class="lang-sql">USE demo
 </code></pre><p>puis créer la table <code>user</code> :</p><pre><code class="lang-sql">CREATE TABLE user
 (
@@ -1080,9 +1112,9 @@ exports.setConfigurations = function (next) {
 
     next();
 };
-</code></pre><p>Et afficher les résultats via le controlleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-json">exports.changeVariation = function (params, next) {
+</code></pre><p>Et afficher les résultats via le controlleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-json">exports.changeVariations = function (params, next) {
     var NA = this,
-        variation = params.variation,
+        variations = params.variations,
         user = new NA.models.User(),
         user2 = new NA.models.User(),
         user3 = new NA.models.User(),
@@ -1099,8 +1131,8 @@ exports.setConfigurations = function (next) {
         .setConnection(connection)
         .lastname(&quot;Elric&quot;)
         .read(function (allUsers) {
-            variation.user = user;
-            variation.users = allUsers;
+            variations.user = user;
+            variations.users = allUsers;
 
             // Exemple de création.
             user2
@@ -1110,8 +1142,8 @@ exports.setConfigurations = function (next) {
             .email(&quot;winry.rockbell@fma.br&quot;)
             .gender(true)
             .create(function (infos) {
-                variation.insertId = infos.insertId;
-                variation.user2 = user2;
+                variations.insertId = infos.insertId;
+                variations.user2 = user2;
 
                 // Exemple de modification.
                 user3
@@ -1123,16 +1155,16 @@ exports.setConfigurations = function (next) {
                 .address(&quot;The Rockbell&#39;s house&quot;);
 
                 user2.update(user3, function (infos) {
-                    variation.affectedRows = infos.affectedRows;
-                    variation.user2 = user2;
+                    variations.affectedRows = infos.affectedRows;
+                    variations.user2 = user2;
 
                     // Exemple de suppression.
                     user4
                     .setConnection(connection)
                     .gender(false)
                     .delete(function (infos) {
-                        variation.deletedRows = infos.affectedRows;
-                        next(variation);
+                        variations.deletedRows = infos.affectedRows;
+                        next(variations);
                     });
                 });
             });
@@ -1618,7 +1650,7 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="utiliser-une-base-de-donnees-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
+</code></pre><h3 id="utiliser-une-base-de-donnees-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données non sql. Pour cela nous allons utiliser le module NPM <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
 </code></pre><p>puis créer la collection <code>user</code> :</p><pre><code>db.createCollection(&quot;user&quot;)
 </code></pre><p>et la remplir avec un document :</p><pre><code>db.user.insert({
     email: &quot;bruno.lesieur@gmail.com&quot;,
@@ -1719,9 +1751,9 @@ exports.setConfigurations = function (next) {
         next();
     });
 };
-</code></pre><p>Et afficher les résultats via le controlleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-json">exports.changeVariation = function (params, next) {
+</code></pre><p>Et afficher les résultats via le controlleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-json">exports.changeVariations = function (params, next) {
     var NA = this,
-        variation = params.variation,
+        variations = params.variations,
         mongoose = NA.modules.mongoose,
         User = mongoose.model(&#39;user&#39;);
 
@@ -1729,18 +1761,18 @@ exports.setConfigurations = function (next) {
     .findOne({ &quot;identity.firstname&quot;: &quot;Bruno&quot; })
     .exec(function (err, bruno) {
 
-        variation.id = bruno._id;
-        variation.lastname = bruno.identity.lastname;
-        variation.firstname = bruno.identity.firstname;
-        variation.birthdate = bruno.identity.birthdate;
-        variation.email = bruno.email;
-        variation.gender = (bruno.identity.gender) ? variation.common.male : variation.common.female;
-        variation.country = bruno.location.country;
-        variation.town = bruno.location.town;
-        variation.zipcode = bruno.location.zipcode;
-        variation.address = bruno.location.address;
+        variations.id = bruno._id;
+        variations.lastname = bruno.identity.lastname;
+        variations.firstname = bruno.identity.firstname;
+        variations.birthdate = bruno.identity.birthdate;
+        variations.email = bruno.email;
+        variations.gender = (bruno.identity.gender) ? variations.common.male : variations.common.female;
+        variations.country = bruno.location.country;
+        variations.town = bruno.location.town;
+        variations.zipcode = bruno.location.zipcode;
+        variations.address = bruno.location.address;
 
-        next(variation);
+        next(variations);
     });
 };
 </code></pre><p>en utilisant sur une classe <code>user</code> partagé entre le Front et le Back <code>assets/javascript/models/user.js</code> :</p><pre><code class="lang-json">var mongoose;

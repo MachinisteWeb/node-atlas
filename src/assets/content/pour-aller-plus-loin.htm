@@ -18,13 +18,13 @@
 <li><em><a href="http://localhost/liste-des-membres/bob-eponge99/">http://localhost/liste-des-membres/bob-eponge99/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/node-atlas/">http://localhost/liste-des-membres/node-atlas/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/etc/">http://localhost/liste-des-membres/etc/</a></em></li>
-</ul><p>et récupérer les valeurs de <code>:member</code> dans le <code>changeVariation</code> (common et specific).</p><pre><code class="lang-json">exports.changeVariation = function (params, next) {
-    var variation = params.variation;
+</ul><p>et récupérer les valeurs de <code>:member</code> dans le <code>changeVariations</code> (common et specific).</p><pre><code class="lang-json">exports.changeVariations = function (params, next) {
+    var variations = params.variations;
 
-    console.log(variation.params.member);
+    console.log(variations.params.member);
     // \&gt; &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; ou &#39;etc&#39;.
 
-    next(variation);
+    next(variations);
 }
 </code></pre><p>Les règles de création d&#39;url dynamique sont celles de <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p><h4 id="expressions-r-guli-res">Expressions Régulières</h4><p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si <code>regExp</code> est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).</p><p>Voyez la configuration suivante :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
@@ -48,16 +48,16 @@
 <li><em><a href="http://localhost/liste-des-membres/bob-eponge99/">http://localhost/liste-des-membres/bob-eponge99/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/bob-eponge99">https://localhost/liste-des-membres/bob-eponge99</a></em>)</em></li>
 <li><em><a href="http://localhost/liste-des-membres/node-atlas/">http://localhost/liste-des-membres/node-atlas/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/node-atlas">https://localhost/liste-des-membres/node-atlas</a></em>)</em></li>
 <li><em><a href="http://localhost/liste-des-membres/etc/">http://localhost/liste-des-membres/etc/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/etc">https://localhost/liste-des-membres/etc</a></em>)</em></li>
-</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariation</code> (common et specific).</p><pre><code class="lang-json">exports.changeVariation = function (params, next) {
-    var variation = params.variation;
+</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariations</code> (common et specific).</p><pre><code class="lang-json">exports.changeVariations = function (params, next) {
+    var variations = params.variations;
 
-    if (variation.params &amp;&amp; variation.params[0]) { variation.params.member = variation.params[0]; }
-    // variation.params[1] pour le deuxième match, etc...
+    if (variations.params &amp;&amp; variations.params[0]) { variations.params.member = variations.params[0]; }
+    // variations.params[1] pour le deuxième match, etc...
 
-    console.log(variation.params.member);
+    console.log(variations.params.member);
     // \&gt; &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; ou &#39;etc&#39;.
 
-    next(variation);
+    next(variations);
 }
 </code></pre><p>Les règles de création d&#39;url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h4 id="routage-dans-un-fichier-partag-">Routage dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c&#39;est le fichier <code>routes.json</code>.</p><p>Par exemple :</p><p>L&#39;ensemble de fichier suivant</p><pre><code>├─ views/
 │  └─ index.htm
@@ -81,11 +81,11 @@
         }
     }
 }
-</code></pre><p>pourrait devenir l&#39;ensemble de fichier suivant</p><pre><code>views/
-— index.htm
-routes.json
-webconfig.json
-webconfig.prod.json
+</code></pre><p>pourrait devenir l&#39;ensemble de fichier suivant</p><pre><code>├─ views/
+│  └─ index.htm
+├─ routes.json
+├─ webconfig.json
+└─ webconfig.prod.json
 </code></pre><p>avec <code>webconfig.json</code></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;routes&quot;: &quot;routes.json&quot;
@@ -625,7 +625,23 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h3 id="generer-les-css-avec-less">Générer les CSS avec Less</h3><p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu&#39;une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l&#39;opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
+</code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h4 id="bundles-avec-sockets">Bundles avec Sockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.urlSocketsFile</code> même si celui-ci n&#39;existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.</p><p>Dans l&#39;exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.</p><pre><code class="lang-json">{
+    &quot;bundles&quot;: {
+        &quot;javascript&quot;: {
+            &quot;javascript/common.min.js&quot;: [
+                &quot;javascript/socket.io.js&quot;,
+                &quot;node-atlas/socket.io.js&quot;,
+                &quot;javascript/common.js&quot;
+            ]
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><h3 id="generer-les-css-avec-less">Générer les CSS avec Less</h3><p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu&#39;une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l&#39;opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
 │  └─ stylesheets
 │     └─ common.less
 ├─ views/
@@ -1335,7 +1351,7 @@ exports.setSessions = website.setSessions;
 }
 </code></pre><p>on peut alors créer un lien entre chaque page multilingue comme ceci :</p><pre><code class="lang-html">&lt;ul&gt;
     &lt;? for (var i = 0; i &lt; common.language.length; i++) { ?&gt;
-    &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes[currentRouteName.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes[routeName.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
 </code></pre><h3 id="activer-le-cache">Activer le Cache</h3><p>C&#39;est une bonne chose de ne pas reservir des fichiers qui n&#39;ont pas bougé pour la production. Vous pouvez mettre à <code>true</code> la valeur du webconfig <code>cache</code> pour ça:</p><pre><code class="lang-json">{

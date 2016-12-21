@@ -1,14 +1,14 @@
-exports.changeVariation = function (params, next) {
+exports.changeVariations = function (params, next) {
     var NA = this,
         fs = NA.modules.fs,
-        variation = params.variation;
+        variations = params.variations;
 
     fs.readFile("assets/" + NA.webconfig._content + "index.htm", "utf-8", function (err, content) {
         if (err) {
-            return next(variation);
+            return next(variations);
         }
 
-        variation.common.content = content;
-        next(variation);
+        variations.common.content = content;
+        next(variations);
     });
 };

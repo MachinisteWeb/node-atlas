@@ -135,7 +135,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [--lang &lt;culture-country>](#--lang-culture-country)
  - [--create [path]](#--create-path)  
  - [--httpSecure [pathName]](#--httpsecure-pathname)
-- [API / NodeAtlas as npm module](#api--nodeatlas-as-npm-module)
+- [API / NodeAtlas as NPM module](#api--nodeatlas-as-npm-module)
  - [&lt;node-atlas-instance>.start()](#node-atlas-instancestart)
  - [&lt;node-atlas-instance>.init(Object)](#node-atlas-instanceinitobject)
  - [&lt;node-atlas-instance>.run(Object)](#node-atlas-instancerunobject)
@@ -202,13 +202,13 @@ Before install NodeAtlas, install [Node.js](https://nodejs.org/), we will see th
 
 There are several ways to install NodeAtlas:
 
-- **With npm, into project directory** with the following command:
+- **With NPM, into project directory** with the following command:
 
    > `npm install node-atlas`
 
    *This will install* NodeAtlas *in the « node_modules/node-atlas » directory of the execution of the command. Recommended for [use as a module](#api--nodeatlas-as-npm-module) in a project*
 
-- **With npm, into global modules directory** with the following command:
+- **With NPM, into global modules directory** with the following command:
 
    > `npm install -g node-atlas`
 
@@ -246,7 +246,7 @@ Using [chocolatey](http://chocolatey.org/) to install Node:
 cinst nodejs
 ```
 
-or for full install with npm:
+or for full install with NPM:
 
 ```bash
 cinst nodejs.install
@@ -376,7 +376,7 @@ Position yourself with the prompt console in the folder « hello-world/ » and r
 
 #### Via a JavaScript file ####
 
-You can also use NodeAtlas as a npm module.
+You can also use NodeAtlas as a NPM module.
 
 *server.js*
 
@@ -1669,7 +1669,7 @@ but also provide;
 
 ### Lifecycle and Hooks ###
 
-NodeAtlas lyfecycle works as following. First, one time, ressources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generate. You could use hooks whire server start and while response is construct.
+NodeAtlas lyfecycle works as following. First, ressources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generate. You could use hooks whire server start and while response is construct.
 
 This is a `webconfig.json` allows you to manipulate each hook of life cycle of a page.
 
@@ -1680,7 +1680,6 @@ This is a `webconfig.json` allows you to manipulate each hook of life cycle of a
     "routes": {
         "/": {
             "view": "index.htm",
-            "variation": "index.json",
             "controller": "index.json"
         }
     }
@@ -1698,7 +1697,7 @@ and this is the detail of all hooks while:
 ┊
 ├─[Loading Init Vars]
 ┊
-├─[Loading npm Modules]
+├─[Loading NPM Modules]
 ┊
 ├─[Setting CLI commands and language]
 ┊
@@ -1711,29 +1710,29 @@ and this is the detail of all hooks while:
   ├─[Setting Webconfig instructions]
   ┊
   └─[Loading Common Controller]
-    ┊  _______________________________________________
+    ┊  ____________________________________
     ├─{Hook : <commonController>.setModules}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Server Init]
-    ┊  ________________________________________________
+    ┊  _____________________________________
     ├─{Hook : <commonController>.setSessions}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Sessions Init]
     ┊ 
     ├─[Sockets Init]
-    ┊ ┊  _______________________________________________
+    ┊ ┊  ____________________________________
     ┊ ├─{Hook : <commonController>.setSockets}
     ┊ └─{Hook : routes[<controller>].setSockets}
-    ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    ┊  ______________________________________________________
+    ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ___________________________________________
     ├─{Hook : <commonController>.setConfigurations}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Starting the server]
       ┊
       ├─[Template Engine Init]
-      ┊  ______________________________________________
+      ┊  ___________________________________
       ├─{Hook : <commonController>.setRoutes}
-      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Routes Init]
         ┊
         ∞
@@ -1747,23 +1746,32 @@ and this is the detail of all hooks while:
 └─[Processing a request]
   ┊
   └─[Loading Specific Controller]
-    ┊  ____________________________________________________
-    ├─{Hook : <commonController>.changeVariation}
-    ├─{Hook : routes[<controller>].changeVariation}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  __________________________________________
+    ├─{Hook : <commonController>.changeVariations}
+    ├─{Hook : routes[<controller>].changeVariations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Template Engine Compilation]
-      ┊  ______________________________________________
+      ┊  ___________________________________
       ├─{Hook : <commonController>.changeDom}
       ├─{Hook : routes[<controller>].changeDom}
-      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Send Response]
         ┊ 
         ∞
 ```
 
-#### changeVariation ####
+#### changeVariations ####
 
 In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.
+
+`changeVariations(params, next)` is a function to `exports` and provide :
+
+- `NA` object as `this`.
+- An object `params` in first parameter with the 
+   - `params.variations` object that contains all JSON vars, 
+   - the `params.request` do for this page and 
+   - the `params.response` will be sent
+- A callback function `next([variations])` in second parameter which could accept an optional first updated object parameter `params.variations`.
 
 This is an example using the two hooks, the common in first and after the specific:
 
@@ -1838,37 +1846,37 @@ Do a POST request on `http://localhost/example/?title=Haeresis` with `example=Th
 ```js
 // This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
-exports.changeVariation = function (params, next) {
-    var variation = params.variation,
+exports.changeVariations = function (params, next) {
+    var variations = params.variations,
         request = params.request,
         response = params.response;
 
     // Here we update variations variable.
 
-    console.log(variation.common.titleWebsite); // "Site Title"
-    console.log(variation.specific.titlePage); // "Welcome"
-    console.log(variation.specific.content); // "This is the Home Page."
+    console.log(variations.common.titleWebsite); // "Site Title"
+    console.log(variations.specific.titlePage); // "Welcome"
+    console.log(variations.specific.content); // "This is the Home Page."
 
-    console.log("urlRootPath", variation.urlRootPath); // "http://localhost"
-    console.log("urlSubPath", variation.urlSubPath); // "/example"
-    console.log("urlBasePath", variation.urlBasePath); // "http://localhost/example"
-    console.log("urlFilePath", variation.urlFilePath); // "/"
-    console.log("urlQueryPath", variation.urlQueryPath); // "?title=Haeresis"
-    console.log("urlPath", variation.urlPath); // "http://localhost/example/?title=Haeresis"
+    console.log("urlRootPath", variations.urlRootPath); // "http://localhost"
+    console.log("urlSubPath", variations.urlSubPath); // "/example"
+    console.log("urlBasePath", variations.urlBasePath); // "http://localhost/example"
+    console.log("urlFilePath", variations.urlFilePath); // "/"
+    console.log("urlQueryPath", variations.urlQueryPath); // "?title=Haeresis"
+    console.log("urlPath", variations.urlPath); // "http://localhost/example/?title=Haeresis"
 
     if (request.query["title"]) {
-        variation.specific.titlePage = variation.specific.titlePage + " " + request.query.title;
+        variations.specific.titlePage = variations.specific.titlePage + " " + request.query.title;
     }
     if (request.body["example"]) {
-        variation.specific.content = request.body.example;
+        variations.specific.content = request.body.example;
     }
     
-    console.log(variation.common.titleWebsite); // "Site Title"
-    console.log(variation.specific.titlePage); // "Welcome Haeresis"
-    console.log(variation.specific.content); // "This is a test"
+    console.log(variations.common.titleWebsite); // "Site Title"
+    console.log(variations.specific.titlePage); // "Welcome Haeresis"
+    console.log(variations.specific.content); // "This is a test"
 
     // We update modification here.
-    next(variation);
+    next(variations);
 };
 ```
 
@@ -1877,26 +1885,26 @@ exports.changeVariation = function (params, next) {
 ```js
 // This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page.
-exports.changeVariation = function (params, next) {
-    var variation = params.variation,
+exports.changeVariations = function (params, next) {
+    var variations = params.variations,
         request = params.request,
         response = params.response;
 
     // Here we update variations variable.
 
-    console.log(variation.common.titleWebsite); // "Site Title"
-    console.log(variation.specific.titlePage); // "Welcome Haeresis"
-    console.log(variation.specific.content); // "This is a test"
+    console.log(variations.common.titleWebsite); // "Site Title"
+    console.log(variations.specific.titlePage); // "Welcome Haeresis"
+    console.log(variations.specific.content); // "This is a test"
 
-    variation.common.titleWebsite = "It's Home, no way.";
-    variation.specific.content = "It's Home, no way.";
+    variations.common.titleWebsite = "It's Home, no way.";
+    variations.specific.content = "It's Home, no way.";
 
-    console.log(variation.common.titleWebsite); // "It's Home, no way."
-    console.log(variation.specific.titlePage); // "Welcome Haeresis"
-    console.log(variation.specific.content); // "It's Home, no way."
+    console.log(variations.common.titleWebsite); // "It's Home, no way."
+    console.log(variations.specific.titlePage); // "Welcome Haeresis"
+    console.log(variations.specific.content); // "It's Home, no way."
 
     // We update modification here.
-    next(variation);
+    next(variations);
 };
 ```
 
@@ -1957,6 +1965,16 @@ the output will be as following:
 
 In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.
 
+`changeDom(params, next)` is a function to `exports` and provide :
+
+- `NA` object as `this`.
+- An object `params` in first parameter with
+   - the `params.dom` string that contains the response, 
+   - the `params.variations` object that contains all JSON vars, 
+   - the `params.request` do for this page and 
+   - the `params.response` will be sent
+- A callback function `next(dom)` in second parameter which accept the first updated string parameter `params.dom`.
+
 This is an example using the two hooks, the common in first and after the specific:
 
 ```json
@@ -1987,7 +2005,7 @@ with this files :
 └─ webconfig.json
 ```
 
-Do a POST request on `http://localhost/` will use the following files:
+Do a request on `http://localhost/` will use the following files (and others):
 
 *variations/common.json*
 
@@ -2106,10 +2124,15 @@ the output will be as following:
 
 In order to keep a real-time connection between your Client-side and Server-side between all pages opened on all browsers that run on all OS, you could define your Websockets here. [More details in Socket.IO part](#use-reliable-client-server-real-time-with-websockets).
 
+`setSockets()` is a function to `exports` and provide :
+
+- `NA` object as `this`.
+
 This is an example using the two hooks, the common in first and after the specific:
 
 ```json
 {
+    "urlSocketsFile": "/node-atlas/socket.io.js",
     "commonController": "common.js",
     "routes": {
         "/": {
@@ -2134,7 +2157,7 @@ with this files :
 └─ webconfig.json
 ```
 
-Do a POST request on `http://localhost/` will use the following files:
+Do a request on `http://localhost/` will use the following files (and others files):
 
 *views/index.htm*
 
@@ -2156,6 +2179,8 @@ Do a POST request on `http://localhost/` will use the following files:
     </body>
 </html>
 ```
+
+*Note : If* ***urlSocketsFile*** *is not present in "webconfig.json", default client file for config sockets is* ***/node-atlas/socket.io.js***. ***urlSocketsFile*** *is useful only to change the name of file. If you set ***urlSocketsFile*** to `false`, the client file will be not adding on accessible routes.*
 
 *controllers/common.js*
 
@@ -2226,6 +2251,10 @@ You will see, opening different browsers and tabs. All is update in all tabs. Ea
 
 To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.
 
+`setModules()` is a function to `exports` and provide :
+
+- `NA` object as `this`.
+
 This is an exemple using an external module of NodeAtlas:
 
 ```json
@@ -2251,7 +2280,7 @@ with this set of files:
 └─ webconfig.json
 ```
 
-Do a POST request on `http://localhost/` will use the following files:
+Do a request on `http://localhost/` will use the following files (and others files):
 
 *views/index.htm*
 
@@ -2291,16 +2320,16 @@ exports.setModules = function () {
 ```js
 // This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
-exports.changeVariation = function (params, next) {
+exports.changeVariations = function (params, next) {
     // Use the « NodeAtlas » instance from engine.
     var NA = this,
-        variation = params.variation,
+        variations = params.variations,
         marked = NA.modules.marked;
 
-    variation.example = marked("I am using __markdown__.");
+    variations.example = marked("I am using __markdown__.");
 
     // We update modification here.
-    next(variation);
+    next(variations);
 };
 ```
 
@@ -2327,6 +2356,11 @@ this will produce the following output:
 
 To configure NodeAtlas web server others ([ExpressJs](http://expressjs.com/)), you can use the common controller to set configurations before the server start.
 
+`setConfigurations(next)` is a function to `exports` and provide :
+
+- `NA` object as `this`.
+- A callback function `next()` in first parameter.
+
 This is an exemple using a middleware for [ExpressJs](http://expressjs.com/):
 
 ```json
@@ -2352,7 +2386,7 @@ with this set of files:
 └─ webconfig.json
 ```
 
-Do a POST request on `http://localhost/` will use the following files:
+Do a request on `http://localhost/` will use the following files (and others files):
 
 *views/index.htm*
 
@@ -2386,14 +2420,14 @@ exports.setConfigurations = function (next) {
 ```js
 // This code is executing before starting of the web server.
 // This code is executed only for the « / » page .
-exports.changeVariation = function (params, next) {
-    var variation = params.variation;
+exports.changeVariations = function (params, next) {
+    var variations = params.variations;
 
     // We prepare file for JSON displaying.
-    variation.content = JSON.stringify(variation, null, "    ");
+    variations.content = JSON.stringify(variations, null, "    ");
 
     // We update modification here.
-    next(variation);
+    next(variations);
 };
 ```
 
@@ -2410,8 +2444,8 @@ this will produce the following output:
     "pathname": /* ... */,
     "filename": /* ... */,
     "params": {},
-    "currentRouteParameters": { /* ... */ },
-    "currentRoute": "/",
+    "routeParameters": { /* ... */ },
+    "route": "/",
     "webconfig": { /* ... */ }
 }
 ```
@@ -2419,6 +2453,11 @@ this will produce the following output:
 #### setSessions ####
 
 To configure client-server Sessions of NodeAtlas, you can use the common controller to set sessions before the server start. this is an example with [Redis](http://redis.io/) sessions.
+
+`setSessions(next)` is a function to `exports` and provide :
+
+- `NA` object as `this`.
+- A callback function `next()` in first parameter.
 
 This is all files for example:
 
@@ -2479,6 +2518,11 @@ exports.setSessions = function (next) {
 #### setRoutes ####
 
 To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.
+
+`setRoutes(next)` is a function to `exports` and provide :
+
+- `NA` object as `this`.
+- A callback function `next()` in first parameter.
 
 This is all files for example:
 
@@ -2647,16 +2691,16 @@ exports.setSockets = function () {
         socket.on("server-render", function (data) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session,
-                variation = {};
+                variations = {};
 
             // Specific variations in the good language.
-            variation = NA.addSpecificVariation("index.json", data.lang, variation);
+            variations = NA.addSpecificVariation("index.json", data.lang, variations);
 
             // Common variations in the good language.
-            variation = NA.addCommonVariation(data.lang, variation);
+            variations = NA.addCommonVariation(data.lang, variations);
 
             // HTML part from `viewsRelativePath` directory and render with variations.
-            result = NA.newRender("partials/index.htm", variation);
+            result = NA.newRender("partials/index.htm", variations);
 
             // And responds to all customers with a set of data in data.
             io.sockets.emit("server-render", data);
@@ -2701,15 +2745,15 @@ Run your project and go on `http://localhost/` across multiple tab and/or multip
 
 Thanks to `NA.addSpecificVariation`, `NA.addCommonVariation` and `NA.newRender`, it's possible to generate a new view and variation compilation.
 
-If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `currentVariation` is type of `undefined` an empty object will be created.
+If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `variations` is type of `undefined` an empty object will be created.
 
-Note : to allows `newRender` to use PUG template engine and not EJS, you must defined `variation.enablePug` to `true` before use `NA.addCommonVariation` and `NA.addSpecificVariation`.
+Note : to allows `newRender` to use PUG template engine and not EJS, you must defined `variations.enablePug` to `true` before use `NA.addCommonVariation` and `NA.addSpecificVariation`.
 
 
 
 ### Use MySQL Database (SQL) ###
 
-We will see now how to use data from database. We will use the `mysql` npm module. And first, [install a MySQL server](https://dev.mysql.com/downloads/installer/).
+We will see now how to use data from database. We will use the `mysql` NPM module. And first, [install a MySQL server](https://dev.mysql.com/downloads/installer/).
 
 #### MySQL Database ####
 
@@ -2869,9 +2913,9 @@ exports.setConfigurations = function (next) {
 And display result via specific controller `controllers/index.js`:
 
 ```js
-exports.changeVariation = function (params, next) {
+exports.changeVariations = function (params, next) {
     var NA = this,
-        variation = params.variation,
+        variations = params.variations,
         user = new NA.models.User(),
         user2 = new NA.models.User(),
         user3 = new NA.models.User(),
@@ -2888,8 +2932,8 @@ exports.changeVariation = function (params, next) {
         .setConnection(connection)
         .lastname("Elric")
         .read(function (allUsers) {
-            variation.user = user;
-            variation.users = allUsers;
+            variations.user = user;
+            variations.users = allUsers;
 
             // Create Example.
             user2
@@ -2899,8 +2943,8 @@ exports.changeVariation = function (params, next) {
             .email("winry.rockbell@fma.br")
             .gender(true)
             .create(function (infos) {
-                variation.insertId = infos.insertId;
-                variation.user2 = user2;
+                variations.insertId = infos.insertId;
+                variations.user2 = user2;
 
                 // Update Example.
                 user3
@@ -2912,16 +2956,16 @@ exports.changeVariation = function (params, next) {
                 .address("The Rockbell's house");
 
                 user2.update(user3, function (infos) {
-                    variation.affectedRows = infos.affectedRows;
-                    variation.user2 = user2;
+                    variations.affectedRows = infos.affectedRows;
+                    variations.user2 = user2;
 
                     // Delete Example.
                     user4
                     .setConnection(connection)
                     .gender(false)
                     .delete(function (infos) {
-                        variation.deletedRows = infos.affectedRows;
-                        next(variation);
+                        variations.deletedRows = infos.affectedRows;
+                        next(variations);
                     });
                 });
             });
@@ -3445,7 +3489,7 @@ You will get the following output:
 
 ### Use MongoDB Database (NoSQL) ###
 
-We will see now how to use data from nosql database. We will use the `mongoose` npm module. And first, [install a MongoDB server](https://www.mongodb.com/).
+We will see now how to use data from nosql database. We will use the `mongoose` NPM module. And first, [install a MongoDB server](https://www.mongodb.com/).
 
 #### MongoDB Database ####
 
@@ -3602,9 +3646,9 @@ exports.setConfigurations = function (next) {
 And display result via specific controller `controllers/index.js`:
 
 ```js
-exports.changeVariation = function (params, next) {
+exports.changeVariations = function (params, next) {
     var NA = this,
-        variation = params.variation,
+        variations = params.variations,
         mongoose = NA.modules.mongoose,
         User = mongoose.model('user');
 
@@ -3612,18 +3656,18 @@ exports.changeVariation = function (params, next) {
     .findOne({ "identity.firstname": "Bruno" })
     .exec(function (err, bruno) {
 
-        variation.id = bruno._id;
-        variation.lastname = bruno.identity.lastname;
-        variation.firstname = bruno.identity.firstname;
-        variation.birthdate = bruno.identity.birthdate;
-        variation.email = bruno.email;
-        variation.gender = (bruno.identity.gender) ? variation.common.male : variation.common.female;
-        variation.country = bruno.location.country;
-        variation.town = bruno.location.town;
-        variation.zipcode = bruno.location.zipcode;
-        variation.address = bruno.location.address;
+        variations.id = bruno._id;
+        variations.lastname = bruno.identity.lastname;
+        variations.firstname = bruno.identity.firstname;
+        variations.birthdate = bruno.identity.birthdate;
+        variations.email = bruno.email;
+        variations.gender = (bruno.identity.gender) ? variations.common.male : variations.common.female;
+        variations.country = bruno.location.country;
+        variations.town = bruno.location.town;
+        variations.zipcode = bruno.location.zipcode;
+        variations.address = bruno.location.address;
 
-        next(variation);
+        next(variations);
     });
 };
 ```
@@ -3732,16 +3776,16 @@ you can access:
 - *http://localhost/list-of-members/node-atlas/*
 - *http://localhost/list-of-members/etc/*
 
-and retrieve the `:member` value in` changeVariation` (common and specific).
+and retrieve the `:member` value in` changeVariations` (common and specific).
 
 ```js
-exports.changeVariation = function (params, next) {
-    var variation = params.variation;
+exports.changeVariations = function (params, next) {
+    var variations = params.variations;
 
-    console.log(variation.params.member);
+    console.log(variations.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    next(variation);
+    next(variations);
 }
 ```
 
@@ -3780,19 +3824,19 @@ you can access:
 - *http://localhost/list-of-members/node-atlas/* _(ou *https://localhost/list-of-members/node-atlas*)_
 - *http://localhost/list-of-members/etc/* _(ou *https://localhost/list-of-members/etc*)_
 
-and retrieve the `([-a-z0-9] +) value in the` `changeVariation` (common and specific).
+and retrieve the `([-a-z0-9] +) value in the` `changeVariations` (common and specific).
 
 ```js
-exports.changeVariation = function (params, next) {
-    var variation = params.variation;
+exports.changeVariations = function (params, next) {
+    var variations = params.variations;
 
-    if (variation.params && variation.params[0]) { variation.params.member = variation.params[0]; }
-    // variation.params[1] for second match, etc...
+    if (variations.params && variations.params[0]) { variations.params.member = variations.params[0]; }
+    // variations.params[1] for second match, etc...
 
-    console.log(variation.params.member);
+    console.log(variations.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    next(variation);
+    next(variations);
 }
 ```
 
@@ -3844,11 +3888,11 @@ and with `webconfig.prod.json`
 could be the following set of file
 
 ```
-views/
-— index.htm
-routes.json
-webconfig.json
-webconfig.prod.json
+├─ views/
+│  └─ index.htm
+├─ routes.json
+├─ webconfig.json
+└─ webconfig.prod.json
 ```
 
 with `webconfig.json`
@@ -4620,6 +4664,31 @@ For test your page with minified files, you can ask it to be regenerated before 
 ```
 
 *Note : this is not recommanded for production environment because it's slowed responses pages.*
+
+#### Bundles with Sockets ####
+
+It's possible to minify file defined in `NA.webconfig.urlSocketsFile` even if it's not a real prysical file. Just add it into bundles of your choice.
+
+In the following example, virtual `/node-atlas/socket.io.js` file will be added to bundles with the correct client/server sockets configuration.
+
+```json
+{
+    "bundles": {
+        "javascript": {
+            "javascript/common.min.js": [
+                "javascript/socket.io.js",
+                "node-atlas/socket.io.js",
+                "javascript/common.js"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+```
 
 
 
@@ -5809,7 +5878,7 @@ we could create link between each page as following :
 ```html
 <ul>
     <? for (var i = 0; i < common.language.length; i++) { ?>
-    <li><a href="<?= urlBasePathSlice + webconfig.routes[currentRouteName.split('_')[0] + '_' + common.language[i].code].url ?>"><?- common.language[i].name ?></a></li>
+    <li><a href="<?= urlBasePathSlice + webconfig.routes[routeName.split('_')[0] + '_' + common.language[i].code].url ?>"><?- common.language[i].name ?></a></li>
     <? } ?>
 </ul>
 ```
@@ -5952,7 +6021,7 @@ If you use the `--httpSecure` option, all path will be reach in HTTPs. You must 
 
 
 
-## API / NodeAtlas as npm module ##
+## API / NodeAtlas as NPM module ##
 
 You could run NodeAtlas via JavaScript code.
 
@@ -6458,10 +6527,10 @@ NodeAtlas is made of such a way that the instanciate object contains all the fun
 
 |               | Type                               | Top Features                            | Suitable For                                       | Pure Node runtime | Extensions                                        | Data sources                                                                                                | Main support language |
 |---------------|------------------------------------|-----------------------------------------|----------------------------------------------------|-------------------|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------|-----------------------|
-| **NodeAtlas** | Web **MVC(2)** framework           | Simplicity, **Evolutivity**, Modularity | **Web sites**, Web apps, REST APIs, **Templating** | Yes               | **Atlas plugin**, Npm module, Express middleware  | **Builtin**: In-memory /file (JSON), REST. With **external npm module**: NoSQL (MongoDB...), SQL (MySql...) | **French**            |
+| **NodeAtlas** | Web **MVC(2)** framework           | Simplicity, **Evolutivity**, Modularity | **Web sites**, Web apps, REST APIs, **Templating** | Yes               | **Atlas plugin**, NPM module, Express middleware  | **Builtin**: In-memory /file (JSON), REST. With **external NPM module**: NoSQL (MongoDB...), SQL (MySql...) | **French**            |
 | Express       | HTTP server library                | HTTP routing, middleware                | Simple web apps                                    | Yes               | Express middleware                                |                                                                                                             | English               |
 | Hapi          | HTTP server framework              | Modularity, security                    | Web apps, APIs                                     | Yes               | Hapi Plugins                                      |                                                                                                             | English               |
 | Sails         | Web MVC framework                  | Rails familiarity, MVC                  | Web apps, APIs                                     | Yes               | In-memory, File, PostgreSQL, MySQL, MongoDB       |                                                                                                             | English               |
 | Restify       | REST HTTP library                  | Simplicity, REST routing                | Simple REST APIs                                   | Yes               |                                                   |                                                                                                             | English               |
 | LoopBack      | API framework                      | Enterprise connectivity                 | Web apps, APIs                                     | Yes               | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP |                                                                                                             | English               |
-| Meteor        | Full-stack JavaScript app platform | Framework Front-end et Back-end         | Web apps                                           | No                | Meteor package and repository, Npm module         | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                 | English               |
+| Meteor        | Full-stack JavaScript app platform | Framework Front-end et Back-end         | Web apps                                           | No                | Meteor package and repository, NPM module         | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                 | English               |
