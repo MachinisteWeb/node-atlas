@@ -49,7 +49,7 @@ exports.changeVariation = function (params, next) {
 		fs = NA.modules.fs,
 		variation = params.variation;
 
-	fs.readFile("assets/content/" + variation.currentRoute.replace(".html", ".htm"), "utf-8", function (err, content) {
+	fs.readFile("assets/content/" + variation.routePath.replace(".html", ".htm"), "utf-8", function (err, content) {
 		if (err) {
 			return next(variation);
 		}

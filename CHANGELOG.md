@@ -19,6 +19,12 @@ Features:
 
 Updates:
 
+- `NA#websiteController[]` become `NA#controllers[]`.
+- `NA#currentVariation` become `NA#variations`.
+- `NA#currentRouteParameters` become `NA#routeParameters`.
+- `NA#currentVariation.currentRoute` become `NA#currentVariation.route`.
+- `NA#currentVariation.currentRouteParameters` become `NA#currentVariation.routeParameters`.
+- `NA#currentVariation.currentRouteName` become `NA#currentVariation.routePath`.
 - `NA#webconfig.urlWithoutFileName` become `NA#webconfig.urlRoot`.
 - `NA#currentVariation.urlBasePathSlice` removed.
 - `NA#currentVariation.urlBasePath` become `NA#webconfig.urlRoot + NA#webconfig.urlRelativeSubPath` (without ending "/").
@@ -49,6 +55,8 @@ Updates:
 Removed:
 
 - `NA#modulesRequired` and `NA#downloadAllModules` removed. Use `npm install` manually instead if you download package manually.
+- Original `NA#variations` removed.
+- `NA#templateEngineConfiguration` removed.
 
 
 

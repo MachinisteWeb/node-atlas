@@ -4,7 +4,7 @@ exports.changeVariation = function (params, mainCallback) {
     var variation = params.variation;
 
     // On prépare le fichier à afficher un fichier json.
-    variation.currentRouteParameters.headers = {
+    variation.routeParameters.headers = {
 		"Content-Type": "application/json; charset=utf-8"
     };
     variation.content = JSON.stringify(variation, null, "    ");
