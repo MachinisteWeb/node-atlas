@@ -2877,7 +2877,7 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mysq
 }
 ```
 
-Nous allons ensuite nous connecter à la base de données avec le controlleur globale `controllers/common.js` :
+Nous allons ensuite nous connecter à la base de données avec le contrôleur globale `controllers/common.js` :
 
 ```json
 exports.setModules = function () {
@@ -2910,7 +2910,7 @@ exports.setConfigurations = function (next) {
 };
 ```
 
-Et afficher les résultats via le controlleur spécifique `controllers/index.js` :
+Et afficher les résultats via le contrôleur spécifique `controllers/index.js` :
 
 ```json
 exports.changeVariations = function (params, next) {
@@ -3068,30 +3068,48 @@ function User(connection) {
         var insert = "INSERT INTO user (",
             values = ") VALUES (";
 
-        if (publics.id()) { insert += "`id`, "; }
-        if (publics.lastname()) { insert += "`lastname`, "; }
-        if (publics.firstname()) { insert += "`firstname`, "; }
-        if (publics.email()) { insert += "`email`, "; }
-        if (publics.birthdate()) { insert += "`birthdate`, "; }
-        if (typeof publics.gender() === "boolean") { insert += "`gender`, "; }
-        if (publics.country()) { insert += "`country`, "; }
-        if (publics.town()) { insert += "`town`, "; }
-        if (publics.zipcode()) { insert += "`zipcode`, "; }
-        if (publics.address()) { insert += "`address`, "; }
+        if (publics.id()) {
+            insert += "`id`, ";
+            values += publics.id() + ', ';
+        }
+        if (publics.lastname()) {
+            insert += "`lastname`, ";
+            values += '"' + publics.lastname() + '", ';
+        }
+        if (publics.firstname()) {
+            insert += "`firstname`, ";
+            values += '"' + publics.firstname() + '", ';
+        }
+        if (publics.email()) {
+            insert += "`email`, ";
+            values += '"' + publics.email() + '", ';
+        }
+        if (publics.birthdate()) {
+            insert += "`birthdate`, ";
+            values += '"' + publics.birthdate() + '", ';
+        }
+        if (typeof publics.gender() === "boolean") { 
+            insert += "`gender`, ";
+            values += (publics.gender() ? 1 : 0) + ', ';
+        }
+        if (publics.country()) {
+            insert += "`country`, ";
+            values += '"' + publics.country() + '", ';
+        }
+        if (publics.town()) {
+            insert += "`town`, ";
+            values += '"' + publics.town() + '", ';
+        }
+        if (publics.zipcode()) {
+            insert += "`zipcode`, ";
+            values += '"' + publics.zipcode() + '", ';
+        }
+        if (publics.address()) {
+            insert += "`address`, ";
+            values += '"' + publics.address() + '", ';
+        }
 
         insert = insert.replace(/, $/g, "");
-
-        if (publics.id()) { values += publics.id() + ', '; }
-        if (publics.lastname()) { values += '"' + publics.lastname() + '", '; }
-        if (publics.firstname()) { values += '"' + publics.firstname() + '", '; }
-        if (publics.email()) { values += '"' + publics.email() + '", '; }
-        if (publics.birthdate()) { values += '"' + publics.birthdate() + '", '; }
-        if (typeof publics.gender() === "boolean") { values += (publics.gender() ? 1 : 0) + ', '; }
-        if (publics.country()) { values += '"' + publics.country() + '", '; }
-        if (publics.town()) { values += '"' + publics.town() + '", '; }
-        if (publics.zipcode()) { values += '"' + publics.zipcode() + '", '; }
-        if (publics.address()) { values += '"' + publics.address() + '", '; }
-
         values = values.replace(/, $/g, ")");
 
         privates.connection.query(insert + values, function (err, infos) {
@@ -3514,13 +3532,13 @@ db.user.insert({
         lastname: "Lesieur",
         firstname: "Bruno",
         gender: true,
-        birthdate : new Date("1988/07/18")
+        birthdate : new Date("1900/07/18")
     },
     location: {
         country: "France",
         town: "Annecy",
         zipcode: "74000",
-        address: "66 avenue de Genève"
+        address: "avenue"
     }
 })
 ```
@@ -3618,7 +3636,7 @@ Avec les fichiers suivant pour afficher la page :
 }
 ```
 
-Enfin nous allons nous connecter à la base de données avec le controlleur globale `controllers/common.js` :
+Enfin nous allons nous connecter à la base de données avec le contrôleur globale `controllers/common.js` :
 
 ```json
 exports.setModules = function () {
@@ -3643,7 +3661,7 @@ exports.setConfigurations = function (next) {
 };
 ```
 
-Et afficher les résultats via le controlleur spécifique `controllers/index.js` :
+Et afficher les résultats via le contrôleur spécifique `controllers/index.js` :
 
 ```json
 exports.changeVariations = function (params, next) {
@@ -3672,7 +3690,7 @@ exports.changeVariations = function (params, next) {
 };
 ```
 
-en utilisant sur une classe `user` partagé entre le Front et le Back `assets/javascript/models/user.js` :
+en utilisant sur une classe `user` partagée entre la partie cliente et la partie serveur `assets/javascript/models/user.js` :
 
 ```json
 var mongoose;

@@ -3068,30 +3068,48 @@ function User(connection) {
         var insert = "INSERT INTO user (",
             values = ") VALUES (";
 
-        if (publics.id()) { insert += "`id`, "; }
-        if (publics.lastname()) { insert += "`lastname`, "; }
-        if (publics.firstname()) { insert += "`firstname`, "; }
-        if (publics.email()) { insert += "`email`, "; }
-        if (publics.birthdate()) { insert += "`birthdate`, "; }
-        if (typeof publics.gender() === "boolean") { insert += "`gender`, "; }
-        if (publics.country()) { insert += "`country`, "; }
-        if (publics.town()) { insert += "`town`, "; }
-        if (publics.zipcode()) { insert += "`zipcode`, "; }
-        if (publics.address()) { insert += "`address`, "; }
+        if (publics.id()) {
+            insert += "`id`, ";
+            values += publics.id() + ', ';
+        }
+        if (publics.lastname()) {
+            insert += "`lastname`, ";
+            values += '"' + publics.lastname() + '", ';
+        }
+        if (publics.firstname()) {
+            insert += "`firstname`, ";
+            values += '"' + publics.firstname() + '", ';
+        }
+        if (publics.email()) {
+            insert += "`email`, ";
+            values += '"' + publics.email() + '", ';
+        }
+        if (publics.birthdate()) {
+            insert += "`birthdate`, ";
+            values += '"' + publics.birthdate() + '", ';
+        }
+        if (typeof publics.gender() === "boolean") { 
+            insert += "`gender`, ";
+            values += (publics.gender() ? 1 : 0) + ', ';
+        }
+        if (publics.country()) {
+            insert += "`country`, ";
+            values += '"' + publics.country() + '", ';
+        }
+        if (publics.town()) {
+            insert += "`town`, ";
+            values += '"' + publics.town() + '", ';
+        }
+        if (publics.zipcode()) {
+            insert += "`zipcode`, ";
+            values += '"' + publics.zipcode() + '", ';
+        }
+        if (publics.address()) {
+            insert += "`address`, ";
+            values += '"' + publics.address() + '", ';
+        }
 
         insert = insert.replace(/, $/g, "");
-
-        if (publics.id()) { values += publics.id() + ', '; }
-        if (publics.lastname()) { values += '"' + publics.lastname() + '", '; }
-        if (publics.firstname()) { values += '"' + publics.firstname() + '", '; }
-        if (publics.email()) { values += '"' + publics.email() + '", '; }
-        if (publics.birthdate()) { values += '"' + publics.birthdate() + '", '; }
-        if (typeof publics.gender() === "boolean") { values += (publics.gender() ? 1 : 0) + ', '; }
-        if (publics.country()) { values += '"' + publics.country() + '", '; }
-        if (publics.town()) { values += '"' + publics.town() + '", '; }
-        if (publics.zipcode()) { values += '"' + publics.zipcode() + '", '; }
-        if (publics.address()) { values += '"' + publics.address() + '", '; }
-
         values = values.replace(/, $/g, ")");
 
         privates.connection.query(insert + values, function (err, infos) {
@@ -3514,13 +3532,13 @@ db.user.insert({
         lastname: "Lesieur",
         firstname: "Bruno",
         gender: true,
-        birthdate : new Date("1988/07/18")
+        birthdate : new Date("1900/07/18")
     },
     location: {
         country: "France",
         town: "Annecy",
         zipcode: "74000",
-        address: "66 avenue de Genève"
+        address: "avenue"
     }
 })
 ```
