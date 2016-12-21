@@ -3,10 +3,10 @@
 Features:
 
 - Gitter Chat for both fr (Aide) and en (Help) language: `https://gitter.im/NodeAtlas/`.
-- `NA#currentVariation.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
-- `NA#currentVariation.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
-- `NA#currentVariation.urlFilePath` is added.
-- `NA#currentVariation.urlPath` is added.
+- `NA#variations.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
+- `NA#variations.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
+- `NA#variations.urlFilePath` is added.
+- `NA#variations.urlPath` is added.
 - `NA#webconfig.mimeType` is added.
 - `NA#webconfig.charset` is added.
 - `NA#webconfig.headers` is added.
@@ -19,9 +19,20 @@ Features:
 
 Updates:
 
+- `NA#appLanguage` become `NA#cliLanguage`.
+- `NA#appLabels` become `NA#cliLabels`.
+- `NA#websiteController[]` become `NA#controllers[]`.
+- `NA#websiteController[].changeVariation` become `NA#controllers[].changeVariations`.
+- `NA#changeVariationCommon` become `NA#changeVariationsCommon`.
+- `NA#changeVariationSpecific` become `NA#changeVariationsSpecific`.
+- `NA#currentVariation` become `NA#variations`.
+- `NA#currentRouteParameters` become `NA#routeParameters`.
+- `NA#variations.currentRoute` become `NA#variations.route`.
+- `NA#variations.currentRouteParameters` become `NA#variations.routeParameters`.
+- `NA#variations.currentRouteName` become `NA#variations.routePath`.
 - `NA#webconfig.urlWithoutFileName` become `NA#webconfig.urlRoot`.
-- `NA#currentVariation.urlBasePathSlice` removed.
-- `NA#currentVariation.urlBasePath` become `NA#webconfig.urlRoot + NA#webconfig.urlRelativeSubPath` (without ending "/").
+- `NA#variations.urlBasePathSlice` removed.
+- `NA#variations.urlBasePath` become `NA#webconfig.urlRoot + NA#webconfig.urlRelativeSubPath` (without ending "/").
 - `NA#afterGenerates` become `NA#afterGeneration`.
 - `NA#webconfig.generatesRelativePath` become `NA#webconfig.serverlessRelativePath`.
 - `NA#webconfig.serverlessRelativePath` default value become `"serverless"`.
@@ -45,10 +56,14 @@ Updates:
 - EJS engine become ATLAS engine and `<% %>` become `<? ?>`.
 - `NA#webconfig.componentsRelativePath` removed.
 - `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
+- `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
 
 Removed:
 
 - `NA#modulesRequired` and `NA#downloadAllModules` removed. Use `npm install` manually instead if you download package manually.
+- Original `NA#variations` removed.
+- `NA#controllers[].changeVariations(params.variation...` become `NA#controllers[].changeVariations(params.variations...` 
+- `NA#controllers[].changeDom(params.variation...` become `NA#controllers[].changeVariations(params.variations...` 
 
 
 

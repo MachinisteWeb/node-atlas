@@ -22,12 +22,12 @@ exports.setRoutes = function (next) {
 exports.changeDom = function (params, next) {
 	var NA = this,
         cheerio = NA.modules.cheerio,
-		variation = params.variation,
+		variations = params.variations,
 		dom = params.dom,
         $ = cheerio.load(dom, { decodeEntities: false });
 
     for (let route of NA.webconfig.routes) {
-    	if (route.key === "home_" + variation.common.menu.href) {
+    	if (route.key === "home_" + variations.common.menu.href) {
 			$("div > a").attr("href", route.url.slice(1));
     	}
     }

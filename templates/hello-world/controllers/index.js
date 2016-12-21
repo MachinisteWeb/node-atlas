@@ -1,7 +1,7 @@
-exports.changeVariation = function (params, next) {
-	var variation = params.variation;
+exports.changeVariations = function (params, next) {
+	var variations = params.variations;
 
-	variation.specific.helloWorld = variation.specific.helloWorld + "!!!!!!!!!!!!!!!!!!!!";
+	variations.specific.helloWorld = variations.specific.helloWorld + "!!!!!!!!!!!!!!!!!!!!";
 
-	next(variation);
+	next(variations);
 };
