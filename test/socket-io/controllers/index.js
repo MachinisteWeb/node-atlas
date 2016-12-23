@@ -22,7 +22,7 @@ exports.setSockets = function () {
             variations = NA.common(data.lang, variations);
             
             // On récupère le fragment HTML depuis le dossier `viewsRelativePath` et on applique les variations.
-            data.render = NA.render("partials/index.htm", variations);
+            data.render = NA.view("partials/index.htm", variations);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
             io.sockets.emit('server-render', data);
