@@ -3,40 +3,55 @@
 Features:
 
 - Gitter Chat for both fr (Aide) and en (Help) language: `https://gitter.im/NodeAtlas/`.
-- `NA#variations.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
-- `NA#variations.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
-- `NA#variations.urlFilePath` is added.
-- `NA#variations.urlPath` is added.
+- `NA#locals.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
+- `NA#locals.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
+- `NA#locals.urlFilePath` is added.
+- `NA#locals.urlPath` is added.
+- `NA#locals.currentRouteKey` is added.
+- `NA#webconfig.commonView` is added.
 - `NA#webconfig.mimeType` is added.
 - `NA#webconfig.charset` is added.
 - `NA#webconfig.headers` is added.
 - `NA#webconfig.cache` is added.
+- `NA#webconfig.enablePug` is added.
+- `NA#routeParameters.enablePug` is added.
+- `NA#controllers[].setSockets` is added for both common and specific controller.
+- `NA#controllers[].changeDom(next(), locals.virtualDom()...` added to directly obtain `$`.
+- `NA#controllers[].changeDom` `next` callback accept a `$` first parameter.
 - `NA#configuration.cache` is added.
 - `--cache` command is added.
-- `NA#webconfig.enablePug` is added.
-- `NA#currentRouteParameters.enablePug` is added.
-- `NA#websiteController[].setSockets` is added for both common and specific controller.
 
 Updates:
 
 - `NA#appLanguage` become `NA#cliLanguage`.
 - `NA#appLabels` become `NA#cliLabels`.
 - `NA#websiteController[]` become `NA#controllers[]`.
-- `NA#websiteController[].changeVariation` become `NA#controllers[].changeVariations`.
+- `NA#controllers[].changeVariation` become `NA#controllers[].changeVariations`.
+- `NA#controllers[].changeVariations(params, next)` become `NA#controllers[].changeVariations(next, locals, request, response)`.
+- `NA#controllers[].changeDom(params, next)` become `NA#controllers[].changeVariations(next, locals, request, response)`.
+- `NA#controllers[].changeDom(params.dom...` become `NA#controllers[].changeVariations(next, locals.dom...`.
+- `NA#controllers[].loadModules` become `NA#controllers[].setModules`.
 - `NA#changeVariationCommon` become `NA#changeVariationsCommon`.
 - `NA#changeVariationSpecific` become `NA#changeVariationsSpecific`.
-- `NA#currentVariation` become `NA#variations`.
+- `NA#currentVariation` become `NA#locals`.
+- `NA#locals.currentRoute` become `NA#locals.route`.
+- `NA#locals.currentRouteParameters` become `NA#locals.routeParameters`.
+- `NA#locals.currentRouteName` become `NA#locals.route`.
+- `NA#locals.urlBasePath` become `NA#webconfig.urlRoot + NA#webconfig.urlRelativeSubPath` (without ending "/").
 - `NA#currentRouteParameters` become `NA#routeParameters`.
-- `NA#variations.currentRoute` become `NA#variations.route`.
-- `NA#variations.currentRouteParameters` become `NA#variations.routeParameters`.
-- `NA#variations.currentRouteName` become `NA#variations.routePath`.
+- `NA#routeParameters.generate` become `NA#routeParameters.output`.
+- `NA#routeParameters.template` become `NA#routeParameters.view`.
 - `NA#webconfig.urlWithoutFileName` become `NA#webconfig.urlRoot`.
-- `NA#variations.urlBasePathSlice` removed.
-- `NA#variations.urlBasePath` become `NA#webconfig.urlRoot + NA#webconfig.urlRelativeSubPath` (without ending "/").
-- `NA#afterGenerates` become `NA#afterGeneration`.
 - `NA#webconfig.generatesRelativePath` become `NA#webconfig.serverlessRelativePath`.
 - `NA#webconfig.serverlessRelativePath` default value become `"serverless"`.
-- `NA#currentRouteParameters.generate` become `NA#currentRouteParameters.output`.
+- `NA#webconfig.templatesRelativePath` become `NA#webconfig.viewsRelativePath`.
+- `NA#webconfig.viewsRelativePath` default value become `"views"`.
+- `NA#webconfig.htmlGeneratesBeforeResponse` become `NA#webconfig.htmlGenerationBeforeResponse`.
+- `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
+- `NA#afterGenerates` become `NA#afterGeneration`.
+- `NA#newRender` become `NA#render`.
+- `NA#addCommonVariation` become `NA#common`.
+- `NA#addSpecificVariation` become `NA#specific`.
 - `NA#init` become `NA#start`.
 - `NA#config` become `NA#init`.
 - `NA#serverPhysicalPath` become `NA#nodeatlasPath`.
@@ -44,26 +59,20 @@ Updates:
 - `NA#nodeAtlasModulePath` become `NA#nodeatlasModulesRelativePath` and become relatif to `NA#nodeatlasPath`.
 - `NA#websiteModulesPath` become `NA#serverModulesRelativePath` and become relatif to `NA#serverPath`.
 - `--init` command become `--create`.
-- `NA#websiteController[].loadModules` become `NA#websiteController[].setModules`.
 - `templatesPath` var become `viewsPath` var.
 - `templateFile` var become `viewFile` var.
-- `NA#webconfig.templatesRelativePath` become `NA#webconfig.viewsRelativePath`.
-- `NA#webconfig.viewsRelativePath` default value become `"views"`.
-- `NA#currentRouteParameters.template` become `NA#currentRouteParameters.view`.
 - Language `templateNotFound` become `viewNotFound`.
 - Language `templateNotSet` become `viewNotSet`.
-- `NA#webconfig.htmlGeneratesBeforeResponse` become `NA#webconfig.htmlGenerationBeforeResponse`.
 - EJS engine become ATLAS engine and `<% %>` become `<? ?>`.
-- `NA#webconfig.componentsRelativePath` removed.
-- `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
-- `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
+
 
 Removed:
 
+- `NA#webconfig.componentsRelativePath` removed.
+- `NA#locals.urlBasePathSlice` removed.
+- `NA#variations.currentRouteName` removed.
 - `NA#modulesRequired` and `NA#downloadAllModules` removed. Use `npm install` manually instead if you download package manually.
-- Original `NA#variations` removed.
-- `NA#controllers[].changeVariations(params.variation...` become `NA#controllers[].changeVariations(params.variations...` 
-- `NA#controllers[].changeDom(params.variation...` become `NA#controllers[].changeVariations(params.variations...` 
+- Original `NA#variations` removed. 
 
 
 

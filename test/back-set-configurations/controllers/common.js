@@ -1,6 +1,6 @@
 // On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
-exports.setConfigurations = function (mainCallback) {
+exports.setConfigurations = function (next) {
     // Récupérer l'instance « NodeAtlas » du moteur.
     var NA = this;
 
@@ -11,5 +11,5 @@ exports.setConfigurations = function (mainCallback) {
     });
 
     // On ré-injecte les modifications.
-    mainCallback();
+    next();
 };

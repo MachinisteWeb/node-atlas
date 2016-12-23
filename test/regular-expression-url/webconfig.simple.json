@@ -1,0 +1,31 @@
+{
+    "routes": {
+        "/list-of-members/:member/:action/": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members/:member/:action": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members/:member/": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members/:member": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members/": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}

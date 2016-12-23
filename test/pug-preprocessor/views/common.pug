@@ -6,3 +6,6 @@ html(lang="fr-fr")
         link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
         link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
     body(class=specific.classPage)
+        include partials/test
+        include #{routeParameters.view}
+        script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")

@@ -19,20 +19,15 @@ exports.setRoutes = function (next) {
     next(); 
 };
 
-exports.changeDom = function (params, next) {
+exports.changeDom = function (next, locals) {
 	var NA = this,
-        cheerio = NA.modules.cheerio,
-		variations = params.variations,
-		dom = params.dom,
-        $ = cheerio.load(dom, { decodeEntities: false });
+        $ = locals.virtualDom();
 
     for (let route of NA.webconfig.routes) {
-    	if (route.key === "home_" + variations.common.menu.href) {
+    	if (route.key === "home_" + locals.common.menu.href) {
 			$("div > a").attr("href", route.url.slice(1));
     	}
     }
 
-    dom = $.html();
-
-    next(dom);
+    next($);
 };

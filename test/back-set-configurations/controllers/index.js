@@ -1,14 +1,13 @@
 // On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariations = function (params, next) {
-    var variations = params.variations;
+exports.changeVariations = function (next, locals) {
 
     // On prépare le fichier à afficher un fichier json.
-    variations.routeParameters.headers = {
+    locals.routeParameters.headers = {
 		"Content-Type": "application/json; charset=utf-8"
     };
-    variations.content = JSON.stringify(variations, null, "    ");
+    locals.content = JSON.stringify(locals, null, "    ");
 
-    // On ré-injecte les modifications.
-    next(variations);
+    // On passe à la suite.
+    next();
 };

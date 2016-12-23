@@ -34,6 +34,20 @@
             "redirect": "/regex-multi/$0/$1/",
             "statusCode": 301,
             "regExp": true
+        },
+        "/semi/:member([a-z0-9]+)/?": {
+            "view": "index.htm"
+        },
+        "/semi-redirect/:member([a-z0-9]+)/?": {
+            "redirect": "/semi/:member/",
+            "statusCode": 301
+        },
+        "/semi-multi/:member([a-z]+)/:day([0-9]+)/?$": {
+            "view": "index.htm"
+        },
+        "/semi-multi-redirect/:member([a-z]+)/:day([0-9]+)/?$": {
+            "redirect": "/semi/:member/:day/",
+            "statusCode": 301
         }
     }
 }

@@ -1,0 +1,10 @@
+{
+    "routes": {
+        "/list-of-members/?(:member([-a-zA-Z0-9]+)/?(:action(show|edit)/?)?)?": {
+            "view": "members.htm"
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
