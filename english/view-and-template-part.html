@@ -800,7 +800,107 @@ website.init({
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.min.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : It is better to prefix his personal variables with &quot;_&quot; to avoid conflicts with existing or future configuration variables.</em></p><h3 id="generate-html-template">Generate HTML Template</h3><h4 id="generate-html-designs">Generate HTML Designs</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : It is better to prefix his personal variables with &quot;_&quot; to avoid conflicts with existing or future configuration variables.</em></p><h3 id="use-a-global-view">Use a Global View</h3><p>Include a head part and foot part in two separate files create the following problem: tag from head file are only closed into foot file. Il you want put all global things in the same file you could use a a global view and indicate into where all view are injected. You can use all others mechanism of view in this layout.</p><p>with this set of files</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  └─ index.css
+│  └─ javascript/
+│     └─ common.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ views/
+│  ├─ partials/
+│  │  └─ header.htm
+│  ├─ about.htm
+│  ├─ common.htm
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>and with the following webconfig:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+    &quot;commonView&quot;: &quot;common.htm&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        },
+        &quot;/about/&quot;: {
+            &quot;view&quot;: &quot;about.htm&quot;
+        }
+    }
+}
+</code></pre><p>and this two variation files:</p><p><em>common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Website Title&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}
+</code></pre><p><em>index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;This is the Homepage.&lt;/p&gt;&quot;
+}
+</code></pre><p>you could create with this views:</p><p><em>views/common.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;?- specific.titlePage || &quot;No title&quot; ?&gt;&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= common.classCssCommon ?&gt;.css&quot;  media=&quot;all&quot;&gt;
+        &lt;? if (specific.classPage) { ?&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?&gt;.css&quot;  media=&quot;all&quot;&gt;
+        &lt;? } ?&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;!-- Include a file in standard way --&gt;
+        &lt;?- include(&quot;partials/header.htm&quot;) ?&gt;
+
+        &lt;!-- Include the current `view` file --&gt;
+        &lt;?- include(routeParameters.view) ?&gt;
+
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>views/partals/header.htm</em></p><pre><code class="lang-html">&lt;header&gt;
+    &lt;h1&gt;&lt;?= specific.titlePage ?&gt;&lt;/h1&gt;
+&lt;/header&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;div&gt;
+    &lt;?- specific.content ?&gt;
+&lt;/div&gt;
+</code></pre><p><em>views/about.htm</em></p><pre><code class="lang-html">&lt;div&gt;
+    &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre><p>an display the following URLs:</p><p><em>/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;Welcome&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;  media=&quot;all&quot;&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/index.css&quot;  media=&quot;all&quot;&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;h1&gt;Welcome&lt;/h1&gt;
+        &lt;/header&gt;
+        &lt;div&gt;
+            &lt;p&gt;This is the Homepage.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>/about/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;Pas de titre&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;  media=&quot;all&quot;&gt; 
+    &lt;/head&gt;
+    &lt;body&gt;  
+        &lt;div&gt;
+            &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="generate-html-templates">Generate HTML Templates</h3><h4 id="generate-html-designs">Generate HTML Designs</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p><pre><code class="lang-json">{
     &quot;htmlGenerationBeforeResponse&quot;: true,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;serverlessRelativePath&quot;: &quot;../HTML/&quot;,
@@ -975,6 +1075,7 @@ website.init({
 }
 </code></pre><p>We can see now an example with set of files below:</p><p><em>webconfig.json</em></p><pre><code>{
     &quot;enablePug&quot;: true,
+    &quot;commonView&quot;: &quot;common.pug&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -984,16 +1085,16 @@ website.init({
     }
 }
 </code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
-    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
+    &quot;titleWebsite&quot;: &quot;Website Title&quot;,
     &quot;classCssCommon&quot;: &quot;common&quot;,
     &quot;classJsCommon&quot;: &quot;common&quot;
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;classPage&quot;: &quot;index&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
+    &quot;content&quot;: &quot;&lt;p&gt;This is the Homepage.&lt;/p&gt;&quot;
 }
-</code></pre><p><em>views/partials/head.pug</em></p><pre><code class="lang-html">doctype html
+</code></pre><p><em>views/common.pug</em></p><pre><code class="lang-html">doctype html
 html(lang=&quot;fr-fr&quot;)
     head
         meta(charset=&quot;utf-8&quot;)
@@ -1001,14 +1102,13 @@ html(lang=&quot;fr-fr&quot;)
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + common.classCssCommon + &quot;.css&quot;, media=&quot;all&quot;)
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + specific.classPage + &quot;.css&quot;, media=&quot;all&quot;)
     body(class=specific.classPage)
-</code></pre><p><em>views/partials/foot.pug</em></p><pre><code class="lang-html">script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
-</code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">include partials/head
-
-div
-    h1 #{specific.titlePage}
+        include partials/header
+        include #{routeParameters.view}
+        script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
+</code></pre><p><em>views/partials/header.pug</em></p><pre><code class="lang-html">h1 Welcome
+</code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
+    h2 #{specific.titlePage}
     | !{specific.content}
-
-include partials/foot
 </code></pre><p>Learn all about the possibilities of the template engine consult <a href="https://pugjs.org/">the documentation PUG</a></p><p><em>Note : If nothing is set,</em> <strong><em>enablePug</em></strong> <em>is set to</em> <strong><em>false</em></strong>.</p>
 				</div>
 			</div>

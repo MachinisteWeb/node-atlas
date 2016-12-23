@@ -1,10 +1,28 @@
-<h2 id="more-features">More Features</h2><p>NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.</p><h3 id="manage-routing-url-rewriting">Manage routing (URL Rewriting)</h3><p>Although you can configure static URLs, you can also set of dynamic URLs!</p><h4 id="standard">Standard</h4><p>With the following configuration:</p><pre><code class="lang-json">{
+<h2 id="more-features">More Features</h2><p>NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.</p><h3 id="manage-routing-url-rewriting">Manage routing (URL Rewriting)</h3><p>Although you can configure static URLs, you can also set of dynamic URLs!</p><h4 id="parameters">Parameters</h4><p>It is possible to get some parameters from URL to display a different content depending of slugs.</p><p>With the following configuration:</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
+        &quot;/list-of-members/:member/:action/&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
+        &quot;/list-of-members/:member/:action&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
         &quot;/list-of-members/:member/&quot;: {
-            &quot;view&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
+        &quot;/list-of-members/:member&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
         },
         &quot;/list-of-members/&quot;: {
-            &quot;view&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
+        &quot;/list-of-members&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
         },
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -13,25 +31,41 @@
 }
 </code></pre><p>you can access to:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
+<li><em><a href="http://localhost/list-of-members">http://localhost/list-of-members</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/toto/">http://localhost/list-of-members/toto/</a></em></li>
-<li><em><a href="http://localhost/list-of-members/bob-eponge99/">http://localhost/list-of-members/bob-eponge99/</a></em></li>
-<li><em><a href="http://localhost/list-of-members/node-atlas/">http://localhost/list-of-members/node-atlas/</a></em></li>
-<li><em><a href="http://localhost/list-of-members/etc/">http://localhost/list-of-members/etc/</a></em></li>
-</ul><p>and retrieve the <code>:member</code> value in<code>changeVariations</code> (common and specific).</p><pre><code class="lang-js">exports.changeVariations = function (params, next) {
-    var variations = params.variations;
+<li><em><a href="http://localhost/list-of-members/bob-eponge99">http://localhost/list-of-members/bob-eponge99</a></em></li>
+<li><em><a href="http://localhost/list-of-members/node-atlas/show/">http://localhost/list-of-members/node-atlas/show/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/etc/lolol">http://localhost/list-of-members/etc/lolol</a></em></li>
+<li><em><a href="http://localhost/list-of-members/?query=test">http://localhost/list-of-members/?query=test</a></em></li>
+<li><em><a href="http://localhost/list-of-members/etc?query=test">http://localhost/list-of-members/etc?query=test</a></em> (in POST with <code>test=This+is+a+test</code>)</li>
+</ul><p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in <code>changeVariations</code> (common and specific).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals, request, response) {
 
-    console.log(variations.params.member);
-    // \&gt; &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; or &#39;etc&#39;.
+    console.log(&quot;param request:&quot;, request.params.member);
+    // \&gt; undefined, &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; or &#39;etc&#39;.
+    console.log(&quot;param locals:&quot;, locals.params.member);
+    // \&gt; undefined, &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; or &#39;etc&#39;.
 
-    next(variations);
-}
-</code></pre><h3 id="regular-expressions">Regular Expressions</h3><p>You could also use regular expressions to define that is variable into your URL or define what are the valide parameters in you URL.</p><p>With the following configuration:</p><pre><code class="lang-json">{
+    console.log(&quot;param request&quot;, request.params.action);
+    // \&gt; undefined, &#39;show&#39; or &#39;lolol&#39;.
+    console.log(&quot;param locals&quot;, locals.params.action);
+    // \&gt; undefined, &#39;show&#39; or &#39;lolol&#39;.
+
+    console.log(&quot;query request&quot;, request.query.example);
+    // \&gt; undefined or &#39;test&#39;
+    console.log(&quot;query locals&quot;, locals.query.example);
+    // \&gt; undefined or &#39;test&#39;
+
+    console.log(&quot;body request&quot;, request.body.test);
+    // \&gt; undefined or &#39;This is a test&#39;.
+    console.log(&quot;body locals&quot;, locals.body.test);
+    // \&gt; undefined or &#39;This is a test&#39;.
+
+    next();
+};
+</code></pre><h3 id="advanced-parameters">Advanced Parameters</h3><p>We can see which we use a same config for three routes in previous example. You could also use regular expressions to define that is variable into your URL or define what are the valide parameters in you URL. This system is less complexe than real RegExp because a lot of char does not exist in url so, for exemple this char <code>/</code> not needed to be escape.</p><p>With the following configuration:</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
-        &quot;/list-of-members/:member([-a-zA-Z0-9]+)/:action(show|edit)/?&quot;: {
-            &quot;view&quot;: &quot;members.htm&quot;
-        },
-        &quot;/list-of-members/&quot;: {
+        &quot;/list-of-members/?(:member([-a-zA-Z0-9]+)/?(:action(show|edit)/?)?)?&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/&quot;: {
@@ -41,15 +75,63 @@
 }
 </code></pre><p>you can access to:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
+<li><em><a href="http://localhost/list-of-members">http://localhost/list-of-members</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
-<li><em><a href="http://localhost/list-of-members/toto/show">http://localhost/list-of-members/toto/show</a></em></li>
-<li><em><a href="http://localhost/list-of-members/toto-48/show/">http://localhost/list-of-members/toto-48/show/</a></em></li>
-<li><em><a href="http://localhost/list-of-members/toto-13/edit/">http://localhost/list-of-members/toto-13/edit/</a></em></li>
-</ul><p>you cannot access to:</p><ul>
-<li><em><a href="http://localhost/liste-des-membres/toto/">http://localhost/liste-des-membres/toto/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/toto/">http://localhost/list-of-members/toto/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/bob-eponge99">http://localhost/list-of-members/bob-eponge99</a></em></li>
+<li><em><a href="http://localhost/list-of-members/node-atlas/show/">http://localhost/list-of-members/node-atlas/show/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/?example=test">http://localhost/list-of-members/?example=test</a></em></li>
+<li><em><a href="http://localhost/list-of-members/etc?example=test">http://localhost/list-of-members/etc?example=test</a></em> (in POST with <code>test=This+is+a+test</code>)</li>
+</ul><p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in a view.</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;URL Rewriting Test&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Member: &lt;strong&gt;&lt;?- params.member ?&gt;&lt;/strong&gt;&lt;br&gt;
+    Action: &lt;strong&gt;&lt;?- params.action ?&gt;&lt;/strong&gt;&lt;br&gt;
+    Example: &lt;strong&gt;&lt;?- query.example ?&gt;&lt;/strong&gt;&lt;br&gt;
+    Test: &lt;strong&gt;&lt;?- body.test ?&gt;&lt;/strong&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>you cannot access to:</p><ul>
+<li><em><a href="http://localhost/list-of-members/etc/lolol">http://localhost/list-of-members/etc/lolol</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/`toto_16`/show/">http://localhost/liste-des-membres/`toto_16`/show/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/toto/`supprimer`/">http://localhost/liste-des-membres/toto/`supprimer`/</a></em></li>
-</ul><h4 id="routing-in-a-shared-file">Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ views/
+</ul><h4 id="regular-expressions">Regular Expressions</h4><p>You can also enable regular expressions to a specific path with <code>regExp</code>. If it is <code>true</code>, the previous profile no longer works and you pass in Regular Expression mode. If <code>regExp</code> is a string, it acts as a flag (g, i, m or y).</p><p>See the following configuration:</p><pre><code class="lang-js">{
+    &quot;routes&quot;: {
+        &quot;/list-of-members/([-a-z0-9]+)/?&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;regExp&quot;: &quot;i&quot;
+        },
+        &quot;/list-of-members/?&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;regExp&quot;: true
+        },
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>you can access:</p><ul>
+<li><em><a href="http://localhost/">http://localhost/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em> <em>(ou <em><a href="https://localhost/list-of-members">https://localhost/list-of-members</a></em>)</em></li>
+<li><em><a href="http://localhost/list-of-members/toto/">http://localhost/list-of-members/toto/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/toto">https://localhost/list-of-members/toto</a></em>)</em></li>
+<li><em><a href="http://localhost/list-of-members/bob-eponge99/">http://localhost/list-of-members/bob-eponge99/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/bob-eponge99">https://localhost/list-of-members/bob-eponge99</a></em>)</em></li>
+<li><em><a href="http://localhost/list-of-members/node-atlas/">http://localhost/list-of-members/node-atlas/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/node-atlas">https://localhost/list-of-members/node-atlas</a></em>)</em></li>
+<li><em><a href="http://localhost/list-of-members/etc/">http://localhost/list-of-members/etc/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/etc">https://localhost/list-of-members/etc</a></em>)</em></li>
+</ul><p>and retrieve the <code>([-a-z0-9] +) value in the</code> <code>changeVariations</code> (common and specific).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+
+    if (locals.params &amp;&amp; locals.params[0]) { locals.params.member = locals.params[0]; }
+    // locals.params[1] for second match, etc...
+
+    console.log(locals.params.member);
+    // \&gt; &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; or &#39;etc&#39;.
+
+    next();
+}
+</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h4 id="routing-in-a-shared-file">Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ views/
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
@@ -224,7 +306,7 @@ exports.setRoutes = function (next) {
             &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/list-of-members/:member&quot;: {
-            &quot;redirect&quot;: &quot;/membres/:member/&quot;,
+            &quot;redirect&quot;: &quot;/list-of-members/:member/&quot;,
             &quot;statusCode&quot;: 301
         },
         &quot;/&quot;: {
@@ -232,7 +314,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><h4 id="with-regular-expressions">With regular expressions</h4><p>See the example below:</p><pre><code class="lang-json">{
+</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><h4 id="with-regular-expressions">With regular expressions</h4><p>See the example below:</p><pre><code class="lang-js">{
     &quot;routes&quot;: {
         &quot;/membres/([-a-z0-9]+)/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;,
@@ -1341,7 +1423,7 @@ exports.setSessions = website.setSessions;
 }
 </code></pre><p>we could create link between each page as following :</p><pre><code class="lang-html">&lt;ul&gt;
     &lt;? for (var i = 0; i &lt; common.language.length; i++) { ?&gt;
-    &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes[routeName.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePath + webconfig.routes[routeKey.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
 </code></pre><h3 id="enable-cache">Enable Cache</h3><p>It&#39;s a good thing to not serve file with no modification in production. You could set the websconfig&#39;s <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{

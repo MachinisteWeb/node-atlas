@@ -535,7 +535,107 @@
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.min.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="generer-des-maquettes-html">Générer des maquettes HTML</h3><h4 id="g-n-rer-des-designs-html">Générer des designs HTML</h4><p>Avec la configuration suivante il est possible de générer des aperçu HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="utiliser-une-vue-globale">Utiliser une vue globale</h3><p>Plutôt que d&#39;inclure une partie header et une partie footer en deux fichiers scindé dont les balises de l&#39;un ne se ferme que dans les balises de l&#39;autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.</p><p>avec cet ensemble de fichiers</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  └─ index.css
+│  └─ javascript/
+│     └─ common.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ views/
+│  ├─ partials/
+│  │  └─ header.htm
+│  ├─ about.htm
+│  ├─ common.htm
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>et avec le webconfig suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+    &quot;commonView&quot;: &quot;common.htm&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        },
+        &quot;/a-propos/&quot;: {
+            &quot;view&quot;: &quot;about.htm&quot;
+        }
+    }
+}
+</code></pre><p>et ces deux fichiers de variations:</p><p><em>common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}
+</code></pre><p><em>index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
+}
+</code></pre><p>vous pourez générer avec ces vues :</p><p><em>views/common.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;?- specific.titlePage || &quot;Pas de titre&quot; ?&gt;&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= common.classCssCommon ?&gt;.css&quot;  media=&quot;all&quot;&gt;
+        &lt;? if (specific.classPage) { ?&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?&gt;.css&quot;  media=&quot;all&quot;&gt;
+        &lt;? } ?&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;!-- Inclure un fichier normalement --&gt;
+        &lt;?- include(&quot;partials/header.htm&quot;) ?&gt;
+
+        &lt;!-- Inclure le fichier vu de `view` --&gt;
+        &lt;?- include(routeParameters.view) ?&gt;
+
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>views/partals/header.htm</em></p><pre><code class="lang-html">    &lt;header&gt;
+        &lt;h1&gt;&lt;?= specific.titlePage ?&gt;&lt;/h1&gt;
+    &lt;/header&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;div&gt;
+        &lt;?- specific.content ?&gt;
+    &lt;/div&gt;
+</code></pre><p><em>views/about.htm</em></p><pre><code class="lang-html">    &lt;div&gt;
+        &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
+    &lt;/div&gt;
+</code></pre><p>et obtenir les URLs suivantes :</p><p><em>/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;Bienvenue&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;  media=&quot;all&quot;&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/index.css&quot;  media=&quot;all&quot;&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;h1&gt;Bienvenue&lt;/h1&gt;
+        &lt;/header&gt;
+        &lt;div&gt;
+            &lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>/about/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;Pas de titre&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;  media=&quot;all&quot;&gt; 
+    &lt;/head&gt;
+    &lt;body&gt;  
+        &lt;div&gt;
+            &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="generer-des-maquettes-html">Générer des maquettes HTML</h3><h4 id="g-n-rer-des-designs-html">Générer des designs HTML</h4><p>Avec la configuration suivante il est possible de générer des aperçu HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.</p><pre><code class="lang-json">{
     &quot;htmlGenerationBeforeResponse&quot;: true,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
     &quot;serverlessRelativePath&quot;: &quot;../HTML/&quot;,
@@ -710,6 +810,7 @@
 }
 </code></pre><p>Voyons ce que cela donnerait avec l&#39;exemple suivant :</p><p><em>webconfig.json</em></p><pre><code>{
     &quot;enablePug&quot;: true,
+    &quot;commonView&quot;: &quot;common.pug&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -728,7 +829,7 @@
     &quot;classPage&quot;: &quot;index&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
 }
-</code></pre><p><em>views/partials/head.pug</em></p><pre><code class="lang-html">doctype html
+</code></pre><p><em>views/common.pug</em></p><pre><code class="lang-html">doctype html
 html(lang=&quot;fr-fr&quot;)
     head
         meta(charset=&quot;utf-8&quot;)
@@ -736,12 +837,11 @@ html(lang=&quot;fr-fr&quot;)
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + common.classCssCommon + &quot;.css&quot;, media=&quot;all&quot;)
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + specific.classPage + &quot;.css&quot;, media=&quot;all&quot;)
     body(class=specific.classPage)
-</code></pre><p><em>views/partials/foot.pug</em></p><pre><code class="lang-html">script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
-</code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">include partials/head
-
-div
-    h1 #{specific.titlePage}
+        include partials/header
+        include #{routeParameters.view}
+        script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
+</code></pre><p><em>views/partials/header.pug</em></p><pre><code class="lang-html">h1 Bienvenue
+</code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
+    h2 #{specific.titlePage}
     | !{specific.content}
-
-include partials/foot
 </code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="https://pugjs.org/">la documentation PUG</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>enablePug</em></strong> <em>vaut</em> <strong><em>false</em></strong>.</p>

@@ -124,6 +124,7 @@
 <li><a href="#manage-internationalization-i18n">Manage Internationalization (i18n)</a></li>
 <li><a href="#manage-the-urls-anatomy">Manage the URLs' anatomy</a></li>
 <li><a href="#create-your-own-webconfigs-variables">Create your own Webconfig's Variables</a></li>
+<li><a href="#use-a-global-view">Use a Global View</a></li>
 <li><a href="#generate-html-templates">Generate HTML Templates</a></li>
 <li><a href="#ejs-template-engine">EJS Template Engine</a></li>
 <li><a href="#pug-template-engine">PUG Template Engine</a></li>
@@ -880,7 +881,112 @@ nodeAtlas().run();</code></pre><pre class="prettyprint source lang-bash"><code>\
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.min.js&quot;>&lt;/script>
     &lt;/body>
 &lt;/html></code></pre><p><em>Note : It is better to prefix his personal variables with &quot;_&quot; to avoid conflicts with existing or future configuration variables.</em></p>
-<h3>Generate HTML Template</h3><h4>Generate HTML Designs</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p>
+<h3>Use a Global View</h3><p>Include a head part and foot part in two separate files create the following problem: tag from head file are only closed into foot file. Il you want put all global things in the same file you could use a a global view and indicate into where all view are injected. You can use all others mechanism of view in this layout.</p>
+<p>with this set of files</p>
+<pre class="prettyprint source"><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  └─ index.css
+│  └─ javascript/
+│     └─ common.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ views/
+│  ├─ partials/
+│  │  └─ header.htm
+│  ├─ about.htm
+│  ├─ common.htm
+│  └─ index.htm
+└─ webconfig.json</code></pre><p>and with the following webconfig:</p>
+<p><em>webconfig.json</em></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;commonView&quot;: &quot;common.htm&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        },
+        &quot;/about/&quot;: {
+            &quot;view&quot;: &quot;about.htm&quot;
+        }
+    }
+}</code></pre><p>and this two variation files:</p>
+<p><em>common.json</em></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;titleWebsite&quot;: &quot;Website Title&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}</code></pre><p><em>index.json</em></p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p>This is the Homepage.&lt;/p>&quot;
+}</code></pre><p>you could create with this views:</p>
+<p><em>views/common.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en-us&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot;>
+        &lt;title>&lt;?- specific.titlePage || &quot;No title&quot; ?>&lt;/title>
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= common.classCssCommon ?>.css&quot;  media=&quot;all&quot;>
+        &lt;? if (specific.classPage) { ?>
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?>.css&quot;  media=&quot;all&quot;>
+        &lt;? } ?>
+    &lt;/head>
+    &lt;body>
+        &lt;!-- Include a file in standard way -->
+        &lt;?- include(&quot;partials/header.htm&quot;) ?>
+
+        &lt;!-- Include the current `view` file -->
+        &lt;?- include(routeParameters.view) ?>
+
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?>.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p><em>views/partals/header.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;header>
+    &lt;h1>&lt;?= specific.titlePage ?>&lt;/h1>
+&lt;/header></code></pre><p><em>views/index.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;div>
+    &lt;?- specific.content ?>
+&lt;/div></code></pre><p><em>views/about.htm</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;div>
+    &lt;h1>NodeAtlas © Haeresis&lt;/h1>
+&lt;/div></code></pre><p>an display the following URLs:</p>
+<p><em>/</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en-us&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot;>
+        &lt;title>Welcome&lt;/title>
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;  media=&quot;all&quot;>
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/index.css&quot;  media=&quot;all&quot;>
+    &lt;/head>
+    &lt;body>
+        &lt;header>
+            &lt;h1>Welcome&lt;/h1>
+        &lt;/header>
+        &lt;div>
+            &lt;p>This is the Homepage.&lt;/p>
+        &lt;/div>
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><p><em>/about/</em></p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;fr-fr&quot;>
+    &lt;head>
+        &lt;meta charset=&quot;utf-8&quot;>
+        &lt;title>Pas de titre&lt;/title>
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;  media=&quot;all&quot;> 
+    &lt;/head>
+    &lt;body>  
+        &lt;div>
+            &lt;h1>NodeAtlas © Haeresis&lt;/h1>
+        &lt;/div>
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;>&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre><h3>Generate HTML Templates</h3><h4>Generate HTML Designs</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;htmlGenerationBeforeResponse&quot;: true,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
@@ -1071,6 +1177,7 @@ nodeAtlas().run();</code></pre><pre class="prettyprint source lang-bash"><code>\
 <p><em>webconfig.json</em></p>
 <pre class="prettyprint source"><code>{
     &quot;enablePug&quot;: true,
+    &quot;commonView&quot;: &quot;common.pug&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -1080,15 +1187,15 @@ nodeAtlas().run();</code></pre><pre class="prettyprint source lang-bash"><code>\
     }
 }</code></pre><p><em>variations/common.json</em></p>
 <pre class="prettyprint source lang-json"><code>{
-    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
+    &quot;titleWebsite&quot;: &quot;Website Title&quot;,
     &quot;classCssCommon&quot;: &quot;common&quot;,
     &quot;classJsCommon&quot;: &quot;common&quot;
 }</code></pre><p><em>variations/index.json</em></p>
 <pre class="prettyprint source lang-json"><code>{
-    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
     &quot;classPage&quot;: &quot;index&quot;,
-    &quot;content&quot;: &quot;&lt;p>C'est la page d'accueil.&lt;/p>&quot;
-}</code></pre><p><em>views/partials/head.pug</em></p>
+    &quot;content&quot;: &quot;&lt;p>This is the Homepage.&lt;/p>&quot;
+}</code></pre><p><em>views/common.pug</em></p>
 <pre class="prettyprint source lang-html"><code>doctype html
 html(lang=&quot;fr-fr&quot;)
     head
@@ -1096,15 +1203,14 @@ html(lang=&quot;fr-fr&quot;)
         title #{specific.titlePage}
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + common.classCssCommon + &quot;.css&quot;, media=&quot;all&quot;)
         link(type=&quot;text/css&quot;, rel=&quot;stylesheet&quot;, href=&quot;stylesheets/&quot; + specific.classPage + &quot;.css&quot;, media=&quot;all&quot;)
-    body(class=specific.classPage)</code></pre><p><em>views/partials/foot.pug</em></p>
-<pre class="prettyprint source lang-html"><code>script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)</code></pre><p><em>views/index.pug</em></p>
-<pre class="prettyprint source lang-html"><code>include partials/head
-
-div
-    h1 #{specific.titlePage}
-    | !{specific.content}
-
-include partials/foot</code></pre><p>Learn all about the possibilities of the template engine consult <a href="https://pugjs.org/">the documentation PUG</a></p>
+    body(class=specific.classPage)
+        include partials/header
+        include #{routeParameters.view}
+        script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)</code></pre><p><em>views/partials/header.pug</em></p>
+<pre class="prettyprint source lang-html"><code>h1 Welcome</code></pre><p><em>views/index.pug</em></p>
+<pre class="prettyprint source lang-html"><code>div
+    h2 #{specific.titlePage}
+    | !{specific.content}</code></pre><p>Learn all about the possibilities of the template engine consult <a href="https://pugjs.org/">the documentation PUG</a></p>
 <p><em>Note : If nothing is set,</em> <strong><em>enablePug</em></strong> <em>is set to</em> <strong><em>false</em></strong>.</p>
 <h2>Controller and Model Part</h2><p>NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;</p>
 <ul>
@@ -1192,16 +1298,13 @@ include partials/foot</code></pre><p>Learn all about the possibilities of the te
       └─[Send Response]
         ┊ 
         ∞</code></pre><h4>changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p>
-<p><code>changeVariations(params, next)</code> is a function to <code>exports</code> and provide :</p>
+<p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p>
 <ul>
 <li><code>NA</code> object as <code>this</code>.</li>
-<li>An object <code>params</code> in first parameter with the <ul>
-<li><code>params.variations</code> object that contains all JSON vars, </li>
-<li>the <code>params.request</code> do for this page and </li>
-<li>the <code>params.response</code> will be sent</li>
-</ul>
-</li>
-<li>A callback function <code>next([variations])</code> in second parameter which could accept an optional first updated object parameter <code>params.variations</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+<li>An object <code>locals</code> in second parameter with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific vatiations.</li>
+<li>The <code>response</code> object in third parameter for this page.</li>
+<li>The <code>request</code> object in fourth parameter for this page.</li>
 </ul>
 <p>This is an example using the two hooks, the common in first and after the specific:</p>
 <pre class="prettyprint source lang-json"><code>{
@@ -1248,60 +1351,56 @@ include partials/foot</code></pre><p>Learn all about the possibilities of the te
     &lt;?- include(&quot;partials/foot.htm&quot;) ?></code></pre><p><em>controllers/common.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
-exports.changeVariations = function (params, next) {
-    var variations = params.variations,
-        request = params.request,
-        response = params.response;
+exports.changeVariations = function (next, locals, request, response) {
 
-    // Here we update variations variable.
+    // Here we update locals variable.
 
-    console.log(variations.common.titleWebsite); // &quot;Site Title&quot;
-    console.log(variations.specific.titlePage); // &quot;Welcome&quot;
-    console.log(variations.specific.content); // &quot;This is the Home Page.&quot;
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome&quot;
+    console.log(locals.specific.content); // &quot;This is the Home Page.&quot;
 
-    console.log(&quot;urlRootPath&quot;, variations.urlRootPath); // &quot;http://localhost&quot;
-    console.log(&quot;urlSubPath&quot;, variations.urlSubPath); // &quot;/example&quot;
-    console.log(&quot;urlBasePath&quot;, variations.urlBasePath); // &quot;http://localhost/example&quot;
-    console.log(&quot;urlFilePath&quot;, variations.urlFilePath); // &quot;/&quot;
-    console.log(&quot;urlQueryPath&quot;, variations.urlQueryPath); // &quot;?title=Haeresis&quot;
-    console.log(&quot;urlPath&quot;, variations.urlPath); // &quot;http://localhost/example/?title=Haeresis&quot;
+    console.log(response.charset); // &quot;utf-8&quot;
+
+    console.log(&quot;urlRootPath&quot;, locals.urlRootPath); // &quot;http://localhost&quot;
+    console.log(&quot;urlSubPath&quot;, locals.urlSubPath); // &quot;/example&quot;
+    console.log(&quot;urlBasePath&quot;, locals.urlBasePath); // &quot;http://localhost/example&quot;
+    console.log(&quot;urlFilePath&quot;, locals.urlFilePath); // &quot;/&quot;
+    console.log(&quot;urlQueryPath&quot;, locals.urlQueryPath); // &quot;?title=Haeresis&quot;
+    console.log(&quot;urlPath&quot;, locals.urlPath); // &quot;http://localhost/example/?title=Haeresis&quot;
 
     if (request.query[&quot;title&quot;]) {
-        variations.specific.titlePage = variations.specific.titlePage + &quot; &quot; + request.query.title;
+        locals.specific.titlePage = locals.specific.titlePage + &quot; &quot; + request.query.title;
     }
     if (request.body[&quot;example&quot;]) {
-        variations.specific.content = request.body.example;
+        locals.specific.content = request.body.example;
     }
 
-    console.log(variations.common.titleWebsite); // &quot;Site Title&quot;
-    console.log(variations.specific.titlePage); // &quot;Welcome Haeresis&quot;
-    console.log(variations.specific.content); // &quot;This is a test&quot;
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;This is a test&quot;
 
-    // We update modification here.
-    next(variations);
+    // We do the next step.
+    next();
 };</code></pre><p><em>controllers/index.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page.
-exports.changeVariations = function (params, next) {
-    var variations = params.variations,
-        request = params.request,
-        response = params.response;
+exports.changeVariations = function (next, locals, request, response) {
 
-    // Here we update variations variable.
+    // Here we update locals variable.
 
-    console.log(variations.common.titleWebsite); // &quot;Site Title&quot;
-    console.log(variations.specific.titlePage); // &quot;Welcome Haeresis&quot;
-    console.log(variations.specific.content); // &quot;This is a test&quot;
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;This is a test&quot;
 
-    variations.common.titleWebsite = &quot;It's Home, no way.&quot;;
-    variations.specific.content = &quot;It's Home, no way.&quot;;
+    locals.common.titleWebsite = &quot;It's Home, no way.&quot;;
+    locals.specific.content = &quot;It's Home, no way.&quot;;
 
-    console.log(variations.common.titleWebsite); // &quot;It's Home, no way.&quot;
-    console.log(variations.specific.titlePage); // &quot;Welcome Haeresis&quot;
-    console.log(variations.specific.content); // &quot;It's Home, no way.&quot;
+    console.log(locals.common.titleWebsite); // &quot;It's Home, no way.&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;It's Home, no way.&quot;
 
-    // We update modification here.
-    next(variations);
+    // We do the next step.
+    next();
 };</code></pre><p>en this produce the following output:</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;en-us&quot;>
@@ -1341,17 +1440,13 @@ exports.changeVariations = function (params, next) {
         &lt;/div>
     &lt;/body>
 &lt;/html></code></pre><h4>changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p>
-<p><code>changeDom(params, next)</code> is a function to <code>exports</code> and provide :</p>
+<p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p>
 <ul>
 <li><code>NA</code> object as <code>this</code>.</li>
-<li>An object <code>params</code> in first parameter with<ul>
-<li>the <code>params.dom</code> string that contains the response, </li>
-<li>the <code>params.variations</code> object that contains all JSON vars, </li>
-<li>the <code>params.request</code> do for this page and </li>
-<li>the <code>params.response</code> will be sent</li>
-</ul>
-</li>
-<li>A callback function <code>next(dom)</code> in second parameter which accept the first updated string parameter <code>params.dom</code>.</li>
+<li>A callback function <code>next([$])</code> in first parameter which accept an optional first updated <code>$</code> parameter used to manipulate the Virtual DOM.</li>
+<li>An object <code>locals</code> in second parameter with the <code>locals.dom</code> string that contains the response or the <code>locals.virtualDom()</code> function creating the Virtual DOM.</li>
+<li>The <code>response</code> object in third parameter for this page.</li>
+<li>The <code>request</code> object in fourth parameter for this page.</li>
 </ul>
 <p>This is an example using the two hooks, the common in first and after the specific:</p>
 <pre class="prettyprint source lang-json"><code>{
@@ -1398,13 +1493,8 @@ exports.changeVariations = function (params, next) {
 &lt;/html></code></pre><p><em>controllers/common.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before DOM was sent to Client.
 // This code is executed for all HTTP request, for all pages.
-exports.changeDom = function (params, next) {
-    var NA = this,
-        dom = params.dom,
-        request = params.request,
-        response = params.response,
-        cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
-        $ = cheerio.load(dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+exports.changeDom = function (next, locals, request, response) {
+    var $ = locals.virtualDom(); // Transform HTML string into Virtual DOM.
 
     // Just after eath h1 from HTML DOM...
     $(&quot;h1&quot;).each(function () {
@@ -1419,30 +1509,24 @@ exports.changeDom = function (params, next) {
         $this.remove();
     });
 
-    // We create a new HTML output with updates.
-    dom = $.html();
-
-    // We update modification here.
-    next(dom);
+    // Return updates for reinject them into HTML string.
+    next($);
 };</code></pre><p><em>controllers/index.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before DOM was sent to Client.
 // This code is executed only for the « / » page .
-exports.changeDom = function (params, next) {
+exports.changeDom = function (next, locals, request, response) {
     var NA = this,
-        dom = params.dom,
-        request = params.request,
-        response = params.response,
         cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
-        $ = cheerio.load(dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+        $ = cheerio.load(locals.dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
 
     // We update nodes contents with `.title` class.
     $(&quot;.title&quot;).text(&quot;Content Update&quot;);
 
-    // We create a new HTML output with updates.
-    dom = $.html();
+    // We recreate a new HTML output with updates.
+    locals.dom = $.html();
 
-    // We update modification here.
-    next(dom);
+    // We go to next step.
+    next();
 };</code></pre><p>the output will be as following:</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;en-us&quot;>
@@ -1593,16 +1677,15 @@ exports.setModules = function () {
 };</code></pre><p><em>controllers/index.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
-exports.changeVariations = function (params, next) {
+exports.changeVariations = function (next, locals) {
     // Use the « NodeAtlas » instance from engine.
     var NA = this,
-        variations = params.variations,
         marked = NA.modules.marked;
 
     variations.example = marked(&quot;I am using __markdown__.&quot;);
 
-    // We update modification here.
-    next(variations);
+    // We do next step.
+    next();
 };</code></pre><p>this will produce the following output:</p>
 <pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
 &lt;html lang=&quot;en-us&quot;>
@@ -1650,7 +1733,6 @@ exports.setConfigurations = function (next) {
     // Middleware utilisé lors de chaque requête.
     NA.httpServer.use(function (request, response, next) {
         response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM https://www.lesieur.name/&quot;);
-        response.setHeader(&quot;Content-Type&quot;, &quot;application/json; charset=utf-8&quot;);
         next();
     });
 
@@ -1659,14 +1741,16 @@ exports.setConfigurations = function (next) {
 };</code></pre><p><em>controllers/index.js</em></p>
 <pre class="prettyprint source lang-js"><code>// This code is executing before starting of the web server.
 // This code is executed only for the « / » page .
-exports.changeVariations = function (params, next) {
-    var variations = params.variations;
+exports.changeVariations = function (next, locals) {
 
     // We prepare file for JSON displaying.
-    variations.content = JSON.stringify(variations, null, &quot;    &quot;);
+    locals.routeParameters.headers = {
+        &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;
+    };
+    locals.content = JSON.stringify(locals, null, &quot;    &quot;);
 
-    // We update modification here.
-    next(variations);
+    // We do the next step.
+    next();
 };</code></pre><p>this will produce the following output:</p>
 <pre class="prettyprint source lang-html"><code>{
     &quot;urlRootPath&quot;: &quot;http://localhost&quot;,
@@ -1675,9 +1759,9 @@ exports.changeVariations = function (params, next) {
     &quot;urlFilePath&quot;: &quot;/&quot;,
     &quot;urlQueryPath&quot;: &quot;&quot;,
     &quot;urlPath&quot;: &quot;http://localhost/&quot;,
-    &quot;pathname&quot;: /* ... */,
-    &quot;filename&quot;: /* ... */,
     &quot;params&quot;: {},
+    &quot;query&quot;: {},
+    &quot;body&quot;: {},
     &quot;routeParameters&quot;: { /* ... */ },
     &quot;route&quot;: &quot;/&quot;,
     &quot;webconfig&quot;: { /* ... */ }
@@ -1698,11 +1782,9 @@ exports.changeVariations = function (params, next) {
 └─ webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;,
-            &quot;variation&quot;: &quot;index.json&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }</code></pre><p>And &quot;common.js&quot; file containing e.g.:</p>
@@ -1845,13 +1927,13 @@ exports.setSockets = function () {
                 variations = {};
 
             // Specific variations in the good language.
-            variations = NA.addSpecificVariation(&quot;index.json&quot;, data.lang, variations);
+            variations = NA.specific(&quot;index.json&quot;, data.lang, variations);
 
             // Common variations in the good language.
-            variations = NA.addCommonVariation(data.lang, variations);
+            variations = NA.common(data.lang, variations);
 
             // HTML part from `viewsRelativePath` directory and render with variations.
-            result = NA.newRender(&quot;partials/index.htm&quot;, variations);
+            result = NA.render(&quot;partials/index.htm&quot;, variations);
 
             // And responds to all customers with a set of data in data.
             io.sockets.emit(&quot;server-render&quot;, data);
@@ -1884,9 +1966,9 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...and we set again button action.
     setServerRender();
 });</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p>
-<p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it's possible to generate a new view and variation compilation.</p>
+<p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.render</code>, it's possible to generate a new view and variation compilation.</p>
 <p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>variations</code> is type of <code>undefined</code> an empty object will be created.</p>
-<p>Note : to allows <code>newRender</code> to use PUG template engine and not EJS, you must defined <code>variations.enablePug</code> to <code>true</code> before use <code>NA.addCommonVariation</code> and <code>NA.addSpecificVariation</code>.</p>
+<p>Note : to allows <code>render</code> to use PUG template engine and not EJS, you must defined <code>variations.enablePug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p>
 <h3>Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p>
 <h4>MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p>
 <pre class="prettyprint source lang-sql"><code>CREATE DATABASE demo;</code></pre><p>and select it:</p>
@@ -2005,15 +2087,13 @@ exports.setConfigurations = function (next) {
 
     next();
 };</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p>
-<pre class="prettyprint source lang-js"><code>exports.changeVariations = function (params, next) {
+<pre class="prettyprint source lang-js"><code>exports.changeVariations = function (next, locals) {
     var NA = this,
-        variations = params.variations,
         user = new NA.models.User(),
         user2 = new NA.models.User(),
         user3 = new NA.models.User(),
         user4 = new NA.models.User();
 
-    // Get the MySql connection.
     NA.mySql.getConnection(function(err, connection) {
         if (err) {
             throw err;
@@ -2024,8 +2104,8 @@ exports.setConfigurations = function (next) {
         .setConnection(connection)
         .lastname(&quot;Elric&quot;)
         .read(function (allUsers) {
-            variations.user = user;
-            variations.users = allUsers;
+            locals.user = user;
+            locals.users = allUsers;
 
             // Create Example.
             user2
@@ -2035,8 +2115,8 @@ exports.setConfigurations = function (next) {
             .email(&quot;winry.rockbell@fma.br&quot;)
             .gender(true)
             .create(function (infos) {
-                variations.insertId = infos.insertId;
-                variations.user2 = user2;
+                locals.insertId = infos.insertId;
+                locals.user2 = user2;
 
                 // Update Example.
                 user3
@@ -2048,16 +2128,16 @@ exports.setConfigurations = function (next) {
                 .address(&quot;The Rockbell's house&quot;);
 
                 user2.update(user3, function (infos) {
-                    variations.affectedRows = infos.affectedRows;
-                    variations.user2 = user2;
+                    locals.affectedRows = infos.affectedRows;
+                    locals.user2 = user2;
 
                     // Delete Example.
                     user4
                     .setConnection(connection)
                     .gender(false)
                     .delete(function (infos) {
-                        variations.deletedRows = infos.affectedRows;
-                        next(variations);
+                        locals.deletedRows = infos.affectedRows;
+                        next();
                     });
                 });
             });
@@ -2155,30 +2235,48 @@ function User(connection) {
         var insert = &quot;INSERT INTO user (&quot;,
             values = &quot;) VALUES (&quot;;
 
-        if (publics.id()) { insert += &quot;`id`, &quot;; }
-        if (publics.lastname()) { insert += &quot;`lastname`, &quot;; }
-        if (publics.firstname()) { insert += &quot;`firstname`, &quot;; }
-        if (publics.email()) { insert += &quot;`email`, &quot;; }
-        if (publics.birthdate()) { insert += &quot;`birthdate`, &quot;; }
-        if (typeof publics.gender() === &quot;boolean&quot;) { insert += &quot;`gender`, &quot;; }
-        if (publics.country()) { insert += &quot;`country`, &quot;; }
-        if (publics.town()) { insert += &quot;`town`, &quot;; }
-        if (publics.zipcode()) { insert += &quot;`zipcode`, &quot;; }
-        if (publics.address()) { insert += &quot;`address`, &quot;; }
+        if (publics.id()) {
+            insert += &quot;`id`, &quot;;
+            values += publics.id() + ', ';
+        }
+        if (publics.lastname()) {
+            insert += &quot;`lastname`, &quot;;
+            values += '&quot;' + publics.lastname() + '&quot;, ';
+        }
+        if (publics.firstname()) {
+            insert += &quot;`firstname`, &quot;;
+            values += '&quot;' + publics.firstname() + '&quot;, ';
+        }
+        if (publics.email()) {
+            insert += &quot;`email`, &quot;;
+            values += '&quot;' + publics.email() + '&quot;, ';
+        }
+        if (publics.birthdate()) {
+            insert += &quot;`birthdate`, &quot;;
+            values += '&quot;' + publics.birthdate() + '&quot;, ';
+        }
+        if (typeof publics.gender() === &quot;boolean&quot;) { 
+            insert += &quot;`gender`, &quot;;
+            values += (publics.gender() ? 1 : 0) + ', ';
+        }
+        if (publics.country()) {
+            insert += &quot;`country`, &quot;;
+            values += '&quot;' + publics.country() + '&quot;, ';
+        }
+        if (publics.town()) {
+            insert += &quot;`town`, &quot;;
+            values += '&quot;' + publics.town() + '&quot;, ';
+        }
+        if (publics.zipcode()) {
+            insert += &quot;`zipcode`, &quot;;
+            values += '&quot;' + publics.zipcode() + '&quot;, ';
+        }
+        if (publics.address()) {
+            insert += &quot;`address`, &quot;;
+            values += '&quot;' + publics.address() + '&quot;, ';
+        }
 
         insert = insert.replace(/, $/g, &quot;&quot;);
-
-        if (publics.id()) { values += publics.id() + ', '; }
-        if (publics.lastname()) { values += '&quot;' + publics.lastname() + '&quot;, '; }
-        if (publics.firstname()) { values += '&quot;' + publics.firstname() + '&quot;, '; }
-        if (publics.email()) { values += '&quot;' + publics.email() + '&quot;, '; }
-        if (publics.birthdate()) { values += '&quot;' + publics.birthdate() + '&quot;, '; }
-        if (typeof publics.gender() === &quot;boolean&quot;) { values += (publics.gender() ? 1 : 0) + ', '; }
-        if (publics.country()) { values += '&quot;' + publics.country() + '&quot;, '; }
-        if (publics.town()) { values += '&quot;' + publics.town() + '&quot;, '; }
-        if (publics.zipcode()) { values += '&quot;' + publics.zipcode() + '&quot;, '; }
-        if (publics.address()) { values += '&quot;' + publics.address() + '&quot;, '; }
-
         values = values.replace(/, $/g, &quot;)&quot;);
 
         privates.connection.query(insert + values, function (err, infos) {
@@ -2553,13 +2651,13 @@ module.exports = User;</code></pre><p>based on <code>user</code> classe shared b
         lastname: &quot;Lesieur&quot;,
         firstname: &quot;Bruno&quot;,
         gender: true,
-        birthdate : new Date(&quot;1988/07/18&quot;)
+        birthdate : new Date(&quot;1900/07/18&quot;)
     },
     location: {
         country: &quot;France&quot;,
         town: &quot;Annecy&quot;,
         zipcode: &quot;74000&quot;,
-        address: &quot;66 avenue de Genève&quot;
+        address: &quot;avenue&quot;
     }
 })</code></pre><h4>NodeAtlas Files</h4><p>With the following data set:</p>
 <pre class="prettyprint source"><code>├─ assets/
@@ -2647,9 +2745,8 @@ exports.setConfigurations = function (next) {
         next();
     });
 };</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p>
-<pre class="prettyprint source lang-js"><code>exports.changeVariations = function (params, next) {
+<pre class="prettyprint source lang-js"><code>exports.changeVariations = function (next, locals) {
     var NA = this,
-        variations = params.variations,
         mongoose = NA.modules.mongoose,
         User = mongoose.model('user');
 
@@ -2657,18 +2754,18 @@ exports.setConfigurations = function (next) {
     .findOne({ &quot;identity.firstname&quot;: &quot;Bruno&quot; })
     .exec(function (err, bruno) {
 
-        variations.id = bruno._id;
-        variations.lastname = bruno.identity.lastname;
-        variations.firstname = bruno.identity.firstname;
-        variations.birthdate = bruno.identity.birthdate;
-        variations.email = bruno.email;
-        variations.gender = (bruno.identity.gender) ? variations.common.male : variations.common.female;
-        variations.country = bruno.location.country;
-        variations.town = bruno.location.town;
-        variations.zipcode = bruno.location.zipcode;
-        variations.address = bruno.location.address;
+        locals.id = bruno._id;
+        locals.lastname = bruno.identity.lastname;
+        locals.firstname = bruno.identity.firstname;
+        locals.birthdate = bruno.identity.birthdate;
+        locals.email = bruno.email;
+        locals.gender = (bruno.identity.gender) ? locals.common.male : locals.common.female;
+        locals.country = bruno.location.country;
+        locals.town = bruno.location.town;
+        locals.zipcode = bruno.location.zipcode;
+        locals.address = bruno.location.address;
 
-        next(variations);
+        next();
     });
 };</code></pre><p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p>
 <pre class="prettyprint source lang-js"><code>var mongoose;
@@ -2724,45 +2821,123 @@ if (typeof module !== 'undefined' && module.exports) {
         &lt;/div>
     &lt;/body>
 &lt;/html></code></pre><h2>More Features</h2><p>NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.</p>
-<h3>Manage routing (URL Rewriting)</h3><p>Although you can configure static urls, you can also set of dynamic url!</p>
-<h4>Standard</h4><p>With the following configuration:</p>
+<h3>Manage routing (URL Rewriting)</h3><p>Although you can configure static URLs, you can also set of dynamic URLs!</p>
+<h4>Parameters</h4><p>It is possible to get some parameters from URL to display a different content depending of slugs.</p>
+<p>With the following configuration:</p>
 <pre class="prettyprint source lang-json"><code>{
     &quot;routes&quot;: {
+        &quot;/list-of-members/:member/:action/&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
+        &quot;/list-of-members/:member/:action&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
         &quot;/list-of-members/:member/&quot;: {
-            &quot;view&quot;: &quot;members.htm&quot;
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
+        &quot;/list-of-members/:member&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
         },
         &quot;/list-of-members/&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
+        &quot;/list-of-members&quot;: {
+            &quot;view&quot;: &quot;members.htm&quot;,
+            &quot;controller&quot;: &quot;members.js&quot;
+        },
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}</code></pre><p>you can access to:</p>
+<ul>
+<li><em>http://localhost/</em></li>
+<li><em>http://localhost/list-of-members</em></li>
+<li><em>http://localhost/list-of-members/</em></li>
+<li><em>http://localhost/list-of-members/toto/</em></li>
+<li><em>http://localhost/list-of-members/bob-eponge99</em></li>
+<li><em>http://localhost/list-of-members/node-atlas/show/</em></li>
+<li><em>http://localhost/list-of-members/etc/lolol</em></li>
+<li><em>http://localhost/list-of-members/?query=test</em></li>
+<li><em>http://localhost/list-of-members/etc?query=test</em> (in POST with <code>test=This+is+a+test</code>)</li>
+</ul>
+<p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in <code>changeVariations</code> (common and specific).</p>
+<pre class="prettyprint source lang-js"><code>exports.changeVariations = function (next, locals, request, response) {
+
+    console.log(&quot;param request:&quot;, request.params.member);
+    // \> undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+    console.log(&quot;param locals:&quot;, locals.params.member);
+    // \> undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+
+    console.log(&quot;param request&quot;, request.params.action);
+    // \> undefined, 'show' or 'lolol'.
+    console.log(&quot;param locals&quot;, locals.params.action);
+    // \> undefined, 'show' or 'lolol'.
+
+    console.log(&quot;query request&quot;, request.query.example);
+    // \> undefined or 'test'
+    console.log(&quot;query locals&quot;, locals.query.example);
+    // \> undefined or 'test'
+
+    console.log(&quot;body request&quot;, request.body.test);
+    // \> undefined or 'This is a test'.
+    console.log(&quot;body locals&quot;, locals.body.test);
+    // \> undefined or 'This is a test'.
+
+    next();
+};</code></pre><h3>Advanced Parameters</h3><p>We can see which we use a same config for three routes in previous example. You could also use regular expressions to define that is variable into your URL or define what are the valide parameters in you URL. This system is less complexe than real RegExp because a lot of char does not exist in url so, for exemple this char <code>/</code> not needed to be escape.</p>
+<p>With the following configuration:</p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;routes&quot;: {
+        &quot;/list-of-members/?(:member([-a-zA-Z0-9]+)/?(:action(show|edit)/?)?)?&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
         }
     }
-}</code></pre><p>you can access:</p>
+}</code></pre><p>you can access to:</p>
 <ul>
 <li><em>http://localhost/</em></li>
+<li><em>http://localhost/list-of-members</em></li>
 <li><em>http://localhost/list-of-members/</em></li>
 <li><em>http://localhost/list-of-members/toto/</em></li>
-<li><em>http://localhost/list-of-members/bob-eponge99/</em></li>
-<li><em>http://localhost/list-of-members/node-atlas/</em></li>
-<li><em>http://localhost/list-of-members/etc/</em></li>
+<li><em>http://localhost/list-of-members/bob-eponge99</em></li>
+<li><em>http://localhost/list-of-members/node-atlas/show/</em></li>
+<li><em>http://localhost/list-of-members/?example=test</em></li>
+<li><em>http://localhost/list-of-members/etc?example=test</em> (in POST with <code>test=This+is+a+test</code>)</li>
 </ul>
-<p>and retrieve the <code>:member</code> value in<code>changeVariations</code> (common and specific).</p>
-<pre class="prettyprint source lang-js"><code>exports.changeVariations = function (params, next) {
-    var variations = params.variations;
-
-    console.log(variations.params.member);
-    // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
-
-    next(variations);
-}</code></pre><p>Dynamic url creation rules are those of <a href="http://expressjs.com/4x/api.html#req.params">Express.js</a>.</p>
+<p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in a view.</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html lang=&quot;en-us&quot;>
+  &lt;head>
+    &lt;meta charset=&quot;utf-8&quot;>
+    &lt;title>URL Rewriting Test&lt;/title>
+  &lt;/head>
+  &lt;body>
+    Member: &lt;strong>&lt;?- params.member ?>&lt;/strong>&lt;br>
+    Action: &lt;strong>&lt;?- params.action ?>&lt;/strong>&lt;br>
+    Example: &lt;strong>&lt;?- query.example ?>&lt;/strong>&lt;br>
+    Test: &lt;strong>&lt;?- body.test ?>&lt;/strong>
+  &lt;/body>
+&lt;/html></code></pre><p>you cannot access to:</p>
+<ul>
+<li><em>http://localhost/list-of-members/etc/lolol</em></li>
+<li><em>http://localhost/liste-des-membres/<code>toto_16</code>/show/</em></li>
+<li><em>http://localhost/liste-des-membres/toto/<code>supprimer</code>/</em></li>
+</ul>
 <h4>Regular Expressions</h4><p>You can also enable regular expressions to a specific path with <code>regExp</code>. If it is <code>true</code>, the previous profile no longer works and you pass in Regular Expression mode. If <code>regExp</code> is a string, it acts as a flag (g, i, m or y).</p>
 <p>See the following configuration:</p>
-<pre class="prettyprint source lang-json"><code>{
+<pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/list-of-members/([-a-z0-9]+)/?&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;,
-            &quot;regExp&quot;: &quot;g&quot;
+            &quot;regExp&quot;: &quot;i&quot;
         },
         &quot;/list-of-members/?&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;,
@@ -2782,16 +2957,15 @@ if (typeof module !== 'undefined' && module.exports) {
 <li><em>http://localhost/list-of-members/etc/</em> <em>(ou <em>https://localhost/list-of-members/etc</em>)</em></li>
 </ul>
 <p>and retrieve the <code>([-a-z0-9] +) value in the</code> <code>changeVariations</code> (common and specific).</p>
-<pre class="prettyprint source lang-js"><code>exports.changeVariations = function (params, next) {
-    var variations = params.variations;
+<pre class="prettyprint source lang-js"><code>exports.changeVariations = function (next, locals) {
 
-    if (variations.params && variations.params[0]) { variations.params.member = variations.params[0]; }
-    // variations.params[1] for second match, etc...
+    if (locals.params && locals.params[0]) { locals.params.member = locals.params[0]; }
+    // locals.params[1] for second match, etc...
 
-    console.log(variations.params.member);
+    console.log(locals.params.member);
     // \> 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    next(variations);
+    next();
 }</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p>
 <h4>Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p>
 <p>For example:</p>
@@ -2984,7 +3158,7 @@ exports.setRoutes = function (next) {
             &quot;view&quot;: &quot;members.htm&quot;
         },
         &quot;/list-of-members/:member&quot;: {
-            &quot;redirect&quot;: &quot;/membres/:member/&quot;,
+            &quot;redirect&quot;: &quot;/list-of-members/:member/&quot;,
             &quot;statusCode&quot;: 301
         },
         &quot;/&quot;: {
@@ -2993,7 +3167,7 @@ exports.setRoutes = function (next) {
     }
 }</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p>
 <h4>With regular expressions</h4><p>See the example below:</p>
-<pre class="prettyprint source lang-json"><code>{
+<pre class="prettyprint source lang-js"><code>{
     &quot;routes&quot;: {
         &quot;/membres/([-a-z0-9]+)/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;,
@@ -4153,7 +4327,7 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 }</code></pre><p>we could create link between each page as following :</p>
 <pre class="prettyprint source lang-html"><code>&lt;ul>
     &lt;? for (var i = 0; i &lt; common.language.length; i++) { ?>
-    &lt;li>&lt;a href=&quot;&lt;?= urlBasePathSlice + webconfig.routes[routeName.split('_')[0] + '_' + common.language[i].code].url ?>&quot;>&lt;?- common.language[i].name ?>&lt;/a>&lt;/li>
+    &lt;li>&lt;a href=&quot;&lt;?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?>&quot;>&lt;?- common.language[i].name ?>&lt;/a>&lt;/li>
     &lt;? } ?>
 &lt;/ul></code></pre><h3>Enable Cache</h3><p>It's a good thing to not serve file with no modification in production. You could set the websconfig's <code>cache</code> option to <code>true</code> for this:</p>
 <pre class="prettyprint source lang-json"><code>{
@@ -4492,8 +4666,8 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <td>Rails familiarity, MVC</td>
 <td>Web apps, APIs</td>
 <td>Yes</td>
-<td>In-memory, File, PostgreSQL, MySQL, MongoDB</td>
 <td></td>
+<td>In-memory, File, PostgreSQL, MySQL, MongoDB</td>
 <td>English</td>
 </tr>
 <tr>
@@ -4512,8 +4686,8 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <td>Enterprise connectivity</td>
 <td>Web apps, APIs</td>
 <td>Yes</td>
-<td>In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP</td>
 <td></td>
+<td>In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP</td>
 <td>English</td>
 </tr>
 <tr>
@@ -4538,13 +4712,13 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_variations.html">variations</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Dec 21 2016 17:57:55 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 23 2016 13:28:11 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

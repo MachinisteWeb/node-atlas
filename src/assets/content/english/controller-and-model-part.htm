@@ -76,15 +76,12 @@
       └─[Send Response]
         ┊ 
         ∞
-</code></pre><h4 id="changevariations">changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(params, next)</code> is a function to <code>exports</code> and provide :</p><ul>
+</code></pre><h4 id="changevariations">changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
-<li>An object <code>params</code> in first parameter with the <ul>
-<li><code>params.variations</code> object that contains all JSON vars, </li>
-<li>the <code>params.request</code> do for this page and </li>
-<li>the <code>params.response</code> will be sent</li>
-</ul>
-</li>
-<li>A callback function <code>next([variations])</code> in second parameter which could accept an optional first updated object parameter <code>params.variations</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+<li>An object <code>locals</code> in second parameter with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific vatiations.</li>
+<li>The <code>response</code> object in third parameter for this page.</li>
+<li>The <code>request</code> object in fourth parameter for this page.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
@@ -128,60 +125,56 @@
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
-exports.changeVariations = function (params, next) {
-    var variations = params.variations,
-        request = params.request,
-        response = params.response;
+exports.changeVariations = function (next, locals, request, response) {
 
-    // Here we update variations variable.
+    // Here we update locals variable.
 
-    console.log(variations.common.titleWebsite); // &quot;Site Title&quot;
-    console.log(variations.specific.titlePage); // &quot;Welcome&quot;
-    console.log(variations.specific.content); // &quot;This is the Home Page.&quot;
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome&quot;
+    console.log(locals.specific.content); // &quot;This is the Home Page.&quot;
 
-    console.log(&quot;urlRootPath&quot;, variations.urlRootPath); // &quot;http://localhost&quot;
-    console.log(&quot;urlSubPath&quot;, variations.urlSubPath); // &quot;/example&quot;
-    console.log(&quot;urlBasePath&quot;, variations.urlBasePath); // &quot;http://localhost/example&quot;
-    console.log(&quot;urlFilePath&quot;, variations.urlFilePath); // &quot;/&quot;
-    console.log(&quot;urlQueryPath&quot;, variations.urlQueryPath); // &quot;?title=Haeresis&quot;
-    console.log(&quot;urlPath&quot;, variations.urlPath); // &quot;http://localhost/example/?title=Haeresis&quot;
+    console.log(response.charset); // &quot;utf-8&quot;
+
+    console.log(&quot;urlRootPath&quot;, locals.urlRootPath); // &quot;http://localhost&quot;
+    console.log(&quot;urlSubPath&quot;, locals.urlSubPath); // &quot;/example&quot;
+    console.log(&quot;urlBasePath&quot;, locals.urlBasePath); // &quot;http://localhost/example&quot;
+    console.log(&quot;urlFilePath&quot;, locals.urlFilePath); // &quot;/&quot;
+    console.log(&quot;urlQueryPath&quot;, locals.urlQueryPath); // &quot;?title=Haeresis&quot;
+    console.log(&quot;urlPath&quot;, locals.urlPath); // &quot;http://localhost/example/?title=Haeresis&quot;
 
     if (request.query[&quot;title&quot;]) {
-        variations.specific.titlePage = variations.specific.titlePage + &quot; &quot; + request.query.title;
+        locals.specific.titlePage = locals.specific.titlePage + &quot; &quot; + request.query.title;
     }
     if (request.body[&quot;example&quot;]) {
-        variations.specific.content = request.body.example;
+        locals.specific.content = request.body.example;
     }
 
-    console.log(variations.common.titleWebsite); // &quot;Site Title&quot;
-    console.log(variations.specific.titlePage); // &quot;Welcome Haeresis&quot;
-    console.log(variations.specific.content); // &quot;This is a test&quot;
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;This is a test&quot;
 
-    // We update modification here.
-    next(variations);
+    // We do the next step.
+    next();
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page.
-exports.changeVariations = function (params, next) {
-    var variations = params.variations,
-        request = params.request,
-        response = params.response;
+exports.changeVariations = function (next, locals, request, response) {
 
-    // Here we update variations variable.
+    // Here we update locals variable.
 
-    console.log(variations.common.titleWebsite); // &quot;Site Title&quot;
-    console.log(variations.specific.titlePage); // &quot;Welcome Haeresis&quot;
-    console.log(variations.specific.content); // &quot;This is a test&quot;
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;This is a test&quot;
 
-    variations.common.titleWebsite = &quot;It&#39;s Home, no way.&quot;;
-    variations.specific.content = &quot;It&#39;s Home, no way.&quot;;
+    locals.common.titleWebsite = &quot;It&#39;s Home, no way.&quot;;
+    locals.specific.content = &quot;It&#39;s Home, no way.&quot;;
 
-    console.log(variations.common.titleWebsite); // &quot;It&#39;s Home, no way.&quot;
-    console.log(variations.specific.titlePage); // &quot;Welcome Haeresis&quot;
-    console.log(variations.specific.content); // &quot;It&#39;s Home, no way.&quot;
+    console.log(locals.common.titleWebsite); // &quot;It&#39;s Home, no way.&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;It&#39;s Home, no way.&quot;
 
-    // We update modification here.
-    next(variations);
+    // We do the next step.
+    next();
 };
 </code></pre><p>en this produce the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
@@ -221,16 +214,12 @@ exports.changeVariations = function (params, next) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="changedom">changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(params, next)</code> is a function to <code>exports</code> and provide :</p><ul>
+</code></pre><h4 id="changedom">changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
-<li>An object <code>params</code> in first parameter with<ul>
-<li>the <code>params.dom</code> string that contains the response, </li>
-<li>the <code>params.variations</code> object that contains all JSON vars, </li>
-<li>the <code>params.request</code> do for this page and </li>
-<li>the <code>params.response</code> will be sent</li>
-</ul>
-</li>
-<li>A callback function <code>next(dom)</code> in second parameter which accept the first updated string parameter <code>params.dom</code>.</li>
+<li>A callback function <code>next([$])</code> in first parameter which accept an optional first updated <code>$</code> parameter used to manipulate the Virtual DOM.</li>
+<li>An object <code>locals</code> in second parameter with the <code>locals.dom</code> string that contains the response or the <code>locals.virtualDom()</code> function creating the Virtual DOM.</li>
+<li>The <code>response</code> object in third parameter for this page.</li>
+<li>The <code>request</code> object in fourth parameter for this page.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
@@ -274,13 +263,8 @@ exports.changeVariations = function (params, next) {
 &lt;/html&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
 // This code is executed for all HTTP request, for all pages.
-exports.changeDom = function (params, next) {
-    var NA = this,
-        dom = params.dom,
-        request = params.request,
-        response = params.response,
-        cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
-        $ = cheerio.load(dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+exports.changeDom = function (next, locals, request, response) {
+    var $ = locals.virtualDom(); // Transform HTML string into Virtual DOM.
 
     // Just after eath h1 from HTML DOM...
     $(&quot;h1&quot;).each(function () {
@@ -295,30 +279,24 @@ exports.changeDom = function (params, next) {
         $this.remove();
     });
 
-    // We create a new HTML output with updates.
-    dom = $.html();
-
-    // We update modification here.
-    next(dom);
+    // Return updates for reinject them into HTML string.
+    next($);
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
 // This code is executed only for the « / » page .
-exports.changeDom = function (params, next) {
+exports.changeDom = function (next, locals, request, response) {
     var NA = this,
-        dom = params.dom,
-        request = params.request,
-        response = params.response,
         cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
-        $ = cheerio.load(dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+        $ = cheerio.load(locals.dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
 
     // We update nodes contents with `.title` class.
     $(&quot;.title&quot;).text(&quot;Content Update&quot;);
 
-    // We create a new HTML output with updates.
-    dom = $.html();
+    // We recreate a new HTML output with updates.
+    locals.dom = $.html();
 
-    // We update modification here.
-    next(dom);
+    // We go to next step.
+    next();
 };
 </code></pre><p>the output will be as following:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
@@ -459,16 +437,15 @@ exports.setModules = function () {
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
-exports.changeVariations = function (params, next) {
+exports.changeVariations = function (next, locals) {
     // Use the « NodeAtlas » instance from engine.
     var NA = this,
-        variations = params.variations,
         marked = NA.modules.marked;
 
     variations.example = marked(&quot;I am using __markdown__.&quot;);
 
-    // We update modification here.
-    next(variations);
+    // We do next step.
+    next();
 };
 </code></pre><p>this will produce the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
@@ -512,7 +489,6 @@ exports.setConfigurations = function (next) {
     // Middleware utilisé lors de chaque requête.
     NA.httpServer.use(function (request, response, next) {
         response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM https://www.lesieur.name/&quot;);
-        response.setHeader(&quot;Content-Type&quot;, &quot;application/json; charset=utf-8&quot;);
         next();
     });
 
@@ -521,14 +497,16 @@ exports.setConfigurations = function (next) {
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
 // This code is executed only for the « / » page .
-exports.changeVariations = function (params, next) {
-    var variations = params.variations;
+exports.changeVariations = function (next, locals) {
 
     // We prepare file for JSON displaying.
-    variations.content = JSON.stringify(variations, null, &quot;    &quot;);
+    locals.routeParameters.headers = {
+        &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;
+    };
+    locals.content = JSON.stringify(locals, null, &quot;    &quot;);
 
-    // We update modification here.
-    next(variations);
+    // We do the next step.
+    next();
 };
 </code></pre><p>this will produce the following output:</p><pre><code class="lang-html">{
     &quot;urlRootPath&quot;: &quot;http://localhost&quot;,
@@ -537,9 +515,9 @@ exports.changeVariations = function (params, next) {
     &quot;urlFilePath&quot;: &quot;/&quot;,
     &quot;urlQueryPath&quot;: &quot;&quot;,
     &quot;urlPath&quot;: &quot;http://localhost/&quot;,
-    &quot;pathname&quot;: /* ... */,
-    &quot;filename&quot;: /* ... */,
     &quot;params&quot;: {},
+    &quot;query&quot;: {},
+    &quot;body&quot;: {},
     &quot;routeParameters&quot;: { /* ... */ },
     &quot;route&quot;: &quot;/&quot;,
     &quot;webconfig&quot;: { /* ... */ }
@@ -557,11 +535,9 @@ exports.changeVariations = function (params, next) {
 └─ webconfig.json
 </code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;,
-            &quot;variation&quot;: &quot;index.json&quot;
+            &quot;view&quot;: &quot;index.htm&quot;
         }
     }
 }
@@ -693,13 +669,13 @@ exports.setSockets = function () {
                 variations = {};
 
             // Specific variations in the good language.
-            variations = NA.addSpecificVariation(&quot;index.json&quot;, data.lang, variations);
+            variations = NA.specific(&quot;index.json&quot;, data.lang, variations);
 
             // Common variations in the good language.
-            variations = NA.addCommonVariation(data.lang, variations);
+            variations = NA.common(data.lang, variations);
 
             // HTML part from `viewsRelativePath` directory and render with variations.
-            result = NA.newRender(&quot;partials/index.htm&quot;, variations);
+            result = NA.render(&quot;partials/index.htm&quot;, variations);
 
             // And responds to all customers with a set of data in data.
             io.sockets.emit(&quot;server-render&quot;, data);
@@ -731,7 +707,7 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...and we set again button action.
     setServerRender();
 });
-</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.addSpecificVariation</code>, <code>NA.addCommonVariation</code> and <code>NA.newRender</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>variations</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>newRender</code> to use PUG template engine and not EJS, you must defined <code>variations.enablePug</code> to <code>true</code> before use <code>NA.addCommonVariation</code> and <code>NA.addSpecificVariation</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.render</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>variations</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>render</code> to use PUG template engine and not EJS, you must defined <code>variations.enablePug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
 </code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user
 (
@@ -847,15 +823,13 @@ exports.setConfigurations = function (next) {
 
     next();
 };
-</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (params, next) {
+</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
     var NA = this,
-        variations = params.variations,
         user = new NA.models.User(),
         user2 = new NA.models.User(),
         user3 = new NA.models.User(),
         user4 = new NA.models.User();
 
-    // Get the MySql connection.
     NA.mySql.getConnection(function(err, connection) {
         if (err) {
             throw err;
@@ -866,8 +840,8 @@ exports.setConfigurations = function (next) {
         .setConnection(connection)
         .lastname(&quot;Elric&quot;)
         .read(function (allUsers) {
-            variations.user = user;
-            variations.users = allUsers;
+            locals.user = user;
+            locals.users = allUsers;
 
             // Create Example.
             user2
@@ -877,8 +851,8 @@ exports.setConfigurations = function (next) {
             .email(&quot;winry.rockbell@fma.br&quot;)
             .gender(true)
             .create(function (infos) {
-                variations.insertId = infos.insertId;
-                variations.user2 = user2;
+                locals.insertId = infos.insertId;
+                locals.user2 = user2;
 
                 // Update Example.
                 user3
@@ -890,16 +864,16 @@ exports.setConfigurations = function (next) {
                 .address(&quot;The Rockbell&#39;s house&quot;);
 
                 user2.update(user3, function (infos) {
-                    variations.affectedRows = infos.affectedRows;
-                    variations.user2 = user2;
+                    locals.affectedRows = infos.affectedRows;
+                    locals.user2 = user2;
 
                     // Delete Example.
                     user4
                     .setConnection(connection)
                     .gender(false)
                     .delete(function (infos) {
-                        variations.deletedRows = infos.affectedRows;
-                        next(variations);
+                        locals.deletedRows = infos.affectedRows;
+                        next();
                     });
                 });
             });
@@ -1504,9 +1478,8 @@ exports.setConfigurations = function (next) {
         next();
     });
 };
-</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (params, next) {
+</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
     var NA = this,
-        variations = params.variations,
         mongoose = NA.modules.mongoose,
         User = mongoose.model(&#39;user&#39;);
 
@@ -1514,18 +1487,18 @@ exports.setConfigurations = function (next) {
     .findOne({ &quot;identity.firstname&quot;: &quot;Bruno&quot; })
     .exec(function (err, bruno) {
 
-        variations.id = bruno._id;
-        variations.lastname = bruno.identity.lastname;
-        variations.firstname = bruno.identity.firstname;
-        variations.birthdate = bruno.identity.birthdate;
-        variations.email = bruno.email;
-        variations.gender = (bruno.identity.gender) ? variations.common.male : variations.common.female;
-        variations.country = bruno.location.country;
-        variations.town = bruno.location.town;
-        variations.zipcode = bruno.location.zipcode;
-        variations.address = bruno.location.address;
+        locals.id = bruno._id;
+        locals.lastname = bruno.identity.lastname;
+        locals.firstname = bruno.identity.firstname;
+        locals.birthdate = bruno.identity.birthdate;
+        locals.email = bruno.email;
+        locals.gender = (bruno.identity.gender) ? locals.common.male : locals.common.female;
+        locals.country = bruno.location.country;
+        locals.town = bruno.location.town;
+        locals.zipcode = bruno.location.zipcode;
+        locals.address = bruno.location.address;
 
-        next(variations);
+        next();
     });
 };
 </code></pre><p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p><pre><code class="lang-js">var mongoose;

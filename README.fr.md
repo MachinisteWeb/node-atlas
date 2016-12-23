@@ -97,6 +97,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer l'internationalisation (i18n)](#gérer-linternationalisation-i18n)
  - [Gérer l'anatomie des URLs](#gérer-lanatomie-des-urls)
  - [Créer ses propres Variables de Webconfig](#créer-ses-propres-variables-de webconfig)
+ - [Utiliser une vue globale](#utiliser-une-vue-globale)
  - [Générer des maquettes HTML](#générer-des-maquettes-html)
  - [Moteur de Template EJS](#moteur-de-template-ejs)
  - [Moteur de Template PUG](#moteur-de-template-pug)
@@ -1281,6 +1282,170 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 
 
+### Utiliser une vue globale ###
+
+Plutôt que d'inclure une partie header et une partie footer en deux fichiers scindé dont les balises de l'un ne se ferme que dans les balises de l'autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.
+
+avec cet ensemble de fichiers
+
+```
+├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  └─ index.css
+│  └─ javascript/
+│     └─ common.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ views/
+│  ├─ partials/
+│  │  └─ header.htm
+│  ├─ about.htm
+│  ├─ common.htm
+│  └─ index.htm
+└─ webconfig.json
+```
+
+et avec le webconfig suivant :
+
+*webconfig.json*
+
+```json
+{
+    "commonView": "common.htm",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        },
+        "/a-propos/": {
+            "view": "about.htm"
+        }
+    }
+}
+```
+
+et ces deux fichiers de variations:
+
+*common.json*
+
+```json
+{
+    "titleWebsite": "Titre du site",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
+}
+```
+
+*index.json*
+
+```json
+{
+    "titlePage": "Bienvenue",
+    "classPage": "index",
+    "content": "<p>C'est la page d'accueil.</p>"
+}
+```
+
+vous pourez générer avec ces vues :
+
+*views/common.htm*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8">
+        <title><?- specific.titlePage || "Pas de titre" ?></title>
+        <link rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css"  media="all">
+        <? if (specific.classPage) { ?>
+        <link rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css"  media="all">
+        <? } ?>
+    </head>
+    <body>
+        <!-- Inclure un fichier normalement -->
+        <?- include("partials/header.htm") ?>
+
+        <!-- Inclure le fichier vu de `view` -->
+        <?- include(routeParameters.view) ?>
+
+        <script async="true" type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
+    </body>
+</html>
+```
+
+*views/partals/header.htm*
+
+```html
+    <header>
+        <h1><?= specific.titlePage ?></h1>
+    </header>
+```
+
+*views/index.htm*
+
+```html
+    <div>
+        <?- specific.content ?>
+    </div>
+```
+
+*views/about.htm*
+
+```html
+    <div>
+        <h1>NodeAtlas © Haeresis</h1>
+    </div>
+```
+
+et obtenir les URLs suivantes :
+
+*/*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Bienvenue</title>
+        <link rel="stylesheet" href="stylesheets/common.css"  media="all">
+        <link rel="stylesheet" href="stylesheets/index.css"  media="all">
+    </head>
+    <body>
+        <header>
+            <h1>Bienvenue</h1>
+        </header>
+        <div>
+            <p>C'est la page d'accueil.</p>
+        </div>
+        <script async="true" type="text/javascript" src="javascript/common.js"></script>
+    </body>
+</html>
+```
+
+*/about/*
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Pas de titre</title>
+        <link rel="stylesheet" href="stylesheets/common.css"  media="all"> 
+    </head>
+    <body>  
+        <div>
+            <h1>NodeAtlas © Haeresis</h1>
+        </div>
+        <script async="true" type="text/javascript" src="javascript/common.js"></script>
+    </body>
+</html>
+```
+
+
+
 ### Générer des maquettes HTML ###
 
 #### Générer des designs HTML ####
@@ -1582,6 +1747,7 @@ Voyons ce que cela donnerait avec l'exemple suivant :
 ```
 {
     "enablePug": true,
+    "commonView": "common.pug",
     "commonVariation": "common.json",
     "routes": {
         "/": {
@@ -1612,7 +1778,7 @@ Voyons ce que cela donnerait avec l'exemple suivant :
 }
 ```
 
-*views/partials/head.pug*
+*views/common.pug*
 
 ```html
 doctype html
@@ -1623,24 +1789,23 @@ html(lang="fr-fr")
         link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
         link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
     body(class=specific.classPage)
+        include partials/header
+        include #{routeParameters.view}
+        script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
 ```
 
-*views/partials/foot.pug*
+*views/partials/header.pug*
 
 ```html
-script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
+h1 Bienvenue
 ```
 
 *views/index.pug*
 
 ```html
-include partials/head
-
 div
-    h1 #{specific.titlePage}
+    h2 #{specific.titlePage}
     | !{specific.content}
-
-include partials/foot
 ```
 
 Pour tout savoir sur les possibilités du moteur de template consultez [la documentation PUG](https://pugjs.org/)
@@ -1764,14 +1929,13 @@ et voici le détail des endroits ou vous pouvez intervenir pendant :
 
 Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.
 
-`changeVariations(params, next)` est une fonction a `exports` et fournissant :
+`changeVariations(next, locals, request, response)` est une fonction a `exports` et fournissant :
 
 - L'objet `NA` en tant que `this`.
-- En premier paramètre l'objet `params` contenant 
-  - l'objet `params.variations` contenant les variables des JSON, 
-  - la `params.request` faites pour cette page et 
-  - la `params.response` qui va être faites.
-- En second paramètre la fonction de retour `next([variations])` pouvant accepter optionnellement en premier paramètre l'objet `params.variations` mise à jour.
+- En premier paramètre la fonction de retour `next()`.
+- En deuxième paramètre l'objet `locals` contenant entre autre la string `locals.common` pour accéder aux variations communes et `locals.specific` pour accéder aux variations spécifiques.
+- En troisième paramètre l'objet `response` qui va être faites.
+- En quatrième paramètre l'objet `request` faites pour cette page. 
 
 Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
@@ -1844,67 +2008,63 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 *controllers/common.js*
 
 ```json
-// On intervient avant que les variables soient injectées dans le moteur de template.
-// Ce code sera exécuté pour toute requête HTTP, toute page confondue.
-exports.changeVariations = function (params, next) {
-    var variations = params.variations,
-        request = params.request,
-        response = params.response;
+// On intervient avant que les variables soient injectées dans le système de template.
+// Ce code sera exécuté pour toute request HTTP, toute page confondue.
+exports.changeVariations = function (next, locals, request, response) {
 
-    // Ici on modifie les variables de variations.
+    // Ici on modifie les variables de locals.
 
-    console.log(variations.common.titleWebsite); // "Titre du site"
-    console.log(variations.specific.titlePage); // "Bienvenue"
-    console.log(variations.specific.content); // "C'est la page d'accueil."
+    console.log(locals.common.titleWebsite); // "Titre du site"
+    console.log(locals.specific.titlePage); // "Bienvenue"
+    console.log(locals.specific.content); // "C'est la page d'accueil."
 
-    console.log("urlRootPath", variations.urlRootPath); // "http://localhost"
-    console.log("urlSubPath", variations.urlSubPath); // "/example"
-    console.log("urlBasePath", variations.urlBasePath); // "http://localhost/example"
-    console.log("urlFilePath", variations.urlFilePath); // "/"
-    console.log("urlQueryPath", variations.urlQueryPath); // "?title=Haeresis"
-    console.log("urlPath", variations.urlPath); // "http://localhost/example/?title=Haeresis"
+    console.log(response.charset); // "utf-8"
+
+    console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
+    console.log("urlSubPath", locals.urlSubPath); // "/example"
+    console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
+    console.log("urlFilePath", locals.urlFilePath); // "/"
+    console.log("urlQueryPath", locals.urlQueryPath); // "?title=Haeresis"
+    console.log("urlPath", locals.urlPath); // "http://localhost/example/?title=Haeresis"
 
     if (request.query["title"]) {
-        variations.specific.titlePage = variations.specific.titlePage + " " + request.query.title;
+        locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
     }
     if (request.body["example"]) {
-        variations.specific.content = request.body.example;
+        locals.specific.content = request.body.example;
     }
     
-    console.log(variations.common.titleWebsite); // "Titre du site"
-    console.log(variations.specific.titlePage); // "Bienvenue Haeresis"
-    console.log(variations.specific.content); // "Ceci est un test"
+    console.log(locals.common.titleWebsite); // "Titre du site"
+    console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
+    console.log(locals.specific.content); // "Ceci est un test"
 
-    // On ré-injecte les modifications.
-    next(variations);
+    // On passe à la suite modifications.
+    next();
 };
 ```
 
 *controllers/index.js*
 
 ```json
-// On intervient avant que les variables soient injectées dans le moteur de template.
+// On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariations = function (params, next) {
-    var variations = params.variations,
-        request = params.request,
-        response = params.response;
+exports.changeVariations = function (next, locals, request, response) {
 
-    // Ici on modifie les variables de variations.
+    // Ici on modifie les variables de locals.
 
-    console.log(variations.common.titleWebsite); // "Titre du site"
-    console.log(variations.specific.titlePage); // "Bienvenue Haeresis"
-    console.log(variations.specific.content); // "Ceci est un test"
+    console.log(locals.common.titleWebsite); // "Titre du site"
+    console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
+    console.log(locals.specific.content); // "Ceci est un test"
 
-    variations.common.titleWebsite = "C'est l'accueil, c'est tout.";
-    variations.specific.content = "C'est l'accueil, c'est tout.";
+    locals.common.titleWebsite = "C'est l'accueil, c'est tout.";
+    locals.specific.content = "C'est l'accueil, c'est tout.";
 
-    console.log(variations.common.titleWebsite); // "C'est l'accueil, c'est tout."
-    console.log(variations.specific.titlePage); // "Bienvenue Haeresis"
-    console.log(variations.specific.content); // "C'est l'accueil, c'est tout."
+    console.log(locals.common.titleWebsite); // "C'est l'accueil, c'est tout."
+    console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
+    console.log(locals.specific.content); // "C'est l'accueil, c'est tout."
 
-    // On ré-injecte les modifications.
-    next(variations);
+    // On passe à la suite.
+    next();
 };
 ```
 
@@ -1965,15 +2125,13 @@ alors la sortie sera :
 
 Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.
 
-`changeDom(params, next)` est une fonction a `exports` et fournissant :
+`changeDom(next, locals, request, response)` est une fonction a `exports` et fournissant :
 
 - L'objet `NA` en tant que `this`.
-- En premier paramètre l'objet `params` contenant 
-  - la string `params.dom` contenant la réponse, 
-  - l'objet `params.variations` contenant les variables des JSON, 
-  - la `params.request` faites pour cette page et 
-  - la `params.response` qui va être faites.
-- En second paramètre la fonction de retour `next(dom)` acceptant en premier paramètre la chaîne `params.dom` mise à jour.
+- En premier paramètre la fonction de retour `next([$])` acceptant optionellement en premier paramètre la function `$` utilisée pour manipuler le DOM Virtuel.
+- En deuxième paramètre l'objet `locals` contenant entre autre la string `locals.dom` contenant la réponse ou la function `locals.virtualDom()` générant un Dom Virtuel. 
+- En troisième paramètre l'objet `response` qui va être faites.
+- En quatrième paramètre l'objet `request` faites pour cette page. 
 
 Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
@@ -2047,14 +2205,9 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 
 ```json
 // On intervient avant que le DOM ne soit renvoyé au Client.
-// Ce code sera exécuté pour toute requête HTTP, toute page confondue.
-exports.changeDom = function (params, next) {
-    var NA = this,
-        dom = params.dom,
-        request = params.request,
-        response = params.response,
-        cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
-        $ = cheerio.load(dom, { decodeEntities: false }); // On charge les données pour les manipuler comme un DOM.
+// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+exports.changeDom = function (next, locals, request, response) {
+    var $ = locals.virtualDom(); // Transformer la chaîne HTML en DOM Virtuel.
 
     // Après tous les h1 de la sortie HTML « dom »,
     $("h1").each(function () {
@@ -2069,11 +2222,8 @@ exports.changeDom = function (params, next) {
         $this.remove();
     });
 
-    // On recrée une nouvelle sortie HTML avec nos modifications.
-    dom = $.html();
-
-    // On réinjecte les modifications.
-    next(dom);
+    // On retourne les modifications pour qu'elles redeviennet une chaîne HTML.
+    next($);
 };
 ```
 
@@ -2082,22 +2232,19 @@ exports.changeDom = function (params, next) {
 ```json
 // On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeDom = function (params, next) {
+exports.changeDom = function (next, locals, request, response) {
     var NA = this,
-        dom = params.dom,
-        request = params.request,
-        response = params.response,
         cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
-        $ = cheerio.load(dom, { decodeEntities: false }); // On charge les données pour les manipuler comme un DOM.
+        $ = cheerio.load(locals.dom, { decodeEntities: false }); // On charge les données pour les manipuler comme un DOM.
 
-    // On modifie tous les contenu des noeuds avec la classe `.title`.
+    // On modifie tous les contenu des noeuds avec la classe `.title`,
     $(".title").text("Modification de Contenu");
 
     // On recrée une nouvelle sortie HTML avec nos modifications.
-    dom = $.html();
+    locals.dom = $.html();
 
-    // On réinjecte les modifications.
-    next(dom);
+    // On passe à la suite.
+    next();
 };
 ```
 
@@ -2320,16 +2467,15 @@ exports.setModules = function () {
 ```json
 // On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariations = function (params, next) {
-    // Récupérer l'instance « NodeAtlas » du moteur.
+exports.changeVariations = function (next, locals) {
+    // Utiliser « NodeAtlas » depuis le moteur.
     var NA = this,
-        variations = params.variations,
         marked = NA.modules.marked;
 
-    variations.example = marked("I am using __markdown__.");
+    locals.example = marked("J'utilise __markdown__.");
 
-    // On ré-injecte les modifications.
-    next(variations);
+    // On passe à la suite.
+    next();
 };
 ```
 
@@ -2406,7 +2552,6 @@ exports.setConfigurations = function (next) {
     // Middleware utilisé lors de chaque requête.
     NA.httpServer.use(function (request, response, next) {
         response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
-        response.setHeader("Content-Type", "application/json; charset=utf-8");
         next();
     });
 
@@ -2420,14 +2565,16 @@ exports.setConfigurations = function (next) {
 ```json
 // On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariations = function (params, next) {
-    var variations = params.variations;
+exports.changeVariations = function (next, locals) {
 
     // On prépare le fichier pour un affichage JSON.
-    variations.content = JSON.stringify(variations, null, "    ");
+    locals.routeParameters.headers = {
+        "Content-Type": "application/json; charset=utf-8"
+    };
+    locals.content = JSON.stringify(locals, null, "    ");
 
-    // On ré-injecte les modifications.
-    next(variations);
+    // On passe à la suite.
+    next();
 };
 ```
 
@@ -2441,9 +2588,9 @@ ce qui produit la sortie suivante :
     "urlFilePath": "/",
     "urlQueryPath": "",
     "urlPath": "http://localhost/",
-    "pathname": /* ... */,
-    "filename": /* ... */,
     "params": {},
+    "query": {},
+    "body": {},
     "routeParameters": { /* ... */ },
     "route": "/",
     "webconfig": { /* ... */ }
@@ -2477,11 +2624,9 @@ Avec le `webconfig.json` :
 ```json
 {
     "commonController": "common.js",
-    "commonVariation": "common.json",
     "routes": {
         "/": {
-            "view": "index.htm",
-            "variation": "index.json"
+            "view": "index.htm"
         }
     }
 }
@@ -2694,13 +2839,13 @@ exports.setSockets = function () {
                 variations = {};
 
             // On récupère les variations spécifiques dans la bonne langue.
-            variations = NA.addSpecificVariation("index.json", data.lang, variations);
+            variations = NA.specific("index.json", data.lang, variations);
 
             // On récupère les variations communes dans la bonne langue.
-            variations = NA.addCommonVariation(data.lang, variations);
+            variations = NA.common(data.lang, variations);
             
             // On récupère le fragment HTML depuis le dossier `viewsRelativePath` et on applique les variations.
-            data.render = NA.newRender("partials/index.htm", variations);
+            data.render = NA.render("partials/index.htm", variations);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
             io.sockets.emit("server-render", data);
@@ -2743,11 +2888,11 @@ NA.socket.on("server-render", function (data) {
 
 Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.
 
-Grâce à `NA.addSpecificVariation`, `NA.addCommonVariation` et `NA.newRender`, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.
+Grâce à `NA.specific`, `NA.common` et `NA.render`, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.
 
 Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `variations` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 
-Note : pour permettre à `newRender` d'utiliser le moteur PUG au lieu de celui d'EJS, il faut mettre la valeur `variations.enablePug` à `true` avant d'utiliser `NA.addCommonVariation` et `NA.addSpecificVariation`.
+Note : pour permettre à `render` d'utiliser le moteur PUG au lieu de celui d'EJS, il faut mettre la valeur `variations.enablePug` à `true` avant d'utiliser `NA.common` et `NA.specific`.
 
 
 
@@ -2913,15 +3058,13 @@ exports.setConfigurations = function (next) {
 Et afficher les résultats via le contrôleur spécifique `controllers/index.js` :
 
 ```json
-exports.changeVariations = function (params, next) {
+exports.changeVariations = function (next, locals) {
     var NA = this,
-        variations = params.variations,
         user = new NA.models.User(),
         user2 = new NA.models.User(),
         user3 = new NA.models.User(),
         user4 = new NA.models.User();
 
-    // On récupère la connexion MySql.
     NA.mySql.getConnection(function(err, connection) {
         if (err) {
             throw err;
@@ -2932,8 +3075,8 @@ exports.changeVariations = function (params, next) {
         .setConnection(connection)
         .lastname("Elric")
         .read(function (allUsers) {
-            variations.user = user;
-            variations.users = allUsers;
+            locals.user = user;
+            locals.users = allUsers;
 
             // Exemple de création.
             user2
@@ -2943,8 +3086,8 @@ exports.changeVariations = function (params, next) {
             .email("winry.rockbell@fma.br")
             .gender(true)
             .create(function (infos) {
-                variations.insertId = infos.insertId;
-                variations.user2 = user2;
+                locals.insertId = infos.insertId;
+                locals.user2 = user2;
 
                 // Exemple de modification.
                 user3
@@ -2956,16 +3099,16 @@ exports.changeVariations = function (params, next) {
                 .address("The Rockbell's house");
 
                 user2.update(user3, function (infos) {
-                    variations.affectedRows = infos.affectedRows;
-                    variations.user2 = user2;
+                    locals.affectedRows = infos.affectedRows;
+                    locals.user2 = user2;
 
                     // Exemple de suppression.
                     user4
                     .setConnection(connection)
                     .gender(false)
                     .delete(function (infos) {
-                        variations.deletedRows = infos.affectedRows;
-                        next(variations);
+                        locals.deletedRows = infos.affectedRows;
+                        next();
                     });
                 });
             });
@@ -3664,9 +3807,8 @@ exports.setConfigurations = function (next) {
 Et afficher les résultats via le contrôleur spécifique `controllers/index.js` :
 
 ```json
-exports.changeVariations = function (params, next) {
+exports.changeVariations = function (next, locals) {
     var NA = this,
-        variations = params.variations,
         mongoose = NA.modules.mongoose,
         User = mongoose.model('user');
 
@@ -3674,18 +3816,18 @@ exports.changeVariations = function (params, next) {
     .findOne({ "identity.firstname": "Bruno" })
     .exec(function (err, bruno) {
 
-        variations.id = bruno._id;
-        variations.lastname = bruno.identity.lastname;
-        variations.firstname = bruno.identity.firstname;
-        variations.birthdate = bruno.identity.birthdate;
-        variations.email = bruno.email;
-        variations.gender = (bruno.identity.gender) ? variations.common.male : variations.common.female;
-        variations.country = bruno.location.country;
-        variations.town = bruno.location.town;
-        variations.zipcode = bruno.location.zipcode;
-        variations.address = bruno.location.address;
+        locals.id = bruno._id;
+        locals.lastname = bruno.identity.lastname;
+        locals.firstname = bruno.identity.firstname;
+        locals.birthdate = bruno.identity.birthdate;
+        locals.email = bruno.email;
+        locals.gender = (bruno.identity.gender) ? locals.common.male : locals.common.female;
+        locals.country = bruno.location.country;
+        locals.town = bruno.location.town;
+        locals.zipcode = bruno.location.zipcode;
+        locals.address = bruno.location.address;
 
-        next(variations);
+        next();
     });
 };
 ```
@@ -3765,18 +3907,38 @@ NodeAtlas offre également tout un système de fonctionnalités de développemen
 
 Bien que vous puissiez paramétrer des URLs statiques, vous pouvez également paramétrer une écoute d'URLs dynamiques !
 
-#### Standard ###
+#### Paramètres ###
+
+Il est possible de récupérer des paramètres de l'URL pour afficher un contenu différent en fonctions de leurs contenus.
 
 Avec la configuration suivante :
 
 ```json
 {
     "routes": {
+        "/liste-des-membres/:member/:action/": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/liste-des-membres/:member/:action": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
         "/liste-des-membres/:member/": {
-            "view": "members.htm"
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/liste-des-membres/:member": {
+            "view": "members.htm",
+            "controller": "members.js"
         },
         "/liste-des-membres/": {
-            "view": "members.htm"
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/liste-des-membres": {
+            "view": "members.htm",
+            "controller": "members.js"
         },
         "/": {
             "view": "index.htm"
@@ -3788,38 +3950,54 @@ Avec la configuration suivante :
 vous pourrez accéder à :
 
 - *http://localhost/*
+- *http://localhost/liste-des-membres*
 - *http://localhost/liste-des-membres/*
 - *http://localhost/liste-des-membres/toto/*
-- *http://localhost/liste-des-membres/bob-eponge99/*
-- *http://localhost/liste-des-membres/node-atlas/*
-- *http://localhost/liste-des-membres/etc/*
+- *http://localhost/liste-des-membres/bob-eponge99*
+- *http://localhost/liste-des-membres/node-atlas/show/*
+- *http://localhost/liste-des-membres/etc/lolol*
+- *http://localhost/liste-des-membres/?example=test*
+- *http://localhost/liste-des-membres/etc?example=test* (en POST avec `test=This+is+a+test`)
 
-et récupérer les valeurs de `:member` dans le `changeVariations` (common et specific).
+et récupérer les valeurs de `:member`, `:action`, `example` et `test` dans le `changeVariations` (common et specific).
 
 ```json
-exports.changeVariations = function (params, next) {
-    var variations = params.variations;
+exports.changeVariations = function (next, locals, request, response) {
 
-    console.log(variations.params.member);
-    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+    console.log("param request:", request.params.member);
+    // \> undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+    console.log("param locals:", locals.params.member);
+    // \> undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    next(variations);
-}
+    console.log("param request", request.params.action);
+    // \> undefined, 'show' or 'lolol'.
+    console.log("param locals", locals.params.action);
+    // \> undefined, 'show' or 'lolol'.
+
+    console.log("query request", request.query.example);
+    // \> undefined or 'test'
+    console.log("query locals", locals.query.example);
+    // \> undefined or 'test'
+
+    console.log("body request", request.body.test);
+    // \> undefined or 'This is a test'.
+    console.log("body locals", locals.body.test);
+    // \> undefined or 'This is a test'.
+
+    next();
+};
 ```
 
-### Expressions Régulières ###
+### Paramètres avancés ###
 
-Vous pouvez également vous aider d'expression régulière pour définir ce qui peut varier pour accéder à votre URL ou préciser quels sont les paramètres valides dans l'URL.
+Nous voyons que nous utilisons une configuration identique pour trois routes dans l'exemple précédent. Vous pouvez également vous aider d'expressions régulières pour définir ce qui peut varier pour accéder à votre URL ou préciser quels sont les paramètres valides dans l'URL. Ce sytème est simplifié étant donné que beaucoup de caractère ne se trouve pas dans l'url. Il n'est donc pas nécéssaire par exemple d'échaper les `/` par exemple.
 
 Avec la configuration suivante :
 
 ```json
 {
     "routes": {
-        "/liste-des-membres/:member([-a-zA-Z0-9]+)/:action(afficher|editer)/?": {
-            "view": "members.htm"
-        },
-        "/liste-des-membres/": {
+        "/liste-des-membres/?(:member([-a-zA-Z0-9]+)/?(:action(afficher|editer)/?)?)?": {
             "view": "members.htm"
         },
         "/": {
@@ -3832,16 +4010,87 @@ Avec la configuration suivante :
 vous pourrez accéder à :
 
 - *http://localhost/*
+- *http://localhost/liste-des-membres*
 - *http://localhost/liste-des-membres/*
-- *http://localhost/liste-des-membres/toto/afficher*
-- *http://localhost/liste-des-membres/toto-48/afficher/*
-- *http://localhost/liste-des-membres/toto-13/editer/*
+- *http://localhost/liste-des-membres/toto/*
+- *http://localhost/liste-des-membres/bob-eponge99*
+- *http://localhost/liste-des-membres/node-atlas/show/*
+- *http://localhost/liste-des-membres/?example=test*
+- *http://localhost/liste-des-membres/etc?example=test* (en POST avec `test=This+is+a+test`)
+
+et récupérer les valeurs de `:member`, `:action`, `example` et `test` dans une vue.
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+  <head>
+    <meta charset="utf-8">
+    <title>URL Rewriting Test</title>
+  </head>
+  <body>
+    Member: <strong><?- params.member ?></strong><br>
+    Action: <strong><?- params.action ?></strong><br>
+    Example: <strong><?- query.example ?></strong><br>
+    Test: <strong><?- body.test ?></strong>
+  </body>
+</html>
+```
 
 vous ne pourrez pas accéder à :
 
-- *http://localhost/liste-des-membres/toto/*
+- *http://localhost/liste-des-membres/etc/lolol*
 - *http://localhost/liste-des-membres/`toto_16`/afficher/*
 - *http://localhost/liste-des-membres/toto/`supprimer`/*
+
+#### Expressions Régulières ###
+
+Vous pouvez également activer les expressions régulières pour un chemin précis avec `regExp`. Si celui-ci vaut `true`, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si `regExp` est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).
+
+Voyez la configuration suivante :
+
+```js
+{
+    "routes": {
+        "/liste-des-membres/([-a-z0-9]+)/?": {
+            "view": "members.htm",
+            "regExp": "i"
+        },
+        "/liste-des-membres/?": {
+            "view": "members.htm",
+            "regExp": true
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+```
+
+vous pourrez accéder à :
+
+- *http://localhost/*
+- *http://localhost/liste-des-membres/* _(ou *https://localhost/liste-des-membres*)_
+- *http://localhost/liste-des-membres/toto/* _(ou *https://localhost/liste-des-membres/toto*)_
+- *http://localhost/liste-des-membres/bob-eponge99/* _(ou *https://localhost/liste-des-membres/bob-eponge99*)_
+- *http://localhost/liste-des-membres/node-atlas/* _(ou *https://localhost/liste-des-membres/node-atlas*)_
+- *http://localhost/liste-des-membres/etc/* _(ou *https://localhost/liste-des-membres/etc*)_
+
+et récupérer les valeurs de `([-a-z0-9]+)` dans le `changeVariations` (common et specific).
+
+```js
+exports.changeVariation = function (next, locals) {
+
+    if (locals.params && locals.params[0]) { locals.params.member = locals.params[0]; }
+    // locals.params[1] pour le deuxième match, etc...
+
+    console.log(locals.params.member);
+    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+
+    next();
+}
+```
+
+Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
 
 #### Routage dans un fichier partagé ####
 
@@ -4137,7 +4386,7 @@ Voyez l'exemple ci-dessous :
             "view": "members.htm"
         },
         "/liste-des-membres/:member": {
-            "redirect": "/membres/:member/",
+            "redirect": "/liste-des-membres/:member/",
             "statusCode": 301
         },
         "/": {
@@ -4153,7 +4402,7 @@ Vous serez redirigé sur `http://localhost/liste-des-membres/haeresis/` quand vo
 
 Voyez l'exemple ci-dessous :
 
-```json
+```js
 {
     "routes": {
         "/membres/([-a-z0-9]+)/": {
@@ -5879,7 +6128,7 @@ on peut alors créer un lien entre chaque page multilingue comme ceci :
 ```html
 <ul>
     <? for (var i = 0; i < common.language.length; i++) { ?>
-    <li><a href="<?= urlBasePathSlice + webconfig.routes[routeName.split('_')[0] + '_' + common.language[i].code].url ?>"><?- common.language[i].name ?></a></li>
+    <li><a href="<?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?>"><?- common.language[i].name ?></a></li>
     <? } ?>
 </ul>
 ```
