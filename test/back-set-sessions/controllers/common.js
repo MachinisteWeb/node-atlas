@@ -14,6 +14,8 @@ exports.setSessions = function (next) {
         RedisStore = NA.modules.RedisStore(session);
 
     NA.sessionStore = new RedisStore();
+    
+    console.log(NA.sessionStore);
 
     next();
 };

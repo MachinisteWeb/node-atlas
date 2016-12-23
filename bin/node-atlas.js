@@ -66,9 +66,9 @@ NA = function () {
     this.log = globalFunctions.log;
     this.openConfiguration = globalFunctions.openConfiguration;
     this.ifFileExist = globalFunctions.ifFileExist;
-    this.addCommonVariation = globalFunctions.addCommonVariation;
-    this.addSpecificVariation = globalFunctions.addSpecificVariation;
-    this.newRender = globalFunctions.newRender;
+    this.common = globalFunctions.common;
+    this.specific = globalFunctions.specific;
+    this.render = globalFunctions.render;
     /* $%NODE MODULES */
     this.loadListOfNativeModules = nodeModules.loadListOfNativeModules;
     this.loadServerModules = nodeModules.loadServerModules;

@@ -16,13 +16,13 @@ exports.setSockets = function () {
             console.log(sessionID);
 
             // On récupère les variations spécifiques dans la bonne langue.
-            variations = NA.addSpecificVariation("index.json", data.lang, variations);
+            variations = NA.specific("index.json", data.lang, variations);
 
             // On récupère les variations communes dans la bonne langue.
-            variations = NA.addCommonVariation(data.lang, variations);
+            variations = NA.common(data.lang, variations);
             
             // On récupère le fragment HTML depuis le dossier `viewsRelativePath` et on applique les variations.
-            data.render = NA.newRender("partials/index.htm", variations);
+            data.render = NA.render("partials/index.htm", variations);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
             io.sockets.emit('server-render', data);

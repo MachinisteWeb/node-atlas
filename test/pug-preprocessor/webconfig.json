@@ -1,9 +1,12 @@
 {
     "enablePug": true,
     "commonVariation": "common.json",
+    "commonController": "common.js",
+    "commonView": "common.pug",
     "routes": {
         "/": {
-            "view": "index.htm",
+            "view": "index.pug",
+            "output": "index.html",
             "variation": "index.json"
         }
     }

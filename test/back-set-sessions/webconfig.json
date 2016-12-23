@@ -1,10 +1,8 @@
 {
     "commonController": "common.js",
-    "commonVariation": "common.json",
     "routes": {
         "/": {
-            "view": "index.htm",
-            "variation": "index.json"
+            "view": "index.htm"
         }
     }
 }

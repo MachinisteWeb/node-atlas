@@ -44,18 +44,17 @@ exports.setRoutes = function (next) {
 	});   
 };
 
-exports.changeVariations = function (params, next) {
+exports.changeVariations = function (next, locals) {
 	var NA = this,
-		fs = NA.modules.fs,
-		variations = params.variations;
+		fs = NA.modules.fs;
 
-	fs.readFile("assets/content/" + variations.routePath.replace(".html", ".htm"), "utf-8", function (err, content) {
+	fs.readFile("assets/content/" + locals.route.replace(".html", ".htm"), "utf-8", function (err, content) {
 		if (err) {
-			return next(variations);
+			return next();
 		}
 
-		variations.common.content = content;
+		locals.common.content = content;
 
-		next(variations);
+		next();
 	});
 };

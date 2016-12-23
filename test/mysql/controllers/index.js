@@ -1,6 +1,5 @@
-exports.changeVariations = function (params, next) {
+exports.changeVariations = function (next, locals) {
     var NA = this,
-        variations = params.variations,
         user = new NA.models.User(),
         user2 = new NA.models.User(),
         user3 = new NA.models.User(),
@@ -16,8 +15,8 @@ exports.changeVariations = function (params, next) {
         .setConnection(connection)
         .lastname("Elric")
         .read(function (allUsers) {
-            variations.user = user;
-            variations.users = allUsers;
+            locals.user = user;
+            locals.users = allUsers;
 
             // Exemple de création.
             user2
@@ -27,8 +26,8 @@ exports.changeVariations = function (params, next) {
             .email("winry.rockbell@fma.br")
             .gender(true)
             .create(function (infos) {
-                variations.insertId = infos.insertId;
-                variations.user2 = user2;
+                locals.insertId = infos.insertId;
+                locals.user2 = user2;
 
                 // Exemple de modification.
                 user3
@@ -40,16 +39,16 @@ exports.changeVariations = function (params, next) {
                 .address("The Rockbell's house");
 
                 user2.update(user3, function (infos) {
-                    variations.affectedRows = infos.affectedRows;
-                    variations.user2 = user2;
+                    locals.affectedRows = infos.affectedRows;
+                    locals.user2 = user2;
 
                     // Exemple de suppression.
                     user4
                     .setConnection(connection)
                     .gender(false)
                     .delete(function (infos) {
-                        variations.deletedRows = infos.affectedRows;
-                        next(variations);
+                        locals.deletedRows = infos.affectedRows;
+                        next();
                     });
                 });
             });

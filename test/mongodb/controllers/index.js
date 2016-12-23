@@ -1,6 +1,5 @@
-exports.changeVariations = function (params, next) {
+exports.changeVariations = function (next, locals) {
     var NA = this,
-        variations = params.variations,
         mongoose = NA.modules.mongoose,
         User = mongoose.model('user');
 
@@ -8,17 +7,17 @@ exports.changeVariations = function (params, next) {
     .findOne({ "identity.firstname": "Bruno" })
     .exec(function (err, bruno) {
 
-        variations.id = bruno._id;
-        variations.lastname = bruno.identity.lastname;
-        variations.firstname = bruno.identity.firstname;
-        variations.birthdate = bruno.identity.birthdate;
-        variations.email = bruno.email;
-        variations.gender = (bruno.identity.gender) ? variations.common.male : variations.common.female;
-        variations.country = bruno.location.country;
-        variations.town = bruno.location.town;
-        variations.zipcode = bruno.location.zipcode;
-        variations.address = bruno.location.address;
+        locals.id = bruno._id;
+        locals.lastname = bruno.identity.lastname;
+        locals.firstname = bruno.identity.firstname;
+        locals.birthdate = bruno.identity.birthdate;
+        locals.email = bruno.email;
+        locals.gender = (bruno.identity.gender) ? locals.common.male : locals.common.female;
+        locals.country = bruno.location.country;
+        locals.town = bruno.location.town;
+        locals.zipcode = bruno.location.zipcode;
+        locals.address = bruno.location.address;
 
-        next(variations);
+        next();
     });
 };

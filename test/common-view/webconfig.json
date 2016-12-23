@@ -1,0 +1,15 @@
+{
+    "commonVariation": "common.json",
+    "commonView": "common.htm",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "output": "home.html",
+            "variation": "index.json"
+        },
+        "/about/": {
+            "view": "about.htm",
+            "output": "about.html"
+        }
+    }
+}

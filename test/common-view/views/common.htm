@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr-fr">
+	<head>
+		<meta charset="utf-8">
+        <title><?- specific.titlePage || "Pas de titre" ?></title>
+        <link rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css"  media="all">
+        <? if (specific.classPage) { ?>
+        <link rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css"  media="all">
+        <? } ?>
+	</head>
+	<body>
+		<?- (specific.titlePage) ? include("partials/header.htm") : "" ?>
+		<?- include(routeParameters.view) ?>
+		<script async="true" type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
+	</body>
+</html>

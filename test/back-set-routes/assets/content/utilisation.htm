@@ -5,11 +5,11 @@
     &quot;languageCode&quot;: &quot;en-gb&quot;,                /* Définir la langue principale. */
     &quot;pageNotFound&quot;: &quot;/page-404/&quot;,           /* Assigner une vue dédiée à la page 404. */
     &quot;commonVariation&quot;: &quot;common.json&quot;,       /* Assigner les fichiers de variations communes pour la localisation. */
-    &quot;commonController&quot;: &quot;common.js&quot;,        /* Assigner les fichiers des contrôles appelés sur toutes les pages. */
+    &quot;commonController&quot;: &quot;common.js&quot;,        /* Assigner les fonctions du contrôleur appelé sur toutes les pages. */
     &quot;postSupport&quot;: false,                   /* Par défaut, empêcher les requêtes de page en POST. */
     &quot;bundles&quot;: &quot;bundles.json&quot;,              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
     &quot;optimizations&quot;: &quot;optimizations.json&quot;,  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
-    &quot;htmlGenerationBeforeResponse&quot;: true,    /* Générer la page couramment affichée dans le dossier &quot;serverless&quot;. */
+    &quot;htmlGenerationBeforeResponse&quot;: true,   /* Générer la page couramment affichée dans le dossier &quot;serverless&quot;. */
     &quot;stylesheetsBundlesEnable&quot;: true,       /* Minifier les CSS dans des fichiers &quot;.min&quot; avant de renvoyer la page. */
     &quot;javascriptBundlesEnable&quot;: true,        /* Offusquer les JS dans des fichiers &quot;.min&quot; avant de renvoyer la page. */
     &quot;enableLess&quot;: true,                     /* Utiliser des fichiers Less avec des fichiers &quot;.map&quot; pour la partie développement. */
@@ -32,14 +32,14 @@
     &quot;home&quot;: {                               /* Définir une clé à utiliser comme référence pour manipuler les paramètres définis ou d&#39;url dans le code. */
         &quot;url&quot;: &quot;/&quot;,                         /* Définir l&#39;url d&#39;accès à la page derrière cette route. */
         &quot;output&quot;: &quot;home.html&quot;,              /* Définir le chemin d&#39;accès pour enregistrer le rendu au format HTML de manière statique. */
-        &quot;view&quot;: &quot;home.htm&quot;,                 /* Assigner une un fichier de vue utilisé pour présenter l&#39;information. */
-        &quot;variation&quot;: &quot;home.json&quot;,           /* Assigner un fichier de variation spécifique utilisé pour localiser la page. */
-        &quot;controller&quot;: &quot;home.js&quot;             /* Assigner un fichier de contrôle spécifique utilisé pour la page d&#39;accueil (afficher les derniers articles, le nombre d&#39;inscrit, etc.). */
+        &quot;view&quot;: &quot;home.htm&quot;,                 /* Assigner une vue utilisée pour présenter l&#39;information. */
+        &quot;variation&quot;: &quot;home.json&quot;,           /* Assigner une variation spécifique utilisée pour localiser la page. */
+        &quot;controller&quot;: &quot;home.js&quot;             /* Assigner un contrôleur spécifique utilisé pour la page d&#39;accueil (afficher les derniers articles, le nombre d&#39;inscrit, etc.). */
     },
     &quot;presentation&quot;: {
         &quot;url&quot;: &quot;/presentation/&quot;,
         &quot;output&quot;: &quot;presentation.html&quot;,
-        &quot;view&quot;: &quot;default.htm&quot;,              /* Même view utilisé avec... */
+        &quot;view&quot;: &quot;default.htm&quot;,              /* Même vue utilisée avec... */
         &quot;variation&quot;: &quot;presentation.json&quot;    /* ...une variation différente pour générer du contenu de page différent (voir &quot;error&quot;). */
     },
     &quot;members&quot;: {
@@ -117,10 +117,10 @@
     &quot;error-fr-fr&quot;: {
         &quot;url&quot;: &quot;/francais/*&quot;,               /* Toutes les pages commençant par &quot;/francais/&quot; pour la page d&#39;erreur française. */
         &quot;output&quot;: &quot;francais/page-404.html&quot;,
-        &quot;view&quot;: &quot;default.htm&quot;,              /* View partagé par différentes routes (voir &quot;presentation&quot;). */
+        &quot;view&quot;: &quot;default.htm&quot;,              /* Vue partagée par différentes routes (voir &quot;presentation&quot;). */
         &quot;variation&quot;: &quot;page-404.json&quot;,
         &quot;languageCode&quot;: &quot;fr-fr&quot;,
-        &quot;statusCode&quot;: 404                   /* Un statu 404 approprié pour les pages d&#39;erreur. */
+        &quot;statusCode&quot;: 404                   /* Un status 404 approprié pour les pages d&#39;erreur. */
     },
     &quot;error&quot;: {
         &quot;url&quot;: &quot;/page-404/&quot;,                /* Page d&#39;erreur par défaut défini avec &quot;pageNotFound&quot;. */
@@ -147,10 +147,14 @@
 │  │
 │  ┊┉
 │
-├─ views/                    ⤆ La partie Vue avec chaque type de view pour le rendu.
+├─ views/                    ⤆ La partie vue avec chaque type de vue pour le rendu.
 │  ├─ home.htm
 │  ├─ default.htm
 │  ┊┉
+│  └─ partials/              ⤆ Toutes les vues réutilisables.
+│     ├─ head.htm
+│     ├─ foot.htm
+│     ┊┉ 
 │
 ├─ variations/               ⤆ Tous les fichiers pour le remplissage de contenu avec &quot;en-gb&quot; par défaut…
 │  ├─ common.json
@@ -162,22 +166,15 @@
 │     ├─ home.json
 │     ┊┉
 │
-├─ controllers/              ⤆ La partie Contrôle pour manipuler le view, la variation et les modèles avec les bases de données ou les paramètres d&#39;url.
+├─ controllers/              ⤆ La partie contrôleur pour manipuler la vue, la variation et les modèles avec les bases de données ou les paramètres d&#39;url.
 │  ├─ common.js
 │  ├─ home.js
 │  ┊┉
+│  ├─ modules/               ⤆ Tous les modules internes.
+│     ├─ form-contact-us.js
+│     ┊┉
 │
-├─ components/               ⤆ Toutes les parties mutualisées pour…
-│   ├─ views/                ⤆ …les views…
-│   │  ├─ head.htm
-│   │  ├─ foot.htm
-│   │  ┊┉
-│   │  
-│   ├─ controllers/          ⤆ …et les contrôles.
-│      ├─ form-contact-us.js
-│      ┊┉
-│
-├─ models/                   ⤆ La partie Modèle avec des fichiers de modèle utilisés par les controllers pour remplir les views.
+├─ models/                   ⤆ La partie modèle avec des fichiers de modèle utilisés par les contrôleurs pour remplir les vues.
 │  ┊┉
 │
 ├─ serverless/               ⤆ Toutes les maquettes HTML générées et utilisables par les Back-end avec autre chose que Node.js.
