@@ -49,7 +49,7 @@ Updates:
 - `NA#webconfig.htmlGeneratesBeforeResponse` become `NA#webconfig.htmlGenerationBeforeResponse`.
 - `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
 - `NA#afterGenerates` become `NA#afterGeneration`.
-- `NA#newRender` become `NA#render`.
+- `NA#newRender` become `NA#view`.
 - `NA#addCommonVariation` become `NA#common`.
 - `NA#addSpecificVariation` become `NA#specific`.
 - `NA#init` become `NA#start`.

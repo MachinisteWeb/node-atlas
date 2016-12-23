@@ -68,7 +68,7 @@ NA = function () {
     this.ifFileExist = globalFunctions.ifFileExist;
     this.common = globalFunctions.common;
     this.specific = globalFunctions.specific;
-    this.render = globalFunctions.render;
+    this.view = globalFunctions.view;
     /* $%NODE MODULES */
     this.loadListOfNativeModules = nodeModules.loadListOfNativeModules;
     this.loadServerModules = nodeModules.loadServerModules;

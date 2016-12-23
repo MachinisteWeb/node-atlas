@@ -39,7 +39,8 @@ Create a `webconfig.json` file and dependencies files for configured your websit
 {
     "languageCode": "en-gb",                /* Set the principal language. */
     "pageNotFound": "/page-404/",           /* Assign the 404 dedicated view. */
-    "commonVariation": "common.json",       /* Assign the common variation files for localisation. */
+    "commonView": "common.htm",             /* Assign the common layout file for view. */
+    "commonVariation": "common.json",       /* Assign the common variation file for localisation. */
     "commonController": "common.js",        /* Assign the common controller file for all pages called. */
     "postSupport": false,                   /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
@@ -206,12 +207,13 @@ my-website/
 │  ┊┉
 │
 ├─ views/                    ⤆ The View part with each type of view for render.
+│  ├─ common.htm
 │  ├─ home.htm
 │  ├─ default.htm
 │  ┊┉
 │  └─ partials/              ⤆ All re-usable view.
-│     ├─ head.htm
-│     ├─ foot.htm
+│     ├─ header.htm
+│     ├─ footer.htm
 │     ┊┉ 
 │
 ├─ variations/               ⤆ All files for content filling with "en-gb" in default...
@@ -296,6 +298,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 - [Complete and detailed Website](https://node-atlas.js.org/english/)
 - [node-atlas.js documentation for maintainers](https://node-atlas.js.org/doc/index.html)
+- [discuss on chat and ask asistance for NodeAtlas](https://gitter.im/NodeAtlas/Help)
 
 
 

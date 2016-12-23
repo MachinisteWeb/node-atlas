@@ -208,12 +208,13 @@ my-website/
 │  ┊┉
 │
 ├─ views/                    ⤆ La partie vue avec chaque type de vue pour le rendu.
+│  ├─ common.htm
 │  ├─ home.htm
 │  ├─ default.htm
 │  ┊┉
 │  └─ partials/              ⤆ Toutes les vues réutilisables.
-│     ├─ head.htm
-│     ├─ foot.htm
+│     ├─ header.htm
+│     ├─ footer.htm
 │     ┊┉ 
 │
 ├─ variations/               ⤆ Tous les fichiers pour le remplissage de contenu avec "en-gb" par défaut…
@@ -298,6 +299,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 - [Site complet et détaillé](https://node-atlas.js.org/NodeAtlas/)
 - [Pour maintenir et développer node-atlas.js](https://node-atlas.js.org/doc/index.html)
+- [Discuter sur le chat ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Aide)
 
 
 
