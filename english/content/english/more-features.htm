@@ -1,4 +1,4 @@
-<h2 id="more-features">More Features</h2><p>NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.</p><h3 id="manage-routing-url-rewriting">Manage routing (URL Rewriting)</h3><p>Although you can configure static URLs, you can also set of dynamic URLs!</p><h4 id="parameters">Parameters</h4><p>It is possible to get some parameters from URL to display a different content depending of slugs.</p><p>With the following configuration:</p><pre><code class="lang-json">{
+<h2 id="more-features">More Features</h2><p>NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.</p><h3 id="manage-routing-url-rewriting">Manage Routing (URL Rewriting)</h3><p>Although you can configure static URLs, you can also set of dynamic URLs!</p><h4 id="parameters">Parameters</h4><p>It is possible to get some parameters from URL to display a different content depending of slugs.</p><p>With the following configuration:</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/list-of-members/:member/:action/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;,
@@ -173,7 +173,7 @@
         &quot;view&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p><em>Note : You can create multiple route file as <code>routes.en.json</code> and <code>routes.fr.json</code> and associate each of them in a set of webconfig parameterize to run a website in various languages.</em></p><h3 id="manage-a-page-not-found">Manage a page not found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
+</code></pre><p><em>Note : You can create multiple route file as <code>routes.en.json</code> and <code>routes.fr.json</code> and associate each of them in a set of webconfig parameterize to run a website in various languages.</em></p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
 <li>Prepare a 404 page.</li>
 <li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
 </ol><p>See the example below:</p><pre><code class="lang-json">{
@@ -195,7 +195,7 @@
 <li><em><a href="http://localhost/this-page-do-not-exist.html">http://localhost/this-page-do-not-exist.html</a></em></li>
 <li><em><a href="http://localhost/this/page/either/">http://localhost/this/page/either/</a></em></li>
 <li><em><a href="http://localhost/etc">http://localhost/etc</a></em></li>
-</ul><h4 id="multilingual-error-page">Multilingual Error Page</h4><p>For this, just create a new route with <code>*</code> at the end with the languageCode.</p><p>See below :</p><pre><code class="lang-json">{
+</ul><h4 id="localized-error-page">Localized Error Page</h4><p>For this, just create a new route with <code>*</code> at the end with the languageCode.</p><p>See below :</p><pre><code class="lang-json">{
     &quot;pageNotFound&quot;: &quot;/not-found-page/&quot;,
     &quot;languageCode&quot;: &quot;en-gb&quot;,
     &quot;routes&quot;: {

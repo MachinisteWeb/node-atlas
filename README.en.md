@@ -107,8 +107,8 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
 - [More features](#more-features)
- - [Manage routing (URL Rewriting)](#manage-routing-url-rewriting)
- - [Manage a page not found](#manage-a-page-not-found)
+ - [Manage Routing (URL Rewriting)](#manage-routing-url-rewriting)
+ - [Manage a Page Not Found](#manage-a-page-not-found)
  - [Inject routes dynamically](#inject-routes-dynamically)
  - [Manage redirects](#manage-redirects)
  - [Manage Headers](#manage-headers)
@@ -1818,7 +1818,7 @@ Learn all about the possibilities of the template engine consult [the documentat
 
 ## Controller and Model Part ##
 
-NodeAtlas is useful for more than simply generate template web page easily based on your variation files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;
+NodeAtlas is useful for more than simply generate template web page easily based on your variations files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;
 
 - parameters in query part of URL (GET),
 - parameters in request body (POST),
@@ -3903,7 +3903,7 @@ You will get the following output:
 
 NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.
 
-### Manage routing (URL Rewriting) ###
+### Manage Routing (URL Rewriting) ###
 
 Although you can configure static URLs, you can also set of dynamic URLs!
 
@@ -4179,7 +4179,7 @@ and `routes.json`
 
 
 
-### Manage a page not found ###
+### Manage a Page Not Found ###
 
 #### Listen all urls, and also file provide by `assetsRelativePath` ####
 
@@ -4214,7 +4214,7 @@ you can access to:
 - *http://localhost/this/page/either/*
 - *http://localhost/etc*
 
-#### Multilingual Error Page ####
+#### Localized Error Page ####
 
 For this, just create a new route with `*` at the end with the languageCode.
 

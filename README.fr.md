@@ -1933,7 +1933,7 @@ Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun
 
 - L'objet `NA` en tant que `this`.
 - En premier paramètre la fonction de retour `next()`.
-- En deuxième paramètre l'objet `locals` contenant entre autre la string `locals.common` pour accéder aux variations communes et `locals.specific` pour accéder aux variations spécifiques.
+- En deuxième paramètre l'objet `locals` contenant entre autre la variation `locals.common` pour accéder aux variations communes et la variation `locals.specific` pour accéder aux variations spécifiques.
 - En troisième paramètre l'objet `response` qui va être faites.
 - En quatrième paramètre l'objet `request` faites pour cette page. 
 
@@ -4214,7 +4214,7 @@ vous pourrez accéder à :
 - *http://localhost/elle/non/plus/*
 - *http://localhost/etc*
 
-#### Page d'erreur multilingue ####
+#### Page d'erreur localisée ####
 
 Il vous suffit de créer une nouvelle route finissant par `*` dans la langue souhaitée.
 

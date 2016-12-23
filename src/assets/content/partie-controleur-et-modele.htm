@@ -79,7 +79,7 @@
 </code></pre><h4 id="changevariations">changeVariations</h4><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeVariations(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next()</code>.</li>
-<li>En deuxième paramètre l&#39;objet <code>locals</code> contenant entre autre la string <code>locals.common</code> pour accéder aux variations communes et <code>locals.specific</code> pour accéder aux variations spécifiques.</li>
+<li>En deuxième paramètre l&#39;objet <code>locals</code> contenant entre autre la variation <code>locals.common</code> pour accéder aux variations communes et la variation <code>locals.specific</code> pour accéder aux variations spécifiques.</li>
 <li>En troisième paramètre l&#39;objet <code>response</code> qui va être faites.</li>
 <li>En quatrième paramètre l&#39;objet <code>request</code> faites pour cette page. </li>
 </ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
