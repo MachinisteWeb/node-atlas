@@ -102,7 +102,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Moteur de Template EJS](#moteur-de-template-ejs)
  - [Moteur de Template PUG](#moteur-de-template-pug)
 - [Partie Contrôleur et Modèle](#partie-contrôleur-et-modèle)
- - [Cycle de Vie et Hooks](#cycle-de-vie-et-hooks)
+ - [Cycle de vie et Points d'ancrage](#cycle-de-vie-et-points-dancrage)
  - [Échange Client-Serveur en temps réel avec Websockets](#échange-client-serveur-en-temps réel-avec-websockets)
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
  - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
@@ -6275,6 +6275,8 @@ Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HT
 
 Vous pouvez lancez NodeAtlas via du code JavaScript.
 
+L'intégralité des fonctions privés, modules et namespaces de NodeAtlas sont décrit dans [la documentation de l'API](https://node-atlas.js.org/doc/). En ce qui concerne les [Points d'ancrage c'est par ici](#cycle-de-vie-et-points-dancrage) et pour les fonctions d'initialisation c'est ci-dessous :
+
 
 
 ### &lt;node-atlas-instance>.start() ###
@@ -6293,9 +6295,9 @@ require("node-atlas")().start();
 
 
 
-### &lt;node-atlas-instance>.init(Object) ###
+### &lt;node-atlas-instance>.init(options) ###
 
-Vous pouvez également configurer le lancement avec `init(Object)` :
+Vous pouvez également configurer le lancement avec `init(options)` :
 
 *server.js*
 
@@ -6314,11 +6316,30 @@ require("node-atlas")().init({
 \> node server.js
 ```
 
+L'objet `options` est le suivant :
+
+```
+{
+    directory: <string>,
+    webconfig: <string>,
+    browse: <boolean|string>,
+    httpHostname: <string>,
+    httpPort: <number>,
+    generate: <boolean>,
+    cache: <boolean>,
+    lang: <string>,
+    create: <string>,
+    httpSecure: <boolean|string>
+}
+```
+
+*Note : plus de détails pour chaque option dans [la partie CLI](#cli--commandes-de-lancement).*
 
 
-### &lt;node-atlas-instance>.run(Object) ###
 
-Avec `run(Object)` vous pouvez configurer et lancer NodeAtlas en une commande.
+### &lt;node-atlas-instance>.run(options) ###
+
+Avec `run(options)` vous pouvez configurer et lancer NodeAtlas en une commande.
 
 Vous pouvez par exemple lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.
 
@@ -6341,9 +6362,9 @@ websiteFr.run({
 
 
 
-### &lt;node-atlas-instance>.started(Function) ###
+### &lt;node-atlas-instance>.started(callback) ###
 
-Avec `started(Function)`, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit lancé :
+Avec `started(callback)`, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit lancé :
 
 *servers.js*
 
@@ -6357,9 +6378,9 @@ require("node-atlas")().started(function() {
 
 
 
-### &lt;node-atlas-instance>.generated(Function) ###
+### &lt;node-atlas-instance>.generated(callback) ###
 
-Avec `generated(Function)`, vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
+Avec `generated(callback)`, vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
 
 *servers.js*
 
@@ -6377,9 +6398,9 @@ require("node-atlas")().generated(function() {
 
 
 
-### &lt;node-atlas-instance>.created(Function) ###
+### &lt;node-atlas-instance>.created(callback) ###
 
-Avec `created(Function)`, vous pouvez aussi exécuter d'autres tâches après avoir initialisé le répertoire courant avec un site template :
+Avec `created(callback)`, vous pouvez aussi exécuter d'autres tâches après avoir initialisé le répertoire courant avec un site template :
 
 *servers.js*
 

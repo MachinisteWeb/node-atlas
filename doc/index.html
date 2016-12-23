@@ -4349,6 +4349,7 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --lang fr-fr</code></pre><h3>--create [path]</h3><p>NodeAtlas contain a directory <code>templates</code> with predefined website into. To install them in the current directory for NodeAtlas command, you can use <code>--create</code> with the name of the <code>templates</code> you want use. By default, it's the <code>hello-world</code> value that is used. <em>Possible values: <code>hello-world</code>.</em></p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --create hello-world</code></pre><h3>--httpSecure [pathName]</h3><p>If you use the <code>--httpSecure</code> option, all path will be reach in HTTPs. You must defined a <code>.crt</code> and <code>.key</code> files with <code>pathName</code> if you want the engine start in HTTPs. For exemple if you have <code>security/server.crt</code> and <code>security/server.key</code> from root of NodeAtlas website, you can use following command:</p>
 <pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpSecure security/server</code></pre><h2>API / NodeAtlas as NPM module</h2><p>You could run NodeAtlas via JavaScript code.</p>
+<p>All private functions, modules and namespacese are explained here <a href="https://node-atlas.js.org/doc/">la documentation de l'API</a>. For the <a href="#lifecycle-and-hooks">Hooks it's here</a> and for server start fonctions it's below :</p>
 <h3>&lt;node-atlas-instance&gt;.start()</h3><p>Execute a simple NodeAtlas running with <code>start()</code>. By default, it use <code>webconfig.json</code> from directory where file is executed. If no <code>webconfig.json</code> is set, a Simple Web Server will be launched.</p>
 <p><em>server.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().start();</code></pre><pre class="prettyprint source"><code>\> server server.js
@@ -4356,9 +4357,9 @@ exports.setSessions = website.setSessions;</code></pre><p>More information to <a
 
 
 
-### &lt;node-atlas-instance>.init(Object) ###
+### &lt;node-atlas-instance>.init(options) ###
 
-You can also configure the launch with `init(Object)`:
+You can also configure the launch with `init(options)`:
 
 *server.js*
 
@@ -4370,7 +4371,20 @@ require(&quot;node-atlas&quot;)().init({
     httpHostname: &quot;192.168.1.1&quot;,
     httpPort: 7778,
     generate: true
-}).start();</code></pre><pre class="prettyprint source"><code>\> node server.js</code></pre><h3>&lt;node-atlas-instance&gt;.run(Object)</h3><p>With <code>run(Object)</code> you could configure and lanch NodeAtlas with one command.</p>
+}).start();</code></pre><pre class="prettyprint source"><code>\> node server.js</code></pre><p>The <code>options</code> object is the following:</p>
+<pre class="prettyprint source"><code>{
+    directory: &lt;string>,
+    webconfig: &lt;string>,
+    browse: &lt;boolean|string>,
+    httpHostname: &lt;string>,
+    httpPort: &lt;number>,
+    generate: &lt;boolean>,
+    cache: &lt;boolean>,
+    lang: &lt;string>,
+    create: &lt;string>,
+    httpSecure: &lt;boolean|string>
+}</code></pre><p><em>Note : more détails for each option in <a href="#cli--running-commands">CLI part</a>.</em></p>
+<h3>&lt;node-atlas-instance&gt;.run(options)</h3><p>With <code>run(options)</code> you could configure and lanch NodeAtlas with one command.</p>
 <p>You can for example run multiple websites in same time. Each webconfig must listen a different port.</p>
 <p><em>servers.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>var nodeAtlas = require(&quot;node-atlas&quot;),
@@ -4384,13 +4398,13 @@ websiteEn.run({
 websiteFr.run({
     &quot;browse&quot;: true,
     &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
-});</code></pre><h3>&lt;node-atlas-instance&gt;.started(Function)</h3><p>With <code>started(Function)</code>, you could also execute other tasks after server ran:</p>
+});</code></pre><h3>&lt;node-atlas-instance&gt;.started(callback)</h3><p>With <code>started(callback)</code>, you could also execute other tasks after server ran:</p>
 <p><em>servers.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().started(function() {
     console.log(&quot;Server started!&quot;);
 }).run({
     browse: true
-});</code></pre><h3>&lt;node-atlas-instance&gt;.generated(Function)</h3><p>With <code>generated(Function)</code>, you could also execute other tasks after assets generation:</p>
+});</code></pre><h3>&lt;node-atlas-instance&gt;.generated(callback)</h3><p>With <code>generated(callback)</code>, you could also execute other tasks after assets generation:</p>
 <p><em>servers.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>require(&quot;node-atlas&quot;)().generated(function() {
     require('child_process').exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
@@ -4400,7 +4414,7 @@ websiteFr.run({
     });
 }).run({
     generate: true
-});</code></pre><h3>&lt;node-atlas-instance&gt;.created(Function)</h3><p>With <code>created(Function)</code>, you could also execute other tasks after init the current directory with template website:</p>
+});</code></pre><h3>&lt;node-atlas-instance&gt;.created(callback)</h3><p>With <code>created(callback)</code>, you could also execute other tasks after init the current directory with template website:</p>
 <p><em>servers.js</em></p>
 <pre class="prettyprint source lang-javascript"><code>var nodeAtlas = require(&quot;node-atlas&quot;),
     website = nodeAtlas();
@@ -4718,7 +4732,7 @@ server.listen(80);</code></pre><p>and you can start with:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 23 2016 15:43:29 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 23 2016 16:50:27 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

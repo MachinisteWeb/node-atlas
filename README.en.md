@@ -6275,6 +6275,8 @@ If you use the `--httpSecure` option, all path will be reach in HTTPs. You must 
 
 You could run NodeAtlas via JavaScript code.
 
+All private functions, modules and namespacese are explained here [la documentation de l'API](https://node-atlas.js.org/doc/). For the [Hooks it's here](#lifecycle-and-hooks) and for server start fonctions it's below :
+
 
 
 ### &lt;node-atlas-instance>.start() ###
@@ -6293,9 +6295,9 @@ require("node-atlas")().start();
 
 
 
-### &lt;node-atlas-instance>.init(Object) ###
+### &lt;node-atlas-instance>.init(options) ###
 
-You can also configure the launch with `init(Object)`:
+You can also configure the launch with `init(options)`:
 
 *server.js*
 
@@ -6314,11 +6316,30 @@ require("node-atlas")().init({
 \> node server.js
 ```
 
+The `options` object is the following:
+
+```
+{
+    directory: <string>,
+    webconfig: <string>,
+    browse: <boolean|string>,
+    httpHostname: <string>,
+    httpPort: <number>,
+    generate: <boolean>,
+    cache: <boolean>,
+    lang: <string>,
+    create: <string>,
+    httpSecure: <boolean|string>
+}
+```
+
+*Note : more détails for each option in [CLI part](#cli--running-commands).*
 
 
-### &lt;node-atlas-instance>.run(Object) ###
 
-With `run(Object)` you could configure and lanch NodeAtlas with one command.
+### &lt;node-atlas-instance>.run(options) ###
+
+With `run(options)` you could configure and lanch NodeAtlas with one command.
 
 You can for example run multiple websites in same time. Each webconfig must listen a different port.
 
@@ -6341,9 +6362,9 @@ websiteFr.run({
 
 
 
-### &lt;node-atlas-instance>.started(Function) ###
+### &lt;node-atlas-instance>.started(callback) ###
 
-With `started(Function)`, you could also execute other tasks after server ran:
+With `started(callback)`, you could also execute other tasks after server ran:
 
 *servers.js*
 
@@ -6357,9 +6378,9 @@ require("node-atlas")().started(function() {
 
 
 
-### &lt;node-atlas-instance>.generated(Function) ###
+### &lt;node-atlas-instance>.generated(callback) ###
 
-With `generated(Function)`, you could also execute other tasks after assets generation:
+With `generated(callback)`, you could also execute other tasks after assets generation:
 
 *servers.js*
 
@@ -6377,9 +6398,9 @@ require("node-atlas")().generated(function() {
 
 
 
-### &lt;node-atlas-instance>.created(Function) ###
+### &lt;node-atlas-instance>.created(callback) ###
 
-With `created(Function)`, you could also execute other tasks after init the current directory with template website:
+With `created(callback)`, you could also execute other tasks after init the current directory with template website:
 
 *servers.js*
 
