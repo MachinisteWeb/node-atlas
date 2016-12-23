@@ -6275,7 +6275,7 @@ Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HT
 
 Vous pouvez lancez NodeAtlas via du code JavaScript.
 
-L'intégralité des fonctions privés, modules et namespaces de NodeAtlas sont décrit dans [la documentation de l'API](https://node-atlas.js.org/doc/). En ce qui concerne les [Points d'ancrage c'est par ici](#cycle-de-vie-et-points-dancrage) et pour les fonctions d'initialisation c'est ci-dessous :
+L'intégralité des fonctions privés, modules et espaces de nom de NodeAtlas sont décrit dans [la documentation de l'API](https://node-atlas.js.org/doc/) (En). En ce qui concerne les [Points d'ancrage c'est par ici](#cycle-de-vie-et-points-dancrage) et pour les fonctions de démarrage du serveur c'est ci-dessous :
 
 
 
