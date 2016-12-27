@@ -1,6 +1,6 @@
 # node-atlas #
 
-Le Framework Javascript Serveur Évolutif basé sur la configuration et/ou les APIs pour créer facilement des sites et applications web temps réel ou des fichiers HTML de manière composable et/ou par microservice.
+Framework Javascript Serveur Évolutif par configuration ou APIs pour créer facilement des maquettes, sites ou applications web temps réel orientés composants et services.
 
 > *NodeAtlas* est un Framework Web MVC(2) côté serveur vous permettant de créer des sites évolutifs, conformes au W3C et bonnes pratiques SEO. Il permet de faire tourner des pages localisables et indexables ou de créer des maquettes HTML uniquement avec des vues. Mais activer les contrôleurs permet de développer de puissantes applications web orientées données et composants ou orienté service avec des fonctionalités modernes et temps réel !
 

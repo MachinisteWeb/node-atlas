@@ -6,7 +6,7 @@
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
   },
-  "description": "Progressive web framework config-driven and/or API-driven for building easily realtime websites and webapps or serverless files component-based and service-oriented.",
+  "description": "Progressive realtime web framework config-driven or API-driven for building easily serverless files, websites and webapps component-based and service-oriented.",
   "private": false,
   "contributors": [
     {
