@@ -48,6 +48,8 @@ Updates:
 - `NA#webconfig.viewsRelativePath` default value become `"views"`.
 - `NA#webconfig.htmlGeneratesBeforeResponse` become `NA#webconfig.htmlGenerationBeforeResponse`.
 - `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
+- `NA#webconfig.httpSecureRelativeKeyPath` become `NA#webconfig.httpSecureKeyRelativePath`.
+- `NA#webconfig.httpSecureRelativeCertificatePath` become `NA#webconfig.httpSecureCertificateRelativePath`.
 - `NA#afterGenerates` become `NA#afterGeneration`.
 - `NA#newRender` become `NA#view`.
 - `NA#addCommonVariation` become `NA#common`.
@@ -68,6 +70,7 @@ Updates:
 
 Removed:
 
+- `NA#modules.child_process` removed.
 - `NA#webconfig.componentsRelativePath` removed.
 - `NA#locals.urlBasePathSlice` removed.
 - `NA#variations.currentRouteName` removed.

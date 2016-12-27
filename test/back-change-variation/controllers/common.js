@@ -8,8 +8,6 @@ exports.changeVariations = function (next, locals, request, response) {
     console.log(locals.specific.titlePage); // "Bienvenue"
     console.log(locals.specific.content); // "C'est la page d'accueil."
 
-    console.log(response.charset); // "utf-8"
-
     console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
     console.log("urlSubPath", locals.urlSubPath); // "/example"
     console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"

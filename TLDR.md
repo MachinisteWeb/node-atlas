@@ -1,10 +1,29 @@
-> *NodeAtlas* is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy component-based and/or service-oriented websites in order to create great things with standards compliance!
+> *NodeAtlas* is a MVC(2) Server-side JavaScript Framework makes it easy to develop scalable website with SEO and W3C compliance. It is designed to running indexable and localizable simple webpages or create HTML mockups with only the view part activated. But activate controller part to build powerful data-oriented, component-oriented and/or service-based webapps with great realtime features and modern compliance!
 
 **Vous êtes français ? Le document [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
 
-[![Faites un don](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/english/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas) [![Chat for Help](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Help)
+[![Donate](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/english/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas) [![Chat for Help](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Help)
 
 
+
+## NodeAtlas it's : ##
+
+- The starting point for Front-end Developers into Node.js ecosystem.
+- Pure JavaScript ; for beginners come from PHP, .NET, Ruby... or for JS experts.
+- A Progressive system with
+   - view-only system without care of controller,
+   - or scalable control of controllers and hooks,
+   - avec i18n (internationalization) and l10n (localizations) quickly.
+   - Express.js (web server) and Socket.io (client-serveur realtime connection) already configured together, easy to use and extendable,
+   - Ejs, Pug (Jade), Less and Stylus préprocessors ready to use,
+   - internal tools for HTML Mockups Serverless or bundles, minifications, offuscation, optimizations of CSS, JS and Images,
+   - and more like jQuery-like DOM server manipulation, back-end code debbugable into browser, easy HTTPs to setup, ...
+   - ...
+- Combinaison of severals NodeAtlas instances for service-oriented architecture like usage as API Rest,
+- All NPM modules, Express.js/Socket.io middleware, Atlas plugins usable (sessions, SQL/NoSQL databases, load balancing, proxy, hotreaload...).
+- [A French and International Guide step by step](https://node-atlas.js.org/english/), with a communauty support on [Gitter](https://gitter.im/NodeAtlas) (Chat) [EN]https://gitter.im/NodeAtlas/Help)/[FR](https://gitter.im/NodeAtlas/Aide).
+- Web and JavaScript <3 enthusiasts!
+- And maybe you soon?
 
 
 
@@ -64,6 +83,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "urlRelativeSubPath": "example",        /* Set a subdirectory for the application url. i.e.: "https://www.my-website.com/example/". */
     "languageCode": "en-gb",
     "pageNotFound": "/page-404/",
+    "commonView": "common.htm",
     "commonVariation": "common.json",
     "commonController": "common.js",
     "postSupport": false,

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*------------------------------------*\
-    $%SUMMARY
+    SUMMARY
 \*------------------------------------*/
 /* jslint node: true */
 
@@ -25,17 +25,17 @@
 
 
 /*------------------------------------*\
-    $%NODE ATLAS FUNCTION
+    NODE ATLAS FUNCTION
 \*------------------------------------*/
 
-var configuration = require('../lib/configuration'),
-    globalFunctions = require('../lib/global-functions'),
-    nodeModules = require('../lib/node-modules'),
-    webServer = require('../lib/web-server'),
-    frontEndPart = require('../lib/front-end-part'),
-    backEndPart = require('../lib/back-end-part'),
-    assetsGeneration = require('../lib/assets-generation'),
-    init = require('../lib/init'),
+var configuration = require("../lib/configuration"),
+    nodeModules = require("../lib/node-modules"),
+    globalFunctions = require("../lib/global-functions"),
+    webServer = require("../lib/web-server"),
+    frontEndPart = require("../lib/front-end-part"),
+    backEndPart = require("../lib/back-end-part"),
+    assetsGeneration = require("../lib/assets-generation"),
+    init = require("../lib/init"),
 
 /**
  * Creates a new instance of NodeAtlas Website.
@@ -48,44 +48,39 @@ NA = function () {
         return new NA();
     }
 
-    /* $%CONFIGURATION */
-    this.lineCommandConfiguration = configuration.lineCommandConfiguration;
-    this.initGlobalVar = configuration.initGlobalVar;
-    this.initGlobalVarRequiredNpmModules = configuration.initGlobalVarRequiredNpmModules;
-    this.initWebconfig = configuration.initWebconfig;
-    this.setExternalRoutesAsWebconfigBase = configuration.setExternalRoutesAsWebconfigBase;
-    this.setCompressionDirectiveAsWebconfigBase = configuration.setCompressionDirectiveAsWebconfigBase;
-    this.setPreprocessorDirectiveAsWebconfigBase = configuration.setPreprocessorDirectiveAsWebconfigBase;
-    this.setDirectoriesAsWebconfigBase = configuration.setDirectoriesAsWebconfigBase;
-    this.setHttpValuesAsWebconfigBase = configuration.setHttpValuesAsWebconfigBase;
-    this.improveWebconfigBase = configuration.improveWebconfigBase;
-    /* $%GLOBAL FUNCTIONS */
+    /* CONFIGURATION */
+    this.initCliConfiguration = configuration.initCliConfiguration;
+    this.initRequiredVars = configuration.initRequiredVars;
+    this.initRequiredNpmModulesVars = configuration.initRequiredNpmModulesVars;
+    this.initWebsite = configuration.initWebsite;
+    this.createWebconfig = configuration.createWebconfig;
+    
+    /* NODE MODULES */
+    this.initNodeModules = nodeModules.initNodeModules;
+    this.initNpmModules = nodeModules.initNpmModules;
+
+    /* GLOBAL FUNCTIONS */
+    this.openConfiguration = globalFunctions.openConfiguration;
+    this.log = globalFunctions.log;
+    this.openController = globalFunctions.openController;
+
     this.extend = globalFunctions.extend;
     this.clone = globalFunctions.clone;
     this.forEach = globalFunctions.forEach;
-    this.log = globalFunctions.log;
-    this.openConfiguration = globalFunctions.openConfiguration;
     this.ifFileExist = globalFunctions.ifFileExist;
     this.common = globalFunctions.common;
     this.specific = globalFunctions.specific;
     this.view = globalFunctions.view;
-    /* $%NODE MODULES */
-    this.loadListOfNativeModules = nodeModules.loadListOfNativeModules;
-    this.loadServerModules = nodeModules.loadServerModules;
-    this.loadTemplatingModules = nodeModules.loadTemplatingModules;
-    this.loadUtilsModules = nodeModules.loadUtilsModules;
-    this.loadProcessModules = nodeModules.loadProcessModules;
-    this.loadListOfRequiredNpmModules = nodeModules.loadListOfRequiredNpmModules;
+
     /* WEB SERVER */
     this.simpleWebServer = webServer.simpleWebServer;
-    this.atlasConfigurations = webServer.atlasConfigurations;
+    this.nodeAtlasWebServer = webServer.nodeAtlasWebServer;
+    this.initMiddlewares = webServer.initMiddlewares;
+    this.initSessions = webServer.initSessions;
+    this.initConfigurations = webServer.initConfigurations;
+
     this.atlasServer = webServer.atlasServer;
     this.atlasRoutes = webServer.atlasRoutes;
-    this.enableLessProcess = webServer.enableLessProcess;
-    this.enableStylusProcess = webServer.enableStylusProcess;
-    this.atlasSessions = webServer.atlasSessions;
-    this.startingHttpServer = webServer.startingHttpServer;
-    this.httpServerParse = webServer.httpServerParse;
     this.httpServerPublicFiles = webServer.httpServerPublicFiles;
     this.response = webServer.response;
     this.redirect = webServer.redirect;
@@ -95,6 +90,7 @@ NA = function () {
     this.requestRegex = webServer.requestRegex;
     this.pageNotFound = webServer.pageNotFound;
     this.routesPages = webServer.routesPages;
+
     /* FRONT-END PART */
     this.openTemplate = frontEndPart.openTemplate;
     this.openVariation = frontEndPart.openVariation;
@@ -109,7 +105,12 @@ NA = function () {
     this.intoBrowserAndFiles = frontEndPart.intoBrowserAndFiles;
     this.renderTemplate = frontEndPart.renderTemplate;
     this.render = frontEndPart.render;
-    /* $%BACK-END PART */
+
+    /* BACK-END PART */
+    this.initServerModules = backEndPart.initServerModules;
+    this.enableLessProcess = backEndPart.enableLessProcess;
+    this.enableStylusProcess = backEndPart.enableStylusProcess;
+
     this.cssAlreadyParse = backEndPart.cssAlreadyParse;
     this.injectCssAuth = backEndPart.injectCssAuth;
     this.prepareCssInjection = backEndPart.prepareCssInjection;
@@ -120,16 +121,17 @@ NA = function () {
     this.cssMinification = backEndPart.cssMinification;
     this.imgOptimization = backEndPart.imgOptimization;
     this.jsObfuscation = backEndPart.jsObfuscation;
-    this.loadListOfExternalModules = backEndPart.loadListOfExternalModules;
-    this.loadController = backEndPart.loadController;
-    /* $%ASSETS GENERATION */
+
+    /* ASSETS GENERATION */
+    this.createTemplateProject = assetsGeneration.createTemplateProject;
+
     this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
     this.urlGeneratingAssets = assetsGeneration.urlGeneratingAssets;
-    this.generateStartingProject = assetsGeneration.generateStartingProject;
     this.emulatedIndexPage = assetsGeneration.emulatedIndexPage;
     this.saveTemplateRender = assetsGeneration.saveTemplateRender;
-    /* $%INIT */
+    /* INIT */
     this.changeLanguage = init.changeLanguage;
+    
     this.configuration = init.configuration;
     this.init = init.init;
     this.generated = init.generated;
@@ -140,7 +142,6 @@ NA = function () {
     this.created = init.created;
     this.start = init.start;
     this.run = init.run;
-
 };
 
 
@@ -148,7 +149,7 @@ NA = function () {
 
 
 /*------------------------------------*\
-    $%RUN
+    RUN
 \*------------------------------------*/
 
 /* Run script with CLI. */
