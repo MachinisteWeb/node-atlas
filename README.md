@@ -1,8 +1,7 @@
-# NodeAtlas Website #
+# NodeAtlas Website and API #
 
-Version : 2.0.0
-
-NodeAtlas Version minimale : 2.0.x.
+- NodeAtlas Website : 2.0.0
+- NodeAtlas API : 2.0.0
 
 **For an international version of this README.md, [see below](#international-version).**
 
@@ -10,7 +9,9 @@ NodeAtlas Version minimale : 2.0.x.
 
 ## Avant-propos ##
 
-Ce dépôt contient tous les fichiers nécéssaire à la génération du site officielle de NodeAtlas. Celui-ci fonctionne sans Node.js ou autre executable. N'importe quel serveur HTTP peut donc le faire tourner et en l'occurence, c'est Github qui s'en charge avec le sytème `gh-pages`.
+Ce dépôt contient :
+- la documentation de l'API NodeAtlas. Elle est générée en executant le fichier `generate-doc.bat`.
+- tous les fichiers nécéssaires à la génération du site officiel de NodeAtlas. Celui-ci fonctionne sans Node.js ou autre executable. N'importe quel serveur HTTP peut donc le faire tourner et en l'occurence, c'est Github qui s'en charge avec le sytème `gh-pages`.
 
 
 
@@ -73,7 +74,9 @@ Les sites tourneront aux adresses :
 
 ### Overview ###
 
-This repository contains all required files to generate the NodeAtlas official website. This website run without Node.js or other executable. Any HTTP server can run NodeAtlas, and in our case, it's Github that do the job with `gh-pages` system.
+This repository contains :
+- API documentation of NodeAtlas. To generate it, execute the file `generate-doc.bat`.
+- all required files to generate the NodeAtlas official website. This website run without Node.js or other executable. Any HTTP server can run NodeAtlas, and in our case, it's Github that do the job with `gh-pages` system.
 
 
 

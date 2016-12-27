@@ -1797,7 +1797,7 @@ html(lang="fr-fr")
 *views/partials/header.pug*
 
 ```html
-h1 Welcome
+h1 #{titleWebsite}
 ```
 
 *views/index.pug*

@@ -2684,7 +2684,7 @@
 
     
 
-    <h4 class="name" id="created"><span class="type-signature"></span>created<span class="signature">(Instruction)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="created"><span class="type-signature"></span>created<span class="signature">(callback)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -2727,7 +2727,7 @@
 
         <tr>
             
-                <td class="name"><code>Instruction</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
@@ -2743,7 +2743,7 @@
 
             
 
-            <td class="description last">to execute after initialization of template project.</td>
+            <td class="description last">Instruction to execute after initialization of template project.</td>
         </tr>
 
     
@@ -3205,6 +3205,258 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line176">line 176</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="cssCompilation"><span class="type-signature">(private) </span>cssCompilation<span class="signature">(cssCompilation~callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Engine for compile Preprocessor language without call any CSS files.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cssCompilation~callback</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">callback Next step after Preprocessor compilation.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line353">line 353</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="cssMinification"><span class="type-signature">(private) </span>cssMinification<span class="signature">(cssMinification~callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Engine for minification and concatenation of all files with a Bundle configuration.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cssMinification~callback</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">callback Next step after minification and concatenation of all CSS.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line512">line 512</a>
     </li></ul></dd>
     
 
@@ -4056,7 +4308,7 @@
 
     
 
-    <h4 class="name" id="generated"><span class="type-signature"></span>generated<span class="signature">(Instruction)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="generated"><span class="type-signature"></span>generated<span class="signature">(callback)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -4099,7 +4351,7 @@
 
         <tr>
             
-                <td class="name"><code>Instruction</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
@@ -4115,7 +4367,7 @@
 
             
 
-            <td class="description last">to execute after generation of generates.</td>
+            <td class="description last">Instruction to execute after generation of generates.</td>
         </tr>
 
     
@@ -4635,6 +4887,132 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="lib_global-functions.js.html">lib/global-functions.js</a>, <a href="lib_global-functions.js.html#line174">line 174</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="imgOptimization"><span class="type-signature">(private) </span>imgOptimization<span class="signature">(imgOptimization~callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Engine for optimization of all images with a Bundle configuration.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>imgOptimization~callback</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">callback Next step after optimization of all Images.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line603">line 603</a>
     </li></ul></dd>
     
 
@@ -6344,6 +6722,258 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="lib_front-end-part.js.html">lib/front-end-part.js</a>, <a href="lib_front-end-part.js.html#line604">line 604</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="jsObfuscation"><span class="type-signature">(private) </span>jsObfuscation<span class="signature">(jsObfuscation~callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Engine for obfuscation and concatenation of all files with a Bundle configuration.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>jsObfuscation~callback</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">callback Next step after obfuscation and concatenation of all CSS.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line691">line 691</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="lessCompilation"><span class="type-signature">(private) </span>lessCompilation<span class="signature">(lessCompilation~callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Engine for compile Less file without call any CSS files.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lessCompilation~callback</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">callback Next step after Less compilation.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line376">line 376</a>
     </li></ul></dd>
     
 
@@ -11088,7 +11718,7 @@
 
     
 
-    <h4 class="name" id="started"><span class="type-signature"></span>started<span class="signature">(Instruction)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="started"><span class="type-signature"></span>started<span class="signature">(callback)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -11131,7 +11761,7 @@
 
         <tr>
             
-                <td class="name"><code>Instruction</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
@@ -11147,7 +11777,7 @@
 
             
 
-            <td class="description last">to execute after started a webserver.</td>
+            <td class="description last">Instruction to execute after started a webserver.</td>
         </tr>
 
     
@@ -11238,6 +11868,132 @@
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>require('node-atlas')().started(function () {    // Run another server...    // or    // ...}).run({    generate: true});</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="stylusCompilation"><span class="type-signature">(private) </span>stylusCompilation<span class="signature">(stylusCompilation~callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Engine for compile Stylus file without call any CSS files.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>stylusCompilation~callback</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">callback Next step after Stylus compilation.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_back-end-part.js.html">lib/back-end-part.js</a>, <a href="lib_back-end-part.js.html#line444">line 444</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12893,7 +13649,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Dec 27 2016 15:48:46 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Dec 27 2016 16:27:35 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

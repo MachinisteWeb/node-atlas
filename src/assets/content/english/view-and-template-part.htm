@@ -840,7 +840,7 @@ html(lang=&quot;fr-fr&quot;)
         include partials/header
         include #{routeParameters.view}
         script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
-</code></pre><p><em>views/partials/header.pug</em></p><pre><code class="lang-html">h1 Welcome
+</code></pre><p><em>views/partials/header.pug</em></p><pre><code class="lang-html">h1 #{titleWebsite}
 </code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
     h2 #{specific.titlePage}
     | !{specific.content}
