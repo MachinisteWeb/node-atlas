@@ -207,7 +207,7 @@ There are several ways to install NodeAtlas:
 
    > `npm install node-atlas`
 
-   *This will install* NodeAtlas *in the « node_modules/node-atlas » directory of the execution of the command. Recommended for [use as a module](#api--nodeatlas-as-npm-module) in a project*
+   *This will install* NodeAtlas *in the « node_modules/node-atlas/ » directory of the execution of the command. Recommended for [use as a module](#api--nodeatlas-as-npm-module) in a project*
 
 - **With NPM, into global modules directory** with the following command:
 
@@ -219,7 +219,7 @@ There are several ways to install NodeAtlas:
 
    *This will install* NodeAtlas *in your local repository.*
 
-   *Start at least once NodeAtlas the with the command line `\> node </path/to/>node-atlas/`, to install the _node_modules_. Recommended for participating to project.*
+   *Use `npm install` command from `</path/to/>node-atlas/` directory to install all dependencies. Recommended for participating to project.*
 
 - Download NodeAtlas from the official repository [NodeAtlas](https://node-atlas.js.org/).
 
