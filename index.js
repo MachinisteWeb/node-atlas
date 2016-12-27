@@ -46,7 +46,7 @@ var NA = require("./bin/node-atlas.js");
 
 /* Run script with CLI. */
 if (require.main === module) {
-    (new NA()).start();
+	(new NA()).start();
 }
 
 /* Run script with require as an API. */

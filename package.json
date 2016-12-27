@@ -1,12 +1,12 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta6",
+  "version": "2.0.0-beta7",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
   },
-  "description": "Create server-based and component-based websites easily!",
+  "description": "Progressive web framework config-driven and/or API-driven for building easily realtime websites and webapps or serverless files component-based and service-oriented.",
   "private": false,
   "contributors": [
     {
@@ -16,6 +16,10 @@
     {
       "name": "Tommy Pater",
       "email": "syals@eringan.fr"
+    },
+    {
+      "name": "Pierre Ammeloot",
+      "email": "pierre@ammeloot.fr"
     }
   ],
   "bin": {
@@ -25,15 +29,47 @@
     "type": "git",
     "url": "https://github.com/Haeresis/NodeAtlas.git"
   },
-  "homepage": "https://haeresis.github.io/NodeAtlas",
+  "homepage": "https://node-atlas.js.org/",
   "keywords": [
-    "framework",
-    "manage asset html",
-    "mvc2",
-    "website",
-    "web application",
-    "url rewriting",
-    "multilingual website"
+      "node",
+      "atlas",
+      "nodeatlas",
+      "progressive",
+      "realtime",
+      "web framework",
+      "web application",
+      "mvc2",
+      "website",
+      "webapp",
+      "api",
+      "rest",
+      "view",
+      "controller",
+      "model",
+      "mvc",
+      "i18n",
+      "internationalization",
+      "l10n",
+      "localization",
+      "templating",
+      "serverless",
+      "less",
+      "stylus",
+      "pug",
+      "bundle",
+      "template",
+      "server dom",
+      "url rewriting",
+      "route",
+      "cms",
+      "blog",
+      "express",
+      "socket.io",
+      "service-oriented",
+      "component-based",
+      "config-driven",
+      "api-driven",
+      "french"
   ],
   "license": "GPL-2.0",
   "bugs": {

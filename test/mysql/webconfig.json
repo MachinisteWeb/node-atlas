@@ -8,6 +8,9 @@
             "controller": "index.js"
         }
     },
+    "statics": {
+        "/models": "models/objects"
+    },
     "_mysqlConfig": {
   		"host": "localhost",
   		"user": "root",
