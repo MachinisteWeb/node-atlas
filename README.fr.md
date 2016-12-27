@@ -1,4 +1,4 @@
-# node-atlas #
+httpSecureKeyRelativePath# node-atlas #
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/)
 
@@ -2017,8 +2017,6 @@ exports.changeVariations = function (next, locals, request, response) {
     console.log(locals.common.titleWebsite); // "Titre du site"
     console.log(locals.specific.titlePage); // "Bienvenue"
     console.log(locals.specific.content); // "C'est la page d'accueil."
-
-    console.log(response.charset); // "utf-8"
 
     console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
     console.log("urlSubPath", locals.urlSubPath); // "/example"
@@ -4487,8 +4485,8 @@ Il ne vous reste plus qu'à utiliser la configuration suivante :
 ```json
 {
     "httpSecure": true,
-    "httpSecureRelativeKeyPath": "security/server.key",
-    "httpSecureRelativeCertificatePath": "security/server.crt",
+    "httpSecureKeyRelativePath": "security/server.key",
+    "httpSecureCertificateRelativePath": "security/server.crt",
     "routes": {
         "/": {
             "view": "index.htm"

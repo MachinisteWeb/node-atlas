@@ -149,19 +149,33 @@ website.init({
 						</div>
 					</div>
 					<div class="download--info">
-						<div class="download--about is-active">
+						<div class="download--tuto is-active">
+							<h2>Tutorials</h2>
+							<div class="download--tuto--inner">
+								<div class="download--tuto--step1">
+									<a href="overview.html#overview"><span>Learn</span> <i class="fa fa-book" aria-hidden="true"></i> from step by step guide</a>
+								</div>
+								<div class="download--tuto--step2">
+									<span>or</span>
+								</div>
+								<div class="download--tuto--step3">
+									<div class="download--tuto--step3--first">
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Create</span> <i class="fa fa-html5" aria-hidden="true"></i> international websites (FR)</a>
+									</div>
+									<div class="download--tuto--step3--second">
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Manage</span> <i class="fa fa-copy" aria-hidden="true"></i> Serverless HTML Assets (FR)</a>
+									</div>
+									<div class="download--tuto--step3--third">
+										<a href="https://github.com/Haeresis?tab=repositories"><span>Develop</span> <i class="fa fa-database" aria-hidden="true"></i> real-time web applications</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="download--about">
 							<h2>Overview</h2>
 							<div class="download--about--inner">
 								<div class="download--about--step1">
 									NodeAtlas is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy component-based and/or service-oriented websites in order to create great things with standards compliance!
-								</div>
-							</div>
-						</div>
-						<div class="download--tuto">
-							<h2>Tutorials</h2>
-							<div class="download--tuto--inner">
-								<div class="download--tuto--step1">
-									Comming soon...
 								</div>
 							</div>
 						</div>
@@ -266,7 +280,11 @@ website.init({
 					<h2 id="development-environment">Development Environment</h2><p>NodeAtlas use Node.js which is developed on V8 Engine. The V8 Engine is also used by Google Chrome and Chromium which do NodeAtlas could be debug with this environment.</p><h3 id="front-end-debug">Front-end Debug</h3><p>You could debug your HTML render, your CSS files and your JavaScript front-end code in the same way that you&#39;ll do that with a simple HTML website or another technology. You have acces with F12 to the JavaScript console, to DOM editable elements, to the CSS property and animation editor and also to the JavaScript file débug system.</p><p>The new thing introduce with NodeAtlas is into the CSS editor. Instead of show you name and line of CSS file for rules of an element, if this CSS file was generated from a Stylus or Less, it&#39;s the Stylus or Less name and line that you&#39;ll see in the editor.</p><h3 id="back-end-debug">Back-end Debug</h3><p>From Node.js v6.6+, you could debug your Back-end code with Google Chrome. You have just to do that to use the <code>--inspect</code> option of node.</p><p>Create for example a starting point file like this :</p><pre><code class="lang-javascript">require(&quot;node-start&quot;)().start()
 </code></pre><p>and run the following command :</p><pre><code>node --inspect server.js
 </code></pre><p>The engine will communicate you the url of a page to display in Chrome. Go to this page to see all messages from console into the <code>console</code> tab, to debug your code with all Back-end files used in <code>source</code> and tests the perfs with <code>profile</code>.</p><h3 id="devices-tests">Devices Tests</h3><p>For test your app or website during the development phase on your mobile and pad you must connect your development machine and all devices on the same local network.</p><p>For example, connect all your devices on the same Wifi network. Then, find on this network the ip address of your development machine. On Windows, this could be done with the <code>ipconfig</code> for example.</p><p>When you obtain your ip, just set the hostname and the listening port for your NodeAtlas development instance:</p><pre><code>nodeatlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
-</code></pre><p>And that will open the website here : <code>http://192.168.1.24:7777/</code>.</p><p>You just now reach the url from your other devices to test the render of your app or website.</p>
+</code></pre><p>And that will open the website here : <code>http://192.168.1.24:7777/</code>.</p><p>You just now reach the url from your other devices to test the render of your app or website.</p><div><div class="before">
+                            <a href="nodeatlas-as-a-simple-web-server.html">◄ NodeAtlas as a simple web server</a>
+                        </div><div class="after">
+                            <a href="production-environment.html">Production Environment ►</a>
+                        </div></div>
 				</div>
 			</div>
 			<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>

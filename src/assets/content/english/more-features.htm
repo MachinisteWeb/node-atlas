@@ -367,8 +367,8 @@ exports.setRoutes = function (next) {
 }
 </code></pre><h3 id="run-website-with-https">Run Website with HTTPs</h3><p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol.</p><p>Just use the following configuration:</p><pre><code class="lang-json">{
     &quot;httpSecure&quot;: true,
-    &quot;httpSecureRelativeKeyPath&quot;: &quot;security/server.key&quot;,
-    &quot;httpSecureRelativeCertificatePath&quot;: &quot;security/server.crt&quot;,
+    &quot;httpSecureKeyRelativePath&quot;: &quot;security/server.key&quot;,
+    &quot;httpSecureCertificateRelativePath&quot;: &quot;security/server.crt&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -1432,4 +1432,8 @@ exports.setSessions = website.setSessions;
       &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre>
+</code></pre><div><div class="before">
+                            <a href="controller-and-model-part.html">◄ Controller and Model Part</a>
+                        </div><div class="after">
+                            <a href="cli-running-commands.html">CLI / Running commands ►</a>
+                        </div></div>

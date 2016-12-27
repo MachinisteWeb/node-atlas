@@ -292,6 +292,12 @@
 			     -o-transform translate(-50%, -50%) 
 			        transform translate(-50%, -50%)	
 		&--step1
+			-webkit-transition opacity 1s ease 
+			   -moz-transition opacity 1s ease 
+			    -ms-transition opacity 1s ease 
+			     -o-transition opacity 1s ease 
+			        transition opacity 1s ease 
+			opacity .3
 			-webkit-box-sizing border-box
 			   -moz-box-sizing border-box
 			        box-sizing border-box
@@ -310,6 +316,9 @@
 			font-family "Open Sans"
 			text-align justify
 			text-shadow 1px 1px 2px rgba(255, 255, 255, 1), -1px 1px 2px rgba(255, 255, 255, 1), 1px -1px 2px rgba(255, 255, 255, 1), -1px -1px 2px rgba(255, 255, 255, 1)
+		&.is-active
+			& ^[1]--step1
+				opacity 1
 	&--cli
 		left 0
 		z-index 2
@@ -358,13 +367,15 @@
 		right 0
 		z-index 1
 		text-align center
+		text-shadow: 1px 1px 2px #fff, -1px 1px 2px #fff, 1px -1px 2px #fff, -1px -1px 2px #fff;
+		font-size 1.5rem 
 		h2
 			text-align right
 			left auto 
 			right -1px
 		&--inner
 			width calc(100% - 40px)
-			min-width 350px
+			min-width 320px
 			position absolute
 			top 50%
 			left 50%
@@ -374,11 +385,107 @@
 			     -o-transform translate(-50%, -50%) 
 			        transform translate(-50%, -50%)	
 		&--step1
+			display none
+			@media (min-width 910px)
+				display block
+			-webkit-box-sizing border-box
+			   -moz-box-sizing border-box
+			        box-sizing border-box
+			float left
+			width calc(20% - 20px)
+			font-weight bold
+			.fa-book
+				font-size 6rem
+				display block
+				margin-bottom 10px
+				margin-top 10px
+			a
+				color #555
+				&:hover
+					color #c00
+			span
+				font-size 2rem
+		&--step2
+			display none
+			@media (min-width 910px)
+				display block
+			-webkit-box-sizing border-box
+			   -moz-box-sizing border-box
+			        box-sizing border-box
+			float left
+			margin-left 38px
+			width 2px
+			height 50px
+			padding-top 30px
+			padding-bottom 30px
+			border 0 
+			border-top 40px solid #669f64
+			border-bottom 40px solid #669f64
+			position relative
+			span
+				font-weight bold
+				position absolute
+				top 50%
+				left 50%
+				font-size 2rem
+				color #669f64
+				-webkit-transform translate(-50%, -50%)
+				   -moz-transform translate(-50%, -50%)
+				    -ms-transform translate(-50%, -50%)
+				     -o-transform translate(-50%, -50%)
+				        transform translate(-50%, -50%)
+		&--step3
 			-webkit-box-sizing border-box
 			   -moz-box-sizing border-box
 			        box-sizing border-box
 			float left
 			width 100%
+			@media (min-width 910px)
+				width calc(80% - 20px)
+			font-weight bold
+			a
+				color #555
+				&:hover
+					color #c00
+			font-size 1.2rem
+			span
+				font-size 1.2rem
+			@media (min-width 520px)
+				font-size 1.5rem
+				span
+					font-size 2rem
+			.fa-database
+			.fa-copy
+			.fa-html5
+				font-size 6rem
+				display block
+				margin-bottom 10px
+				margin-top 10px
+			&--first
+			&--second
+				position relative
+				&::after
+					color #555 
+					content "➤"
+					display block
+					position absolute
+					right -24px
+					top 50%
+					-webkit-transform translateY(-50%) 
+					   -moz-transform translateY(-50%) 
+					    -ms-transform translateY(-50%) 
+					     -o-transform translateY(-50%) 
+					        transform translateY(-50%) 
+			&--first
+			&--second
+			&--third
+				-webkit-box-sizing border-box
+				   -moz-box-sizing border-box
+				        box-sizing border-box
+				float left
+				width 25%
+				margin-left: 4.16666666%
+				margin-right: 4.16666666%
 	&--api
 		right 0
 		z-index 1

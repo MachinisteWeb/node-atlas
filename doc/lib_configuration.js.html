@@ -27,19 +27,97 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/*------------------------------------*\
-    $%CONFIGURATION
+    CONFIGURATION
 \*------------------------------------*/
 /* jslint node: true */
 
 /**
- * Set line command options usable when NodeAtlas is executed as CLI.
+ * Set required variables for application and CLI language messages.
  * @private
- * @function lineCommandConfiguration
+ * @function initRequiredVars
  * @memberOf NA#
+ * @this NA
  */
-exports.lineCommandConfiguration = function () {
+exports.initRequiredVars = function () {
     var NA = this,
-        commander = NA.modules.commander;
+        path = NA.modules.path;
+
+    /**
+     * Name of file which contains language error messages. The name of file is without extension.
+     * @private
+     * @alias cliLanguage
+     * @type {string}
+     * @memberOf NA#
+     * @default "default"
+     */
+    NA.cliLanguage = "default";
+
+    /**
+     * All internationalize labels from `NA#cliLanguage` file.
+     * @private
+     * @alias cliLabels
+     * @type {Object}
+     * @memberOf NA#
+     */
+    NA.cliLabels = require("../languages/" + NA.cliLanguage + ".json");
+
+    /**
+     * OS absolute path which contains NodeAtlas folders and files.
+     * @public
+     * @alias nodeatlasPath
+     * @type {string}
+     * @memberOf NA#
+     * @default « The path where `node-atlas` module is. »
+     */
+    NA.nodeatlasPath = path.join(__dirname, "..");
+
+    /**
+     * Contain all functions of controllers both common and specific.
+     * @namespace controllers[]
+     * @private
+     * @alias controllers
+     * @type {Array.&lt;Object>}
+     * @memberOf NA#
+     * @example // Functions for common controller if `commonController` value is "common.json".
+     * NA.controllers["common.json"].setModules(...);
+     * NA.controllers["common.json"].setSessions(...);
+     * NA.controllers["common.json"].setSockets(...);
+     * NA.controllers["common.json"].setConfigurations(...);
+     * NA.controllers["common.json"].setRoutes(...);
+     * NA.controllers["common.json"].changeVariations(...);
+     * NA.controllers["common.json"].changeDom(...);
+     *
+     * // Functions for specific controller if a route `controller` value is "index.json".
+     * NA.controllers["index.json"].setSockets(...);
+     * NA.controllers["index.json"].changeVariations(...);
+     * NA.controllers["index.json"].changeDom(...);
+     */
+    NA.controllers = [];
+};
+
+/**
+ * Set command line options usable when NodeAtlas is executed as CLI.
+ * @private
+ * @function initCliConfiguration
+ * @memberOf NA#
+ * @this NA
+ */
+exports.initCliConfiguration = function () {
+    var NA = this,
+        commander = NA.modules.commander,
+        commands = [
+            "lang",
+            "generate",
+            "create",
+            "httpSecure",
+            "browse",
+            "cache",
+            "directory",
+            "webconfig",
+            "httpHostname",
+            "httpPort",
+        ],
+        i;
 
     commander
 
@@ -77,148 +155,51 @@ exports.lineCommandConfiguration = function () {
         .option(NA.cliLabels.commander.lang.command, NA.cliLabels.commander.lang.description)
         .parse(process.argv);
 
-    /* `generate` manually setted value with `--generate`. */
-    if (commander.generate) {
-        NA.configuration.generate = commander.generate;
-    }
-
-    /* `cache` manually setted value with `--cache`. */
-    if (commander.cache) {
-        NA.configuration.cache = commander.cache;
-    }
-
-    /* `lang` manually setted value with `--lang`. */
-    if (commander.lang) {
-        NA.configuration.lang = commander.lang;
-    }
-
-    /* `init` manually setted value with `--create`. */
-    if (commander.create) {
-        NA.configuration.create = commander.create;
-    }
-
-    /* `httpSecure` manually setted value with `--httpSecure`. */
-    if (commander.httpSecure) {
-        NA.configuration.httpSecure = commander.httpSecure;
-    }
-
-    /* `browse` manually setted value with `--browse`. */
-    if (commander.browse) {
-        NA.configuration.browse = commander.browse;
+    /* `NA#configuration.xxx` setted from `--xxx`. */
+    for (i = 0; i &lt; commands.length; i++) {    
+        if (commander[commands[i]]) {
+            NA.configuration[commands[i]] = commander[commands[i]];
+        }
     }
 };
 
 /**
- * Set main variables for application and language error messages.
+ * Set required variables for the webconfig depending of NPM modules.
  * @private
- * @function initGlobalVar
+ * @function initRequiredNpmModulesVars
  * @memberOf NA#
+ * @this NA
  */
-exports.initGlobalVar = function () {
+exports.initRequiredNpmModulesVars = function () {
     var NA = this,
         path = NA.modules.path;
 
-    /**
-     * Name of file which contains language error messages. The name of file is without extension.
-     * @public
-     * @alias cliLanguage
-     * @type {String}
-     * @memberOf NA#
-     * @default "default"
-     */
-    NA.cliLanguage = 'default';
-
-    /**
-     * OS absolute path which contains NodeAtlas folders and files.
-     * @public
-     * @alias nodeatlasPath
-     * @type {string}
-     * @memberOf NA#
-     * @default « The path where `node-atlas` module is. »
-     */
-    NA.nodeatlasPath = path.join(__dirname, "..");
-
-    /**
-     * All internationalize labels from `NA#cliLanguage` file.
-     * @public
-     * @alias cliLabels
-     * @type {Object}
-     * @memberOf NA#
-     */
-    NA.cliLabels = require('../languages/' + NA.cliLanguage + '.json');
-
-    /**
-     * Contain all functions of controllers both common and specific.
-     * @namespace controllers[]
-     * @private
-     * @alias controllers
-     * @type {Array.&lt;Object>}
-     * @memberOf NA#
-     * @example // Functions for common controller if `commonController` value is "common.json".
-     * NA.controllers["common.json"].setModules(...);
-     * NA.controllers["common.json"].setSessions(...);
-     * NA.controllers["common.json"].setSockets(...);
-     * NA.controllers["common.json"].setConfigurations(...);
-     * NA.controllers["common.json"].setRoutes(...);
-     * NA.controllers["common.json"].changeVariations(...);
-     * NA.controllers["common.json"].changeDom(...);
-     *
-     * // Functions for specific controller if a route `controller` value is "index.json".
-     * NA.controllers["index.json"].setSockets(...);
-     * NA.controllers["index.json"].changeVariations(...);
-     * NA.controllers["index.json"].changeDom(...);
-     */
-    NA.controllers = [];
-};
-
-/**
- * Set main variables for webconfig.
- * @private
- * @function initGlobalVarRequiredNpmModules
- * @memberOf NA#
- */
-exports.initGlobalVarRequiredNpmModules = function () {
-    var NA = this,
-        commander = NA.modules.commander,
-        path = NA.modules.path,
-        regex = new RegExp(path.sep + path.sep + '?$', 'g');
-
-    /* `serverPath` manually setted value with `NA#config`. */
-    if (commander.directory) {
-        NA.configuration.directory = commander.directory;
-    }
-
-    if (typeof NA.configuration.directory !== 'string') {
+    if (typeof NA.configuration.directory !== "string") {
 
         /**
-         * OS absolute path that contains webconfig and website.
+         * System files path to the NodeAtlas project directory (webconfig + website folder tree).
          * @public
          * @alias serverPath
-         * @type {String}
+         * @type {string}
          * @memberOf NA#
-         * @default « `--directory` value » || « Path from NodeAtlas is called ».
+         * @default « System files path from NodeAtlas is called ».
          */
-        NA.serverPath = process.cwd() + path.sep;
+        NA.serverPath = path.join(process.cwd(), "/");
     } else {
 
-        /* `NA#serverPath` manually setted value with `--directory`. */
-        NA.serverPath = NA.configuration.directory.replace(regex, '') + path.sep;
+        /* `NA#serverPath` setted from CLI command parameters or API configuration options. */
+        NA.serverPath = path.join(NA.configuration.directory, "/");
     }
 
     /**
-     * Name of the webconfig used for run the website.
+     * Name of the webconfig used for run the NodeAtlas project website.
      * @public
      * @alias webconfigName
      * @type {string}
      * @memberOf NA#
      * @default "webconfig.json".
      */
-    NA.webconfigName = 'webconfig.json';
-
-    /* `webconfigName` manually setted value with `--webconfig`. */
-    if (commander.webconfig) {
-        NA.configuration.webconfig = commander.webconfig;
-    }
+    NA.webconfigName = "webconfig.json";
 
     /* `webconfigName` manually setted value with `NA#config`. */
     if (NA.configuration.webconfig) {
@@ -228,13 +209,14 @@ exports.initGlobalVarRequiredNpmModules = function () {
 
 /**
  * Decide to run a « Simple Web Server » or a « With Weconfig Server » depending to webconfig opening success.
- * If webconfig is correctly openned, the `NA#improveWebconfigBase` and `callback` function will be run, else, just `NA#simpleWebServer` will be run.
+ * If webconfig is correctly openned, the `NA#createWebconfig` and `callback` function will be run, else, just `NA#simpleWebServer` will be run.
  * @private
- * @function initWebconfig
+ * @function initWebsite
  * @memberOf NA#
- * @param {initWebconfig~callback} callback Calling next processus if webconfig opening is a success.
+ * @this NA
+ * @param {NA~callback} next Called if webconfig is correctly openned.
  */
-exports.initWebconfig = function (callback) {
+exports.initWebsite = function (next) {
     var NA = this;
 
     /* Webconfig based website... */
@@ -245,34 +227,84 @@ exports.initWebconfig = function (callback) {
             return NA.simpleWebServer();
         }
 
-        NA.improveWebconfigBase();
+        /* Construction of webconfig. */
+        NA.createWebconfig();
 
-        /**
-         * Next step !
-         * @callback initWebconfig~callback
-         */
-        callback();
+        next();
     });
 };
 
 /**
- * Set default webconfig's value from possibly external files for compress files.
+ * Set routes, statics and prefix routes.
  * @private
- * @function setCompressionDirectiveAsWebconfigBase
- * @memberOf NA#
+ * @function setWebconfigRoutes
+ * @memberOf NA~
  */
-exports.setCompressionDirectiveAsWebconfigBase = function () {
-    var NA = this;
+function setWebconfigRoutes(NA) {
+    var path = NA.modules.path,
+        url = NA.modules.url;
+
+    /**
+     * Adding subfolder to original url.
+     * @public
+     * @alias urlRelativeSubPath
+     * @type {string}
+     * @memberOf NA#webconfig
+     * @default ""
+     * @example
+     * // If `NA#webconfig.urlRelativeSubPath` is setted to "example"
+     * // Website will run by default to « http://localhost/example »
+     */
+    if (NA.webconfig.urlRelativeSubPath) {
+        NA.webconfig.urlRelativeSubPath = url.format(path.join("/", NA.webconfig.urlRelativeSubPath)).replace(/\/+$/g, "");
+    } else {
+        NA.webconfig.urlRelativeSubPath = "";
+    }
+
+    if (typeof NA.webconfig.routes === "string") {
+
+        /**
+         * Contain all routes into an Object or an Array depending how the intial format setted.
+         * @public
+         * @alias routes
+         * @type {Object|Array}
+         * @memberOf NA#webconfig
+         * @default « The webconfig's object property `routes` »
+         */
+        NA.webconfig.routes = NA.openConfiguration(NA.webconfig.routes);
+    }
+
+    if (typeof NA.webconfig.statics === "string") {
+
+        /**
+         * Contain all statics files into an Object or an Array depending how the intial format setted.
+         * @public
+         * @alias statics
+         * @type {Object|Array}
+         * @memberOf NA#webconfig
+         * @default « The webconfig's object property `statics` »
+         */
+        NA.webconfig.statics = NA.openConfiguration(NA.webconfig.statics);
+    }
+}
+
+/**
+ * Set bundles and optimizations.
+ * @private
+ * @function setWebconfigCompressions
+ * @memberOf NA~
+ */
+function setWebconfigCompressions(NA) {
 
     if (typeof NA.webconfig.bundles === 'string') {
 
         /**
-         * Contain bundle configuration for CSS and JS minification in JSON format.
+         * Configuration for CSS minification/bundle and JS obfuscation/bundle.
          * @public
          * @alias bundles
          * @type {Object}
          * @memberOf NA#webconfig
-         * @property {Object} bundles             The Bundles object.
+         * @property {Object} bundles             The bundles object.
          * @property {Object} bundles.javascript  Each object name represent an output javascript file and each property of object represent an array of inputs files.
          * @property {Object} bundles.stylesheets Each object name represent an output stylesheets file and each property of object represent an array of inputs files.
          * @example {
@@ -303,12 +335,12 @@ exports.setCompressionDirectiveAsWebconfigBase = function () {
     if (typeof NA.webconfig.optimizations === 'string') {
 
         /**
-         * Contain optimizations configuration for Images optimizations.
+         * Configuration for Images optimizations.
          * @public
          * @alias optimizations
          * @type {Object}
          * @memberOf NA#webconfig
-         * @property {Object} optimizations        The Optimizations object.
+         * @property {Object} optimizations        The optimizations object.
          * @property {Object} optimizations.images Each object name represent an input image file and object value represent an output folder.
          * @example {
          *     "jpg": { "progressive": true },
@@ -316,22 +348,21 @@ exports.setCompressionDirectiveAsWebconfigBase = function () {
          *     "png": { "optimizationLevel": 3 },
          *     "svg": { "multipass": true },
          *     "images": {
-         *     "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+         *         "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
          *     }
          * }
          */
         NA.webconfig.optimizations = NA.openConfiguration(NA.webconfig.optimizations);
     }
-};
+}
 
 /**
- * Set default webconfig's value from possibly external files for preprocessor files.
+ * Set enablePug, enableLess and enbaleStylus.
  * @private
- * @function setPreprocessorDirectiveAsWebconfigBase
- * @memberOf NA#
+ * @function setWebconfigPreprocessors
+ * @memberOf NA~
  */
-exports.setPreprocessorDirectiveAsWebconfigBase = function () {
-    var NA = this;
+function setWebconfigPreprocessors(NA) {
 
     /**
      * Enable Pug preprocessor.
@@ -360,15 +391,15 @@ exports.setPreprocessorDirectiveAsWebconfigBase = function () {
             compress: false,
             sourceMap: true
         };
-    } else if (typeof NA.webconfig.enableLess === 'object' &amp;&amp; typeof NA.webconfig.enableLess.less === 'string') {
+    } else if (typeof NA.webconfig.enableLess === "object" &amp;&amp; typeof NA.webconfig.enableLess.less === "string") {
 
         /**
-         * Contain Less files required for compilation in JSON format.
+         * Contain Less files required for compilation.
          * @public
          * @alias less
          * @type {Object}
          * @memberOf NA#webconfig.enableLess
-         * @property {Array.&lt;String>} less The file for compilation in an Array.
+         * @property {Array.&lt;string>} less The file for compilation in an Array.
          * @example {
          *     "less": [
          *         "stylesheets/common.less",
@@ -399,12 +430,12 @@ exports.setPreprocessorDirectiveAsWebconfigBase = function () {
     } else if (typeof NA.webconfig.enableStylus === 'object' &amp;&amp; typeof NA.webconfig.enableStylus.stylus === 'string') {
 
         /**
-         * Contain Stylus files required for compilation in JSON format.
+         * Contain Stylus files required for compilation.
          * @public
          * @alias stylus
          * @type {Object}
          * @memberOf NA#webconfig.enableStylus
-         * @property {Array.&lt;String>} stylus The file for compilation in an Array.
+         * @property {Array.&lt;string>} stylus The file for compilation in an Array.
          * @example {
          *     "stylus": [
          *         "stylesheets/common.styl",
@@ -416,61 +447,17 @@ exports.setPreprocessorDirectiveAsWebconfigBase = function () {
          */
         NA.webconfig.enableStylus.stylus = NA.openConfiguration(NA.webconfig.enableStylus.stylus);
     }
-};
+}
 
 /**
- * Set default webconfig's value from possibly external routes.
+ * Set NodeAtlas directory names.
  * @private
- * @function setExternalRoutesAsWebconfigBase
- * @memberOf NA#
+ * @function setWebconfigDirectories
+ * @memberOf NA~
  */
-exports.setExternalRoutesAsWebconfigBase = function () {
-    var NA = this;
+function setWebconfigDirectories(NA) {
 
-    /* Adding path to original url. */
-    if (typeof NA.webconfig.urlRelativeSubPath !== 'undefined' &amp;&amp; NA.webconfig.urlRelativeSubPath) {
-
-        /**
-         * Adding subfolder to original url.
-         * @public
-         * @alias urlRelativeSubPath
-         * @type {string}
-         * @memberOf NA#webconfig
-         * @default undefined.
-         * @example
-         * // If `NA#webconfig.urlRelativeSubPath` is setted to "example"
-         * // Website will run by default to « http://localhost/example/ »
-         */
-        NA.webconfig.urlRelativeSubPath = '/' + NA.webconfig.urlRelativeSubPath.replace(/^\//g, "").replace(/\/$/g, "");
-    } else {
-        NA.webconfig.urlRelativeSubPath = "";
-    }
-
-    if (typeof NA.webconfig.routes === 'string') {
-
-        /**
-         * Contain all routes on JSON format.
-         * @public
-         * @alias routes
-         * @type {Object}
-         * @memberOf NA#webconfig
-         * @default The webconfig's object property `routes`.
-         */
-        NA.webconfig.routes = NA.openConfiguration(NA.webconfig.routes);
-    }
-};
-
-
-/**
- * Set default webconfig's value possibly undefined from webconfig.
- * @private
- * @function setDirectoriesAsWebconfigBase
- * @memberOf NA#
- */
-exports.setDirectoriesAsWebconfigBase = function () {
-    var NA = this;
-
-    if (typeof NA.webconfig.variationsRelativePath === 'undefined') {
+    if (typeof NA.webconfig.variationsRelativePath === "undefined") {
 
         /**
          * Language and variable variation files folder depending of languages.
@@ -478,12 +465,12 @@ exports.setDirectoriesAsWebconfigBase = function () {
          * @alias variationsRelativePath
          * @type {string}
          * @memberOf NA#webconfig
-         * @default "variations".
+         * @default "variations"
          */
-        NA.webconfig.variationsRelativePath = 'variations';
+        NA.webconfig.variationsRelativePath = "variations";
     }
 
-    if (typeof NA.webconfig.controllersRelativePath === 'undefined') {
+    if (typeof NA.webconfig.controllersRelativePath === "undefined") {
 
         /**
          * Controller folder for Back-end part.
@@ -491,13 +478,13 @@ exports.setDirectoriesAsWebconfigBase = function () {
          * @alias controllersRelativePath
          * @type {string}
          * @memberOf NA#webconfig
-         * @default "controllers".
+         * @default "controllers"
          */
-        NA.webconfig.controllersRelativePath = 'controllers';
+        NA.webconfig.controllersRelativePath = "controllers";
     }
 
     /* Path to view. */
-    if (typeof NA.webconfig.viewsRelativePath === 'undefined') {
+    if (typeof NA.webconfig.viewsRelativePath === "undefined") {
 
         /**
          * View folder for Template Engine files.
@@ -505,12 +492,12 @@ exports.setDirectoriesAsWebconfigBase = function () {
          * @alias viewsRelativePath
          * @type {string}
          * @memberOf NA#webconfig
-         * @default "views".
+         * @default "views"
          */
-        NA.webconfig.viewsRelativePath = 'views';
+        NA.webconfig.viewsRelativePath = "views";
     }
 
-    if (typeof NA.webconfig.assetsRelativePath === 'undefined') {
+    if (typeof NA.webconfig.assetsRelativePath === "undefined") {
 
         /**
          * Folder for public file like images, CSS, JS...
@@ -518,12 +505,12 @@ exports.setDirectoriesAsWebconfigBase = function () {
          * @alias assetsRelativePath
          * @type {string}
          * @memberOf NA#webconfig
-         * @default "assets".
+         * @default "assets"
          */
-        NA.webconfig.assetsRelativePath = 'assets';
+        NA.webconfig.assetsRelativePath = "assets";
     }
 
-    if (typeof NA.webconfig.serverlessRelativePath === 'undefined') {
+    if (typeof NA.webconfig.serverlessRelativePath === "undefined") {
 
         /**
          * HTML assets generation Folder.
@@ -531,40 +518,20 @@ exports.setDirectoriesAsWebconfigBase = function () {
          * @alias serverlessRelativePath
          * @type {string}
          * @memberOf NA#webconfig
-         * @default "serverless".
+         * @default "serverless"
          */
-        NA.webconfig.serverlessRelativePath = 'serverless';
+        NA.webconfig.serverlessRelativePath = "serverless";
     }
-};
+}
 
 /**
- * Set default Http Port value possibly undefined from webconfig.
+ * Set HTTP Port and HTTP hostname.
  * @private
- * @function setHttpValuesAsWebconfigBase
- * @memberOf NA#
+ * @function setWebconfigHost
+ * @memberOf NA~
  */
-exports.setHttpValuesAsWebconfigBase = function () {
-    var NA = this,
-        commander = NA.modules.commander;
-
-    /**
-     * Avoil all caching at all level (server, template engine...). Do not use in production.
-     * @public
-     * @alias cache
-     * @type {boolean}
-     * @memberOf NA#webconfig
-     * @default false
-     */
-    NA.webconfig.cache = commander.cache || NA.webconfig.cache || false;
-
-    /**
-     * Define is site is running with HTTP(S) protocol.
-     * @public
-     * @alias httpSecure
-     * @type {boolean}
-     * @memberOf NA#webconfig
-     */
-    NA.webconfig.httpSecure = commander.httpSecure || NA.webconfig.httpSecure;
+function setWebconfigHost(NA) {
+    var defaultPort = NA.webconfig.httpSecure ? 443 : 80;
 
     /**
      * Server listening port.
@@ -572,24 +539,9 @@ exports.setHttpValuesAsWebconfigBase = function () {
      * @alias httpPort
      * @type {string}
      * @memberOf NA#webconfig
-     * @default « The webconfig's property `httpPort` » || « The `process.env.PORT` if setted » || 80
+     * @default « The webconfig's property `httpPort` » || « The `process.env.PORT` if setted » || « 443/80 default port »
      */
-    NA.webconfig.httpPort = NA.webconfig.httpPort || process.env.PORT || ((NA.webconfig.httpSecure) ? 443 : 80);
-
-    /* `httpPort` manually setted value with `--httpPort`. */
-    if (commander.httpPort) {
-        NA.configuration.httpPort = commander.httpPort;
-    }
-
-    /* `httpPort` manually setted value with `NA.config`. */
-    if (NA.configuration.httpPort) {
-        NA.webconfig.httpPort = NA.configuration.httpPort;
-    }
-
-    /* `cache` manually setted value with `NA.config`. */
-    if (NA.configuration.cache) {
-        NA.webconfig.cache = NA.configuration.cache;
-    }
+    NA.webconfig.httpPort = NA.configuration.httpPort || NA.webconfig.httpPort || process.env.PORT || defaultPort;
 
     /**
      * Url access port (for reverse proxy).
@@ -602,93 +554,83 @@ exports.setHttpValuesAsWebconfigBase = function () {
     NA.webconfig.urlPort = NA.webconfig.urlPort || NA.webconfig.httpPort;
 
     /**
-     * Server listening hostname by http.
+     * Server listening hostname by HTTP.
      * @public
      * @alias httpHostname
      * @type {string}
      * @memberOf NA#webconfig
      * @default « The webconfig's property `httpHostname` » || « The `process.env.IP_ADDRESS` if setted » || "localhost";
      */
-    NA.webconfig.httpHostname = NA.webconfig.httpHostname || process.env.IP_ADDRESS || 'localhost';
-
-    /* `httpHostname` manually setted value with `--httpHostname`. */
-    if (commander.httpHostname) {
-        NA.configuration.httpHostname = commander.httpHostname;
-    }
-
-    /* `httpHostname` manually setted value with `NA.config`. */
-    if (NA.configuration.httpHostname) {
-        NA.webconfig.httpHostname = NA.configuration.httpHostname;
-    }
+    NA.webconfig.httpHostname = NA.configuration.httpHostname || NA.webconfig.httpHostname || process.env.IP_ADDRESS || "localhost";
 
     /**
-     * Url access hostname by http (for reverse proxy).
+     * Url access hostname (for reverse proxy).
      * @public
      * @alias urlHostname
      * @type {string}
      * @memberOf NA#webconfig
-     * @default undefined.
+     * @default undefined
      */
     NA.webconfig.urlHostname = NA.webconfig.urlHostname || NA.webconfig.httpHostname;
-};
+}
 
 /**
- * Set all default webconfig's value into `NA#webconfig`.
+ * Set default Cache and Secure.
  * @private
- * @function improveWebconfigBase
- * @memberOf NA#
+ * @function setWebconfigSecure
+ * @memberOf NA~
  */
-exports.improveWebconfigBase = function () {
-    var NA = this,
-        ejs = NA.modules.ejs;
+function setWebconfigSecure(NA) {
 
     /**
-     * Content of Webconfig file enhenced by `NA#configuration` and CLI commands.
-     * @namespace webconfig
+     * Avoil all caching at all level (server, template engine...). Do not use in production.
      * @public
-     * @alias webconfig
-     * @type {Object}
-     * @memberOf NA#
+     * @alias cache
+     * @type {boolean}
+     * @memberOf NA#webconfig
+     * @default false
      */
-    NA.webconfig = NA.openConfiguration(NA.webconfigName);
-
-    /* Set external routes as a part of default webconfig. */
-    NA.setExternalRoutesAsWebconfigBase();
-
-    /* Set external files for compression as a part of default webconfig. */
-    NA.setCompressionDirectiveAsWebconfigBase();
-
-    /* Set external files for preprocessing as a part of default webconfig. */
-    NA.setPreprocessorDirectiveAsWebconfigBase();
-
-    /* Set value possibly undefined from default webconfig. */
-    NA.setDirectoriesAsWebconfigBase();
-
-    /* Set the httpPort, httpHost, urlPort and urlHost for default webconfig. */
-    NA.setHttpValuesAsWebconfigBase();
+    NA.webconfig.cache = NA.configuration.cache || NA.webconfig.cache || false;
 
     /**
-     * Set open and close bracket used by Teplate Engine.
+     * Define is site is running with HTTP(S) protocol.
      * @public
-     * @alias templateEngineDelimiter
+     * @alias httpSecure
+     * @type {boolean|string|Object}
+     * @memberOf NA#webconfig
+     * @default false
+     */
+    NA.webconfig.httpSecure = NA.configuration.httpSecure || NA.webconfig.httpSecure || false;
+
+    /**
+     * Define the path to the Private Key for HTTPs.
+     * @public
+     * @alias httpSecureKeyRelativePath
      * @type {string}
      * @memberOf NA#webconfig
-     * @default '?'.
      */
-    ejs.delimiter = NA.webconfig.templateEngineDelimiter || "?";
+    NA.webconfig.httpSecureKeyRelativePath = NA.webconfig.httpSecureKeyRelativePath || ((typeof NA.webconfig.httpSecure === "string") ? NA.webconfig.httpSecure + ".key" : null);
 
     /**
-     * Deliver the client-side window.NA.socket and window.NA.io object.
+     * Define the path to the Certificate for HTTPs.
      * @public
-     * @alias urlSocketsFile
+     * @alias httpSecureCertificateRelativePath
      * @type {string}
      * @memberOf NA#webconfig
-     * @default "/node-atlas/socket.io.js"
      */
-    NA.webconfig.urlSocketsFile = (NA.webconfig.urlSocketsFile === false) ? false : (NA.webconfig.urlSocketsFile || "/node-atlas/socket.io.js");
+    NA.webconfig.httpSecureCertificateRelativePath = NA.webconfig.httpSecureCertificateRelativePath || ((typeof NA.webconfig.httpSecure === "string") ? NA.webconfig.httpSecure + ".crt" : null);
+}
+
+/**
+ * Set the mimeType, charset and headers.
+ * @private
+ * @function setWebconfigHeaders
+ * @memberOf NA~
+ */
+function setWebconfigHeaders(NA) {
 
     /**
-     * Default Content Type used for all pages.
+     * Default Content-Type used for all pages.
      * @public
      * @alias mimeType
      * @type {string}
@@ -716,24 +658,56 @@ exports.improveWebconfigBase = function () {
      * @default {}
      */
     NA.webconfig.headers = NA.webconfig.headers || {};
+}
+
+/**
+ * Set all default webconfig's value into `NA#webconfig`.
+ * @private
+ * @function createWebconfig
+ * @memberOf NA#
+ */
+exports.createWebconfig = function () {
+    var NA = this,
+        ejs = NA.modules.ejs;
 
     /**
-     * Define the path to the Private Key for HTTPs.
+     * Content of Webconfig file enhenced by `NA#configuration` and CLI commands.
+     * @namespace webconfig
      * @public
-     * @alias httpSecureRelativeKeyPath
-     * @type {string}
-     * @memberOf NA#webconfig
+     * @alias webconfig
+     * @type {Object}
+     * @memberOf NA#
      */
-    NA.webconfig.httpSecureRelativeKeyPath = NA.webconfig.httpSecureRelativeKeyPath || (typeof NA.webconfig.httpSecure === 'string') ? NA.webconfig.httpSecure + '.key' : null;
+    NA.webconfig = NA.openConfiguration(NA.webconfigName);
+
+    /* Set all webconfig parameters. */
+    setWebconfigRoutes(NA);
+    setWebconfigCompressions(NA);
+    setWebconfigPreprocessors(NA);
+    setWebconfigDirectories(NA);
+    setWebconfigHost(NA);
+    setWebconfigSecure(NA);
+    setWebconfigHeaders(NA);
 
     /**
-     * Define the path to the Certificate for HTTPs.
+     * Set open and close bracket used by Teplate Engine.
      * @public
-     * @alias httpSecureRelativeCertificatePath
+     * @alias templateEngineDelimiter
      * @type {string}
      * @memberOf NA#webconfig
+     * @default '?'.
      */
-    NA.webconfig.httpSecureRelativeCertificatePath = NA.webconfig.httpSecureRelativeCertificatePath || (typeof NA.webconfig.httpSecure === 'string') ? NA.webconfig.httpSecure + '.crt' : null;
+    ejs.delimiter = NA.webconfig.templateEngineDelimiter || "?";
+
+    /**
+     * Deliver the client-side window.NA.socket and window.NA.io object.
+     * @public
+     * @alias urlSocketsFile
+     * @type {string}
+     * @memberOf NA#webconfig
+     * @default "/node-atlas/socket.io.js"
+     */
+    NA.webconfig.urlSocketsFile = (NA.webconfig.urlSocketsFile === false) ? false : (NA.webconfig.urlSocketsFile || "/node-atlas/socket.io.js");
 
     /**
      * Website http(s) absolute url based from `NA#webconfig.httpSecure`, `NA#webconfig.urlHostname` and `NA#webconfig.urlPort`.
@@ -760,7 +734,7 @@ exports.improveWebconfigBase = function () {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 23 2016 16:50:27 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Dec 27 2016 15:42:46 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,9 +2,9 @@ var website = window.website || {};
 website.component = website.component || {};
 
 website.component.Download = function () {
-	var publics = this;
+    var publics = this;
 
-	publics.name = "download";
+    publics.name = "download";
 
     publics.clipboard = function () {
         var input = document.getElementsByClassName(publics.name + "--clone--text")[0],
@@ -39,8 +39,18 @@ website.component.Download = function () {
         });
     };
 
-	publics.init = function () {
-		publics.clipboard();
+    publics.startGuide = function () {
+        var guide = document.querySelector("." + publics.name + "--tuto--step1 a");
+
+        guide.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(".navigation--menu--list--inner a").click();
+        });
+    };
+
+    publics.init = function () {
+        publics.clipboard();
         publics.openTab();
-	};
+        publics.startGuide();
+    };
 };

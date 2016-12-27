@@ -83,7 +83,7 @@ exports.afterRunning = null;
  * Set private `NA#configuration`.
  * @public
  * @function init
- * @memberOf module:node-atlas~NA#
+ * @memberOf NA#
  * @param {Object} options CLI Parameters as JSON object.
  * @example require('node-atlas')().init({
  *     webconfig: "webconfig.alternatif.json",
@@ -106,7 +106,7 @@ exports.init = function (options) {
  * Set private `NA#afterGeneration`.
  * @public
  * @function generated
- * @memberOf module:node-atlas~NA#
+ * @memberOf NA#
  * @param {function} Instruction to execute after generation of generates.
  * @example require('node-atlas')().generated(function () {
  *     // Update all files on a server...
@@ -131,7 +131,7 @@ exports.generated = function (callback) {
  * Set private `NA#afterNewProject`.
  * @public
  * @function created
- * @memberOf module:node-atlas~NA#
+ * @memberOf NA#
  * @param {function} Instruction to execute after initialization of template project.
  * @example require('node-atlas')().created(function () {
  *     // Run a server...
@@ -154,7 +154,7 @@ exports.created = function (callback) {
  * Set private `NA#afterRunning`.
  * @public
  * @function started
- * @memberOf module:node-atlas~NA#
+ * @memberOf NA#
  * @param {function} Instruction to execute after started a webserver.
  * @example require('node-atlas')().started(function () {
  *     // Run another server...
@@ -174,13 +174,14 @@ exports.started = function (callback) {
 };
 
 /**
- * Change the default language for this NodeAtlas package.
+ * Change the default language used by NodeAtlas CLI and keep it.
  * @private
  * @function changeLanguage
  * @memberOf NA#
- * @param {function} next step after changing language.
+ * @this NA
+ * @param {NA~callback} next Called in all cases.
  */
-exports.changeLanguage = function (callback) {
+exports.changeLanguage = function (next) {
     var NA = this,
         fs = NA.modules.fs,
         path = NA.modules.path,
@@ -189,27 +190,35 @@ exports.changeLanguage = function (callback) {
 
     if (NA.configuration.lang) {
         fs.readFile(source, "utf-8", function (error, file) {
-            var dataError = {
+            var errorMessages = {
                 language: NA.configuration.lang
             };
+
             if (error) {
-                
-                NA.log(NA.cliLabels.languageNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                return callback();
+                NA.log(NA.cliLabels.languageNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return errorMessages[matches]; }));
+                return next();
             }
+
             fs.writeFile(dest, file, function (error) {
                 if (error) {
-                    dataError.language = "default";
-                    NA.log(NA.cliLabels.languageNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return dataError[matches]; }));
-                    return callback();
+                    errorMessages.language = "default";
+                    NA.log(NA.cliLabels.languageNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return errorMessages[matches]; }));
+                    return next();
                 }
+
                 NA.cliLabels = JSON.parse(file);
+                
                 NA.log(NA.cliLabels.languageChanged);
-                callback();
+                next();
             });
         });
     } else {
-        callback();
+
+        /**
+         * Continue after synchronous/asynchronous operations done.
+         * @callback NA~callback
+         */
+        next();
     }
 };
 
@@ -217,29 +226,28 @@ exports.changeLanguage = function (callback) {
  * Initialize a NA instance.
  * @public
  * @function start
- * @memberOf module:node-atlas~NA#
+ * @memberOf NA#
  * @example require('node-atlas')().start();
  * @return {Object} The NA instance for chained functions.
  */
 exports.start = function () {
     var NA = this;
 
-    NA.loadListOfNativeModules();
-    NA.initGlobalVar();
-    NA.loadListOfRequiredNpmModules();
-    NA.lineCommandConfiguration();
+    NA.initNodeModules();
+    NA.initRequiredVars();
+    NA.initNpmModules();
+    NA.initCliConfiguration();
+    NA.initRequiredNpmModulesVars();
     NA.changeLanguage(function () {    
-        NA.initGlobalVarRequiredNpmModules();
-        NA.generateStartingProject(function () {
-            NA.initWebconfig(function () {
-                NA.loadListOfExternalModules(function () {
-                    NA.startingHttpServer();
-                    NA.routesPages(function () {
-                        NA.emulatedIndexPage();
-                        NA.httpServerPublicFiles();
-                        NA.pageNotFound();
-                        NA.urlGeneratingPages();
-                    });
+        NA.createTemplateProject(function () {
+            NA.initWebsite(function () {
+                NA.initServerModules();
+                NA.nodeAtlasWebServer();
+                NA.routesPages(function () {
+                    NA.emulatedIndexPage();
+                    NA.httpServerPublicFiles();
+                    NA.pageNotFound();
+                    NA.urlGeneratingPages();
                 });
             });
         });
@@ -252,7 +260,7 @@ exports.start = function () {
  * Execute both `NA#init()` and `NA#start()` functions.
  * @public
  * @function run
- * @memberOf module:node-atlas~NA#
+ * @memberOf NA#
  * @param {Object} options CLI Parameters as JSON object.
  * @example require('node-atlas').run({
  *        webconfig: "webconfig.alternatif.json",
@@ -284,7 +292,7 @@ exports.run = function (options) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 23 2016 16:50:27 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Dec 27 2016 15:42:46 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

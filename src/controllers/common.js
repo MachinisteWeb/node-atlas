@@ -113,8 +113,19 @@ exports.setRoutes = function (next) {
             var $title = $(this);
 
             allRoutes.push(function (nextRoute) {
+                var $content = $title.nextUntil("h2"),
+                    $after = $content.next("h2"),
+                    $before = $title.prevUntil("h2").prev("h2"),
+                    divBefore = ($before.html()) ? `<div class="before">
+                            <a href="${$before.attr("id")}.html">◄ ${$before.html()}</a>
+                        </div>` : "",
+                    divAfter = ($after.html()) ? `<div class="after">
+                            <a href="${$after.attr("id")}.html">${$after.html()} ►</a>
+                        </div>` : "",
+                    bottom = "<div>" + divBefore + divAfter + "</div>";
+
                 if ($title.attr("id")) {
-                    fs.writeFile("assets/" + NA.webconfig._content + toSafeChar($title.attr("id")) + ".htm", $title + $title.nextUntil("h2"), function () {
+                    fs.writeFile("assets/" + NA.webconfig._content + toSafeChar($title.attr("id")) + ".htm", $title + $content +  bottom, function () {
                             route["/" + toSafeChar($title.attr("id")) + ".html"] = {
                                 "view": "content.htm",
                                 "controller": "content.js"

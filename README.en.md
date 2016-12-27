@@ -2018,8 +2018,6 @@ exports.changeVariations = function (next, locals, request, response) {
     console.log(locals.specific.titlePage); // "Welcome"
     console.log(locals.specific.content); // "This is the Home Page."
 
-    console.log(response.charset); // "utf-8"
-
     console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
     console.log("urlSubPath", locals.urlSubPath); // "/example"
     console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
@@ -4487,8 +4485,8 @@ Just use the following configuration:
 ```json
 {
     "httpSecure": true,
-    "httpSecureRelativeKeyPath": "security/server.key",
-    "httpSecureRelativeCertificatePath": "security/server.crt",
+    "httpSecureKeyRelativePath": "security/server.key",
+    "httpSecureCertificateRelativePath": "security/server.crt",
     "routes": {
         "/": {
             "view": "index.htm"

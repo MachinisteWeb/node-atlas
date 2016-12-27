@@ -367,8 +367,8 @@ exports.setRoutes = function (next) {
 }
 </code></pre><h3 id="faire-tourner-le-site-en-https">Faire tourner le site en HTTPs</h3><p>Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier <code>security</code> dans lequel vous allez placer vos fichiers <code>server.key</code> et <code>server.crt</code> afin d&#39;alimenter le protocol.</p><p>Il ne vous reste plus qu&#39;à utiliser la configuration suivante :</p><pre><code class="lang-json">{
     &quot;httpSecure&quot;: true,
-    &quot;httpSecureRelativeKeyPath&quot;: &quot;security/server.key&quot;,
-    &quot;httpSecureRelativeCertificatePath&quot;: &quot;security/server.crt&quot;,
+    &quot;httpSecureKeyRelativePath&quot;: &quot;security/server.key&quot;,
+    &quot;httpSecureCertificateRelativePath&quot;: &quot;security/server.crt&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -1432,4 +1432,8 @@ exports.setSessions = website.setSessions;
       &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre>
+</code></pre><div><div class="before">
+                            <a href="partie-controleur-et-modele.html">◄ Partie Contrôleur et Modèle</a>
+                        </div><div class="after">
+                            <a href="cli-commandes-de-lancement.html">CLI / Commandes de lancement ►</a>
+                        </div></div>
