@@ -485,7 +485,7 @@ exports.setConfigurations = function (next) {
     var NA = this;
 
     // Middleware utilisé lors de chaque requête.
-    NA.httpServer.use(function (request, response, next) {
+    NA.express.use(function (request, response, next) {
         response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM http://www.lesieur.name/&quot;);
         next();
     });
@@ -811,7 +811,7 @@ exports.setConfigurations = function (next) {
         mysql = NA.modules.mysql;
 
     // Délivre le modèle côté Client derrière l&#39;url `models/user.js`.
-    NA.httpServer.use(
+    NA.express.use(
         NA.webconfig.urlRelativeSubPath + &quot;/models&quot;, 
         NA.modules.express.static(path.join(NA.serverPath, &quot;models/objects&quot;), { maxAge: 86400000 * 30 })
     );

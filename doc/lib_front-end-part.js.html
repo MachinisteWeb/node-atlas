@@ -492,7 +492,7 @@ exports.changeVariationsSpecific = function (locals, routeParameters, request, r
  * Intercept DOM from common file.
  * @private
  * @function changeDomCommon
- * @memberOf NA#
+ * @memberOf NA~
  * @param {Object} locals      Local variables for the current page.
  * @param {Object} routeParameters All parameters from current route.
  * @param {Object} request         Information from request.
@@ -500,39 +500,48 @@ exports.changeVariationsSpecific = function (locals, routeParameters, request, r
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
  */
-exports.changeDomCommon = function (locals, routeParameters, request, response, viewsPath, currentPath) {
-    var NA = this,
-        ejs = NA.modules.ejs,
+function engineProcess(NA, data, locals, routeParameters, response, next) {
+    var ejs = NA.modules.ejs,
         pug = NA.modules.pug,
-        pathM = NA.modules.path;
+        pathM = NA.modules.path,
+        engine = NA.webconfig.enablePug ? pug : ejs;
 
-    /* Open the template file */
-    NA.openTemplate(routeParameters, viewsPath, function (data) {
-        var engine = NA.webconfig.enablePug ? pug : ejs;
-
-        if (typeof routeParameters.enablePug === "boolean") {
-            /**
-             * Allow you to enable Pug only for a page.
-             * @public
-             * @alias enablePug
-             * @type {boolean}
-             * @memberOf NA#routeParameters
-             * @default undefined
-             */
-            engine = routeParameters.enablePug ? pug : ejs;
-        }
-
+    if (typeof routeParameters.enablePug === "boolean") {
         /**
-         * Allow template engine know which file is currently in use.
+         * Allow you to enable Pug only for a page.
          * @public
-         * @alias filename
-         * @type {string}
-         * @memberOf NA#locals
+         * @alias enablePug
+         * @type {boolean}
+         * @memberOf NA#routeParameters
+         * @default undefined
          */
-        locals.filename = pathM.join(NA.serverPath, NA.webconfig.viewsRelativePath, NA.webconfig.commonView || routeParameters.view);
+        engine = routeParameters.enablePug ? pug : ejs;
+    }
 
+    /**
+     * Allow template engine know which file is currently in use.
+     * @public
+     * @alias filename
+     * @type {string}
+     * @memberOf NA#locals
+     */
+    locals.filename = pathM.join(NA.serverPath, NA.webconfig.viewsRelativePath, NA.webconfig.commonView || routeParameters.view);
+       
+    // TO DO
+    //if (NA.webconfig.commonEngine) {
+
+        /* Transform from any engine but globaly. */
+        /*response.render(data, locals, function (err, data) {
+            if (err) {
+                data = err.toString();
+            }
+
+            next(data);
+        });*/
+    //} else {
+
+        /* Transform ejs/pug data and inject incduded file. */
         try {
-            /* Transform ejs/pug data and inject incduded file. */
             data = engine.render(data, locals);
         } catch (err) {
             /* Make error more readable. */
@@ -542,56 +551,82 @@ exports.changeDomCommon = function (locals, routeParameters, request, response, 
                 .replace(/ >> /g, "&lt;span style='display:inline-block;width:32px'>&amp;gt;&amp;gt;&lt;/span>");
         }
 
-        /**
-         * The compiled HTML of view + locals provided by response.
-         * @public
-         * @alias dom
-         * @type {string}
-         * @memberOf NA#locals
-         */
-        locals.dom = data;
+        next(data);
+    //}
+}
 
-        /* Use the `NA.controllers[&lt;commonController>].changeDom(...)` function if set... */
-        if (typeof NA.controllers[NA.webconfig.commonController] !== 'undefined' &amp;&amp;
-            typeof NA.controllers[NA.webconfig.commonController].changeDom !== 'undefined') {
+/**
+ * Intercept DOM from common file.
+ * @private
+ * @function changeDomCommon
+ * @memberOf NA#
+ * @param {Object} locals      Local variables for the current page.
+ * @param {Object} routeParameters All parameters from current route.
+ * @param {Object} request         Information from request.
+ * @param {Object} response        Information from response.
+ * @param {string} viewsPath       Path to the based view.
+ * @param {string} currentPath     Url from `url` value for this render.
+ */
+exports.changeDomCommon = function (locals, routeParameters, request, response, viewsPath, currentPath) {
+    var NA = this;
 
-                /**
-                 * Generate a virtual DOM to use jQuery on it.
-                 * @function virtualDom
-                 * @memberOf NA#locals
-                 * @returns {Object} The $ object to manipulate the virtual DOM.
-                 */
-                locals.virtualDom = function () {
-                    return NA.modules.cheerio.load(data, { decodeEntities: false });
-                };
+    /* Open the template file */
+    NA.openTemplate(routeParameters, viewsPath, function (data) {
 
-                /**
-                 * Define this function for intercept DOM and modify it with jQuery for example. Both `common` and `specific` controller.
-                 * @function changeDom
-                 * @memberOf NA#controllers[]
-                 * @param {changeDom~callback} callback   Next steps after configuration is done.
-                 * @param {Object}             locals     Local variables for the current page.
-                 * @param {string}             locals.dom DOM of current page.
-                 * @param {Object}             response   Initial response.
-                 * @param {Object}             request    Initial request.
-                 */
-                NA.controllers[NA.webconfig.commonController].changeDom.call(NA,
+        // Transform into HTML
+        engineProcess(NA, data, locals, routeParameters, response, function (data) {
 
-                /**
-                 * Next steps after changeDomSpecific is done.
-                 * @callback changeDomSpecific~callback
-                 * @param {Object} dom DOM with modifications.
-                 */
-                function ($) {
-                    if (typeof $ === "function") {
-                        locals.dom = $.html();
-                    }
-                    NA.changeDomSpecific(locals, routeParameters, request, response, currentPath);
-                }, locals, request, response);
-        /* ...else, just continue. */
-        } else {
-            NA.changeDomSpecific(locals, routeParameters, request, response, currentPath);
-        }
+            /**
+             * The compiled HTML of view + locals provided by response.
+             * @public
+             * @alias dom
+             * @type {string}
+             * @memberOf NA#locals
+             */
+            locals.dom = data;
+
+            /* Use the `NA.controllers[&lt;commonController>].changeDom(...)` function if set... */
+            if (typeof NA.controllers[NA.webconfig.commonController] !== 'undefined' &amp;&amp;
+                typeof NA.controllers[NA.webconfig.commonController].changeDom !== 'undefined') {
+
+                    /**
+                     * Generate a virtual DOM to use jQuery on it.
+                     * @function virtualDom
+                     * @memberOf NA#locals
+                     * @returns {Object} The $ object to manipulate the virtual DOM.
+                     */
+                    locals.virtualDom = function () {
+                        return NA.modules.cheerio.load(data, { decodeEntities: false });
+                    };
+
+                    /**
+                     * Define this function for intercept DOM and modify it with jQuery for example. Both `common` and `specific` controller.
+                     * @function changeDom
+                     * @memberOf NA#controllers[]
+                     * @param {changeDom~callback} callback   Next steps after configuration is done.
+                     * @param {Object}             locals     Local variables for the current page.
+                     * @param {string}             locals.dom DOM of current page.
+                     * @param {Object}             response   Initial response.
+                     * @param {Object}             request    Initial request.
+                     */
+                    NA.controllers[NA.webconfig.commonController].changeDom.call(NA,
+
+                    /**
+                     * Next steps after changeDomSpecific is done.
+                     * @callback changeDomSpecific~callback
+                     * @param {Object} dom DOM with modifications.
+                     */
+                    function ($) {
+                        if (typeof $ === "function") {
+                            locals.dom = $.html();
+                        }
+                        NA.changeDomSpecific(locals, routeParameters, request, response, currentPath);
+                    }, locals, request, response);
+            /* ...else, just continue. */
+            } else {
+                NA.changeDomSpecific(locals, routeParameters, request, response, currentPath);
+            }
+        });
    });
 };
 
@@ -823,7 +858,7 @@ exports.render = function (path, options, request, response) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Dec 27 2016 16:31:50 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Dec 29 2016 11:36:32 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

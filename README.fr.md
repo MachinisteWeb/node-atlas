@@ -1,4 +1,4 @@
-httpSecureKeyRelativePath# node-atlas #
+# node-atlas #
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/)
 
@@ -98,6 +98,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Gérer l'anatomie des URLs](#gérer-lanatomie-des-urls)
  - [Créer ses propres Variables de Webconfig](#créer-ses-propres-variables-de webconfig)
  - [Utiliser une vue globale](#utiliser-une-vue-globale)
+ - [Partager des dossiers](#partager-des-dossiers)
  - [Générer des maquettes HTML](#générer-des-maquettes-html)
  - [Moteur de Template EJS](#moteur-de-template-ejs)
  - [Moteur de Template PUG](#moteur-de-template-pug)
@@ -137,12 +138,12 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [--create [path]](#--create-path)
  - [--httpSecure [pathName]](#--httpsecure-pathName)
 - [API / NodeAtlas comme module NPM](#api--nodeatlas-comme-module-npm)
- - [&lt;node-atlas-instance>.start()](#node-atlas-instancestart)
- - [&lt;node-atlas-instance>.init(Object)](#node-atlas-instanceinitobject)
- - [&lt;node-atlas-instance>.run(Object)](#node-atlas-instancerunobject)
- - [&lt;node-atlas-instance>.started(Function)](#node-atlas-instancestartedfunction)
- - [&lt;node-atlas-instance>.generated(Function)](#node-atlas-instancegeneratedfunction)
- - [&lt;node-atlas-instance>.created(Function)](#node-atlas-instancecreatedfunction)
+ - [&lt;NA>.start()](#nastart)
+ - [&lt;NA>.init(options)](#nainitoptions)
+ - [&lt;NA>.run(options)](#narunoptions)
+ - [&lt;NA>.started(callback)](#nastartedcallback)
+ - [&lt;NA>.generated(callback)](#nageneratedcallback)
+ - [&lt;NA>.created(callback)](#nacreatedcallback)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
 - [Environnement de Développement](#environnement-de-développement)
  - [Debug du Front-end](#debug-du-front-end)
@@ -500,6 +501,8 @@ est un raccourci de
 
 Évidemment ce raccourci ne sert que si `view` est le seul paramètre à déclarer de la route.
 
+#### Ordonner les routes ####
+
 Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.
 
 Dans ce cas le chemin devient le paramètre `url`.
@@ -529,6 +532,91 @@ Dans ce cas le chemin devient le paramètre `url`.
     }]
 }
 ```
+
+#### Routage dans un fichier partagé ####
+
+Afin de ne pas réécrire une longue liste de route dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `routes.json`.
+
+Par exemple :
+
+L'ensemble de fichier suivant
+
+```
+├─ views/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
+```
+
+avec `webconfig.json`
+
+```json
+{
+    "httpPort": 7777,
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+```
+
+et avec `webconfig.prod.json`
+
+```json
+{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+```
+
+pourrait devenir l'ensemble de fichier suivant
+
+```
+├─ views/
+│  └─ index.htm
+├─ routes.json
+├─ webconfig.json
+└─ webconfig.prod.json
+```
+
+avec `webconfig.json`
+
+```json
+{
+    "httpPort": 7777,
+    "routes": "routes.json"
+}
+```
+
+avec `webconfig.prod.json`
+
+```json
+{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "routes": "routes.json"
+}
+```
+
+et `routes.json`
+
+```json
+{
+    "/": {
+        "view": "index.htm"
+    }
+}
+```
+
+*Note : Vous pouvez vous créer plusieurs fichier de route comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
 
 
 
@@ -574,7 +662,7 @@ vous aurez accès aux adresses :
 
 #### maxAge, Etag, etc. ####
 
-Il est possible de configurer les informations livrées par NodeAtlas à la demande d'une ressource publique (comme le `maxAge`, l'`Etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/en/api.html).
+Il est possible de configurer les informations livrées par NodeAtlas à la demande d'une ressource publique (comme le `maxAge`, l'`Etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/fr/api.html).
 
 
 
@@ -1442,6 +1530,141 @@ et obtenir les URLs suivantes :
         <script async="true" type="text/javascript" src="javascript/common.js"></script>
     </body>
 </html>
+```
+
+
+
+### Partager des dossiers ###
+
+Il est possible de partager plus de contenu que ce qu'il y a dans le dossier hébergé par `assetsRelativePath`. Il est tout à fait possible de partager des vues ou des modèles avec la partie cliente par exemple. On appel les fichiers de ses dossiers des fichiers statiques.
+
+Voyons l'exemple suivant :
+
+avec cet ensemble de fichiers
+
+```
+├─ models/
+│  └─ user.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+```
+
+*webconfig.json*
+
+```json
+{
+  "statics": {
+    "/javascript/models": "models"
+  },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+*views/index.htm*
+
+```html
+<!DOCTYPE html>
+    <html lang="fr-fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Statics</title>
+    </head>
+    <body>
+        <div id="user"></div>
+        <script src="javascript/models/user.js"></script>
+        <script>
+            var user = new User(),
+                mount = document.getElementById("user");
+
+            user
+                .firstname("Bruno")
+                .lastname("Lesieur");
+
+            mount.innerHTML = user.firstname() + " " + user.lastname();
+        </script>
+    </body>
+</html>
+```
+
+*models/user.js*
+
+```js
+(function (expose, factory) {
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, function User() {
+    var privates = {},
+        publics = this;
+
+    publics.lastname = function (lastname) {
+        if (typeof lastname === 'undefined') {
+            return privates.lastname;
+        } else {
+            privates.lastname = lastname;
+            return publics;
+        }
+    };
+
+    publics.firstname = function (firstname) {
+        if (typeof firstname === 'undefined') {
+            return privates.firstname;
+        } else {
+            privates.firstname = firstname;
+            return publics;
+        }
+    };
+}));
+```
+
+Nous pourrons accéder aux fichiers HTML `http://localhost/` et au JavaScript `http://localhost/javascript/user.js`.
+
+
+
+#### maxAge, Etag, etc. ####
+
+Il est possible de configurer les informations livrées par NodeAtlas à la demande d'une ressource statique (comme le `maxAge`, l'`Etag`, etc.) via la propriété `staticOptions`. Dans ce cas, on ne fournit plus une `string` mais un `Object` et la propriété initiale devient le paramètre `path`. Par défaut les `staticOptions` sont celle global au webconfig (voir les options d'[Express](http://expressjs.com/fr/api.html)).
+
+```json
+{
+    "statics": {
+        "/javascript/models": {
+            "path": "models",
+            "staticOptions": {
+                "index": false
+            }
+        }
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+```
+
+#### Ordonner les routes ####
+
+Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.
+
+Dans ce cas le chemin devient le paramètre `virtual`.
+
+```json
+{
+    "statics": [{
+        "virtual": "/javascript/models",
+        "path": "models",
+        "staticOptions": {
+            "index": false
+        }
+    }],
+    "routes": {
+        "/": "index.htm"
+    }
+}
 ```
 
 
@@ -2548,7 +2771,7 @@ exports.setConfigurations = function (next) {
     var NA = this;
 
     // Middleware utilisé lors de chaque requête.
-    NA.httpServer.use(function (request, response, next) {
+    NA.express.use(function (request, response, next) {
         response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
         next();
     });
@@ -3004,6 +3227,9 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mysq
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
+    "statics": {
+        "/models": "models/objects"
+    },
     "routes": {
         "/": {
             "view": "index.htm",
@@ -3039,12 +3265,6 @@ exports.setConfigurations = function (next) {
     var NA = this,
         path = NA.modules.path,
         mysql = NA.modules.mysql;
-
-    // Délivre le modèle côté Client derrière l'url `models/user.js`.
-    NA.httpServer.use(
-        NA.webconfig.urlRelativeSubPath + "/models", 
-        NA.modules.express.static(path.join(NA.serverPath, "models/objects"), { maxAge: 86400000 * 30 })
-    );
 
     // Créer un pool de connexion à MySQL.
     NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
@@ -3372,7 +3592,7 @@ module.exports = User;
 
 basé sur une classe `user` partagée entre la partie cliente et serveur `models/objects/user.js` :
 
-```json
+```js
 (function (expose, factory) {
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = factory;
@@ -3668,18 +3888,18 @@ et la remplir avec un document :
 
 ```
 db.user.insert({
-    email: "bruno.lesieur@gmail.com",
+    email: "john.doe@unknown.com",
     identity: {
-        lastname: "Lesieur",
-        firstname: "Bruno",
+        lastname: "Doe",
+        firstname: "John",
         gender: true,
-        birthdate : new Date("1900/07/18")
+        birthdate : new Date("1970/01/01")
     },
     location: {
-        country: "France",
-        town: "Annecy",
-        zipcode: "74000",
-        address: "avenue"
+        country: "Unknown",
+        town: "Unknown",
+        zipcode: "00000",
+        address: "42 unknown"
     }
 })
 ```
@@ -3689,13 +3909,11 @@ db.user.insert({
 Avec le jeu de fichier suivant :
 
 ```
-├─ assets/
-│  └─ javascript/
-│     └─ models/
-│        └─ user.js
 ├─ controllers/
 │  ├─ common.js
 │  └─ index.js
+├─ models/
+│  └─ user.js
 ├─ views/
 │  └─ index.htm
 ├─ variations/
@@ -3710,6 +3928,9 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mong
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
+    "statics": {
+        "/models": "models"
+    },
     "routes": {
         "/": {
             "view": "index.htm",
@@ -3786,7 +4007,7 @@ exports.setModules = function () {
 
     NA.modules.mongoose = require('mongoose');
     NA.models = {};
-    NA.models.User = require('../assets/javascript/models/user.js');
+    NA.models.User = require('../models/user.js');
 };
 
 exports.setConfigurations = function (next) {
@@ -3830,7 +4051,7 @@ exports.changeVariations = function (next, locals) {
 };
 ```
 
-en utilisant sur une classe `user` partagée entre la partie cliente et la partie serveur `assets/javascript/models/user.js` :
+en utilisant sur une classe `user` partagée entre la partie cliente et la partie serveur `models/user.js` :
 
 ```json
 var mongoose;
@@ -4089,91 +4310,6 @@ exports.changeVariation = function (next, locals) {
 ```
 
 Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
-
-#### Routage dans un fichier partagé ####
-
-Afin de ne pas réécrire une longue liste de route dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c'est le fichier `routes.json`.
-
-Par exemple :
-
-L'ensemble de fichier suivant
-
-```
-├─ views/
-│  └─ index.htm
-├─ webconfig.json
-└─ webconfig.prod.json
-```
-
-avec `webconfig.json`
-
-```json
-{
-    "httpPort": 7777,
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-```
-
-et avec `webconfig.prod.json`
-
-```json
-{
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-```
-
-pourrait devenir l'ensemble de fichier suivant
-
-```
-├─ views/
-│  └─ index.htm
-├─ routes.json
-├─ webconfig.json
-└─ webconfig.prod.json
-```
-
-avec `webconfig.json`
-
-```json
-{
-    "httpPort": 7777,
-    "routes": "routes.json"
-}
-```
-
-avec `webconfig.prod.json`
-
-```json
-{
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "routes": "routes.json"
-}
-```
-
-et `routes.json`
-
-```json
-{
-    "/": {
-        "view": "index.htm"
-    }
-}
-```
-
-*Note : Vous pouvez vous créer plusieurs fichier de route comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
 
 
 
@@ -6277,7 +6413,7 @@ L'intégralité des fonctions privés, modules et espaces de nom de NodeAtlas so
 
 
 
-### &lt;node-atlas-instance>.start() ###
+### &lt;NA>.start() ###
 
 Exécuté un simple lancement de NodeAtlas avec `start()`. Par défaut il cherchera le `webconfig.json` dans le dossier où le script est exécuté. Si aucun `webconfig.json` n'est trouvé, un Simple Serveur Web sera lancé.
 
@@ -6293,7 +6429,7 @@ require("node-atlas")().start();
 
 
 
-### &lt;node-atlas-instance>.init(options) ###
+### &lt;NA>.init(options) ###
 
 Vous pouvez également configurer le lancement avec `init(options)` :
 
@@ -6335,7 +6471,7 @@ L'objet `options` est le suivant :
 
 
 
-### &lt;node-atlas-instance>.run(options) ###
+### &lt;NA>.run(options) ###
 
 Avec `run(options)` vous pouvez configurer et lancer NodeAtlas en une commande.
 
@@ -6360,7 +6496,7 @@ websiteFr.run({
 
 
 
-### &lt;node-atlas-instance>.started(callback) ###
+### &lt;NA>.started(callback) ###
 
 Avec `started(callback)`, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit lancé :
 
@@ -6376,7 +6512,7 @@ require("node-atlas")().started(function() {
 
 
 
-### &lt;node-atlas-instance>.generated(callback) ###
+### &lt;NA>.generated(callback) ###
 
 Avec `generated(callback)`, vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :
 
@@ -6396,7 +6532,7 @@ require("node-atlas")().generated(function() {
 
 
 
-### &lt;node-atlas-instance>.created(callback) ###
+### &lt;NA>.created(callback) ###
 
 Avec `created(callback)`, vous pouvez aussi exécuter d'autres tâches après avoir initialisé le répertoire courant avec un site template :
 

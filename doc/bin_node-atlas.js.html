@@ -35,12 +35,14 @@
 
 /*
  * ABOUT..........................Informations about NodeAtlas.
+ * ALIAS..........................Come from index.js into this file.
  * SUMMARY........................It's me !
  * NODE ATLAS FUNCTION............Creation of Main Function.
  *   CONFIGURATION................Global configuration variables, command tool and webconfig.
  *   GLOBAL FUNCTIONS.............Neutral functions used more once.
  *   NODE MODULES.................Functions used to load Node Modules.
  *   WEB SERVER...................Functions used to run pages on http(s) protocol and use middlewares.
+ *   ROUTES.......................Functions used to add route to the server.
  *   FRONT-END PART...............Functions used for manage Front-end part.
  *   BACK-END PART................Functions used for manage Back-end part.
  *   ASSETS GENERATION............Functions used for create HTML assets.
@@ -57,9 +59,10 @@
 \*------------------------------------*/
 
 var configuration = require("../lib/configuration"),
-    nodeModules = require("../lib/node-modules"),
-    globalFunctions = require("../lib/global-functions"),
-    webServer = require("../lib/web-server"),
+    modules = require("../lib/modules"),
+    globals = require("../lib/globals"),
+    server = require("../lib/server"),
+    routes = require("../lib/routes"),
     frontEndPart = require("../lib/front-end-part"),
     backEndPart = require("../lib/back-end-part"),
     assetsGeneration = require("../lib/assets-generation"),
@@ -84,40 +87,43 @@ NA = function () {
     this.createWebconfig = configuration.createWebconfig;
     
     /* NODE MODULES */
-    this.initNodeModules = nodeModules.initNodeModules;
-    this.initNpmModules = nodeModules.initNpmModules;
+    this.initNodeModules = modules.initNodeModules;
+    this.initNpmModules = modules.initNpmModules;
 
     /* GLOBAL FUNCTIONS */
-    this.openConfiguration = globalFunctions.openConfiguration;
-    this.log = globalFunctions.log;
-    this.openController = globalFunctions.openController;
+    this.openConfiguration = globals.openConfiguration;
+    this.log = globals.log;
+    this.openController = globals.openController;
 
-    this.extend = globalFunctions.extend;
-    this.clone = globalFunctions.clone;
-    this.forEach = globalFunctions.forEach;
-    this.ifFileExist = globalFunctions.ifFileExist;
-    this.common = globalFunctions.common;
-    this.specific = globalFunctions.specific;
-    this.view = globalFunctions.view;
+    this.extend = globals.extend;
+    this.clone = globals.clone;
+    this.forEach = globals.forEach;
+    this.ifFileExist = globals.ifFileExist;
+    this.common = globals.common;
+    this.specific = globals.specific;
+    this.view = globals.view;
 
     /* WEB SERVER */
-    this.simpleWebServer = webServer.simpleWebServer;
-    this.nodeAtlasWebServer = webServer.nodeAtlasWebServer;
-    this.initMiddlewares = webServer.initMiddlewares;
-    this.initSessions = webServer.initSessions;
-    this.initConfigurations = webServer.initConfigurations;
+    this.simpleWebServer = server.simpleWebServer;
+    this.nodeAtlasWebServer = server.nodeAtlasWebServer;
+    this.initMiddlewares = server.initMiddlewares;
+    this.initLessProcess = server.initLessProcess;
+    this.initStylusProcess = server.initStylusProcess;
+    this.initSessions = server.initSessions;
+    this.initSockets = server.initSockets;
+    this.initConfigurations = server.initConfigurations;
+    this.initServer = server.initServer;
 
-    this.atlasServer = webServer.atlasServer;
-    this.atlasRoutes = webServer.atlasRoutes;
-    this.httpServerPublicFiles = webServer.httpServerPublicFiles;
-    this.response = webServer.response;
-    this.redirect = webServer.redirect;
-    this.setSupport = webServer.setSupport;
-    this.executeRequest = webServer.executeRequest;
-    this.request = webServer.request;
-    this.requestRegex = webServer.requestRegex;
-    this.pageNotFound = webServer.pageNotFound;
-    this.routesPages = webServer.routesPages;
+    /* ROUTES */
+    this.initStatics = routes.initStatics;
+    this.initRoutes = routes.initRoutes;
+    this.response = routes.response;
+    this.redirect = routes.redirect;
+    this.setSupport = routes.setSupport;
+    this.executeRequest = routes.executeRequest;
+    this.request = routes.request;
+    this.requestRegex = routes.requestRegex;
+    this.pageNotFound = routes.pageNotFound;
 
     /* FRONT-END PART */
     this.openTemplate = frontEndPart.openTemplate;
@@ -136,8 +142,6 @@ NA = function () {
 
     /* BACK-END PART */
     this.initServerModules = backEndPart.initServerModules;
-    this.enableLessProcess = backEndPart.enableLessProcess;
-    this.enableStylusProcess = backEndPart.enableStylusProcess;
 
     this.cssAlreadyParse = backEndPart.cssAlreadyParse;
     this.injectCssAuth = backEndPart.injectCssAuth;
@@ -152,10 +156,10 @@ NA = function () {
 
     /* ASSETS GENERATION */
     this.createTemplateProject = assetsGeneration.createTemplateProject;
+    this.indexPage = assetsGeneration.indexPage;
 
     this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
     this.urlGeneratingAssets = assetsGeneration.urlGeneratingAssets;
-    this.emulatedIndexPage = assetsGeneration.emulatedIndexPage;
     this.saveTemplateRender = assetsGeneration.saveTemplateRender;
     /* INIT */
     this.changeLanguage = init.changeLanguage;
@@ -202,7 +206,7 @@ module.exports = NA;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Dec 27 2016 16:31:50 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Dec 29 2016 11:36:32 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

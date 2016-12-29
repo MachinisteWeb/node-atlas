@@ -87,121 +87,6 @@ exports.initServerModules = function () {
 };
 
 /**
- * Active Mechanism for generate Less files.
- * @private
- * @function enableLessProcess
- * @memberOf NA#
- * @this NA
- */
-exports.enableLessProcess = function () {
-    var NA = this,
-        lessMiddleware = NA.modules.lessMiddleware,
-        lessMiddlewareUtilities = NA.modules.lessMiddlewareUtilities,
-        fs = NA.modules.fs,
-        path = NA.modules.path,
-        mkpath = NA.modules.mkpath,
-        compressValue = false,
-        sourceMapValue = true,
-        regex = new RegExp(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, NA.webconfig.urlRelativeSubPath).replace(/(\\|\/)/g, '\\' + path.sep), 'g');
-
-    if (NA.webconfig.enableLess &amp;&amp; !NA.webconfig.stylesheetsBundlesBeforeResponse) {
-
-        /* Generate Less on the fly during the development phase. */
-        NA.httpServer.use(lessMiddleware(path.join(NA.webconfig.assetsRelativePath), {
-            dest: path.join(NA.webconfig.assetsRelativePath),
-            pathRoot: path.join(NA.serverPath),
-            preprocess: {
-                path: function (pathname) {
-                    if (NA.webconfig.urlRelativeSubPath) {
-                        pathname = pathname.replace(regex, path.join(NA.serverPath, NA.webconfig.assetsRelativePath) + path.sep);
-                    }
-                    return pathname;
-                }
-            },
-            postprocess: {
-                css: function (css, req) {
-                    return css + "/*# sourceMappingURL=" + req.url.replace(/\.css$/i, '.css.map') + " */";
-                }
-            },
-            storeSourcemap: function (pathname, sourcemap) {
-                if (NA.webconfig.urlRelativeSubPath) {
-                    pathname = pathname.replace(regex, path.join(NA.serverPath, NA.webconfig.assetsRelativePath) + path.sep);
-                }
-                fs.exists(path.join(pathname.replace(/\.css\.map/g,".less")), function (exists) {
-                    if (exists) {
-                        mkpath(path.dirname(pathname), function (error) {
-                            if (error) {
-                                lessMiddlewareUtilities.lessError(error);
-                                return;
-                            }
-                            fs.writeFile(pathname, sourcemap, 'utf8');
-                        });
-                    }
-                });
-            },
-            storeCss: function (pathname, css, req, next) {
-                if (NA.webconfig.urlRelativeSubPath) {
-                    pathname = pathname.replace(regex, path.join(NA.serverPath, NA.webconfig.assetsRelativePath) + path.sep);
-                }
-
-                mkpath(path.dirname(pathname), function (error) {
-                    if (error) {
-                        return next(error);
-                    }
-
-                    fs.writeFile(pathname, css, 'utf8', next);
-                });
-            },
-            render: {
-                compress: NA.webconfig.enableLess.compress || compressValue,
-                sourceMap: NA.webconfig.enableLess.sourceMap || sourceMapValue
-            }
-        }));
-    }
-};
-
-/**
- * Active Mechanism for generate Stylus files.
- * @private
- * @function enableStylusProcess
- * @memberOf NA#
- * @this NA
- */
-exports.enableStylusProcess = function () {
-    var NA = this,
-        path = NA.modules.path,
-        stylusMiddleware,
-        compressValue = false,
-        sourceMapValue = true,
-        forceValue = false,
-        firebugValue = false,
-        linenosValue = false;
-
-    if (NA.webconfig.enableStylus &amp;&amp; !NA.webconfig.stylesheetsBundlesBeforeResponse) {
-        stylusMiddleware = NA.modules.stylus.middleware({
-            src: path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
-            dest: path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
-            compress: NA.webconfig.enableStylus.compress || compressValue,
-            sourcemap: NA.webconfig.enableStylus.sourceMap || sourceMapValue,
-            force: NA.webconfig.enableStylus.force || forceValue,
-            firebug: NA.webconfig.enableStylus.firebug || firebugValue,
-            linenos: NA.webconfig.enableStylus.linenos || linenosValue
-        });
-
-        /* Generate Stylus on the fly during the development phase. */
-        NA.httpServer.use(function (req, res, next) {
-            var regex = new RegExp("^" + NA.webconfig.urlRelativeSubPath, 'g'),
-                request = {
-                    url: req.url.replace(regex, ""),
-                    method: req.method
-                };
-
-            stylusMiddleware(request, res, next);
-        });
-    }
-};
-
-/**
  * Check if a file have been already parsed.
  * @private
  * @function cssAlreadyParse
@@ -829,7 +714,7 @@ exports.jsObfuscation = function (callback) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Dec 27 2016 16:31:50 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Dec 29 2016 11:36:32 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>
