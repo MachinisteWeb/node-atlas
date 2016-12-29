@@ -25,7 +25,7 @@ Framework Javascript Serveur Évolutif par configuration ou APIs pour créer fac
 - De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API REST,
 - Tous les modules NPM, middleware Express.js/Socket.io, des plugins utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud).
 - [Un guide pas à pas Français et International](https://node-atlas.js.org/), avec un support communautaire sur [Gitter](https://gitter.im/NodeAtlas) (Chat) [FR](https://gitter.im/NodeAtlas/Aide)/[EN](https://gitter.im/NodeAtlas/Help).
-- Des passionnés de web et de JavaScript <3 !
+- Des passionnés de web et de JavaScript &lt;3 !
 - Et peut-être bientôt vous ?
 
 
