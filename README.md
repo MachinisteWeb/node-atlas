@@ -14,17 +14,16 @@ Framework Javascript Serveur Évolutif par configuration ou APIs pour créer fac
 
 - La porte d'entrée aux Développeurs Front-end dans le monde de Node.js.
 - Du tout JavaScript ; pour les débutants venant du monde PHP, .NET, Ruby... ou pour les experts JS.
-- De l'Évolutivité avec
-   - des vues sans se préoccuper des contrôlleurs,
-   - ou la prise en main progressive de contrôleurs et points d'ancrage,
-   - avec de l'internationalisation (i18n) et de la localisations (l10n) rapide.
-   - La puissance d'Express.js (serveur web) et Socket.io (échange client-serveur temps réel) pré-configuré, simple et ajustable,
-   - les préprocesseurs Ejs, Pug (Jade), Less et Stylus embarqués et prêt à l'emploi,
-   - des outils interne de générations HTML serverless ou de bundles, minifications, offuscations, optimizations de CSS, JS et Images,
-   - et bien plus comme de la manipulation de DOM côté serveur jQuery-like, du debug serveur dans navigateur, de l'HTTPs facile à mettre en place, ...
-   - ...
-- De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API Rest,
-- Tous les modules NPM, middleware Express.js/Socket.io, plugins Atlas utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud...).
+- De l'évolutivité avec :
+   - des vues sans se préoccuper des contrôleurs,
+   - la prise en main progressive de contrôleurs et points d'ancrage,
+   - de l'internationalisation (i18n) et de la localisations (l10n) rapide,
+   - la puissance d'Express.js (serveur web) et Socket.io (échange client-serveur temps réel) pré-configuré, simple et ajustable,
+   - les préprocesseurs EJS, PUG (JADE), Less et Stylus embarqués et prêt à l'emploi,
+   - des outils interne de génération HTML *serverless* ou de *bundles*, minifications, offuscations, optimizations de CSS, JS et images,
+   - encore ; de la manipulation de DOM côté serveur jQuery-like, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
+- De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API REST,
+- Tous les modules NPM, middleware Express.js/Socket.io, des plugins utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud).
 - [Un guide pas à pas Français et International](https://node-atlas.js.org/), avec un support communautaire sur [Gitter](https://gitter.im/NodeAtlas) (Chat) [FR](https://gitter.im/NodeAtlas/Aide)/[EN](https://gitter.im/NodeAtlas/Help).
 - Des passionnés de web et de JavaScript <3 !
 - Et peut-être bientôt vous ?
@@ -121,7 +120,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     },
     "memberV2": {                           /* Une nouvelle version de rendu pour les pages "member". */
         "url": "/members/:member/",         /* La partie ":member" représente le membre courrament demandé... */
-        "output": "members/bob.html",       /* ...et un faux utilisateur est utilisé pour un rendu statique dans le dossier des fichier générés. */
+        "output": "members/bob.html",       /* ...et un faux utilisateur est utilisé pour un rendu statique dans le dossier des fichiers générés. */
         "view": "member.htm",
         "variation": "member.json",
         "controller": "member.js"
