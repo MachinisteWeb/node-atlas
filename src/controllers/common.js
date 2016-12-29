@@ -14,7 +14,7 @@ exports.setRoutes = function (next) {
         route = NA.webconfig.routes;
 
     function toUrl(text) {
-        return text.toLowerCase().replace(/\&#39\;|'|\&lt\;|<|\&gt\;|>| |\(|\)|\/|\!|\?|,|\&|\;|\[|\]|\%/g, "-").replace(/-+/g, "-").replace(/^-/g, "").replace(/-$/g, "");
+        return text.toLowerCase().replace(/\&#39\;|'|\&lt\;|<|\&gt\;|>|\.| |\(|\)|\/|\!|\?|,|\&|\;|\[|\]|\%/g, "-").replace(/-+/g, "-").replace(/^-/g, "").replace(/-$/g, "");
     }
     function toSafeChar(text) {
         return text.replace(/é|è|ê/g, "e").replace(/ô/g, "o").replace(/à/g, "a").replace(/û|ù/g, "u");
