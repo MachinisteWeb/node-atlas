@@ -29,9 +29,16 @@ exports.setRoutes = function (next) {
 
 				fs.writeFile("assets/content/" + $title.attr("id") + ".htm", $title + $title.nextUntil("h2"), function () {
 
-					route["/" + $title.attr("id") + ".html"] = {
-						"view": "content.htm"
-					};
+					if (route instanceof Array) {
+						route.push({
+							"url": "/" + $title.attr("id") + ".html",
+							"view": "content.htm"
+						});
+					} else {					
+						route["/" + $title.attr("id") + ".html"] = {
+							"view": "content.htm"
+						};
+					}
 
 					nextRoute();
 				});

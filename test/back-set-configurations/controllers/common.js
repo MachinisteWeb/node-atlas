@@ -5,7 +5,7 @@ exports.setConfigurations = function (next) {
     var NA = this;
 
     // Middleware utilisé lors de chaque requête.
-    NA.httpServer.use(function (request, response, next) {
+    NA.express.use(function (request, response, next) {
         response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
         next();
     });

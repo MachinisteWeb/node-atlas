@@ -20,6 +20,9 @@ Features:
 - `NA#controllers[].changeDom` `next` callback accept a `$` first parameter.
 - `NA#configuration.cache` is added.
 - `--cache` command is added.
+- `NA#httpsServer` added.
+- `NA#httpServer` added.
+- `NA#statics` added.
 
 Updates:
 
@@ -65,7 +68,9 @@ Updates:
 - `templateFile` var become `viewFile` var.
 - Language `templateNotFound` become `viewNotFound`.
 - Language `templateNotSet` become `viewNotSet`.
+- Language `emulatedIndexPage` become `indexPage`.
 - EJS engine become ATLAS engine and `<% %>` become `<? ?>`.
+- `NA#httpServer` become `NA#express`. 
 
 
 Removed:
@@ -75,7 +80,7 @@ Removed:
 - `NA#locals.urlBasePathSlice` removed.
 - `NA#variations.currentRouteName` removed.
 - `NA#modulesRequired` and `NA#downloadAllModules` removed. Use `npm install` manually instead if you download package manually.
-- Original `NA#variations` removed. 
+- Original `NA#variations` removed.
 
 
 

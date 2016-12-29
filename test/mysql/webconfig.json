@@ -1,15 +1,17 @@
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
+    "statics": {
+        "/models": {
+            "path": "models/objects"
+        }
+    },
     "routes": {
         "/": {
             "view": "index.htm",
             "variation": "index.json",
             "controller": "index.js"
         }
-    },
-    "statics": {
-        "/models": "models/objects"
     },
     "_mysqlConfig": {
   		"host": "localhost",

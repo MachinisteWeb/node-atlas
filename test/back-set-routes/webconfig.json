@@ -3,9 +3,13 @@
 	"languageCode": "fr-fr",
 	"commonController": "common.js",
 	"commonVariation": "common.json",
-	"routes": {
-		"/index.html": {
-			"view": "index.htm"
-		}
-	}
+	"pageNotFound": "/error.html",
+	"routes": [{
+		"url": "/index.html",
+		"view": "index.htm"
+	}, {
+		"url": "/error.html",
+		"view": "error.htm",
+		"statusCode": 404
+	}]
 }

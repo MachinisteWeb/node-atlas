@@ -4,7 +4,7 @@ exports.setModules = function () {
 
 	NA.modules.mongoose = require('mongoose');
     NA.models = {};
-    NA.models.User = require('../assets/javascript/models/user.js');
+    NA.models.User = require('../models/user.js');
 };
 
 exports.setConfigurations = function (next) {
