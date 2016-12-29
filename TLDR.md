@@ -10,19 +10,18 @@
 
 - The starting point for Front-end Developers into Node.js ecosystem.
 - Pure JavaScript ; for beginners come from PHP, .NET, Ruby... or for JS experts.
-- A Progressive system with
+- A progressive system with:
    - view-only system without care of controller,
-   - or scalable control of controllers and hooks,
-   - avec i18n (internationalization) and l10n (localizations) quickly.
+   - scalable control of controllers and hooks,
+   - i18n (internationalization) and l10n (localizations) quickly.
    - Express.js (web server) and Socket.io (client-serveur realtime connection) already configured together, easy to use and extendable,
-   - Ejs, Pug (Jade), Less and Stylus préprocessors ready to use,
-   - internal tools for HTML Mockups Serverless or bundles, minifications, offuscation, optimizations of CSS, JS and Images,
-   - and more like jQuery-like DOM server manipulation, back-end code debbugable into browser, easy HTTPs to setup, ...
-   - ...
-- Combinaison of severals NodeAtlas instances for service-oriented architecture like usage as API Rest,
-- All NPM modules, Express.js/Socket.io middleware, Atlas plugins usable (sessions, SQL/NoSQL databases, load balancing, proxy, hotreaload...).
+   - EJS, PUG (JADE), Less and Stylus preprocessors ready to use,
+   - internal tools for HTML Mockups Serverless or bundles, minifications, offuscation, optimizations of CSS, JS and images,
+   - and more like jQuery-like DOM server manipulation, back-end code debbugable into browser, easy HTTPs to setup.
+- Combinaison of severals NodeAtlas instances for service-oriented architecture like usage as API REST,
+- All NPM modules, Express.js/Socket.io middleware, plugins usable (sessions, SQL/NoSQL databases, load balancing, proxy, hotreaload).
 - [A French and International Guide step by step](https://node-atlas.js.org/english/), with a communauty support on [Gitter](https://gitter.im/NodeAtlas) (Chat) [EN]https://gitter.im/NodeAtlas/Help)/[FR](https://gitter.im/NodeAtlas/Aide).
-- Web and JavaScript <3 enthusiasts!
+- Web and JavaScript &lt;3 enthusiasts!
 - And maybe you soon?
 
 
