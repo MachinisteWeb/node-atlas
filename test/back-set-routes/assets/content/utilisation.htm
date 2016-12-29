@@ -4,6 +4,7 @@
 </ul><h3 id="-tape-2-configuration">Étape 2 - Configuration</h3><p>Créer un fichier <code>webconfig.json</code> et ses fichiers de dépendances pour configurer votre site.</p><p><strong>website.json</strong> exemple pour le développement :</p><pre><code class="lang-js">{
     &quot;languageCode&quot;: &quot;en-gb&quot;,                /* Définir la langue principale. */
     &quot;pageNotFound&quot;: &quot;/page-404/&quot;,           /* Assigner une vue dédiée à la page 404. */
+    &quot;commonView&quot;: &quot;common.htm&quot;,             /* Assigner le layout global aux vues. */
     &quot;commonVariation&quot;: &quot;common.json&quot;,       /* Assigner les fichiers de variations communes pour la localisation. */
     &quot;commonController&quot;: &quot;common.js&quot;,        /* Assigner les fonctions du contrôleur appelé sur toutes les pages. */
     &quot;postSupport&quot;: false,                   /* Par défaut, empêcher les requêtes de page en POST. */
@@ -23,6 +24,7 @@
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,        /* Définir un sous dossier d&#39;exécution pour l&#39;url de l&#39;application. Par exemple : &quot;https://www.my-website.com/example/&quot;. */
     &quot;languageCode&quot;: &quot;en-gb&quot;,
     &quot;pageNotFound&quot;: &quot;/page-404/&quot;,
+    &quot;commonView&quot;: &quot;common.htm&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;postSupport&quot;: false,
@@ -148,12 +150,13 @@
 │  ┊┉
 │
 ├─ views/                    ⤆ La partie vue avec chaque type de vue pour le rendu.
+│  ├─ common.htm
 │  ├─ home.htm
 │  ├─ default.htm
 │  ┊┉
 │  └─ partials/              ⤆ Toutes les vues réutilisables.
-│     ├─ head.htm
-│     ├─ foot.htm
+│     ├─ header.htm
+│     ├─ footer.htm
 │     ┊┉ 
 │
 ├─ variations/               ⤆ Tous les fichiers pour le remplissage de contenu avec &quot;en-gb&quot; par défaut…
