@@ -779,6 +779,9 @@ INSERT INTO user (
 </code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;statics&quot;: {
+        &quot;/models&quot;: &quot;models/objects&quot;
+    },
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -809,12 +812,6 @@ exports.setConfigurations = function (next) {
     var NA = this,
         path = NA.modules.path,
         mysql = NA.modules.mysql;
-
-    // Délivre le modèle côté Client derrière l&#39;url `models/user.js`.
-    NA.express.use(
-        NA.webconfig.urlRelativeSubPath + &quot;/models&quot;, 
-        NA.modules.express.static(path.join(NA.serverPath, &quot;models/objects&quot;), { maxAge: 86400000 * 30 })
-    );
 
     // Créer un pool de connexion à MySQL.
     NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
@@ -1128,7 +1125,7 @@ User.prototype = Object.create(user.prototype);
 User.prototype.constructor = User;
 
 module.exports = User;
-</code></pre><p>basé sur une classe <code>user</code> partagée entre la partie cliente et serveur <code>models/objects/user.js</code> :</p><pre><code class="lang-json">(function (expose, factory) {
+</code></pre><p>basé sur une classe <code>user</code> partagée entre la partie cliente et serveur <code>models/objects/user.js</code> :</p><pre><code class="lang-js">(function (expose, factory) {
     if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
         module.exports = factory;
     } else {
@@ -1378,27 +1375,25 @@ module.exports = User;
 </code></pre><h3 id="utiliser-une-base-de-donnees-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données non sql. Pour cela nous allons utiliser le module NPM <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
 </code></pre><p>puis créer la collection <code>user</code> :</p><pre><code>db.createCollection(&quot;user&quot;)
 </code></pre><p>et la remplir avec un document :</p><pre><code>db.user.insert({
-    email: &quot;bruno.lesieur@gmail.com&quot;,
+    email: &quot;john.doe@unknown.com&quot;,
     identity: {
-        lastname: &quot;Lesieur&quot;,
-        firstname: &quot;Bruno&quot;,
+        lastname: &quot;Doe&quot;,
+        firstname: &quot;John&quot;,
         gender: true,
-        birthdate : new Date(&quot;1900/07/18&quot;)
+        birthdate : new Date(&quot;1970/01/01&quot;)
     },
     location: {
-        country: &quot;France&quot;,
-        town: &quot;Annecy&quot;,
-        zipcode: &quot;74000&quot;,
-        address: &quot;avenue&quot;
+        country: &quot;Unknown&quot;,
+        town: &quot;Unknown&quot;,
+        zipcode: &quot;00000&quot;,
+        address: &quot;42 unknown&quot;
     }
 })
-</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Avec le jeu de fichier suivant :</p><pre><code>├─ assets/
-│  └─ javascript/
-│     └─ models/
-│        └─ user.js
-├─ controllers/
+</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Avec le jeu de fichier suivant :</p><pre><code>├─ controllers/
 │  ├─ common.js
 │  └─ index.js
+├─ models/
+│  └─ user.js
 ├─ views/
 │  └─ index.htm
 ├─ variations/
@@ -1408,6 +1403,9 @@ module.exports = User;
 </code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;statics&quot;: {
+        &quot;/models&quot;: &quot;models&quot;
+    },
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -1462,7 +1460,7 @@ module.exports = User;
 
     NA.modules.mongoose = require(&#39;mongoose&#39;);
     NA.models = {};
-    NA.models.User = require(&#39;../assets/javascript/models/user.js&#39;);
+    NA.models.User = require(&#39;../models/user.js&#39;);
 };
 
 exports.setConfigurations = function (next) {
@@ -1499,7 +1497,7 @@ exports.setConfigurations = function (next) {
         next();
     });
 };
-</code></pre><p>en utilisant sur une classe <code>user</code> partagée entre la partie cliente et la partie serveur <code>assets/javascript/models/user.js</code> :</p><pre><code class="lang-json">var mongoose;
+</code></pre><p>en utilisant sur une classe <code>user</code> partagée entre la partie cliente et la partie serveur <code>models/user.js</code> :</p><pre><code class="lang-json">var mongoose;
 if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
      mongoose = require(&#39;mongoose&#39;);
 }

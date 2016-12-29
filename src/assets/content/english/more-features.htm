@@ -131,49 +131,7 @@
 
     next();
 }
-</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h4 id="routing-in-a-shared-file">Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ views/
-│  └─ index.htm
-├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
-    &quot;httpPort&quot;: 7777,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
-    &quot;httpPort&quot;: 7776,
-    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
-    &quot;urlPort&quot;: 80,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><p>could be the following set of file</p><pre><code>├─ views/
-│  └─ index.htm
-├─ routes.json
-├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
-    &quot;httpPort&quot;: 7777,
-    &quot;routes&quot;: &quot;routes.json&quot;
-}
-</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
-    &quot;httpPort&quot;: 7776,
-    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
-    &quot;urlPort&quot;: 80,
-    &quot;routes&quot;: &quot;routes.json&quot;
-}
-</code></pre><p>and <code>routes.json</code></p><pre><code class="lang-json">{
-    &quot;/&quot;: {
-        &quot;view&quot;: &quot;index.htm&quot;
-    }
-}
-</code></pre><p><em>Note : You can create multiple route file as <code>routes.en.json</code> and <code>routes.fr.json</code> and associate each of them in a set of webconfig parameterize to run a website in various languages.</em></p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
+</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
 <li>Prepare a 404 page.</li>
 <li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
 </ol><p>See the example below:</p><pre><code class="lang-json">{

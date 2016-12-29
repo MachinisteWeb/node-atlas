@@ -58,7 +58,7 @@
 </code></pre><p>est un raccourci de</p><pre><code class="lang-json">&quot;a-propos.html&quot;: {
     &quot;view&quot;: &quot;about.htm&quot;
 }
-</code></pre><p>Évidemment ce raccourci ne sert que si <code>view</code> est le seul paramètre à déclarer de la route.</p><p>Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.</p><p>Dans ce cas le chemin devient le paramètre <code>url</code>.</p><pre><code class="lang-json">{
+</code></pre><p>Évidemment ce raccourci ne sert que si <code>view</code> est le seul paramètre à déclarer de la route.</p><h4 id="ordonner-les-routes">Ordonner les routes</h4><p>Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.</p><p>Dans ce cas le chemin devient le paramètre <code>url</code>.</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: [{
         &quot;url&quot;: &quot;/&quot;,
@@ -81,7 +81,49 @@
         &quot;mimeType&quot;: &quot;text/plain&quot;
     }]
 }
-</code></pre><h3 id="heberger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-json">{
+</code></pre><h4 id="routage-dans-un-fichier-partag-">Routage dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de route dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des routes dans un fichier de votre choix. Par convention, c&#39;est le fichier <code>routes.json</code>.</p><p>Par exemple :</p><p>L&#39;ensemble de fichier suivant</p><pre><code>├─ views/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>avec <code>webconfig.json</code></p><pre><code class="lang-json">{
+    &quot;httpPort&quot;: 7777,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>et avec <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>pourrait devenir l&#39;ensemble de fichier suivant</p><pre><code>├─ views/
+│  └─ index.htm
+├─ routes.json
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>avec <code>webconfig.json</code></p><pre><code class="lang-json">{
+    &quot;httpPort&quot;: 7777,
+    &quot;routes&quot;: &quot;routes.json&quot;
+}
+</code></pre><p>avec <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;routes&quot;: &quot;routes.json&quot;
+}
+</code></pre><p>et <code>routes.json</code></p><pre><code class="lang-json">{
+    &quot;/&quot;: {
+        &quot;view&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichier de route comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d&#39;eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="heberger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-json">{
     &quot;assetsRelativePath&quot;: &quot;assets&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -105,7 +147,7 @@
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascript/common.js">http://localhost/javascript/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource publique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/en/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource publique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -635,6 +677,93 @@
         &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
+</code></pre><h3 id="partager-des-dossiers">Partager des dossiers</h3><p>Il est possible de partager plus de contenu que ce qu&#39;il y a dans le dossier hébergé par <code>assetsRelativePath</code>. Il est tout à fait possible de partager des vues ou des modèles avec la partie cliente par exemple. On appel les fichiers de ses dossiers des fichiers statiques.</p><p>Voyons l&#39;exemple suivant :</p><p>avec cet ensemble de fichiers</p><pre><code>├─ models/
+│  └─ user.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+  &quot;statics&quot;: {
+    &quot;/javascript/models&quot;: &quot;models&quot;
+  },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;Statics&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;user&quot;&gt;&lt;/div&gt;
+        &lt;script src=&quot;javascript/models/user.js&quot;&gt;&lt;/script&gt;
+        &lt;script&gt;
+            var user = new User(),
+                mount = document.getElementById(&quot;user&quot;);
+
+            user
+                .firstname(&quot;Bruno&quot;)
+                .lastname(&quot;Lesieur&quot;);
+
+            mount.innerHTML = user.firstname() + &quot; &quot; + user.lastname();
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>models/user.js</em></p><pre><code class="lang-js">(function (expose, factory) {
+    if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, function User() {
+    var privates = {},
+        publics = this;
+
+    publics.lastname = function (lastname) {
+        if (typeof lastname === &#39;undefined&#39;) {
+            return privates.lastname;
+        } else {
+            privates.lastname = lastname;
+            return publics;
+        }
+    };
+
+    publics.firstname = function (firstname) {
+        if (typeof firstname === &#39;undefined&#39;) {
+            return privates.firstname;
+        } else {
+            privates.firstname = firstname;
+            return publics;
+        }
+    };
+}));
+</code></pre><p>Nous pourrons accéder aux fichiers HTML <code>http://localhost/</code> et au JavaScript <code>http://localhost/javascript/user.js</code>.</p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource statique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code>. Dans ce cas, on ne fournit plus une <code>string</code> mais un <code>Object</code> et la propriété initiale devient le paramètre <code>path</code>. Par défaut les <code>staticOptions</code> sont celle global au webconfig (voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>).</p><pre><code class="lang-json">{
+    &quot;statics&quot;: {
+        &quot;/javascript/models&quot;: {
+            &quot;path&quot;: &quot;models&quot;,
+            &quot;staticOptions&quot;: {
+                &quot;index&quot;: false
+            }
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><h4 id="ordonner-les-routes">Ordonner les routes</h4><p>Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.</p><p>Dans ce cas le chemin devient le paramètre <code>virtual</code>.</p><pre><code class="lang-json">{
+    &quot;statics&quot;: [{
+        &quot;virtual&quot;: &quot;/javascript/models&quot;,
+        &quot;path&quot;: &quot;models&quot;,
+        &quot;staticOptions&quot;: {
+            &quot;index&quot;: false
+        }
+    }],
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
 </code></pre><h3 id="generer-des-maquettes-html">Générer des maquettes HTML</h3><h4 id="g-n-rer-des-designs-html">Générer des designs HTML</h4><p>Avec la configuration suivante il est possible de générer des aperçu HTML du rendu de chaque page dans un fichier associé. Le fichier sera (re)créé à chaque affichage de la page dans votre navigateur.</p><pre><code class="lang-json">{
     &quot;htmlGenerationBeforeResponse&quot;: true,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
