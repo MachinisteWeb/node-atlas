@@ -37,7 +37,7 @@ var configuration = require("../lib/configuration"),
     routes = require("../lib/routes"),
     frontEndPart = require("../lib/front-end-part"),
     backEndPart = require("../lib/back-end-part"),
-    assetsGeneration = require("../lib/assets-generation"),
+    generation = require("../lib/generation"),
     init = require("../lib/init"),
 
 /**
@@ -89,6 +89,8 @@ NA = function () {
     /* ROUTES */
     this.initStatics = routes.initStatics;
     this.initRoutes = routes.initRoutes;
+    this.indexPage = routes.indexPage;
+
     this.response = routes.response;
     this.redirect = routes.redirect;
     this.setSupport = routes.setSupport;
@@ -127,15 +129,15 @@ NA = function () {
     this.jsObfuscation = backEndPart.jsObfuscation;
 
     /* ASSETS GENERATION */
-    this.createTemplateProject = assetsGeneration.createTemplateProject;
-    this.indexPage = assetsGeneration.indexPage;
+    this.createTemplateProject = generation.createTemplateProject;
+    this.initOutputs = generation.initOutputs;
+    this.publicsGeneration = generation.publicsGeneration;
+    this.staticsGeneration = generation.staticsGeneration;
+    this.generateAssets = generation.generateAssets;
+    this.saveTemplateRender = generation.saveTemplateRender;
 
-    this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
-    this.urlGeneratingAssets = assetsGeneration.urlGeneratingAssets;
-    this.saveTemplateRender = assetsGeneration.saveTemplateRender;
     /* INIT */
     this.changeLanguage = init.changeLanguage;
-    
     this.configuration = init.configuration;
     this.init = init.init;
     this.generated = init.generated;

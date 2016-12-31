@@ -22,10 +22,10 @@
 	"imgGenerate": "IMG : The optimized file « %pathName% » was generated !",
 	"jsGenerate": "JS : The obfuscated file « %pathName% » was generated !",
 	"assetsCopy": "Assets : All `assetsRelativePath` content is copied into `serverlessRelativePath` directory.",
+	"staticsCopy": "Statics : All “%source%” content is copied into “%dest%” directory.",
 	"initCopy": "Starting Project create from « %pathName% ».",
 	"templateNotGenerate": "Unable to save file « %pathName% ».",
 	"viewNotSet": "No view file has been defined.",
-	"templateDirectoryNotExist": "HTML : There are no « %templatePath% » directory. No template generated.",
 	"commander": {
 		"directory" : {
 			"command": "-d, --directory <path>",
