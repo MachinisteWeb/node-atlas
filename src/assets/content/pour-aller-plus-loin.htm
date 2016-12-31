@@ -1384,7 +1384,49 @@ exports.setSessions = website.setSessions;
     &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePath + webconfig.routes[routeKey.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
-</code></pre><h3 id="activer-le-cache">Activer le Cache</h3><p>C&#39;est une bonne chose de ne pas reservir des fichiers qui n&#39;ont pas bougé pour la production. Vous pouvez mettre à <code>true</code> la valeur du webconfig <code>cache</code> pour ça:</p><pre><code class="lang-json">{
+</code></pre><h3 id="moteur-de-template-personnalise">Moteur de template personnalisé</h3><p>Il est possible de laisser l&#39;implémentation de <a href="http://expressjs.com/fr/guide/using-template-engines.html">Express prendre la main sur le moteur de rendu des vues</a>. Pour cela il faut utiliser le paramètre <code>commonEngine</code>. Un exemple en utilisant le moteur Handlebars :</p><p>Tout d&#39;abord, ajouter le middleware Express Handlebars à vos modules :</p><pre><code>npm install express-handlebars
+</code></pre><p>puis utiliser <code>commonEngine</code> avec la valeur arbitraire <code>hbs</code></p><pre><code>{
+    &quot;commonEngine&quot;: &quot;hbs&quot;,
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.hbs&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        }
+    }
+}
+</code></pre><p>puis expliquer au moteur Express de NodeAtlas comment rendre les vues :</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this;
+
+    NA.modules.exphbs = require(&quot;express-handlebars&quot;);
+};
+
+exports.setConfigurations = function (next) {
+  var NA = this,
+    exphbs = NA.modules.exphbs;
+
+    NA.express.engine(&quot;hbs&quot;, exphbs());
+
+    next();
+};
+</code></pre><p>enfin voyons rapidement ce que le fichier <code>index.hbs</code> pourrait contenir :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;{{specific.titlePage}}&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/{{common.classCssCommon}}.css&quot; media=&quot;all&quot;&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/{{specific.classPage}}.css&quot; media=&quot;all&quot;&gt;
+    &lt;/head&gt;
+    &lt;body class=&quot;{{specific.classPage}}&quot;&gt;
+        &lt;div&gt;
+            &lt;h1&gt;{{specific.titlePage}}&lt;/h1&gt;
+            {{{specific.content}}}
+        &lt;/div&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/{{common.classJsCommon}}.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Ce que fait <code>commonEngine</code>, c&#39;est abandonner le système de NodeAtlas et passer par celui d&#39;Express. Comme Express a besoin d&#39;un objet <code>response</code> pour rendre une vue, il est impossible d&#39;utiliser ce mécanisme via l&#39;utilisation de la fonction <code>NA.view</code> de l&#39;API NodeAtlas, celle-ci ne supportant que le moteur NodeAtlas, EJS et PUG.</p><h4 id="diff-rence-entre-commonengine-templateenginedelimiter-et-enablepug-">Différence entre <code>commonEngine</code>, <code>templateEngineDelimiter</code> et <code>enablePug</code></h4><p>Il est tout a fait possible de passer par Express pour rendre <code>ejs</code> et <code>pug</code>. Dans ce cas, puisque <code>node-atlas</code> embarque les modules <code>ejs</code> et <code>pug</code> en tant que dépendance, il n&#39;est pas nécéssaire de passer par le <code>commonController</code> et l&#39;utilisation de <code>npm</code> pour les mettre en place. Il suffit juste d&#39;utiliser <code>commonEngine: &quot;ejs&quot;</code> ou <code>commonEngine: &quot;pug&quot;</code>.</p><p>Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l&#39;utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour PUG dans la <code>commonView</code> avec <code>#{routeParameters.view}</code>.</p><h3 id="activer-le-cache">Activer le cache</h3><p>C&#39;est une bonne chose de ne pas reservir des fichiers qui n&#39;ont pas bougé pour la production. Vous pouvez mettre à <code>true</code> la valeur du webconfig <code>cache</code> pour ça:</p><pre><code class="lang-json">{
     cache: true,
     route: {
       &quot;/&quot;: &quot;index.htm&quot;

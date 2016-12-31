@@ -813,7 +813,10 @@
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
 <li><em><a href="http://localhost/no/output/parameter/">http://localhost/no/output/parameter/</a></em></li>
-</ul><p><em>Note : No output page are generated for &quot;/list-of-members/?foo=bar&quot; because <code>output</code> is set to <code>false</code>. Use this value to ignore a route generation.</em></p><p>The generation starts when displaying the page if <strong><em>htmlGenerationBeforeResponse</em></strong> exist and if it is <strong><em>true</em></strong>.</p><h4 id="generate-website-without-server-side">Generate website without server-side</h4><p>You can also manager a simple HTML website page with <code>--generate</code> command.</p><p>If <code>htmlGenerationBeforeResponse</code> is setted to <strong><em>false</em></strong> (or removed) the only way to generate all the pages of the website will be via the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code> will generate all pages once if <code>serverlessRelativePath</code> exist. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).</p><p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>serverlessRelativePath</code> if both folder does not have the same path, and if <code>serverlessRelativePath/</code> folder exist. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p><p>You could desactivate the HTML generation, even if a directory of <code>serverlessRelativePath</code> exist in the système file, with <code>htmlGenerationEnable</code> à <code>false</code>.</p><p>See this with the following configuration:</p><pre><code class="lang-json">{
+</ul><p><em>Note : No output page are generated for &quot;/list-of-members/?foo=bar&quot; because <code>output</code> is set to <code>false</code>. Use this value to ignore a route generation.</em></p><p>The generation starts when displaying the page if <strong><em>htmlGenerationBeforeResponse</em></strong> exist and if it is <strong><em>true</em></strong>.</p><h4 id="generate-website-without-server-side">Generate website without server-side</h4><p>You can also manager a simple HTML website page with <code>--generate</code> command.</p><p>If <code>htmlGenerationBeforeResponse</code> is setted to <strong><em>false</em></strong> (or removed) the only way to generate all the pages of the website will be via the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code> will generate all pages into <code>serverlessRelativePath</code>. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).</p><p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>serverlessRelativePath</code> if both folder does not have the same path. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p><ul>
+<li>You could desactivate the HTML generation with <code>--generate</code> using <code>htmlGenerationEnable</code> setted to <code>false</code>.</li>
+<li>You could desactivate the copy of <code>assetsRelativePath</code> into <code>serverlessRelativePath</code> with <code>--generate</code> using <code>assetsCopyEnable</code> setted to <code>false</code>.</li>
+</ul><p>See this with the following configuration:</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;enableIndex&quot;: true,
     &quot;serverlessRelativePath&quot;: &quot;serverless&quot;,
@@ -834,7 +837,6 @@
 │  │  └─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ serverless/
 ├─ variations/
 │  ├─ fr-fr/
 │  │  └─ index.json
@@ -843,7 +845,8 @@
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>With <code>node &lt;path/to/&gt;node-atlas/ --browse</code>, to address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>).</p><p>It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
+</code></pre><p>With <code>node &lt;path/to/&gt;node-atlas/ --browse</code>, to address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>)
+It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -853,7 +856,15 @@
 │  └─ en/
 │     └─ cv.html
 ┊┉
-</code></pre><p><em>Note : If</em> <strong><em>serverlessRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default folder for generated files is</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h3 id="ejs-template-engine">EJS Template Engine</h3><p>By default, NodeAtlas already use <a href="http://ejs.co/">EJS template engine</a>, it&#39;s that allows you to use JavaScript between <code>&lt;?</code> and <code>?&gt;</code> tags. However, EJS works by default with <code>&lt;%</code> and <code>%&gt;</code>. You could set this values or set others values if you want.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : If</em> <strong><em>serverlessRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default folder for generated files is</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="generate-static-files">Generate Static Files</h4><p>Files defined into <code>statics</code> are also automaticly copy into <code>serverlessRelativePath</code> when you use <code>--generate</code>. To avoid this, you could use for each directory the parameter <code>output</code> setted to <code>false</code>.</p><pre><code>{
+    &quot;statics&quot;: {
+        &quot;/javascript/models&quot;: {
+            &quot;path&quot;: &quot;models&quot;,
+            &quot;output&quot;: false
+        }
+    },
+}
+</code></pre><h3 id="ejs-template-engine">EJS Template Engine</h3><p>By default, NodeAtlas already use <a href="http://ejs.co/">EJS template engine</a>, it&#39;s that allows you to use JavaScript between <code>&lt;?</code> and <code>?&gt;</code> tags. However, EJS works by default with <code>&lt;%</code> and <code>%&gt;</code>. You could set this values or set others values if you want.</p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {

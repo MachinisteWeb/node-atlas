@@ -189,7 +189,7 @@ website.init({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="/../index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; Version française"><span class="fa fa-globe"></span> Version française</a>
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -1058,6 +1058,9 @@ INSERT INTO user (
 </code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contain all informations for database connection:</p><pre><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;statics&quot;: {
+        &quot;/models&quot;: &quot;models/objects&quot;
+    },
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -1088,12 +1091,6 @@ exports.setConfigurations = function (next) {
     var NA = this,
         path = NA.modules.path,
         mysql = NA.modules.mysql;
-
-    // Offer the User model client-side at `models/user.js` url.
-    NA.express.use(
-        NA.webconfig.urlRelativeSubPath + &quot;/models&quot;, 
-        NA.modules.express.static(path.join(NA.serverPath, &quot;models/objects&quot;), { maxAge: 86400000 * 30 })
-    );
 
     // Create a connection pool to MySQL.
     NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
@@ -1657,27 +1654,25 @@ module.exports = User;
 </code></pre><h3 id="use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> NPM module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><h4 id="mongodb-database">MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p><pre><code>use demo
 </code></pre><p>and create a <code>user</code> collection:</p><pre><code>db.createCollection(&quot;user&quot;)
 </code></pre><p>and fill it with this document:</p><pre><code>db.user.insert({
-    email: &quot;bruno.lesieur@gmail.com&quot;,
+    email: &quot;john.doe@unknown.com&quot;,
     identity: {
-        lastname: &quot;Lesieur&quot;,
-        firstname: &quot;Bruno&quot;,
+        lastname: &quot;Doe&quot;,
+        firstname: &quot;John&quot;,
         gender: true,
-        birthdate : new Date(&quot;1900/07/18&quot;)
+        birthdate : new Date(&quot;1970/01/01&quot;)
     },
     location: {
-        country: &quot;France&quot;,
-        town: &quot;Annecy&quot;,
-        zipcode: &quot;74000&quot;,
-        address: &quot;avenue&quot;
+        country: &quot;Unknown&quot;,
+        town: &quot;Unknown&quot;,
+        zipcode: &quot;00000&quot;,
+        address: &quot;42 unknown&quot;
     }
 })
-</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>With the following data set:</p><pre><code>├─ assets/
-│  └─ javascript/
-│     └─ models/
-│        └─ user.js
-├─ controllers/
+</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>With the following data set:</p><pre><code>├─ controllers/
 │  ├─ common.js
 │  └─ index.js
+├─ models/
+│  └─ user.js
 ├─ views/
 │  └─ index.htm
 ├─ variations/
@@ -1687,6 +1682,9 @@ module.exports = User;
 </code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p><pre><code>{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;statics&quot;: {
+        &quot;/models&quot;: &quot;models&quot;
+    },
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -1741,7 +1739,7 @@ module.exports = User;
 
     NA.modules.mongoose = require(&#39;mongoose&#39;);
     NA.models = {};
-    NA.models.User = require(&#39;../assets/javascript/models/user.js&#39;);
+    NA.models.User = require(&#39;../models/user.js&#39;);
 };
 
 exports.setConfigurations = function (next) {
@@ -1778,7 +1776,7 @@ exports.setConfigurations = function (next) {
         next();
     });
 };
-</code></pre><p>based on <code>user</code> classe shared between Front and Back part <code>assets/javascript/models/user.js</code>:</p><pre><code class="lang-js">var mongoose;
+</code></pre><p>based on <code>user</code> classe shared between client-side and server-side part <code>models/user.js</code>:</p><pre><code class="lang-js">var mongoose;
 if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
      mongoose = require(&#39;mongoose&#39;);
 }

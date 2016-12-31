@@ -189,7 +189,7 @@ website.init({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="/../index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; Version française"><span class="fa fa-globe"></span> Version française</a>
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -337,7 +337,7 @@ website.init({
 </code></pre><p>is a shortcut for</p><pre><code class="lang-json">&quot;about.html&quot;: {
     &quot;view&quot;: &quot;about.htm&quot;
 }
-</code></pre><p>Obviously this shortcut is used only if <code>view</code> is the only parameter to declare in the route.</p><p>It&#39;s also possible to place routes into an array, that allows you to ordonate routes for an advanced usage in controllers section.</p><p>In this case, the path become the <code>url</code> parameter.</p><pre><code class="lang-json">{
+</code></pre><p>Obviously this shortcut is used only if <code>view</code> is the only parameter to declare in the route.</p><h4 id="order-routes">Order routes</h4><p>It&#39;s also possible to place routes into an array, that allows you to ordonate routes for an advanced usage in controllers section.</p><p>In this case, the path become the <code>url</code> parameter.</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: [{
         &quot;url&quot;: &quot;/&quot;,
@@ -360,7 +360,49 @@ website.init({
         &quot;mimeType&quot;: &quot;text/plain&quot;
     }]
 }
-</code></pre><h3 id="deliver-images-fonts-css-js-etc">Deliver images, fonts, CSS, JS, etc.</h3><p>You can also host any file on your site in a public folder. For example, with this configuration:</p><pre><code class="lang-json">{
+</code></pre><h4 id="routing-in-a-shared-file">Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ views/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    &quot;httpPort&quot;: 7777,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>could be the following set of file</p><pre><code>├─ views/
+│  └─ index.htm
+├─ routes.json
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    &quot;httpPort&quot;: 7777,
+    &quot;routes&quot;: &quot;routes.json&quot;
+}
+</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    &quot;httpPort&quot;: 7776,
+    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
+    &quot;urlPort&quot;: 80,
+    &quot;routes&quot;: &quot;routes.json&quot;
+}
+</code></pre><p>and <code>routes.json</code></p><pre><code class="lang-json">{
+    &quot;/&quot;: {
+        &quot;view&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><p><em>Note : You can create multiple route file as <code>routes.en.json</code> and <code>routes.fr.json</code> and associate each of them in a set of webconfig parameterize to run a website in various languages.</em></p><h3 id="deliver-images-fonts-css-js-etc">Deliver images, fonts, CSS, JS, etc.</h3><p>You can also host any file on your site in a public folder. For example, with this configuration:</p><pre><code class="lang-json">{
     &quot;assetsRelativePath&quot;: &quot;assets&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -914,6 +956,93 @@ website.init({
         &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
+</code></pre><h3 id="share-directories">Share directories</h3><p>It is possible to share more than only the <code>assetsRelativePath</code> public directory. You could for exemple share views or models with to the client-side. We call them statics files.</p><p>We see the following example:</p><p>with this set of files</p><pre><code>├─ models/
+│  └─ user.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+  &quot;statics&quot;: {
+    &quot;/javascript/models&quot;: &quot;models&quot;
+  },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;Statics&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;user&quot;&gt;&lt;/div&gt;
+        &lt;script src=&quot;javascript/models/user.js&quot;&gt;&lt;/script&gt;
+        &lt;script&gt;
+            var user = new User(),
+                mount = document.getElementById(&quot;user&quot;);
+
+            user
+                .firstname(&quot;Bruno&quot;)
+                .lastname(&quot;Lesieur&quot;);
+
+            mount.innerHTML = user.firstname() + &quot; &quot; + user.lastname();
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>models/user.js</em></p><pre><code class="lang-js">(function (expose, factory) {
+    if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, function User() {
+    var privates = {},
+        publics = this;
+
+    publics.lastname = function (lastname) {
+        if (typeof lastname === &#39;undefined&#39;) {
+            return privates.lastname;
+        } else {
+            privates.lastname = lastname;
+            return publics;
+        }
+    };
+
+    publics.firstname = function (firstname) {
+        if (typeof firstname === &#39;undefined&#39;) {
+            return privates.firstname;
+        } else {
+            privates.firstname = firstname;
+            return publics;
+        }
+    };
+}));
+</code></pre><p>We can access to the HTML files <code>http://localhost/</code> and JavaScript <code>http://localhost/javascript/user.js</code>.</p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage informations provided by NodeAtlas when a static ressource is requested (like <code>maxAge</code>, <code>Etag</code>, etc.) via the <code>staticOptions</code>. In this case, the parameter is not a <code>string</code> anymore but an <code>Object</code> and the initial property become the <code>path</code> parameter. By default, <code>staticOptions</code> are the same as global webconfig (more informations at <a href="http://expressjs.com/en/api.html">Express</a> documentation).</p><pre><code class="lang-json">{
+    &quot;statics&quot;: {
+        &quot;/javascript/models&quot;: {
+            &quot;path&quot;: &quot;models&quot;,
+            &quot;staticOptions&quot;: {
+                &quot;index&quot;: false
+            }
+        }
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><h4 id="order-routes">Order routes</h4><p>It&#39;s also possible to place routes into an array, that allows you to ordonate routes for an advanced usage in controllers section.</p><p>In this case, the path become the <code>virtual</code> parameter.</p><pre><code class="lang-json">{
+    &quot;statics&quot;: [{
+        &quot;virtual&quot;: &quot;/javascript/models&quot;,
+        &quot;path&quot;: &quot;models&quot;,
+        &quot;staticOptions&quot;: {
+            &quot;index&quot;: false
+        }
+    }],
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
 </code></pre><h3 id="generate-html-templates">Generate HTML Templates</h3><h4 id="generate-html-designs">Generate HTML Designs</h4><p>With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.</p><pre><code class="lang-json">{
     &quot;htmlGenerationBeforeResponse&quot;: true,
     &quot;assetsRelativePath&quot;: &quot;../HTML/&quot;,
@@ -963,7 +1092,10 @@ website.init({
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
 <li><em><a href="http://localhost/no/output/parameter/">http://localhost/no/output/parameter/</a></em></li>
-</ul><p><em>Note : No output page are generated for &quot;/list-of-members/?foo=bar&quot; because <code>output</code> is set to <code>false</code>. Use this value to ignore a route generation.</em></p><p>The generation starts when displaying the page if <strong><em>htmlGenerationBeforeResponse</em></strong> exist and if it is <strong><em>true</em></strong>.</p><h4 id="generate-website-without-server-side">Generate website without server-side</h4><p>You can also manager a simple HTML website page with <code>--generate</code> command.</p><p>If <code>htmlGenerationBeforeResponse</code> is setted to <strong><em>false</em></strong> (or removed) the only way to generate all the pages of the website will be via the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code> will generate all pages once if <code>serverlessRelativePath</code> exist. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).</p><p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>serverlessRelativePath</code> if both folder does not have the same path, and if <code>serverlessRelativePath/</code> folder exist. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p><p>You could desactivate the HTML generation, even if a directory of <code>serverlessRelativePath</code> exist in the système file, with <code>htmlGenerationEnable</code> à <code>false</code>.</p><p>See this with the following configuration:</p><pre><code class="lang-json">{
+</ul><p><em>Note : No output page are generated for &quot;/list-of-members/?foo=bar&quot; because <code>output</code> is set to <code>false</code>. Use this value to ignore a route generation.</em></p><p>The generation starts when displaying the page if <strong><em>htmlGenerationBeforeResponse</em></strong> exist and if it is <strong><em>true</em></strong>.</p><h4 id="generate-website-without-server-side">Generate website without server-side</h4><p>You can also manager a simple HTML website page with <code>--generate</code> command.</p><p>If <code>htmlGenerationBeforeResponse</code> is setted to <strong><em>false</em></strong> (or removed) the only way to generate all the pages of the website will be via the command <code>node &lt;/path/to/&gt;node-atlas/ --generate</code> will generate all pages into <code>serverlessRelativePath</code>. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).</p><p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>serverlessRelativePath</code> if both folder does not have the same path. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p><ul>
+<li>You could desactivate the HTML generation with <code>--generate</code> using <code>htmlGenerationEnable</code> setted to <code>false</code>.</li>
+<li>You could desactivate the copy of <code>assetsRelativePath</code> into <code>serverlessRelativePath</code> with <code>--generate</code> using <code>assetsCopyEnable</code> setted to <code>false</code>.</li>
+</ul><p>See this with the following configuration:</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;enableIndex&quot;: true,
     &quot;serverlessRelativePath&quot;: &quot;serverless&quot;,
@@ -984,7 +1116,6 @@ website.init({
 │  │  └─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ serverless/
 ├─ variations/
 │  ├─ fr-fr/
 │  │  └─ index.json
@@ -993,7 +1124,8 @@ website.init({
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>With <code>node &lt;path/to/&gt;node-atlas/ --browse</code>, to address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>).</p><p>It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
+</code></pre><p>With <code>node &lt;path/to/&gt;node-atlas/ --browse</code>, to address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>)
+It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -1003,7 +1135,15 @@ website.init({
 │  └─ en/
 │     └─ cv.html
 ┊┉
-</code></pre><p><em>Note : If</em> <strong><em>serverlessRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default folder for generated files is</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h3 id="ejs-template-engine">EJS Template Engine</h3><p>By default, NodeAtlas already use <a href="http://ejs.co/">EJS template engine</a>, it&#39;s that allows you to use JavaScript between <code>&lt;?</code> and <code>?&gt;</code> tags. However, EJS works by default with <code>&lt;%</code> and <code>%&gt;</code>. You could set this values or set others values if you want.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : If</em> <strong><em>serverlessRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default folder for generated files is</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="generate-static-files">Generate Static Files</h4><p>Files defined into <code>statics</code> are also automaticly copy into <code>serverlessRelativePath</code> when you use <code>--generate</code>. To avoid this, you could use for each directory the parameter <code>output</code> setted to <code>false</code>.</p><pre><code>{
+    &quot;statics&quot;: {
+        &quot;/javascript/models&quot;: {
+            &quot;path&quot;: &quot;models&quot;,
+            &quot;output&quot;: false
+        }
+    },
+}
+</code></pre><h3 id="ejs-template-engine">EJS Template Engine</h3><p>By default, NodeAtlas already use <a href="http://ejs.co/">EJS template engine</a>, it&#39;s that allows you to use JavaScript between <code>&lt;?</code> and <code>?&gt;</code> tags. However, EJS works by default with <code>&lt;%</code> and <code>%&gt;</code>. You could set this values or set others values if you want.</p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {

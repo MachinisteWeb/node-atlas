@@ -189,7 +189,7 @@ website.init({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="/../index.html" title="&lt;span class=&#34;fa fa-globe&#34;&gt;&lt;/span&gt; Version française"><span class="fa fa-globe"></span> Version française</a>
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 					</div>
 					<div class="navigation--home">
 						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
@@ -410,49 +410,7 @@ website.init({
 
     next();
 }
-</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h4 id="routing-in-a-shared-file">Routing in a shared file</h4><p>In order to not rewrite a long route list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group route in a file of your choice. By convention, the name is <code>routes.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ views/
-│  └─ index.htm
-├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
-    &quot;httpPort&quot;: 7777,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
-    &quot;httpPort&quot;: 7776,
-    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
-    &quot;urlPort&quot;: 80,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
-</code></pre><p>could be the following set of file</p><pre><code>├─ views/
-│  └─ index.htm
-├─ routes.json
-├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
-    &quot;httpPort&quot;: 7777,
-    &quot;routes&quot;: &quot;routes.json&quot;
-}
-</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
-    &quot;httpPort&quot;: 7776,
-    &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
-    &quot;urlPort&quot;: 80,
-    &quot;routes&quot;: &quot;routes.json&quot;
-}
-</code></pre><p>and <code>routes.json</code></p><pre><code class="lang-json">{
-    &quot;/&quot;: {
-        &quot;view&quot;: &quot;index.htm&quot;
-    }
-}
-</code></pre><p><em>Note : You can create multiple route file as <code>routes.en.json</code> and <code>routes.fr.json</code> and associate each of them in a set of webconfig parameterize to run a website in various languages.</em></p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
+</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
 <li>Prepare a 404 page.</li>
 <li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
 </ol><p>See the example below:</p><pre><code class="lang-json">{
@@ -1705,7 +1663,49 @@ exports.setSessions = website.setSessions;
     &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePath + webconfig.routes[routeKey.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
-</code></pre><h3 id="enable-cache">Enable Cache</h3><p>It&#39;s a good thing to not serve file with no modification in production. You could set the websconfig&#39;s <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
+</code></pre><h3 id="custom-template-engine">Custom Template Engine</h3><p>It is possible to let the <a href="http://expressjs.com/en/guide/using-template-engines.html">Express Template Engine implementation</a> to bypass the NodeAtlas Template Engine implementation  for view render. To do this, use the <code>commonEngine</code> parameter. See an example with the Handlebars engine:</p><p>First, add the Express Handlebars middleware amongs your modules:</p><pre><code>npm install express-handlebars
+</code></pre><p>then, use <code>commonEngine</code> with the arbtrary <code>hbs</code> value</p><pre><code>{
+    &quot;commonEngine&quot;: &quot;hbs&quot;,
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.hbs&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        }
+    }
+}
+</code></pre><p>and explain to Express from NodeAtlas how to render views:</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this;
+
+    NA.modules.exphbs = require(&quot;express-handlebars&quot;);
+};
+
+exports.setConfigurations = function (next) {
+  var NA = this,
+    exphbs = NA.modules.exphbs;
+
+    NA.express.engine(&quot;hbs&quot;, exphbs());
+
+    next();
+};
+</code></pre><p>finaly, see what could be the content of <code>index.hbs</code>:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;{{specific.titlePage}}&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/{{common.classCssCommon}}.css&quot; media=&quot;all&quot;&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/{{specific.classPage}}.css&quot; media=&quot;all&quot;&gt;
+    &lt;/head&gt;
+    &lt;body class=&quot;{{specific.classPage}}&quot;&gt;
+        &lt;div&gt;
+            &lt;h1&gt;{{specific.titlePage}}&lt;/h1&gt;
+            {{{specific.content}}}
+        &lt;/div&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/{{common.classJsCommon}}.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>The goal of <code>commonEngine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, PUG and NodeAtlas syntaxe.</p><h4 id="differences-between-commonengine-templateenginedelimiter-and-enablepug-">Differences between <code>commonEngine</code>, <code>templateEngineDelimiter</code> and <code>enablePug</code></h4><p>It&#39;s possible to render <code>ejs</code> and <code>pug</code> view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>commonController</code> and a <code>npm</code> command to set them. You have just to set <code>commonEngine: &quot;ejs&quot;</code> or <code>commonEngine: &quot;pug&quot;</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the <code>commonView</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="enable-cache">Enable Cache</h3><p>It&#39;s a good thing to not serve file with no modification in production. You could set the websconfig&#39;s <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
     cache: true,
     route: {
       &quot;/&quot;: &quot;index.htm&quot;

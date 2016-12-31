@@ -813,7 +813,10 @@
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
 <li><em><a href="http://localhost/parametre/output/">http://localhost/parametre/output/</a></em></li>
-</ul><p><em>Note : Il n&#39;y a pas de génération pour « /liste-des-membres/?foo=bar » car <code>output</code> est à <code>false</code>. Utilisez cette valeur pour ignorer des routes à la génération.</em></p><p>La génération s&#39;enclenche quand on affiche la page uniquement parce que <strong><em>htmlGenerationBeforeResponse</em></strong> existe et est à <strong><em>true</em></strong>.</p><h4 id="g-n-rer-un-site-sans-partie-serveur">Générer un site sans partie serveur</h4><p>Il est également possible de gérer la création d&#39;un site en simple page HTML avec la commande <code>--generate</code>.</p><p>Si <code>htmlGenerationBeforeResponse</code> est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/ --generate</code> qui génèrera toutes les pages d&#39;un coup uniquement si le dossier de <code>serverlessRelativePath</code> existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu&#39;une modification dans un composant appelé sur toutes les pages.</p><p>De plus avec <code>--generate</code>, l&#39;intégralité du dossier <code>assetsRelativePath</code> (dossier des fichiers publics) sera copié dans le dossier <code>serverlessRelativePath</code> si les deux dossiers n&#39;ont pas un chemin identique, et que le dossier de <code>serverlessRelativePath</code> existe. Cela vous permet réellement d&#39;obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l&#39;intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).</p><p>Vous pouvez également désactiver la génération, même si un dossier <code>serverlessRelativePath</code> existe dans les dossiers, avec <code>htmlGenerationEnable</code> à <code>false</code>.</p><p>Voyons cela avec la configuration suivante :</p><pre><code class="lang-json">{
+</ul><p><em>Note : Il n&#39;y a pas de génération pour « /liste-des-membres/?foo=bar » car <code>output</code> est à <code>false</code>. Utilisez cette valeur pour ignorer des routes à la génération.</em></p><p>La génération s&#39;enclenche quand on affiche la page uniquement parce que <strong><em>htmlGenerationBeforeResponse</em></strong> existe et est à <strong><em>true</em></strong>.</p><h4 id="g-n-rer-un-site-sans-partie-serveur">Générer un site sans partie serveur</h4><p>Il est également possible de gérer la création d&#39;un site en simple page HTML avec la commande <code>--generate</code>.</p><p>Si <code>htmlGenerationBeforeResponse</code> est passé à <strong><em>false</em></strong> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node &lt;/path/to/&gt;node-atlas/ --generate</code> qui génèrera toutes les pages d&#39;un coup dans le dossier <code>serverlessRelativePath</code>. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu&#39;une modification dans un composant appelé sur toutes les pages.</p><p>De plus avec <code>--generate</code>, l&#39;intégralité du dossier <code>assetsRelativePath</code> (dossier des fichiers publics) sera copié dans le dossier <code>serverlessRelativePath</code> si les deux dossiers n&#39;ont pas un chemin identique. Cela vous permet réellement d&#39;obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l&#39;intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).</p><ul>
+<li>Vous pouvez désactiver la génération des fichier HTML avec <code>--generate</code> grâce à <code>htmlGenerationEnable</code> à <code>false</code>.</li>
+<li>Vous pouvez désactiver la copy du dossier <code>assetsRelativePath</code> dans <code>serverlessRelativePath</code> avec <code>--generate</code> grâce à <code>assetsCopyEnable</code> à <code>false</code>.</li>
+</ul><p>Voyons cela avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
     &quot;enableIndex&quot;: true,
     &quot;serverlessRelativePath&quot;: &quot;serverless&quot;,
@@ -834,7 +837,6 @@
 │  │  └─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ serverless/
 ├─ variations/
 │  ├─ fr-fr/
 │  │  └─ index.json
@@ -853,7 +855,15 @@
 │  └─ en/
 │     └─ cv.html
 ┊┉
-</code></pre><p><em>Note : Si</em> <strong><em>serverlessRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p><h3 id="moteur-de-template-ejs">Moteur de Template EJS</h3><p>Par défaut, NodeAtlas utilise déjà le <a href="http://ejs.co/">moteur de template EJS</a>, c&#39;est ce qui vous permet d&#39;utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>. Cependant, EJS fonctionne normalement avec les balises <code>&lt;%</code> et <code>%&gt;</code>. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : Si</em> <strong><em>serverlessRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p><h4 id="g-n-rer-les-fichiers-statics">Générer les fichiers statics</h4><p>Les fichiers défini dans <code>statics</code> sont également automatiquement copier dans le dossier <code>serverlessRelativePath</code> lors de l&#39;appel à <code>--generate</code>. Pour évitere cela, vous pouvez utiliser pour chaque dossier statique le paramètre <code>output</code> mis à <code>false</code>.</p><pre><code>{
+    &quot;statics&quot;: {
+        &quot;/javascript/models&quot;: {
+            &quot;path&quot;: &quot;models&quot;,
+            &quot;output&quot;: false
+        }
+    },
+}
+</code></pre><h3 id="moteur-de-template-ejs">Moteur de Template EJS</h3><p>Par défaut, NodeAtlas utilise déjà le <a href="http://ejs.co/">moteur de template EJS</a>, c&#39;est ce qui vous permet d&#39;utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>. Cependant, EJS fonctionne normalement avec les balises <code>&lt;%</code> et <code>%&gt;</code>. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.</p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {

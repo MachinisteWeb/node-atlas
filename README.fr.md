@@ -6282,7 +6282,7 @@ on peut alors créer un lien entre chaque page multilingue comme ceci :
 
 
 
-## Moteur de template personnalisé ##
+### Moteur de template personnalisé ###
 
 Il est possible de laisser l'implémentation de [Express prendre la main sur le moteur de rendu des vues](http://expressjs.com/fr/guide/using-template-engines.html). Pour cela il faut utiliser le paramètre `commonEngine`. Un exemple en utilisant le moteur Handlebars :
 
