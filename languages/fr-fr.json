@@ -22,10 +22,10 @@
 	"imgGenerate": "IMG : Le fichier optimisé « %pathName% » a été généré !",
 	"jsGenerate": "JS : Le fichier offusqué « %pathName% » a été généré !",
 	"assetsCopy": "Assets : Tout le contenu de `assetsRelativePath` a été copié dans le dossier `serverlessRelativePath`.",
+	"staticsCopy": "Statics : Tout le contenu de « %source% » a été copié dans le dossier « %dest% ».",
 	"initCopy": "Projet de démarrage créé à partir de « %pathName% ».",
 	"templateNotGenerate": "Impossible d'enregistrer le fichier « %pathName% ».",
 	"viewNotSet": "Aucun fichier de view n'a été défini.",
-	"templateDirectoryNotExist": "HTML : Il n'y aucun dossier « %templatePath% » existant. Aucune génération.",
 	"commander": {
 		"directory" : {
 			"command": "-d, --directory <path>",

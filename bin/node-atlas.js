@@ -129,6 +129,8 @@ NA = function () {
     /* ASSETS GENERATION */
     this.createTemplateProject = assetsGeneration.createTemplateProject;
     this.indexPage = assetsGeneration.indexPage;
+    this.publicsGeneration = assetsGeneration.publicsGeneration;
+    this.staticsGeneration = assetsGeneration.staticsGeneration;
 
     this.urlGeneratingPages = assetsGeneration.urlGeneratingPages;
     this.urlGeneratingAssets = assetsGeneration.urlGeneratingAssets;

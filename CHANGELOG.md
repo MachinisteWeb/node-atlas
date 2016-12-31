@@ -23,6 +23,9 @@ Features:
 - `NA#httpsServer` added.
 - `NA#httpServer` added.
 - `NA#statics` added.
+- `NA#commonEngine` added.
+- `NA#assetsCopyEnable` added.
+- `serverRelativePath` folder is created if is not exist.
 
 Updates:
 
@@ -81,6 +84,7 @@ Removed:
 - `NA#variations.currentRouteName` removed.
 - `NA#modulesRequired` and `NA#downloadAllModules` removed. Use `npm install` manually instead if you download package manually.
 - Original `NA#variations` removed.
+- Language `templateDirectoryNotExist` removed.
 
 
 

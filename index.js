@@ -30,7 +30,7 @@
  * @requires {@link NA#modules.external:pug}
  * @requires {@link NA#modules.external:socketio}
  * @requires {@link NA#modules.external:stylus}
- * @requires {@link NA#modules.external:traverse-directory}
+ * @requires {@link NA#modules.external:copy-dir}
  * @requires {@link NA#modules.external:uglify-js}
  */
 
