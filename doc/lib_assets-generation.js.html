@@ -43,39 +43,24 @@ exports.createTemplateProject = function (next) {
      var NA = this,
         fs = NA.modules.fs,
         path = NA.modules.path,
-        traverseDirectory = NA.modules.traverseDirectory,
+        copyDir = NA.modules.copyDir,
         source = (typeof NA.configuration.create === "string") ? NA.configuration.create : "hello-world",
         sourcePath = path.join(NA.nodeatlasPath, "templates", source),
         destinationPath = path.join(NA.serverPath),
-        data = {},
-        traverse;
+        data = {};
 
     if (NA.configuration.create) {
 
         /* Copy starting project from `templates/` directory. By default it is "hello-world". */
         if (sourcePath !== destinationPath &amp;&amp; fs.existsSync(sourcePath)) {
-            traverse = new traverseDirectory(
-              sourcePath,
-              destinationPath
-            );
 
-            traverse.directory(function (source, target, next) {
-                next(traverseDirectory.copydir, source, target);
-            });
-
-            traverse.file(function (source, target, next) {
-                next(traverseDirectory.copyfile, source, target);
-            });
-
-            traverse.on('complete', function () {   
+            copyDir(sourcePath, destinationPath, function () {   
                 data.pathName = sourcePath;
                 NA.log(NA.cliLabels.initCopy.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
                 if (NA.afterNewProject) {
                     NA.afterNewProject.call(NA);
                 }
             });
-
-            traverse.run();
         } else {
             data.initPath = source;
             NA.log(NA.cliLabels.initNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
@@ -174,12 +159,12 @@ exports.urlGeneratingPages = function () {
     if (typeof NA.webconfig.htmlGenerationEnable === 'boolean') {
 
         /**
-         * Disable HTML generate mechanism.
+         * Disable HTML generation mechanism.
          * @public
          * @alias htmlGenerationEnable
          * @type {boolean}
          * @memberOf NA#webconfig
-         * @default false.
+         * @default true
          */
         htmlGenerationEnable = NA.webconfig.htmlGenerationEnable;
     }
@@ -189,19 +174,125 @@ exports.urlGeneratingPages = function () {
 
         /* Generate all HTML files. */
         if (htmlGenerationEnable) {
-            fs.exists(path.join(NA.serverPath, NA.webconfig.serverlessRelativePath), function (exists) {
-                if (exists) {
-                    NA.forEach(NA.webconfig.routes, function (currentUrl) {
-                        NA.render(currentUrl, NA.webconfig.routes);
-                    });
-                } else {
-                    data.templatePath = path.join(NA.serverPath, NA.webconfig.serverlessRelativePath);
-                    NA.log(NA.cliLabels.templateDirectoryNotExist.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
-                }
+            NA.forEach(NA.webconfig.routes, function (currentUrl) {
+                NA.render(currentUrl, NA.webconfig.routes);
             });
         }
 
         NA.urlGeneratingAssets();
+    }
+};
+
+/**
+ * Copy mechanism for statics.
+ * @private
+ * @function traverse
+ * @memberOf NA~
+ * @this NA
+ */
+function traverse(paths, callback) {
+    var NA = this,
+        copyDir = NA.modules.copyDir,
+        path = NA.modules.path,
+        sourcePath = path.join(NA.serverPath, paths.real),
+        destinationPath = path.join(NA.serverPath, NA.webconfig.serverlessRelativePath, paths.virtual),
+        data = {
+            source: sourcePath,
+            dest: destinationPath
+        };
+
+    if (paths.output) {
+        copyDir(sourcePath, destinationPath, function () {
+            NA.log(NA.cliLabels.staticsCopy.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));    
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+/**
+ * Copy all `statics` form real directory to `serverlessRelativePath`.
+ * @private
+ * @function staticsGeneration
+ * @memberOf NA#
+ * @this NA
+ */
+exports.staticsGeneration = function (callback) {
+    var NA = this,
+        async = NA.modules.async,
+        statics = [];
+
+    if (NA.webconfig.statics) {
+        
+        NA.forEach(NA.webconfig.statics, function (directory, directories) {
+            var virtual = directory,
+                real = directories[directory],
+                output = true;
+
+            if (NA.webconfig.statics instanceof Array) {
+                virtual = directory.virtual;
+                output = directory.output;
+                real = directory;
+            }
+
+            if (typeof real === "object") {
+                output = (typeof real.output === "boolean" &amp;&amp; !real.output) ? false : true;
+                real = real.path;
+            }
+
+            statics.push({
+                real: real,
+                virtual: virtual,
+                output: output
+            });
+        });
+
+        async.map(statics, traverse.bind(NA), function() {
+            callback();
+        });
+    } else {
+        callback();
+    }
+};
+
+/**
+ * Copy all `public` file from `assetsRelativePath` to `serverlessRelativePath`.
+ * @private
+ * @function publicsGeneration
+ * @memberOf NA#
+ * @this NA
+ */
+exports.publicsGeneration = function (callback) {
+    var NA = this,
+        path = NA.modules.path,
+        fs = NA.modules.fs,
+        copyDir = NA.modules.copyDir,
+        sourcePath = path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
+        destinationPath = path.join(NA.serverPath, NA.webconfig.serverlessRelativePath),
+        assetsCopyEnable = true;
+
+    /* Avoid copy of `assetsRelativePath` into `serverlessRelativePath` even if serverlessRelativePath directory exist. */
+    if (typeof NA.webconfig.assetsCopyEnable === "boolean") {
+
+        /**
+         * Disable Assets generation mechanism.
+         * @public
+         * @alias assetsCopyEnable
+         * @type {boolean}
+         * @memberOf NA#webconfig
+         * @default true
+         */
+        assetsCopyEnable = NA.webconfig.assetsCopyEnable;
+    }
+
+    if (assetsCopyEnable &amp;&amp; sourcePath !== destinationPath &amp;&amp; fs.existsSync(sourcePath)) {
+        copyDir(sourcePath, destinationPath, function () {        
+            NA.log(NA.cliLabels.assetsCopy);
+            callback();
+        });
+    } else {
+        callback();
     }
 };
 
@@ -213,50 +304,25 @@ exports.urlGeneratingPages = function () {
  */
 exports.urlGeneratingAssets = function () {
     var NA = this,
-        fs = NA.modules.fs,
-        async = NA.modules.async,
-        path = NA.modules.path,
-        traverseDirectory = NA.modules.traverseDirectory,
-        sourcePath = path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
-        destinationPath = path.join(NA.serverPath, NA.webconfig.serverlessRelativePath),
-        traverse,
-        htmlGenerationEnable = true;
+        async = NA.modules.async;
 
     /* Generate all minified CSS, JS and Images files. */
     async.parallel([
         NA.cssCompilation.bind(NA),
         NA.jsObfuscation.bind(NA),
-        NA.imgOptimization.bind(NA)
+        NA.imgOptimization.bind(NA),
     ], function () {
 
-        /* Copy all content of `assetsRelativePath` into `serverlessRelativePath` */
-        if (sourcePath !== destinationPath &amp;&amp; htmlGenerationEnable &amp;&amp; fs.existsSync(destinationPath) &amp;&amp; fs.existsSync(sourcePath)) {
-            traverse = new traverseDirectory(
-              sourcePath,
-              destinationPath
-            );
+        /* Copy all content of `assetsRelativePath` and `statics` into `serverlessRelativePath` */
+        async.parallel([
+            NA.publicsGeneration.bind(NA),
+            NA.staticsGeneration.bind(NA),
+        ], function () {
 
-            traverse.directory(function (source, target, next) {
-                next(traverseDirectory.copydir, source, target);
-            });
-
-            traverse.file(function (source, target, next) {
-                next(traverseDirectory.copyfile, source, target);
-            });
-
-            traverse.on("complete", function () {        
-                NA.log(NA.cliLabels.assetsCopy);
-                if (NA.afterGeneration) {
-                    NA.afterGeneration.call(NA);
-                }
-            });
-
-            traverse.run();
-        } else {
             if (NA.afterGeneration) {
-                NA.afterGeneration.call();
+                NA.afterGeneration.call(NA);
             }
-        }
+        });
     });
 };
 
@@ -348,13 +414,13 @@ exports.saveTemplateRender = function (data, templateRenderName) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Dec 29 2016 11:36:33 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Dec 31 2016 16:11:50 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

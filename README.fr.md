@@ -125,6 +125,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
  - [Changer l'URL final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
  - [Générer les URLs dynamiquement](#générer-les-urls-dynamiquement)
+ - [Moteur de template personnalisé](#moteur-de-template-personnalisé)
  - [Activer le cache](#activer-le-cache)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
  - [--directory &lt;path>](#--directory-path)
@@ -1624,8 +1625,6 @@ avec cet ensemble de fichiers
 
 Nous pourrons accéder aux fichiers HTML `http://localhost/` et au JavaScript `http://localhost/javascript/user.js`.
 
-
-
 #### maxAge, Etag, etc. ####
 
 Il est possible de configurer les informations livrées par NodeAtlas à la demande d'une ressource statique (comme le `maxAge`, l'`Etag`, etc.) via la propriété `staticOptions`. Dans ce cas, on ne fournit plus une `string` mais un `Object` et la propriété initiale devient le paramètre `path`. Par défaut les `staticOptions` sont celle global au webconfig (voir les options d'[Express](http://expressjs.com/fr/api.html)).
@@ -1743,16 +1742,16 @@ en se rendant aux adresses :
 
 La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerationBeforeResponse*** existe et est à ***true***.
 
-
 #### Générer un site sans partie serveur ####
 
 Il est également possible de gérer la création d'un site en simple page HTML avec la commande `--generate`.
 
-Si `htmlGenerationBeforeResponse` est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/ --generate` qui génèrera toutes les pages d'un coup uniquement si le dossier de `serverlessRelativePath` existe. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.
+Si `htmlGenerationBeforeResponse` est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/ --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath`. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.
 
-De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publics) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique, et que le dossier de `serverlessRelativePath` existe. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).
+De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publics) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).
 
-Vous pouvez également désactiver la génération, même si un dossier `serverlessRelativePath` existe dans les dossiers, avec `htmlGenerationEnable` à `false`.
+- Vous pouvez désactiver la génération des fichier HTML avec `--generate` grâce à `htmlGenerationEnable` à `false`.
+- Vous pouvez désactiver la copy du dossier `assetsRelativePath` dans `serverlessRelativePath` avec `--generate` grâce à `assetsCopyEnable` à `false`.
 
 Voyons cela avec la configuration suivante :
 
@@ -1783,7 +1782,6 @@ et l'ensemble de fichiers suivant :
 │  │  └─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ serverless/
 ├─ variations/
 │  ├─ fr-fr/
 │  │  └─ index.json
@@ -1812,6 +1810,21 @@ Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTM
 ```
 
 *Note : Si* ***serverlessRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***serverless/***. ***serverlessRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
+
+#### Générer les fichiers statics ####
+
+Les fichiers défini dans `statics` sont également automatiquement copier dans le dossier `serverlessRelativePath` lors de l'appel à `--generate`. Pour évitere cela, vous pouvez utiliser pour chaque dossier statique le paramètre `output` mis à `false`.
+
+```
+{
+    "statics": {
+        "/javascript/models": {
+            "path": "models",
+            "output": false
+        }
+    },
+}
+```
 
 
 
@@ -6269,7 +6282,83 @@ on peut alors créer un lien entre chaque page multilingue comme ceci :
 
 
 
-### Activer le Cache ###
+## Moteur de template personnalisé ##
+
+Il est possible de laisser l'implémentation de [Express prendre la main sur le moteur de rendu des vues](http://expressjs.com/fr/guide/using-template-engines.html). Pour cela il faut utiliser le paramètre `commonEngine`. Un exemple en utilisant le moteur Handlebars :
+
+Tout d'abord, ajouter le middleware Express Handlebars à vos modules :
+
+```
+npm install express-handlebars
+```
+
+puis utiliser `commonEngine` avec la valeur arbitraire `hbs`
+
+```
+{
+    "commonEngine": "hbs",
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.hbs",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+puis expliquer au moteur Express de NodeAtlas comment rendre les vues :
+
+```js
+exports.setModules = function () {
+    var NA = this;
+
+    NA.modules.exphbs = require("express-handlebars");
+};
+
+exports.setConfigurations = function (next) {
+  var NA = this,
+    exphbs = NA.modules.exphbs;
+
+    NA.express.engine("hbs", exphbs());
+
+    next();
+};
+```
+
+enfin voyons rapidement ce que le fichier `index.hbs` pourrait contenir :
+
+```html
+<!DOCTYPE html>
+<html lang="fr-fr">
+    <head>
+        <meta charset="utf-8">
+        <title>{{specific.titlePage}}</title>
+        <link rel="stylesheet" href="stylesheets/{{common.classCssCommon}}.css" media="all">
+        <link rel="stylesheet" href="stylesheets/{{specific.classPage}}.css" media="all">
+    </head>
+    <body class="{{specific.classPage}}">
+        <div>
+            <h1>{{specific.titlePage}}</h1>
+            {{{specific.content}}}
+        </div>
+        <script async="true" type="text/javascript" src="javascript/{{common.classJsCommon}}.js"></script>
+    </body>
+</html>
+```
+
+Ce que fait `commonEngine`, c'est abandonner le système de NodeAtlas et passer par celui d'Express. Comme Express a besoin d'un objet `response` pour rendre une vue, il est impossible d'utiliser ce mécanisme via l'utilisation de la fonction `NA.view` de l'API NodeAtlas, celle-ci ne supportant que le moteur NodeAtlas, EJS et PUG.
+
+#### Différence entre `commonEngine`, `templateEngineDelimiter` et `enablePug` ####
+
+Il est tout a fait possible de passer par Express pour rendre `ejs` et `pug`. Dans ce cas, puisque `node-atlas` embarque les modules `ejs` et `pug` en tant que dépendance, il n'est pas nécéssaire de passer par le `commonController` et l'utilisation de `npm` pour les mettre en place. Il suffit juste d'utiliser `commonEngine: "ejs"` ou `commonEngine: "pug"`.
+
+Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l'utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour PUG dans la `commonView` avec `#{routeParameters.view}`.
+
+
+
+### Activer le cache ###
 
 C'est une bonne chose de ne pas reservir des fichiers qui n'ont pas bougé pour la production. Vous pouvez mettre à `true` la valeur du webconfig `cache` pour ça:
 

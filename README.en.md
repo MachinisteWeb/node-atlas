@@ -125,6 +125,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [External Storage Sessions](#external-storage-sessions)
  - [Change the URL hostname and listening port](#change-the-url-hostname-and-listening-port)
  - [Generate URLs dynamically](#generate-urls-dynamically)
+ - [Custom Template Engine](#custom-template-engine)
  - [Enable Cache](#enable-cache)
 - [CLI / Running commands](#cli--running-commands)
  - [--directory &lt;path>](#--directory-path)
@@ -1624,8 +1625,6 @@ with this set of files
 
 We can access to the HTML files `http://localhost/` and JavaScript `http://localhost/javascript/user.js`.
 
-
-
 #### maxAge, Etag, etc. ####
 
 It's possible to manage informations provided by NodeAtlas when a static ressource is requested (like `maxAge`, `Etag`, etc.) via the `staticOptions`. In this case, the parameter is not a `string` anymore but an `Object` and the initial property become the `path` parameter. By default, `staticOptions` are the same as global webconfig (more informations at [Express](http://expressjs.com/en/api.html) documentation).
@@ -1743,16 +1742,16 @@ by going to the address:
 
 The generation starts when displaying the page if ***htmlGenerationBeforeResponse*** exist and if it is ***true***.
 
-
 #### Generate website without server-side ####
 
 You can also manager a simple HTML website page with `--generate` command.
 
-If `htmlGenerationBeforeResponse` is setted to ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/ --generate` will generate all pages once if `serverlessRelativePath` exist. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
+If `htmlGenerationBeforeResponse` is setted to ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/ --generate` will generate all pages into `serverlessRelativePath`. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
 
-Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path, and if `serverlessRelativePath/` folder exist. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
+Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
 
-You could desactivate the HTML generation, even if a directory of `serverlessRelativePath` exist in the système file, with `htmlGenerationEnable` à `false`.
+ - You could desactivate the HTML generation with `--generate` using `htmlGenerationEnable` setted to `false`.
+ - You could desactivate the copy of `assetsRelativePath` into `serverlessRelativePath` with `--generate` using `assetsCopyEnable` setted to `false`.
 
 See this with the following configuration:
 
@@ -1783,7 +1782,6 @@ and the following set of files:
 │  │  └─ common.css
 │  └─ javascript/
 │     └─ common.js
-├─ serverless/
 ├─ variations/
 │  ├─ fr-fr/
 │  │  └─ index.json
@@ -1794,8 +1792,7 @@ and the following set of files:
 └─ webconfig.json
 ```
 
-With `node <path/to/>node-atlas/ --browse`, to address *http://localhost/* will show a list of pages your site components (with **enableIndex** set to **true**).
-
+With `node <path/to/>node-atlas/ --browse`, to address *http://localhost/* will show a list of pages your site components (with **enableIndex** set to **true**)
 It will do more than, once `--generate` was used, enjoy your HTML site in the folder:
 
 ```
@@ -1812,6 +1809,21 @@ It will do more than, once `--generate` was used, enjoy your HTML site in the fo
 ```
 
 *Note : If* ***serverlessRelativePath*** *is not present in "webconfig.json", default folder for generated files is* ***serverless/***. ***serverlessRelativePath*** *is useful only to change the name/path of directory.*
+
+#### Generate Static Files ####
+
+Files defined into `statics` are also automaticly copy into `serverlessRelativePath` when you use `--generate`. To avoid this, you could use for each directory the parameter `output` setted to `false`.
+
+```
+{
+    "statics": {
+        "/javascript/models": {
+            "path": "models",
+            "output": false
+        }
+    },
+}
+```
 
 
 
@@ -6266,6 +6278,82 @@ we could create link between each page as following :
     <? } ?>
 </ul>
 ```
+
+
+
+##Custom Template Engine ##
+
+It is possible to let the [Express Template Engine implementation](http://expressjs.com/en/guide/using-template-engines.html) to bypass the NodeAtlas Template Engine implementation  for view render. To do this, use the `commonEngine` parameter. See an example with the Handlebars engine:
+
+First, add the Express Handlebars middleware amongs your modules:
+
+```
+npm install express-handlebars
+```
+
+then, use `commonEngine` with the arbtrary `hbs` value
+
+```
+{
+    "commonEngine": "hbs",
+    "commonController": "common.js",
+    "commonVariation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.hbs",
+            "variation": "index.json"
+        }
+    }
+}
+```
+
+and explain to Express from NodeAtlas how to render views:
+
+```js
+exports.setModules = function () {
+    var NA = this;
+
+    NA.modules.exphbs = require("express-handlebars");
+};
+
+exports.setConfigurations = function (next) {
+  var NA = this,
+    exphbs = NA.modules.exphbs;
+
+    NA.express.engine("hbs", exphbs());
+
+    next();
+};
+```
+
+finaly, see what could be the content of `index.hbs`:
+
+```html
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <title>{{specific.titlePage}}</title>
+        <link rel="stylesheet" href="stylesheets/{{common.classCssCommon}}.css" media="all">
+        <link rel="stylesheet" href="stylesheets/{{specific.classPage}}.css" media="all">
+    </head>
+    <body class="{{specific.classPage}}">
+        <div>
+            <h1>{{specific.titlePage}}</h1>
+            {{{specific.content}}}
+        </div>
+        <script async="true" type="text/javascript" src="javascript/{{common.classJsCommon}}.js"></script>
+    </body>
+</html>
+```
+
+The goal of `commonEngine`, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a `response` object to render view, it is not possible to use this feature with the `NA.view` function from NodeAtlas API. `NA.view` only support, EJS, PUG and NodeAtlas syntaxe.
+
+#### Differences between `commonEngine`, `templateEngineDelimiter` and `enablePug` ####
+
+It's possible to render `ejs` and `pug` view with the Express Template Engine. In this case, because `node-atlas` use already `ejs` and `pug` modules as dependencies, it is not mandatory to use a `commonController` and a `npm` command to set them. You have just to set `commonEngine: "ejs"` or `commonEngine: "pug"`.
+
+However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the `commonView` file with `#{routeParameters.view}`.
 
 
 

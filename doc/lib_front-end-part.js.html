@@ -500,7 +500,7 @@ exports.changeVariationsSpecific = function (locals, routeParameters, request, r
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
  */
-function engineProcess(NA, data, locals, routeParameters, response, next) {
+function engineProcess(NA, viewsPath, locals, routeParameters, response, next) {
     var ejs = NA.modules.ejs,
         pug = NA.modules.pug,
         pathM = NA.modules.path,
@@ -526,33 +526,35 @@ function engineProcess(NA, data, locals, routeParameters, response, next) {
      * @memberOf NA#locals
      */
     locals.filename = pathM.join(NA.serverPath, NA.webconfig.viewsRelativePath, NA.webconfig.commonView || routeParameters.view);
-       
-    // TO DO
-    //if (NA.webconfig.commonEngine) {
+
+    if (NA.webconfig.commonEngine) {
 
         /* Transform from any engine but globaly. */
-        /*response.render(data, locals, function (err, data) {
+        response.render(viewsPath, locals, function (err, data) {
             if (err) {
                 data = err.toString();
             }
+            
+            next(data);
+        });
+    } else {
+        /* Open the template file */
+        NA.openTemplate(routeParameters, viewsPath, function (data) {
+
+            /* Transform ejs/pug data and inject incduded file. */
+            try {
+                data = engine.render(data, locals);
+            } catch (err) {
+                /* Make error more readable. */
+                data = err.toString()
+                    .replace(/[\n]/g, "&lt;br>")
+                    .replace(/    /g, "&lt;span style='display:inline-block;width:32px'>&lt;/span>")
+                    .replace(/ >> /g, "&lt;span style='display:inline-block;width:32px'>&amp;gt;&amp;gt;&lt;/span>");
+            }
 
             next(data);
-        });*/
-    //} else {
-
-        /* Transform ejs/pug data and inject incduded file. */
-        try {
-            data = engine.render(data, locals);
-        } catch (err) {
-            /* Make error more readable. */
-            data = err.toString()
-                .replace(/[\n]/g, "&lt;br>")
-                .replace(/    /g, "&lt;span style='display:inline-block;width:32px'>&lt;/span>")
-                .replace(/ >> /g, "&lt;span style='display:inline-block;width:32px'>&amp;gt;&amp;gt;&lt;/span>");
-        }
-
-        next(data);
-    //}
+        });
+    }
 }
 
 /**
@@ -570,11 +572,8 @@ function engineProcess(NA, data, locals, routeParameters, response, next) {
 exports.changeDomCommon = function (locals, routeParameters, request, response, viewsPath, currentPath) {
     var NA = this;
 
-    /* Open the template file */
-    NA.openTemplate(routeParameters, viewsPath, function (data) {
-
         // Transform into HTML
-        engineProcess(NA, data, locals, routeParameters, response, function (data) {
+        engineProcess(NA, viewsPath, locals, routeParameters, response, function (data) {
 
             /**
              * The compiled HTML of view + locals provided by response.
@@ -627,7 +626,6 @@ exports.changeDomCommon = function (locals, routeParameters, request, response, 
                 NA.changeDomSpecific(locals, routeParameters, request, response, currentPath);
             }
         });
-   });
 };
 
 /**
@@ -718,7 +716,7 @@ exports.renderTemplate = function (data, locals, routeParameters, request, respo
         templateRenderName;
 
     /* Create the file for asset mode */
-    if (typeof response === 'undefined' || (htmlGenerationBeforeResponse &amp;&amp; htmlGenerationEnable)) {
+    if (typeof response === "undefined" || (htmlGenerationBeforeResponse &amp;&amp; htmlGenerationEnable)) {
 
         /**
          * Output name of file generate if `NA#webconfig.htmlGenerationBeforeResponse` is set to true or if `--generate` command is used.
@@ -738,7 +736,7 @@ exports.renderTemplate = function (data, locals, routeParameters, request, respo
     }
 
     /* Run page into browser. */
-    if (typeof response !== 'undefined') {
+    if (typeof response !== "undefined") {
         /* Compression of CSS, JS and Images if required. */
         async.parallel([
             NA.cssCompilation.bind(NA),
@@ -852,13 +850,13 @@ exports.render = function (path, options, request, response) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_traverse-directory.html">traverse-directory</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Dec 29 2016 11:36:32 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Dec 31 2016 16:11:49 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>
