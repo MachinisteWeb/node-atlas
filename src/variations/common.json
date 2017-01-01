@@ -100,7 +100,7 @@
 			},
 			"step2": {
 				"title": "Maintenir",
-				"description": "des maquettes HTML serverless",
+				"description": "des maquettes HTML sans serveur",
 				"href": "https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"
 			},
 			"step3": {
