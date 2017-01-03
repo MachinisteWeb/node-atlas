@@ -420,11 +420,11 @@ Ci-dessous un exemple de configuration.
         },
         "/membre.html": {
             "view": "member.htm",
-            "postSupport": false
+            "post": false
         },
         "/membre-sans-extension/": {
             "view": "member.htm",
-            "getSupport": false
+            "get": false
         },
         "a-propos.html": {
             "view": "about.htm"
@@ -472,11 +472,11 @@ La configuration ci-dessous est équivalente à la configuration de la section j
         "/": "index.htm",
         "/membre.html": {
             "view": "member.htm",
-            "postSupport": false
+            "post": false
         },
         "/membre-sans-extension/": {
             "view": "member.htm",
-            "getSupport": false
+            "get": false
         },
         "a-propos.html": "about.htm",
         "/erreur.html": {
@@ -519,11 +519,11 @@ Dans ce cas le chemin devient le paramètre `url`.
     }, {
         "url": "/membre.html",
         "view": "member.htm",
-        "postSupport": false
+        "post": false
     }, {
         "url": "/membre-sans-extension/",
         "view": "member.htm",
-        "getSupport": false
+        "get": false
     }, { 
         "url": "a-propos.html",
         "view": "about.htm"
@@ -5828,8 +5828,8 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 
 ```json
 {
-    "getSupport": true,
-    "postSupport": false,
+    "get": true,
+    "post": false,
     "routes": {
         "/": {
             "view": "index.htm"
@@ -5842,44 +5842,44 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
         },
         "/commentaire-sauvegarde/": {
             "view": "save-com.htm",
-            "getSupport": false,
-            "postSupport": true
+            "get": false,
+            "post": true
         }
     }
 }
 ```
 
-*Note : Si rien n'est précisé,* ***getSupport*** *et* ***postSupport*** *sont à* ***true*** *au niveau global et par page.*
+*Note : Si rien n'est précisé,* ***get*** *et* ***post*** *sont à* ***true*** *au niveau global et par page.*
 
 
 
 ### Autoriser / Interdire les demandes PUT / DELETE ###
 
-Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `putSupport` et `deleteSupport`.
+Fonctionnant exactement de la même manière que `get` et `post`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `put` et `delete`.
 
 ```json
 {
-    "getSupport": false,
-    "postSupport": false,
-    "putSupport": true,
+    "get": false,
+    "post": false,
+    "put": true,
     "routes": {
         "/read-all-entry/": {
             "view": "display-json.htm",
             "variation": "all-entry.json",
-            "getSupport": true,
-            "putSupport": false
+            "get": true,
+            "put": false
         },
         "/read-entry/:id/": {
             "view": "display-json.htm",
             "variation": "entry.json",
-            "getSupport": true,
-            "putSupport": false
+            "get": true,
+            "put": false
         },
         "/create-entry/:id/": {
             "view": "display-json.htm",
             "variation": "entry.json",
-            "postSupport": true,
-            "putSupport": false
+            "post": true,
+            "put": false
         },
         "/update-entry/:id/": {
             "view": "display-json.htm",
@@ -5888,8 +5888,8 @@ Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, 
         "/delete-entry/:id/": {
             "view": "display-json.htm",
             "variation": "entry.json",
-            "deleteSupport": true,
-            "putSupport": false
+            "delete": true,
+            "put": false
         }
     }
 }

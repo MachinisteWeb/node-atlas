@@ -420,11 +420,11 @@ Below is a sample configuration.
         },
         "/member.html": {
             "view": "member.htm",
-            "postSupport": false
+            "post": false
         },
         "/member-without-extension/": {
             "view": "member.htm",
-            "getSupport": false
+            "get": false
         },
         "about.html": {
             "view": "about.htm"
@@ -472,11 +472,11 @@ The configuration below is equivalent to the configuration section just above
         "/": "index.htm",
         "/member.html": {
             "view": "member.htm",
-            "postSupport": false
+            "post": false
         },
         "/member-without-extension/": {
             "view": "member.htm",
-            "getSupport": false
+            "get": false
         },
         "about.html": "about.htm",
         "/error.html": {
@@ -519,11 +519,11 @@ In this case, the path become the `url` parameter.
     }, {
         "url": "/member.html",
         "view": "member.htm",
-        "postSupport": false
+        "post": false
     }, {
         "url": "/member-without-extension/",
         "view": "member.htm",
-        "getSupport": false
+        "get": false
     }, { 
         "url": "about.html",
         "view": "about.htm"
@@ -5828,8 +5828,8 @@ You can also manager how the server will respond to requests GET/POST to a given
 
 ```json
 {
-    "getSupport": true,
-    "postSupport": false,
+    "get": true,
+    "post": false,
     "routes": {
         "/": {
             "view": "index.htm"
@@ -5842,44 +5842,44 @@ You can also manager how the server will respond to requests GET/POST to a given
         },
         "/save-comment/": {
             "view": "save-com.htm",
-            "getSupport": false,
-            "postSupport": true
+            "get": false,
+            "post": true
         }
     }
 }
 ```
 
-*Note : If nothing is set,* ***getSupport*** *and* ***postSupport*** *are set to* ***true*** *in  global webconfig and by route.*
+*Note : If nothing is set,* ***get*** *and* ***post*** *are set to* ***true*** *in  global webconfig and by route.*
 
 
 
 ### Allow / Disallow PUT / DELETE requests ###
 
-Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `putSupport` et `deleteSupport`.
+Fonctionnant exactement de la même manière que `get` et `post`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `put` et `delete`.
 
 ```json
 {
-    "getSupport": false,
-    "postSupport": false,
-    "putSupport": true,
+    "get": false,
+    "post": false,
+    "put": true,
     "routes": {
         "/read-all-entry/": {
             "view": "display-json.htm",
             "variation": "all-entry.json",
-            "getSupport": true,
-            "putSupport": false
+            "get": true,
+            "put": false
         },
         "/read-entry/:id/": {
             "view": "display-json.htm",
             "variation": "entry.json",
-            "getSupport": true,
-            "putSupport": false
+            "get": true,
+            "put": false
         },
         "/create-entry/:id/": {
             "view": "display-json.htm",
             "variation": "entry.json",
-            "postSupport": true,
-            "putSupport": false
+            "post": true,
+            "put": false
         },
         "/update-entry/:id/": {
             "view": "display-json.htm",
@@ -5888,8 +5888,8 @@ Fonctionnant exactement de la même manière que `getSupport` et `postSupport`, 
         "/delete-entry/:id/": {
             "view": "display-json.htm",
             "variation": "entry.json",
-            "deleteSupport": true,
-            "putSupport": false
+            "delete": true,
+            "put": false
         }
     }
 }

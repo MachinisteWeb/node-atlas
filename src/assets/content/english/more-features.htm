@@ -1095,8 +1095,8 @@ exports.setRoutes = function (next) {
 </code></pre><blockquote>
 <p>Test : From <code>./tests/examples/css-injection</code> run <code>node &quot;../../../&quot; --generate --webconfig webconfig.multiple.json</code>. Result are into <code>serverless</code>.</p>
 </blockquote><h3 id="allow-disallow-get-post-requests">Allow / Disallow GET / POST requests</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p><pre><code class="lang-json">{
-    &quot;getSupport&quot;: true,
-    &quot;postSupport&quot;: false,
+    &quot;get&quot;: true,
+    &quot;post&quot;: false,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -1109,33 +1109,33 @@ exports.setRoutes = function (next) {
         },
         &quot;/save-comment/&quot;: {
             &quot;view&quot;: &quot;save-com.htm&quot;,
-            &quot;getSupport&quot;: false,
-            &quot;postSupport&quot;: true
+            &quot;get&quot;: false,
+            &quot;post&quot;: true
         }
     }
 }
-</code></pre><p><em>Note : If nothing is set,</em> <strong><em>getSupport</em></strong> <em>and</em> <strong><em>postSupport</em></strong> <em>are set to</em> <strong><em>true</em></strong> <em>in  global webconfig and by route.</em></p><h3 id="allow-disallow-put-delete-requests">Allow / Disallow PUT / DELETE requests</h3><p>Fonctionnant exactement de la même manière que <code>getSupport</code> et <code>postSupport</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>putSupport</code> et <code>deleteSupport</code>.</p><pre><code class="lang-json">{
-    &quot;getSupport&quot;: false,
-    &quot;postSupport&quot;: false,
-    &quot;putSupport&quot;: true,
+</code></pre><p><em>Note : If nothing is set,</em> <strong><em>get</em></strong> <em>and</em> <strong><em>post</em></strong> <em>are set to</em> <strong><em>true</em></strong> <em>in  global webconfig and by route.</em></p><h3 id="allow-disallow-put-delete-requests">Allow / Disallow PUT / DELETE requests</h3><p>Fonctionnant exactement de la même manière que <code>get</code> et <code>post</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>put</code> et <code>delete</code>.</p><pre><code class="lang-json">{
+    &quot;get&quot;: false,
+    &quot;post&quot;: false,
+    &quot;put&quot;: true,
     &quot;routes&quot;: {
         &quot;/read-all-entry/&quot;: {
             &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;all-entry.json&quot;,
-            &quot;getSupport&quot;: true,
-            &quot;putSupport&quot;: false
+            &quot;get&quot;: true,
+            &quot;put&quot;: false
         },
         &quot;/read-entry/:id/&quot;: {
             &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;entry.json&quot;,
-            &quot;getSupport&quot;: true,
-            &quot;putSupport&quot;: false
+            &quot;get&quot;: true,
+            &quot;put&quot;: false
         },
         &quot;/create-entry/:id/&quot;: {
             &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;entry.json&quot;,
-            &quot;postSupport&quot;: true,
-            &quot;putSupport&quot;: false
+            &quot;post&quot;: true,
+            &quot;put&quot;: false
         },
         &quot;/update-entry/:id/&quot;: {
             &quot;view&quot;: &quot;display-json.htm&quot;,
@@ -1144,8 +1144,8 @@ exports.setRoutes = function (next) {
         &quot;/delete-entry/:id/&quot;: {
             &quot;view&quot;: &quot;display-json.htm&quot;,
             &quot;variation&quot;: &quot;entry.json&quot;,
-            &quot;deleteSupport&quot;: true,
-            &quot;putSupport&quot;: false
+            &quot;delete&quot;: true,
+            &quot;put&quot;: false
         }
     }
 }
