@@ -1,0 +1,8 @@
+{
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"controller": "index.js"
+		}
+	}
+}

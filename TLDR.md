@@ -1,3 +1,7 @@
+
+
+
+
 > *NodeAtlas* is a MVC(2) Server-side JavaScript Framework makes it easy to develop scalable website with SEO and W3C compliance. It is designed to running indexable and localizable simple webpages or create HTML mockups with only the view part activated. But activate controller part to build powerful data-oriented, component-oriented and/or service-based webapps with great realtime features and modern compliance!
 
 **Vous êtes français ? Le document [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
@@ -9,7 +13,7 @@
 ## NodeAtlas it's : ##
 
 - The starting point for Front-end Developers into Node.js ecosystem.
-- Pure JavaScript ; for beginners come from PHP, .NET, Ruby... or for JS experts.
+- Pure JavaScript ; for beginners come from PHP, .NET, Ruby, Java or for JS experts.
 - A progressive system with:
    - view-only system without care of controller,
    - scalable control of controllers and hooks,
@@ -17,7 +21,7 @@
    - Express.js (web server) and Socket.io (client-serveur realtime connection) already configured together, easy to use and extendable,
    - EJS, PUG (JADE), Less and Stylus preprocessors ready to use,
    - internal tools for HTML Mockups Serverless or bundles, minifications, offuscation, optimizations of CSS, JS and images,
-   - and more like jQuery-like DOM server manipulation, back-end code debbugable into browser, easy HTTPs to setup.
+   - and more like DOM server manipulation, back-end code debbugable into browser, easy HTTPs to setup.
 - Combinaison of severals NodeAtlas instances for service-oriented architecture like usage as API REST,
 - All NPM modules, Express.js/Socket.io middleware, plugins usable (sessions, SQL/NoSQL databases, load balancing, proxy, hotreaload).
 - [A French and International Guide step by step](https://node-atlas.js.org/english/), with a communauty support on [Gitter](https://gitter.im/NodeAtlas) (Chat) [EN]https://gitter.im/NodeAtlas/Help)/[FR](https://gitter.im/NodeAtlas/Aide).
@@ -60,7 +64,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "commonView": "common.htm",             /* Assign the common layout file for view. */
     "commonVariation": "common.json",       /* Assign the common variation file for localisation. */
     "commonController": "common.js",        /* Assign the common controller file for all pages called. */
-    "postSupport": false,                   /* By default, avoid POST request on pages. */
+    "post": false,                   /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
     "optimizations": "optimizations.json",  /* Set images to optimize for the web with an external file. */
     "htmlGenerationBeforeResponse": true,   /* Generate page currently displayed into "serverless" directory. */
@@ -85,7 +89,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "commonView": "common.htm",
     "commonVariation": "common.json",
     "commonController": "common.js",
-    "postSupport": false,
+    "post": false,
     "routes": "route.json",
 }
 ```
@@ -132,7 +136,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
         "view": "contact-us.htm",
         "variation": "contact-us.json",
         "controller": "contact-us.js",
-        "postSupport": true                 /* Allow POST support for send an email with custom form. */
+        "post": true                 /* Allow POST support for send an email with custom form. */
     },
     "home-fr-fr": {
         "url": "/francais/",
@@ -177,7 +181,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
         "variation": "contact-us.json",
         "languageCode": "fr-fr",
         "controller": "contact-us.js",
-        "postSupport": true
+        "post": true
     },
     "error-fr-fr": {
         "url": "/francais/*",               /* All pages begining with "/francais/" for french error page. */
@@ -340,12 +344,12 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 ## NodeAtlas vs Others ##
 
-|                       | **NodeAtlas**                                                                                               | Express                  | Hapi                  | Sails                                       | Restify                  | LoopBack                                          | Meteor                                                      |
-|-----------------------|-------------------------------------------------------------------------------------------------------------|--------------------------|-----------------------|---------------------------------------------|--------------------------|---------------------------------------------------|-------------------------------------------------------------|
-| Type                  | Web **MVC(2)** framework                                                                                    | HTTP server library      | HTTP server framework | Web MVC framework                           | REST HTTP library        | API framework                                     | Full-stack JavaScript app platform                          |
-| Top Features          | Simplicity, **Evolutivity**, Modularity                                                                     | HTTP routing, middleware | Modularity, security  | Rails familiarity, MVC                      | Simplicity, REST routing | Enterprise connectivity                           | Framework Front-end et Back-end                             |
-| Suitable For          | **Web sites**, Web apps, REST APIs, **Templating**                                                          | Simple web apps          | Web apps, APIs        | Web apps, APIs                              | Simple REST APIs         | Web apps, APIs                                    | Web apps                                                    |
-| Pure Node runtime     | Yes                                                                                                         | Yes                      | Yes                   | Yes                                         | Yes                      | Yes                                               | No                                                          |
-| Extensions            | **Atlas plugin**, Npm module, Express middleware                                                            | Express middleware       | Hapi Plugins          |                                             |                          |                                                   | Meteor package and repository, Npm module                   |
-| Data sources          | **Builtin**: In-memory /file (JSON), REST. With **external npm module**: NoSQL (MongoDB...), SQL (MySql...) |                          |                       | In-memory, File, PostgreSQL, MySQL, MongoDB |                          | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages |
-| Main support language | French                                                                                                      | English                  | English               | English                                     | English                  | English                                           | English                                                     |
+|               | Type                               | Top Features                            | Suitable For                                       | Pure Node runtime | Extensions                                        | Data sources                                                                                                | Main support language |
+|---------------|------------------------------------|-----------------------------------------|----------------------------------------------------|-------------------|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------|-----------------------|
+| **NodeAtlas** | Web **MVC(2)** framework           | Simplicity, **Evolutivity**, Modularity | **Web sites**, Web apps, REST APIs, **Templating** | Yes               | **Atlas plugin**, NPM module, Express middleware  | **Builtin**: In-memory /file (JSON), REST. With **external NPM module**: NoSQL (MongoDB...), SQL (MySql...) | **French**            |
+| Express       | HTTP server library                | HTTP routing, middleware                | Simple web apps                                    | Yes               | Express middleware                                |                                                                                                             | English               |
+| Hapi          | HTTP server framework              | Modularity, security                    | Web apps, APIs                                     | Yes               | Hapi Plugins                                      |                                                                                                             | English               |
+| Sails         | Web MVC framework                  | Rails familiarity, MVC                  | Web apps, APIs                                     | Yes               |                                                   | In-memory, File, PostgreSQL, MySQL, MongoDB                                                                 | English               |
+| Restify       | REST HTTP library                  | Simplicity, REST routing                | Simple REST APIs                                   | Yes               |                                                   |                                                                                                             | English               |
+| LoopBack      | API framework                      | Enterprise connectivity                 | Web apps, APIs                                     | Yes               |                                                   | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP                                                           | English               |
+| Meteor        | Full-stack JavaScript app platform | Framework Front-end et Back-end         | Web apps                                           | No                | Meteor package and repository, NPM module         | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                 | English               |

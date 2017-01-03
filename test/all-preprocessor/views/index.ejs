@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr-fr">
+	<head>
+		<meta charset="utf-8">
+		<title><%- specific.titlePage %></title>
+		<link rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all">
+		<link rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all">
+	</head>
+	<body class="<%= specific.classPage %>">
+		<div>
+			<h1><%- specific.titlePage %></h1>
+			<%- specific.content %>
+			<%- include("partials/" + common.include + ".ejs") %>
+		</div>
+		<script async="true" type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
+	</body>
+</html>
