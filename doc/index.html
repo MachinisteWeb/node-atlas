@@ -43,60 +43,58 @@
 
 
     <section>
-        <article><h1>NodeAtlas Website and API</h1><ul>
-<li>NodeAtlas Website : 2.0.0</li>
-<li>NodeAtlas API : 2.0.0</li>
-</ul>
-<p><strong>For an international version of this README.md, <a href="#international-version">see below</a>.</strong></p>
-<h2>Avant-propos</h2><p>Ce dépôt contient :</p>
+        <article><h1>NodeAtlas API</h1><p><strong>Vous êtes français ? <a href="#version-francaise">Le document vous sera peut-être plus agréable plus bas</a>.</strong></p>
+<h3>Overview</h3><p>NodeAtlas is a NPM module (<code>node-atlas</code>) which have dependencies for work. To understand how use this module, this API documentation is avaiable, and we will see how to use it below.</p>
+<h3>The Module</h3><p>NodeAtlas is a NPM module (<code>node-atlas</code>) which have dependencies for work. <a href="./module-node-atlas.html/">All dependencies used by it are listed here</a>. For each module, an explaination is avaiable. This is for example <a href="./NA_modules.external_express.html">express</a> module explaination, <a href="./NA_modules.external_socketio.html">socket.io</a> module explaination or <a href="./NA_modules.external_ejs.html">ejs</a> module explaination. You can see all modules in <code>Modules</code> and <code>Externals</code> section.</p>
+<h4>The Classe</h4><p>The <code>node-atlas</code> module provide the <code>NA</code> object.</p>
+<pre class="prettyprint source lang-bash"><code>var NA = require(&quot;node-atlas&quot;)</code></pre><p>The <code>NA</code> object is a class because it is instanciable.</p>
+<pre class="prettyprint source lang-bash"><code>var website = new NA(); // or var website = NA(); // or var website = require(&quot;node-atlas&quot;)();</code></pre><p>You will find <a href="./NA.html">all avaiable publics, privates and inners functions here</a>.</p>
+<p>You can see all classes in <code>Classes</code> section.</p>
+<h4>Namespaces</h4><p>The <code>NA</code> instance have many namespaces whose <code>NA#weconfig</code> that contain all root features of <code>weconfig.json</code> or also <code>NA#modules</code> that contain all NPM modules used by <code>NA</code> and already required. You can see all namespaces in <code>Namespaces</code> section.</p>
+<h4>Encapsulations</h4><p>There is severals level of accessibility for NodeAtlas attributes and objects.</p>
+<p><strong>Outer Public</strong></p>
+<p>These are all functions avaiable as soon as <code>new NodeAtlas()</code> instance is create. These are the following :</p>
 <ul>
-<li>la documentation de l'API NodeAtlas. Elle est générée en executant le fichier <code>generate-doc.bat</code>.</li>
-<li>tous les fichiers nécéssaires à la génération du site officiel de NodeAtlas. Celui-ci fonctionne sans Node.js ou autre executable. N'importe quel serveur HTTP peut donc le faire tourner et en l'occurence, c'est Github qui s'en charge avec le sytème <code>gh-pages</code>.</li>
+<li><a href="./NA.html#start">start()</a></li>
+<li><a href="./NA.html#init">init(options)</a></li>
+<li><a href="./NA.html#run">run(options)</a></li>
+<li><a href="./NA.html#started">started(callback)</a></li>
+<li><a href="./NA.html#generated">generated(callback)</a></li>
+<li><a href="./NA.html#created">created(callback)</a></li>
 </ul>
-<h2>Faire tourner le site</h2><p>Pour tester le site sur votre poste, il vous suffit de vous placer dans le dossier <code>src</code> et de lancer dans un invité de commande ceci :</p>
-<pre class="prettyprint source"><code>\> cd &lt;/path/to/gh-pages-directory>/src/</code></pre><p>et utilisez la commande :</p>
-<pre class="prettyprint source"><code>\> node generate-website.na</code></pre><p>Le site complet tournera à l'adresse :</p>
-<ul>
-<li><em>http://localhost/</em></li>
-</ul>
-<p><strong><em>Note :</em></strong></p>
-<p><em>Si vous avez déjà un serveur web sur le port 80, utilisez plutôt :</em></p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpPort 7777</code></pre><p><em>La page sera à :</em></p>
-<ul>
-<li><em>http://localhost:7777/</em></li>
-</ul>
-<h2>Modifier le site</h2><p>Pour modifier le site sur votre poste, il vous suffit de vous placer dans le dossier <code>src</code> et de lancer dans un invité de commande ceci :</p>
-<pre class="prettyprint source"><code>\> cd &lt;/path/to/gh-pages-directory>/src/</code></pre><p>et utilisez la commande :</p>
-<pre class="prettyprint source"><code>\> node develop-website.na</code></pre><p>Les sites tourneront aux adresses :</p>
-<ul>
-<li><em>http://localhost:7777/</em></li>
-<li><em>http://localhost:7778/english/</em></li>
-</ul>
+<p><strong>Inner Public</strong></p>
+<p>These are all functions avaiable in <a href="./NA_controllers%255B%255D.html">NodeAtlas Controllers Hooks</a>.</p>
+<p><strong>Outer Private</strong></p>
+<p>These are all functions which have not purpose to be used but which are re-writable if you want. The prefix used for them is <code>(private)</code> in the documentation.</p>
+<p><strong>Inner Private</strong></p>
+<p>These are all functions which are not accessible from outside but used in the <code>NA</code> classe. The prefix used for them is <code>(private, inner)</code> in the documentation.</p>
 <hr>
-<h2>International Version</h2><h3>Overview</h3><p>This repository contains :</p>
+<div id="version-francaise"></div>
+
+<h2>Version Française</h2><h3>Avant-propos</h3><p>NodeAtlas est un module NPM qui repose lui-même sur divers module NPM. Afin de bien comprendre comment exploiter ce module, cette documentation de l'API est a disposition, et nous allons voir ci-après comment l'utiliser.</p>
+<h3>Le Module</h3><p>NodeAtlas est un module NPM (<code>node-atlas</code>) qui a des dépendances pour fonctionner. <a href="./module-node-atlas.html/">L'intégralité des dépendances utilisés est listés ici</a>. Pour chaque module, une explication est disponible. Voici par exemple celle des modules <a href="./NA_modules.external_express.html">express</a>, <a href="./NA_modules.external_socketio.html">socket.io</a> ou <a href="./NA_modules.external_ejs.html">ejs</a>. Vous pourrez consulter ces modules dans les sections <code>Modules</code> et <code>Externals</code>.</p>
+<h4>La Classe</h4><p>Le module <code>node-atlas</code> délivre l'objet <code>NA</code>.</p>
+<pre class="prettyprint source lang-bash"><code>var NA = require(&quot;node-atlas&quot;)</code></pre><p>L'objet <code>NA</code> est une classe car il est fait pour être instancé.</p>
+<pre class="prettyprint source lang-bash"><code>var website = new NA(); // ou var website = NA(); // ou var website = require(&quot;node-atlas&quot;)();</code></pre><p>Vous trouverez l'<a href="./NA.html">intégralité des fonctions disponible de manière publique, privés et interne et privés ici</a>.</p>
+<p>Vous pourrez consulter cette classe dans la section <code>Classes</code>.</p>
+<h4>Les Namespaces</h4><p>L'instance de <code>NA</code> possède plusieurs namespaces dont <code>NA#weconfig</code> contenant l'intégralité des fonctionalités racine du <code>weconfig.json</code> ou encore <code>NA#modules</code> contenant l'intégralité des modules NPM dont <code>NA</code> dépend déjà inclus. Vous pourrez consulter ces namespaces dans la section <code>Namespaces</code>.</p>
+<h4>Les encapsulations</h4><p>Il y a plusieurs niveaux de visibilité pour les attributs et objets de NodeAtlas.</p>
+<p><strong>Publique externe</strong></p>
+<p>Ce sont toutes les fonctions disponibles dès la création de <code>new NodeAtlas()</code>. Ce sont les suivantes :</p>
 <ul>
-<li>API documentation of NodeAtlas. To generate it, execute the file <code>generate-doc.bat</code>.</li>
-<li>all required files to generate the NodeAtlas official website. This website run without Node.js or other executable. Any HTTP server can run NodeAtlas, and in our case, it's Github that do the job with <code>gh-pages</code> system.</li>
+<li><a href="./NA.html#start">start()</a></li>
+<li><a href="./NA.html#init">init(options)</a></li>
+<li><a href="./NA.html#run">run(options)</a></li>
+<li><a href="./NA.html#started">started(callback)</a></li>
+<li><a href="./NA.html#generated">generated(callback)</a></li>
+<li><a href="./NA.html#created">created(callback)</a></li>
 </ul>
-<h2>Run the Website</h2><p>To test the website on your OS, just go to the <code>src</code> directory and run the CLI console like this:</p>
-<pre class="prettyprint source"><code>\> cd &lt;/path/to/gh-pages-directory>/src/</code></pre><p>and use the following command:</p>
-<pre class="prettyprint source"><code>\> node generate-website.na</code></pre><p>The full website will run here:</p>
-<ul>
-<li><em>http://localhost/</em></li>
-</ul>
-<p><strong><em>Note :</em></strong></p>
-<p><em>If you already have a web server on port 80, consider using:</em></p>
-<pre class="prettyprint source"><code>\> node &lt;/path/to/>node-atlas/ --httpPort 7777</code></pre><p><em>The page will be here:</em></p>
-<ul>
-<li><em>http://localhost:7777/</em></li>
-</ul>
-<h2>Update the website</h2><p>To test the website on your OS, just go to the <code>src</code> directory and run the CLI console like this:</p>
-<pre class="prettyprint source"><code>\> cd &lt;/path/to/gh-pages-directory>/src/</code></pre><p>and use the following command:</p>
-<pre class="prettyprint source"><code>\> node develop-website.na</code></pre><p><em>Pages will be here:</em></p>
-<ul>
-<li><em>http://localhost:7777/</em></li>
-<li><em>http://localhost:7778/english/</em></li>
-</ul></article>
+<p><strong>Publique interne</strong></p>
+<p>Ce sont toutes les fonctions disponibles dans <a href="./NA_controllers%255B%255D.html">les points d'encrage des contrôleurs de NodeAtlas</a>.</p>
+<p><strong>Privée externe</strong></p>
+<p>Ce sont toutes les fonctions qui n'ont pas pour but d'être utilisée mais qui sont redéfinissable au besoin. Elles sont préfixé par <code>(private)</code> dans la documentation.</p>
+<p><strong>Privée interne</strong></p>
+<p>Ce sont toutes les fonctions qui sont inaccessible à part dans le code source de NodeAtlas. Elles sont préfixé par <code>(private, inner)</code> dans la documentation.</p></article>
     </section>
 
 
@@ -113,7 +111,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Dec 31 2016 19:09:56 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jan 03 2017 14:03:50 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

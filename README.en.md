@@ -128,16 +128,18 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Custom Template Engine](#custom-template-engine)
  - [Enable Cache](#enable-cache)
 - [CLI / Running commands](#cli--running-commands)
- - [--directory &lt;path>](#--directory-path)
- - [--webconfig &lt;webconfigName>](#--webconfig-webconfigname)
- - [--browse [subpath]](#--browse-subpath)
- - [--httpHostname &lt;httpHostname>](#--httphostname-httphostname)
- - [--httpPort &lt;httpPort>](#--httpport-httpport)
+ - [--help](#--help)
+ - [--version](#--version)
+ - [--browse](#--browse)
+ - [--directory](#--directory)
+ - [--webconfig](#--webconfig)
+ - [--httpHostname](#--httphostname)
+ - [--httpPort](#--httpport)
  - [--generate](#--generate)
  - [--cache](#--cache)
- - [--lang &lt;culture-country>](#--lang-culture-country)
- - [--create [path]](#--create-path)  
- - [--httpSecure [pathName]](#--httpsecure-pathname)
+ - [--create](#--create)  
+ - [--httpSecure](#--httpsecure)
+ - [--lang](#--lang)
 - [API / NodeAtlas as NPM module](#api--nodeatlas-as-npm-module)
  - [&lt;NA>.start()](#nastart)
  - [&lt;NA>.init(options)](#nainitoptions)
@@ -1793,6 +1795,7 @@ and the following set of files:
 ```
 
 With `node <path/to/>node-atlas/ --browse`, to address *http://localhost/* will show a list of pages your site components (with **enableIndex** set to **true**)
+
 It will do more than, once `--generate` was used, enjoy your HTML site in the folder:
 
 ```
@@ -3133,6 +3136,12 @@ Note : to allows `render` to use PUG template engine and not EJS, you must defin
 
 We will see now how to use data from database. We will use the `mysql` NPM module. And first, [install a MySQL server](https://dev.mysql.com/downloads/installer/).
 
+So, from your `webconfig.json` directory, use
+
+```bash
+npm install mysql
+```
+
 #### MySQL Database ####
 
 First, we will create a database `demo` on the server:
@@ -3881,6 +3890,12 @@ You will get the following output:
 ### Use MongoDB Database (NoSQL) ###
 
 We will see now how to use data from nosql database. We will use the `mongoose` NPM module. And first, [install a MongoDB server](https://www.mongodb.com/).
+
+So, from your `webconfig.json` directory, use
+
+```bash
+npm install mongoose
+```
 
 #### MongoDB Database ####
 
@@ -6380,108 +6395,213 @@ The easiest way to start is to position NodeAtlas in the directory hosting your 
 
 Each of the commands that follow can be coupled with other like this:
 
+```bash
+\> node </path/to/>node-atlas/ --directory hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
 ```
-\> node </path/to/>node-atlas/ --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
-```
 
+or this
 
-### --directory &lt;path> ###
-
-It is possible to launch NodeAtlas from another location where the website folder is placed. The `--directory` command will be very useful.
-
-```
-\> node </path/to/>node-atlas/ --directory </path/to/your/website/directory/>
+```bash
+\> nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
 ```
 
 
-### --webconfig &lt;webconfigName> ###
 
-By default, NodeAtlas will read your `webconfig.json` file. It is possible that in addition to the file you created another `webconfig.prod.json` file whose domain name is different. Or a `webconfig.fr-fr.json` with urls changes for another language. Instead of renaming your files in `webconfig.json` before launching the site, simply enter your other configuration name. In the following example, this file will be `webconfig.alternatif.json`.
+### --help ###
+
+#### Usage ####
+
+```bash
+-h, --help
+```
+
+#### About ####
+
+To have help (open MAN) on the following command for the CLI, use `--help` command.
 
 ```
-\> node </path/to/>node-atlas/ --webconfig webconfig.alternatif.json
+\> nodeatlas --help
+```
+
+
+
+### --version ###
+
+#### Usage ####
+
+```bash
+-V, --version
+```
+
+#### About ####
+
+To know the current NodeAtlas version which is used with the CLI, just use the command `--version` to `vX.X.X` format.
+
+```
+\> nodeatlas --version
 ```
 
 
 
 ### --browse [subpath] ###
 
+#### Usage ####
+
+```bash
+-b, --browse [subpath]
+```
+
+#### About ####
+
 This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with `--generate` (see below).
 
 ```
-\> node </path/to/>node-atlas/ --browse
+\> nodeatlas --browse
 ```
 
 You could also targeted a specific page with the end of url.
 
+```
+\> nodeatlas --browse index.html
+```
+
+
+
+### --directory ###
+
+#### Usage ####
+
+```bash
+-d, --directory <path>
+```
+
+#### About ####
+
+It is possible to launch NodeAtlas from another location where the website folder is placed. The `--directory` command will be very useful.
+
+```bash
+\> nodeatlas --directory </path/to/your/website/directory>/
+```
+
+
+
+### --webconfig ###
+
+#### Usage ####
+
+```bash
+-w, --webconfig <webconfigName>
+```
+
+#### About ####
+
+By default, NodeAtlas will read your `webconfig.json` file. It is possible that in addition to the file you created another `webconfig.prod.json` file whose domain name is different. Or a `webconfig.fr-fr.json` with urls changes for another language. Instead of renaming your files in `webconfig.json` before launching the site, simply enter your other configuration name. In the following example, this file will be `webconfig.alternatif.json`.
 
 ```
-\> node </path/to/>node-atlas/ --browse index.html
+\> nodeatlas --webconfig webconfig.alternatif.json
 ```
 
 
 
-### --httpHostname &lt;httpHostname> ###
+### --httpHostname ###
+
+#### Usage ####
+
+```bash
+-u, --httpHostname <httpHostname>
+```
+
+#### About ####
 
 You will maybe want know your IP with `ipconfig` to change it in the url to access your website from others device connected to the current network so this command is for you.
 
 ```
-\> node </path/to/>node-atlas/ --httpHostname 192.168.1.1
+\> nodeatlas --httpHostname 192.168.1.1
 ```
 
 
 
-### --httpPort &lt;httpPort> ###
+### --httpPort ###
+
+#### Usage ####
+
+```bash
+-p, --httpPort <httpPort>
+```
+
+#### About ####
 
 You will not be bored to change your listening port on your projects and sometimes you'll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.
 
 ```
-\> node </path/to/>node-atlas/ --httpPort 7778
+\> nodeatlas --httpPort 7778
 ```
 
 
 
 ### --generate ###
 
+#### Usage ####
+
+```bash
+-g, --generate
+```
+
+#### About ####
+
 If you change an item in your common variation file or even your view components called in multiple pages, you will not reload each page to update your output files. If so, simply use `--generate`. This command will copy the entire contents of the folder `assetsRelativePath` into `serverlessRelativePath` if their path is different.
 
 ```
-\> node </path/to/>node-atlas/ --generate
+\> nodeatlas --generate
 ```
 
 
 
 ### --cache ###
 
+#### Usage ####
+
+```bash
+-c, --cache
+```
+
+#### About ####
+
 You maybe want not use cached file during the development phase, the most easy way is to use this option. It's your only possibility for run a « Simple Web Server » with no cache.
 
 ```
-\> node </path/to/>node-atlas/ --cache
+\> nodeatlas --cache
 ```
 
 
 
-### --lang &lt;culture-country> ###
+### --create ###
 
-With the `--lang` parameter you will change language used by NodeAtlas. This command set the content of `languages/default.json` by the content of `languages/fr-fr.json` if you use the "fr-fr" parameter for example like below. Start NodeAtlas later will conserve the last language used by engine.
+#### Usage ####
 
+```bash
+-i, --create [path]
 ```
-\> node </path/to/>node-atlas/ --lang fr-fr
-```
 
-
-
-### --create [path] ###
+#### About ####
 
 NodeAtlas contain a directory `templates` with predefined website into. To install them in the current directory for NodeAtlas command, you can use `--create` with the name of the `templates` you want use. By default, it's the `hello-world` value that is used. *Possible values: `hello-world`.*
 
 ```
-\> node </path/to/>node-atlas/ --create hello-world
+\> nodeatlas --create hello-world
 ```
 
 
 
-### --httpSecure [pathName] ###
+### --httpSecure ###
+
+#### Usage ####
+
+```bash
+-s, --httpSecure [pathName]
+```
+
+#### About ####
 
 If you use the `--httpSecure` option, all path will be reach in HTTPs. You must defined a `.crt` and `.key` files with `pathName` if you want the engine start in HTTPs. For exemple if you have `security/server.crt` and `security/server.key` from root of NodeAtlas website, you can use following command:
 
@@ -6490,6 +6610,22 @@ If you use the `--httpSecure` option, all path will be reach in HTTPs. You must 
 ```
 
 
+
+### --lang ###
+
+#### Usage ####
+
+```bash
+-l, --lang <cultureCode-countryCode>
+```
+
+#### About ####
+
+With the `--lang` parameter you will change language used by NodeAtlas. This command set the content of `languages/default.json` by the content of `languages/fr-fr.json` if you use the "fr-fr" parameter for example like below. Start NodeAtlas later will conserve the last language used by engine.
+
+```
+\> nodeatlas --lang fr-fr
+```
 
 
 

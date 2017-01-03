@@ -128,16 +128,18 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Moteur de template personnalisé](#moteur-de-template-personnalisé)
  - [Activer le cache](#activer-le-cache)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
- - [--directory &lt;path>](#--directory-path)
- - [--webconfig &lt;webconfigName>](#--webconfig-webconfigname)
- - [--browse [subpath]](#--browse-subpath)
- - [--httpHostname &lt;httpHostname>](#--httphostname-httphostname)
- - [--httpPort &lt;httpPort>](#--httpport-httpport)
+ - [--help](#--help)
+ - [--version](#--version)
+ - [--browse](#--browse)
+ - [--directory](#--directory)
+ - [--webconfig](#--webconfig)
+ - [--httpHostname](#--httphostname)
+ - [--httpPort](#--httpport)
  - [--generate](#--generate)
  - [--cache](#--cache)
- - [--lang &lt;culture-country>](#--lang-culture-country)
- - [--create [path]](#--create-path)
- - [--httpSecure [pathName]](#--httpsecure-pathName)
+ - [--create](#--create)  
+ - [--httpSecure](#--httpsecure)
+ - [--lang](#--lang)
 - [API / NodeAtlas comme module NPM](#api--nodeatlas-comme-module-npm)
  - [&lt;NA>.start()](#nastart)
  - [&lt;NA>.init(options)](#nainitoptions)
@@ -3134,6 +3136,12 @@ Note : pour permettre à `render` d'utiliser le moteur PUG au lieu de celui d'EJ
 
 Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser le module NPM `mysql`. Il va également nous falloir [installer un serveur MySQL](https://dev.mysql.com/downloads/installer/).
 
+Donc, depuis le dossier du `webconfig.json`, utilisez :
+
+```bash
+npm install mysql
+```
+
 #### Base de données MySQL ####
 
 Tout d'abord, nous allons alimenter la base de données avec la base `demo` :
@@ -3882,6 +3890,12 @@ Vous obtiendrez la sortie suivante :
 ### Utiliser une base de données MongoDB (NoSQL) ###
 
 Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module NPM `mongoose`. Il va également nous falloir [installer un serveur MongoDB](https://www.mongodb.com/).
+
+Donc, depuis le dossier du `webconfig.json`, utilisez :
+
+```bash
+npm install mongoose
+```
 
 #### Base de données MongoDB ####
 
@@ -6381,108 +6395,213 @@ La façon la plus simple de lancer NodeAtlas est de se positionner dans le répe
 
 Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
 
+```bash
+\> node </path/to/>node-atlas/ --directory hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
 ```
-\> node </path/to/>node-atlas/ --directory /hello-world/ --webconfig config.fr-fr.js --httpPort 80 --browse
-```
 
+or this
 
-### --directory &lt;path> ###
-
-Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous sera alors très utile.
-
-```
-\> node </path/to/>node-atlas/ --directory </path/to/your/website/directory/>
+```bash
+\> nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
 ```
 
 
-### --webconfig &lt;webconfigName> ###
 
-Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
+### --help ###
+
+#### Utilisation ####
+
+```bash
+-h, --help
+```
+
+#### Explication ####
+
+Pour obtenir de l'aide (ouvrir le MAN) sur les commandes ci-après listé directement dans la CLI, utilisez `--help`
 
 ```
-\> node </path/to/>node-atlas/ --webconfig webconfig.alternatif.json
+\> nodeatlas --help
+```
+
+
+
+### --version ###
+
+#### Utilisation ####
+
+```bash
+-V, --version
+```
+
+#### Explication ####
+
+Pour connaître la version de NodeAtlas que vous utilisez avec la CLI, il vous suffit de la retourner au format `vX.X.X` grâce à `--version`.
+
+```
+\> nodeatlas --version
 ```
 
 
 
 ### --browse [subpath] ###
 
+#### Utilisation ####
+
+```bash
+-b, --browse [subpath]
+```
+
+#### Explication ####
+
 Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplée avec `--generate` (voir plus loin).
 
 ```
-\> node </path/to/>node-atlas/ --browse
+\> nodeatlas --browse
 ```
 
 Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 
+```
+\> nodeatlas --browse index.html
+```
+
+
+
+### --directory ###
+
+#### Utilisation ####
+
+```bash
+-d, --directory <path>
+```
+
+#### Explication ####
+
+Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous sera alors très utile.
+
+```bash
+\> nodeatlas --directory </path/to/your/website/directory>/
+```
+
+
+
+### --webconfig ###
+
+#### Utilisation ####
+
+```bash
+-w, --webconfig <webconfigName>
+```
+
+#### Explication ####
+
+Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
 ```
-\> node </path/to/>node-atlas/ --browse index.html
+\> nodeatlas --webconfig webconfig.alternatif.json
 ```
 
 
 
-### --httpHostname &lt;httpHostname> ###
+### --httpHostname ###
+
+#### Utilisation ####
+
+```bash
+-u, --httpHostname <httpHostname>
+```
+
+#### Explication ####
 
 Il est parfois utile de demander son adresse IP via un `ipconfig` pour le paramettrer dans l'url afin de rendre son site entièrement disponible sur un périphérique du réseau local (smartphone par exemple). Vous pourrez le faire avec cette commande.
 
 ```
-\> node </path/to/>node-atlas/ --httpHostname 192.168.1.1
+\> nodeatlas --httpHostname 192.168.1.1
 ```
 
 
 
-### --httpPort &lt;httpPort> ###
+### --httpPort ###
+
+#### Utilisation ####
+
+```bash
+-p, --httpPort <httpPort>
+```
+
+#### Explication ####
 
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
 
 ```
-\> node </path/to/>node-atlas/ --httpPort 7778
+\> nodeatlas --httpPort 7778
 ```
 
 
 
 ### --generate ###
 
+#### Utilisation ####
+
+```bash
+-g, --generate
+```
+
+#### Explication ####
+
 Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de view appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser `--generate`. Cette commande copiera l'intégralité du contenu du dossier `assetsRelativePath` dans `serverlessRelativePath` si leur chemin est différent.
 
 ```
-\> node </path/to/>node-atlas/ --generate
+\> nodeatlas --generate
 ```
 
 
 
 ### --cache ###
 
+#### Utilisation ####
+
+```bash
+-c, --cache
+```
+
+#### Explication ####
+
 Si vous souhaitez éviter d'avoir des ressources en cache pendant votre phase de développement, le plus simple est d'utiliser cette option. C'est votre unique possiblilité d'avoir un « Simple Serveur Web » sans cache.
 
 ```
-\> node </path/to/>node-atlas/ --cache
+\> nodeatlas --cache
 ```
 
 
 
-### --lang &lt;culture-country> ###
+### --create ###
 
-En utilisant `--lang` vous changerez la langue de utilisée par NodeAtlas. En réalité cette commande remplace le contenu du fichier `languages/default.json` par celui de `languages/fr-fr.json` si le paramètre passé est « fr-fr » comme dans l'exemple ci-dessous. Lancer NodeAtlas ultérieurement conservera la dernière langue utilisée.
+#### Utilisation ####
 
+```bash
+-i, --create [path]
 ```
-\> node </path/to/>node-atlas/ --lang fr-fr
-```
 
-
-
-### --create [path] ###
+#### Explication ####
 
 NodeAtlas contient un dossier `templates` qui contient des exemples de site prèt à l'usage. Pour les installer dans le répertoire dans lequel vous allez exécuter NodeAtlas il faut vous servir de `--create` suivi du dossier contenu dans `templates` que vous souhaitez utiliser. Par défaut, c'est la valeur `hello-world` qui est utilisée. *Valeurs possible : `hello-world`.*
 
 ```
-\> node </path/to/>node-atlas/ --create hello-world
+\> nodeatlas --create hello-world
 ```
 
 
 
-### --httpSecure [pathName] ###
+### --httpSecure ###
+
+#### Utilisation ####
+
+```bash
+-s, --httpSecure [pathName]
+```
+
+#### Explication ####
 
 Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HTTPs. Vous devez définir les fichiers `.crt` and `.key` avec `pathName` si vous souhaitez que le serveur lui-même se lance en HTTPs. Par exemple, si vous avez les fichiers `security/server.crt` et `security/server.key` depuis la racine du site NodeAtlas, vous devez utiliser la commande suivante :
 
@@ -6491,6 +6610,22 @@ Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HT
 ```
 
 
+
+### --lang ###
+
+#### Utilisation ####
+
+```bash
+-l, --lang <cultureCode-countryCode>
+```
+
+#### Explication ####
+
+En utilisant `--lang` vous changerez la langue de utilisée par NodeAtlas. En réalité cette commande remplace le contenu du fichier `languages/default.json` par celui de `languages/fr-fr.json` si le paramètre passé est « fr-fr » comme dans l'exemple ci-dessous. Lancer NodeAtlas ultérieurement conservera la dernière langue utilisée.
+
+```
+\> nodeatlas --lang fr-fr
+```
 
 
 
@@ -7019,12 +7154,12 @@ NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienn
 
 ### NodeAtlas VS les autres ###
 
-|               | Type                                              | Top Fonctions                           | Adapté pour                                        | Node Module Package | Extensions                                        | Sources de données                                                                                                 | Langue principale     | 
+|               | Type                                              | Top Fonctions                           | Adapté pour                                        | Node Module Package | Extensions                                        | Sources de données                                                                                                 | Langue principale     |
 |---------------|---------------------------------------------------|-----------------------------------------|----------------------------------------------------|---------------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|-----------------------|
-| **NodeAtlas** | Framework Web **MVC(2)**                          | Simplicité, **Evolutivité**, Modularité | **Sites web**, Apps web, APIs REST, **Maquettage** | Oui                 | **Plugin Atlas**, Module NPM, Middleware Express  | **Builtin** : En-memoire, fichier (JSON), REST. Avec **module NPM externe** : NoSQL (MongoDB...), SQL (MySql...)** | **Français**          |                                                                                          
-| Express       | Librairie serveur HTTP                            | Routage HTTP, middleware                | Apps web simple                                    | Oui                 | Middleware Express                                |                                                                                                                    | Anglais               |                
-| Hapi          | Framework serveur HTTP                            | Modularité, securité                    | Apps web, APIs                                     | Oui                 | Plugins Hapi                                      |                                                                                                                    | Anglais               |          
-| Sails         | Framework Web MVC                                 | Familier à Rails, MVC                   | Apps web, APIs                                     | Oui                 |                                                   | En memoire, Fichier, PostgreSQL, MySQL, MongoDB                                                                    | Anglais               |                                        
-| Restify       | Librairie HTTP REST                               | Simplicité, Routage REST                | APIs REST Simple                                   | Oui                 |                                                   |                                                                                                                    | Anglais               |              
-| LoopBack      | Framework d'API                                   | Connectivité d'Entreprise               | Apps web, APIs                                     | Oui                 |                                                   | En mémoire/fichier, SQL NoSQL, ATG, Email, REST, SOAP                                                              | Anglais               |                                            
-| Meteor        | Platforme d'app JavaScript côté client et serveur | Framework Front-end et Back-end         | Apps web                                           | Non                 | Package et repository Meteor, Module NPM          | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                        | Anglais               |                                     
+| **NodeAtlas** | Framework Web **MVC(2)**                          | Simplicité, **Evolutivité**, Modularité | **Sites web**, Apps web, APIs REST, **Maquettage** | Oui                 | **Plugin Atlas**, Module NPM, Middleware Express  | **Builtin** : En-memoire, fichier (JSON), REST. Avec **module NPM externe** : NoSQL (MongoDB...), SQL (MySql...)** | **Français**          |
+| Express       | Librairie serveur HTTP                            | Routage HTTP, middleware                | Apps web simple                                    | Oui                 | Middleware Express                                |                                                                                                                    | Anglais               |
+| Hapi          | Framework serveur HTTP                            | Modularité, securité                    | Apps web, APIs                                     | Oui                 | Plugins Hapi                                      |                                                                                                                    | Anglais               |
+| Sails         | Framework Web MVC                                 | Familier à Rails, MVC                   | Apps web, APIs                                     | Oui                 |                                                   | En memoire, Fichier, PostgreSQL, MySQL, MongoDB                                                                    | Anglais               |
+| Restify       | Librairie HTTP REST                               | Simplicité, Routage REST                | APIs REST Simple                                   | Oui                 |                                                   |                                                                                                                    | Anglais               |
+| LoopBack      | Framework d'API                                   | Connectivité d'Entreprise               | Apps web, APIs                                     | Oui                 |                                                   | En mémoire/fichier, SQL NoSQL, ATG, Email, REST, SOAP                                                              | Anglais               |
+| Meteor        | Platforme d'app JavaScript côté client et serveur | Framework Front-end et Back-end         | Apps web                                           | Non                 | Package et repository Meteor, Module NPM          | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                        | Anglais               |

@@ -7,7 +7,7 @@
 
 
 
-## Avant-propos ##
+### Avant-propos ###
 
 Ce dépôt contient :
 - la documentation de l'API NodeAtlas. Elle est générée en executant le fichier `generate-doc.bat`.
@@ -15,7 +15,7 @@ Ce dépôt contient :
 
 
 
-## Faire tourner le site ##
+### Faire tourner le site ###
 
 Pour tester le site sur votre poste, il vous suffit de vous placer dans le dossier `src` et de lancer dans un invité de commande ceci :
 
@@ -47,7 +47,7 @@ __*Note :*__
 
 
 
-## Modifier le site ##
+### Modifier le site ###
 
 Pour modifier le site sur votre poste, il vous suffit de vous placer dans le dossier `src` et de lancer dans un invité de commande ceci :
 
@@ -80,7 +80,7 @@ This repository contains :
 
 
 
-## Run the Website ##
+### Run the Website ###
 
 To test the website on your OS, just go to the `src` directory and run the CLI console like this:
 
@@ -112,7 +112,7 @@ __*Note :*__
 
 
 
-## Update the website ##
+### Update the website ###
 
 To test the website on your OS, just go to the `src` directory and run the CLI console like this:
 
