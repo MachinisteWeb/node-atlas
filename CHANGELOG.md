@@ -74,6 +74,15 @@ Updates:
 - Language `emulatedIndexPage` become `indexPage`.
 - EJS engine become ATLAS engine and `<% %>` become `<? ?>`.
 - `NA#httpServer` become `NA#express`. 
+- `NA#getSupport` become `NA#get`. 
+- `NA#postSupport` become `NA#post`. 
+- `NA#putSupport` become `NA#put`. 
+- `NA#deleteSupport` become `NA#delete`. 
+- `NA#routeParameters.getSupport` become `NA#routeParameters.get`. 
+- `NA#routeParameters.postSupport` become `NA#routeParameters.post`. 
+- `NA#routeParameters.putSupport` become `NA#routeParameters.put`. 
+- `NA#routeParameters.deleteSupport` become `NA#routeParameters.delete`. 
+
 
 
 Removed:

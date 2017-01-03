@@ -12,16 +12,16 @@ Framework Javascript Serveur Évolutif par configuration ou APIs pour créer fac
 
 ## NodeAtlas c'est : ##
 
-- La porte d'entrée aux Développeurs Front-end dans le monde de Node.js.
-- Du tout JavaScript ; pour les débutants venant du monde PHP, .NET, Ruby... ou pour les experts JS.
+- La porte d'entrée aux Développeurs Front-end dans le monde de [Node.js](https://nodejs.org/en/).
+- Du tout JavaScript ; pour les débutants venant du monde PHP, .NET, Ruby, Java ou pour les experts JS.
 - De l'évolutivité avec :
    - des vues sans se préoccuper des contrôleurs,
    - la prise en main progressive de contrôleurs et points d'ancrage,
    - de l'internationalisation (i18n) et de la localisations (l10n) rapide,
    - la puissance d'Express.js (serveur web) et Socket.io (échange client-serveur temps réel) pré-configuré, simple et ajustable,
    - les préprocesseurs EJS, PUG (JADE), Less et Stylus embarqués et prêt à l'emploi,
-   - des outils interne de génération HTML *serverless* ou de *bundles*, minifications, offuscations, optimizations de CSS, JS et images,
-   - encore ; de la manipulation de DOM côté serveur jQuery-like, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
+   - des outils interne de génération HTML sans server ou d'empaquetage, minifications, offuscations, optimisations de CSS, JS et images,
+   - encore ; de la manipulation de DOM côté serveur, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
 - De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API REST,
 - Tous les modules NPM, middleware Express.js/Socket.io, des plugins utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud).
 - [Un guide pas à pas Français et International](https://node-atlas.js.org/), avec un support communautaire sur [Gitter](https://gitter.im/NodeAtlas) (Chat) [FR](https://gitter.im/NodeAtlas/Aide)/[EN](https://gitter.im/NodeAtlas/Help).
@@ -64,7 +64,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "commonView": "common.htm",             /* Assigner le layout global aux vues. */
     "commonVariation": "common.json",       /* Assigner les fichiers de variations communes pour la localisation. */
     "commonController": "common.js",        /* Assigner les fonctions du contrôleur appelé sur toutes les pages. */
-    "postSupport": false,                   /* Par défaut, empêcher les requêtes de page en POST. */
+    "post": false,                   /* Par défaut, empêcher les requêtes de page en POST. */
     "bundles": "bundles.json",              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
     "optimizations": "optimizations.json",  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
     "htmlGenerationBeforeResponse": true,   /* Générer la page couramment affichée dans le dossier "serverless". */
@@ -89,7 +89,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "commonView": "common.htm",
     "commonVariation": "common.json",
     "commonController": "common.js",
-    "postSupport": false,
+    "post": false,
     "routes": "route.json",
 }
 ```
@@ -136,7 +136,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
         "view": "contact-us.htm",
         "variation": "contact-us.json",
         "controller": "contact-us.js",
-        "postSupport": true                 /* Permettre d'accéder à la page par demande en POST pour envoyer un email avec un formulaire. */
+        "post": true                 /* Permettre d'accéder à la page par demande en POST pour envoyer un email avec un formulaire. */
     },
     "home-fr-fr": {
         "url": "/francais/",
@@ -181,7 +181,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
         "variation": "contact-us.json",
         "languageCode": "fr-fr",
         "controller": "contact-us.js",
-        "postSupport": true
+        "post": true
     },
     "error-fr-fr": {
         "url": "/francais/*",               /* Toutes les pages commençant par "/francais/" pour la page d'erreur française. */
@@ -344,12 +344,12 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 
 ## NodeAtlas vs les autres ##
 
-|                       | **NodeAtlas**                                                                                                    | Express                  | Hapi                   | Sails                                           | Restify                  | LoopBack                                              | Meteor                                                      |
-|-----------------------|------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------|-------------------------------------------------|--------------------------|-------------------------------------------------------|-------------------------------------------------------------|
-| Type                  | Framework Web **MVC(2)**                                                                                         | Librairie serveur HTTP   | Framework serveur HTTP | Framework Web MVC                               | Librairie HTTP REST      | Framework d'API                                       | Platforme d'app JavaScript côté client et serveur           |
-| Top Features          | Simplicité, **Evolutivité**, Modularité                                                                          | Routage HTTP, middleware | Modularité, securité   | Familier à Rails, MVC                           | Simplicité, Routage REST | Connectivité d'Entreprise                             | Framework Front-end et Back-end                             |
-| Adapté pour           | **Sites web**, Apps web, APIs REST, **Maquettage**                                                               | Apps web simple          | Apps web, APIs         | Apps web, APIs                                  | APIs REST Simple         | Apps web, APIs                                        | Apps web                                                    |
-| Node Module Package   | Oui                                                                                                              | Oui                      | Oui                    | Oui                                             | Oui                      | Oui                                                   | Non                                                         |
-| Extensions            | **Plugin Atlas**, Module Npm, Middleware Express                                                                 | Middleware Express       | Plugins Hapi           |                                                 |                          |                                                       | Package et repository Meteor, Module Npm                    |
-| Sources de données    | **Builtin** : En-memoire, fichier (JSON), REST. Avec **module npm externe** : NoSQL (MongoDB...), SQL (MySql...) |                          |                        | En memoire, Fichier, PostgreSQL, MySQL, MongoDB |                          | En mémoire/fichier, SQL NoSQL, ATG, Email, REST, SOAP | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages |
-| Langue principale     | Français                                                                                                         | Anglais                  | Anglais                | Anglais                                         | Anglais                  | Anglais                                               | Anglais                                                     |
+|               | Type                                              | Top Fonctions                           | Adapté pour                                        | Node Module Package | Extensions                                        | Sources de données                                                                                                 | Langue principale     |
+|---------------|---------------------------------------------------|-----------------------------------------|----------------------------------------------------|---------------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|-----------------------|
+| **NodeAtlas** | Framework Web **MVC(2)**                          | Simplicité, **Evolutivité**, Modularité | **Sites web**, Apps web, APIs REST, **Maquettage** | Oui                 | **Plugin Atlas**, Module NPM, Middleware Express  | **Builtin** : En-memoire, fichier (JSON), REST. Avec **module NPM externe** : NoSQL (MongoDB...), SQL (MySql...)** | **Français**          |
+| Express       | Librairie serveur HTTP                            | Routage HTTP, middleware                | Apps web simple                                    | Oui                 | Middleware Express                                |                                                                                                                    | Anglais               |
+| Hapi          | Framework serveur HTTP                            | Modularité, securité                    | Apps web, APIs                                     | Oui                 | Plugins Hapi                                      |                                                                                                                    | Anglais               |
+| Sails         | Framework Web MVC                                 | Familier à Rails, MVC                   | Apps web, APIs                                     | Oui                 |                                                   | En memoire, Fichier, PostgreSQL, MySQL, MongoDB                                                                    | Anglais               |
+| Restify       | Librairie HTTP REST                               | Simplicité, Routage REST                | APIs REST Simple                                   | Oui                 |                                                   |                                                                                                                    | Anglais               |
+| LoopBack      | Framework d'API                                   | Connectivité d'Entreprise               | Apps web, APIs                                     | Oui                 |                                                   | En mémoire/fichier, SQL NoSQL, ATG, Email, REST, SOAP                                                              | Anglais               |
+| Meteor        | Platforme d'app JavaScript côté client et serveur | Framework Front-end et Back-end         | Apps web                                           | Non                 | Package et repository Meteor, Module NPM          | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                        | Anglais               |

@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta8",
+  "version": "2.0.0-beta9",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -94,7 +94,6 @@
     "imagemin-jpegtran": "5.0.x",
     "imagemin-optipng": "5.2.x",
     "imagemin-svgo": "5.2.x",
-    "jade": "^1.11.0",
     "less": "2.7.x",
     "less-middleware": "2.2.x",
     "mkpath": "1.0.x",

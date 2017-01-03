@@ -16,7 +16,7 @@
  *   WEB SERVER...................Functions used to run pages on http(s) protocol and use middlewares.
  *   ROUTES.......................Functions used to add route to the server.
  *   FRONT-END PART...............Functions used for manage Front-end part.
- *   BACK-END PART................Functions used for manage Back-end part.
+ *   TOOLS........................Functions used for manage Back-end part.
  *   ASSETS GENERATION............Functions used for create HTML assets.
  *   INIT.........................Run all JavaScript.
  * RUN............................Starting program.
@@ -35,8 +35,8 @@ var configuration = require("../lib/configuration"),
     globals = require("../lib/globals"),
     server = require("../lib/server"),
     routes = require("../lib/routes"),
-    frontEndPart = require("../lib/front-end-part"),
-    backEndPart = require("../lib/back-end-part"),
+    response = require("../lib/response"),
+    tools = require("../lib/tools"),
     generation = require("../lib/generation"),
     init = require("../lib/init"),
 
@@ -56,6 +56,7 @@ NA = function () {
     this.initRequiredVars = configuration.initRequiredVars;
     this.initRequiredNpmModulesVars = configuration.initRequiredNpmModulesVars;
     this.initWebsite = configuration.initWebsite;
+    this.initServerModules = configuration.initServerModules;
     this.createWebconfig = configuration.createWebconfig;
     
     /* NODE MODULES */
@@ -91,42 +92,40 @@ NA = function () {
     this.initRoutes = routes.initRoutes;
     this.indexPage = routes.indexPage;
 
-    this.response = routes.response;
+    this.sendResponse = routes.sendResponse;
     this.redirect = routes.redirect;
-    this.setSupport = routes.setSupport;
     this.executeRequest = routes.executeRequest;
     this.request = routes.request;
     this.requestRegex = routes.requestRegex;
     this.pageNotFound = routes.pageNotFound;
 
-    /* FRONT-END PART */
-    this.openTemplate = frontEndPart.openTemplate;
-    this.openVariation = frontEndPart.openVariation;
-    this.prepareRenderLanguage = frontEndPart.prepareRenderLanguage;
-    this.prepareRenderPath = frontEndPart.prepareRenderPath;
-    this.prepareRenderVariation = frontEndPart.prepareRenderVariation;
-    this.prepareRenderParameters = frontEndPart.prepareRenderParameters;
-    this.changeVariationsCommon = frontEndPart.changeVariationsCommon;
-    this.changeVariationsSpecific = frontEndPart.changeVariationsSpecific;
-    this.changeDomCommon = frontEndPart.changeDomCommon;
-    this.changeDomSpecific = frontEndPart.changeDomSpecific;
-    this.intoBrowserAndFiles = frontEndPart.intoBrowserAndFiles;
-    this.renderTemplate = frontEndPart.renderTemplate;
-    this.render = frontEndPart.render;
+    /* RESPONSE */
+    this.response = response.response;
 
-    /* BACK-END PART */
-    this.initServerModules = backEndPart.initServerModules;
+    this.openTemplate = response.openTemplate;
+    this.openVariation = response.openVariation;
+    this.prepareRenderLanguage = response.prepareRenderLanguage;
+    this.prepareRenderPath = response.prepareRenderPath;
+    this.prepareRenderVariation = response.prepareRenderVariation;
+    this.prepareRenderParameters = response.prepareRenderParameters;
+    this.changeVariationsCommon = response.changeVariationsCommon;
+    this.changeVariationsSpecific = response.changeVariationsSpecific;
+    this.changeDomCommon = response.changeDomCommon;
+    this.changeDomSpecific = response.changeDomSpecific;
+    this.intoBrowserAndFiles = response.intoBrowserAndFiles;
+    this.renderTemplate = response.renderTemplate;
 
-    this.cssAlreadyParse = backEndPart.cssAlreadyParse;
-    this.injectCssAuth = backEndPart.injectCssAuth;
-    this.prepareCssInjection = backEndPart.prepareCssInjection;
-    this.injectCss = backEndPart.injectCss;
-    this.lessCompilation = backEndPart.lessCompilation;
-    this.stylusCompilation = backEndPart.stylusCompilation;
-    this.cssCompilation = backEndPart.cssCompilation;
-    this.cssMinification = backEndPart.cssMinification;
-    this.imgOptimization = backEndPart.imgOptimization;
-    this.jsObfuscation = backEndPart.jsObfuscation;
+    /* TOOLS */
+    this.cssAlreadyParse = tools.cssAlreadyParse;
+    this.injectCssAuth = tools.injectCssAuth;
+    this.prepareCssInjection = tools.prepareCssInjection;
+    this.injectCss = tools.injectCss;
+    this.lessCompilation = tools.lessCompilation;
+    this.stylusCompilation = tools.stylusCompilation;
+    this.cssCompilation = tools.cssCompilation;
+    this.cssMinification = tools.cssMinification;
+    this.imgOptimization = tools.imgOptimization;
+    this.jsObfuscation = tools.jsObfuscation;
 
     /* ASSETS GENERATION */
     this.createTemplateProject = generation.createTemplateProject;
@@ -134,7 +133,7 @@ NA = function () {
     this.publicsGeneration = generation.publicsGeneration;
     this.staticsGeneration = generation.staticsGeneration;
     this.generateAssets = generation.generateAssets;
-    this.saveTemplateRender = generation.saveTemplateRender;
+    this.saveRender = generation.saveRender;
 
     /* INIT */
     this.changeLanguage = init.changeLanguage;

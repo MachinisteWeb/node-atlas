@@ -1,0 +1,13 @@
+{
+	"assetsCopyEnable": false,
+	"statics": [{
+		"virtual": "/javascript/models",
+		"path": "models",
+		"output": false
+	}],
+    "routes": {
+        "/index.html": {
+        	"view": "index.htm"
+        }
+    }
+}

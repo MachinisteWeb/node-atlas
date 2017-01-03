@@ -6,11 +6,11 @@
         },
         "/member.html": {
             "view": "member.htm",
-            "postSupport": false
+            "post": false
         },
         "/member-without-extension/": {
             "view": "member.htm",
-            "getSupport": false
+            "get": false
         },
         "/about.html": {
             "view": "about.htm"
