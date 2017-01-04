@@ -1,10 +1,10 @@
 # node-atlas #
 
+**For an international version of this document, [follow this link](https://www.npmjs.com/package/node-atlas).**
+
 Framework Javascript Serveur Évolutif par configuration ou APIs pour créer facilement des maquettes, sites ou applications web temps réel orientés composants et services.
 
 > *NodeAtlas* est un Framework Web MVC(2) côté serveur vous permettant de créer des sites évolutifs, conformes au W3C et bonnes pratiques SEO. Il permet de faire tourner des pages localisables et indexables ou de créer des maquettes HTML uniquement avec des vues. Mais activer les contrôleurs permet de développer de puissantes applications web orientées données et composants ou orienté service avec des fonctionalités modernes et temps réel !
-
-**For an international version of this document, [follow this link](https://www.npmjs.com/package/node-atlas).**
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas) [![Chat pour de l'Aide](https://img.shields.io/badge/gitter-rejoindre%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Aide)
 
