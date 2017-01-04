@@ -1,0 +1,1559 @@
+<h2 id="controller-and-model-part">Controller and Model Part</h2><p>NodeAtlas is useful for more than simply generate template web page easily based on your variations files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with;</p><ul>
+<li>parameters in query part of URL (GET),</li>
+<li>parameters in request body (POST),</li>
+</ul><p>but also provide;</p><ul>
+<li>connections with database,</li>
+<li>management of sessions,</li>
+<li>Websockets request/response and</li>
+<li>and more !</li>
+</ul><h3 id="lifecycle-and-hooks">Lifecycle and Hooks</h3><p>NodeAtlas lyfecycle works as following. First, ressources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generate. You could use hooks whire server start and while response is construct.</p><p>This is a <code>webconfig.json</code> allows you to manipulate each hook of life cycle of a page.</p><pre><code class="lang-json">{
+    &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;controller&quot;: &quot;index.json&quot;
+        }
+    }
+}
+</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks while:</p><p><em>Starting the server</em></p><pre><code>┌─[Loading Node.js Modules]
+┊
+├─[Loading Init Vars]
+┊
+├─[Loading NPM Modules]
+┊
+├─[Setting CLI commands and language]
+┊
+├─[Setting API options]
+┊
+└─[Loading CLI language]
+  ┊
+  ├─[Loading Global Vars]
+  ┊
+  ├─[Setting Webconfig instructions]
+  ┊
+  └─[Loading Common Controller]
+    ┊  ____________________________________
+    ├─{Hook : &lt;commonController&gt;.setModules}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ├─[Server Init]
+    ┊  _____________________________________
+    ├─{Hook : &lt;commonController&gt;.setSessions}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ├─[Sessions Init]
+    ┊ 
+    ├─[Sockets Init]
+    ┊ ┊  ____________________________________
+    ┊ ├─{Hook : &lt;commonController&gt;.setSockets}
+    ┊ └─{Hook : routes[&lt;controller&gt;].setSockets}
+    ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ___________________________________________
+    ├─{Hook : &lt;commonController&gt;.setConfigurations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    └─[Starting the server]
+      ┊
+      ├─[Template Engine Init]
+      ┊  ___________________________________
+      ├─{Hook : &lt;commonController&gt;.setRoutes}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      └─[Routes Init]
+        ┊
+        ∞
+</code></pre><p><em>Processing a request</em></p><pre><code>∞
+┊
+└─[Processing a request]
+  ┊
+  └─[Loading Specific Controller]
+    ┊  __________________________________________
+    ├─{Hook : &lt;commonController&gt;.changeVariations}
+    ├─{Hook : routes[&lt;controller&gt;].changeVariations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    └─[Template Engine Compilation]
+      ┊  ___________________________________
+      ├─{Hook : &lt;commonController&gt;.changeDom}
+      ├─{Hook : routes[&lt;controller&gt;].changeDom}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      └─[Send Response]
+        ┊ 
+        ∞
+</code></pre><h4 id="changevariations">changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+<li>An object <code>locals</code> in second parameter with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific vatiations.</li>
+<li>The <code>response</code> object in third parameter for this page.</li>
+<li>The <code>request</code> object in fourth parameter for this page.</li>
+</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+    &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    }
+}
+</code></pre><p>with this files :</p><pre><code>├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Site Title&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;This is the Home Page.&lt;/p&gt;&quot;
+}
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
+
+    &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+        &lt;?- specific.content ?&gt;
+    &lt;/div&gt;
+
+    &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+// This code is executed for all HTTP request, for all pages.
+exports.changeVariations = function (next, locals, request, response) {
+
+    // Here we update locals variable.
+
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome&quot;
+    console.log(locals.specific.content); // &quot;This is the Home Page.&quot;
+
+    console.log(&quot;urlRootPath&quot;, locals.urlRootPath); // &quot;http://localhost&quot;
+    console.log(&quot;urlSubPath&quot;, locals.urlSubPath); // &quot;/example&quot;
+    console.log(&quot;urlBasePath&quot;, locals.urlBasePath); // &quot;http://localhost/example&quot;
+    console.log(&quot;urlFilePath&quot;, locals.urlFilePath); // &quot;/&quot;
+    console.log(&quot;urlQueryPath&quot;, locals.urlQueryPath); // &quot;?title=Haeresis&quot;
+    console.log(&quot;urlPath&quot;, locals.urlPath); // &quot;http://localhost/example/?title=Haeresis&quot;
+
+    if (request.query[&quot;title&quot;]) {
+        locals.specific.titlePage = locals.specific.titlePage + &quot; &quot; + request.query.title;
+    }
+    if (request.body[&quot;example&quot;]) {
+        locals.specific.content = request.body.example;
+    }
+
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;This is a test&quot;
+
+    // We do the next step.
+    next();
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+// This code is executed only for the « / » page.
+exports.changeVariations = function (next, locals, request, response) {
+
+    // Here we update locals variable.
+
+    console.log(locals.common.titleWebsite); // &quot;Site Title&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;This is a test&quot;
+
+    locals.common.titleWebsite = &quot;It&#39;s Home, no way.&quot;;
+    locals.specific.content = &quot;It&#39;s Home, no way.&quot;;
+
+    console.log(locals.common.titleWebsite); // &quot;It&#39;s Home, no way.&quot;
+    console.log(locals.specific.titlePage); // &quot;Welcome Haeresis&quot;
+    console.log(locals.specific.content); // &quot;It&#39;s Home, no way.&quot;
+
+    // We do the next step.
+    next();
+};
+</code></pre><p>en this produce the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;It&#39;s Home, no way.&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;It&#39;s Home, no way.&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Welcome Haeresis&lt;/h1&gt;
+            It&#39;s Home, no way.
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>If you delete the variation entry of specific page from webconfig:</p><pre><code class="lang-json">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;
+        }
+    }
+}
+</code></pre><p>the output will be as following:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;Site Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;Site Title&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Welcome Haeresis&lt;/h1&gt;
+            This is a test
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h4 id="changedom">changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next([$])</code> in first parameter which accept an optional first updated <code>$</code> parameter used to manipulate the Virtual DOM.</li>
+<li>An object <code>locals</code> in second parameter with the <code>locals.dom</code> string that contains the response or the <code>locals.virtualDom()</code> function creating the Virtual DOM.</li>
+<li>The <code>response</code> object in third parameter for this page.</li>
+<li>The <code>request</code> object in fourth parameter for this page.</li>
+</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    }
+}
+</code></pre><p>with this files :</p><pre><code>├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others):</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Site Title&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;This is Home Page.&lt;/p&gt;&quot;
+}
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
+// This code is executed for all HTTP request, for all pages.
+exports.changeDom = function (next, locals, request, response) {
+    var $ = locals.virtualDom(); // Transform HTML string into Virtual DOM.
+
+    // Just after eath h1 from HTML DOM...
+    $(&quot;h1&quot;).each(function () {
+        var $this = $(this);
+
+        // ...we create a div,
+        $this.after(
+            // ...we inject the content of h1 into the div,
+            $(&quot;&lt;div&gt;&quot;).html($this.html())
+        );
+        // ...and we delete the h1.
+        $this.remove();
+    });
+
+    // Return updates for reinject them into HTML string.
+    next($);
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
+// This code is executed only for the « / » page .
+exports.changeDom = function (next, locals, request, response) {
+    var NA = this,
+        cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
+        $ = cheerio.load(locals.dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+
+    // We update nodes contents with `.title` class.
+    $(&quot;.title&quot;).text(&quot;Content Update&quot;);
+
+    // We recreate a new HTML output with updates.
+    locals.dom = $.html();
+
+    // We go to next step.
+    next();
+};
+</code></pre><p>the output will be as following:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;Site Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;Content Update&lt;/div&gt;
+        &lt;div&gt;
+            &lt;div&gt;Welcome&lt;/div&gt;
+            &lt;p&gt;This is Home Page.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h4 id="setsockets">setSockets</h4><p>In order to keep a real-time connection between your Client-side and Server-side between all pages opened on all browsers that run on all OS, you could define your Websockets here. <a href="controller-and-model-part.html#use-reliable-client-server-real-time-with-websockets">More details in Socket.IO part</a>.</p><p><code>setSockets()</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+    &quot;urlSocketsFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    }
+}
+</code></pre><p>with this files :</p><pre><code>├─ assets/
+│  └─ javascript/
+│     └─ index.js
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;Websocket Example&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;layout&quot;&gt;
+            &lt;div class=&quot;content&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;field&quot;&gt;Write something : &lt;input class=&quot;input&quot; type=&quot;text&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;node-atlas/socket.io.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>Note : If</em> <strong><em>urlSocketsFile</em></strong> <em>is not present in &quot;webconfig.json&quot;, default client file for config sockets is</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>urlSocketsFile</em></strong> <em>is useful only to change the name of file. If you set **</em>urlSocketsFile<em>** to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+// This code is executed for all Websocket from Client.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    io.on(&#39;connection&#39;, function (socket) {
+        console.log(&quot;A tab is opened.&quot;);
+        socket.on(&#39;disconnect&#39;, function () {
+            console.log(&quot;A tab is closed.&quot;);
+        });
+    });
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+// This code is executed for all Websocket from Client.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    // Wait for a valid connection between client and servere.
+    io.sockets.on(&quot;connection&quot;, function (socket) {
+
+        // A page says the text has changed.
+        socket.on(&quot;update-text&quot;, function (data) {
+
+            // We say to all others page the page has changed.
+            io.sockets.emit(&quot;update-text&quot;, data);
+        });
+    });
+};
+</code></pre><p><em>assets/javascript/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
+    input = document.getElementsByClassName(&quot;input&quot;)[0];
+
+// We say to others we just change text.
+input.addEventListener(&quot;keyup&quot;, function () {
+    content.innerHTML = input.value;
+    NA.socket.emit(&quot;update-text&quot;, {
+        text: input.value
+    });
+});
+
+// Others says they changed the text.
+NA.socket.on(&quot;update-text&quot;, function (data) {
+    content.innerHTML = data.text;
+    input.value = data.text;
+});
+</code></pre><p>You will see, opening different browsers and tabs. All is update in all tabs. Each tab open display the connection message and each tab closed display the deconnection message on the server console.</p><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setModules()</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+</ul><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-json">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    }
+}
+</code></pre><p>with this set of files:</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;Test Module&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;Test Module&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Test Module&lt;/h1&gt;
+            &lt;?- example ?&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing during the modules loading phase.
+// This code will be executed when NodeAtlas starting.
+exports.setModules = function () {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this;
+
+    // Associate each modules to allow us to use them anywhare.
+    NA.modules.marked = require(&#39;marked&#39;);
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+// This code is executed only for the « / » page .
+exports.changeVariations = function (next, locals) {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this,
+        marked = NA.modules.marked;
+
+    variations.example = marked(&quot;I am using __markdown__.&quot;);
+
+    // We do next step.
+    next();
+};
+</code></pre><p>this will produce the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;Test Module&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;Test Module&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Test Module&lt;/h1&gt;
+            &lt;p&gt;I am using &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h4 id="setconfigurations">setConfigurations</h4><p>To configure NodeAtlas web server others (<a href="http://expressjs.com/">ExpressJs</a>), you can use the common controller to set configurations before the server start.</p><p><code>setConfigurations(next)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+</ul><p>This is an exemple using a middleware for <a href="http://expressjs.com/">ExpressJs</a>:</p><pre><code class="lang-json">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    }
+}
+</code></pre><p>with this set of files:</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;?- content ?&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
+// This code will be executed when NodeAtlas starting.
+exports.setConfigurations = function (next) {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this;
+
+    // Middleware utilisé lors de chaque requête.
+    NA.express.use(function (request, response, next) {
+        response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM https://www.lesieur.name/&quot;);
+        next();
+    });
+
+    // We update modification here.
+    next();
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
+// This code is executed only for the « / » page .
+exports.changeVariations = function (next, locals) {
+
+    // We prepare file for JSON displaying.
+    locals.routeParameters.headers = {
+        &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;
+    };
+    locals.content = JSON.stringify(locals, null, &quot;    &quot;);
+
+    // We do the next step.
+    next();
+};
+</code></pre><p>this will produce the following output:</p><pre><code class="lang-html">{
+    &quot;urlRootPath&quot;: &quot;http://localhost&quot;,
+    &quot;urlSubPath&quot;: &quot;&quot;,
+    &quot;urlBasePath&quot;: &quot;http://localhost&quot;,
+    &quot;urlFilePath&quot;: &quot;/&quot;,
+    &quot;urlQueryPath&quot;: &quot;&quot;,
+    &quot;urlPath&quot;: &quot;http://localhost/&quot;,
+    &quot;params&quot;: {},
+    &quot;query&quot;: {},
+    &quot;body&quot;: {},
+    &quot;routeParameters&quot;: { /* ... */ },
+    &quot;route&quot;: &quot;/&quot;,
+    &quot;webconfig&quot;: { /* ... */ }
+}
+</code></pre><h4 id="setsessions">setSessions</h4><p>To configure client-server Sessions of NodeAtlas, you can use the common controller to set sessions before the server start. this is an example with <a href="http://redis.io/">Redis</a> sessions.</p><p><code>setSessions(next)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+</ul><p>This is all files for example:</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ views/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
+</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>And &quot;common.js&quot; file containing e.g.:</p><pre><code class="lang-js">// This code is executing during the modules loading phase.
+// This code will be executed when NodeAtlas starting.
+exports.setModules = function () {
+    // Find instance of « NodeAtlas » engine.
+    var NA = this;
+
+    // Associations of each module to access it anywhere.
+    NA.modules.RedisStore = require(&#39;connect-redis&#39;);
+};
+
+// This code is executing while configuration of session.
+// This code will be executed when NodeAtlas starting.
+exports.setSessions = function (next) {
+    var NA = this,
+        session = NA.modules.session,
+        RedisStore = NA.modules.RedisStore(session);
+
+    // We replace the default session.
+    NA.sessionStore = new RedisStore();
+
+    // We update modification here.
+    next();
+};
+</code></pre><h4 id="setroutes">setRoutes</h4><p>To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setRoutes(next)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+</ul><p>This is all files for example:</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ views/
+│  ├─ content.htm
+│  └─ index.htm
+├─ variations/
+│  └─ common.json
+└─ webconfig.json
+</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/index.html&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;
+        }
+    }
+}
+</code></pre><p>And &quot;common.js&quot; file containing e.g.:</p><pre><code class="lang-js">// This code is executing while route are added.
+// This code will be executed when NodeAtlas starting.
+exports.setRoutes = function (next) {
+
+    // We use instance of NodeAtlas.
+    var NA = this,
+
+        // And we keep routes from NodeAtlas webconfig...
+        route = NA.webconfig.routes;
+
+    // ...to add &quot;/content.html&quot; route amongs others routes.
+    route[&quot;/content.html&quot;] = {
+        &quot;view&quot;: &quot;content.htm&quot;
+    };
+
+    // We update modification here.
+    next(); 
+};
+</code></pre><h3 id="use-reliable-client-server-real-time-with-websockets">Use Reliable Client-Server Real-Time with Websockets</h3><p>To keep a link between Client-side and Server-side part of website, NodeAtlas use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p><p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p><p>With this following files:</p><pre><code>├─ assets/
+│  └─ javascript/
+│     └─ index.js
+├─ controllers/
+│  └─ index.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ views/
+│  ├─ partials/
+│  │  └─ index.htm
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>With this <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    }
+}
+</code></pre><p>and with this views files:</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
+            &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;button&gt;Update&lt;/button&gt;
+</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;layout&quot;&gt;
+            &lt;?- include(&#39;partials/index.htm&#39;) ?&gt;
+        &lt;/div&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;node-atlas/socket.io.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>Note : We parse here the home page <code>/</code>.</em></p><p>and the following variations files :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Socket.IO Example&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Date&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;Current date is:&lt;/p&gt;&quot;
+}
+</code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side. </p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// All Websocket action possible with `setSockets`.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    // Once we have a valid connection between the client and our server...
+    io.sockets.on(&#39;connection&#39;, function (socket) {
+
+        // ...stay tuned on the &quot;create-item-button&quot; demand...
+        socket.on(&quot;server-render&quot;, function (data) {
+            var sessionID = socket.request.sessionID,
+                session = socket.request.session,
+                variations = {};
+
+            // Specific variations in the good language.
+            variations = NA.specific(&quot;index.json&quot;, data.lang, variations);
+
+            // Common variations in the good language.
+            variations = NA.common(data.lang, variations);
+
+            // HTML part from `viewsRelativePath` directory and render with variations.
+            result = NA.render(&quot;partials/index.htm&quot;, variations);
+
+            // And responds to all customers with a set of data in data.
+            io.sockets.emit(&quot;server-render&quot;, data);
+        });
+    });
+};
+</code></pre><p>And for client-side, we use the following files:</p><p><em>assets/javascript/index.js</em></p><pre><code class="lang-js">var html = document.getElementsByTagName(&quot;html&quot;)[0],
+    layout = document.getElementsByClassName(&quot;layout&quot;)[0];
+
+// We associate on the button the action to contact server.
+function setServerRender() {
+    var button = document.getElementsByTagName(&quot;button&quot;)[0];
+    button.addEventListener(&quot;click&quot;, function () {
+        NA.socket.emit(&quot;server-render&quot;, {
+            lang: html.getAttribute(&quot;lang&quot;)
+        });
+    });
+}
+
+// We set action on button.
+setServerRender();
+
+// When server response come back...
+NA.socket.on(&quot;server-render&quot;, function (data) {
+
+    // ...we update data content...
+    layout.innerHTML = data.render;
+
+    // ...and we set again button action.
+    setServerRender();
+});
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.render</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>variations</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>render</code> to use PUG template engine and not EJS, you must defined <code>variations.enablePug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
+</code></pre><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
+</code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
+</code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    lastname VARCHAR(100),
+    firstname VARCHAR(100),
+    email VARCHAR(255),
+    birthdate DATE,
+    gender TINYINT(1),
+    country VARCHAR(255),
+    town VARCHAR(255),
+    zipcode VARCHAR(5),
+    address VARCHAR(255)
+);
+</code></pre><p>and fill it with this set of data:</p><pre><code class="lang-sql">INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    &quot;Elric&quot;,
+    &quot;Edward&quot;,
+    &quot;edward.elric@fma.br&quot;,
+    &quot;2006/01/01&quot;,
+    true,
+    &quot;Amestris&quot;,
+    &quot;Resembool&quot;,
+    00000,
+    &quot;The Elric&#39;s house&quot;
+);
+INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    &quot;Elric&quot;,
+    &quot;Alphonse&quot;,
+    &quot;alphonse.elric@fma.br&quot;,
+    &quot;2008/01/01&quot;,
+    true,
+    &quot;Amestris&quot;,
+    &quot;Resembool&quot;,
+    00000,
+    &quot;The Elric&#39;s house&quot;
+);
+</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>See now what files we will created to present our example:</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  ├─ objects/
+│  │  └─ user.js
+│  └─ connectors/
+│     └─ user.js
+├─ views/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
+</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contain all informations for database connection:</p><pre><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;statics&quot;: {
+        &quot;/models&quot;: &quot;models/objects&quot;
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    },
+    &quot;_mysqlConfig&quot;: {
+        &quot;host&quot;: &quot;localhost&quot;,
+        &quot;user&quot;: &quot;root&quot;,
+        &quot;password&quot;: &quot;root&quot;,
+        &quot;database&quot;: &quot;demo&quot;
+    }
+}
+</code></pre><p>Then, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this;
+
+    // Import of `mysql` module.
+    NA.modules.mysql = require(&#39;mysql&#39;);
+
+    // Create a model collection...
+    NA.models = {};
+    // ...and use the User model with MySQL connection capability.
+    NA.models.User = require(&#39;../models/connectors/user.js&#39;);
+};
+
+exports.setConfigurations = function (next) {
+    var NA = this,
+        path = NA.modules.path,
+        mysql = NA.modules.mysql;
+
+    // Create a connection pool to MySQL.
+    NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
+
+    next();
+};
+</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+    var NA = this,
+        user = new NA.models.User(),
+        user2 = new NA.models.User(),
+        user3 = new NA.models.User(),
+        user4 = new NA.models.User();
+
+    NA.mySql.getConnection(function(err, connection) {
+        if (err) {
+            throw err;
+        }
+
+        // Read example.
+        user
+        .setConnection(connection)
+        .lastname(&quot;Elric&quot;)
+        .read(function (allUsers) {
+            locals.user = user;
+            locals.users = allUsers;
+
+            // Create Example.
+            user2
+            .setConnection(connection)
+            .firstname(&quot;Winry&quot;)
+            .lastname(&quot;Rockbell&quot;)
+            .email(&quot;winry.rockbell@fma.br&quot;)
+            .gender(true)
+            .create(function (infos) {
+                locals.insertId = infos.insertId;
+                locals.user2 = user2;
+
+                // Update Example.
+                user3
+                .gender(false)
+                .birthdate(&quot;2008-01-01&quot;)
+                .country(&quot;Amestris&quot;)
+                .town(&quot;Resembool&quot;)
+                .zipcode(&quot;99999&quot;)
+                .address(&quot;The Rockbell&#39;s house&quot;);
+
+                user2.update(user3, function (infos) {
+                    locals.affectedRows = infos.affectedRows;
+                    locals.user2 = user2;
+
+                    // Delete Example.
+                    user4
+                    .setConnection(connection)
+                    .gender(false)
+                    .delete(function (infos) {
+                        locals.deletedRows = infos.affectedRows;
+                        next();
+                    });
+                });
+            });
+        });
+    });
+};
+</code></pre><p>with the <code>user</code> model via connect file to database <code>models/connectors/user.js</code>:</p><pre><code class="lang-js">var user = require(&#39;../objects/user.js&#39;);
+
+function User(connection) {
+    var privates = {},
+        publics = this;
+
+    user.call(publics);
+
+    privates.connection = connection;
+
+    publics.setConnection = function (connection) {
+        privates.connection = connection;
+        return publics;
+    };
+
+    publics.read = function (callback) {
+        var select = `SELECT
+                    id,
+                    lastname,
+                    firstname,
+                    email,
+                    birthdate,
+                    gender,
+                    country,
+                    town,
+                    zipcode,
+                    address
+                FROM user`, 
+            where = &quot;&quot;;
+
+        if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
+        if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
+        if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
+        if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
+        if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
+        if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
+        if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
+        if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
+        if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
+
+        where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
+
+        privates.connection.query(select + where, function (err, rows) {
+            var users = [],
+                user;
+
+            if (err) {
+                throw err;
+            }
+
+            if (rows[0]) {
+                publics.id(rows[0].id);
+                publics.lastname(rows[0].lastname);
+                publics.firstname(rows[0].firstname);
+                publics.email(rows[0].email);
+                publics.birthdate(rows[0].birthdate);
+                publics.gender((rows[0].gender) ? true : false);
+                publics.country(rows[0].country);
+                publics.town(rows[0].town);
+                publics.zipcode(rows[0].zipcode);
+                publics.address(rows[0].address);
+            }
+
+            for (var i = 0; i &lt; rows.length; i++) {
+                user = new User();
+                user.id(rows[i].id);
+                user.lastname(rows[i].lastname);
+                user.firstname(rows[i].firstname);
+                user.email(rows[i].email);
+                user.birthdate(rows[i].birthdate);
+                user.gender((rows[i].gender) ? true : false);
+                user.country(rows[i].country);
+                user.town(rows[i].town);
+                user.zipcode(rows[i].zipcode);
+                user.address(rows[i].address);
+                users.push(user);
+            }
+
+            if (callback) {
+                callback(users);
+            }
+        });
+
+        return publics;
+    };
+
+    publics.create = function (callback) {
+        var insert = &quot;INSERT INTO user (&quot;,
+            values = &quot;) VALUES (&quot;;
+
+        if (publics.id()) {
+            insert += &quot;`id`, &quot;;
+            values += publics.id() + &#39;, &#39;;
+        }
+        if (publics.lastname()) {
+            insert += &quot;`lastname`, &quot;;
+            values += &#39;&quot;&#39; + publics.lastname() + &#39;&quot;, &#39;;
+        }
+        if (publics.firstname()) {
+            insert += &quot;`firstname`, &quot;;
+            values += &#39;&quot;&#39; + publics.firstname() + &#39;&quot;, &#39;;
+        }
+        if (publics.email()) {
+            insert += &quot;`email`, &quot;;
+            values += &#39;&quot;&#39; + publics.email() + &#39;&quot;, &#39;;
+        }
+        if (publics.birthdate()) {
+            insert += &quot;`birthdate`, &quot;;
+            values += &#39;&quot;&#39; + publics.birthdate() + &#39;&quot;, &#39;;
+        }
+        if (typeof publics.gender() === &quot;boolean&quot;) { 
+            insert += &quot;`gender`, &quot;;
+            values += (publics.gender() ? 1 : 0) + &#39;, &#39;;
+        }
+        if (publics.country()) {
+            insert += &quot;`country`, &quot;;
+            values += &#39;&quot;&#39; + publics.country() + &#39;&quot;, &#39;;
+        }
+        if (publics.town()) {
+            insert += &quot;`town`, &quot;;
+            values += &#39;&quot;&#39; + publics.town() + &#39;&quot;, &#39;;
+        }
+        if (publics.zipcode()) {
+            insert += &quot;`zipcode`, &quot;;
+            values += &#39;&quot;&#39; + publics.zipcode() + &#39;&quot;, &#39;;
+        }
+        if (publics.address()) {
+            insert += &quot;`address`, &quot;;
+            values += &#39;&quot;&#39; + publics.address() + &#39;&quot;, &#39;;
+        }
+
+        insert = insert.replace(/, $/g, &quot;&quot;);
+        values = values.replace(/, $/g, &quot;)&quot;);
+
+        privates.connection.query(insert + values, function (err, infos) {
+            if (err) { 
+                throw err;
+            }
+
+            publics.id(infos.insertId);
+
+            if (callback) {
+                callback(infos);
+            }
+        });
+
+        return publics;
+    };
+
+    publics.update = function (user, callback) {
+        var update = &quot;UPDATE user SET&quot;,
+            where = &quot;&quot;;
+
+        if (user.id()) { update += &#39;`id` = &#39; + user.id() + &#39;, &#39;; }
+        if (user.lastname()) { update += &#39;`lastname` = &quot;&#39; + user.lastname() + &#39;&quot;, &#39;; }
+        if (user.firstname()) { update += &#39;`firstname` = &quot;&#39; + user.firstname() + &#39;&quot;, &#39;; }
+        if (user.email()) { update += &#39;`email` = &quot;&#39; + user.email() + &#39;&quot;, &#39;; }
+        if (user.birthdate()) { update += &#39;`birthdate` = &quot;&#39; + user.birthdate() + &#39;&quot;, &#39;; }
+        if (typeof user.gender() === &quot;boolean&quot;) { update += &#39;`gender` = &#39; + (user.gender() ? 1 : 0) + &#39;, &#39;; }
+        if (user.country()) { update += &#39;`country` = &quot;&#39; + user.country() + &#39;&quot;, &#39;; }
+        if (user.town()) { update += &#39;`town` = &quot;&#39; + user.town() + &#39;&quot;, &#39;; }
+        if (user.zipcode()) { update += &#39;`zipcode` = &quot;&#39; + user.zipcode() + &#39;&quot;, &#39;; }
+        if (user.address()) { update += &#39;`address` = &quot;&#39; + user.address() + &#39;&quot;, &#39;; }
+
+        update = update.replace(/, $/g, &quot;&quot;);
+
+        if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
+        if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
+        if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
+        if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
+        if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
+        if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
+        if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
+        if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
+        if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
+
+        where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
+
+        privates.connection.query(update + where, function (err, infos) {
+            if (err) { 
+                throw err;
+            }
+
+            if (user.id()) { publics.id(user.id()); }
+            if (user.lastname()) { publics.lastname(user.lastname()); }
+            if (user.firstname()) { publics.firstname(user.firstname()); }
+            if (user.email()) { publics.email(user.email()); }
+            if (user.birthdate()) { publics.birthdate(user.birthdate()); }
+            if (typeof publics.gender() === &quot;boolean&quot;) { publics.gender(user.gender()); }
+            if (user.country()) { publics.country(user.country()); }
+            if (user.town()) { publics.town(user.town()); }
+            if (user.zipcode()) { publics.zipcode(user.zipcode()); }
+            if (user.address()) { publics.address(user.address()); }
+
+            if (callback) {
+                callback(infos);
+            }
+        });
+
+        return publics;
+    };
+
+    publics.delete = function (callback) {
+        var del = &quot;DELETE FROM user&quot;,
+            where = &quot;&quot;;
+
+        if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
+        if (publics.lastname()) { where += &#39; &amp;&amp; `lastname` = &quot;&#39; + publics.lastname() + &#39;&quot;&#39;; }
+        if (publics.firstname()) { where += &#39; &amp;&amp; `firstname` = &quot;&#39; + publics.firstname() + &#39;&quot;&#39;; }
+        if (publics.email()) { where += &#39; &amp;&amp; `email` = &quot;&#39; + publics.email() + &#39;&quot;&#39;; }
+        if (publics.birthdate()) { where += &#39; &amp;&amp; `birthdate` = &quot;&#39; + publics.birthdate() + &#39;&quot;&#39;; }
+        if (typeof publics.gender() === &quot;boolean&quot;) { where += &#39; &amp;&amp; `gender` = &#39; + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += &#39; &amp;&amp; `country` = &quot;&#39; + publics.country() + &#39;&quot;&#39;; }
+        if (publics.town()) { where += &#39; &amp;&amp; `town` = &quot;&#39; + publics.town() + &#39;&quot;&#39;; }
+        if (publics.zipcode()) { where += &#39; &amp;&amp; `zipcode` = &quot;&#39; + publics.zipcode() + &#39;&quot;&#39;; }
+        if (publics.address()) { where += &#39; &amp;&amp; `address` = &quot;&#39; + publics.address() + &#39;&quot;&#39;; }
+
+        where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
+
+        privates.connection.query(del + where, function (err, infos) {
+            if (err) { 
+                throw err;
+            }
+
+            if (publics.id()) { publics.id(undefined); }
+            if (publics.lastname()) { publics.lastname(undefined); }
+            if (publics.firstname()) { publics.firstname(undefined); }
+            if (publics.email()) { publics.email(undefined); }
+            if (publics.birthdate()) { publics.birthdate(undefined); }
+            if (typeof publics.gender() === &quot;boolean&quot;) { publics.gender(undefined); }
+            if (publics.country()) { publics.country(undefined); }
+            if (publics.town()) { publics.town(undefined); }
+            if (publics.zipcode()) { publics.zipcode(undefined); }
+            if (publics.address()) { publics.address(undefined); }
+
+            if (callback) {
+                callback(infos);
+            }
+        });
+
+        return publics;
+    };
+}
+
+User.prototype = Object.create(user.prototype);
+User.prototype.constructor = User;
+
+module.exports = User;
+</code></pre><p>based on <code>user</code> classe shared between client-side and server-side <code>models/objects/user.js</code>:</p><pre><code class="lang-js">(function (expose, factory) {
+    if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, function User() {
+    var privates = {},
+        publics = this;
+
+    publics.id = function (id) {
+        if (typeof id === &#39;undefined&#39;) {
+            return privates.id;
+        } else {
+            privates.id = id;
+            return publics;
+        }
+    };
+
+    publics.lastname = function (lastname) {
+        if (typeof lastname === &#39;undefined&#39;) {
+            return privates.lastname;
+        } else {
+            privates.lastname = lastname;
+            return publics;
+        }
+    };
+
+    publics.firstname = function (firstname) {
+        if (typeof firstname === &#39;undefined&#39;) {
+            return privates.firstname;
+        } else {
+            privates.firstname = firstname;
+            return publics;
+        }
+    };
+
+    publics.email = function (email) {
+        if (typeof email === &#39;undefined&#39;) {
+            return privates.email;
+        } else {
+            privates.email = email;
+            return publics;
+        }
+    };
+
+    publics.birthdate = function (birthdate) {
+        if (typeof birthdate === &#39;undefined&#39;) {
+            return privates.birthdate;
+        } else {
+            privates.birthdate = birthdate;
+            return publics;
+        }
+    };
+
+    publics.gender = function (gender) {
+        if (typeof gender === &#39;undefined&#39;) {
+            return privates.gender;
+        } else {
+            privates.gender = gender;
+            return publics;
+        }
+    };
+
+    publics.country = function (country) {
+        if (typeof country === &#39;undefined&#39;) {
+            return privates.country;
+        } else {
+            privates.country = country;
+            return publics;
+        }
+    };
+
+    publics.town = function (town) {
+        if (typeof town === &#39;undefined&#39;) {
+            return privates.town;
+        } else {
+            privates.town = town;
+            return publics;
+        }
+    };
+
+    publics.zipcode = function (zipcode) {
+        if (typeof zipcode === &#39;undefined&#39;) {
+            return privates.zipcode;
+        } else {
+            privates.zipcode = zipcode;
+            return publics;
+        }
+    };
+
+    publics.address = function (address) {
+        if (typeof address === &#39;undefined&#39;) {
+            return privates.address;
+        } else {
+            privates.address = address;
+            return publics;
+        }
+    };
+}));
+</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;div class=&quot;first&quot;&gt;
+                &lt;?- specific.content ?&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- user.id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- user.lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- user.firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- user.email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- user.birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- user.gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- user.country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- user.town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- user.zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- user.address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;all&quot;&gt;
+                &lt;?- specific.contents ?&gt;
+                &lt;? for (var i = 0; i &lt; users.length; i++) { ?&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- users[i].id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- users[i].lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- users[i].firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- users[i].email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- users[i].birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- users[i].gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- users[i].country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- users[i].town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- users[i].zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- users[i].address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;? } ?&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;last&quot;&gt;
+                &lt;?- specific.contentInsert ?&gt;
+                &lt;p&gt;insertId: &lt;?- insertId ?&gt;&lt;/p&gt;
+                &lt;p&gt;numberUpdate: &lt;?- affectedRows ?&gt;&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- user2.id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- user2.lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- user2.firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- user2.email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- user2.birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- user2.gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- user2.country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- user2.town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- user2.zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- user2.address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;numberDelete: &lt;?- deletedRows ?&gt;&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Example MySql&quot;,
+    &quot;male&quot;: &quot;Man&quot;,
+    &quot;female&quot;: &quot;Woman&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;User Table&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;First entry details.&lt;/p&gt;&quot;,
+    &quot;contents&quot;: &quot;&lt;p&gt;All entries details.&lt;/p&gt;&quot;,
+    &quot;contentInsert&quot;: &quot;&lt;p&gt;Added and Updated user details.&lt;/p&gt;&quot;
+}
+</code></pre><p>You will get the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en-us&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;MySql Exemple&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;MySql Exemple&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Table User&lt;/h1&gt;
+            &lt;div class=&quot;first&quot;&gt;
+                &lt;p&gt;Détail de la première entrée.&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;Edward&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;edward.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;The Elric&#39;s house&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;all&quot;&gt;
+                &lt;p&gt;Détail de toutes les entrées.&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;Edward&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;edward.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;The Elric&#39;s house&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;2&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;Alphonse&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;alphonse.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;The Elric&#39;s house&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;last&quot;&gt;
+                &lt;p&gt;Détail de l&#39;utilisateur ajouté puis modifié.&lt;/p&gt;
+                &lt;p&gt;insertId: 3&lt;/p&gt;
+                &lt;p&gt;numberUpdate: 1&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;3&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;Rockbell&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;Winry&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;winry.rockbell@fma.br&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;2008-01-01&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;false&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;99999&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;The Rockbell&#39;s house&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;numberDelete: 1&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> NPM module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mongoose
+</code></pre><h4 id="mongodb-database">MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p><pre><code>use demo
+</code></pre><p>and create a <code>user</code> collection:</p><pre><code>db.createCollection(&quot;user&quot;)
+</code></pre><p>and fill it with this document:</p><pre><code>db.user.insert({
+    email: &quot;john.doe@unknown.com&quot;,
+    identity: {
+        lastname: &quot;Doe&quot;,
+        firstname: &quot;John&quot;,
+        gender: true,
+        birthdate : new Date(&quot;1970/01/01&quot;)
+    },
+    location: {
+        country: &quot;Unknown&quot;,
+        town: &quot;Unknown&quot;,
+        zipcode: &quot;00000&quot;,
+        address: &quot;42 unknown&quot;
+    }
+})
+</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>With the following data set:</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  └─ user.js
+├─ views/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
+</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p><pre><code>{
+    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;statics&quot;: {
+        &quot;/models&quot;: &quot;models&quot;
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: {
+            &quot;view&quot;: &quot;index.htm&quot;,
+            &quot;variation&quot;: &quot;index.json&quot;,
+            &quot;controller&quot;: &quot;index.js&quot;
+        }
+    },
+    &quot;_mongodbConfig&quot;: {
+        &quot;host&quot;: &quot;localhost&quot;,
+        &quot;port&quot;: &quot;27017&quot;,
+        &quot;database&quot;: &quot;demo&quot;
+    }
+}
+</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;&lt;?- languageCode ?&gt;&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Id: &lt;strong&gt;&lt;?- id ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- lastname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- firstname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Email: &lt;strong&gt;&lt;?- email ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- birthdate ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Gender: &lt;strong&gt;&lt;?- gender ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Country: &lt;strong&gt;&lt;?- country ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Town: &lt;strong&gt;&lt;?- town ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- zipcode ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Address: &lt;strong&gt;&lt;?- address ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Example MongoDB&quot;,
+    &quot;male&quot;: &quot;Man&quot;,
+    &quot;female&quot;: &quot;Woman&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;User Collection&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;Document `{ \&quot;identity.firstname\&quot;: \&quot;Bruno\&quot; }` details.&lt;/p&gt;&quot;
+}
+</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this,
+        path = NA.modules.path;
+
+    NA.modules.mongoose = require(&#39;mongoose&#39;);
+    NA.models = {};
+    NA.models.User = require(&#39;../models/user.js&#39;);
+};
+
+exports.setConfigurations = function (next) {
+    var NA = this,
+        mongoose = NA.modules.mongoose,
+        config = NA.webconfig._mongodbConfig;
+
+    mongoose.Promise = global.Promise;
+    mongoose.model(&quot;user&quot;, NA.models.User, &quot;user&quot;);
+    mongoose.connect(&quot;mongodb://&quot; + config.host + &quot;:&quot; + config.port + &quot;/&quot; + config.database, function (error) {
+        next();
+    });
+};
+</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+    var NA = this,
+        mongoose = NA.modules.mongoose,
+        User = mongoose.model(&#39;user&#39;);
+
+    User
+    .findOne({ &quot;identity.firstname&quot;: &quot;Bruno&quot; })
+    .exec(function (err, bruno) {
+
+        locals.id = bruno._id;
+        locals.lastname = bruno.identity.lastname;
+        locals.firstname = bruno.identity.firstname;
+        locals.birthdate = bruno.identity.birthdate;
+        locals.email = bruno.email;
+        locals.gender = (bruno.identity.gender) ? locals.common.male : locals.common.female;
+        locals.country = bruno.location.country;
+        locals.town = bruno.location.town;
+        locals.zipcode = bruno.location.zipcode;
+        locals.address = bruno.location.address;
+
+        next();
+    });
+};
+</code></pre><p>based on <code>user</code> classe shared between client-side and server-side part <code>models/user.js</code>:</p><pre><code class="lang-js">var mongoose;
+if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
+     mongoose = require(&#39;mongoose&#39;);
+}
+
+(function (expose, factory) {
+    if (mongoose) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    email: { type : String, match: /^\S+@\S+$/ },
+    identity: {
+        lastname: String,
+        firstname: String,
+        gender: Boolean,
+        birthdate : { type : Date, default : Date.now }
+    },
+    location: {
+        country: String,
+        town: String,
+        zipcode: String,
+        address: String
+    }
+})));
+</code></pre><p>You will get the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;title&gt;MongoDB Example&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;title&quot;&gt;MongoDB Example&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;User Collection&lt;/h1&gt;
+            &lt;p&gt;Collection `{ &quot;identity.firstname&quot;: &quot;Bruno&quot; }` details.&lt;/p&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Lastname: &lt;strong&gt;Lesieur&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Firstname: &lt;strong&gt;Bruno&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Email: &lt;strong&gt;bruno.lesieur@gmail.com&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Birthdate: &lt;strong&gt;Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Gender: &lt;strong&gt;Homme&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Country: &lt;strong&gt;France&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Town: &lt;strong&gt;Annecy&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Zipcode: &lt;strong&gt;74000&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Address: &lt;strong&gt;66 avenue de Genève&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><div><div class="before">
+                            <a href="view-and-template-part.html">◄ View and Template Part</a>
+                        </div><div class="after">
+                            <a href="more-features.html">More Features ►</a>
+                        </div></div>
