@@ -4,6 +4,7 @@
             "stylesheets/fonts.css",
             "stylesheets/fontawesome.css",
             "stylesheets/common.css",
+            "stylesheets/cmpt.popup.css",
             "stylesheets/cmpt.header.css",
             "stylesheets/cmpt.download.css",
             "stylesheets/cmpt.navigation.css",
@@ -13,6 +14,7 @@
     "javascript": {
         "javascript/common.min.js": [
             "javascript/cmpt.header.js",
+            "javascript/cmpt.popup.js",
             "javascript/cmpt.download.js",
             "javascript/cmpt.navigation.js",
             "javascript/cmpt.content.js",

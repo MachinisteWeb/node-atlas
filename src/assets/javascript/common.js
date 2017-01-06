@@ -228,7 +228,8 @@ website.component = website.component || {};
         var links = website.allInternalLink(".navigation--home a, .navigation--menu a, .content--inner a"),
             fragmentPath = document.body.getAttribute("data-content"),
             urlRelativeSubPath = document.body.getAttribute("data-subpath"),
-            content = document.getElementsByClassName("content--inner")[0];
+            content = document.getElementsByClassName("content--inner")[0],
+            slide = document.getElementsByClassName("download--slide")[0];
 
         website.smartTargetInjection();
         website.manageHeight();
@@ -236,6 +237,7 @@ website.component = website.component || {};
         website.goToHash(content, location.href.split("#")[1]);
         website.googleAnalytics();
 
+        (new website.component.Popup()).init(slide, urlRelativeSubPath);
         (new website.component.Header()).init();
         (new website.component.Download()).init();
         (new website.component.Navigation()).init();

@@ -2,6 +2,7 @@
 	"mainTitle": "NodeAtlas —Le Framework JavaScript Serveur Évolutif—",
 	"noJs": "Le JavaScript n'est pas activé.",
 	"follow": "Suivre",
+	"close": "Fermer",
 	"titlePre": {
 		"alt": "Node",
 		"src": "media/images/min/ode.png"
@@ -81,6 +82,14 @@
 				"copy": "Copier dans le presse-papier: Ctrl+C, Entrer"
 			}
 		},
+		"battle": {
+			"title": "Batailles Versus",
+			"step1": {
+				"title": "<img src='media/images/battles/node-atlas.png' alt='NodeAtlas API'>",
+				"versus": "VS",
+				"challenger": "<img src='media/images/battles/nodejs.png' alt='Node.js HTTP API'>"
+			}
+		},
 		"abstract": {
 			"title": "À propos",
 			"description": "NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des vues avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !"
@@ -108,8 +117,7 @@
 				"description": "des applications web temps réel",
 				"href": "https://github.com/Haeresis?tab=repositories"
 			}
-		},
-		"soon": "Prochainement..."
+		}
 	},
 	"menu": [{
 		"title": "Présentation",
