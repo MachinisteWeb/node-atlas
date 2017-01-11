@@ -1,0 +1,12 @@
+{
+	"commonView": "layout.htm",
+	"pageNotFound": "/error",
+	"routes": {
+		"/": "index.htm",
+		"/contact": "contact.htm",
+		"/error": {
+			"view": "error.htm",
+			"statusCode": 404
+		}
+	}
+}

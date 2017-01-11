@@ -20,7 +20,7 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
    - de l'internationalisation (i18n) et de la localisations (l10n) rapide,
    - la puissance d'Express.js (serveur web) et Socket.io (échange client-serveur temps réel) pré-configuré, simple et ajustable,
    - les préprocesseurs EJS, PUG (JADE), Less et Stylus embarqués et prêt à l'emploi,
-   - des outils interne de génération HTML sans server ou d'empaquetage, minifications, offuscations, optimisations de CSS, JS et images,
+   - des outils interne de génération HTML sans serveur ou d'empaquetage, minifications, offuscations, optimisations de CSS, JS et images,
    - encore ; de la manipulation de DOM côté serveur, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
 - De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API REST,
 - Tous les modules NPM, middleware Express.js/Socket.io, des plugins utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud).
@@ -333,6 +333,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-we
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Exemple d'API REST](https://github.com/Haeresis/ApiAtlas/).
+- [Utilisation MVVM avec Vue+NodeAtlas et Server-Side Render](https://github.com/Haeresis/VueAtlas/).
 - [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
 - [Utilisation du préprocesseur Less/Stylus pour des Framework non invasif dans le HTML](https://github.com/Haeresis/PreprocessorAtlas/).
