@@ -6396,6 +6396,44 @@ So to the `http://localhost/huey/?query=dewey` URL requested in POST with `membe
 }
 ```
 
+#### No routes ####
+
+No webconfig example not use the `routes` parameter. But it is also optional than others. For example, with the following webconfig:
+
+*webconfig.json*
+
+```json
+{
+    "commonController": "common.js"
+}
+```
+
+and the following controller:
+
+*controllers/common.js*
+
+```js
+exports.setRoutes = function (next) {
+    var NA = this,
+        route = NA.webconfig.routes = {};
+
+    route["/"] = {
+        "mimeType": "text/plain"
+    };
+
+    next();
+};
+
+exports.changeDom = function (next, locals) {
+
+    locals.dom = "Hello World";
+
+    next();
+};
+```
+
+It is possible to have at the address `http://localhost/` a simple « Hello World » message.
+
 
 
 ### Enable Cache ###

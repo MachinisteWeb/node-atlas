@@ -6396,6 +6396,44 @@ Ainsi à l'adresse `http://localhost/riri/?query=fifi` demandé en POST avec le 
 }
 ```
 
+#### Pas de routes ####
+
+Pas un seul webconfig présenté dans la documentation ne se passe du paramètre `routes`. Pourtant il est facultatif au même titre que tous les autres. Aussi avec le Webconfig suivant :
+
+*webconfig.json*
+
+```json
+{
+    "commonController": "common.js"
+}
+```
+
+et le contrôleur suivant :
+
+*controllers/common.js*
+
+```js
+exports.setRoutes = function (next) {
+    var NA = this,
+        route = NA.webconfig.routes = {};
+
+    route["/"] = {
+        "mimeType": "text/plain"
+    };
+
+    next();
+};
+
+exports.changeDom = function (next, locals) {
+
+    locals.dom = "Hello World";
+
+    next();
+};
+```
+
+Il est tout à fait possible d'obtenir à l'adresse `http://localhost/` le simple message « Hello World ».
+
 
 
 ### Activer le cache ###
