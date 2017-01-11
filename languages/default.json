@@ -2,7 +2,8 @@
 	"running": {
 		"isRunning": "NodeAtlas website is running on port %httpPort%.",
 		"publicMode": "“Simple Web Server” because no « %path% » was found.",
-		"portAlreadyListened": "NodeAtlas is stopped because port %port% is already listening by other application."
+		"portAlreadyListened": "NodeAtlas is stopped because port %port% is already listening by other application.",
+		"portRequiresPrivileges": "NodeAtlas is stopped because port %port% requires elevated privileges."
 	},
 	"ifFileExist": "No file « %path% » found.",
 	"notFound": {
