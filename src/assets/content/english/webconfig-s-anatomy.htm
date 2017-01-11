@@ -1,0 +1,122 @@
+<h2 id="webconfig-s-anatomy">Webconfig&#39;s Anatomy</h2><p>The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE http request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.</p><pre><code class="lang-js">Object{
+    &quot;assetsRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;bundles&quot;: (String&lt;filepath-from-root&gt; | Object{
+        &quot;javascript&quot;: Object{
+        ... url: Array.String&lt;filepath-from-assets&gt;
+        },
+        &quot;stylesheets&quot;: Object{
+        ... url: Array.String&lt;filepath-from-assets&gt;
+        }
+    }),
+    &quot;cache&quot;: Boolean,
+    &quot;charset&quot;: String,
+    &quot;commonController&quot;: String&lt;filepath-from-controllers&gt;,
+    &quot;commonVariation&quot;: String&lt;filepath-from-variations&gt;,
+    &quot;commonView&quot;: String&lt;filepath-from-views&gt;,
+    &quot;controlersRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;delete&quot;: Boolean,
+    &quot;enableForceDomain&quot;: Boolean,
+    &quot;enableIndex&quot;: Boolean,
+    &quot;enableLess&quot;: (Boolean | String&lt;filepath-from-root&gt; | Object{
+        &quot;compress&quot;: Boolean,
+        &quot;less&quot;: Array.String&lt;filepath-from-assets&gt;,
+        &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
+        &quot;sourceMap&quot;: Boolean
+    }),
+    &quot;enableStylus&quot;: (Boolean | String&lt;filepath-from-root&gt; | Object{
+        &quot;compress&quot;: Boolean,
+        &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
+        &quot;sourceMap&quot;: Boolean,
+        &quot;stylus&quot;: Array.String&lt;filepath-from-assets&gt;
+    }),
+    &quot;enablePug&quot;: Boolean,
+    &quot;get&quot;: Boolean,
+    &quot;headers&quot;: Object,
+    &quot;htmlGenerationBeforeResponse&quot;: Boolean,
+    &quot;httpHostname&quot;: String,
+    &quot;httpPort&quot;: Number,
+    &quot;httpSecure&quot;: (String&lt;filepath-from-root&gt; | Boolean),
+    &quot;httpSecureKeyRelativePath&quot;: String&lt;filepath-from-root&gt;,
+    &quot;httpSecureCertificateRelativePath&quot;: String&lt;filepath-from-root&gt;,
+    &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
+    &quot;imagesOptimizationsBeforeResponse&quot;: Boolean,
+    &quot;imagesOptimizationsEnable&quot;: Boolean,
+    &quot;javascriptBundlesBeforeResponse&quot;: Boolean,
+    &quot;javascriptBundlesEnable&quot;: Boolean,
+    &quot;languageCode&quot;: String,
+    &quot;mimeType&quot;: String,
+    &quot;optimizations&quot;: (String&lt;filepath-from-root&gt; | Object{
+        &quot;gif&quot;: Object,
+        &quot;images&quot;: Object{
+        ... url: String&lt;filepath-from-assets&gt;
+        },
+        &quot;jpg&quot;: Object,
+        &quot;png&quot;: Object,
+        &quot;svg&quot;: Object
+    },
+    &quot;post&quot;: Boolean,
+    &quot;put&quot;: Boolean,
+    &quot;routes&quot;: (String&lt;filepath-from-root&gt; | Object{
+    ... (/url | key): String&lt;filepath-from-views&gt; | Object{
+            &quot;charset&quot;: String,
+            &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
+            &quot;delete&quot;: Boolean,
+            &quot;get&quot;: Boolean,
+            &quot;headers&quot;: Object,
+            &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
+            &quot;mimeType&quot;: String,
+            &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),
+            &quot;post&quot;: Boolean,
+            &quot;put&quot;: Boolean,
+            &quot;redirect&quot;: (String&lt;urlpath-from-base | url&gt;),
+            &quot;statusCode&quot;: Number,
+            &quot;url&quot;: String&lt;urlpath-from-base&gt;,
+            &quot;variation&quot;: String&lt;filepath-from-variations&gt;,
+            &quot;view&quot;: String&lt;filepath-from-views&gt;
+        })
+    } | Array.Object{
+        &quot;charset&quot;: String,
+        &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
+        &quot;delete&quot;: Boolean,
+        &quot;get&quot;: Boolean,
+        &quot;headers&quot;: Object,
+        &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
+        &quot;key&quot;: String,
+        &quot;mimeType&quot;: String,
+        &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),
+        &quot;post&quot;: Boolean,
+        &quot;put&quot;: Boolean,
+        &quot;redirect&quot;: (String&lt;urlpath-from-base | url&gt;),
+        &quot;statusCode&quot;: Number,
+        &quot;url&quot;: String&lt;urlpath-from-base&gt;,
+        &quot;variation&quot;: String&lt;filepath-from-variations&gt;,
+        &quot;view&quot;: String&lt;filepath-from-views&gt;
+    },
+    &quot;serverlessRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;session&quot;: Object,
+    &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;,
+    &quot;statics&quot;: String&lt;filepath-from-root&gt; | Object{
+    ... /virtual: (String&lt;path-from-root&gt; | Object{
+            &quot;path&quot;: String&lt;path-from-root&gt;,
+            &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;
+        })
+    } | Array.Object{
+        &quot;path&quot;: String&lt;path-from-root&gt;,
+        &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;,
+        &quot;virtual&quot;: String&lt;urlpath-from-base&gt;
+    },
+    &quot;stylesheetsBundlesBeforeResponse&quot;: Boolean,
+    &quot;stylesheetsBundlesEnable&quot;: Boolean,
+    &quot;templateEngineDelimiter&quot;: String,
+    &quot;urlHostname&quot;: String,
+    &quot;urlPort&quot;: Number,
+    &quot;urlRelativeSubPath&quot;: String&lt;urlpath-from-root&gt;,
+    &quot;urlSocketsFile&quot;: String&lt;urlpath-from-base&gt;,
+    &quot;variationsRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;viewsRelativePath&quot;: String&lt;path-from-root&gt;
+}
+</code></pre><div><div class="before">
+                            <a href="more-features.html">◄ More Features</a>
+                        </div><div class="after">
+                            <a href="cli-running-commands.html">CLI / Running commands ►</a>
+                        </div></div>

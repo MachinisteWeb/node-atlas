@@ -258,6 +258,10 @@ website.init({
 										<ul>
 											
 											<li>
+												<a href="webconfigs-anatomy.html" title="Webconfig">Webconfig</a>
+											</li>
+											
+											<li>
 												<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
 											</li>
 											
@@ -589,7 +593,7 @@ exports.setRoutes = function (next) {
     }
 }
 </code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><p>For the second <em>match</em> use $1, the third $2, etc.</p><h3 id="manage-headers">Manage Headers</h3><p>By défault, sent Headers by NodeAtlas are followings: <code>Content-Type:text/html; charset=utf-8</code> with a 200 <code>statusCode</code>.</p><p>It&#39;s possible to modify this values for a specific route (for local API for example).</p><pre><code class="lang-json">{
-    &quot;mimeType&quot;: &quot;application/json&quot;
+    &quot;mimeType&quot;: &quot;application/json&quot;,
     &quot;charset&quot;: &quot;utf-16&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -1468,58 +1472,38 @@ exports.setRoutes = function (next) {
         ...
     }
 }
-</code></pre><p>The entirety of the possible configuration is located on the module documentation <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="external-storage-sessions">External Storage Sessions</h3><p>By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.</p><p>To address this concern, it should support the recording sessions via a base No SQL such as <code>Redis</code> or <code>MongoBD</code>.</p><p>You just have to use the <code>setSessions</code> function in<code>controllers/common.js</code> of <a href="controller-and-model-part.html">Back-end part</a>.</p><h4 id="session-managed-with-redis">Session managed with Redis</h4><p>Implement the following code in <code>controllers/common.js</code> to store your sessions in a local Redis.</p><pre><code>var website = {};
+</code></pre><p>The entirety of the possible configuration is located on the module documentation <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="external-storage-sessions">External Storage Sessions</h3><p>By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.</p><p>To address this concern, it should support the recording sessions via a base No SQL such as <code>Redis</code> or <code>MongoBD</code>.</p><p>You just have to use the <code>setSessions</code> function in <code>commonController</code> file.</p><h4 id="session-managed-with-redis">Session managed with Redis</h4><p>Implement the following code in the <code>commonController</code> file to store your sessions in a local Redis.</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this;
 
-(function (publics) {
-    &quot;use strict&quot;;
+    NA.modules.RedisStore = require(&quot;connect-redis&quot;);
+};
 
-    publics.setModules = function (NA) {
-        var NA = this;
+exports.setSessions = function (next) {
+    var NA = this,
+        session = NA.modules.session,
+        RedisStore = NA.modules.RedisStore(session);
 
-        NA.modules.RedisStore = require(&#39;connect-redis&#39;);
-    };
+    NA.sessionStore = new RedisStore();
 
-    publics.setSessions = function (next) {
-        var NA = this,
-            session = NA.modules.session,
-            RedisStore = NA.modules.RedisStore(session);
+    next();
+};
+</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a> page.</p><h4 id="session-managed-with-mongodb">Session managed with MongoDB</h4><p>Implement the following code in <code>controllers/common.js</code> to store sessions in the database <code>sessions</code> of a local MongoDB.</p><pre><code>exports.setModules = function () {
+    var NA = this;
 
-        NA.sessionStore = new RedisStore();
+    NA.modules.MongoStore = require(&quot;connect-mongo&quot;);
+};
 
-        next();
-    };
+exports.setSessions = function (next) {
+    var NA = this,
+        session = NA.modules.session,
+        MongoStore = NA.modules.MongoStore(session);
 
-}(website));
+    NA.sessionStore = new MongoStore({
+        db: &quot;sessions&quot;
+    });
 
-exports.setModules = website.setModules;
-exports.setSessions = website.setSessions;
-</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a> page.</p><h4 id="session-managed-with-mongodb">Session managed with MongoDB</h4><p>Implement the following code in <code>controllers/common.js</code> to store sessions in the database <code>sessions</code> of a local MongoDB.</p><pre><code>var website = {};
-
-(function (publics) {
-    &quot;use strict&quot;;
-
-    publics.setModules = function () {
-        var NA = this;
-
-        NA.modules.MongoStore = require(&#39;connect-mongo&#39;);
-    };
-
-    publics.setSessions = function (next) {
-        var NA = this,
-            session = NA.modules.session,
-            MongoStore = NA.modules.MongoStore(session);
-
-        NA.sessionStore = new MongoStore({
-            db: &#39;sessions&#39;
-        });
-
-        next();
-    };
-
-}(website));
-
-exports.setModules = website.setModules;
-exports.setSessions = website.setSessions;
+    next();
+};
 </code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p><h3 id="change-the-url-hostname-and-listening-port">Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
@@ -1723,7 +1707,29 @@ exports.setConfigurations = function (next) {
         &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/{{common.classJsCommon}}.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>The goal of <code>commonEngine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, PUG and NodeAtlas syntaxe.</p><h4 id="differences-between-commonengine-templateenginedelimiter-and-enablepug-">Differences between <code>commonEngine</code>, <code>templateEngineDelimiter</code> and <code>enablePug</code></h4><p>It&#39;s possible to render <code>ejs</code> and <code>pug</code> view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>commonController</code> and a <code>npm</code> command to set them. You have just to set <code>commonEngine: &quot;ejs&quot;</code> or <code>commonEngine: &quot;pug&quot;</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the <code>commonView</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="enable-cache">Enable Cache</h3><p>It&#39;s a good thing to not serve file with no modification in production. You could set the websconfig&#39;s <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
+</code></pre><p>The goal of <code>commonEngine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, PUG and NodeAtlas syntaxe.</p><h4 id="differences-between-commonengine-templateenginedelimiter-and-enablepug-">Differences between <code>commonEngine</code>, <code>templateEngineDelimiter</code> and <code>enablePug</code></h4><p>It&#39;s possible to render <code>ejs</code> and <code>pug</code> view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>commonController</code> and a <code>npm</code> command to set them. You have just to set <code>commonEngine: &quot;ejs&quot;</code> or <code>commonEngine: &quot;pug&quot;</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the <code>commonView</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="no-view">No view</h3><p>It is possible to not using a view and only use a controler. In this case, the <code>changeVariations</code> hook is unused. You will fill the <code>locals.dom</code> value yourself with the <code>changeDom</code> hook.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+    &quot;routes&quot;: {
+        &quot;/(:member/)?&quot;: {
+            &quot;controller&quot;: &quot;index.js&quot;
+            &quot;mimeType&quot;: &quot;application/json&quot;
+        }
+    }
+}
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">exports.changeDom = function (next, locals) {
+    locals.dom = `{
+  &quot;params&quot;: ${locals.params.member},
+  &quot;query&quot;: ${locals.query.member}
+  &quot;body&quot;: ${locals.body.member}
+}`;
+
+    next();
+};
+</code></pre><p>So to the <code>http://localhost/huey/?query=dewey</code> URL requested in POST with <code>member=louie</code> body you will have the ouput:</p><pre><code class="lang-json">{
+  &quot;params&quot;: &quot;huey&quot;,
+  &quot;query&quot;: &quot;dewey&quot;
+  &quot;body&quot;: &quot;louie&quot;
+}
+</code></pre><h3 id="enable-cache">Enable Cache</h3><p>It&#39;s a good thing to not serve file with no modification in production. You could set the websconfig&#39;s <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
     cache: true,
     route: {
       &quot;/&quot;: &quot;index.htm&quot;
@@ -1732,7 +1738,7 @@ exports.setConfigurations = function (next) {
 </code></pre><div><div class="before">
                             <a href="controller-and-model-part.html">◄ Controller and Model Part</a>
                         </div><div class="after">
-                            <a href="cli-running-commands.html">CLI / Running commands ►</a>
+                            <a href="webconfig-s-anatomy.html">Webconfig&#39;s Anatomy ►</a>
                         </div></div>
 				</div>
 			</div>

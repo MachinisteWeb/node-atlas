@@ -258,6 +258,10 @@ website.init({
 										<ul>
 											
 											<li>
+												<a href="anatomie-du-webconfig.html" title="Webconfig">Webconfig</a>
+											</li>
+											
+											<li>
 												<a href="api-nodeatlas-comme-module-npm.html" title="API">API</a>
 											</li>
 											
@@ -420,7 +424,7 @@ website.init({
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le système de template.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté pour toute request HTTP, toute page confondue.
 exports.changeVariations = function (next, locals, request, response) {
 
@@ -451,7 +455,7 @@ exports.changeVariations = function (next, locals, request, response) {
     // On passe à la suite modifications.
     next();
 };
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le système de template.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariations = function (next, locals, request, response) {
 
@@ -556,7 +560,7 @@ exports.changeVariations = function (next, locals, request, response) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient avant que le DOM ne soit renvoyé au Client.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeDom = function (next, locals, request, response) {
     var $ = locals.virtualDom(); // Transformer la chaîne HTML en DOM Virtuel.
@@ -577,7 +581,7 @@ exports.changeDom = function (next, locals, request, response) {
     // On retourne les modifications pour qu&#39;elles redeviennet une chaîne HTML.
     next($);
 };
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que le DOM ne soit renvoyé au Client.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeDom = function (next, locals, request, response) {
     var NA = this,
@@ -644,7 +648,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : Si</em> <strong><em>urlSocketsFile</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>urlSocketsFile</em></strong> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez **</em>urlSocketsFile<em>** à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>Note : Si</em> <strong><em>urlSocketsFile</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>urlSocketsFile</em></strong> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez **</em>urlSocketsFile<em>** à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -657,7 +661,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -674,7 +678,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p><em>assets/javascript/index.js</em></p><pre><code class="lang-json">var content = document.getElementsByClassName(&quot;content&quot;)[0],
+</code></pre><p><em>assets/javascript/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
     input = document.getElementsByClassName(&quot;input&quot;)[0];
 
 // On alerte les autres de nos modifications.
@@ -721,7 +725,7 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient avant que la phase de chargement des modules ne soit achevée.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
     // Récupérer l&#39;instance « NodeAtlas » du moteur.
@@ -730,7 +734,7 @@ exports.setModules = function () {
     // Associations de chaque module pour y avoir accès partout.
     NA.modules.marked = require(&#39;marked&#39;);
 };
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le système de template.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariations = function (next, locals) {
     // Utiliser « NodeAtlas » depuis le moteur.
@@ -775,7 +779,7 @@ exports.changeVariations = function (next, locals) {
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;?- content ?&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-json">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setConfigurations = function (next) {
     // Récupérer l&#39;instance « NodeAtlas » du moteur.
@@ -790,7 +794,7 @@ exports.setConfigurations = function (next) {
     // On ré-injecte les modifications.
     next();
 };
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-json">// On intervient avant que les variables soient injectées dans le moteur de template.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeVariations = function (next, locals) {
 
@@ -836,7 +840,7 @@ exports.changeVariations = function (next, locals) {
         }
     }
 }
-</code></pre><p>et avec le fichier « common.js » contenant par exemple :</p><pre><code class="lang-json">// On intervient avant que la phase de chargement des modules ne soit achevée.
+</code></pre><p>et avec le fichier « common.js » contenant par exemple :</p><pre><code class="lang-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
     // Récupérer l&#39;instance « NodeAtlas » du moteur.
@@ -949,7 +953,7 @@ exports.setRoutes = function (next) {
     &quot;titlePage&quot;: &quot;Date&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;La date actuelle est :&lt;/p&gt;&quot;
 }
-</code></pre><p>Jusque là, rien d&#39;inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><em>controllers/index.js</em></p><pre><code class="lang-json">// Intégralité des actions Websocket possible avec `setSockets`.
+</code></pre><p>Jusque là, rien d&#39;inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// Intégralité des actions Websocket possible avec `setSockets`.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -977,7 +981,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p>Quand au côté client, nous utiliserons les fichiers suivant :</p><p><em>assets/javascript/index.js</em></p><pre><code class="lang-json">var html = document.getElementsByTagName(&quot;html&quot;)[0],
+</code></pre><p>Quand au côté client, nous utiliserons les fichiers suivant :</p><p><em>assets/javascript/index.js</em></p><pre><code class="lang-js">var html = document.getElementsByTagName(&quot;html&quot;)[0],
     layout = document.getElementsByClassName(&quot;layout&quot;)[0];
 
 // On associe sur le bouton l&#39;action de communiquer avec le serveur en cliquant dessus.
@@ -1074,7 +1078,7 @@ INSERT INTO user (
 │  ├─ common.json
 │  └─ index.json
 └─ webconfig.json
-</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code>{
+</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;statics&quot;: {
@@ -1699,7 +1703,7 @@ module.exports = User;
 │  ├─ common.json
 │  └─ index.json
 └─ webconfig.json
-</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code>{
+</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code class="lang-json">{
     &quot;commonController&quot;: &quot;common.js&quot;,
     &quot;commonVariation&quot;: &quot;common.json&quot;,
     &quot;statics&quot;: {
@@ -1753,7 +1757,7 @@ module.exports = User;
     &quot;titlePage&quot;: &quot;Collection User&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Détail du document `{ \&quot;identity.firstname\&quot;: \&quot;Bruno\&quot; }`.&lt;/p&gt;&quot;
 }
-</code></pre><p>Enfin nous allons nous connecter à la base de données avec le contrôleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-json">exports.setModules = function () {
+</code></pre><p>Enfin nous allons nous connecter à la base de données avec le contrôleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-js">exports.setModules = function () {
     var NA = this,
         path = NA.modules.path;
 
@@ -1773,7 +1777,7 @@ exports.setConfigurations = function (next) {
         next();
     });
 };
-</code></pre><p>Et afficher les résultats via le contrôleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-json">exports.changeVariations = function (next, locals) {
+</code></pre><p>Et afficher les résultats via le contrôleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
     var NA = this,
         mongoose = NA.modules.mongoose,
         User = mongoose.model(&#39;user&#39;);
@@ -1796,7 +1800,7 @@ exports.setConfigurations = function (next) {
         next();
     });
 };
-</code></pre><p>en utilisant sur une classe <code>user</code> partagée entre la partie cliente et la partie serveur <code>models/user.js</code> :</p><pre><code class="lang-json">var mongoose;
+</code></pre><p>en utilisant sur une classe <code>user</code> partagée entre la partie cliente et la partie serveur <code>models/user.js</code> :</p><pre><code class="lang-js">var mongoose;
 if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
      mongoose = require(&#39;mongoose&#39;);
 }

@@ -139,6 +139,9 @@
 		"title": "Route and More",
 		"url": "more-features.html",
 		"menu": [{
+			"title": "Webconfig",
+			"url": "webconfigs-anatomy.html"
+		}, {
 			"title": "API",
 			"url": "api-nodeatlas-as-npm-module.html"
 		}, {

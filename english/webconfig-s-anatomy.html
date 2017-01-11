@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
+
+		<base href="">
+
+		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur.">
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/english/" data-subpath="/english" style="background-image: url('media/images/min/main-background.jpg');">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>No JavaScript enabled.</p>
+				</div>
+			</noscript>
+			<div class="background"></div>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--information">
+						<div class="header--information--github">
+							<a class="header--information--donate" href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg" alt="Faites un don" data-canonical-src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg"></a>
+							<a class="header--information--follow github-button" href="https://github.com/Haeresis" data-count-href="/Haeresis/followers" data-count-api="/users/Haeresis#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @Haeresis on GitHub">Follow</a>
+						</div>
+						<div class="header--information--npm">
+							<a class="header--information--package" href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM" data-canonical-src="https://badge.fury.io/js/node-atlas.svg"></a>
+							<a class="header--information--star github-button" href="https://github.com/Haeresis/NodeAtlas" data-icon="octicon-star" data-count-href="/Haeresis/NodeAtlas/stargazers" data-count-api="/repos/Haeresis/NodeAtlas#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star Haeresis/NodeAtlas on GitHub">Star</a>
+						</div>
+					</div>
+					<div class="header--background"></div>
+					<div class="header--title">
+						<h1>
+							<img class="header--title--node" src="media/images/min/ode.png" alt="Node">
+							<img class="header--title--atlas" src="media/images/min/tlas.png" alt="Atlas">
+							<img class="header--title--trans" src="media/images/min/transparent.png" alt="NodeAtlas">
+						</h1>
+					</div>
+					<div class="header--abstract">
+						<p>The Progressive Server-side JavaScript Framework</p>
+					</div>
+					<div class="header--main">
+						<ul>
+							<li>
+								<div class="header--main--first">
+									<h2><strong>Simple</strong> <span>set-up</span></h2>
+									<p>You know <strong>HTML &amp; CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
+									<p class="small">Quickly create multilingual websites effortlessly with simple Routes, Views or Variations.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--second">
+									<h2><strong>Scalable</strong> <span>website</span></h2>
+									<p>JavaScript client-side <strong>Expert</strong>?<br>Ready to embrace <strong>Node.js</strong>?</p>
+									<p class="small">Gradually improve your base as you need by using Controllers, Models or Modules.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--third">
+									<h2><strong>Agnostic</strong> <span>client side</span></h2>
+									<p>Already your <strong>Front-end</strong> habits?<br>You use <strong>Data Binding</strong>?</p>
+									<p class="small">From light Vanilla JS to simple jQuery and going through Vue, Angular or React: use your favorite client tools!</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+<div class="popup cmpt">
+	<aside class="popup--inner">
+		<div class="popup--versus"><del class="close">Close</del><span class="fa fa-bolt" aria-hidden="true"></span><ins class="versus">Versus</ins></div>
+		<div class="popup--nodeatlas"></div>
+		<div class="popup--challenger"></div>
+	</aside>
+</div>
+			<aside class="download cmpt">
+				<div class="download--inner">
+					<div class="download--install">
+						<div class="download--cli is-active">
+							<h2>CLI Usage</h2>
+							<div class="download--cli--inner">
+								<div class="download--cli--step1">
+									<h3>Install NodeAtlas</h3>
+									<pre>&gt; npm install -g node-atlas</pre>
+								</div>					
+								<div class="download--cli--step2">
+									<h3>Create test website</h3>
+									<pre>&gt; nodeatlas --create</pre>
+								</div>					
+								<div class="download--cli--step3">
+									<h3>Run website</h3>
+									<pre>&gt; nodeatlas --browse</pre>
+								</div>
+							</div>							
+						</div>
+						<div class="download--api">
+							<h2>API Usage</h2>
+							<div class="download--api--inner">
+								<div class="download--api--step1">
+									<h3>Install NodeAtlas</h3>
+									<pre>&gt; npm install node-atlas</pre>
+								</div>
+								<div class="download--api--step2">
+									<h3>Create a script</h3>
+									<pre><span>server.js</span>var NA = require("node-atlas"),
+    website = NA();
+website.init({
+    "create": true
+}).created(function () {
+    website.run({
+        "browse": true
+    });
+}).start();</pre>
+								</div>
+								<div class="download--api--step3">
+									<h3>Run website</h3>
+									<pre>&gt; node server.js</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--clone">
+						<div class="download--version">						
+							<h2>Download</h2>
+							<div class="download--version--inner">
+								<div class="download--version--step1">
+									<h3>v2.0.0-beta</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/Haeresis/NodeAtlas/archive/master.zip" target="_blank">Latest Version</a></p>
+									<p class="aside"><a href="https://github.com/Haeresis/NodeAtlas/releases">Stables Versions</a></p>
+								</div>
+								<div class="download--version--step2">
+									<h3>Clone</h3>
+									<p><input type="text" name="clone" data-instruction="Copy to clipboard: Ctrl+C, Enter" class="download--clone--text" value="https://github.com/Haeresis/NodeAtlas.git"><button><span class="fa fa-clipboard" aria-hidden="true"></span></button></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--battle">
+						<div class="download--slide">
+							<h2>Versus Battles</h2>
+							<div class="download--slide--inner">
+								<div class="download--slide--step1">
+									<img src="media/images/battles/node-atlas.png" alt="NodeAtlas API">
+								</div>
+								<div class="download--slide--step2">
+									VS
+								</div>
+								<div class="download--slide--step3">
+									<img src="media/images/battles/nodejs.png" alt="Node.js HTTP API">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--info">
+						<div class="download--tuto is-active">
+							<h2>Tutorials</h2>
+							<div class="download--tuto--inner">
+								<div class="download--tuto--step1">
+									<a href="overview.html#overview"><span>Learn</span> <i class="fa fa-book" aria-hidden="true"></i> from step by step guide</a>
+								</div>
+								<div class="download--tuto--step2">
+									<span>or</span>
+								</div>
+								<div class="download--tuto--step3">
+									<div class="download--tuto--step3--first">
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Create</span> <i class="fa fa-html5" aria-hidden="true"></i> international websites (FR)</a>
+									</div>
+									<div class="download--tuto--step3--second">
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Manage</span> <i class="fa fa-copy" aria-hidden="true"></i> Serverless HTML Assets (FR)</a>
+									</div>
+									<div class="download--tuto--step3--third">
+										<a href="https://github.com/Haeresis?tab=repositories"><span>Develop</span> <i class="fa fa-database" aria-hidden="true"></i> real-time web applications</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="download--about">
+							<h2>Overview</h2>
+							<div class="download--about--inner">
+								<div class="download--about--step1">
+									NodeAtlas is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy component-based and/or service-oriented websites in order to create great things with standards compliance!
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<nav class="navigation cmpt">
+				<div class="navigation--outer">
+					<div class="navigation--start"><button class="button">Get Started</button></div>
+					<div class="navigation--documentation"><button class="button">Documentation</button></div>
+				</div>
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
+					</div>
+					<div class="navigation--home">
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
+					</div>
+					<div class="navigation--menu">
+						<div class="navigation--menu--toggle">
+							<span class="top"></span>
+							<span class="middle"></span>
+							<span class="bottom"></span>
+						</div>
+						<div class="navigation--menu--list">
+							<div class="navigation--menu--list--inner">
+								<h2>Menu</h2>
+								<ul>
+									
+									<li>
+										<a href="overview.html" title="Overview">Overview</a> 
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="installation.html" title="Installation">Installation</a>
+											</li>
+											
+											<li>
+												<a href="start-with-nodeatlas.html" title="Get Started">Get Started</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="view-and-template-part.html" title="View and Template">View and Template</a> 
+										
+									</li>
+									
+									<li>
+										<a href="controller-and-model-part.html" title="Controller and Model">Controller and Model</a> 
+										
+									</li>
+									
+									<li>
+										<a href="more-features.html" title="Route and More">Route and More</a> 
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="webconfigs-anatomy.html" title="Webconfig">Webconfig</a>
+											</li>
+											
+											<li>
+												<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
+											</li>
+											
+											<li>
+												<a href="cli-running-commands.html" title="CLI">CLI</a>
+											</li>
+											
+											<li>
+												<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
+											</li>
+											
+											<li>
+												<a href="development-environment.html" title="Development">Development</a>
+											</li>
+											
+											<li>
+												<a href="production-environment.html" title="Production">Production</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="more-about-nodeatlas.html" title="And others?">And others?</a> 
+										
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
+				<div class="content--inner">
+					<h2 id="webconfig-s-anatomy">Webconfig&#39;s Anatomy</h2><p>The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE http request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.</p><pre><code class="lang-js">Object{
+    &quot;assetsRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;bundles&quot;: (String&lt;filepath-from-root&gt; | Object{
+        &quot;javascript&quot;: Object{
+        ... url: Array.String&lt;filepath-from-assets&gt;
+        },
+        &quot;stylesheets&quot;: Object{
+        ... url: Array.String&lt;filepath-from-assets&gt;
+        }
+    }),
+    &quot;cache&quot;: Boolean,
+    &quot;charset&quot;: String,
+    &quot;commonController&quot;: String&lt;filepath-from-controllers&gt;,
+    &quot;commonVariation&quot;: String&lt;filepath-from-variations&gt;,
+    &quot;commonView&quot;: String&lt;filepath-from-views&gt;,
+    &quot;controlersRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;delete&quot;: Boolean,
+    &quot;enableForceDomain&quot;: Boolean,
+    &quot;enableIndex&quot;: Boolean,
+    &quot;enableLess&quot;: (Boolean | String&lt;filepath-from-root&gt; | Object{
+        &quot;compress&quot;: Boolean,
+        &quot;less&quot;: Array.String&lt;filepath-from-assets&gt;,
+        &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
+        &quot;sourceMap&quot;: Boolean
+    }),
+    &quot;enableStylus&quot;: (Boolean | String&lt;filepath-from-root&gt; | Object{
+        &quot;compress&quot;: Boolean,
+        &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
+        &quot;sourceMap&quot;: Boolean,
+        &quot;stylus&quot;: Array.String&lt;filepath-from-assets&gt;
+    }),
+    &quot;enablePug&quot;: Boolean,
+    &quot;get&quot;: Boolean,
+    &quot;headers&quot;: Object,
+    &quot;htmlGenerationBeforeResponse&quot;: Boolean,
+    &quot;httpHostname&quot;: String,
+    &quot;httpPort&quot;: Number,
+    &quot;httpSecure&quot;: (String&lt;filepath-from-root&gt; | Boolean),
+    &quot;httpSecureKeyRelativePath&quot;: String&lt;filepath-from-root&gt;,
+    &quot;httpSecureCertificateRelativePath&quot;: String&lt;filepath-from-root&gt;,
+    &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
+    &quot;imagesOptimizationsBeforeResponse&quot;: Boolean,
+    &quot;imagesOptimizationsEnable&quot;: Boolean,
+    &quot;javascriptBundlesBeforeResponse&quot;: Boolean,
+    &quot;javascriptBundlesEnable&quot;: Boolean,
+    &quot;languageCode&quot;: String,
+    &quot;mimeType&quot;: String,
+    &quot;optimizations&quot;: (String&lt;filepath-from-root&gt; | Object{
+        &quot;gif&quot;: Object,
+        &quot;images&quot;: Object{
+        ... url: String&lt;filepath-from-assets&gt;
+        },
+        &quot;jpg&quot;: Object,
+        &quot;png&quot;: Object,
+        &quot;svg&quot;: Object
+    },
+    &quot;post&quot;: Boolean,
+    &quot;put&quot;: Boolean,
+    &quot;routes&quot;: (String&lt;filepath-from-root&gt; | Object{
+    ... (/url | key): String&lt;filepath-from-views&gt; | Object{
+            &quot;charset&quot;: String,
+            &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
+            &quot;delete&quot;: Boolean,
+            &quot;get&quot;: Boolean,
+            &quot;headers&quot;: Object,
+            &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
+            &quot;mimeType&quot;: String,
+            &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),
+            &quot;post&quot;: Boolean,
+            &quot;put&quot;: Boolean,
+            &quot;redirect&quot;: (String&lt;urlpath-from-base | url&gt;),
+            &quot;statusCode&quot;: Number,
+            &quot;url&quot;: String&lt;urlpath-from-base&gt;,
+            &quot;variation&quot;: String&lt;filepath-from-variations&gt;,
+            &quot;view&quot;: String&lt;filepath-from-views&gt;
+        })
+    } | Array.Object{
+        &quot;charset&quot;: String,
+        &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
+        &quot;delete&quot;: Boolean,
+        &quot;get&quot;: Boolean,
+        &quot;headers&quot;: Object,
+        &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
+        &quot;key&quot;: String,
+        &quot;mimeType&quot;: String,
+        &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),
+        &quot;post&quot;: Boolean,
+        &quot;put&quot;: Boolean,
+        &quot;redirect&quot;: (String&lt;urlpath-from-base | url&gt;),
+        &quot;statusCode&quot;: Number,
+        &quot;url&quot;: String&lt;urlpath-from-base&gt;,
+        &quot;variation&quot;: String&lt;filepath-from-variations&gt;,
+        &quot;view&quot;: String&lt;filepath-from-views&gt;
+    },
+    &quot;serverlessRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;session&quot;: Object,
+    &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;,
+    &quot;statics&quot;: String&lt;filepath-from-root&gt; | Object{
+    ... /virtual: (String&lt;path-from-root&gt; | Object{
+            &quot;path&quot;: String&lt;path-from-root&gt;,
+            &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;
+        })
+    } | Array.Object{
+        &quot;path&quot;: String&lt;path-from-root&gt;,
+        &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;,
+        &quot;virtual&quot;: String&lt;urlpath-from-base&gt;
+    },
+    &quot;stylesheetsBundlesBeforeResponse&quot;: Boolean,
+    &quot;stylesheetsBundlesEnable&quot;: Boolean,
+    &quot;templateEngineDelimiter&quot;: String,
+    &quot;urlHostname&quot;: String,
+    &quot;urlPort&quot;: Number,
+    &quot;urlRelativeSubPath&quot;: String&lt;urlpath-from-root&gt;,
+    &quot;urlSocketsFile&quot;: String&lt;urlpath-from-base&gt;,
+    &quot;variationsRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;viewsRelativePath&quot;: String&lt;path-from-root&gt;
+}
+</code></pre><div><div class="before">
+                            <a href="more-features.html">◄ More Features</a>
+                        </div><div class="after">
+                            <a href="cli-running-commands.html">CLI / Running commands ►</a>
+                        </div></div>
+				</div>
+			</div>
+		</div>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+		
+		<script src="javascript/common.min.js"></script>
+		
+		<script src="https://buttons.github.io/buttons.js"></script>
+	</body>
+</html>

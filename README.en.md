@@ -35,7 +35,7 @@ Starting with a single HTML page,
 - then create other pages,
 - then internationalize them,
 - then minify/obfuscate/optimized your sources,
-- then use Stylus or/and Less,
+- then use preprocessor like Stylus, Less or Pug easily,
 - then use files for drive back-end part with code,
 - then use [Socket.io](http://socket.io/) for real time,
 - then connect you to [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
@@ -67,6 +67,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
 - [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
 - [API REST example](https://github.com/Haeresis/ApiAtlas/).
+- [MVVM and Server-Side Render usage with Vue+NodeAtlas](https://github.com/Haeresis/VueAtlas/).
 - [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
 - [Plugin to boost standard capabilities](https://github.com/Haeresis/ComponentAtlas/).
 
@@ -126,7 +127,9 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Change the URL hostname and listening port](#change-the-url-hostname-and-listening-port)
  - [Generate URLs dynamically](#generate-urls-dynamically)
  - [Custom Template Engine](#custom-template-engine)
+ - [No view](#no-view)
  - [Enable Cache](#enable-cache)
+- [Webconfig's Anatomy](#webconfigs-anatomy)
 - [CLI / Running commands](#cli--running-commands)
  - [--help](#--help)
  - [--version](#--version)
@@ -1557,9 +1560,9 @@ with this set of files
 
 ```json
 {
-  "statics": {
-    "/javascript/models": "models"
-  },
+    "statics": {
+        "/javascript/models": "models"
+    },
     "routes": {
         "/": "index.htm"
     }
@@ -3244,7 +3247,7 @@ See now what files we will created to present our example:
 
 We will use the following `webconfig.json` with the custom `_mysqlConfig` variable which contain all informations for database connection:
 
-```
+```json
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
@@ -3951,7 +3954,7 @@ With the following data set:
 
 We will use the following `webconfig.json` with the custom `_mongodbConfig` variable which contain all informations for database connection:
 
-```
+```json
 {
     "commonController": "common.js",
     "commonVariation": "common.json",
@@ -4599,7 +4602,7 @@ It's possible to modify this values for a specific route (for local API for exam
 
 ```json
 {
-    "mimeType": "application/json"
+    "mimeType": "application/json",
     "charset": "utf-16",
     "routes": {
         "/": {
@@ -5953,38 +5956,28 @@ By default, this is NodeAtlas server that stores sessions in the RAM of the serv
 
 To address this concern, it should support the recording sessions via a base No SQL such as `Redis` or `MongoBD`.
 
-You just have to use the `setSessions` function in` controllers/common.js` of [Back-end part](#controller-and-model-part).
+You just have to use the `setSessions` function in `commonController` file.
 
 #### Session managed with Redis ####
 
-Implement the following code in `controllers/common.js` to store your sessions in a local Redis.
+Implement the following code in the `commonController` file to store your sessions in a local Redis.
 
-```
-var website = {};
+```js
+exports.setModules = function () {
+    var NA = this;
 
-(function (publics) {
-    "use strict";
+    NA.modules.RedisStore = require("connect-redis");
+};
 
-    publics.setModules = function (NA) {
-        var NA = this;
+exports.setSessions = function (next) {
+    var NA = this,
+        session = NA.modules.session,
+        RedisStore = NA.modules.RedisStore(session);
 
-        NA.modules.RedisStore = require('connect-redis');
-    };
+    NA.sessionStore = new RedisStore();
 
-    publics.setSessions = function (next) {
-        var NA = this,
-            session = NA.modules.session,
-            RedisStore = NA.modules.RedisStore(session);
-
-        NA.sessionStore = new RedisStore();
-
-        next();
-    };
-
-}(website));
-
-exports.setModules = website.setModules;
-exports.setSessions = website.setSessions;
+    next();
+};
 ```
 
 More information to [connect-redis](https://www.npmjs.org/package/connect-redis) page.
@@ -5995,33 +5988,23 @@ More information to [connect-redis](https://www.npmjs.org/package/connect-redis)
 Implement the following code in `controllers/common.js` to store sessions in the database `sessions` of a local MongoDB.
 
 ```
-var website = {};
+exports.setModules = function () {
+    var NA = this;
 
-(function (publics) {
-    "use strict";
+    NA.modules.MongoStore = require("connect-mongo");
+};
 
-    publics.setModules = function () {
-        var NA = this;
+exports.setSessions = function (next) {
+    var NA = this,
+        session = NA.modules.session,
+        MongoStore = NA.modules.MongoStore(session);
 
-        NA.modules.MongoStore = require('connect-mongo');
-    };
+    NA.sessionStore = new MongoStore({
+        db: "sessions"
+    });
 
-    publics.setSessions = function (next) {
-        var NA = this,
-            session = NA.modules.session,
-            MongoStore = NA.modules.MongoStore(session);
-
-        NA.sessionStore = new MongoStore({
-            db: 'sessions'
-        });
-
-        next();
-    };
-
-}(website));
-
-exports.setModules = website.setModules;
-exports.setSessions = website.setSessions;
+    next();
+};
 ```
 
 More information to [connect-redis](https://www.npmjs.org/package/connect-mongo) page.
@@ -6372,6 +6355,49 @@ However, do this remove all additional feature added by NodeAtlas for this engin
 
 
 
+### No view ###
+
+It is possible to not using a view and only use a controler. In this case, the `changeVariations` hook is unused. You will fill the `locals.dom` value yourself with the `changeDom` hook.
+
+*webconfig.json*
+
+```json
+{
+    "routes": {
+        "/(:member/)?": {
+            "controller": "index.js"
+            "mimeType": "application/json"
+        }
+    }
+}
+```
+
+*controllers/index.js*
+
+```js
+exports.changeDom = function (next, locals) {
+    locals.dom = `{
+  "params": ${locals.params.member},
+  "query": ${locals.query.member}
+  "body": ${locals.body.member}
+}`;
+
+    next();
+};
+```
+
+So to the `http://localhost/huey/?query=dewey` URL requested in POST with `member=louie` body you will have the ouput:
+
+```json
+{
+  "params": "huey",
+  "query": "dewey"
+  "body": "louie"
+}
+```
+
+
+
 ### Enable Cache ###
 
 It's a good thing to not serve file with no modification in production. You could set the websconfig's `cache` option to `true` for this:
@@ -6382,6 +6408,134 @@ It's a good thing to not serve file with no modification in production. You coul
     route: {
       "/": "index.htm"
     }
+}
+```
+
+
+
+
+
+## Webconfig's Anatomy ##
+
+The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE http request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.
+
+```js
+Object{
+    "assetsRelativePath": String<path-from-root>,
+    "bundles": (String<filepath-from-root> | Object{
+        "javascript": Object{
+        ... url: Array.String<filepath-from-assets>
+        },
+        "stylesheets": Object{
+        ... url: Array.String<filepath-from-assets>
+        }
+    }),
+    "cache": Boolean,
+    "charset": String,
+    "commonController": String<filepath-from-controllers>,
+    "commonVariation": String<filepath-from-variations>,
+    "commonView": String<filepath-from-views>,
+    "controlersRelativePath": String<path-from-root>,
+    "delete": Boolean,
+    "enableForceDomain": Boolean,
+    "enableIndex": Boolean,
+    "enableLess": (Boolean | String<filepath-from-root> | Object{
+        "compress": Boolean,
+        "less": Array.String<filepath-from-assets>,
+        "paths": Array.String<path-from-assets>,
+        "sourceMap": Boolean
+    }),
+    "enableStylus": (Boolean | String<filepath-from-root> | Object{
+        "compress": Boolean,
+        "paths": Array.String<path-from-assets>,
+        "sourceMap": Boolean,
+        "stylus": Array.String<filepath-from-assets>
+    }),
+    "enablePug": Boolean,
+    "get": Boolean,
+    "headers": Object,
+    "htmlGenerationBeforeResponse": Boolean,
+    "httpHostname": String,
+    "httpPort": Number,
+    "httpSecure": (String<filepath-from-root> | Boolean),
+    "httpSecureKeyRelativePath": String<filepath-from-root>,
+    "httpSecureCertificateRelativePath": String<filepath-from-root>,
+    "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
+    "imagesOptimizationsBeforeResponse": Boolean,
+    "imagesOptimizationsEnable": Boolean,
+    "javascriptBundlesBeforeResponse": Boolean,
+    "javascriptBundlesEnable": Boolean,
+    "languageCode": String,
+    "mimeType": String,
+    "optimizations": (String<filepath-from-root> | Object{
+        "gif": Object,
+        "images": Object{
+        ... url: String<filepath-from-assets>
+        },
+        "jpg": Object,
+        "png": Object,
+        "svg": Object
+    },
+    "post": Boolean,
+    "put": Boolean,
+    "routes": (String<filepath-from-root> | Object{
+    ... (/url | key): String<filepath-from-views> | Object{
+            "charset": String,
+            "controller": String<filepath-from-controllers>,
+            "delete": Boolean,
+            "get": Boolean,
+            "headers": Object,
+            "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
+            "mimeType": String,
+            "output": (String<filepath-into-serverless> | Boolean<false>),
+            "post": Boolean,
+            "put": Boolean,
+            "redirect": (String<urlpath-from-base | url>),
+            "statusCode": Number,
+            "url": String<urlpath-from-base>,
+            "variation": String<filepath-from-variations>,
+            "view": String<filepath-from-views>
+        })
+    } | Array.Object{
+        "charset": String,
+        "controller": String<filepath-from-controllers>,
+        "delete": Boolean,
+        "get": Boolean,
+        "headers": Object,
+        "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
+        "key": String,
+        "mimeType": String,
+        "output": (String<filepath-into-serverless> | Boolean<false>),
+        "post": Boolean,
+        "put": Boolean,
+        "redirect": (String<urlpath-from-base | url>),
+        "statusCode": Number,
+        "url": String<urlpath-from-base>,
+        "variation": String<filepath-from-variations>,
+        "view": String<filepath-from-views>
+    },
+    "serverlessRelativePath": String<path-from-root>,
+    "session": Object,
+    "staticOptions": Object<from-express-statics-options>,
+    "statics": String<filepath-from-root> | Object{
+    ... /virtual: (String<path-from-root> | Object{
+            "path": String<path-from-root>,
+            "staticOptions": Object<from-express-statics-options>
+        })
+    } | Array.Object{
+        "path": String<path-from-root>,
+        "staticOptions": Object<from-express-statics-options>,
+        "virtual": String<urlpath-from-base>
+    },
+    "stylesheetsBundlesBeforeResponse": Boolean,
+    "stylesheetsBundlesEnable": Boolean,
+    "templateEngineDelimiter": String,
+    "urlHostname": String,
+    "urlPort": Number,
+    "urlRelativeSubPath": String<urlpath-from-root>,
+    "urlSocketsFile": String<urlpath-from-base>,
+    "variationsRelativePath": String<path-from-root>,
+    "viewsRelativePath": String<path-from-root>
 }
 ```
 

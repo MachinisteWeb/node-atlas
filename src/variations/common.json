@@ -139,6 +139,9 @@
 		"title": "Route et Plus",
 		"url": "pour-aller-plus-loin.html",
 		"menu": [{
+			"title": "Webconfig",
+			"url": "anatomie-du-webconfig.html"
+		}, {
 			"title": "API",
 			"url": "api-nodeatlas-comme-module-npm.html"
 		}, {
