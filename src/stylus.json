@@ -1,5 +1,5 @@
 {
-    "stylus": [
+    "files": [
         "stylesheets/common.styl",
         "stylesheets/cmpt.popup.styl",
         "stylesheets/cmpt.header.styl",

@@ -196,7 +196,7 @@
 │  └─ error.htm
 └─ webconfig.json
 </code></pre><p>Avec le <code>webconfig.json</code> initialement comme ceci avec <code>routes: &lt;Object&gt;</code> :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/doc/index.html&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -208,7 +208,7 @@
     }
 }
 </code></pre><p>se transformant en cela avec <code>routes: &lt;Array&gt;</code> :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: [{
         &quot;url&quot;: &quot;/doc/index.html
         &quot;view&quot;: &quot;index.htm&quot;
@@ -678,7 +678,7 @@ exports.setRoutes = function (next) {
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-json">{
-    &quot;enableLess&quot;: true,
+    &quot;less&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
@@ -697,21 +697,21 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
     color: #f00;
 }
-</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l&#39;url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-et-minification">Source Map et Minification</h4><p>Par défaut, dans l&#39;exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu&#39;elle ligne du fichier <code>.less</code> a générée la propriété CSS de l&#39;élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>enableLess.sourceMap</code> à <code>false</code> :</p><pre><code>    &quot;enableLess&quot;: {
+</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l&#39;url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-et-minification">Source Map et Minification</h4><p>Par défaut, dans l&#39;exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu&#39;elle ligne du fichier <code>.less</code> a générée la propriété CSS de l&#39;élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>less.sourceMap</code> à <code>false</code> :</p><pre><code>    &quot;less&quot;: {
         &quot;sourceMap&quot;: false
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code>    &quot;enableLess&quot;: {
+</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code>    &quot;less&quot;: {
         &quot;compress&quot;: true
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><h4 id="compiler-les-less-avec-generate-">Compiler les Less avec <code>--generate</code></h4><p>Comme les Less sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d&#39;automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>enableLess.less</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
-    &quot;enableLess&quot;: {
-        &quot;less&quot;: [
+</code></pre><h4 id="compiler-les-less-avec-generate-">Compiler les Less avec <code>--generate</code></h4><p>Comme les Less sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d&#39;automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>less.files</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
+    &quot;less&quot;: {
+        &quot;files&quot;: [
             &quot;stylesheets/common.less&quot;,
             &quot;stylesheets/component-1.less&quot;,
             &quot;stylesheets/component-2.less&quot;,
@@ -723,8 +723,8 @@ exports.setRoutes = function (next) {
     }
 }
 </code></pre><p>ou suivante :</p><pre><code class="lang-json">{
-    &quot;enableLess&quot;: {
-        &quot;less&quot;: &quot;less.json&quot;
+    &quot;less&quot;: {
+        &quot;files&quot;: &quot;less.json&quot;
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -737,11 +737,11 @@ exports.setRoutes = function (next) {
     &quot;stylesheets/component-3.less&quot;
 ]
 </code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
-    &quot;enableLess&quot;: {
+    &quot;less&quot;: {
         &quot;paths&quot;: [
             &quot;subdirectory/styles-files&quot;,
         ],
-        &quot;less&quot;: &quot;less.json&quot;
+        &quot;files&quot;: &quot;less.json&quot;
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -754,7 +754,7 @@ exports.setRoutes = function (next) {
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-json">{
-    &quot;enableStylus&quot;: true,
+    &quot;stylus&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
@@ -772,21 +772,21 @@ exports.setRoutes = function (next) {
 &lt;/html&gt;
 </code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
     color: #f00
-</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l&#39;url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-et-minification">Source Map et Minification</h4><p>Par défaut, dans l&#39;exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu&#39;elle ligne du fichier <code>.styl</code> a générée la propriété CSS de l&#39;élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>enableStylus.sourceMap</code> à <code>false</code> :</p><pre><code>    &quot;enableStylus&quot;: {
+</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l&#39;url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-et-minification">Source Map et Minification</h4><p>Par défaut, dans l&#39;exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu&#39;elle ligne du fichier <code>.styl</code> a générée la propriété CSS de l&#39;élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>stylus.sourceMap</code> à <code>false</code> :</p><pre><code>    &quot;stylus&quot;: {
         &quot;sourceMap&quot;: false
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code>    &quot;enableStylus&quot;: {
+</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code>    &quot;stylus&quot;: {
         &quot;compress&quot;: true
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><p><em>Note:</em> Plus d&#39;options sur <a href="https://www.npmjs.com/package/stylus">la documentation du module stylus</a>.</p><h4 id="compiler-les-stylus-avec-generate-">Compiler les Stylus avec <code>--generate</code></h4><p>Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d&#39;automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>enableStylus.stylus</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
-    &quot;enableStylus&quot;: {
-        &quot;stylus&quot;: [
+</code></pre><p><em>Note:</em> Plus d&#39;options sur <a href="https://www.npmjs.com/package/stylus">la documentation du module stylus</a>.</p><h4 id="compiler-les-stylus-avec-generate-">Compiler les Stylus avec <code>--generate</code></h4><p>Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d&#39;automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>stylus.files</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
+    &quot;stylus&quot;: {
+        &quot;files&quot;: [
             &quot;stylesheets/common.styl&quot;,
             &quot;stylesheets/component-1.styl&quot;,
             &quot;stylesheets/component-2.styl&quot;,
@@ -798,8 +798,8 @@ exports.setRoutes = function (next) {
     }
 }
 </code></pre><p>ou suivante :</p><pre><code class="lang-json">{
-    &quot;enableLess&quot;: {
-        &quot;stylus&quot;: &quot;stylus.json&quot;
+    &quot;stylus&quot;: {
+        &quot;files&quot;: &quot;stylus.json&quot;
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -811,12 +811,12 @@ exports.setRoutes = function (next) {
     &quot;stylesheets/component-2.styl&quot;,
     &quot;stylesheets/component-3.styl&quot;
 ]
-</code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
-    &quot;enableStylus&quot;: {
+</code></pre><p>Par défaut, les <code>@import</code> utilisés par Stylus seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
+    &quot;stylus&quot;: {
         &quot;paths&quot;: [
             &quot;subdirectory/styles-files&quot;,
         ],
-        &quot;stylus&quot;: &quot;stylus.json&quot;
+        &quot;files&quot;: &quot;stylus.json&quot;
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -1171,7 +1171,7 @@ exports.setRoutes = function (next) {
         ...
     }
 }
-</code></pre><p>L&#39;intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="stockage-externe-des-sessions">Stockage externe des Sessions</h3><p>Par défaut, c&#39;est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p><p>Pour résoudre ce souci, il convient de prendre en charge l&#39;enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p><p>Pour cela il suffit d&#39;utiliser la fonction <code>setSessions</code> dans le fichier de <code>commonController</code>.</p><h4 id="session-g-r-es-avec-redis">Session gérées avec Redis</h4><p>Implémenter le code suivant dans le <code>commonController</code> pour stocker vos sessions dans Redis en local.</p><pre><code>exports.setModules = function () {
+</code></pre><p>L&#39;intégralité de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="stockage-externe-des-sessions">Stockage externe des Sessions</h3><p>Par défaut, c&#39;est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.</p><p>Pour résoudre ce souci, il convient de prendre en charge l&#39;enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p><p>Pour cela il suffit d&#39;utiliser la fonction <code>setSessions</code> dans le fichier de <code>controller</code> commun.</p><h4 id="session-g-r-es-avec-redis">Session gérées avec Redis</h4><p>Implémenter le code suivant dans le <code>controller</code> commun pour stocker vos sessions dans Redis en local.</p><pre><code>exports.setModules = function () {
     var NA = this;
 
     NA.modules.RedisStore = require(&quot;connect-redis&quot;);
@@ -1215,7 +1215,7 @@ exports.setSessions = function (next) {
     }
 }
 </code></pre><p>Il est également possible de faire en sorte qu&#39;aucune autre url ne puisse être tapé. Ainsi si on réclame <code>www.localhost</code> ou <code>localhost:7777</code> c&#39;est bien sur <code>localhost</code> que sera le visiteur :</p><pre><code class="lang-json">{
-    &quot;enableForceDomain&quot;: true,
+    &quot;forceDomain&quot;: true,
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;urlPort&quot;: 80,
@@ -1364,11 +1364,11 @@ exports.setSessions = function (next) {
     &lt;li&gt;&lt;a href=&quot;&lt;?= urlBasePath + webconfig.routes[routeKey.split(&#39;_&#39;)[0] + &#39;_&#39; + common.language[i].code].url ?&gt;&quot;&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
-</code></pre><h3 id="moteur-de-template-personnalise">Moteur de template personnalisé</h3><p>Il est possible de laisser l&#39;implémentation de <a href="http://expressjs.com/fr/guide/using-template-engines.html">Express prendre la main sur le moteur de rendu des vues</a>. Pour cela il faut utiliser le paramètre <code>commonEngine</code>. Un exemple en utilisant le moteur Handlebars :</p><p>Tout d&#39;abord, ajouter le middleware Express Handlebars à vos modules :</p><pre><code>npm install express-handlebars
-</code></pre><p>puis utiliser <code>commonEngine</code> avec la valeur arbitraire <code>hbs</code></p><pre><code>{
-    &quot;commonEngine&quot;: &quot;hbs&quot;,
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+</code></pre><h3 id="moteur-de-template-personnalise">Moteur de template personnalisé</h3><p>Il est possible de laisser l&#39;implémentation de <a href="http://expressjs.com/fr/guide/using-template-engines.html">Express prendre la main sur le moteur de rendu des vues</a>. Pour cela il faut utiliser le paramètre <code>engine</code>. Un exemple en utilisant le moteur Handlebars :</p><p>Tout d&#39;abord, ajouter le middleware Express Handlebars à vos modules :</p><pre><code>npm install express-handlebars
+</code></pre><p>puis utiliser <code>engine</code> avec la valeur arbitraire <code>hbs</code></p><pre><code>{
+    &quot;engine&quot;: &quot;hbs&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.hbs&quot;,
@@ -1406,7 +1406,7 @@ exports.setConfigurations = function (next) {
         &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/{{common.classJsCommon}}.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>Ce que fait <code>commonEngine</code>, c&#39;est abandonner le système de NodeAtlas et passer par celui d&#39;Express. Comme Express a besoin d&#39;un objet <code>response</code> pour rendre une vue, il est impossible d&#39;utiliser ce mécanisme via l&#39;utilisation de la fonction <code>NA.view</code> de l&#39;API NodeAtlas, celle-ci ne supportant que le moteur NodeAtlas, EJS et PUG.</p><h4 id="diff-rence-entre-commonengine-templateenginedelimiter-et-enablepug-">Différence entre <code>commonEngine</code>, <code>templateEngineDelimiter</code> et <code>enablePug</code></h4><p>Il est tout a fait possible de passer par Express pour rendre <code>ejs</code> et <code>pug</code>. Dans ce cas, puisque <code>node-atlas</code> embarque les modules <code>ejs</code> et <code>pug</code> en tant que dépendance, il n&#39;est pas nécéssaire de passer par le <code>commonController</code> et l&#39;utilisation de <code>npm</code> pour les mettre en place. Il suffit juste d&#39;utiliser <code>commonEngine: &quot;ejs&quot;</code> ou <code>commonEngine: &quot;pug&quot;</code>.</p><p>Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l&#39;utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour PUG dans la <code>commonView</code> avec <code>#{routeParameters.view}</code>.</p><h3 id="pas-de-vue">Pas de vue</h3><p>Il est possible de ne pas utiliser de vue et de seulement faire appel au contrôleur. Dans ce cas le point d&#39;ancrage <code>changeVariations</code> est inutile. Il va falloir alimenter vous même <code>locals.dom</code> dans le point d&#39;ancrage <code>changeDom</code>.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</code></pre><p>Ce que fait <code>engine</code>, c&#39;est abandonner le système de NodeAtlas et passer par celui d&#39;Express. Comme Express a besoin d&#39;un objet <code>response</code> pour rendre une vue, il est impossible d&#39;utiliser ce mécanisme via l&#39;utilisation de la fonction <code>NA.view</code> de l&#39;API NodeAtlas, celle-ci ne supportant que le moteur NodeAtlas, EJS et PUG.</p><h4 id="diff-rence-entre-engine-templateenginedelimiter-et-pug-">Différence entre <code>engine</code>, <code>templateEngineDelimiter</code> et <code>pug</code></h4><p>Il est tout a fait possible de passer par Express pour rendre EJS et PUG. Dans ce cas, puisque <code>node-atlas</code> embarque les modules <code>ejs</code> et <code>pug</code> en tant que dépendance, il n&#39;est pas nécéssaire de passer par le <code>controller</code> commun et l&#39;utilisation de <code>npm</code> pour les mettre en place. Il suffit juste d&#39;utiliser <code>engine: &quot;ejs&quot;</code> ou <code>engine: &quot;pug&quot;</code>.</p><p>Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l&#39;utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour PUG dans la <code>commonView</code> avec <code>#{routeParameters.view}</code>.</p><h3 id="pas-de-vue">Pas de vue</h3><p>Il est possible de ne pas utiliser de vue et de seulement faire appel au contrôleur. Dans ce cas le point d&#39;ancrage <code>changeVariations</code> est inutile. Il va falloir alimenter vous même <code>locals.dom</code> dans le point d&#39;ancrage <code>changeDom</code>.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/(:member/)?&quot;: {
             &quot;controller&quot;: &quot;index.js&quot;
@@ -1428,7 +1428,27 @@ exports.setConfigurations = function (next) {
   &quot;query&quot;: &quot;fifi&quot;
   &quot;body&quot;: &quot;loulou&quot;
 }
-</code></pre><h3 id="activer-le-cache">Activer le cache</h3><p>C&#39;est une bonne chose de ne pas reservir des fichiers qui n&#39;ont pas bougé pour la production. Vous pouvez mettre à <code>true</code> la valeur du webconfig <code>cache</code> pour ça:</p><pre><code class="lang-json">{
+</code></pre><h4 id="pas-de-routes">Pas de routes</h4><p>Pas un seul webconfig présenté dans la documentation ne se passe du paramètre <code>routes</code>. Pourtant il est facultatif au même titre que tous les autres. Aussi avec le Webconfig suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+    &quot;controller&quot;: &quot;common.js&quot;
+}
+</code></pre><p>et le contrôleur suivant :</p><p><em>controllers/common.js</em></p><pre><code class="lang-js">exports.setRoutes = function (next) {
+    var NA = this,
+        route = NA.webconfig.routes = {};
+
+    route[&quot;/&quot;] = {
+        &quot;mimeType&quot;: &quot;text/plain&quot;
+    };
+
+    next();
+};
+
+exports.changeDom = function (next, locals) {
+
+    locals.dom = &quot;Hello World&quot;;
+
+    next();
+};
+</code></pre><p>Il est tout à fait possible d&#39;obtenir à l&#39;adresse <code>http://localhost/</code> le simple message « Hello World ».</p><h3 id="activer-le-cache">Activer le cache</h3><p>C&#39;est une bonne chose de ne pas reservir des fichiers qui n&#39;ont pas bougé pour la production. Vous pouvez mettre à <code>true</code> la valeur du webconfig <code>cache</code> pour ça:</p><pre><code class="lang-json">{
     cache: true,
     route: {
       &quot;/&quot;: &quot;index.htm&quot;

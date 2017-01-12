@@ -768,7 +768,7 @@ It is possible with the same view and the same includes, generating pages with d
 
 ```json
 {
-    "commonVariation": "common.json",
+    "variation": "common.json",
     "variationsRelativePath": "variations",
     "routes": {
         "/": {
@@ -912,7 +912,7 @@ On the same principle, the variations can be used to create the same page, but i
 }
 ```
 
-*Note : In this example I decided to do without a common variation file, because I did not specify* ***commonVariation***. *I also completely arbitrarily decided to rename my folder* ***variations*** *to* ***l10n*** (localization).
+*Note : In this example I decided to do without a common variation file, because I did not specify a common* ***variation***. *I also completely arbitrarily decided to rename my folder* ***variations*** *to* ***l10n*** *(localization)*.
 
 with the following files:
 
@@ -1407,8 +1407,8 @@ and with the following webconfig:
 
 ```json
 {
-    "commonView": "common.htm",
-    "commonVariation": "common.json",
+    "view": "common.htm",
+    "variation": "common.json",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -1763,7 +1763,7 @@ See this with the following configuration:
 ```json
 {
     "languageCode": "fr-fr",
-    "enableIndex": true,
+    "index": true,
     "serverlessRelativePath": "serverless",
     "routes": {
         "/cv.html": {
@@ -1797,7 +1797,7 @@ and the following set of files:
 └─ webconfig.json
 ```
 
-With `node <path/to/>node-atlas/ --browse`, to address *http://localhost/* will show a list of pages your site components (with **enableIndex** set to **true**)
+With `node <path/to/>node-atlas/ --browse`, to address *http://localhost/* will show a list of pages your site components (with **index** set to **true**)
 
 It will do more than, once `--generate` was used, enjoy your HTML site in the folder:
 
@@ -1850,14 +1850,14 @@ By default, NodeAtlas already use [EJS template engine](http://ejs.co/), it's th
 
 For example, to include part of a file instruction is used `<?- include("partials/head.htm") ?>`. It would be possible to do it with `<%- include("partials/head") %>` with the configuration below:
 
-See the exemple in files below:
+See the example in files below:
 
 *webconfig.json*
 
 ```json
 {
     "templateEngineDelimiter": true,
-    "commonVariation": "common.json",
+    "variation": "common.json",
     "routes": {
         "/": {
             "view": "index.ejs",
@@ -1936,7 +1936,7 @@ It's also possible to change EJS template to [PUG Template Engine](https://pugjs
 
 ```json
 {
-    "enablePug": true,
+    "pug": true,
     "routes": {
         "/": {
             "view": "index.pug"
@@ -1957,7 +1957,7 @@ or just for one page like this:
             "view": "index.pug"
         },
         "/contenu/": {
-            "enablePug": true,
+            "pug": true,
             "view": "content.pug"
         }
     }
@@ -1968,10 +1968,10 @@ It's also possible to reset EJS only for one page.
 
 ```
 {
-    "enablePug": true,
+    "pug": true,
     "routes": {
         "/": {
-            "enablePug": false,
+            "pug": false,
             "view": "index.pug"
         },
         "/contenu/": {
@@ -1987,9 +1987,9 @@ We can see now an example with set of files below:
 
 ```
 {
-    "enablePug": true,
-    "commonView": "common.pug",
-    "commonVariation": "common.json",
+    "pug": true,
+    "view": "common.pug",
+    "variation": "common.json",
     "routes": {
         "/": {
             "view": "index.pug",
@@ -2051,7 +2051,7 @@ div
 
 Learn all about the possibilities of the template engine consult [the documentation PUG](https://pugjs.org/)
 
-*Note : If nothing is set,* ***enablePug*** *is set to* ***false***.
+*Note : If nothing is set,* ***pug*** *is set to* ***false***.
 
 
 
@@ -2082,7 +2082,7 @@ This is a `webconfig.json` allows you to manipulate each hook of life cycle of a
 ```json
 {
     "controllersRelativePath": "controllers",
-    "commonController": "common.js",
+    "controller": "common.js",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -2116,29 +2116,29 @@ and this is the detail of all hooks while:
   ├─[Setting Webconfig instructions]
   ┊
   └─[Loading Common Controller]
-    ┊  ____________________________________
-    ├─{Hook : <commonController>.setModules}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ______________________________
+    ├─{Hook : <controller>.setModules}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Server Init]
-    ┊  _____________________________________
-    ├─{Hook : <commonController>.setSessions}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  _______________________________
+    ├─{Hook : <controller>.setSessions}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Sessions Init]
     ┊ 
     ├─[Sockets Init]
-    ┊ ┊  ____________________________________
-    ┊ ├─{Hook : <commonController>.setSockets}
+    ┊ ┊  ______________________________
+    ┊ ├─{Hook : <controller>.setSockets}_______
     ┊ └─{Hook : routes[<controller>].setSockets}
     ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    ┊  ___________________________________________
-    ├─{Hook : <commonController>.setConfigurations}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  _____________________________________
+    ├─{Hook : <controller>.setConfigurations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Starting the server]
       ┊
       ├─[Template Engine Init]
-      ┊  ___________________________________
-      ├─{Hook : <commonController>.setRoutes}
-      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      ┊  _____________________________
+      ├─{Hook : <controller>.setRoutes}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Routes Init]
         ┊
         ∞
@@ -2152,13 +2152,13 @@ and this is the detail of all hooks while:
 └─[Processing a request]
   ┊
   └─[Loading Specific Controller]
-    ┊  __________________________________________
-    ├─{Hook : <commonController>.changeVariations}
+    ┊  ____________________________________
+    ├─{Hook : <controller>.changeVariations}_______
     ├─{Hook : routes[<controller>].changeVariations}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Template Engine Compilation]
-      ┊  ___________________________________
-      ├─{Hook : <commonController>.changeDom}
+      ┊  _____________________________
+      ├─{Hook : <controller>.changeDom}_______
       ├─{Hook : routes[<controller>].changeDom}
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Send Response]
@@ -2183,8 +2183,8 @@ This is an example using the two hooks, the common in first and after the specif
 ```json
 {
     "urlRelativeSubPath": "example",
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "controller": "common.js",
+    "variation": "common.json",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -2330,8 +2330,8 @@ If you delete the variation entry of specific page from webconfig:
 
 ```json
 {
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "controller": "common.js",
+    "variation": "common.json",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -2376,8 +2376,8 @@ This is an example using the two hooks, the common in first and after the specif
 
 ```json
 {
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "controller": "common.js",
+    "variation": "common.json",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -2519,7 +2519,7 @@ This is an example using the two hooks, the common in first and after the specif
 ```json
 {
     "urlSocketsFile": "/node-atlas/socket.io.js",
-    "commonController": "common.js",
+    "controller": "common.js",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -2645,7 +2645,7 @@ This is an exemple using an external module of NodeAtlas:
 
 ```json
 {
-    "commonController": "common.js",
+    "controller": "common.js",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -2750,7 +2750,7 @@ This is an exemple using a middleware for [ExpressJs](http://expressjs.com/):
 
 ```json
 {
-    "commonController": "common.js",
+    "controller": "common.js",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -2862,7 +2862,7 @@ With the `webconfig.json`:
 
 ```json
 {
-    "commonController": "common.js",
+    "controller": "common.js",
     "routes": {
         "/": {
             "view": "index.htm"
@@ -2925,8 +2925,8 @@ With the `webconfig.json`:
 
 ```json
 {
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "controller": "common.js",
+    "variation": "common.json",
     "routes": {
         "/index.html": {
             "view": "index.htm"
@@ -2988,7 +2988,7 @@ With this `webconfig.json`:
 
 ```json
 {
-    "commonVariation": "common.json",
+    "variation": "common.json",
     "routes": {
         "/": {
             "view": "index.htm",
@@ -3131,7 +3131,7 @@ Thanks to `NA.specific`, `NA.common` and `NA.render`, it's possible to generate 
 
 If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `variations` is type of `undefined` an empty object will be created.
 
-Note : to allows `render` to use PUG template engine and not EJS, you must defined `variations.enablePug` to `true` before use `NA.common` and `NA.specific`.
+Note : to allows `render` to use PUG template engine and not EJS, you must defined `variations.pug` to `true` before use `NA.common` and `NA.specific`.
 
 
 
@@ -3249,8 +3249,8 @@ We will use the following `webconfig.json` with the custom `_mysqlConfig` variab
 
 ```json
 {
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "controller": "common.js",
+    "variation": "common.json",
     "statics": {
         "/models": "models/objects"
     },
@@ -3956,8 +3956,8 @@ We will use the following `webconfig.json` with the custom `_mongodbConfig` vari
 
 ```json
 {
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "controller": "common.js",
+    "variation": "common.json",
     "statics": {
         "/models": "models"
     },
@@ -4446,7 +4446,7 @@ With the `webconfig.json` originaly like this `routes: <Object>` :
 
 ```json
 {
-    "commonController": "common.js",
+    "controller": "common.js",
     "routes": {
         "/doc/index.html": {
             "view": "index.htm"
@@ -4463,7 +4463,7 @@ and transformed like this `routes: <Array>` :
 
 ```json
 {
-    "commonController": "common.js",
+    "controller": "common.js",
     "routes": [{
         "url": "/doc/index.html
         "view": "index.htm"
@@ -5125,7 +5125,7 @@ and the following webconfig:
 
 ```json
 {
-    "enableLess": true,
+    "less": true,
     "routes": {
         "/": "index.htm"
     }
@@ -5164,10 +5164,10 @@ you will build the `assets/stylesheets/common.css` by calling the url `http://lo
 
 By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in `.less`  file has generated the CSS property of the item you have selected in your debugger.
 
-Disable this with `enableLess.sourceMap` to `false`:
+Disable this with `less.sourceMap` to `false`:
 
 ```
-    "enableLess": {
+    "less": {
         "sourceMap": false
     },
     "routes": {
@@ -5178,7 +5178,7 @@ Disable this with `enableLess.sourceMap` to `false`:
 You can also generate CSS files already minify with:
 
 ```
-    "enableLess": {
+    "less": {
         "compress": true
     },
     "routes": {
@@ -5188,14 +5188,14 @@ You can also generate CSS files already minify with:
 
 #### Compile Less files with `--generate` ####
 
-Because of Less are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Less before minify CSS with `enableLess.less`.
+Because of Less are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Less before minify CSS with `less.files`.
 
 With the following `webconfig.json`:
 
 ```json
 {
-    "enableLess": {
-        "less": [
+    "less": {
+        "files": [
             "stylesheets/common.less",
             "stylesheets/component-1.less",
             "stylesheets/component-2.less",
@@ -5212,8 +5212,8 @@ or with the following `webconfig.json`:
 
 ```json
 {
-    "enableLess": {
-        "less": "less.json"
+    "less": {
+        "files": "less.json"
     },
     "routes": {
         "/": "index.htm"
@@ -5236,11 +5236,11 @@ The `@import` used by Less will be capable to walk into subdirectories : `styles
 
 ```json
 {
-    "enableLess": {
+    "less": {
         "paths": [
             "subdirectory/styles-files",
         ],
-        "less": "less.json"
+        "files": "less.json"
     },
     "routes": {
         "/": "index.htm"
@@ -5269,7 +5269,7 @@ and the following webconfig:
 
 ```json
 {
-    "enableStylus": true,
+    "stylus": true,
     "routes": {
         "/": "index.htm"
     }
@@ -5307,10 +5307,10 @@ you will build the `assets/stylesheets/common.css` by calling the url `http://lo
 
 By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in `.styl`  file has generated the CSS property of the item you have selected in your debugger.
 
-Disable this with `enableLess.sourceMap` to `false`:
+Disable this with `stylus.sourceMap` to `false`:
 
 ```
-    "enableStylus": {
+    "stylus": {
         "sourceMap": false
     },
     "routes": {
@@ -5321,7 +5321,7 @@ Disable this with `enableLess.sourceMap` to `false`:
 You can also generate CSS files already minify with:
 
 ```
-    "enableStylus": {
+    "stylus": {
         "compress": true
     },
     "routes": {
@@ -5333,14 +5333,14 @@ You can also generate CSS files already minify with:
 
 #### Compile Stylus files with `--generate` ####
 
-Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with `enableLess.stylus`.
+Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with `stylus.files`.
 
 With the following `webconfig.json`:
 
 ```json
 {
-    "enableLess": {
-        "stylus": [
+    "stylus": {
+        "files": [
             "stylesheets/common.styl",
             "stylesheets/component-1.styl",
             "stylesheets/component-2.styl",
@@ -5357,8 +5357,8 @@ or with the following `webconfig.json`:
 
 ```json
 {
-    "enableLess": {
-        "stylus": "stylus.json"
+    "stylus": {
+        "files": "stylus.json"
     },
     "routes": {
         "/": "index.htm"
@@ -5377,11 +5377,11 @@ with `stylus.json` containing :
 ]
 ```
 
-The `@import` used by Less will be capable to walk into subdirectories : `styles`, `stylesheets` or `css`. It's possible to change that with :
+The `@import` used by Stylus will be capable to walk into subdirectories : `styles`, `stylesheets` or `css`. It's possible to change that with :
 
 ```json
 {
-    "enableLess": {
+    "stylus": {
         "paths": [
             "subdirectory/styles-files",
         ],
@@ -5956,11 +5956,11 @@ By default, this is NodeAtlas server that stores sessions in the RAM of the serv
 
 To address this concern, it should support the recording sessions via a base No SQL such as `Redis` or `MongoBD`.
 
-You just have to use the `setSessions` function in `commonController` file.
+You just have to use the `setSessions` function in common `controller` file.
 
 #### Session managed with Redis ####
 
-Implement the following code in the `commonController` file to store your sessions in a local Redis.
+Implement the following code in the common `controller` file to store your sessions in a local Redis.
 
 ```js
 exports.setModules = function () {
@@ -6033,7 +6033,7 @@ It's also possible to avoid other enter url. Also if `www.localhost` or `localho
 
 ```json
 {
-    "enableForceDomain": true,
+    "forceDomain": true,
     "httpPort": 7777,
     "httpHostname": "127.0.0.1",
     "urlPort": 80,
@@ -6281,7 +6281,7 @@ we could create link between each page as following :
 
 ### Custom Template Engine ###
 
-It is possible to let the [Express Template Engine implementation](http://expressjs.com/en/guide/using-template-engines.html) to bypass the NodeAtlas Template Engine implementation  for view render. To do this, use the `commonEngine` parameter. See an example with the Handlebars engine:
+It is possible to let the [Express Template Engine implementation](http://expressjs.com/en/guide/using-template-engines.html) to bypass the NodeAtlas Template Engine implementation  for view render. To do this, use the `engine` parameter. See an example with the Handlebars engine:
 
 First, add the Express Handlebars middleware amongs your modules:
 
@@ -6289,13 +6289,13 @@ First, add the Express Handlebars middleware amongs your modules:
 npm install express-handlebars
 ```
 
-then, use `commonEngine` with the arbtrary `hbs` value
+then, use `engine` with the arbtrary `hbs` value
 
 ```
 {
-    "commonEngine": "hbs",
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "engine": "hbs",
+    "controller": "common.js",
+    "variation": "common.json",
     "routes": {
         "/": {
             "view": "index.hbs",
@@ -6345,13 +6345,13 @@ finaly, see what could be the content of `index.hbs`:
 </html>
 ```
 
-The goal of `commonEngine`, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a `response` object to render view, it is not possible to use this feature with the `NA.view` function from NodeAtlas API. `NA.view` only support, EJS, PUG and NodeAtlas syntaxe.
+The goal of `engine`, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a `response` object to render view, it is not possible to use this feature with the `NA.view` function from NodeAtlas API. `NA.view` only support, EJS, PUG and NodeAtlas syntaxe.
 
-#### Differences between `commonEngine`, `templateEngineDelimiter` and `enablePug` ####
+#### Differences between `engine`, `templateEngineDelimiter` and `pug` ####
 
-It's possible to render `ejs` and `pug` view with the Express Template Engine. In this case, because `node-atlas` use already `ejs` and `pug` modules as dependencies, it is not mandatory to use a `commonController` and a `npm` command to set them. You have just to set `commonEngine: "ejs"` or `commonEngine: "pug"`.
+It's possible to render EJS and PUG view with the Express Template Engine. In this case, because `node-atlas` use already `ejs` and `pug` modules as dependencies, it is not mandatory to use a `controller` and a `npm` command to set them. You have just to set `engine: "ejs"` or `engine: "pug"`.
 
-However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the `commonView` file with `#{routeParameters.view}`.
+However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the common `view` file with `#{routeParameters.view}`.
 
 
 
@@ -6404,7 +6404,7 @@ No webconfig example not use the `routes` parameter. But it is also optional tha
 
 ```json
 {
-    "commonController": "common.js"
+    "controller": "common.js"
 }
 ```
 
@@ -6470,26 +6470,12 @@ Object{
     }),
     "cache": Boolean,
     "charset": String,
-    "commonController": String<filepath-from-controllers>,
-    "commonVariation": String<filepath-from-variations>,
-    "commonView": String<filepath-from-views>,
-    "controlersRelativePath": String<path-from-root>,
+    "controller": String<filepath-from-controllers>,
+    "controllersRelativePath": String<path-from-root>,
     "delete": Boolean,
-    "enableForceDomain": Boolean,
-    "enableIndex": Boolean,
-    "enableLess": (Boolean | String<filepath-from-root> | Object{
-        "compress": Boolean,
-        "less": Array.String<filepath-from-assets>,
-        "paths": Array.String<path-from-assets>,
-        "sourceMap": Boolean
-    }),
-    "enableStylus": (Boolean | String<filepath-from-root> | Object{
-        "compress": Boolean,
-        "paths": Array.String<path-from-assets>,
-        "sourceMap": Boolean,
-        "stylus": Array.String<filepath-from-assets>
-    }),
-    "enablePug": Boolean,
+    "engine": String,
+    "forceDomain": Boolean,
+    "index": Boolean,
     "get": Boolean,
     "headers": Object,
     "htmlGenerationBeforeResponse": Boolean,
@@ -6504,6 +6490,12 @@ Object{
     "javascriptBundlesBeforeResponse": Boolean,
     "javascriptBundlesEnable": Boolean,
     "languageCode": String,
+    "less": (Boolean | Object{
+        "compress": Boolean,
+        "files": (String<filepath-from-root> | Array.String<filepath-from-assets>),
+        "paths": Array.String<path-from-assets>,
+        "sourceMap": Boolean
+    }),
     "mimeType": String,
     "optimizations": (String<filepath-from-root> | Object{
         "gif": Object,
@@ -6515,6 +6507,7 @@ Object{
         "svg": Object
     },
     "post": Boolean,
+    "pug": Boolean,
     "put": Boolean,
     "routes": (String<filepath-from-root> | Object{
     ... (/url | key): String<filepath-from-views> | Object{
@@ -6567,12 +6560,20 @@ Object{
     },
     "stylesheetsBundlesBeforeResponse": Boolean,
     "stylesheetsBundlesEnable": Boolean,
+    "stylus": (Boolean | Object{
+        "compress": Boolean,
+        "files": (String<filepath-from-root> | Array.String<filepath-from-assets>),
+        "paths": Array.String<path-from-assets>,
+        "sourceMap": Boolean,
+    }),
     "templateEngineDelimiter": String,
     "urlHostname": String,
     "urlPort": Number,
     "urlRelativeSubPath": String<urlpath-from-root>,
     "urlSocketsFile": String<urlpath-from-base>,
+    "variation": String<filepath-from-variations>,
     "variationsRelativePath": String<path-from-root>,
+    "view": String<filepath-from-views>,
     "viewsRelativePath": String<path-from-root>
 }
 ```

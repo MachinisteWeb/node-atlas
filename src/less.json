@@ -1,5 +1,5 @@
 {
-    "less": [
+    "files": [
         "stylesheets/fontawesome.less"
     ]
 }

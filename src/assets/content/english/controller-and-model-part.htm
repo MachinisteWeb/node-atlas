@@ -8,7 +8,7 @@
 <li>and more !</li>
 </ul><h3 id="lifecycle-and-hooks">Lifecycle and Hooks</h3><p>NodeAtlas lyfecycle works as following. First, ressources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generate. You could use hooks whire server start and while response is construct.</p><p>This is a <code>webconfig.json</code> allows you to manipulate each hook of life cycle of a page.</p><pre><code class="lang-json">{
     &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -33,29 +33,29 @@
   ├─[Setting Webconfig instructions]
   ┊
   └─[Loading Common Controller]
-    ┊  ____________________________________
-    ├─{Hook : &lt;commonController&gt;.setModules}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ______________________________
+    ├─{Hook : &lt;controller&gt;.setModules}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Server Init]
-    ┊  _____________________________________
-    ├─{Hook : &lt;commonController&gt;.setSessions}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  _______________________________
+    ├─{Hook : &lt;controller&gt;.setSessions}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Sessions Init]
     ┊ 
     ├─[Sockets Init]
-    ┊ ┊  ____________________________________
-    ┊ ├─{Hook : &lt;commonController&gt;.setSockets}
+    ┊ ┊  ______________________________
+    ┊ ├─{Hook : &lt;controller&gt;.setSockets}_______
     ┊ └─{Hook : routes[&lt;controller&gt;].setSockets}
     ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    ┊  ___________________________________________
-    ├─{Hook : &lt;commonController&gt;.setConfigurations}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  _____________________________________
+    ├─{Hook : &lt;controller&gt;.setConfigurations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Starting the server]
       ┊
       ├─[Template Engine Init]
-      ┊  ___________________________________
-      ├─{Hook : &lt;commonController&gt;.setRoutes}
-      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      ┊  _____________________________
+      ├─{Hook : &lt;controller&gt;.setRoutes}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Routes Init]
         ┊
         ∞
@@ -64,13 +64,13 @@
 └─[Processing a request]
   ┊
   └─[Loading Specific Controller]
-    ┊  __________________________________________
-    ├─{Hook : &lt;commonController&gt;.changeVariations}
+    ┊  ____________________________________
+    ├─{Hook : &lt;controller&gt;.changeVariations}_______
     ├─{Hook : routes[&lt;controller&gt;].changeVariations}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Template Engine Compilation]
-      ┊  ___________________________________
-      ├─{Hook : &lt;commonController&gt;.changeDom}
+      ┊  _____________________________
+      ├─{Hook : &lt;controller&gt;.changeDom}_______
       ├─{Hook : routes[&lt;controller&gt;].changeDom}
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Send Response]
@@ -84,8 +84,8 @@
 <li>The <code>request</code> object in fourth parameter for this page.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -189,8 +189,8 @@ exports.changeVariations = function (next, locals, request, response) {
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>If you delete the variation entry of specific page from webconfig:</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -219,8 +219,8 @@ exports.changeVariations = function (next, locals, request, response) {
 <li>The <code>response</code> object in third parameter for this page.</li>
 <li>The <code>request</code> object in fourth parameter for this page.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -314,7 +314,7 @@ exports.changeDom = function (next, locals, request, response) {
 <li><code>NA</code> object as <code>this</code>.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;urlSocketsFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -396,7 +396,7 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
 </code></pre><p>You will see, opening different browsers and tabs. All is update in all tabs. Each tab open display the connection message and each tab closed display the deconnection message on the server console.</p><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setModules()</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 </ul><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -463,7 +463,7 @@ exports.changeVariations = function (next, locals) {
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next()</code> in first parameter.</li>
 </ul><p>This is an exemple using a middleware for <a href="http://expressjs.com/">ExpressJs</a>:</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -532,7 +532,7 @@ exports.changeVariations = function (next, locals) {
 │  └─ index.json
 └─ webconfig.json
 </code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -574,8 +574,8 @@ exports.setSessions = function (next) {
 │  └─ common.json
 └─ webconfig.json
 </code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/index.html&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -614,7 +614,7 @@ exports.setRoutes = function (next) {
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>With this <code>webconfig.json</code>:</p><pre><code class="lang-json">{
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -705,7 +705,7 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...and we set again button action.
     setServerRender();
 });
-</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.render</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>variations</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>render</code> to use PUG template engine and not EJS, you must defined <code>variations.enablePug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.render</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>variations</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>render</code> to use PUG template engine and not EJS, you must defined <code>variations.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
 </code></pre><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
 </code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user
@@ -778,8 +778,8 @@ INSERT INTO user (
 │  └─ index.json
 └─ webconfig.json
 </code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contain all informations for database connection:</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;statics&quot;: {
         &quot;/models&quot;: &quot;models/objects&quot;
     },
@@ -1403,8 +1403,8 @@ module.exports = User;
 │  └─ index.json
 └─ webconfig.json
 </code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;statics&quot;: {
         &quot;/models&quot;: &quot;models&quot;
     },

@@ -200,7 +200,7 @@
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
 </ul><h3 id="gerer-des-variations-au-sein-d-une-meme-vue">Gérer des variations au sein d&#39;une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -292,7 +292,7 @@
         }
     }
 }
-</code></pre><p><em>Note : Dans cet exemple j&#39;ai décidé de me passer d&#39;un fichier de variation commune, car je n&#39;ai pas précisé de</em> <strong><em>commonVariation</em></strong>. <em>J&#39;ai également totalement arbitrairement décidé de renommer mon dossier</em> <strong><em>variations</em></strong> <em>en</em> <strong><em>l10n</em></strong> (localisation).</p><p>avec les fichiers suivants :</p><pre><code>├─ l10n/
+</code></pre><p><em>Note : Dans cet exemple j&#39;ai décidé de me passer d&#39;un fichier de variation commune, car je n&#39;ai pas précisé de</em> <strong><em>variation</em></strong> <em>commune. J&#39;ai également totalement arbitrairement décidé de renommer mon dossier</em> <strong><em>variations</em></strong> <em>en</em> <strong><em>l10n</em></strong> <em>(localisation)</em>.</p><p>avec les fichiers suivants :</p><pre><code>├─ l10n/
 │  ├─ landing.json
 │  ├─ en-us
 │  │  └─ home.json
@@ -595,7 +595,7 @@
 └─ webconfig.json
 </code></pre><p>et avec le webconfig suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;commonView&quot;: &quot;common.htm&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -818,7 +818,7 @@
 <li>Vous pouvez désactiver la copy du dossier <code>assetsRelativePath</code> dans <code>serverlessRelativePath</code> avec <code>--generate</code> grâce à <code>assetsCopyEnable</code> à <code>false</code>.</li>
 </ul><p>Voyons cela avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
-    &quot;enableIndex&quot;: true,
+    &quot;index&quot;: true,
     &quot;serverlessRelativePath&quot;: &quot;serverless&quot;,
     &quot;routes&quot;: {
         &quot;/cv.html&quot;: {
@@ -845,7 +845,7 @@
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Avec <code>node &lt;path/to/&gt;node-atlas/ --browse</code>, à l&#39;adresse <em><a href="http://localhost/">http://localhost/</a></em> s&#39;affichera la liste des pages composants votre site (grâce à <strong>enableIndex</strong> à <strong>true</strong>).</p><p>Il ne restera plus qu&#39;à, une fois <code>--generate</code> utilisé, admirer votre site HTML dans le dossier :</p><pre><code>┊┉
+</code></pre><p>Avec <code>node &lt;path/to/&gt;node-atlas/ --browse</code>, à l&#39;adresse <em><a href="http://localhost/">http://localhost/</a></em> s&#39;affichera la liste des pages composants votre site (grâce à <strong>index</strong> à <strong>true</strong>).</p><p>Il ne restera plus qu&#39;à, une fois <code>--generate</code> utilisé, admirer votre site HTML dans le dossier :</p><pre><code>┊┉
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -873,7 +873,7 @@
 }
 </code></pre><p>Par exemple, pour inclure une partie de fichier on utilise l&#39;instruction <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. Il serait possible de le faire avec <code>&lt;%- include(&quot;partials/head&quot;) %&gt;</code> avec la configuration ci-dessous :</p><p>Voyez l&#39;exemple dans les fichiers ci-dessous :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.ejs&quot;,
@@ -914,7 +914,7 @@
 
     &lt;%- include(&quot;partials/foot&quot;) %&gt;
 </code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="http://ejs.co/">la documentation EJS</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>templateEngineDelimiter</em></strong> <em>vaut</em> <strong><em>?</em></strong>.</p><h3 id="moteur-de-template-pug">Moteur de Template PUG</h3><p>Il est possible d&#39;utiliser en lieu et place de EJS le <a href="https://pugjs.org/">moteur de template PUG</a> (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l&#39;intégralité du site avec par exemple ce webconfig :</p><pre><code class="lang-json">{
-    &quot;enablePug&quot;: true,
+    &quot;pug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.pug&quot;
@@ -930,16 +930,16 @@
             &quot;view&quot;: &quot;index.pug&quot;
         },
         &quot;/contenu/&quot;: {
-            &quot;enablePug&quot;: true,
+            &quot;pug&quot;: true,
             &quot;view&quot;: &quot;content.pug&quot;
         }
     }
 }
 </code></pre><p>Il est également possible pour un moteur complet en PUG de repasser une page spécifique en EJS.</p><pre><code>{
-    &quot;enablePug&quot;: true,
+    &quot;pug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;enablePug&quot;: false,
+            &quot;pug&quot;: false,
             &quot;view&quot;: &quot;index.pug&quot;
         },
         &quot;/contenu/&quot;: {
@@ -948,9 +948,9 @@
     }
 }
 </code></pre><p>Voyons ce que cela donnerait avec l&#39;exemple suivant :</p><p><em>webconfig.json</em></p><pre><code>{
-    &quot;enablePug&quot;: true,
+    &quot;pug&quot;: true,
     &quot;commonView&quot;: &quot;common.pug&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.pug&quot;,
@@ -983,7 +983,7 @@ html(lang=&quot;fr-fr&quot;)
 </code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
     h2 #{specific.titlePage}
     | !{specific.content}
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="https://pugjs.org/">la documentation PUG</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>enablePug</em></strong> <em>vaut</em> <strong><em>false</em></strong>.</p><div><div class="before">
+</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="https://pugjs.org/">la documentation PUG</a></p><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>pug</em></strong> <em>vaut</em> <strong><em>false</em></strong>.</p><div><div class="before">
                             <a href="commencer-avec-nodeatlas.html">◄ Commencer avec NodeAtlas</a>
                         </div><div class="after">
                             <a href="partie-controleur-et-modele.html">Partie Contrôleur et Modèle ►</a>

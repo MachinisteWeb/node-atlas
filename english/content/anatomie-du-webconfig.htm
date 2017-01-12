@@ -10,26 +10,12 @@
     }),
     &quot;cache&quot;: Boolean,
     &quot;charset&quot;: String,
-    &quot;commonController&quot;: String&lt;filepath-from-controllers&gt;,
-    &quot;commonVariation&quot;: String&lt;filepath-from-variations&gt;,
-    &quot;commonView&quot;: String&lt;filepath-from-views&gt;,
-    &quot;controlersRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
+    &quot;controllersRelativePath&quot;: String&lt;path-from-root&gt;,
     &quot;delete&quot;: Boolean,
-    &quot;enableForceDomain&quot;: Boolean,
-    &quot;enableIndex&quot;: Boolean,
-    &quot;enableLess&quot;: (Boolean | String&lt;filepath-from-root&gt; | Object{
-        &quot;compress&quot;: Boolean,
-        &quot;less&quot;: Array.String&lt;filepath-from-assets&gt;,
-        &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
-        &quot;sourceMap&quot;: Boolean
-    }),
-    &quot;enableStylus&quot;: (Boolean | String&lt;filepath-from-root&gt; | Object{
-        &quot;compress&quot;: Boolean,
-        &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
-        &quot;sourceMap&quot;: Boolean,
-        &quot;stylus&quot;: Array.String&lt;filepath-from-assets&gt;
-    }),
-    &quot;enablePug&quot;: Boolean,
+    &quot;engine&quot;: String,
+    &quot;forceDomain&quot;: Boolean,
+    &quot;index&quot;: Boolean,
     &quot;get&quot;: Boolean,
     &quot;headers&quot;: Object,
     &quot;htmlGenerationBeforeResponse&quot;: Boolean,
@@ -44,6 +30,12 @@
     &quot;javascriptBundlesBeforeResponse&quot;: Boolean,
     &quot;javascriptBundlesEnable&quot;: Boolean,
     &quot;languageCode&quot;: String,
+    &quot;less&quot;: (Boolean | Object{
+        &quot;compress&quot;: Boolean,
+        &quot;files&quot;: (String&lt;filepath-from-root&gt; | Array.String&lt;filepath-from-assets&gt;),
+        &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
+        &quot;sourceMap&quot;: Boolean
+    }),
     &quot;mimeType&quot;: String,
     &quot;optimizations&quot;: (String&lt;filepath-from-root&gt; | Object{
         &quot;gif&quot;: Object,
@@ -55,6 +47,7 @@
         &quot;svg&quot;: Object
     },
     &quot;post&quot;: Boolean,
+    &quot;pug&quot;: Boolean,
     &quot;put&quot;: Boolean,
     &quot;routes&quot;: (String&lt;filepath-from-root&gt; | Object{
     ... (/url | key): String&lt;filepath-from-views&gt; | Object{
@@ -107,12 +100,20 @@
     },
     &quot;stylesheetsBundlesBeforeResponse&quot;: Boolean,
     &quot;stylesheetsBundlesEnable&quot;: Boolean,
+    &quot;stylus&quot;: (Boolean | Object{
+        &quot;compress&quot;: Boolean,
+        &quot;files&quot;: (String&lt;filepath-from-root&gt; | Array.String&lt;filepath-from-assets&gt;),
+        &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
+        &quot;sourceMap&quot;: Boolean,
+    }),
     &quot;templateEngineDelimiter&quot;: String,
     &quot;urlHostname&quot;: String,
     &quot;urlPort&quot;: Number,
     &quot;urlRelativeSubPath&quot;: String&lt;urlpath-from-root&gt;,
     &quot;urlSocketsFile&quot;: String&lt;urlpath-from-base&gt;,
+    &quot;variation&quot;: String&lt;filepath-from-variations&gt;,
     &quot;variationsRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;view&quot;: String&lt;filepath-from-views&gt;,
     &quot;viewsRelativePath&quot;: String&lt;path-from-root&gt;
 }
 </code></pre><div><div class="before">

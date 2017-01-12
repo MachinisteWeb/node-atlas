@@ -268,8 +268,8 @@ exports.nodeAtlasWebServer = function (next, fallback) {
     NA.express.set("x-powered-by", false);
 
     /* Change Engine */
-    if (NA.webconfig.commonEngine) {
-        NA.express.set("view engine", NA.webconfig.commonEngine);
+    if (NA.webconfig.engine) {
+        NA.express.set("view engine", NA.webconfig.engine);
         NA.express.set("views", path.join(NA.serverPath, NA.webconfig.viewsRelativePath));
     }
 
@@ -336,19 +336,19 @@ exports.initMiddlewares = function () {
     /**
      * Force address and port if extra 'www' or 'port' is enter in browser url bar.
      * @public
-     * @alias enableForceDomain
+     * @alias forceDomain
      * @type {boolean}
      * @memberOf NA#webconfig
      * @default false
      */
-    enableForceDomain = NA.webconfig.enableForceDomain,
+    forceDomain = NA.webconfig.forceDomain,
     httpSecure = NA.webconfig.httpSecure;
 
     /* Use gzip and others client-server data compression. */
     NA.express.use(compress());
 
     /* Force utilisation of www and avoid using the original port in address. Necessary without reverse proxy. */
-    if (enableForceDomain) {
+    if (forceDomain) {
         NA.express.use(forceDomain({
             hostname: NA.webconfig.urlHostname,
             port: NA.webconfig.urlPort,
@@ -442,7 +442,7 @@ exports.initLessProcess = function () {
         sourceMapValue = true,
         regex = new RegExp(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, NA.webconfig.urlRelativeSubPath).replace(/(\\|\/)/g, '\\' + path.sep), 'g');
 
-    if (NA.webconfig.enableLess &amp;&amp; !NA.webconfig.stylesheetsBundlesBeforeResponse) {
+    if (NA.webconfig.less &amp;&amp; !NA.webconfig.stylesheetsBundlesBeforeResponse) {
 
         /* Generate Less on the fly during the development phase. */
         NA.express.use(lessMiddleware(path.join(NA.webconfig.assetsRelativePath), {
@@ -464,8 +464,8 @@ exports.initLessProcess = function () {
             storeSourcemap: lessStoreSourcemap(NA, regex),
             storeCss: lessStoreCss(NA, regex),
             render: {
-                compress: NA.webconfig.enableLess.compress || compressValue,
-                sourceMap: NA.webconfig.enableLess.sourceMap || sourceMapValue
+                compress: NA.webconfig.less.compress || compressValue,
+                sourceMap: NA.webconfig.less.sourceMap || sourceMapValue
             }
         }));
     }
@@ -488,15 +488,15 @@ exports.initStylusProcess = function () {
         firebugValue = false,
         linenosValue = false;
 
-    if (NA.webconfig.enableStylus &amp;&amp; !NA.webconfig.stylesheetsBundlesBeforeResponse) {
+    if (NA.webconfig.stylus &amp;&amp; !NA.webconfig.stylesheetsBundlesBeforeResponse) {
         stylusMiddleware = NA.modules.stylus.middleware({
             src: path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
             dest: path.join(NA.serverPath, NA.webconfig.assetsRelativePath),
-            compress: NA.webconfig.enableStylus.compress || compressValue,
-            sourcemap: NA.webconfig.enableStylus.sourceMap || sourceMapValue,
-            force: NA.webconfig.enableStylus.force || forceValue,
-            firebug: NA.webconfig.enableStylus.firebug || firebugValue,
-            linenos: NA.webconfig.enableStylus.linenos || linenosValue
+            compress: NA.webconfig.stylus.compress || compressValue,
+            sourcemap: NA.webconfig.stylus.sourceMap || sourceMapValue,
+            force: NA.webconfig.stylus.force || forceValue,
+            firebug: NA.webconfig.stylus.firebug || firebugValue,
+            linenos: NA.webconfig.stylus.linenos || linenosValue
         });
 
         /* Generate Stylus on the fly during the development phase. */
@@ -572,9 +572,9 @@ exports.initSessions = function (next, fallback) {
      */
     NA.sessionStore = new session.MemoryStore();
 
-    /* Use the `NA.controllers[&lt;commonController>].setSessions(...)` function if set... */
-    if (typeof NA.controllers[NA.webconfig.commonController] !== 'undefined' &amp;&amp;
-        typeof NA.controllers[NA.webconfig.commonController].setSessions !== 'undefined') {
+    /* Use the `NA.controllers[&lt;controller>].setSessions(...)` function if set... */
+    if (typeof NA.controllers[NA.webconfig.controller] !== 'undefined' &amp;&amp;
+        typeof NA.controllers[NA.webconfig.controller].setSessions !== 'undefined') {
 
             /**
              * Define this function for configure sessions of application. Only for `common` controller file.
@@ -582,7 +582,7 @@ exports.initSessions = function (next, fallback) {
              * @memberOf NA#controllers[]
              * @param {NA~callback} next Next steps after session is setted.
              */
-            NA.controllers[NA.webconfig.commonController].setSessions.call(NA, function () {
+            NA.controllers[NA.webconfig.controller].setSessions.call(NA, function () {
                 NA.initSockets(session, optionSession, next, fallback);
             });
     /* ...else, just continue. */
@@ -633,16 +633,16 @@ function addBackSockets(NA) {
         controllers = {},
         controller;
 
-    /* Use the `NA.controllers[&lt;commonController>].setSockets(...)` function if set... */
-    if (typeof NA.controllers[NA.webconfig.commonController] !== 'undefined' &amp;&amp;
-        typeof NA.controllers[NA.webconfig.commonController].setSockets !== 'undefined') {
+    /* Use the `NA.controllers[&lt;controller>].setSockets(...)` function if set... */
+    if (typeof NA.controllers[NA.webconfig.controller] !== 'undefined' &amp;&amp;
+        typeof NA.controllers[NA.webconfig.controller].setSockets !== 'undefined') {
 
             /**
              * Define this function for set WebSockets from both `common` and `specific` controller.
              * @function setSockets
              * @memberOf NA#controllers[]
              */
-            NA.controllers[NA.webconfig.commonController].setSockets.call(NA);
+            NA.controllers[NA.webconfig.controller].setSockets.call(NA);
     }
 
     // Global sockets
@@ -731,9 +731,9 @@ exports.initSockets = function (session, optionSession, next, fallback) {
 exports.initConfigurations = function (next, fallback) {
     var NA = this;
 
-    /* Use the `NA.controllers[&lt;commonController>].setConfigurations(...)` function if set... */
-    if (typeof NA.controllers[NA.webconfig.commonController] !== 'undefined' &amp;&amp;
-        typeof NA.controllers[NA.webconfig.commonController].setConfigurations !== 'undefined') {
+    /* Use the `NA.controllers[&lt;controller>].setConfigurations(...)` function if set... */
+    if (typeof NA.controllers[NA.webconfig.controller] !== 'undefined' &amp;&amp;
+        typeof NA.controllers[NA.webconfig.controller].setConfigurations !== 'undefined') {
 
             /**
              * Define this function for configure all modules of your application. Only for `common` controller file.
@@ -741,7 +741,7 @@ exports.initConfigurations = function (next, fallback) {
              * @memberOf NA#controllers[]
              * @param {NA~callback} next Next steps after configuration is done.
              */
-            NA.controllers[NA.webconfig.commonController].setConfigurations.call(NA, function () {
+            NA.controllers[NA.webconfig.controller].setConfigurations.call(NA, function () {
                 NA.initServer(next, fallback);
             });
     /* ...else, just continue. */
@@ -771,8 +771,8 @@ exports.initServer = function (next, fallback) {
     if (!NA.configuration.generate) {
         serverListener(NA, NA.webconfig.httpPort, urlOutput, "isRunning", function () {
 
-            /* If enableIndex index exist, we go to url later. */
-            if (NA.configuration.browse &amp;&amp; !NA.webconfig.enableIndex) {
+            /* If index index exist, we go to url later. */
+            if (NA.configuration.browse &amp;&amp; !NA.webconfig.index) {
                 open(urlOutput);
             }
 
@@ -794,13 +794,13 @@ exports.initServer = function (next, fallback) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.enableLess.html">enableLess</a></li><li><a href="NA_webconfig.enableStylus.html">enableStylus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jan 11 2017 18:11:36 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jan 12 2017 17:06:03 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -49,7 +49,7 @@
 <p><em>webconfig.json</em></p>
 
 <pre><code class="lang-json">{
-  "commonView": "layout.htm",
+  "view": "layout.htm",
   "pageNotFound": "/error",
   "routes": {
     "/": "index.htm",

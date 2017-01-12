@@ -200,7 +200,7 @@
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
 </ul><h3 id="manage-variations-within-the-same-view">Manage variations within the same view</h3><p>It is possible with the same view and the same includes, generating pages with different contents (useful in generation HTML assets mode). Activate the variations with the following configuration:</p><pre><code class="lang-json">{
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -292,7 +292,7 @@
         }
     }
 }
-</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify</em> <strong><em>commonVariation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations</em></strong> <em>to</em> <strong><em>l10n</em></strong> (localization).</p><p>with the following files:</p><pre><code>├─ l10n/
+</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify a common</em> <strong><em>variation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations</em></strong> <em>to</em> <strong><em>l10n</em></strong> <em>(localization)</em>.</p><p>with the following files:</p><pre><code>├─ l10n/
 │  ├─ landing.json
 │  ├─ en-us
 │  │  └─ home.json
@@ -594,8 +594,8 @@
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>and with the following webconfig:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
-    &quot;commonView&quot;: &quot;common.htm&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;view&quot;: &quot;common.htm&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -818,7 +818,7 @@
 <li>You could desactivate the copy of <code>assetsRelativePath</code> into <code>serverlessRelativePath</code> with <code>--generate</code> using <code>assetsCopyEnable</code> setted to <code>false</code>.</li>
 </ul><p>See this with the following configuration:</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
-    &quot;enableIndex&quot;: true,
+    &quot;index&quot;: true,
     &quot;serverlessRelativePath&quot;: &quot;serverless&quot;,
     &quot;routes&quot;: {
         &quot;/cv.html&quot;: {
@@ -845,7 +845,7 @@
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>With <code>node &lt;path/to/&gt;node-atlas/ --browse</code>, to address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>enableIndex</strong> set to <strong>true</strong>)</p><p>It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
+</code></pre><p>With <code>node &lt;path/to/&gt;node-atlas/ --browse</code>, to address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>index</strong> set to <strong>true</strong>)</p><p>It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -871,9 +871,9 @@
         }
     }
 }
-</code></pre><p>For example, to include part of a file instruction is used <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. It would be possible to do it with <code>&lt;%- include(&quot;partials/head&quot;) %&gt;</code> with the configuration below:</p><p>See the exemple in files below:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</code></pre><p>For example, to include part of a file instruction is used <code>&lt;?- include(&quot;partials/head.htm&quot;) ?&gt;</code>. It would be possible to do it with <code>&lt;%- include(&quot;partials/head&quot;) %&gt;</code> with the configuration below:</p><p>See the example in files below:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: true,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.ejs&quot;,
@@ -914,7 +914,7 @@
 
     &lt;%- include(&quot;partials/foot&quot;) %&gt;
 </code></pre><p>Learn all about the possibilities of the template engine consult <a href="http://ejs.co/">the documentation EJS</a></p><p><em>Note : If nothing is set,</em> <strong><em>templateEngineDelimiter</em></strong> <em>is set to</em> <strong><em>?</em></strong>.</p><h3 id="pug-template-engine">PUG Template Engine</h3><p>It&#39;s also possible to change EJS template to <a href="https://pugjs.org/">PUG Template Engine</a> (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p><pre><code class="lang-json">{
-    &quot;enablePug&quot;: true,
+    &quot;pug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.pug&quot;
@@ -930,16 +930,16 @@
             &quot;view&quot;: &quot;index.pug&quot;
         },
         &quot;/contenu/&quot;: {
-            &quot;enablePug&quot;: true,
+            &quot;pug&quot;: true,
             &quot;view&quot;: &quot;content.pug&quot;
         }
     }
 }
 </code></pre><p>It&#39;s also possible to reset EJS only for one page.</p><pre><code>{
-    &quot;enablePug&quot;: true,
+    &quot;pug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
-            &quot;enablePug&quot;: false,
+            &quot;pug&quot;: false,
             &quot;view&quot;: &quot;index.pug&quot;
         },
         &quot;/contenu/&quot;: {
@@ -948,9 +948,9 @@
     }
 }
 </code></pre><p>We can see now an example with set of files below:</p><p><em>webconfig.json</em></p><pre><code>{
-    &quot;enablePug&quot;: true,
-    &quot;commonView&quot;: &quot;common.pug&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;pug&quot;: true,
+    &quot;view&quot;: &quot;common.pug&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.pug&quot;,
@@ -983,7 +983,7 @@ html(lang=&quot;fr-fr&quot;)
 </code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
     h2 #{specific.titlePage}
     | !{specific.content}
-</code></pre><p>Learn all about the possibilities of the template engine consult <a href="https://pugjs.org/">the documentation PUG</a></p><p><em>Note : If nothing is set,</em> <strong><em>enablePug</em></strong> <em>is set to</em> <strong><em>false</em></strong>.</p><div><div class="before">
+</code></pre><p>Learn all about the possibilities of the template engine consult <a href="https://pugjs.org/">the documentation PUG</a></p><p><em>Note : If nothing is set,</em> <strong><em>pug</em></strong> <em>is set to</em> <strong><em>false</em></strong>.</p><div><div class="before">
                             <a href="start-with-nodeatlas.html">◄ Start with NodeAtlas</a>
                         </div><div class="after">
                             <a href="controller-and-model-part.html">Controller and Model Part ►</a>

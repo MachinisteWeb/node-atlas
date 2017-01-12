@@ -8,7 +8,7 @@
 <li>de faire bien plus encore !</li>
 </ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et Points d&#39;ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D&#39;abord, les ressources se chargent, le serveur démarre, les routes s&#39;initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d&#39;ancrage pendant le démarrage, et pendant la création d&#39;une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d&#39;atteindre tous les points d&#39;ancrage du cycle de vie d&#39;une page.</p><pre><code class="lang-json">{
     &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -33,29 +33,29 @@
   ├─[Prise en compte des instructions du Webconfig]
   ┊
   └─[Chargement du contrôleur commun]
-    ┊  _______________________________________________
-    ├─{Point d&#39;ancrage : &lt;commonController&gt;.setModules}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  _________________________________________
+    ├─{Point d&#39;ancrage : &lt;controller&gt;.setModules}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Initialisation du serveur]
-    ┊  ________________________________________________
-    ├─{Point d&#39;ancrage : &lt;commonController&gt;.setSessions}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  __________________________________________
+    ├─{Point d&#39;ancrage : &lt;controller&gt;.setSessions}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Initialisation des sessions]
     ┊ 
     ├─[Initialisation des sockets]
-    ┊ ┊  _______________________________________________
-    ┊ ├─{Point d&#39;ancrage : &lt;commonController&gt;.setSockets}
+    ┊ ┊  _________________________________________
+    ┊ ├─{Point d&#39;ancrage : &lt;controller&gt;.setSockets}_______
     ┊ └─{Point d&#39;ancrage : routes[&lt;controller&gt;].setSockets}
     ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    ┊  ______________________________________________________
-    ├─{Point d&#39;ancrage : &lt;commonController&gt;.setConfigurations}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  ________________________________________________
+    ├─{Point d&#39;ancrage : &lt;controller&gt;.setConfigurations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Démarrage du serveur]
       ┊
       ├─[Initialisation du moteur de template]
-      ┊  ______________________________________________
-      ├─{Point d&#39;ancrage : &lt;commonController&gt;.setRoutes}
-      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      ┊  ________________________________________
+      ├─{Point d&#39;ancrage : &lt;controller&gt;.setRoutes}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Initialisation des routes]
         ┊
         ∞
@@ -64,13 +64,13 @@
 └─[Traitement d&#39;une requête]
   ┊
   └─[Chargement du contrôleur spécifique]
-    ┊  _____________________________________________________
-    ├─{Point d&#39;ancrage : &lt;commonController&gt;.changeVariations}
+    ┊  _______________________________________________
+    ├─{Point d&#39;ancrage : &lt;controller&gt;.changeVariations}_______
     ├─{Point d&#39;ancrage : routes[&lt;controller&gt;].changeVariations}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Compilation du moteur de template]
-      ┊  ______________________________________________
-      ├─{Point d&#39;ancrage : &lt;commonController&gt;.changeDom}
+      ┊  ________________________________________
+      ├─{Point d&#39;ancrage : &lt;controller&gt;.changeDom}_______
       ├─{Point d&#39;ancrage : routes[&lt;controller&gt;].changeDom}
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Envoi de la réponse]
@@ -84,8 +84,8 @@
 <li>En quatrième paramètre l&#39;objet <code>request</code> faites pour cette page. </li>
 </ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -189,8 +189,8 @@ exports.changeVariations = function (next, locals, request, response) {
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>Si vous décidez de désabonner la variation spécifique avec le webconfig suivant :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -219,8 +219,8 @@ exports.changeVariations = function (next, locals, request, response) {
 <li>En troisième paramètre l&#39;objet <code>response</code> qui va être faites.</li>
 <li>En quatrième paramètre l&#39;objet <code>request</code> faites pour cette page. </li>
 </ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -314,7 +314,7 @@ exports.changeDom = function (next, locals, request, response) {
 <li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
 </ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;urlSocketsFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -396,7 +396,7 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
 </code></pre><p>Vous pourrez, en ouvrant divers navigateurs, et divers onglet, constaté que tout est bien mis à jour chez tout le monde. Chaque nouvel ongle ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.</p><h4 id="setmodules">setModules</h4><p>Pour charger d&#39;autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setModules()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
 </ul><p>Voici un exemple utilisant un module externe à NodeAtlas :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -463,7 +463,7 @@ exports.changeVariations = function (next, locals) {
 <li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next()</code>.</li>
 </ul><p>Voici un exemple utilisant un middleware pour <a href="http://expressjs.com/">ExpressJs</a> :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -532,7 +532,7 @@ exports.changeVariations = function (next, locals) {
 │  └─ index.json
 └─ webconfig.json
 </code></pre><p>Avec le <code>webconfig.json</code> :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -574,8 +574,8 @@ exports.setSessions = function (next) {
 │  └─ common.json
 └─ webconfig.json
 </code></pre><p>Avec le <code>webconfig.json</code> :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/index.html&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -614,7 +614,7 @@ exports.setRoutes = function (next) {
 │  └─ index.htm
 └─ webconfig.json
 </code></pre><p>Contenant le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;,
@@ -705,7 +705,7 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...et ré-affectons l&#39;action au bouton du nouveau contenu.
     setServerRender();
 });
-</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.render</code>, il est possible de générer une nouvelle compilation d&#39;une vue et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variations</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>render</code> d&#39;utiliser le moteur PUG au lieu de celui d&#39;EJS, il faut mettre la valeur <code>variations.enablePug</code> à <code>true</code> avant d&#39;utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données. Pour cela nous allons utiliser le module NPM <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
+</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.render</code>, il est possible de générer une nouvelle compilation d&#39;une vue et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variations</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>render</code> d&#39;utiliser le moteur PUG au lieu de celui d&#39;EJS, il faut mettre la valeur <code>variations.pug</code> à <code>true</code> avant d&#39;utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données. Pour cela nous allons utiliser le module NPM <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
 </code></pre><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>et la sélectionner :</p><pre><code class="lang-sql">USE demo
 </code></pre><p>puis créer la table <code>user</code> :</p><pre><code class="lang-sql">CREATE TABLE user
@@ -778,8 +778,8 @@ INSERT INTO user (
 │  └─ index.json
 └─ webconfig.json
 </code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;statics&quot;: {
         &quot;/models&quot;: &quot;models/objects&quot;
     },
@@ -1403,8 +1403,8 @@ module.exports = User;
 │  └─ index.json
 └─ webconfig.json
 </code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code class="lang-json">{
-    &quot;commonController&quot;: &quot;common.js&quot;,
-    &quot;commonVariation&quot;: &quot;common.json&quot;,
+    &quot;controller&quot;: &quot;common.js&quot;,
+    &quot;variation&quot;: &quot;common.json&quot;,
     &quot;statics&quot;: {
         &quot;/models&quot;: &quot;models&quot;
     },
