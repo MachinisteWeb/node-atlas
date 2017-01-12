@@ -1,8 +1,8 @@
 {
-	"enableIndex": true,
+	"index": true,
 	"languageCode": "fr-fr",
-	"commonController": "common.js",
-	"commonVariation": "common.json",
+	"controller": "common.js",
+	"variation": "common.json",
 	"pageNotFound": "/error.html",
 	"routes": [{
 		"url": "/index.html",

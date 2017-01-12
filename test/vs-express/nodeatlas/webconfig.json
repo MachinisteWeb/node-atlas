@@ -1,0 +1,19 @@
+{
+	"pug": true,
+	"httpSecure": "security/server",
+	"variation": "common.json",
+	"assetsRelativePath": "public",
+	"pageNotFound": "/error",
+	"routes": {
+		"/": "index.pug",
+		"/users/(:member/)?": {
+			"controller": "users.js",
+			"mimeType": "application/json"
+		},
+		"/error": {
+			"view": "error.pug",
+			"controller": "error.js",
+			"statusCode": 404
+		}
+	}
+}

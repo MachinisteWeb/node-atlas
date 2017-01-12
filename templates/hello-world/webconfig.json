@@ -1,7 +1,7 @@
 {
 	"languageCode": "fr-fr",
-	"commonController": "common.js",
-	"commonVariation": "common.json",
+	"controller": "common.js",
+	"variation": "common.json",
 	"pageNotFound": "error_fr-fr",
 	"routes": [{
 		"key": "home_fr-fr",
@@ -30,7 +30,7 @@
 		"view": "member.htm",
 		"languageCode": "en-us"
 	}, {
-		"enablePug": true,
+		"pug": true,
 		"key": "error_en-us",
 		"url": "/english/*",
 		"output": "/english/error.html",
@@ -38,7 +38,7 @@
 		"statusCode": 404,
 		"languageCode": "en-us"
 	}, {
-		"enablePug": true,
+		"pug": true,
 		"key": "error_fr-fr",
 		"url": "/erreur/",
 		"output": "/erreur.html",

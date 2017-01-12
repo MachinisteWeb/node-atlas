@@ -1,5 +1,5 @@
 {
-    "commonController": "common.js",
+    "controller": "common.js",
     "controllersRelativePath": "controllers",
     "routes": [{
         "url": "/",

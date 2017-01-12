@@ -1,7 +1,7 @@
 {
-    "commonEngine": "ejs",
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "engine": "ejs",
+    "controller": "common.js",
+    "variation": "common.json",
     "routes": {
         "/pug": {
             "view": "index.pug",

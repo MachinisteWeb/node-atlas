@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form(action="https://localhost/users/riri/?member=fifi", method="post")
+    input(type="text", name="member", value="loulou", readonly="true")
+    button Valider

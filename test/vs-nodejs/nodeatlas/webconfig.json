@@ -1,5 +1,5 @@
 {
-	"commonView": "layout.htm",
+	"view": "layout.htm",
 	"pageNotFound": "/error",
 	"routes": {
 		"/": "index.htm",
