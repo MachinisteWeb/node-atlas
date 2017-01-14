@@ -2,21 +2,19 @@
 
 <h2>NodeAtlas API</h2>
 
-<h3>Site HTTPs de 2 pages + page d'erreur</h3>
+<h3>Reproduce an Express website with HTTPs</h3>
 
-<p><strong>Information de Package</strong></p>
+<p><strong>Package's Information</strong></p>
 
-```json
-{
+<pre><code class="lang-json">{
   "name": "myapp",
   "version": "0.0.0",
   "scripts": {
     "start": "node ./bin/www"
   }
-}
-```
+}</code></pre>
 
-<p><strong>Installer NodeAtlas</strong></p>
+<p><strong>Install NodeAtlas</strong></p>
 
 <pre><code class="lang-bash">npm install node-atlas --save</code></pre>
 
@@ -29,12 +27,15 @@
 │  ├─ javascripts/
 │  └─ stylesheets/
 │     └─ styles.css
-├─ controllers/
+├─ routes/
 │  └─ users.js
 ├─ security/
 │  ├─ server.crt
 │  ├─ server.csr
 │  └─ server.key
+├─ variations/
+│  ├─ common.json
+│  └─ error.json
 ├─ views/
 │  ├─ error.pug
 │  ├─ index.pug
@@ -42,14 +43,14 @@
 ├─ package.json
 └─ webconfig.json</code></pre>
 
-<p><strong>Fichiers de vue</strong></p>
+<p><strong>View files</strong></p>
 
 <p><em>views/layout.pug</em></p>
 
 <pre><code class="lang-html">doctype html
 html
   head
-    title= title
+    title= common.title
     link(rel="stylesheet", href="/stylesheets/style.css")
   body
     block content</code></pre>
@@ -73,7 +74,22 @@ block content
   h1= specific.message
   h2= specific.status</code></pre>
 
-<p><strong>Fichiers de contrôleur</strong></p>
+<p><strong>Variation files</strong></p>
+
+<p><em>variations/common.json</em></p>
+
+<pre><code class="lang-json">{
+  "title": "NodeAtlas"
+}</code></pre>
+
+<p><em>variations/error.json</em></p>
+
+<pre><code class="lang-json">{
+  "message": "Not found",
+  "status": "404"
+}</code></pre>
+
+<p><strong>Controller files</strong></p>
 
 <p><em>routes/users.js</em></p>
 
@@ -87,7 +103,7 @@ block content
   next();
 };</code></pre>
 
-<p><strong>Fichier de configuration</strong></p>
+<p><strong>Configuration file</strong></p>
 
 <p><em>webconfig.json</em></p>
 
@@ -113,7 +129,7 @@ block content
   }
 }</code></pre>
 
-<p><strong>Fichier de lancement serveur</strong></p>
+<p><strong>Starting server file</strong></p>
 
 <p><em>bin/www</em></p>
 
@@ -121,6 +137,6 @@ block content
   "browse": true
 });</code></pre>
 
-<p><strong>Lancer le site et y accéder</strong></p>
+<p><strong>Run and browse wesite</strong></p>
 
 <pre><code class="lang-bash">npm start</code></pre>

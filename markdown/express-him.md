@@ -204,4 +204,4 @@ server.on("error", function (error) {
 
 <pre><code class="lang-bash">npm start</code></pre>
 
-<p>Il faut à présent vous rendre à l'adresse <code>http://localhost/</code> en utilisant votre navigateur préféré.</p>
+<p>Il faut à présent vous rendre à l'adresse <code>http://localhost:8443/</code> en utilisant votre navigateur préféré.</p>

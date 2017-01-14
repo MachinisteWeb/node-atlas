@@ -2,12 +2,11 @@
 
 <h2>Express API</h2>
 
-<h3>Site HTTPs de 2 pages + page d'erreur</h3>
+<h3>Create an Express website with HTTPs</h3>
 
-<p><strong>Information de Package</strong></p>
+<p><strong>Package's Information</strong></p>
 
-```json
-{
+<pre><code class="lang-json">{
   "name": "myapp",
   "version": "0.0.0",
   "scripts": {
@@ -17,10 +16,9 @@
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3"
   }
-}
-```
+}</code></pre>
 
-<p><strong>Installer Express</strong></p>
+<p><strong>Install Express</strong></p>
 
 <pre><code class="lang-bash">npm install express --save</code></pre>
 
@@ -47,7 +45,7 @@
 ├─ app.js
 └─ package.json</code></pre>
 
-<p><strong>Fichiers de vue</strong></p>
+<p><strong>View files</strong></p>
 
 <p><em>views/layout.pug</em></p>
 
@@ -76,9 +74,9 @@ block content
 
 block content
   h1= message
-  h2= status
+  h2= status</code></pre>
 
-<p><strong>Fichiers de contrôleur</strong></p>
+<p><strong>Controller files</strong></p>
 
 <p><em>routes/index.js</em></p>
 
@@ -117,7 +115,7 @@ router.post("/(:member/)?", function (req, res) {
 
 module.exports = router;</code></pre>
 
-<p><strong>Fichier de l'application</strong></p>
+<p><strong>Application file</strong></p>
 
 <p><em>app.js</em></p>
 
@@ -157,7 +155,7 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;</code></pre>
 
-<p><strong>Fichier de lancement serveur</strong></p>
+<p><strong>Starting server file</strong></p>
 
 <p><em>bin/www</em></p>
 
@@ -206,4 +204,4 @@ server.on("error", function (error) {
 
 <pre><code class="lang-bash">npm start</code></pre>
 
-<p>Il faut à présent vous rendre à l'adresse <code>http://localhost/</code> en utilisant votre navigateur préféré.</p>
+<p>Now you can reach the <code>http://localhost:8443/</code> URL with the browser you like.</p>
