@@ -11,8 +11,8 @@
     &quot;bundles&quot;: &quot;bundles.json&quot;,              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
     &quot;optimizations&quot;: &quot;optimizations.json&quot;,  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
     &quot;htmlGenerationBeforeResponse&quot;: true,   /* Générer la page couramment affichée dans le dossier &quot;serverless&quot;. */
-    &quot;stylesheetsBundlesEnable&quot;: true,       /* Minifier les CSS dans des fichiers &quot;.min&quot; avant de renvoyer la page. */
-    &quot;javascriptBundlesEnable&quot;: true,        /* Offusquer les JS dans des fichiers &quot;.min&quot; avant de renvoyer la page. */
+    &quot;cssBundlingEnable&quot;: true,       /* Minifier les CSS dans des fichiers &quot;.min&quot; avant de renvoyer la page. */
+    &quot;jsBundlingEnable&quot;: true,        /* Offusquer les JS dans des fichiers &quot;.min&quot; avant de renvoyer la page. */
     &quot;less&quot;: true,                     /* Utiliser des fichiers Less avec des fichiers &quot;.map&quot; pour la partie développement. */
     &quot;routes&quot;: &quot;route.json&quot;                  /* Définir toutes les urls fournis par le site dans un fichier extérieur. */
 }
@@ -138,7 +138,7 @@
 │     ┊┉
 │
 ├─ assets/                   ⤆ Tous les fichiers publiques peuvent être accédés en HTTP(s) sans route specifique définie.
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  ┊┉
 │  │
 │  ├─ stylesheets/

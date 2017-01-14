@@ -12,6 +12,6 @@
 			{{{specific.content}}}
 			{{> includeTest }}
 		</div>
-		<script async="true" type="text/javascript" src="javascript/{{common.classJsCommon}}.js"></script>
+		<script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"></script>
 	</body>
 </html>

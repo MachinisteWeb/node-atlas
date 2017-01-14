@@ -54,9 +54,16 @@ Updates:
 - `NA#webconfig.templatesRelativePath` become `NA#webconfig.viewsRelativePath`.
 - `NA#webconfig.viewsRelativePath` default value become `"views"`.
 - `NA#webconfig.htmlGeneratesBeforeResponse` become `NA#webconfig.htmlGenerationBeforeResponse`.
+- `NA#webconfig.imagesOptimizationsBeforeResponse` become `NA#webconfig.imgOptimizationsBeforeResponse`.
+- `NA#webconfig.imagesOptimizationsEnable` become `NA#webconfig.imgOptimizationsEnable`.
+- `NA#webconfig.stylesheetsBundlesBeforeResponse` become `NA#webconfig.cssBundlingBeforeResponse`.
+- `NA#webconfig.stylesheetsBundlesEnable` become `NA#webconfig.cssBundlingEnable`.
+- `NA#webconfig.javascriptBundlesBeforeResponse` become `NA#webconfig.jsBundlingBeforeResponse`.
+- `NA#webconfig.javascriptBundlesEnable` become `NA#webconfig.jsBundlingEnable`.
 - `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
 - `NA#webconfig.httpSecureRelativeKeyPath` become `NA#webconfig.httpSecureKeyRelativePath`.
 - `NA#webconfig.httpSecureRelativeCertificatePath` become `NA#webconfig.httpSecureCertificateRelativePath`.
+- `NA#webconfig.bundles.javascript` become `NA#webconfig.bundles.javascripts`.
 - `NA#afterGenerates` become `NA#afterGeneration`.
 - `NA#newRender` become `NA#view`.
 - `NA#addCommonVariation` become `NA#common`.

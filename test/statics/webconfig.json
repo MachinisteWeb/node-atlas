@@ -1,7 +1,7 @@
 {
 	"assetsCopyEnable": false,
 	"statics": [{
-		"virtual": "/javascript/models",
+		"virtual": "/javascripts/models",
 		"path": "models",
 		"output": false
 	}],

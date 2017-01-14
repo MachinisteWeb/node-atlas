@@ -21,16 +21,14 @@ app.use("/", index);
 app.use("/users", users);
 
 app.use(function(req, res, next) {
-    var err = new Error("Not Found");
-    err.status = 404;
-    next(err);
+    next(new Error());
 });
 
 app.use(function(err, req, res, next) {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get("env") === "development" ? err : {};
+    res.locals.message = "Not Found";
+    res.locals.status = 404;
 
-    res.status(err.status || 500);
+    res.status(res.locals.status);
     res.render("error");
 });
 

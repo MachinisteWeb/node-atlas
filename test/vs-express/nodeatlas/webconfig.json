@@ -12,7 +12,7 @@
 		},
 		"/error": {
 			"view": "error.pug",
-			"controller": "error.js",
+			"variation": "error.json",
 			"statusCode": 404
 		}
 	}

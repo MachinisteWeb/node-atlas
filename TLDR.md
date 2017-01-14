@@ -64,12 +64,12 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "commonView": "common.htm",             /* Assign the common layout file for view. */
     "commonVariation": "common.json",       /* Assign the common variation file for localisation. */
     "commonController": "common.js",        /* Assign the common controller file for all pages called. */
-    "post": false,                   /* By default, avoid POST request on pages. */
+    "post": false,                          /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
     "optimizations": "optimizations.json",  /* Set images to optimize for the web with an external file. */
     "htmlGenerationBeforeResponse": true,   /* Generate page currently displayed into "serverless" directory. */
-    "stylesheetsBundlesEnable": true,       /* Minify CSS into ".min" files before response pages. */
-    "javascriptBundlesEnable": true,        /* Obfuscate JS into ".min" files before response pages. */
+    "cssBundlingBeforeResponse": true,      /* Minify CSS into ".min" files before response pages. */
+    "jsBundlingBeforeResponse": true,       /* Obfuscate JS into ".min" files before response pages. */
     "enableLess": true,                     /* Use Less files with ".map" for development phase. */
     "routes": "route.json"                  /* Set all urls provided by website with an external file. */
 }
@@ -218,7 +218,7 @@ my-website/
 │     ┊┉
 │
 ├─ assets/                   ⤆ All public files could be acceded in HTTP(s) without a specific route setted.
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  ┊┉
 │  │
 │  ├─ stylesheets/

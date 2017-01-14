@@ -64,12 +64,12 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "commonView": "common.htm",             /* Assigner le layout global aux vues. */
     "commonVariation": "common.json",       /* Assigner les fichiers de variations communes pour la localisation. */
     "commonController": "common.js",        /* Assigner les fonctions du contrôleur appelé sur toutes les pages. */
-    "post": false,                   /* Par défaut, empêcher les requêtes de page en POST. */
+    "post": false,                          /* Par défaut, empêcher les requêtes de page en POST. */
     "bundles": "bundles.json",              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
     "optimizations": "optimizations.json",  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
     "htmlGenerationBeforeResponse": true,   /* Générer la page couramment affichée dans le dossier "serverless". */
-    "stylesheetsBundlesEnable": true,       /* Minifier les CSS dans des fichiers ".min" avant de renvoyer la page. */
-    "javascriptBundlesEnable": true,        /* Offusquer les JS dans des fichiers ".min" avant de renvoyer la page. */
+    "cssBundlingBeforeResponse": true,      /* Minifier les CSS dans des fichiers ".min" avant de renvoyer la page. */
+    "jsBundlingBeforeResponse": true,       /* Offusquer les JS dans des fichiers ".min" avant de renvoyer la page. */
     "enableLess": true,                     /* Utiliser des fichiers Less avec des fichiers ".map" pour la partie développement. */
     "routes": "route.json"                  /* Définir toutes les urls fournis par le site dans un fichier extérieur. */
 }
@@ -218,7 +218,7 @@ my-website/
 │     ┊┉
 │
 ├─ assets/                   ⤆ Tous les fichiers publiques peuvent être accédés en HTTP(s) sans route specifique définie.
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  ┊┉
 │  │
 │  ├─ stylesheets/
