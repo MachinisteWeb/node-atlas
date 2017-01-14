@@ -87,7 +87,7 @@
 			"step1": {
 				"title": "<img src='media/images/battles/node-atlas.png' alt='NodeAtlas API'>",
 				"versus": "VS",
-				"challenger": "<img src='media/images/battles/nodejs.png' alt='Node.js HTTP API'>"
+				"challenger": "<img src='media/images/battles/expressjs.png' alt='Challenger'>"
 			}
 		},
 		"abstract": {

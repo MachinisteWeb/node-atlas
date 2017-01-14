@@ -233,11 +233,11 @@
 			position absolute
 			top 50%
 			left 50%
-			-webkit-transform translate(-50%,-50%) 
-			   -moz-transform translate(-50%,-50%) 
-			    -ms-transform translate(-50%,-50%) 
-			     -o-transform translate(-50%,-50%) 
-			        transform translate(-50%,-50%)
+			-webkit-transform translate(-50%, -50%) 
+			   -moz-transform translate(-50%, -50%) 
+			    -ms-transform translate(-50%, -50%) 
+			     -o-transform translate(-50%, -50%) 
+			        transform translate(-50%, -50%)
 		&--step1
 		&--step2
 		&--step3
@@ -250,6 +250,23 @@
 		&--step3
 			width 50%
 			margin-left 50%
+		&--step4
+			.fa
+				position relative
+				bottom 28px
+				right 10px
+				color #6dbd4d
+				-webkit-transition transform .5s ease
+				   -moz-transition transform .5s ease
+				    -ms-transition transform .5s ease
+				     -o-transition transform .5s ease
+				        transition transform .5s ease
+				&:hover
+					-webkit-transform rotate(360deg) 
+					   -moz-transform rotate(360deg) 
+					    -ms-transform rotate(360deg) 
+					     -o-transform rotate(360deg) 
+					        transform rotate(360deg)  
 	&--battle
 		bottom 0
 		left 0
