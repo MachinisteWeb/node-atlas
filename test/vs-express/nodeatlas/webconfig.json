@@ -3,6 +3,7 @@
 	"httpSecure": "security/server",
 	"variation": "common.json",
 	"assetsRelativePath": "public",
+	"controllersRelativePath": "routes",
 	"pageNotFound": "/error",
 	"routes": {
 		"/": "index.pug",
