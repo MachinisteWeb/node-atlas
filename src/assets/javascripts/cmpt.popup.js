@@ -12,8 +12,8 @@ website.component.Popup = function () {
             challenger = document.getElementsByClassName(publics.name + "--challenger")[0];
 
         target.addEventListener("click", function () {
-            website.xhrRequest("markdown" + urlRelativeSubPath + "/nodejs-me.md", function (err, me) {
-                website.xhrRequest("markdown" + urlRelativeSubPath + "/nodejs-him.md", function (err, him) {
+            website.xhrRequest("markdown" + urlRelativeSubPath + "/express-me.md", function (err, me) {
+                website.xhrRequest("markdown" + urlRelativeSubPath + "/express-him.md", function (err, him) {
                     nodeatlas.innerHTML = me;
                     challenger.innerHTML = him;
                     website.highlightCode();

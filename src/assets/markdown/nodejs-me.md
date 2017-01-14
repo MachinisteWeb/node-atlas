@@ -19,7 +19,7 @@
 
 <p><strong>Fichiers de vue</strong></p>
 
-<p><em>layout.htm</em></p>
+<p><em>views/layout.htm</em></p>
 
 <pre><code class="lang-html">&lt;!DOCTYPE html>
 &lt;html lang="en-us">
@@ -32,15 +32,15 @@
   &lt;/body>
 &lt;/html></code></pre>
 
-<p><em>index.htm</em></p>
+<p><em>views/index.htm</em></p>
 
 <pre><code class="lang-html">Hello World! See our &lt;a href="contact">contact page&lt;/a></code></pre>
 
-<p><em>contact.htm</em></p>
+<p><em>views/contact.htm</em></p>
 
 <pre><code class="lang-html">Contact us at &lt;a href="mailto:contact@js.org">contact@js.org&lt;/a></code></pre>
 
-<p><em>error.htm</em></p>
+<p><em>views/error.htm</em></p>
 
 <pre><code class="lang-html">This page is a 404.</code></pre>
 
