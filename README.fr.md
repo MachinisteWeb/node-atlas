@@ -647,7 +647,7 @@ et cet ensemble de fichiers :
 ├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  └─ media/
 │     └─ images/
@@ -661,7 +661,7 @@ vous aurez accès aux adresses :
 
 - *http://localhost/*
 - *http://localhost/stylesheets/common.css*
-- *http://localhost/javascript/common.js*
+- *http://localhost/javascripts/common.js*
 - *http://localhost/media/images/logo.png*
 
 *Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier public est bien* ***assets***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
@@ -697,7 +697,7 @@ avec les fichiers suivants :
 ├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ views/
 │  ├─ partials/
@@ -724,7 +724,7 @@ avec les fichiers suivants :
 *views/partials/foot.htm*
 
 ```html
-        <script async type="text/javascript" src="javascript/common.js"></script>
+        <script async type="text/javascript" src="javascripts/common.js"></script>
     </body>
 </html>
 ```
@@ -791,7 +791,7 @@ avec les fichiers suivants :
 │  │  ├─ common.css
 │  │  ├─ index.css
 │  │  └─ members.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ common.js
 │     ├─ index.js
 │     └─ members.js
@@ -825,7 +825,7 @@ avec les fichiers suivants :
 *views/partials/foot.htm*
 
 ```html
-        <script async type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
+        <script async type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
     </body>
 </html>
 ```
@@ -1300,7 +1300,7 @@ avec cet ensemble de fichiers
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  └─ common.min.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ common.js
 │     └─ common.min.js
 ├─ views/
@@ -1321,7 +1321,7 @@ et « index.htm » contenant :
     </head>
     <body>
         <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-        <script type="text/javascript" src="javascript/common<?= webconfig._minified ?>.js"></script>
+        <script type="text/javascript" src="javascripts/common<?= webconfig._minified ?>.js"></script>
     </body>
 </html>
 ```
@@ -1344,7 +1344,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
     </head>
     <body>
         <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-        <script type="text/javascript" src="javascript/common.js"></script>
+        <script type="text/javascript" src="javascripts/common.js"></script>
     </body>
 </html>
 ```
@@ -1367,7 +1367,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
     </head>
     <body>
         <div>Ceci est un test de récupération de ressources minifiées/non-minifiées.</div>
-        <script type="text/javascript" src="javascript/common.min.js"></script>
+        <script type="text/javascript" src="javascripts/common.min.js"></script>
     </body>
 </html>
 ```
@@ -1387,7 +1387,7 @@ avec cet ensemble de fichiers
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  └─ index.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ variations/
 │  ├─ common.json
@@ -1465,7 +1465,7 @@ vous pourez générer avec ces vues :
         <!-- Inclure le fichier vu de `view` -->
         <?- include(routeParameters.view) ?>
 
-        <script async="true" type="text/javascript" src="javascript/<?= common.classJsCommon ?>.js"></script>
+        <script async="true" type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
     </body>
 </html>
 ```
@@ -1514,7 +1514,7 @@ et obtenir les URLs suivantes :
         <div>
             <p>C'est la page d'accueil.</p>
         </div>
-        <script async="true" type="text/javascript" src="javascript/common.js"></script>
+        <script async="true" type="text/javascript" src="javascripts/common.js"></script>
     </body>
 </html>
 ```
@@ -1533,7 +1533,7 @@ et obtenir les URLs suivantes :
         <div>
             <h1>NodeAtlas © Haeresis</h1>
         </div>
-        <script async="true" type="text/javascript" src="javascript/common.js"></script>
+        <script async="true" type="text/javascript" src="javascripts/common.js"></script>
     </body>
 </html>
 ```
@@ -1561,7 +1561,7 @@ avec cet ensemble de fichiers
 ```json
 {
     "statics": {
-        "/javascript/models": "models"
+        "/javascripts/models": "models"
     },
     "routes": {
         "/": "index.htm"
@@ -1580,7 +1580,7 @@ avec cet ensemble de fichiers
     </head>
     <body>
         <div id="user"></div>
-        <script src="javascript/models/user.js"></script>
+        <script src="javascripts/models/user.js"></script>
         <script>
             var user = new User(),
                 mount = document.getElementById("user");
@@ -1628,7 +1628,7 @@ avec cet ensemble de fichiers
 }));
 ```
 
-Nous pourrons accéder aux fichiers HTML `http://localhost/` et au JavaScript `http://localhost/javascript/user.js`.
+Nous pourrons accéder aux fichiers HTML `http://localhost/` et au JavaScript `http://localhost/javascripts/user.js`.
 
 #### maxAge, Etag, etc. ####
 
@@ -1637,7 +1637,7 @@ Il est possible de configurer les informations livrées par NodeAtlas à la dema
 ```json
 {
     "statics": {
-        "/javascript/models": {
+        "/javascripts/models": {
             "path": "models",
             "staticOptions": {
                 "index": false
@@ -1659,7 +1659,7 @@ Dans ce cas le chemin devient le paramètre `virtual`.
 ```json
 {
     "statics": [{
-        "virtual": "/javascript/models",
+        "virtual": "/javascripts/models",
         "path": "models",
         "staticOptions": {
             "index": false
@@ -1710,7 +1710,7 @@ et l'ensemble de fichiers suivant :
 ├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ views/
 │  ├─ index.htm
@@ -1724,7 +1724,7 @@ on peut créer physiquement la sortie suivante :
 ├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  ├─ index.html
 │  ├─ members/
@@ -1785,7 +1785,7 @@ et l'ensemble de fichiers suivant :
 ├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ variations/
 │  ├─ fr-fr/
@@ -1806,7 +1806,7 @@ Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTM
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  ├─ cv.html
 │  └─ en/
@@ -1823,7 +1823,7 @@ Les fichiers défini dans `statics` sont également automatiquement copier dans 
 ```
 {
     "statics": {
-        "/javascript/models": {
+        "/javascripts/models": {
             "path": "models",
             "output": false
         }
@@ -1904,7 +1904,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 *views/partials/foot.ejs*
 
 ```html
-        <script async type="text/javascript" src="javascript/<%= common.classJsCommon %>.js"></script>
+        <script async type="text/javascript" src="javascripts/<%= common.classJsCommon %>.js"></script>
     </body>
 </html>
 ```
@@ -2032,7 +2032,7 @@ html(lang="fr-fr")
     body(class=specific.classPage)
         include partials/header
         include #{routeParameters.view}
-        script(async, type="text/javascript", src="javascript/" + common.classJsCommon + ".js")
+        script(async, type="text/javascript", src="javascripts/" + common.classJsCommon + ".js")
 ```
 
 *views/partials/header.pug*
@@ -2533,7 +2533,7 @@ avec cet ensemble de fichier :
 
 ```
 ├─ assets/
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
 │  ├─ common.js
@@ -2561,7 +2561,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 		</div>
         <script type="text/javascript" src="socket.io/socket.io.js"></script>
         <script type="text/javascript" src="node-atlas/socket.io.js"></script>
-        <script type="text/javascript" src="javascript/index.js"></script>
+        <script type="text/javascript" src="javascripts/index.js"></script>
     </body>
 </html>
 ```
@@ -2608,7 +2608,7 @@ exports.setSockets = function () {
 };
 ```
 
-*assets/javascript/index.js*
+*assets/javascripts/index.js*
 
 ```js
 var content = document.getElementsByClassName("content")[0],
@@ -2970,7 +2970,7 @@ Avec l'ensemble de fichier suivant :
 
 ```
 ├─ assets/
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
 │  └─ index.js
@@ -3030,7 +3030,7 @@ et contenant les fichiers de template suivant :
 		</div>
         <script type="text/javascript" src="socket.io/socket.io.js"></script>
         <script type="text/javascript" src="node-atlas/socket.io.js"></script>
-        <script type="text/javascript" src="javascript/index.js"></script>
+        <script type="text/javascript" src="javascripts/index.js"></script>
     </body>
 </html>
 ```
@@ -3095,7 +3095,7 @@ exports.setSockets = function () {
 
 Quand au côté client, nous utiliserons les fichiers suivant :
 
-*assets/javascript/index.js*
+*assets/javascripts/index.js*
 
 ```js
 var html = document.getElementsByTagName("html")[0],
@@ -4339,7 +4339,7 @@ exports.changeVariation = function (next, locals) {
 }
 ```
 
-Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp).
 
 
 
@@ -4702,21 +4702,21 @@ Avec la configuration suivante :
 ```json
 {
     "bundles": {
-        "javascript": {
-            "javascript/boot.min.js": [
-                "javascript/modernizr.js",
-                "javascript/yepnot.js",
-                "javascript/html5Shiv.js"
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
             ],
-            "javascript/framework.min.js": [
-                "javascript/jquery.js",
-                "javascript/jquery-ui.js",
-                "javascript/prettify.js",
-                "javascript/prettify/run_prettify.js"
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
             ],
-            "javascript/common.min.js": [
-                "javascript/components/extended-format-date.js",
-                "javascript/common.js"
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
             ]
         },
         "stylesheets": {
@@ -4743,7 +4743,7 @@ et l'ensemble de fichier suivant :
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
 │  │  └─ common-min1160.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ modernizr.js
 │     ├─ yepnot.js
 │     ├─ html5Shiv.js
@@ -4769,7 +4769,7 @@ vous obtiendrez les nouveaux fichiers suivant :
 │  │  ├─ common-min780.css
 │  │  ├─ common-min1160.css
 │  │  └─ common.min.css     ⤆ nouveau fichier
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ modernizr.js
 │     ├─ yepnot.js
 │     ├─ html5Shiv.js
@@ -4803,7 +4803,7 @@ L'ensemble de fichier suivant
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
 │  │  └─ common-min1160.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ modernizr.js
 │     ├─ yepnot.js
 │     ├─ html5Shiv.js
@@ -4827,21 +4827,21 @@ avec `webconfig.json`
 {
     "httpPort": 7777,
     "bundles": {
-        "javascript": {
-            "javascript/boot.min.js": [
-                "javascript/modernizr.js",
-                "javascript/yepnot.js",
-                "javascript/html5Shiv.js"
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
             ],
-            "javascript/framework.min.js": [
-                "javascript/jquery.js",
-                "javascript/jquery-ui.js",
-                "javascript/prettify.js",
-                "javascript/prettify/run_prettify.js"
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
             ],
-            "javascript/common.min.js": [
-                "javascript/components/extended-format-date.js",
-                "javascript/common.js"
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
             ]
         },
         "stylesheets": {
@@ -4868,21 +4868,21 @@ et avec `webconfig.prod.json`
     "httpHostname": "blog.lesieur.name",
     "urlPort": 80,
     "bundles": {
-        "javascript": {
-            "javascript/boot.min.js": [
-                "javascript/modernizr.js",
-                "javascript/yepnot.js",
-                "javascript/html5Shiv.js"
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
             ],
-            "javascript/framework.min.js": [
-                "javascript/jquery.js",
-                "javascript/jquery-ui.js",
-                "javascript/prettify.js",
-                "javascript/prettify/run_prettify.js"
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
             ],
-            "javascript/common.min.js": [
-                "javascript/components/extended-format-date.js",
-                "javascript/common.js"
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
             ]
         },
         "stylesheets": {
@@ -4909,7 +4909,7 @@ pourrait devenir l'ensemble de fichier suivant
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
 │  │  └─ common-min1160.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ modernizr.js
 │     ├─ yepnot.js
 │     ├─ html5Shiv.js
@@ -4962,21 +4962,21 @@ et `bundles.json`
 
 ```json
 {
-    "javascript": {
-        "javascript/boot.min.js": [
-            "javascript/modernizr.js",
-            "javascript/yepnot.js",
-            "javascript/html5Shiv.js"
+    "javascripts": {
+        "javascripts/boot.min.js": [
+            "javascripts/modernizr.js",
+            "javascripts/yepnot.js",
+            "javascripts/html5Shiv.js"
         ],
-        "javascript/framework.min.js": [
-            "javascript/jquery.js",
-            "javascript/jquery-ui.js",
-            "javascript/prettify.js",
-            "javascript/prettify/run_prettify.js"
+        "javascripts/framework.min.js": [
+            "javascripts/jquery.js",
+            "javascripts/jquery-ui.js",
+            "javascripts/prettify.js",
+            "javascripts/prettify/run_prettify.js"
         ],
-        "javascript/common.min.js": [
-            "javascript/components/extended-format-date.js",
-            "javascript/common.js"
+        "javascripts/common.min.js": [
+            "javascripts/components/extended-format-date.js",
+            "javascripts/common.js"
         ]
     },
     "stylesheets": {
@@ -4993,28 +4993,28 @@ et `bundles.json`
 
 #### Désactiver des Bundles ####
 
-Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés `"stylesheetsBundlesEnable": false` et `"javascriptBundlesEnable": false` pour chaque type de Bundle.
+Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés `"cssBundlingEnable": false` et `"jsBundlingEnable": false` pour chaque type de Bundle.
 
 ```json
 {
-    "stylesheetsBundlesEnable": false,
-    "javascriptBundlesEnable": false,
+    "cssBundlingEnable": false,
+    "jsBundlingEnable": false,
     "bundles": {
-        "javascript": {
-            "javascript/boot.min.js": [
-                "javascript/modernizr.js",
-                "javascript/yepnot.js",
-                "javascript/html5Shiv.js"
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
             ],
-            "javascript/framework.min.js": [
-                "javascript/jquery.js",
-                "javascript/jquery-ui.js",
-                "javascript/prettify.js",
-                "javascript/prettify/run_prettify.js"
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
             ],
-            "javascript/common.min.js": [
-                "javascript/components/extended-format-date.js",
-                "javascript/common.js"
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
             ]
         },
         "stylesheets": {
@@ -5037,28 +5037,28 @@ Il est également possible de ne pas exécuter la minification au démarrage d'u
 
 #### Ré-générer les Bundles avant chaque rendu de page ####
 
-De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés `"stylesheetsBundlesBeforeResponse": true` et `"javascriptBundlesBeforeResponse": true` pour chaque type de Bundle.
+De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés `"cssBundlingBeforeResponse": true` et `"jsBundlingBeforeResponse": true` pour chaque type de Bundle.
 
 ```json
 {
-    "stylesheetsBundlesBeforeResponse": false,
-    "javascriptBundlesBeforeResponse": false,
+    "cssBundlingBeforeResponse": false,
+    "jsBundlingBeforeResponse": false,
     "bundles": {
-        "javascript": {
-            "javascript/boot.min.js": [
-                "javascript/modernizr.js",
-                "javascript/yepnot.js",
-                "javascript/html5Shiv.js"
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
             ],
-            "javascript/framework.min.js": [
-                "javascript/jquery.js",
-                "javascript/jquery-ui.js",
-                "javascript/prettify.js",
-                "javascript/prettify/run_prettify.js"
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
             ],
-            "javascript/common.min.js": [
-                "javascript/components/extended-format-date.js",
-                "javascript/common.js"
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
             ]
         },
         "stylesheets": {
@@ -5088,11 +5088,11 @@ Dans l'exemple suivant, le fichier virtuel `node-atlas/socket.io.js` sera ajout�
 ```json
 {
     "bundles": {
-        "javascript": {
-            "javascript/common.min.js": [
-                "javascript/socket.io.js",
+        "javascripts": {
+            "javascripts/common.min.js": [
+                "javascripts/socket.io.js",
                 "node-atlas/socket.io.js",
-                "javascript/common.js"
+                "javascripts/common.js"
             ]
         }
     },
@@ -5634,11 +5634,11 @@ et `optimizations.json`
 
 #### Désactiver des Optimizations ####
 
-Il est également possible de ne pas exécuter l'optimisation au démarrage d'un site web avec NodeAtlas avec les propriétés `"imagesOptimizationsEnable": false`.
+Il est également possible de ne pas exécuter l'optimisation au démarrage d'un site web avec NodeAtlas avec les propriétés `"imgOptimizationsEnable": false`.
 
 ```json
 {
-    "imagesOptimizationsEnable": false,
+    "imgOptimizationsEnable": false,
     "optimizations": {
         "images": {
             "media/images/example.png": "media/images/optimized/",
@@ -5659,11 +5659,11 @@ Il est également possible de ne pas exécuter l'optimisation au démarrage d'un
 
 #### Ré-générer les Optimizations avant chaque rendu de page ####
 
-Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés `"imagesOptimizationsBeforeResponse": true`.
+Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés `"imgOptimizationsBeforeResponse": true`.
 
 ```json
 {
-    "imagesOptimizationsBeforeResponse": false,
+    "imgOptimizationsBeforeResponse": false,
     "optimizations": {
         "images": {
             "media/images/example.png": "media/images/optimized/",
@@ -6061,7 +6061,7 @@ Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qu
 <!-- ... -->
 <img src="media/images/example.jpg" />
 <!-- ... -->
-<script type="text/javascript" src="javascript/common.js"></script>
+<script type="text/javascript" src="javascripts/common.js"></script>
 ```
 
 en urls absolues avec la variable `urlBasePath` comme ci-dessous :
@@ -6071,7 +6071,7 @@ en urls absolues avec la variable `urlBasePath` comme ci-dessous :
 <!-- ... -->
 <img src="<?= urlBasePath ?>media/images/example.jpg" />
 <!-- ... -->
-<script type="text/javascript" src="<?= urlBasePath ?>javascript/common.js"></script>
+<script type="text/javascript" src="<?= urlBasePath ?>javascripts/common.js"></script>
 ```
 
 À noter que dans le cas de la configuration suivante :
@@ -6340,7 +6340,7 @@ enfin voyons rapidement ce que le fichier `index.hbs` pourrait contenir :
             <h1>{{specific.titlePage}}</h1>
             {{{specific.content}}}
         </div>
-        <script async="true" type="text/javascript" src="javascript/{{common.classJsCommon}}.js"></script>
+        <script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"></script>
     </body>
 </html>
 ```
@@ -6457,17 +6457,75 @@ C'est une bonne chose de ne pas reservir des fichiers qui n'ont pas bougé pour 
 
 Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.
 
-```js
+### &lt;NA>.webconfig ###
+
+> ```js
 Object{
+```
+
+> Objet global encapsulant toute la configuration.
+
+#### assetsRelativePath ####
+
+> ```js
     "assetsRelativePath": String<path-from-root>,
+```
+
+> `String<path-from-root>` défini le chemin relatif à la racine du projet vers les Assets.
+
+> - Exemple : `../dist/`.
+
+> - Défaut : `assets/`.
+
+#### bundles ####
+
+> ```js
     "bundles": (String<filepath-from-root> | Object{
-        "javascript": Object{
+        "javascripts": Object{
         ... url: Array.String<filepath-from-assets>
         },
         "stylesheets": Object{
         ... url: Array.String<filepath-from-assets>
         }
     }),
+```
+
+> `Object` représentant l'ensemble des fichiers nécéssaires à la création d'un seul autre minifié. Gère les fichiers JavaScript et les fichier de styles. Ces valeurs peuvent être placées dans un fichier JSON séparé et appelées sous forme de chaine de caractère. Dans ce cas `String<filepath-from-root>` défini le chemin relatif à la racine du projet vers le fichier JSON.
+
+> - Exemple 1 : 
+
+>   ```json
+{
+	"javascripts": {
+        "javascripts/boot.min.js": [
+            "javascripts/modernizr.js",
+            "javascripts/yepnot.js",
+            "javascripts/html5Shiv.js"
+        ],
+        "javascripts/framework.min.js": [
+            "javascripts/jquery.js",
+            "javascripts/jquery-ui.js",
+            "javascripts/prettify.js",
+            "javascripts/prettify/run_prettify.js"
+        ],
+        "javascripts/common.min.js": [
+            "javascripts/components/extended-format-date.js",
+            "javascripts/common.js"
+        ]
+    },
+    "stylesheets": {
+        "stylesheets/common.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/common-min780.css",
+            "stylesheets/common-min1160.css"
+        ]
+    }
+}
+```
+
+> - Exemple 2 : `bundles.json`.
+
+```js
     "cache": Boolean,
     "charset": String,
     "controller": String<filepath-from-controllers>,
@@ -6485,10 +6543,10 @@ Object{
     "httpSecureKeyRelativePath": String<filepath-from-root>,
     "httpSecureCertificateRelativePath": String<filepath-from-root>,
     "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-    "imagesOptimizationsBeforeResponse": Boolean,
-    "imagesOptimizationsEnable": Boolean,
-    "javascriptBundlesBeforeResponse": Boolean,
-    "javascriptBundlesEnable": Boolean,
+    "imgOptimizationsBeforeResponse": Boolean,
+    "imgOptimizationsEnable": Boolean,
+    "jsBundlingBeforeResponse": Boolean,
+    "jsBundlingEnable": Boolean,
     "languageCode": String,
     "less": (Boolean | Object{
         "compress": Boolean,
@@ -6558,8 +6616,8 @@ Object{
         "staticOptions": Object<from-express-statics-options>,
         "virtual": String<urlpath-from-base>
     },
-    "stylesheetsBundlesBeforeResponse": Boolean,
-    "stylesheetsBundlesEnable": Boolean,
+    "cssBundlingBeforeResponse": Boolean,
+    "cssBundlingEnable": Boolean,
     "stylus": (Boolean | Object{
         "compress": Boolean,
         "files": (String<filepath-from-root> | Array.String<filepath-from-assets>),

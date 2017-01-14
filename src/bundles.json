@@ -11,14 +11,14 @@
             "stylesheets/cmpt.content.css"
         ]
     },
-    "javascript": {
-        "javascript/common.min.js": [
-            "javascript/cmpt.header.js",
-            "javascript/cmpt.popup.js",
-            "javascript/cmpt.download.js",
-            "javascript/cmpt.navigation.js",
-            "javascript/cmpt.content.js",
-            "javascript/common.js"
+    "javascripts": {
+        "javascripts/common.min.js": [
+            "javascripts/cmpt.header.js",
+            "javascripts/cmpt.popup.js",
+            "javascripts/cmpt.download.js",
+            "javascripts/cmpt.navigation.js",
+            "javascripts/cmpt.content.js",
+            "javascripts/common.js"
         ]
     }
 }

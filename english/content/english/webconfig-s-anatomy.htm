@@ -1,7 +1,7 @@
 <h2 id="webconfig-s-anatomy">Webconfig&#39;s Anatomy</h2><p>The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE http request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.</p><pre><code class="lang-js">Object{
     &quot;assetsRelativePath&quot;: String&lt;path-from-root&gt;,
     &quot;bundles&quot;: (String&lt;filepath-from-root&gt; | Object{
-        &quot;javascript&quot;: Object{
+        &quot;javascripts&quot;: Object{
         ... url: Array.String&lt;filepath-from-assets&gt;
         },
         &quot;stylesheets&quot;: Object{
@@ -25,10 +25,10 @@
     &quot;httpSecureKeyRelativePath&quot;: String&lt;filepath-from-root&gt;,
     &quot;httpSecureCertificateRelativePath&quot;: String&lt;filepath-from-root&gt;,
     &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
-    &quot;imagesOptimizationsBeforeResponse&quot;: Boolean,
-    &quot;imagesOptimizationsEnable&quot;: Boolean,
-    &quot;javascriptBundlesBeforeResponse&quot;: Boolean,
-    &quot;javascriptBundlesEnable&quot;: Boolean,
+    &quot;imgOptimizationsBeforeResponse&quot;: Boolean,
+    &quot;imgOptimizationsEnable&quot;: Boolean,
+    &quot;jsBundlingBeforeResponse&quot;: Boolean,
+    &quot;jsBundlingEnable&quot;: Boolean,
     &quot;languageCode&quot;: String,
     &quot;less&quot;: (Boolean | Object{
         &quot;compress&quot;: Boolean,
@@ -98,8 +98,8 @@
         &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;,
         &quot;virtual&quot;: String&lt;urlpath-from-base&gt;
     },
-    &quot;stylesheetsBundlesBeforeResponse&quot;: Boolean,
-    &quot;stylesheetsBundlesEnable&quot;: Boolean,
+    &quot;cssBundlingBeforeResponse&quot;: Boolean,
+    &quot;cssBundlingEnable&quot;: Boolean,
     &quot;stylus&quot;: (Boolean | Object{
         &quot;compress&quot;: Boolean,
         &quot;files&quot;: (String&lt;filepath-from-root&gt; | Array.String&lt;filepath-from-assets&gt;),

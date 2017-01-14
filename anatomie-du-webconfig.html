@@ -299,17 +299,65 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="anatomie-du-webconfig">Anatomie du Webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d&#39;activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d&#39;un webconfig sachant qu&#39;ils sont tous facultatifs en fonction de vos besoins.</p><pre><code class="lang-js">Object{
-    &quot;assetsRelativePath&quot;: String&lt;path-from-root&gt;,
-    &quot;bundles&quot;: (String&lt;filepath-from-root&gt; | Object{
-        &quot;javascript&quot;: Object{
+					<h2 id="anatomie-du-webconfig">Anatomie du Webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d&#39;activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d&#39;un webconfig sachant qu&#39;ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><blockquote>
+<pre><code class="lang-js">Object{
+</code></pre>
+<p>Objet global encapsulant toute la configuration.</p>
+</blockquote><h4 id="assetsrelativepath">assetsRelativePath</h4><blockquote>
+<pre><code class="lang-js">    &quot;assetsRelativePath&quot;: String&lt;path-from-root&gt;,
+</code></pre>
+<p><code>String&lt;path-from-root&gt;</code> défini le chemin relatif à la racine du projet vers les Assets.</p>
+<ul>
+<li><p>Exemple : <code>../dist/</code>.</p>
+</li>
+<li><p>Défaut : <code>assets/</code>.</p>
+</li>
+</ul>
+</blockquote><h4 id="bundles">bundles</h4><blockquote>
+<pre><code class="lang-js">    &quot;bundles&quot;: (String&lt;filepath-from-root&gt; | Object{
+        &quot;javascripts&quot;: Object{
         ... url: Array.String&lt;filepath-from-assets&gt;
         },
         &quot;stylesheets&quot;: Object{
         ... url: Array.String&lt;filepath-from-assets&gt;
         }
     }),
-    &quot;cache&quot;: Boolean,
+</code></pre>
+<p><code>Object</code> représentant l&#39;ensemble des fichiers nécéssaires à la création d&#39;un seul autre minifié. Gère les fichiers JavaScript et les fichier de styles. Ces valeurs peuvent être placées dans un fichier JSON séparé et appelées sous forme de chaine de caractère. Dans ce cas <code>String&lt;filepath-from-root&gt;</code> défini le chemin relatif à la racine du projet vers le fichier JSON.</p>
+<ul>
+<li><p>Exemple 1 : </p>
+<pre><code class="lang-json">{
+  &quot;javascripts&quot;: {
+      &quot;javascripts/boot.min.js&quot;: [
+          &quot;javascripts/modernizr.js&quot;,
+          &quot;javascripts/yepnot.js&quot;,
+          &quot;javascripts/html5Shiv.js&quot;
+      ],
+      &quot;javascripts/framework.min.js&quot;: [
+          &quot;javascripts/jquery.js&quot;,
+          &quot;javascripts/jquery-ui.js&quot;,
+          &quot;javascripts/prettify.js&quot;,
+          &quot;javascripts/prettify/run_prettify.js&quot;
+      ],
+      &quot;javascripts/common.min.js&quot;: [
+          &quot;javascripts/components/extended-format-date.js&quot;,
+          &quot;javascripts/common.js&quot;
+      ]
+  },
+  &quot;stylesheets&quot;: {
+      &quot;stylesheets/common.min.css&quot;: [
+          &quot;stylesheets/common.css&quot;,
+          &quot;stylesheets/common-min780.css&quot;,
+          &quot;stylesheets/common-min1160.css&quot;
+      ]
+  }
+}
+</code></pre>
+</li>
+<li><p>Exemple 2 : <code>bundles.json</code>.</p>
+</li>
+</ul>
+</blockquote><pre><code class="lang-js">    &quot;cache&quot;: Boolean,
     &quot;charset&quot;: String,
     &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
     &quot;controllersRelativePath&quot;: String&lt;path-from-root&gt;,
@@ -326,10 +374,10 @@ website.init({
     &quot;httpSecureKeyRelativePath&quot;: String&lt;filepath-from-root&gt;,
     &quot;httpSecureCertificateRelativePath&quot;: String&lt;filepath-from-root&gt;,
     &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
-    &quot;imagesOptimizationsBeforeResponse&quot;: Boolean,
-    &quot;imagesOptimizationsEnable&quot;: Boolean,
-    &quot;javascriptBundlesBeforeResponse&quot;: Boolean,
-    &quot;javascriptBundlesEnable&quot;: Boolean,
+    &quot;imgOptimizationsBeforeResponse&quot;: Boolean,
+    &quot;imgOptimizationsEnable&quot;: Boolean,
+    &quot;jsBundlingBeforeResponse&quot;: Boolean,
+    &quot;jsBundlingEnable&quot;: Boolean,
     &quot;languageCode&quot;: String,
     &quot;less&quot;: (Boolean | Object{
         &quot;compress&quot;: Boolean,
@@ -399,8 +447,8 @@ website.init({
         &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;,
         &quot;virtual&quot;: String&lt;urlpath-from-base&gt;
     },
-    &quot;stylesheetsBundlesBeforeResponse&quot;: Boolean,
-    &quot;stylesheetsBundlesEnable&quot;: Boolean,
+    &quot;cssBundlingBeforeResponse&quot;: Boolean,
+    &quot;cssBundlingEnable&quot;: Boolean,
     &quot;stylus&quot;: (Boolean | Object{
         &quot;compress&quot;: Boolean,
         &quot;files&quot;: (String&lt;filepath-from-root&gt; | Array.String&lt;filepath-from-assets&gt;),
@@ -427,7 +475,7 @@ website.init({
 		</div>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 		
-		<script src="javascript/common.min.js"></script>
+		<script src="javascripts/common.min.js"></script>
 		
 		<script src="https://buttons.github.io/buttons.js"></script>
 	</body>

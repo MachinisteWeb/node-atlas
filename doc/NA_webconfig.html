@@ -360,7 +360,7 @@
 
         <tr>
             
-                <td class="name"><code>javascript</code></td>
+                <td class="name"><code>javascripts</code></td>
             
 
             <td class="type">
@@ -399,7 +399,7 @@
 
             
 
-            <td class="description last">Each object name represent an output stylesheets file and each property of object represent an array of inputs files.</td>
+            <td class="description last">Each object name represent an output stylesheet file and each property of object represent an array of inputs files.</td>
         </tr>
 
     
@@ -462,7 +462,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>{    "javascript": {        "javascript/framework.min.js": [            "javascript/modernizr.js",            "javascript/jquery.js",            "javascript/prettify.js",            "javascript/prettify/run_prettify.js"        ],        "javascript/common.min.js": [            "javascript/components/extended-format-date.js",            "javascript/common.js"        ]    },    "stylesheets": {        "stylesheets/common.min.css": [            "stylesheets/common.css",            "stylesheets/common-min780.css",            "stylesheets/common-min1160.css"        ]    }}</code></pre>
+    <pre class="prettyprint"><code>{    "javascripts": {        "javascript/framework.min.js": [            "javascript/modernizr.js",            "javascript/jquery.js",            "javascript/prettify.js",            "javascript/prettify/run_prettify.js"        ],        "javascript/common.min.js": [            "javascript/components/extended-format-date.js",            "javascript/common.js"        ]    },    "stylesheets": {        "stylesheets/common.min.css": [            "stylesheets/common.css",            "stylesheets/common-min780.css",            "stylesheets/common-min1160.css"        ]    }}</code></pre>
 
 
 
@@ -754,6 +754,160 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="lib_configuration.js.html">lib/configuration.js</a>, <a href="lib_configuration.js.html#line512">line 512</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".cssBundlingBeforeResponse"><span class="type-signature">(static) </span>cssBundlingBeforeResponse<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    CSS minification before each HTML response.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>false</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tools.js.html">lib/tools.js</a>, <a href="lib_tools.js.html#line189">line 189</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".cssBundlingEnable"><span class="type-signature">(static) </span>cssBundlingEnable<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    No CSS minification if set to false.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>true</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tools.js.html">lib/tools.js</a>, <a href="lib_tools.js.html#line201">line 201</a>
     </li></ul></dd>
     
 
@@ -1691,7 +1845,7 @@
 
         
             
-<h4 class="name" id=".imagesOptimizationsBeforeResponse"><span class="type-signature">(static) </span>imagesOptimizationsBeforeResponse<span class="type-signature"> :boolean</span></h4>
+<h4 class="name" id=".imgOptimizationsBeforeResponse"><span class="type-signature">(static) </span>imgOptimizationsBeforeResponse<span class="type-signature"> :boolean</span></h4>
 
 
 
@@ -1768,7 +1922,7 @@
 
         
             
-<h4 class="name" id=".imagesOptimizationsEnable"><span class="type-signature">(static) </span>imagesOptimizationsEnable<span class="type-signature"> :boolean</span></h4>
+<h4 class="name" id=".imgOptimizationsEnable"><span class="type-signature">(static) </span>imgOptimizationsEnable<span class="type-signature"> :boolean</span></h4>
 
 
 
@@ -1997,7 +2151,7 @@
 
         
             
-<h4 class="name" id=".javascriptBundlesBeforeResponse"><span class="type-signature">(static) </span>javascriptBundlesBeforeResponse<span class="type-signature"> :boolean</span></h4>
+<h4 class="name" id=".jsBundlingBeforeResponse"><span class="type-signature">(static) </span>jsBundlingBeforeResponse<span class="type-signature"> :boolean</span></h4>
 
 
 
@@ -2074,7 +2228,7 @@
 
         
             
-<h4 class="name" id=".javascriptBundlesEnable"><span class="type-signature">(static) </span>javascriptBundlesEnable<span class="type-signature"> :boolean</span></h4>
+<h4 class="name" id=".jsBundlingEnable"><span class="type-signature">(static) </span>jsBundlingEnable<span class="type-signature"> :boolean</span></h4>
 
 
 
@@ -3334,160 +3488,6 @@
 
         
             
-<h4 class="name" id=".stylesheetsBundlesBeforeResponse"><span class="type-signature">(static) </span>stylesheetsBundlesBeforeResponse<span class="type-signature"> :boolean</span></h4>
-
-
-
-
-<div class="description">
-    CSS minification before each HTML response.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">boolean</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>false</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tools.js.html">lib/tools.js</a>, <a href="lib_tools.js.html#line189">line 189</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".stylesheetsBundlesEnable"><span class="type-signature">(static) </span>stylesheetsBundlesEnable<span class="type-signature"> :boolean</span></h4>
-
-
-
-
-<div class="description">
-    No CSS minification if set to false.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">boolean</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>true</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tools.js.html">lib/tools.js</a>, <a href="lib_tools.js.html#line201">line 201</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
 <h4 class="name" id=".templateEngineDelimiter"><span class="type-signature">(static) </span>templateEngineDelimiter<span class="type-signature"> :string</span></h4>
 
 
@@ -4188,7 +4188,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jan 12 2017 17:06:03 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Jan 14 2017 14:29:29 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

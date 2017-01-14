@@ -134,7 +134,7 @@
 </code></pre><p>et cet ensemble de fichiers :</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  └─ media/
 │     └─ images/
@@ -145,7 +145,7 @@
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
-<li><em><a href="http://localhost/javascript/common.js">http://localhost/javascript/common.js</a></em></li>
+<li><em><a href="http://localhost/javascripts/common.js">http://localhost/javascripts/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
 </ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource publique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
@@ -160,7 +160,7 @@
 </code></pre><p>avec les fichiers suivants :</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ views/
 │  ├─ partials/
@@ -177,7 +177,7 @@
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
@@ -218,7 +218,7 @@
 │  │  ├─ common.css
 │  │  ├─ index.css
 │  │  └─ members.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ common.js
 │     ├─ index.js
 │     └─ members.js
@@ -242,7 +242,7 @@
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body class=&quot;&lt;?= specific.classPage ?&gt;&quot;&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascripts/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>views/template.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
@@ -532,7 +532,7 @@
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  └─ common.min.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ common.js
 │     └─ common.min.js
 ├─ views/
@@ -548,7 +548,7 @@
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>En lançant (depuis le dossier du site) la commande :</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/
@@ -561,7 +561,7 @@
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>Cependant en lançant la commande :</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.prod.json
@@ -574,14 +574,14 @@
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.min.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="utiliser-une-vue-globale">Utiliser une vue globale</h3><p>Plutôt que d&#39;inclure une partie header et une partie footer en deux fichiers scindé dont les balises de l&#39;un ne se ferme que dans les balises de l&#39;autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.</p><p>avec cet ensemble de fichiers</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  └─ index.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ variations/
 │  ├─ common.json
@@ -633,7 +633,7 @@
         &lt;!-- Inclure le fichier vu de `view` --&gt;
         &lt;?- include(routeParameters.view) ?&gt;
 
-        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascripts/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>views/partals/header.htm</em></p><pre><code class="lang-html">    &lt;header&gt;
@@ -660,7 +660,7 @@
         &lt;div&gt;
             &lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;
         &lt;/div&gt;
-        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>/about/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
@@ -674,7 +674,7 @@
         &lt;div&gt;
             &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
         &lt;/div&gt;
-        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><h3 id="partager-des-dossiers">Partager des dossiers</h3><p>Il est possible de partager plus de contenu que ce qu&#39;il y a dans le dossier hébergé par <code>assetsRelativePath</code>. Il est tout à fait possible de partager des vues ou des modèles avec la partie cliente par exemple. On appel les fichiers de ses dossiers des fichiers statiques.</p><p>Voyons l&#39;exemple suivant :</p><p>avec cet ensemble de fichiers</p><pre><code>├─ models/
@@ -684,7 +684,7 @@
 └─ webconfig.json
 </code></pre><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;statics&quot;: {
-        &quot;/javascript/models&quot;: &quot;models&quot;
+        &quot;/javascripts/models&quot;: &quot;models&quot;
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -698,7 +698,7 @@
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div id=&quot;user&quot;&gt;&lt;/div&gt;
-        &lt;script src=&quot;javascript/models/user.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;javascripts/models/user.js&quot;&gt;&lt;/script&gt;
         &lt;script&gt;
             var user = new User(),
                 mount = document.getElementById(&quot;user&quot;);
@@ -739,9 +739,9 @@
         }
     };
 }));
-</code></pre><p>Nous pourrons accéder aux fichiers HTML <code>http://localhost/</code> et au JavaScript <code>http://localhost/javascript/user.js</code>.</p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource statique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code>. Dans ce cas, on ne fournit plus une <code>string</code> mais un <code>Object</code> et la propriété initiale devient le paramètre <code>path</code>. Par défaut les <code>staticOptions</code> sont celle global au webconfig (voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>).</p><pre><code class="lang-json">{
+</code></pre><p>Nous pourrons accéder aux fichiers HTML <code>http://localhost/</code> et au JavaScript <code>http://localhost/javascripts/user.js</code>.</p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource statique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code>. Dans ce cas, on ne fournit plus une <code>string</code> mais un <code>Object</code> et la propriété initiale devient le paramètre <code>path</code>. Par défaut les <code>staticOptions</code> sont celle global au webconfig (voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>).</p><pre><code class="lang-json">{
     &quot;statics&quot;: {
-        &quot;/javascript/models&quot;: {
+        &quot;/javascripts/models&quot;: {
             &quot;path&quot;: &quot;models&quot;,
             &quot;staticOptions&quot;: {
                 &quot;index&quot;: false
@@ -754,7 +754,7 @@
 }
 </code></pre><h4 id="ordonner-les-routes">Ordonner les routes</h4><p>Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.</p><p>Dans ce cas le chemin devient le paramètre <code>virtual</code>.</p><pre><code class="lang-json">{
     &quot;statics&quot;: [{
-        &quot;virtual&quot;: &quot;/javascript/models&quot;,
+        &quot;virtual&quot;: &quot;/javascripts/models&quot;,
         &quot;path&quot;: &quot;models&quot;,
         &quot;staticOptions&quot;: {
             &quot;index&quot;: false
@@ -789,7 +789,7 @@
 </code></pre><p>et l&#39;ensemble de fichiers suivant :</p><pre><code>├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ views/
 │  ├─ index.htm
@@ -798,7 +798,7 @@
 </code></pre><p>on peut créer physiquement la sortie suivante :</p><pre><code>├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  ├─ index.html
 │  ├─ members/
@@ -835,7 +835,7 @@
 </code></pre><p>et l&#39;ensemble de fichiers suivant :</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ variations/
 │  ├─ fr-fr/
@@ -849,7 +849,7 @@
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  ├─ cv.html
 │  └─ en/
@@ -857,7 +857,7 @@
 ┊┉
 </code></pre><p><em>Note : Si</em> <strong><em>serverlessRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p><h4 id="g-n-rer-les-fichiers-statics">Générer les fichiers statics</h4><p>Les fichiers défini dans <code>statics</code> sont également automatiquement copier dans le dossier <code>serverlessRelativePath</code> lors de l&#39;appel à <code>--generate</code>. Pour évitere cela, vous pouvez utiliser pour chaque dossier statique le paramètre <code>output</code> mis à <code>false</code>.</p><pre><code>{
     &quot;statics&quot;: {
-        &quot;/javascript/models&quot;: {
+        &quot;/javascripts/models&quot;: {
             &quot;path&quot;: &quot;models&quot;,
             &quot;output&quot;: false
         }
@@ -900,7 +900,7 @@
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body class=&quot;&lt;%= specific.classPage %&gt;&quot;&gt;
-</code></pre><p><em>views/partials/foot.ejs</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.ejs</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascripts/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>views/index.ejs</em></p><pre><code class="lang-html">    &lt;%- include(&quot;partials/head&quot;) %&gt;
@@ -978,7 +978,7 @@ html(lang=&quot;fr-fr&quot;)
     body(class=specific.classPage)
         include partials/header
         include #{routeParameters.view}
-        script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
+        script(async, type=&quot;text/javascript&quot;, src=&quot;javascripts/&quot; + common.classJsCommon + &quot;.js&quot;)
 </code></pre><p><em>views/partials/header.pug</em></p><pre><code class="lang-html">h1 #{titleWebsite}
 </code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
     h2 #{specific.titlePage}

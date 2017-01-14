@@ -624,7 +624,7 @@ exports.changeDom = function (next, locals, request, response) {
     }
 }
 </code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ assets/
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
 │  ├─ common.js
@@ -645,7 +645,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;/div&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;node-atlas/socket.io.js&quot;&gt;&lt;/script&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>Note : Si</em> <strong><em>urlSocketsFile</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>urlSocketsFile</em></strong> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez **</em>urlSocketsFile<em>** à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
@@ -678,7 +678,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p><em>assets/javascript/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
+</code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
     input = document.getElementsByClassName(&quot;input&quot;)[0];
 
 // On alerte les autres de nos modifications.
@@ -902,7 +902,7 @@ exports.setRoutes = function (next) {
     next(); 
 };
 </code></pre><h3 id="echange-client-serveur-en-temps-reel-avec-websockets">Échange Client-Serveur en temps réel avec Websockets</h3><p>Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l&#39;ensemble de fichier suivant :</p><pre><code>├─ assets/
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
 │  └─ index.js
@@ -943,7 +943,7 @@ exports.setRoutes = function (next) {
         &lt;/div&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;node-atlas/socket.io.js&quot;&gt;&lt;/script&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/index.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>Note : On construit ici la page d&#39;accueil <code>/</code>.</em></p><p>ainsi que les fichiers de variations suivant :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
@@ -981,7 +981,7 @@ exports.setSockets = function () {
         });
     });
 };
-</code></pre><p>Quand au côté client, nous utiliserons les fichiers suivant :</p><p><em>assets/javascript/index.js</em></p><pre><code class="lang-js">var html = document.getElementsByTagName(&quot;html&quot;)[0],
+</code></pre><p>Quand au côté client, nous utiliserons les fichiers suivant :</p><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var html = document.getElementsByTagName(&quot;html&quot;)[0],
     layout = document.getElementsByClassName(&quot;layout&quot;)[0];
 
 // On associe sur le bouton l&#39;action de communiquer avec le serveur en cliquant dessus.
@@ -1863,7 +1863,7 @@ if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
 		</div>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 		
-		<script src="javascript/common.min.js"></script>
+		<script src="javascripts/common.min.js"></script>
 		
 		<script src="https://buttons.github.io/buttons.js"></script>
 	</body>

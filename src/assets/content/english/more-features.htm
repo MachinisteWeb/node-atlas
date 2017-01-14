@@ -131,7 +131,7 @@
 
     next();
 }
-</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
+</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
 <li>Prepare a 404 page.</li>
 <li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
 </ol><p>See the example below:</p><pre><code class="lang-json">{
@@ -351,21 +351,21 @@ exports.setRoutes = function (next) {
 }
 </code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don&#39;t forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="minify-css-js">Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p><h4 id="creating-bundles">Creating Bundles</h4><p>With the following configuration:</p><pre><code class="lang-json">{
     &quot;bundles&quot;: {
-        &quot;javascript&quot;: {
-            &quot;javascript/boot.min.js&quot;: [
-                &quot;javascript/modernizr.js&quot;,
-                &quot;javascript/yepnot.js&quot;,
-                &quot;javascript/html5Shiv.js&quot;
+        &quot;javascripts&quot;: {
+            &quot;javascripts/boot.min.js&quot;: [
+                &quot;javascripts/modernizr.js&quot;,
+                &quot;javascripts/yepnot.js&quot;,
+                &quot;javascripts/html5Shiv.js&quot;
             ],
-            &quot;javascript/framework.min.js&quot;: [
-                &quot;javascript/jquery.js&quot;,
-                &quot;javascript/jquery-ui.js&quot;,
-                &quot;javascript/prettify.js&quot;,
-                &quot;javascript/prettify/run_prettify.js&quot;
+            &quot;javascripts/framework.min.js&quot;: [
+                &quot;javascripts/jquery.js&quot;,
+                &quot;javascripts/jquery-ui.js&quot;,
+                &quot;javascripts/prettify.js&quot;,
+                &quot;javascripts/prettify/run_prettify.js&quot;
             ],
-            &quot;javascript/common.min.js&quot;: [
-                &quot;javascript/components/extended-format-date.js&quot;,
-                &quot;javascript/common.js&quot;
+            &quot;javascripts/common.min.js&quot;: [
+                &quot;javascripts/components/extended-format-date.js&quot;,
+                &quot;javascripts/common.js&quot;
             ]
         },
         &quot;stylesheets&quot;: {
@@ -387,7 +387,7 @@ exports.setRoutes = function (next) {
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
 │  │  └─ common-min1160.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ modernizr.js
 │     ├─ yepnot.js
 │     ├─ html5Shiv.js
@@ -408,7 +408,7 @@ exports.setRoutes = function (next) {
 │  │  ├─ common-min780.css
 │  │  ├─ common-min1160.css
 │  │  └─ common.min.css     ⤆ new file
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ modernizr.js
 │     ├─ yepnot.js
 │     ├─ html5Shiv.js
@@ -431,7 +431,7 @@ exports.setRoutes = function (next) {
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
 │  │  └─ common-min1160.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ modernizr.js
 │     ├─ yepnot.js
 │     ├─ html5Shiv.js
@@ -450,21 +450,21 @@ exports.setRoutes = function (next) {
 </code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;bundles&quot;: {
-        &quot;javascript&quot;: {
-            &quot;javascript/boot.min.js&quot;: [
-                &quot;javascript/modernizr.js&quot;,
-                &quot;javascript/yepnot.js&quot;,
-                &quot;javascript/html5Shiv.js&quot;
+        &quot;javascripts&quot;: {
+            &quot;javascripts/boot.min.js&quot;: [
+                &quot;javascripts/modernizr.js&quot;,
+                &quot;javascripts/yepnot.js&quot;,
+                &quot;javascripts/html5Shiv.js&quot;
             ],
-            &quot;javascript/framework.min.js&quot;: [
-                &quot;javascript/jquery.js&quot;,
-                &quot;javascript/jquery-ui.js&quot;,
-                &quot;javascript/prettify.js&quot;,
-                &quot;javascript/prettify/run_prettify.js&quot;
+            &quot;javascripts/framework.min.js&quot;: [
+                &quot;javascripts/jquery.js&quot;,
+                &quot;javascripts/jquery-ui.js&quot;,
+                &quot;javascripts/prettify.js&quot;,
+                &quot;javascripts/prettify/run_prettify.js&quot;
             ],
-            &quot;javascript/common.min.js&quot;: [
-                &quot;javascript/components/extended-format-date.js&quot;,
-                &quot;javascript/common.js&quot;
+            &quot;javascripts/common.min.js&quot;: [
+                &quot;javascripts/components/extended-format-date.js&quot;,
+                &quot;javascripts/common.js&quot;
             ]
         },
         &quot;stylesheets&quot;: {
@@ -486,21 +486,21 @@ exports.setRoutes = function (next) {
     &quot;httpHostname&quot;: &quot;blog.lesieur.name&quot;,
     &quot;urlPort&quot;: 80,
     &quot;bundles&quot;: {
-        &quot;javascript&quot;: {
-            &quot;javascript/boot.min.js&quot;: [
-                &quot;javascript/modernizr.js&quot;,
-                &quot;javascript/yepnot.js&quot;,
-                &quot;javascript/html5Shiv.js&quot;
+        &quot;javascripts&quot;: {
+            &quot;javascripts/boot.min.js&quot;: [
+                &quot;javascripts/modernizr.js&quot;,
+                &quot;javascripts/yepnot.js&quot;,
+                &quot;javascripts/html5Shiv.js&quot;
             ],
-            &quot;javascript/framework.min.js&quot;: [
-                &quot;javascript/jquery.js&quot;,
-                &quot;javascript/jquery-ui.js&quot;,
-                &quot;javascript/prettify.js&quot;,
-                &quot;javascript/prettify/run_prettify.js&quot;
+            &quot;javascripts/framework.min.js&quot;: [
+                &quot;javascripts/jquery.js&quot;,
+                &quot;javascripts/jquery-ui.js&quot;,
+                &quot;javascripts/prettify.js&quot;,
+                &quot;javascripts/prettify/run_prettify.js&quot;
             ],
-            &quot;javascript/common.min.js&quot;: [
-                &quot;javascript/components/extended-format-date.js&quot;,
-                &quot;javascript/common.js&quot;
+            &quot;javascripts/common.min.js&quot;: [
+                &quot;javascripts/components/extended-format-date.js&quot;,
+                &quot;javascripts/common.js&quot;
             ]
         },
         &quot;stylesheets&quot;: {
@@ -522,7 +522,7 @@ exports.setRoutes = function (next) {
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
 │  │  └─ common-min1160.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ modernizr.js
 │     ├─ yepnot.js
 │     ├─ html5Shiv.js
@@ -560,21 +560,21 @@ exports.setRoutes = function (next) {
     }
 }
 </code></pre><p>and <code>bundles.json</code></p><pre><code class="lang-json">{
-    &quot;javascript&quot;: {
-        &quot;javascript/boot.min.js&quot;: [
-            &quot;javascript/modernizr.js&quot;,
-            &quot;javascript/yepnot.js&quot;,
-            &quot;javascript/html5Shiv.js&quot;
+    &quot;javascripts&quot;: {
+        &quot;javascripts/boot.min.js&quot;: [
+            &quot;javascripts/modernizr.js&quot;,
+            &quot;javascripts/yepnot.js&quot;,
+            &quot;javascripts/html5Shiv.js&quot;
         ],
-        &quot;javascript/framework.min.js&quot;: [
-            &quot;javascript/jquery.js&quot;,
-            &quot;javascript/jquery-ui.js&quot;,
-            &quot;javascript/prettify.js&quot;,
-            &quot;javascript/prettify/run_prettify.js&quot;
+        &quot;javascripts/framework.min.js&quot;: [
+            &quot;javascripts/jquery.js&quot;,
+            &quot;javascripts/jquery-ui.js&quot;,
+            &quot;javascripts/prettify.js&quot;,
+            &quot;javascripts/prettify/run_prettify.js&quot;
         ],
-        &quot;javascript/common.min.js&quot;: [
-            &quot;javascript/components/extended-format-date.js&quot;,
-            &quot;javascript/common.js&quot;
+        &quot;javascripts/common.min.js&quot;: [
+            &quot;javascripts/components/extended-format-date.js&quot;,
+            &quot;javascripts/common.js&quot;
         ]
     },
     &quot;stylesheets&quot;: {
@@ -585,25 +585,25 @@ exports.setRoutes = function (next) {
         ]
     }
 }
-</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-bundles">Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>&quot;stylesheetsBundlesEnable&quot;: false</code> et `&quot;javascriptBundlesEnable&quot;: false`` for each type of Bundle.</p><pre><code class="lang-json">{
-    &quot;stylesheetsBundlesEnable&quot;: false,
-    &quot;javascriptBundlesEnable&quot;: false,
+</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-bundles">Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>&quot;cssBundlingEnable&quot;: false</code> et `&quot;jsBundlingEnable&quot;: false`` for each type of Bundle.</p><pre><code class="lang-json">{
+    &quot;cssBundlingEnable&quot;: false,
+    &quot;jsBundlingEnable&quot;: false,
     &quot;bundles&quot;: {
-        &quot;javascript&quot;: {
-            &quot;javascript/boot.min.js&quot;: [
-                &quot;javascript/modernizr.js&quot;,
-                &quot;javascript/yepnot.js&quot;,
-                &quot;javascript/html5Shiv.js&quot;
+        &quot;javascripts&quot;: {
+            &quot;javascripts/boot.min.js&quot;: [
+                &quot;javascripts/modernizr.js&quot;,
+                &quot;javascripts/yepnot.js&quot;,
+                &quot;javascripts/html5Shiv.js&quot;
             ],
-            &quot;javascript/framework.min.js&quot;: [
-                &quot;javascript/jquery.js&quot;,
-                &quot;javascript/jquery-ui.js&quot;,
-                &quot;javascript/prettify.js&quot;,
-                &quot;javascript/prettify/run_prettify.js&quot;
+            &quot;javascripts/framework.min.js&quot;: [
+                &quot;javascripts/jquery.js&quot;,
+                &quot;javascripts/jquery-ui.js&quot;,
+                &quot;javascripts/prettify.js&quot;,
+                &quot;javascripts/prettify/run_prettify.js&quot;
             ],
-            &quot;javascript/common.min.js&quot;: [
-                &quot;javascript/components/extended-format-date.js&quot;,
-                &quot;javascript/common.js&quot;
+            &quot;javascripts/common.min.js&quot;: [
+                &quot;javascripts/components/extended-format-date.js&quot;,
+                &quot;javascripts/common.js&quot;
             ]
         },
         &quot;stylesheets&quot;: {
@@ -620,25 +620,25 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : if your bundle is in shared file, you could desactivated it also without the <code>&quot;bundles&quot;: &quot;bundles.json&quot;</code>. Just remove it.</em></p><h4 id="re-generate-bundles-before-each-page-response">Re-generate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: false</code> et `&quot;javascriptBundlesBeforeResponse&quot;: false`` for each type of Bundle.</p><pre><code class="lang-json">{
-    &quot;stylesheetsBundlesBeforeResponse&quot;: false,
-    &quot;javascriptBundlesBeforeResponse&quot;: false,
+</code></pre><p><em>Note : if your bundle is in shared file, you could desactivated it also without the <code>&quot;bundles&quot;: &quot;bundles.json&quot;</code>. Just remove it.</em></p><h4 id="re-generate-bundles-before-each-page-response">Re-generate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>&quot;cssBundlingBeforeResponse&quot;: false</code> et `&quot;jsBundlingBeforeResponse&quot;: false`` for each type of Bundle.</p><pre><code class="lang-json">{
+    &quot;cssBundlingBeforeResponse&quot;: false,
+    &quot;jsBundlingBeforeResponse&quot;: false,
     &quot;bundles&quot;: {
-        &quot;javascript&quot;: {
-            &quot;javascript/boot.min.js&quot;: [
-                &quot;javascript/modernizr.js&quot;,
-                &quot;javascript/yepnot.js&quot;,
-                &quot;javascript/html5Shiv.js&quot;
+        &quot;javascripts&quot;: {
+            &quot;javascripts/boot.min.js&quot;: [
+                &quot;javascripts/modernizr.js&quot;,
+                &quot;javascripts/yepnot.js&quot;,
+                &quot;javascripts/html5Shiv.js&quot;
             ],
-            &quot;javascript/framework.min.js&quot;: [
-                &quot;javascript/jquery.js&quot;,
-                &quot;javascript/jquery-ui.js&quot;,
-                &quot;javascript/prettify.js&quot;,
-                &quot;javascript/prettify/run_prettify.js&quot;
+            &quot;javascripts/framework.min.js&quot;: [
+                &quot;javascripts/jquery.js&quot;,
+                &quot;javascripts/jquery-ui.js&quot;,
+                &quot;javascripts/prettify.js&quot;,
+                &quot;javascripts/prettify/run_prettify.js&quot;
             ],
-            &quot;javascript/common.min.js&quot;: [
-                &quot;javascript/components/extended-format-date.js&quot;,
-                &quot;javascript/common.js&quot;
+            &quot;javascripts/common.min.js&quot;: [
+                &quot;javascripts/components/extended-format-date.js&quot;,
+                &quot;javascripts/common.js&quot;
             ]
         },
         &quot;stylesheets&quot;: {
@@ -657,11 +657,11 @@ exports.setRoutes = function (next) {
 }
 </code></pre><p><em>Note : this is not recommanded for production environment because it&#39;s slowed responses pages.</em></p><h4 id="bundles-with-sockets">Bundles with Sockets</h4><p>It&#39;s possible to minify file defined in <code>NA.webconfig.urlSocketsFile</code> even if it&#39;s not a real prysical file. Just add it into bundles of your choice.</p><p>In the following example, virtual <code>/node-atlas/socket.io.js</code> file will be added to bundles with the correct client/server sockets configuration.</p><pre><code class="lang-json">{
     &quot;bundles&quot;: {
-        &quot;javascript&quot;: {
-            &quot;javascript/common.min.js&quot;: [
-                &quot;javascript/socket.io.js&quot;,
+        &quot;javascripts&quot;: {
+            &quot;javascripts/common.min.js&quot;: [
+                &quot;javascripts/socket.io.js&quot;,
                 &quot;node-atlas/socket.io.js&quot;,
-                &quot;javascript/common.js&quot;
+                &quot;javascripts/common.js&quot;
             ]
         }
     },
@@ -980,8 +980,8 @@ exports.setRoutes = function (next) {
         &quot;media/images/example.svg&quot;: &quot;media/images/optimized/&quot;
     }
 }
-</code></pre><p><em>Note : it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-optimizations">Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>&quot;imagesOptimizationsEnable&quot;: false</code>.</p><pre><code class="lang-json">{
-    &quot;imagesOptimizationsEnable&quot;: false,
+</code></pre><p><em>Note : it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-optimizations">Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>&quot;imgOptimizationsEnable&quot;: false</code>.</p><pre><code class="lang-json">{
+    &quot;imgOptimizationsEnable&quot;: false,
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
             &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
@@ -996,8 +996,8 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : if your optimizations is in shared file, you could desactivated it also without the <code>&quot;optimizations&quot;: &quot;optimizations.json&quot;</code>. Just remove it.</em></p><h4 id="re-generate-optimizations-before-each-page-response">Re-generate Optimizations before each Page Response</h4><p>You can ask files to be regenerated before each page response with <code>&quot;stylesheetsBundlesBeforeResponse&quot;: false</code> et `&quot;javascriptBundlesBeforeResponse&quot;: false`` for each type of Bundle.</p><pre><code class="lang-json">{
-    &quot;imagesOptimizationsBeforeResponse&quot;: false,
+</code></pre><p><em>Note : if your optimizations is in shared file, you could desactivated it also without the <code>&quot;optimizations&quot;: &quot;optimizations.json&quot;</code>. Just remove it.</em></p><h4 id="re-generate-optimizations-before-each-page-response">Re-generate Optimizations before each Page Response</h4><p>You can ask files to be regenerated before each page response with <code>&quot;cssBundlingBeforeResponse&quot;: false</code> et `&quot;jsBundlingBeforeResponse&quot;: false`` for each type of Bundle.</p><pre><code class="lang-json">{
+    &quot;imgOptimizationsBeforeResponse&quot;: false,
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
             &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
@@ -1230,12 +1230,12 @@ exports.setSessions = function (next) {
 &lt;!-- ... --&gt;
 &lt;img src=&quot;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
 </code></pre><p>in absolute urls with variable <code>urlBasePath</code> as below:</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&lt;?= urlBasePath ?&gt;stylesheets/common.css&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;img src=&quot;&lt;?= urlBasePath ?&gt;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?= urlBasePath ?&gt;javascript/common.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?= urlBasePath ?&gt;javascripts/common.js&quot;&gt;&lt;/script&gt;
 </code></pre><p>Note that in the case of the following configuration:</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -1403,7 +1403,7 @@ exports.setConfigurations = function (next) {
             &lt;h1&gt;{{specific.titlePage}}&lt;/h1&gt;
             {{{specific.content}}}
         &lt;/div&gt;
-        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/{{common.classJsCommon}}.js&quot;&gt;&lt;/script&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascripts/{{common.classJsCommon}}.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>The goal of <code>engine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, PUG and NodeAtlas syntaxe.</p><h4 id="differences-between-engine-templateenginedelimiter-and-pug-">Differences between <code>engine</code>, <code>templateEngineDelimiter</code> and <code>pug</code></h4><p>It&#39;s possible to render EJS and PUG view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>controller</code> and a <code>npm</code> command to set them. You have just to set <code>engine: &quot;ejs&quot;</code> or <code>engine: &quot;pug&quot;</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the common <code>view</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="no-view">No view</h3><p>It is possible to not using a view and only use a controler. In this case, the <code>changeVariations</code> hook is unused. You will fill the <code>locals.dom</code> value yourself with the <code>changeDom</code> hook.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{

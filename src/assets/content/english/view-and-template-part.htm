@@ -134,7 +134,7 @@
 </code></pre><p>and this set of files:</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  └─ media/
 │     └─ images/
@@ -145,7 +145,7 @@
 </code></pre><p>you will have access to the addresses:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
-<li><em><a href="http://localhost/javascript/common.js">http://localhost/javascript/common.js</a></em></li>
+<li><em><a href="http://localhost/javascripts/common.js">http://localhost/javascripts/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
 </ul><p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default public folder is</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage informations provided by NodeAtlas when a public ressource is requested (like <code>maxAge</code>, <code>Etag</code>, etc.) via the <code>staticOptions</code> property in webconfig. For more informations, see the <a href="http://expressjs.com/en/api.html">Express</a> documentation about static files.</p><h3 id="manage-include-of-partial-files">Manage Include of Partial Files</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
@@ -160,7 +160,7 @@
 </code></pre><p>with the following files:</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ views/
 │  ├─ partials/
@@ -177,7 +177,7 @@
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
@@ -218,7 +218,7 @@
 │  │  ├─ common.css
 │  │  ├─ index.css
 │  │  └─ members.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ common.js
 │     ├─ index.js
 │     └─ members.js
@@ -242,7 +242,7 @@
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;?= specific.classPage ?&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body class=&quot;&lt;?= specific.classPage ?&gt;&quot;&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascripts/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>views/template.htm</em></p><pre><code class="lang-html">    &lt;?- include(&quot;partials/head.htm&quot;) ?&gt;
@@ -532,7 +532,7 @@
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  └─ common.min.css
-│  └─ javascript/
+│  └─ javascripts/
 │     ├─ common.js
 │     └─ common.min.js
 ├─ views/
@@ -548,7 +548,7 @@
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;This is a test to get a file minify/unminify.&lt;/div&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>To run (from the site folder) the the command:</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/
@@ -561,7 +561,7 @@
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;This is a test to get a file minify/unminify.&lt;/div&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>However, running the command:</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.prod.json
@@ -574,14 +574,14 @@
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;This is a test to get a file minify/unminify.&lt;/div&gt;
-        &lt;script type=&quot;text/javascript&quot; src=&quot;javascript/common.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.min.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>Note : It is better to prefix his personal variables with &quot;_&quot; to avoid conflicts with existing or future configuration variables.</em></p><h3 id="use-a-global-view">Use a Global View</h3><p>Include a head part and foot part in two separate files create the following problem: tag from head file are only closed into foot file. Il you want put all global things in the same file you could use a a global view and indicate into where all view are injected. You can use all others mechanism of view in this layout.</p><p>with this set of files</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  └─ index.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ variations/
 │  ├─ common.json
@@ -633,7 +633,7 @@
         &lt;!-- Include the current `view` file --&gt;
         &lt;?- include(routeParameters.view) ?&gt;
 
-        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascripts/&lt;?= common.classJsCommon ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>views/partals/header.htm</em></p><pre><code class="lang-html">&lt;header&gt;
@@ -660,7 +660,7 @@
         &lt;div&gt;
             &lt;p&gt;This is the Homepage.&lt;/p&gt;
         &lt;/div&gt;
-        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>/about/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
@@ -674,7 +674,7 @@
         &lt;div&gt;
             &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
         &lt;/div&gt;
-        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascript/common.js&quot;&gt;&lt;/script&gt;
+        &lt;script async=&quot;true&quot; type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><h3 id="share-directories">Share directories</h3><p>It is possible to share more than only the <code>assetsRelativePath</code> public directory. You could for exemple share views or models with to the client-side. We call them statics files.</p><p>We see the following example:</p><p>with this set of files</p><pre><code>├─ models/
@@ -684,7 +684,7 @@
 └─ webconfig.json
 </code></pre><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;statics&quot;: {
-        &quot;/javascript/models&quot;: &quot;models&quot;
+        &quot;/javascripts/models&quot;: &quot;models&quot;
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -698,7 +698,7 @@
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div id=&quot;user&quot;&gt;&lt;/div&gt;
-        &lt;script src=&quot;javascript/models/user.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;javascripts/models/user.js&quot;&gt;&lt;/script&gt;
         &lt;script&gt;
             var user = new User(),
                 mount = document.getElementById(&quot;user&quot;);
@@ -739,9 +739,9 @@
         }
     };
 }));
-</code></pre><p>We can access to the HTML files <code>http://localhost/</code> and JavaScript <code>http://localhost/javascript/user.js</code>.</p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage informations provided by NodeAtlas when a static ressource is requested (like <code>maxAge</code>, <code>Etag</code>, etc.) via the <code>staticOptions</code>. In this case, the parameter is not a <code>string</code> anymore but an <code>Object</code> and the initial property become the <code>path</code> parameter. By default, <code>staticOptions</code> are the same as global webconfig (more informations at <a href="http://expressjs.com/en/api.html">Express</a> documentation).</p><pre><code class="lang-json">{
+</code></pre><p>We can access to the HTML files <code>http://localhost/</code> and JavaScript <code>http://localhost/javascripts/user.js</code>.</p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage informations provided by NodeAtlas when a static ressource is requested (like <code>maxAge</code>, <code>Etag</code>, etc.) via the <code>staticOptions</code>. In this case, the parameter is not a <code>string</code> anymore but an <code>Object</code> and the initial property become the <code>path</code> parameter. By default, <code>staticOptions</code> are the same as global webconfig (more informations at <a href="http://expressjs.com/en/api.html">Express</a> documentation).</p><pre><code class="lang-json">{
     &quot;statics&quot;: {
-        &quot;/javascript/models&quot;: {
+        &quot;/javascripts/models&quot;: {
             &quot;path&quot;: &quot;models&quot;,
             &quot;staticOptions&quot;: {
                 &quot;index&quot;: false
@@ -754,7 +754,7 @@
 }
 </code></pre><h4 id="order-routes">Order routes</h4><p>It&#39;s also possible to place routes into an array, that allows you to ordonate routes for an advanced usage in controllers section.</p><p>In this case, the path become the <code>virtual</code> parameter.</p><pre><code class="lang-json">{
     &quot;statics&quot;: [{
-        &quot;virtual&quot;: &quot;/javascript/models&quot;,
+        &quot;virtual&quot;: &quot;/javascripts/models&quot;,
         &quot;path&quot;: &quot;models&quot;,
         &quot;staticOptions&quot;: {
             &quot;index&quot;: false
@@ -789,7 +789,7 @@
 </code></pre><p>and the following set of files:</p><pre><code>├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ views/
 │  ├─ index.htm
@@ -798,7 +798,7 @@
 </code></pre><p>can physically create following output:</p><pre><code>├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  ├─ index.html
 │  ├─ members/
@@ -835,7 +835,7 @@
 </code></pre><p>and the following set of files:</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  └─ javascript/
+│  └─ javascripts/
 │     └─ common.js
 ├─ variations/
 │  ├─ fr-fr/
@@ -849,7 +849,7 @@
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
-│  ├─ javascript/
+│  ├─ javascripts/
 │  │  └─ common.js
 │  ├─ cv.html
 │  └─ en/
@@ -857,7 +857,7 @@
 ┊┉
 </code></pre><p><em>Note : If</em> <strong><em>serverlessRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default folder for generated files is</em> <strong><em>serverless/</em></strong>. <strong><em>serverlessRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="generate-static-files">Generate Static Files</h4><p>Files defined into <code>statics</code> are also automaticly copy into <code>serverlessRelativePath</code> when you use <code>--generate</code>. To avoid this, you could use for each directory the parameter <code>output</code> setted to <code>false</code>.</p><pre><code>{
     &quot;statics&quot;: {
-        &quot;/javascript/models&quot;: {
+        &quot;/javascripts/models&quot;: {
             &quot;path&quot;: &quot;models&quot;,
             &quot;output&quot;: false
         }
@@ -900,7 +900,7 @@
         &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;stylesheets/&lt;%= specific.classPage %&gt;.css&quot; media=&quot;all&quot; /&gt;
     &lt;/head&gt;
     &lt;body class=&quot;&lt;%= specific.classPage %&gt;&quot;&gt;
-</code></pre><p><em>views/partials/foot.ejs</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascript/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
+</code></pre><p><em>views/partials/foot.ejs</em></p><pre><code class="lang-html">        &lt;script async type=&quot;text/javascript&quot; src=&quot;javascripts/&lt;%= common.classJsCommon %&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p><em>views/index.ejs</em></p><pre><code class="lang-html">    &lt;%- include(&quot;partials/head&quot;) %&gt;
@@ -978,7 +978,7 @@ html(lang=&quot;fr-fr&quot;)
     body(class=specific.classPage)
         include partials/header
         include #{routeParameters.view}
-        script(async, type=&quot;text/javascript&quot;, src=&quot;javascript/&quot; + common.classJsCommon + &quot;.js&quot;)
+        script(async, type=&quot;text/javascript&quot;, src=&quot;javascripts/&quot; + common.classJsCommon + &quot;.js&quot;)
 </code></pre><p><em>views/partials/header.pug</em></p><pre><code class="lang-html">h1 #{titleWebsite}
 </code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
     h2 #{specific.titlePage}
