@@ -1,19 +1,6 @@
-<h2 id="anatomie-du-webconfig">Anatomie du Webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d&#39;activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d&#39;un webconfig sachant qu&#39;ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><blockquote>
-<pre><code class="lang-js">Object{
-</code></pre>
-<p>Objet global encapsulant toute la configuration.</p>
-</blockquote><h4 id="assetsrelativepath">assetsRelativePath</h4><blockquote>
-<pre><code class="lang-js">    &quot;assetsRelativePath&quot;: String&lt;path-from-root&gt;,
-</code></pre>
-<p><code>String&lt;path-from-root&gt;</code> défini le chemin relatif à la racine du projet vers les Assets.</p>
-<ul>
-<li><p>Exemple : <code>../dist/</code>.</p>
-</li>
-<li><p>Défaut : <code>assets/</code>.</p>
-</li>
-</ul>
-</blockquote><h4 id="bundles">bundles</h4><blockquote>
-<pre><code class="lang-js">    &quot;bundles&quot;: (String&lt;filepath-from-root&gt; | Object{
+<h2 id="anatomie-du-webconfig">Anatomie du Webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d&#39;activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d&#39;un webconfig sachant qu&#39;ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="lang-js">Object{
+    &quot;assetsRelativePath&quot;: String&lt;path-from-root&gt;,
+    &quot;bundles&quot;: (String&lt;filepath-from-root&gt; | Object{
         &quot;javascripts&quot;: Object{
         ... url: Array.String&lt;filepath-from-assets&gt;
         },
@@ -21,42 +8,7 @@
         ... url: Array.String&lt;filepath-from-assets&gt;
         }
     }),
-</code></pre>
-<p><code>Object</code> représentant l&#39;ensemble des fichiers nécéssaires à la création d&#39;un seul autre minifié. Gère les fichiers JavaScript et les fichier de styles. Ces valeurs peuvent être placées dans un fichier JSON séparé et appelées sous forme de chaine de caractère. Dans ce cas <code>String&lt;filepath-from-root&gt;</code> défini le chemin relatif à la racine du projet vers le fichier JSON.</p>
-<ul>
-<li><p>Exemple 1 : </p>
-<pre><code class="lang-json">{
-  &quot;javascripts&quot;: {
-      &quot;javascripts/boot.min.js&quot;: [
-          &quot;javascripts/modernizr.js&quot;,
-          &quot;javascripts/yepnot.js&quot;,
-          &quot;javascripts/html5Shiv.js&quot;
-      ],
-      &quot;javascripts/framework.min.js&quot;: [
-          &quot;javascripts/jquery.js&quot;,
-          &quot;javascripts/jquery-ui.js&quot;,
-          &quot;javascripts/prettify.js&quot;,
-          &quot;javascripts/prettify/run_prettify.js&quot;
-      ],
-      &quot;javascripts/common.min.js&quot;: [
-          &quot;javascripts/components/extended-format-date.js&quot;,
-          &quot;javascripts/common.js&quot;
-      ]
-  },
-  &quot;stylesheets&quot;: {
-      &quot;stylesheets/common.min.css&quot;: [
-          &quot;stylesheets/common.css&quot;,
-          &quot;stylesheets/common-min780.css&quot;,
-          &quot;stylesheets/common-min1160.css&quot;
-      ]
-  }
-}
-</code></pre>
-</li>
-<li><p>Exemple 2 : <code>bundles.json</code>.</p>
-</li>
-</ul>
-</blockquote><pre><code class="lang-js">    &quot;cache&quot;: Boolean,
+    &quot;cache&quot;: Boolean,
     &quot;charset&quot;: String,
     &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
     &quot;controllersRelativePath&quot;: String&lt;path-from-root&gt;,
@@ -98,41 +50,8 @@
     &quot;pug&quot;: Boolean,
     &quot;put&quot;: Boolean,
     &quot;routes&quot;: (String&lt;filepath-from-root&gt; | Object{
-    ... (/url | key): String&lt;filepath-from-views&gt; | Object{
-            &quot;charset&quot;: String,
-            &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
-            &quot;delete&quot;: Boolean,
-            &quot;get&quot;: Boolean,
-            &quot;headers&quot;: Object,
-            &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
-            &quot;mimeType&quot;: String,
-            &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),
-            &quot;post&quot;: Boolean,
-            &quot;put&quot;: Boolean,
-            &quot;redirect&quot;: (String&lt;urlpath-from-base | url&gt;),
-            &quot;statusCode&quot;: Number,
-            &quot;url&quot;: String&lt;urlpath-from-base&gt;,
-            &quot;variation&quot;: String&lt;filepath-from-variations&gt;,
-            &quot;view&quot;: String&lt;filepath-from-views&gt;
-        })
-    } | Array.Object{
-        &quot;charset&quot;: String,
-        &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
-        &quot;delete&quot;: Boolean,
-        &quot;get&quot;: Boolean,
-        &quot;headers&quot;: Object,
-        &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
-        &quot;key&quot;: String,
-        &quot;mimeType&quot;: String,
-        &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),
-        &quot;post&quot;: Boolean,
-        &quot;put&quot;: Boolean,
-        &quot;redirect&quot;: (String&lt;urlpath-from-base | url&gt;),
-        &quot;statusCode&quot;: Number,
-        &quot;url&quot;: String&lt;urlpath-from-base&gt;,
-        &quot;variation&quot;: String&lt;filepath-from-variations&gt;,
-        &quot;view&quot;: String&lt;filepath-from-views&gt;
-    },
+    ... &quot;(String&lt;/url&gt; | String&lt;key&gt;)&quot;: String&lt;filepath-from-views&gt; | NA&lt;routeParameter&gt;)
+    } | Array.NA&lt;routeParameter&gt;,
     &quot;serverlessRelativePath&quot;: String&lt;path-from-root&gt;,
     &quot;session&quot;: Object,
     &quot;staticOptions&quot;: Object&lt;from-express-statics-options&gt;,
@@ -163,6 +82,24 @@
     &quot;variationsRelativePath&quot;: String&lt;path-from-root&gt;,
     &quot;view&quot;: String&lt;filepath-from-views&gt;,
     &quot;viewsRelativePath&quot;: String&lt;path-from-root&gt;
+}
+</code></pre><h3 id="amp-ltna-routeparameters">&amp;ltNA&gt;.routeParameters</h3><pre><code class="lang-js">Object{
+    &quot;charset&quot;: String,
+    &quot;controller&quot;: String&lt;filepath-from-controllers&gt;,
+    &quot;delete&quot;: Boolean,
+    &quot;get&quot;: Boolean,
+    &quot;headers&quot;: Object,
+    &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
+    &quot;key&quot;: String,
+    &quot;mimeType&quot;: String,
+    &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),
+    &quot;post&quot;: Boolean,
+    &quot;put&quot;: Boolean,
+    &quot;redirect&quot;: (String&lt;urlpath-from-base | url&gt;),
+    &quot;statusCode&quot;: Number,
+    &quot;url&quot;: String&lt;urlpath-from-base&gt;,
+    &quot;variation&quot;: String&lt;filepath-from-variations&gt;,
+    &quot;view&quot;: String&lt;filepath-from-views&gt;
 }
 </code></pre><div><div class="before">
                             <a href="pour-aller-plus-loin.html">◄ Pour aller plus loin</a>

@@ -6459,27 +6459,9 @@ Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souha
 
 ### &lt;NA>.webconfig ###
 
-> ```js
+```js
 Object{
-```
-
-> Objet global encapsulant toute la configuration.
-
-#### assetsRelativePath ####
-
-> ```js
     "assetsRelativePath": String<path-from-root>,
-```
-
-> `String<path-from-root>` défini le chemin relatif à la racine du projet vers les Assets.
-
-> - Exemple : `../dist/`.
-
-> - Défaut : `assets/`.
-
-#### bundles ####
-
-> ```js
     "bundles": (String<filepath-from-root> | Object{
         "javascripts": Object{
         ... url: Array.String<filepath-from-assets>
@@ -6488,44 +6470,6 @@ Object{
         ... url: Array.String<filepath-from-assets>
         }
     }),
-```
-
-> `Object` représentant l'ensemble des fichiers nécéssaires à la création d'un seul autre minifié. Gère les fichiers JavaScript et les fichier de styles. Ces valeurs peuvent être placées dans un fichier JSON séparé et appelées sous forme de chaine de caractère. Dans ce cas `String<filepath-from-root>` défini le chemin relatif à la racine du projet vers le fichier JSON.
-
-> - Exemple 1 : 
-
->   ```json
-{
-	"javascripts": {
-        "javascripts/boot.min.js": [
-            "javascripts/modernizr.js",
-            "javascripts/yepnot.js",
-            "javascripts/html5Shiv.js"
-        ],
-        "javascripts/framework.min.js": [
-            "javascripts/jquery.js",
-            "javascripts/jquery-ui.js",
-            "javascripts/prettify.js",
-            "javascripts/prettify/run_prettify.js"
-        ],
-        "javascripts/common.min.js": [
-            "javascripts/components/extended-format-date.js",
-            "javascripts/common.js"
-        ]
-    },
-    "stylesheets": {
-        "stylesheets/common.min.css": [
-            "stylesheets/common.css",
-            "stylesheets/common-min780.css",
-            "stylesheets/common-min1160.css"
-        ]
-    }
-}
-```
-
-> - Exemple 2 : `bundles.json`.
-
-```js
     "cache": Boolean,
     "charset": String,
     "controller": String<filepath-from-controllers>,
@@ -6568,41 +6512,8 @@ Object{
     "pug": Boolean,
     "put": Boolean,
     "routes": (String<filepath-from-root> | Object{
-    ... (/url | key): String<filepath-from-views> | Object{
-            "charset": String,
-            "controller": String<filepath-from-controllers>,
-            "delete": Boolean,
-            "get": Boolean,
-            "headers": Object,
-            "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-            "mimeType": String,
-            "output": (String<filepath-into-serverless> | Boolean<false>),
-            "post": Boolean,
-            "put": Boolean,
-            "redirect": (String<urlpath-from-base | url>),
-            "statusCode": Number,
-            "url": String<urlpath-from-base>,
-            "variation": String<filepath-from-variations>,
-            "view": String<filepath-from-views>
-        })
-    } | Array.Object{
-        "charset": String,
-        "controller": String<filepath-from-controllers>,
-        "delete": Boolean,
-        "get": Boolean,
-        "headers": Object,
-        "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-        "key": String,
-        "mimeType": String,
-        "output": (String<filepath-into-serverless> | Boolean<false>),
-        "post": Boolean,
-        "put": Boolean,
-        "redirect": (String<urlpath-from-base | url>),
-        "statusCode": Number,
-        "url": String<urlpath-from-base>,
-        "variation": String<filepath-from-variations>,
-        "view": String<filepath-from-views>
-    },
+    ... "(String</url> | String<key>)": String<filepath-from-views> | NA<routeParameter>)
+    } | Array.NA<routeParameter>,
     "serverlessRelativePath": String<path-from-root>,
     "session": Object,
     "staticOptions": Object<from-express-statics-options>,
@@ -6633,6 +6544,29 @@ Object{
     "variationsRelativePath": String<path-from-root>,
     "view": String<filepath-from-views>,
     "viewsRelativePath": String<path-from-root>
+}
+```
+
+### &ltNA>.routeParameters ###
+
+```js
+Object{
+    "charset": String,
+    "controller": String<filepath-from-controllers>,
+    "delete": Boolean,
+    "get": Boolean,
+    "headers": Object,
+    "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
+    "key": String,
+    "mimeType": String,
+    "output": (String<filepath-into-serverless> | Boolean<false>),
+    "post": Boolean,
+    "put": Boolean,
+    "redirect": (String<urlpath-from-base | url>),
+    "statusCode": Number,
+    "url": String<urlpath-from-base>,
+    "variation": String<filepath-from-variations>,
+    "view": String<filepath-from-views>
 }
 ```
 

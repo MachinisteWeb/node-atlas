@@ -6457,6 +6457,8 @@ It's a good thing to not serve file with no modification in production. You coul
 
 The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE http request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.
 
+### &lt;NA>.webconfig ###
+
 ```js
 Object{
     "assetsRelativePath": String<path-from-root>,
@@ -6510,41 +6512,8 @@ Object{
     "pug": Boolean,
     "put": Boolean,
     "routes": (String<filepath-from-root> | Object{
-    ... (/url | key): String<filepath-from-views> | Object{
-            "charset": String,
-            "controller": String<filepath-from-controllers>,
-            "delete": Boolean,
-            "get": Boolean,
-            "headers": Object,
-            "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-            "mimeType": String,
-            "output": (String<filepath-into-serverless> | Boolean<false>),
-            "post": Boolean,
-            "put": Boolean,
-            "redirect": (String<urlpath-from-base | url>),
-            "statusCode": Number,
-            "url": String<urlpath-from-base>,
-            "variation": String<filepath-from-variations>,
-            "view": String<filepath-from-views>
-        })
-    } | Array.Object{
-        "charset": String,
-        "controller": String<filepath-from-controllers>,
-        "delete": Boolean,
-        "get": Boolean,
-        "headers": Object,
-        "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-        "key": String,
-        "mimeType": String,
-        "output": (String<filepath-into-serverless> | Boolean<false>),
-        "post": Boolean,
-        "put": Boolean,
-        "redirect": (String<urlpath-from-base | url>),
-        "statusCode": Number,
-        "url": String<urlpath-from-base>,
-        "variation": String<filepath-from-variations>,
-        "view": String<filepath-from-views>
-    },
+    ... "(String</url> | String<key>)": String<filepath-from-views> | NA<routeParameter>)
+    } | Array.NA<routeParameter>,
     "serverlessRelativePath": String<path-from-root>,
     "session": Object,
     "staticOptions": Object<from-express-statics-options>,
@@ -6575,6 +6544,29 @@ Object{
     "variationsRelativePath": String<path-from-root>,
     "view": String<filepath-from-views>,
     "viewsRelativePath": String<path-from-root>
+}
+```
+
+### &ltNA>.routeParameters ###
+
+```js
+Object{
+    "charset": String,
+    "controller": String<filepath-from-controllers>,
+    "delete": Boolean,
+    "get": Boolean,
+    "headers": Object,
+    "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
+    "key": String,
+    "mimeType": String,
+    "output": (String<filepath-into-serverless> | Boolean<false>),
+    "post": Boolean,
+    "put": Boolean,
+    "redirect": (String<urlpath-from-base | url>),
+    "statusCode": Number,
+    "url": String<urlpath-from-base>,
+    "variation": String<filepath-from-variations>,
+    "view": String<filepath-from-views>
 }
 ```
 
