@@ -1,0 +1,9 @@
+{
+	"/api/random-quote": { 
+		"controller": "get-quote.js"
+	},
+	"/api/protected/random-quote": {
+		"controller": "get-quote.js",
+		"middlewares": "is-authenticated.js"
+	}
+}

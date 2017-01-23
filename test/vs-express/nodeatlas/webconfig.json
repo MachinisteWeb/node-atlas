@@ -2,6 +2,7 @@
 	"pug": true,
 	"httpSecure": "security/server",
 	"variation": "common.json",
+	"urlRelativeSubPath": "subdomain",
 	"assetsRelativePath": "public",
 	"controllersRelativePath": "routes",
 	"pageNotFound": "/error",

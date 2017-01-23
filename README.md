@@ -136,7 +136,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
         "view": "contact-us.htm",
         "variation": "contact-us.json",
         "controller": "contact-us.js",
-        "post": true                 /* Permettre d'accéder à la page par demande en POST pour envoyer un email avec un formulaire. */
+        "post": true                        /* Permettre d'accéder à la page par demande en POST pour envoyer un email avec un formulaire. */
     },
     "home-fr-fr": {
         "url": "/francais/",
@@ -275,7 +275,7 @@ my-website/
 ┊┉
 ```
 
-Étape 4 - Lancement ! ###
+### Étape 4 - Lancement ! ###
 
 Lancer *NodeAtlas* depuis le dossier "my-website" dans votre environnement de développement :
 

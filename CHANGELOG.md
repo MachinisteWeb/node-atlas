@@ -24,6 +24,9 @@ Features:
 - `NA#httpServer` added.
 - `NA#statics` added.
 - `NA#engine` added.
+- `NA#middlewares` added.
+- `NA#middlewaresRelativePath` added.
+- `NA#routeParameters.middlewares` added.
 - `NA#assetsCopyEnable` added.
 - `serverRelativePath` folder is created if is not exist.
 - Language `portRequiresPrivileges` is added.
