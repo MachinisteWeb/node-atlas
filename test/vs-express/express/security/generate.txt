@@ -1,0 +1,3 @@
+1> set OPENSSL_CONF="<path/to/>openssl.cfg"
+2> <path/to/>openssl req -new -newkey rsa:2048 -nodes -out server.csr -keyout server.key -subj "/C=FR/ST=74000/L=Annecy/O=NodeAtlas/OU=Haute-Savoie/CN=server"
+3> <path/to/>openssl openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt

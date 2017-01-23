@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta10",
+  "version": "2.0.0-beta13",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -77,7 +77,7 @@
   },
   "dependencies": {
     "async": "2.1.x",
-    "body-parser": "1.15.x",
+    "body-parser": "1.16.x",
     "cheerio": "0.22.x",
     "clean-css": "3.4.x",
     "commander": "2.9.x",
@@ -86,7 +86,7 @@
     "css-parse": "2.0.x",
     "ejs": "2.5.x",
     "express": "4.14.x",
-    "express-session": "1.14.x",
+    "express-session": "1.15.x",
     "extend": "3.0.x",
     "forcedomain": "0.8.x",
     "imagemin": "5.2.x",

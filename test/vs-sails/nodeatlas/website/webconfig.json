@@ -1,0 +1,6 @@
+{
+	"less": true,
+	"routes": {
+		"/": "index.htm"
+	}
+}

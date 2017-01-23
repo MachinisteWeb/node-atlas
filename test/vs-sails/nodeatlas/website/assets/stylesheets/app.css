@@ -1,0 +1,13 @@
+.disconnected {
+  display: block;
+}
+.connected {
+  display: none;
+}
+.authenticated .disconnected {
+  display: none;
+}
+.authenticated .connected {
+  display: block;
+}
+/*# sourceMappingURL=/stylesheets/app.css.map */

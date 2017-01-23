@@ -1,6 +1,6 @@
 {
-    "commonController": "common.js",
-    "commonVariation": "common.json",
+    "controller": "common.js",
+    "variation": "common.json",
     "controllersRelativePath": "controllers",
     "routes": {
         "/": {

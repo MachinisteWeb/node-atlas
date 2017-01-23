@@ -1,0 +1,9 @@
+{
+	"httpPort": 1447,
+	"mimeType": "application/json",
+	"headers": { 
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Headers": "Authorization"
+	},
+	"routes": "routes.json"
+}

@@ -8,12 +8,12 @@ Features:
 - `NA#locals.urlFilePath` is added.
 - `NA#locals.urlPath` is added.
 - `NA#locals.currentRouteKey` is added.
-- `NA#webconfig.commonView` is added.
+- `NA#webconfig.view` is added.
 - `NA#webconfig.mimeType` is added.
 - `NA#webconfig.charset` is added.
 - `NA#webconfig.headers` is added.
 - `NA#webconfig.cache` is added.
-- `NA#webconfig.enablePug` is added.
+- `NA#webconfig.pug` is added.
 - `NA#routeParameters.enablePug` is added.
 - `NA#controllers[].setSockets` is added for both common and specific controller.
 - `NA#controllers[].changeDom(next(), locals.virtualDom()...` added to directly obtain `$`.
@@ -23,9 +23,13 @@ Features:
 - `NA#httpsServer` added.
 - `NA#httpServer` added.
 - `NA#statics` added.
-- `NA#commonEngine` added.
+- `NA#engine` added.
+- `NA#middlewares` added.
+- `NA#middlewaresRelativePath` added.
+- `NA#routeParameters.middlewares` added.
 - `NA#assetsCopyEnable` added.
 - `serverRelativePath` folder is created if is not exist.
+- Language `portRequiresPrivileges` is added.
 
 Updates:
 
@@ -53,9 +57,16 @@ Updates:
 - `NA#webconfig.templatesRelativePath` become `NA#webconfig.viewsRelativePath`.
 - `NA#webconfig.viewsRelativePath` default value become `"views"`.
 - `NA#webconfig.htmlGeneratesBeforeResponse` become `NA#webconfig.htmlGenerationBeforeResponse`.
+- `NA#webconfig.imagesOptimizationsBeforeResponse` become `NA#webconfig.imgOptimizationsBeforeResponse`.
+- `NA#webconfig.imagesOptimizationsEnable` become `NA#webconfig.imgOptimizationsEnable`.
+- `NA#webconfig.stylesheetsBundlesBeforeResponse` become `NA#webconfig.cssBundlingBeforeResponse`.
+- `NA#webconfig.stylesheetsBundlesEnable` become `NA#webconfig.cssBundlingEnable`.
+- `NA#webconfig.javascriptBundlesBeforeResponse` become `NA#webconfig.jsBundlingBeforeResponse`.
+- `NA#webconfig.javascriptBundlesEnable` become `NA#webconfig.jsBundlingEnable`.
 - `NA#webconfig.viewsRelativePath` replace removed `NA#webconfig.componentsRelativePath`.
 - `NA#webconfig.httpSecureRelativeKeyPath` become `NA#webconfig.httpSecureKeyRelativePath`.
 - `NA#webconfig.httpSecureRelativeCertificatePath` become `NA#webconfig.httpSecureCertificateRelativePath`.
+- `NA#webconfig.bundles.javascript` become `NA#webconfig.bundles.javascripts`.
 - `NA#afterGenerates` become `NA#afterGeneration`.
 - `NA#newRender` become `NA#view`.
 - `NA#addCommonVariation` become `NA#common`.
@@ -82,6 +93,14 @@ Updates:
 - `NA#routeParameters.postSupport` become `NA#routeParameters.post`. 
 - `NA#routeParameters.putSupport` become `NA#routeParameters.put`. 
 - `NA#routeParameters.deleteSupport` become `NA#routeParameters.delete`. 
+- `NA#commonController` become `NA#controller`.
+- `NA#commonVariation` become `NA#variation`.
+- `NA#enableLess` become `NA#less`.
+- `NA#enableStylus` become `NA#stylus`.
+- `NA#enableIndex` become `NA#index`.
+- `NA#enableForceDomain` become `NA#forceDomain`.
+- `NA#stylus.stylus` become `NA#stylus.filse`.
+- `NA#less.files` become `NA#less.files`.
 
 
 
