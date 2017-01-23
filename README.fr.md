@@ -6509,7 +6509,7 @@ Il est possible de ne pas utiliser de vue et de seulement faire appel au contrô
 {
     "routes": {
         "/(:member/)?": {
-            "controller": "index.js"
+            "controller": "index.js",
             "mimeType": "application/json"
         }
     }
@@ -6522,7 +6522,7 @@ Il est possible de ne pas utiliser de vue et de seulement faire appel au contrô
 exports.changeDom = function (next, locals) {
     locals.dom = `{
   "params": ${locals.params.member},
-  "query": ${locals.query.member}
+  "query": ${locals.query.member},
   "body": ${locals.body.member}
 }`;
 

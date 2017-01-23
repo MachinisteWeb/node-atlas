@@ -6509,7 +6509,7 @@ It is possible to not using a view and only use a controler. In this case, the `
 {
     "routes": {
         "/(:member/)?": {
-            "controller": "index.js"
+            "controller": "index.js",
             "mimeType": "application/json"
         }
     }
@@ -6522,7 +6522,7 @@ It is possible to not using a view and only use a controler. In this case, the `
 exports.changeDom = function (next, locals) {
     locals.dom = `{
   "params": ${locals.params.member},
-  "query": ${locals.query.member}
+  "query": ${locals.query.member},
   "body": ${locals.body.member}
 }`;
 

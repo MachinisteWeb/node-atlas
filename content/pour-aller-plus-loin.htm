@@ -1409,7 +1409,7 @@ exports.setConfigurations = function (next) {
 </code></pre><p>Ce que fait <code>engine</code>, c&#39;est abandonner le système de NodeAtlas et passer par celui d&#39;Express. Comme Express a besoin d&#39;un objet <code>response</code> pour rendre une vue, il est impossible d&#39;utiliser ce mécanisme via l&#39;utilisation de la fonction <code>NA.view</code> de l&#39;API NodeAtlas, celle-ci ne supportant que le moteur NodeAtlas, EJS et PUG.</p><h4 id="diff-rence-entre-engine-templateenginedelimiter-et-pug-">Différence entre <code>engine</code>, <code>templateEngineDelimiter</code> et <code>pug</code></h4><p>Il est tout a fait possible de passer par Express pour rendre EJS et PUG. Dans ce cas, puisque <code>node-atlas</code> embarque les modules <code>ejs</code> et <code>pug</code> en tant que dépendance, il n&#39;est pas nécéssaire de passer par le <code>controller</code> commun et l&#39;utilisation de <code>npm</code> pour les mettre en place. Il suffit juste d&#39;utiliser <code>engine: &quot;ejs&quot;</code> ou <code>engine: &quot;pug&quot;</code>.</p><p>Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l&#39;utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour PUG dans la <code>commonView</code> avec <code>#{routeParameters.view}</code>.</p><h3 id="pas-de-vue">Pas de vue</h3><p>Il est possible de ne pas utiliser de vue et de seulement faire appel au contrôleur. Dans ce cas le point d&#39;ancrage <code>changeVariations</code> est inutile. Il va falloir alimenter vous même <code>locals.dom</code> dans le point d&#39;ancrage <code>changeDom</code>.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/(:member/)?&quot;: {
-            &quot;controller&quot;: &quot;index.js&quot;
+            &quot;controller&quot;: &quot;index.js&quot;,
             &quot;mimeType&quot;: &quot;application/json&quot;
         }
     }
@@ -1417,7 +1417,7 @@ exports.setConfigurations = function (next) {
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">exports.changeDom = function (next, locals) {
     locals.dom = `{
   &quot;params&quot;: ${locals.params.member},
-  &quot;query&quot;: ${locals.query.member}
+  &quot;query&quot;: ${locals.query.member},
   &quot;body&quot;: ${locals.body.member}
 }`;
 

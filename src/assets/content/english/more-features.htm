@@ -1409,7 +1409,7 @@ exports.setConfigurations = function (next) {
 </code></pre><p>The goal of <code>engine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, PUG and NodeAtlas syntaxe.</p><h4 id="differences-between-engine-templateenginedelimiter-and-pug-">Differences between <code>engine</code>, <code>templateEngineDelimiter</code> and <code>pug</code></h4><p>It&#39;s possible to render EJS and PUG view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>controller</code> and a <code>npm</code> command to set them. You have just to set <code>engine: &quot;ejs&quot;</code> or <code>engine: &quot;pug&quot;</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the common <code>view</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="no-view">No view</h3><p>It is possible to not using a view and only use a controler. In this case, the <code>changeVariations</code> hook is unused. You will fill the <code>locals.dom</code> value yourself with the <code>changeDom</code> hook.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/(:member/)?&quot;: {
-            &quot;controller&quot;: &quot;index.js&quot;
+            &quot;controller&quot;: &quot;index.js&quot;,
             &quot;mimeType&quot;: &quot;application/json&quot;
         }
     }
@@ -1417,7 +1417,7 @@ exports.setConfigurations = function (next) {
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">exports.changeDom = function (next, locals) {
     locals.dom = `{
   &quot;params&quot;: ${locals.params.member},
-  &quot;query&quot;: ${locals.query.member}
+  &quot;query&quot;: ${locals.query.member},
   &quot;body&quot;: ${locals.body.member}
 }`;
 
