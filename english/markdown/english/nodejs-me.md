@@ -61,6 +61,6 @@
   }
 }</code></pre>
 
-<p><strong>Run and browse wesite</strong></p>
+<p><strong>Run and Browse Wesite</strong></p>
 
 <pre><code class="lang-bash">nodeatlas --browse</code></pre>

@@ -51,7 +51,7 @@
 html
   head
     title= common.title
-    link(rel="stylesheet", href="/stylesheets/style.css")
+    link(rel="stylesheet", href="./stylesheets/style.css")
   body
     block content</code></pre>
 
@@ -112,6 +112,7 @@ block content
   "httpPort": 8443,
   "httpSecure": "security/server",
   "variation": "common.json",
+  "urlRelativeSubPath": "subdomain",
   "assetsRelativePath": "public",
   "controllersRelativePath": "routes",
   "pageNotFound": "/error",
@@ -137,6 +138,6 @@ block content
   "browse": true
 });</code></pre>
 
-<p><strong>Run and browse wesite</strong></p>
+<p><strong>Run and Browse Wesite</strong></p>
 
 <pre><code class="lang-bash">npm start</code></pre>

@@ -1,7 +1,11 @@
 {
 	"httpPort": 7777,
-    "less": "less.json",
-    "stylus": "stylus.json",
+    "less": {
+    	"files": "less.json"
+    },
+    "stylus": { 
+    	"files": "stylus.json"
+    },
 	"index": true,
 	"languageCode": "fr-fr",
 	"controller": "common.js",

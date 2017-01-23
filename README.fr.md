@@ -108,6 +108,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Échange Client-Serveur en temps réel avec Websockets](#échange-client-serveur-en-temps réel-avec-websockets)
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
  - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
+ - [Utiliser des Middlewares depuis Express](#utiliser-des-middlewares-depuis-express)
 - [Pour aller plus loin](#pour-aller-plus-loin)
  - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
@@ -1033,9 +1034,9 @@ Cela va vous permettre par exemple de gérer la langue maître directement dans 
 ├─ variations/
 │  ├─ common.json
 │  ├─ home.json
-│  ├─ fr-fr
-│  │  ├─ common.json
-│  │  └─ home.json
+│  └─ fr-fr
+│     ├─ common.json
+│     └─ home.json
 ┊┉
 ```
 
@@ -4146,6 +4147,149 @@ Vous obtiendrez la sortie suivante :
 
 
 
+### Utiliser des Middlewares depuis Express ###
+
+NodeAtlas repose en partie sur le module NPM [Express.js](http://expressjs.com/). Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de `NA#express`. Cela vous permet d'ajouter des Middlewares Express de la même manière que vous l'auriez fait avec Express seul.
+
+En ce qui concerne la pré-configuration d'Express avec un Webconfig vide, elle est faites ainsi :
+
+```js
+NA.express.set("strict routing", true);
+/* ... */
+NA.express.set("x-powered-by", false);
+/* ... */
+/* Activation de gzip, deflate et cie. */
+NA.express.use(compress());
+/* ... */
+/* Parse le type d'encryption "x-www-form-urlencoded". */
+NA.express.use(bodyParser.urlencoded({ extended: true }));
+/* ... */
+/* Parse le type d'encryption "application/json". */
+NA.express.use(bodyParser.json());
+/* ... */
+/* Parse les cookies. */
+NA.express.use(cookieParser());
+/* ... */
+/* Gére les cookies de session. */
+NA.express.use(session(optionSession));
+/* ... */
+/* Gére de dossier `assets/` et son accès depuis le domain root ou un sous-dossier. */
+NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));
+```
+
+Vous pouvez vous même ajouter des middlewares de plusieurs manière.
+
+#### Avec `setConfigurations` ####
+
+Vous pouvez obtenir l'objet `NA#express` près à accueillir des middlewares ici dans le point d'ancrage `setConfigurations`. Cela ajoutera les mécanismes à toutes les routes de votre site.
+
+```js
+exports.setConfigurations = function (next) {
+
+    // Middleware fait main.
+    NA.express.use(function (request, response, next) {
+        response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+        next();
+    });
+
+    // Middleware ajoutant diverse entête http de sécurisation.
+    NA.express.use(require("helmet")());
+
+    next();
+};
+```
+
+#### Avec le paramètre `middlewares` des Routes ####
+
+Il est également possible de délivrer ses middlewares uniquement pour une seule route. Dans ce cas vous pouvez utilisez le paramètre `middlewares` comme suit :
+
+**webconfig.json**
+
+```js
+{
+    "middlewaresRelativePath": "middlewares",
+    "routes": {
+        "/upload-file": {
+            "view": "upload.htm",
+            "controller": "upload.js",
+            "middlewares": "upload.js"
+        }
+    }
+    "_jwt": {
+        secret: "AUTH_CLIENT_SECRET",
+        audience: "AUTH_CLIENT_ID"
+    }
+}
+```
+
+et utiliser le fichier suivant pour autoriser l'envoi de donnée POST encrypté en "multipart/data-form" uniquement si vous êtes authentifié par un token JSON :
+
+**middlewares/upload.js**
+
+```js
+var multer  = require("multer"),
+    jwt = require("express-jwt");
+
+module.exports = function () {
+    var NA = this,
+        path = NA.modules.path,
+        upload = multer({ dest: path.join(NA.serverPath, "uploads") });
+
+    return [
+        jwt({
+            secret: NA.webconfig._jwt.secret,
+            audience: NA.webconfig._jwt.audience
+        }),
+        upload.single("avatar"),
+    ];
+};
+```
+
+*Note : Si* ***middlewaresRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien* ***middlewares***. ***middlewaresRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+
+#### Avec le paramètre `middlewares` en Global ####
+
+Il est également possible d'utiliser ce système pour toutes les routes, ainsi le webconfig se présenterait plutôt ainsi :
+
+**webconfig.json**
+
+```js
+{
+    "middlewares": "is-authenticated.js"
+    "routes": {
+        "/upload-file": {
+            "view": "upload.htm",
+            "controller": "upload.js"
+        }
+    }
+    "_jwt": {
+        secret: "AUTH_CLIENT_SECRET",
+        audience: "AUTH_CLIENT_ID"
+    }
+}
+```
+
+Avec le fichier :
+
+**middlewares/is-authenticated.js**
+
+```js
+var jwt = require("express-jwt");
+
+module.exports = function () {
+    var NA = this;
+
+    return [
+        jwt({
+            secret: NA.webconfig._jwt.secret,
+            audience: NA.webconfig._jwt.audience
+        })
+    ];
+};
+```
+
+
+
 
 
 ## Pour aller plus loin ##
@@ -6498,6 +6642,8 @@ Object{
         "paths": Array.String<path-from-assets>,
         "sourceMap": Boolean
     }),
+    "middlewares": String,
+    "middlewaresRelativePath": String<path-from-root>,
     "mimeType": String,
     "optimizations": (String<filepath-from-root> | Object{
         "gif": Object,
@@ -6558,6 +6704,7 @@ Object{
     "headers": Object,
     "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
     "key": String,
+    "middlewares": String,
     "mimeType": String,
     "output": (String<filepath-into-serverless> | Boolean<false>),
     "post": Boolean,

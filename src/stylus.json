@@ -1,10 +1,8 @@
-{
-    "files": [
-        "stylesheets/common.styl",
-        "stylesheets/cmpt.popup.styl",
-        "stylesheets/cmpt.header.styl",
-        "stylesheets/cmpt.download.styl",
-        "stylesheets/cmpt.navigation.styl",
-        "stylesheets/cmpt.content.styl"
-    ]
-}
+[
+    "stylesheets/common.styl",
+    "stylesheets/cmpt.popup.styl",
+    "stylesheets/cmpt.header.styl",
+    "stylesheets/cmpt.download.styl",
+    "stylesheets/cmpt.navigation.styl",
+    "stylesheets/cmpt.content.styl"
+]

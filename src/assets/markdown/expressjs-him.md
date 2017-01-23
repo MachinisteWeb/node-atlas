@@ -53,7 +53,7 @@
 html
   head
     title= title
-    link(rel="stylesheet", href="/stylesheets/style.css")
+    link(rel="stylesheet", href="./stylesheets/style.css")
   body
     block content</code></pre>
 
@@ -121,13 +121,15 @@ module.exports = router;</code></pre>
 
 <pre><code class="lang-html">var express = require("express"),
     path = require("path"),
+    url = require("url"),
     cookieParser = require("cookie-parser"),
     bodyParser = require("body-parser"),
 
     index = require("./routes/index"),
     users = require("./routes/users"),
 
-    app = express();
+    app = express(),
+    subdomain = "subdomain";
 
 app.set("strict routing", true);
 app.set("views", path.join(__dirname, "views"));
@@ -136,10 +138,10 @@ app.set("view engine", "pug");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(url.format(path.join("/", subdomain, "/")), express.static(path.join(__dirname, "public")));
 
-app.use("/", index);
-app.use("/users", users);
+app.use(url.format(path.join("/", subdomain, "/")), index);
+app.use(url.format(path.join("/", subdomain, "/users")), users);
 
 app.use(function(req, res, next) {
     next(new Error());

@@ -1,8 +1,12 @@
 {
 	"optimizations": "optimizations.json",
 	"bundles": "bundles.json",
-    "less": "less.json",
-    "stylus": "stylus.json",
+    "less": {
+    	"files": "less.json"
+    },
+    "stylus": { 
+    	"files": "stylus.json"
+    },
 	"index": true,
 	"languageCode": "en-us",
 	"controller": "common.js",

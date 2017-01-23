@@ -9,6 +9,7 @@
         "media/images/transparent.png": "media/images/min/",
         "media/images/battles/node-atlas.png": "media/images/min/battles/",
         "media/images/battles/nodejs.png": "media/images/min/battles/",
+        "media/images/battles/sailsjs.png": "media/images/min/battles/",
         "media/images/battles/expressjs.png": "media/images/min/battles/"
     }
 }

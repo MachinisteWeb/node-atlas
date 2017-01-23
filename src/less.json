@@ -1,5 +1,3 @@
-{
-    "files": [
-        "stylesheets/fontawesome.less"
-    ]
-}
+[
+    "stylesheets/fontawesome.less"
+]

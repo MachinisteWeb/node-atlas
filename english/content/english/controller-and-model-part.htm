@@ -1552,6 +1552,95 @@ if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
+</code></pre><h3 id="use-middlewares-from-express">Use Middlewares from Express</h3><p>NodeAtlas is construct on the top of <a href="http://expressjs.com/">Express.js</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this you are able to add Express Middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas&#39;s Express pre-configuration when the Webconfig is empty :</p><pre><code class="lang-js">NA.express.set(&quot;strict routing&quot;, true);
+/* ... */
+NA.express.set(&quot;x-powered-by&quot;, false);
+/* ... */
+/* Activate gzip, deflate and co. */
+NA.express.use(compress());
+/* ... */
+/* Parsing &quot;x-www-form-urlencoded&quot; encryption type. */
+NA.express.use(bodyParser.urlencoded({ extended: true }));
+/* ... */
+/* Parsing &quot;application/json&quot; encryption type. */
+NA.express.use(bodyParser.json());
+/* ... */
+/* Parsing cookies. */
+NA.express.use(cookieParser());
+/* ... */
+/* Manage session cookies. */
+NA.express.use(session(optionSession));
+/* ... */
+/* Manage `assets/` directory and access of file from domain root or a subpath. */
+NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));
+</code></pre><p>You can add middlewares with different ways.</p><h4 id="with-setconfigurations-">With <code>setConfigurations</code></h4><p>You can get the <code>NA#express</code> object ready to use middlewares with the <code>setConfigurations</code> hook. That will add the new mechanisms for all routes of your website.</p><pre><code class="lang-js">exports.setConfigurations = function (next) {
+
+    // Middleware create by you.
+    NA.express.use(function (request, response, next) {
+        response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM http://www.lesieur.name/&quot;);
+        next();
+    });
+
+    // Middleware adding severals security headers.
+    NA.express.use(require(&quot;helmet&quot;)());
+
+    next();
+};
+</code></pre><h4 id="with-the-middlewares-parameter-from-routes">With the <code>middlewares</code> parameter from Routes</h4><p>It&#39;s also possible to deliver middlewares Il est également possible de délivrer ses middlewares only for one route. In this case, you could use the <code>middlewares</code> parameter like this :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+    &quot;middlewaresRelativePath&quot;: &quot;middlewares&quot;,
+    &quot;routes&quot;: {
+        &quot;/upload-file&quot;: {
+            &quot;view&quot;: &quot;upload.htm&quot;,
+            &quot;controller&quot;: &quot;upload.js&quot;,
+            &quot;middlewares&quot;: &quot;upload.js&quot;
+        }
+    }
+    &quot;_jwt&quot;: {
+        secret: &quot;AUTH_CLIENT_SECRET&quot;,
+        audience: &quot;AUTH_CLIENT_ID&quot;
+    }
+}
+</code></pre><p>and use the following file to authorize the &quot;multipart/data-form&quot; encryption data type by POST only if you are authenticated by a JSON token :</p><p><strong>middlewares/upload.js</strong></p><pre><code class="lang-js">var multer  = require(&quot;multer&quot;),
+    jwt = require(&quot;express-jwt&quot;);
+
+module.exports = function () {
+    var NA = this,
+        path = NA.modules.path,
+        upload = multer({ dest: path.join(NA.serverPath, &quot;uploads&quot;) });
+
+    return [
+        jwt({
+            secret: NA.webconfig._jwt.secret,
+            audience: NA.webconfig._jwt.audience
+        }),
+        upload.single(&quot;avatar&quot;),
+    ];
+};
+</code></pre><p><em>Note : If</em> <strong><em>middlewaresRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>middlewares</em></strong>. <strong><em>middlewaresRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="with-the-middlewares-parameter-in-global">With the <code>middlewares</code> parameter in Global</h4><p>It&#39;s also possible to use the same way for all routes. So, the webconfig will be use like that :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+    &quot;middlewares&quot;: &quot;is-authenticated.js&quot;
+    &quot;routes&quot;: {
+        &quot;/upload-file&quot;: {
+            &quot;view&quot;: &quot;upload.htm&quot;,
+            &quot;controller&quot;: &quot;upload.js&quot;
+        }
+    }
+    &quot;_jwt&quot;: {
+        secret: &quot;AUTH_CLIENT_SECRET&quot;,
+        audience: &quot;AUTH_CLIENT_ID&quot;
+    }
+}
+</code></pre><p>With the file :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require(&quot;express-jwt&quot;);
+
+module.exports = function () {
+    var NA = this;
+
+    return [
+        jwt({
+            secret: NA.webconfig._jwt.secret,
+            audience: NA.webconfig._jwt.audience
+        })
+    ];
+};
 </code></pre><div><div class="before">
                             <a href="view-and-template-part.html">◄ View and Template Part</a>
                         </div><div class="after">

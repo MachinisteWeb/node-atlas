@@ -88,5 +88,3 @@ httpServer.listen(httpPort, function () {
 <p><strong>Run and browse wesite</strong></p>
 
 <pre><code class="lang-bash">node app.js</code></pre>
-
-<p>Now you can reach the <code>http://localhost:8000/</code> URL with the browser you like.</p>

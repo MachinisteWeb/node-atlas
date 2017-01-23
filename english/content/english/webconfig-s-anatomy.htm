@@ -36,6 +36,8 @@
         &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
         &quot;sourceMap&quot;: Boolean
     }),
+    &quot;middlewares&quot;: String,
+    &quot;middlewaresRelativePath&quot;: String&lt;path-from-root&gt;,
     &quot;mimeType&quot;: String,
     &quot;optimizations&quot;: (String&lt;filepath-from-root&gt; | Object{
         &quot;gif&quot;: Object,
@@ -91,6 +93,7 @@
     &quot;headers&quot;: Object,
     &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
     &quot;key&quot;: String,
+    &quot;middlewares&quot;: String,
     &quot;mimeType&quot;: String,
     &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),
     &quot;post&quot;: Boolean,
