@@ -37,8 +37,9 @@ btnLogout.addEventListener("click", function() {
 });
 
 btnStandard.addEventListener("click", function() {
-    $.get({
-        url: "http://localhost:1447/api/random-quote"
+    console.log("Bearer " + localStorage.getItem("id-token"));
+    $.ajax({
+        url: "http://localhost:1337/api/random-quote"
     }).done(function (response) {
         alert(response.quote);
     });
@@ -46,8 +47,8 @@ btnStandard.addEventListener("click", function() {
 
 btnSecret.addEventListener("click", function() {
     console.log("Bearer " + localStorage.getItem("id-token"));
-    $.get({
-        url: "http://localhost:1447/api/protected/random-quote",
+    $.ajax({
+        url: "http://localhost:1337/api/protected/random-quote",
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("id-token"));
         }

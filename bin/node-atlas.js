@@ -100,7 +100,8 @@ NA = function () {
     this.pageNotFound = routes.pageNotFound;
 
     /* RESPONSE */
-    this.response = response.response;
+    this.prepareResponse = response.prepareResponse;
+    this.prepareHeaders = response.prepareHeaders;
 
     this.openTemplate = response.openTemplate;
     this.openVariation = response.openVariation;
