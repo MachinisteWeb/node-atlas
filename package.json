@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta14",
+  "version": "2.0.0-beta15",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -79,7 +79,7 @@
     "async": "2.1.x",
     "body-parser": "1.16.x",
     "cheerio": "0.22.x",
-    "clean-css": "3.4.x",
+    "clean-css": "4.0.x",
     "commander": "2.9.x",
     "compression": "1.6.x",
     "cookie-parser": "1.4.x",
