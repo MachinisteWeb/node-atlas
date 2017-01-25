@@ -83,9 +83,9 @@ site-hello-world/
 <li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
 <li>Install <a href="https://github.com/nodejitsu/forever">the CLI tool forever</a> manager for your websites continuously (start, stop, restart, etc.).</li>
 <li>Running in addition of your websites a reverse-proxy running on port 80 for all applications.</li>
-</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
-</code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p><pre><code>\&gt; forever list
-</code></pre><p>and then use the command:</p><pre><code>\&gt; forever stop &lt;uid&gt;
+</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
+</code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p><pre><code>$ forever list
+</code></pre><p>and then use the command:</p><pre><code>$ forever stop &lt;uid&gt;
 </code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
     &quot;urlPort&quot;: 80,
     &quot;httpPort&quot;: 7777,
@@ -160,7 +160,7 @@ var server = bouncy(function (request, response, bounce) {
 });
 
 server.listen(80);
-</code></pre><p>and you can start with:</p><pre><code>\&gt; forever start &lt;/path/to/&gt;global-server.js
+</code></pre><p>and you can start with:</p><pre><code>$ forever start &lt;/path/to/&gt;global-server.js
 </code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p><div><div class="before">
                             <a href="development-environment.html">◄ Development Environment</a>
                         </div><div class="after">

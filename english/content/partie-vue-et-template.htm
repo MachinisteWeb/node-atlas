@@ -551,7 +551,7 @@
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>En lançant (depuis le dossier du site) la commande :</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/
+</code></pre><p>En lançant (depuis le dossier du site) la commande :</p><pre><code class="lang-bash">$ node &lt;/path/to/&gt;node-atlas/
 </code></pre><p>Nous aurons à l&#39;adresse « <a href="http://localhost/">http://localhost/</a> » la sortie suivante avec les fichiers non minifiés :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -564,7 +564,7 @@
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>Cependant en lançant la commande :</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.prod.json
+</code></pre><p>Cependant en lançant la commande :</p><pre><code class="lang-bash">$ node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.prod.json
 </code></pre><p>Nous aurons à l&#39;adresse « <a href="http://localhost/">http://localhost/</a> » la sortie suivante avec les fichiers minifiés :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;

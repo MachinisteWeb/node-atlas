@@ -42,24 +42,24 @@
 </ul><p>et récupérer les valeurs de <code>:member</code>, <code>:action</code>, <code>example</code> et <code>test</code> dans le <code>changeVariations</code> (common et specific).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals, request, response) {
 
     console.log(&quot;param request:&quot;, request.params.member);
-    // \&gt; undefined, &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; or &#39;etc&#39;.
+    // $ undefined, &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; or &#39;etc&#39;.
     console.log(&quot;param locals:&quot;, locals.params.member);
-    // \&gt; undefined, &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; or &#39;etc&#39;.
+    // $ undefined, &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; or &#39;etc&#39;.
 
     console.log(&quot;param request&quot;, request.params.action);
-    // \&gt; undefined, &#39;show&#39; or &#39;lolol&#39;.
+    // $ undefined, &#39;show&#39; or &#39;lolol&#39;.
     console.log(&quot;param locals&quot;, locals.params.action);
-    // \&gt; undefined, &#39;show&#39; or &#39;lolol&#39;.
+    // $ undefined, &#39;show&#39; or &#39;lolol&#39;.
 
     console.log(&quot;query request&quot;, request.query.example);
-    // \&gt; undefined or &#39;test&#39;
+    // $ undefined or &#39;test&#39;
     console.log(&quot;query locals&quot;, locals.query.example);
-    // \&gt; undefined or &#39;test&#39;
+    // $ undefined or &#39;test&#39;
 
     console.log(&quot;body request&quot;, request.body.test);
-    // \&gt; undefined or &#39;This is a test&#39;.
+    // $ undefined or &#39;This is a test&#39;.
     console.log(&quot;body locals&quot;, locals.body.test);
-    // \&gt; undefined or &#39;This is a test&#39;.
+    // $ undefined or &#39;This is a test&#39;.
 
     next();
 };
@@ -127,7 +127,7 @@
     // locals.params[1] pour le deuxième match, etc...
 
     console.log(locals.params.member);
-    // \&gt; &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; ou &#39;etc&#39;.
+    // $ &#39;toto&#39;, &#39;bob-eponge99&#39;, &#39;node-atlas&#39; ou &#39;etc&#39;.
 
     next();
 }

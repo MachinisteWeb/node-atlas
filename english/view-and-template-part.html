@@ -96,15 +96,15 @@
 							<div class="download--cli--inner">
 								<div class="download--cli--step1">
 									<h3>Install NodeAtlas</h3>
-									<pre>&gt; npm install -g node-atlas</pre>
+									<pre>$ npm install -g node-atlas</pre>
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Create test website</h3>
-									<pre>&gt; nodeatlas --create</pre>
+									<pre>$ nodeatlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Run website</h3>
-									<pre>&gt; nodeatlas --browse</pre>
+									<pre>$ nodeatlas --browse</pre>
 								</div>
 							</div>							
 						</div>
@@ -113,7 +113,7 @@
 							<div class="download--api--inner">
 								<div class="download--api--step1">
 									<h3>Install NodeAtlas</h3>
-									<pre>&gt; npm install node-atlas</pre>
+									<pre>$ npm install node-atlas</pre>
 								</div>
 								<div class="download--api--step2">
 									<h3>Create a script</h3>
@@ -129,7 +129,7 @@ website.init({
 								</div>
 								<div class="download--api--step3">
 									<h3>Run website</h3>
-									<pre>&gt; node server.js</pre>
+									<pre>$ node server.js</pre>
 								</div>
 							</div>
 						</div>
@@ -855,7 +855,7 @@ website.init({
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>To run (from the site folder) the the command:</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/
+</code></pre><p>To run (from the site folder) the the command:</p><pre><code class="lang-bash">$ node &lt;/path/to/&gt;node-atlas/
 </code></pre><p>We will have to address &quot;<a href="http://localhost/">http://localhost/</a>&quot; the following output with non-minified files:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -868,7 +868,7 @@ website.init({
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>However, running the command:</p><pre><code class="lang-bash">\&gt; node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.prod.json
+</code></pre><p>However, running the command:</p><pre><code class="lang-bash">$ node &lt;/path/to/&gt;node-atlas/ --webconfig webconfig.prod.json
 </code></pre><p>We will have to address &quot;<a href="http://localhost/">http://localhost/</a>&quot; the following output with minified files:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;

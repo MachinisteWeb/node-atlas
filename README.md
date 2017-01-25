@@ -20,13 +20,13 @@ Ce dépôt contient :
 Pour tester le site sur votre poste, il vous suffit de vous placer dans le dossier `src` et de lancer dans un invité de commande ceci :
 
 ```
-\> cd </path/to/gh-pages-directory>/src/
+$ cd </path/to/gh-pages-directory>/src/
 ```
 
 et utilisez la commande :
 
 ```
-\> node generate-website.na
+$ node generate-website.na
 ```
 
 Le site complet tournera à l'adresse :
@@ -38,7 +38,7 @@ __*Note :*__
 *Si vous avez déjà un serveur web sur le port 80, utilisez plutôt :*
 
 ```
-\> node </path/to/>node-atlas/ --httpPort 7777
+$ node </path/to/>node-atlas/ --httpPort 7777
 ```
 
 *La page sera à :*
@@ -52,13 +52,13 @@ __*Note :*__
 Pour modifier le site sur votre poste, il vous suffit de vous placer dans le dossier `src` et de lancer dans un invité de commande ceci :
 
 ```
-\> cd </path/to/gh-pages-directory>/src/
+$ cd </path/to/gh-pages-directory>/src/
 ```
 
 et utilisez la commande :
 
 ```
-\> node develop-website.na
+$ node develop-website.na
 ```
 
 Les sites tourneront aux adresses :
@@ -85,13 +85,13 @@ This repository contains :
 To test the website on your OS, just go to the `src` directory and run the CLI console like this:
 
 ```
-\> cd </path/to/gh-pages-directory>/src/
+$ cd </path/to/gh-pages-directory>/src/
 ```
 
 and use the following command:
 
 ```
-\> node generate-website.na
+$ node generate-website.na
 ```
 
 The full website will run here:
@@ -103,7 +103,7 @@ __*Note :*__
 *If you already have a web server on port 80, consider using:*
 
 ```
-\> node </path/to/>node-atlas/ --httpPort 7777
+$ node </path/to/>node-atlas/ --httpPort 7777
 ```
 
 *The page will be here:*
@@ -117,13 +117,13 @@ __*Note :*__
 To test the website on your OS, just go to the `src` directory and run the CLI console like this:
 
 ```
-\> cd </path/to/gh-pages-directory>/src/
+$ cd </path/to/gh-pages-directory>/src/
 ```
 
 and use the following command:
 
 ```
-\> node develop-website.na
+$ node develop-website.na
 ```
 
 *Pages will be here:*

@@ -32,17 +32,18 @@
 /* jslint node: true */
 
 /**
- * Generate the HTML output for send to client.
+ * Get all information to prepare the response.
  * @private
- * @function response
+ * @function prepareResponse
  * @memberOf NA#
  * @this NA
  * @param {string} path     The url listening.
  * @param {Object} options  Option associate to this url.
  * @param {Object} request  Initial request.
  * @param {Object} response Initial response.
+ * @param {NA~callback} next       Next step after.
  */
-exports.response = function (path, options, request, response) {
+exports.prepareResponse = function (path, options, request, response, next) {
     var NA = this,
         pathM = NA.modules.path,
 
@@ -122,7 +123,7 @@ exports.response = function (path, options, request, response) {
          * @memberOf NA#routeParameters
          */
         routeParameters.controller);
-    NA.prepareRenderLanguage(locals, routeParameters, request, response, viewsPath, currentPath, path);
+    NA.prepareRenderLanguage(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
 };
 
 /**
@@ -237,8 +238,9 @@ exports.openVariation = function (variationName, languageCode, errorDisabled) {
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
  * @param {string} path            Url path for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.prepareRenderLanguage = function (locals, routeParameters, request, response, viewsPath, currentPath, path) {
+exports.prepareRenderLanguage = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
     var NA = this;
 
     /**
@@ -272,7 +274,7 @@ exports.prepareRenderLanguage = function (locals, routeParameters, request, resp
         NA.webconfig.languageCode;
 
     /* Next preparation render for variation. */
-    NA.prepareRenderPath(locals, routeParameters, request, response, viewsPath, currentPath, path);
+    NA.prepareRenderPath(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
 };
 
 /**
@@ -287,8 +289,9 @@ exports.prepareRenderLanguage = function (locals, routeParameters, request, resp
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
  * @param {string} path            Url path for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.prepareRenderPath = function (locals, routeParameters, request, response, viewsPath, currentPath, path) {
+exports.prepareRenderPath = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
     var NA = this,
         query = (request  &amp;&amp; request.originalUrl &amp;&amp; request.originalUrl.split("?"));
 
@@ -362,7 +365,7 @@ exports.prepareRenderPath = function (locals, routeParameters, request, response
     }
 
     /* Next preparation render for variation. */
-    NA.prepareRenderVariation(locals, routeParameters, request, response, viewsPath, currentPath, path);
+    NA.prepareRenderVariation(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
 };
 
 /**
@@ -377,8 +380,9 @@ exports.prepareRenderPath = function (locals, routeParameters, request, response
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
  * @param {string} path            Url path for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.prepareRenderVariation = function (locals, routeParameters, request, response, viewsPath, currentPath, path) {
+exports.prepareRenderVariation = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
     var NA = this,
         extend = NA.modules.extend;
 
@@ -460,7 +464,7 @@ exports.prepareRenderVariation = function (locals, routeParameters, request, res
     }
 
     /* Nexts Step for render. */
-    NA.prepareRenderParameters(locals, routeParameters, request, response, viewsPath, currentPath, path);
+    NA.prepareRenderParameters(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
 };
 
 /**
@@ -475,8 +479,9 @@ exports.prepareRenderVariation = function (locals, routeParameters, request, res
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
  * @param {string} path            Url path for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.prepareRenderParameters = function (locals, routeParameters, request, response, viewsPath, currentPath, path) {
+exports.prepareRenderParameters = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
     var NA = this;
 
     /**
@@ -521,8 +526,107 @@ exports.prepareRenderParameters = function (locals, routeParameters, request, re
      */
     locals.webconfig = NA.webconfig;
 
+    /* Add preparation into response. */
+    if (response) {
+        response.locals = locals;
+        response.routeParameters = routeParameters;
+        response.viewsPath = viewsPath;
+        response.currentPath = currentPath;
+        response.path = path;
+    }
+
     /* Nexts Step for render. */
-    NA.changeVariationsCommon(locals, routeParameters, request, response, viewsPath, currentPath, path);
+    NA.prepareHeaders(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
+};
+
+/**
+ * Set all webconfig headers.
+ * @private
+ * @function prepareHeaders
+ * @memberOf NA#
+ * @param {Object} locals          Local variables for the current page.
+ * @param {Object} routeParameters All parameters from current route.
+ * @param {Object} request         Information from request.
+ * @param {Object} response        Information from response.
+ * @param {string} viewsPath       Path to the based view.
+ * @param {string} currentPath     Url from `url` value for this render.
+ * @param {string} path            Url path for this render.
+ * @param {NA~callback} next       Next step after.
+ */
+exports.prepareHeaders = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
+    var NA = this,
+        header,
+
+        /**
+         * Charset used for render of this page.
+         * @public
+         * @alias charset
+         * @type {string}
+         * @memberOf NA#routeParameters
+         * @default "utf-8"
+         */
+        charset = locals.routeParameters.charset || routeParameters.charset || NA.webconfig.charset,
+
+        /**
+         * Status Code used for respond with this page.
+         * @public
+         * @alias statusCode
+         * @type {number}
+         * @memberOf NA#routeParameters
+         * @default 200
+         */
+        statusCode = locals.routeParameters.statusCode || routeParameters.statusCode || 200,
+
+        /**
+         * Content Type used for respond with this page.
+         * @public
+         * @alias mimeType
+         * @type {string}
+         * @memberOf NA#routeParameters
+         * @default "text/html"
+         */
+        mimeType = locals.routeParameters.mimeType || routeParameters.mimeType || NA.webconfig.mimeType,
+
+        /**
+         * Headers value used for respond with this page.
+         * @public
+         * @alias mimeType
+         * @type {string}
+         * @memberOf NA#routeParameters
+         * @default "text/html"
+         */
+        headers = locals.routeParameters.headers || routeParameters.headers || {};
+
+    if (response) {
+        /* Set charset and  */
+        response.statusCode = statusCode;
+
+        /* Set headers into response */
+        response.setHeader("Content-Type", mimeType + ";" + " charset=" + charset);
+        for (header in NA.webconfig.headers) {
+            if (!NA.webconfig.headers.hasOwnProperty(header)) {
+                continue;
+            }
+            if (NA.webconfig.headers[header] === false) {
+                response.removeHeader(header);
+            } else {
+                response.setHeader(header, NA.webconfig.headers[header]);
+            }
+        }
+        for (header in headers) {
+            if (!headers.hasOwnProperty(header)) {
+                continue;
+            }
+            if (headers[header] === false) {
+                response.removeHeader(header);
+            } else {
+                response.setHeader(header, headers[header]);
+            }
+        }
+    }
+
+    /* Nexts Step for render. */
+    next(locals, routeParameters, request, response, viewsPath, currentPath, path);
 };
 
 /**
@@ -536,8 +640,9 @@ exports.prepareRenderParameters = function (locals, routeParameters, request, re
  * @param {Object} response        Information from response.
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.changeVariationsCommon = function (locals, routeParameters, request, response, viewsPath, currentPath) {
+exports.changeVariationsCommon = function (locals, routeParameters, request, response, viewsPath, currentPath, next) {
     var NA = this;
 
     /* Use the `NA.controllers[&lt;controller>].changeVariations(...)` function if set... */
@@ -560,11 +665,11 @@ exports.changeVariationsCommon = function (locals, routeParameters, request, res
              * @callback changeVariations~callback
              */
             function () {
-                NA.changeVariationsSpecific(locals, routeParameters, request, response, viewsPath, currentPath);
+                NA.changeVariationsSpecific(locals, routeParameters, request, response, viewsPath, currentPath, next);
             }, locals, request, response);
     /* ...else, just continue. */
     } else {
-        NA.changeVariationsSpecific(locals, routeParameters, request, response, viewsPath, currentPath);
+        NA.changeVariationsSpecific(locals, routeParameters, request, response, viewsPath, currentPath, next);
     }
 };
 
@@ -579,19 +684,20 @@ exports.changeVariationsCommon = function (locals, routeParameters, request, res
  * @param {Object} response        Information from response.
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.changeVariationsSpecific = function (locals, routeParameters, request, response, viewsPath, currentPath) {
+exports.changeVariationsSpecific = function (locals, routeParameters, request, response, viewsPath, currentPath, next) {
     var NA = this;
 
     if (typeof NA.controllers[routeParameters.controller] !== 'undefined' &amp;&amp;
         typeof NA.controllers[routeParameters.controller].changeVariations !== 'undefined') {
             /* Use the `NA.controllers[&lt;controller>].changeVariations(...)` function if set... */
             NA.controllers[routeParameters.controller].changeVariations.call(NA, function () {
-                NA.changeDomCommon(locals, routeParameters, request, response, viewsPath, currentPath);
+                NA.changeDomCommon(locals, routeParameters, request, response, viewsPath, currentPath, next);
             }, locals, request, response);
     } else {
         /* ...else, just continue. */
-        NA.changeDomCommon(locals, routeParameters, request, response, viewsPath, currentPath);
+        NA.changeDomCommon(locals, routeParameters, request, response, viewsPath, currentPath, next);
     }
 };
 
@@ -681,8 +787,9 @@ function engineProcess(NA, viewsPath, locals, routeParameters, response, next) {
  * @param {Object} response        Information from response.
  * @param {string} viewsPath       Path to the based view.
  * @param {string} currentPath     Url from `url` value for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.changeDomCommon = function (locals, routeParameters, request, response, viewsPath, currentPath) {
+exports.changeDomCommon = function (locals, routeParameters, request, response, viewsPath, currentPath, next) {
     var NA = this;
 
         // Transform into HTML
@@ -732,11 +839,11 @@ exports.changeDomCommon = function (locals, routeParameters, request, response, 
                         if (typeof $ === "function") {
                             locals.dom = $.html();
                         }
-                        NA.changeDomSpecific(locals, routeParameters, request, response, currentPath);
+                        NA.changeDomSpecific(locals, routeParameters, request, response, currentPath, next);
                     }, locals, request, response);
             /* ...else, just continue. */
             } else {
-                NA.changeDomSpecific(locals, routeParameters, request, response, currentPath);
+                NA.changeDomSpecific(locals, routeParameters, request, response, currentPath, next);
             }
         });
 };
@@ -751,8 +858,9 @@ exports.changeDomCommon = function (locals, routeParameters, request, response, 
  * @param {Object} request         Information from request.
  * @param {Object} response        Information from response.
  * @param {string} currentPath     Url from `url` value for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.changeDomSpecific = function (locals, routeParameters, request, response, currentPath) {
+exports.changeDomSpecific = function (locals, routeParameters, request, response, currentPath, next) {
     var NA = this;
 
     if (typeof NA.controllers[routeParameters.controller] !== 'undefined' &amp;&amp;
@@ -767,11 +875,11 @@ exports.changeDomSpecific = function (locals, routeParameters, request, response
                 if (typeof $ === "function") {
                     locals.dom = $.html();
                 }
-                NA.intoBrowserAndFiles(locals, routeParameters, request, response, currentPath);
+                NA.intoBrowserAndFiles(locals, routeParameters, request, response, currentPath, next);
             }, locals, request, response);
     } else {
         /** ...else, just continue. */
-        NA.intoBrowserAndFiles(locals, routeParameters, request, response, currentPath);
+        NA.intoBrowserAndFiles(locals, routeParameters, request, response, currentPath, next);
     }
 };
 
@@ -785,18 +893,19 @@ exports.changeDomSpecific = function (locals, routeParameters, request, response
  * @param {Object} request         Information from request.
  * @param {Object} response        Information from response.
  * @param {string} currentPath     Url from `url` value for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.intoBrowserAndFiles = function (locals, routeParameters, request, response, currentPath) {
+exports.intoBrowserAndFiles = function (locals, routeParameters, request, response, currentPath, next) {
     var NA = this;
 
     /* Inject CSS into DOM... */
     if (NA.webconfig.injectCss || routeParameters.injectCss) {
         NA.injectCss(locals.dom, routeParameters.injectCss, function (dom) {
-            NA.renderTemplate(dom, locals, routeParameters, request, response, currentPath);
+            NA.renderTemplate(dom, locals, routeParameters, request, response, currentPath, next);
         });
     /* ...or do nothing. */
     } else {
-        NA.renderTemplate(locals.dom, locals, routeParameters, request, response, currentPath);
+        NA.renderTemplate(locals.dom, locals, routeParameters, request, response, currentPath, next);
     }
 };
 
@@ -811,8 +920,9 @@ exports.intoBrowserAndFiles = function (locals, routeParameters, request, respon
  * @param {Object} request         Information from request.
  * @param {Object} response        Information from response.
  * @param {string} currentPath     Url from `url` value for this render.
+ * @param {NA~callback} next       Next step after.
  */
-exports.renderTemplate = function (data, locals, routeParameters, request, response, currentPath) {
+exports.renderTemplate = function (data, locals, routeParameters, request, response, currentPath, next) {
     var NA = this,
         async = NA.modules.async,
 
@@ -856,7 +966,7 @@ exports.renderTemplate = function (data, locals, routeParameters, request, respo
             NA.jsObfuscation.bind(NA),
             NA.imgOptimization.bind(NA)
         ], function () {
-            NA.sendResponse(request, response, data, routeParameters, locals);
+            NA.sendResponse(request, response, data, next);
         });
     }
 };</code></pre>
@@ -875,7 +985,7 @@ exports.renderTemplate = function (data, locals, routeParameters, request, respo
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Jan 23 2017 11:18:07 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jan 25 2017 15:03:24 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

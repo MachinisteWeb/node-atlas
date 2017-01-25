@@ -83,9 +83,9 @@ site-hello-world/
 <li>Installer <a href="http://nodejs.org/download/">l’exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="https://github.com/nodejitsu/forever">le CLI tool forever</a> pour manager vos sites en continue (démarrage, arrêt, redémarrage, etc.).</li>
 <li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
-</ol><h4 id="quelques-commandes-forever">Quelques commandes forever</h4><p>Pour manager un nouveau site en continue il faut utiliser la commande :</p><pre><code>\&gt; forever start &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
-</code></pre><p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code></p><pre><code>\&gt; forever list
-</code></pre><p>puis utiliser la commande :</p><pre><code>\&gt; forever stop &lt;uid&gt;
+</ol><h4 id="quelques-commandes-forever">Quelques commandes forever</h4><p>Pour manager un nouveau site en continue il faut utiliser la commande :</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
+</code></pre><p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code></p><pre><code>$ forever list
+</code></pre><p>puis utiliser la commande :</p><pre><code>$ forever stop &lt;uid&gt;
 </code></pre><p>ou <code>&lt;uid&gt;</code> est l&#39;<strong>uid</strong> du site qui tourne.</p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
     &quot;urlPort&quot;: 80,
     &quot;httpPort&quot;: 7777,
@@ -160,7 +160,7 @@ var server = bouncy(function (request, response, bounce) {
 });
 
 server.listen(80);
-</code></pre><p>que vous pouvez lancer avec :</p><pre><code>\&gt; forever start &lt;/path/to/&gt;global-server.js
+</code></pre><p>que vous pouvez lancer avec :</p><pre><code>$ forever start &lt;/path/to/&gt;global-server.js
 </code></pre><p><a href="https://github.com/substack/bouncy">Plus d&#39;informations sur Bouncy</a></p><div><div class="before">
                             <a href="environnement-de-developpement.html">◄ Environnement de Développement</a>
                         </div><div class="after">

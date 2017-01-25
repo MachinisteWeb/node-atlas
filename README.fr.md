@@ -364,7 +364,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 Placez-vous avec un invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
 ```bash
-\> node </path/to/>node-atlas/
+$ node </path/to/>node-atlas/
 ```
 
 Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur.
@@ -377,7 +377,7 @@ Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans
 Placez-vous toujours avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
 ```bash
-\> nodeatlas
+$ nodeatlas
 ```
 
 *Note : *si la commande `nodeatlas` n'est pas disponible sous unix après installation (erreur quand vous la tapez), c'est surement à cause d'un problème de droit. Si vous êtes root la commande `chown -R root:root /usr/local/bin/` avant de retaper `npm install -g node-atlas` solutionnera votre problème, sinon la utilisez la commande `sudo npm install -g node-atlas`.*
@@ -396,7 +396,7 @@ nodeAtlas().run();
 ```
 
 ```bash
-\> node server.js
+$ node server.js
 ```
 
 
@@ -1330,7 +1330,7 @@ et « index.htm » contenant :
 En lançant (depuis le dossier du site) la commande :
 
 ```bash
-\> node </path/to/>node-atlas/
+$ node </path/to/>node-atlas/
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
@@ -1353,7 +1353,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 Cependant en lançant la commande :
 
 ```bash
-\> node </path/to/>node-atlas/ --webconfig webconfig.prod.json
+$ node </path/to/>node-atlas/ --webconfig webconfig.prod.json
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
@@ -4358,24 +4358,24 @@ et récupérer les valeurs de `:member`, `:action`, `example` et `test` dans le 
 exports.changeVariations = function (next, locals, request, response) {
 
     console.log("param request:", request.params.member);
-    // \> undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+    // $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
     console.log("param locals:", locals.params.member);
-    // \> undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+    // $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
     console.log("param request", request.params.action);
-    // \> undefined, 'show' or 'lolol'.
+    // $ undefined, 'show' or 'lolol'.
     console.log("param locals", locals.params.action);
-    // \> undefined, 'show' or 'lolol'.
+    // $ undefined, 'show' or 'lolol'.
 
     console.log("query request", request.query.example);
-    // \> undefined or 'test'
+    // $ undefined or 'test'
     console.log("query locals", locals.query.example);
-    // \> undefined or 'test'
+    // $ undefined or 'test'
 
     console.log("body request", request.body.test);
-    // \> undefined or 'This is a test'.
+    // $ undefined or 'This is a test'.
     console.log("body locals", locals.body.test);
-    // \> undefined or 'This is a test'.
+    // $ undefined or 'This is a test'.
 
     next();
 };
@@ -4477,7 +4477,7 @@ exports.changeVariation = function (next, locals) {
     // locals.params[1] pour le deuxième match, etc...
 
     console.log(locals.params.member);
-    // \> 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
+    // $ 'toto', 'bob-eponge99', 'node-atlas' ou 'etc'.
 
     next();
 }
@@ -6723,18 +6723,18 @@ Object{
 
 ## CLI / Commandes de lancement ##
 
-La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `\> node </path/to/>node-atlas/`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
+La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `$ node </path/to/>node-atlas/`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
 
 Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
 
 ```bash
-\> node </path/to/>node-atlas/ --directory hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
+$ node </path/to/>node-atlas/ --directory hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
 ```
 
 or this
 
 ```bash
-\> nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
+$ nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
 ```
 
 
@@ -6752,7 +6752,7 @@ or this
 Pour obtenir de l'aide (ouvrir le MAN) sur les commandes ci-après listé directement dans la CLI, utilisez `--help`
 
 ```
-\> nodeatlas --help
+$ nodeatlas --help
 ```
 
 
@@ -6770,7 +6770,7 @@ Pour obtenir de l'aide (ouvrir le MAN) sur les commandes ci-après listé direct
 Pour connaître la version de NodeAtlas que vous utilisez avec la CLI, il vous suffit de la retourner au format `vX.X.X` grâce à `--version`.
 
 ```
-\> nodeatlas --version
+$ nodeatlas --version
 ```
 
 
@@ -6788,13 +6788,13 @@ Pour connaître la version de NodeAtlas que vous utilisez avec la CLI, il vous s
 Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplée avec `--generate` (voir plus loin).
 
 ```
-\> nodeatlas --browse
+$ nodeatlas --browse
 ```
 
 Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 
 ```
-\> nodeatlas --browse index.html
+$ nodeatlas --browse index.html
 ```
 
 
@@ -6812,7 +6812,7 @@ Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous sera alors très utile.
 
 ```bash
-\> nodeatlas --directory </path/to/your/website/directory>/
+$ nodeatlas --directory </path/to/your/website/directory>/
 ```
 
 
@@ -6830,7 +6830,7 @@ Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où e
 Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
 ```
-\> nodeatlas --webconfig webconfig.alternatif.json
+$ nodeatlas --webconfig webconfig.alternatif.json
 ```
 
 
@@ -6848,7 +6848,7 @@ Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible q
 Il est parfois utile de demander son adresse IP via un `ipconfig` pour le paramettrer dans l'url afin de rendre son site entièrement disponible sur un périphérique du réseau local (smartphone par exemple). Vous pourrez le faire avec cette commande.
 
 ```
-\> nodeatlas --httpHostname 192.168.1.1
+$ nodeatlas --httpHostname 192.168.1.1
 ```
 
 
@@ -6866,7 +6866,7 @@ Il est parfois utile de demander son adresse IP via un `ipconfig` pour le parame
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
 
 ```
-\> nodeatlas --httpPort 7778
+$ nodeatlas --httpPort 7778
 ```
 
 
@@ -6884,7 +6884,7 @@ Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tou
 Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de view appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser `--generate`. Cette commande copiera l'intégralité du contenu du dossier `assetsRelativePath` dans `serverlessRelativePath` si leur chemin est différent.
 
 ```
-\> nodeatlas --generate
+$ nodeatlas --generate
 ```
 
 
@@ -6902,7 +6902,7 @@ Si vous modifiez un élément dans votre fichier de variation commun ou même da
 Si vous souhaitez éviter d'avoir des ressources en cache pendant votre phase de développement, le plus simple est d'utiliser cette option. C'est votre unique possiblilité d'avoir un « Simple Serveur Web » sans cache.
 
 ```
-\> nodeatlas --cache
+$ nodeatlas --cache
 ```
 
 
@@ -6920,7 +6920,7 @@ Si vous souhaitez éviter d'avoir des ressources en cache pendant votre phase de
 NodeAtlas contient un dossier `templates` qui contient des exemples de site prèt à l'usage. Pour les installer dans le répertoire dans lequel vous allez exécuter NodeAtlas il faut vous servir de `--create` suivi du dossier contenu dans `templates` que vous souhaitez utiliser. Par défaut, c'est la valeur `hello-world` qui est utilisée. *Valeurs possible : `hello-world`.*
 
 ```
-\> nodeatlas --create hello-world
+$ nodeatlas --create hello-world
 ```
 
 
@@ -6938,7 +6938,7 @@ NodeAtlas contient un dossier `templates` qui contient des exemples de site prè
 Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HTTPs. Vous devez définir les fichiers `.crt` and `.key` avec `pathName` si vous souhaitez que le serveur lui-même se lance en HTTPs. Par exemple, si vous avez les fichiers `security/server.crt` et `security/server.key` depuis la racine du site NodeAtlas, vous devez utiliser la commande suivante :
 
 ```
-\> node </path/to/>node-atlas/ --httpSecure security/server
+$ node </path/to/>node-atlas/ --httpSecure security/server
 ```
 
 
@@ -6956,7 +6956,7 @@ Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HT
 En utilisant `--lang` vous changerez la langue de utilisée par NodeAtlas. En réalité cette commande remplace le contenu du fichier `languages/default.json` par celui de `languages/fr-fr.json` si le paramètre passé est « fr-fr » comme dans l'exemple ci-dessous. Lancer NodeAtlas ultérieurement conservera la dernière langue utilisée.
 
 ```
-\> nodeatlas --lang fr-fr
+$ nodeatlas --lang fr-fr
 ```
 
 
@@ -6980,7 +6980,7 @@ require("node-atlas")().start();
 ```
 
 ```
-\> node server.js
+$ node server.js
 ```
 
 
@@ -7003,7 +7003,7 @@ require("node-atlas")().init({
 ```
 
 ```
-\> node server.js
+$ node server.js
 ```
 
 L'objet `options` est le suivant :
@@ -7131,13 +7131,13 @@ site-hello-world/
 en exécutant la commande
 
 ```
-\> node </path/to/>node-atlas/
+$ node </path/to/>node-atlas/
 ```
 
 ou même la commande
 
 ```
-\> node </path/to/>node-atlas/ --webconfig webconfig.not-exist.json
+$ node </path/to/>node-atlas/ --webconfig webconfig.not-exist.json
 ```
 
 le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/views/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
@@ -7334,19 +7334,19 @@ Il faut pour cela :
 Pour manager un nouveau site en continue il faut utiliser la commande :
 
 ```
-\> forever start </path/to/>node-atlas/ --directory </path/to/your/website/directory/>
+$ forever start </path/to/>node-atlas/ --directory </path/to/your/website/directory/>
 ```
 
 Pour le stopper, il faut repérer son **uid** avec la commande `forever list`
 
 ```
-\> forever list
+$ forever list
 ```
 
 puis utiliser la commande :
 
 ```
-\> forever stop <uid>
+$ forever stop <uid>
 ```
 
 ou `<uid>` est l'**uid** du site qui tourne.
@@ -7471,7 +7471,7 @@ server.listen(80);
 que vous pouvez lancer avec :
 
 ```
-\> forever start </path/to/>global-server.js
+$ forever start </path/to/>global-server.js
 ```
 
 [Plus d'informations sur Bouncy](https://github.com/substack/bouncy)

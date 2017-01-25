@@ -96,15 +96,15 @@
 							<div class="download--cli--inner">
 								<div class="download--cli--step1">
 									<h3>Installer NodeAtlas</h3>
-									<pre>&gt; npm install -g node-atlas</pre>
+									<pre>$ npm install -g node-atlas</pre>
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>&gt; nodeatlas --create</pre>
+									<pre>$ nodeatlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
-									<pre>&gt; nodeatlas --browse</pre>
+									<pre>$ nodeatlas --browse</pre>
 								</div>
 							</div>							
 						</div>
@@ -113,7 +113,7 @@
 							<div class="download--api--inner">
 								<div class="download--api--step1">
 									<h3>Installer NodeAtlas</h3>
-									<pre>&gt; npm install node-atlas</pre>
+									<pre>$ npm install node-atlas</pre>
 								</div>
 								<div class="download--api--step2">
 									<h3>Créer un script</h3>
@@ -129,7 +129,7 @@ website.init({
 								</div>
 								<div class="download--api--step3">
 									<h3>Lancer le site</h3>
-									<pre>&gt; node server.js</pre>
+									<pre>$ node server.js</pre>
 								</div>
 							</div>
 						</div>
@@ -303,7 +303,7 @@ website.init({
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
 					<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module NPM</h2><p>Vous pouvez lancez NodeAtlas via du code JavaScript.</p><p>L&#39;intégralité des fonctions privés, modules et espaces de nom de NodeAtlas sont décrit dans <a href="https://node-atlas.js.org/doc/">la documentation de l&#39;API</a> (En). En ce qui concerne les <a href="partie-controleur-et-modele.html#cycle-de-vie-et-points-d-ancrage">Points d&#39;ancrage c&#39;est par ici</a> et pour les fonctions de démarrage du serveur c&#39;est ci-dessous :</p><h3 id="na-start">&lt;NA&gt;.start()</h3><p>Exécuté un simple lancement de NodeAtlas avec <code>start()</code>. Par défaut il cherchera le <code>webconfig.json</code> dans le dossier où le script est exécuté. Si aucun <code>webconfig.json</code> n&#39;est trouvé, un Simple Serveur Web sera lancé.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
-</code></pre><pre><code>\&gt; node server.js
+</code></pre><pre><code>$ node server.js
 </code></pre><h3 id="na-init-options">&lt;NA&gt;.init(options)</h3><p>Vous pouvez également configurer le lancement avec <code>init(options)</code> :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().init({
     directory: &quot;/path/to/your/website/directory/&quot;,
     webconfig: &quot;webconfig.alternatif.json&quot;,
@@ -312,7 +312,7 @@ website.init({
     httpPort: 7778,
     generate: true
 }).start();
-</code></pre><pre><code>\&gt; node server.js
+</code></pre><pre><code>$ node server.js
 </code></pre><p>L&#39;objet <code>options</code> est le suivant :</p><pre><code>{
     directory: &lt;string&gt;,
     webconfig: &lt;string&gt;,
