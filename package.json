@@ -1,10 +1,13 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta15",
+  "version": "2.0.0-beta16",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "description": "Progressive realtime web framework config-driven or API-driven for building easily serverless files, websites and webapps component-based and service-oriented.",
   "private": false,
@@ -75,6 +78,11 @@
   "bugs": {
     "url": "https://github.com/Haeresis/NodeAtlas/issues"
   },
+  "devDependencies": {
+    "chai": "3.5.x",
+    "mocha": "3.2.x",
+    "request": "2.79.x"
+  },
   "dependencies": {
     "async": "2.1.x",
     "body-parser": "1.16.x",
@@ -83,6 +91,7 @@
     "commander": "2.9.x",
     "compression": "1.6.x",
     "cookie-parser": "1.4.x",
+    "copy-dir": "0.3.x",
     "css-parse": "2.0.x",
     "ejs": "2.5.x",
     "express": "4.14.x",
@@ -101,7 +110,6 @@
     "pug": "^2.0.0-beta6",
     "socket.io": "1.7.x",
     "stylus": "0.54.x",
-    "copy-dir": "0.3.x",
     "uglify-js": "2.7.x"
   },
   "files": [
@@ -109,6 +117,7 @@
     "lib/*",
     "src/*",
     "templates/*",
+    "test/test.js",
     "bin/node-atlas.js",
     "LICENSE",
     "README.md",

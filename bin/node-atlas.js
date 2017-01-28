@@ -51,104 +51,106 @@ NA = function () {
         return new NA();
     }
 
-    /* CONFIGURATION */
-    this.initCliConfiguration = configuration.initCliConfiguration;
-    this.initRequiredVars = configuration.initRequiredVars;
-    this.initRequiredNpmModulesVars = configuration.initRequiredNpmModulesVars;
-    this.initWebsite = configuration.initWebsite;
-    this.initServerModules = configuration.initServerModules;
-    this.createWebconfig = configuration.createWebconfig;
-    
-    /* NODE MODULES */
-    this.initNodeModules = modules.initNodeModules;
-    this.initNpmModules = modules.initNpmModules;
-
-    /* GLOBAL FUNCTIONS */
-    this.openConfiguration = globals.openConfiguration;
-    this.log = globals.log;
-    this.openController = globals.openController;
-
-    this.extend = globals.extend;
-    this.clone = globals.clone;
-    this.forEach = globals.forEach;
-    this.ifFileExist = globals.ifFileExist;
-    this.common = globals.common;
-    this.specific = globals.specific;
-    this.view = globals.view;
-
-    /* WEB SERVER */
-    this.simpleWebServer = server.simpleWebServer;
-    this.nodeAtlasWebServer = server.nodeAtlasWebServer;
-    this.initMiddlewares = server.initMiddlewares;
-    this.initLessProcess = server.initLessProcess;
-    this.initStylusProcess = server.initStylusProcess;
-    this.initSessions = server.initSessions;
-    this.initSockets = server.initSockets;
-    this.initConfigurations = server.initConfigurations;
-    this.initServer = server.initServer;
-
-    /* ROUTES */
-    this.initStatics = routes.initStatics;
-    this.initRoutes = routes.initRoutes;
-    this.indexPage = routes.indexPage;
-
-    this.sendResponse = routes.sendResponse;
-    this.redirect = routes.redirect;
-    this.executeRequest = routes.executeRequest;
-    this.request = routes.request;
-    this.requestRegex = routes.requestRegex;
-    this.pageNotFound = routes.pageNotFound;
-
-    /* RESPONSE */
-    this.prepareResponse = response.prepareResponse;
-    this.prepareHeaders = response.prepareHeaders;
-
-    this.openTemplate = response.openTemplate;
-    this.openVariation = response.openVariation;
-    this.prepareRenderLanguage = response.prepareRenderLanguage;
-    this.prepareRenderPath = response.prepareRenderPath;
-    this.prepareRenderVariation = response.prepareRenderVariation;
-    this.prepareRenderParameters = response.prepareRenderParameters;
-    this.changeVariationsCommon = response.changeVariationsCommon;
-    this.changeVariationsSpecific = response.changeVariationsSpecific;
-    this.changeDomCommon = response.changeDomCommon;
-    this.changeDomSpecific = response.changeDomSpecific;
-    this.intoBrowserAndFiles = response.intoBrowserAndFiles;
-    this.renderTemplate = response.renderTemplate;
-
-    /* TOOLS */
-    this.cssAlreadyParse = tools.cssAlreadyParse;
-    this.injectCssAuth = tools.injectCssAuth;
-    this.prepareCssInjection = tools.prepareCssInjection;
-    this.injectCss = tools.injectCss;
-    this.lessCompilation = tools.lessCompilation;
-    this.stylusCompilation = tools.stylusCompilation;
-    this.cssCompilation = tools.cssCompilation;
-    this.cssMinification = tools.cssMinification;
-    this.imgOptimization = tools.imgOptimization;
-    this.jsObfuscation = tools.jsObfuscation;
-
-    /* ASSETS GENERATION */
-    this.createTemplateProject = generation.createTemplateProject;
-    this.initOutputs = generation.initOutputs;
-    this.publicsGeneration = generation.publicsGeneration;
-    this.staticsGeneration = generation.staticsGeneration;
-    this.generateAssets = generation.generateAssets;
-    this.saveRender = generation.saveRender;
-
     /* INIT */
-    this.changeLanguage = init.changeLanguage;
     this.configuration = init.configuration;
-    this.init = init.init;
-    this.generated = init.generated;
     this.afterGeneration = init.afterGeneration;
     this.afterRunning = init.afterRunning;
-    this.started = init.started;
     this.afterNewProject = init.afterNewProject;
-    this.created = init.created;
-    this.start = init.start;
-    this.run = init.run;
 };
+
+/* CONFIGURATION */
+NA.prototype.initCliConfiguration = configuration.initCliConfiguration;
+NA.prototype.initRequiredVars = configuration.initRequiredVars;
+NA.prototype.initRequiredNpmModulesVars = configuration.initRequiredNpmModulesVars;
+NA.prototype.initWebsite = configuration.initWebsite;
+NA.prototype.initServerModules = configuration.initServerModules;
+NA.prototype.createWebconfig = configuration.createWebconfig;
+
+/* NODE MODULES */
+NA.prototype.initNodeModules = modules.initNodeModules;
+NA.prototype.initNpmModules = modules.initNpmModules;
+
+/* GLOBAL FUNCTIONS */
+NA.prototype.openConfiguration = globals.openConfiguration;
+NA.prototype.log = globals.log;
+NA.prototype.openController = globals.openController;
+
+NA.prototype.extend = globals.extend;
+NA.prototype.clone = globals.clone;
+NA.prototype.forEach = globals.forEach;
+NA.prototype.ifFileExist = globals.ifFileExist;
+NA.prototype.common = globals.common;
+NA.prototype.specific = globals.specific;
+NA.prototype.view = globals.view;
+
+/* WEB SERVER */
+NA.prototype.simpleWebServer = server.simpleWebServer;
+NA.prototype.nodeAtlasWebServer = server.nodeAtlasWebServer;
+NA.prototype.initMiddlewares = server.initMiddlewares;
+NA.prototype.initLessProcess = server.initLessProcess;
+NA.prototype.initStylusProcess = server.initStylusProcess;
+NA.prototype.initSessions = server.initSessions;
+NA.prototype.initSockets = server.initSockets;
+NA.prototype.initConfigurations = server.initConfigurations;
+NA.prototype.initServer = server.initServer;
+
+/* ROUTES */
+NA.prototype.initStatics = routes.initStatics;
+NA.prototype.initRoutes = routes.initRoutes;
+NA.prototype.indexPage = routes.indexPage;
+
+NA.prototype.sendResponse = routes.sendResponse;
+NA.prototype.redirect = routes.redirect;
+NA.prototype.executeRequest = routes.executeRequest;
+NA.prototype.request = routes.request;
+NA.prototype.requestRegex = routes.requestRegex;
+NA.prototype.pageNotFound = routes.pageNotFound;
+
+/* RESPONSE */
+NA.prototype.prepareResponse = response.prepareResponse;
+NA.prototype.prepareHeaders = response.prepareHeaders;
+
+NA.prototype.openTemplate = response.openTemplate;
+NA.prototype.openVariation = response.openVariation;
+NA.prototype.prepareRenderLanguage = response.prepareRenderLanguage;
+NA.prototype.prepareRenderPath = response.prepareRenderPath;
+NA.prototype.prepareRenderVariation = response.prepareRenderVariation;
+NA.prototype.prepareRenderParameters = response.prepareRenderParameters;
+NA.prototype.changeVariationsCommon = response.changeVariationsCommon;
+NA.prototype.changeVariationsSpecific = response.changeVariationsSpecific;
+NA.prototype.changeDomCommon = response.changeDomCommon;
+NA.prototype.changeDomSpecific = response.changeDomSpecific;
+NA.prototype.intoBrowserAndFiles = response.intoBrowserAndFiles;
+NA.prototype.renderTemplate = response.renderTemplate;
+
+/* TOOLS */
+NA.prototype.cssAlreadyParse = tools.cssAlreadyParse;
+NA.prototype.injectCssAuth = tools.injectCssAuth;
+NA.prototype.prepareCssInjection = tools.prepareCssInjection;
+NA.prototype.injectCss = tools.injectCss;
+NA.prototype.lessCompilation = tools.lessCompilation;
+NA.prototype.stylusCompilation = tools.stylusCompilation;
+NA.prototype.cssCompilation = tools.cssCompilation;
+NA.prototype.cssMinification = tools.cssMinification;
+NA.prototype.imgOptimization = tools.imgOptimization;
+NA.prototype.jsObfuscation = tools.jsObfuscation;
+
+/* ASSETS GENERATION */
+NA.prototype.createTemplateProject = generation.createTemplateProject;
+NA.prototype.initOutputs = generation.initOutputs;
+NA.prototype.publicsGeneration = generation.publicsGeneration;
+NA.prototype.staticsGeneration = generation.staticsGeneration;
+NA.prototype.generateAssets = generation.generateAssets;
+NA.prototype.saveRender = generation.saveRender;
+
+/* INIT */
+NA.prototype.changeLanguage = init.changeLanguage;
+NA.prototype.init = init.init;
+NA.prototype.generated = init.generated;
+NA.prototype.started = init.started;
+NA.prototype.created = init.created;
+NA.prototype.start = init.start;
+NA.prototype.run = init.run;
 
 
 
