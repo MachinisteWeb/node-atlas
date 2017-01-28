@@ -131,22 +131,6 @@ describe("All NodeAtlas property from NA instance and prototype chain", function
             'run'
         ]);
     });
-    it("All properties of NA chain prototype have not changed?", function() {
-        expect(all[2]).to.deep.equal([ 
-            '__defineGetter__',
-            '__defineSetter__',
-            'hasOwnProperty',
-            '__lookupGetter__',
-            '__lookupSetter__',
-            'propertyIsEnumerable',
-            'constructor',
-            'toString',
-            'toLocaleString',
-            'valueOf',
-            'isPrototypeOf',
-            '__proto__'  
-        ]);
-    });
 });
 
 
