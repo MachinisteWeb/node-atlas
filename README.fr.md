@@ -1724,7 +1724,7 @@ on peut créer physiquement la sortie suivante :
 ```
 ├─ HTML/
 │  ├─ stylesheets/
-│  │  ├─ common.css
+│  │  └─ common.css
 │  ├─ javascripts/
 │  │  └─ common.js
 │  ├─ index.html
@@ -1752,17 +1752,18 @@ La génération s'enclenche quand on affiche la page uniquement parce que ***htm
 
 Il est également possible de gérer la création d'un site en simple page HTML avec la commande `--generate`.
 
-Si `htmlGenerationBeforeResponse` est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/ --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath`. Bien entendu dans tous les cas cette commande marche et permet de régénérer toutes les pages suite à un changement tel qu'une modification dans un composant appelé sur toutes les pages.
+Si `htmlGenerationBeforeResponse` est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/ --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath` à la condition que le `output` global soit à `true`.
 
-De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publics) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique. Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).
+De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publics) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique à condition que `assetsCopy` soit à `true`. 
 
-- Vous pouvez désactiver la génération des fichier HTML avec `--generate` grâce à `htmlGenerationEnable` à `false`.
-- Vous pouvez désactiver la copy du dossier `assetsRelativePath` dans `serverlessRelativePath` avec `--generate` grâce à `assetsCopyEnable` à `false`.
+Cela vous permet réellement d'obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l'intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).
 
 Voyons cela avec la configuration suivante :
 
 ```json
 {
+    "output": true,
+    "assetsCopy": true,
     "languageCode": "fr-fr",
     "index": true,
     "serverlessRelativePath": "serverless",
@@ -1819,14 +1820,14 @@ Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTM
 
 #### Générer les fichiers statics ####
 
-Les fichiers défini dans `statics` sont également automatiquement copier dans le dossier `serverlessRelativePath` lors de l'appel à `--generate`. Pour évitere cela, vous pouvez utiliser pour chaque dossier statique le paramètre `output` mis à `false`.
+Les fichiers défini dans `statics` sont également copiable dans le dossier `serverlessRelativePath` lors de l'appel à `--generate`. Pour permettre cela, vous pouvez utiliser pour chaque dossier statique le paramètre `output` mis à `true`.
 
 ```
 {
     "statics": {
         "/javascripts/models": {
             "path": "models",
-            "output": false
+            "output": true
         }
     },
 }
@@ -6605,6 +6606,7 @@ Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souha
 
 ```js
 Object{
+    "assetsCopy": Boolean,
     "assetsRelativePath": String<path-from-root>,
     "bundles": (String<filepath-from-root> | Object{
         "javascripts": Object{
@@ -6654,6 +6656,7 @@ Object{
         "png": Object,
         "svg": Object
     },
+    "output": Boolean,
     "post": Boolean,
     "pug": Boolean,
     "put": Boolean,

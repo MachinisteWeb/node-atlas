@@ -1,4 +1,5 @@
 <h2 id="webconfig-s-anatomy">Webconfig&#39;s Anatomy</h2><p>The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE http request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="lang-js">Object{
+    &quot;assetsCopy&quot;: Boolean,
     &quot;assetsRelativePath&quot;: String&lt;path-from-root&gt;,
     &quot;bundles&quot;: (String&lt;filepath-from-root&gt; | Object{
         &quot;javascripts&quot;: Object{
@@ -48,6 +49,7 @@
         &quot;png&quot;: Object,
         &quot;svg&quot;: Object
     },
+    &quot;output&quot;: Boolean,
     &quot;post&quot;: Boolean,
     &quot;pug&quot;: Boolean,
     &quot;put&quot;: Boolean,

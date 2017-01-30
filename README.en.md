@@ -1724,7 +1724,7 @@ can physically create following output:
 ```
 ├─ HTML/
 │  ├─ stylesheets/
-│  │  ├─ common.css
+│  │  └─ common.css
 │  ├─ javascripts/
 │  │  └─ common.js
 │  ├─ index.html
@@ -1752,17 +1752,18 @@ The generation starts when displaying the page if ***htmlGenerationBeforeRespons
 
 You can also manager a simple HTML website page with `--generate` command.
 
-If `htmlGenerationBeforeResponse` is setted to ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/ --generate` will generate all pages into `serverlessRelativePath`. Of course in all cases this command work and allow you to regenerate all pages after a change into all page (a change in a component called on all pages e.g.).
+If `htmlGenerationBeforeResponse` is setted to ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/ --generate` will generate all pages into `serverlessRelativePath` only if global `output` is setted to `true`.
 
-Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path. It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
+Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path only if global `assetsCopy` is setted to `true`. 
 
- - You could desactivate the HTML generation with `--generate` using `htmlGenerationEnable` setted to `false`.
- - You could desactivate the copy of `assetsRelativePath` into `serverlessRelativePath` with `--generate` using `assetsCopyEnable` setted to `false`.
+It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
 
 See this with the following configuration:
 
 ```json
 {
+    "output": true,
+    "assetsCopy": true,
     "languageCode": "fr-fr",
     "index": true,
     "serverlessRelativePath": "serverless",
@@ -1819,14 +1820,14 @@ It will do more than, once `--generate` was used, enjoy your HTML site in the fo
 
 #### Generate Static Files ####
 
-Files defined into `statics` are also automaticly copy into `serverlessRelativePath` when you use `--generate`. To avoid this, you could use for each directory the parameter `output` setted to `false`.
+Files defined into `statics` are also copyble into `serverlessRelativePath` when you use `--generate`. To allows this, you could use for each directory the parameter `output` setted to `true`.
 
 ```
 {
     "statics": {
         "/javascripts/models": {
             "path": "models",
-            "output": false
+            "output": true
         }
     },
 }
@@ -6605,6 +6606,7 @@ The webconfig is that alow you to drive how NodeAtlas will work. If you want use
 
 ```js
 Object{
+    "assetsCopy": Boolean,
     "assetsRelativePath": String<path-from-root>,
     "bundles": (String<filepath-from-root> | Object{
         "javascripts": Object{
@@ -6654,6 +6656,7 @@ Object{
         "png": Object,
         "svg": Object
     },
+    "output": Boolean,
     "post": Boolean,
     "pug": Boolean,
     "put": Boolean,

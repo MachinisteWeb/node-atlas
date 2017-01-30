@@ -8,6 +8,8 @@
     	"files": "stylus.json"
     },
 	"index": true,
+	"output": true,
+	"assetsCopy": true,
 	"languageCode": "fr-fr",
 	"controller": "common.js",
 	"variation": "common.json",
