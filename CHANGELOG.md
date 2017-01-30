@@ -27,7 +27,7 @@ Features:
 - `NA#middlewares` added.
 - `NA#middlewaresRelativePath` added.
 - `NA#routeParameters.middlewares` added.
-- `NA#assetsCopyEnable` added.
+- `NA#assetsCopy` added.
 - `serverRelativePath` folder is created if is not exist.
 - Language `portRequiresPrivileges` is added.
 
@@ -67,6 +67,8 @@ Updates:
 - `NA#webconfig.httpSecureRelativeKeyPath` become `NA#webconfig.httpSecureKeyRelativePath`.
 - `NA#webconfig.httpSecureRelativeCertificatePath` become `NA#webconfig.httpSecureCertificateRelativePath`.
 - `NA#webconfig.bundles.javascript` become `NA#webconfig.bundles.javascripts`.
+- `NA#webconfig.htmlGenerationEnable` become `NA#webconfig.output`.
+- `NA#webconfig.output` to `false` by default.
 - `NA#afterGenerates` become `NA#afterGeneration`.
 - `NA#newRender` become `NA#view`.
 - `NA#addCommonVariation` become `NA#common`.

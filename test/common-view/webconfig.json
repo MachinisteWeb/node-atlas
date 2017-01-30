@@ -1,6 +1,7 @@
 {
     "variation": "common.json",
     "view": "common.htm",
+    "output": true,
     "routes": {
         "/": {
             "view": "index.htm",
