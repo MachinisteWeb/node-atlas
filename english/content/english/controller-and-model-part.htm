@@ -664,16 +664,16 @@ exports.setSockets = function () {
         socket.on(&quot;server-render&quot;, function (data) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session,
-                variations = {};
+                locals = {};
 
             // Specific variations in the good language.
-            variations = NA.specific(&quot;index.json&quot;, data.lang, variations);
+            locals = NA.specific(&quot;index.json&quot;, data.lang, locals);
 
             // Common variations in the good language.
-            variations = NA.common(data.lang, variations);
+            locals = NA.common(data.lang, locals);
 
             // HTML part from `viewsRelativePath` directory and render with variations.
-            result = NA.render(&quot;partials/index.htm&quot;, variations);
+            result = NA.view(&quot;partials/index.htm&quot;, locals);
 
             // And responds to all customers with a set of data in data.
             io.sockets.emit(&quot;server-render&quot;, data);
@@ -705,7 +705,7 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...and we set again button action.
     setServerRender();
 });
-</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.render</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>variations</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>render</code> to use PUG template engine and not EJS, you must defined <code>variations.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.view</code>, it&#39;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>locals</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>view</code> to use PUG template engine and not EJS, you must defined <code>locals.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
 </code></pre><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
 </code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user

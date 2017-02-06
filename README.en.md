@@ -3077,16 +3077,16 @@ exports.setSockets = function () {
         socket.on("server-render", function (data) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session,
-                variations = {};
+                locals = {};
 
             // Specific variations in the good language.
-            variations = NA.specific("index.json", data.lang, variations);
+            locals = NA.specific("index.json", data.lang, locals);
 
             // Common variations in the good language.
-            variations = NA.common(data.lang, variations);
+            locals = NA.common(data.lang, locals);
 
             // HTML part from `viewsRelativePath` directory and render with variations.
-            result = NA.render("partials/index.htm", variations);
+            result = NA.view("partials/index.htm", locals);
 
             // And responds to all customers with a set of data in data.
             io.sockets.emit("server-render", data);
@@ -3129,11 +3129,11 @@ NA.socket.on("server-render", function (data) {
 
 Run your project and go on `http://localhost/` across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.
 
-Thanks to `NA.specific`, `NA.common` and `NA.render`, it's possible to generate a new view and variation compilation.
+Thanks to `NA.specific`, `NA.common` and `NA.view`, it's possible to generate a new view and variation compilation.
 
-If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `variations` is type of `undefined` an empty object will be created.
+If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `locals` is type of `undefined` an empty object will be created.
 
-Note : to allows `render` to use PUG template engine and not EJS, you must defined `variations.pug` to `true` before use `NA.common` and `NA.specific`.
+Note : to allows `view` to use PUG template engine and not EJS, you must defined `locals.pug` to `true` before use `NA.common` and `NA.specific`.
 
 
 

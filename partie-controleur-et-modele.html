@@ -968,16 +968,16 @@ exports.setSockets = function () {
         socket.on(&quot;server-render&quot;, function (data) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session,
-                variations = {};
+                locals = {};
 
             // On récupère les variations spécifiques dans la bonne langue.
-            variations = NA.specific(&quot;index.json&quot;, data.lang, variations);
+            locals = NA.specific(&quot;index.json&quot;, data.lang, locals);
 
             // On récupère les variations communes dans la bonne langue.
-            variations = NA.common(data.lang, variations);
+            locals = NA.common(data.lang, locals);
 
             // On récupère le fragment HTML depuis le dossier `viewsRelativePath` et on applique les variations.
-            data.render = NA.render(&quot;partials/index.htm&quot;, variations);
+            data.render = NA.view(&quot;partials/index.htm&quot;, locals);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
             io.sockets.emit(&quot;server-render&quot;, data);
@@ -1009,7 +1009,7 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...et ré-affectons l&#39;action au bouton du nouveau contenu.
     setServerRender();
 });
-</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.render</code>, il est possible de générer une nouvelle compilation d&#39;une vue et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>variations</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>render</code> d&#39;utiliser le moteur PUG au lieu de celui d&#39;EJS, il faut mettre la valeur <code>variations.pug</code> à <code>true</code> avant d&#39;utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données. Pour cela nous allons utiliser le module NPM <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
+</code></pre><p>Lancer votre projet et rendez-vous à l&#39;adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu&#39;à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de générer une nouvelle compilation d&#39;une vue et d&#39;une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>view</code> d&#39;utiliser le moteur PUG au lieu de celui d&#39;EJS, il faut mettre la valeur <code>locals.pug</code> à <code>true</code> avant d&#39;utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d&#39;une base de données. Pour cela nous allons utiliser le module NPM <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
 </code></pre><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d&#39;abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>et la sélectionner :</p><pre><code class="lang-sql">USE demo
 </code></pre><p>puis créer la table <code>user</code> :</p><pre><code class="lang-sql">CREATE TABLE user

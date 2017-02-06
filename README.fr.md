@@ -3077,16 +3077,16 @@ exports.setSockets = function () {
         socket.on("server-render", function (data) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session,
-                variations = {};
+                locals = {};
 
             // On récupère les variations spécifiques dans la bonne langue.
-            variations = NA.specific("index.json", data.lang, variations);
+            locals = NA.specific("index.json", data.lang, locals);
 
             // On récupère les variations communes dans la bonne langue.
-            variations = NA.common(data.lang, variations);
+            locals = NA.common(data.lang, locals);
             
             // On récupère le fragment HTML depuis le dossier `viewsRelativePath` et on applique les variations.
-            data.render = NA.render("partials/index.htm", variations);
+            data.render = NA.view("partials/index.htm", locals);
 
             // Et on répond à tous les clients avec un jeu de donnée dans data.
             io.sockets.emit("server-render", data);
@@ -3129,11 +3129,11 @@ NA.socket.on("server-render", function (data) {
 
 Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.
 
-Grâce à `NA.specific`, `NA.common` et `NA.render`, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.
+Grâce à `NA.specific`, `NA.common` et `NA.view`, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.
 
-Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `variations` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
+Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `locals` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 
-Note : pour permettre à `render` d'utiliser le moteur PUG au lieu de celui d'EJS, il faut mettre la valeur `variations.pug` à `true` avant d'utiliser `NA.common` et `NA.specific`.
+Note : pour permettre à `view` d'utiliser le moteur PUG au lieu de celui d'EJS, il faut mettre la valeur `locals.pug` à `true` avant d'utiliser `NA.common` et `NA.specific`.
 
 
 
