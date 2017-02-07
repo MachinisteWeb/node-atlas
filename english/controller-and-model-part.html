@@ -384,8 +384,8 @@ website.init({
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next()</code> in first parameter.</li>
 <li>An object <code>locals</code> in second parameter with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific vatiations.</li>
-<li>The <code>response</code> object in third parameter for this page.</li>
-<li>The <code>request</code> object in fourth parameter for this page.</li>
+<li>The <code>request</code> object in third parameter for this page.</li>
+<li>The <code>response</code> object in fourth parameter for this page.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
     &quot;controller&quot;: &quot;common.js&quot;,
@@ -520,8 +520,8 @@ exports.changeVariations = function (next, locals, request, response) {
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next([$])</code> in first parameter which accept an optional first updated <code>$</code> parameter used to manipulate the Virtual DOM.</li>
 <li>An object <code>locals</code> in second parameter with the <code>locals.dom</code> string that contains the response or the <code>locals.virtualDom()</code> function creating the Virtual DOM.</li>
-<li>The <code>response</code> object in third parameter for this page.</li>
-<li>The <code>request</code> object in fourth parameter for this page.</li>
+<li>The <code>request</code> object in third parameter for this page.</li>
+<li>The <code>response</code> object in fourth parameter for this page.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;controller&quot;: &quot;common.js&quot;,
     &quot;variation&quot;: &quot;common.json&quot;,

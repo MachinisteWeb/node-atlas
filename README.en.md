@@ -123,6 +123,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [CSS Inline Injection for Manage Email Assets](#css-inline-injection-for-manage-email-assets)
  - [Allow / Disallow GET / POST requests](#allow--disallow-get--post-requests)
  - [Allow / Disallow PUT / DELETE requests](#allow--disallow-put--delete-requests)
+ - [Manage CORS and OPTIONS requests](#manage-cors-and-options-requests)
  - [Change settings of Sessions](#change-settings-of-sessions)
  - [External Storage Sessions](#external-storage-sessions)
  - [Change the URL hostname and listening port](#change-the-url-hostname-and-listening-port)
@@ -2177,8 +2178,8 @@ In order to intercept variations, you could use common controller for all the we
 - `NA` object as `this`.
 - A callback function `next()` in first parameter.
 - An object `locals` in second parameter with the `locals.common` for common variations and the `locals.specific` for specific vatiations.
-- The `response` object in third parameter for this page.
-- The `request` object in fourth parameter for this page.
+- The `request` object in third parameter for this page.
+- The `response` object in fourth parameter for this page.
 
 This is an example using the two hooks, the common in first and after the specific:
 
@@ -2371,8 +2372,8 @@ In order to intercept DOM before it was sent, you could use common controller fo
 - `NA` object as `this`.
 - A callback function `next([$])` in first parameter which accept an optional first updated `$` parameter used to manipulate the Virtual DOM.
 - An object `locals` in second parameter with the `locals.dom` string that contains the response or the `locals.virtualDom()` function creating the Virtual DOM.
-- The `response` object in third parameter for this page.
-- The `request` object in fourth parameter for this page.
+- The `request` object in third parameter for this page.
+- The `response` object in fourth parameter for this page.
 
 This is an example using the two hooks, the common in first and after the specific:
 
@@ -6044,6 +6045,105 @@ Fonctionnant exactement de la même manière que `get` et `post`, les deux actio
 ```
 
 With the configuration below, only one HTTP action is possible by route, this is a great way to create APIs REST easily with NodeAtlas.
+
+
+
+### Manage CORS and OPTIONS requests ###
+
+By default preflighted requests are not enable. You will need its, for example, to do CORS requests. Prefilghted requests are send with OPTIONS HTTP method.
+
+To activate OPTIONS for a route, use the `options` property on a route of the webconfig. To activate OPTIONS on all routes, use in this case the property `options` in the webconfig in global.
+
+```json
+{
+    "options": true,
+    "routes": {
+        "/read-all-entry/": {
+            "view": "display-json.htm",
+            "variation": "all-entry.json"
+            "options": false
+        },
+        "/create-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "post": true
+        },
+        "/delete-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "delete": true
+        }
+    }
+}
+```
+
+**Cross-Domain Request**
+
+If you want authorize a ressource on the NodeAtlas server requested by domain `www.domain-a.com` for a single page, you could do like this:
+
+```json
+{
+    "routes": {
+    "/api/random-quote": {
+          "controller": "get-quote.js",
+        "headers": { 
+          "Access-Control-Allow-Origin": "http://www.domain-a.com"
+        }
+      }
+  }
+}
+```
+
+With that, you will be able to accept for example a request from `Origin`, `http://www.domain-a.com` which is a value in `Access-Control-Allow-Origin`:
+
+```bash
+GET /api/random-quote HTTP/1.1
+Host: www.domain-a.com
+...
+Origin: http://www.domain-a.com
+...
+```
+
+**Cross-Domain Request with Token**
+
+If you want authorize ressources from NodeAtlas server to the request from anywhere for the `/api/random-quote` page and the page `/api/protected/random-quote` that claims an authentification token, you could do that like this:
+
+```json
+{
+  "mimeType": "application/json",
+  "headers": { 
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Authorization"
+  },
+  "routes": {
+    "/api/random-quote": { 
+      "controller": "get-quote.js"
+    },
+    "/api/protected/random-quote": {
+      "controller": "get-quote.js",
+      "middlewares": "is-authenticated.js",
+      "options": true
+    }
+  }
+}
+```
+
+NodeAtlas will parse a token from external domain if this token is sended by `Authorization` headers in the request. For allows NodeAtlas to accept this request, define it into `Access-Control-Allow-Headers` with the accepted value `Authorization`. Send a token need a preflight request so it's required to set `options` to `true` to authorize HTTP Request with OPTIONS method.
+
+Now, you will be able to accet for example the following request which send an authentification token to our server for the `/api/protected/random-quote` ressource:
+
+```bash
+GET /api/protected/random-quote HTTP/1.1
+Host: localhost:1337
+...
+Origin: http://localhost
+Authorization: Bearer CODE_DU_JETON
+...
+```
+
+**Other Cross-Domain requests**
+
+All headers for CORS features are accepted by the headers adding mechanism of NodeAtlas.
 
 
 

@@ -3392,7 +3392,7 @@
 
 
 <div class="description">
-    Ask for a page in GET, POST, UPDATE or DELETE.
+    Ask for a page in GET, POST, UPDATE, DELETE or OPTIONS.
 </div>
 
 
@@ -3559,6 +3559,29 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>optionsSupport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This page can be requested by OPTIONS ?</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -3672,7 +3695,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line386">line 386</a>
+        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line415">line 415</a>
     </li></ul></dd>
     
 
@@ -9026,7 +9049,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line527">line 527</a>
+        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line564">line 564</a>
     </li></ul></dd>
     
 
@@ -11180,7 +11203,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line488">line 488</a>
+        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line525">line 525</a>
     </li></ul></dd>
     
 
@@ -11606,7 +11629,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line200">line 200</a>
+        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line204">line 204</a>
     </li></ul></dd>
     
 
@@ -11696,7 +11719,7 @@
 
             
 
-            <td class="description last">Contain all GET, POST, PUT and DELETE capability.
+            <td class="description last">Contain all GET, POST, PUT, DELETE or OPTIONS capability.
                 <h6>Properties</h6>
                 
 
@@ -11808,6 +11831,29 @@
             
 
             <td class="description last">This page can be requested by DELETE ?</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>optionsSupport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This page can be requested by OPTIONS ?</td>
         </tr>
 
     
@@ -11947,7 +11993,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line341">line 341</a>
+        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line369">line 369</a>
     </li></ul></dd>
     
 
@@ -12465,7 +12511,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line471">line 471</a>
+        <a href="lib_routes.js.html">lib/routes.js</a>, <a href="lib_routes.js.html#line508">line 508</a>
     </li></ul></dd>
     
 
@@ -12637,7 +12683,7 @@
 
             
 
-            <td class="description last">Type of support GET, POST, PUT or DELETE.</td>
+            <td class="description last">Type of support GET, POST, PUT, DELETE or OPTIONS.</td>
         </tr>
 
     
@@ -13974,6 +14020,232 @@
 
     
 
+    <h4 class="name" id="~changeDomCommon"><span class="type-signature">(private, inner) </span>changeDomCommon<span class="signature">(NA, err, variationName, languageCode, errorDisabled)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Intercept DOM from common file.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>NA</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="NA.html">NA</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">NodeAtlas instance.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>err</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Error to explain.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>variationName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Name of JSON file.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>languageCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Current language for this variation.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>errorDisabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Force no error message.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_response.js.html">lib/response.js</a>, <a href="lib_response.js.html#line137">line 137</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="~changeDomCommon"><span class="type-signature">(private, inner) </span>changeDomCommon<span class="signature">(locals, routeParameters, request, response, viewsPath, currentPath)</span><span class="type-signature"></span></h4>
 
     
@@ -14190,232 +14462,6 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="lib_response.js.html">lib/response.js</a>, <a href="lib_response.js.html#line676">line 676</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~changeDomCommon"><span class="type-signature">(private, inner) </span>changeDomCommon<span class="signature">(NA, err, variationName, languageCode, errorDisabled)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Intercept DOM from common file.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>NA</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="NA.html">NA</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">NodeAtlas instance.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>err</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Error to explain.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>variationName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Name of JSON file.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>languageCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Current language for this variation.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>errorDisabled</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Force no error message.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_response.js.html">lib/response.js</a>, <a href="lib_response.js.html#line137">line 137</a>
     </li></ul></dd>
     
 
@@ -17492,7 +17538,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Feb 06 2017 15:01:45 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 07 2017 13:45:18 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

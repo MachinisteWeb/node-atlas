@@ -123,6 +123,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Injecter du CSS inline pour maintenir des assets Email](#injecter-du-css-inline-pour-maintenir-des-assets-email)
  - [Autoriser / Interdire les demandes GET / POST](#autoriser--interdire-les-demandes-get--post)
  - [Autoriser / Interdire les demandes PUT / DELETE](#autoriser--interdire-les-demandes-put--delete)
+ - [Gérér CORS et les demandes OPTIONS](#gerer-cors-et-les-demandes-options)
  - [Changer les paramètres des Sessions](#changer-les-paramètres-des-sessions)
  - [Stockage externe des Sessions](#stockage-externe-des-sessions)
  - [Changer l'URL final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
@@ -2177,8 +2178,8 @@ Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun
 - L'objet `NA` en tant que `this`.
 - En premier paramètre la fonction de retour `next()`.
 - En deuxième paramètre l'objet `locals` contenant entre autre la variation `locals.common` pour accéder aux variations communes et la variation `locals.specific` pour accéder aux variations spécifiques.
-- En troisième paramètre l'objet `response` qui va être faites.
-- En quatrième paramètre l'objet `request` faites pour cette page. 
+- En troisième paramètre l'objet `request` qui va être faites.
+- En quatrième paramètre l'objet `response` faites pour cette page. 
 
 Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
@@ -2371,8 +2372,8 @@ Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser 
 - L'objet `NA` en tant que `this`.
 - En premier paramètre la fonction de retour `next([$])` acceptant optionellement en premier paramètre la function `$` utilisée pour manipuler le DOM Virtuel.
 - En deuxième paramètre l'objet `locals` contenant entre autre la string `locals.dom` contenant la réponse ou la function `locals.virtualDom()` générant un Dom Virtuel. 
-- En troisième paramètre l'objet `response` qui va être faites.
-- En quatrième paramètre l'objet `request` faites pour cette page. 
+- En troisième paramètre l'objet `request` qui va être faites.
+- En quatrième paramètre l'objet `response` faites pour cette page. 
 
 Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
@@ -6044,6 +6045,105 @@ Fonctionnant exactement de la même manière que `get` et `post`, les deux actio
 ```
 
 Avec la configuration ci-dessus, seulement une action HTTP n'est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.
+
+
+
+### Gérér CORS et les demandes OPTIONS ###
+
+Par défaut, les requêtes pré-vérifiées ("preflighted requests") ne sont pas activées. Vous allez en avoir besoin pour, par exemple, effectuer des requêtes Cross-Domain ou CORS. Les requêtes pré-vérifiées se font avec la méthode HTTP OPTIONS.
+
+Pour activer OPTIONS sur une route, utilisez la propriété `options` sur une route dans le webconfig. Pour activer OPTIONS sur toutes les routes, utilisez alors la propriété options du webconfig sur la configuration global.
+
+```json
+{
+    "options": true,
+    "routes": {
+        "/read-all-entry/": {
+            "view": "display-json.htm",
+            "variation": "all-entry.json"
+            "options": false
+        },
+        "/create-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "post": true
+        },
+        "/delete-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "delete": true
+        }
+    }
+}
+```
+
+**Demande Cross-Domain**
+
+Si vous souhaitez authoriser une ressource du serveur NodeAtlas au requête en provenance de `www.domain-a.com` pour une page précise, vous pouvez le faire ainsi :
+
+```json
+{
+    "routes": {
+		"/api/random-quote": {
+	        "controller": "get-quote.js",
+		    "headers": { 
+		    	"Access-Control-Allow-Origin": "http://www.domain-a.com"
+		    }
+	    }
+	}
+}
+```
+
+Ainsi vous pourrez par exemple accepter la requête suivante qui a pour `Origin`, `http://www.domain-a.com` qui est donc une valeur de `Access-Control-Allow-Origin` :
+
+```bash
+GET /api/random-quote HTTP/1.1
+Host: www.domain-a.com
+...
+Origin: http://www.domain-a.com
+...
+```
+
+**Demande Cross-Domain avec jeton**
+
+Si vous souhaitez authoriser des ressources du serveur NodeAtlas aux requêtes en provenance de n'importe quel domaine externe pour la page `/api/random-quote` et une page qui attend un jeton d'authentification pour la page `/api/protected/random-quote`, vous pouvez le faire ainsi :
+
+```json
+{
+	"mimeType": "application/json",
+	"headers": { 
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Headers": "Authorization"
+	},
+	"routes": {
+		"/api/random-quote": { 
+			"controller": "get-quote.js"
+		},
+		"/api/protected/random-quote": {
+			"controller": "get-quote.js",
+			"middlewares": "is-authenticated.js",
+			"options": true
+		}
+	}
+}
+```
+
+Faire lire un jeton à NodeAtlas depuis un domaine externe nécessite de lui passer l'en-tête HTML `Authorization`. Pour que celle-ci soit accepté par NodeAtlas il faut le définir avec `Access-Control-Allow-Headers` acceptant `Authorization`. L'envoi d'un jeton nécessitant une requête pré-vérifiée, il faut également mettre `options` à `true` pour autoriser les requêtes HTTP avec la méthode OPTIONS.
+
+Ainsi vous pourrez par exemple accepter la requête suivante qui passe un jeton d'authentification à notre serveur pour la ressource `/api/protected/random-quote` :
+
+```bash
+GET /api/protected/random-quote HTTP/1.1
+Host: localhost:1337
+...
+Origin: http://localhost
+Authorization: Bearer CODE_DU_JETON
+...
+```
+
+**Autre demande Cross-Domain**
+
+Toutes les entêtes prévues pour faire fonctionner CORS sont accepté via le mécanisme d'ajout d'en-tête de NodeAtlas.
 
 
 

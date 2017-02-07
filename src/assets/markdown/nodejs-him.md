@@ -89,4 +89,4 @@ httpServer.listen(httpPort, function () {
 
 <pre><code class="lang-bash">node app.js</code></pre>
 
-<p>Il faut à présent vous rendre à l'adresse <code>http://localhost:8000/</code> en utilisant votre navigateur préféré.</p>
+<p>Il faut à présent vous rendre à l'adresse <code>http://localhost/</code> en utilisant votre navigateur préféré.</p>

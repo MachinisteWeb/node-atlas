@@ -1453,7 +1453,65 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Avec la configuration ci-dessus, seulement une action HTTP n&#39;est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.</p><h3 id="changer-les-parametres-des-sessions">Changer les paramètres des Sessions</h3><h4 id="cl-et-secret">Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p><ul>
+</code></pre><p>Avec la configuration ci-dessus, seulement une action HTTP n&#39;est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.</p><h3 id="gerer-cors-et-les-demandes-options">Gérér CORS et les demandes OPTIONS</h3><p>Par défaut, les requêtes pré-vérifiées (&quot;preflighted requests&quot;) ne sont pas activées. Vous allez en avoir besoin pour, par exemple, effectuer des requêtes Cross-Domain ou CORS. Les requêtes pré-vérifiées se font avec la méthode HTTP OPTIONS.</p><p>Pour activer OPTIONS sur une route, utilisez la propriété <code>options</code> sur une route dans le webconfig. Pour activer OPTIONS sur toutes les routes, utilisez alors la propriété options du webconfig sur la configuration global.</p><pre><code class="lang-json">{
+    &quot;options&quot;: true,
+    &quot;routes&quot;: {
+        &quot;/read-all-entry/&quot;: {
+            &quot;view&quot;: &quot;display-json.htm&quot;,
+            &quot;variation&quot;: &quot;all-entry.json&quot;
+            &quot;options&quot;: false
+        },
+        &quot;/create-entry/:id/&quot;: {
+            &quot;view&quot;: &quot;display-json.htm&quot;,
+            &quot;variation&quot;: &quot;entry.json&quot;,
+            &quot;post&quot;: true
+        },
+        &quot;/delete-entry/:id/&quot;: {
+            &quot;view&quot;: &quot;display-json.htm&quot;,
+            &quot;variation&quot;: &quot;entry.json&quot;,
+            &quot;delete&quot;: true
+        }
+    }
+}
+</code></pre><p><strong>Demande Cross-Domain</strong></p><p>Si vous souhaitez authoriser une ressource du serveur NodeAtlas au requête en provenance de <code>www.domain-a.com</code> pour une page précise, vous pouvez le faire ainsi :</p><pre><code class="lang-json">{
+    &quot;routes&quot;: {
+        &quot;/api/random-quote&quot;: {
+            &quot;controller&quot;: &quot;get-quote.js&quot;,
+            &quot;headers&quot;: { 
+                &quot;Access-Control-Allow-Origin&quot;: &quot;http://www.domain-a.com&quot;
+            }
+        }
+    }
+}
+</code></pre><p>Ainsi vous pourrez par exemple accepter la requête suivante qui a pour <code>Origin</code>, <code>http://www.domain-a.com</code> qui est donc une valeur de <code>Access-Control-Allow-Origin</code> :</p><pre><code class="lang-bash">GET /api/random-quote HTTP/1.1
+Host: www.domain-a.com
+...
+Origin: http://www.domain-a.com
+...
+</code></pre><p><strong>Demande Cross-Domain avec jeton</strong></p><p>Si vous souhaitez authoriser des ressources du serveur NodeAtlas aux requêtes en provenance de n&#39;importe quel domaine externe pour la page <code>/api/random-quote</code> et une page qui attend un jeton d&#39;authentification pour la page <code>/api/protected/random-quote</code>, vous pouvez le faire ainsi :</p><pre><code class="lang-json">{
+    &quot;mimeType&quot;: &quot;application/json&quot;,
+    &quot;headers&quot;: { 
+        &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
+        &quot;Access-Control-Allow-Headers&quot;: &quot;Authorization&quot;
+    },
+    &quot;routes&quot;: {
+        &quot;/api/random-quote&quot;: { 
+            &quot;controller&quot;: &quot;get-quote.js&quot;
+        },
+        &quot;/api/protected/random-quote&quot;: {
+            &quot;controller&quot;: &quot;get-quote.js&quot;,
+            &quot;middlewares&quot;: &quot;is-authenticated.js&quot;,
+            &quot;options&quot;: true
+        }
+    }
+}
+</code></pre><p>Faire lire un jeton à NodeAtlas depuis un domaine externe nécessite de lui passer l&#39;en-tête HTML <code>Authorization</code>. Pour que celle-ci soit accepté par NodeAtlas il faut le définir avec <code>Access-Control-Allow-Headers</code> acceptant <code>Authorization</code>. L&#39;envoi d&#39;un jeton nécessitant une requête pré-vérifiée, il faut également mettre <code>options</code> à <code>true</code> pour autoriser les requêtes HTTP avec la méthode OPTIONS.</p><p>Ainsi vous pourrez par exemple accepter la requête suivante qui passe un jeton d&#39;authentification à notre serveur pour la ressource <code>/api/protected/random-quote</code> :</p><pre><code class="lang-bash">GET /api/protected/random-quote HTTP/1.1
+Host: localhost:1337
+...
+Origin: http://localhost
+Authorization: Bearer CODE_DU_JETON
+...
+</code></pre><p><strong>Autre demande Cross-Domain</strong></p><p>Toutes les entêtes prévues pour faire fonctionner CORS sont accepté via le mécanisme d&#39;ajout d&#39;en-tête de NodeAtlas.</p><h3 id="changer-les-parametres-des-sessions">Changer les paramètres des Sessions</h3><h4 id="cl-et-secret">Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p><ul>
 <li>Key : <code>nodeatlas.sid</code></li>
 <li>Secret : <code>1234567890bépo</code></li>
 </ul><p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p><p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{

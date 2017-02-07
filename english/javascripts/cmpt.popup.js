@@ -3,16 +3,17 @@ website.component = website.component || {};
 
 website.component.Popup = function () {
     var publics = this,
-    	challengers = ["nodejs", "expressjs"],
-    	file;
+        challengers,
+        file;
 
     publics.name = "popup";
 
     publics.setChallengers = function () {
+        challengers = ["nodejs", "expressjs", "sailsjs"];
         file = challengers.filter(function (item) {
             return file !== item;
         });
-        file = file[Math.floor(Math.random() * (file.length - 1))];
+        file = file[Math.floor(Math.random() * file.length)];
         document.querySelector(".download--slide--step3 img").setAttribute("src", "./media/images/battles/" + file + ".png");
     };
 
