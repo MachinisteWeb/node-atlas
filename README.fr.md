@@ -6060,7 +6060,7 @@ Pour activer OPTIONS sur une route, utilisez la propriété `options` sur une ro
     "routes": {
         "/read-all-entry/": {
             "view": "display-json.htm",
-            "variation": "all-entry.json"
+            "variation": "all-entry.json",
             "options": false
         },
         "/create-entry/:id/": {
@@ -6756,6 +6756,7 @@ Object{
         "png": Object,
         "svg": Object
     },
+    "options": Boolean,
     "output": Boolean,
     "post": Boolean,
     "pug": Boolean,
@@ -6809,6 +6810,7 @@ Object{
     "key": String,
     "middlewares": String,
     "mimeType": String,
+    "options": Boolean,
     "output": (String<filepath-into-serverless> | Boolean<false>),
     "post": Boolean,
     "put": Boolean,
