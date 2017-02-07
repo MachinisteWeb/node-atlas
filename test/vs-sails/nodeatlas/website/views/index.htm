@@ -8,18 +8,15 @@
     </head>
     <body>
     	<div class="connected">
-    		<p>Welcome <span id="nickname"></span></p>
-	    	<p><img id="avatar" alt="avatar"></p>
-	    	<p><button id="btn-standard" type="button">Standard</button></p>
-	    	<p><button id="btn-secret" type="button">Secret</button></p>
-    		<p><button id="btn-logout" type="submit">Sign Out</button></p>
+    		<p>Welcome <span class="nickname"></span></p>
+	    	<p>From /api/random-quote : <button class="standard" type="button">Ask !</button></p>
+	    	<p>From /api/protected/random-quote : <button class="secret" type="button">Ask with Token</button></p>
+    		<p><button class="logout" type="submit">Sign Out</button></p>
     	</div>
     	<div class="disconnected">
-    		<button type="submit" id="btn-login">Sign In</button>
+    		<button type="submit" class="login">Sign In</button>
     	</div>
         <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
-        <script src="javascripts/auth0-variables.js"></script>
         <script src="javascripts/app.js"></script>
     </body>
 </html>
