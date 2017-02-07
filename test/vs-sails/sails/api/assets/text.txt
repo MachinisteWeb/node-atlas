@@ -1,0 +1,16 @@
+ Le volume dans le lecteur C s'appelle Windows
+ Le num‚ro de s‚rie du volume est C6F4-3FE3
+
+ R‚pertoire de C:\nodejs\NodeAtlas\test\vs-sails\sails\assets
+
+18/01/2017  17:33    <DIR>          .
+18/01/2017  17:33    <DIR>          ..
+18/01/2017  01:10               920 favicon.ico
+18/01/2017  01:12    <DIR>          images
+18/01/2017  01:11    <DIR>          js
+18/01/2017  01:10               300 robots.txt
+18/01/2017  01:12    <DIR>          styles
+18/01/2017  01:12    <DIR>          templates
+18/01/2017  17:33                 0 text.txt
+               3 fichier(s)            1ÿ220 octets
+               6 R‚p(s)  466ÿ774ÿ642ÿ688 octets libres
