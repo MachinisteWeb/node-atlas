@@ -129,6 +129,108 @@ exports.openController = function (controller) {
 };
 
 /**
+ * Intercept DOM from common file.
+ * @private
+ * @function changeDomCommon
+ * @memberOf NA~
+ * @param {NA}                NA            NodeAtlas instance.
+ * @param {Object}            err           Error to explain.
+ * @param {string}            variationName Name of JSON file.
+ * @param {string}            languageCode  Current language for this variation.
+ * @param {boolean|undefined} errorDisabled Force no error message.
+ */
+function explainError(NA, err, variationsPath, languageCode, errorDisabled) {
+    err.variationsPath = variationsPath;
+    if (err.code === 'ENOENT' &amp;&amp; !errorDisabled &amp;&amp; !languageCode) {
+        NA.log(NA.cliLabels.variationNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
+    } else if (err.toString().indexOf('SyntaxError') !== -1) {
+        err.syntaxError = err.toString();
+        NA.log(NA.cliLabels.variationSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
+    } else if (err.code !== 'ENOENT') {
+        NA.log(err);
+    }
+    return false;
+}
+
+/**
+ * Open a variation file.
+ * @private
+ * @function openVariation
+ * @memberOf NA#
+ * @this NA
+ * @param {string}            variationName Name of JSON file.
+ * @param {string}            languageCode  Current language for this variation.
+ * @param {boolean|undefined} errorDisabled Force no error message.
+ * @returns {Object|boolean}  Return all data from JSON or false if an error occured.
+ */
+exports.openVariation = function (variationName, languageCode, errorDisabled) {
+    var NA = this,
+        fs = NA.modules.fs,
+        path = NA.modules.path,
+        variationsPath;
+
+        /* Find the correct path for variations. */
+        variationsPath = path.join(
+            NA.serverPath,
+            NA.webconfig.variationsRelativePath,
+            (languageCode) ? languageCode : '',
+            (variationName) ? variationName : ''
+        );
+
+    /* Explain errors. */
+    
+
+    if (typeof variationName !== 'undefined') {
+        try {
+            /* Return the variations variable into an object. */
+            return JSON.parse(fs.readFileSync(variationsPath, 'utf-8'));
+        } catch (err) {
+            /* Explain errors. */
+            explainError(NA, err, variationsPath, languageCode, errorDisabled);
+        }
+    } else {
+        return {};
+    }
+};
+
+/**
+ * Open a temlpate file.
+ * @private
+ * @function openView
+ * @memberOf NA#
+ * @this NA
+ * @param {Object}            routeParameters Parameters set into `routes[&lt;currentRoute>]`.
+ * @param {Object}            viewsPath       Path to template file.
+ * @param {openView~callback} callback        Next steps after opening file.
+ */
+exports.openView = function (routeParameters, viewsPath, callback) {
+    var NA = this,
+        fs = NA.modules.fs;
+
+    fs.readFile(viewsPath, 'utf-8', function (err, data) {
+        if (NA.webconfig.view) {
+            data = data.replace("#{routeParameters.view}", routeParameters.view);
+        }
+        if (err) {
+            err.viewsPath = viewsPath;
+            if (typeof routeParameters.view === 'undefined') {
+                NA.log(NA.cliLabels.viewNotSet);
+            } else {
+                NA.log(NA.cliLabels.viewNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
+            }
+        } else {
+
+            /**
+             * Next steps after opening file.
+             * @callback openView~callback
+             * @param {string} data All HTML data from template.
+             */
+            callback(data);
+        }
+   });
+};
+
+/**
  * Clone Object A into B and the purpose is : change A not affect B.
  * @public
  * @function clone
@@ -149,14 +251,12 @@ exports.clone = function (object) {
     /* Handle Date */
     if (object instanceof Date) {
         copy = new Date();
-        if (object) {
-            copy.setTime(object.getTime());
-        }
+        copy.setTime(object.getTime());
         result = copy;
     }
 
     /* Handle Array */
-    if (object &amp;&amp; object instanceof Array) {
+    if (object instanceof Array) {
         result = object.slice(0);
     }
 
@@ -377,13 +477,13 @@ exports.extend = function (objects) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_locals.html#.routeParameters">routeParameters</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 07 2017 13:45:18 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Feb 20 2017 18:33:39 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -37,15 +37,14 @@
  * @function prepareResponse
  * @memberOf NA#
  * @this NA
- * @param {string} path     The url listening.
- * @param {Object} options  Option associate to this url.
- * @param {Object} request  Initial request.
- * @param {Object} response Initial response.
- * @param {NA~callback} next       Next step after.
+ * @param {string}      path     The url listening.
+ * @param {Object}      options  Option associate to this url.
+ * @param {Object}      request  Initial request.
+ * @param {Object}      response Initial response.
+ * @param {NA~callback} next     Next step after.
  */
 exports.prepareResponse = function (path, options, request, response, next) {
     var NA = this,
-        pathM = NA.modules.path,
 
         /**
          * All parameters from a specific page.
@@ -53,10 +52,9 @@ exports.prepareResponse = function (path, options, request, response, next) {
          * @public
          * @alias routeParameters
          * @type {Object}
-         * @memberOf NA#
+         * @memberOf NA#locals
          */
-        routeParameters,
-        viewsPath,
+        routeParameters = options[path],
 
         /**
          * All locals provided for Views Template Engine and Hooks.
@@ -66,164 +64,83 @@ exports.prepareResponse = function (path, options, request, response, next) {
          * @type {Object}
          * @memberOf NA#
          */
-        locals = {},
-        currentPath = path;
+        locals = {
 
-    /* Case of `path` is an object because `NA.webconfig.routes` is an array and not an object. */
+            /**
+             * Expose route of current page from current webconfig `routes`.
+             * @public
+             * @alias route
+             * @type {string}
+             * @memberOf NA#locals
+             * @example /categories/:category/
+             */
+            route: path
+        };
+
+    /* path contain `{ view, controller, ... }` because `NA.webconfig.routes` is `[{ view, controller, ... }, ...]` */
     if (typeof path === "object") {
         routeParameters = path;
-    } else {
-        routeParameters = options[path];
     }
 
-    /* Inject template shortcut to template. */
+    /* routeParameters contain `"index.htm"` because `NA.webconfig.routes["/"]` is `"index.htm"` not `{ view, controller, ... }` */
     if (typeof routeParameters === 'string') {
-        /* viewsPath is just use like temp var in this if statement. */
-        viewsPath = routeParameters;
-        routeParameters = {};
+        routeParameters = {
 
-        /**
-         * This is the file name of view used for render of page behind the route.
-         * @public
-         * @alias view
-         * @type {string}
-         * @memberOf NA#routeParameters
-         */
-        routeParameters.view = viewsPath;
-    }
-
-    /* Generate the server path to the view file. */
-    viewsPath = pathM.join(
-        NA.serverPath,
-        NA.webconfig.viewsRelativePath,
-        (
             /**
-             * Name of file for `common` view.
+             * This is the file name of view used for render of page behind the route.
              * @public
              * @alias view
              * @type {string}
-             * @memberOf NA#webconfig
+             * @memberOf NA#locals.routeParameters
              */
-            NA.webconfig.view) ? NA.webconfig.view : (routeParameters.view || "")
-    );
+            view: routeParameters
+        };
+    }
 
     /* Case of `routeParameters.url` replace `path` because `path` is used like a key. */
     if (routeParameters.url) {
-        currentPath = routeParameters.url;
+        locals.route = routeParameters.url;
     }
 
-    /* Loading the controller file if `routeParameters.controller` exist. */
-    NA.openController(
+    if (routeParameters.url &amp;&amp; typeof path === "string") {
 
         /**
-         * This is the file name of specific controller used for back-end part of this page.
+         * Expose the key from `&lt;currentRoute>` object from webconfig.
          * @public
-         * @alias controller
-         * @type {string}
-         * @memberOf NA#routeParameters
+         * @alias routeKey
+         * @type {Object}
+         * @memberOf NA#locals
          */
-        routeParameters.controller);
-    NA.prepareRenderLanguage(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
-};
-
-/**
- * Open a temlpate file.
- * @private
- * @function openTemplate
- * @memberOf NA#
- * @param {Object} routeParameters  Parameters set into `routes[&lt;currentRoute>]`.
- * @param {Object} viewsPath           Path to template file.
- * @param {openTemplate~callback} callback Next steps after opening file.
- */
-exports.openTemplate = function (routeParameters, viewsPath, callback) {
-    var NA = this,
-        fs = NA.modules.fs;
-
-    fs.readFile(viewsPath, 'utf-8', function (err, data) {
-        if (NA.webconfig.view) {
-            data = data.replace("#{routeParameters.view}", routeParameters.view);
-        }
-        if (err) {
-            err.viewsPath = viewsPath;
-            if (typeof routeParameters.view === 'undefined') {
-                NA.log(NA.cliLabels.viewNotSet);
-            } else {
-                NA.log(NA.cliLabels.viewNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
-            }
-        } else {
-
-            /**
-             * Next steps after opening file.
-             * @callback openTemplate~callback
-             * @param {string} data All HTML data from template.
-             */
-            callback(data);
-        }
-   });
-};
-
-/**
- * Intercept DOM from common file.
- * @private
- * @function changeDomCommon
- * @memberOf NA~
- * @param {NA}                NA            NodeAtlas instance.
- * @param {Object}            err           Error to explain.
- * @param {string}            variationName Name of JSON file.
- * @param {string}            languageCode  Current language for this variation.
- * @param {boolean|undefined} errorDisabled Force no error message.
- */
-function explainError(NA, err, variationsPath, languageCode, errorDisabled) {
-    err.variationsPath = variationsPath;
-    if (err.code === 'ENOENT' &amp;&amp; !errorDisabled &amp;&amp; !languageCode) {
-        NA.log(NA.cliLabels.variationNotFound.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
-    } else if (err.toString().indexOf('SyntaxError') !== -1) {
-        err.syntaxError = err.toString();
-        NA.log(NA.cliLabels.variationSyntaxError.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return err[matches]; }));
-    } else if (err.code !== 'ENOENT') {
-        NA.log(err);
+        locals.routeKey = path;
     }
-    return false;
-}
-
-/**
- * Open a variation file.
- * @private
- * @function openVariation
- * @memberOf NA#
- * @param {string}            variationName Name of JSON file.
- * @param {string}            languageCode  Current language for this variation.
- * @param {boolean|undefined} errorDisabled Force no error message.
- * @returns {Object|boolean} Return all data from JSON or false if an error occured.
- */
-exports.openVariation = function (variationName, languageCode, errorDisabled) {
-    var NA = this,
-        fs = NA.modules.fs,
-        path = NA.modules.path,
-        variationsPath;
-
-        /* Find the correct path for variations. */
-        variationsPath = path.join(
-            NA.serverPath,
-            NA.webconfig.variationsRelativePath,
-            (languageCode) ? languageCode : '',
-            (variationName) ? variationName : ''
-        );
-
-    /* Explain errors. */
-    
-
-    if (typeof variationName !== 'undefined') {
-        try {
-            /* Return the variations variable into an object. */
-            return JSON.parse(fs.readFileSync(variationsPath, 'utf-8'));
-        } catch (err) {
-            /* Explain errors. */
-            explainError(NA, err, variationsPath, languageCode, errorDisabled);
-        }
-    } else {
-        return {};
+    if (routeParameters.key) {
+        locals.routeKey = routeParameters.key;
     }
+
+    /**
+     * Expose all data from `routes[&lt;currentRoute>]` object from webconfig.
+     * @public
+     * @alias routeParameters
+     * @type {Object}
+     * @memberOf NA#locals
+     */
+    locals.routeParameters = routeParameters;
+
+    /**
+     * Expose all webconfig values.
+     * @public
+     * @alias webconfig
+     * @type {Object}
+     * @memberOf NA#locals
+     */
+    locals.webconfig = NA.webconfig;
+
+    /* Add preparation into response. */
+    if (response) {
+        response.locals = locals;
+    }
+
+    NA.prepareRenderLanguage(locals, request, response, next);
 };
 
 /**
@@ -231,16 +148,13 @@ exports.openVariation = function (variationName, languageCode, errorDisabled) {
  * @private
  * @function prepareRenderLanguage
  * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {string} path            Url path for this render.
- * @param {NA~callback} next       Next step after.
+ * @this NA
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.prepareRenderLanguage = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
+exports.prepareRenderLanguage = function (locals, request, response, next) {
     var NA = this;
 
     /**
@@ -258,10 +172,10 @@ exports.prepareRenderLanguage = function (locals, routeParameters, request, resp
          * @public
          * @alias languageCode
          * @type {string}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default undefined
          */
-        routeParameters.languageCode ||
+        locals.routeParameters.languageCode ||
 
         /**
          * Represent the global and main language code for website.
@@ -274,7 +188,7 @@ exports.prepareRenderLanguage = function (locals, routeParameters, request, resp
         NA.webconfig.languageCode;
 
     /* Next preparation render for variation. */
-    NA.prepareRenderPath(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
+    NA.prepareRenderPath(locals, request, response, next);
 };
 
 /**
@@ -282,16 +196,13 @@ exports.prepareRenderLanguage = function (locals, routeParameters, request, resp
  * @private
  * @function prepareRenderPath
  * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {string} path            Url path for this render.
- * @param {NA~callback} next       Next step after.
+ * @this NA
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.prepareRenderPath = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
+exports.prepareRenderPath = function (locals, request, response, next) {
     var NA = this,
         query = (request  &amp;&amp; request.originalUrl &amp;&amp; request.originalUrl.split("?"));
 
@@ -337,7 +248,7 @@ exports.prepareRenderPath = function (locals, routeParameters, request, response
      * @example /example.html
      * /example/this/
      */
-    locals.urlFilePath = currentPath;
+    locals.urlFilePath = locals.route;
 
     /**
      * Query from `url` value for current route.
@@ -359,13 +270,13 @@ exports.prepareRenderPath = function (locals, routeParameters, request, response
      * @example http://localhost:7777/subpath/example.html?title=Haeresis&amp;description=ok
      * https://www.example.here/example/this/?title=Haeresis
      */
-    locals.urlPath = locals.urlBasePath + currentPath + locals.urlQueryPath;
+    locals.urlPath = locals.urlBasePath + locals.route + locals.urlQueryPath;
     if (request) {
         locals.urlPath = "http" + ((NA.webconfig.httpSecure) ? "s" : "") + '://' + request.get("host") + request.originalUrl;
     }
 
     /* Next preparation render for variation. */
-    NA.prepareRenderVariation(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
+    NA.prepareRenderVariation(locals, request, response, next);
 };
 
 /**
@@ -373,18 +284,16 @@ exports.prepareRenderPath = function (locals, routeParameters, request, response
  * @private
  * @function prepareRenderVariation
  * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {string} path            Url path for this render.
- * @param {NA~callback} next       Next step after.
+ * @this NA
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.prepareRenderVariation = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
+exports.prepareRenderVariation = function (locals, request, response, next) {
     var NA = this,
-        extend = NA.modules.extend;
+        extend = NA.modules.extend,
+        async = NA.modules.async;
 
     if (request) {
 
@@ -423,179 +332,149 @@ exports.prepareRenderVariation = function (locals, routeParameters, request, res
         locals.body = request.body || {};
     }
 
-    /**
-     * Name of file for `common` variation.
-     * @public
-     * @alias variation
-     * @type {string}
-     * @memberOf NA#webconfig
-     */
-    locals.common = NA.openVariation(NA.webconfig.variation, locals.languageCode);
-    if (locals.languageCode) {
+    async.parallel([
+        function (callback) {
 
-        /**
-         * Expose all JSON data from `variation` file.
-         * @public
-         * @alias common
-         * @type {Object}
-         * @memberOf NA#locals
-         */
-        locals.common = extend(true, NA.openVariation(NA.webconfig.variation, undefined, true), locals.common);
-    }
+            /**
+             * Name of file for `common` variation.
+             * @public
+             * @alias variation
+             * @type {string}
+             * @memberOf NA#webconfig
+             */
+            locals.common = NA.openVariation(NA.webconfig.variation, locals.languageCode);
+            if (locals.languageCode) {
 
-    /**
-     * Name of file for `specific` variation.
-     * @public
-     * @alias variation
-     * @type {string}
-     * @memberOf NA#routeParameters
-     */
-    locals.specific = NA.openVariation(routeParameters.variation, locals.languageCode);
-    if (locals.languageCode) {
+                /**
+                 * Expose all JSON data from `variation` file.
+                 * @public
+                 * @alias common
+                 * @type {Object}
+                 * @memberOf NA#locals
+                 */
+                locals.common = extend(true, NA.openVariation(NA.webconfig.variation, undefined, true), locals.common);
+            }
 
-        /**
-         * Expose all JSON data from `routes[&lt;currentRoute>].variation` file.
-         * @public
-         * @alias specific
-         * @type {Object}
-         * @memberOf NA#locals
-         */
-        locals.specific = extend(true, NA.openVariation(routeParameters.variation, undefined, true), locals.specific);
-    }
+            callback();
+        },
+        function (callback) {
 
-    /* Nexts Step for render. */
-    NA.prepareRenderParameters(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
+            /**
+             * Name of file for `specific` variation.
+             * @public
+             * @alias variation
+             * @type {string}
+             * @memberOf NA#locals.routeParameters
+             */
+            locals.specific = NA.openVariation(locals.routeParameters.variation, locals.languageCode);
+            if (locals.languageCode) {
+
+                /**
+                 * Expose all JSON data from `routes[&lt;currentRoute>].variation` file.
+                 * @public
+                 * @alias specific
+                 * @type {Object}
+                 * @memberOf NA#locals
+                 */
+                locals.specific = extend(true, NA.openVariation(locals.routeParameters.variation, undefined, true), locals.specific);
+            }
+
+            callback();
+        }
+    ], function () {
+        
+        /* Nexts Step for render. */
+        NA.prepareHeaders(locals, request, response, next);
+    });
 };
 
 /**
- * Create some variable for manage parameters into render.
+ * Add and Remove headers from Webconfig.
  * @private
- * @function prepareRenderParameters
- * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {string} path            Url path for this render.
- * @param {NA~callback} next       Next step after.
+ * @function manageHeaders
+ * @memberOf NA~
+ * @param {NA}     NA       NodeAtlas instance.
+ * @param {Object} headers  All headers from webconfig.
+ * @param {Object} response All stuff for HTTP response.
  */
-exports.prepareRenderParameters = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
-    var NA = this;
+function manageHeaders(NA, headers, response) {
+    var header;
 
-    /**
-     * Expose all data from `routes[&lt;currentRoute>]` object from webconfig.
-     * @public
-     * @alias routeParameters
-     * @type {Object}
-     * @memberOf NA#locals
-     */
-    locals.routeParameters = routeParameters;
-
-    /**
-     * Expose the key from `&lt;currentRoute>` object from webconfig.
-     * @public
-     * @alias routeKey
-     * @type {Object}
-     * @memberOf NA#locals
-     */
-    if (locals.routeParameters.url &amp;&amp; typeof path === "string") {
-        locals.routeKey = path;
+    for (header in NA.webconfig.headers) {
+        if (!NA.webconfig.headers.hasOwnProperty(header)) {
+            continue;
+        }
+        if (NA.webconfig.headers[header] === false) {
+            response.removeHeader(header);
+        } else {
+            response.setHeader(header, NA.webconfig.headers[header]);
+        }
     }
-    if (locals.routeParameters.key) {
-        locals.routeKey = locals.routeParameters.key;
+    for (header in headers) {
+        if (!headers.hasOwnProperty(header)) {
+            continue;
+        }
+        if (headers[header] === false) {
+            response.removeHeader(header);
+        } else {
+            response.setHeader(header, headers[header]);
+        }
     }
-
-    /**
-     * Expose route of current page from current webconfig `routes`.
-     * @public
-     * @alias route
-     * @type {string}
-     * @memberOf NA#locals
-     * @example /categories/:category/
-     */
-    locals.route = currentPath;
-
-    /**
-     * Expose all webconfig values.
-     * @public
-     * @alias webconfig
-     * @type {Object}
-     * @memberOf NA#locals
-     */
-    locals.webconfig = NA.webconfig;
-
-    /* Add preparation into response. */
-    if (response) {
-        response.locals = locals;
-        response.routeParameters = routeParameters;
-        response.viewsPath = viewsPath;
-        response.currentPath = currentPath;
-        response.path = path;
-    }
-
-    /* Nexts Step for render. */
-    NA.prepareHeaders(locals, routeParameters, request, response, viewsPath, currentPath, path, next);
-};
+}
 
 /**
  * Set all webconfig headers.
  * @private
  * @function prepareHeaders
  * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {string} path            Url path for this render.
- * @param {NA~callback} next       Next step after.
+ * @this NA
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.prepareHeaders = function (locals, routeParameters, request, response, viewsPath, currentPath, path, next) {
+exports.prepareHeaders = function (locals, request, response, next) {
     var NA = this,
-        header,
 
         /**
          * Charset used for render of this page.
          * @public
          * @alias charset
          * @type {string}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default "utf-8"
          */
-        charset = locals.routeParameters.charset || routeParameters.charset || NA.webconfig.charset,
-
-        /**
-         * Status Code used for respond with this page.
-         * @public
-         * @alias statusCode
-         * @type {number}
-         * @memberOf NA#routeParameters
-         * @default 200
-         */
-        statusCode = locals.routeParameters.statusCode || routeParameters.statusCode || 200,
+        charset = locals.routeParameters.charset || NA.webconfig.charset,
 
         /**
          * Content Type used for respond with this page.
          * @public
          * @alias mimeType
          * @type {string}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default "text/html"
          */
-        mimeType = locals.routeParameters.mimeType || routeParameters.mimeType || NA.webconfig.mimeType,
+        mimeType = locals.routeParameters.mimeType || NA.webconfig.mimeType,
+
+        /**
+         * Status Code used for respond with this page.
+         * @public
+         * @alias statusCode
+         * @type {number}
+         * @memberOf NA#locals.routeParameters
+         * @default 200
+         */
+        statusCode = locals.routeParameters.statusCode || 200,
 
         /**
          * Headers value used for respond with this page.
          * @public
          * @alias mimeType
          * @type {string}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default "text/html"
          */
-        headers = locals.routeParameters.headers || routeParameters.headers || {};
+        headers = locals.routeParameters.headers || {};
 
     if (response) {
         /* Set charset and  */
@@ -603,30 +482,11 @@ exports.prepareHeaders = function (locals, routeParameters, request, response, v
 
         /* Set headers into response */
         response.setHeader("Content-Type", mimeType + ";" + " charset=" + charset);
-        for (header in NA.webconfig.headers) {
-            if (!NA.webconfig.headers.hasOwnProperty(header)) {
-                continue;
-            }
-            if (NA.webconfig.headers[header] === false) {
-                response.removeHeader(header);
-            } else {
-                response.setHeader(header, NA.webconfig.headers[header]);
-            }
-        }
-        for (header in headers) {
-            if (!headers.hasOwnProperty(header)) {
-                continue;
-            }
-            if (headers[header] === false) {
-                response.removeHeader(header);
-            } else {
-                response.setHeader(header, headers[header]);
-            }
-        }
+        manageHeaders(NA, headers, response);
     }
 
     /* Nexts Step for render. */
-    next(locals, routeParameters, request, response, viewsPath, currentPath, path);
+    next(locals, request, response);
 };
 
 /**
@@ -634,16 +494,26 @@ exports.prepareHeaders = function (locals, routeParameters, request, response, v
  * @private
  * @function changeVariationsCommon
  * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {NA~callback} next       Next step after.
+ * @this NA
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.changeVariationsCommon = function (locals, routeParameters, request, response, viewsPath, currentPath, next) {
+exports.changeVariationsCommon = function (locals, request, response, next) {
     var NA = this;
+
+    /* Loading the controller file if `routeParameters.controller` exist. */
+    NA.openController(
+
+        /**
+         * This is the file name of specific controller used for back-end part of this page.
+         * @public
+         * @alias controller
+         * @type {string}
+         * @memberOf NA#locals.routeParameters
+         */
+        locals.routeParameters.controller);
 
     /* Use the `NA.controllers[&lt;controller>].changeVariations(...)` function if set... */
     if (typeof NA.controllers[NA.webconfig.controller] !== 'undefined' &amp;&amp;
@@ -665,11 +535,11 @@ exports.changeVariationsCommon = function (locals, routeParameters, request, res
              * @callback changeVariations~callback
              */
             function () {
-                NA.changeVariationsSpecific(locals, routeParameters, request, response, viewsPath, currentPath, next);
+                NA.changeVariationsSpecific(locals, request, response, next);
             }, locals, request, response);
     /* ...else, just continue. */
     } else {
-        NA.changeVariationsSpecific(locals, routeParameters, request, response, viewsPath, currentPath, next);
+        NA.changeVariationsSpecific(locals, request, response, next);
     }
 };
 
@@ -678,61 +548,69 @@ exports.changeVariationsCommon = function (locals, routeParameters, request, res
  * @private
  * @function changeVariationsSpecific
  * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {NA~callback} next       Next step after.
+ * @this NA
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.changeVariationsSpecific = function (locals, routeParameters, request, response, viewsPath, currentPath, next) {
+exports.changeVariationsSpecific = function (locals, request, response, next) {
     var NA = this;
 
-    if (typeof NA.controllers[routeParameters.controller] !== 'undefined' &amp;&amp;
-        typeof NA.controllers[routeParameters.controller].changeVariations !== 'undefined') {
+    if (typeof NA.controllers[locals.routeParameters.controller] !== 'undefined' &amp;&amp;
+        typeof NA.controllers[locals.routeParameters.controller].changeVariations !== 'undefined') {
             /* Use the `NA.controllers[&lt;controller>].changeVariations(...)` function if set... */
-            NA.controllers[routeParameters.controller].changeVariations.call(NA, function () {
-                NA.changeDomCommon(locals, routeParameters, request, response, viewsPath, currentPath, next);
+            NA.controllers[locals.routeParameters.controller].changeVariations.call(NA, function () {
+                NA.changeDomCommon(locals, request, response, next);
             }, locals, request, response);
     } else {
         /* ...else, just continue. */
-        NA.changeDomCommon(locals, routeParameters, request, response, viewsPath, currentPath, next);
+        NA.changeDomCommon(locals, request, response, next);
     }
 };
 
 /**
- * Intercept DOM from common file.
+ * Prepare the choosen engine to parse view.
  * @private
- * @function changeDomCommon
+ * @function prepareEngineProcess
  * @memberOf NA~
- * @param {Object} locals      Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
+ * @param {NA}          NA       NodeAtlas instance.
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-function engineProcess(NA, viewsPath, locals, routeParameters, response, next) {
-    var ejs = NA.modules.ejs,
+function prepareEngineProcess(NA, locals, response, next) {
+  var ejs = NA.modules.ejs,
         pug = NA.modules.pug,
         pathM = NA.modules.path,
-        engine = NA.webconfig.pug ? pug : ejs;
+        engine = NA.webconfig.pug ? pug : ejs,
+        path = NA.modules.path,
+        view = path.join(NA.serverPath, NA.webconfig.viewsRelativePath, (
 
-    if (typeof routeParameters.pug === "boolean") {
+            /**
+             * Name of file for `common` view.
+             * @public
+             * @alias view
+             * @type {string}
+             * @memberOf NA#webconfig
+             */
+            NA.webconfig.view) ? NA.webconfig.view : (locals.routeParameters.view || ""));
+
+    if (typeof locals.routeParameters.pug === "boolean") {
+
         /**
          * Allow you to enable Pug only for a page.
          * @public
          * @alias pug
          * @type {boolean}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default undefined
          */
-        engine = routeParameters.pug ? pug : ejs;
+        engine = locals.routeParameters.pug ? pug : ejs;
     }
 
     /* Without view, no data. */
-    if (!routeParameters.view) {
+    if (!locals.routeParameters.view) {
         return next("");
     }
 
@@ -743,13 +621,28 @@ function engineProcess(NA, viewsPath, locals, routeParameters, response, next) {
      * @type {string}
      * @memberOf NA#locals
      */
-    locals.filename = pathM.join(NA.serverPath, NA.webconfig.viewsRelativePath, NA.webconfig.view || routeParameters.view);
+    locals.filename = pathM.join(NA.serverPath, NA.webconfig.viewsRelativePath, NA.webconfig.view || locals.routeParameters.view);
 
+    engineProcess(NA, view, engine, locals, response, next);
+}
 
+/**
+ * Choose an engine to parse view.
+ * @private
+ * @function engineProcess
+ * @memberOf NA~
+ * @param {NA}          NA       NodeAtlas instance.
+ * @param {string}      view     View to parse.
+ * @param {string}      engine   Engine to parse.
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
+ */
+function engineProcess(NA, view, engine, locals, response, next) {
     if (NA.webconfig.engine) {
 
         /* Transform from any engine but globaly. */
-        response.render(viewsPath, locals, function (err, data) {
+        response.render(view, locals, function (err, data) {
             if (err) {
                 data = err.toString();
             }
@@ -758,7 +651,7 @@ function engineProcess(NA, viewsPath, locals, routeParameters, response, next) {
         });
     } else {
         /* Open the template file */
-        NA.openTemplate(routeParameters, viewsPath, function (data) {
+        NA.openView(locals.routeParameters, view, function (data) {
 
             /* Transform ejs/pug data and inject incduded file. */
             try {
@@ -781,19 +674,16 @@ function engineProcess(NA, viewsPath, locals, routeParameters, response, next) {
  * @private
  * @function changeDomCommon
  * @memberOf NA#
- * @param {Object} locals      Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} viewsPath       Path to the based view.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {NA~callback} next       Next step after.
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.changeDomCommon = function (locals, routeParameters, request, response, viewsPath, currentPath, next) {
+exports.changeDomCommon = function (locals, request, response, next) {
     var NA = this;
 
         // Transform into HTML
-        engineProcess(NA, viewsPath, locals, routeParameters, response, function (data) {
+        prepareEngineProcess(NA, locals, response, function (data) {
 
             /**
              * The compiled HTML of view + locals provided by response.
@@ -839,11 +729,11 @@ exports.changeDomCommon = function (locals, routeParameters, request, response, 
                         if (typeof $ === "function") {
                             locals.dom = $.html();
                         }
-                        NA.changeDomSpecific(locals, routeParameters, request, response, currentPath, next);
+                        NA.changeDomSpecific(locals, request, response, next);
                     }, locals, request, response);
             /* ...else, just continue. */
             } else {
-                NA.changeDomSpecific(locals, routeParameters, request, response, currentPath, next);
+                NA.changeDomSpecific(locals, request, response, next);
             }
         });
 };
@@ -853,33 +743,31 @@ exports.changeDomCommon = function (locals, routeParameters, request, response, 
  * @private
  * @function changeDomSpecific
  * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {NA~callback} next       Next step after.
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.changeDomSpecific = function (locals, routeParameters, request, response, currentPath, next) {
+exports.changeDomSpecific = function (locals, request, response, next) {
     var NA = this;
 
-    if (typeof NA.controllers[routeParameters.controller] !== 'undefined' &amp;&amp;
-        typeof NA.controllers[routeParameters.controller].changeDom !== 'undefined') {
+    if (typeof NA.controllers[locals.routeParameters.controller] !== 'undefined' &amp;&amp;
+        typeof NA.controllers[locals.routeParameters.controller].changeDom !== 'undefined') {
 
             locals.virtualDom = function () {
                 return NA.modules.cheerio.load(locals.dom, { decodeEntities: false });
             };
 
             /** Use the `NA.controllers[&lt;controller>].changeVariations(...)` function if set... */
-            NA.controllers[routeParameters.controller].changeDom.call(NA, function ($) {
+            NA.controllers[locals.routeParameters.controller].changeDom.call(NA, function ($) {
                 if (typeof $ === "function") {
                     locals.dom = $.html();
                 }
-                NA.intoBrowserAndFiles(locals, routeParameters, request, response, currentPath, next);
+                NA.intoBrowserAndFiles(locals, request, response, next);
             }, locals, request, response);
     } else {
         /** ...else, just continue. */
-        NA.intoBrowserAndFiles(locals, routeParameters, request, response, currentPath, next);
+        NA.intoBrowserAndFiles(locals, request, response, next);
     }
 };
 
@@ -888,24 +776,22 @@ exports.changeDomSpecific = function (locals, routeParameters, request, response
  * @private
  * @function intoBrowserAndFiles
  * @memberOf NA#
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {NA~callback} next       Next step after.
+ * @param {Object}      locals   Local variables for the current page.
+ * @param {Object}      request  Information from request.
+ * @param {Object}      response Information from response.
+ * @param {NA~callback} next     Next step after.
  */
-exports.intoBrowserAndFiles = function (locals, routeParameters, request, response, currentPath, next) {
+exports.intoBrowserAndFiles = function (locals, request, response, next) {
     var NA = this;
 
     /* Inject CSS into DOM... */
-    if (NA.webconfig.injectCss || routeParameters.injectCss) {
-        NA.injectCss(locals.dom, routeParameters.injectCss, function (dom) {
-            NA.renderTemplate(dom, locals, routeParameters, request, response, currentPath, next);
+    if (NA.webconfig.injectCss || locals.routeParameters.injectCss) {
+        NA.injectCss(locals.dom, locals.routeParameters.injectCss, function (dom) {
+            NA.renderTemplate(dom, locals, request, response, next);
         });
     /* ...or do nothing. */
     } else {
-        NA.renderTemplate(locals.dom, locals, routeParameters, request, response, currentPath, next);
+        NA.renderTemplate(locals.dom, locals, request, response, next);
     }
 };
 
@@ -914,15 +800,13 @@ exports.intoBrowserAndFiles = function (locals, routeParameters, request, respon
  * @private
  * @function renderTemplate
  * @memberOf NA#
- * @param {string} data            HTML DOM ready for sending.
- * @param {Object} locals          Local variables for the current page.
- * @param {Object} routeParameters All parameters from current route.
- * @param {Object} request         Information from request.
- * @param {Object} response        Information from response.
- * @param {string} currentPath     Url from `url` value for this render.
- * @param {NA~callback} next       Next step after.
+ * @param {string}      data            HTML DOM ready for sending.
+ * @param {Object}      locals          Local variables for the current page.
+ * @param {Object}      request         Information from request.
+ * @param {Object}      response        Information from response.
+ * @param {NA~callback} next            Next step after.
  */
-exports.renderTemplate = function (data, locals, routeParameters, request, response, currentPath, next) {
+exports.renderTemplate = function (data, locals, request, response, next) {
     var NA = this,
         async = NA.modules.async,
 
@@ -947,12 +831,12 @@ exports.renderTemplate = function (data, locals, routeParameters, request, respo
          * @public
          * @alias output
          * @type {string|boolean}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          */
-        templateRenderName = currentPath;
+        templateRenderName = locals.route;
 
-        if (typeof routeParameters.output !== 'undefined') {
-            templateRenderName = routeParameters.output;
+        if (typeof locals.routeParameters.output !== 'undefined') {
+            templateRenderName = locals.routeParameters.output;
         }
 
         NA.saveRender(data, templateRenderName);
@@ -979,13 +863,13 @@ exports.renderTemplate = function (data, locals, routeParameters, request, respo
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_locals.html#.routeParameters">routeParameters</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 07 2017 13:45:18 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Feb 20 2017 18:33:39 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

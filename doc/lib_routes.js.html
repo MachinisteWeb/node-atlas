@@ -53,7 +53,23 @@ function loadRoutes(NA) {
  * @this NA
  */
 exports.initRoutes = function () {
-    var NA = this;
+    var NA = this,
+    	runIndexPage = function () {
+        	/* Only if server was started and `index` is set to « true ». */
+		    if (
+
+		        /**
+		         * Allow NodeAtlas to create a root page with a link for each routes if set to true.
+		         * @public
+		         * @alias index
+		         * @type {boolean}
+		         * @memberOf NA#webconfig
+		         * @default false
+		         */
+		        NA.webconfig.index) {
+            		NA.indexPage();
+            }
+    	};
 
     if (typeof NA.controllers[NA.webconfig.controller] !== 'undefined' &amp;&amp;
         typeof NA.controllers[NA.webconfig.controller].setRoutes !== 'undefined') {
@@ -66,14 +82,14 @@ exports.initRoutes = function () {
              * @param {NA~callback} next Next steps after routes are setted.
              */
             NA.controllers[NA.webconfig.controller].setRoutes.call(NA, function () {
-                NA.indexPage();
+            	runIndexPage();
                 loadRoutes(NA);
                 NA.pageNotFound();
             });
 
     /* ...else, just continue. */
     } else {
-        NA.indexPage();
+    	runIndexPage();
         loadRoutes(NA);
         NA.pageNotFound();
     }
@@ -93,56 +109,42 @@ exports.indexPage = function () {
         open = NA.modules.open,
         urlOutput = url.resolve(NA.webconfig.urlRoot, path.join(NA.webconfig.urlRelativeSubPath, ((typeof NA.configuration.browse === 'string') ? NA.configuration.browse : "")));
 
-    /* Only if server was started and `index` is set to « true ». */
-    if (
+    /* Create a new path to « / ». Erase the route to « / » defined into `routes`. */
+    NA.express.get(url.format(path.join("/", NA.webconfig.urlRelativeSubPath, "/")), function (request, response) {
+        var data = {},
+            matches = function (regex, matches) { return data[matches]; };
 
-        /**
-         * Allow NodeAtlas to create a root page with a link for each routes if set to true.
-         * @public
-         * @alias index
-         * @type {boolean}
-         * @memberOf NA#webconfig
-         * @default false
-         */
-        NA.webconfig.index) {
+        data.render = "";
 
-        /* Create a new path to « / ». Erase the route to « / » defined into `routes`. */
-        NA.express.get(url.format(path.join("/", NA.webconfig.urlRelativeSubPath, "/")), function (request, response) {
-            var data = {},
-                matches = function (regex, matches) { return data[matches]; };
+        /* List all routes... */
+        NA.forEach(NA.webconfig.routes, function (page) {
+            var routeParameters;
 
-            data.render = "";
+            if (typeof page !== "string") {
+                routeParameters = page;
+            } else {
+                routeParameters = NA.webconfig.routes[page];
+            }
 
-            /* List all routes... */
-            NA.forEach(NA.webconfig.routes, function (page) {
-                var routeParameters;
+            data.page = page;
+            if (routeParameters.url) {
+                data.page = routeParameters.url;
+            } 
 
-                if (typeof page !== "string") {
-                    routeParameters = page;
-                } else {
-                    routeParameters = NA.webconfig.routes[page];
-                }
-
-                data.page = page;
-                if (routeParameters.url) {
-                    data.page = routeParameters.url;
-                } 
-
-                if (routeParameters.output !== false) {
-                    data.page = decodeURIComponent(data.page);
-                    data.render += NA.cliLabels.indexPage.line.replace(/%([\-a-zA-Z0-9_]+)%/g, matches);
-                }
-            });
-
-            /* ...and provide a page. */
-            response.writeHead(200, NA.cliLabels.indexPage.charsetAndType);
-            response.end(NA.cliLabels.indexPage.data.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+            if (routeParameters.output !== false) {
+                data.page = decodeURIComponent(data.page);
+                data.render += NA.cliLabels.indexPage.line.replace(/%([\-a-zA-Z0-9_]+)%/g, matches);
+            }
         });
 
-        /* Display index after all routes are setted. */
-        if (NA.configuration.browse) {
-            open(urlOutput);
-        }
+        /* ...and provide a page. */
+        response.writeHead(200, NA.cliLabels.indexPage.charsetAndType);
+        response.end(NA.cliLabels.indexPage.data.replace(/%([\-a-zA-Z0-9_]+)%/g, function (regex, matches) { return data[matches]; }));
+    });
+
+    /* Display index after all routes are setted. */
+    if (NA.configuration.browse) {
+        open(urlOutput);
     }
 };
 
@@ -197,15 +199,16 @@ exports.initStatics = function () {
         NA.express.use(url.format(path.join(NA.webconfig.urlRelativeSubPath, virtual)), express.static(path.join(NA.serverPath, real), options));
     });
 };
-
+ 
 /**
- * Affect support of GET/POST to a route.
+ * Affect support of GET, POST, UPDATE, DELETE and OPTIONS to a route.
  * @private
  * @function setSupport
- * @memberOf NA#
+ * @memberOf NA~
  * @param {boolean} support Type of support GET, POST, PUT, DELETE or OPTIONS.
  * @param {boolean} path    Instruction support for all page.
  * @param {boolean} options Instruction support for current page.
+ * @return {boolean} if support is effective;
  */
 function setSupport(support, common, specific) {
 
@@ -230,50 +233,17 @@ function setSupport(support, common, specific) {
 }
 
 /**
- * Listen a specific request.
+ * Set parameters authorization.
  * @private
- * @function request
- * @memberOf NA#
- * @this NA
- * @param {string} path    The url listening.
- * @param {Object} options Options associate to this url.
+ * @function supportGet
+ * @memberOf NA~
+ * @param {NA}      NA              NodeAtlas instance.
+ * @param {Object}  routeParameters Parameters set into `routes[&lt;currentRoute>]`.
+ * @param {boolean} getSupport      Represent initial state of support.
+ * @return {boolean} if support is effective;
  */
-exports.request = function (path, options) {
-    var NA = this,
-        routeParameters,
-        getSupport = true,
-        postSupport = true,
-        putSupport = false,
-        deleteSupport = false,
-        optionsSupport = false,
-        currentPath = path,
-        objectPath;
-
-    /* Case of `path` is an object because `NA.webconfig.routes` is an array and not an object. */
-    if (typeof path === "object") {
-        routeParameters = path;
-    } else {
-        routeParameters = options[path];
-    }
-
-    /* Case of `routeParameters.url` replace `path` because `path` is used like a key. */
-    if (routeParameters.url) {
-
-        /**
-         * If setted, replace « The url listening ». « The url listening. » become a « key » value.
-         * @public
-         * @alias url
-         * @type {string}
-         * @memberOf NA#routeParameters
-         */
-        currentPath = routeParameters.url;
-    }
-
-    /* Adding of subfolder before url listening. */
-    objectPath = NA.webconfig.urlRelativeSubPath + currentPath;
-
-    /* Manage GET / POST / PUT / DELETE / OPTIONS support for an url. */
-    getSupport = setSupport(getSupport,
+function supportGet(NA, routeParameters, getSupport) {
+	return setSupport(getSupport,
 
         /**
          * Allow you to avoid or authorize GET response for all page.
@@ -290,34 +260,60 @@ exports.request = function (path, options) {
          * @public
          * @alias get
          * @type {boolean}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default true
          */
         routeParameters.get
     );
-    postSupport = setSupport(postSupport,
+}
 
-        /**
-         * Allow you to avoid or authorize POST response for all page.
-         * @public
-         * @alias post
-         * @type {boolean}
-         * @memberOf NA#webconfig
-         * @default true
-         */
-        NA.webconfig.post,
+/**
+ * Set parameters authorization.
+ * @private
+ * @function supportPost
+ * @memberOf NA~
+ * @param {NA}      NA              NodeAtlas instance.
+ * @param {Object}  routeParameters Parameters set into `routes[&lt;currentRoute>]`.
+ * @param {boolean} postSupport     Represent initial state of support.
+ * @return {boolean} if support is effective;
+ */
+function supportPost(NA, routeParameters, postSupport) {
+	return setSupport(postSupport,
 
-        /**
-         * Allow you to avoid or authorize POST response for current page.
-         * @public
-         * @alias post
-         * @type {boolean}
-         * @memberOf NA#routeParameters
-         * @default true
-         */
-        routeParameters.post
-    );
-    putSupport = setSupport(putSupport,
+	    /**
+	     * Allow you to avoid or authorize POST response for all page.
+	     * @public
+	     * @alias post
+	     * @type {boolean}
+	     * @memberOf NA#webconfig
+	     * @default true
+	     */
+	    NA.webconfig.post,
+
+	    /**
+	     * Allow you to avoid or authorize POST response for current page.
+	     * @public
+	     * @alias post
+	     * @type {boolean}
+	     * @memberOf NA#locals.routeParameters
+	     * @default true
+	     */
+	    routeParameters.post
+	);
+}
+
+/**
+ * Set parameters authorization.
+ * @private
+ * @function supportPut
+ * @memberOf NA~
+ * @param {NA}      NA              NodeAtlas instance.
+ * @param {Object}  routeParameters Parameters set into `routes[&lt;currentRoute>]`.
+ * @param {boolean} putSupport      Represent initial state of support.
+ * @return {boolean} if support is effective;
+ */
+function supportPut(NA, routeParameters, putSupport) {
+	return setSupport(putSupport,
 
         /**
          * Allow you to avoid or authorize PUT response for all page.
@@ -334,12 +330,25 @@ exports.request = function (path, options) {
          * @public
          * @alias put
          * @type {boolean}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default false
          */
         routeParameters.put
     );
-    deleteSupport = setSupport(deleteSupport,
+}
+
+/**
+ * Set parameters authorization.
+ * @private
+ * @function supportDelete
+ * @memberOf NA~
+ * @param {NA}      NA              NodeAtlas instance.
+ * @param {Object}  routeParameters Parameters set into `routes[&lt;currentRoute>]`.
+ * @param {boolean} deleteSupport   Represent initial state of support.
+ * @return {boolean} if support is effective;
+ */
+function supportDelete(NA, routeParameters, deleteSupport) {
+	return setSupport(deleteSupport,
 
         /**
          * Allow you to avoid or authorize DELETE response for all page.
@@ -356,12 +365,25 @@ exports.request = function (path, options) {
          * @public
          * @alias delete
          * @type {boolean}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default false
          */
         routeParameters.delete
     );
-    optionsSupport = setSupport(optionsSupport,
+}
+
+/**
+ * Set parameters authorization.
+ * @private
+ * @function supportOptions
+ * @memberOf NA~
+ * @param {NA}      NA              NodeAtlas instance.
+ * @param {Object}  routeParameters Parameters set into `routes[&lt;currentRoute>]`.
+ * @param {boolean} optionsSupport  Represent initial state of support.
+ * @return {boolean} if support is effective;
+ */
+function supportOptions(NA, routeParameters, optionsSupport) {
+	return setSupport(optionsSupport,
 
         /**
          * Allow you to avoid or authorize OPTIONS response for all page.
@@ -378,11 +400,57 @@ exports.request = function (path, options) {
          * @public
          * @alias options
          * @type {boolean}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          * @default false
          */
         routeParameters.options
     );
+}
+
+/**
+ * Listen a specific request.
+ * @private
+ * @function request
+ * @memberOf NA#
+ * @this NA
+ * @param {string} path    The url listening.
+ * @param {Object} options Options associate to this url.
+ */
+exports.request = function (path, options) {
+    var NA = this,
+        routeParameters,
+        getSupport = true,
+        postSupport = true,
+        putSupport = false,
+        deleteSupport = false,
+        optionsSupport = false,
+        objectPath;
+
+    /* Case of `path` is an object because `NA.webconfig.routes` is an array and not an object. */
+    if (typeof path === "object") {
+        routeParameters = path;
+    } else {
+        routeParameters = options[path];
+    }
+
+    /* Adding of subfolder before url listening. */
+    objectPath = NA.webconfig.urlRelativeSubPath + ((
+
+        /**
+         * If setted, replace « The url listening ». « The url listening. » become a « key » value.
+         * @public
+         * @alias url
+         * @type {string}
+         * @memberOf NA#locals.routeParameters
+         */
+        routeParameters.url) ? routeParameters.url : path);
+
+    /* Manage GET / POST / PUT / DELETE / OPTIONS support for an url. */
+    getSupport = supportGet(NA, routeParameters, getSupport);
+    postSupport = supportPost(NA, routeParameters, postSupport);
+    putSupport = supportPut(NA, routeParameters, putSupport);
+    deleteSupport = supportDelete(NA, routeParameters, deleteSupport);
+    optionsSupport = supportOptions(NA, routeParameters, optionsSupport);
 
     /* Ask for a page in GET, POST, PUT or DELETE. */
     NA.requestRegex({ 
@@ -422,7 +490,7 @@ exports.requestRegex = function (support, objectPath, options, path, routeParame
          * @alias regExp
          * @type {string|boolean}
          * @default false
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          */
         routeParameters.regExp
     ) {
@@ -441,6 +509,87 @@ exports.requestRegex = function (support, objectPath, options, path, routeParame
 };
 
 /**
+ * Prepare locals and headers.
+ * @private
+ * @function prepare
+ * @memberOf NA~
+ * @param {NA}      NA      NodeAtlas instance.
+ * @param {Object}  path    Key/Path for routes.
+ * @param {boolean} options Value(s) for routes.
+ * @return {function} Preparation middleware.
+ */
+function prepare(NA, path, options) {
+	return function (request, response, next) {
+	    /* ...else execute render... */
+	    NA.prepareResponse(path, options, request, response, function () {
+	        next();
+	    });
+	};
+}
+
+/**
+ * If page must be redirected.
+ * @private
+ * @function redirect
+ * @memberOf NA~
+ * @param {NA}     NA              NodeAtlas instance.
+ * @param {Object} routeParameters Parameters for route.
+ * @return {function} Preparation redirect.
+ */
+function redirect(NA, routeParameters) {
+	return function (request, response, next) {
+	    /* Verify if route is a redirection... */
+	    if (routeParameters.redirect &amp;&amp; routeParameters.statusCode) {
+	        /* ...and if is it, redirect... */
+	        return NA.redirect(routeParameters, request, response);
+	    }
+	    next();
+	};
+}
+
+/**
+ * If page must be redirected.
+ * @private
+ * @function redirect
+ * @memberOf NA~
+ * @param  {NA}       NA NodeAtlas instance.
+ * @return {function} Preparation middleware.
+ */
+function response(NA) {
+	return function (request, response, next) {
+	    /* ...else execute render... */
+	    NA.changeVariationsCommon(response.locals, request, response, function () {
+	        next();
+	    });
+	};
+}
+
+/**
+ * Create Middleware function.
+ * @private
+ * @function getMiddlewares
+ * @memberOf NA~
+ * @param  {NA}       NA NodeAtlas instance.
+ * @param {Object} routeParameters Parameters for route.
+ * @return {function} Preparation middleware.
+ */
+function getMiddlewares(NA, routeParameters) {
+	var pathM = NA.modules.path;
+	return (
+
+        /**
+         * Allow you to set Express middleware for a specific route.
+         * @public
+         * @alias middlewares
+         * @type {string}
+         * @memberOf NA#locals.routeParameters
+         */
+        routeParameters.middlewares) ? 
+        require(pathM.join(NA.serverPath, NA.webconfig.middlewaresRelativePath, routeParameters.middlewares)).bind(NA)
+    : function() { return []; };
+}
+
+/**
  * Ask for a page in GET, POST, UPDATE, DELETE or OPTIONS.
  * @private
  * @function executeRequest
@@ -457,30 +606,8 @@ exports.requestRegex = function (support, objectPath, options, path, routeParame
  */
 exports.executeRequest = function (support, objectPath, options, path) {
     var NA = this,
-        pathM = NA.modules.path,
         routeParameters,
-        getMiddlewares,
-        middlewares,
-        redirect = function (request, response, next) {
-            /* Verify if route is a redirection... */
-            if (routeParameters.redirect &amp;&amp; routeParameters.statusCode) {
-                /* ...and if is it, redirect... */
-                return NA.redirect(routeParameters, request, response);
-            }
-            next();
-        },
-        prepare = function (request, response, next) {
-            /* ...else execute render... */
-            NA.prepareResponse(path, options, request, response, function () {
-                next();
-            });
-        },
-        response = function (request, response, next) {
-            /* ...else execute render... */
-            NA.changeVariationsCommon(response.locals, response.routeParameters, request, response, response.viewsPath, response.currentPath, function () {
-                next();
-            });
-        };
+        middlewares;
 
     /* Case of `path` is an object because `NA.webconfig.routes` is an array and not an object. */
     if (typeof path === "object") {
@@ -489,45 +616,31 @@ exports.executeRequest = function (support, objectPath, options, path) {
         routeParameters = options[path];
     }
 
-    /* Execute express middleware for each route. */
-    getMiddlewares = (
-
-        /**
-         * Allow you to set Express middleware for a specific route.
-         * @public
-         * @alias middlewares
-         * @type {string}
-         * @memberOf NA#routeParameters
-         */
-        routeParameters.middlewares) ? 
-        require(pathM.join(NA.serverPath, NA.webconfig.middlewaresRelativePath, routeParameters.middlewares)).bind(NA)
-    : function() { return []; };
-
-    middlewares = getMiddlewares();
+    middlewares = getMiddlewares(NA, routeParameters)();
 
     /** Execute Get Request */
     if (support.getSupport) {
-        NA.express.get(objectPath, prepare, middlewares, redirect, response);
+        NA.express.get(objectPath, prepare(NA, path, options), middlewares, redirect(NA, routeParameters), response(NA));
     }
 
     /** Execute Post Request */
     if (support.postSupport) {
-        NA.express.post(objectPath, prepare, middlewares, redirect, response);
+        NA.express.post(objectPath, prepare(NA, path, options), middlewares, redirect(NA, routeParameters), response(NA));
     }
 
     /** Execute Put Request */
     if (support.putSupport) {
-        NA.express.put(objectPath, prepare, middlewares, redirect, response);
+        NA.express.put(objectPath, prepare(NA, path, options), middlewares, redirect(NA, routeParameters), response(NA));
     }
 
     /** Execute Delete Request */
     if (support.deleteSupport) {
-        NA.express.delete(objectPath, prepare, middlewares, redirect, response);
+        NA.express.delete(objectPath, prepare(NA, path, options), middlewares, redirect(NA, routeParameters), response(NA));
     }
 
     /** Execute Options Request */
     if (support.optionsSupport) {
-        NA.express.options(objectPath, prepare, middlewares, redirect, function (request, response) {
+        NA.express.options(objectPath, prepare(NA, path, options), middlewares, redirect(NA, routeParameters), function (request, response) {
             response.sendStatus(200);
         });
     }
@@ -556,8 +669,8 @@ exports.sendResponse = function (request, response, data) {
  * @function redirect
  * @memberOf NA#
  * @param {Object} routeParameters All information associate with the redirection.
- * @param {Object} request                Initial request.
- * @param {Object} response               Initial response.
+ * @param {Object} request         Initial request.
+ * @param {Object} response        Initial response.
  */
 exports.redirect = function (routeParameters, request, response) {
     var NA = this,
@@ -572,7 +685,7 @@ exports.redirect = function (routeParameters, request, response) {
          * @public
          * @alias redirect
          * @type {string}
-         * @memberOf NA#routeParameters
+         * @memberOf NA#locals.routeParameters
          */
         location = routeParameters.redirect.replace(/\$([0-9]+)/g, function (regex, matches) { return request.params[matches]; });
     /* Or by standard selector. */
@@ -610,12 +723,7 @@ exports.pageNotFound = function () {
          * @memberOf NA#webconfig
          */
         pageNotFoundUrl = NA.webconfig.pageNotFound,
-        pathM = NA.modules.path,
-        getMiddlewares,
-        middlewares,
-        redirect,
-        prepare,
-        response;
+        middlewares;
 
     if (NA.webconfig.routes instanceof Array) {
         for (i = 0; i &lt; NA.webconfig.routes.length; i++) {
@@ -630,36 +738,10 @@ exports.pageNotFound = function () {
     }
 
     if (pageNotFound) {
-        redirect = function (request, response, next) {
-            /* Verify if route is a redirection... */
-            if (pageNotFound.redirect &amp;&amp; pageNotFound.statusCode) {
-                /* ...and if is it, redirect... */
-                return NA.redirect(pageNotFound, request, response);
-            }
-            next();
-        };
-        prepare = function (request, response, next) {
-            /* ...else execute render... */
-            NA.prepareResponse(pageNotFoundUrl, NA.webconfig.routes, request, response, function () {
-                next();
-            });
-        };
-        response = function (request, response, next) {
-            /* ...else execute render... */
-            NA.changeVariationsCommon(response.locals, response.routeParameters, request, response, response.viewsPath, response.currentPath, function () {
-                next();
-            });
-        };
-
-        getMiddlewares = (
-            pageNotFound.middlewares) ? 
-            require(pathM.join(NA.serverPath, NA.webconfig.middlewaresRelativePath, pageNotFound.middlewares)).bind(NA)
-        : function() { return []; };
-
-        middlewares = getMiddlewares();
+        middlewares = getMiddlewares(NA, pageNotFound)();
 
         /* Match all Get Request */
-        NA.express.all("*", prepare, middlewares, redirect, response);
+        NA.express.all("*", prepare(NA, pageNotFoundUrl, NA.webconfig.routes), middlewares, redirect(NA, pageNotFound), response(NA));
     }
 };</code></pre>
         </article>
@@ -671,13 +753,13 @@ exports.pageNotFound = function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_routeParameters.html">routeParameters</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_locals.html#.routeParameters">routeParameters</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 07 2017 13:45:18 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Feb 20 2017 18:33:39 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>
