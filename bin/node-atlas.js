@@ -74,7 +74,8 @@ NA.prototype.initNpmModules = modules.initNpmModules;
 NA.prototype.openConfiguration = globals.openConfiguration;
 NA.prototype.log = globals.log;
 NA.prototype.openController = globals.openController;
-
+NA.prototype.openView = globals.openView;
+NA.prototype.openVariation = globals.openVariation;
 NA.prototype.extend = globals.extend;
 NA.prototype.clone = globals.clone;
 NA.prototype.forEach = globals.forEach;
@@ -110,12 +111,9 @@ NA.prototype.pageNotFound = routes.pageNotFound;
 NA.prototype.prepareResponse = response.prepareResponse;
 NA.prototype.prepareHeaders = response.prepareHeaders;
 
-NA.prototype.openTemplate = response.openTemplate;
-NA.prototype.openVariation = response.openVariation;
 NA.prototype.prepareRenderLanguage = response.prepareRenderLanguage;
 NA.prototype.prepareRenderPath = response.prepareRenderPath;
 NA.prototype.prepareRenderVariation = response.prepareRenderVariation;
-NA.prototype.prepareRenderParameters = response.prepareRenderParameters;
 NA.prototype.changeVariationsCommon = response.changeVariationsCommon;
 NA.prototype.changeVariationsSpecific = response.changeVariationsSpecific;
 NA.prototype.changeDomCommon = response.changeDomCommon;
