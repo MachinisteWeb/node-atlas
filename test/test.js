@@ -99,7 +99,6 @@ describe("All NodeAtlas property from NA instance and prototype chain", function
             'prepareRenderLanguage',
             'prepareRenderPath',
             'prepareRenderVariation',
-            'prepareRenderParameters',
             'changeVariationsCommon',
             'changeVariationsSpecific',
             'changeDomCommon',

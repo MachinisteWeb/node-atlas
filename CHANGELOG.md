@@ -14,7 +14,7 @@ Features:
 - `NA#webconfig.headers` is added.
 - `NA#webconfig.cache` is added.
 - `NA#webconfig.pug` is added.
-- `NA#routeParameters.enablePug` is added.
+- `NA#locals.routeParameters.enablePug` is added.
 - `NA#controllers[].setSockets` is added for both common and specific controller.
 - `NA#controllers[].changeDom(next(), locals.virtualDom()...` added to directly obtain `$`.
 - `NA#controllers[].changeDom` `next` callback accept a `$` first parameter.
@@ -26,7 +26,7 @@ Features:
 - `NA#engine` added.
 - `NA#middlewares` added.
 - `NA#middlewaresRelativePath` added.
-- `NA#routeParameters.middlewares` added.
+- `NA#locals.routeParameters.middlewares` added.
 - `NA#assetsCopy` added.
 - `serverRelativePath` folder is created if is not exist.
 - Language `portRequiresPrivileges` is added.
@@ -48,9 +48,9 @@ Updates:
 - `NA#locals.currentRouteParameters` become `NA#locals.routeParameters`.
 - `NA#locals.currentRouteName` become `NA#locals.route`.
 - `NA#locals.urlBasePath` become `NA#webconfig.urlRoot + NA#webconfig.urlRelativeSubPath` (without ending "/").
-- `NA#currentRouteParameters` become `NA#routeParameters`.
-- `NA#routeParameters.generate` become `NA#routeParameters.output`.
-- `NA#routeParameters.template` become `NA#routeParameters.view`.
+- `NA#currentRouteParameters` become `NA#locals.routeParameters`.
+- `NA#locals.routeParameters.generate` become `NA#locals.routeParameters.output`.
+- `NA#locals.routeParameters.template` become `NA#locals.routeParameters.view`.
 - `NA#webconfig.urlWithoutFileName` become `NA#webconfig.urlRoot`.
 - `NA#webconfig.generatesRelativePath` become `NA#webconfig.serverlessRelativePath`.
 - `NA#webconfig.serverlessRelativePath` default value become `"serverless"`.
@@ -91,10 +91,10 @@ Updates:
 - `NA#postSupport` become `NA#post`. 
 - `NA#putSupport` become `NA#put`. 
 - `NA#deleteSupport` become `NA#delete`. 
-- `NA#routeParameters.getSupport` become `NA#routeParameters.get`. 
-- `NA#routeParameters.postSupport` become `NA#routeParameters.post`. 
-- `NA#routeParameters.putSupport` become `NA#routeParameters.put`. 
-- `NA#routeParameters.deleteSupport` become `NA#routeParameters.delete`. 
+- `NA#locals.routeParameters.getSupport` become `NA#locals.routeParameters.get`. 
+- `NA#locals.routeParameters.postSupport` become `NA#locals.routeParameters.post`. 
+- `NA#locals.routeParameters.putSupport` become `NA#locals.routeParameters.put`. 
+- `NA#locals.routeParameters.deleteSupport` become `NA#locals.routeParameters.delete`. 
 - `NA#commonController` become `NA#controller`.
 - `NA#commonVariation` become `NA#variation`.
 - `NA#enableLess` become `NA#less`.
