@@ -1409,7 +1409,7 @@ et avec le webconfig suivant :
 
 ```json
 {
-    "commonView": "common.htm",
+    "view": "common.htm",
     "variation": "common.json",
     "routes": {
         "/": {
@@ -1991,7 +1991,7 @@ Voyons ce que cela donnerait avec l'exemple suivant :
 ```
 {
     "pug": true,
-    "commonView": "common.pug",
+    "view": "common.pug",
     "variation": "common.json",
     "routes": {
         "/": {
@@ -6596,7 +6596,7 @@ Ce que fait `engine`, c'est abandonner le système de NodeAtlas et passer par ce
 
 Il est tout a fait possible de passer par Express pour rendre EJS et PUG. Dans ce cas, puisque `node-atlas` embarque les modules `ejs` et `pug` en tant que dépendance, il n'est pas nécéssaire de passer par le `controller` commun et l'utilisation de `npm` pour les mettre en place. Il suffit juste d'utiliser `engine: "ejs"` ou `engine: "pug"`.
 
-Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l'utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour PUG dans la `commonView` avec `#{routeParameters.view}`.
+Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l'utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour PUG dans la `view` avec `#{routeParameters.view}`.
 
 
 
