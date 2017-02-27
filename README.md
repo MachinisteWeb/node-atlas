@@ -4,7 +4,7 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
 
 **For an international version of this document, [follow this link](https://www.npmjs.com/package/node-atlas).**
 
-> *NodeAtlas* est un Framework Web MVC(2) côté serveur vous permettant de créer des sites évolutifs, conformes au W3C et bonnes pratiques SEO. Il permet de faire tourner des pages localisables et indexables ou de créer des maquettes HTML uniquement avec des vues. Mais activer les contrôleurs permet de développer de puissantes applications web orientées données et composants ou orienté service avec des fonctionalités modernes et temps réel !
+> *NodeAtlas* est un Framework Web MVC(2) côté serveur vous permettant de créer des sites évolutifs, conformes au W3C et bonnes pratiques SEO. Il permet de faire tourner des pages localisables et indexables ou de créer des maquettes HTML uniquement avec des vues. Cependant, en activant les contrôleurs, vous pourrez développer de puissantes applications web orientées données et composants ou orienté service avec des fonctionalités modernes et temps réel !
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.2-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas) [![Chat pour de l'Aide](https://img.shields.io/badge/gitter-rejoindre%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Aide)
 
@@ -21,7 +21,7 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
    - la puissance d'Express.js (serveur web) et Socket.io (échange client-serveur temps réel) pré-configuré, simple et ajustable,
    - les préprocesseurs EJS, PUG (JADE), Less et Stylus embarqués et prêt à l'emploi,
    - des outils interne de génération HTML sans serveur ou d'empaquetage, minifications, offuscations, optimisations de CSS, JS et images,
-   - encore ; de la manipulation de DOM côté serveur, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
+   - ou encore ; de la manipulation de DOM côté serveur, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
 - De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API REST,
 - Tous les modules NPM, middleware Express.js/Socket.io, des plugins utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud).
 - [Un guide pas à pas Français et International](https://node-atlas.js.org/), avec un support communautaire sur [Gitter](https://gitter.im/NodeAtlas) (Chat) [FR](https://gitter.im/NodeAtlas/Aide)/[EN](https://gitter.im/NodeAtlas/Help).
@@ -61,9 +61,9 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
 {
     "languageCode": "en-gb",                /* Définir la langue principale. */
     "pageNotFound": "/page-404/",           /* Assigner une vue dédiée à la page 404. */
-    "commonView": "common.htm",             /* Assigner le layout global aux vues. */
-    "commonVariation": "common.json",       /* Assigner les fichiers de variations communes pour la localisation. */
-    "commonController": "common.js",        /* Assigner les fonctions du contrôleur appelé sur toutes les pages. */
+    "view": "common.htm",                   /* Assigner le layout global aux vues. */
+    "variation": "common.json",             /* Assigner les fichiers de variations communes pour la localisation. */
+    "controller": "common.js",              /* Assigner les fonctions du contrôleur appelé sur toutes les pages. */
     "post": false,                          /* Par défaut, empêcher les requêtes de page en POST. */
     "bundles": "bundles.json",              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
     "optimizations": "optimizations.json",  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
@@ -86,9 +86,9 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "urlRelativeSubPath": "example",        /* Définir un sous dossier d'exécution pour l'url de l'application. Par exemple : "https://www.my-website.com/example/". */
     "languageCode": "en-gb",
     "pageNotFound": "/page-404/",
-    "commonView": "common.htm",
-    "commonVariation": "common.json",
-    "commonController": "common.js",
+    "view": "common.htm",
+    "variation": "common.json",
+    "controller": "common.js",
     "post": false,
     "routes": "route.json",
 }

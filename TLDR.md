@@ -61,9 +61,9 @@ Create a `webconfig.json` file and dependencies files for configured your websit
 {
     "languageCode": "en-gb",                /* Set the principal language. */
     "pageNotFound": "/page-404/",           /* Assign the 404 dedicated view. */
-    "commonView": "common.htm",             /* Assign the common layout file for view. */
-    "commonVariation": "common.json",       /* Assign the common variation file for localisation. */
-    "commonController": "common.js",        /* Assign the common controller file for all pages called. */
+    "view": "common.htm",                   /* Assign the common layout file for view. */
+    "variation": "common.json",             /* Assign the common variation file for localisation. */
+    "controller": "common.js",              /* Assign the common controller file for all pages called. */
     "post": false,                          /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
     "optimizations": "optimizations.json",  /* Set images to optimize for the web with an external file. */
@@ -86,9 +86,9 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "urlRelativeSubPath": "example",        /* Set a subdirectory for the application url. i.e.: "https://www.my-website.com/example/". */
     "languageCode": "en-gb",
     "pageNotFound": "/page-404/",
-    "commonView": "common.htm",
-    "commonVariation": "common.json",
-    "commonController": "common.js",
+    "view": "common.htm",
+    "variation": "common.json",
+    "controller": "common.js",
     "post": false,
     "routes": "route.json",
 }
@@ -136,7 +136,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
         "view": "contact-us.htm",
         "variation": "contact-us.json",
         "controller": "contact-us.js",
-        "post": true                 /* Allow POST support for send an email with custom form. */
+        "post": true                        /* Allow POST support for send an email with custom form. */
     },
     "home-fr-fr": {
         "url": "/francais/",
