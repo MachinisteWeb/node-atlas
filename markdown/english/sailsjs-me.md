@@ -89,7 +89,7 @@ module.exports = function () {
 <pre><code class="lang-json">{
   "httpPort": 1337,
   "mimeType": "application/json",
-  "options": true
+  "options": true,
   "headers": { 
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Authorization"
