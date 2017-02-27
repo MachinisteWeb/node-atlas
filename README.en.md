@@ -366,7 +366,7 @@ equivalent to
 
 #### With the `nodeatlas` command line ####
 
-**If you have installed NodeAtlas with `npm install -g node-atlas`** you can use the `nodeatlas` command. `nodeatlas` is a shortcut for the command `node </path/to/>node-atlas/`.
+**If you have installed NodeAtlas with `npm install -g node-atlas`** you can use the `nodeatlas` command. `nodeatlas` is a shortcut for the command `node </path/to/globals/>node_modules/node-atlas/`.
 
 Position yourself with the prompt console in the folder « hello-world/ » and run the following command.
 

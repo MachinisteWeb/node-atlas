@@ -366,7 +366,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 #### Avec la commande `nodeatlas` ####
 
-**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez également utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/>node-atlas/`.
+**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/globals/>node_modules/node-atlas/`.
 
 Placez-vous avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
