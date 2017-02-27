@@ -240,7 +240,7 @@ Il y a plusieurs manières d'installer NodeAtlas :
 
 ### Installation de Node.js ###
 
-NodeAtlas est développé sous la forme d'un [Node.js Module Package](https://www.npmjs.com/) ce qui signifie qu'il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l'utilisation du même langage côté client et serveur.
+NodeAtlas est développé sous la forme d'un [Node.js Module Package](https://www.npmjs.com/) ou NPM ce qui signifie qu'il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l'utilisation du même langage côté client et serveur.
 
 *Note: Python 2.6 ou 2.7 est requis pour les sources tarballs.*
 
@@ -302,11 +302,11 @@ Il y a un conflit de nom entre le node de package (Amateur Packet Radio Node Pro
 
 ## Commencer avec NodeAtlas ##
 
-NodeAtlas est piloté par le fichier `webconfig.json`. Tout site NodeAtlas en possède un, c'est ce qui force le moteur à passer de « Simple Serveur Web » à « Serveur Web NodeAtlas ».
+Une instance de site NodeAtlas est pilotée par le fichier `webconfig.json`. Tout site NodeAtlas en possède un, c'est ce qui force le moteur à passer de « Simple Serveur Web » à « Serveur Web NodeAtlas ».
 
-NodeAtlas n'est pas une architecture MVC standard. L'une des particularités de NodeAtlas est que le contrôleur s'occupe lui-même de rendre la page. Aussi le minimum vital pour créer une page est d'activé la partie vue.
+NodeAtlas n'est pas une architecture MVC standard. L'une des particularités de NodeAtlas est que le contrôleur s'occupe lui-même de rendre la page sans développement de votre part. Aussi le minimum vital pour créer une page est de référencer un fichier de vue.
 
-Nous allons voir pour commencer mettre en place l'ensemble de fichiers minimals afin de réaliser un `hello-world`.
+Nous allons voir pour commencer comment mettre en place l'ensemble de fichiers minimals afin de réaliser un « Hello World ! ».
 
 ### Ensemble de fichiers ###
 
@@ -340,6 +340,8 @@ Voyons ci-après le contenu du fichier `webconfig.json`.
 
 Vous pouvez faire tourner une page simple avec la configuration minimale du « webconfig.json » ci-dessous
 
+*webconfig.json*
+
 ```json
 {
     "routes": {
@@ -352,6 +354,8 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 équivalente à
 
+*webconfig.json*
+
 ```json
 { "routes": { "/": "index.htm" } }
 ```
@@ -360,41 +364,32 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 ### Lancer le site avec NodeAtlas ###
 
-#### À la ligne de commande en appelant le script ####
-
-Placez-vous avec un invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
-
-```bash
-$ node </path/to/>node-atlas/
-```
-
-Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur.
-
-
-#### Avec un exécutable sur votre OS ####
+#### Avec la commande `nodeatlas` ####
 
 **Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez également utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/>node-atlas/`.
 
-Placez-vous toujours avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
+Placez-vous avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
 ```bash
 $ nodeatlas
 ```
 
-*Note : *si la commande `nodeatlas` n'est pas disponible sous unix après installation (erreur quand vous la tapez), c'est surement à cause d'un problème de droit. Si vous êtes root la commande `chown -R root:root /usr/local/bin/` avant de retaper `npm install -g node-atlas` solutionnera votre problème, sinon la utilisez la commande `sudo npm install -g node-atlas`.*
+Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur.
 
 
 #### Via un fichier JavaScript ####
 
 Vous pouvez également utiliser NodeAtlas comme un module NPM.
 
+Créer alors un fichier `server.js` au même niveau que le `webconfig.json`.
+
 *server.js*
 
 ```javascript
-var nodeAtlas = require("node-atlas");
-
-nodeAtlas().run();
+require("node-atlas").start();
 ```
+
+Lancez ensuite le fichier avec Node.js.
 
 ```bash
 $ node server.js

@@ -302,11 +302,11 @@ There is a naming conflict with the node package (Amateur Packet Radio Node Prog
 
 ## Start with NodeAtlas ##
 
-NodeAtlas is configuration-driven with `webconfig.json`. All NodeAtlas website have it, that turn the engine fron « Simple Web Server » to « NodeAtlas Web Server ».
+An NodeAtlas instance is configuration-driven with `webconfig.json`. All NodeAtlas website have it, that turn the engine fron « Simple Web Server » to « NodeAtlas Web Server ».
 
 NodeAtlas isn't a standard MVC hierarchy. One of is particularity is the capability of controller to render the view without any development from you.
 
-We will start with a how to set minimal files to perform a `hello-world`.
+We will start with a how to set minimal files to perform a "Hello World!".
 
 ### Fileset ###
 
@@ -340,6 +340,8 @@ See just below following, the content of `webconfig.json` file.
 
 You can turn a simple page with minimal configuration "webconfig.json" below
 
+*webconfig.json*
+
 ```json
 {
     "routes": {
@@ -352,6 +354,8 @@ You can turn a simple page with minimal configuration "webconfig.json" below
 
 equivalent to
 
+*webconfig.json*
+
 ```json
 { "routes": { "/": "index.htm" } }
 ```
@@ -360,20 +364,9 @@ equivalent to
 
 ### Run the site with NodeAtlas ###
 
-#### With a command line ####
+#### With the `nodeatlas` command line ####
 
-Position yourself with the prompt console in the folder "hello-world/" and run the following command.
-
-```bash
-$ node </path/to/>node-atlas/
-```
-
-You will have access to your "Hello World" to the page: *http://localhost/* in a browser.
-
-
-#### With an executable on your OS ####
-
-**If you have installed NodeAtlas with `npm install -g node-atlas`** you can also use the `nodeatlas` command. `nodeatlas` is a shortcut for `node </path/to/>node-atlas/`.
+**If you have installed NodeAtlas with `npm install -g node-atlas`** you can use the `nodeatlas` command. `nodeatlas` is a shortcut for the command `node </path/to/>node-atlas/`.
 
 Position yourself with the prompt console in the folder « hello-world/ » and run the following command.
 
@@ -381,20 +374,22 @@ Position yourself with the prompt console in the folder « hello-world/ » and r
 $ nodeatlas
 ```
 
-*Note : *if the `nodeatlas` command do not work on unix OS after installation, it's probably because of right problem. If you are root, the command `chown -R root:root /usr/local/bin/` before re-execuse `npm install -g node-atlas` command will fix issue, else, use the command `sudo npm install -g node-atlas`.*
+You will have access to your "Hello World" to the page: *http://localhost/* in a browser.
 
 
 #### Via a JavaScript file ####
 
 You can also use NodeAtlas as a NPM module.
 
+So, create a `server.js` file into the same folder of `webconfig.json`.
+
 *server.js*
 
 ```javascript
-var nodeAtlas = require("node-atlas");
-
-nodeAtlas().run();
+require("node-atlas").start();
 ```
+
+Lancez ensuite le fichier avec Node.js.
 
 ```bash
 $ node server.js
