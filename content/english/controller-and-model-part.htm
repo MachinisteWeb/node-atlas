@@ -1641,6 +1641,35 @@ module.exports = function () {
         })
     ];
 };
+</code></pre><h4 id="array-of-middlewares-">Array of <code>middlewares</code></h4><p>You could also provide an array with a file list of Express middlewares both in local route or global:</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+    &quot;routes&quot;: {
+        &quot;/upload-file&quot;: {
+            &quot;view&quot;: &quot;upload.htm&quot;,
+            &quot;controller&quot;: &quot;upload.js&quot;,
+            &quot;middlewares&quot;: [&quot;is-authenticated.js&quot;, &quot;redirect.js&quot;]
+        }
+    }
+    &quot;_jwt&quot;: {
+        secret: &quot;AUTH_CLIENT_SECRET&quot;,
+        audience: &quot;AUTH_CLIENT_ID&quot;
+    }
+}
+</code></pre><p>With the NA usage:</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require(&quot;express-jwt&quot;);
+
+module.exports = function () {
+    var NA = this;
+
+    return jwt({
+        secret: NA.webconfig._jwt.secret,
+        audience: NA.webconfig._jwt.audience
+    });
+};
+</code></pre><p>or not:</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="lang-js">module.exports = function (request, response, next) {
+
+    response.redirect(&#39;https://go.to.visitor.page/&#39;);
+
+    next();
+};
 </code></pre><div><div class="before">
                             <a href="view-and-template-part.html">◄ View and Template Part</a>
                         </div><div class="after">

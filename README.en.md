@@ -4317,10 +4317,10 @@ var jwt = require("express-jwt");
 module.exports = function () {
     var NA = this;
 
-    return jwt({
+    return [jwt({
         secret: NA.webconfig._jwt.secret,
         audience: NA.webconfig._jwt.audience
-    });
+    })];
 };
 ```
 
