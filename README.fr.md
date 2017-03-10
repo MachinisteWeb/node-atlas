@@ -4285,6 +4285,58 @@ module.exports = function () {
 };
 ```
 
+#### Tableau de `middlewares` ####
+
+Vous pouvez également fournir un tableau vers une liste de fichier de middleware Express que ce soit pour chaque route ou en global :
+
+**webconfig.json**
+
+```js
+{
+    "routes": {
+        "/upload-file": {
+            "view": "upload.htm",
+            "controller": "upload.js",
+            "middlewares": ["is-authenticated.js", "redirect.js"]
+        }
+    }
+    "_jwt": {
+        secret: "AUTH_CLIENT_SECRET",
+        audience: "AUTH_CLIENT_ID"
+    }
+}
+```
+
+Avec l'utilisation de l'objet NA :
+
+**middlewares/is-authenticated.js**
+
+```js
+var jwt = require("express-jwt");
+
+module.exports = function () {
+    var NA = this;
+
+    return jwt({
+        secret: NA.webconfig._jwt.secret,
+        audience: NA.webconfig._jwt.audience
+    });
+};
+```
+
+Où sans :
+
+**middlewares/redirect.js**
+
+```js
+module.exports = function (request, response, next) {
+
+    response.redirect('https://go.to.visitor.page/');
+
+    next();
+};
+```
+
 
 
 
@@ -6269,23 +6321,6 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 }
 ```
 
-Il est également possible de faire en sorte qu'aucune autre url ne puisse être tapé. Ainsi si on réclame `www.localhost` ou `localhost:7777` c'est bien sur `localhost` que sera le visiteur :
-
-```json
-{
-    "forceDomain": true,
-    "httpPort": 7777,
-    "httpHostname": "127.0.0.1",
-    "urlPort": 80,
-    "urlHostname": "localhost",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-```
-
 
 
 ### Générer les urls dynamiquement ###
@@ -6717,7 +6752,6 @@ Object{
     "controllersRelativePath": String<path-from-root>,
     "delete": Boolean,
     "engine": String,
-    "forceDomain": Boolean,
     "index": Boolean,
     "get": Boolean,
     "headers": Object,
@@ -6739,7 +6773,7 @@ Object{
         "paths": Array.String<path-from-assets>,
         "sourceMap": Boolean
     }),
-    "middlewares": String,
+    "middlewares": (String<filepath-from-middlewares> | Array.String<filepath-from-middlewares>),
     "middlewaresRelativePath": String<path-from-root>,
     "mimeType": String,
     "optimizations": (String<filepath-from-root> | Object{
@@ -6803,7 +6837,7 @@ Object{
     "headers": Object,
     "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
     "key": String,
-    "middlewares": String,
+    "middlewares": (String<filepath-from-middlewares> | Array.String<filepath-from-middlewares>),
     "mimeType": String,
     "options": Boolean,
     "output": (String<filepath-into-serverless> | Boolean<false>),

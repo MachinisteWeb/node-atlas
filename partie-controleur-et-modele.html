@@ -1945,6 +1945,35 @@ module.exports = function () {
         })
     ];
 };
+</code></pre><h4 id="tableau-de-middlewares-">Tableau de <code>middlewares</code></h4><p>Vous pouvez également fournir un tableau vers une liste de fichier de middleware Express que ce soit pour chaque route ou en global :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+    &quot;routes&quot;: {
+        &quot;/upload-file&quot;: {
+            &quot;view&quot;: &quot;upload.htm&quot;,
+            &quot;controller&quot;: &quot;upload.js&quot;,
+            &quot;middlewares&quot;: [&quot;is-authenticated.js&quot;, &quot;redirect.js&quot;]
+        }
+    }
+    &quot;_jwt&quot;: {
+        secret: &quot;AUTH_CLIENT_SECRET&quot;,
+        audience: &quot;AUTH_CLIENT_ID&quot;
+    }
+}
+</code></pre><p>Avec l&#39;utilisation de l&#39;objet NA :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require(&quot;express-jwt&quot;);
+
+module.exports = function () {
+    var NA = this;
+
+    return jwt({
+        secret: NA.webconfig._jwt.secret,
+        audience: NA.webconfig._jwt.audience
+    });
+};
+</code></pre><p>Où sans :</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="lang-js">module.exports = function (request, response, next) {
+
+    response.redirect(&#39;https://go.to.visitor.page/&#39;);
+
+    next();
+};
 </code></pre><div><div class="before">
                             <a href="partie-vue-et-template.html">◄ Partie Vue et Template</a>
                         </div><div class="after">

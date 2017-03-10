@@ -319,7 +319,6 @@ website.init({
     &quot;controllersRelativePath&quot;: String&lt;path-from-root&gt;,
     &quot;delete&quot;: Boolean,
     &quot;engine&quot;: String,
-    &quot;forceDomain&quot;: Boolean,
     &quot;index&quot;: Boolean,
     &quot;get&quot;: Boolean,
     &quot;headers&quot;: Object,
@@ -341,7 +340,7 @@ website.init({
         &quot;paths&quot;: Array.String&lt;path-from-assets&gt;,
         &quot;sourceMap&quot;: Boolean
     }),
-    &quot;middlewares&quot;: String,
+    &quot;middlewares&quot;: (String&lt;filepath-from-middlewares&gt; | Array.String&lt;filepath-from-middlewares&gt;),
     &quot;middlewaresRelativePath&quot;: String&lt;path-from-root&gt;,
     &quot;mimeType&quot;: String,
     &quot;optimizations&quot;: (String&lt;filepath-from-root&gt; | Object{
@@ -400,7 +399,7 @@ website.init({
     &quot;headers&quot;: Object,
     &quot;injectCss&quot;: (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
     &quot;key&quot;: String,
-    &quot;middlewares&quot;: String,
+    &quot;middlewares&quot;: (String&lt;filepath-from-middlewares&gt; | Array.String&lt;filepath-from-middlewares&gt;),
     &quot;mimeType&quot;: String,
     &quot;options&quot;: Boolean,
     &quot;output&quot;: (String&lt;filepath-into-serverless&gt; | Boolean&lt;false&gt;),

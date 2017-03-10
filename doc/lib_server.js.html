@@ -332,17 +332,6 @@ exports.initMiddlewares = function () {
         compress = NA.modules.compress,
         bodyParser = NA.modules.bodyParser,
         cookieParser = NA.modules.cookieParser,
-
-        /**
-         * Force address and port if extra 'www' or 'port' is enter in browser url bar.
-         * @public
-         * @alias forceDomain
-         * @type {boolean}
-         * @memberOf NA#webconfig
-         * @default false
-         */
-        forceDomain = NA.webconfig.forceDomain,
-        httpSecure = NA.webconfig.httpSecure,
         getMiddlewares,
         middlewares,
         i, 
@@ -350,16 +339,6 @@ exports.initMiddlewares = function () {
 
     /* Use gzip and others client-server data compression. */
     NA.express.use(compress());
-
-    /* Force utilisation of www and avoid using the original port in address. Necessary without reverse proxy. */
-    if (forceDomain) {
-        NA.express.use(forceDomain({
-            hostname: NA.webconfig.urlHostname,
-            port: NA.webconfig.urlPort,
-            type: 'permanent',
-            protocol: 'http' + ((httpSecure) ? 's' : '')
-        }));
-    }
 
     /* Allow you to parse the x-www-form-urlencoded format. */
     NA.express.use(bodyParser.urlencoded({ extended: true }));
@@ -371,7 +350,7 @@ exports.initMiddlewares = function () {
     NA.express.use(cookieParser());
 
     /* Execute express middleware for all routes. */
-    getMiddlewares = (
+    if (
 
         /**
          * Allow you to set Express middleware for all routes.
@@ -380,9 +359,18 @@ exports.initMiddlewares = function () {
          * @type {string}
          * @memberOf NA#webconfig
          */
-        NA.webconfig.middlewares) ? 
-        require(path.join(NA.serverPath, NA.webconfig.middlewaresRelativePath, NA.webconfig.middlewares)).bind(NA)
-    : function() { return []; };
+        NA.webconfig.middlewares) {
+        if (NA.webconfig.middlewares instanceof Array) {
+            NA.webconfig.middlewares.forEach(function (middleware) {
+                middlewares.push(require(path.join(NA.serverPath, NA.webconfig.middlewaresRelativePath, middleware)).bind(NA));
+            });
+            getMiddlewares = function() { return middlewares; };
+        } else {
+            getMiddlewares = require(path.join(NA.serverPath, NA.webconfig.middlewaresRelativePath, NA.webconfig.middlewares)).bind(NA);
+        }
+    } else {
+        getMiddlewares = function() { return []; };
+    }
 
     for (i = 0, middlewares = getMiddlewares(), l = middlewares.length; i &lt; l; i++) {
         NA.express.use(middlewares[i]);
@@ -816,13 +804,13 @@ exports.initServer = function (next, fallback) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_forcedomain.html">forcedomain</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_locals.html#.routeParameters">routeParameters</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_locals.html#.routeParameters">routeParameters</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Feb 27 2017 16:27:20 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Mar 10 2017 11:09:47 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

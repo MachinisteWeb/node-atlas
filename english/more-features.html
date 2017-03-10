@@ -1576,18 +1576,6 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><p>It&#39;s also possible to avoid other enter url. Also if <code>www.localhost</code> or <code>localhost:7777</code> are enter into url area, it&#39;s <code>localhost</code> for the user :</p><pre><code class="lang-json">{
-    &quot;forceDomain&quot;: true,
-    &quot;httpPort&quot;: 7777,
-    &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
-    &quot;urlPort&quot;: 80,
-    &quot;urlHostname&quot;: &quot;localhost&quot;,
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
-        }
-    }
-}
 </code></pre><h3 id="generate-urls-dynamically">Generate urls dynamically</h3><h4 id="relative-paths-in-absolute">Relative paths in absolute</h4><p>It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong><a href="http://localhost">http://localhost</a></strong> impossible to reach when the template is displayed to address <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (because the path should be <code>../media/images/example.jpg</code>).</p><p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the urls such as:</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;img src=&quot;media/images/example.jpg&quot; /&gt;
