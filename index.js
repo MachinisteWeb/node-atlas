@@ -6,7 +6,7 @@
 /**
  * @fileOverview Progressive realtime web framework config-driven or API-driven for building easily serverless files, websites and webapps component-based and service-oriented.
  * @author {@link https://www.lesieur.name/ Bruno Lesieur}
- * @version 1.8.0
+ * @version 2.0.0
  * @license {@link https://raw.githubusercontent.com/Haeresis/NodeAtlas/master/LICENSE GNU GENERAL PUBLIC LICENSE Version 2}
  * @module node-atlas
  * @requires {@link NA#modules.external:async}
@@ -21,7 +21,6 @@
  * @requires {@link NA#modules.external:express}
  * @requires {@link NA#modules.external:express-session}
  * @requires {@link NA#modules.external:extend}
- * @requires {@link NA#modules.external:forcedomain}
  * @requires {@link NA#modules.external:imagemin}
  * @requires {@link NA#modules.external:less}
  * @requires {@link NA#modules.external:less-middleware}
