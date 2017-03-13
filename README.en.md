@@ -4061,18 +4061,18 @@ exports.changeVariations = function (next, locals) {
 
     User
     .findOne({ "identity.firstname": "Bruno" })
-    .exec(function (err, bruno) {
+    .exec(function (err, user) {
 
-        locals.id = bruno._id;
-        locals.lastname = bruno.identity.lastname;
-        locals.firstname = bruno.identity.firstname;
-        locals.birthdate = bruno.identity.birthdate;
-        locals.email = bruno.email;
-        locals.gender = (bruno.identity.gender) ? locals.common.male : locals.common.female;
-        locals.country = bruno.location.country;
-        locals.town = bruno.location.town;
-        locals.zipcode = bruno.location.zipcode;
-        locals.address = bruno.location.address;
+        locals.id = user._id;
+        locals.lastname = user.identity.lastname;
+        locals.firstname = user.identity.firstname;
+        locals.birthdate = user.identity.birthdate;
+        locals.email = user.email;
+        locals.gender = (user.identity.gender) ? locals.common.male : locals.common.female;
+        locals.country = user.location.country;
+        locals.town = user.location.town;
+        locals.zipcode = user.location.zipcode;
+        locals.address = user.location.address;
 
         next();
     });
@@ -4115,7 +4115,7 @@ You will get the following output:
 
 ```html
 <!DOCTYPE html>
-<html lang="">
+<html lang="en-us">
     <head>
         <meta charset="utf-8" />
         <title>MongoDB Example</title>
@@ -4126,16 +4126,16 @@ You will get the following output:
             <h1>User Collection</h1>
             <p>Collection `{ "identity.firstname": "Bruno" }` details.</p>
             <ul>
-                <li>Id: <strong>1</strong></li>
-                <li>Lastname: <strong>Lesieur</strong></li>
-                <li>Firstname: <strong>Bruno</strong></li>
-                <li>Email: <strong>bruno.lesieur@gmail.com</strong></li>
-                <li>Birthdate: <strong>Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))</strong></li>
+                <li>Id: <strong>5804d4d530788ee2e52ea1c7</strong></li>
+                <li>Lastname: <strong>Doe</strong></li>
+                <li>Firstname: <strong>John</strong></li>
+                <li>Email: <strong>john.doe@unknown.com</strong></li>
+                <li>Birthdate: <strong>Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))</strong></li>
                 <li>Gender: <strong>Homme</strong></li>
-                <li>Country: <strong>France</strong></li>
-                <li>Town: <strong>Annecy</strong></li>
-                <li>Zipcode: <strong>74000</strong></li>
-                <li>Address: <strong>66 avenue de Genève</strong></li>
+                <li>Country: <strong>Unknown</strong></li>
+                <li>Town: <strong>Unknown</strong></li>
+                <li>Zipcode: <strong>00000</strong></li>
+                <li>Address: <strong>42 unknown</strong></li>
             </ul>
         </div>
     </body>

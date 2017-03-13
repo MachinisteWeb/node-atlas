@@ -1659,10 +1659,10 @@ module.exports = function () {
 module.exports = function () {
     var NA = this;
 
-    return jwt({
+    return [jwt({
         secret: NA.webconfig._jwt.secret,
         audience: NA.webconfig._jwt.audience
-    });
+    })];
 };
 </code></pre><p>or not:</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="lang-js">module.exports = function (request, response, next) {
 

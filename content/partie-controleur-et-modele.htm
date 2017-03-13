@@ -1482,19 +1482,19 @@ exports.setConfigurations = function (next) {
         User = mongoose.model(&#39;user&#39;);
 
     User
-    .findOne({ &quot;identity.firstname&quot;: &quot;Bruno&quot; })
-    .exec(function (err, bruno) {
+    .findOne({ &quot;identity.firstname&quot;: &quot;John&quot; })
+    .exec(function (err, user) {
 
-        locals.id = bruno._id;
-        locals.lastname = bruno.identity.lastname;
-        locals.firstname = bruno.identity.firstname;
-        locals.birthdate = bruno.identity.birthdate;
-        locals.email = bruno.email;
-        locals.gender = (bruno.identity.gender) ? locals.common.male : locals.common.female;
-        locals.country = bruno.location.country;
-        locals.town = bruno.location.town;
-        locals.zipcode = bruno.location.zipcode;
-        locals.address = bruno.location.address;
+        locals.id = user._id;
+        locals.lastname = user.identity.lastname;
+        locals.firstname = user.identity.firstname;
+        locals.birthdate = user.identity.birthdate;
+        locals.email = user.email;
+        locals.gender = (user.identity.gender) ? locals.common.male : locals.common.female;
+        locals.country = user.location.country;
+        locals.town = user.location.town;
+        locals.zipcode = user.location.zipcode;
+        locals.address = user.location.address;
 
         next();
     });
@@ -1527,7 +1527,7 @@ if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
     }
 })));
 </code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;&quot;&gt;
+&lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot; /&gt;
         &lt;title&gt;Exemple MongoDB&lt;/title&gt;
@@ -1536,18 +1536,18 @@ if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
         &lt;div class=&quot;title&quot;&gt;Exemple MongoDB&lt;/div&gt;
         &lt;div&gt;
             &lt;h1&gt;Collection User&lt;/h1&gt;
-            &lt;p&gt;Détail de l&#39;entrée `{ &quot;identity.firstname&quot;: &quot;Bruno&quot; }`.&lt;/p&gt;
+            &lt;p&gt;Détail de l&#39;entrée `{ &quot;identity.firstname&quot;: &quot;John&quot; }`.&lt;/p&gt;
             &lt;ul&gt;
                 &lt;li&gt;Id: &lt;strong&gt;5804d4d530788ee2e52ea1c7&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Lastname: &lt;strong&gt;Lesieur&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Firstname: &lt;strong&gt;Bruno&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Email: &lt;strong&gt;bruno.lesieur@gmail.com&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Birthdate: &lt;strong&gt;Mon Jul 18 1988 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Lastname: &lt;strong&gt;Doe&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Firstname: &lt;strong&gt;John&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Email: &lt;strong&gt;john.doe@unknown.com&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Birthdate: &lt;strong&gt;Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong&gt;&lt;/li&gt;
                 &lt;li&gt;Gender: &lt;strong&gt;Homme&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Country: &lt;strong&gt;France&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Town: &lt;strong&gt;Annecy&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Zipcode: &lt;strong&gt;74000&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Address: &lt;strong&gt;66 avenue de Genève&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Country: &lt;strong&gt;Unknown&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Town: &lt;strong&gt;Unknown&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Zipcode: &lt;strong&gt;00000&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Address: &lt;strong&gt;42 unknown&lt;/strong&gt;&lt;/li&gt;
             &lt;/ul&gt;
         &lt;/div&gt;
     &lt;/body&gt;
