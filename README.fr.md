@@ -4022,7 +4022,7 @@ Avec les fichiers suivant pour afficher la page :
 ```json
 {
     "titlePage": "Collection User",
-    "content": "<p>Détail du document `{ \"identity.firstname\": \"Bruno\" }`.</p>"
+    "content": "<p>Détail du document `{ \"identity.firstname\": \"John\" }`.</p>"
 }
 ```
 

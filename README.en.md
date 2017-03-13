@@ -4022,7 +4022,7 @@ With following files to display page:
 ```json
 {
     "titlePage": "User Collection",
-    "content": "<p>Document `{ \"identity.firstname\": \"Bruno\" }` details.</p>"
+    "content": "<p>Document `{ \"identity.firstname\": \"John\" }` details.</p>"
 }
 ```
 
