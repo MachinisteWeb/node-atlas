@@ -310,7 +310,7 @@ We will start with a how to set minimal files to perform a "Hello World!".
 
 ### Fileset ###
 
-After installing NodeAtlas somewhere on your machine, you create a set of files representing a site anywhere else like structure below:
+After installing NodeAtlas, you can create a set of files representing a site in the folder of your choice. In the example below, we will use `hello-world` directory:
 
 ```
 hello-world/

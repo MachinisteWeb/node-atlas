@@ -655,7 +655,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : this is not recommanded for production environment because it&#39;s slowed responses pages.</em></p><h4 id="bundles-with-sockets">Bundles with Sockets</h4><p>It&#39;s possible to minify file defined in <code>NA.webconfig.urlSocketsFile</code> even if it&#39;s not a real prysical file. Just add it into bundles of your choice.</p><p>In the following example, virtual <code>/node-atlas/socket.io.js</code> file will be added to bundles with the correct client/server sockets configuration.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : this is not recommanded for production environment because it&#39;s slowed responses pages.</em></p><h4 id="bundles-with-sockets">Bundles with Sockets</h4><p>It&#39;s possible to minify file defined in <code>NA.webconfig.socketClientFile</code> even if it&#39;s not a real prysical file. Just add it into bundles of your choice.</p><p>In the following example, virtual <code>/node-atlas/socket.io.js</code> file will be added to bundles with the correct client/server sockets configuration.</p><pre><code class="lang-json">{
     &quot;bundles&quot;: {
         &quot;javascripts&quot;: {
             &quot;javascripts/common.min.js&quot;: [

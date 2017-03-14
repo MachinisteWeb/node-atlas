@@ -1,3 +1,4 @@
+
 # node-atlas #
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/)
@@ -310,7 +311,7 @@ Nous allons voir pour commencer comment mettre en place l'ensemble de fichiers m
 
 ### Ensemble de fichiers ###
 
-Après avoir installé NodeAtlas quelque part sur votre machine, créez-vous un ensemble de fichiers représentant un site n'importe où ailleurs comme la structure ci-dessous :
+Après avoir installé NodeAtlas, créez-vous un ensemble de fichiers représentant un site dans le dossier de votre choix. Nous allons dans cet exemple le faire dans un dossier `hello-world` :
 
 ```
 hello-world/
