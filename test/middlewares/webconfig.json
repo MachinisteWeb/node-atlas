@@ -1,0 +1,4 @@
+{
+	"middlewares": "a.js",
+	"routes": { "/": { "view": "index.htm", "middlewares": ["c.js", "b.js"] } }
+}
