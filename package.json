@@ -81,11 +81,11 @@
   "devDependencies": {
     "chai": "3.5.x",
     "mocha": "3.2.x",
-    "request": "2.79.x"
+    "request": "2.81.x"
   },
   "dependencies": {
     "async": "2.1.x",
-    "body-parser": "1.16.x",
+    "body-parser": "1.17.x",
     "cheerio": "0.22.x",
     "clean-css": "4.0.x",
     "commander": "2.9.x",
@@ -94,7 +94,7 @@
     "copy-dir": "0.3.x",
     "css-parse": "2.0.x",
     "ejs": "2.5.x",
-    "express": "4.14.x",
+    "express": "4.15.x",
     "express-session": "1.15.x",
     "extend": "3.0.x",
     "imagemin": "5.2.x",
@@ -109,7 +109,7 @@
     "pug": "^2.0.0-beta6",
     "socket.io": "1.7.x",
     "stylus": "0.54.x",
-    "uglify-js": "2.7.x"
+    "uglify-js": "2.8.x"
   },
   "files": [
     "languages/*",
