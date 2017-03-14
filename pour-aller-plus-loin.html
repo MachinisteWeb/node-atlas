@@ -1775,7 +1775,7 @@ exports.setConfigurations = function (next) {
 };
 </code></pre><p>Ainsi à l&#39;adresse <code>http://localhost/riri/?query=fifi</code> demandé en POST avec le body <code>member=loulou</code> vous obtiendrez la sortie :</p><pre><code class="lang-json">{
   &quot;params&quot;: &quot;riri&quot;,
-  &quot;query&quot;: &quot;fifi&quot;
+  &quot;query&quot;: &quot;fifi&quot;,
   &quot;body&quot;: &quot;loulou&quot;
 }
 </code></pre><h4 id="pas-de-routes">Pas de routes</h4><p>Pas un seul webconfig présenté dans la documentation ne se passe du paramètre <code>routes</code>. Pourtant il est facultatif au même titre que tous les autres. Aussi avec le Webconfig suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{

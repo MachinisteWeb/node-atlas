@@ -6682,7 +6682,7 @@ So to the `http://localhost/huey/?query=dewey` URL requested in POST with `membe
 ```json
 {
   "params": "huey",
-  "query": "dewey"
+  "query": "dewey",
   "body": "louie"
 }
 ```

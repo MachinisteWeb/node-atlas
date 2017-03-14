@@ -6682,7 +6682,7 @@ Ainsi à l'adresse `http://localhost/riri/?query=fifi` demandé en POST avec le 
 ```json
 {
   "params": "riri",
-  "query": "fifi"
+  "query": "fifi",
   "body": "loulou"
 }
 ```

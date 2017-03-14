@@ -1471,7 +1471,7 @@ exports.setConfigurations = function (next) {
 };
 </code></pre><p>So to the <code>http://localhost/huey/?query=dewey</code> URL requested in POST with <code>member=louie</code> body you will have the ouput:</p><pre><code class="lang-json">{
   &quot;params&quot;: &quot;huey&quot;,
-  &quot;query&quot;: &quot;dewey&quot;
+  &quot;query&quot;: &quot;dewey&quot;,
   &quot;body&quot;: &quot;louie&quot;
 }
 </code></pre><h4 id="no-routes">No routes</h4><p>No webconfig example not use the <code>routes</code> parameter. But it is also optional than others. For example, with the following webconfig:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
