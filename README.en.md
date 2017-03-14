@@ -157,6 +157,7 @@ This is a list of repository you could analyse to understand NodeAtlas:
  - [Front-end Debug](#front-end-debug)
  - [Back-end Debug](#back-end-debug)
  - [Devices Tests](#devices-tests)
+ - [Hot Reloading](#hot-reloading)
 - [Production Environment](#production-environment)
  - [In a Windows Server environment with iisnode](#in-a-windows-server-environment-with-iisnode)
  - [In a Unix environment with forever](#in-a-unix-environment-with-forever)
@@ -7341,6 +7342,124 @@ nodeatlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
 And that will open the website here : `http://192.168.1.24:7777/`.
 
 You just now reach the url from your other devices to test the render of your app or website.
+
+### Hot Reloading ###
+
+You can use the [browserSync](https://browsersync.io/) npm module and the [Nodemon](https://nodemon.io/) npm module to reload files from your browser automaticly when it changes in your develpoment environment. You need npm module `gulp`, `browserSync` and `gulp-nodemon` to do hot reloading.
+
+#### Dependencies Install ####
+
+The most simple it to add into  `package.json` file the following lines:
+
+*package.json*
+
+```json
+{
+  /* ... */
+  "devDependencies": {
+    "browser-sync": "2.18.x",
+    "gulp": "3.9.x",
+    "gulp-nodemon": "2.2.x"
+  },
+  /* ... */
+}
+```
+
+and run the following command:
+
+```bash
+npm install
+```
+
+#### Create configuration ####
+
+Create a `server.js` file (if you do not already have one) and place into the following code (for example):
+
+*server.js*
+
+```js
+require("node-atlas")().start();
+```
+
+Create also a `gulpfile.js` file in which you will add the following line code:
+
+```js
+/* jshint node: true */
+
+/* Load modules */
+var gulp = require('gulp'),
+    browserSync = require('browser-sync'),
+    nodemon = require('gulp-nodemon');
+
+/* My first task after default task will be the `browser-sync` task. */
+gulp.task('default', ['browser-sync']);
+
+/* My task after `browser-sync` will be the `nodemon` task. */
+gulp.task('browser-sync', ['nodemon'], function() {
+
+    /* For this task, will listening 
+       changing into front files */
+    browserSync.init(null, {
+        proxy: "http://localhost:7777", // The httpPort from NodeAtlas config.
+        files: ["views/**", "assets/**", "variations/**"], // All files you want listening from root.
+        port: 57776, // Hot reloading listening port.
+    });
+});
+
+/* Dernière tâche `nodemon`. */
+gulp.task('nodemon', function (next) {
+   var started = false;
+
+    /* For this task, will listening 
+       changing into back files */
+    return nodemon({
+        script: 'server.js', // The script will be start and watched.
+        ext: 'js json', // This will be the back files will be listening.
+        ignore: ['gulpfile.js', 'variations/**', 'views/**', 'assets/**'] // This are the ignored front files.
+    }).on('restart', function() {
+
+        /* When the server restart, restart current page. */
+        setTimeout(function () {
+             browserSync.reload();
+        }, 500);
+    }).on('start', function () {
+
+        /* Not run Nodemon more once. */
+        if (!started) {
+            next();
+            started = true; 
+        } 
+    });
+});
+```
+
+#### Starting ####
+
+Now, all you need to do is run the following command:
+
+```bash
+gulp
+```
+
+or create an npm command into `package.json` by adding this lines:
+
+```json
+{
+  /* ... */
+  "scripts": {
+    /* ... */
+    "watch": "gulp"
+    /* ... */
+  },
+  /* ... */
+}
+```
+
+and run the following command
+
+```bash
+npm run watch
+```
 
 
 

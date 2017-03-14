@@ -157,6 +157,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [Debug du Front-end](#debug-du-front-end)
  - [Debug du Back-end](#debug-du-back-end)
  - [Tests de Périphériques](#tests-de-périphériques)
+ - [Auto-rechargement à chaud](#auto-rechargement-a-chaud)
 - [Environnement de Production](#environnement-de-production)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
@@ -7341,6 +7342,124 @@ nodeatlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
 Ce qui ouvrira votre site ici : `http://192.168.1.24:7777/`.
 
 Il ne vous reste plus qu'à réclamer cette url depuis vos autres appareils et tester vos rendus et cas d'utilisations.
+
+### Auto-rechargement à chaud ###
+
+Vous pouvez vous servir du module npm [browserSync](https://browsersync.io/) ainsi que du module [Nodemon](https://nodemon.io/) pour recharger les fichiers dans le navigateur automatiquement dès que ceux-ci ont bougés dans votre environnement de développement. Il vous faut installer les modules npm `gulp`, `browserSync` et `gulp-nodemon` pour faire de l'auto-rechargement à chaud.
+
+#### Installer les dépendances ####
+
+Le plus simple est d'ajouter à votre `package.json` les lignes suivantes :
+
+*package.json*
+
+```json
+{
+  /* ... */
+  "devDependencies": {
+    "browser-sync": "2.18.x",
+    "gulp": "3.9.x",
+    "gulp-nodemon": "2.2.x"
+  },
+  /* ... */
+}
+```
+
+et de lancer la commande
+
+```bash
+npm install
+```
+
+#### Créer vos configurations ####
+
+Créez vous un fichier `server.js` (si vous n'en avez pas déjà un) et placez y (par exemple) ce code de lancement :
+
+*server.js*
+
+```js
+require("node-atlas")().start();
+```
+
+Créez vous également un fichier `gulpfile.js` dans lequel vous mettrez ses instructions :
+
+```js
+/* jshint node: true */
+
+/* Charger les modules */
+var gulp = require('gulp'),
+    browserSync = require('browser-sync'),
+    nodemon = require('gulp-nodemon');
+
+/* Dire que la première tâche après celle par défaut sera la tâche `browser-sync`. */
+gulp.task('default', ['browser-sync']);
+
+/* Dire que la tâche après `browser-sync` sera la `nodemon`. */
+gulp.task('browser-sync', ['nodemon'], function() {
+
+    /* En ce qui concerne la tâche courante nous allons 
+       lancer de quoi écoutez les fichiers pour le Front. */
+    browserSync.init(null, {
+        proxy: "http://localhost:7777", // Ça c'est le port httpPort de la config NodeAtlas.
+        files: ["views/**", "assets/**", "variations/**"], // Ça c'est tous les fichiers que vous écoutez depuis la racine.
+        port: 57776, // Ça c'est le port pour le développement à chaud.
+    });
+});
+
+/* Dernière tâche `nodemon`. */
+gulp.task('nodemon', function (next) {
+   var started = false;
+
+    /* En ce qui concerne la tâche courante nous allons 
+       lancer de quoi écoutez les fichiers pour le Back. */
+    return nodemon({
+        script: 'server.js', // Ceci est le script qui va être lancé.
+        ext: 'js json', // Ceci sont les fichiers back que nous écoutons.
+        ignore: ['gulpfile.js', 'variations/**', 'views/**', 'assets/**'] // Ceci sont les fichiers front que nous ignorons d'écouter.
+    }).on('restart', function() {
+
+        /* Quand le serveur redémarre, recharger la page courante. */
+        setTimeout(function () {
+             browserSync.reload();
+        }, 500);
+    }).on('start', function () {
+
+        /* Empècher Nodemon de se lancer plusieurs fois. */
+        if (!started) {
+            next();
+            started = true; 
+        } 
+    });
+});
+```
+
+#### Lancement ####
+
+Il ne vous reste plus qu'à lancer tout ça avec la commande
+
+```bash
+gulp
+```
+
+ou vous créer une commande npm dans votre `package.json` en ajoutant cette ligne :
+
+```json
+{
+  /* ... */
+  "scripts": {
+    /* ... */
+    "watch": "gulp"
+    /* ... */
+  },
+  /* ... */
+}
+```
+
+et lancer la commande
+
+```bash
+npm run watch
+```
 
 
 
