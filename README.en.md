@@ -1342,7 +1342,7 @@ and "index.htm" containing:
 To run (from the site folder) the the command:
 
 ```bash
-$ node </path/to/>node-atlas/
+$ nodeatlas
 ```
 
 We will have to address "http://localhost/" the following output with non-minified files:
@@ -1365,7 +1365,7 @@ We will have to address "http://localhost/" the following output with non-minifi
 However, running the command:
 
 ```bash
-$ node </path/to/>node-atlas/ --webconfig webconfig.prod.json
+$ nodeatlas --webconfig webconfig.prod.json
 ```
 
 We will have to address "http://localhost/" the following output with minified files:
@@ -1764,7 +1764,7 @@ The generation starts when displaying the page if ***htmlGenerationBeforeRespons
 
 You can also manager a simple HTML website page with `--generate` command.
 
-If `htmlGenerationBeforeResponse` is setted to ***false*** (or removed) the only way to generate all the pages of the website will be via the command `node </path/to/>node-atlas/ --generate` will generate all pages into `serverlessRelativePath` only if global `output` is setted to `true`.
+If `htmlGenerationBeforeResponse` is setted to ***false*** (or removed) the only way to generate all the pages of the website will be via the command `nodeatlas --generate` will generate all pages into `serverlessRelativePath` only if global `output` is setted to `true`.
 
 Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path only if global `assetsCopy` is setted to `true`. 
 
@@ -1811,7 +1811,7 @@ and the following set of files:
 └─ webconfig.json
 ```
 
-With `node <path/to/>node-atlas/ --browse`, to address *http://localhost/* will show a list of pages your site components (with **index** set to **true**)
+With `nodeatlas --browse`, to address *http://localhost/* will show a list of pages your site components (with **index** set to **true**)
 
 It will do more than, once `--generate` was used, enjoy your HTML site in the folder:
 
@@ -5952,7 +5952,7 @@ body {
 </html>
 ```
 
-output will be, with the command `node </path/to/>node-atlas/ --generate`, all following file:
+output will be, with the command `nodeatlas --generate`, all following file:
 
 ```
 ├─ serverless/
@@ -6874,7 +6874,7 @@ Object{
 
 ## CLI / Running commands ##
 
-The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command `$ node </path/to/>node-atlas/`. However there are options to launch more than launch the site.
+The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command `nodeatlas`. However there are options to launch more than launch the site.
 
 Each of the commands that follow can be coupled with other like this:
 
@@ -7089,7 +7089,7 @@ $ nodeatlas --create hello-world
 If you use the `--httpSecure` option, all path will be reach in HTTPs. You must defined a `.crt` and `.key` files with `pathName` if you want the engine start in HTTPs. For exemple if you have `security/server.crt` and `security/server.key` from root of NodeAtlas website, you can use following command:
 
 ```
-$ node </path/to/>node-atlas/ --httpSecure security/server
+$ nodeatlas --httpSecure security/server
 ```
 
 
@@ -7282,13 +7282,13 @@ site-hello-world/
 by running the command
 
 ```
-$ node </path/to/>node-atlas/
+$ nodeatlas
 ```
 
 or even the command
 
 ```
-$ node </path/to/>node-atlas/ --webconfig webconfig.not-exist.json
+$ nodeatlas --webconfig webconfig.not-exist.json
 ```
 
 the server will run in "Simple Web Server" mode and file "http://localhost/webconfig.json" or "http://localhost/views/webconfig.htm" will be available as the browser could refer as a simple web server.

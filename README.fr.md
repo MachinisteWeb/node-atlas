@@ -1342,7 +1342,7 @@ et « index.htm » contenant :
 En lançant (depuis le dossier du site) la commande :
 
 ```bash
-$ node </path/to/>node-atlas/
+$ nodeatlas
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
@@ -1365,7 +1365,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 Cependant en lançant la commande :
 
 ```bash
-$ node </path/to/>node-atlas/ --webconfig webconfig.prod.json
+$ nodeatlas --webconfig webconfig.prod.json
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
@@ -1764,7 +1764,7 @@ La génération s'enclenche quand on affiche la page uniquement parce que ***htm
 
 Il est également possible de gérer la création d'un site en simple page HTML avec la commande `--generate`.
 
-Si `htmlGenerationBeforeResponse` est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node </path/to/>node-atlas/ --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath` à la condition que le `output` global soit à `true`.
+Si `htmlGenerationBeforeResponse` est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `nodeatlas --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath` à la condition que le `output` global soit à `true`.
 
 De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publics) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique à condition que `assetsCopy` soit à `true`. 
 
@@ -1811,7 +1811,7 @@ et l'ensemble de fichiers suivant :
 └─ webconfig.json
 ```
 
-Avec `node <path/to/>node-atlas/ --browse`, à l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **index** à **true**).
+Avec `nodeatlas --browse`, à l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **index** à **true**).
 
 Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTML dans le dossier :
 
@@ -5952,7 +5952,7 @@ body {
 </html>
 ```
 
-vous obtiendrez en sortie avec la commande `node </path/to/>node-atlas/ --generate` l'ensemble de fichier suivant :
+vous obtiendrez en sortie avec la commande `nodeatlas --generate` l'ensemble de fichier suivant :
 
 ```
 ├─ serverless/
@@ -6874,18 +6874,18 @@ Object{
 
 ## CLI / Commandes de lancement ##
 
-La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `$ node </path/to/>node-atlas/`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
+La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `nodeatlas`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
 
 Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
 
 ```bash
-$ node </path/to/>node-atlas/ --directory hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
+$ nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
 ```
 
-or this
+ou comme cela
 
 ```bash
-$ nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
+$ node </path/to/>node-atlas/ --directory hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
 ```
 
 
@@ -7089,7 +7089,7 @@ $ nodeatlas --create hello-world
 Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HTTPs. Vous devez définir les fichiers `.crt` and `.key` avec `pathName` si vous souhaitez que le serveur lui-même se lance en HTTPs. Par exemple, si vous avez les fichiers `security/server.crt` et `security/server.key` depuis la racine du site NodeAtlas, vous devez utiliser la commande suivante :
 
 ```
-$ node </path/to/>node-atlas/ --httpSecure security/server
+$ nodeatlas --httpSecure security/server
 ```
 
 
@@ -7282,13 +7282,13 @@ site-hello-world/
 en exécutant la commande
 
 ```
-$ node </path/to/>node-atlas/
+$ nodeatlas
 ```
 
 ou même la commande
 
 ```
-$ node </path/to/>node-atlas/ --webconfig webconfig.not-exist.json
+$ nodeatlas --webconfig webconfig.not-exist.json
 ```
 
 le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/views/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
