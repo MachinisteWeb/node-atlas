@@ -366,12 +366,27 @@ equivalent to
 
 #### With the `nodeatlas` command line ####
 
-**If you have installed NodeAtlas with `npm install -g node-atlas`** you can use the `nodeatlas` command. `nodeatlas` is a shortcut for the command `node </path/to/globals/>node_modules/node-atlas/`.
+**If you have installed NodeAtlas with `npm install -g node-atlas`** you can use the `nodeatlas` command. `nodeatlas` is a alias for the command `node </path/to/globals/>node_modules/node-atlas/`.
 
 Position yourself with the prompt console in the folder « hello-world/ » and run the following command.
 
 ```bash
 $ nodeatlas
+```
+
+> Note : If your port 80 is in use or if you don't have priviledge to access it, you can use the `--httpPort` options.
+
+>  ```bash
+$ nodeatlas --httpPort 8080
+```
+
+> or use the webconfig option `httpPort`
+
+> ```json
+{ 
+   "httpPort": 8080,
+   "routes": { "/": "index.htm" } 
+}
 ```
 
 You will have access to your "Hello World" to the page: *http://localhost/* in a browser.
@@ -386,7 +401,7 @@ So, create a `server.js` file into the same folder of `webconfig.json`.
 *server.js*
 
 ```javascript
-require("node-atlas").start();
+require("node-atlas")().start();
 ```
 
 Lancez ensuite le fichier avec Node.js.
@@ -403,7 +418,7 @@ $ node server.js
 
 NodeAtlas works with a configuration with usage of `webconfig.json` that allow its to scale and upgrade possibilities in a versatille way. For example, to create a website without JavaScript server-side (no controller), just add a `view` parameter to each route.
 
-It's still possible to use JavaScript inline into views with the capabilities offer by template engine [EJS](http://ejs.co/) used by NodeAtlas.
+It's still possible to use JavaScript inline into views with the capabilities offer by template engine [EJS](http://ejs.co/) used by NodeAtlas by default.
 
 We will see all possibilities with couples of view files together.
 
@@ -515,7 +530,7 @@ In this case, the path become the `url` parameter.
     "viewsRelativePath": "views",
     "routes": [{
         "url": "/",
-        "view": "index.htm",
+        "view": "index.htm"
     }, {
         "url": "/member.html",
         "view": "member.htm",

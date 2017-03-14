@@ -1,4 +1,3 @@
-
 # node-atlas #
 
 [![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/)
@@ -367,7 +366,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 #### Avec la commande `nodeatlas` ####
 
-**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez utiliser la commande `nodeatlas`. `nodeatlas` est un raccourci de `node </path/to/globals/>node_modules/node-atlas/`.
+**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez utiliser la commande `nodeatlas`. `nodeatlas` est un alias de `node </path/to/globals/>node_modules/node-atlas/`.
 
 Placez-vous avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
@@ -375,7 +374,22 @@ Placez-vous avec votre invité de commande dans le dossier « hello-world/ » et
 $ nodeatlas
 ```
 
-Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur.
+> Note : Si votre port 80 est utilisé ou que vous n'avez pas accès à celui-ci, vous pouvez utiliser l'option `--httpPort`.
+
+>  ```bash
+$ nodeatlas --httpPort 8080
+```
+
+> ou utiliser la propriété du webconfig `httpPort`
+
+> ```json
+{ 
+   "httpPort": 8080,
+   "routes": { "/": "index.htm" } 
+}
+```
+
+Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur (ou `http://localhost:8080/`).
 
 
 #### Via un fichier JavaScript ####
@@ -387,7 +401,7 @@ Créer alors un fichier `server.js` au même niveau que le `webconfig.json`.
 *server.js*
 
 ```javascript
-require("node-atlas").start();
+require("node-atlas")().start();
 ```
 
 Lancez ensuite le fichier avec Node.js.
@@ -404,7 +418,7 @@ $ node server.js
 
 NodeAtlas fonctionne avec une configuration via l'utilisation d'un `webconfig.json` qui lui permet d'étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de contrôleur), il suffit de ne renseigner qu'un paramètre `view` pour chaque route.
 
-Cependant, vous pourrez toujours utiliser du JavaScript dans les templates des vues grâce à l'utilisation du moteur de template [EJS](http://ejs.co/) avec lequel fonctionne NodeAtlas.
+Cependant, vous pourrez toujours utiliser du JavaScript dans les templates des vues grâce à l'utilisation du moteur de template [EJS](http://ejs.co/) avec lequel fonctionne NodeAtlas par défaut.
 
 Voyons les possibilités de nos sites par agrégat simple de fichiers de vue.
 
@@ -507,7 +521,7 @@ est un raccourci de
 
 #### Ordonner les routes ####
 
-Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.
+Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieure dans la section des contrôleurs.
 
 Dans ce cas le chemin devient le paramètre `url`.
 
@@ -516,7 +530,7 @@ Dans ce cas le chemin devient le paramètre `url`.
     "viewsRelativePath": "views",
     "routes": [{
         "url": "/",
-        "view": "index.htm",
+        "view": "index.htm"
     }, {
         "url": "/membre.html",
         "view": "member.htm",

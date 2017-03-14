@@ -1,4 +1,4 @@
-<h2 id="partie-vue-et-template">Partie Vue et Template</h2><p>NodeAtlas fonctionne avec une configuration via l&#39;utilisation d&#39;un <code>webconfig.json</code> qui lui permet d&#39;étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de contrôleur), il suffit de ne renseigner qu&#39;un paramètre <code>view</code> pour chaque route.</p><p>Cependant, vous pourrez toujours utiliser du JavaScript dans les templates des vues grâce à l&#39;utilisation du moteur de template <a href="http://ejs.co/">EJS</a> avec lequel fonctionne NodeAtlas.</p><p>Voyons les possibilités de nos sites par agrégat simple de fichiers de vue.</p><h3 id="plusieurs-pages">Plusieurs pages</h3><p>Ci-dessous un exemple de configuration.</p><pre><code class="lang-json">{
+<h2 id="partie-vue-et-template">Partie Vue et Template</h2><p>NodeAtlas fonctionne avec une configuration via l&#39;utilisation d&#39;un <code>webconfig.json</code> qui lui permet d&#39;étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de contrôleur), il suffit de ne renseigner qu&#39;un paramètre <code>view</code> pour chaque route.</p><p>Cependant, vous pourrez toujours utiliser du JavaScript dans les templates des vues grâce à l&#39;utilisation du moteur de template <a href="http://ejs.co/">EJS</a> avec lequel fonctionne NodeAtlas par défaut.</p><p>Voyons les possibilités de nos sites par agrégat simple de fichiers de vue.</p><h3 id="plusieurs-pages">Plusieurs pages</h3><p>Ci-dessous un exemple de configuration.</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -58,11 +58,11 @@
 </code></pre><p>est un raccourci de</p><pre><code class="lang-json">&quot;a-propos.html&quot;: {
     &quot;view&quot;: &quot;about.htm&quot;
 }
-</code></pre><p>Évidemment ce raccourci ne sert que si <code>view</code> est le seul paramètre à déclarer de la route.</p><h4 id="ordonner-les-routes">Ordonner les routes</h4><p>Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieur dans la section des contrôleurs.</p><p>Dans ce cas le chemin devient le paramètre <code>url</code>.</p><pre><code class="lang-json">{
+</code></pre><p>Évidemment ce raccourci ne sert que si <code>view</code> est le seul paramètre à déclarer de la route.</p><h4 id="ordonner-les-routes">Ordonner les routes</h4><p>Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieure dans la section des contrôleurs.</p><p>Dans ce cas le chemin devient le paramètre <code>url</code>.</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: [{
         &quot;url&quot;: &quot;/&quot;,
-        &quot;view&quot;: &quot;index.htm&quot;,
+        &quot;view&quot;: &quot;index.htm&quot;
     }, {
         &quot;url&quot;: &quot;/membre.html&quot;,
         &quot;view&quot;: &quot;member.htm&quot;,
