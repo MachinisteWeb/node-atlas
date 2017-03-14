@@ -2516,7 +2516,7 @@ This is an example using the two hooks, the common in first and after the specif
 
 ```json
 {
-    "urlSocketsFile": "/node-atlas/socket.io.js",
+    "socketClientFile": "/node-atlas/socket.io.js",
     "controller": "common.js",
     "routes": {
         "/": {
@@ -2564,7 +2564,7 @@ Do a request on `http://localhost/` will use the following files (and others fil
 </html>
 ```
 
-*Note : If* ***urlSocketsFile*** *is not present in "webconfig.json", default client file for config sockets is* ***/node-atlas/socket.io.js***. ***urlSocketsFile*** *is useful only to change the name of file. If you set ***urlSocketsFile*** to `false`, the client file will be not adding on accessible routes.*
+*Note : If* ***socketClientFile*** *is not present in "webconfig.json", default client file for config sockets is* ***/node-atlas/socket.io.js***. ***socketClientFile*** *is useful only to change the name of file. If you set ***socketClientFile*** to `false`, the client file will be not adding on accessible routes.*
 
 *controllers/common.js*
 
@@ -5274,7 +5274,7 @@ For test your page with minified files, you can ask it to be regenerated before 
 
 #### Bundles with Sockets ####
 
-It's possible to minify file defined in `NA.webconfig.urlSocketsFile` even if it's not a real prysical file. Just add it into bundles of your choice.
+It's possible to minify file defined in `NA.webconfig.socketClientFile` even if it's not a real prysical file. Just add it into bundles of your choice.
 
 In the following example, virtual `/node-atlas/socket.io.js` file will be added to bundles with the correct client/server sockets configuration.
 
@@ -6808,6 +6808,8 @@ Object{
     },
     "cssBundlingBeforeResponse": Boolean,
     "cssBundlingEnable": Boolean,
+    "socketClientFile": String<urlpath-from-base>,
+    "socketServerOptions": Object<from-socketio-server-options>,
     "stylus": (Boolean | Object{
         "compress": Boolean,
         "files": (String<filepath-from-root> | Array.String<filepath-from-assets>),
@@ -6818,7 +6820,6 @@ Object{
     "urlHostname": String,
     "urlPort": Number,
     "urlRelativeSubPath": String<urlpath-from-root>,
-    "urlSocketsFile": String<urlpath-from-base>,
     "variation": String<filepath-from-variations>,
     "variationsRelativePath": String<path-from-root>,
     "view": String<filepath-from-views>,

@@ -959,7 +959,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h4 id="bundles-avec-sockets">Bundles avec Sockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.urlSocketsFile</code> même si celui-ci n&#39;existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.</p><p>Dans l&#39;exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h4 id="bundles-avec-sockets">Bundles avec Sockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.socketClientFile</code> même si celui-ci n&#39;existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.</p><p>Dans l&#39;exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.</p><pre><code class="lang-json">{
     &quot;bundles&quot;: {
         &quot;javascripts&quot;: {
             &quot;javascripts/common.min.js&quot;: [

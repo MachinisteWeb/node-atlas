@@ -617,7 +617,7 @@ exports.changeDom = function (next, locals, request, response) {
 </code></pre><h4 id="setsockets">setSockets</h4><p>Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos Websockets ici <a href="partie-controleur-et-modele.html#echange-client-serveur-en-temps-reel-avec-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
 </ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
-    &quot;urlSocketsFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
+    &quot;socketClientFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
     &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -651,7 +651,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : Si</em> <strong><em>urlSocketsFile</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>urlSocketsFile</em></strong> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez **</em>urlSocketsFile<em>** à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>Note : Si</em> <strong><em>socketClientFile</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>socketClientFile</em></strong> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez **</em>socketClientFile<em>** à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,

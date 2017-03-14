@@ -2516,7 +2516,7 @@ Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plus
 
 ```json
 {
-    "urlSocketsFile": "/node-atlas/socket.io.js",
+    "socketClientFile": "/node-atlas/socket.io.js",
     "controller": "common.js",
     "routes": {
         "/": {
@@ -2564,7 +2564,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-*Note : Si* ***urlSocketsFile*** *n'est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien* ***/node-atlas/socket.io.js***. ***urlSocketsFile*** *est donc utile seulement pour changer le chemin du fichier. Si vous mettez ***urlSocketsFile*** à `false`, le fichier client ne sera pas accessible.*
+*Note : Si* ***socketClientFile*** *n'est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien* ***/node-atlas/socket.io.js***. ***socketClientFile*** *est donc utile seulement pour changer le chemin du fichier. Si vous mettez ***socketClientFile*** à `false`, le fichier client ne sera pas accessible.*
 
 *controllers/common.js*
 
@@ -5274,7 +5274,7 @@ De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez
 
 #### Bundles avec Sockets ####
 
-Il est possible de minifier le fichier défini par `NA.webconfig.urlSocketsFile` même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.
+Il est possible de minifier le fichier défini par `NA.webconfig.socketClientFile` même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.
 
 Dans l'exemple suivant, le fichier virtuel `node-atlas/socket.io.js` sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.
 
@@ -6808,6 +6808,8 @@ Object{
     },
     "cssBundlingBeforeResponse": Boolean,
     "cssBundlingEnable": Boolean,
+    "socketClientFile": String<urlpath-from-base>,
+    "socketServerOptions": Object<from-socketio-server-options>,
     "stylus": (Boolean | Object{
         "compress": Boolean,
         "files": (String<filepath-from-root> | Array.String<filepath-from-assets>),
@@ -6818,7 +6820,6 @@ Object{
     "urlHostname": String,
     "urlPort": Number,
     "urlRelativeSubPath": String<urlpath-from-root>,
-    "urlSocketsFile": String<urlpath-from-base>,
     "variation": String<filepath-from-variations>,
     "variationsRelativePath": String<path-from-root>,
     "view": String<filepath-from-views>,
