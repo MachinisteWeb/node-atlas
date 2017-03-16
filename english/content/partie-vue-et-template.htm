@@ -54,9 +54,9 @@
         }
     }
 }
-</code></pre><p>car</p><pre><code class="lang-json">&quot;a-propos.html&quot;: &quot;about.htm&quot;,
-</code></pre><p>est un raccourci de</p><pre><code class="lang-json">&quot;a-propos.html&quot;: {
-    &quot;view&quot;: &quot;about.htm&quot;
+</code></pre><p>car</p><pre><code class="lang-json">&quot;/&quot;: &quot;index.htm&quot;,
+</code></pre><p>est un raccourci de</p><pre><code class="lang-json">&quot;/&quot;: {
+    &quot;view&quot;: &quot;index.htm&quot;
 }
 </code></pre><p>Évidemment ce raccourci ne sert que si <code>view</code> est le seul paramètre à déclarer de la route.</p><h4 id="ordonner-les-routes">Ordonner les routes</h4><p>Il est également possible de placer ses routes dans un tableau, ce qui permettra de les prioriser lors de leur manipulation ultérieure dans la section des contrôleurs.</p><p>Dans ce cas le chemin devient le paramètre <code>url</code>.</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,

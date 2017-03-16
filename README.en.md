@@ -507,14 +507,14 @@ The configuration below is equivalent to the configuration section just above
 because
 
 ```json
-"/about.html": "about.htm",
+"/": "index.htm",
 ```
 
 is a shortcut for
 
 ```json
-"about.html": {
-    "view": "about.htm"
+"/": {
+    "view": "index.htm"
 }
 ```
 

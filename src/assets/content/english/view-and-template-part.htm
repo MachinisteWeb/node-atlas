@@ -54,9 +54,9 @@
         }
     }
 }
-</code></pre><p>because</p><pre><code class="lang-json">&quot;/about.html&quot;: &quot;about.htm&quot;,
-</code></pre><p>is a shortcut for</p><pre><code class="lang-json">&quot;about.html&quot;: {
-    &quot;view&quot;: &quot;about.htm&quot;
+</code></pre><p>because</p><pre><code class="lang-json">&quot;/&quot;: &quot;index.htm&quot;,
+</code></pre><p>is a shortcut for</p><pre><code class="lang-json">&quot;/&quot;: {
+    &quot;view&quot;: &quot;index.htm&quot;
 }
 </code></pre><p>Obviously this shortcut is used only if <code>view</code> is the only parameter to declare in the route.</p><h4 id="order-routes">Order routes</h4><p>It&#39;s also possible to place routes into an array, that allows you to ordonate routes for an advanced usage in controllers section.</p><p>In this case, the path become the <code>url</code> parameter.</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
