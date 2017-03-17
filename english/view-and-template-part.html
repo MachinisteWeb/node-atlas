@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489743603419">
+		<meta name="og:updated_time" content="1489745074692">
 
 		<meta name="robots" content="index, follow">
 
@@ -459,7 +459,7 @@ website.init({
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascripts/common.js">http://localhost/javascripts/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : If</em> <code>assetsRelativePath</code> <em>is not present in <code>webconfig.json</code>, default public folder is</em> <code>assets</code>. <code>assetsRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage HTTP headers provided when public ressources are requested (like <code>maxAge</code>, <code>Etag</code>, etc.) via the <code>staticOptions</code> property in webconfig. For more informations, see the <a href="http://expressjs.com/en/api.html">Express</a> documentation about static files.</p><h3 id="manage-include-of-partial-files">Manage Include of Partial Files</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</ul><p><em>Note : If</em> <code>assetsRelativePath</code> <em>is not present in <code>webconfig.json</code>, default public folder is</em> <code>assets</code>. <code>assetsRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage HTTP headers provided when public ressources are requested (like <code>maxAge</code>, <code>Etag</code>, etc.) via the <code>staticOptions</code> property in webconfig. For more informations, see the <a href="http://expressjs.com/en/api.html">Express</a> documentation about static files.</p><h3 id="manage-include-of-partial-files">Manage Include of Partial Files</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment (don&#39;t worry, we will see later how to manage a mater page with <code>head</code> and <code>body</code> tags including opening and closing part inso same file).</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -511,7 +511,7 @@ website.init({
 </code></pre><p>you will have access to the addresses:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
-</ul><p><em>Note : for more informations to the differences between <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. you can refer to the section ????.</em></p><h3 id="manage-variations-within-the-same-view">Manage variations within the same view</h3><p>It is possible with the same view and the same includes, generating pages with different contents (useful in generation HTML assets mode). Activate the variations with the following configuration:</p><pre><code class="lang-json">{
+</ul><p><em>Note : for more informations to the differences between <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. you can refer to the section <a href="view-and-template-part.html#ejs-template-engine">emplate engine</a>.</em></p><h3 id="manage-variations-within-the-same-view">Manage variations within the same view</h3><p>It is possible with the same view and the same includes, generating pages with different contents (useful in generation HTML assets mode). Activate the variations with the following configuration:</p><pre><code class="lang-json">{
     &quot;variation&quot;: &quot;common.json&quot;,
     &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
@@ -585,7 +585,7 @@ website.init({
 </code></pre><p>you will have access to the addresses:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
-</ul><p><em>Note : If</em> <strong><em>variationsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default variations folder is</em> <strong><em>variations</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h3 id="manage-internationalization-i18n">Manage Internationalization (i18n)</h3><h4 id="all-languages-on-the-same-site">All languages on the same site</h4><p>On the same principle, the variations can be used to create the same page, but in different languages:</p><pre><code class="lang-json">{
+</ul><p><em>Note : If</em> <code>variationsRelativePath</code> <em>is not present in <code>webconfig.json</code>, default variations folder is</em> <code>variations</code>. <code>variationsRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h3 id="manage-internationalization-i18n">Manage Internationalization (i18n)</h3><h4 id="all-languages-on-the-same-site">All languages on the same site</h4><p>On the same principle, the variations can be used to create the same page, but in different languages:</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;en-us&quot;,
     &quot;variationsRelativePath&quot;: &quot;l10n&quot;,
     &quot;routes&quot;: {
@@ -604,7 +604,7 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify a common</em> <strong><em>variation</em></strong>. <em>I also completely arbitrarily decided to rename my folder</em> <strong><em>variations</em></strong> <em>to</em> <strong><em>l10n</em></strong> <em>(localization)</em>.</p><p>with the following files:</p><pre><code>├─ l10n/
+</code></pre><p><em>Note : In this example I decided to do without a common variation file, because I did not specify a common</em> <code>variation</code>. <em>I also completely arbitrarily decided to rename my folder</em> <code>variations</code> <em>to</em> <code>l10n</code> <em>(localization)</em>.</p><p>with the following files:</p><pre><code>├─ l10n/
 │  ├─ landing.json
 │  ├─ en-us
 │  │  └─ home.json

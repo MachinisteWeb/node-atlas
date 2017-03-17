@@ -687,7 +687,7 @@ Il est possible de délivrer des en-tête HTTP personnalisées pour les ressourc
 
 ### Gérer l'inclusion de fichiers partiels ###
 
-Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :
+Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code (pas d'inquiétude, nous verrons plus loin comment gérer un template unique composé des balises `head` et `body` avec fermeture dans le même fichier).
 
 *webconfig.json*
 
@@ -773,7 +773,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : pour plus d'information sur la différence entre `<?`, `<?-`, `<?=`, etc. vous pouvez vous référez à la section ????.*
+*Note : pour plus d'information sur la différence entre `<?`, `<?-`, `<?=`, etc. vous pouvez vous référez à la section [moteur de template](#moteur-de-template-ejs).*
 
 
 
@@ -800,7 +800,7 @@ Il est possible avec la même vue et les mêmes inclusions de générer des page
 
 avec les fichiers suivants :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -895,7 +895,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* ***variationsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des variations est bien* ***variations***. ***variationsRelativePath*** *est donc utile seulement pour changer le nom/chemin de répertoire.*
+*Note : Si* `variationsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des variations est bien* `variations`. `variationsRelativePath` *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
 
@@ -927,7 +927,7 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 }
 ```
 
-*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de* ***variation*** *commune. J'ai également totalement arbitrairement décidé de renommer mon dossier* ***variations*** *en* ***l10n*** *(localisation)*.
+*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de* `variation` *commune. J'ai également totalement arbitrairement décidé de renommer mon dossier* `variations` *en* `l10n` *(localisation)*.
 
 avec les fichiers suivants :
 

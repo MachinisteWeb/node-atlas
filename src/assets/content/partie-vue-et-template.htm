@@ -147,7 +147,7 @@
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascripts/common.js">http://localhost/javascripts/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : Si</em> <code>assetsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier public est bien</em> <code>assets</code>. <code>assetsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de délivrer des en-tête HTTP personnalisées pour les ressources publiques (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</ul><p><em>Note : Si</em> <code>assetsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier public est bien</em> <code>assets</code>. <code>assetsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de délivrer des en-tête HTTP personnalisées pour les ressources publiques (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code (pas d&#39;inquiétude, nous verrons plus loin comment gérer un template unique composé des balises <code>head</code> et <code>body</code> avec fermeture dans le même fichier).</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -199,7 +199,7 @@
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><p><em>Note : pour plus d&#39;information sur la différence entre <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. vous pouvez vous référez à la section ????.</em></p><h3 id="gerer-des-variations-au-sein-d-une-meme-vue">Gérer des variations au sein d&#39;une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
+</ul><p><em>Note : pour plus d&#39;information sur la différence entre <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. vous pouvez vous référez à la section <a href="partie-vue-et-template.html#moteur-de-template-ejs">moteur de template</a>.</em></p><h3 id="gerer-des-variations-au-sein-d-une-meme-vue">Gérer des variations au sein d&#39;une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;variation&quot;: &quot;common.json&quot;,
     &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
@@ -213,7 +213,7 @@
         }
     }
 }
-</code></pre><p>avec les fichiers suivants :</p><pre><code>├─ assets/
+</code></pre><p>avec les fichiers suivants :</p><pre><code class="lang-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ index.css
@@ -273,7 +273,7 @@
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><p><em>Note : Si</em> <strong><em>variationsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des variations est bien</em> <strong><em>variations</em></strong>. <strong><em>variationsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l&#39;internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :</p><pre><code class="lang-json">{
+</ul><p><em>Note : Si</em> <code>variationsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier des variations est bien</em> <code>variations</code>. <code>variationsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l&#39;internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;en-us&quot;,
     &quot;variationsRelativePath&quot;: &quot;l10n&quot;,
     &quot;routes&quot;: {
@@ -292,7 +292,7 @@
         }
     }
 }
-</code></pre><p><em>Note : Dans cet exemple j&#39;ai décidé de me passer d&#39;un fichier de variation commune, car je n&#39;ai pas précisé de</em> <strong><em>variation</em></strong> <em>commune. J&#39;ai également totalement arbitrairement décidé de renommer mon dossier</em> <strong><em>variations</em></strong> <em>en</em> <strong><em>l10n</em></strong> <em>(localisation)</em>.</p><p>avec les fichiers suivants :</p><pre><code>├─ l10n/
+</code></pre><p><em>Note : Dans cet exemple j&#39;ai décidé de me passer d&#39;un fichier de variation commune, car je n&#39;ai pas précisé de</em> <code>variation</code> <em>commune. J&#39;ai également totalement arbitrairement décidé de renommer mon dossier</em> <code>variations</code> <em>en</em> <code>l10n</code> <em>(localisation)</em>.</p><p>avec les fichiers suivants :</p><pre><code>├─ l10n/
 │  ├─ landing.json
 │  ├─ en-us
 │  │  └─ home.json

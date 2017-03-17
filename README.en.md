@@ -687,7 +687,7 @@ It's possible to manage HTTP headers provided when public ressources are request
 
 ### Manage Include of Partial Files ###
 
-You can segment your HTML codes to not repeat the redundant code such "head" part and "foot" part or any other code fragment:
+You can segment your HTML codes to not repeat the redundant code such "head" part and "foot" part or any other code fragment (don't worry, we will see later how to manage a mater page with `head` and `body` tags including opening and closing part inso same file).
 
 *webconfig.json*
 
@@ -773,7 +773,7 @@ you will have access to the addresses:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-*Note : for more informations to the differences between `<?`, `<?-`, `<?=`, etc. you can refer to the section ????.*
+*Note : for more informations to the differences between `<?`, `<?-`, `<?=`, etc. you can refer to the section [emplate engine](#ejs-template-engine).*
 
 
 
@@ -895,7 +895,7 @@ you will have access to the addresses:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-*Note : If* ***variationsRelativePath*** *is not present in "webconfig.json", default variations folder is* ***variations***. ***variationsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* `variationsRelativePath` *is not present in `webconfig.json`, default variations folder is* `variations`. `variationsRelativePath` *is useful only to change the name/path of directory.*
 
 
 
@@ -927,7 +927,7 @@ On the same principle, the variations can be used to create the same page, but i
 }
 ```
 
-*Note : In this example I decided to do without a common variation file, because I did not specify a common* ***variation***. *I also completely arbitrarily decided to rename my folder* ***variations*** *to* ***l10n*** *(localization)*.
+*Note : In this example I decided to do without a common variation file, because I did not specify a common* `variation`. *I also completely arbitrarily decided to rename my folder* `variations` *to* `l10n` *(localization)*.
 
 with the following files:
 
