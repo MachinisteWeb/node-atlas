@@ -28,8 +28,8 @@
 	"templateNotGenerate": "Unable to save file « %pathName% ».",
 	"viewNotSet": "No view file has been defined.",
 	"commander": {
-		"directory" : {
-			"command": "-d, --directory <path>",
+		"path" : {
+			"command": "-p, --path <path>",
 			"description": "Specify a physical path to start the site. (The path to the 'webconfig.json')"
 		},
 		"browse": {
@@ -41,11 +41,11 @@
 			"description": "Specify alternate name for the 'webconfig.json'"
 		},
 		"httpHostname": {
-			"command": "-u, --httpHostname <httpHostname>",
+			"command": "-H, --httpHostname <httpHostname>",
 			"description": "Specify an alternate Hostname/IP for the execution of the 'webconfig.json'"
 		},
 		"httpPort": {
-			"command": "-p, --httpPort <httpPort>",
+			"command": "-P, --httpPort <httpPort>",
 			"description": "Specify an alternate port for the execution of the 'webconfig.json'"
 		},
 		"generate": {
@@ -53,15 +53,15 @@
 			"description": "Start minification of resources and the creation of Html layouts"
 		},
 		"cache": {
-			"command": "-c, --cache",
+			"command": "-n, --cache",
 			"description": "Avoid all cache system from all levels (server, template engine...)"
 		},
 		"create": {
-			"command": "-i, --create [path]",
+			"command": "-c, --create [path]",
 			"description": "Install the desired starting project from `tests` directory of NodeAtlas"
 		},
 		"httpSecure": {
-			"command": "-s, --httpSecure [pathName]",
+			"command": "-S, --httpSecure [pathName]",
 			"description": "Apply HTTPs in all engine path. With a `pathName` which set `.key` and `.crt` files, the engine is started with HTTPs protocol"
 		},
 		"lang": {
