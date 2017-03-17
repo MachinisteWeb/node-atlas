@@ -28,8 +28,8 @@
 	"templateNotGenerate": "Impossible d'enregistrer le fichier « %pathName% ».",
 	"viewNotSet": "Aucun fichier de view n'a été défini.",
 	"commander": {
-		"directory" : {
-			"command": "-d, --directory <path>",
+		"path" : {
+			"command": "-p, --path <path>",
 			"description": "Spécifier un chemin physique pour lancer le site. (Le chemin vers le « webconfig.json »)"
 		},
 		"browse": {
@@ -41,11 +41,11 @@
 			"description": "Spécifier un nom alternatif pour le « webconfig.json »"
 		},
 		"httpHostname": {
-			"command": "-u, --httpHostname <httpHostname>",
+			"command": "-H, --httpHostname <httpHostname>",
 			"description": "Spécifier un(e) Hostname/IP d'exécution alternati(f|ve) à celui du « webconfig.json »"
 		},
 		"httpPort": {
-			"command": "-p, --httpPort <httpPort>",
+			"command": "-P, --httpPort <httpPort>",
 			"description": "Spécifier un port d'exécution alternatif à celui du « webconfig.json »"
 		},
 		"generate": {
@@ -53,15 +53,15 @@
 			"description": "Lancer la minification des ressources et la création des assets Html"
 		},
 		"cache": {
-			"command": "-c, --cache",
+			"command": "-n, --cache",
 			"description": "Empèche tout cache à tout les niveaux (serveur, moteur de template...)"
 		},
 		"create": {
-			"command": "-i, --create [path]",
+			"command": "-c, --create [path]",
 			"description": "Installer le projet de démarrage souhaiter depuis le dossier `tests`"
 		},
 		"httpSecure": {
-			"command": "-s, --httpSecure [pathName]",
+			"command": "-S, --httpSecure [pathName]",
 			"description": "Applique HTTPs dans tous les chemins du moteur. `pathName` défini le chemin vers les fichiers `.key` et `.crt`, et s'il est défini, le serveur se lance en HTTPs"
 		},
 		"lang": {

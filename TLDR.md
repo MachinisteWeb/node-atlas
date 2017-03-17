@@ -302,13 +302,13 @@ Run *NodeAtlas* on your production server:
 - in standard:
 
 ```
-nodeatlas --directory /var/www/my-website/ --webconfig webconfig.prod.json
+nodeatlas --path /var/www/my-website/ --webconfig webconfig.prod.json
 ```
 
 - with *Forever*:
 
 ```
-forever start /usr/local/lib/node_modules/node-atlas/ --directory /var/www/my-website/ --webconfig webconfig.prod.json
+forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website/ --webconfig webconfig.prod.json
 ```
 
 

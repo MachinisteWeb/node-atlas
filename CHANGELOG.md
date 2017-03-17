@@ -82,6 +82,7 @@ Updates:
 - `NA#nodeAtlasModulePath` become `NA#nodeatlasModulesRelativePath` and become relatif to `NA#nodeatlasPath`.
 - `NA#websiteModulesPath` become `NA#serverModulesRelativePath` and become relatif to `NA#serverPath`.
 - `--init` command become `--create`.
+- `--directory` command become `--path`.
 - `templatesPath` var become `viewsPath` var.
 - `templateFile` var become `viewFile` var.
 - Language `templateNotFound` become `viewNotFound`.
