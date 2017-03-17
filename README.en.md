@@ -1151,7 +1151,7 @@ and have access to addresses:
 - *http://localhost:82/francais/*
 - *http://localhost:82/francais/list-of-members/*
 
-It is then possible to reverse proxy with [Bouncy](#proxy) (for example) to bring all URLs on port 80 to obtain:
+It is then possible to reverse proxy with to bring all URLs on port 80 to obtain:
 
 - *http://www.website.ext/*
 - *http://www.website.ext/english/*

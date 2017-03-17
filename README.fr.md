@@ -1039,7 +1039,7 @@ vous aurez accès aux adresses :
 
 Vous avez peut-être constaté dans l'exemple précédent que le fichier `landing.json` n'était pas dans le dossier `en-us/` ou `fr-fr/`. Cela est tout à fait possible et signifie qu'il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.
 
-Aussi, quand un `languageCode` est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y ai pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans localisation).
+Aussi, quand un `languageCode` est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y est pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans localisation).
 
 Cela va vous permettre par exemple de gérer la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :
 
@@ -1151,7 +1151,7 @@ et avoir accès aux adresses :
 - *http://localhost:82/francais/*
 - *http://localhost:82/francais/liste-des-membres/*
 
-Il est ensuite possible de faire du reverse proxy avec [Bouncy](#proxy) (par exemple) pour ramener l'ensemble des URLs sur le port 80 afin d'obtenir :
+Il est ensuite possible de faire du reverse proxy avec pour ramener l'ensemble des URLs sur le port 80 afin d'obtenir :
 
 - *http://www.website.ext/*
 - *http://www.website.ext/english/*
