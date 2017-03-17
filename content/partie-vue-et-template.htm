@@ -862,12 +862,12 @@
         }
     },
 }
-</code></pre><h3 id="moteur-de-template-ejs">Moteur de Template EJS</h3><p>Par défaut, NodeAtlas utilise déjà le <a href="http://ejs.co/">moteur de template EJS</a>, c&#39;est ce qui vous permet d&#39;utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>.</p><p>Les balises <code>&lt;?</code> et <code>?&gt;</code> permettent d&#39;inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise ouvrante vous permettant d&#39;afficher le résultat JavaScript dans votre template (comme vous le feriez avec un <code>document.write</code>). Les voici :</p><ul>
+</code></pre><h3 id="moteur-de-template-ejs">Moteur de Template EJS</h3><p>Par défaut, NodeAtlas utilise déjà le <a href="http://ejs.co/">moteur de template EJS</a>, c&#39;est ce qui vous permet d&#39;utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>.</p><p>Les balises <code>&lt;?</code> et <code>?&gt;</code> permettent d&#39;inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise vous permettant d&#39;afficher le résultat JavaScript dans votre template (comme vous le feriez avec un <code>document.write</code>). Les voici :</p><ul>
 <li><code>&lt;?</code> La balise « Scriptlet » par défaut, pour les structure de contrôle, pas de sortie.</li>
 <li><code>&lt;?=</code> Affiché le résultat des expressions dans le template (échappement HTML)</li>
 <li><code>&lt;?-</code> Affiché le résultat des expressions dans le template tel quel</li>
 <li><code>&lt;?#</code> Balise commentaire, pas d&#39;exécution, pas de sortie</li>
-<li><code>&lt;?%</code> Affiche litéralement le contenu d&#39;une &#39;&lt;?&#39;</li>
+<li><code>&lt;?%</code> Affiche litéralement le contenu d&#39;une <code>&lt;?</code></li>
 <li><code>?&gt;</code> La balise de fermeture</li>
 <li><code>-?&gt;</code> La balise Mode trim, exécute un trim sur les nouvelles lignes</li>
 </ul><p>Cependant, EJS fonctionne normalement avec les balises <code>&lt;%</code> et <code>%&gt;</code>. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.</p><pre><code class="lang-json">{

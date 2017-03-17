@@ -1853,13 +1853,13 @@ Les fichiers défini dans `statics` sont également copiable dans le dossier `se
 
 Par défaut, NodeAtlas utilise déjà le [moteur de template EJS](http://ejs.co/), c'est ce qui vous permet d'utiliser du JavaScript dans les balises `<?` et `?>`.
 
-Les balises `<?` et `?>` permettent d'inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise ouvrante vous permettant d'afficher le résultat JavaScript dans votre template (comme vous le feriez avec un `document.write`). Les voici :
+Les balises `<?` et `?>` permettent d'inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise vous permettant d'afficher le résultat JavaScript dans votre template (comme vous le feriez avec un `document.write`). Les voici :
 
 - `<?` La balise « Scriptlet » par défaut, pour les structure de contrôle, pas de sortie.
 - `<?=` Affiché le résultat des expressions dans le template (échappement HTML)
 - `<?-` Affiché le résultat des expressions dans le template tel quel
 - `<?#` Balise commentaire, pas d'exécution, pas de sortie
-- `<?%` Affiche litéralement le contenu d'une '<?'
+- `<?%` Affiche litéralement le contenu d'une `<?`
 - `?>` La balise de fermeture
 - `-?>` La balise Mode trim, exécute un trim sur les nouvelles lignes
 
