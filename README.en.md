@@ -473,7 +473,7 @@ with the addresses:
 - *http://localhost/about.html* (return « Cannot GET about.html » because route path  __must__ start by `/` to be referenced),
 - *http://localhost/error.html* (return of the plain-text content (without markup) with a 404).
 
-*Note : If* ***viewsRelativePath*** *is not present in "webconfig.json", views folder is* ***views***. ***viewsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* `viewsRelativePath` *is not present in `webconfig.json`, views folder is* `views`. `viewsRelativePath` *is useful only to change the name/path of directory.*
 
 
 
@@ -677,11 +677,11 @@ you will have access to the addresses:
 - *http://localhost/javascripts/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : If* ***assetsRelativePath*** *is not present in "webconfig.json", default public folder is* ***assets***. ***assetsRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* `assetsRelativePath` *is not present in `webconfig.json`, default public folder is* `assets`. `assetsRelativePath` *is useful only to change the name/path of directory.*
 
 #### maxAge, Etag, etc. ####
 
-It's possible to manage informations provided by NodeAtlas when a public ressource is requested (like `maxAge`, `Etag`, etc.) via the `staticOptions` property in webconfig. For more informations, see the [Express](http://expressjs.com/en/api.html) documentation about static files.
+It's possible to manage HTTP headers provided when public ressources are requested (like `maxAge`, `Etag`, etc.) via the `staticOptions` property in webconfig. For more informations, see the [Express](http://expressjs.com/en/api.html) documentation about static files.
 
 
 
@@ -772,6 +772,8 @@ you will have access to the addresses:
 
 - *http://localhost/*
 - *http://localhost/list-of-members/*
+
+*Note : for more informations to the differences between `<?`, `<?-`, `<?=`, etc. you can refer to the section ????.*
 
 
 
@@ -1849,7 +1851,19 @@ Files defined into `statics` are also copyble into `serverlessRelativePath` when
 
 ### EJS Template Engine ###
 
-By default, NodeAtlas already use [EJS template engine](http://ejs.co/), it's that allows you to use JavaScript between `<?` and `?>` tags. However, EJS works by default with `<%` and `%>`. You could set this values or set others values if you want.
+By default, NodeAtlas already use [EJS template engine](http://ejs.co/), it's that allows you to use JavaScript between `<?` and `?>` tags.
+
+Tags `<?` and `?>` allow you to include JavaScript into templates. There are many diffent tag format allow you to display JavaScript output into your template (in the same way you should with `document.write`). See below:
+
+- `<?` Opening 'scriptlet' tag by default for control-flow, no output provided.
+- `<?=` Outputs the value into the template (HTML escaped)
+- `<?-` Outputs the unescaped value into the template
+- `<?#` Comment tag, no execution, no output
+- `<?%` Outputs a literal '<?'
+- `?>` Plain ending tag
+- `-?>` Trim-mode ('newline slurp') tag, trims following newline
+
+However, EJS works by default with `<%` and `%>`. You could set this values or set others values if you want.
 
 ```json
 {

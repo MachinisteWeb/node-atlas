@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489738121467">
+		<meta name="og:updated_time" content="1489743262284">
 
 		<meta name="robots" content="index, follow">
 
@@ -346,7 +346,7 @@ website.init({
 <li><em><a href="http://localhost/membre-sans-extension/">http://localhost/membre-sans-extension/</a></em> (ne répondra pas si demandée en GET),</li>
 <li><em><a href="http://localhost/a-propos.html">http://localhost/a-propos.html</a></em> (renvoi « Cannot GET about.html » car le contenu d&#39;une route doit <strong>obligatoirement</strong> commencer par un <code>/</code> pour être référencée),</li>
 <li><em><a href="http://localhost/erreur.html">http://localhost/erreur.html</a></em> (renvoi du contenu plein texte (sans balise) avec une erreur 404).</li>
-</ul><p><em>Note : Si</em> <strong><em>viewsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des vues est bien</em> <strong><em>views</em></strong>. <strong><em>viewsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h3 id="referencer-ses-routes">Référencer ses routes</h3><p>La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus</p><pre><code class="lang-json">{
+</ul><p><em>Note : Si</em> <code>viewsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier des vues est bien</em> <code>views</code>. <code>viewsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h3 id="referencer-ses-routes">Référencer ses routes</h3><p>La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;,
@@ -435,7 +435,7 @@ website.init({
         &quot;view&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichier de route comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d&#39;eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="heberger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichiers de routes comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d&#39;eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="heberger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichiers sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-json">{
     &quot;assetsRelativePath&quot;: &quot;assets&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -459,7 +459,7 @@ website.init({
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascripts/common.js">http://localhost/javascripts/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : Si</em> <strong><em>assetsRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier public est bien</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de configurer les informations livrées par NodeAtlas à la demande d&#39;une ressource publique (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</ul><p><em>Note : Si</em> <code>assetsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier public est bien</em> <code>assets</code>. <code>assetsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de délivrer des en-tête HTTP personnalisées pour les ressources publiques (comme le <code>maxAge</code>, l&#39;<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d&#39;<a href="http://expressjs.com/fr/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l&#39;inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -511,7 +511,7 @@ website.init({
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><h3 id="gerer-des-variations-au-sein-d-une-meme-vue">Gérer des variations au sein d&#39;une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
+</ul><p><em>Note : pour plus d&#39;information sur la différence entre <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. vous pouvez vous référez à la section ????.</em></p><h3 id="gerer-des-variations-au-sein-d-une-meme-vue">Gérer des variations au sein d&#39;une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;variation&quot;: &quot;common.json&quot;,
     &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
@@ -1174,7 +1174,15 @@ website.init({
         }
     },
 }
-</code></pre><h3 id="moteur-de-template-ejs">Moteur de Template EJS</h3><p>Par défaut, NodeAtlas utilise déjà le <a href="http://ejs.co/">moteur de template EJS</a>, c&#39;est ce qui vous permet d&#39;utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>. Cependant, EJS fonctionne normalement avec les balises <code>&lt;%</code> et <code>%&gt;</code>. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.</p><pre><code class="lang-json">{
+</code></pre><h3 id="moteur-de-template-ejs">Moteur de Template EJS</h3><p>Par défaut, NodeAtlas utilise déjà le <a href="http://ejs.co/">moteur de template EJS</a>, c&#39;est ce qui vous permet d&#39;utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>.</p><p>Les balises <code>&lt;?</code> et <code>?&gt;</code> permettent d&#39;inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise ouvrante vous permettant d&#39;afficher le résultat JavaScript dans votre template (comme vous le feriez avec un <code>document.write</code>). Les voici :</p><ul>
+<li><code>&lt;?</code> La balise « Scriptlet » par défaut, pour les structure de contrôle, pas de sortie.</li>
+<li><code>&lt;?=</code> Affiché le résultat des expressions dans le template (échappement HTML)</li>
+<li><code>&lt;?-</code> Affiché le résultat des expressions dans le template tel quel</li>
+<li><code>&lt;?#</code> Balise commentaire, pas d&#39;exécution, pas de sortie</li>
+<li><code>&lt;?%</code> Affiche litéralement le contenu d&#39;une &#39;&lt;?&#39;</li>
+<li><code>?&gt;</code> La balise de fermeture</li>
+<li><code>-?&gt;</code> La balise Mode trim, exécute un trim sur les nouvelles lignes</li>
+</ul><p>Cependant, EJS fonctionne normalement avec les balises <code>&lt;%</code> et <code>%&gt;</code>. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.</p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {

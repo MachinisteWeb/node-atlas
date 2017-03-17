@@ -473,7 +473,7 @@ aux adresses :
 - *http://localhost/a-propos.html* (renvoi « Cannot GET about.html » car le contenu d'une route doit __obligatoirement__ commencer par un `/` pour être référencée),
 - *http://localhost/erreur.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404).
 
-*Note : Si* ***viewsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des vues est bien* ***views***. ***viewsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* `viewsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des vues est bien* `views`. `viewsRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -635,13 +635,13 @@ et `routes.json`
 }
 ```
 
-*Note : Vous pouvez vous créer plusieurs fichier de route comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
+*Note : Vous pouvez vous créer plusieurs fichiers de routes comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
 
 
 
 ### Héberger des images, polices, CSS, JS, etc. ###
 
-Vous pouvez également héberger tout un tas de fichier sur votre site dans un dossier public. Par exemple avec cette configuration :
+Vous pouvez également héberger tout un tas de fichiers sur votre site dans un dossier public. Par exemple avec cette configuration :
 
 ```json
 {
@@ -677,11 +677,11 @@ vous aurez accès aux adresses :
 - *http://localhost/javascripts/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : Si* ***assetsRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier public est bien* ***assets***. ***assetsRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* `assetsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier public est bien* `assets`. `assetsRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 #### maxAge, Etag, etc. ####
 
-Il est possible de configurer les informations livrées par NodeAtlas à la demande d'une ressource publique (comme le `maxAge`, l'`Etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/fr/api.html).
+Il est possible de délivrer des en-tête HTTP personnalisées pour les ressources publiques (comme le `maxAge`, l'`Etag`, etc.) via la propriété `staticOptions` du webconfig. Pour connaître la totalité des possibilités, voir les options d'[Express](http://expressjs.com/fr/api.html).
 
 
 
@@ -772,6 +772,8 @@ vous aurez accès aux adresses :
 
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
+
+*Note : pour plus d'information sur la différence entre `<?`, `<?-`, `<?=`, etc. vous pouvez vous référez à la section ????.*
 
 
 
@@ -1849,7 +1851,19 @@ Les fichiers défini dans `statics` sont également copiable dans le dossier `se
 
 ### Moteur de Template EJS ###
 
-Par défaut, NodeAtlas utilise déjà le [moteur de template EJS](http://ejs.co/), c'est ce qui vous permet d'utiliser du JavaScript dans les balises `<?` et `?>`. Cependant, EJS fonctionne normalement avec les balises `<%` et `%>`. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.
+Par défaut, NodeAtlas utilise déjà le [moteur de template EJS](http://ejs.co/), c'est ce qui vous permet d'utiliser du JavaScript dans les balises `<?` et `?>`.
+
+Les balises `<?` et `?>` permettent d'inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise ouvrante vous permettant d'afficher le résultat JavaScript dans votre template (comme vous le feriez avec un `document.write`). Les voici :
+
+- `<?` La balise « Scriptlet » par défaut, pour les structure de contrôle, pas de sortie.
+- `<?=` Affiché le résultat des expressions dans le template (échappement HTML)
+- `<?-` Affiché le résultat des expressions dans le template tel quel
+- `<?#` Balise commentaire, pas d'exécution, pas de sortie
+- `<?%` Affiche litéralement le contenu d'une '<?'
+- `?>` La balise de fermeture
+- `-?>` La balise Mode trim, exécute un trim sur les nouvelles lignes
+
+Cependant, EJS fonctionne normalement avec les balises `<%` et `%>`. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.
 
 ```json
 {

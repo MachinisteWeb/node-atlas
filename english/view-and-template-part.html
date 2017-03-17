@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489738125683">
+		<meta name="og:updated_time" content="1489743266319">
 
 		<meta name="robots" content="index, follow">
 
@@ -346,7 +346,7 @@ website.init({
 <li><em><a href="http://localhost/member-without-extension/">http://localhost/member-without-extension/</a></em> (will not respond if is GET requested),</li>
 <li><em><a href="http://localhost/about.html">http://localhost/about.html</a></em> (return « Cannot GET about.html » because route path  <strong>must</strong> start by <code>/</code> to be referenced),</li>
 <li><em><a href="http://localhost/error.html">http://localhost/error.html</a></em> (return of the plain-text content (without markup) with a 404).</li>
-</ul><p><em>Note : If</em> <strong><em>viewsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, views folder is</em> <strong><em>views</em></strong>. <strong><em>viewsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h3 id="manage-routes">Manage Routes</h3><p>The configuration below is equivalent to the configuration section just above</p><pre><code class="lang-json">{
+</ul><p><em>Note : If</em> <code>viewsRelativePath</code> <em>is not present in <code>webconfig.json</code>, views folder is</em> <code>views</code>. <code>viewsRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h3 id="manage-routes">Manage Routes</h3><p>The configuration below is equivalent to the configuration section just above</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;,
@@ -459,7 +459,7 @@ website.init({
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascripts/common.js">http://localhost/javascripts/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : If</em> <strong><em>assetsRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default public folder is</em> <strong><em>assets</em></strong>. <strong><em>assetsRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage informations provided by NodeAtlas when a public ressource is requested (like <code>maxAge</code>, <code>Etag</code>, etc.) via the <code>staticOptions</code> property in webconfig. For more informations, see the <a href="http://expressjs.com/en/api.html">Express</a> documentation about static files.</p><h3 id="manage-include-of-partial-files">Manage Include of Partial Files</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</ul><p><em>Note : If</em> <code>assetsRelativePath</code> <em>is not present in <code>webconfig.json</code>, default public folder is</em> <code>assets</code>. <code>assetsRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>It&#39;s possible to manage HTTP headers provided when public ressources are requested (like <code>maxAge</code>, <code>Etag</code>, etc.) via the <code>staticOptions</code> property in webconfig. For more informations, see the <a href="http://expressjs.com/en/api.html">Express</a> documentation about static files.</p><h3 id="manage-include-of-partial-files">Manage Include of Partial Files</h3><p>You can segment your HTML codes to not repeat the redundant code such &quot;head&quot; part and &quot;foot&quot; part or any other code fragment:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -511,7 +511,7 @@ website.init({
 </code></pre><p>you will have access to the addresses:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
-</ul><h3 id="manage-variations-within-the-same-view">Manage variations within the same view</h3><p>It is possible with the same view and the same includes, generating pages with different contents (useful in generation HTML assets mode). Activate the variations with the following configuration:</p><pre><code class="lang-json">{
+</ul><p><em>Note : for more informations to the differences between <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. you can refer to the section ????.</em></p><h3 id="manage-variations-within-the-same-view">Manage variations within the same view</h3><p>It is possible with the same view and the same includes, generating pages with different contents (useful in generation HTML assets mode). Activate the variations with the following configuration:</p><pre><code class="lang-json">{
     &quot;variation&quot;: &quot;common.json&quot;,
     &quot;variationsRelativePath&quot;: &quot;variations&quot;,
     &quot;routes&quot;: {
@@ -1174,7 +1174,15 @@ website.init({
         }
     },
 }
-</code></pre><h3 id="ejs-template-engine">EJS Template Engine</h3><p>By default, NodeAtlas already use <a href="http://ejs.co/">EJS template engine</a>, it&#39;s that allows you to use JavaScript between <code>&lt;?</code> and <code>?&gt;</code> tags. However, EJS works by default with <code>&lt;%</code> and <code>%&gt;</code>. You could set this values or set others values if you want.</p><pre><code class="lang-json">{
+</code></pre><h3 id="ejs-template-engine">EJS Template Engine</h3><p>By default, NodeAtlas already use <a href="http://ejs.co/">EJS template engine</a>, it&#39;s that allows you to use JavaScript between <code>&lt;?</code> and <code>?&gt;</code> tags.</p><p>Tags <code>&lt;?</code> and <code>?&gt;</code> allow you to include JavaScript into templates. There are many diffent tag format allow you to display JavaScript output into your template (in the same way you should with <code>document.write</code>). See below:</p><ul>
+<li><code>&lt;?</code> Opening &#39;scriptlet&#39; tag by default for control-flow, no output provided.</li>
+<li><code>&lt;?=</code> Outputs the value into the template (HTML escaped)</li>
+<li><code>&lt;?-</code> Outputs the unescaped value into the template</li>
+<li><code>&lt;?#</code> Comment tag, no execution, no output</li>
+<li><code>&lt;?%</code> Outputs a literal &#39;&lt;?&#39;</li>
+<li><code>?&gt;</code> Plain ending tag</li>
+<li><code>-?&gt;</code> Trim-mode (&#39;newline slurp&#39;) tag, trims following newline</li>
+</ul><p>However, EJS works by default with <code>&lt;%</code> and <code>%&gt;</code>. You could set this values or set others values if you want.</p><pre><code class="lang-json">{
     &quot;templateEngineDelimiter&quot;: &quot;%&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
