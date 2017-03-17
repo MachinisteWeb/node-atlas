@@ -1,5 +1,6 @@
 {
 	"mainTitle": "NodeAtlas —Le Framework JavaScript Serveur Évolutif—",
+	"mainDescription": "Créez simplement des sites web évolutifs en Node.js.",
 	"noJs": "Le JavaScript n'est pas activé.",
 	"follow": "Suivre",
 	"close": "Fermer",

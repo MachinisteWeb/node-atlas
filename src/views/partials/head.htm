@@ -2,12 +2,20 @@
 <html lang="<?= languageCode ?>">
 	<head>
 		<meta charset="utf-8" />
-		<title><?- common.mainTitle?></title>
+		<title><?- common.mainTitle ?></title>
 
 		<base href="<?= urlBasePath ?>/" />
 
-		<meta name="description" content="NodeAtlas est un Framework JavaScript MVC(2) côté serveur." />
 		<meta name="geo.placename" content="Annecy, Haute-Savoie, France" />
+		<meta name="description" content="<?- common.mainDescription ?>" />
+
+		<meta name="description" content="Official website of Verger.Digital creators!">
+		<meta name="og:url" content="https://node-atlas.js.com/">
+		<meta name="og:locale" content="<?= languageCode ?>">
+		<meta name="og:type" content="website">
+		<meta name="og:title" content="<?- common.mainTitle?>">
+		<meta name="og:description" content="<?- common.mainDescription ?>">
+		<meta name="og:updated_time" content="<?- (+new Date()) ?>">
 
 		<meta name="robots" content="index, follow" />
 
