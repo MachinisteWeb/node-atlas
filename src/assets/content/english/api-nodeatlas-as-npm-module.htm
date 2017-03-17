@@ -12,7 +12,7 @@ You can also configure the launch with `init(options)`:
 
 ```javascript
 require(&quot;node-atlas&quot;)().init({
-    directory: &quot;/path/to/your/website/directory/&quot;,
+    path: &quot;/path/to/your/website/directory/&quot;,
     webconfig: &quot;webconfig.alternatif.json&quot;,
     browse: true,
     httpHostname: &quot;192.168.1.1&quot;,
@@ -21,7 +21,7 @@ require(&quot;node-atlas&quot;)().init({
 }).start();
 </code></pre><pre><code>$ node server.js
 </code></pre><p>The <code>options</code> object is the following:</p><pre><code>{
-    directory: &lt;string&gt;,
+    path: &lt;string&gt;,
     webconfig: &lt;string&gt;,
     browse: &lt;boolean|string&gt;,
     httpHostname: &lt;string&gt;,

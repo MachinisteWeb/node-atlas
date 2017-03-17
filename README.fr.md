@@ -136,7 +136,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
  - [--help](#--help)
  - [--version](#--version)
  - [--browse](#--browse)
- - [--directory](#--directory)
+ - [--path](#--path)
  - [--webconfig](#--webconfig)
  - [--httpHostname](#--httphostname)
  - [--httpPort](#--httpport)
@@ -6899,7 +6899,7 @@ $ nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
 ou comme cela
 
 ```bash
-$ node </path/to/>node-atlas/ --directory hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
+$ node </path/to/>node-atlas/ --path hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
 ```
 
 
@@ -6964,20 +6964,20 @@ $ nodeatlas --browse index.html
 
 
 
-### --directory ###
+### --path ###
 
 #### Utilisation ####
 
 ```bash
--d, --directory <path>
+-p, --path <path>
 ```
 
 #### Explication ####
 
-Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--directory` vous sera alors très utile.
+Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--path` vous sera alors très utile.
 
 ```bash
-$ nodeatlas --directory </path/to/your/website/directory>/
+$ nodeatlas --path </path/to/your/website/directory>/
 ```
 
 
@@ -7005,7 +7005,7 @@ $ nodeatlas --webconfig webconfig.alternatif.json
 #### Utilisation ####
 
 ```bash
--u, --httpHostname <httpHostname>
+-H, --httpHostname <httpHostname>
 ```
 
 #### Explication ####
@@ -7023,7 +7023,7 @@ $ nodeatlas --httpHostname 192.168.1.1
 #### Utilisation ####
 
 ```bash
--p, --httpPort <httpPort>
+-P, --httpPort <httpPort>
 ```
 
 #### Explication ####
@@ -7059,7 +7059,7 @@ $ nodeatlas --generate
 #### Utilisation ####
 
 ```bash
--c, --cache
+-n, --cache
 ```
 
 #### Explication ####
@@ -7077,7 +7077,7 @@ $ nodeatlas --cache
 #### Utilisation ####
 
 ```bash
--i, --create [path]
+-c, --create [path]
 ```
 
 #### Explication ####
@@ -7095,7 +7095,7 @@ $ nodeatlas --create hello-world
 #### Utilisation ####
 
 ```bash
--s, --httpSecure [pathName]
+-S, --httpSecure [pathName]
 ```
 
 #### Explication ####
@@ -7113,7 +7113,7 @@ $ nodeatlas --httpSecure security/server
 #### Utilisation ####
 
 ```bash
--l, --lang <cultureCode-countryCode>
+-l, --lang &gt;cultureCode-countryCode>
 ```
 
 #### Explication ####
@@ -7158,7 +7158,7 @@ Vous pouvez également configurer le lancement avec `init(options)` :
 
 ```javascript
 require("node-atlas")().init({
-    directory: "/path/to/your/website/directory/",
+    path: "/path/to/your/website/directory/",
     webconfig: "webconfig.alternatif.json",
     browse: true,
     httpHostname: "192.168.1.1",
@@ -7175,7 +7175,7 @@ L'objet `options` est le suivant :
 
 ```
 {
-    directory: <string>,
+    path: <string>,
     webconfig: <string>,
     browse: <boolean|string>,
     httpHostname: <string>,
@@ -7617,7 +7617,7 @@ Il faut pour cela :
 Pour manager un nouveau site en continue il faut utiliser la commande :
 
 ```
-$ forever start </path/to/>node-atlas/ --directory </path/to/your/website/directory/>
+$ forever start </path/to/>node-atlas/ --path </path/to/your/website/directory/>
 ```
 
 Pour le stopper, il faut repérer son **uid** avec la commande `forever list`

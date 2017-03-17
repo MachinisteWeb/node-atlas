@@ -13,7 +13,7 @@ versionFrench.init({
 	}).generated(function() {
 		versionTest.init({
 			"browse": "index.html",
-			"directory": "../",
+			"path": "../",
 			"httpSecure": "../BlogAtlas/security/server"
 		}).start();
 	}).start();

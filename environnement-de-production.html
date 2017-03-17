@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489745429010">
+		<meta name="og:updated_time" content="1489752890159">
 
 		<meta name="robots" content="index, follow">
 
@@ -395,7 +395,7 @@ site-hello-world/
 <li>Installer <a href="http://nodejs.org/download/">l’exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="https://github.com/nodejitsu/forever">le CLI tool forever</a> pour manager vos sites en continue (démarrage, arrêt, redémarrage, etc.).</li>
 <li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
-</ol><h4 id="quelques-commandes-forever">Quelques commandes forever</h4><p>Pour manager un nouveau site en continue il faut utiliser la commande :</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --directory &lt;/path/to/your/website/directory/&gt;
+</ol><h4 id="quelques-commandes-forever">Quelques commandes forever</h4><p>Pour manager un nouveau site en continue il faut utiliser la commande :</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --path &lt;/path/to/your/website/directory/&gt;
 </code></pre><p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code></p><pre><code>$ forever list
 </code></pre><p>puis utiliser la commande :</p><pre><code>$ forever stop &lt;uid&gt;
 </code></pre><p>ou <code>&lt;uid&gt;</code> est l&#39;<strong>uid</strong> du site qui tourne.</p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{

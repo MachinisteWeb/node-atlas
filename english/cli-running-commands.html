@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489745433041">
+		<meta name="og:updated_time" content="1489752893523">
 
 		<meta name="robots" content="index, follow">
 
@@ -310,7 +310,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="cli-running-commands">CLI / Running commands</h2><p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>nodeatlas</code>. However there are options to launch more than launch the site.</p><p>Each of the commands that follow can be coupled with other like this:</p><pre><code class="lang-bash">$ node &lt;/path/to/&gt;node-atlas/ --directory hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
+					<h2 id="cli-running-commands">CLI / Running commands</h2><p>The easiest way to start is to position NodeAtlas in the directory hosting your site and run the command <code>nodeatlas</code>. However there are options to launch more than launch the site.</p><p>Each of the commands that follow can be coupled with other like this:</p><pre><code class="lang-bash">$ node &lt;/path/to/&gt;node-atlas/ --path hello-world --webconfig config.fr-fr.js --httpPort 80 --browse
 </code></pre><p>or this</p><pre><code class="lang-bash">$ nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
 </code></pre><h3 id="help">--help</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-h, --help
 </code></pre><h4 id="about">About</h4><p>To have help (open MAN) on the following command for the CLI, use <code>--help</code> command.</p><pre><code>$ nodeatlas --help
@@ -319,23 +319,23 @@ website.init({
 </code></pre><h3 id="browse-subpath">--browse [subpath]</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-b, --browse [subpath]
 </code></pre><h4 id="about">About</h4><p>This command opens your browser to the address on which the site will run. Very handy when you do not remember the port for your development version. This command is useless if it is coupled with <code>--generate</code> (see below).</p><pre><code>$ nodeatlas --browse
 </code></pre><p>You could also targeted a specific page with the end of url.</p><pre><code>$ nodeatlas --browse index.html
-</code></pre><h3 id="directory">--directory</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-d, --directory &lt;path&gt;
-</code></pre><h4 id="about">About</h4><p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--directory</code> command will be very useful.</p><pre><code class="lang-bash">$ nodeatlas --directory &lt;/path/to/your/website/directory&gt;/
+</code></pre><h3 id="path">--path</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-p, --path &lt;path&gt;
+</code></pre><h4 id="about">About</h4><p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--path</code> command will be very useful.</p><pre><code class="lang-bash">$ nodeatlas --path &lt;/path/to/your/website/directory&gt;/
 </code></pre><h3 id="webconfig">--webconfig</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-w, --webconfig &lt;webconfigName&gt;
 </code></pre><h4 id="about">About</h4><p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p><pre><code>$ nodeatlas --webconfig webconfig.alternatif.json
-</code></pre><h3 id="httphostname">--httpHostname</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-u, --httpHostname &lt;httpHostname&gt;
+</code></pre><h3 id="httphostname">--httpHostname</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-H, --httpHostname &lt;httpHostname&gt;
 </code></pre><h4 id="about">About</h4><p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p><pre><code>$ nodeatlas --httpHostname 192.168.1.1
-</code></pre><h3 id="httpport">--httpPort</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-p, --httpPort &lt;httpPort&gt;
+</code></pre><h3 id="httpport">--httpPort</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-P, --httpPort &lt;httpPort&gt;
 </code></pre><h4 id="about">About</h4><p>You will not be bored to change your listening port on your projects and sometimes you&#39;ll have to work on two different websites simultaneously. With this command you will not need to cut your sites turn to release the listener, simply pick one at launch.</p><pre><code>$ nodeatlas --httpPort 7778
 </code></pre><h3 id="generate">--generate</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-g, --generate
 </code></pre><h4 id="about">About</h4><p>If you change an item in your common variation file or even your view components called in multiple pages, you will not reload each page to update your output files. If so, simply use <code>--generate</code>. This command will copy the entire contents of the folder <code>assetsRelativePath</code> into <code>serverlessRelativePath</code> if their path is different.</p><pre><code>$ nodeatlas --generate
-</code></pre><h3 id="cache">--cache</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-c, --cache
+</code></pre><h3 id="cache">--cache</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-n, --cache
 </code></pre><h4 id="about">About</h4><p>You maybe want not use cached file during the development phase, the most easy way is to use this option. It&#39;s your only possibility for run a « Simple Web Server » with no cache.</p><pre><code>$ nodeatlas --cache
-</code></pre><h3 id="create">--create</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-i, --create [path]
+</code></pre><h3 id="create">--create</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-c, --create [path]
 </code></pre><h4 id="about">About</h4><p>NodeAtlas contain a directory <code>templates</code> with predefined website into. To install them in the current directory for NodeAtlas command, you can use <code>--create</code> with the name of the <code>templates</code> you want use. By default, it&#39;s the <code>hello-world</code> value that is used. <em>Possible values: <code>hello-world</code>.</em></p><pre><code>$ nodeatlas --create hello-world
-</code></pre><h3 id="httpsecure">--httpSecure</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-s, --httpSecure [pathName]
+</code></pre><h3 id="httpsecure">--httpSecure</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-S, --httpSecure [pathName]
 </code></pre><h4 id="about">About</h4><p>If you use the <code>--httpSecure</code> option, all path will be reach in HTTPs. You must defined a <code>.crt</code> and <code>.key</code> files with <code>pathName</code> if you want the engine start in HTTPs. For exemple if you have <code>security/server.crt</code> and <code>security/server.key</code> from root of NodeAtlas website, you can use following command:</p><pre><code>$ nodeatlas --httpSecure security/server
-</code></pre><h3 id="lang">--lang</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-l, --lang &lt;cultureCode-countryCode&gt;
+</code></pre><h3 id="lang">--lang</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-l, --lang &amp;lt;cultureCode-countryCode&gt;
 </code></pre><h4 id="about">About</h4><p>With the <code>--lang</code> parameter you will change language used by NodeAtlas. This command set the content of <code>languages/default.json</code> by the content of <code>languages/fr-fr.json</code> if you use the &quot;fr-fr&quot; parameter for example like below. Start NodeAtlas later will conserve the last language used by engine.</p><pre><code>$ nodeatlas --lang fr-fr
 </code></pre><div><div class="before">
                             <a href="webconfig-s-anatomy.html">◄ Webconfig&#39;s Anatomy</a>
