@@ -927,7 +927,7 @@ On the same principle, the variations can be used to create the same page, but i
 }
 ```
 
-*Note : In this example I decided to do without a common variation file, because I did not specify a common* `variation`. *I also completely arbitrarily decided to rename my folder* `variations` *to* `l10n` *(localization)*.
+*Note : In this example I use the common `variation` property, because I don't use a* `common.js` *file. I also decided to rename my folder* `variations` *to* `l10n` *(localization)*.
 
 with the following files:
 

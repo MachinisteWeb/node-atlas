@@ -927,7 +927,7 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 }
 ```
 
-*Note : Dans cet exemple j'ai décidé de me passer d'un fichier de variation commune, car je n'ai pas précisé de* `variation` *commune. J'ai également totalement arbitrairement décidé de renommer mon dossier* `variations` *en* `l10n` *(localisation)*.
+*Note : Dans cet exemple je n'utilise pas la propriété `variation` commune, car je n'utilise pas de* `common.json` *. J'ai arbitrairement décidé de renommer mon dossier* `variations` *en* `l10n` *(localisation)*.
 
 avec les fichiers suivants :
 
