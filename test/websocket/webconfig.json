@@ -1,9 +1,0 @@
-{
-    "controller": "common.js",
-    "controllersRelativePath": "controllers",
-    "routes": [{
-        "url": "/",
-        "view": "index.htm",
-        "controller": "index.js"
-    }]
-}

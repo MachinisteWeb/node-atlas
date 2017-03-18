@@ -328,7 +328,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website
 ### Exemple de sites ##
 
 - [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
-- [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/TestCaseAtlas/).
+- [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/DocAtlas/).
 - [Maintenance de site HTML (sans Serveur)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
