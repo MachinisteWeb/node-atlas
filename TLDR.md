@@ -333,11 +333,12 @@ forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
 - [API REST example](https://github.com/Haeresis/ApiAtlas/).
-- [MVVM and Server-Side Render usage with Vue+NodeAtlas](https://github.com/Haeresis/VueAtlas/).
-- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple Web Server to share directory](https://github.com/Haeresis/SimpleAtlas/).
+- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
 - [CSS-driven usage with Less/Stylus preprocessor with CSS Framework](https://github.com/Haeresis/PreprocessorAtlas/).
-- [Website Component Oriented SEO and W3C Compliant](https://github.com/Haeresis/ComponentAtlas/).
+- [Plugin to boost standard capabilities](https://github.com/Haeresis/ComponentAtlas/).
+- [Minimal MVVM server-side rendering usage with Vue](https://github.com/Haeresis/VueAtlas/).
+- [MVVM + MVC(2) pattern with Vue+Router+SSR](https://github.com/Orchard-ID/Orchard-Website/).
 
 
 

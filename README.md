@@ -329,15 +329,16 @@ forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website
 
 - [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
 - [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/TestCaseAtlas/).
-- [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
+- [Maintenance de site HTML (sans Serveur)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
 - [Exemple d'API REST](https://github.com/Haeresis/ApiAtlas/).
-- [Utilisation MVVM avec Vue+NodeAtlas et Server-Side Render](https://github.com/Haeresis/VueAtlas/).
-- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
 - [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
-- [Utilisation du préprocesseur Less/Stylus pour des Framework non invasif dans le HTML](https://github.com/Haeresis/PreprocessorAtlas/).
-- [Site Web Composant orienté SEO et W3C compliant](https://github.com/Haeresis/ComponentAtlas/).
+- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
+- [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/PreprocessorAtlas/).
+- [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/ComponentAtlas/).
+- [Utilisation MVVM minimal avec rendu côté serveur Vue](https://github.com/Haeresis/VueAtlas/).
+- [Architecture MVVM + MVC(2) avec Vue+Router+SSR](https://github.com/Orchard-ID/Orchard-Website/).
 
 
 
