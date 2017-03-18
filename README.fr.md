@@ -60,7 +60,7 @@ Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur
 Voici une liste de repository que vous pouvez décortiquer à votre gré :
 
 - [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
-- [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/TestCaseAtlas/).
+- [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/DocAtlas/).
 - [Maintenance de site HTML (sans Serveur)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
@@ -1033,7 +1033,7 @@ vous aurez accès aux adresses :
 - *http://localhost/home/*
 - *http://localhost/accueil/*
 
-*Note : Par défaut c'est le* ***languageCode*** *racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le* ***languageCode***. *Il faut également savoir que dès que le site ou une page à un* ***languageCode*** *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* ***languageCode***.
+*Note : Par défaut c'est le* `languageCode` *racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le* `languageCode`. *Il faut également savoir que dès que le site ou une page à un* `languageCode` *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* `languageCode`.
 
 
 #### Utiliser variations et localisations ensemble ####
@@ -1761,13 +1761,13 @@ en se rendant aux adresses :
 
 *Note : Il n'y a pas de génération pour « /liste-des-membres/?foo=bar » car `output` est à `false`. Utilisez cette valeur pour ignorer des routes à la génération.*
 
-La génération s'enclenche quand on affiche la page uniquement parce que ***htmlGenerationBeforeResponse*** existe et est à ***true***.
+La génération s'enclenche quand on affiche la page uniquement parce que `htmlGenerationBeforeResponse` existe et est à `true`.
 
 #### Générer un site sans partie serveur ####
 
 Il est également possible de gérer la création d'un site en simple page HTML avec la commande `--generate`.
 
-Si `htmlGenerationBeforeResponse` est passé à ***false*** (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `nodeatlas --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath` à la condition que le `output` global soit à `true`.
+Si `htmlGenerationBeforeResponse` est passé à `false` (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `nodeatlas --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath` à la condition que le `output` global soit à `true`.
 
 De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publics) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique à condition que `assetsCopy` soit à `true`. 
 
@@ -1831,7 +1831,7 @@ Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTM
 ┊┉
 ```
 
-*Note : Si* ***serverlessRelativePath*** *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* ***serverless/***. ***serverlessRelativePath*** *est donc utile seulement pour changer le nom/chemin répertoire.*
+*Note : Si* `serverlessRelativePath` *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* `serverless/`. `serverlessRelativePath` *est donc utile seulement pour changer le nom/chemin répertoire.*
 
 #### Générer les fichiers statics ####
 
@@ -1955,7 +1955,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 
 Pour tout savoir sur les possibilités du moteur de template consultez [la documentation EJS](http://ejs.co/)
 
-*Note : Si rien n'est précisé,* ***templateEngineDelimiter*** *vaut* ***?***.
+*Note : Si rien n'est précisé,* `templateEngineDelimiter` *vaut* `?`.
 
 
 
@@ -2080,7 +2080,7 @@ div
 
 Pour tout savoir sur les possibilités du moteur de template consultez [la documentation PUG](https://pugjs.org/)
 
-*Note : Si rien n'est précisé,* ***pug*** *vaut* ***false***.
+*Note : Si rien n'est précisé,* `pug` *vaut* `false`.
 
 
 
@@ -2121,7 +2121,7 @@ Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous le
 }
 ```
 
-*Note : Si* ***controllersRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien* ***controllers***. ***controllersRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* `controllersRelativePath` *n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien* `controllers`. `controllersRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 et voici le détail des endroits ou vous pouvez intervenir pendant :
 
@@ -2595,7 +2595,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-*Note : Si* ***socketClientFile*** *n'est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien* ***/node-atlas/socket.io.js***. ***socketClientFile*** *est donc utile seulement pour changer le chemin du fichier. Si vous mettez ***socketClientFile*** à `false`, le fichier client ne sera pas accessible.*
+*Note : Si* `socketClientFile` *n'est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien* `/node-atlas/socket.io.js`. `socketClientFile` *est donc utile seulement pour changer le chemin du fichier. Si vous mettez `socketClientFile` à `false`, le fichier client ne sera pas accessible.*
 
 *controllers/common.js*
 
@@ -4273,7 +4273,7 @@ module.exports = function () {
 };
 ```
 
-*Note : Si* ***middlewaresRelativePath*** *n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien* ***middlewares***. ***middlewaresRelativePath*** *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : Si* `middlewaresRelativePath` *n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien* `middlewares`. `middlewaresRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 #### Avec le paramètre `middlewares` en Global ####
 
@@ -6076,7 +6076,7 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 }
 ```
 
-*Note : Si rien n'est précisé,* ***get*** *et* ***post*** *sont à* ***true*** *au niveau global et par page.*
+*Note : Si rien n'est précisé,* `get` *et* `post` *sont à* `true` *au niveau global et par page.*
 
 
 
@@ -6336,7 +6336,7 @@ Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mo
 
 ### Changer l'url final des hostname et port d'écoute ###
 
-Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec ***urlHostname*** et ***urlPort***. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
+Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec `urlHostname` et `urlPort`. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
 
 ```json
 {

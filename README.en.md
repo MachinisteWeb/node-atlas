@@ -60,7 +60,7 @@ To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API,
 This is a list of repository you could analyse to understand NodeAtlas:
 
 - [Generation and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
-- [UI Test and UI Documentation](https://github.com/Haeresis/TestCaseAtlas/).
+- [UI Test and UI Documentation](https://github.com/Haeresis/DocAtlas/).
 - [HTML website maintenance (no Server)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
@@ -1033,7 +1033,7 @@ you will have access to the addresses:
 - *http://localhost/home/*
 - *http://localhost/accueil/*
 
-*Note : By default is the* ***languageCode*** *root that determines the display language of the wesite. However, specifically by page language, we can be changed also the* ***languageCode****. *You should also know that once the site or page has a* ***languageCode*** *in the configuration, variations files must be placed in a subdirectory named with the* ***languageCode***.
+*Note : By default is the* `languageCode` *root that determines the display language of the wesite. However, specifically by page language, we can be changed also the* `languageCode`. *You should also know that once the site or page has a* `languageCode` *in the configuration, variations files must be placed in a subdirectory named with the* `languageCode`.
 
 
 #### Use both variations and localizations ####
@@ -1761,13 +1761,13 @@ by going to the address:
 
 *Note : No output page are generated for "/list-of-members/?foo=bar" because `output` is set to `false`. Use this value to ignore a route generation.*
 
-The generation starts when displaying the page if ***htmlGenerationBeforeResponse*** exist and if it is ***true***.
+The generation starts when displaying the page if `htmlGenerationBeforeResponse` exist and if it is `true`.
 
 #### Generate website without server-side ####
 
 You can also manager a simple HTML website page with `--generate` command.
 
-If `htmlGenerationBeforeResponse` is setted to ***false*** (or removed) the only way to generate all the pages of the website will be via the command `nodeatlas --generate` will generate all pages into `serverlessRelativePath` only if global `output` is setted to `true`.
+If `htmlGenerationBeforeResponse` is setted to `false` (or removed) the only way to generate all the pages of the website will be via the command `nodeatlas --generate` will generate all pages into `serverlessRelativePath` only if global `output` is setted to `true`.
 
 Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path only if global `assetsCopy` is setted to `true`. 
 
@@ -1831,7 +1831,7 @@ It will do more than, once `--generate` was used, enjoy your HTML site in the fo
 ┊┉
 ```
 
-*Note : If* ***serverlessRelativePath*** *is not present in "webconfig.json", default folder for generated files is* ***serverless/***. ***serverlessRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* `serverlessRelativePath` *is not present in "webconfig.json", default folder for generated files is* `serverless/`. `serverlessRelativePath` *is useful only to change the name/path of directory.*
 
 #### Generate Static Files ####
 
@@ -1955,7 +1955,7 @@ See the example in files below:
 
 Learn all about the possibilities of the template engine consult [the documentation EJS](http://ejs.co/)
 
-*Note : If nothing is set,* ***templateEngineDelimiter*** *is set to* ***?***.
+*Note : If nothing is set,* `templateEngineDelimiter` *is set to* `?`.
 
 
 
@@ -2080,7 +2080,7 @@ div
 
 Learn all about the possibilities of the template engine consult [the documentation PUG](https://pugjs.org/)
 
-*Note : If nothing is set,* ***pug*** *is set to* ***false***.
+*Note : If nothing is set,* `pug` *is set to* `false`.
 
 
 
@@ -2121,7 +2121,7 @@ This is a `webconfig.json` allows you to manipulate each hook of life cycle of a
 }
 ```
 
-*Note : If* ***controllersRelativePath*** *is not present in "webconfig.json", default controller folder is* ***controllers***. ***controllersRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* `controllersRelativePath` *is not present in "webconfig.json", default controller folder is* `controllers`. `controllersRelativePath` *is useful only to change the name/path of directory.*
 
 and this is the detail of all hooks while:
 
@@ -2595,7 +2595,7 @@ Do a request on `http://localhost/` will use the following files (and others fil
 </html>
 ```
 
-*Note : If* ***socketClientFile*** *is not present in "webconfig.json", default client file for config sockets is* ***/node-atlas/socket.io.js***. ***socketClientFile*** *is useful only to change the name of file. If you set ***socketClientFile*** to `false`, the client file will be not adding on accessible routes.*
+*Note : If* `socketClientFile` *is not present in "webconfig.json", default client file for config sockets is* `/node-atlas/socket.io.js`. `socketClientFile` *is useful only to change the name of file. If you set `socketClientFile` to `false`, the client file will be not adding on accessible routes.*
 
 *controllers/common.js*
 
@@ -4273,7 +4273,7 @@ module.exports = function () {
 };
 ```
 
-*Note : If* ***middlewaresRelativePath*** *is not present in "webconfig.json", default controller folder is* ***middlewares***. ***middlewaresRelativePath*** *is useful only to change the name/path of directory.*
+*Note : If* `middlewaresRelativePath` *is not present in "webconfig.json", default controller folder is* `middlewares`. `middlewaresRelativePath` *is useful only to change the name/path of directory.*
 
 #### With the `middlewares` parameter in Global ####
 
@@ -6076,7 +6076,7 @@ You can also manager how the server will respond to requests GET/POST to a given
 }
 ```
 
-*Note : If nothing is set,* ***get*** *and* ***post*** *are set to* ***true*** *in  global webconfig and by route.*
+*Note : If nothing is set,* `get` *and* `post` *are set to* `true` *in  global webconfig and by route.*
 
 
 
@@ -6336,7 +6336,7 @@ More information to [connect-redis](https://www.npmjs.org/package/connect-mongo)
 
 ### Change the url hostname and listening port ###
 
-It is possible to generate a different url listening other port with ***urlHostname*** *** and ***urlPort***. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:
+It is possible to generate a different url listening other port with `urlHostname` and `urlPort`. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:
 
 ```json
 {

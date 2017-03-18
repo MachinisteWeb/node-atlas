@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489845477291">
+		<meta name="og:updated_time" content="1489856298392">
 
 		<meta name="robots" content="index, follow">
 
@@ -1426,7 +1426,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : Si rien n&#39;est précisé,</em> <strong><em>get</em></strong> <em>et</em> <strong><em>post</em></strong> <em>sont à</em> <strong><em>true</em></strong> <em>au niveau global et par page.</em></p><h3 id="autoriser-interdire-les-demandes-put-delete">Autoriser / Interdire les demandes PUT / DELETE</h3><p>Fonctionnant exactement de la même manière que <code>get</code> et <code>post</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>put</code> et <code>delete</code>.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : Si rien n&#39;est précisé,</em> <code>get</code> <em>et</em> <code>post</code> <em>sont à</em> <code>true</code> <em>au niveau global et par page.</em></p><h3 id="autoriser-interdire-les-demandes-put-delete">Autoriser / Interdire les demandes PUT / DELETE</h3><p>Fonctionnant exactement de la même manière que <code>get</code> et <code>post</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>put</code> et <code>delete</code>.</p><pre><code class="lang-json">{
     &quot;get&quot;: false,
     &quot;post&quot;: false,
     &quot;put&quot;: true,
@@ -1573,7 +1573,7 @@ exports.setSessions = function (next) {
 
     next();
 };
-</code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p><h3 id="changer-l-url-final-des-hostname-et-port-d-ecoute">Changer l&#39;url final des hostname et port d&#39;écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d&#39;écoutes demandés avec <strong><em>urlHostname</em></strong> et <strong><em>urlPort</em></strong>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p><pre><code class="lang-json">{
+</code></pre><p>Plus d&#39;informations sur <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a>.</p><h3 id="changer-l-url-final-des-hostname-et-port-d-ecoute">Changer l&#39;url final des hostname et port d&#39;écoute</h3><p>Il est possible de générer une url de visite différente des paramètres d&#39;écoutes demandés avec <code>urlHostname</code> et <code>urlPort</code>. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :</p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;urlPort&quot;: 80,

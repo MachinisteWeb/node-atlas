@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489845477260">
+		<meta name="og:updated_time" content="1489856298407">
 
 		<meta name="robots" content="index, follow">
 
@@ -328,7 +328,7 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : Si</em> <strong><em>controllersRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir pendant :</p><p><em>Le lancement du serveur</em></p><pre><code>┌─[Chargement des modules Node.js]
+</code></pre><p><em>Note : Si</em> <code>controllersRelativePath</code> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir pendant :</p><p><em>Le lancement du serveur</em></p><pre><code>┌─[Chargement des modules Node.js]
 ┊
 ├─[Chargement des variables d&#39;initialisation]
 ┊
@@ -659,7 +659,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : Si</em> <strong><em>socketClientFile</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>socketClientFile</em></strong> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez **</em>socketClientFile<em>** à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>Note : Si</em> <code>socketClientFile</code> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <code>/node-atlas/socket.io.js</code>. <code>socketClientFile</code> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -1928,7 +1928,7 @@ module.exports = function () {
         upload.single(&quot;avatar&quot;),
     ];
 };
-</code></pre><p><em>Note : Si</em> <strong><em>middlewaresRelativePath</em></strong> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien</em> <strong><em>middlewares</em></strong>. <strong><em>middlewaresRelativePath</em></strong> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="avec-le-param-tre-middlewares-en-global">Avec le paramètre <code>middlewares</code> en Global</h4><p>Il est également possible d&#39;utiliser ce système pour toutes les routes, ainsi le webconfig se présenterait plutôt ainsi :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+</code></pre><p><em>Note : Si</em> <code>middlewaresRelativePath</code> <em>n&#39;est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="avec-le-param-tre-middlewares-en-global">Avec le paramètre <code>middlewares</code> en Global</h4><p>Il est également possible d&#39;utiliser ce système pour toutes les routes, ainsi le webconfig se présenterait plutôt ainsi :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
     &quot;middlewares&quot;: &quot;is-authenticated.js&quot;
     &quot;routes&quot;: {
         &quot;/upload-file&quot;: {

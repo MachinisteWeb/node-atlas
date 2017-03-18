@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489845481073">
+		<meta name="og:updated_time" content="1489856301792">
 
 		<meta name="robots" content="index, follow">
 
@@ -328,7 +328,7 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : If</em> <strong><em>controllersRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>controllers</em></strong>. <strong><em>controllersRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks while:</p><p><em>Starting the server</em></p><pre><code>┌─[Loading Node.js Modules]
+</code></pre><p><em>Note : If</em> <code>controllersRelativePath</code> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks while:</p><p><em>Starting the server</em></p><pre><code>┌─[Loading Node.js Modules]
 ┊
 ├─[Loading Init Vars]
 ┊
@@ -659,7 +659,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : If</em> <strong><em>socketClientFile</em></strong> <em>is not present in &quot;webconfig.json&quot;, default client file for config sockets is</em> <strong><em>/node-atlas/socket.io.js</em></strong>. <strong><em>socketClientFile</em></strong> <em>is useful only to change the name of file. If you set **</em>socketClientFile<em>** to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+</code></pre><p><em>Note : If</em> <code>socketClientFile</code> <em>is not present in &quot;webconfig.json&quot;, default client file for config sockets is</em> <code>/node-atlas/socket.io.js</code>. <code>socketClientFile</code> <em>is useful only to change the name of file. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
     var NA = this,
@@ -1928,7 +1928,7 @@ module.exports = function () {
         upload.single(&quot;avatar&quot;),
     ];
 };
-</code></pre><p><em>Note : If</em> <strong><em>middlewaresRelativePath</em></strong> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <strong><em>middlewares</em></strong>. <strong><em>middlewaresRelativePath</em></strong> <em>is useful only to change the name/path of directory.</em></p><h4 id="with-the-middlewares-parameter-in-global">With the <code>middlewares</code> parameter in Global</h4><p>It&#39;s also possible to use the same way for all routes. So, the webconfig will be use like that :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+</code></pre><p><em>Note : If</em> <code>middlewaresRelativePath</code> <em>is not present in &quot;webconfig.json&quot;, default controller folder is</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="with-the-middlewares-parameter-in-global">With the <code>middlewares</code> parameter in Global</h4><p>It&#39;s also possible to use the same way for all routes. So, the webconfig will be use like that :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
     &quot;middlewares&quot;: &quot;is-authenticated.js&quot;
     &quot;routes&quot;: {
         &quot;/upload-file&quot;: {
