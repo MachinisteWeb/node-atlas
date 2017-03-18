@@ -64,12 +64,13 @@ This is a list of repository you could analyse to understand NodeAtlas:
 - [HTML website maintenance (no Server)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
 - [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
-- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
-- [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
 - [API REST example](https://github.com/Haeresis/ApiAtlas/).
-- [MVVM and Server-Side Render usage with Vue+NodeAtlas](https://github.com/Haeresis/VueAtlas/).
-- [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
+- [Simple Web Server to share directory](https://github.com/Haeresis/SimpleAtlas/).
+- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
+- [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/PreprocessorAtlas/).
 - [Plugin to boost standard capabilities](https://github.com/Haeresis/ComponentAtlas/).
+- [Minimal MVVM server-side rendering usage with Vue](https://github.com/Haeresis/VueAtlas/).
+- [MVVM + MVC(2) pattern with server-side rendering](https://github.com/Orchard-ID/Orchard-Website/).
 
 
 

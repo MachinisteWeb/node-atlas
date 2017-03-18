@@ -64,12 +64,13 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 - [Maintenance de site HTML (sans Serveur)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
 - [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
 - [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
-- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
-- [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
 - [Exemple d'API REST](https://github.com/Haeresis/ApiAtlas/).
-- [Utilisation MVVM avec Vue+NodeAtlas et Server-Side Render](https://github.com/Haeresis/VueAtlas/).
-- [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/LessAtlas/).
+- [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
+- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
+- [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/PreprocessorAtlas/).
 - [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/ComponentAtlas/).
+- [Utilisation MVVM minimal avec rendu côté serveur Vue](https://github.com/Haeresis/VueAtlas/).
+- [Architecture MVVM + MVC(2) avec Vue+Router+SSR](https://github.com/Orchard-ID/Orchard-Website/).
 
 
 
