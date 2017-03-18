@@ -36,7 +36,13 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
 
 - [README de la v1.x](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/v1.x/README.fr.md).
 
-- [v1.x -> v2.x see CHANGELOG](https://github.com/Haeresis/NodeAtlas/blob/master/CHANGELOG.md).
+- [v1.x -> v2.x see CHANGELOG](https://github.com/NodeAtlas/node-atlas/blob/master/CHANGELOG.md).
+
+### Exemple de sites ##
+
+- [Tous les exemples fournis par la communauté NodeAtlas sur Github](https://github.com/NodeAtlas/).
+
+
 
 
 
@@ -322,23 +328,6 @@ forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website
 - [Site complet et détaillé](https://node-atlas.js.org/NodeAtlas/)
 - [Pour maintenir et développer node-atlas.js](https://node-atlas.js.org/doc/index.html)
 - [Discuter sur le chat ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Aide)
-
-
-
-### Exemple de sites ##
-
-- [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
-- [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/DocAtlas/).
-- [Maintenance de site HTML (sans Serveur)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
-- [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
-- [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
-- [Exemple d'API REST](https://github.com/Haeresis/ApiAtlas/).
-- [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
-- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
-- [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/PreprocessorAtlas/).
-- [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/ComponentAtlas/).
-- [Utilisation MVVM minimal avec rendu côté serveur Vue](https://github.com/Haeresis/VueAtlas/).
-- [Architecture MVVM + MVC(2) avec Vue+Router+SSR](https://github.com/Orchard-ID/Orchard-Website/).
 
 
 
