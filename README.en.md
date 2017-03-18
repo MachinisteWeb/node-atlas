@@ -57,20 +57,11 @@ To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API,
 
 ### Examples of websites with NodeAtlas ###
 
-This is a list of repository you could analyse to understand NodeAtlas:
+You'll find a list of repositories provided by NodeAtlas community to analyse and understand how NodeAtlas works:
 
-- [Generation and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
-- [UI Test and UI Documentation](https://github.com/Haeresis/DocAtlas/).
-- [HTML website maintenance (no Server)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
-- [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
-- [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
-- [API REST example](https://github.com/Haeresis/ApiAtlas/).
-- [Simple Web Server to share directory](https://github.com/Haeresis/SimpleAtlas/).
-- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
-- [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/PreprocessorAtlas/).
-- [Plugin to boost standard capabilities](https://github.com/Haeresis/ComponentAtlas/).
-- [Minimal MVVM server-side rendering usage with Vue](https://github.com/Haeresis/VueAtlas/).
-- [MVVM + MVC(2) pattern with server-side rendering](https://github.com/Orchard-ID/Orchard-Website/).
+- [All examples provided by NodeAtlas Github Communauty](https://github.com/Haeresis/ResumeAtlas/).
+
+
 
 
 
@@ -226,7 +217,7 @@ There are several ways to install NodeAtlas:
 
    *This will install* NodeAtlas *in the global « node_modules/node-atlas/ ». Recommended for [use as a module](#api--nodeatlas-as-npm-module) in large amount of project or for [a command line utilisation](#cli--running-commands).*
 
-- **Clone the directory** from [GitHub](https://github.com/Haeresis/NodeAtlas/) official repository.
+- **Clone the directory** from [GitHub](https://github.com/NodeAtlas/node-atlas/) official repository.
 
    *This will install* NodeAtlas *in your local repository.*
 

@@ -1114,7 +1114,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : If nothing is set,</em> <strong><em>get</em></strong> <em>and</em> <strong><em>post</em></strong> <em>are set to</em> <strong><em>true</em></strong> <em>in  global webconfig and by route.</em></p><h3 id="allow-disallow-put-delete-requests">Allow / Disallow PUT / DELETE requests</h3><p>Fonctionnant exactement de la même manière que <code>get</code> et <code>post</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>put</code> et <code>delete</code>.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : If nothing is set,</em> <code>get</code> <em>and</em> <code>post</code> <em>are set to</em> <code>true</code> <em>in  global webconfig and by route.</em></p><h3 id="allow-disallow-put-delete-requests">Allow / Disallow PUT / DELETE requests</h3><p>Fonctionnant exactement de la même manière que <code>get</code> et <code>post</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>put</code> et <code>delete</code>.</p><pre><code class="lang-json">{
     &quot;get&quot;: false,
     &quot;post&quot;: false,
     &quot;put&quot;: true,
@@ -1261,7 +1261,7 @@ exports.setSessions = function (next) {
 
     next();
 };
-</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p><h3 id="change-the-url-hostname-and-listening-port">Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <strong><em>urlHostname</em></strong> <strong><em> and </em></strong>urlPort<em>*</em>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p><pre><code class="lang-json">{
+</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p><h3 id="change-the-url-hostname-and-listening-port">Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <code>urlHostname</code> and <code>urlPort</code>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the &quot;http-proxy&quot; module as below:</p><pre><code class="lang-json">{
     &quot;httpPort&quot;: 7777,
     &quot;httpHostname&quot;: &quot;127.0.0.1&quot;,
     &quot;urlPort&quot;: 80,

@@ -57,20 +57,11 @@ Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur
 
 ### Exemples de réalisations avec NodeAtlas ###
 
-Voici une liste de repository que vous pouvez décortiquer à votre gré :
+Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré sur la communauté Github de NodeAtlas :
 
-- [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
-- [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/DocAtlas/).
-- [Maintenance de site HTML (sans Serveur)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
-- [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
-- [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
-- [Exemple d'API REST](https://github.com/Haeresis/ApiAtlas/).
-- [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
-- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
-- [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/PreprocessorAtlas/).
-- [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/ComponentAtlas/).
-- [Utilisation MVVM minimal avec rendu côté serveur Vue](https://github.com/Haeresis/VueAtlas/).
-- [Architecture MVVM + MVC(2) avec Vue+Router+SSR](https://github.com/Orchard-ID/Orchard-Website/).
+- [Tous les exemples fournis par la communauté NodeAtlas sur Github](https://github.com/NodeAtlas/).
+
+
 
 
 
@@ -172,7 +163,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 ### Documentation ###
 
 En complément de cette documentation, vous avez également accès aux,
-- [tl;dr](https://github.com/Haeresis/NodeAtlas#node-atlas),
+- [tl;dr](https://github.com/NodeAtlas/NodeAtlas#node-atlas),
 - [détails des fonctions de l'objet NA](https://node-atlas.js.org/doc/index.html) (En) et vous pouvez aussi
 - [discuter sur le chat ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Aide).
 
@@ -226,7 +217,7 @@ Il y a plusieurs manières d'installer NodeAtlas :
 
    *Ceci installera* NodeAtlas *dans le dossier « node_modules/node-atlas/ » global. Recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans beaucoup de projet ou pour [un usage à la ligne de commande](#cli--commandes-de-lancement).*
 
-- **Cloner le répertoire** depuis le dépôt officiel [GitHub](https://github.com/Haeresis/NodeAtlas/).
+- **Cloner le répertoire** depuis le dépôt officiel [GitHub](https://github.com/NodeAtlas/node-atlas/).
 
    *Ceci installera* NodeAtlas *dans le dossier de votre dépôt local.*
 
