@@ -2,7 +2,7 @@
 
 
 
-**Vous êtes français ? Le document [derrière ce lien](https://github.com/Haeresis/NodeAtlas) vous sera peut-être plus agréable.**
+**Vous êtes français ? Le document [derrière ce lien](https://github.com/NodeAtlas/node-atlas) vous sera peut-être plus agréable.**
 
 > *NodeAtlas* is a MVC(2) Server-side JavaScript Framework makes it easy to develop scalable website with SEO and W3C compliance. It is designed to running indexable and localizable simple webpages or create HTML mockups with only the view part activated. But activate controller part to build powerful data-oriented, component-oriented and/or service-based webapps with great realtime features and modern compliance!
 
@@ -36,7 +36,13 @@
 
 - [README for v1.x](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/v1.x/README.en.md).
 
-- [v1.x -> v2.x see CHANGELOG](https://github.com/Haeresis/NodeAtlas/blob/master/CHANGELOG.md).
+- [v1.x -> v2.x see CHANGELOG](https://github.com/NodeAtlas/node-atlas/blob/master/CHANGELOG.md).
+
+### Websites Example ##
+
+- [All examples provided by NodeAtlas Github Communauty](https://github.com/Haeresis/ResumeAtlas/).
+
+
 
 
 
@@ -322,23 +328,6 @@ forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website
 - [Complete and detailed Website](https://node-atlas.js.org/english/)
 - [node-atlas.js documentation for maintainers](https://node-atlas.js.org/doc/index.html)
 - [discuss on chat and ask asistance for NodeAtlas](https://gitter.im/NodeAtlas/Help)
-
-
-
-### Websites Example ##
-
-- [Generation and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
-- [UI Test and UI Documentation](https://github.com/Haeresis/DocAtlas/).
-- [HTML website maintenance (no Back-end)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
-- [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
-- [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
-- [API REST example](https://github.com/Haeresis/ApiAtlas/).
-- [Simple Web Server to share directory](https://github.com/Haeresis/SimpleAtlas/).
-- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
-- [CSS-driven usage with Less/Stylus preprocessor with CSS Framework](https://github.com/Haeresis/PreprocessorAtlas/).
-- [Plugin to boost standard capabilities](https://github.com/Haeresis/ComponentAtlas/).
-- [Minimal MVVM server-side rendering usage with Vue](https://github.com/Haeresis/VueAtlas/).
-- [MVVM + MVC(2) pattern with Vue+Router+SSR](https://github.com/Orchard-ID/Orchard-Website/).
 
 
 
