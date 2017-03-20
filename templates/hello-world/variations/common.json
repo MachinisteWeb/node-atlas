@@ -1,8 +1,9 @@
 {
-	"title": "Exemple",
+	"title": "Exemple de Hello World",
 	"menu": {
-		"href": "en-us",
+		"href": "english/index.html",
 		"title": "International Version"
 	},
-	"error": "Erreur 404"
+	"error": "Erreur 404",
+	"errorExplaination": "<p>Vous êtes sur cette page car la page n'est pas dans la liste des <var>routes</var> du webconfig. Vous voyez donc le contenu de l'entrée avec l'<var>url</var> <var>/erreur.html</var> car elle est référencée comme modèle pour une <var>pageNotFound</var>.</p><p>Cependant l'entrée internationale équivalente avec l'<var>url</var> <var>/english/*</var> est gérée de sont côté pour afficher des contenus anglais sous la partie <var>english/</var>. Afin de permettre à cette page d'être correctement <var>--generate</var>, une valeur <var>output</var> à <var>/english/error.html</var> a été mise.</p><p>Pour finir vous pouvez voir que le moteur de template utilisé pour le fichier <var>views/error.htm</var> est <var>pug</var>.</p>"
 }

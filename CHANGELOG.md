@@ -106,6 +106,7 @@ Updates:
 - `NA#enableForceDomain` become `NA#forceDomain`.
 - `NA#stylus.stylus` become `NA#stylus.filse`.
 - `NA#less.files` become `NA#less.files`.
+- The `templates/hello-world` example is better.
 
 
 

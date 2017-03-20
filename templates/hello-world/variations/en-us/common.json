@@ -1,8 +1,9 @@
 {
-	"title": "Example",
+	"title": "Hello World Example",
 	"menu": {
-		"href": "fr-fr",
+		"href": "/index.html",
 		"title": "Version française"
 	},
-	"error": "Error 404"
+	"error": "Error 404",
+	"errorExplaination": "<p>You are on this page because it is not in the webconfig <var>routes</var> list. The content displayed here comme from <var>url</var> <var>/english/error.html</var> because it is the page used for all <var>url</var> <var>/english/*</var>. In order to allow this page to corretly <var>--generate</var> a static page, the <var>output</var> value is setted to <var>/english/error.html</var>.</p><p>However for all others not existing pages because of <var>pageNotFound</var> value is <var>/erreur.html</var>, it's the entry with <var>url</var> <var>/erreur.html</var> which is used.</p><p>Finally you could see the template engine used for the file <var>views/error.htm</var> is <var>pug</var>.</p>"
 }

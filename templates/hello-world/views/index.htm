@@ -1,23 +1,29 @@
 <?- include("partials/head.htm") ?>
 
-		<div>
-			<a href="<?= common.menu.href ?>" title="<?= common.menu.title ?>">
-				<?- common.menu.title ?>
-			</a>
-		</div>
-		<h1><?- specific.helloWorld ?></h1>
-		<nav>
-			<? if (specific.menu.length) { ?>
-			<ul>
-				<? for (let item of specific.menu) { ?>
-				<li>
-					<a href="<?= item.href ?>" title="<?= item.title ?>">
-						<?- item.title ?>
-					</a>
-				</li>
+	<div class="main">
+		<div class="main--content">
+			<p>
+				<a href="<?= common.menu.href ?>" title="<?= common.menu.title ?>">
+					<?- common.menu.title ?>
+				</a>
+			</p>
+
+			<h1><?- specific.helloWorld ?></h1>
+			<?- specific.overview -?>
+			<nav>
+				<? if (specific.menu.length) { ?>
+				<ul>
+					<? for (let item of specific.menu) { ?>
+					<li>
+						<a href="<?= item.href ?>" title="<?= item.title ?>">
+							<?- item.title ?>
+						</a>
+					</li>
+					<? } ?>
+				</ul>
 				<? } ?>
-			</ul>
-			<? } ?>
-		</nav>
+			</nav>
+		</div>
+	</div>
 
 <?- include("partials/foot.htm") ?>

@@ -1,5 +1,6 @@
 {
 	"helloWorld": "Bonjour le monde !",
+	"overview": "<p>Pour bien comprendre ce Hello World, ouvrez le fichier <var>webconfig.json</var>. NodeAtlas est <strong>config-driven</strong> ce qui signifie qu'on étend ses possibilités en étendant sa configuration. Si vous êtes arrivé sur cette page depuis l'<var>url</var> <var>/</var>, une redirection permanente 301 a été faites comme vous pouvez le voir dans les <var>routes</var> pour l'entrée avec le paramètre <var>redirect</var>.</p><h2>Configuration global de ce webconfig</h2> <ul> <li>Le site tourne sur le <var>httpPort</var> <var>8080</var>.</li> <li>Par défaut toute page est de <var>languageCode</var> <var>fr-fr</var>.</li> <li>S'il y a une <var>pageNotFound</var> c'est le même contenu que celui de <var>/erreur.html</var> qui s'affiche.</li> <li>Les CSS sont de base écrite dans des fichiers <var>stylus</var> et utiliser la commande <var>--generate</var> va <var>output</var> des fichiers statiques et faire une <var>assetsCopy</var> des fichiers CSS.</li> <li>Pour finir chaque page peut fournir du contenu depuis son fichier de <var>variation</var> commune et intercepter des actions depuis les points d'ancrage du <var>controller</var> commun.</li> </ul><h2>Configuration de la page courante</h2> <p>La configuration de cette page est celle de la route avec l'<var>url</var> valant <var>index.html</var>. On y a défini quel fichier <var>view</var> est utilisé par l'affichage HTML, quel fichier <var>variation</var> est utilisé pour le contenu textuel du site et quel fichier <var>controller</var> intercepte cette page pour ajouter un second <var>!</var> à la fin du titre (voir fichier <var>controller/index.js</var>). Comme cette page prend le <var>languageCode</var> par défaut <var>fr-fr</var> le fichier de contenu ce trouve dans <var>variation/fr-fr/</var>. Une équivalence internationale a été créée pour cette page avec l'<var>url</var> <var>/english/index.html</var>. Afin de trouver une <var>variation</var> dans cette langue, il est précisé que pour cette page le <var>languageCode</var> est <var>en-us</var> ce qui affiche le contenu de <var>variation/en-us/</var>.</p><h2>Autres pages</h2> <p>Plus de détails pour les autres pages dans celle-ci.</p>",
 	"menu": [{
 		"title": "Cette page n'existe pas.",
 		"href": "page-qui-n-existe-pas/"
@@ -8,12 +9,12 @@
 		"href": "ajoutee/"
 	}, {
 		"title": "Cette page demande d'afficher l'utilisateur John Doe.",
-		"href": "john-doe/show/"
+		"href": "john-doe/voir/"
 	}, {
 		"title": "Cette page autorise le retrait de « / » à la fin de l'URL.",
-		"href": "john-doe/create"
+		"href": "bob/creer"
 	}, {
-		"title": "Cette page n'existe pas car `delete` n'est pas une action possible.",
-		"href": "john-doe/delete/"
+		"title": "Cette page n'existe pas car `supprimer` n'est pas une action possible.",
+		"href": "john-doe/supprimer/"
 	}]
 }
