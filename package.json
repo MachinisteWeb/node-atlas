@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta22",
+  "version": "2.0.0-beta.24",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Haeresis/NodeAtlas.git"
+    "url": "https://github.com/NodeAtlas/node-atlas.git"
   },
   "homepage": "https://node-atlas.js.org/",
   "keywords": [
@@ -76,7 +76,7 @@
   ],
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/Haeresis/NodeAtlas/issues"
+    "url": "https://github.com/NodeAtlas/node-atlas/issues"
   },
   "devDependencies": {
     "chai": "3.5.x",

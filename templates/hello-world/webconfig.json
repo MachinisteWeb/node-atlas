@@ -1,37 +1,38 @@
 {
+	"httpPort": 8080,
 	"languageCode": "fr-fr",
 	"controller": "common.js",
 	"variation": "common.json",
-	"pageNotFound": "error_fr-fr",
+	"pageNotFound": "/erreur.html",
+	"stylus": true,
+	"output": true,
+	"assetsCopy": true,
 	"routes": [{
-		"key": "home_fr-fr",
 		"url": "/",
-		"output": "index.html",
+		"redirect": "/index.html",
+		"statusCode": 301
+	},{
+		"url": "/index.html",
 		"view": "index.htm",
 		"variation": "index.json",
 		"controller": "index.js"
 	}, {
-		"key": "home_en-us",
-		"url": "/english/",
-		"output": "/english/index.html",
+		"url": "/english/index.html",
 		"view": "index.htm",
 		"variation": "index.json",
 		"controller": "index.js",
 		"languageCode": "en-us"
 	}, {
-		"key": "member_fr-fr",
-		"url": "/:member([-a-z0-9]+)/:action(show|create)/?",
+		"url": "/:member([-a-z0-9]+)/:action(voir|creer)/?",
 		"output": false,
 		"view": "member.htm"
 	}, {
-		"key": "member_en-us",
 		"url": "/english/:member([-a-z0-9]+)/:action(show|create)/?",
 		"output": false,
 		"view": "member.htm",
 		"languageCode": "en-us"
 	}, {
 		"pug": true,
-		"key": "error_en-us",
 		"url": "/english/*",
 		"output": "/english/error.html",
 		"view": "error.htm",
@@ -39,9 +40,7 @@
 		"languageCode": "en-us"
 	}, {
 		"pug": true,
-		"key": "error_fr-fr",
-		"url": "/erreur/",
-		"output": "/erreur.html",
+		"url": "/erreur.html",
 		"view": "error.htm",
 		"statusCode": 404
 	}]

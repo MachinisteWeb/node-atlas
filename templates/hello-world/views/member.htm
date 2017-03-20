@@ -1,10 +1,38 @@
 <?- include("partials/head.htm") ?>
 
-		<div>
-			Param 1: <strong><?- params.member ?></strong>
+	<div class="main">
+		<div class="main--content">
+			<h1>Paramètres de l'url / Url Parameters</h1>
+
+			<div>
+				Param 1: <strong><?- params.member ?></strong>
+			</div>
+			<div>
+				Param 2: <strong><?- params.action ?></strong>
+			</div>
+
+			<? if (params.action === "show" || params.action === "create") { ?>
+				<h2>Explaination</h2>
+				
+				<p>The entry for <var>url</var> <var>/english/:member([-a-z0-9]+)/:action(show|create)/?</var> allow us to display this page from <var>/english/john-doe/show/</var>, <var>/english/bob/create</var>, etc. This page share the same <var>view</var> which the entry <var>url</var> <var>/:member([-a-z0-9]+)/:action(voir|creer)/?</var> that normally done the same page result.</p>
+
+				<p>However you can see thanks to a <var>&lt;? if (...) { ?&gt;...&lt;? } else { ?&gt;...&lt;? } ?&gt;</var> we can display different contents depending of variable. </p>
+
+				<p>So it's possible to display french or international text depending of that. The content is write in hard into file because no <var>variation</var> file is defined for this route. </p>
+
+				<p>Finally, this page it is not <var>--generate</var> because <var>output</var> is setted to <var>false</var>.</p>
+			<? } else { ?>
+				<h2>Explication</h2>
+				
+				<p>L'entrée avec l<var>url</var> <var>/:member([-a-z0-9]+)/:action(voir|creer)/?</var> nous permet d'afficher cette page depuis <var>/john-doe/voir/</var>, <var>/bob/creer</var>, etc. Ce chemin partage la même <var>view</var> que l'entrée avec l'<var>url</var> <var>/english/:member([-a-z0-9]+)/:action(show|create)/?</var> ce qui conduira normalement au même résultat de page.</p>
+
+				<p>Vous pourrez cependant constater que grace à un <var>&lt;? if (...) { ?&gt;...&lt;? } else { ?&gt;...&lt;? } ?&gt;</var> nous pouvons afficher des contenus différents en fonction des variables. </p>
+
+				<p>Ainsi nous pouvons afficher du texte français ou du texte international. Le texte est écrit en dure dans la page car il n'y a pas de <var>variation</var> de définie pour cette route. </p>
+
+				<p>Enfin cette page ne sera pas <var>--generate</var> car le <var>output</var> est à <var>false</var>.</p>
+			<? } ?>
 		</div>
-		<div>
-			Param 2: <strong><?- params.action ?></strong>
-		</div>
+	</div>
 
 <?- include("partials/foot.htm") ?>

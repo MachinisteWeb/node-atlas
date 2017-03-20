@@ -1,7 +1,17 @@
 <?- include("partials/head.htm") ?>
 
-		<div>
-			Cette page n'est pas localisé / This page is not localized.
+		<div class="main">
+			<div class="main--content">
+				<h1>Contenu français / International content</h1>
+
+				<h2>FR : Route dynamique</h2>
+
+				Cette page a été ajoutée de façon programmatique, elle n'est pas dans le webconfig. Cette page n'est pas localisée car il n'y a pas de <var>variation</var> utilisée (voir les routes <var>unshift</var> dans <var>controllers/common.js</var>). On explique aussi que le nom du fichier <var>output</var> sera <var>/ajoutee.html</var> pour le <var>languageCode</var> <var>fr-fr</var> avec l'utilisation de la commande <var>--generate</var>.
+
+				<h2>EN : Programmatic Route</h2>
+
+				This page was added with a programmatic way, it is not in webconfig. There is no localisation for this page because no <var>variation</var> is setted (see the <var>unshift</var> routes from <var>controllers/common.js</var>). It's interessant to note also that an <var>output</var> file with <var>/english/added.html</var> path was create when using <var>--generate</var> command because <var>languageCode</var> <var>en-us</var> has setted this values.
+			</div>
 		</div>
 
 <?- include("partials/foot.htm") ?>

@@ -7,5 +7,7 @@ html(lang=languageCode)
 		link(rel="stylesheet", href="stylesheets/common.css")
 	body
 		div.layout
-			div
-				h1 #{common.error}
+			div.main
+				div.main--content
+					h1 #{common.error}
+					| !{common.errorExplaination}

@@ -1,5 +1,6 @@
 {
 	"helloWorld": "Hello World !",
+	"overview": "<p>To understand this Hello World, open the <var>webconfig.json</var> file. NodeAtlas is <strong>config-driven</strong> that means all capability can be extend from the configuration. If you are here from <var>/</var> <var>url</var>, a 301 permanent redirection was done as you can see amongs <var>routes</var> for the entry with <var>redirect</var> parameter.</p> <h2>Global Configuration for this Webconfig</h2> <ul> <li>The website run from <var>httpPort</var> <var>8080</var>.</li> <li>By default each page use the <var>languageCode</var> <var>fr-fr</var>.</li> <li>If there is a <var>pageNotFound</var> it's the same content from <var>/erreur.html</var> it is displayed.</li> <li>The CSS are written into <var>stylus</var> files and using the <var>--generate</var> command will <var>output</var> static files and perform an <var>assetsCopy</var> of CSS files.</li> <li>Finally, each page can provide a content from common <var>variation</var> file and hooks actions from common <var>controller</var>.</li> </ul> <h2>Current Page Configuration</h2> <p>This configuration page come from entry with <var>url</var> set to <var>index.html</var>. A <var>view</var> file used is setted for HML displaying, a <var>variation</var> file is setted for textual content of the website and a <var>controller</var> file is setted to hook this page to add a second <var>!</var> in the title (see <var>controller/index.js</var> file). Because this page use the default <var>languageCode</var> <var>fr-fr</var> the content file used come from <var>variation/fr-fr/</var>. A same for international page was created with the <var>url</var> <var>/english/index.html</var>. In order to find a <var>variation</var> in this language, a <var>languageCode</var> <var>en-us</var> is setted to displaying the content of <var>variation/en-us/</var>.</p> <h2>Others Pages</h2> <p>More details for others pages in it.</p>",
 	"menu": [{
 		"title": "This page does not exist.",
 		"href": "english/this-page-not-exist/"
@@ -8,12 +9,12 @@
 		"href": "english/added/"
 	}, {
 		"title": "This page display the user John Doe.",
-		"href": "john-doe/show/"
+		"href": "english/john-doe/show/"
 	}, {
 		"title": "This page allows remove the « / » at the URL end.",
-		"href": "john-doe/create"
+		"href": "english/bob/create"
 	}, {
 		"title": "This page does not exist because `delete` is not a possible action.",
-		"href": "john-doe/delete/"
+		"href": "english/john-doe/delete/"
 	}]
 }
