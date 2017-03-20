@@ -357,20 +357,22 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 ### Lancer le site avec NodeAtlas ###
 
-#### Avec la commande `nodeatlas` ####
+#### Avec la commande `node-atlas` ####
 
-**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez utiliser la commande `nodeatlas`. `nodeatlas` est un alias de `node </path/to/globals/>node_modules/node-atlas/`.
+**Si vous avez installé NodeAtlas avec `npm install -g node-atlas`** vous pouvez utiliser la commande `node-atlas`. `node-atlas` est un raccourci de la commande `node </path/to/globals/>node_modules/node-atlas/`.
+
+> *Note : vous pouvez également utiliser la commande `atlas` qui est un alias de `node-atlas` mais plus rapide à écrire.*
 
 Placez-vous avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
 
 ```bash
-$ nodeatlas
+$ node-atlas
 ```
 
 > Note : Si votre port 80 est utilisé ou que vous n'avez pas accès à celui-ci, vous pouvez utiliser l'option `--httpPort`.
 
 >  ```bash
-$ nodeatlas --httpPort 8080
+$ node-atlas --httpPort 8080
 ```
 
 > ou utiliser la propriété du webconfig `httpPort`
@@ -1336,7 +1338,7 @@ et « index.htm » contenant :
 En lançant (depuis le dossier du site) la commande :
 
 ```bash
-$ nodeatlas
+$ node-atlas
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
@@ -1359,7 +1361,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 Cependant en lançant la commande :
 
 ```bash
-$ nodeatlas --webconfig webconfig.prod.json
+$ node-atlas --webconfig webconfig.prod.json
 ```
 
 Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
@@ -1758,7 +1760,7 @@ La génération s'enclenche quand on affiche la page uniquement parce que `htmlG
 
 Il est également possible de gérer la création d'un site en simple page HTML avec la commande `--generate`.
 
-Si `htmlGenerationBeforeResponse` est passé à `false` (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `nodeatlas --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath` à la condition que le `output` global soit à `true`.
+Si `htmlGenerationBeforeResponse` est passé à `false` (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande `node-atlas --generate` qui génèrera toutes les pages d'un coup dans le dossier `serverlessRelativePath` à la condition que le `output` global soit à `true`.
 
 De plus avec `--generate`, l'intégralité du dossier `assetsRelativePath` (dossier des fichiers publics) sera copié dans le dossier `serverlessRelativePath` si les deux dossiers n'ont pas un chemin identique à condition que `assetsCopy` soit à `true`. 
 
@@ -1805,7 +1807,7 @@ et l'ensemble de fichiers suivant :
 └─ webconfig.json
 ```
 
-Avec `nodeatlas --browse`, à l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **index** à **true**).
+Avec `node-atlas --browse`, à l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **index** à **true**).
 
 Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTML dans le dossier :
 
@@ -5958,7 +5960,7 @@ body {
 </html>
 ```
 
-vous obtiendrez en sortie avec la commande `nodeatlas --generate` l'ensemble de fichier suivant :
+vous obtiendrez en sortie avec la commande `node-atlas --generate` l'ensemble de fichier suivant :
 
 ```
 ├─ serverless/
@@ -6880,12 +6882,12 @@ Object{
 
 ## CLI / Commandes de lancement ##
 
-La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `nodeatlas`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
+La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `node-atlas`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
 
 Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
 
 ```bash
-$ nodeatlas --lang fr-fr --httpSecure security/server --browse hello-world
+$ node-atlas --lang fr-fr --httpSecure security/server --browse hello-world
 ```
 
 ou comme cela
@@ -6909,7 +6911,7 @@ $ node </path/to/>node-atlas/ --path hello-world --webconfig config.fr-fr.js --h
 Pour obtenir de l'aide (ouvrir le MAN) sur les commandes ci-après listé directement dans la CLI, utilisez `--help`
 
 ```
-$ nodeatlas --help
+$ node-atlas --help
 ```
 
 
@@ -6927,7 +6929,7 @@ $ nodeatlas --help
 Pour connaître la version de NodeAtlas que vous utilisez avec la CLI, il vous suffit de la retourner au format `vX.X.X` grâce à `--version`.
 
 ```
-$ nodeatlas --version
+$ node-atlas --version
 ```
 
 
@@ -6945,13 +6947,13 @@ $ nodeatlas --version
 Cette commande permet d'ouvrir votre navigateur à l'adresse sur laquelle le site va tourner. Très pratique quand vous ne vous souvenez plus du port pour votre version de développement. Cette commande ne sert à rien si elle est couplée avec `--generate` (voir plus loin).
 
 ```
-$ nodeatlas --browse
+$ node-atlas --browse
 ```
 
 Vous pouvez également cibler une page précise en ajoutant la fin de l'url.
 
 ```
-$ nodeatlas --browse index.html
+$ node-atlas --browse index.html
 ```
 
 
@@ -6969,7 +6971,7 @@ $ nodeatlas --browse index.html
 Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier où est hébergé le site que vous souhaitez faire tourner. La commande `--path` vous sera alors très utile.
 
 ```bash
-$ nodeatlas --path </path/to/your/website/directory>/
+$ node-atlas --path </path/to/your/website/directory>/
 ```
 
 
@@ -6987,7 +6989,7 @@ $ nodeatlas --path </path/to/your/website/directory>/
 Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
 ```
-$ nodeatlas --webconfig webconfig.alternatif.json
+$ node-atlas --webconfig webconfig.alternatif.json
 ```
 
 
@@ -7005,7 +7007,7 @@ $ nodeatlas --webconfig webconfig.alternatif.json
 Il est parfois utile de demander son adresse IP via un `ipconfig` pour le paramettrer dans l'url afin de rendre son site entièrement disponible sur un périphérique du réseau local (smartphone par exemple). Vous pourrez le faire avec cette commande.
 
 ```
-$ nodeatlas --httpHostname 192.168.1.1
+$ node-atlas --httpHostname 192.168.1.1
 ```
 
 
@@ -7023,7 +7025,7 @@ $ nodeatlas --httpHostname 192.168.1.1
 Vous n'allez peut être pas vous ennuyer à changer votre port d'écoute sur tous vos projets et parfois vous allez devoir travailler sur deux sites différents en même temps. Avec cette commande vous n'aurez pas besoin de couper vos sites alternativement pour libérer le port d'écoute, il suffira d'en choisir un au lancement.
 
 ```
-$ nodeatlas --httpPort 7778
+$ node-atlas --httpPort 7778
 ```
 
 
@@ -7041,7 +7043,7 @@ $ nodeatlas --httpPort 7778
 Si vous modifiez un élément dans votre fichier de variation commun ou même dans un de vos composants de view appelé sur plusieurs pages, vous n'allez pas recharger chaque page pour mettre à jour vos fichiers de sortie. Il suffira alors d'utiliser `--generate`. Cette commande copiera l'intégralité du contenu du dossier `assetsRelativePath` dans `serverlessRelativePath` si leur chemin est différent.
 
 ```
-$ nodeatlas --generate
+$ node-atlas --generate
 ```
 
 
@@ -7059,7 +7061,7 @@ $ nodeatlas --generate
 Si vous souhaitez éviter d'avoir des ressources en cache pendant votre phase de développement, le plus simple est d'utiliser cette option. C'est votre unique possiblilité d'avoir un « Simple Serveur Web » sans cache.
 
 ```
-$ nodeatlas --cache
+$ node-atlas --cache
 ```
 
 
@@ -7077,7 +7079,7 @@ $ nodeatlas --cache
 NodeAtlas contient un dossier `templates` qui contient des exemples de site prèt à l'usage. Pour les installer dans le répertoire dans lequel vous allez exécuter NodeAtlas il faut vous servir de `--create` suivi du dossier contenu dans `templates` que vous souhaitez utiliser. Par défaut, c'est la valeur `hello-world` qui est utilisée. *Valeurs possible : `hello-world`.*
 
 ```
-$ nodeatlas --create hello-world
+$ node-atlas --create hello-world
 ```
 
 
@@ -7095,7 +7097,7 @@ $ nodeatlas --create hello-world
 Si vous utilisez l'option `--httpSecure`, tous les chemins seront accédez en HTTPs. Vous devez définir les fichiers `.crt` and `.key` avec `pathName` si vous souhaitez que le serveur lui-même se lance en HTTPs. Par exemple, si vous avez les fichiers `security/server.crt` et `security/server.key` depuis la racine du site NodeAtlas, vous devez utiliser la commande suivante :
 
 ```
-$ nodeatlas --httpSecure security/server
+$ node-atlas --httpSecure security/server
 ```
 
 
@@ -7113,7 +7115,7 @@ $ nodeatlas --httpSecure security/server
 En utilisant `--lang` vous changerez la langue de utilisée par NodeAtlas. En réalité cette commande remplace le contenu du fichier `languages/default.json` par celui de `languages/fr-fr.json` si le paramètre passé est « fr-fr » comme dans l'exemple ci-dessous. Lancer NodeAtlas ultérieurement conservera la dernière langue utilisée.
 
 ```
-$ nodeatlas --lang fr-fr
+$ node-atlas --lang fr-fr
 ```
 
 
@@ -7288,13 +7290,13 @@ site-hello-world/
 en exécutant la commande
 
 ```
-$ nodeatlas
+$ node-atlas
 ```
 
 ou même la commande
 
 ```
-$ nodeatlas --webconfig webconfig.not-exist.json
+$ node-atlas --webconfig webconfig.not-exist.json
 ```
 
 le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http://localhost/webconfig.json » ou « http://localhost/views/webconfig.htm » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.
@@ -7342,7 +7344,7 @@ Par exemple, connectez tous vos appareils sur le même réseau Wifi. Puis, trouv
 Une fois votre ip connu, il ne vous reste qu'à définir le hostname et le port d'écoute pour votre instance de développement NodeAtlas :
 
 ```
-nodeatlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
+node-atlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
 ```
 
 Ce qui ouvrira votre site ici : `http://192.168.1.24:7777/`.

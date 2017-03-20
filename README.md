@@ -38,7 +38,7 @@ __*Note :*__
 *Si vous avez déjà un serveur web sur le port 80, utilisez plutôt :*
 
 ```
-$ node </path/to/>node-atlas/ --httpPort 7777
+$ node-atlas --httpPort 7777
 ```
 
 *La page sera à :*
@@ -103,7 +103,7 @@ __*Note :*__
 *If you already have a web server on port 80, consider using:*
 
 ```
-$ node </path/to/>node-atlas/ --httpPort 7777
+$ node-atlas --httpPort 7777
 ```
 
 *The page will be here:*
