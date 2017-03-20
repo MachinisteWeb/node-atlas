@@ -1500,7 +1500,23 @@ exports.changeDom = function (next, locals) {
       &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><div><div class="before">
+</code></pre><p>Vous pouvez également lancer <code>node-atlas</code> avec l&#39;option <code>--cache</code> :</p><blockquote>
+<pre><code class="lang-bash">node-atlas --cache
+</code></pre>
+</blockquote><p>ou mettre votre variable d&#39;environnement <code>NODE_ENV</code> à <code>production</code> :</p><blockquote>
+<p>si vous êtes sous Unix/MacOS</p>
+<pre><code class="lang-bash">export NODE_ENV=production
+</code></pre>
+<p>ou si vous êtes sur windows</p>
+<pre><code class="lang-bash">SET NODE_ENV=production
+</code></pre>
+<p>ou vous pouvez démarrer NodeAtlas comme suit</p>
+<pre><code class="lang-bash">NODE_ENV=production node-atlas
+</code></pre>
+<p>ou vous pouvez la définir dans votre fichier JavaScript :</p>
+<pre><code class="lang-js">process.env.NODE_ENV = &quot;production&quot;;
+</code></pre>
+</blockquote><div><div class="before">
                             <a href="partie-controleur-et-modele.html">◄ Partie Contrôleur et Modèle</a>
                         </div><div class="after">
                             <a href="anatomie-du-webconfig.html">Anatomie du Webconfig ►</a>

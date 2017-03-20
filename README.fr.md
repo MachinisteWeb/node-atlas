@@ -6748,6 +6748,38 @@ C'est une bonne chose de ne pas reservir des fichiers qui n'ont pas bougé pour 
 }
 ```
 
+Vous pouvez également lancer `node-atlas` avec l'option `--cache` :
+
+> ```bash
+node-atlas --cache
+```
+
+ou mettre votre variable d'environnement `NODE_ENV` à `production` :
+
+> si vous êtes sous Unix/MacOS
+
+> ```bash
+export NODE_ENV=production
+```
+
+> ou si vous êtes sur windows
+
+> ```bash
+SET NODE_ENV=production
+```
+
+> ou vous pouvez démarrer NodeAtlas comme suit
+
+> ```bash
+NODE_ENV=production node-atlas
+```
+
+> ou vous pouvez la définir dans votre fichier JavaScript :
+
+> ```js
+process.env.NODE_ENV = "production";
+```
+
 
 
 
@@ -7477,7 +7509,7 @@ npm run watch
 
 C'est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.
 
-> IMPORTANT : il est fortement recommandé d'utiliser l'option `cache: true` dans le webconfig de production afin de permettre au moteur d'être optimisé.
+> IMPORTANT : il est fortement recommandé d'utiliser l'option `cache: true` dans le webconfig de production afin de permettre au moteur d'être optimisé ou mettre votre variable d'environnement `NODE_ENV` à `production`.
 
 ### Dans un environnement Windows Server avec iisnode ###
 

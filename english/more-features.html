@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1490030068641">
+		<meta name="og:updated_time" content="1490031870051">
 
 		<meta name="robots" content="index, follow">
 
@@ -1812,7 +1812,23 @@ exports.changeDom = function (next, locals) {
       &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><div><div class="before">
+</code></pre><p>You can also start <code>node-atlas</code> with <code>--cache</code> option :</p><blockquote>
+<pre><code class="lang-bash">node-atlas --cache
+</code></pre>
+</blockquote><p>or set your environment variable <code>NODE_ENV</code> to <code>production</code> :</p><blockquote>
+<p>if you are in Unix/MacOS</p>
+<pre><code class="lang-bash">export NODE_ENV=production
+</code></pre>
+<p>or if you are in windows</p>
+<pre><code class="lang-bash">SET NODE_ENV=production
+</code></pre>
+<p>or you can run NodeAtlas like this:</p>
+<pre><code class="lang-bash">NODE_ENV=production node-atlas
+</code></pre>
+<p>or you can also set it in your JavaScript file:</p>
+<pre><code class="lang-js">process.env.NODE_ENV = &quot;production&quot;;
+</code></pre>
+</blockquote><div><div class="before">
                             <a href="controller-and-model-part.html">◄ Controller and Model Part</a>
                         </div><div class="after">
                             <a href="webconfig-s-anatomy.html">Webconfig&#39;s Anatomy ►</a>

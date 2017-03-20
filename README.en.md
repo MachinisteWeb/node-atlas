@@ -6748,6 +6748,38 @@ It's a good thing to not serve file with no modification in production. You coul
 }
 ```
 
+You can also start `node-atlas` with `--cache` option :
+
+> ```bash
+node-atlas --cache
+```
+
+or set your environment variable `NODE_ENV` to `production` :
+
+> if you are in Unix/MacOS
+
+> ```bash
+export NODE_ENV=production
+```
+
+> or if you are in windows
+
+> ```bash
+SET NODE_ENV=production
+```
+
+> or you can run NodeAtlas like this:
+
+> ```bash
+NODE_ENV=production node-atlas
+```
+
+> or you can also set it in your JavaScript file:
+
+> ```js
+process.env.NODE_ENV = "production";
+```
+
 
 
 
@@ -7477,7 +7509,7 @@ npm run watch
 
 It's a good thing to develop, but it's time to run your website or apps on online production server. See this examples.
 
-> IMPORTANT : you must use the `cache: true` option in the production's webconfig to allows engine to be optimised.
+> IMPORTANT : you must use the `cache: true` option in the production's webconfig to allows engine to be optimised or set your `NODE_ENV` environment variable to `production`.
 
 ### In a Windows Server environment with iisnode ###
 
