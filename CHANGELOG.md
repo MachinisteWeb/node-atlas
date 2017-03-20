@@ -35,6 +35,7 @@ Features:
 
 Updates:
 
+- CLI command `nodeatlas` become `node-atlas` (with `atlas` as alias)
 - `NA#appLanguage` become `NA#cliLanguage`.
 - `NA#appLabels` become `NA#cliLabels`.
 - `NA#websiteController[]` become `NA#controllers[]`.

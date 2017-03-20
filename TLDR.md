@@ -294,13 +294,13 @@ node server.js
 - with CLI:
 
 ```
-nodeatlas
+node-atlas
 ```
 
 - for generate mockups:
 
 ```
-nodeatlas --generate
+node-atlas --generate
 ```
 
 Run *NodeAtlas* on your production server:
@@ -308,7 +308,7 @@ Run *NodeAtlas* on your production server:
 - in standard:
 
 ```
-nodeatlas --path /var/www/my-website/ --webconfig webconfig.prod.json
+node-atlas --path /var/www/my-website/ --webconfig webconfig.prod.json
 ```
 
 - with *Forever*:
