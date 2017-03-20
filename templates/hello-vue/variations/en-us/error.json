@@ -1,0 +1,10 @@
+{
+	"meta": {
+		"title": "404 Error",
+		"description": "This page does'n exist!"
+	},
+	"error": {
+		"title": "404 Error",
+		"content": "<p>This page doesn't exist.</p>"
+	}
+}

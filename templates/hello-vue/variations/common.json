@@ -1,0 +1,20 @@
+{
+	"title": "Exemple de site NodeAtlas avec Vue",
+	"description": "Affichage d'un site avec Vue + VueRouteur + NodeAtlas + SSR",
+	"copyright": "Example réalisé avec <a href='https://fr.vuejs.org/' target='_blank'>Vue</a> et <a href='https://node-atlas.js.org/' target='_blank'>NodeAtlas</a>",
+	"language": {
+		"content": "International Version",
+		"href": "https://node-atlas.js.org/",
+		"title": "Voir la version International"
+	},
+	"menu": [{
+		"title": "Accueil",
+		"key": "home_fr-fr"
+	}, {
+		"title": "Les projets",
+		"key": "projects_fr-fr"
+	}, {
+		"title": "Aides",
+		"key": "contact_fr-fr"
+	}]
+}

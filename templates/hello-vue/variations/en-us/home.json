@@ -1,0 +1,10 @@
+{
+	"meta": {
+		"title": "Welcome!",
+		"description": "Vue + NodeAtlas presentation website"
+	},
+	"home": {	
+		"title": "Vue + NodeAtlas",
+		"content": "<p>You can navigate between pages with Vue.<br/>But if you see the source code of each page,<br>you could see which page is server side renderer!</p>"
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"home_en-us": {
+		"url": "/",
+		"view": "home",
+		"variation": "home.json"
+	},
+	"projects_en-us": {
+		"url": "/projects/",
+		"view": "projects",
+		"variation": "projects.json"
+	},
+	"contact_en-us": {
+		"url": "/to-be-helped/",
+		"view": "contact",
+		"variation": "contact.json"
+	},
+	"error_en-us": {
+		"url": "/page-not-found/",
+		"view": "error",
+		"variation": "error.json",
+		"statusCode": 404
+	}
+}
