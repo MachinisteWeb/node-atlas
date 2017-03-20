@@ -14,13 +14,13 @@ Open console and:
 ### Run server on localhost ###
 
 ```
-nodeatlas --browse
+node-atlas --browse
 ``` 
 
 ### Generate static files into `serverless` ###
 
 ```
-nodeatlas --generate
+node-atlas --generate
 ``` 
 
 
@@ -34,11 +34,11 @@ Ouvrir une console :
 ### Lancer le serveur sur localhost ###
 
 ```
-nodeatlas --browse
+node-atlas --browse
 ``` 
 
 ### Générer dans `serverless` les fichiers sans serveur ###
 
 ```
-nodeatlas --generate
+node-atlas --generate
 ``` 

@@ -294,13 +294,13 @@ node server.js
 - with CLI command:
 
 ```
-nodeatlas
+node-atlas
 ```
 
 - pour générer les assets :
 
 ```
-nodeatlas --generate
+node-atlas --generate
 ```
 
 Lancer *NodeAtlas* dans votre environnement de production :
@@ -308,7 +308,7 @@ Lancer *NodeAtlas* dans votre environnement de production :
 - en standard:
 
 ```
-nodeatlas --path /var/www/my-website/ --webconfig webconfig.prod.json
+node-atlas --path /var/www/my-website/ --webconfig webconfig.prod.json
 ```
 
 - avec *Forever*:
