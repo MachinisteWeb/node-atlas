@@ -291,7 +291,7 @@ Lancer *NodeAtlas* depuis le dossier "my-website" dans votre environnement de d√
 node server.js
 ```
 
-- with CLI command:
+- avec la CLI :
 
 ```
 node-atlas
