@@ -44,6 +44,26 @@
 
 
 
+## Quick Start ##
+
+Installer
+
+```js
+npm install -g node-atlas
+```
+
+and try a standard NodeAtlas website with README.md help
+
+```js
+node-atlas --create hello-world
+```
+
+or try a Vue + NodeAtlas + SSR website with README.md help
+
+```js
+node-atlas --create hello-vue
+```
+
 
 
 ## Usage ##

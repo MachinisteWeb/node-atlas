@@ -44,6 +44,26 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
 
 
 
+## Test rapide ##
+
+Installer
+
+```js
+npm install -g node-atlas
+```
+
+puis essayer un site standard NodeAtlas avec l'aide du README.md
+
+```js
+node-atlas --create hello-world
+```
+
+ou essayer un site Vue + NodeAtlas avec rendu côté serveur avec l'aide du README.md
+
+```js
+node-atlas --create hello-vue
+```
+
 
 
 ## Utilisation ##
