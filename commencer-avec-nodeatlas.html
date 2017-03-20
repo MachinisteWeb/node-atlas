@@ -11,11 +11,11 @@
 
 		<meta name="og:title" content="NodeAtlas —Le Framework JavaScript Serveur Évolutif—">
 		<meta name="og:description" content="Créez simplement des sites web évolutifs en Node.js.">
-		<meta name="og:url" content="https://node-atlas.js.org/commencer-avec-nodeatlas.html">
+		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489857572092">
+		<meta name="og:updated_time" content="1490030065056">
 
 		<meta name="robots" content="index, follow">
 
@@ -108,11 +108,11 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>$ nodeatlas --create</pre>
+									<pre>$ node-atlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
-									<pre>$ nodeatlas --browse</pre>
+									<pre>$ node-atlas --browse</pre>
 								</div>
 							</div>							
 						</div>
@@ -128,7 +128,7 @@
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
 website.init({
-    "create": true
+    "create": "hello-vue"
 }).created(function () {
     website.run({
         "browse": true
@@ -195,7 +195,7 @@ website.init({
 										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> des maquettes HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/Haeresis?tab=repositories"><span>Développer</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps réel</a>
+										<a href="https://github.com/NodeAtlas"><span>Développer</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps réel</a>
 									</div>
 								</div>
 							</div>
@@ -332,10 +332,12 @@ website.init({
     }
 }
 </code></pre><p>équivalente à</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }
-</code></pre><h3 id="lancer-le-site-avec-nodeatlas">Lancer le site avec NodeAtlas</h3><h4 id="avec-la-commande-nodeatlas-">Avec la commande <code>nodeatlas</code></h4><p><strong>Si vous avez installé NodeAtlas avec <code>npm install -g node-atlas</code></strong> vous pouvez utiliser la commande <code>nodeatlas</code>. <code>nodeatlas</code> est un alias de <code>node &lt;/path/to/globals/&gt;node_modules/node-atlas/</code>.</p><p>Placez-vous avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.</p><pre><code class="lang-bash">$ nodeatlas
+</code></pre><h3 id="lancer-le-site-avec-nodeatlas">Lancer le site avec NodeAtlas</h3><h4 id="avec-la-commande-node-atlas-">Avec la commande <code>node-atlas</code></h4><p><strong>Si vous avez installé NodeAtlas avec <code>npm install -g node-atlas</code></strong> vous pouvez utiliser la commande <code>node-atlas</code>. <code>node-atlas</code> est un raccourci de la commande <code>node &lt;/path/to/globals/&gt;node_modules/node-atlas/</code>.</p><blockquote>
+<p><em>Note : vous pouvez également utiliser la commande <code>atlas</code> qui est un alias de <code>node-atlas</code> mais plus rapide à écrire.</em></p>
+</blockquote><p>Placez-vous avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.</p><pre><code class="lang-bash">$ node-atlas
 </code></pre><blockquote>
 <p>Note : Si votre port 80 est utilisé ou que vous n&#39;avez pas accès à celui-ci, vous pouvez utiliser l&#39;option <code>--httpPort</code>.</p>
-<pre><code class="lang-bash">$ nodeatlas --httpPort 8080
+<pre><code class="lang-bash">$ node-atlas --httpPort 8080
 </code></pre>
 <p>ou utiliser la propriété du webconfig <code>httpPort</code></p>
 <pre><code class="lang-json">{ 

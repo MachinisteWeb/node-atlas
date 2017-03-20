@@ -11,11 +11,11 @@
 
 		<meta name="og:title" content="NodeAtlas —Le Framework JavaScript Serveur Évolutif—">
 		<meta name="og:description" content="Créez simplement des sites web évolutifs en Node.js.">
-		<meta name="og:url" content="https://node-atlas.js.org/partie-vue-et-template.html">
+		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489857572137">
+		<meta name="og:updated_time" content="1490030065075">
 
 		<meta name="robots" content="index, follow">
 
@@ -108,11 +108,11 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>$ nodeatlas --create</pre>
+									<pre>$ node-atlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
-									<pre>$ nodeatlas --browse</pre>
+									<pre>$ node-atlas --browse</pre>
 								</div>
 							</div>							
 						</div>
@@ -128,7 +128,7 @@
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
 website.init({
-    "create": true
+    "create": "hello-vue"
 }).created(function () {
     website.run({
         "browse": true
@@ -195,7 +195,7 @@ website.init({
 										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> des maquettes HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/Haeresis?tab=repositories"><span>Développer</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps réel</a>
+										<a href="https://github.com/NodeAtlas"><span>Développer</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps réel</a>
 									</div>
 								</div>
 							</div>
@@ -863,7 +863,7 @@ website.init({
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>En lançant (depuis le dossier du site) la commande :</p><pre><code class="lang-bash">$ nodeatlas
+</code></pre><p>En lançant (depuis le dossier du site) la commande :</p><pre><code class="lang-bash">$ node-atlas
 </code></pre><p>Nous aurons à l&#39;adresse « <a href="http://localhost/">http://localhost/</a> » la sortie suivante avec les fichiers non minifiés :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -876,7 +876,7 @@ website.init({
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>Cependant en lançant la commande :</p><pre><code class="lang-bash">$ nodeatlas --webconfig webconfig.prod.json
+</code></pre><p>Cependant en lançant la commande :</p><pre><code class="lang-bash">$ node-atlas --webconfig webconfig.prod.json
 </code></pre><p>Nous aurons à l&#39;adresse « <a href="http://localhost/">http://localhost/</a> » la sortie suivante avec les fichiers minifiés :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -1125,7 +1125,7 @@ website.init({
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
 <li><em><a href="http://localhost/parametre/output/">http://localhost/parametre/output/</a></em></li>
-</ul><p><em>Note : Il n&#39;y a pas de génération pour « /liste-des-membres/?foo=bar » car <code>output</code> est à <code>false</code>. Utilisez cette valeur pour ignorer des routes à la génération.</em></p><p>La génération s&#39;enclenche quand on affiche la page uniquement parce que <code>htmlGenerationBeforeResponse</code> existe et est à <code>true</code>.</p><h4 id="g-n-rer-un-site-sans-partie-serveur">Générer un site sans partie serveur</h4><p>Il est également possible de gérer la création d&#39;un site en simple page HTML avec la commande <code>--generate</code>.</p><p>Si <code>htmlGenerationBeforeResponse</code> est passé à <code>false</code> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>nodeatlas --generate</code> qui génèrera toutes les pages d&#39;un coup dans le dossier <code>serverlessRelativePath</code> à la condition que le <code>output</code> global soit à <code>true</code>.</p><p>De plus avec <code>--generate</code>, l&#39;intégralité du dossier <code>assetsRelativePath</code> (dossier des fichiers publics) sera copié dans le dossier <code>serverlessRelativePath</code> si les deux dossiers n&#39;ont pas un chemin identique à condition que <code>assetsCopy</code> soit à <code>true</code>. </p><p>Cela vous permet réellement d&#39;obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l&#39;intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).</p><p>Voyons cela avec la configuration suivante :</p><pre><code class="lang-json">{
+</ul><p><em>Note : Il n&#39;y a pas de génération pour « /liste-des-membres/?foo=bar » car <code>output</code> est à <code>false</code>. Utilisez cette valeur pour ignorer des routes à la génération.</em></p><p>La génération s&#39;enclenche quand on affiche la page uniquement parce que <code>htmlGenerationBeforeResponse</code> existe et est à <code>true</code>.</p><h4 id="g-n-rer-un-site-sans-partie-serveur">Générer un site sans partie serveur</h4><p>Il est également possible de gérer la création d&#39;un site en simple page HTML avec la commande <code>--generate</code>.</p><p>Si <code>htmlGenerationBeforeResponse</code> est passé à <code>false</code> (ou enlevé) le seul moyen de générer toutes les pages du site sera via la commande <code>node-atlas --generate</code> qui génèrera toutes les pages d&#39;un coup dans le dossier <code>serverlessRelativePath</code> à la condition que le <code>output</code> global soit à <code>true</code>.</p><p>De plus avec <code>--generate</code>, l&#39;intégralité du dossier <code>assetsRelativePath</code> (dossier des fichiers publics) sera copié dans le dossier <code>serverlessRelativePath</code> si les deux dossiers n&#39;ont pas un chemin identique à condition que <code>assetsCopy</code> soit à <code>true</code>. </p><p>Cela vous permet réellement d&#39;obtenir en sortie dans le dossier de génération des pages « stand-alone » avec l&#39;intégralité des fichiers auxquels elles font appel (CSS / JS / Images, etc.).</p><p>Voyons cela avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;output&quot;: true,
     &quot;assetsCopy&quot;: true,
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
@@ -1156,7 +1156,7 @@ website.init({
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Avec <code>nodeatlas --browse</code>, à l&#39;adresse <em><a href="http://localhost/">http://localhost/</a></em> s&#39;affichera la liste des pages composants votre site (grâce à <strong>index</strong> à <strong>true</strong>).</p><p>Il ne restera plus qu&#39;à, une fois <code>--generate</code> utilisé, admirer votre site HTML dans le dossier :</p><pre><code>┊┉
+</code></pre><p>Avec <code>node-atlas --browse</code>, à l&#39;adresse <em><a href="http://localhost/">http://localhost/</a></em> s&#39;affichera la liste des pages composants votre site (grâce à <strong>index</strong> à <strong>true</strong>).</p><p>Il ne restera plus qu&#39;à, une fois <code>--generate</code> utilisé, admirer votre site HTML dans le dossier :</p><pre><code>┊┉
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css

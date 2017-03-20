@@ -11,11 +11,11 @@
 
 		<meta name="og:title" content="NodeAtlas —Le Framework JavaScript Serveur Évolutif—">
 		<meta name="og:description" content="Créez simplement des sites web évolutifs en Node.js.">
-		<meta name="og:url" content="https://node-atlas.js.org/nodeatlas-comme-simple-serveur-web.html">
+		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1489857572134">
+		<meta name="og:updated_time" content="1490030065086">
 
 		<meta name="robots" content="index, follow">
 
@@ -108,11 +108,11 @@
 								</div>					
 								<div class="download--cli--step2">
 									<h3>Créer un site test</h3>
-									<pre>$ nodeatlas --create</pre>
+									<pre>$ node-atlas --create</pre>
 								</div>					
 								<div class="download--cli--step3">
 									<h3>Lancer le site</h3>
-									<pre>$ nodeatlas --browse</pre>
+									<pre>$ node-atlas --browse</pre>
 								</div>
 							</div>							
 						</div>
@@ -128,7 +128,7 @@
 									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
 website.init({
-    "create": true
+    "create": "hello-vue"
 }).created(function () {
     website.run({
         "browse": true
@@ -195,7 +195,7 @@ website.init({
 										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> des maquettes HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/Haeresis?tab=repositories"><span>Développer</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps réel</a>
+										<a href="https://github.com/NodeAtlas"><span>Développer</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps réel</a>
 									</div>
 								</div>
 							</div>
@@ -314,8 +314,8 @@ website.init({
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>en exécutant la commande</p><pre><code>$ nodeatlas
-</code></pre><p>ou même la commande</p><pre><code>$ nodeatlas --webconfig webconfig.not-exist.json
+</code></pre><p>en exécutant la commande</p><pre><code>$ node-atlas
+</code></pre><p>ou même la commande</p><pre><code>$ node-atlas --webconfig webconfig.not-exist.json
 </code></pre><p>le serveur se lancera en mode « Simple Serveur Web » et les fichiers « <a href="http://localhost/webconfig.json">http://localhost/webconfig.json</a> » ou « <a href="http://localhost/views/webconfig.htm">http://localhost/views/webconfig.htm</a> » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.</p><p><em>Note : la commande <code>--generate</code> ne fonctionne pas avec ce mode.</em></p><div><div class="before">
                             <a href="api-nodeatlas-comme-module-npm.html">◄ API / NodeAtlas comme module NPM</a>
                         </div><div class="after">

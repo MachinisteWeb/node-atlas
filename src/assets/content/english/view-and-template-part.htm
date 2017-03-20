@@ -551,7 +551,7 @@
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common&lt;?= webconfig._minified ?&gt;.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>To run (from the site folder) the the command:</p><pre><code class="lang-bash">$ nodeatlas
+</code></pre><p>To run (from the site folder) the the command:</p><pre><code class="lang-bash">$ node-atlas
 </code></pre><p>We will have to address &quot;<a href="http://localhost/">http://localhost/</a>&quot; the following output with non-minified files:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -564,7 +564,7 @@
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>However, running the command:</p><pre><code class="lang-bash">$ nodeatlas --webconfig webconfig.prod.json
+</code></pre><p>However, running the command:</p><pre><code class="lang-bash">$ node-atlas --webconfig webconfig.prod.json
 </code></pre><p>We will have to address &quot;<a href="http://localhost/">http://localhost/</a>&quot; the following output with minified files:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -813,7 +813,7 @@
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
 <li><em><a href="http://localhost/no/output/parameter/">http://localhost/no/output/parameter/</a></em></li>
-</ul><p><em>Note : No output page are generated for &quot;/list-of-members/?foo=bar&quot; because <code>output</code> is set to <code>false</code>. Use this value to ignore a route generation.</em></p><p>The generation starts when displaying the page if <code>htmlGenerationBeforeResponse</code> exist and if it is <code>true</code>.</p><h4 id="generate-website-without-server-side">Generate website without server-side</h4><p>You can also manager a simple HTML website page with <code>--generate</code> command.</p><p>If <code>htmlGenerationBeforeResponse</code> is setted to <code>false</code> (or removed) the only way to generate all the pages of the website will be via the command <code>nodeatlas --generate</code> will generate all pages into <code>serverlessRelativePath</code> only if global <code>output</code> is setted to <code>true</code>.</p><p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>serverlessRelativePath</code> if both folder does not have the same path only if global <code>assetsCopy</code> is setted to <code>true</code>. </p><p>It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p><p>See this with the following configuration:</p><pre><code class="lang-json">{
+</ul><p><em>Note : No output page are generated for &quot;/list-of-members/?foo=bar&quot; because <code>output</code> is set to <code>false</code>. Use this value to ignore a route generation.</em></p><p>The generation starts when displaying the page if <code>htmlGenerationBeforeResponse</code> exist and if it is <code>true</code>.</p><h4 id="generate-website-without-server-side">Generate website without server-side</h4><p>You can also manager a simple HTML website page with <code>--generate</code> command.</p><p>If <code>htmlGenerationBeforeResponse</code> is setted to <code>false</code> (or removed) the only way to generate all the pages of the website will be via the command <code>node-atlas --generate</code> will generate all pages into <code>serverlessRelativePath</code> only if global <code>output</code> is setted to <code>true</code>.</p><p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>serverlessRelativePath</code> if both folder does not have the same path only if global <code>assetsCopy</code> is setted to <code>true</code>. </p><p>It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p><p>See this with the following configuration:</p><pre><code class="lang-json">{
     &quot;output&quot;: true,
     &quot;assetsCopy&quot;: true,
     &quot;languageCode&quot;: &quot;fr-fr&quot;,
@@ -844,7 +844,7 @@
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>With <code>nodeatlas --browse</code>, to address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>index</strong> set to <strong>true</strong>)</p><p>It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
+</code></pre><p>With <code>node-atlas --browse</code>, to address <em><a href="http://localhost/">http://localhost/</a></em> will show a list of pages your site components (with <strong>index</strong> set to <strong>true</strong>)</p><p>It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
