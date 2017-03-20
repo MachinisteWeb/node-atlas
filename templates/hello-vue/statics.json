@@ -1,0 +1,5 @@
+{
+	"/views-models": "views/",
+	"/variations": "variations/",
+	"/routes.json": "routes.json"
+}

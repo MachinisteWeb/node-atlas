@@ -1,0 +1,95 @@
+html 
+body
+    padding 0
+    margin 0
+
+html
+    font-size 62.5%
+    background-color #f0f0f0
+    background-size cover
+    background-position 50% 50%
+    background-repeat no-repeat
+    background: linear-gradient(135deg, #6dbd4d 0%, #f8ffae 100%);
+    background-attachment: fixed;
+
+body
+    font-family Open Sans, sans-serif
+    font-size 1.5em
+
+h1
+h2
+h3
+h4
+h5
+    line-height 1.4
+    font-weight normal
+    
+a
+.link
+    cursor pointer
+    color #337ab7
+    text-decoration none
+    &:hover
+    &:focus
+        text-decoration none
+        color #23527c
+    &:active 
+    &:hover
+        outline 0
+.router-link-active
+    &
+    &:hover
+    &:focus
+        color #FFF 
+.error
+.home
+.projects
+.contact
+    position absolute
+    z-index 1
+    color #fff
+    top 0
+    left 0
+    width 100%
+    height 100%
+    ul
+        text-align left
+        margin: 0 auto
+        max-width 420px
+    &--content
+        text-align center
+        position absolute
+        width: calc(100% - 40px)
+        top 50%
+        left 50%
+        transform translate(-50%, -50%)
+.menu
+    position absolute
+    top 20px
+    left 20px
+    z-index 2
+    ul
+        margin: 0
+        padding: 0
+    li
+        list-style-type none
+.footer
+    position absolute
+    bottom 20px
+    right 20px
+    z-index 2
+        
+.fade-in-out-enter,
+.fade-in-out-leave-to {
+    opacity: 0;
+    transform: rotateX(180deg);
+}
+.fade-in-out-leave-active,
+.fade-in-out-enter-active {
+    transition: opacity 2s, transform 2s;
+}
+.fade-in-out-enter-to
+.fade-in-out-leave {
+    opacity: 1;
+    transform: rotateX(0);
+}

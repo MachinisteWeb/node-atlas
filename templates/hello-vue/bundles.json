@@ -1,0 +1,18 @@
+{
+	"javascripts": {
+		"javascripts/framework.min.js": [
+			"javascripts/socket.io.js",
+			"node-atlas/socket.io.js",
+			"javascripts/system.min.js",
+			"javascripts/vue.min.js",
+			"javascripts/vue.router.min.js",
+			"javascripts/common.js"
+		],
+		"javascripts/main.min.js": ["javascripts/main.js"]
+    },
+    "stylesheets": {
+		"stylesheets/common.min.css": [
+			"stylesheets/common.css"
+		]
+    }
+}

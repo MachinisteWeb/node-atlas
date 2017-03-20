@@ -1,0 +1,23 @@
+{
+	"home_fr-fr": {
+		"url": "/",
+		"view": "home",
+		"variation": "home.json"
+	},
+	"projects_fr-fr": {
+		"url": "/les-projets/",
+		"view": "projects",
+		"variation": "projects.json"
+	},
+	"contact_fr-fr": {
+		"url": "/obtenir-de-l-aide/",
+		"view": "contact",
+		"variation": "contact.json"
+	},
+	"error_fr-fr": {
+		"url": "/page-inexistante/",
+		"view": "error",
+		"variation": "error.json",
+		"statusCode": 404
+	}
+}

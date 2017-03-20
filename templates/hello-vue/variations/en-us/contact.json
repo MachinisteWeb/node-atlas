@@ -1,0 +1,14 @@
+{
+	"meta": {
+		"title": "Contact Us",
+		"description": "To have help quickly for Vue or NodeAtlas!"
+	},
+	"contact": {
+		"title": "Come chat on gitter,",
+		"content": "<p>to have help quickly for Vue or NodeAtlas</p>",
+		"addresses": [
+			"About Vue : <a href='https://gitter.im/vuejs/vue'>https://gitter.im/vuejs/vue</a>",
+			"About NodeAtlas : <a href='https://gitter.im/NodeAtlas/Help'>https://gitter.im/NodeAtlas/Help</a>"
+		]
+	}
+}

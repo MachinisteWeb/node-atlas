@@ -1,0 +1,14 @@
+{
+	"stylus": true,
+	"httpPort": 7776,
+	"languageCode": "fr-fr",
+	"variation": "common.json",
+	"controller": "common.js",
+	"view": "layout.htm",
+	"bundles": "bundles.json",
+	"statics": "statics.json",
+	"routes": "routes.json",
+	"pageNotFound": "error_fr-fr",
+	"_robots": "noindex, nofollow",
+	"_min": false
+}

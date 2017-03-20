@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="<?= (languageCode) ? languageCode : 'fr-fr' ?>">
+	<head>
+		<meta charset="utf-8" />
+		<base href="<?= urlBasePath ?>/" />
+		<title><?- specific.meta.title ?> - <?- common.title ?></title>
+		<meta name="description" content="<?-specific.meta.description ?>">
+		<meta name="robots" content="<?= webconfig._robots ?>" />
+		<meta name="og:url" content="<?= urlBasePath ?>/">
+		<meta name="og:locale" content="<?= (languageCode) ? languageCode : 'fr-fr' ?>">
+		<meta name="og:type" content="website">
+		<meta name="og:title" content="<?-specific.meta.title ?> - <?- common.title ?>">
+		<meta name="og:description" content="<?- specific.meta.description ?>">
+		<meta name="og:updated_time" content="1489664973843">
+		<!--[if IE]><meta name="viewport" content="width=device-width" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0" /><!--<![endif]-->
+		<? if (webconfig._min) { ?>
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+		<? } else { ?>
+		<link rel="stylesheet" href="stylesheets/common.css">
+		<? } ?>
+	</head>
+	<body>
+		<div class="layout"></div>
+		<? if (webconfig._min) { ?>
+		<script src="javascripts/framework.min.js" data-main="javascripts/main.min.js" id="systemjs"></script>
+		<? } else { ?>
+		<script src="socket.io/socket.io.js"></script>
+		<script src="node-atlas/socket.io.js"></script>
+		<script src="javascripts/system.min.js"></script>
+		<script src="javascripts/vue.js"></script>
+		<script src="javascripts/vue.router.js"></script>
+		<script src="javascripts/common.js" data-main="javascripts/main.js" id="systemjs"></script>
+		<? } ?>
+	</body>
+</html>

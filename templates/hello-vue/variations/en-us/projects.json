@@ -1,0 +1,14 @@
+{
+	"meta": {
+		"title": "Les Projects",
+		"description": "Links to Vue and NodeAtlas"
+	},
+	"projects": {
+		"title": "This Hello Vue include",
+		"content": "<p>MVVM Client-side JavaScript and MVC Server-side JavaScript</p>",
+		"projects": [
+			"The Vue MVVM : <a href='https://www.vuejs.org/' target='_blank'>https://www.vuejs.org/</a>",
+			"The NodeAtlas MVC : <a href='https://node-atlas.js.org/english/' target='_blank'>https://node-atlas.js.org/english/</a>"
+		]
+	}
+}

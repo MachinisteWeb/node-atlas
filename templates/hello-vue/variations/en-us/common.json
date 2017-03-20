@@ -1,0 +1,20 @@
+{
+	"title": "NodeAlas Website Example with Vue",
+	"description": "Website displaying with Vue + VueRouteur + NodeAtlas + SSR",
+	"copyright": "Example made with <a href='https://fr.vuejs.org/' target='_blank'>Vue</a> and <a href='https://node-atlas.js.org/' target='_blank'>NodeAtlas</a>",
+	"language": {
+		"content": "Version française",
+		"href": "http://node-atlas.js.org/",
+		"title": "Go to the French Version"
+	},
+	"menu": [{
+		"title": "Home",
+		"key": "home_en-us"
+	}, {
+		"title": "Projects",
+		"key": "projects_en-us"
+	}, {
+		"title": "Help",
+		"key": "contact_en-us"
+	}]
+}
