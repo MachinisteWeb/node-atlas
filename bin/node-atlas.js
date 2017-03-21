@@ -54,6 +54,7 @@ NA = function () {
     /* INIT */
     this.configuration = init.configuration;
     this.afterGeneration = init.afterGeneration;
+    this.afterClosing = init.afterClosing;
     this.afterRunning = init.afterRunning;
     this.afterNewProject = init.afterNewProject;
 };
@@ -147,6 +148,8 @@ NA.prototype.init = init.init;
 NA.prototype.generated = init.generated;
 NA.prototype.started = init.started;
 NA.prototype.created = init.created;
+NA.prototype.stopped = init.stopped;
+NA.prototype.stop = init.stop;
 NA.prototype.start = init.start;
 NA.prototype.run = init.run;
 

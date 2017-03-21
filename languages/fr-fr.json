@@ -5,6 +5,8 @@
 		"portAlreadyListened": "NodeAtlas c'est arrêté car le port %port% est déjà écouté par une autre application.",
 		"portRequiresPrivileges": "NodeAtlas c'est arrêté car le port %port% requier des privilèges plus élevés."
 	},
+	"closing": "Site NodeAtlas arrêté.",
+	"uncaughtException": "NodeAtlas c'est arrêté à cause d'une exception non gérée. Plus de détailles ci-dessous :",
 	"ifFileExist": "Pas de fichier « %path%  » trouvé.",
 	"notFound": {
 		"controller": "Le controlleur « %controller% » n'a pas été trouvé (ou ne peut pas être chargé)."
