@@ -30,6 +30,7 @@ Features:
 - `NA#middlewaresRelativePath` added.
 - `NA#locals.routeParameters.middlewares` added.
 - `NA#assetsCopy` added.
+- `NA#stopped` added.
 - `serverRelativePath` folder is created if is not exist.
 - Language `portRequiresPrivileges` is added.
 
