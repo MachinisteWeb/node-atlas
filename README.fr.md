@@ -142,6 +142,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [&lt;NA>.init(options)](#nainitoptions)
  - [&lt;NA>.run(options)](#narunoptions)
  - [&lt;NA>.started(callback)](#nastartedcallback)
+ - [&lt;NA>.stopped(callback)](#nastoppedcallback)
  - [&lt;NA>.generated(callback)](#nageneratedcallback)
  - [&lt;NA>.created(callback)](#nacreatedcallback)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
@@ -7256,6 +7257,20 @@ require("node-atlas")().started(function() {
 }).run({
     browse: true
 });
+```
+
+
+
+### &lt;NA>.stopped(callback) ###
+
+Avec `stopped(callback)`, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit stoppé :
+
+*servers.js*
+
+```javascript
+require("node-atlas")().stopped(function() {
+    console.log("Server stopped!");
+}).start();
 ```
 
 

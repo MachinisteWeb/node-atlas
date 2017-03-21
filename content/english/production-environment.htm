@@ -1,5 +1,7 @@
 <h2 id="production-environment">Production Environment</h2><p>It&#39;s a good thing to develop, but it&#39;s time to run your website or apps on online production server. See this examples.</p><blockquote>
-<p>IMPORTANT : you must use the <code>cache: true</code> option in the production&#39;s webconfig to allows engine to be optimised or set your <code>NODE_ENV</code> environment variable to <code>production</code>.</p>
+<p>IMPORTANT : you must use the <code>&quot;cache&quot;: true</code> option in the production&#39;s webconfig to allows engine to be optimised or set your <code>NODE_ENV</code> environment variable to <code>production</code>.</p>
+</blockquote><hr><blockquote>
+<p>NOTE : it&#39;s possible your proxy on production not capable to use websockets. In this case, the transport should be limited like this <code>&quot;socketServerOptions&quot;: { transports: [&#39;polling&#39;] }</code> (in default without this value, transports are tested progressively like this <code>{ transports: [&#39;polling&#39;, &#39;websocket&#39;] }</code>.</p>
 </blockquote><h3 id="in-a-windows-server-environment-with-iisnode">In a Windows Server environment with iisnode</h3><p>In a Windows Server 2013 environment with IIS8 the requirements are:</p><ol>
 <li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
 <li>Install <a href="http://www.iis.net/downloads/microsoft/url-rewrite">the IIS8 UrlRewrite module</a> to map pages executed to an output URL.</li>

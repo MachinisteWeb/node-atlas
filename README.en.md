@@ -142,6 +142,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
  - [&lt;NA>.init(options)](#nainitoptions)
  - [&lt;NA>.run(options)](#narunoptions)
  - [&lt;NA>.started(callback)](#nastartedcallback)
+ - [&lt;NA>.stopped(callback)](#nastoppedcallback)
  - [&lt;NA>.generated(callback)](#nageneratedcallback)
  - [&lt;NA>.created(callback)](#nacreatedcallback)
 - [NodeAtlas as a simple web server](#nodeatlas-as-a-simple-web-server)
@@ -7253,6 +7254,22 @@ With `started(callback)`, you could also execute other tasks after server ran:
 ```javascript
 require("node-atlas")().started(function() {
     console.log("Server started!");
+}).run({
+    browse: true
+});
+```
+
+
+
+### &lt;NA>.stopped(callback) ###
+
+With `stopped(callback)`, you could also execute other tasks after server stopped:
+
+*servers.js*
+
+```javascript
+require("node-atlas")().stopped(function() {
+    console.log("Server stopped!");
 }).run({
     browse: true
 });

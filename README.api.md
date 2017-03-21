@@ -46,6 +46,7 @@ These are all functions avaiable as soon as `new NodeAtlas()` instance is create
 - [init(options)](./NA.html#init)
 - [run(options)](./NA.html#run)
 - [started(callback)](./NA.html#started)
+- [stopped(callback)](./NA.html#stopped)
 - [generated(callback)](./NA.html#generated)
 - [created(callback)](./NA.html#created)
 
@@ -109,6 +110,7 @@ Ce sont toutes les fonctions disponibles dès la création de `new NodeAtlas()`.
 - [init(options)](./NA.html#init)
 - [run(options)](./NA.html#run)
 - [started(callback)](./NA.html#started)
+- [stopped(callback)](./NA.html#stopped)
 - [generated(callback)](./NA.html#generated)
 - [created(callback)](./NA.html#created)
 

@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1490082889215">
+		<meta name="og:updated_time" content="1490117539175">
 
 		<meta name="robots" content="index, follow">
 
@@ -358,6 +358,11 @@ websiteFr.run({
 });
 </code></pre><h3 id="na-started-callback">&lt;NA&gt;.started(callback)</h3><p>With <code>started(callback)</code>, you could also execute other tasks after server ran:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().started(function() {
     console.log(&quot;Server started!&quot;);
+}).run({
+    browse: true
+});
+</code></pre><h3 id="na-stopped-callback">&lt;NA&gt;.stopped(callback)</h3><p>With <code>stopped(callback)</code>, you could also execute other tasks after server stopped:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().stopped(function() {
+    console.log(&quot;Server stopped!&quot;);
 }).run({
     browse: true
 });

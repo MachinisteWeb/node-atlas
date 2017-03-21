@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1490082885532">
+		<meta name="og:updated_time" content="1490117535724">
 
 		<meta name="robots" content="index, follow">
 
@@ -350,6 +350,9 @@ websiteFr.run({
 }).run({
     browse: true
 });
+</code></pre><h3 id="na-stopped-callback">&lt;NA&gt;.stopped(callback)</h3><p>Avec <code>stopped(callback)</code>, vous pouvez aussi exécuter d&#39;autres tâches après que le serveur web soit stoppé :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().stopped(function() {
+    console.log(&quot;Server stopped!&quot;);
+}).start();
 </code></pre><h3 id="na-generated-callback">&lt;NA&gt;.generated(callback)</h3><p>Avec <code>generated(callback)</code>, vous pouvez aussi exécuter d&#39;autres tâches après la génération de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
     require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
         console.log(&quot;Documentation generation...&quot;);
