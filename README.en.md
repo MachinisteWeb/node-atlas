@@ -2541,6 +2541,7 @@ This is an example using the two hooks, the common in first and after the specif
 ```json
 {
     "socketClientFile": "/node-atlas/socket.io.js",
+    "socketServerOptions": { transports: ['polling', 'websocket'] },
     "controller": "common.js",
     "routes": {
         "/": {
@@ -2588,7 +2589,7 @@ Do a request on `http://localhost/` will use the following files (and others fil
 </html>
 ```
 
-*Note : If* `socketClientFile` *is not present in "webconfig.json", default client file for config sockets is* `/node-atlas/socket.io.js`. `socketClientFile` *is useful only to change the name of file. If you set `socketClientFile` to `false`, the client file will be not adding on accessible routes.*
+*Note : If* `socketClientFile` *and* `socketServerOptions` *are not present in `webconfig.json`, default client file and server options for sockets for config sockets are* `/node-atlas/socket.io.js` *and* `{ transports: ['polling', 'websocket'] }`. `socketClientFile`. *They are useful only to change the name of file or the sockets transports alloweds. If you set `socketClientFile` to `false`, the client file will be not adding on accessible routes.*
 
 *controllers/common.js*
 
@@ -7509,7 +7510,11 @@ npm run watch
 
 It's a good thing to develop, but it's time to run your website or apps on online production server. See this examples.
 
-> IMPORTANT : you must use the `cache: true` option in the production's webconfig to allows engine to be optimised or set your `NODE_ENV` environment variable to `production`.
+> IMPORTANT : you must use the `"cache": true` option in the production's webconfig to allows engine to be optimised or set your `NODE_ENV` environment variable to `production`.
+
+-----
+
+> NOTE : it's possible your proxy on production not capable to use websockets. In this case, the transport should be limited like this `"socketServerOptions": { transports: ['polling'] }` (in default without this value, transports are tested progressively like this `{ transports: ['polling', 'websocket'] }`.
 
 ### In a Windows Server environment with iisnode ###
 

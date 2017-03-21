@@ -2541,6 +2541,7 @@ Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plus
 ```json
 {
     "socketClientFile": "/node-atlas/socket.io.js",
+    "socketServerOptions": { transports: ['polling', 'websocket'] },
     "controller": "common.js",
     "routes": {
         "/": {
@@ -2588,7 +2589,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-*Note : Si* `socketClientFile` *n'est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien* `/node-atlas/socket.io.js`. `socketClientFile` *est donc utile seulement pour changer le chemin du fichier. Si vous mettez `socketClientFile` à `false`, le fichier client ne sera pas accessible.*
+*Note : Si* `socketClientFile` *et* `socketServerOptions` *ne sont pas présent dans `webconfig.json`, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien* `/node-atlas/socket.io.js` *et* `{ transports: ['polling', 'websocket'] }`. *Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez `socketClientFile` à `false`, le fichier client ne sera pas accessible.*
 
 *controllers/common.js*
 
@@ -7509,7 +7510,11 @@ npm run watch
 
 C'est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.
 
-> IMPORTANT : il est fortement recommandé d'utiliser l'option `cache: true` dans le webconfig de production afin de permettre au moteur d'être optimisé ou mettre votre variable d'environnement `NODE_ENV` à `production`.
+> IMPORTANT : il est fortement recommandé d'utiliser l'option `"cache": true` dans le webconfig de production afin de permettre au moteur d'être optimisé ou mettre votre variable d'environnement `NODE_ENV` à `production`.
+
+-----
+
+> NOTE : il est possible que le proxy que vous utilisiez ne gère pas les websockets. Dans ce cas il faudra limiter le transport à `"socketServerOptions": { transports: ['polling'] }` (par défaut en l'absence de cette valeur les transports sont progressivement testé comme suit `{ transports: ['polling', 'websocket'] }`.
 
 ### Dans un environnement Windows Server avec iisnode ###
 

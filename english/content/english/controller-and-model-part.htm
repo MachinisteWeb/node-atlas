@@ -314,6 +314,7 @@ exports.changeDom = function (next, locals, request, response) {
 <li><code>NA</code> object as <code>this</code>.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     &quot;socketClientFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
+    &quot;socketServerOptions&quot;: { transports: [&#39;polling&#39;, &#39;websocket&#39;] },
     &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -347,7 +348,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : If</em> <code>socketClientFile</code> <em>is not present in &quot;webconfig.json&quot;, default client file for config sockets is</em> <code>/node-atlas/socket.io.js</code>. <code>socketClientFile</code> <em>is useful only to change the name of file. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+</code></pre><p><em>Note : If</em> <code>socketClientFile</code> <em>and</em> <code>socketServerOptions</code> <em>are not present in <code>webconfig.json</code>, default client file and server options for sockets for config sockets are</em> <code>/node-atlas/socket.io.js</code> <em>and</em> <code>{ transports: [&#39;polling&#39;, &#39;websocket&#39;] }</code>. <code>socketClientFile</code>. <em>They are useful only to change the name of file or the sockets transports alloweds. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
     var NA = this,

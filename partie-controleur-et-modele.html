@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1490032592385">
+		<meta name="og:updated_time" content="1490082885532">
 
 		<meta name="robots" content="index, follow">
 
@@ -626,6 +626,7 @@ exports.changeDom = function (next, locals, request, response) {
 <li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
 </ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;socketClientFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
+    &quot;socketServerOptions&quot;: { transports: [&#39;polling&#39;, &#39;websocket&#39;] },
     &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -659,7 +660,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : Si</em> <code>socketClientFile</code> <em>n&#39;est pas présent dans « webconfig.json », par défaut le fichier client pour configurer les sockets est bien</em> <code>/node-atlas/socket.io.js</code>. <code>socketClientFile</code> <em>est donc utile seulement pour changer le chemin du fichier. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>Note : Si</em> <code>socketClientFile</code> <em>et</em> <code>socketServerOptions</code> <em>ne sont pas présent dans <code>webconfig.json</code>, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien</em> <code>/node-atlas/socket.io.js</code> <em>et</em> <code>{ transports: [&#39;polling&#39;, &#39;websocket&#39;] }</code>. <em>Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
