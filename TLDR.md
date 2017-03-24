@@ -6,7 +6,7 @@
 
 > *NodeAtlas* is a MVC(2) Server-side JavaScript Framework makes it easy to develop scalable website with SEO and W3C compliance. It is designed to running indexable and localizable simple webpages or create HTML mockups with only the view part activated. But activate controller part to build powerful data-oriented, component-oriented and/or service-based webapps with great realtime features and modern compliance!
 
-[![Donate](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/english/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_7.7-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/NodeAtlas.svg)](https://gemnasium.com/Haeresis/NodeAtlas) [![Chat for Help](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Help)
+[![Donate](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat for Help](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Help)
 
 
 
@@ -346,7 +346,7 @@ forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website
 ### About NodeAtlas ##
 
 - [Complete and detailed Website](https://node-atlas.js.org/english/)
-- [node-atlas.js documentation for maintainers](https://node-atlas.js.org/doc/index.html)
+- [node-atlas.js documentation for maintainers](https://node-atlas.js.org/doc/node-atlas/)
 - [discuss on chat and ask asistance for NodeAtlas](https://gitter.im/NodeAtlas/Help)
 
 

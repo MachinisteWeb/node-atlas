@@ -25,6 +25,7 @@ Features:
 - `NA#httpsServer` added.
 - `NA#httpServer` added.
 - `NA#statics` added.
+- `NA#version` added.
 - `NA#engine` added.
 - `NA#middlewares` added.
 - `NA#middlewaresRelativePath` added.
@@ -109,8 +110,6 @@ Updates:
 - `NA#stylus.stylus` become `NA#stylus.filse`.
 - `NA#less.files` become `NA#less.files`.
 - The `templates/hello-world` example is better.
-
-
 
 Removed:
 

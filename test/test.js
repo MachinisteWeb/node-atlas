@@ -49,6 +49,7 @@ describe("All NodeAtlas property from NA instance and prototype chain", function
         expect(all[0]).to.deep.equal([
             'configuration',
             'afterGeneration',
+            'afterClosing',
             'afterRunning',
             'afterNewProject'
         ]);
@@ -126,6 +127,8 @@ describe("All NodeAtlas property from NA instance and prototype chain", function
             'generated',
             'started',
             'created',
+            'stopped',
+            'stop',
             'start',
             'run'
         ]);
