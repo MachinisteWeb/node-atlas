@@ -5,6 +5,12 @@ exports.setModules = function () {
     NA.modules.marked = require("marked");
 };
 
+exports.changeVariations = function (next, locals) {
+    locals.version = require("../../../node-atlas/package.json").version;
+
+    next();
+};
+
 exports.setRoutes = function (next) {
     var NA = this,
         fs = NA.modules.fs,

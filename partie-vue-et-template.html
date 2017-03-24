@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1490117796938">
+		<meta name="og:updated_time" content="1490362609736">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta</h3>
+									<h3>v2.0.0-beta30</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
 								</div>
@@ -585,7 +585,7 @@ website.init({
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><p><em>Note : Si</em> <code>variationsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier des variations est bien</em> <code>variations</code>. <code>variationsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l&#39;internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :</p><pre><code class="lang-json">{
+</ul><p><em>Note : Si</em> <code>variationsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier des variations est bien</em> <code>variations</code>. <code>variationsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l&#39;internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes (et derrière des routes différentes) :</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;en-us&quot;,
     &quot;variationsRelativePath&quot;: &quot;l10n&quot;,
     &quot;routes&quot;: {

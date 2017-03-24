@@ -273,7 +273,7 @@
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><p><em>Note : Si</em> <code>variationsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier des variations est bien</em> <code>variations</code>. <code>variationsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l&#39;internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :</p><pre><code class="lang-json">{
+</ul><p><em>Note : Si</em> <code>variationsRelativePath</code> <em>n&#39;est pas présent dans <code>webconfig.json</code>, par défaut le dossier des variations est bien</em> <code>variations</code>. <code>variationsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l&#39;internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes (et derrière des routes différentes) :</p><pre><code class="lang-json">{
     &quot;languageCode&quot;: &quot;en-us&quot;,
     &quot;variationsRelativePath&quot;: &quot;l10n&quot;,
     &quot;routes&quot;: {

@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 2.0.0-beta](https://img.shields.io/badge/version-2.0.0_beta-brightgreen.svg)](https://node-atlas.js.org/)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat pour de l'Aide](https://img.shields.io/badge/gitter-rejoindre%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Aide)
 
 **For an international version of this README.md, [follow this link](README.en.md).**
 
@@ -165,7 +165,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
 
 En complément de cette documentation, vous avez également accès aux,
 - [tl;dr](https://github.com/NodeAtlas/NodeAtlas#node-atlas),
-- [détails des fonctions de l'objet NA](https://node-atlas.js.org/doc/index.html) (En) et vous pouvez aussi
+- [détails des fonctions de l'objet NA](https://node-atlas.js.org/doc/node-atlas/) (En) et vous pouvez aussi
 - [discuter sur le chat ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Aide).
 
 
@@ -898,7 +898,7 @@ vous aurez accès aux adresses :
 
 #### Toutes les langues sur le même site ####
 
-Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes :
+Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes (et derrière des routes différentes) :
 
 ```json
 {
@@ -7158,7 +7158,7 @@ $ node-atlas --lang fr-fr
 
 Vous pouvez lancez NodeAtlas via du code JavaScript.
 
-L'intégralité des fonctions privés, modules et espaces de nom de NodeAtlas sont décrit dans [la documentation de l'API](https://node-atlas.js.org/doc/) (En). En ce qui concerne les [Points d'ancrage c'est par ici](#cycle-de-vie-et-points-dancrage) et pour les fonctions de démarrage du serveur c'est ci-dessous :
+L'intégralité des fonctions privés, modules et espaces de nom de NodeAtlas sont décrit dans [la documentation de l'API](https://node-atlas.js.org/doc/node-atlas/) (En). En ce qui concerne les [Points d'ancrage c'est par ici](#cycle-de-vie-et-points-dancrage) et pour les fonctions de démarrage du serveur c'est ci-dessous :
 
 
 

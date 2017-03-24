@@ -1,8 +1,5 @@
 # NodeAtlas Website and API #
 
-- NodeAtlas Website : 2.0.0
-- NodeAtlas API : 2.0.0
-
 **For an international version of this README.md, [see below](#international-version).**
 
 
