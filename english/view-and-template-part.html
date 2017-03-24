@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1490362613299">
+		<meta name="og:updated_time" content="1490367809437">
 
 		<meta name="robots" content="index, follow">
 
@@ -544,6 +544,21 @@ website.init({
 │  │  └─ foot.htm
 │  └─ template.htm
 └─ webconfig.json
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Website title&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;This is the home page.&lt;/p&gt;&quot;
+}
+</code></pre><p><em>variations/members.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;List of members&quot;,
+    &quot;classPage&quot;: &quot;members&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;It is the Members page.&lt;/p&gt;&quot;
+}
 </code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en-us&quot;&gt;
     &lt;head&gt;
@@ -567,21 +582,6 @@ website.init({
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
-    &quot;titleWebsite&quot;: &quot;Website title&quot;,
-    &quot;classCssCommon&quot;: &quot;common&quot;,
-    &quot;classJsCommon&quot;: &quot;common&quot;
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Welcome&quot;,
-    &quot;classPage&quot;: &quot;index&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;This is the home page.&lt;/p&gt;&quot;
-}
-</code></pre><p><em>variations/members.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;List of members&quot;,
-    &quot;classPage&quot;: &quot;members&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;It is the Members page.&lt;/p&gt;&quot;
-}
 </code></pre><p>you will have access to the addresses:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
@@ -617,6 +617,24 @@ website.init({
 │  ├─ landing.htm
 │  └─ home.htm
 └─ webconfig.json
+</code></pre><p><em>l10n/landing.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Landing&quot;,
+    &quot;classPage&quot;: &quot;landing&quot;,
+    &quot;selectLabel&quot;: [
+        &quot;English&quot;,
+        &quot;Français&quot;
+    ]
+}
+</code></pre><p><em>l10n/en-us/home.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;home&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;This is a home page.&lt;/p&gt;&quot;
+}
+</code></pre><p><em>l10n/fr-fr/home.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;classPage&quot;: &quot;home&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
+}
 </code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;&lt;?= languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
@@ -643,29 +661,11 @@ website.init({
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><em>l10n/landing.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Landing&quot;,
-    &quot;classPage&quot;: &quot;landing&quot;,
-    &quot;selectLabel&quot;: [
-        &quot;English&quot;,
-        &quot;Français&quot;
-    ]
-}
-</code></pre><p><em>l10n/en-us/home.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Welcome&quot;,
-    &quot;classPage&quot;: &quot;home&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;This is a home page.&lt;/p&gt;&quot;
-}
-</code></pre><p><em>l10n/fr-fr/home.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
-    &quot;classPage&quot;: &quot;home&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
-}
 </code></pre><p>you will have access to the addresses:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/home/">http://localhost/home/</a></em></li>
 <li><em><a href="http://localhost/accueil/">http://localhost/accueil/</a></em></li>
-</ul><p><em>Note : By default is the</em> <code>languageCode</code> <em>root that determines the display language of the wesite. However, specifically by page language, we can be changed also the</em> <code>languageCode</code>. <em>You should also know that once the site or page has a</em> <code>languageCode</code> <em>in the configuration, variations files must be placed in a subdirectory named with the</em> <code>languageCode</code>.</p><h4 id="use-both-variations-and-localizations">Use both variations and localizations</h4><p>You may have noticed in the previous example that the <code>landing.json</code> file was not in the <code>en-us/</code> or <code>fr-fr/</code>. This is quite possible and means that will be used in languages that do not have it in their file.</p><p>Also, when a <code>languageCode</code> is specified, NodeAtlas seek first hand the value in the corresponding folder file. If it was not there, so he went to fetch the parent folder (the one used as standard for variations without localization).</p><p>This will allow you, for example, to manage master language directly in the variation folder. So with the following example:</p><pre><code>┊┉
+</ul><p><em>Note : By default is the</em> <code>languageCode</code> <em>root that determines the display language of the wesite. It&#39;s also possible to change the page language with a</em> <code>languageCode</code> for a page. <em>You should also know that once the site or page has a</em> <code>languageCode</code> <em>in the configuration, variations files must be placed in a subdirectory named with the</em> <code>languageCode</code>.</p><h4 id="use-both-variations-and-localizations">Use both variations and localizations</h4><p>You may have noticed in the previous example that the <code>landing.json</code> file was not in the <code>en-us/</code> or <code>fr-fr/</code>. This is quite possible and means that will be used in languages that do not have it in their file.</p><p>Also, when a <code>languageCode</code> is specified, NodeAtlas seek first hand the value in the corresponding folder file. If it was not there, so he went to fetch the parent folder (the one used as standard for variations without localization).</p><p>This will allow you, for example, to manage master language directly in the variation folder. So with the following example:</p><pre><code>┊┉
 ├─ variations/
 │  ├─ common.json
 │  ├─ home.json

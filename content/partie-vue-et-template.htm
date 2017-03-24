@@ -232,6 +232,21 @@
 │  │  └─ foot.htm
 │  └─ template.htm
 └─ webconfig.json
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
+    &quot;classCssCommon&quot;: &quot;common&quot;,
+    &quot;classJsCommon&quot;: &quot;common&quot;
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;classPage&quot;: &quot;index&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
+}
+</code></pre><p><em>variations/members.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Liste des membres&quot;,
+    &quot;classPage&quot;: &quot;members&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page des membres.&lt;/p&gt;&quot;
+}
 </code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;fr-fr&quot;&gt;
     &lt;head&gt;
@@ -255,21 +270,6 @@
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
-    &quot;titleWebsite&quot;: &quot;Titre du site&quot;,
-    &quot;classCssCommon&quot;: &quot;common&quot;,
-    &quot;classJsCommon&quot;: &quot;common&quot;
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
-    &quot;classPage&quot;: &quot;index&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
-}
-</code></pre><p><em>variations/members.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Liste des membres&quot;,
-    &quot;classPage&quot;: &quot;members&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page des membres.&lt;/p&gt;&quot;
-}
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
@@ -305,6 +305,24 @@
 │  ├─ landing.htm
 │  └─ home.htm
 └─ webconfig.json
+</code></pre><p><em>l10n/landing.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Landing&quot;,
+    &quot;classPage&quot;: &quot;landing&quot;,
+    &quot;selectLabel&quot;: [
+        &quot;English&quot;,
+        &quot;Français&quot;
+    ]
+}
+</code></pre><p><em>l10n/en-us/home.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Welcome&quot;,
+    &quot;classPage&quot;: &quot;home&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;This is a home page.&lt;/p&gt;&quot;
+}
+</code></pre><p><em>l10n/fr-fr/home.json</em></p><pre><code class="lang-json">{
+    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
+    &quot;classPage&quot;: &quot;home&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
+}
 </code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;&lt;?= languageCode ?&gt;&quot;&gt;
     &lt;head&gt;
@@ -331,29 +349,11 @@
     &lt;/div&gt;
 
     &lt;?- include(&quot;partials/foot.htm&quot;) ?&gt;
-</code></pre><p><em>l10n/landing.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Landing&quot;,
-    &quot;classPage&quot;: &quot;landing&quot;,
-    &quot;selectLabel&quot;: [
-        &quot;English&quot;,
-        &quot;Français&quot;
-    ]
-}
-</code></pre><p><em>l10n/en-us/home.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Welcome&quot;,
-    &quot;classPage&quot;: &quot;home&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;This is a home page.&lt;/p&gt;&quot;
-}
-</code></pre><p><em>l10n/fr-fr/home.json</em></p><pre><code class="lang-json">{
-    &quot;titlePage&quot;: &quot;Bienvenue&quot;,
-    &quot;classPage&quot;: &quot;home&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;C&#39;est la page d&#39;accueil.&lt;/p&gt;&quot;
-}
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/home/">http://localhost/home/</a></em></li>
 <li><em><a href="http://localhost/accueil/">http://localhost/accueil/</a></em></li>
-</ul><p><em>Note : Par défaut c&#39;est le</em> <code>languageCode</code> <em>racine qui conditionne la langue d&#39;affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le</em> <code>languageCode</code>. <em>Il faut également savoir que dès que le site ou une page à un</em> <code>languageCode</code> <em>dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du</em> <code>languageCode</code>.</p><h4 id="utiliser-variations-et-localisations-ensemble">Utiliser variations et localisations ensemble</h4><p>Vous avez peut-être constaté dans l&#39;exemple précédent que le fichier <code>landing.json</code> n&#39;était pas dans le dossier <code>en-us/</code> ou <code>fr-fr/</code>. Cela est tout à fait possible et signifie qu&#39;il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.</p><p>Aussi, quand un <code>languageCode</code> est précisé, NodeAtlas part d&#39;abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n&#39;y est pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans localisation).</p><p>Cela va vous permettre par exemple de gérer la langue maître directement dans le dossier de variation. Ainsi avec l&#39;exemple suivant :</p><pre><code>┊┉
+</ul><p><em>Note : Par défaut c&#39;est le</em> <code>languageCode</code> <em>racine qui conditionne la langue d&#39;affichage du site. Il est aussi possible de changer la langue avec un</em> <code>languageCode</code> par page. <em>Il faut également savoir que dès que le site ou une page à un</em> <code>languageCode</code> <em>dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du</em> <code>languageCode</code>.</p><h4 id="utiliser-variations-et-localisations-ensemble">Utiliser variations et localisations ensemble</h4><p>Vous avez peut-être constaté dans l&#39;exemple précédent que le fichier <code>landing.json</code> n&#39;était pas dans le dossier <code>en-us/</code> ou <code>fr-fr/</code>. Cela est tout à fait possible et signifie qu&#39;il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.</p><p>Aussi, quand un <code>languageCode</code> est précisé, NodeAtlas part d&#39;abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n&#39;y est pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans localisation).</p><p>Cela va vous permettre par exemple de gérer la langue maître directement dans le dossier de variation. Ainsi avec l&#39;exemple suivant :</p><pre><code>┊┉
 ├─ variations/
 │  ├─ common.json
 │  ├─ home.json

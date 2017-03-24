@@ -817,6 +817,36 @@ avec les fichiers suivants :
 └─ webconfig.json
 ```
 
+*variations/common.json*
+
+```json
+{
+    "titleWebsite": "Titre du site",
+    "classCssCommon": "common",
+    "classJsCommon": "common"
+}
+```
+
+*variations/index.json*
+
+```json
+{
+    "titlePage": "Bienvenue",
+    "classPage": "index",
+    "content": "<p>C'est la page d'accueil.</p>"
+}
+```
+
+*variations/members.json*
+
+```json
+{
+    "titlePage": "Liste des membres",
+    "classPage": "members",
+    "content": "<p>C'est la page des membres.</p>"
+}
+```
+
 *views/partials/head.htm*
 
 ```html
@@ -853,36 +883,6 @@ avec les fichiers suivants :
     </div>
 
     <?- include("partials/foot.htm") ?>
-```
-
-*variations/common.json*
-
-```json
-{
-    "titleWebsite": "Titre du site",
-    "classCssCommon": "common",
-    "classJsCommon": "common"
-}
-```
-
-*variations/index.json*
-
-```json
-{
-    "titlePage": "Bienvenue",
-    "classPage": "index",
-    "content": "<p>C'est la page d'accueil.</p>"
-}
-```
-
-*variations/members.json*
-
-```json
-{
-    "titlePage": "Liste des membres",
-    "classPage": "members",
-    "content": "<p>C'est la page des membres.</p>"
-}
 ```
 
 vous aurez accès aux adresses :
@@ -942,6 +942,39 @@ avec les fichiers suivants :
 └─ webconfig.json
 ```
 
+*l10n/landing.json*
+
+```json
+{
+    "titlePage": "Landing",
+    "classPage": "landing",
+    "selectLabel": [
+        "English",
+        "Français"
+    ]
+}
+```
+
+*l10n/en-us/home.json*
+
+```json
+{
+    "titlePage": "Welcome",
+    "classPage": "home",
+    "content": "<p>This is a home page.</p>"
+}
+```
+
+*l10n/fr-fr/home.json*
+
+```json
+{
+    "titlePage": "Bienvenue",
+    "classPage": "home",
+    "content": "<p>C'est la page d'accueil.</p>"
+}
+```
+
 *views/partials/head.htm*
 
 ```html
@@ -988,46 +1021,13 @@ avec les fichiers suivants :
     <?- include("partials/foot.htm") ?>
 ```
 
-*l10n/landing.json*
-
-```json
-{
-    "titlePage": "Landing",
-    "classPage": "landing",
-    "selectLabel": [
-        "English",
-        "Français"
-    ]
-}
-```
-
-*l10n/en-us/home.json*
-
-```json
-{
-    "titlePage": "Welcome",
-    "classPage": "home",
-    "content": "<p>This is a home page.</p>"
-}
-```
-
-*l10n/fr-fr/home.json*
-
-```json
-{
-    "titlePage": "Bienvenue",
-    "classPage": "home",
-    "content": "<p>C'est la page d'accueil.</p>"
-}
-```
-
 vous aurez accès aux adresses :
 
 - *http://localhost/*
 - *http://localhost/home/*
 - *http://localhost/accueil/*
 
-*Note : Par défaut c'est le* `languageCode` *racine qui conditionne la langue d'affichage du site. Cependant, spécifiquement par page on peut changer la langue avec également le* `languageCode`. *Il faut également savoir que dès que le site ou une page à un* `languageCode` *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* `languageCode`.
+*Note : Par défaut c'est le* `languageCode` *racine qui conditionne la langue d'affichage du site. Il est aussi possible de changer la langue avec un* `languageCode` par page. *Il faut également savoir que dès que le site ou une page à un* `languageCode` *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* `languageCode`.
 
 
 #### Utiliser variations et localisations ensemble ####
