@@ -2655,6 +2655,8 @@ NA.socket.on("update-text", function (data) {
 
 Vous pourrez, en ouvrant divers navigateurs, et divers onglet, constaté que tout est bien mis à jour chez tout le monde. Chaque nouvel ongle ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.
 
+*Note : Vous pouvez changer le fichier `node-atlas/socket.io.js` par un fichier fournis par vous-même pour changer la variable `optionsSocket`. Vous pouvez aussi changer la valeur de `NA.optionsSocket` côté client (avant l'insertion de `node-atlas/socket.io.js`) avec un objet d'options personnalisées.*
+
 
 
 #### setModules ####

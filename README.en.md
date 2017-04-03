@@ -2655,6 +2655,8 @@ NA.socket.on("update-text", function (data) {
 
 You will see, opening different browsers and tabs. All is update in all tabs. Each tab open display the connection message and each tab closed display the deconnection message on the server console.
 
+*Note : You can change the `node-atlas/socket.io.js` file by a file provided by you in order to change `optionsSocket` variable. You can also change `NA.optionsSocket` in a front-side file, before inserting of `node-atlas/socket.io.js` with a custom option objet.*
+
 
 
 #### setModules ####
