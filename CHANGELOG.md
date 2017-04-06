@@ -16,6 +16,7 @@ Features:
 - `NA#webconfig.pug` is added.
 - `NA#webconfig.socketClientFile` is added.
 - `NA#webconfig.socketServerOptions` is added.
+- `NA#webconfig.version` added.
 - `NA#locals.routeParameters.enablePug` is added.
 - `NA#controllers[].setSockets` is added for both common and specific controller.
 - `NA#controllers[].changeDom(next(), locals.virtualDom()...` added to directly obtain `$`.
