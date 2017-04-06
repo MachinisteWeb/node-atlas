@@ -5300,6 +5300,63 @@ For test your page with minified files, you can ask it to be regenerated before 
 
 *Note : this is not recommanded for production environment because it's slowed responses pages.*
 
+#### Version into generate file names ####
+
+In order to force the browser to force reload new version of files in cache, it's an interesting feature to be capable to change the name file for each version. And the `{version}` pattern will be replaced by the version number of your website (`0.0.0` by default).
+
+So, if you have a `package.json` or a `webconfig.json` valid file with a version number into the `version` property, this number will replace the `{version}` pattern. With the following webconfig:
+
+*webconfig*
+
+```js
+{
+    "version": "1.0.0",
+    "bundles": "bundles.json"
+    "routes": "routes.json"
+}
+```
+
+and the following bundles:
+
+*bundles.json*
+
+```json
+{
+    "javascripts": {
+        "javascripts/boot.{version}.min.js": [
+            "javascripts/modernizr.js",
+            "javascripts/yepnot.js",
+            "javascripts/html5Shiv.js"
+        ]
+    },
+    "stylesheets": {
+        "stylesheets/common.{version}.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/common-min780.css",
+            "stylesheets/common-min1160.css"
+        ]
+    }
+}
+```
+
+you will get files `assets/javascripts/boot.1.0.0.min.js` and `assets/javascripts/common.1.0.0.min.css`.
+
+And you will be able to request them as following:
+
+_views/*.htm_
+
+```htm
+<!-- ... -->
+
+<link rel="stylesheet" href="stylesheets/common.<?= webconfig.version ?>.min.css">
+
+<!-- ... -->
+
+<script src="javascripts/boot.<?= webconfig.version ?>.min.js"></script>
+
+<!-- ... -->
+```
+
 #### Bundles with Sockets ####
 
 It's possible to minify file defined in `NA.webconfig.socketClientFile` even if it's not a real prysical file. Just add it into bundles of your choice.
@@ -6882,6 +6939,7 @@ Object{
     "urlRelativeSubPath": String<urlpath-from-root>,
     "variation": String<filepath-from-variations>,
     "variationsRelativePath": String<path-from-root>,
+    "version": String<xx.xx.xx>,
     "view": String<filepath-from-views>,
     "viewsRelativePath": String<path-from-root>
 }
@@ -7272,9 +7330,7 @@ With `stopped(callback)`, you could also execute other tasks after server stoppe
 ```javascript
 require("node-atlas")().stopped(function() {
     console.log("Server stopped!");
-}).run({
-    browse: true
-});
+}).start();
 ```
 
 

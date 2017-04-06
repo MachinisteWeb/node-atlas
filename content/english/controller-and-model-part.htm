@@ -394,7 +394,7 @@ NA.socket.on(&quot;update-text&quot;, function (data) {
     content.innerHTML = data.text;
     input.value = data.text;
 });
-</code></pre><p>You will see, opening different browsers and tabs. All is update in all tabs. Each tab open display the connection message and each tab closed display the deconnection message on the server console.</p><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setModules()</code> is a function to <code>exports</code> and provide :</p><ul>
+</code></pre><p>You will see, opening different browsers and tabs. All is update in all tabs. Each tab open display the connection message and each tab closed display the deconnection message on the server console.</p><p><em>Note : You can change the <code>node-atlas/socket.io.js</code> file by a file provided by you in order to change <code>optionsSocket</code> variable. You can also change <code>NA.optionsSocket</code> in a front-side file, before inserting of <code>node-atlas/socket.io.js</code> with a custom option objet.</em></p><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setModules()</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 </ul><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-json">{
     &quot;controller&quot;: &quot;common.js&quot;,

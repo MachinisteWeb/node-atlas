@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1491220921712">
+		<meta name="og:updated_time" content="1491496557522">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta31</h3>
+									<h3>v2.0.0-beta32</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
 								</div>
@@ -363,9 +363,7 @@ websiteFr.run({
 });
 </code></pre><h3 id="na-stopped-callback">&lt;NA&gt;.stopped(callback)</h3><p>With <code>stopped(callback)</code>, you could also execute other tasks after server stopped:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().stopped(function() {
     console.log(&quot;Server stopped!&quot;);
-}).run({
-    browse: true
-});
+}).start();
 </code></pre><h3 id="na-generated-callback">&lt;NA&gt;.generated(callback)</h3><p>With <code>generated(callback)</code>, you could also execute other tasks after assets generation:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
     require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
         console.log(&quot;Documentation generation...&quot;);

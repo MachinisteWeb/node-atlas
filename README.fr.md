@@ -5300,6 +5300,63 @@ De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez
 
 *Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.*
 
+#### Version dans noms de fichiers générés ####
+
+Afin de forcer le navigateur à charger de nouveau vos fichiers en cache il est intéressant de changer leur nom pour chaque version. Ainsi avec l'occurence `{version}` sera remplacé par le numéro de version de votre site actuel (par défaut `0.0.0`).
+
+Ainsi, si vous avez un fichier `package.json` ou un `webconfig.json` valide avec un numéro de version indiqué sous la propriété version, ce numéro remplacera la valeur `{version}`. Ainsi avec le webconfig suivant :
+
+*webconfig*
+
+```js
+{
+    "version": "1.0.0",
+    "bundles": "bundles.json"
+    "routes": "routes.json"
+}
+```
+
+et les bundles suivants :
+
+*bundles.json*
+
+```json
+{
+    "javascripts": {
+        "javascripts/boot.{version}.min.js": [
+            "javascripts/modernizr.js",
+            "javascripts/yepnot.js",
+            "javascripts/html5Shiv.js"
+        ]
+    },
+    "stylesheets": {
+        "stylesheets/common.{version}.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/common-min780.css",
+            "stylesheets/common-min1160.css"
+        ]
+    }
+}
+```
+
+vous obtiendrez les fichiers `assets/javascripts/boot.1.0.0.min.js` et `assets/javascripts/common.1.0.0.min.css`.
+
+que vous pourrez appeler ainsi :
+
+_views/*.htm_
+
+```htm
+<!-- ... -->
+
+<link rel="stylesheet" href="stylesheets/common.<?= webconfig.version ?>.min.css">
+
+<!-- ... -->
+
+<script src="javascripts/boot.<?= webconfig.version ?>.min.js"></script>
+
+<!-- ... -->
+```
+
 #### Bundles avec Sockets ####
 
 Il est possible de minifier le fichier défini par `NA.webconfig.socketClientFile` même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.
@@ -6881,7 +6938,8 @@ Object{
     "urlPort": Number,
     "urlRelativeSubPath": String<urlpath-from-root>,
     "variation": String<filepath-from-variations>,
-    "variationsRelativePath": String<path-from-root>,
+    "variationsRelativePath": String<path-from-root>,,
+    "version": String<xx.xx.xx>,
     "view": String<filepath-from-views>,
     "viewsRelativePath": String<path-from-root>
 }

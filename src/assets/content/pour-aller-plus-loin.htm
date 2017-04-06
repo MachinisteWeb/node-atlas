@@ -655,7 +655,37 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h4 id="bundles-avec-sockets">Bundles avec Sockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.socketClientFile</code> même si celui-ci n&#39;existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.</p><p>Dans l&#39;exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : ceci n&#39;est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h4 id="version-dans-noms-de-fichiers-g-n-r-s">Version dans noms de fichiers générés</h4><p>Afin de forcer le navigateur à charger de nouveau vos fichiers en cache il est intéressant de changer leur nom pour chaque version. Ainsi avec l&#39;occurence <code>{version}</code> sera remplacé par le numéro de version de votre site actuel (par défaut <code>0.0.0</code>).</p><p>Ainsi, si vous avez un fichier <code>package.json</code> ou un <code>webconfig.json</code> valide avec un numéro de version indiqué sous la propriété version, ce numéro remplacera la valeur <code>{version}</code>. Ainsi avec le webconfig suivant :</p><p><em>webconfig</em></p><pre><code class="lang-js">{
+    &quot;version&quot;: &quot;1.0.0&quot;,
+    &quot;bundles&quot;: &quot;bundles.json&quot;
+    &quot;routes&quot;: &quot;routes.json&quot;
+}
+</code></pre><p>et les bundles suivants :</p><p><em>bundles.json</em></p><pre><code class="lang-json">{
+    &quot;javascripts&quot;: {
+        &quot;javascripts/boot.{version}.min.js&quot;: [
+            &quot;javascripts/modernizr.js&quot;,
+            &quot;javascripts/yepnot.js&quot;,
+            &quot;javascripts/html5Shiv.js&quot;
+        ]
+    },
+    &quot;stylesheets&quot;: {
+        &quot;stylesheets/common.{version}.min.css&quot;: [
+            &quot;stylesheets/common.css&quot;,
+            &quot;stylesheets/common-min780.css&quot;,
+            &quot;stylesheets/common-min1160.css&quot;
+        ]
+    }
+}
+</code></pre><p>vous obtiendrez les fichiers <code>assets/javascripts/boot.1.0.0.min.js</code> et <code>assets/javascripts/common.1.0.0.min.css</code>.</p><p>que vous pourrez appeler ainsi :</p><p><em>views/*.htm</em></p><pre><code class="lang-htm">&lt;!-- ... --&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.&lt;?= webconfig.version ?&gt;.min.css&quot;&gt;
+
+&lt;!-- ... --&gt;
+
+&lt;script src=&quot;javascripts/boot.&lt;?= webconfig.version ?&gt;.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- ... --&gt;
+</code></pre><h4 id="bundles-avec-sockets">Bundles avec Sockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.socketClientFile</code> même si celui-ci n&#39;existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.</p><p>Dans l&#39;exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.</p><pre><code class="lang-json">{
     &quot;bundles&quot;: {
         &quot;javascripts&quot;: {
             &quot;javascripts/common.min.js&quot;: [
