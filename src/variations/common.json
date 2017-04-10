@@ -4,6 +4,8 @@
 	"noJs": "Le JavaScript n'est pas activé.",
 	"follow": "Suivre",
 	"close": "Fermer",
+	"chat": "NodeAtlas/Aide",
+	"chatLabel": "Chat d'Aide",
 	"titlePre": {
 		"alt": "Node",
 		"src": "media/images/min/ode.png"

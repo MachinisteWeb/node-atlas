@@ -16,7 +16,7 @@ NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https:
 
    > Exemple : [Pages, Componants and Web Interface](https://www.lesieur.name/test-case-atlas/) or official NodeAtlas website.
 
-- Create and maintain and run internationalized wesites without use a single JavaScript file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
+- Create and maintain and run internationalized wesites without use a single JavaScript server file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
    
    > Exemple : [Simple Web Page](http://bruno.lesieur.name/)
 
@@ -35,12 +35,12 @@ Starting with a single HTML page,
 - then create other pages,
 - then internationalize them,
 - then minify/obfuscate/optimized your sources,
-- then use preprocessor like Stylus, Less or Pug easily,
-- then use files for drive back-end part with code,
-- then use [Socket.io](http://socket.io/) for real time,
+- then use preprocessor like [Stylus](http://stylus-lang.com/), [Less](http://lesscss.org/) or [PUG](https://pugjs.org/api/getting-started.html) easily,
+- then use files for drive back-end part with code with hooks and [Express.js](http://expressjs.com/),
+- then use [Socket.io](http://socket.io/) for server-side reactivity and real-time exchanges,
 - then connect you to [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
-- then be component-based with [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas)
-- then be service-oriented with projects like [ApiAtlas](https://github.com/Haeresis/ApiAtlas),
+- then use [Vue](https://www.vuejs.org/) or [React](https://facebook.github.io/react/) for isomorphism and client-side reactivity,
+- then be component-based and/or service-oriented with projects like [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas) and/or [ApiAtlas](https://github.com/Haeresis/ApiAtlas),
 - then let your customer edit website itself with [EditAtlas](https://github.com/Haeresis/EditAtlas)
 - then create plugins,
 - then...
@@ -7875,12 +7875,15 @@ NodeAtlas is made of such a way that the instanciate object contains all the fun
 
 ### NodeAtlas VS Others ###
 
-|               | Type                               | Top Features                            | Suitable For                                       | Pure Node runtime | Extensions                                        | Data sources                                                                                                | Main support language |
-|---------------|------------------------------------|-----------------------------------------|----------------------------------------------------|-------------------|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------|-----------------------|
-| **NodeAtlas** | Web **MVC(2)** framework           | Simplicity, **Evolutivity**, Modularity | **Web sites**, Web apps, REST APIs, **Templating** | Yes               | **Atlas plugin**, NPM module, Express middleware  | **Builtin**: In-memory /file (JSON), REST. **External**: NPM (NoSQL, SQL, others)                           | **French**            |
-| Express       | HTTP server library                | HTTP routing, middleware                | Simple web apps                                    | Yes               | Express middleware                                |                                                                                                             | English               |
-| Hapi          | HTTP server framework              | Modularity, security                    | Web apps, APIs                                     | Yes               | Hapi Plugins                                      |                                                                                                             | English               |
-| Sails         | Web MVC framework                  | Rails familiarity, MVC                  | Web apps, APIs                                     | Yes               |                                                   | In-memory, File, PostgreSQL, MySQL, MongoDB                                                                 | English               |
-| Restify       | REST HTTP library                  | Simplicity, REST routing                | Simple REST APIs                                   | Yes               |                                                   |                                                                                                             | English               |
-| LoopBack      | API framework                      | Enterprise connectivity                 | Web apps, APIs                                     | Yes               |                                                   | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP                                                           | English               |
-| Meteor        | Full-stack JavaScript app platform | Framework Front-end et Back-end         | Web apps                                           | No                | Meteor package and repository, NPM module         | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                 | English               |
+|               | Type                               | Top Features                            | Suitable For                                  | Pure Node runtime | Front-end part | Main support language |
+|---------------|------------------------------------|-----------------------------------------|-----------------------------------------------|-------------------|----------------|-----------------------|
+| **NodeAtlas** | **MVC(2)** Web Framework           | Simplicity, **Evolutivity**, Modularity | **Web sites/apps**, REST APIs, **Templating** | Yes               | Free           | **French**            |
+| Express       | HTTP Server Library                | HTTP routing, middleware                | Simple web apps                               | Yes               | No             | English               |
+| Hapi          | HTTP Server Framework              | Modularity, security                    | Web apps, APIs                                | Yes               | Free           | English               |
+| LoopBack      | API Framework                      | Enterprise connectivity                 | Web apps, APIs                                | Yes               | Free           | English               |
+| Meteor        | Full-stack JavaScript App Platform | Framework Front-end et Back-end         | Web apps                                      | No                | Meteor         | English               |
+| Next          | Renderer Server Framework          | React renderer ready to use             | Web apps                                      | Yes               | React          | English               |
+| Nuxt          | Renderer Server Framework          | Vue renderer ready to use               | Web apps                                      | Yes               | Vue            | English               |
+| Restify       | HTTP Library                       | Simplicity, REST routing                | Simple REST APIs                              | Yes               | No             | English               |
+| Sails         | MVC Web Framework                  | Rails familiarity                       | Web apps, APIs                                | Yes               | Free           | English               |
+| Total         | MVC Web Framework                  | Django familiarity                      | Web apps, APIs                                | Yes               | jComponent     | English               |

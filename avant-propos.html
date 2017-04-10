@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1491496553992">
+		<meta name="og:updated_time" content="1491840386090">
 
 		<meta name="robots" content="index, follow">
 
@@ -316,7 +316,7 @@ website.init({
 <p>Exemple : <a href="https://www.lesieur.name/test-case-atlas/">Pages, Composants et Documentation d&#39;interface web</a> ou le site officiel NodeAtlas.</p>
 </blockquote>
 </li>
-<li><p>Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.</p>
+<li><p>Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.</p>
 <blockquote>
 <p>Exemple : <a href="http://bruno.lesieur.name/">Simple page web</a></p>
 </blockquote>
@@ -330,12 +330,12 @@ website.init({
 <li>puis créez d&#39;autres pages,</li>
 <li>puis internationalisez les,</li>
 <li>puis minifiez/offusquez/compressez vos sources,</li>
-<li>puis utiliser des préprocesseurs comme Stylus, Less ou/et Pug simplement,</li>
-<li>puis prenez la main sur la logique serveur,</li>
-<li>puis rendez tout ça temps réel avec <a href="http://socket.io/">Socket.io</a>,</li>
+<li>puis utiliser des préprocesseurs comme <a href="http://stylus-lang.com/">Stylus</a>, <a href="http://lesscss.org/">Less</a> ou/et <a href="https://pugjs.org/api/getting-started.html">PUG</a> simplement,</li>
+<li>puis prenez la main sur la logique serveur avec les points d&#39;ancrage et <a href="http://expressjs.com/">Express.js</a>,</li>
+<li>puis soyez temps réel et réactif côté serveur grâce à <a href="http://socket.io/">Socket.io</a>,</li>
 <li>puis connectez vous à <a href="https://www.mysql.fr/">MySQL</a>, <a href="https://www.mongodb.org/">MongoDB</a>, <a href="https://www.elastic.co/">ElasticSearch</a>...,</li>
-<li>puis soyez orienté composant avec <a href="https://github.com/Haeresis/ComponentAtlas">ComponentAtlas</a>,</li>
-<li>puis soyez orienté services grâce à des projets comme <a href="https://github.com/Haeresis/ApiAtlas">ApiAtlas</a>,</li>
+<li>puis soyez isomorphique et réactif côté client grâce à <a href="https://fr.vuejs.org/">Vue</a> ou <a href="https://facebook.github.io/react/">React</a>,</li>
+<li>puis soyez orienté composants et/ou services grâce à des projets comme <a href="https://github.com/Haeresis/ComponentAtlas">ComponentAtlas</a> et/ou <a href="https://github.com/Haeresis/ApiAtlas">ApiAtlas</a>,</li>
 <li>puis laissez votre client éditer son site avec <a href="https://github.com/Haeresis/EditAtlas">EditAtlas</a>,</li>
 <li>puis créer des plugins,</li>
 <li>puis...</li>
@@ -365,7 +365,7 @@ website.init({
 		</div>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 		
-		<script src="javascripts/common.min.js"></script>
+		<script id="channel" data-channel="NodeAtlas/Aide" data-label="Chat d&#39;Aide" src="javascripts/common.min.js"></script>
 		
 		<script src="https://buttons.github.io/buttons.js"></script>
 	</body>

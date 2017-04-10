@@ -59,7 +59,6 @@ a.button
 	        transition opacity 3s ease
 	font-family "lato"
 	font-size 1.5rem
-	font-weight bold
 	box-shadow 1px 1px 2px rgba(255, 255, 255, 0.6), -1px 1px 2px rgba(255, 255, 255, 0.6), 1px -1px 2px rgba(255, 255, 255, 0.6), -1px -1px 2px rgba(255, 255, 255, 0.6)
 	padding 0.75em 2em
 	border-radius 2em
@@ -86,3 +85,30 @@ blockquote
 	position relative
 	border-bottom-right-radius 4px
 	border-top-right-radius 4px
+	
+.gitter-chat-embed
+	border-left 1px solid #3e863d
+	
+.gitter-open-chat-button
+	opacity 0
+	-webkit-transition opacity 1s ease 
+	-moz-transition opacity 1s ease 
+	-ms-transition opacity 1s ease 
+	-o-transition opacity 1s ease
+	-webkit-transition-delay 5s 
+	-moz-transition-delay 5s 
+	-ms-transition-delay 5s 
+	-o-transition-delay 5s 
+	transition-delay 5s 
+	text-transform none
+	background-color #3e863d;
+	right: 0;
+	border-top-right-radius 0
+	padding: 0.95em 3em;
+	@media (max-width 499px)
+		padding .5em 
+	&:hover
+		color #3e863d;
+		background-color #fff
+	&.is-displayed
+		opacity 1

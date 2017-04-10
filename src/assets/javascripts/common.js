@@ -224,6 +224,28 @@ website.component = website.component || {};
         ga('send', 'pageview');
     };
 
+    publics.chat = function () {
+        var script = document.createElement("script");
+        window.gitter = {
+            chat: {
+                options: {
+                    room: document.getElementById("channel").getAttribute('data-channel')
+                }
+            }
+        };
+        script.src = "https://sidecar.gitter.im/dist/sidecar.v1.js";
+        document.body.appendChild(script);
+        (function changeOpenChat() {
+            var name = document.getElementsByClassName("gitter-open-chat-button")[0];
+            if (name) {
+                name.innerHTML = document.getElementById("channel").getAttribute('data-label');
+                name.classList.add("is-displayed");
+            } else {
+                setTimeout(changeOpenChat, 200);
+            }
+        }());
+    };
+
     publics.init = function () {
         var links = website.allInternalLink(".navigation--home a, .navigation--menu a, .content--inner a"),
             fragmentPath = document.body.getAttribute("data-content"),
@@ -241,7 +263,9 @@ website.component = website.component || {};
         (new website.component.Header()).init();
         (new website.component.Download()).init();
         (new website.component.Navigation()).init();
-        (new website.component.Content()).init(links, fragmentPath, urlRelativeSubPath);       
+        (new website.component.Content()).init(links, fragmentPath, urlRelativeSubPath);
+
+        website.chat();    
     };
 }(website));
 

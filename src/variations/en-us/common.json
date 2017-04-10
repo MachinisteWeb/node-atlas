@@ -4,6 +4,8 @@
 	"follow": "Follow",
 	"noJs": "No JavaScript enabled.",
 	"close": "Close",
+	"chat": "NodeAtlas/Help",
+	"chatLabel": "Help Chat",
 	"titlePre": {
 		"alt": "Node",
 		"src": "media/images/min/ode.png"
