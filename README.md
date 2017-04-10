@@ -13,7 +13,7 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
 ## NodeAtlas c'est : ##
 
 - La porte d'entrée aux Développeurs Front-end dans le monde de [Node.js](https://nodejs.org/en/).
-- Du tout JavaScript ; pour les débutants venant du monde PHP, .NET, Ruby, Java ou pour les experts JS.
+- Du tout JavaScript ; pour les débutants venant des mondes PHP (Laravel) / Ruby (Rails) / Python (Django) / .NET / Java ou pour les experts JS.
 - De l'évolutivité avec :
    - des vues sans se préoccuper des contrôleurs,
    - la prise en main progressive de contrôleurs et points d'ancrage,
@@ -21,6 +21,7 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
    - la puissance d'Express.js (serveur web) et Socket.io (échange client-serveur temps réel) pré-configuré, simple et ajustable,
    - les préprocesseurs EJS, PUG (JADE), Less et Stylus embarqués et prêt à l'emploi,
    - des outils interne de génération HTML sans serveur ou d'empaquetage, minifications, offuscations, optimisations de CSS, JS et images,
+   - des parties cliente/serveur adaptables pour de l'isomorphisme et du rendu côté serveur avec des outils de votre choix comme Vue ou React,
    - ou encore ; de la manipulation de DOM côté serveur, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
 - De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API REST,
 - Tous les modules NPM, middleware Express.js/Socket.io, des plugins utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud).

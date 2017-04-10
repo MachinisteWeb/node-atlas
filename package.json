@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta32",
+  "version": "2.0.0-beta33",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -13,16 +13,20 @@
   "private": false,
   "contributors": [
     {
+      "name": "Alban Allée",
+      "email": "alban.kahl@gmail.com"
+    },
+    {
       "name": "Jérôme Macé",
       "email": "jerome.mace@hybris.fr"
     },
     {
-      "name": "Tommy Pater",
-      "email": "syals@eringan.fr"
-    },
-    {
       "name": "Pierre Ammeloot",
       "email": "pierre@ammeloot.fr"
+    },
+    {
+      "name": "Tommy Pater",
+      "email": "syals@eringan.fr"
     }
   ],
   "bin": {
@@ -44,6 +48,7 @@
     "web framework",
     "web application",
     "mvc2",
+    "isomorphism",
     "website",
     "webapp",
     "api",
