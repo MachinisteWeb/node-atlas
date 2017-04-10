@@ -4,7 +4,7 @@
 		"description": "Vue + NodeAtlas presentation website"
 	},
 	"home": {	
-		"title": "Vue + NodeAtlas",
+		"title": "Vue + NodeAtlas<br>Isomorphism + Server-side Rendering",
 		"content": "<p>You can navigate between pages with Vue.<br/>But if you see the source code of each page,<br>you could see which page is server side renderer!</p>"
 	}
 }

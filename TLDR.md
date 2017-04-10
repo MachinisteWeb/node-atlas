@@ -13,7 +13,7 @@
 ## NodeAtlas it's : ##
 
 - The starting point for Front-end Developers into Node.js ecosystem.
-- Pure JavaScript ; for beginners come from PHP, .NET, Ruby, Java or for JS experts.
+- Pure JavaScript ; for beginners come from PHP (Laravel) / Ruby (Rails) / Python (Django) / .NET or Java or for JS experts.
 - A progressive system with:
    - view-only system without care of controller,
    - scalable control of controllers and hooks,
@@ -21,6 +21,7 @@
    - Express.js (web server) and Socket.io (client-serveur realtime connection) already configured together, easy to use and extendable,
    - EJS, PUG (JADE), Less and Stylus preprocessors ready to use,
    - internal tools for HTML Mockups Serverless or bundles, minifications, offuscation, optimizations of CSS, JS and images,
+   - isomorphism and server-side rendering with tools of your choice like Vue or React,
    - and more like DOM server manipulation, back-end code debbugable into browser, easy HTTPs to setup.
 - Combinaison of severals NodeAtlas instances for service-oriented architecture like usage as API REST,
 - All NPM modules, Express.js/Socket.io middleware, plugins usable (sessions, SQL/NoSQL databases, load balancing, proxy, hotreaload).
