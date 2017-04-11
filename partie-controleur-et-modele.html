@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1491840386144">
+		<meta name="og:updated_time" content="1491924022675">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta32</h3>
+									<h3>v2.0.0-beta33</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
 								</div>
@@ -640,7 +640,8 @@ exports.changeDom = function (next, locals, request, response) {
 │     └─ index.js
 ├─ controllers/
 │  ├─ common.js
-│  └─ index.js
+│  ├─ index.js
+│  └─ test.js
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
@@ -657,10 +658,24 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;/div&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;node-atlas/socket.io.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/test.js&quot;&gt;&lt;/script&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : Si</em> <code>socketClientFile</code> <em>et</em> <code>socketServerOptions</code> <em>ne sont pas présent dans <code>webconfig.json</code>, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien</em> <code>/node-atlas/socket.io.js</code> <em>et</em> <code>{ transports: [&#39;polling&#39;, &#39;websocket&#39;] }</code>. <em>Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
+</code></pre><p><em>Note : Si</em> <code>socketClientFile</code> <em>et</em> <code>socketServerOptions</code> <em>ne sont pas présent dans <code>webconfig.json</code>, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien</em> <code>/node-atlas/socket.io.js</code> <em>et</em> <code>{ transports: [&#39;polling&#39;, &#39;websocket&#39;] }</code>. <em>Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
+    if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
+        module.exports = factory;
+    } else {
+        expose.Test = factory;
+    }
+}(this, function () {
+    if (NA.isClient) {
+        console.log(&quot;Client&quot;);
+    } else {
+        console.log(&quot;Serveur&quot;);
+    }
+}));
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d&#39;envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -677,7 +692,10 @@ exports.setSockets = function () {
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
+        path = NA.modules.path,
         io = NA.io;
+
+    require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, &quot;javascripts/test.js&quot;))(); // display `Serveur`
 
     // Attendre un lien valide entre client et serveur
     io.sockets.on(&quot;connection&quot;, function (socket) {
@@ -692,6 +710,8 @@ exports.setSockets = function () {
 };
 </code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
     input = document.getElementsByClassName(&quot;input&quot;)[0];
+
+Test(); // display `Client`
 
 // On alerte les autres de nos modifications.
 input.addEventListener(&quot;keyup&quot;, function () {

@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1491840389609">
+		<meta name="og:updated_time" content="1491924026629">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta32</h3>
+									<h3>v2.0.0-beta33</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
 								</div>
@@ -635,12 +635,13 @@ exports.changeDom = function (next, locals, request, response) {
         }
     }
 }
-</code></pre><p>with this files :</p><pre><code>├─ assets/
+</code></pre><p>with this files:</p><pre><code>├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
 │  ├─ common.js
-│  └─ index.js
+│  ├─ index.js
+│  └─ test.js
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
@@ -657,10 +658,24 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;/div&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;node-atlas/socket.io.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/test.js&quot;&gt;&lt;/script&gt;
         &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : If</em> <code>socketClientFile</code> <em>and</em> <code>socketServerOptions</code> <em>are not present in <code>webconfig.json</code>, default client file and server options for sockets for config sockets are</em> <code>/node-atlas/socket.io.js</code> <em>and</em> <code>{ transports: [&#39;polling&#39;, &#39;websocket&#39;] }</code>. <code>socketClientFile</code>. <em>They are useful only to change the name of file or the sockets transports alloweds. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+</code></pre><p><em>Note : If</em> <code>socketClientFile</code> <em>and</em> <code>socketServerOptions</code> <em>are not present in <code>webconfig.json</code>, default client file and server options for sockets for config sockets are</em> <code>/node-atlas/socket.io.js</code> <em>and</em> <code>{ transports: [&#39;polling&#39;, &#39;websocket&#39;] }</code>. <code>socketClientFile</code>. <em>They are useful only to change the name of file or the sockets transports alloweds. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
+    if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
+        module.exports = factory;
+    } else {
+        expose.Test = factory;
+    }
+}(this, function () {
+    if (NA.isClient) {
+        console.log(&quot;Client&quot;);
+    } else {
+        console.log(&quot;Server&quot;);
+    }
+}));
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
     var NA = this,
@@ -677,7 +692,10 @@ exports.setSockets = function () {
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
     var NA = this,
+        path = NA.modules.path,
         io = NA.io;
+
+    require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, &quot;javascripts/test.js&quot;))(); // display `Server`
 
     // Wait for a valid connection between client and servere.
     io.sockets.on(&quot;connection&quot;, function (socket) {
@@ -692,6 +710,8 @@ exports.setSockets = function () {
 };
 </code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName(&quot;content&quot;)[0],
     input = document.getElementsByClassName(&quot;input&quot;)[0];
+
+Test(); // display `Client`
 
 // We say to others we just change text.
 input.addEventListener(&quot;keyup&quot;, function () {

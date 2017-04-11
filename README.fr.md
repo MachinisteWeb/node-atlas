@@ -2561,7 +2561,8 @@ avec cet ensemble de fichier :
 │     └─ index.js
 ├─ controllers/
 │  ├─ common.js
-│  └─ index.js
+│  ├─ index.js
+│  └─ test.js
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
@@ -2585,12 +2586,31 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 		</div>
         <script type="text/javascript" src="socket.io/socket.io.js"></script>
         <script type="text/javascript" src="node-atlas/socket.io.js"></script>
+        <script type="text/javascript" src="javascripts/test.js"></script>
         <script type="text/javascript" src="javascripts/index.js"></script>
     </body>
 </html>
 ```
 
 *Note : Si* `socketClientFile` *et* `socketServerOptions` *ne sont pas présent dans `webconfig.json`, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien* `/node-atlas/socket.io.js` *et* `{ transports: ['polling', 'websocket'] }`. *Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez `socketClientFile` à `false`, le fichier client ne sera pas accessible.*
+
+*assets/javascripts/test.js*
+
+```js
+(function (expose, factory) {
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = factory;
+    } else {
+        expose.Test = factory;
+    }
+}(this, function () {
+    if (NA.isClient) {
+        console.log("Client");
+    } else {
+        console.log("Serveur");
+    }
+}));
+```
 
 *controllers/common.js*
 
@@ -2617,7 +2637,10 @@ exports.setSockets = function () {
 // Ce code sera exécuté pour toute entrée Websocket entrante.
 exports.setSockets = function () {
     var NA = this,
+        path = NA.modules.path,
         io = NA.io;
+
+    require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // display `Serveur`
 
     // Attendre un lien valide entre client et serveur
     io.sockets.on("connection", function (socket) {
@@ -2637,6 +2660,8 @@ exports.setSockets = function () {
 ```js
 var content = document.getElementsByClassName("content")[0],
     input = document.getElementsByClassName("input")[0];
+
+Test(); // display `Client`
 
 // On alerte les autres de nos modifications.
 input.addEventListener("keyup", function () {

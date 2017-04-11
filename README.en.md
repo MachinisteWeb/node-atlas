@@ -2553,7 +2553,7 @@ This is an example using the two hooks, the common in first and after the specif
 }
 ```
 
-with this files :
+with this files:
 
 ```
 ├─ assets/
@@ -2561,7 +2561,8 @@ with this files :
 │     └─ index.js
 ├─ controllers/
 │  ├─ common.js
-│  └─ index.js
+│  ├─ index.js
+│  └─ test.js
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
@@ -2585,12 +2586,31 @@ Do a request on `http://localhost/` will use the following files (and others fil
         </div>
         <script type="text/javascript" src="socket.io/socket.io.js"></script>
         <script type="text/javascript" src="node-atlas/socket.io.js"></script>
+        <script type="text/javascript" src="javascripts/test.js"></script>
         <script type="text/javascript" src="javascripts/index.js"></script>
     </body>
 </html>
 ```
 
 *Note : If* `socketClientFile` *and* `socketServerOptions` *are not present in `webconfig.json`, default client file and server options for sockets for config sockets are* `/node-atlas/socket.io.js` *and* `{ transports: ['polling', 'websocket'] }`. `socketClientFile`. *They are useful only to change the name of file or the sockets transports alloweds. If you set `socketClientFile` to `false`, the client file will be not adding on accessible routes.*
+
+*assets/javascripts/test.js*
+
+```js
+(function (expose, factory) {
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = factory;
+    } else {
+        expose.Test = factory;
+    }
+}(this, function () {
+	if (NA.isClient) {
+	    console.log("Client");
+	} else {
+	    console.log("Server");
+	}
+}));
+```
 
 *controllers/common.js*
 
@@ -2617,7 +2637,10 @@ exports.setSockets = function () {
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
     var NA = this,
+    	path = NA.modules.path,
         io = NA.io;
+
+    require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // display `Server`
 
     // Wait for a valid connection between client and servere.
     io.sockets.on("connection", function (socket) {
@@ -2637,6 +2660,8 @@ exports.setSockets = function () {
 ```js
 var content = document.getElementsByClassName("content")[0],
     input = document.getElementsByClassName("input")[0];
+
+Test(); // display `Client`
 
 // We say to others we just change text.
 input.addEventListener("keyup", function () {
