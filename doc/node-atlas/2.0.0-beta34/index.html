@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>node-atlas 2.0.0-beta34</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>NodeAtlas API</h1><p><strong>Vous êtes français ? <a href="#version-francaise">Le document vous sera peut-être plus agréable plus bas</a>.</strong></p>
+<h3>Overview</h3><p>NodeAtlas is a NPM module (<code>node-atlas</code>) which have dependencies for work. To understand how use this module, this API documentation is avaiable, and we will see how to use it below.</p>
+<h3>The Module</h3><p>NodeAtlas is a NPM module (<code>node-atlas</code>) which have dependencies for work. <a href="./module-node-atlas.html/">All dependencies used by it are listed here</a>. For each module, an explaination is avaiable. This is for example <a href="./NA_modules.external_express.html">express</a> module explaination, <a href="./NA_modules.external_socketio.html">socket.io</a> module explaination or <a href="./NA_modules.external_ejs.html">ejs</a> module explaination. You can see all modules in <code>Modules</code> and <code>Externals</code> section.</p>
+<h4>The Classe</h4><p>The <code>node-atlas</code> module provide the <code>NA</code> object.</p>
+<pre class="prettyprint source lang-bash"><code>var NA = require(&quot;node-atlas&quot;)</code></pre><p>The <code>NA</code> object is a class because it is instanciable.</p>
+<pre class="prettyprint source lang-bash"><code>var website = new NA(); // or var website = NA(); // or var website = require(&quot;node-atlas&quot;)();</code></pre><p>You will find <a href="./NA.html">all avaiable publics, privates and inners functions here</a>.</p>
+<p>You can see all classes in <code>Classes</code> section.</p>
+<h4>Namespaces</h4><p>The <code>NA</code> instance have many namespaces whose <code>NA#weconfig</code> that contain all root features of <code>weconfig.json</code> or also <code>NA#modules</code> that contain all NPM modules used by <code>NA</code> and already required. You can see all namespaces in <code>Namespaces</code> section.</p>
+<h4>Encapsulations</h4><p>There is severals level of accessibility for NodeAtlas attributes and objects.</p>
+<p><strong>Outer Public</strong></p>
+<p>These are all functions avaiable as soon as <code>new NodeAtlas()</code> instance is create. These are the following :</p>
+<ul>
+<li><a href="./NA.html#start">start()</a></li>
+<li><a href="./NA.html#init">init(options)</a></li>
+<li><a href="./NA.html#run">run(options)</a></li>
+<li><a href="./NA.html#started">started(callback)</a></li>
+<li><a href="./NA.html#stopped">stopped(callback)</a></li>
+<li><a href="./NA.html#generated">generated(callback)</a></li>
+<li><a href="./NA.html#created">created(callback)</a></li>
+</ul>
+<p><strong>Inner Public</strong></p>
+<p>These are all functions avaiable in <a href="./NA_controllers%255B%255D.html">NodeAtlas Controllers Hooks</a>.</p>
+<p><strong>Outer Private</strong></p>
+<p>These are all functions which have not purpose to be used but which are re-writable if you want. The prefix used for them is <code>(private)</code> in the documentation.</p>
+<p><strong>Inner Private</strong></p>
+<p>These are all functions which are not accessible from outside but used in the <code>NA</code> classe. The prefix used for them is <code>(private, inner)</code> in the documentation.</p>
+<hr>
+<div id="version-francaise"></div>
+
+<h2>Version Française</h2><h3>Avant-propos</h3><p>NodeAtlas est un module NPM qui repose lui-même sur divers module NPM. Afin de bien comprendre comment exploiter ce module, cette documentation de l'API est a disposition, et nous allons voir ci-après comment l'utiliser.</p>
+<h3>Le Module</h3><p>NodeAtlas est un module NPM (<code>node-atlas</code>) qui a des dépendances pour fonctionner. <a href="./module-node-atlas.html/">L'intégralité des dépendances utilisés est listés ici</a>. Pour chaque module, une explication est disponible. Voici par exemple celle des modules <a href="./NA_modules.external_express.html">express</a>, <a href="./NA_modules.external_socketio.html">socket.io</a> ou <a href="./NA_modules.external_ejs.html">ejs</a>. Vous pourrez consulter ces modules dans les sections <code>Modules</code> et <code>Externals</code>.</p>
+<h4>La Classe</h4><p>Le module <code>node-atlas</code> délivre l'objet <code>NA</code>.</p>
+<pre class="prettyprint source lang-bash"><code>var NA = require(&quot;node-atlas&quot;)</code></pre><p>L'objet <code>NA</code> est une classe car il est fait pour être instancé.</p>
+<pre class="prettyprint source lang-bash"><code>var website = new NA(); // ou var website = NA(); // ou var website = require(&quot;node-atlas&quot;)();</code></pre><p>Vous trouverez l'<a href="./NA.html">intégralité des fonctions disponible de manière publique, privés et interne et privés ici</a>.</p>
+<p>Vous pourrez consulter cette classe dans la section <code>Classes</code>.</p>
+<h4>Les Namespaces</h4><p>L'instance de <code>NA</code> possède plusieurs namespaces dont <code>NA#weconfig</code> contenant l'intégralité des fonctionalités racine du <code>weconfig.json</code> ou encore <code>NA#modules</code> contenant l'intégralité des modules NPM dont <code>NA</code> dépend déjà inclus. Vous pourrez consulter ces namespaces dans la section <code>Namespaces</code>.</p>
+<h4>Les encapsulations</h4><p>Il y a plusieurs niveaux de visibilité pour les attributs et objets de NodeAtlas.</p>
+<p><strong>Publique externe</strong></p>
+<p>Ce sont toutes les fonctions disponibles dès la création de <code>new NodeAtlas()</code>. Ce sont les suivantes :</p>
+<ul>
+<li><a href="./NA.html#start">start()</a></li>
+<li><a href="./NA.html#init">init(options)</a></li>
+<li><a href="./NA.html#run">run(options)</a></li>
+<li><a href="./NA.html#started">started(callback)</a></li>
+<li><a href="./NA.html#stopped">stopped(callback)</a></li>
+<li><a href="./NA.html#generated">generated(callback)</a></li>
+<li><a href="./NA.html#created">created(callback)</a></li>
+</ul>
+<p><strong>Publique interne</strong></p>
+<p>Ce sont toutes les fonctions disponibles dans <a href="./NA_controllers%255B%255D.html">les points d'encrage des contrôleurs de NodeAtlas</a>.</p>
+<p><strong>Privée externe</strong></p>
+<p>Ce sont toutes les fonctions qui n'ont pas pour but d'être utilisée mais qui sont redéfinissable au besoin. Elles sont préfixé par <code>(private)</code> dans la documentation.</p>
+<p><strong>Privée interne</strong></p>
+<p>Ce sont toutes les fonctions qui sont inaccessible à part dans le code source de NodeAtlas. Elles sont préfixé par <code>(private, inner)</code> dans la documentation.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_locals.html#.routeParameters">routeParameters</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Apr 11 2017 17:23:47 GMT+0200 (Paris, Madrid (heure d’été))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
