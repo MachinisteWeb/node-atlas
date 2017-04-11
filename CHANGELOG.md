@@ -33,6 +33,8 @@ Features:
 - `NA#locals.routeParameters.middlewares` added.
 - `NA#assetsCopy` added.
 - `NA#stopped` added.
+- `global.NA` embty object added for isomorphic code.
+- `NA.isClient = true` added into `node-atlas/socket.io.js` for isomorphic code.
 - `serverRelativePath` folder is created if is not exist.
 - Language `portRequiresPrivileges` is added.
 

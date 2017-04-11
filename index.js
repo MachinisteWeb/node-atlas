@@ -42,6 +42,9 @@
 
 var NA = require("./bin/node-atlas.js");
 
+/* Expose the NA object for isomorphism */
+global.NA = {};
+
 /* Run script with CLI. */
 if (require.main === module) {
 	(new NA()).start();
