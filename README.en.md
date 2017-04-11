@@ -14,7 +14,7 @@ NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https:
 
 - Create, maintain and document a set of assets HTML / CSS / JavaScript as user interfaces to provide solid guidelines for the realization of website or webapp (i.e. for brands).
 
-   > Exemple : [Pages, Componants and Web Interface](https://www.lesieur.name/test-case-atlas/) or official NodeAtlas website.
+   > Exemple : [Pages, Componants and Web Interface](https://www.lesieur.name/doc-atlas/) or official NodeAtlas website.
 
 - Create and maintain and run internationalized wesites without use a single JavaScript server file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
    

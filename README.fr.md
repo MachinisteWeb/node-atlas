@@ -14,7 +14,7 @@ NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de [modul
 
 - Créer, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour créer un ensemble de livrables clients cohérants afin de les fournirs en tant que guide de style pour la réalisation de divers sites ou applications web.
    
-   > Exemple : [Pages, Composants et Documentation d'interface web](https://www.lesieur.name/test-case-atlas/) ou le site officiel NodeAtlas.
+   > Exemple : [Pages, Composants et Documentation d'interface web](https://www.lesieur.name/doc-atlas/) ou le site officiel NodeAtlas.
 
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
    
