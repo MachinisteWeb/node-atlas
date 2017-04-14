@@ -15,7 +15,7 @@
 		<!--[if IE]><meta name="viewport" content="width=device-width" /><![endif]-->
 		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0" /><!--<![endif]-->
 		<? if (webconfig._min) { ?>
-		<link rel="stylesheet" href="stylesheets/common.min.css">
+		<link rel="stylesheet" href="stylesheets/common.<?= webconfig.version ?>.min.css">
 		<? } else { ?>
 		<link rel="stylesheet" href="stylesheets/common.css">
 		<? } ?>
@@ -23,14 +23,14 @@
 	<body>
 		<div class="layout"></div>
 		<? if (webconfig._min) { ?>
-		<script src="javascripts/framework.min.js" data-main="javascripts/main.min.js" id="systemjs"></script>
+		<script src="javascripts/framework.<?= webconfig.version ?>.min.js" data-main="javascripts/common.<?= webconfig.version ?>.min.js" id="systemjs"></script>
 		<? } else { ?>
 		<script src="socket.io/socket.io.js"></script>
 		<script src="node-atlas/socket.io.js"></script>
-		<script src="javascripts/system.min.js"></script>
-		<script src="javascripts/vue.js"></script>
-		<script src="javascripts/vue.router.js"></script>
-		<script src="javascripts/common.js" data-main="javascripts/main.js" id="systemjs"></script>
+		<script src="javascripts/vendor/system.js"></script>
+		<script src="javascripts/vendor/vue.js"></script>
+		<script src="javascripts/vendor/vue.router.js"></script>
+		<script src="javascripts/boot.js" data-main="javascripts/common.js" id="systemjs"></script>
 		<? } ?>
 	</body>
 </html>

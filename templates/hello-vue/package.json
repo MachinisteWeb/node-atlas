@@ -1,13 +1,9 @@
 {
   "dependencies": {
-    "node-atlas": "2.0.0-beta22",
-    "vue": "2.2.3",
-    "vue-server-renderer": "2.2.3",
-    "vue-router": "2.3.0"
-  },
-  "devDependencies": {
-    "browser-sync": "2.18.x",
-    "gulp": "3.9.x",
-    "gulp-nodemon": "2.2.x"
+    "vue": "2.2.x",
+    "vue-server-renderer": "2.2.x",
+    "vue-router": "2.3.x",
+    "systemjs": "0.20.x",
+    "traceur": "0.0.x"
   }
 }

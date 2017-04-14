@@ -9,7 +9,8 @@ exports.changeDom = function (next, locals, request, response) {
 		path = NA.modules.path,
 		view = path.join(NA.serverPath, NA.webconfig.viewsRelativePath, locals.routeParameters.view + ".htm"),
 		model = path.join(NA.serverPath, NA.webconfig.viewsRelativePath, locals.routeParameters.view + ".js"),
-		app = path.join(NA.serverPath, NA.webconfig.viewsRelativePath, "app.htm"),
+		appView = path.join(NA.serverPath, NA.webconfig.viewsRelativePath, "app.htm"),
+		appModel = path.join(NA.serverPath, NA.webconfig.viewsRelativePath, "app.js"),
 		specific = locals.specific;
 
 	global.Vue = Vue;
@@ -17,8 +18,12 @@ exports.changeDom = function (next, locals, request, response) {
 
 	fs.readFile(view, "utf-8",  function (error, template) {
 		var component = Vue.component('all', require(model)(specific, template));
-		fs.readFile(app, "utf-8", function (error, template) {
-			var layoutSections = locals.dom.split('<div class="layout"></div>'),
+		fs.readFile(appView, "utf-8", function (error, template) {
+			var common = locals.common,
+				webconfig = {
+					routes: NA.webconfig.routes
+				},
+				layoutSections = locals.dom.split('<div class="layout"></div>'),
 				preAppHTML = layoutSections[0],
 				postAppHTML = layoutSections[1],
 				router = new VueRouter({
@@ -28,16 +33,7 @@ exports.changeDom = function (next, locals, request, response) {
 						props: ['common']
 					}]
 				}),
-				stream = renderer.renderToStream(new Vue({
-					template: template,
-					router: router,
-					data: {
-						common: locals.common,
-						webconfig: {
-							routes: NA.webconfig.routes
-						}
-					}
-				}));
+				stream = renderer.renderToStream(new Vue(require(appModel)(common, template, router, webconfig)));
 
 			router.push(locals.routeParameters.url);
 
