@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1491924336153">
+		<meta name="og:updated_time" content="1492247725751">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta34</h3>
+									<h3>v2.0.0-beta36</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
 								</div>
@@ -547,7 +547,7 @@ exports.setRoutes = function (next) {
     });
 
     // On redonne la main à NodeAtlas pour la suite.
-    next(); 
+    next();
 };
 </code></pre><p>De cette manière l&#39;adresse <code>http://localhost/doc/content.html</code> renverra la vue <code>content.htm</code> et non la vue <code>error.htm</code> en 404.</p><h3 id="gerer-les-redirections">Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p><p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p><h4 id="en-statique">En statique</h4><p>Voyez l&#39;exemple ci-dessous :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
@@ -1039,14 +1039,20 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
     color: #f00;
 }
-</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l&#39;url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-et-minification">Source Map et Minification</h4><p>Par défaut, dans l&#39;exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu&#39;elle ligne du fichier <code>.less</code> a générée la propriété CSS de l&#39;élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>less.sourceMap</code> à <code>false</code> :</p><pre><code>    &quot;less&quot;: {
+</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l&#39;url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix">Source Map, Minification et Autoprefix</h4><p>Par défaut, dans l&#39;exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu&#39;elle ligne du fichier <code>.less</code> a générée la propriété CSS de l&#39;élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>less.sourceMap</code> à <code>false</code> :</p><pre><code class="lang-json">    &quot;less&quot;: {
         &quot;sourceMap&quot;: false
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code>    &quot;less&quot;: {
+</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code class="lang-json">    &quot;less&quot;: {
         &quot;compress&quot;: true
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+</code></pre><p>Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur comme <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> lors de la génération sans vous en préoccuper dans vos sources !</p><pre><code class="lang-json">    &quot;less&quot;: {
+        &quot;autoprefix&quot;: true
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -1114,14 +1120,20 @@ exports.setRoutes = function (next) {
 &lt;/html&gt;
 </code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
     color: #f00
-</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l&#39;url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-et-minification">Source Map et Minification</h4><p>Par défaut, dans l&#39;exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu&#39;elle ligne du fichier <code>.styl</code> a générée la propriété CSS de l&#39;élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>stylus.sourceMap</code> à <code>false</code> :</p><pre><code>    &quot;stylus&quot;: {
+</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l&#39;url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix">Source Map, Minification et Autoprefix</h4><p>Par défaut, dans l&#39;exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu&#39;elle ligne du fichier <code>.styl</code> a générée la propriété CSS de l&#39;élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>stylus.sourceMap</code> à <code>false</code> :</p><pre><code class="lang-json">    &quot;stylus&quot;: {
         &quot;sourceMap&quot;: false
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code>    &quot;stylus&quot;: {
+</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code class="lang-json">    &quot;stylus&quot;: {
         &quot;compress&quot;: true
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+</code></pre><p>Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur comme <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> lors de la génération sans vous en préoccuper dans vos sources !</p><pre><code class="lang-json">    &quot;stylus&quot;: {
+        &quot;autoprefix&quot;: true
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -1515,7 +1527,7 @@ exports.setRoutes = function (next) {
     &quot;routes&quot;: {
         &quot;/api/random-quote&quot;: {
             &quot;controller&quot;: &quot;get-quote.js&quot;,
-            &quot;headers&quot;: { 
+            &quot;headers&quot;: {
                 &quot;Access-Control-Allow-Origin&quot;: &quot;http://www.domain-a.com&quot;
             }
         }
@@ -1528,12 +1540,12 @@ Origin: http://www.domain-a.com
 ...
 </code></pre><p><strong>Demande Cross-Domain avec jeton</strong></p><p>Si vous souhaitez authoriser des ressources du serveur NodeAtlas aux requêtes en provenance de n&#39;importe quel domaine externe pour la page <code>/api/random-quote</code> et une page qui attend un jeton d&#39;authentification pour la page <code>/api/protected/random-quote</code>, vous pouvez le faire ainsi :</p><pre><code class="lang-json">{
     &quot;mimeType&quot;: &quot;application/json&quot;,
-    &quot;headers&quot;: { 
+    &quot;headers&quot;: {
         &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
         &quot;Access-Control-Allow-Headers&quot;: &quot;Authorization&quot;
     },
     &quot;routes&quot;: {
-        &quot;/api/random-quote&quot;: { 
+        &quot;/api/random-quote&quot;: {
             &quot;controller&quot;: &quot;get-quote.js&quot;
         },
         &quot;/api/protected/random-quote&quot;: {

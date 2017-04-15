@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1491924336169">
+		<meta name="og:updated_time" content="1492247725751">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta34</h3>
+									<h3>v2.0.0-beta36</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
 								</div>
@@ -315,7 +315,7 @@ website.init({
 <li>des paramètres dans le body de la requête (POST)</li>
 </ul><p>mais également ;</p><ul>
 <li>de vous connecter à des bases de données,</li>
-<li>de maintenir des sessions, </li>
+<li>de maintenir des sessions,</li>
 <li>de faire des échanges Websockets et</li>
 <li>de faire bien plus encore !</li>
 </ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et Points d&#39;ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D&#39;abord, les ressources se chargent, le serveur démarre, les routes s&#39;initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d&#39;ancrage pendant le démarrage, et pendant la création d&#39;une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d&#39;atteindre tous les points d&#39;ancrage du cycle de vie d&#39;une page.</p><pre><code class="lang-json">{
@@ -353,7 +353,7 @@ website.init({
     ├─{Point d&#39;ancrage : &lt;controller&gt;.setSessions}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Initialisation des sessions]
-    ┊ 
+    ┊
     ├─[Initialisation des sockets]
     ┊ ┊  _________________________________________
     ┊ ├─{Point d&#39;ancrage : &lt;controller&gt;.setSockets}_______
@@ -386,14 +386,14 @@ website.init({
       ├─{Point d&#39;ancrage : routes[&lt;controller&gt;].changeDom}
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Envoi de la réponse]
-        ┊ 
+        ┊
         ∞
 </code></pre><h4 id="changevariations">changeVariations</h4><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeVariations(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next()</code>.</li>
 <li>En deuxième paramètre l&#39;objet <code>locals</code> contenant entre autre la variation <code>locals.common</code> pour accéder aux variations communes et la variation <code>locals.specific</code> pour accéder aux variations spécifiques.</li>
 <li>En troisième paramètre l&#39;objet <code>request</code> qui va être faites.</li>
-<li>En quatrième paramètre l&#39;objet <code>response</code> faites pour cette page. </li>
+<li>En quatrième paramètre l&#39;objet <code>response</code> faites pour cette page.</li>
 </ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;urlRelativeSubPath&quot;: &quot;example&quot;,
     &quot;controller&quot;: &quot;common.js&quot;,
@@ -527,9 +527,9 @@ exports.changeVariations = function (next, locals, request, response) {
 </code></pre><h4 id="changedom">changeDom</h4><p>Pour intercepter le DOM avant qu&#39;il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeDom(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L&#39;objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next([$])</code> acceptant optionellement en premier paramètre la function <code>$</code> utilisée pour manipuler le DOM Virtuel.</li>
-<li>En deuxième paramètre l&#39;objet <code>locals</code> contenant entre autre la string <code>locals.dom</code> contenant la réponse ou la function <code>locals.virtualDom()</code> générant un Dom Virtuel. </li>
+<li>En deuxième paramètre l&#39;objet <code>locals</code> contenant entre autre la string <code>locals.dom</code> contenant la réponse ou la function <code>locals.virtualDom()</code> générant un Dom Virtuel.</li>
 <li>En troisième paramètre l&#39;objet <code>request</code> qui va être faites.</li>
-<li>En quatrième paramètre l&#39;objet <code>response</code> faites pour cette page. </li>
+<li>En quatrième paramètre l&#39;objet <code>response</code> faites pour cette page.</li>
 </ul><p>Voici un exemple utilisant les deux points d&#39;entrée, d&#39;abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;controller&quot;: &quot;common.js&quot;,
     &quot;variation&quot;: &quot;common.json&quot;,
@@ -931,7 +931,7 @@ exports.setRoutes = function (next) {
     };
 
     // On redonne la main à NodeAtlas pour la suite.
-    next(); 
+    next();
 };
 </code></pre><h3 id="echange-client-serveur-en-temps-reel-avec-websockets">Échange Client-Serveur en temps réel avec Websockets</h3><p>Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l&#39;ensemble de fichier suivant :</p><pre><code>├─ assets/
 │  └─ javascripts/
@@ -1236,7 +1236,7 @@ function User(connection) {
                     town,
                     zipcode,
                     address
-                FROM user`, 
+                FROM user`,
             where = &quot;&quot;;
 
         if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
@@ -1320,7 +1320,7 @@ function User(connection) {
             insert += &quot;`birthdate`, &quot;;
             values += &#39;&quot;&#39; + publics.birthdate() + &#39;&quot;, &#39;;
         }
-        if (typeof publics.gender() === &quot;boolean&quot;) { 
+        if (typeof publics.gender() === &quot;boolean&quot;) {
             insert += &quot;`gender`, &quot;;
             values += (publics.gender() ? 1 : 0) + &#39;, &#39;;
         }
@@ -1345,7 +1345,7 @@ function User(connection) {
         values = values.replace(/, $/g, &quot;)&quot;);
 
         privates.connection.query(insert + values, function (err, infos) {
-            if (err) { 
+            if (err) {
                 throw err;
             }
 
@@ -1390,7 +1390,7 @@ function User(connection) {
         where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
 
         privates.connection.query(update + where, function (err, infos) {
-            if (err) { 
+            if (err) {
                 throw err;
             }
 
@@ -1431,7 +1431,7 @@ function User(connection) {
         where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
 
         privates.connection.query(del + where, function (err, infos) {
-            if (err) { 
+            if (err) {
                 throw err;
             }
 

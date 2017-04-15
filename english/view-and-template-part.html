@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1491924339581">
+		<meta name="og:updated_time" content="1492247729595">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta34</h3>
+									<h3>v2.0.0-beta36</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
 								</div>
@@ -383,10 +383,10 @@ website.init({
         &quot;url&quot;: &quot;/member-without-extension/&quot;,
         &quot;view&quot;: &quot;member.htm&quot;,
         &quot;get&quot;: false
-    }, { 
+    }, {
         &quot;url&quot;: &quot;about.html&quot;,
         &quot;view&quot;: &quot;about.htm&quot;
-    }, { 
+    }, {
         &quot;url&quot;: &quot;/error.html&quot;,
         &quot;view&quot;: &quot;error.htm&quot;,
         &quot;statusCode&quot;: 404,
@@ -980,9 +980,9 @@ website.init({
     &lt;head&gt;
         &lt;meta charset=&quot;utf-8&quot;&gt;
         &lt;title&gt;Pas de titre&lt;/title&gt;
-        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;  media=&quot;all&quot;&gt; 
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;stylesheets/common.css&quot;  media=&quot;all&quot;&gt;
     &lt;/head&gt;
-    &lt;body&gt;  
+    &lt;body&gt;
         &lt;div&gt;
             &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
         &lt;/div&gt;
@@ -1125,7 +1125,7 @@ website.init({
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
 <li><em><a href="http://localhost/no/output/parameter/">http://localhost/no/output/parameter/</a></em></li>
-</ul><p><em>Note : No output page are generated for &quot;/list-of-members/?foo=bar&quot; because <code>output</code> is set to <code>false</code>. Use this value to ignore a route generation.</em></p><p>The generation starts when displaying the page if <code>htmlGenerationBeforeResponse</code> exist and if it is <code>true</code>.</p><h4 id="generate-website-without-server-side">Generate website without server-side</h4><p>You can also manager a simple HTML website page with <code>--generate</code> command.</p><p>If <code>htmlGenerationBeforeResponse</code> is setted to <code>false</code> (or removed) the only way to generate all the pages of the website will be via the command <code>node-atlas --generate</code> will generate all pages into <code>serverlessRelativePath</code> only if global <code>output</code> is setted to <code>true</code>.</p><p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>serverlessRelativePath</code> if both folder does not have the same path only if global <code>assetsCopy</code> is setted to <code>true</code>. </p><p>It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p><p>See this with the following configuration:</p><pre><code class="lang-json">{
+</ul><p><em>Note : No output page are generated for &quot;/list-of-members/?foo=bar&quot; because <code>output</code> is set to <code>false</code>. Use this value to ignore a route generation.</em></p><p>The generation starts when displaying the page if <code>htmlGenerationBeforeResponse</code> exist and if it is <code>true</code>.</p><h4 id="generate-website-without-server-side">Generate website without server-side</h4><p>You can also manager a simple HTML website page with <code>--generate</code> command.</p><p>If <code>htmlGenerationBeforeResponse</code> is setted to <code>false</code> (or removed) the only way to generate all the pages of the website will be via the command <code>node-atlas --generate</code> will generate all pages into <code>serverlessRelativePath</code> only if global <code>output</code> is setted to <code>true</code>.</p><p>Also with <code>--generate</code> , the entire <code>assetsRelativePath</code> folder (public folder files) will be copied in the <code>serverlessRelativePath</code> if both folder does not have the same path only if global <code>assetsCopy</code> is setted to <code>true</code>.</p><p>It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).</p><p>See this with the following configuration:</p><pre><code class="lang-json">{
     &quot;output&quot;: true,
     &quot;assetsCopy&quot;: true,
     &quot;languageCode&quot;: &quot;fr-fr&quot;,

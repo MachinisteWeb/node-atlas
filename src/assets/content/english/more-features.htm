@@ -235,7 +235,7 @@ exports.setRoutes = function (next) {
     });
 
     // We update modification here.
-    next(); 
+    next();
 };
 </code></pre><p>In this way, address <code>http://localhost/doc/content.html</code> will return the <code>content.htm</code> view and not the <code>error.htm</code> view with 404.</p><h3 id="manage-redirects">Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p><p><em>Note : if you don&#39;t set <code>statusCode</code>, no redirect will be executed. The <code>statusCode</code> is mandatory for redirection.</em></p><h4 id="static">Static</h4><p>See the example below:</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
@@ -727,14 +727,20 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
     color: #f00;
 }
-</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-and-minification">Source Map and Minification</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.less</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>less.sourceMap</code> to <code>false</code>:</p><pre><code>    &quot;less&quot;: {
+</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.less</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>less.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    &quot;less&quot;: {
         &quot;sourceMap&quot;: false
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><p>You can also generate CSS files already minify with:</p><pre><code>    &quot;less&quot;: {
+</code></pre><p>You can also generate CSS files already minify with:</p><pre><code class="lang-json">    &quot;less&quot;: {
         &quot;compress&quot;: true
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+</code></pre><p>Finally, you can also automaticly add vendor prefix like <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> for generated file without care about it in your sources files!</p><pre><code class="lang-json">    &quot;less&quot;: {
+        &quot;autoprefix&quot;: true
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -802,14 +808,20 @@ exports.setRoutes = function (next) {
 &lt;/html&gt;
 </code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
     color: #f00
-</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-and-minification">Source Map and Minification</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.styl</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>stylus.sourceMap</code> to <code>false</code>:</p><pre><code>    &quot;stylus&quot;: {
+</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.styl</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>stylus.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    &quot;stylus&quot;: {
         &quot;sourceMap&quot;: false
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
     }
-</code></pre><p>You can also generate CSS files already minify with:</p><pre><code>    &quot;stylus&quot;: {
+</code></pre><p>You can also generate CSS files already minify with:</p><pre><code class="lang-json">    &quot;stylus&quot;: {
         &quot;compress&quot;: true
+    },
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+</code></pre><p>Finally, you can also automaticly add vendor prefix like <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> for generated file without care about it in your sources files!</p><pre><code class="lang-json">    &quot;stylus&quot;: {
+        &quot;autoprefix&quot;: true
     },
     &quot;routes&quot;: {
         &quot;/&quot;: &quot;index.htm&quot;
@@ -1203,7 +1215,7 @@ exports.setRoutes = function (next) {
     &quot;routes&quot;: {
     &quot;/api/random-quote&quot;: {
           &quot;controller&quot;: &quot;get-quote.js&quot;,
-        &quot;headers&quot;: { 
+        &quot;headers&quot;: {
           &quot;Access-Control-Allow-Origin&quot;: &quot;http://www.domain-a.com&quot;
         }
       }
@@ -1216,12 +1228,12 @@ Origin: http://www.domain-a.com
 ...
 </code></pre><p><strong>Cross-Domain Request with Token</strong></p><p>If you want authorize ressources from NodeAtlas server to the request from anywhere for the <code>/api/random-quote</code> page and the page <code>/api/protected/random-quote</code> that claims an authentification token, you could do that like this:</p><pre><code class="lang-json">{
   &quot;mimeType&quot;: &quot;application/json&quot;,
-  &quot;headers&quot;: { 
+  &quot;headers&quot;: {
     &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
     &quot;Access-Control-Allow-Headers&quot;: &quot;Authorization&quot;
   },
   &quot;routes&quot;: {
-    &quot;/api/random-quote&quot;: { 
+    &quot;/api/random-quote&quot;: {
       &quot;controller&quot;: &quot;get-quote.js&quot;
     },
     &quot;/api/protected/random-quote&quot;: {

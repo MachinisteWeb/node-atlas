@@ -17,11 +17,11 @@ NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https:
    > Exemple : [Pages, Componants and Web Interface](https://www.lesieur.name/doc-atlas/) or official NodeAtlas website.
 
 - Create and maintain and run internationalized wesites without use a single JavaScript server file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
-   
+
    > Exemple : [Simple Web Page](http://bruno.lesieur.name/)
 
 - Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/) applications running of all sizes with server-based source code for high performance, indexability for SEO and W3C compliancy. Distant REST APIs are also easily to create.
-   
+
    > Exemple : [Blog](http://blog.lesieur.name/), [Portfolio](http://www.lesieur.name/) or [Distant API](http://www.lesieur.name/api/)
 
 
@@ -134,7 +134,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
  - [--httpPort](#--httpport)
  - [--generate](#--generate)
  - [--cache](#--cache)
- - [--create](#--create)  
+ - [--create](#--create)
  - [--httpSecure](#--httpsecure)
  - [--lang](#--lang)
 - [API / NodeAtlas as NPM module](#api--nodeatlas-as-npm-module)
@@ -318,13 +318,13 @@ We will display to the HTTP address the content of the `views/index.htm` file:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-    </head>
-    <body>
-        <div>This is a Hello World!</div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Hello world</title>
+	</head>
+	<body>
+		<div>This is a Hello World!</div>
+	</body>
 </html>
 ```
 
@@ -338,11 +338,11 @@ You can turn a simple page with minimal configuration "webconfig.json" below
 
 ```json
 {
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -379,9 +379,9 @@ $ node-atlas --httpPort 8080
 > or use the webconfig option `httpPort`
 
 > ```json
-{ 
+{
    "httpPort": 8080,
-   "routes": { "/": "index.htm" } 
+   "routes": { "/": "index.htm" }
 }
 ```
 
@@ -424,28 +424,28 @@ Below is a sample configuration.
 
 ```json
 {
-    "viewsRelativePath": "views",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        },
-        "/member.html": {
-            "view": "member.htm",
-            "post": false
-        },
-        "/member-without-extension/": {
-            "view": "member.htm",
-            "get": false
-        },
-        "about.html": {
-            "view": "about.htm"
-        },
-        "/error.html": {
-            "view": "error.htm",
-            "statusCode": 404,
-            "mimeType": "text/plain"
-        }
-    }
+	"viewsRelativePath": "views",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		},
+		"/member.html": {
+			"view": "member.htm",
+			"post": false
+		},
+		"/member-without-extension/": {
+			"view": "member.htm",
+			"get": false
+		},
+		"about.html": {
+			"view": "about.htm"
+		},
+		"/error.html": {
+			"view": "error.htm",
+			"statusCode": 404,
+			"mimeType": "text/plain"
+		}
+	}
 }
 ```
 
@@ -478,24 +478,24 @@ The configuration below is equivalent to the configuration section just above
 
 ```json
 {
-    "viewsRelativePath": "views",
-    "routes": {
-        "/": "index.htm",
-        "/member.html": {
-            "view": "member.htm",
-            "post": false
-        },
-        "/member-without-extension/": {
-            "view": "member.htm",
-            "get": false
-        },
-        "about.html": "about.htm",
-        "/error.html": {
-            "view": "error.htm",
-            "statusCode": 404,
-            "mimeType": "text/plain"
-        }
-    }
+	"viewsRelativePath": "views",
+	"routes": {
+		"/": "index.htm",
+		"/member.html": {
+			"view": "member.htm",
+			"post": false
+		},
+		"/member-without-extension/": {
+			"view": "member.htm",
+			"get": false
+		},
+		"about.html": "about.htm",
+		"/error.html": {
+			"view": "error.htm",
+			"statusCode": 404,
+			"mimeType": "text/plain"
+		}
+	}
 }
 ```
 
@@ -509,7 +509,7 @@ is a shortcut for
 
 ```json
 "/": {
-    "view": "index.htm"
+	"view": "index.htm"
 }
 ```
 
@@ -523,27 +523,27 @@ In this case, the path become the `url` parameter.
 
 ```json
 {
-    "viewsRelativePath": "views",
-    "routes": [{
-        "url": "/",
-        "view": "index.htm"
-    }, {
-        "url": "/member.html",
-        "view": "member.htm",
-        "post": false
-    }, {
-        "url": "/member-without-extension/",
-        "view": "member.htm",
-        "get": false
-    }, { 
-        "url": "about.html",
-        "view": "about.htm"
-    }, { 
-        "url": "/error.html",
-        "view": "error.htm",
-        "statusCode": 404,
-        "mimeType": "text/plain"
-    }]
+	"viewsRelativePath": "views",
+	"routes": [{
+		"url": "/",
+		"view": "index.htm"
+	}, {
+		"url": "/member.html",
+		"view": "member.htm",
+		"post": false
+	}, {
+		"url": "/member-without-extension/",
+		"view": "member.htm",
+		"get": false
+	}, {
+		"url": "about.html",
+		"view": "about.htm"
+	}, {
+		"url": "/error.html",
+		"view": "error.htm",
+		"statusCode": 404,
+		"mimeType": "text/plain"
+	}]
 }
 ```
 
@@ -566,12 +566,12 @@ with `webconfig.json`
 
 ```json
 {
-    "httpPort": 7777,
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7777,
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -579,14 +579,14 @@ and with `webconfig.prod.json`
 
 ```json
 {
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+	"urlPort": 80,
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -604,8 +604,8 @@ with `webconfig.json`
 
 ```json
 {
-    "httpPort": 7777,
-    "routes": "routes.json"
+	"httpPort": 7777,
+	"routes": "routes.json"
 }
 ```
 
@@ -613,10 +613,10 @@ with `webconfig.prod.json`
 
 ```json
 {
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "routes": "routes.json"
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+	"urlPort": 80,
+	"routes": "routes.json"
 }
 ```
 
@@ -624,9 +624,9 @@ and `routes.json`
 
 ```json
 {
-    "/": {
-        "view": "index.htm"
-    }
+	"/": {
+		"view": "index.htm"
+	}
 }
 ```
 
@@ -640,12 +640,12 @@ You can also host any file on your site in a public folder. For example, with th
 
 ```json
 {
-    "assetsRelativePath": "assets",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"assetsRelativePath": "assets",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -688,14 +688,14 @@ You can segment your HTML codes to not repeat the redundant code such "head" par
 
 ```json
 {
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        },
-        "/list-of-members/": {
-            "view": "members.htm"
-        }
-    }
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		},
+		"/list-of-members/": {
+			"view": "members.htm"
+		}
+	}
 }
 ```
 
@@ -721,46 +721,46 @@ with the following files:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" />
-    </head>
-    <body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Hello world</title>
+		<link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" />
+	</head>
+	<body>
 ```
 
 *views/partials/foot.htm*
 
 ```html
-        <script async type="text/javascript" src="javascripts/common.js"></script>
-    </body>
+		<script async type="text/javascript" src="javascripts/common.js"></script>
+	</body>
 </html>
 ```
 
 *views/index.htm*
 
 ```html
-    <?- include("partials/head.htm") ?>
+	<?- include("partials/head.htm") ?>
 
-    <div>
-        <h1>Welcome</h1>
-        <p>This is the home page.</p>
-    </div>
+	<div>
+		<h1>Welcome</h1>
+		<p>This is the home page.</p>
+	</div>
 
-    <?- include("partials/foot.htm") ?>
+	<?- include("partials/foot.htm") ?>
 ```
 
 *views/members.htm*
 
 ```html
-    <?- include("partials/head.htm") ?>
+	<?- include("partials/head.htm") ?>
 
-    <div>
-        <h1>List of members</h1>
-        <p>It is the Members page.</p>
-    </div>
+	<div>
+		<h1>List of members</h1>
+		<p>It is the Members page.</p>
+	</div>
 
-    <?- include("partials/foot.htm") ?>
+	<?- include("partials/foot.htm") ?>
 ```
 
 you will have access to the addresses:
@@ -778,18 +778,18 @@ It is possible with the same view and the same includes, generating pages with d
 
 ```json
 {
-    "variation": "common.json",
-    "variationsRelativePath": "variations",
-    "routes": {
-        "/": {
-            "view": "template.htm",
-            "variation": "index.json",
-        },
-        "/list-of-members/": {
-            "view": "template.htm",
-            "variation": "members.json",
-        }
-    }
+	"variation": "common.json",
+	"variationsRelativePath": "variations",
+	"routes": {
+		"/": {
+			"view": "template.htm",
+			"variation": "index.json",
+		},
+		"/list-of-members/": {
+			"view": "template.htm",
+			"variation": "members.json",
+		}
+	}
 }
 ```
 
@@ -821,9 +821,9 @@ with the following files:
 
 ```json
 {
-    "titleWebsite": "Website title",
-    "classCssCommon": "common",
-    "classJsCommon": "common"
+	"titleWebsite": "Website title",
+	"classCssCommon": "common",
+	"classJsCommon": "common"
 }
 ```
 
@@ -831,9 +831,9 @@ with the following files:
 
 ```json
 {
-    "titlePage": "Welcome",
-    "classPage": "index",
-    "content": "<p>This is the home page.</p>"
+	"titlePage": "Welcome",
+	"classPage": "index",
+	"content": "<p>This is the home page.</p>"
 }
 ```
 
@@ -841,9 +841,9 @@ with the following files:
 
 ```json
 {
-    "titlePage": "List of members",
-    "classPage": "members",
-    "content": "<p>It is the Members page.</p>"
+	"titlePage": "List of members",
+	"classPage": "members",
+	"content": "<p>It is the Members page.</p>"
 }
 ```
 
@@ -852,37 +852,37 @@ with the following files:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title><?- specific.titlePage ?></title>
+	<head>
+		<meta charset="utf-8" />
+		<title><?- specific.titlePage ?></title>
 
-        <link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
-    </head>
-    <body class="<?= specific.classPage ?>">
+		<link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
+		<link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
+	</head>
+	<body class="<?= specific.classPage ?>">
 ```
 
 *views/partials/foot.htm*
 
 ```html
-        <script async type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
-    </body>
+		<script async type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
+	</body>
 </html>
 ```
 
 *views/template.htm*
 
 ```html
-    <?- include("partials/head.htm") ?>
+	<?- include("partials/head.htm") ?>
 
-    <div class="title"><?- common.titleWebsite ?></div>
+	<div class="title"><?- common.titleWebsite ?></div>
 
-    <div>
-        <h1><?- specific.titlePage ?></h1>
-        <?- specific.content ?>
-    </div>
+	<div>
+		<h1><?- specific.titlePage ?></h1>
+		<?- specific.content ?>
+	</div>
 
-    <?- include("partials/foot.htm") ?>
+	<?- include("partials/foot.htm") ?>
 ```
 
 you will have access to the addresses:
@@ -902,23 +902,23 @@ On the same principle, the variations can be used to create the same page, but i
 
 ```json
 {
-    "languageCode": "en-us",
-    "variationsRelativePath": "l10n",
-    "routes": {
-        "/": {
-            "view": "landing.htm",
-            "variation": "landing.json"
-        },
-        "/home/": {
-            "view": "home.htm",
-            "variation": "home.json"
-        },
-        "/accueil/": {
-            "view": "home.htm",
-            "variation": "home.json",
-            "languageCode": "fr-fr"
-        }
-    }
+	"languageCode": "en-us",
+	"variationsRelativePath": "l10n",
+	"routes": {
+		"/": {
+			"view": "landing.htm",
+			"variation": "landing.json"
+		},
+		"/home/": {
+			"view": "home.htm",
+			"variation": "home.json"
+		},
+		"/accueil/": {
+			"view": "home.htm",
+			"variation": "home.json",
+			"languageCode": "fr-fr"
+		}
+	}
 }
 ```
 
@@ -946,12 +946,12 @@ with the following files:
 
 ```json
 {
-    "titlePage": "Landing",
-    "classPage": "landing",
-    "selectLabel": [
-        "English",
-        "Français"
-    ]
+	"titlePage": "Landing",
+	"classPage": "landing",
+	"selectLabel": [
+		"English",
+		"Français"
+	]
 }
 ```
 
@@ -959,9 +959,9 @@ with the following files:
 
 ```json
 {
-    "titlePage": "Welcome",
-    "classPage": "home",
-    "content": "<p>This is a home page.</p>"
+	"titlePage": "Welcome",
+	"classPage": "home",
+	"content": "<p>This is a home page.</p>"
 }
 ```
 
@@ -969,9 +969,9 @@ with the following files:
 
 ```json
 {
-    "titlePage": "Bienvenue",
-    "classPage": "home",
-    "content": "<p>C'est la page d'accueil.</p>"
+	"titlePage": "Bienvenue",
+	"classPage": "home",
+	"content": "<p>C'est la page d'accueil.</p>"
 }
 ```
 
@@ -980,45 +980,45 @@ with the following files:
 ```html
 <!DOCTYPE html>
 <html lang="<?= languageCode ?>">
-    <head>
-        <meta charset="utf-8" />
-        <title><?= specific.titlePage ?></title>
-    </head>
-    <body class="<?= specific.classPage ?>">
+	<head>
+		<meta charset="utf-8" />
+		<title><?= specific.titlePage ?></title>
+	</head>
+	<body class="<?= specific.classPage ?>">
 ```
 
 *views/partials/foot.htm*
 
 ```html
-    </body>
+	</body>
 </html>
 ```
 
 *views/landing.htm*
 
 ```html
-    <?- include("partials/head.htm") ?>
+	<?- include("partials/head.htm") ?>
 
-    <select>
-        <? for (var i = 0; i < specific.selectLabel.length; i++) { ?>
-        <option><?= specific.selectLabel[i] ?></option>
-        <? } ?>
-    </select>
+	<select>
+		<? for (var i = 0; i < specific.selectLabel.length; i++) { ?>
+		<option><?= specific.selectLabel[i] ?></option>
+		<? } ?>
+	</select>
 
-    <?- include("partials/foot.htm") ?>
+	<?- include("partials/foot.htm") ?>
 ```
 
 *views/home.htm*
 
 ```html
-    <?- include("partials/head.htm") ?>
+	<?- include("partials/head.htm") ?>
 
-    <div>
-        <h1><?- specific.titlePage ?></h1>
-        <?- specific.content ?>
-    </div>
+	<div>
+		<h1><?- specific.titlePage ?></h1>
+		<?- specific.content ?>
+	</div>
 
-    <?- include("partials/foot.htm") ?>
+	<?- include("partials/foot.htm") ?>
 ```
 
 you will have access to the addresses:
@@ -1088,12 +1088,12 @@ you could have "webconfig.json" next:
 
 ```json
 {
-    "routes": {
-        "/": {
-            "view": "landing.htm",
-            "variation": "landing.json"
-        }
-    }
+	"routes": {
+		"/": {
+			"view": "landing.htm",
+			"variation": "landing.json"
+		}
+	}
 }
 ```
 
@@ -1101,19 +1101,19 @@ you could have "webconfig.json" next:
 
 ```json
 {
-    "httpPort": 81,
-    "urlRelativeSubPath": "english",
-    "languageCode": "en-us",
-    "routes": {
-        "/": {
-            "view": "home.htm",
-            "variation": "home.json"
-        },
-        "/members-list/": {
-            "view": "members.htm",
-            "variation": "members.json"
-        }
-    }
+	"httpPort": 81,
+	"urlRelativeSubPath": "english",
+	"languageCode": "en-us",
+	"routes": {
+		"/": {
+			"view": "home.htm",
+			"variation": "home.json"
+		},
+		"/members-list/": {
+			"view": "members.htm",
+			"variation": "members.json"
+		}
+	}
 }
 ```
 
@@ -1121,19 +1121,19 @@ you could have "webconfig.json" next:
 
 ```json
 {
-    "httpPort": 82,
-    "urlRelativeSubPath": "francais",
-    "languageCode": "fr-fr",
-    "routes": {
-        "/": {
-            "view": "home.htm",
-            "variation": "home.json"
-        },
-        "/list-of-members/": {
-            "view": "members.htm",
-            "variation": "members.json"
-        }
-    }
+	"httpPort": 82,
+	"urlRelativeSubPath": "francais",
+	"languageCode": "fr-fr",
+	"routes": {
+		"/": {
+			"view": "home.htm",
+			"variation": "home.json"
+		},
+		"/list-of-members/": {
+			"view": "members.htm",
+			"variation": "members.json"
+		}
+	}
 }
 ```
 
@@ -1165,11 +1165,11 @@ By default, if you use the following configuration:
 
 ```json
 {
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -1180,18 +1180,18 @@ with the following view :
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>URLs</title>
-    </head>
-    <body>
-        <div><?- urlRootPath ?></div>
-        <div><?- urlSubPath ?></div>
-        <div><?- urlBasePath ?></div>
-        <div><?- urlFilePath ?></div>
-        <div><?- urlQueryPath ?></div>
-        <div><?- urlPath ?></div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>URLs</title>
+	</head>
+	<body>
+		<div><?- urlRootPath ?></div>
+		<div><?- urlSubPath ?></div>
+		<div><?- urlBasePath ?></div>
+		<div><?- urlFilePath ?></div>
+		<div><?- urlQueryPath ?></div>
+		<div><?- urlPath ?></div>
+	</body>
 </html>
 ```
 
@@ -1201,15 +1201,15 @@ This is the same to using it:
 
 ```json
 {
-    "httpHostname": "localhost",
-    "httpPort": 80,
-    "httpSecure": false,
-    "urlRelativeSubPath": "",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpHostname": "localhost",
+	"httpPort": 80,
+	"httpSecure": false,
+	"urlRelativeSubPath": "",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -1218,18 +1218,18 @@ and you will be access to the URL: *http://localhost/* to see this content:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>URLs</title>
-    </head>
-    <body>
-        <div>http://localhost</div>
-        <div></div>
-        <div>http://localhost</div>
-        <div>/</div>
-        <div></div>
-        <div>http://localhost/</div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>URLs</title>
+	</head>
+	<body>
+		<div>http://localhost</div>
+		<div></div>
+		<div>http://localhost</div>
+		<div>/</div>
+		<div></div>
+		<div>http://localhost/</div>
+	</body>
 </html>
 ```
 
@@ -1237,15 +1237,15 @@ Then change the configuration to this:
 
 ```json
 {
-    "httpHostname": "127.0.0.1",
-    "httpPort": 7777,
-    "httpSecure": "security/server",
-    "urlRelativeSubPath": "sub/folder",
-    "routes": {
-        "/index.html": {
-            "view": "index.htm"
-        }
-    }
+	"httpHostname": "127.0.0.1",
+	"httpPort": 7777,
+	"httpSecure": "security/server",
+	"urlRelativeSubPath": "sub/folder",
+	"routes": {
+		"/index.html": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -1254,18 +1254,18 @@ to access this time to : *https://127.0.0.1:7777/sub/folder/index.html?test=ok* 
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>URLs</title>
-    </head>
-    <body>
-        <div>https://127.0.0.1:7777</div>
-        <div>/sub/folder</div>
-        <div>https://127.0.0.1:7777/sub/folder</div>
-        <div>/index.html</div>
-        <div>?test=ok</div>
-        <div>https://127.0.0.1:7777/sub/folder/index.html</div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>URLs</title>
+	</head>
+	<body>
+		<div>https://127.0.0.1:7777</div>
+		<div>/sub/folder</div>
+		<div>https://127.0.0.1:7777/sub/folder</div>
+		<div>/index.html</div>
+		<div>?test=ok</div>
+		<div>https://127.0.0.1:7777/sub/folder/index.html</div>
+	</body>
 </html>
 ```
 
@@ -1281,12 +1281,12 @@ Imagine two webconfigs in which we create our own variables as follows:
 
 ```json
 {
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    },
-    "_minified": ""
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	},
+	"_minified": ""
 }
 ```
 
@@ -1294,12 +1294,12 @@ Imagine two webconfigs in which we create our own variables as follows:
 
 ```json
 {
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    },
-    "_minified": ".min"
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	},
+	"_minified": ".min"
 }
 ```
 
@@ -1324,15 +1324,15 @@ and "index.htm" containing:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common<?= webconfig._minified ?>.css" />
-    </head>
-    <body>
-        <div>This is a test to get a file minify/unminify.</div>
-        <script type="text/javascript" src="javascripts/common<?= webconfig._minified ?>.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Hello world</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/common<?= webconfig._minified ?>.css" />
+	</head>
+	<body>
+		<div>This is a test to get a file minify/unminify.</div>
+		<script type="text/javascript" src="javascripts/common<?= webconfig._minified ?>.js"></script>
+	</body>
 </html>
 ```
 
@@ -1347,15 +1347,15 @@ We will have to address "http://localhost/" the following output with non-minifi
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
-    </head>
-    <body>
-        <div>This is a test to get a file minify/unminify.</div>
-        <script type="text/javascript" src="javascripts/common.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Hello world</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+	</head>
+	<body>
+		<div>This is a test to get a file minify/unminify.</div>
+		<script type="text/javascript" src="javascripts/common.js"></script>
+	</body>
 </html>
 ```
 
@@ -1370,15 +1370,15 @@ We will have to address "http://localhost/" the following output with minified f
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Hello world</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
-    </head>
-    <body>
-        <div>This is a test to get a file minify/unminify.</div>
-        <script type="text/javascript" src="javascripts/common.min.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Hello world</title>
+		<link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
+	</head>
+	<body>
+		<div>This is a test to get a file minify/unminify.</div>
+		<script type="text/javascript" src="javascripts/common.min.js"></script>
+	</body>
 </html>
 ```
 
@@ -1417,17 +1417,17 @@ and with the following webconfig:
 
 ```json
 {
-    "view": "common.htm",
-    "variation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json"
-        },
-        "/about/": {
-            "view": "about.htm"
-        }
-    }
+	"view": "common.htm",
+	"variation": "common.json",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json"
+		},
+		"/about/": {
+			"view": "about.htm"
+		}
+	}
 }
 ```
 
@@ -1437,9 +1437,9 @@ and this two variation files:
 
 ```json
 {
-    "titleWebsite": "Website Title",
-    "classCssCommon": "common",
-    "classJsCommon": "common"
+	"titleWebsite": "Website Title",
+	"classCssCommon": "common",
+	"classJsCommon": "common"
 }
 ```
 
@@ -1447,9 +1447,9 @@ and this two variation files:
 
 ```json
 {
-    "titlePage": "Welcome",
-    "classPage": "index",
-    "content": "<p>This is the Homepage.</p>"
+	"titlePage": "Welcome",
+	"classPage": "index",
+	"content": "<p>This is the Homepage.</p>"
 }
 ```
 
@@ -1460,23 +1460,23 @@ you could create with this views:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <title><?- specific.titlePage || "No title" ?></title>
-        <link rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css"  media="all">
-        <? if (specific.classPage) { ?>
-        <link rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css"  media="all">
-        <? } ?>
-    </head>
-    <body>
-        <!-- Include a file in standard way -->
-        <?- include("partials/header.htm") ?>
+	<head>
+		<meta charset="utf-8">
+		<title><?- specific.titlePage || "No title" ?></title>
+		<link rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css"  media="all">
+		<? if (specific.classPage) { ?>
+		<link rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css"  media="all">
+		<? } ?>
+	</head>
+	<body>
+		<!-- Include a file in standard way -->
+		<?- include("partials/header.htm") ?>
 
-        <!-- Include the current `view` file -->
-        <?- include(routeParameters.view) ?>
+		<!-- Include the current `view` file -->
+		<?- include(routeParameters.view) ?>
 
-        <script async="true" type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
-    </body>
+		<script async="true" type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
+	</body>
 </html>
 ```
 
@@ -1484,7 +1484,7 @@ you could create with this views:
 
 ```html
 <header>
-    <h1><?= specific.titlePage ?></h1>
+	<h1><?= specific.titlePage ?></h1>
 </header>
 ```
 
@@ -1492,7 +1492,7 @@ you could create with this views:
 
 ```html
 <div>
-    <?- specific.content ?>
+	<?- specific.content ?>
 </div>
 ```
 
@@ -1500,7 +1500,7 @@ you could create with this views:
 
 ```html
 <div>
-    <h1>NodeAtlas © Haeresis</h1>
+	<h1>NodeAtlas © Haeresis</h1>
 </div>
 ```
 
@@ -1511,21 +1511,21 @@ an display the following URLs:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <title>Welcome</title>
-        <link rel="stylesheet" href="stylesheets/common.css"  media="all">
-        <link rel="stylesheet" href="stylesheets/index.css"  media="all">
-    </head>
-    <body>
-        <header>
-            <h1>Welcome</h1>
-        </header>
-        <div>
-            <p>This is the Homepage.</p>
-        </div>
-        <script async="true" type="text/javascript" src="javascripts/common.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8">
+		<title>Welcome</title>
+		<link rel="stylesheet" href="stylesheets/common.css"  media="all">
+		<link rel="stylesheet" href="stylesheets/index.css"  media="all">
+	</head>
+	<body>
+		<header>
+			<h1>Welcome</h1>
+		</header>
+		<div>
+			<p>This is the Homepage.</p>
+		</div>
+		<script async="true" type="text/javascript" src="javascripts/common.js"></script>
+	</body>
 </html>
 ```
 
@@ -1534,17 +1534,17 @@ an display the following URLs:
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-    <head>
-        <meta charset="utf-8">
-        <title>Pas de titre</title>
-        <link rel="stylesheet" href="stylesheets/common.css"  media="all"> 
-    </head>
-    <body>  
-        <div>
-            <h1>NodeAtlas © Haeresis</h1>
-        </div>
-        <script async="true" type="text/javascript" src="javascripts/common.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8">
+		<title>Pas de titre</title>
+		<link rel="stylesheet" href="stylesheets/common.css"  media="all">
+	</head>
+	<body>
+		<div>
+			<h1>NodeAtlas © Haeresis</h1>
+		</div>
+		<script async="true" type="text/javascript" src="javascripts/common.js"></script>
+	</body>
 </html>
 ```
 
@@ -1570,12 +1570,12 @@ with this set of files
 
 ```json
 {
-    "statics": {
-        "/javascripts/models": "models"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+	"statics": {
+		"/javascripts/models": "models"
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -1583,25 +1583,25 @@ with this set of files
 
 ```html
 <!DOCTYPE html>
-    <html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <title>Statics</title>
-    </head>
-    <body>
-        <div id="user"></div>
-        <script src="javascripts/models/user.js"></script>
-        <script>
-            var user = new User(),
-                mount = document.getElementById("user");
+	<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>Statics</title>
+	</head>
+	<body>
+		<div id="user"></div>
+		<script src="javascripts/models/user.js"></script>
+		<script>
+			var user = new User(),
+				mount = document.getElementById("user");
 
-            user
-                .firstname("Bruno")
-                .lastname("Lesieur");
+			user
+				.firstname("Bruno")
+				.lastname("Lesieur");
 
-            mount.innerHTML = user.firstname() + " " + user.lastname();
-        </script>
-    </body>
+			mount.innerHTML = user.firstname() + " " + user.lastname();
+		</script>
+	</body>
 </html>
 ```
 
@@ -1609,32 +1609,32 @@ with this set of files
 
 ```js
 (function (expose, factory) {
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = factory;
-    } else {
-        expose.User = factory;
-    }
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = factory;
+	} else {
+		expose.User = factory;
+	}
 }(this, function User() {
-    var privates = {},
-        publics = this;
+	var privates = {},
+		publics = this;
 
-    publics.lastname = function (lastname) {
-        if (typeof lastname === 'undefined') {
-            return privates.lastname;
-        } else {
-            privates.lastname = lastname;
-            return publics;
-        }
-    };
+	publics.lastname = function (lastname) {
+		if (typeof lastname === 'undefined') {
+			return privates.lastname;
+		} else {
+			privates.lastname = lastname;
+			return publics;
+		}
+	};
 
-    publics.firstname = function (firstname) {
-        if (typeof firstname === 'undefined') {
-            return privates.firstname;
-        } else {
-            privates.firstname = firstname;
-            return publics;
-        }
-    };
+	publics.firstname = function (firstname) {
+		if (typeof firstname === 'undefined') {
+			return privates.firstname;
+		} else {
+			privates.firstname = firstname;
+			return publics;
+		}
+	};
 }));
 ```
 
@@ -1646,17 +1646,17 @@ It's possible to manage informations provided by NodeAtlas when a static ressour
 
 ```json
 {
-    "statics": {
-        "/javascripts/models": {
-            "path": "models",
-            "staticOptions": {
-                "index": false
-            }
-        }
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+	"statics": {
+		"/javascripts/models": {
+			"path": "models",
+			"staticOptions": {
+				"index": false
+			}
+		}
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -1668,16 +1668,16 @@ In this case, the path become the `virtual` parameter.
 
 ```json
 {
-    "statics": [{
-        "virtual": "/javascripts/models",
-        "path": "models",
-        "staticOptions": {
-            "index": false
-        }
-    }],
-    "routes": {
-        "/": "index.htm"
-    }
+	"statics": [{
+		"virtual": "/javascripts/models",
+		"path": "models",
+		"staticOptions": {
+			"index": false
+		}
+	}],
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -1691,26 +1691,26 @@ With the following configuration it is possible to generate HTML rendering asset
 
 ```json
 {
-    "htmlGenerationBeforeResponse": true,
-    "assetsRelativePath": "../HTML/",
-    "serverlessRelativePath": "../HTML/",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "output": "/index.html"
-        },
-        "/list-of-members/": {
-            "view": "members.htm",
-            "output": "/members/list.html"
-        },
-        "/list-of-members/?foo=bar": {
-            "view": "members.htm",
-            "output": false
-        },
-        "/no/output/parameter/": {
-            "view": "members.htm"
-        }
-    }
+	"htmlGenerationBeforeResponse": true,
+	"assetsRelativePath": "../HTML/",
+	"serverlessRelativePath": "../HTML/",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"output": "/index.html"
+		},
+		"/list-of-members/": {
+			"view": "members.htm",
+			"output": "/members/list.html"
+		},
+		"/list-of-members/?foo=bar": {
+			"view": "members.htm",
+			"output": false
+		},
+		"/no/output/parameter/": {
+			"view": "members.htm"
+		}
+	}
 }
 ```
 
@@ -1763,7 +1763,7 @@ You can also manager a simple HTML website page with `--generate` command.
 
 If `htmlGenerationBeforeResponse` is setted to `false` (or removed) the only way to generate all the pages of the website will be via the command `node-atlas --generate` will generate all pages into `serverlessRelativePath` only if global `output` is setted to `true`.
 
-Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path only if global `assetsCopy` is setted to `true`. 
+Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path only if global `assetsCopy` is setted to `true`.
 
 It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
 
@@ -1771,22 +1771,22 @@ See this with the following configuration:
 
 ```json
 {
-    "output": true,
-    "assetsCopy": true,
-    "languageCode": "fr-fr",
-    "index": true,
-    "serverlessRelativePath": "serverless",
-    "routes": {
-        "/cv.html": {
-            "view": "index.htm",
-            "variation": "index.json"
-        },
-        "/en/cv.html": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "languageCode": "en"
-        }
-    }
+	"output": true,
+	"assetsCopy": true,
+	"languageCode": "fr-fr",
+	"index": true,
+	"serverlessRelativePath": "serverless",
+	"routes": {
+		"/cv.html": {
+			"view": "index.htm",
+			"variation": "index.json"
+		},
+		"/en/cv.html": {
+			"view": "index.htm",
+			"variation": "index.json",
+			"languageCode": "en"
+		}
+	}
 }
 ```
 
@@ -1833,12 +1833,12 @@ Files defined into `statics` are also copyble into `serverlessRelativePath` when
 
 ```
 {
-    "statics": {
-        "/javascripts/models": {
-            "path": "models",
-            "output": true
-        }
-    },
+	"statics": {
+		"/javascripts/models": {
+			"path": "models",
+			"output": true
+		}
+	},
 }
 ```
 
@@ -1862,12 +1862,12 @@ However, EJS works by default with `<%` and `%>`. You could set this values or s
 
 ```json
 {
-    "templateEngineDelimiter": "%",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"templateEngineDelimiter": "%",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -1879,14 +1879,14 @@ See the example in files below:
 
 ```json
 {
-    "templateEngineDelimiter": true,
-    "variation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.ejs",
-            "variation": "index.json"
-        }
-    }
+	"templateEngineDelimiter": true,
+	"variation": "common.json",
+	"routes": {
+		"/": {
+			"view": "index.ejs",
+			"variation": "index.json"
+		}
+	}
 }
 ```
 
@@ -1894,9 +1894,9 @@ See the example in files below:
 
 ```json
 {
-    "titleWebsite": "Website Title",
-    "classCssCommon": "common",
-    "classJsCommon": "common"
+	"titleWebsite": "Website Title",
+	"classCssCommon": "common",
+	"classJsCommon": "common"
 }
 ```
 
@@ -1904,9 +1904,9 @@ See the example in files below:
 
 ```json
 {
-    "titlePage": "Welcome",
-    "classPage": "index",
-    "content": "<p>This is the Homepage.</p>"
+	"titlePage": "Welcome",
+	"classPage": "index",
+	"content": "<p>This is the Homepage.</p>"
 }
 ```
 
@@ -1915,36 +1915,36 @@ See the example in files below:
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-    <head>
-        <meta charset="utf-8" />
-        <title><%- specific.titlePage %></title>
-        <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
-        <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
-    </head>
-    <body class="<%= specific.classPage %>">
+	<head>
+		<meta charset="utf-8" />
+		<title><%- specific.titlePage %></title>
+		<link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
+		<link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
+	</head>
+	<body class="<%= specific.classPage %>">
 ```
 
 *views/partials/foot.ejs*
 
 ```html
-        <script async type="text/javascript" src="javascripts/<%= common.classJsCommon %>.js"></script>
-    </body>
+		<script async type="text/javascript" src="javascripts/<%= common.classJsCommon %>.js"></script>
+	</body>
 </html>
 ```
 
 *views/index.ejs*
 
 ```html
-    <%- include("partials/head") %>
+	<%- include("partials/head") %>
 
-    <div class="title"><%- common.titleWebsite %></div>
+	<div class="title"><%- common.titleWebsite %></div>
 
-    <div>
-        <h1><%- specific.titlePage %></h1>
-        <%- specific.content %>
-    </div>
+	<div>
+		<h1><%- specific.titlePage %></h1>
+		<%- specific.content %>
+	</div>
 
-    <%- include("partials/foot") %>
+	<%- include("partials/foot") %>
 ```
 
 Learn all about the possibilities of the template engine consult [the documentation EJS](http://ejs.co/)
@@ -1959,15 +1959,15 @@ It's also possible to change EJS template to [PUG Template Engine](https://pugjs
 
 ```json
 {
-    "pug": true,
-    "routes": {
-        "/": {
-            "view": "index.pug"
-        },
-        "/contenu/": {
-            "view": "content.pug"
-        }
-    }
+	"pug": true,
+	"routes": {
+		"/": {
+			"view": "index.pug"
+		},
+		"/contenu/": {
+			"view": "content.pug"
+		}
+	}
 }
 ```
 
@@ -1975,15 +1975,15 @@ or just for one page like this:
 
 ```
 {
-    "routes": {
-        "/": {
-            "view": "index.pug"
-        },
-        "/contenu/": {
-            "pug": true,
-            "view": "content.pug"
-        }
-    }
+	"routes": {
+		"/": {
+			"view": "index.pug"
+		},
+		"/contenu/": {
+			"pug": true,
+			"view": "content.pug"
+		}
+	}
 }
 ```
 
@@ -1991,16 +1991,16 @@ It's also possible to reset EJS only for one page.
 
 ```
 {
-    "pug": true,
-    "routes": {
-        "/": {
-            "pug": false,
-            "view": "index.pug"
-        },
-        "/contenu/": {
-            "view": "content.pug"
-        }
-    }
+	"pug": true,
+	"routes": {
+		"/": {
+			"pug": false,
+			"view": "index.pug"
+		},
+		"/contenu/": {
+			"view": "content.pug"
+		}
+	}
 }
 ```
 
@@ -2010,15 +2010,15 @@ We can see now an example with set of files below:
 
 ```
 {
-    "pug": true,
-    "view": "common.pug",
-    "variation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.pug",
-            "variation": "index.json"
-        }
-    }
+	"pug": true,
+	"view": "common.pug",
+	"variation": "common.json",
+	"routes": {
+		"/": {
+			"view": "index.pug",
+			"variation": "index.json"
+		}
+	}
 }
 ```
 
@@ -2026,9 +2026,9 @@ We can see now an example with set of files below:
 
 ```json
 {
-    "titleWebsite": "Website Title",
-    "classCssCommon": "common",
-    "classJsCommon": "common"
+	"titleWebsite": "Website Title",
+	"classCssCommon": "common",
+	"classJsCommon": "common"
 }
 ```
 
@@ -2036,9 +2036,9 @@ We can see now an example with set of files below:
 
 ```json
 {
-    "titlePage": "Welcome",
-    "classPage": "index",
-    "content": "<p>This is the Homepage.</p>"
+	"titlePage": "Welcome",
+	"classPage": "index",
+	"content": "<p>This is the Homepage.</p>"
 }
 ```
 
@@ -2047,15 +2047,15 @@ We can see now an example with set of files below:
 ```html
 doctype html
 html(lang="fr-fr")
-    head
-        meta(charset="utf-8")
-        title #{specific.titlePage}
-        link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
-        link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
-    body(class=specific.classPage)
-        include partials/header
-        include #{routeParameters.view}
-        script(async, type="text/javascript", src="javascripts/" + common.classJsCommon + ".js")
+	head
+		meta(charset="utf-8")
+		title #{specific.titlePage}
+		link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
+		link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
+	body(class=specific.classPage)
+		include partials/header
+		include #{routeParameters.view}
+		script(async, type="text/javascript", src="javascripts/" + common.classJsCommon + ".js")
 ```
 
 *views/partials/header.pug*
@@ -2068,8 +2068,8 @@ h1 #{titleWebsite}
 
 ```html
 div
-    h2 #{specific.titlePage}
-    | !{specific.content}
+	h2 #{specific.titlePage}
+	| !{specific.content}
 ```
 
 Learn all about the possibilities of the template engine consult [the documentation PUG](https://pugjs.org/)
@@ -2104,14 +2104,14 @@ This is a `webconfig.json` allows you to manipulate each hook of life cycle of a
 
 ```json
 {
-    "controllersRelativePath": "controllers",
-    "controller": "common.js",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "controller": "index.json"
-        }
-    }
+	"controllersRelativePath": "controllers",
+	"controller": "common.js",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"controller": "index.json"
+		}
+	}
 }
 ```
 
@@ -2139,32 +2139,32 @@ and this is the detail of all hooks while:
   ├─[Setting Webconfig instructions]
   ┊
   └─[Loading Common Controller]
-    ┊  ______________________________
-    ├─{Hook : <controller>.setModules}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    ├─[Server Init]
-    ┊  _______________________________
-    ├─{Hook : <controller>.setSessions}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    ├─[Sessions Init]
-    ┊ 
-    ├─[Sockets Init]
-    ┊ ┊  ______________________________
-    ┊ ├─{Hook : <controller>.setSockets}_______
-    ┊ └─{Hook : routes[<controller>].setSockets}
-    ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    ┊  _____________________________________
-    ├─{Hook : <controller>.setConfigurations}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    └─[Starting the server]
-      ┊
-      ├─[Template Engine Init]
-      ┊  _____________________________
-      ├─{Hook : <controller>.setRoutes}
-      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-      └─[Routes Init]
-        ┊
-        ∞
+	┊  ______________________________
+	├─{Hook : <controller>.setModules}
+	┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+	├─[Server Init]
+	┊  _______________________________
+	├─{Hook : <controller>.setSessions}
+	┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+	├─[Sessions Init]
+	┊
+	├─[Sockets Init]
+	┊ ┊  ______________________________
+	┊ ├─{Hook : <controller>.setSockets}_______
+	┊ └─{Hook : routes[<controller>].setSockets}
+	┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+	┊  _____________________________________
+	├─{Hook : <controller>.setConfigurations}
+	┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+	└─[Starting the server]
+	  ┊
+	  ├─[Template Engine Init]
+	  ┊  _____________________________
+	  ├─{Hook : <controller>.setRoutes}
+	  ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+	  └─[Routes Init]
+		┊
+		∞
 ```
 
 *Processing a request*
@@ -2175,18 +2175,18 @@ and this is the detail of all hooks while:
 └─[Processing a request]
   ┊
   └─[Loading Specific Controller]
-    ┊  ____________________________________
-    ├─{Hook : <controller>.changeVariations}_______
-    ├─{Hook : routes[<controller>].changeVariations}
-    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-    └─[Template Engine Compilation]
-      ┊  _____________________________
-      ├─{Hook : <controller>.changeDom}_______
-      ├─{Hook : routes[<controller>].changeDom}
-      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-      └─[Send Response]
-        ┊ 
-        ∞
+	┊  ____________________________________
+	├─{Hook : <controller>.changeVariations}_______
+	├─{Hook : routes[<controller>].changeVariations}
+	┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+	└─[Template Engine Compilation]
+	  ┊  _____________________________
+	  ├─{Hook : <controller>.changeDom}_______
+	  ├─{Hook : routes[<controller>].changeDom}
+	  ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+	  └─[Send Response]
+		┊
+		∞
 ```
 
 #### changeVariations ####
@@ -2205,16 +2205,16 @@ This is an example using the two hooks, the common in first and after the specif
 
 ```json
 {
-    "urlRelativeSubPath": "example",
-    "controller": "common.js",
-    "variation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "controller": "index.js"
-        }
-    }
+	"urlRelativeSubPath": "example",
+	"controller": "common.js",
+	"variation": "common.json",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json",
+			"controller": "index.js"
+		}
+	}
 }
 ```
 
@@ -2241,7 +2241,7 @@ Do a POST request on `http://localhost/example/?title=Haeresis` with `example=Th
 
 ```json
 {
-    "titleWebsite": "Site Title"
+	"titleWebsite": "Site Title"
 }
 ```
 
@@ -2249,24 +2249,24 @@ Do a POST request on `http://localhost/example/?title=Haeresis` with `example=Th
 
 ```json
 {
-    "titlePage": "Welcome",
-    "content": "<p>This is the Home Page.</p>"
+	"titlePage": "Welcome",
+	"content": "<p>This is the Home Page.</p>"
 }
 ```
 
 *views/index.htm*
 
 ```html
-    <?- include("partials/head.htm") ?>
+	<?- include("partials/head.htm") ?>
 
-    <div class="title"><?- common.titleWebsite ?></div>
+	<div class="title"><?- common.titleWebsite ?></div>
 
-    <div>
-        <h1><?- specific.titlePage ?></h1>
-        <?- specific.content ?>
-    </div>
+	<div>
+		<h1><?- specific.titlePage ?></h1>
+		<?- specific.content ?>
+	</div>
 
-    <?- include("partials/foot.htm") ?>
+	<?- include("partials/foot.htm") ?>
 ```
 
 *controllers/common.js*
@@ -2276,32 +2276,32 @@ Do a POST request on `http://localhost/example/?title=Haeresis` with `example=Th
 // This code is executed for all HTTP request, for all pages.
 exports.changeVariations = function (next, locals, request, response) {
 
-    // Here we update locals variable.
+	// Here we update locals variable.
 
-    console.log(locals.common.titleWebsite); // "Site Title"
-    console.log(locals.specific.titlePage); // "Welcome"
-    console.log(locals.specific.content); // "This is the Home Page."
+	console.log(locals.common.titleWebsite); // "Site Title"
+	console.log(locals.specific.titlePage); // "Welcome"
+	console.log(locals.specific.content); // "This is the Home Page."
 
-    console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
-    console.log("urlSubPath", locals.urlSubPath); // "/example"
-    console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
-    console.log("urlFilePath", locals.urlFilePath); // "/"
-    console.log("urlQueryPath", locals.urlQueryPath); // "?title=Haeresis"
-    console.log("urlPath", locals.urlPath); // "http://localhost/example/?title=Haeresis"
+	console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
+	console.log("urlSubPath", locals.urlSubPath); // "/example"
+	console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
+	console.log("urlFilePath", locals.urlFilePath); // "/"
+	console.log("urlQueryPath", locals.urlQueryPath); // "?title=Haeresis"
+	console.log("urlPath", locals.urlPath); // "http://localhost/example/?title=Haeresis"
 
-    if (request.query["title"]) {
-        locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
-    }
-    if (request.body["example"]) {
-        locals.specific.content = request.body.example;
-    }
-    
-    console.log(locals.common.titleWebsite); // "Site Title"
-    console.log(locals.specific.titlePage); // "Welcome Haeresis"
-    console.log(locals.specific.content); // "This is a test"
+	if (request.query["title"]) {
+		locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
+	}
+	if (request.body["example"]) {
+		locals.specific.content = request.body.example;
+	}
 
-    // We do the next step.
-    next();
+	console.log(locals.common.titleWebsite); // "Site Title"
+	console.log(locals.specific.titlePage); // "Welcome Haeresis"
+	console.log(locals.specific.content); // "This is a test"
+
+	// We do the next step.
+	next();
 };
 ```
 
@@ -2312,21 +2312,21 @@ exports.changeVariations = function (next, locals, request, response) {
 // This code is executed only for the « / » page.
 exports.changeVariations = function (next, locals, request, response) {
 
-    // Here we update locals variable.
+	// Here we update locals variable.
 
-    console.log(locals.common.titleWebsite); // "Site Title"
-    console.log(locals.specific.titlePage); // "Welcome Haeresis"
-    console.log(locals.specific.content); // "This is a test"
+	console.log(locals.common.titleWebsite); // "Site Title"
+	console.log(locals.specific.titlePage); // "Welcome Haeresis"
+	console.log(locals.specific.content); // "This is a test"
 
-    locals.common.titleWebsite = "It's Home, no way.";
-    locals.specific.content = "It's Home, no way.";
+	locals.common.titleWebsite = "It's Home, no way.";
+	locals.specific.content = "It's Home, no way.";
 
-    console.log(locals.common.titleWebsite); // "It's Home, no way."
-    console.log(locals.specific.titlePage); // "Welcome Haeresis"
-    console.log(locals.specific.content); // "It's Home, no way."
+	console.log(locals.common.titleWebsite); // "It's Home, no way."
+	console.log(locals.specific.titlePage); // "Welcome Haeresis"
+	console.log(locals.specific.content); // "It's Home, no way."
 
-    // We do the next step.
-    next();
+	// We do the next step.
+	next();
 };
 ```
 
@@ -2335,17 +2335,17 @@ en this produce the following output:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>It's Home, no way.</title>
-    </head>
-    <body>
-        <div class="title">It's Home, no way.</div>
-        <div>
-            <h1>Welcome Haeresis</h1>
-            It's Home, no way.
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>It's Home, no way.</title>
+	</head>
+	<body>
+		<div class="title">It's Home, no way.</div>
+		<div>
+			<h1>Welcome Haeresis</h1>
+			It's Home, no way.
+		</div>
+	</body>
 </html>
 ```
 
@@ -2353,14 +2353,14 @@ If you delete the variation entry of specific page from webconfig:
 
 ```json
 {
-    "controller": "common.js",
-    "variation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json"
-        }
-    }
+	"controller": "common.js",
+	"variation": "common.json",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json"
+		}
+	}
 }
 ```
 
@@ -2369,17 +2369,17 @@ the output will be as following:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>Site Title</title>
-    </head>
-    <body>
-        <div class="title">Site Title</div>
-        <div>
-            <h1>Welcome Haeresis</h1>
-            This is a test
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Site Title</title>
+	</head>
+	<body>
+		<div class="title">Site Title</div>
+		<div>
+			<h1>Welcome Haeresis</h1>
+			This is a test
+		</div>
+	</body>
 </html>
 ```
 
@@ -2399,15 +2399,15 @@ This is an example using the two hooks, the common in first and after the specif
 
 ```json
 {
-    "controller": "common.js",
-    "variation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "controller": "index.js"
-        }
-    }
+	"controller": "common.js",
+	"variation": "common.json",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json",
+			"controller": "index.js"
+		}
+	}
 }
 ```
 
@@ -2431,7 +2431,7 @@ Do a request on `http://localhost/` will use the following files (and others):
 
 ```json
 {
-    "titleWebsite": "Site Title"
+	"titleWebsite": "Site Title"
 }
 ```
 
@@ -2439,8 +2439,8 @@ Do a request on `http://localhost/` will use the following files (and others):
 
 ```json
 {
-    "titlePage": "Welcome",
-    "content": "<p>This is Home Page.</p>"
+	"titlePage": "Welcome",
+	"content": "<p>This is Home Page.</p>"
 }
 ```
 
@@ -2449,17 +2449,17 @@ Do a request on `http://localhost/` will use the following files (and others):
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title><?- common.titleWebsite ?></title>
-    </head>
-    <body>
-        <div class="title"><?- common.titleWebsite ?></div>
-        <div>
-            <h1><?- specific.titlePage ?></h1>
-            <?- specific.content ?>
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title><?- common.titleWebsite ?></title>
+	</head>
+	<body>
+		<div class="title"><?- common.titleWebsite ?></div>
+		<div>
+			<h1><?- specific.titlePage ?></h1>
+			<?- specific.content ?>
+		</div>
+	</body>
 </html>
 ```
 
@@ -2469,23 +2469,23 @@ Do a request on `http://localhost/` will use the following files (and others):
 // This code is executed before DOM was sent to Client.
 // This code is executed for all HTTP request, for all pages.
 exports.changeDom = function (next, locals, request, response) {
-    var $ = locals.virtualDom(); // Transform HTML string into Virtual DOM.
+	var $ = locals.virtualDom(); // Transform HTML string into Virtual DOM.
 
-    // Just after eath h1 from HTML DOM...
-    $("h1").each(function () {
-        var $this = $(this);
+	// Just after eath h1 from HTML DOM...
+	$("h1").each(function () {
+		var $this = $(this);
 
-        // ...we create a div,
-        $this.after(
-            // ...we inject the content of h1 into the div,
-            $("<div>").html($this.html())
-        );
-        // ...and we delete the h1.
-        $this.remove();
-    });
+		// ...we create a div,
+		$this.after(
+			// ...we inject the content of h1 into the div,
+			$("<div>").html($this.html())
+		);
+		// ...and we delete the h1.
+		$this.remove();
+	});
 
-    // Return updates for reinject them into HTML string.
-    next($);
+	// Return updates for reinject them into HTML string.
+	next($);
 };
 ```
 
@@ -2495,18 +2495,18 @@ exports.changeDom = function (next, locals, request, response) {
 // This code is executed before DOM was sent to Client.
 // This code is executed only for the « / » page .
 exports.changeDom = function (next, locals, request, response) {
-    var NA = this,
-        cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
-        $ = cheerio.load(locals.dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+	var NA = this,
+		cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
+		$ = cheerio.load(locals.dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
 
-    // We update nodes contents with `.title` class.
-    $(".title").text("Content Update");
+	// We update nodes contents with `.title` class.
+	$(".title").text("Content Update");
 
-    // We recreate a new HTML output with updates.
-    locals.dom = $.html();
+	// We recreate a new HTML output with updates.
+	locals.dom = $.html();
 
-    // We go to next step.
-    next();
+	// We go to next step.
+	next();
 };
 ```
 
@@ -2515,17 +2515,17 @@ the output will be as following:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <title>Site Title</title>
-    </head>
-    <body>
-        <div class="title">Content Update</div>
-        <div>
-            <div>Welcome</div>
-            <p>This is Home Page.</p>
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8">
+		<title>Site Title</title>
+	</head>
+	<body>
+		<div class="title">Content Update</div>
+		<div>
+			<div>Welcome</div>
+			<p>This is Home Page.</p>
+		</div>
+	</body>
 </html>
 ```
 
@@ -2541,15 +2541,15 @@ This is an example using the two hooks, the common in first and after the specif
 
 ```json
 {
-    "socketClientFile": "/node-atlas/socket.io.js",
-    "socketServerOptions": { transports: ['polling', 'websocket'] },
-    "controller": "common.js",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "controller": "index.js"
-        }
-    }
+	"socketClientFile": "/node-atlas/socket.io.js",
+	"socketServerOptions": { transports: ['polling', 'websocket'] },
+	"controller": "common.js",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"controller": "index.js"
+		}
+	}
 }
 ```
 
@@ -2575,20 +2575,20 @@ Do a request on `http://localhost/` will use the following files (and others fil
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>Websocket Example</title>
-    </head>
-    <body>
-        <div class="layout">
-            <div class="content"></div>
-            <div class="field">Write something : <input class="input" type="text"></div>
-        </div>
-        <script type="text/javascript" src="socket.io/socket.io.js"></script>
-        <script type="text/javascript" src="node-atlas/socket.io.js"></script>
-        <script type="text/javascript" src="javascripts/test.js"></script>
-        <script type="text/javascript" src="javascripts/index.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Websocket Example</title>
+	</head>
+	<body>
+		<div class="layout">
+			<div class="content"></div>
+			<div class="field">Write something : <input class="input" type="text"></div>
+		</div>
+		<script type="text/javascript" src="socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="node-atlas/socket.io.js"></script>
+		<script type="text/javascript" src="javascripts/test.js"></script>
+		<script type="text/javascript" src="javascripts/index.js"></script>
+	</body>
 </html>
 ```
 
@@ -2598,16 +2598,16 @@ Do a request on `http://localhost/` will use the following files (and others fil
 
 ```js
 (function (expose, factory) {
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = factory;
-    } else {
-        expose.Test = factory;
-    }
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = factory;
+	} else {
+		expose.Test = factory;
+	}
 }(this, function () {
 	if (NA.isClient) {
-	    console.log("Client");
+		console.log("Client");
 	} else {
-	    console.log("Server");
+		console.log("Server");
 	}
 }));
 ```
@@ -2618,15 +2618,15 @@ Do a request on `http://localhost/` will use the following files (and others fil
 // This code is executed for each Websocket request/response on server.
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
-    var NA = this,
-        io = NA.io;
+	var NA = this,
+		io = NA.io;
 
-    io.on('connection', function (socket) {
-        console.log("A tab is opened.");
-        socket.on('disconnect', function () {
-            console.log("A tab is closed.");
-        });
-    });
+	io.on('connection', function (socket) {
+		console.log("A tab is opened.");
+		socket.on('disconnect', function () {
+			console.log("A tab is closed.");
+		});
+	});
 };
 ```
 
@@ -2636,22 +2636,22 @@ exports.setSockets = function () {
 // This code is executed for each Websocket request/response on server.
 // This code is executed for all Websocket from Client.
 exports.setSockets = function () {
-    var NA = this,
-    	path = NA.modules.path,
-        io = NA.io;
+	var NA = this,
+		path = NA.modules.path,
+		io = NA.io;
 
-    require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // display `Server`
+	require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // display `Server`
 
-    // Wait for a valid connection between client and servere.
-    io.sockets.on("connection", function (socket) {
+	// Wait for a valid connection between client and servere.
+	io.sockets.on("connection", function (socket) {
 
-        // A page says the text has changed.
-        socket.on("update-text", function (data) {
+		// A page says the text has changed.
+		socket.on("update-text", function (data) {
 
-            // We say to all others page the page has changed.
-            io.sockets.emit("update-text", data);
-        });
-    });
+			// We say to all others page the page has changed.
+			io.sockets.emit("update-text", data);
+		});
+	});
 };
 ```
 
@@ -2659,22 +2659,22 @@ exports.setSockets = function () {
 
 ```js
 var content = document.getElementsByClassName("content")[0],
-    input = document.getElementsByClassName("input")[0];
+	input = document.getElementsByClassName("input")[0];
 
 Test(); // display `Client`
 
 // We say to others we just change text.
 input.addEventListener("keyup", function () {
-    content.innerHTML = input.value;
-    NA.socket.emit("update-text", {
-        text: input.value
-    });
+	content.innerHTML = input.value;
+	NA.socket.emit("update-text", {
+		text: input.value
+	});
 });
 
 // Others says they changed the text.
 NA.socket.on("update-text", function (data) {
-    content.innerHTML = data.text;
-    input.value = data.text;
+	content.innerHTML = data.text;
+	input.value = data.text;
 });
 ```
 
@@ -2696,13 +2696,13 @@ This is an exemple using an external module of NodeAtlas:
 
 ```json
 {
-    "controller": "common.js",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "controller": "index.js"
-        }
-    }
+	"controller": "common.js",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"controller": "index.js"
+		}
+	}
 }
 ```
 
@@ -2724,17 +2724,17 @@ Do a request on `http://localhost/` will use the following files (and others fil
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>Test Module</title>
-    </head>
-    <body>
-        <div class="title">Test Module</div>
-        <div>
-            <h1>Test Module</h1>
-            <?- example ?>
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Test Module</title>
+	</head>
+	<body>
+		<div class="title">Test Module</div>
+		<div>
+			<h1>Test Module</h1>
+			<?- example ?>
+		</div>
+	</body>
 </html>
 ```
 
@@ -2744,11 +2744,11 @@ Do a request on `http://localhost/` will use the following files (and others fil
 // This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
 exports.setModules = function () {
-    // Use the « NodeAtlas » instance from engine.
-    var NA = this;
+	// Use the « NodeAtlas » instance from engine.
+	var NA = this;
 
-    // Associate each modules to allow us to use them anywhare.
-    NA.modules.marked = require('marked');
+	// Associate each modules to allow us to use them anywhare.
+	NA.modules.marked = require('marked');
 };
 ```
 
@@ -2758,14 +2758,14 @@ exports.setModules = function () {
 // This code is executed before variation are injected into template engine.
 // This code is executed only for the « / » page .
 exports.changeVariations = function (next, locals) {
-    // Use the « NodeAtlas » instance from engine.
-    var NA = this,
-        marked = NA.modules.marked;
+	// Use the « NodeAtlas » instance from engine.
+	var NA = this,
+		marked = NA.modules.marked;
 
-    variations.example = marked("I am using __markdown__.");
+	variations.example = marked("I am using __markdown__.");
 
-    // We do next step.
-    next();
+	// We do next step.
+	next();
 };
 ```
 
@@ -2774,17 +2774,17 @@ this will produce the following output:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>Test Module</title>
-    </head>
-    <body>
-        <div class="title">Test Module</div>
-        <div>
-            <h1>Test Module</h1>
-            <p>I am using <strong>markdown</strong>.</p>
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Test Module</title>
+	</head>
+	<body>
+		<div class="title">Test Module</div>
+		<div>
+			<h1>Test Module</h1>
+			<p>I am using <strong>markdown</strong>.</p>
+		</div>
+	</body>
 </html>
 ```
 
@@ -2801,13 +2801,13 @@ This is an exemple using a middleware for [ExpressJs](http://expressjs.com/):
 
 ```json
 {
-    "controller": "common.js",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "controller": "index.js"
-        }
-    }
+	"controller": "common.js",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"controller": "index.js"
+		}
+	}
 }
 ```
 
@@ -2836,17 +2836,17 @@ Do a request on `http://localhost/` will use the following files (and others fil
 // This code is executing before starting of the web server.
 // This code will be executed when NodeAtlas starting.
 exports.setConfigurations = function (next) {
-    // Use the « NodeAtlas » instance from engine.
-    var NA = this;
+	// Use the « NodeAtlas » instance from engine.
+	var NA = this;
 
-    // Middleware utilisé lors de chaque requête.
-    NA.express.use(function (request, response, next) {
-        response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
-        next();
-    });
+	// Middleware utilisé lors de chaque requête.
+	NA.express.use(function (request, response, next) {
+		response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
+		next();
+	});
 
-    // We update modification here.
-    next();
+	// We update modification here.
+	next();
 };
 ```
 
@@ -2857,14 +2857,14 @@ exports.setConfigurations = function (next) {
 // This code is executed only for the « / » page .
 exports.changeVariations = function (next, locals) {
 
-    // We prepare file for JSON displaying.
-    locals.routeParameters.headers = {
-        "Content-Type": "application/json; charset=utf-8"
-    };
-    locals.content = JSON.stringify(locals, null, "    ");
+	// We prepare file for JSON displaying.
+	locals.routeParameters.headers = {
+		"Content-Type": "application/json; charset=utf-8"
+	};
+	locals.content = JSON.stringify(locals, null, "    ");
 
-    // We do the next step.
-    next();
+	// We do the next step.
+	next();
 };
 ```
 
@@ -2872,18 +2872,18 @@ this will produce the following output:
 
 ```html
 {
-    "urlRootPath": "http://localhost",
-    "urlSubPath": "",
-    "urlBasePath": "http://localhost",
-    "urlFilePath": "/",
-    "urlQueryPath": "",
-    "urlPath": "http://localhost/",
-    "params": {},
-    "query": {},
-    "body": {},
-    "routeParameters": { /* ... */ },
-    "route": "/",
-    "webconfig": { /* ... */ }
+	"urlRootPath": "http://localhost",
+	"urlSubPath": "",
+	"urlBasePath": "http://localhost",
+	"urlFilePath": "/",
+	"urlQueryPath": "",
+	"urlPath": "http://localhost/",
+	"params": {},
+	"query": {},
+	"body": {},
+	"routeParameters": { /* ... */ },
+	"route": "/",
+	"webconfig": { /* ... */ }
 }
 ```
 
@@ -2913,12 +2913,12 @@ With the `webconfig.json`:
 
 ```json
 {
-    "controller": "common.js",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"controller": "common.js",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -2928,25 +2928,25 @@ And "common.js" file containing e.g.:
 // This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
 exports.setModules = function () {
-    // Find instance of « NodeAtlas » engine.
-    var NA = this;
+	// Find instance of « NodeAtlas » engine.
+	var NA = this;
 
-    // Associations of each module to access it anywhere.
-    NA.modules.RedisStore = require('connect-redis');
+	// Associations of each module to access it anywhere.
+	NA.modules.RedisStore = require('connect-redis');
 };
 
 // This code is executing while configuration of session.
 // This code will be executed when NodeAtlas starting.
 exports.setSessions = function (next) {
-    var NA = this,
-        session = NA.modules.session,
-        RedisStore = NA.modules.RedisStore(session);
+	var NA = this,
+		session = NA.modules.session,
+		RedisStore = NA.modules.RedisStore(session);
 
-    // We replace the default session.
-    NA.sessionStore = new RedisStore();
+	// We replace the default session.
+	NA.sessionStore = new RedisStore();
 
-    // We update modification here.
-    next();
+	// We update modification here.
+	next();
 };
 ```
 
@@ -2976,13 +2976,13 @@ With the `webconfig.json`:
 
 ```json
 {
-    "controller": "common.js",
-    "variation": "common.json",
-    "routes": {
-        "/index.html": {
-            "view": "index.htm"
-        }
-    }
+	"controller": "common.js",
+	"variation": "common.json",
+	"routes": {
+		"/index.html": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -2993,19 +2993,19 @@ And "common.js" file containing e.g.:
 // This code will be executed when NodeAtlas starting.
 exports.setRoutes = function (next) {
 
-    // We use instance of NodeAtlas.
-    var NA = this,
+	// We use instance of NodeAtlas.
+	var NA = this,
 
-        // And we keep routes from NodeAtlas webconfig...
-        route = NA.webconfig.routes;
+		// And we keep routes from NodeAtlas webconfig...
+		route = NA.webconfig.routes;
 
-    // ...to add "/content.html" route amongs others routes.
-    route["/content.html"] = {
-        "view": "content.htm"
-    };
+	// ...to add "/content.html" route amongs others routes.
+	route["/content.html"] = {
+		"view": "content.htm"
+	};
 
-    // We update modification here.
-    next(); 
+	// We update modification here.
+	next();
 };
 ```
 
@@ -3039,14 +3039,14 @@ With this `webconfig.json`:
 
 ```json
 {
-    "variation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "controller": "index.js"
-        }
-    }
+	"variation": "common.json",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json",
+			"controller": "index.js"
+		}
+	}
 }
 ```
 
@@ -3055,13 +3055,13 @@ and with this views files:
 *views/partials/index.htm*
 
 ```html
-        <div class="title"><?- common.titleWebsite ?></div>
-        <div>
-            <h1><?- specific.titlePage ?></h1>
-            <?- specific.content ?>
-            <div><?- new Date() ?></div>
-        </div>
-        <button>Update</button>
+		<div class="title"><?- common.titleWebsite ?></div>
+		<div>
+			<h1><?- specific.titlePage ?></h1>
+			<?- specific.content ?>
+			<div><?- new Date() ?></div>
+		</div>
+		<button>Update</button>
 ```
 
 *Note : Each click on `button` will update content from `views/partials/index.htm`.*
@@ -3071,18 +3071,18 @@ and with this views files:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title><?- common.titleWebsite ?></title>
-    </head>
-    <body>
-        <div class="layout">
-            <?- include('partials/index.htm') ?>
-        </div>
-        <script type="text/javascript" src="socket.io/socket.io.js"></script>
-        <script type="text/javascript" src="node-atlas/socket.io.js"></script>
-        <script type="text/javascript" src="javascripts/index.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title><?- common.titleWebsite ?></title>
+	</head>
+	<body>
+		<div class="layout">
+			<?- include('partials/index.htm') ?>
+		</div>
+		<script type="text/javascript" src="socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="node-atlas/socket.io.js"></script>
+		<script type="text/javascript" src="javascripts/index.js"></script>
+	</body>
 </html>
 ```
 
@@ -3094,7 +3094,7 @@ and the following variations files :
 
 ```json
 {
-    "titleWebsite": "Socket.IO Example"
+	"titleWebsite": "Socket.IO Example"
 }
 ```
 
@@ -3102,12 +3102,12 @@ and the following variations files :
 
 ```json
 {
-    "titlePage": "Date",
-    "content": "<p>Current date is:</p>"
+	"titlePage": "Date",
+	"content": "<p>Current date is:</p>"
 }
 ```
 
-All work fine here, but see what we will do with controller part on Server-side and on Client-side. 
+All work fine here, but see what we will do with controller part on Server-side and on Client-side.
 
 On server, we will use the following controller file:
 
@@ -3116,31 +3116,31 @@ On server, we will use the following controller file:
 ```js
 // All Websocket action possible with `setSockets`.
 exports.setSockets = function () {
-    var NA = this,
-        io = NA.io;
+	var NA = this,
+		io = NA.io;
 
-    // Once we have a valid connection between the client and our server...
-    io.sockets.on('connection', function (socket) {
+	// Once we have a valid connection between the client and our server...
+	io.sockets.on('connection', function (socket) {
 
-        // ...stay tuned on the "create-item-button" demand...
-        socket.on("server-render", function (data) {
-            var sessionID = socket.request.sessionID,
-                session = socket.request.session,
-                locals = {};
+		// ...stay tuned on the "create-item-button" demand...
+		socket.on("server-render", function (data) {
+			var sessionID = socket.request.sessionID,
+				session = socket.request.session,
+				locals = {};
 
-            // Specific variations in the good language.
-            locals = NA.specific("index.json", data.lang, locals);
+			// Specific variations in the good language.
+			locals = NA.specific("index.json", data.lang, locals);
 
-            // Common variations in the good language.
-            locals = NA.common(data.lang, locals);
+			// Common variations in the good language.
+			locals = NA.common(data.lang, locals);
 
-            // HTML part from `viewsRelativePath` directory and render with variations.
-            result = NA.view("partials/index.htm", locals);
+			// HTML part from `viewsRelativePath` directory and render with variations.
+			result = NA.view("partials/index.htm", locals);
 
-            // And responds to all customers with a set of data in data.
-            io.sockets.emit("server-render", data);
-        });
-    });
+			// And responds to all customers with a set of data in data.
+			io.sockets.emit("server-render", data);
+		});
+	});
 };
 ```
 
@@ -3150,16 +3150,16 @@ And for client-side, we use the following files:
 
 ```js
 var html = document.getElementsByTagName("html")[0],
-    layout = document.getElementsByClassName("layout")[0];
+	layout = document.getElementsByClassName("layout")[0];
 
 // We associate on the button the action to contact server.
 function setServerRender() {
-    var button = document.getElementsByTagName("button")[0];
-    button.addEventListener("click", function () {
-        NA.socket.emit("server-render", {
-            lang: html.getAttribute("lang")
-        });
-    });
+	var button = document.getElementsByTagName("button")[0];
+	button.addEventListener("click", function () {
+		NA.socket.emit("server-render", {
+			lang: html.getAttribute("lang")
+		});
+	});
 }
 
 // We set action on button.
@@ -3168,11 +3168,11 @@ setServerRender();
 // When server response come back...
 NA.socket.on("server-render", function (data) {
 
-    // ...we update data content...
-    layout.innerHTML = data.render;
+	// ...we update data content...
+	layout.innerHTML = data.render;
 
-    // ...and we set again button action.
-    setServerRender();
+	// ...and we set again button action.
+	setServerRender();
 });
 ```
 
@@ -3215,16 +3215,16 @@ and create a `user` table:
 ```sql
 CREATE TABLE user
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    lastname VARCHAR(100),
-    firstname VARCHAR(100),
-    email VARCHAR(255),
-    birthdate DATE,
-    gender TINYINT(1),
-    country VARCHAR(255),
-    town VARCHAR(255),
-    zipcode VARCHAR(5),
-    address VARCHAR(255)
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	lastname VARCHAR(100),
+	firstname VARCHAR(100),
+	email VARCHAR(255),
+	birthdate DATE,
+	gender TINYINT(1),
+	country VARCHAR(255),
+	town VARCHAR(255),
+	zipcode VARCHAR(5),
+	address VARCHAR(255)
 );
 ```
 
@@ -3232,46 +3232,46 @@ and fill it with this set of data:
 
 ```sql
 INSERT INTO user (
-    lastname,
-    firstname,
-    email,
-    birthdate,
-    gender,
-    country,
-    town,
-    zipcode,
-    address
+	lastname,
+	firstname,
+	email,
+	birthdate,
+	gender,
+	country,
+	town,
+	zipcode,
+	address
 ) VALUES (
-    "Elric",
-    "Edward",
-    "edward.elric@fma.br",
-    "2006/01/01",
-    true,
-    "Amestris",
-    "Resembool",
-    00000,
-    "The Elric's house"
+	"Elric",
+	"Edward",
+	"edward.elric@fma.br",
+	"2006/01/01",
+	true,
+	"Amestris",
+	"Resembool",
+	00000,
+	"The Elric's house"
 );
 INSERT INTO user (
-    lastname,
-    firstname,
-    email,
-    birthdate,
-    gender,
-    country,
-    town,
-    zipcode,
-    address
+	lastname,
+	firstname,
+	email,
+	birthdate,
+	gender,
+	country,
+	town,
+	zipcode,
+	address
 ) VALUES (
-    "Elric",
-    "Alphonse",
-    "alphonse.elric@fma.br",
-    "2008/01/01",
-    true,
-    "Amestris",
-    "Resembool",
-    00000,
-    "The Elric's house"
+	"Elric",
+	"Alphonse",
+	"alphonse.elric@fma.br",
+	"2008/01/01",
+	true,
+	"Amestris",
+	"Resembool",
+	00000,
+	"The Elric's house"
 );
 ```
 
@@ -3300,24 +3300,24 @@ We will use the following `webconfig.json` with the custom `_mysqlConfig` variab
 
 ```json
 {
-    "controller": "common.js",
-    "variation": "common.json",
-    "statics": {
-        "/models": "models/objects"
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "controller": "index.js"
-        }
-    },
-    "_mysqlConfig": {
-        "host": "localhost",
-        "user": "root",
-        "password": "root",
-        "database": "demo"
-    }
+	"controller": "common.js",
+	"variation": "common.json",
+	"statics": {
+		"/models": "models/objects"
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json",
+			"controller": "index.js"
+		}
+	},
+	"_mysqlConfig": {
+		"host": "localhost",
+		"user": "root",
+		"password": "root",
+		"database": "demo"
+	}
 }
 ```
 
@@ -3325,26 +3325,26 @@ Then, we will be connect to the database with the common controller `controllers
 
 ```js
 exports.setModules = function () {
-    var NA = this;
+	var NA = this;
 
-    // Import of `mysql` module.
-    NA.modules.mysql = require('mysql');
+	// Import of `mysql` module.
+	NA.modules.mysql = require('mysql');
 
-    // Create a model collection...
-    NA.models = {};
-    // ...and use the User model with MySQL connection capability.
-    NA.models.User = require('../models/connectors/user.js');
+	// Create a model collection...
+	NA.models = {};
+	// ...and use the User model with MySQL connection capability.
+	NA.models.User = require('../models/connectors/user.js');
 };
 
 exports.setConfigurations = function (next) {
-    var NA = this,
-        path = NA.modules.path,
-        mysql = NA.modules.mysql;
+	var NA = this,
+		path = NA.modules.path,
+		mysql = NA.modules.mysql;
 
-    // Create a connection pool to MySQL.
-    NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
+	// Create a connection pool to MySQL.
+	NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
 
-    next();
+	next();
 };
 ```
 
@@ -3352,61 +3352,61 @@ And display result via specific controller `controllers/index.js`:
 
 ```js
 exports.changeVariations = function (next, locals) {
-    var NA = this,
-        user = new NA.models.User(),
-        user2 = new NA.models.User(),
-        user3 = new NA.models.User(),
-        user4 = new NA.models.User();
+	var NA = this,
+		user = new NA.models.User(),
+		user2 = new NA.models.User(),
+		user3 = new NA.models.User(),
+		user4 = new NA.models.User();
 
-    NA.mySql.getConnection(function(err, connection) {
-        if (err) {
-            throw err;
-        }
+	NA.mySql.getConnection(function(err, connection) {
+		if (err) {
+			throw err;
+		}
 
-        // Read example.
-        user
-        .setConnection(connection)
-        .lastname("Elric")
-        .read(function (allUsers) {
-            locals.user = user;
-            locals.users = allUsers;
+		// Read example.
+		user
+		.setConnection(connection)
+		.lastname("Elric")
+		.read(function (allUsers) {
+			locals.user = user;
+			locals.users = allUsers;
 
-            // Create Example.
-            user2
-            .setConnection(connection)
-            .firstname("Winry")
-            .lastname("Rockbell")
-            .email("winry.rockbell@fma.br")
-            .gender(true)
-            .create(function (infos) {
-                locals.insertId = infos.insertId;
-                locals.user2 = user2;
+			// Create Example.
+			user2
+			.setConnection(connection)
+			.firstname("Winry")
+			.lastname("Rockbell")
+			.email("winry.rockbell@fma.br")
+			.gender(true)
+			.create(function (infos) {
+				locals.insertId = infos.insertId;
+				locals.user2 = user2;
 
-                // Update Example.
-                user3
-                .gender(false)
-                .birthdate("2008-01-01")
-                .country("Amestris")
-                .town("Resembool")
-                .zipcode("99999")
-                .address("The Rockbell's house");
+				// Update Example.
+				user3
+				.gender(false)
+				.birthdate("2008-01-01")
+				.country("Amestris")
+				.town("Resembool")
+				.zipcode("99999")
+				.address("The Rockbell's house");
 
-                user2.update(user3, function (infos) {
-                    locals.affectedRows = infos.affectedRows;
-                    locals.user2 = user2;
+				user2.update(user3, function (infos) {
+					locals.affectedRows = infos.affectedRows;
+					locals.user2 = user2;
 
-                    // Delete Example.
-                    user4
-                    .setConnection(connection)
-                    .gender(false)
-                    .delete(function (infos) {
-                        locals.deletedRows = infos.affectedRows;
-                        next();
-                    });
-                });
-            });
-        });
-    });
+					// Delete Example.
+					user4
+					.setConnection(connection)
+					.gender(false)
+					.delete(function (infos) {
+						locals.deletedRows = infos.affectedRows;
+						next();
+					});
+				});
+			});
+		});
+	});
 };
 ```
 
@@ -3416,247 +3416,247 @@ with the `user` model via connect file to database `models/connectors/user.js`:
 var user = require('../objects/user.js');
 
 function User(connection) {
-    var privates = {},
-        publics = this;
+	var privates = {},
+		publics = this;
 
-    user.call(publics);
+	user.call(publics);
 
-    privates.connection = connection;
+	privates.connection = connection;
 
-    publics.setConnection = function (connection) {
-        privates.connection = connection;
-        return publics;
-    };
+	publics.setConnection = function (connection) {
+		privates.connection = connection;
+		return publics;
+	};
 
-    publics.read = function (callback) {
-        var select = `SELECT
-                    id,
-                    lastname,
-                    firstname,
-                    email,
-                    birthdate,
-                    gender,
-                    country,
-                    town,
-                    zipcode,
-                    address
-                FROM user`, 
-            where = "";
+	publics.read = function (callback) {
+		var select = `SELECT
+					id,
+					lastname,
+					firstname,
+					email,
+					birthdate,
+					gender,
+					country,
+					town,
+					zipcode,
+					address
+				FROM user`,
+			where = "";
 
-        if (publics.id()) { where += ' && `id` = ' + publics.id(); }
-        if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
-        if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
-        if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
-        if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
-        if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
-        if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
-        if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
-        if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
-        if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
+		if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+		if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
+		if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
+		if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
+		if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
+		if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+		if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
+		if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
+		if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
+		if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
 
-        where = where.replace("&&", "WHERE");
+		where = where.replace("&&", "WHERE");
 
-        privates.connection.query(select + where, function (err, rows) {
-            var users = [],
-                user;
+		privates.connection.query(select + where, function (err, rows) {
+			var users = [],
+				user;
 
-            if (err) {
-                throw err;
-            }
+			if (err) {
+				throw err;
+			}
 
-            if (rows[0]) {
-                publics.id(rows[0].id);
-                publics.lastname(rows[0].lastname);
-                publics.firstname(rows[0].firstname);
-                publics.email(rows[0].email);
-                publics.birthdate(rows[0].birthdate);
-                publics.gender((rows[0].gender) ? true : false);
-                publics.country(rows[0].country);
-                publics.town(rows[0].town);
-                publics.zipcode(rows[0].zipcode);
-                publics.address(rows[0].address);
-            }
+			if (rows[0]) {
+				publics.id(rows[0].id);
+				publics.lastname(rows[0].lastname);
+				publics.firstname(rows[0].firstname);
+				publics.email(rows[0].email);
+				publics.birthdate(rows[0].birthdate);
+				publics.gender((rows[0].gender) ? true : false);
+				publics.country(rows[0].country);
+				publics.town(rows[0].town);
+				publics.zipcode(rows[0].zipcode);
+				publics.address(rows[0].address);
+			}
 
-            for (var i = 0; i < rows.length; i++) {
-                user = new User();
-                user.id(rows[i].id);
-                user.lastname(rows[i].lastname);
-                user.firstname(rows[i].firstname);
-                user.email(rows[i].email);
-                user.birthdate(rows[i].birthdate);
-                user.gender((rows[i].gender) ? true : false);
-                user.country(rows[i].country);
-                user.town(rows[i].town);
-                user.zipcode(rows[i].zipcode);
-                user.address(rows[i].address);
-                users.push(user);
-            }
+			for (var i = 0; i < rows.length; i++) {
+				user = new User();
+				user.id(rows[i].id);
+				user.lastname(rows[i].lastname);
+				user.firstname(rows[i].firstname);
+				user.email(rows[i].email);
+				user.birthdate(rows[i].birthdate);
+				user.gender((rows[i].gender) ? true : false);
+				user.country(rows[i].country);
+				user.town(rows[i].town);
+				user.zipcode(rows[i].zipcode);
+				user.address(rows[i].address);
+				users.push(user);
+			}
 
-            if (callback) {
-                callback(users);
-            }
-        });
+			if (callback) {
+				callback(users);
+			}
+		});
 
-        return publics;
-    };
+		return publics;
+	};
 
-    publics.create = function (callback) {
-        var insert = "INSERT INTO user (",
-            values = ") VALUES (";
+	publics.create = function (callback) {
+		var insert = "INSERT INTO user (",
+			values = ") VALUES (";
 
-        if (publics.id()) {
-            insert += "`id`, ";
-            values += publics.id() + ', ';
-        }
-        if (publics.lastname()) {
-            insert += "`lastname`, ";
-            values += '"' + publics.lastname() + '", ';
-        }
-        if (publics.firstname()) {
-            insert += "`firstname`, ";
-            values += '"' + publics.firstname() + '", ';
-        }
-        if (publics.email()) {
-            insert += "`email`, ";
-            values += '"' + publics.email() + '", ';
-        }
-        if (publics.birthdate()) {
-            insert += "`birthdate`, ";
-            values += '"' + publics.birthdate() + '", ';
-        }
-        if (typeof publics.gender() === "boolean") { 
-            insert += "`gender`, ";
-            values += (publics.gender() ? 1 : 0) + ', ';
-        }
-        if (publics.country()) {
-            insert += "`country`, ";
-            values += '"' + publics.country() + '", ';
-        }
-        if (publics.town()) {
-            insert += "`town`, ";
-            values += '"' + publics.town() + '", ';
-        }
-        if (publics.zipcode()) {
-            insert += "`zipcode`, ";
-            values += '"' + publics.zipcode() + '", ';
-        }
-        if (publics.address()) {
-            insert += "`address`, ";
-            values += '"' + publics.address() + '", ';
-        }
+		if (publics.id()) {
+			insert += "`id`, ";
+			values += publics.id() + ', ';
+		}
+		if (publics.lastname()) {
+			insert += "`lastname`, ";
+			values += '"' + publics.lastname() + '", ';
+		}
+		if (publics.firstname()) {
+			insert += "`firstname`, ";
+			values += '"' + publics.firstname() + '", ';
+		}
+		if (publics.email()) {
+			insert += "`email`, ";
+			values += '"' + publics.email() + '", ';
+		}
+		if (publics.birthdate()) {
+			insert += "`birthdate`, ";
+			values += '"' + publics.birthdate() + '", ';
+		}
+		if (typeof publics.gender() === "boolean") {
+			insert += "`gender`, ";
+			values += (publics.gender() ? 1 : 0) + ', ';
+		}
+		if (publics.country()) {
+			insert += "`country`, ";
+			values += '"' + publics.country() + '", ';
+		}
+		if (publics.town()) {
+			insert += "`town`, ";
+			values += '"' + publics.town() + '", ';
+		}
+		if (publics.zipcode()) {
+			insert += "`zipcode`, ";
+			values += '"' + publics.zipcode() + '", ';
+		}
+		if (publics.address()) {
+			insert += "`address`, ";
+			values += '"' + publics.address() + '", ';
+		}
 
-        insert = insert.replace(/, $/g, "");
-        values = values.replace(/, $/g, ")");
+		insert = insert.replace(/, $/g, "");
+		values = values.replace(/, $/g, ")");
 
-        privates.connection.query(insert + values, function (err, infos) {
-            if (err) { 
-                throw err;
-            }
+		privates.connection.query(insert + values, function (err, infos) {
+			if (err) {
+				throw err;
+			}
 
-            publics.id(infos.insertId);
+			publics.id(infos.insertId);
 
-            if (callback) {
-                callback(infos);
-            }
-        });
+			if (callback) {
+				callback(infos);
+			}
+		});
 
-        return publics;
-    };
+		return publics;
+	};
 
-    publics.update = function (user, callback) {
-        var update = "UPDATE user SET",
-            where = "";
+	publics.update = function (user, callback) {
+		var update = "UPDATE user SET",
+			where = "";
 
-        if (user.id()) { update += '`id` = ' + user.id() + ', '; }
-        if (user.lastname()) { update += '`lastname` = "' + user.lastname() + '", '; }
-        if (user.firstname()) { update += '`firstname` = "' + user.firstname() + '", '; }
-        if (user.email()) { update += '`email` = "' + user.email() + '", '; }
-        if (user.birthdate()) { update += '`birthdate` = "' + user.birthdate() + '", '; }
-        if (typeof user.gender() === "boolean") { update += '`gender` = ' + (user.gender() ? 1 : 0) + ', '; }
-        if (user.country()) { update += '`country` = "' + user.country() + '", '; }
-        if (user.town()) { update += '`town` = "' + user.town() + '", '; }
-        if (user.zipcode()) { update += '`zipcode` = "' + user.zipcode() + '", '; }
-        if (user.address()) { update += '`address` = "' + user.address() + '", '; }
+		if (user.id()) { update += '`id` = ' + user.id() + ', '; }
+		if (user.lastname()) { update += '`lastname` = "' + user.lastname() + '", '; }
+		if (user.firstname()) { update += '`firstname` = "' + user.firstname() + '", '; }
+		if (user.email()) { update += '`email` = "' + user.email() + '", '; }
+		if (user.birthdate()) { update += '`birthdate` = "' + user.birthdate() + '", '; }
+		if (typeof user.gender() === "boolean") { update += '`gender` = ' + (user.gender() ? 1 : 0) + ', '; }
+		if (user.country()) { update += '`country` = "' + user.country() + '", '; }
+		if (user.town()) { update += '`town` = "' + user.town() + '", '; }
+		if (user.zipcode()) { update += '`zipcode` = "' + user.zipcode() + '", '; }
+		if (user.address()) { update += '`address` = "' + user.address() + '", '; }
 
-        update = update.replace(/, $/g, "");
+		update = update.replace(/, $/g, "");
 
-        if (publics.id()) { where += ' && `id` = ' + publics.id(); }
-        if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
-        if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
-        if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
-        if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
-        if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
-        if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
-        if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
-        if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
-        if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
+		if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+		if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
+		if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
+		if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
+		if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
+		if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+		if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
+		if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
+		if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
+		if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
 
-        where = where.replace("&&", "WHERE");
+		where = where.replace("&&", "WHERE");
 
-        privates.connection.query(update + where, function (err, infos) {
-            if (err) { 
-                throw err;
-            }
+		privates.connection.query(update + where, function (err, infos) {
+			if (err) {
+				throw err;
+			}
 
-            if (user.id()) { publics.id(user.id()); }
-            if (user.lastname()) { publics.lastname(user.lastname()); }
-            if (user.firstname()) { publics.firstname(user.firstname()); }
-            if (user.email()) { publics.email(user.email()); }
-            if (user.birthdate()) { publics.birthdate(user.birthdate()); }
-            if (typeof publics.gender() === "boolean") { publics.gender(user.gender()); }
-            if (user.country()) { publics.country(user.country()); }
-            if (user.town()) { publics.town(user.town()); }
-            if (user.zipcode()) { publics.zipcode(user.zipcode()); }
-            if (user.address()) { publics.address(user.address()); }
+			if (user.id()) { publics.id(user.id()); }
+			if (user.lastname()) { publics.lastname(user.lastname()); }
+			if (user.firstname()) { publics.firstname(user.firstname()); }
+			if (user.email()) { publics.email(user.email()); }
+			if (user.birthdate()) { publics.birthdate(user.birthdate()); }
+			if (typeof publics.gender() === "boolean") { publics.gender(user.gender()); }
+			if (user.country()) { publics.country(user.country()); }
+			if (user.town()) { publics.town(user.town()); }
+			if (user.zipcode()) { publics.zipcode(user.zipcode()); }
+			if (user.address()) { publics.address(user.address()); }
 
-            if (callback) {
-                callback(infos);
-            }
-        });
+			if (callback) {
+				callback(infos);
+			}
+		});
 
-        return publics;
-    };
+		return publics;
+	};
 
-    publics.delete = function (callback) {
-        var del = "DELETE FROM user",
-            where = "";
+	publics.delete = function (callback) {
+		var del = "DELETE FROM user",
+			where = "";
 
-        if (publics.id()) { where += ' && `id` = ' + publics.id(); }
-        if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
-        if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
-        if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
-        if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
-        if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
-        if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
-        if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
-        if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
-        if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
+		if (publics.id()) { where += ' && `id` = ' + publics.id(); }
+		if (publics.lastname()) { where += ' && `lastname` = "' + publics.lastname() + '"'; }
+		if (publics.firstname()) { where += ' && `firstname` = "' + publics.firstname() + '"'; }
+		if (publics.email()) { where += ' && `email` = "' + publics.email() + '"'; }
+		if (publics.birthdate()) { where += ' && `birthdate` = "' + publics.birthdate() + '"'; }
+		if (typeof publics.gender() === "boolean") { where += ' && `gender` = ' + (publics.gender() ? 1 : 0); }
+		if (publics.country()) { where += ' && `country` = "' + publics.country() + '"'; }
+		if (publics.town()) { where += ' && `town` = "' + publics.town() + '"'; }
+		if (publics.zipcode()) { where += ' && `zipcode` = "' + publics.zipcode() + '"'; }
+		if (publics.address()) { where += ' && `address` = "' + publics.address() + '"'; }
 
-        where = where.replace("&&", "WHERE");
+		where = where.replace("&&", "WHERE");
 
-        privates.connection.query(del + where, function (err, infos) {
-            if (err) { 
-                throw err;
-            }
+		privates.connection.query(del + where, function (err, infos) {
+			if (err) {
+				throw err;
+			}
 
-            if (publics.id()) { publics.id(undefined); }
-            if (publics.lastname()) { publics.lastname(undefined); }
-            if (publics.firstname()) { publics.firstname(undefined); }
-            if (publics.email()) { publics.email(undefined); }
-            if (publics.birthdate()) { publics.birthdate(undefined); }
-            if (typeof publics.gender() === "boolean") { publics.gender(undefined); }
-            if (publics.country()) { publics.country(undefined); }
-            if (publics.town()) { publics.town(undefined); }
-            if (publics.zipcode()) { publics.zipcode(undefined); }
-            if (publics.address()) { publics.address(undefined); }
+			if (publics.id()) { publics.id(undefined); }
+			if (publics.lastname()) { publics.lastname(undefined); }
+			if (publics.firstname()) { publics.firstname(undefined); }
+			if (publics.email()) { publics.email(undefined); }
+			if (publics.birthdate()) { publics.birthdate(undefined); }
+			if (typeof publics.gender() === "boolean") { publics.gender(undefined); }
+			if (publics.country()) { publics.country(undefined); }
+			if (publics.town()) { publics.town(undefined); }
+			if (publics.zipcode()) { publics.zipcode(undefined); }
+			if (publics.address()) { publics.address(undefined); }
 
-            if (callback) {
-                callback(infos);
-            }
-        });
+			if (callback) {
+				callback(infos);
+			}
+		});
 
-        return publics;
-    };
+		return publics;
+	};
 }
 
 User.prototype = Object.create(user.prototype);
@@ -3669,104 +3669,104 @@ based on `user` classe shared between client-side and server-side `models/object
 
 ```js
 (function (expose, factory) {
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = factory;
-    } else {
-        expose.User = factory;
-    }
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = factory;
+	} else {
+		expose.User = factory;
+	}
 }(this, function User() {
-    var privates = {},
-        publics = this;
+	var privates = {},
+		publics = this;
 
-    publics.id = function (id) {
-        if (typeof id === 'undefined') {
-            return privates.id;
-        } else {
-            privates.id = id;
-            return publics;
-        }
-    };
+	publics.id = function (id) {
+		if (typeof id === 'undefined') {
+			return privates.id;
+		} else {
+			privates.id = id;
+			return publics;
+		}
+	};
 
-    publics.lastname = function (lastname) {
-        if (typeof lastname === 'undefined') {
-            return privates.lastname;
-        } else {
-            privates.lastname = lastname;
-            return publics;
-        }
-    };
+	publics.lastname = function (lastname) {
+		if (typeof lastname === 'undefined') {
+			return privates.lastname;
+		} else {
+			privates.lastname = lastname;
+			return publics;
+		}
+	};
 
-    publics.firstname = function (firstname) {
-        if (typeof firstname === 'undefined') {
-            return privates.firstname;
-        } else {
-            privates.firstname = firstname;
-            return publics;
-        }
-    };
+	publics.firstname = function (firstname) {
+		if (typeof firstname === 'undefined') {
+			return privates.firstname;
+		} else {
+			privates.firstname = firstname;
+			return publics;
+		}
+	};
 
-    publics.email = function (email) {
-        if (typeof email === 'undefined') {
-            return privates.email;
-        } else {
-            privates.email = email;
-            return publics;
-        }
-    };
+	publics.email = function (email) {
+		if (typeof email === 'undefined') {
+			return privates.email;
+		} else {
+			privates.email = email;
+			return publics;
+		}
+	};
 
-    publics.birthdate = function (birthdate) {
-        if (typeof birthdate === 'undefined') {
-            return privates.birthdate;
-        } else {
-            privates.birthdate = birthdate;
-            return publics;
-        }
-    };
+	publics.birthdate = function (birthdate) {
+		if (typeof birthdate === 'undefined') {
+			return privates.birthdate;
+		} else {
+			privates.birthdate = birthdate;
+			return publics;
+		}
+	};
 
-    publics.gender = function (gender) {
-        if (typeof gender === 'undefined') {
-            return privates.gender;
-        } else {
-            privates.gender = gender;
-            return publics;
-        }
-    };
-    
-    publics.country = function (country) {
-        if (typeof country === 'undefined') {
-            return privates.country;
-        } else {
-            privates.country = country;
-            return publics;
-        }
-    };
+	publics.gender = function (gender) {
+		if (typeof gender === 'undefined') {
+			return privates.gender;
+		} else {
+			privates.gender = gender;
+			return publics;
+		}
+	};
 
-    publics.town = function (town) {
-        if (typeof town === 'undefined') {
-            return privates.town;
-        } else {
-            privates.town = town;
-            return publics;
-        }
-    };
+	publics.country = function (country) {
+		if (typeof country === 'undefined') {
+			return privates.country;
+		} else {
+			privates.country = country;
+			return publics;
+		}
+	};
 
-    publics.zipcode = function (zipcode) {
-        if (typeof zipcode === 'undefined') {
-            return privates.zipcode;
-        } else {
-            privates.zipcode = zipcode;
-            return publics;
-        }
-    };
+	publics.town = function (town) {
+		if (typeof town === 'undefined') {
+			return privates.town;
+		} else {
+			privates.town = town;
+			return publics;
+		}
+	};
 
-    publics.address = function (address) {
-        if (typeof address === 'undefined') {
-            return privates.address;
-        } else {
-            privates.address = address;
-            return publics;
-        }
-    };
+	publics.zipcode = function (zipcode) {
+		if (typeof zipcode === 'undefined') {
+			return privates.zipcode;
+		} else {
+			privates.zipcode = zipcode;
+			return publics;
+		}
+	};
+
+	publics.address = function (address) {
+		if (typeof address === 'undefined') {
+			return privates.address;
+		} else {
+			privates.address = address;
+			return publics;
+		}
+	};
 }));
 ```
 
@@ -3777,66 +3777,66 @@ With following files to display page:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title><?- common.titleWebsite ?></title>
-    </head>
-    <body>
-        <div class="title"><?- common.titleWebsite ?></div>
-        <div>
-            <h1><?- specific.titlePage ?></h1>
-            <div class="first">
-                <?- specific.content ?>
-                <ul>
-                    <li>Id: <strong><?- user.id() ?></strong></li>
-                    <li>Lastname: <strong><?- user.lastname() ?></strong></li>
-                    <li>Firstname: <strong><?- user.firstname() ?></strong></li>
-                    <li>Email: <strong><?- user.email() ?></strong></li>
-                    <li>Birthdate: <strong><?- user.birthdate() ?></strong></li>
-                    <li>Gender: <strong><?- user.gender() ?></strong></li>
-                    <li>Country: <strong><?- user.country() ?></strong></li>
-                    <li>Town: <strong><?- user.town() ?></strong></li>
-                    <li>Zipcode: <strong><?- user.zipcode() ?></strong></li>
-                    <li>Address: <strong><?- user.address() ?></strong></li>
-                </ul>
-            </div>
-            <div class="all">
-                <?- specific.contents ?>
-                <? for (var i = 0; i < users.length; i++) { ?>
-                <ul>
-                    <li>Id: <strong><?- users[i].id() ?></strong></li>
-                    <li>Lastname: <strong><?- users[i].lastname() ?></strong></li>
-                    <li>Firstname: <strong><?- users[i].firstname() ?></strong></li>
-                    <li>Email: <strong><?- users[i].email() ?></strong></li>
-                    <li>Birthdate: <strong><?- users[i].birthdate() ?></strong></li>
-                    <li>Gender: <strong><?- users[i].gender() ?></strong></li>
-                    <li>Country: <strong><?- users[i].country() ?></strong></li>
-                    <li>Town: <strong><?- users[i].town() ?></strong></li>
-                    <li>Zipcode: <strong><?- users[i].zipcode() ?></strong></li>
-                    <li>Address: <strong><?- users[i].address() ?></strong></li>
-                </ul>
-                <? } ?>
-            </div>
-            <div class="last">
-                <?- specific.contentInsert ?>
-                <p>insertId: <?- insertId ?></p>
-                <p>numberUpdate: <?- affectedRows ?></p>
-                <ul>
-                    <li>Id: <strong><?- user2.id() ?></strong></li>
-                    <li>Lastname: <strong><?- user2.lastname() ?></strong></li>
-                    <li>Firstname: <strong><?- user2.firstname() ?></strong></li>
-                    <li>Email: <strong><?- user2.email() ?></strong></li>
-                    <li>Birthdate: <strong><?- user2.birthdate() ?></strong></li>
-                    <li>Gender: <strong><?- user2.gender() ?></strong></li>
-                    <li>Country: <strong><?- user2.country() ?></strong></li>
-                    <li>Town: <strong><?- user2.town() ?></strong></li>
-                    <li>Zipcode: <strong><?- user2.zipcode() ?></strong></li>
-                    <li>Address: <strong><?- user2.address() ?></strong></li>
-                </ul>
-                <p>numberDelete: <?- deletedRows ?></p>
-            </div>
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title><?- common.titleWebsite ?></title>
+	</head>
+	<body>
+		<div class="title"><?- common.titleWebsite ?></div>
+		<div>
+			<h1><?- specific.titlePage ?></h1>
+			<div class="first">
+				<?- specific.content ?>
+				<ul>
+					<li>Id: <strong><?- user.id() ?></strong></li>
+					<li>Lastname: <strong><?- user.lastname() ?></strong></li>
+					<li>Firstname: <strong><?- user.firstname() ?></strong></li>
+					<li>Email: <strong><?- user.email() ?></strong></li>
+					<li>Birthdate: <strong><?- user.birthdate() ?></strong></li>
+					<li>Gender: <strong><?- user.gender() ?></strong></li>
+					<li>Country: <strong><?- user.country() ?></strong></li>
+					<li>Town: <strong><?- user.town() ?></strong></li>
+					<li>Zipcode: <strong><?- user.zipcode() ?></strong></li>
+					<li>Address: <strong><?- user.address() ?></strong></li>
+				</ul>
+			</div>
+			<div class="all">
+				<?- specific.contents ?>
+				<? for (var i = 0; i < users.length; i++) { ?>
+				<ul>
+					<li>Id: <strong><?- users[i].id() ?></strong></li>
+					<li>Lastname: <strong><?- users[i].lastname() ?></strong></li>
+					<li>Firstname: <strong><?- users[i].firstname() ?></strong></li>
+					<li>Email: <strong><?- users[i].email() ?></strong></li>
+					<li>Birthdate: <strong><?- users[i].birthdate() ?></strong></li>
+					<li>Gender: <strong><?- users[i].gender() ?></strong></li>
+					<li>Country: <strong><?- users[i].country() ?></strong></li>
+					<li>Town: <strong><?- users[i].town() ?></strong></li>
+					<li>Zipcode: <strong><?- users[i].zipcode() ?></strong></li>
+					<li>Address: <strong><?- users[i].address() ?></strong></li>
+				</ul>
+				<? } ?>
+			</div>
+			<div class="last">
+				<?- specific.contentInsert ?>
+				<p>insertId: <?- insertId ?></p>
+				<p>numberUpdate: <?- affectedRows ?></p>
+				<ul>
+					<li>Id: <strong><?- user2.id() ?></strong></li>
+					<li>Lastname: <strong><?- user2.lastname() ?></strong></li>
+					<li>Firstname: <strong><?- user2.firstname() ?></strong></li>
+					<li>Email: <strong><?- user2.email() ?></strong></li>
+					<li>Birthdate: <strong><?- user2.birthdate() ?></strong></li>
+					<li>Gender: <strong><?- user2.gender() ?></strong></li>
+					<li>Country: <strong><?- user2.country() ?></strong></li>
+					<li>Town: <strong><?- user2.town() ?></strong></li>
+					<li>Zipcode: <strong><?- user2.zipcode() ?></strong></li>
+					<li>Address: <strong><?- user2.address() ?></strong></li>
+				</ul>
+				<p>numberDelete: <?- deletedRows ?></p>
+			</div>
+		</div>
+	</body>
 </html>
 ```
 
@@ -3844,9 +3844,9 @@ With following files to display page:
 
 ```json
 {
-    "titleWebsite": "Example MySql",
-    "male": "Man",
-    "female": "Woman"
+	"titleWebsite": "Example MySql",
+	"male": "Man",
+	"female": "Woman"
 }
 ```
 
@@ -3854,10 +3854,10 @@ With following files to display page:
 
 ```json
 {
-    "titlePage": "User Table",
-    "content": "<p>First entry details.</p>",
-    "contents": "<p>All entries details.</p>",
-    "contentInsert": "<p>Added and Updated user details.</p>"
+	"titlePage": "User Table",
+	"content": "<p>First entry details.</p>",
+	"contents": "<p>All entries details.</p>",
+	"contentInsert": "<p>Added and Updated user details.</p>"
 }
 ```
 
@@ -3866,76 +3866,76 @@ You will get the following output:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>MySql Exemple</title>
-    </head>
-    <body>
-        <div class="title">MySql Exemple</div>
-        <div>
-            <h1>Table User</h1>
-            <div class="first">
-                <p>Détail de la première entrée.</p>
-                <ul>
-                    <li>Id: <strong>1</strong></li>
-                    <li>Lastname: <strong>Elric</strong></li>
-                    <li>Firstname: <strong>Edward</strong></li>
-                    <li>Email: <strong>edward.elric@fma.br</strong></li>
-                    <li>Birthdate: <strong>Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
-                    <li>Gender: <strong>true</strong></li>
-                    <li>Country: <strong>Amestris</strong></li>
-                    <li>Town: <strong>Resembool</strong></li>
-                    <li>Zipcode: <strong>0</strong></li>
-                    <li>Address: <strong>The Elric's house</strong></li>
-                </ul>
-            </div>
-            <div class="all">
-                <p>Détail de toutes les entrées.</p>
-                <ul>
-                    <li>Id: <strong>1</strong></li>
-                    <li>Lastname: <strong>Elric</strong></li>
-                    <li>Firstname: <strong>Edward</strong></li>
-                    <li>Email: <strong>edward.elric@fma.br</strong></li>
-                    <li>Birthdate: <strong>Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
-                    <li>Gender: <strong>true</strong></li>
-                    <li>Country: <strong>Amestris</strong></li>
-                    <li>Town: <strong>Resembool</strong></li>
-                    <li>Zipcode: <strong>0</strong></li>
-                    <li>Address: <strong>The Elric's house</strong></li>
-                </ul>
-                <ul>
-                    <li>Id: <strong>2</strong></li>
-                    <li>Lastname: <strong>Elric</strong></li>
-                    <li>Firstname: <strong>Alphonse</strong></li>
-                    <li>Email: <strong>alphonse.elric@fma.br</strong></li>
-                    <li>Birthdate: <strong>Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
-                    <li>Gender: <strong>true</strong></li>
-                    <li>Country: <strong>Amestris</strong></li>
-                    <li>Town: <strong>Resembool</strong></li>
-                    <li>Zipcode: <strong>0</strong></li>
-                    <li>Address: <strong>The Elric's house</strong></li>
-                </ul>
-            </div>
-            <div class="last">
-                <p>Détail de l'utilisateur ajouté puis modifié.</p>
-                <p>insertId: 3</p>
-                <p>numberUpdate: 1</p>
-                <ul>
-                    <li>Id: <strong>3</strong></li>
-                    <li>Lastname: <strong>Rockbell</strong></li>
-                    <li>Firstname: <strong>Winry</strong></li>
-                    <li>Email: <strong>winry.rockbell@fma.br</strong></li>
-                    <li>Birthdate: <strong>2008-01-01</strong></li>
-                    <li>Gender: <strong>false</strong></li>
-                    <li>Country: <strong>Amestris</strong></li>
-                    <li>Town: <strong>Resembool</strong></li>
-                    <li>Zipcode: <strong>99999</strong></li>
-                    <li>Address: <strong>The Rockbell's house</strong></li>
-                </ul>
-                <p>numberDelete: 1</p>
-            </div>
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>MySql Exemple</title>
+	</head>
+	<body>
+		<div class="title">MySql Exemple</div>
+		<div>
+			<h1>Table User</h1>
+			<div class="first">
+				<p>Détail de la première entrée.</p>
+				<ul>
+					<li>Id: <strong>1</strong></li>
+					<li>Lastname: <strong>Elric</strong></li>
+					<li>Firstname: <strong>Edward</strong></li>
+					<li>Email: <strong>edward.elric@fma.br</strong></li>
+					<li>Birthdate: <strong>Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
+					<li>Gender: <strong>true</strong></li>
+					<li>Country: <strong>Amestris</strong></li>
+					<li>Town: <strong>Resembool</strong></li>
+					<li>Zipcode: <strong>0</strong></li>
+					<li>Address: <strong>The Elric's house</strong></li>
+				</ul>
+			</div>
+			<div class="all">
+				<p>Détail de toutes les entrées.</p>
+				<ul>
+					<li>Id: <strong>1</strong></li>
+					<li>Lastname: <strong>Elric</strong></li>
+					<li>Firstname: <strong>Edward</strong></li>
+					<li>Email: <strong>edward.elric@fma.br</strong></li>
+					<li>Birthdate: <strong>Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
+					<li>Gender: <strong>true</strong></li>
+					<li>Country: <strong>Amestris</strong></li>
+					<li>Town: <strong>Resembool</strong></li>
+					<li>Zipcode: <strong>0</strong></li>
+					<li>Address: <strong>The Elric's house</strong></li>
+				</ul>
+				<ul>
+					<li>Id: <strong>2</strong></li>
+					<li>Lastname: <strong>Elric</strong></li>
+					<li>Firstname: <strong>Alphonse</strong></li>
+					<li>Email: <strong>alphonse.elric@fma.br</strong></li>
+					<li>Birthdate: <strong>Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)</strong></li>
+					<li>Gender: <strong>true</strong></li>
+					<li>Country: <strong>Amestris</strong></li>
+					<li>Town: <strong>Resembool</strong></li>
+					<li>Zipcode: <strong>0</strong></li>
+					<li>Address: <strong>The Elric's house</strong></li>
+				</ul>
+			</div>
+			<div class="last">
+				<p>Détail de l'utilisateur ajouté puis modifié.</p>
+				<p>insertId: 3</p>
+				<p>numberUpdate: 1</p>
+				<ul>
+					<li>Id: <strong>3</strong></li>
+					<li>Lastname: <strong>Rockbell</strong></li>
+					<li>Firstname: <strong>Winry</strong></li>
+					<li>Email: <strong>winry.rockbell@fma.br</strong></li>
+					<li>Birthdate: <strong>2008-01-01</strong></li>
+					<li>Gender: <strong>false</strong></li>
+					<li>Country: <strong>Amestris</strong></li>
+					<li>Town: <strong>Resembool</strong></li>
+					<li>Zipcode: <strong>99999</strong></li>
+					<li>Address: <strong>The Rockbell's house</strong></li>
+				</ul>
+				<p>numberDelete: 1</p>
+			</div>
+		</div>
+	</body>
 </html>
 ```
 
@@ -3969,19 +3969,19 @@ and fill it with this document:
 
 ```
 db.user.insert({
-    email: "john.doe@unknown.com",
-    identity: {
-        lastname: "Doe",
-        firstname: "John",
-        gender: true,
-        birthdate : new Date("1970/01/01")
-    },
-    location: {
-        country: "Unknown",
-        town: "Unknown",
-        zipcode: "00000",
-        address: "42 unknown"
-    }
+	email: "john.doe@unknown.com",
+	identity: {
+		lastname: "Doe",
+		firstname: "John",
+		gender: true,
+		birthdate : new Date("1970/01/01")
+	},
+	location: {
+		country: "Unknown",
+		town: "Unknown",
+		zipcode: "00000",
+		address: "42 unknown"
+	}
 })
 ```
 
@@ -4007,23 +4007,23 @@ We will use the following `webconfig.json` with the custom `_mongodbConfig` vari
 
 ```json
 {
-    "controller": "common.js",
-    "variation": "common.json",
-    "statics": {
-        "/models": "models"
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "controller": "index.js"
-        }
-    },
-    "_mongodbConfig": {
-        "host": "localhost",
-        "port": "27017",
-        "database": "demo"
-    }
+	"controller": "common.js",
+	"variation": "common.json",
+	"statics": {
+		"/models": "models"
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json",
+			"controller": "index.js"
+		}
+	},
+	"_mongodbConfig": {
+		"host": "localhost",
+		"port": "27017",
+		"database": "demo"
+	}
 }
 ```
 
@@ -4034,29 +4034,29 @@ With following files to display page:
 ```html
 <!DOCTYPE html>
 <html lang="<?- languageCode ?>">
-    <head>
-        <meta charset="utf-8" />
-        <title><?- common.titleWebsite ?></title>
-    </head>
-    <body>
-        <div class="title"><?- common.titleWebsite ?></div>
-        <div>
-            <h1><?- specific.titlePage ?></h1>
-            <?- specific.content ?>
-            <ul>
-                <li>Id: <strong><?- id ?></strong></li>
-                <li>Lastname: <strong><?- lastname ?></strong></li>
-                <li>Firstname: <strong><?- firstname ?></strong></li>
-                <li>Email: <strong><?- email ?></strong></li>
-                <li>Birthdate: <strong><?- birthdate ?></strong></li>
-                <li>Gender: <strong><?- gender ?></strong></li>
-                <li>Country: <strong><?- country ?></strong></li>
-                <li>Town: <strong><?- town ?></strong></li>
-                <li>Zipcode: <strong><?- zipcode ?></strong></li>
-                <li>Address: <strong><?- address ?></strong></li>
-            </ul>
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title><?- common.titleWebsite ?></title>
+	</head>
+	<body>
+		<div class="title"><?- common.titleWebsite ?></div>
+		<div>
+			<h1><?- specific.titlePage ?></h1>
+			<?- specific.content ?>
+			<ul>
+				<li>Id: <strong><?- id ?></strong></li>
+				<li>Lastname: <strong><?- lastname ?></strong></li>
+				<li>Firstname: <strong><?- firstname ?></strong></li>
+				<li>Email: <strong><?- email ?></strong></li>
+				<li>Birthdate: <strong><?- birthdate ?></strong></li>
+				<li>Gender: <strong><?- gender ?></strong></li>
+				<li>Country: <strong><?- country ?></strong></li>
+				<li>Town: <strong><?- town ?></strong></li>
+				<li>Zipcode: <strong><?- zipcode ?></strong></li>
+				<li>Address: <strong><?- address ?></strong></li>
+			</ul>
+		</div>
+	</body>
 </html>
 ```
 
@@ -4064,9 +4064,9 @@ With following files to display page:
 
 ```json
 {
-    "titleWebsite": "Example MongoDB",
-    "male": "Man",
-    "female": "Woman"
+	"titleWebsite": "Example MongoDB",
+	"male": "Man",
+	"female": "Woman"
 }
 ```
 
@@ -4074,8 +4074,8 @@ With following files to display page:
 
 ```json
 {
-    "titlePage": "User Collection",
-    "content": "<p>Document `{ \"identity.firstname\": \"John\" }` details.</p>"
+	"titlePage": "User Collection",
+	"content": "<p>Document `{ \"identity.firstname\": \"John\" }` details.</p>"
 }
 ```
 
@@ -4083,24 +4083,24 @@ And last, we will be connect to the database with the common controller `control
 
 ```js
 exports.setModules = function () {
-    var NA = this,
-        path = NA.modules.path;
+	var NA = this,
+		path = NA.modules.path;
 
-    NA.modules.mongoose = require('mongoose');
-    NA.models = {};
-    NA.models.User = require('../models/user.js');
+	NA.modules.mongoose = require('mongoose');
+	NA.models = {};
+	NA.models.User = require('../models/user.js');
 };
 
 exports.setConfigurations = function (next) {
-    var NA = this,
-        mongoose = NA.modules.mongoose,
-        config = NA.webconfig._mongodbConfig;
+	var NA = this,
+		mongoose = NA.modules.mongoose,
+		config = NA.webconfig._mongodbConfig;
 
-    mongoose.Promise = global.Promise;
-    mongoose.model("user", NA.models.User, "user");
-    mongoose.connect("mongodb://" + config.host + ":" + config.port + "/" + config.database, function (error) {
-        next();
-    });
+	mongoose.Promise = global.Promise;
+	mongoose.model("user", NA.models.User, "user");
+	mongoose.connect("mongodb://" + config.host + ":" + config.port + "/" + config.database, function (error) {
+		next();
+	});
 };
 ```
 
@@ -4108,27 +4108,27 @@ And display result via specific controller `controllers/index.js`:
 
 ```js
 exports.changeVariations = function (next, locals) {
-    var NA = this,
-        mongoose = NA.modules.mongoose,
-        User = mongoose.model('user');
+	var NA = this,
+		mongoose = NA.modules.mongoose,
+		User = mongoose.model('user');
 
-    User
-    .findOne({ "identity.firstname": "Bruno" })
-    .exec(function (err, user) {
+	User
+	.findOne({ "identity.firstname": "Bruno" })
+	.exec(function (err, user) {
 
-        locals.id = user._id;
-        locals.lastname = user.identity.lastname;
-        locals.firstname = user.identity.firstname;
-        locals.birthdate = user.identity.birthdate;
-        locals.email = user.email;
-        locals.gender = (user.identity.gender) ? locals.common.male : locals.common.female;
-        locals.country = user.location.country;
-        locals.town = user.location.town;
-        locals.zipcode = user.location.zipcode;
-        locals.address = user.location.address;
+		locals.id = user._id;
+		locals.lastname = user.identity.lastname;
+		locals.firstname = user.identity.firstname;
+		locals.birthdate = user.identity.birthdate;
+		locals.email = user.email;
+		locals.gender = (user.identity.gender) ? locals.common.male : locals.common.female;
+		locals.country = user.location.country;
+		locals.town = user.location.town;
+		locals.zipcode = user.location.zipcode;
+		locals.address = user.location.address;
 
-        next();
-    });
+		next();
+	});
 };
 ```
 
@@ -4137,30 +4137,30 @@ based on `user` classe shared between client-side and server-side part `models/u
 ```js
 var mongoose;
 if (typeof module !== 'undefined' && module.exports) {
-     mongoose = require('mongoose');
+	 mongoose = require('mongoose');
 }
 
 (function (expose, factory) {
-    if (mongoose) {
-        module.exports = factory;
-    } else {
-        expose.User = factory;
-    }
+	if (mongoose) {
+		module.exports = factory;
+	} else {
+		expose.User = factory;
+	}
 }(this, new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
-    email: { type : String, match: /^\S+@\S+$/ },
-    identity: {
-        lastname: String,
-        firstname: String,
-        gender: Boolean,
-        birthdate : { type : Date, default : Date.now }
-    },
-    location: {
-        country: String,
-        town: String,
-        zipcode: String,
-        address: String
-    }
+	_id: mongoose.Schema.Types.ObjectId,
+	email: { type : String, match: /^\S+@\S+$/ },
+	identity: {
+		lastname: String,
+		firstname: String,
+		gender: Boolean,
+		birthdate : { type : Date, default : Date.now }
+	},
+	location: {
+		country: String,
+		town: String,
+		zipcode: String,
+		address: String
+	}
 })));
 ```
 
@@ -4169,29 +4169,29 @@ You will get the following output:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <title>MongoDB Example</title>
-    </head>
-    <body>
-        <div class="title">MongoDB Example</div>
-        <div>
-            <h1>User Collection</h1>
-            <p>Collection `{ "identity.firstname": "Bruno" }` details.</p>
-            <ul>
-                <li>Id: <strong>5804d4d530788ee2e52ea1c7</strong></li>
-                <li>Lastname: <strong>Doe</strong></li>
-                <li>Firstname: <strong>John</strong></li>
-                <li>Email: <strong>john.doe@unknown.com</strong></li>
-                <li>Birthdate: <strong>Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))</strong></li>
-                <li>Gender: <strong>Homme</strong></li>
-                <li>Country: <strong>Unknown</strong></li>
-                <li>Town: <strong>Unknown</strong></li>
-                <li>Zipcode: <strong>00000</strong></li>
-                <li>Address: <strong>42 unknown</strong></li>
-            </ul>
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>MongoDB Example</title>
+	</head>
+	<body>
+		<div class="title">MongoDB Example</div>
+		<div>
+			<h1>User Collection</h1>
+			<p>Collection `{ "identity.firstname": "Bruno" }` details.</p>
+			<ul>
+				<li>Id: <strong>5804d4d530788ee2e52ea1c7</strong></li>
+				<li>Lastname: <strong>Doe</strong></li>
+				<li>Firstname: <strong>John</strong></li>
+				<li>Email: <strong>john.doe@unknown.com</strong></li>
+				<li>Birthdate: <strong>Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))</strong></li>
+				<li>Gender: <strong>Homme</strong></li>
+				<li>Country: <strong>Unknown</strong></li>
+				<li>Town: <strong>Unknown</strong></li>
+				<li>Zipcode: <strong>00000</strong></li>
+				<li>Address: <strong>42 unknown</strong></li>
+			</ul>
+		</div>
+	</body>
 </html>
 ```
 
@@ -4236,16 +4236,16 @@ You can get the `NA#express` object ready to use middlewares with the `setConfig
 ```js
 exports.setConfigurations = function (next) {
 
-    // Middleware create by you.
-    NA.express.use(function (request, response, next) {
-        response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
-        next();
-    });
+	// Middleware create by you.
+	NA.express.use(function (request, response, next) {
+		response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+		next();
+	});
 
-    // Middleware adding severals security headers.
-    NA.express.use(require("helmet")());
+	// Middleware adding severals security headers.
+	NA.express.use(require("helmet")());
 
-    next();
+	next();
 };
 ```
 
@@ -4257,18 +4257,18 @@ It's also possible to deliver middlewares Il est également possible de délivre
 
 ```js
 {
-    "middlewaresRelativePath": "middlewares",
-    "routes": {
-        "/upload-file": {
-            "view": "upload.htm",
-            "controller": "upload.js",
-            "middlewares": "upload.js"
-        }
-    }
-    "_jwt": {
-        secret: "AUTH_CLIENT_SECRET",
-        audience: "AUTH_CLIENT_ID"
-    }
+	"middlewaresRelativePath": "middlewares",
+	"routes": {
+		"/upload-file": {
+			"view": "upload.htm",
+			"controller": "upload.js",
+			"middlewares": "upload.js"
+		}
+	}
+	"_jwt": {
+		secret: "AUTH_CLIENT_SECRET",
+		audience: "AUTH_CLIENT_ID"
+	}
 }
 ```
 
@@ -4278,20 +4278,20 @@ and use the following file to authorize the "multipart/data-form" encryption dat
 
 ```js
 var multer  = require("multer"),
-    jwt = require("express-jwt");
+	jwt = require("express-jwt");
 
 module.exports = function () {
-    var NA = this,
-        path = NA.modules.path,
-        upload = multer({ dest: path.join(NA.serverPath, "uploads") });
+	var NA = this,
+		path = NA.modules.path,
+		upload = multer({ dest: path.join(NA.serverPath, "uploads") });
 
-    return [
-        jwt({
-            secret: NA.webconfig._jwt.secret,
-            audience: NA.webconfig._jwt.audience
-        }),
-        upload.single("avatar"),
-    ];
+	return [
+		jwt({
+			secret: NA.webconfig._jwt.secret,
+			audience: NA.webconfig._jwt.audience
+		}),
+		upload.single("avatar"),
+	];
 };
 ```
 
@@ -4305,17 +4305,17 @@ It's also possible to use the same way for all routes. So, the webconfig will be
 
 ```js
 {
-    "middlewares": "is-authenticated.js"
-    "routes": {
-        "/upload-file": {
-            "view": "upload.htm",
-            "controller": "upload.js"
-        }
-    }
-    "_jwt": {
-        secret: "AUTH_CLIENT_SECRET",
-        audience: "AUTH_CLIENT_ID"
-    }
+	"middlewares": "is-authenticated.js"
+	"routes": {
+		"/upload-file": {
+			"view": "upload.htm",
+			"controller": "upload.js"
+		}
+	}
+	"_jwt": {
+		secret: "AUTH_CLIENT_SECRET",
+		audience: "AUTH_CLIENT_ID"
+	}
 }
 ```
 
@@ -4327,14 +4327,14 @@ With the file :
 var jwt = require("express-jwt");
 
 module.exports = function () {
-    var NA = this;
+	var NA = this;
 
-    return [
-        jwt({
-            secret: NA.webconfig._jwt.secret,
-            audience: NA.webconfig._jwt.audience
-        })
-    ];
+	return [
+		jwt({
+			secret: NA.webconfig._jwt.secret,
+			audience: NA.webconfig._jwt.audience
+		})
+	];
 };
 ```
 
@@ -4346,17 +4346,17 @@ You could also provide an array with a file list of Express middlewares both in 
 
 ```js
 {
-    "routes": {
-        "/upload-file": {
-            "view": "upload.htm",
-            "controller": "upload.js",
-            "middlewares": ["is-authenticated.js", "redirect.js"]
-        }
-    }
-    "_jwt": {
-        secret: "AUTH_CLIENT_SECRET",
-        audience: "AUTH_CLIENT_ID"
-    }
+	"routes": {
+		"/upload-file": {
+			"view": "upload.htm",
+			"controller": "upload.js",
+			"middlewares": ["is-authenticated.js", "redirect.js"]
+		}
+	}
+	"_jwt": {
+		secret: "AUTH_CLIENT_SECRET",
+		audience: "AUTH_CLIENT_ID"
+	}
 }
 ```
 
@@ -4368,12 +4368,12 @@ With the NA usage:
 var jwt = require("express-jwt");
 
 module.exports = function () {
-    var NA = this;
+	var NA = this;
 
-    return [jwt({
-        secret: NA.webconfig._jwt.secret,
-        audience: NA.webconfig._jwt.audience
-    })];
+	return [jwt({
+		secret: NA.webconfig._jwt.secret,
+		audience: NA.webconfig._jwt.audience
+	})];
 };
 ```
 
@@ -4384,9 +4384,9 @@ or not:
 ```js
 module.exports = function (request, response, next) {
 
-    response.redirect('https://go.to.visitor.page/');
+	response.redirect('https://go.to.visitor.page/');
 
-    next();
+	next();
 };
 ```
 
@@ -4410,35 +4410,35 @@ With the following configuration:
 
 ```json
 {
-    "routes": {
-        "/list-of-members/:member/:action/": {
-            "view": "members.htm",
-            "controller": "members.js"
-        },
-        "/list-of-members/:member/:action": {
-            "view": "members.htm",
-            "controller": "members.js"
-        },
-        "/list-of-members/:member/": {
-            "view": "members.htm",
-            "controller": "members.js"
-        },
-        "/list-of-members/:member": {
-            "view": "members.htm",
-            "controller": "members.js"
-        },
-        "/list-of-members/": {
-            "view": "members.htm",
-            "controller": "members.js"
-        },
-        "/list-of-members": {
-            "view": "members.htm",
-            "controller": "members.js"
-        },
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/list-of-members/:member/:action/": {
+			"view": "members.htm",
+			"controller": "members.js"
+		},
+		"/list-of-members/:member/:action": {
+			"view": "members.htm",
+			"controller": "members.js"
+		},
+		"/list-of-members/:member/": {
+			"view": "members.htm",
+			"controller": "members.js"
+		},
+		"/list-of-members/:member": {
+			"view": "members.htm",
+			"controller": "members.js"
+		},
+		"/list-of-members/": {
+			"view": "members.htm",
+			"controller": "members.js"
+		},
+		"/list-of-members": {
+			"view": "members.htm",
+			"controller": "members.js"
+		},
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4459,27 +4459,27 @@ and retrieve the `:member`, `:action`, `query` and `test` value in `changeVariat
 ```js
 exports.changeVariations = function (next, locals, request, response) {
 
-    console.log("param request:", request.params.member);
-    // $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
-    console.log("param locals:", locals.params.member);
-    // $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+	console.log("param request:", request.params.member);
+	// $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+	console.log("param locals:", locals.params.member);
+	// $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    console.log("param request", request.params.action);
-    // $ undefined, 'show' or 'lolol'.
-    console.log("param locals", locals.params.action);
-    // $ undefined, 'show' or 'lolol'.
+	console.log("param request", request.params.action);
+	// $ undefined, 'show' or 'lolol'.
+	console.log("param locals", locals.params.action);
+	// $ undefined, 'show' or 'lolol'.
 
-    console.log("query request", request.query.example);
-    // $ undefined or 'test'
-    console.log("query locals", locals.query.example);
-    // $ undefined or 'test'
+	console.log("query request", request.query.example);
+	// $ undefined or 'test'
+	console.log("query locals", locals.query.example);
+	// $ undefined or 'test'
 
-    console.log("body request", request.body.test);
-    // $ undefined or 'This is a test'.
-    console.log("body locals", locals.body.test);
-    // $ undefined or 'This is a test'.
+	console.log("body request", request.body.test);
+	// $ undefined or 'This is a test'.
+	console.log("body locals", locals.body.test);
+	// $ undefined or 'This is a test'.
 
-    next();
+	next();
 };
 ```
 
@@ -4491,14 +4491,14 @@ With the following configuration:
 
 ```json
 {
-    "routes": {
-        "/list-of-members/?(:member([-a-zA-Z0-9]+)/?(:action(show|edit)/?)?)?": {
-            "view": "members.htm"
-        },
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/list-of-members/?(:member([-a-zA-Z0-9]+)/?(:action(show|edit)/?)?)?": {
+			"view": "members.htm"
+		},
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4519,14 +4519,14 @@ and retrieve the `:member`, `:action`, `query` and `test` value in a view.
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <title>URL Rewriting Test</title>
+	<meta charset="utf-8">
+	<title>URL Rewriting Test</title>
   </head>
   <body>
-    Member: <strong><?- params.member ?></strong><br>
-    Action: <strong><?- params.action ?></strong><br>
-    Example: <strong><?- query.example ?></strong><br>
-    Test: <strong><?- body.test ?></strong>
+	Member: <strong><?- params.member ?></strong><br>
+	Action: <strong><?- params.action ?></strong><br>
+	Example: <strong><?- query.example ?></strong><br>
+	Test: <strong><?- body.test ?></strong>
   </body>
 </html>
 ```
@@ -4545,19 +4545,19 @@ See the following configuration:
 
 ```js
 {
-    "routes": {
-        "/list-of-members/([-a-z0-9]+)/?": {
-            "view": "members.htm",
-            "regExp": "i"
-        },
-        "/list-of-members/?": {
-            "view": "members.htm",
-            "regExp": true
-        },
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/list-of-members/([-a-z0-9]+)/?": {
+			"view": "members.htm",
+			"regExp": "i"
+		},
+		"/list-of-members/?": {
+			"view": "members.htm",
+			"regExp": true
+		},
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4575,13 +4575,13 @@ and retrieve the `([-a-z0-9] +) value in the` `changeVariations` (common and spe
 ```js
 exports.changeVariations = function (next, locals) {
 
-    if (locals.params && locals.params[0]) { locals.params.member = locals.params[0]; }
-    // locals.params[1] for second match, etc...
+	if (locals.params && locals.params[0]) { locals.params.member = locals.params[0]; }
+	// locals.params[1] for second match, etc...
 
-    console.log(locals.params.member);
-    // $ 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+	console.log(locals.params.member);
+	// $ 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
-    next();
+	next();
 }
 ```
 
@@ -4602,19 +4602,19 @@ See the example below:
 
 ```json
 {
-    "pageNotFound": "/not-found-page/",
-    "routes": {
-        "/list-of-members/": {
-            "view": "members.htm"
-        },
-        "/": {
-            "view": "index.htm"
-        },
-        "/not-found-page/": {
-            "view": "error.htm",
-            "statusCode": 404
-        }
-    }
+	"pageNotFound": "/not-found-page/",
+	"routes": {
+		"/list-of-members/": {
+			"view": "members.htm"
+		},
+		"/": {
+			"view": "index.htm"
+		},
+		"/not-found-page/": {
+			"view": "error.htm",
+			"statusCode": 404
+		}
+	}
 }
 ```
 
@@ -4632,39 +4632,39 @@ See below :
 
 ```json
 {
-    "pageNotFound": "/not-found-page/",
-    "languageCode": "en-gb",
-    "routes": {
-        "/list-of-members/": {
-            "view": "members.htm",
-            "variation": "members.json"
-        },
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json"
-        },
-        "/not-found-page/": {
-            "view": "error.htm",
-            "variation": "error.json",
-            "statusCode": 404
-        },
-        "/francais/liste-des-membres/": {
-            "view": "members.htm",
-            "languageCode": "fr-fr",
-            "variation": "members.json"
-        },
-        "/francais/": {
-            "view": "index.htm",
-            "languageCode": "fr-fr",
-            "variation": "index.json"
-        },
-        "/francais/*": {
-            "view": "error.htm",
-            "languageCode": "fr-fr",
-            "variation": "error.json",
-            "statusCode": 404
-        }
-    }
+	"pageNotFound": "/not-found-page/",
+	"languageCode": "en-gb",
+	"routes": {
+		"/list-of-members/": {
+			"view": "members.htm",
+			"variation": "members.json"
+		},
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json"
+		},
+		"/not-found-page/": {
+			"view": "error.htm",
+			"variation": "error.json",
+			"statusCode": 404
+		},
+		"/francais/liste-des-membres/": {
+			"view": "members.htm",
+			"languageCode": "fr-fr",
+			"variation": "members.json"
+		},
+		"/francais/": {
+			"view": "index.htm",
+			"languageCode": "fr-fr",
+			"variation": "index.json"
+		},
+		"/francais/*": {
+			"view": "error.htm",
+			"languageCode": "fr-fr",
+			"variation": "error.json",
+			"statusCode": 404
+		}
+	}
 }
 ```
 
@@ -4692,16 +4692,16 @@ With the `webconfig.json` originaly like this `routes: <Object>` :
 
 ```json
 {
-    "controller": "common.js",
-    "routes": {
-        "/doc/index.html": {
-            "view": "index.htm"
-        },
-        "/doc/*": {
-            "view": "error.htm",
-            "statusCode": 404
-        }
-    }
+	"controller": "common.js",
+	"routes": {
+		"/doc/index.html": {
+			"view": "index.htm"
+		},
+		"/doc/*": {
+			"view": "error.htm",
+			"statusCode": 404
+		}
+	}
 }
 ```
 
@@ -4709,15 +4709,15 @@ and transformed like this `routes: <Array>` :
 
 ```json
 {
-    "controller": "common.js",
-    "routes": [{
-        "url": "/doc/index.html
-        "view": "index.htm"
-    }, {
-        "url": "/doc/*",
-        "view": "error.htm",
-        "statusCode": 404
-    }]
+	"controller": "common.js",
+	"routes": [{
+		"url": "/doc/index.html
+		"view": "index.htm"
+	}, {
+		"url": "/doc/*",
+		"view": "error.htm",
+		"statusCode": 404
+	}]
 }
 ```
 
@@ -4728,20 +4728,20 @@ With the "common.js" file, it's now possible to inject routes at the position we
 // This code will be executed when NodeAtlas starting.
 exports.setRoutes = function (next) {
 
-    // We use instance of NodeAtlas.
-    var NA = this,
+	// We use instance of NodeAtlas.
+	var NA = this,
 
-        // And we keep routes from NodeAtlas webconfig...
-        route = NA.webconfig.routes;
+		// And we keep routes from NodeAtlas webconfig...
+		route = NA.webconfig.routes;
 
-    // ...to add "/content.html" route in first place.
-    route.unshift({
-        "url": "/doc/content.html",
-        "view": "content.htm"
-    });
+	// ...to add "/content.html" route in first place.
+	route.unshift({
+		"url": "/doc/content.html",
+		"view": "content.htm"
+	});
 
-    // We update modification here.
-    next(); 
+	// We update modification here.
+	next();
 };
 ```
 
@@ -4761,22 +4761,22 @@ See the example below:
 
 ```json
 {
-    "routes": {
-        "/list-of-members/": {
-            "view": "members.htm"
-        },
-        "/list-of-members": {
-            "redirect": "/list-of-members/",
-            "statusCode": 301
-        },
-        "/go-to-node-atlas/": {
-            "redirect": "https://node-atlas.js.org/",
-            "statusCode": 302
-        },
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/list-of-members/": {
+			"view": "members.htm"
+		},
+		"/list-of-members": {
+			"redirect": "/list-of-members/",
+			"statusCode": 301
+		},
+		"/go-to-node-atlas/": {
+			"redirect": "https://node-atlas.js.org/",
+			"statusCode": 302
+		},
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4791,18 +4791,18 @@ See the example below:
 
 ```json
 {
-    "routes": {
-        "/list-of-members/:member/": {
-            "view": "members.htm"
-        },
-        "/list-of-members/:member": {
-            "redirect": "/list-of-members/:member/",
-            "statusCode": 301
-        },
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/list-of-members/:member/": {
+			"view": "members.htm"
+		},
+		"/list-of-members/:member": {
+			"redirect": "/list-of-members/:member/",
+			"statusCode": 301
+		},
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4814,23 +4814,23 @@ See the example below:
 
 ```js
 {
-    "routes": {
-        "/membres/([-a-z0-9]+)/": {
-            "view": "members.htm",
-            "regExp": true
-        },
-        "/list-of-members/([-a-z0-9]+)/": {
-            "redirect": "/membres/$0/",
-            "statusCode": 301,
-            "regExp": true
-        },
-        "/list-of-members/": {
-            "view": "members.htm"
-        },
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/membres/([-a-z0-9]+)/": {
+			"view": "members.htm",
+			"regExp": true
+		},
+		"/list-of-members/([-a-z0-9]+)/": {
+			"redirect": "/membres/$0/",
+			"statusCode": 301,
+			"regExp": true
+		},
+		"/list-of-members/": {
+			"view": "members.htm"
+		},
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4848,20 +4848,20 @@ It's possible to modify this values for a specific route (for local API for exam
 
 ```json
 {
-    "mimeType": "application/json",
-    "charset": "utf-16",
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "mimeType": "text/html"
-        },
-        "/api/articles": {
-            "view": "display-json.htm",
-            "controller": "blog/list-of-articles.js",
-            "charset": "utf-8",
-            "statusCode": 203
-        }
-    }
+	"mimeType": "application/json",
+	"charset": "utf-16",
+	"routes": {
+		"/": {
+			"view": "index.htm",
+			"mimeType": "text/html"
+		},
+		"/api/articles": {
+			"view": "display-json.htm",
+			"controller": "blog/list-of-articles.js",
+			"charset": "utf-8",
+			"statusCode": 203
+		}
+	}
 }
 ```
 
@@ -4869,20 +4869,20 @@ It's also possible to modify all Headers values, this erase all shortcuts before
 
 ```json
 {
-    "headers": {
-        "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*"
-    },
-    "routes": {
-        "/api/articles": {
-            "view": "display-json.htm",
-            "controller": "blog/list-of-articles.js",
-            "statusCode": 203,
-            "headers": {
-                "Access-Control-Allow-Origin": false
-            }
-        }
-    }
+	"headers": {
+		"Content-Type": "application/json; charset=utf-8",
+		"Access-Control-Allow-Origin": "*"
+	},
+	"routes": {
+		"/api/articles": {
+			"view": "display-json.htm",
+			"controller": "blog/list-of-articles.js",
+			"statusCode": 203,
+			"headers": {
+				"Access-Control-Allow-Origin": false
+			}
+		}
+	}
 }
 ```
 
@@ -4896,14 +4896,14 @@ Just use the following configuration:
 
 ```json
 {
-    "httpSecure": true,
-    "httpSecureKeyRelativePath": "security/server.key",
-    "httpSecureCertificateRelativePath": "security/server.crt",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpSecure": true,
+	"httpSecureKeyRelativePath": "security/server.key",
+	"httpSecureCertificateRelativePath": "security/server.crt",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4911,12 +4911,12 @@ Alternatively , if your two Key and Certificate files have the same name, use th
 
 ```json
 {
-    "httpSecure": "security/server",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpSecure": "security/server",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4924,12 +4924,12 @@ This is also possible to just set the `httpSecure` value to `true` for get a "ht
 
 ```json
 {
-    "httpSecure": true,
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpSecure": true,
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -4947,37 +4947,37 @@ With the following configuration:
 
 ```json
 {
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"bundles": {
+		"javascripts": {
+			"javascripts/boot.min.js": [
+				"javascripts/modernizr.js",
+				"javascripts/yepnot.js",
+				"javascripts/html5Shiv.js"
+			],
+			"javascripts/framework.min.js": [
+				"javascripts/jquery.js",
+				"javascripts/jquery-ui.js",
+				"javascripts/prettify.js",
+				"javascripts/prettify/run_prettify.js"
+			],
+			"javascripts/common.min.js": [
+				"javascripts/components/extended-format-date.js",
+				"javascripts/common.js"
+			]
+		},
+		"stylesheets": {
+			"stylesheets/common.min.css": [
+				"stylesheets/common.css",
+				"stylesheets/common-min780.css",
+				"stylesheets/common-min1160.css"
+			]
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5071,38 +5071,38 @@ with `webconfig.json`
 
 ```json
 {
-    "httpPort": 7777,
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7777,
+	"bundles": {
+		"javascripts": {
+			"javascripts/boot.min.js": [
+				"javascripts/modernizr.js",
+				"javascripts/yepnot.js",
+				"javascripts/html5Shiv.js"
+			],
+			"javascripts/framework.min.js": [
+				"javascripts/jquery.js",
+				"javascripts/jquery-ui.js",
+				"javascripts/prettify.js",
+				"javascripts/prettify/run_prettify.js"
+			],
+			"javascripts/common.min.js": [
+				"javascripts/components/extended-format-date.js",
+				"javascripts/common.js"
+			]
+		},
+		"stylesheets": {
+			"stylesheets/common.min.css": [
+				"stylesheets/common.css",
+				"stylesheets/common-min780.css",
+				"stylesheets/common-min1160.css"
+			]
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5110,40 +5110,40 @@ and with `webconfig.prod.json`
 
 ```json
 {
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+	"urlPort": 80,
+	"bundles": {
+		"javascripts": {
+			"javascripts/boot.min.js": [
+				"javascripts/modernizr.js",
+				"javascripts/yepnot.js",
+				"javascripts/html5Shiv.js"
+			],
+			"javascripts/framework.min.js": [
+				"javascripts/jquery.js",
+				"javascripts/jquery-ui.js",
+				"javascripts/prettify.js",
+				"javascripts/prettify/run_prettify.js"
+			],
+			"javascripts/common.min.js": [
+				"javascripts/components/extended-format-date.js",
+				"javascripts/common.js"
+			]
+		},
+		"stylesheets": {
+			"stylesheets/common.min.css": [
+				"stylesheets/common.css",
+				"stylesheets/common-min780.css",
+				"stylesheets/common-min1160.css"
+			]
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5178,13 +5178,13 @@ with `webconfig.json`
 
 ```json
 {
-    "httpPort": 7777,
-    "bundles": "bundles.json",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7777,
+	"bundles": "bundles.json",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5192,15 +5192,15 @@ with `webconfig.prod.json`
 
 ```json
 {
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "bundles": "bundles.json",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+	"urlPort": 80,
+	"bundles": "bundles.json",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5208,30 +5208,30 @@ and `bundles.json`
 
 ```json
 {
-    "javascripts": {
-        "javascripts/boot.min.js": [
-            "javascripts/modernizr.js",
-            "javascripts/yepnot.js",
-            "javascripts/html5Shiv.js"
-        ],
-        "javascripts/framework.min.js": [
-            "javascripts/jquery.js",
-            "javascripts/jquery-ui.js",
-            "javascripts/prettify.js",
-            "javascripts/prettify/run_prettify.js"
-        ],
-        "javascripts/common.min.js": [
-            "javascripts/components/extended-format-date.js",
-            "javascripts/common.js"
-        ]
-    },
-    "stylesheets": {
-        "stylesheets/common.min.css": [
-            "stylesheets/common.css",
-            "stylesheets/common-min780.css",
-            "stylesheets/common-min1160.css"
-        ]
-    }
+	"javascripts": {
+		"javascripts/boot.min.js": [
+			"javascripts/modernizr.js",
+			"javascripts/yepnot.js",
+			"javascripts/html5Shiv.js"
+		],
+		"javascripts/framework.min.js": [
+			"javascripts/jquery.js",
+			"javascripts/jquery-ui.js",
+			"javascripts/prettify.js",
+			"javascripts/prettify/run_prettify.js"
+		],
+		"javascripts/common.min.js": [
+			"javascripts/components/extended-format-date.js",
+			"javascripts/common.js"
+		]
+	},
+	"stylesheets": {
+		"stylesheets/common.min.css": [
+			"stylesheets/common.css",
+			"stylesheets/common-min780.css",
+			"stylesheets/common-min1160.css"
+		]
+	}
 }
 ```
 
@@ -5243,39 +5243,39 @@ It is also possible to not execute the minification when run a website with Node
 
 ```json
 {
-    "cssBundlingEnable": false,
-    "jsBundlingEnable": false,
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"cssBundlingEnable": false,
+	"jsBundlingEnable": false,
+	"bundles": {
+		"javascripts": {
+			"javascripts/boot.min.js": [
+				"javascripts/modernizr.js",
+				"javascripts/yepnot.js",
+				"javascripts/html5Shiv.js"
+			],
+			"javascripts/framework.min.js": [
+				"javascripts/jquery.js",
+				"javascripts/jquery-ui.js",
+				"javascripts/prettify.js",
+				"javascripts/prettify/run_prettify.js"
+			],
+			"javascripts/common.min.js": [
+				"javascripts/components/extended-format-date.js",
+				"javascripts/common.js"
+			]
+		},
+		"stylesheets": {
+			"stylesheets/common.min.css": [
+				"stylesheets/common.css",
+				"stylesheets/common-min780.css",
+				"stylesheets/common-min1160.css"
+			]
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5287,39 +5287,39 @@ For test your page with minified files, you can ask it to be regenerated before 
 
 ```json
 {
-    "cssBundlingBeforeResponse": false,
-    "jsBundlingBeforeResponse": false,
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"cssBundlingBeforeResponse": false,
+	"jsBundlingBeforeResponse": false,
+	"bundles": {
+		"javascripts": {
+			"javascripts/boot.min.js": [
+				"javascripts/modernizr.js",
+				"javascripts/yepnot.js",
+				"javascripts/html5Shiv.js"
+			],
+			"javascripts/framework.min.js": [
+				"javascripts/jquery.js",
+				"javascripts/jquery-ui.js",
+				"javascripts/prettify.js",
+				"javascripts/prettify/run_prettify.js"
+			],
+			"javascripts/common.min.js": [
+				"javascripts/components/extended-format-date.js",
+				"javascripts/common.js"
+			]
+		},
+		"stylesheets": {
+			"stylesheets/common.min.css": [
+				"stylesheets/common.css",
+				"stylesheets/common-min780.css",
+				"stylesheets/common-min1160.css"
+			]
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5335,9 +5335,9 @@ So, if you have a `package.json` or a `webconfig.json` valid file with a version
 
 ```js
 {
-    "version": "1.0.0",
-    "bundles": "bundles.json"
-    "routes": "routes.json"
+	"version": "1.0.0",
+	"bundles": "bundles.json"
+	"routes": "routes.json"
 }
 ```
 
@@ -5347,20 +5347,20 @@ and the following bundles:
 
 ```json
 {
-    "javascripts": {
-        "javascripts/boot.{version}.min.js": [
-            "javascripts/modernizr.js",
-            "javascripts/yepnot.js",
-            "javascripts/html5Shiv.js"
-        ]
-    },
-    "stylesheets": {
-        "stylesheets/common.{version}.min.css": [
-            "stylesheets/common.css",
-            "stylesheets/common-min780.css",
-            "stylesheets/common-min1160.css"
-        ]
-    }
+	"javascripts": {
+		"javascripts/boot.{version}.min.js": [
+			"javascripts/modernizr.js",
+			"javascripts/yepnot.js",
+			"javascripts/html5Shiv.js"
+		]
+	},
+	"stylesheets": {
+		"stylesheets/common.{version}.min.css": [
+			"stylesheets/common.css",
+			"stylesheets/common-min780.css",
+			"stylesheets/common-min1160.css"
+		]
+	}
 }
 ```
 
@@ -5390,20 +5390,20 @@ In the following example, virtual `/node-atlas/socket.io.js` file will be added 
 
 ```json
 {
-    "bundles": {
-        "javascripts": {
-            "javascripts/common.min.js": [
-                "javascripts/socket.io.js",
-                "node-atlas/socket.io.js",
-                "javascripts/common.js"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"bundles": {
+		"javascripts": {
+			"javascripts/common.min.js": [
+				"javascripts/socket.io.js",
+				"node-atlas/socket.io.js",
+				"javascripts/common.js"
+			]
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5428,10 +5428,10 @@ and the following webconfig:
 
 ```json
 {
-    "less": true,
-    "routes": {
-        "/": "index.htm"
-    }
+	"less": true,
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -5442,14 +5442,14 @@ and the following content in:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Less Test</title>
-        <link rel="stylesheet" href="stylesheets/common.css">
-    </head>
-    <body>
-        <p>This line is red.</p>
-    </body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Less Test</title>
+		<link rel="stylesheet" href="stylesheets/common.css">
+	</head>
+	<body>
+		<p>This line is red.</p>
+	</body>
 </html>
 ```
 
@@ -5457,36 +5457,47 @@ and the following content in:
 
 ```css
 p {
-    color: #f00;
+	color: #f00;
 }
 ```
 
 you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
 
-#### Source Map and Minification ####
+#### Source Map, Minification and Autoprefix ####
 
 By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in `.less`  file has generated the CSS property of the item you have selected in your debugger.
 
 Disable this with `less.sourceMap` to `false`:
 
-```
-    "less": {
-        "sourceMap": false
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+```json
+	"less": {
+		"sourceMap": false
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 ```
 
 You can also generate CSS files already minify with:
 
+```json
+	"less": {
+		"compress": true
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 ```
-    "less": {
-        "compress": true
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+
+Finally, you can also automaticly add vendor prefix like `--webkit`, `--moz`, `--ms`, `--o` for generated file without care about it in your sources files!
+
+```json
+	"less": {
+		"autoprefix": true
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 ```
 
 #### Compile Less files with `--generate` ####
@@ -5497,17 +5508,17 @@ With the following `webconfig.json`:
 
 ```json
 {
-    "less": {
-        "files": [
-            "stylesheets/common.less",
-            "stylesheets/component-1.less",
-            "stylesheets/component-2.less",
-            "stylesheets/component-3.less"
-        ]
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+	"less": {
+		"files": [
+			"stylesheets/common.less",
+			"stylesheets/component-1.less",
+			"stylesheets/component-2.less",
+			"stylesheets/component-3.less"
+		]
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -5515,12 +5526,12 @@ or with the following `webconfig.json`:
 
 ```json
 {
-    "less": {
-        "files": "less.json"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+	"less": {
+		"files": "less.json"
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -5528,10 +5539,10 @@ with `less.json` containing :
 
 ```js
 [
-    "stylesheets/common.less",
-    "stylesheets/component-1.less",
-    "stylesheets/component-2.less",
-    "stylesheets/component-3.less"
+	"stylesheets/common.less",
+	"stylesheets/component-1.less",
+	"stylesheets/component-2.less",
+	"stylesheets/component-3.less"
 ]
 ```
 
@@ -5539,15 +5550,15 @@ The `@import` used by Less will be capable to walk into subdirectories : `styles
 
 ```json
 {
-    "less": {
-        "paths": [
-            "subdirectory/styles-files",
-        ],
-        "files": "less.json"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+	"less": {
+		"paths": [
+			"subdirectory/styles-files",
+		],
+		"files": "less.json"
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -5572,10 +5583,10 @@ and the following webconfig:
 
 ```json
 {
-    "stylus": true,
-    "routes": {
-        "/": "index.htm"
-    }
+	"stylus": true,
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -5586,14 +5597,14 @@ and the following content in:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Stylus Test</title>
-        <link rel="stylesheet" href="stylesheets/common.css">
-    </head>
-    <body>
-        <p>This line is red.</p>
-    </body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Stylus Test</title>
+		<link rel="stylesheet" href="stylesheets/common.css">
+	</head>
+	<body>
+		<p>This line is red.</p>
+	</body>
 </html>
 ```
 
@@ -5601,35 +5612,46 @@ and the following content in:
 
 ```css
 p
-    color: #f00
+	color: #f00
 ```
 
 you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
 
-#### Source Map and Minification ####
+#### Source Map, Minification and Autoprefix ####
 
 By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in `.styl`  file has generated the CSS property of the item you have selected in your debugger.
 
 Disable this with `stylus.sourceMap` to `false`:
 
-```
-    "stylus": {
-        "sourceMap": false
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+```json
+	"stylus": {
+		"sourceMap": false
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 ```
 
 You can also generate CSS files already minify with:
 
+```json
+	"stylus": {
+		"compress": true
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 ```
-    "stylus": {
-        "compress": true
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+
+Finally, you can also automaticly add vendor prefix like `--webkit`, `--moz`, `--ms`, `--o` for generated file without care about it in your sources files!
+
+```json
+	"stylus": {
+		"autoprefix": true
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 ```
 
 *Note:* More options on [stylus documentation for module](https://www.npmjs.com/package/stylus).
@@ -5642,17 +5664,17 @@ With the following `webconfig.json`:
 
 ```json
 {
-    "stylus": {
-        "files": [
-            "stylesheets/common.styl",
-            "stylesheets/component-1.styl",
-            "stylesheets/component-2.styl",
-            "stylesheets/component-3.styl"
-        ]
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+	"stylus": {
+		"files": [
+			"stylesheets/common.styl",
+			"stylesheets/component-1.styl",
+			"stylesheets/component-2.styl",
+			"stylesheets/component-3.styl"
+		]
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -5660,12 +5682,12 @@ or with the following `webconfig.json`:
 
 ```json
 {
-    "stylus": {
-        "files": "stylus.json"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+	"stylus": {
+		"files": "stylus.json"
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -5673,10 +5695,10 @@ with `stylus.json` containing :
 
 ```js
 [
-    "stylesheets/common.styl",
-    "stylesheets/component-1.styl",
-    "stylesheets/component-2.styl",
-    "stylesheets/component-3.styl"
+	"stylesheets/common.styl",
+	"stylesheets/component-1.styl",
+	"stylesheets/component-2.styl",
+	"stylesheets/component-3.styl"
 ]
 ```
 
@@ -5684,15 +5706,15 @@ The `@import` used by Stylus will be capable to walk into subdirectories : `styl
 
 ```json
 {
-    "stylus": {
-        "paths": [
-            "subdirectory/styles-files",
-        ],
-        "stylus": "stylus.json"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
+	"stylus": {
+		"paths": [
+			"subdirectory/styles-files",
+		],
+		"stylus": "stylus.json"
+	},
+	"routes": {
+		"/": "index.htm"
+	}
 }
 ```
 
@@ -5708,19 +5730,19 @@ With the following configuration:
 
 ```json
 {
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"optimizations": {
+		"images": {
+			"media/images/example.png": "media/images/optimized/",
+			"media/images/example.jpg": "media/images/optimized/",
+			"media/images/example.gif": "media/images/optimized/",
+			"media/images/example.svg": "media/images/optimized/"
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5765,16 +5787,16 @@ For example, not define file one by one, but in group:
 
 ```json
 {
-    "optimizations": {
-        "images": {
-            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"optimizations": {
+		"images": {
+			"media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5784,20 +5806,20 @@ It is possible to redefine default options used for optimizations via this 4 obj
 
 ```json
 {
-    "optimizations": {
-        "jpg": { "progressive": false },
-        "gif": { "interlaced": false },
-        "png": { "optimizationLevel": 1 },
-        "svg": { "multipass": false },
-        "images": {
-            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"optimizations": {
+		"jpg": { "progressive": false },
+		"gif": { "interlaced": false },
+		"png": { "optimizationLevel": 1 },
+		"svg": { "multipass": false },
+		"images": {
+			"media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5833,20 +5855,20 @@ with `webconfig.json`
 
 ```json
 {
-    "httpPort": 7777,
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7777,
+	"optimizations": {
+		"images": {
+			"media/images/example.png": "media/images/optimized/",
+			"media/images/example.jpg": "media/images/optimized/",
+			"media/images/example.gif": "media/images/optimized/",
+			"media/images/example.svg": "media/images/optimized/"
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5854,22 +5876,22 @@ and with `webconfig.prod.json`
 
 ```json
 {
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+	"urlPort": 80,
+	"optimizations": {
+		"images": {
+			"media/images/example.png": "media/images/optimized/",
+			"media/images/example.jpg": "media/images/optimized/",
+			"media/images/example.gif": "media/images/optimized/",
+			"media/images/example.svg": "media/images/optimized/"
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5894,13 +5916,13 @@ with `webconfig.json`
 
 ```json
 {
-    "httpPort": 7777,
-    "optimizations": "optimizations.json",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7777,
+	"optimizations": "optimizations.json",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5908,15 +5930,15 @@ with `webconfig.prod.json`
 
 ```json
 {
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "optimizations": "optimizations.json",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7776,
+	"httpHostname": "blog.lesieur.name",
+	"urlPort": 80,
+	"optimizations": "optimizations.json",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5924,12 +5946,12 @@ and `optimizations.json`
 
 ```json
 {
-    "images": {
-        "media/images/example.png": "media/images/optimized/",
-        "media/images/example.jpg": "media/images/optimized/",
-        "media/images/example.gif": "media/images/optimized/",
-        "media/images/example.svg": "media/images/optimized/"
-    }
+	"images": {
+		"media/images/example.png": "media/images/optimized/",
+		"media/images/example.jpg": "media/images/optimized/",
+		"media/images/example.gif": "media/images/optimized/",
+		"media/images/example.svg": "media/images/optimized/"
+	}
 }
 ```
 
@@ -5941,20 +5963,20 @@ It is also possible to not execute the optimization when run a website with Node
 
 ```json
 {
-    "imgOptimizationsEnable": false,
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"imgOptimizationsEnable": false,
+	"optimizations": {
+		"images": {
+			"media/images/example.png": "media/images/optimized/",
+			"media/images/example.jpg": "media/images/optimized/",
+			"media/images/example.gif": "media/images/optimized/",
+			"media/images/example.svg": "media/images/optimized/"
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5966,20 +5988,20 @@ You can ask files to be regenerated before each page response with `"cssBundling
 
 ```json
 {
-    "imgOptimizationsBeforeResponse": false,
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"imgOptimizationsBeforeResponse": false,
+	"optimizations": {
+		"images": {
+			"media/images/example.png": "media/images/optimized/",
+			"media/images/example.jpg": "media/images/optimized/",
+			"media/images/example.gif": "media/images/optimized/",
+			"media/images/example.svg": "media/images/optimized/"
+		}
+	},
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -5999,13 +6021,13 @@ With for example the following configuration:
 
 ```json
 {
-    "routes": {
-        "/": {
-            "view": "email.htm",
-            "output": "welcome.html",
-            "injectCss": "stylesheets/email.css"
-        }
-    }
+	"routes": {
+		"/": {
+			"view": "email.htm",
+			"output": "welcome.html",
+			"injectCss": "stylesheets/email.css"
+		}
+	}
 }
 ```
 
@@ -6027,7 +6049,7 @@ whose contents are :
 
 ```css
 body {
-    color: #f00;
+	color: #f00;
 }
 ```
 
@@ -6036,13 +6058,13 @@ body {
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Email</title>
-    </head>
-    <body>
-        <p>This is a template email.</p>
-    </body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Email</title>
+	</head>
+	<body>
+		<p>This is a template email.</p>
+	</body>
 </html>
 ```
 
@@ -6064,13 +6086,13 @@ with as content for `serverless/welcome.html`
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Email</title>
-    </head>
-    <body style="color: #f00;">
-        <p>This is a template email.</p>
-    </body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Email</title>
+	</head>
+	<body style="color: #f00;">
+		<p>This is a template email.</p>
+	</body>
 </html>
 ```
 
@@ -6084,17 +6106,17 @@ It is possible to use `injectCss` as global mechanism for all pages.
 
 ```json
 {
-    "injectCss": "stylesheets/email.css",
-    "routes": {
-        "/welcome/": {
-            "view": "email-a.htm",
-            "output": "welcome.html"
-        },
-        "/good-bye/": {
-            "view": "email-b.htm",
-            "output": "good-bye.html"
-        }
-    }
+	"injectCss": "stylesheets/email.css",
+	"routes": {
+		"/welcome/": {
+			"view": "email-a.htm",
+			"output": "welcome.html"
+		},
+		"/good-bye/": {
+			"view": "email-b.htm",
+			"output": "good-bye.html"
+		}
+	}
 }
 ```
 
@@ -6108,19 +6130,19 @@ It's possible to :
 
 ```json
 {
-    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
-    "routes": {
-        "/welcome/": {
-            "view": "email-a.htm",
-            "output": "welcome.html",
-            "injectCss": "/stylesheets/welcome.css"
-        },
-        "/good-bye/": {
-            "view": "email-b.htm",
-            "output": "good-bye.html",
-            "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
-        }
-    }
+	"injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
+	"routes": {
+		"/welcome/": {
+			"view": "email-a.htm",
+			"output": "welcome.html",
+			"injectCss": "/stylesheets/welcome.css"
+		},
+		"/good-bye/": {
+			"view": "email-b.htm",
+			"output": "good-bye.html",
+			"injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
+		}
+	}
 }
 ```
 
@@ -6134,24 +6156,24 @@ You can also manager how the server will respond to requests GET/POST to a given
 
 ```json
 {
-    "get": true,
-    "post": false,
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        },
-        "/list-of-members/": {
-            "view": "members.htm"
-        },
-        "/write-comment/": {
-            "view": "write-com.htm"
-        },
-        "/save-comment/": {
-            "view": "save-com.htm",
-            "get": false,
-            "post": true
-        }
-    }
+	"get": true,
+	"post": false,
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		},
+		"/list-of-members/": {
+			"view": "members.htm"
+		},
+		"/write-comment/": {
+			"view": "write-com.htm"
+		},
+		"/save-comment/": {
+			"view": "save-com.htm",
+			"get": false,
+			"post": true
+		}
+	}
 }
 ```
 
@@ -6165,39 +6187,39 @@ Fonctionnant exactement de la même manière que `get` et `post`, les deux actio
 
 ```json
 {
-    "get": false,
-    "post": false,
-    "put": true,
-    "routes": {
-        "/read-all-entry/": {
-            "view": "display-json.htm",
-            "variation": "all-entry.json",
-            "get": true,
-            "put": false
-        },
-        "/read-entry/:id/": {
-            "view": "display-json.htm",
-            "variation": "entry.json",
-            "get": true,
-            "put": false
-        },
-        "/create-entry/:id/": {
-            "view": "display-json.htm",
-            "variation": "entry.json",
-            "post": true,
-            "put": false
-        },
-        "/update-entry/:id/": {
-            "view": "display-json.htm",
-            "variation": "entry.json"
-        },
-        "/delete-entry/:id/": {
-            "view": "display-json.htm",
-            "variation": "entry.json",
-            "delete": true,
-            "put": false
-        }
-    }
+	"get": false,
+	"post": false,
+	"put": true,
+	"routes": {
+		"/read-all-entry/": {
+			"view": "display-json.htm",
+			"variation": "all-entry.json",
+			"get": true,
+			"put": false
+		},
+		"/read-entry/:id/": {
+			"view": "display-json.htm",
+			"variation": "entry.json",
+			"get": true,
+			"put": false
+		},
+		"/create-entry/:id/": {
+			"view": "display-json.htm",
+			"variation": "entry.json",
+			"post": true,
+			"put": false
+		},
+		"/update-entry/:id/": {
+			"view": "display-json.htm",
+			"variation": "entry.json"
+		},
+		"/delete-entry/:id/": {
+			"view": "display-json.htm",
+			"variation": "entry.json",
+			"delete": true,
+			"put": false
+		}
+	}
 }
 ```
 
@@ -6213,24 +6235,24 @@ To activate OPTIONS for a route, use the `options` property on a route of the we
 
 ```json
 {
-    "options": true,
-    "routes": {
-        "/read-all-entry/": {
-            "view": "display-json.htm",
-            "variation": "all-entry.json",
-            "options": false
-        },
-        "/create-entry/:id/": {
-            "view": "display-json.htm",
-            "variation": "entry.json",
-            "post": true
-        },
-        "/delete-entry/:id/": {
-            "view": "display-json.htm",
-            "variation": "entry.json",
-            "delete": true
-        }
-    }
+	"options": true,
+	"routes": {
+		"/read-all-entry/": {
+			"view": "display-json.htm",
+			"variation": "all-entry.json",
+			"options": false
+		},
+		"/create-entry/:id/": {
+			"view": "display-json.htm",
+			"variation": "entry.json",
+			"post": true
+		},
+		"/delete-entry/:id/": {
+			"view": "display-json.htm",
+			"variation": "entry.json",
+			"delete": true
+		}
+	}
 }
 ```
 
@@ -6240,13 +6262,13 @@ If you want authorize a ressource on the NodeAtlas server requested by domain `w
 
 ```json
 {
-    "routes": {
-    "/api/random-quote": {
-          "controller": "get-quote.js",
-        "headers": { 
-          "Access-Control-Allow-Origin": "http://www.domain-a.com"
-        }
-      }
+	"routes": {
+	"/api/random-quote": {
+		  "controller": "get-quote.js",
+		"headers": {
+		  "Access-Control-Allow-Origin": "http://www.domain-a.com"
+		}
+	  }
   }
 }
 ```
@@ -6268,19 +6290,19 @@ If you want authorize ressources from NodeAtlas server to the request from anywh
 ```json
 {
   "mimeType": "application/json",
-  "headers": { 
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Authorization"
+  "headers": {
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Headers": "Authorization"
   },
   "routes": {
-    "/api/random-quote": { 
-      "controller": "get-quote.js"
-    },
-    "/api/protected/random-quote": {
-      "controller": "get-quote.js",
-      "middlewares": "is-authenticated.js",
-      "options": true
-    }
+	"/api/random-quote": {
+	  "controller": "get-quote.js"
+	},
+	"/api/protected/random-quote": {
+	  "controller": "get-quote.js",
+	  "middlewares": "is-authenticated.js",
+	  "options": true
+	}
   }
 }
 ```
@@ -6319,8 +6341,8 @@ It is possible to change the default settings (and even compulsory for productio
 
 ```json
 {
-    sessionKey: "personal key",
-    sessionSecret: "personal secret"
+	sessionKey: "personal key",
+	sessionSecret: "personal secret"
 }
 ```
 
@@ -6332,19 +6354,19 @@ It is possible to change all the parameters of the sessions (except MemoryStore)
 
 ```json
 {
-    "session": {
-        "key": "personal key",
-        "secret": "personal secret",
-        "cookie": {
-            "path": '/',
-            "httpOnly": true,
-            "secure": false,
-            "maxAge": null
-        },
-        ...,
-        ...,
-        ...
-    }
+	"session": {
+		"key": "personal key",
+		"secret": "personal secret",
+		"cookie": {
+			"path": '/',
+			"httpOnly": true,
+			"secure": false,
+			"maxAge": null
+		},
+		...,
+		...,
+		...
+	}
 }
 ```
 
@@ -6366,19 +6388,19 @@ Implement the following code in the common `controller` file to store your sessi
 
 ```js
 exports.setModules = function () {
-    var NA = this;
+	var NA = this;
 
-    NA.modules.RedisStore = require("connect-redis");
+	NA.modules.RedisStore = require("connect-redis");
 };
 
 exports.setSessions = function (next) {
-    var NA = this,
-        session = NA.modules.session,
-        RedisStore = NA.modules.RedisStore(session);
+	var NA = this,
+		session = NA.modules.session,
+		RedisStore = NA.modules.RedisStore(session);
 
-    NA.sessionStore = new RedisStore();
+	NA.sessionStore = new RedisStore();
 
-    next();
+	next();
 };
 ```
 
@@ -6391,21 +6413,21 @@ Implement the following code in `controllers/common.js` to store sessions in the
 
 ```
 exports.setModules = function () {
-    var NA = this;
+	var NA = this;
 
-    NA.modules.MongoStore = require("connect-mongo");
+	NA.modules.MongoStore = require("connect-mongo");
 };
 
 exports.setSessions = function (next) {
-    var NA = this,
-        session = NA.modules.session,
-        MongoStore = NA.modules.MongoStore(session);
+	var NA = this,
+		session = NA.modules.session,
+		MongoStore = NA.modules.MongoStore(session);
 
-    NA.sessionStore = new MongoStore({
-        db: "sessions"
-    });
+	NA.sessionStore = new MongoStore({
+		db: "sessions"
+	});
 
-    next();
+	next();
 };
 ```
 
@@ -6419,15 +6441,15 @@ It is possible to generate a different url listening other port with `urlHostnam
 
 ```json
 {
-    "httpPort": 7777,
-    "httpHostname": "127.0.0.1",
-    "urlPort": 80,
-    "urlHostname": "localhost",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7777,
+	"httpHostname": "127.0.0.1",
+	"urlPort": 80,
+	"urlHostname": "localhost",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -6463,11 +6485,11 @@ Note that in the case of the following configuration:
 
 ```json
 {
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -6475,13 +6497,13 @@ Note that in the case of the following configuration:
 
 ```json
 {
-    "httpPort": 7777,
-    "urlRelativeSubPath": "sub/folder",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
+	"httpPort": 7777,
+	"urlRelativeSubPath": "sub/folder",
+	"routes": {
+		"/": {
+			"view": "index.htm"
+		}
+	}
 }
 ```
 
@@ -6493,14 +6515,14 @@ Using the following webconfig:
 
 ```json
 {
-    "routes": {
-        "/index.html": {
-            "view": "index.htm"
-        },
-        "/contact.html": {
-            "view": "contact.htm"
-        }
-    }
+	"routes": {
+		"/index.html": {
+			"view": "index.htm"
+		},
+		"/contact.html": {
+			"view": "contact.htm"
+		}
+	}
 }
 ```
 
@@ -6517,15 +6539,15 @@ I'd have to change my link in the template if I change the listening port or if 
 
 ```json
 {
-    "httpPort": 7777,
-    "routes": {
-        "/home.html": {
-            "view": "index.htm"
-        },
-        "/contact-us.html": {
-            "view": "contact.htm"
-        }
-    }
+	"httpPort": 7777,
+	"routes": {
+		"/home.html": {
+			"view": "index.htm"
+		},
+		"/contact-us.html": {
+			"view": "contact.htm"
+		}
+	}
 }
 ```
 
@@ -6544,16 +6566,16 @@ With the followinh webconfig:
 
 ```json
 {
-    "routes": {
-        "index": {
-            "url": "/index.html",
-            "view": "index.htm"
-        },
-        "contact": {
-            "url": "/contact.html",
-            "view": "contact.htm"
-        }
-    }
+	"routes": {
+		"index": {
+			"url": "/index.html",
+			"view": "index.htm"
+		},
+		"contact": {
+			"url": "/contact.html",
+			"view": "contact.htm"
+		}
+	}
 }
 ```
 
@@ -6600,27 +6622,27 @@ With the following webconfig :
 
 ```json
 {
-    "languageCode": "en-us",
-    "routes": {
-        "index_en-us": {
-            "url": "/",
-            "view": "/index.htm"
-        },
-        "index_fr-fr": {
-            "url": "/francais/",
-            "view": "index.htm",
-            "languageCode": "fr-fr"
-        },
-        "cv_en-us": {
-            "url": "/resume/",
-            "view": "cv.htm"
-        },
-        "cv_fr-fr": {
-            "url": "/francais/cv/",
-            "view": "index.htm",
-            "languageCode": "fr-fr"
-        }
-    }
+	"languageCode": "en-us",
+	"routes": {
+		"index_en-us": {
+			"url": "/",
+			"view": "/index.htm"
+		},
+		"index_fr-fr": {
+			"url": "/francais/",
+			"view": "index.htm",
+			"languageCode": "fr-fr"
+		},
+		"cv_en-us": {
+			"url": "/resume/",
+			"view": "cv.htm"
+		},
+		"cv_fr-fr": {
+			"url": "/francais/cv/",
+			"view": "index.htm",
+			"languageCode": "fr-fr"
+		}
+	}
 }
 ```
 
@@ -6628,13 +6650,13 @@ and the common variation following :
 
 ```json
 {
-    "language": [{
-        "name": "English",
-        "code": "en-us"
-    }, {
-        "name": "French",
-        "code": "fr-fr"
-    }]
+	"language": [{
+		"name": "English",
+		"code": "en-us"
+	}, {
+		"name": "French",
+		"code": "fr-fr"
+	}]
 }
 ```
 
@@ -6642,13 +6664,13 @@ in fr :
 
 ```json
 {
-    "language": [{
-        "name": "Anglais",
-        "code": "en-us"
-    }, {
-        "name": "Français",
-        "code": "fr-fr"
-    }]
+	"language": [{
+		"name": "Anglais",
+		"code": "en-us"
+	}, {
+		"name": "Français",
+		"code": "fr-fr"
+	}]
 }
 ```
 
@@ -6656,9 +6678,9 @@ we could create link between each page as following :
 
 ```html
 <ul>
-    <? for (var i = 0; i < common.language.length; i++) { ?>
-    <li><a href="<?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?>"><?- common.language[i].name ?></a></li>
-    <? } ?>
+	<? for (var i = 0; i < common.language.length; i++) { ?>
+	<li><a href="<?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?>"><?- common.language[i].name ?></a></li>
+	<? } ?>
 </ul>
 ```
 
@@ -6678,15 +6700,15 @@ then, use `engine` with the arbtrary `hbs` value
 
 ```
 {
-    "engine": "hbs",
-    "controller": "common.js",
-    "variation": "common.json",
-    "routes": {
-        "/": {
-            "view": "index.hbs",
-            "variation": "index.json"
-        }
-    }
+	"engine": "hbs",
+	"controller": "common.js",
+	"variation": "common.json",
+	"routes": {
+		"/": {
+			"view": "index.hbs",
+			"variation": "index.json"
+		}
+	}
 }
 ```
 
@@ -6694,18 +6716,18 @@ and explain to Express from NodeAtlas how to render views:
 
 ```js
 exports.setModules = function () {
-    var NA = this;
+	var NA = this;
 
-    NA.modules.exphbs = require("express-handlebars");
+	NA.modules.exphbs = require("express-handlebars");
 };
 
 exports.setConfigurations = function (next) {
   var NA = this,
-    exphbs = NA.modules.exphbs;
+	exphbs = NA.modules.exphbs;
 
-    NA.express.engine("hbs", exphbs());
+	NA.express.engine("hbs", exphbs());
 
-    next();
+	next();
 };
 ```
 
@@ -6714,19 +6736,19 @@ finaly, see what could be the content of `index.hbs`:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <title>{{specific.titlePage}}</title>
-        <link rel="stylesheet" href="stylesheets/{{common.classCssCommon}}.css" media="all">
-        <link rel="stylesheet" href="stylesheets/{{specific.classPage}}.css" media="all">
-    </head>
-    <body class="{{specific.classPage}}">
-        <div>
-            <h1>{{specific.titlePage}}</h1>
-            {{{specific.content}}}
-        </div>
-        <script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8">
+		<title>{{specific.titlePage}}</title>
+		<link rel="stylesheet" href="stylesheets/{{common.classCssCommon}}.css" media="all">
+		<link rel="stylesheet" href="stylesheets/{{specific.classPage}}.css" media="all">
+	</head>
+	<body class="{{specific.classPage}}">
+		<div>
+			<h1>{{specific.titlePage}}</h1>
+			{{{specific.content}}}
+		</div>
+		<script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"></script>
+	</body>
 </html>
 ```
 
@@ -6748,12 +6770,12 @@ It is possible to not using a view and only use a controler. In this case, the `
 
 ```json
 {
-    "routes": {
-        "/(:member/)?": {
-            "controller": "index.js",
-            "mimeType": "application/json"
-        }
-    }
+	"routes": {
+		"/(:member/)?": {
+			"controller": "index.js",
+			"mimeType": "application/json"
+		}
+	}
 }
 ```
 
@@ -6761,13 +6783,13 @@ It is possible to not using a view and only use a controler. In this case, the `
 
 ```js
 exports.changeDom = function (next, locals) {
-    locals.dom = `{
+	locals.dom = `{
   "params": ${locals.params.member},
   "query": ${locals.query.member},
   "body": ${locals.body.member}
 }`;
 
-    next();
+	next();
 };
 ```
 
@@ -6789,7 +6811,7 @@ No webconfig example not use the `routes` parameter. But it is also optional tha
 
 ```json
 {
-    "controller": "common.js"
+	"controller": "common.js"
 }
 ```
 
@@ -6799,21 +6821,21 @@ and the following controller:
 
 ```js
 exports.setRoutes = function (next) {
-    var NA = this,
-        route = NA.webconfig.routes = {};
+	var NA = this,
+		route = NA.webconfig.routes = {};
 
-    route["/"] = {
-        "mimeType": "text/plain"
-    };
+	route["/"] = {
+		"mimeType": "text/plain"
+	};
 
-    next();
+	next();
 };
 
 exports.changeDom = function (next, locals) {
 
-    locals.dom = "Hello World";
+	locals.dom = "Hello World";
 
-    next();
+	next();
 };
 ```
 
@@ -6827,10 +6849,10 @@ It's a good thing to not serve file with no modification in production. You coul
 
 ```json
 {
-    cache: true,
-    route: {
-      "/": "index.htm"
-    }
+	cache: true,
+	route: {
+	  "/": "index.htm"
+	}
 }
 ```
 
@@ -6878,95 +6900,97 @@ The webconfig is that alow you to drive how NodeAtlas will work. If you want use
 
 ```js
 Object{
-    "assetsCopy": Boolean,
-    "assetsRelativePath": String<path-from-root>,
-    "bundles": (String<filepath-from-root> | Object{
-        "javascripts": Object{
-        ... url: Array.String<filepath-from-assets>
-        },
-        "stylesheets": Object{
-        ... url: Array.String<filepath-from-assets>
-        }
-    }),
-    "cache": Boolean,
-    "charset": String,
-    "controller": String<filepath-from-controllers>,
-    "controllersRelativePath": String<path-from-root>,
-    "delete": Boolean,
-    "engine": String,
-    "index": Boolean,
-    "get": Boolean,
-    "headers": Object,
-    "htmlGenerationBeforeResponse": Boolean,
-    "httpHostname": String,
-    "httpPort": Number,
-    "httpSecure": (String<filepath-from-root> | Boolean),
-    "httpSecureKeyRelativePath": String<filepath-from-root>,
-    "httpSecureCertificateRelativePath": String<filepath-from-root>,
-    "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-    "imgOptimizationsBeforeResponse": Boolean,
-    "imgOptimizationsEnable": Boolean,
-    "jsBundlingBeforeResponse": Boolean,
-    "jsBundlingEnable": Boolean,
-    "languageCode": String,
-    "less": (Boolean | Object{
-        "compress": Boolean,
-        "files": (String<filepath-from-root> | Array.String<filepath-from-assets>),
-        "paths": Array.String<path-from-assets>,
-        "sourceMap": Boolean
-    }),
-    "middlewares": (String<filepath-from-middlewares> | Array.String<filepath-from-middlewares>),
-    "middlewaresRelativePath": String<path-from-root>,
-    "mimeType": String,
-    "optimizations": (String<filepath-from-root> | Object{
-        "gif": Object,
-        "images": Object{
-        ... url: String<filepath-from-assets>
-        },
-        "jpg": Object,
-        "png": Object,
-        "svg": Object
-    },
-    "options": Boolean,
-    "output": Boolean,
-    "post": Boolean,
-    "pug": Boolean,
-    "put": Boolean,
-    "routes": (String<filepath-from-root> | Object{
-    ... "(String</url> | String<key>)": String<filepath-from-views> | NA<routeParameter>)
-    } | Array.NA<routeParameter>,
-    "serverlessRelativePath": String<path-from-root>,
-    "session": Object,
-    "staticOptions": Object<from-express-statics-options>,
-    "statics": String<filepath-from-root> | Object{
-    ... /virtual: (String<path-from-root> | Object{
-            "path": String<path-from-root>,
-            "staticOptions": Object<from-express-statics-options>
-        })
-    } | Array.Object{
-        "path": String<path-from-root>,
-        "staticOptions": Object<from-express-statics-options>,
-        "virtual": String<urlpath-from-base>
-    },
-    "cssBundlingBeforeResponse": Boolean,
-    "cssBundlingEnable": Boolean,
-    "socketClientFile": String<urlpath-from-base>,
-    "socketServerOptions": Object<from-socketio-server-options>,
-    "stylus": (Boolean | Object{
-        "compress": Boolean,
-        "files": (String<filepath-from-root> | Array.String<filepath-from-assets>),
-        "paths": Array.String<path-from-assets>,
-        "sourceMap": Boolean,
-    }),
-    "templateEngineDelimiter": String,
-    "urlHostname": String,
-    "urlPort": Number,
-    "urlRelativeSubPath": String<urlpath-from-root>,
-    "variation": String<filepath-from-variations>,
-    "variationsRelativePath": String<path-from-root>,
-    "version": String<xx.xx.xx>,
-    "view": String<filepath-from-views>,
-    "viewsRelativePath": String<path-from-root>
+	"assetsCopy": Boolean,
+	"assetsRelativePath": String<path-from-root>,
+	"bundles": (String<filepath-from-root> | Object{
+		"javascripts": Object{
+		... url: Array.String<filepath-from-assets>
+		},
+		"stylesheets": Object{
+		... url: Array.String<filepath-from-assets>
+		}
+	}),
+	"cache": Boolean,
+	"charset": String,
+	"controller": String<filepath-from-controllers>,
+	"controllersRelativePath": String<path-from-root>,
+	"delete": Boolean,
+	"engine": String,
+	"index": Boolean,
+	"get": Boolean,
+	"headers": Object,
+	"htmlGenerationBeforeResponse": Boolean,
+	"httpHostname": String,
+	"httpPort": Number,
+	"httpSecure": (String<filepath-from-root> | Boolean),
+	"httpSecureKeyRelativePath": String<filepath-from-root>,
+	"httpSecureCertificateRelativePath": String<filepath-from-root>,
+	"injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
+	"imgOptimizationsBeforeResponse": Boolean,
+	"imgOptimizationsEnable": Boolean,
+	"jsBundlingBeforeResponse": Boolean,
+	"jsBundlingEnable": Boolean,
+	"languageCode": String,
+	"less": (Boolean | Object{
+		"autoprefix": Boolean,
+		"compress": Boolean,
+		"files": (String<filepath-from-root> | Array.String<filepath-from-assets>),
+		"paths": Array.String<path-from-assets>,
+		"sourceMap": Boolean
+	}),
+	"middlewares": (String<filepath-from-middlewares> | Array.String<filepath-from-middlewares>),
+	"middlewaresRelativePath": String<path-from-root>,
+	"mimeType": String,
+	"optimizations": (String<filepath-from-root> | Object{
+		"gif": Object,
+		"images": Object{
+		... url: String<filepath-from-assets>
+		},
+		"jpg": Object,
+		"png": Object,
+		"svg": Object
+	},
+	"options": Boolean,
+	"output": Boolean,
+	"post": Boolean,
+	"pug": Boolean,
+	"put": Boolean,
+	"routes": (String<filepath-from-root> | Object{
+	... "(String</url> | String<key>)": String<filepath-from-views> | NA<routeParameter>)
+	} | Array.NA<routeParameter>,
+	"serverlessRelativePath": String<path-from-root>,
+	"session": Object,
+	"staticOptions": Object<from-express-statics-options>,
+	"statics": String<filepath-from-root> | Object{
+	... /virtual: (String<path-from-root> | Object{
+			"path": String<path-from-root>,
+			"staticOptions": Object<from-express-statics-options>
+		})
+	} | Array.Object{
+		"path": String<path-from-root>,
+		"staticOptions": Object<from-express-statics-options>,
+		"virtual": String<urlpath-from-base>
+	},
+	"cssBundlingBeforeResponse": Boolean,
+	"cssBundlingEnable": Boolean,
+	"socketClientFile": String<urlpath-from-base>,
+	"socketServerOptions": Object<from-socketio-server-options>,
+	"stylus": (Boolean | Object{
+		"autoprefix": Boolean,
+		"compress": Boolean,
+		"files": (String<filepath-from-root> | Array.String<filepath-from-assets>),
+		"paths": Array.String<path-from-assets>,
+		"sourceMap": Boolean,
+	}),
+	"templateEngineDelimiter": String,
+	"urlHostname": String,
+	"urlPort": Number,
+	"urlRelativeSubPath": String<urlpath-from-root>,
+	"variation": String<filepath-from-variations>,
+	"variationsRelativePath": String<path-from-root>,
+	"version": String<xx.xx.xx>,
+	"view": String<filepath-from-views>,
+	"viewsRelativePath": String<path-from-root>
 }
 ```
 
@@ -6974,24 +6998,24 @@ Object{
 
 ```js
 Object{
-    "charset": String,
-    "controller": String<filepath-from-controllers>,
-    "delete": Boolean,
-    "get": Boolean,
-    "headers": Object,
-    "injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-    "key": String,
-    "middlewares": (String<filepath-from-middlewares> | Array.String<filepath-from-middlewares>),
-    "mimeType": String,
-    "options": Boolean,
-    "output": (String<filepath-into-serverless> | Boolean<false>),
-    "post": Boolean,
-    "put": Boolean,
-    "redirect": (String<urlpath-from-base | url>),
-    "statusCode": Number,
-    "url": String<urlpath-from-base>,
-    "variation": String<filepath-from-variations>,
-    "view": String<filepath-from-views>
+	"charset": String,
+	"controller": String<filepath-from-controllers>,
+	"delete": Boolean,
+	"get": Boolean,
+	"headers": Object,
+	"injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
+	"key": String,
+	"middlewares": (String<filepath-from-middlewares> | Array.String<filepath-from-middlewares>),
+	"mimeType": String,
+	"options": Boolean,
+	"output": (String<filepath-into-serverless> | Boolean<false>),
+	"post": Boolean,
+	"put": Boolean,
+	"redirect": (String<urlpath-from-base | url>),
+	"statusCode": Number,
+	"url": String<urlpath-from-base>,
+	"variation": String<filepath-from-variations>,
+	"view": String<filepath-from-views>
 }
 ```
 
@@ -7271,12 +7295,12 @@ You can also configure the launch with `init(options)`:
 
 ```javascript
 require("node-atlas")().init({
-    path: "/path/to/your/website/directory/",
-    webconfig: "webconfig.alternatif.json",
-    browse: true,
-    httpHostname: "192.168.1.1",
-    httpPort: 7778,
-    generate: true
+	path: "/path/to/your/website/directory/",
+	webconfig: "webconfig.alternatif.json",
+	browse: true,
+	httpHostname: "192.168.1.1",
+	httpPort: 7778,
+	generate: true
 }).start();
 ```
 
@@ -7288,16 +7312,16 @@ The `options` object is the following:
 
 ```
 {
-    path: <string>,
-    webconfig: <string>,
-    browse: <boolean|string>,
-    httpHostname: <string>,
-    httpPort: <number>,
-    generate: <boolean>,
-    cache: <boolean>,
-    lang: <string>,
-    create: <string>,
-    httpSecure: <boolean|string>
+	path: <string>,
+	webconfig: <string>,
+	browse: <boolean|string>,
+	httpHostname: <string>,
+	httpPort: <number>,
+	generate: <boolean>,
+	cache: <boolean>,
+	lang: <string>,
+	create: <string>,
+	httpSecure: <boolean|string>
 }
 ```
 
@@ -7315,16 +7339,16 @@ You can for example run multiple websites in same time. Each webconfig must list
 
 ```javascript
 var nodeAtlas = require("node-atlas"),
-    websiteEn = new nodeAtlas(),
-    websiteFr = new nodeAtlas();
+	websiteEn = new nodeAtlas(),
+	websiteFr = new nodeAtlas();
 
 websiteEn.run({
-    "browse": true,
-    "webconfig": "webconfig.english.json"
+	"browse": true,
+	"webconfig": "webconfig.english.json"
 });
 websiteFr.run({
-    "browse": true,
-    "webconfig": "webconfig.french.json"
+	"browse": true,
+	"webconfig": "webconfig.french.json"
 });
 ```
 
@@ -7338,9 +7362,9 @@ With `started(callback)`, you could also execute other tasks after server ran:
 
 ```javascript
 require("node-atlas")().started(function() {
-    console.log("Server started!");
+	console.log("Server started!");
 }).run({
-    browse: true
+	browse: true
 });
 ```
 
@@ -7354,7 +7378,7 @@ With `stopped(callback)`, you could also execute other tasks after server stoppe
 
 ```javascript
 require("node-atlas")().stopped(function() {
-    console.log("Server stopped!");
+	console.log("Server stopped!");
 }).start();
 ```
 
@@ -7368,13 +7392,13 @@ With `generated(callback)`, you could also execute other tasks after assets gene
 
 ```javascript
 require("node-atlas")().generated(function() {
-    require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
-        console.log("Documentation generation...");
-        console.log(stdout);
-        console.log("Documentation generation done !");
-    });
+	require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
+		console.log("Documentation generation...");
+		console.log(stdout);
+		console.log("Documentation generation done !");
+	});
 }).run({
-    generate: true
+	generate: true
 });
 ```
 
@@ -7388,14 +7412,14 @@ With `created(callback)`, you could also execute other tasks after init the curr
 
 ```javascript
 var nodeAtlas = require("node-atlas"),
-    website = nodeAtlas();
+	website = nodeAtlas();
 
 website.init({
-    "init": true
+	"init": true
 }).created(function() {
-    website.run({
-        "browse": true
-    });
+	website.run({
+		"browse": true
+	});
 }).start();
 ```
 
@@ -7498,9 +7522,9 @@ The most simple it to add into  `package.json` file the following lines:
 {
   /* ... */
   "devDependencies": {
-    "browser-sync": "2.18.x",
-    "gulp": "3.9.x",
-    "gulp-nodemon": "2.2.x"
+	"browser-sync": "2.18.x",
+	"gulp": "3.9.x",
+	"gulp-nodemon": "2.2.x"
   },
   /* ... */
 }
@@ -7529,8 +7553,8 @@ Create also a `gulpfile.js` file in which you will add the following line code:
 
 /* Load modules */
 var gulp = require('gulp'),
-    browserSync = require('browser-sync'),
-    nodemon = require('gulp-nodemon');
+	browserSync = require('browser-sync'),
+	nodemon = require('gulp-nodemon');
 
 /* My first task after default task will be the `browser-sync` task. */
 gulp.task('default', ['browser-sync']);
@@ -7538,39 +7562,39 @@ gulp.task('default', ['browser-sync']);
 /* My task after `browser-sync` will be the `nodemon` task. */
 gulp.task('browser-sync', ['nodemon'], function() {
 
-    /* For this task, will listening 
-       changing into front files */
-    browserSync.init(null, {
-        proxy: "http://localhost:7777", // The httpPort from NodeAtlas config.
-        files: ["views/**", "assets/**", "variations/**"], // All files you want listening from root.
-        port: 57776, // Hot reloading listening port.
-    });
+	/* For this task, will listening
+	   changing into front files */
+	browserSync.init(null, {
+		proxy: "http://localhost:7777", // The httpPort from NodeAtlas config.
+		files: ["views/**", "assets/**", "variations/**"], // All files you want listening from root.
+		port: 57776, // Hot reloading listening port.
+	});
 });
 
 /* Dernière tâche `nodemon`. */
 gulp.task('nodemon', function (next) {
    var started = false;
 
-    /* For this task, will listening 
-       changing into back files */
-    return nodemon({
-        script: 'server.js', // The script will be start and watched.
-        ext: 'js json', // This will be the back files will be listening.
-        ignore: ['gulpfile.js', 'variations/**', 'views/**', 'assets/**'] // This are the ignored front files.
-    }).on('restart', function() {
+	/* For this task, will listening
+	   changing into back files */
+	return nodemon({
+		script: 'server.js', // The script will be start and watched.
+		ext: 'js json', // This will be the back files will be listening.
+		ignore: ['gulpfile.js', 'variations/**', 'views/**', 'assets/**'] // This are the ignored front files.
+	}).on('restart', function() {
 
-        /* When the server restart, restart current page. */
-        setTimeout(function () {
-             browserSync.reload();
-        }, 500);
-    }).on('start', function () {
+		/* When the server restart, restart current page. */
+		setTimeout(function () {
+			 browserSync.reload();
+		}, 500);
+	}).on('start', function () {
 
-        /* Not run Nodemon more once. */
-        if (!started) {
-            next();
-            started = true; 
-        } 
-    });
+		/* Not run Nodemon more once. */
+		if (!started) {
+			next();
+			started = true;
+		}
+	});
 });
 ```
 
@@ -7588,9 +7612,9 @@ or create an npm command into `package.json` by adding this lines:
 {
   /* ... */
   "scripts": {
-    /* ... */
-    "watch": "gulp"
-    /* ... */
+	/* ... */
+	"watch": "gulp"
+	/* ... */
   },
   /* ... */
 }
@@ -7669,30 +7693,30 @@ You will add to this set of files, additional file named `web.config` whose cont
 
 ```xml
 <configuration>
-    <system.webServer>
-        <handlers>
-            <add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
-        </handlers>
-        <rewrite>
-            <rules>
-                <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
-                     <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
-                </rule>
-                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
-                    <match url="^node-atlas.js\/debug[\/]?" />
-                </rule>
-                <rule name="StaticContent">
-                     <action type="Rewrite" url="assets{REQUEST_URI}"/>
-                </rule>
-                <rule name="DynamicContent">
-                     <conditions>
-                          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true"/>
-                     </conditions>
-                     <action type="Rewrite" url="node-atlas.js"/>
-                </rule>
-            </rules>
-        </rewrite>
-    </system.webServer>
+	<system.webServer>
+		<handlers>
+			<add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
+		</handlers>
+		<rewrite>
+			<rules>
+				<rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
+					 <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
+				</rule>
+				<rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
+					<match url="^node-atlas.js\/debug[\/]?" />
+				</rule>
+				<rule name="StaticContent">
+					 <action type="Rewrite" url="assets{REQUEST_URI}"/>
+				</rule>
+				<rule name="DynamicContent">
+					 <conditions>
+						  <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true"/>
+					 </conditions>
+					 <action type="Rewrite" url="node-atlas.js"/>
+				</rule>
+			</rules>
+		</rewrite>
+	</system.webServer>
 </configuration>
 ```
 
@@ -7723,12 +7747,12 @@ An example for a production webconfig:
 
 ```json
 {
-    "urlPort": 80,
-    "httpPort": 7777,
-    "httpHostname": "www.example.com",
-    "routes": {
-        ...
-    }
+	"urlPort": 80,
+	"httpPort": 7777,
+	"httpHostname": "www.example.com",
+	"routes": {
+		...
+	}
 }
 ```
 
@@ -7772,12 +7796,12 @@ An example for a production webconfig:
 
 ```json
 {
-    "urlPort": 80,
-    "httpPort": 7777,
-    "httpHostname": "www.example.com",
-    "routes": {
-        ...
-    }
+	"urlPort": 80,
+	"httpPort": 7777,
+	"httpHostname": "www.example.com",
+	"routes": {
+		...
+	}
 }
 
 ```
@@ -7794,46 +7818,46 @@ This is an example of Nginx's configuration:
 ## Server an.example.fr
 
 upstream websocket {
-    server Ip_backend:7777;
+	server Ip_backend:7777;
 }
 
 server {
 
-    listen   80;
-    server_name an.example.fr;
+	listen   80;
+	server_name an.example.fr;
 
-        keepalive_timeout    60;
+		keepalive_timeout    60;
 
-    access_log on;
+	access_log on;
 
-        access_log /var/log/nginx/access.log logstash;
-    error_log /var/log/nginx/error-an.example.fr.log;
+		access_log /var/log/nginx/access.log logstash;
+	error_log /var/log/nginx/error-an.example.fr.log;
 
-    location /socket.io/ {
-            proxy_pass http://websocket;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-    }
+	location /socket.io/ {
+			proxy_pass http://websocket;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "upgrade";
+	}
 
-    location / {
-        proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header Host $http_host;
-            proxy_set_header X-NginX-Proxy true;
+	location / {
+		proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header Host $http_host;
+			proxy_set_header X-NginX-Proxy true;
 
-            proxy_pass http://websocket;
-        proxy_read_timeout 300;
-        proxy_connect_timeout 300;
-        proxy_redirect off;
+			proxy_pass http://websocket;
+		proxy_read_timeout 300;
+		proxy_connect_timeout 300;
+		proxy_redirect off;
 
-    }
+	}
 
-    error_page 400 401 402 403 405 406 407 408 409 410 411 412 413 414 415 416 417 500 501 502 503 504 505 506 507 /error.html;
+	error_page 400 401 402 403 405 406 407 408 409 410 411 412 413 414 415 416 417 500 501 502 503 504 505 506 507 /error.html;
 
-    location = /error.html {
-            root /var/www/nginx-default;
-    }
+	location = /error.html {
+			root /var/www/nginx-default;
+	}
 }
 ```
 
@@ -7864,19 +7888,19 @@ Here is a sample configuration with Bouncy:
 var bouncy = require('bouncy');
 
 var server = bouncy(function (request, response, bounce) {
-    if (request.headers.host === 'beep.example.com') {
-        bounce(7777);
-    }
-    else if (request.headers.host === 'blup.example.com') {
-        bounce(7776);
-    }
-    else if (request.headers.host === 'boop.example.com') {
-        bounce(81);
-    }
-    else {
-        response.statusCode = 404;
-        response.end('no such host');
-    }
+	if (request.headers.host === 'beep.example.com') {
+		bounce(7777);
+	}
+	else if (request.headers.host === 'blup.example.com') {
+		bounce(7776);
+	}
+	else if (request.headers.host === 'boop.example.com') {
+		bounce(81);
+	}
+	else {
+		response.statusCode = 404;
+		response.end('no such host');
+	}
 });
 
 server.listen(80);

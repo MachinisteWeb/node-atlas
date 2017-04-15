@@ -25,7 +25,7 @@ gulp.task(&#39;default&#39;, [&#39;browser-sync&#39;]);
 /* Dire que la tâche après `browser-sync` sera la `nodemon`. */
 gulp.task(&#39;browser-sync&#39;, [&#39;nodemon&#39;], function() {
 
-    /* En ce qui concerne la tâche courante nous allons 
+    /* En ce qui concerne la tâche courante nous allons
        lancer de quoi écoutez les fichiers pour le Front. */
     browserSync.init(null, {
         proxy: &quot;http://localhost:7777&quot;, // Ça c&#39;est le port httpPort de la config NodeAtlas.
@@ -38,7 +38,7 @@ gulp.task(&#39;browser-sync&#39;, [&#39;nodemon&#39;], function() {
 gulp.task(&#39;nodemon&#39;, function (next) {
    var started = false;
 
-    /* En ce qui concerne la tâche courante nous allons 
+    /* En ce qui concerne la tâche courante nous allons
        lancer de quoi écoutez les fichiers pour le Back. */
     return nodemon({
         script: &#39;server.js&#39;, // Ceci est le script qui va être lancé.
@@ -55,8 +55,8 @@ gulp.task(&#39;nodemon&#39;, function (next) {
         /* Empècher Nodemon de se lancer plusieurs fois. */
         if (!started) {
             next();
-            started = true; 
-        } 
+            started = true;
+        }
     });
 });
 </code></pre><h4 id="lancement">Lancement</h4><p>Il ne vous reste plus qu&#39;à lancer tout ça avec la commande</p><pre><code class="lang-bash">gulp

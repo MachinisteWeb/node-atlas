@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1491924339628">
+		<meta name="og:updated_time" content="1492247729658">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta34</h3>
+									<h3>v2.0.0-beta36</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
 								</div>
@@ -353,7 +353,7 @@ website.init({
     ├─{Hook : &lt;controller&gt;.setSessions}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Sessions Init]
-    ┊ 
+    ┊
     ├─[Sockets Init]
     ┊ ┊  ______________________________
     ┊ ├─{Hook : &lt;controller&gt;.setSockets}_______
@@ -386,7 +386,7 @@ website.init({
       ├─{Hook : routes[&lt;controller&gt;].changeDom}
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Send Response]
-        ┊ 
+        ┊
         ∞
 </code></pre><h4 id="changevariations">changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
@@ -931,7 +931,7 @@ exports.setRoutes = function (next) {
     };
 
     // We update modification here.
-    next(); 
+    next();
 };
 </code></pre><h3 id="use-reliable-client-server-real-time-with-websockets">Use Reliable Client-Server Real-Time with Websockets</h3><p>To keep a link between Client-side and Server-side part of website, NodeAtlas use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p><p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p><p>With this following files:</p><pre><code>├─ assets/
 │  └─ javascripts/
@@ -985,7 +985,7 @@ exports.setRoutes = function (next) {
     &quot;titlePage&quot;: &quot;Date&quot;,
     &quot;content&quot;: &quot;&lt;p&gt;Current date is:&lt;/p&gt;&quot;
 }
-</code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side. </p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// All Websocket action possible with `setSockets`.
+</code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side.</p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// All Websocket action possible with `setSockets`.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -1236,7 +1236,7 @@ function User(connection) {
                     town,
                     zipcode,
                     address
-                FROM user`, 
+                FROM user`,
             where = &quot;&quot;;
 
         if (publics.id()) { where += &#39; &amp;&amp; `id` = &#39; + publics.id(); }
@@ -1320,7 +1320,7 @@ function User(connection) {
             insert += &quot;`birthdate`, &quot;;
             values += &#39;&quot;&#39; + publics.birthdate() + &#39;&quot;, &#39;;
         }
-        if (typeof publics.gender() === &quot;boolean&quot;) { 
+        if (typeof publics.gender() === &quot;boolean&quot;) {
             insert += &quot;`gender`, &quot;;
             values += (publics.gender() ? 1 : 0) + &#39;, &#39;;
         }
@@ -1345,7 +1345,7 @@ function User(connection) {
         values = values.replace(/, $/g, &quot;)&quot;);
 
         privates.connection.query(insert + values, function (err, infos) {
-            if (err) { 
+            if (err) {
                 throw err;
             }
 
@@ -1390,7 +1390,7 @@ function User(connection) {
         where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
 
         privates.connection.query(update + where, function (err, infos) {
-            if (err) { 
+            if (err) {
                 throw err;
             }
 
@@ -1431,7 +1431,7 @@ function User(connection) {
         where = where.replace(&quot;&amp;&amp;&quot;, &quot;WHERE&quot;);
 
         privates.connection.query(del + where, function (err, infos) {
-            if (err) { 
+            if (err) {
                 throw err;
             }
 
