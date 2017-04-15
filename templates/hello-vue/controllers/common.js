@@ -28,7 +28,7 @@ exports.changeDom = function (next, locals, request, response) {
 				postAppHTML = layoutSections[1],
 				router = new VueRouter({
 					routes: [{
-						path: locals.routeParameters.url, 
+						path: locals.routeParameters.url,
 						component: component,
 						props: ['common']
 					}]

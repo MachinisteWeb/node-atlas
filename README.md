@@ -264,7 +264,7 @@ my-website/
 │  └─ partials/              ⤆ Toutes les vues réutilisables.
 │     ├─ header.htm
 │     ├─ footer.htm
-│     ┊┉ 
+│     ┊┉
 │
 ├─ variations/               ⤆ Tous les fichiers pour le remplissage de contenu avec "en-gb" par défaut…
 │  ├─ common.json

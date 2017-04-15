@@ -9,10 +9,10 @@
 			"javascripts/boot.js"
 		],
 		"javascripts/common.{version}.min.js": ["javascripts/common.js"]
-    },
-    "stylesheets": {
+	},
+	"stylesheets": {
 		"stylesheets/common.{version}.min.css": [
 			"stylesheets/common.css"
 		]
-    }
+	}
 }

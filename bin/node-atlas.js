@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*------------------------------------*\
-    SUMMARY
+	SUMMARY
 \*------------------------------------*/
 /* jslint node: true */
 
@@ -27,18 +27,18 @@
 
 
 /*------------------------------------*\
-    NODE ATLAS FUNCTION
+	NODE ATLAS FUNCTION
 \*------------------------------------*/
 
 var configuration = require("../lib/configuration"),
-    modules = require("../lib/modules"),
-    globals = require("../lib/globals"),
-    server = require("../lib/server"),
-    routes = require("../lib/routes"),
-    response = require("../lib/response"),
-    tools = require("../lib/tools"),
-    generation = require("../lib/generation"),
-    init = require("../lib/init"),
+	modules = require("../lib/modules"),
+	globals = require("../lib/globals"),
+	server = require("../lib/server"),
+	routes = require("../lib/routes"),
+	response = require("../lib/response"),
+	tools = require("../lib/tools"),
+	generation = require("../lib/generation"),
+	init = require("../lib/init"),
 
 /**
  * Creates a new instance of NodeAtlas Website.
@@ -46,17 +46,17 @@ var configuration = require("../lib/configuration"),
  */
 NA = function () {
 
-    /* Shortcut for use NA without `new` keyword. */
-    if (!(this instanceof NA)) {
-        return new NA();
-    }
+	/* Shortcut for use NA without `new` keyword. */
+	if (!(this instanceof NA)) {
+		return new NA();
+	}
 
-    /* INIT */
-    this.configuration = init.configuration;
-    this.afterGeneration = init.afterGeneration;
-    this.afterClosing = init.afterClosing;
-    this.afterRunning = init.afterRunning;
-    this.afterNewProject = init.afterNewProject;
+	/* INIT */
+	this.configuration = init.configuration;
+	this.afterGeneration = init.afterGeneration;
+	this.afterClosing = init.afterClosing;
+	this.afterRunning = init.afterRunning;
+	this.afterNewProject = init.afterNewProject;
 };
 
 /* CONFIGURATION */
@@ -158,12 +158,12 @@ NA.prototype.run = init.run;
 
 
 /*------------------------------------*\
-    RUN
+	RUN
 \*------------------------------------*/
 
 /* Run script with CLI. */
 if (require.main === module) {
-    (new NA()).start();
+	(new NA()).start();
 }
 
 /* Run script with require as an API. */

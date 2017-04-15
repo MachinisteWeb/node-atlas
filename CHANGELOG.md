@@ -37,6 +37,7 @@ Features:
 - `NA.isClient = true` added into `node-atlas/socket.io.js` for isomorphic code.
 - `serverRelativePath` folder is created if is not exist.
 - Language `portRequiresPrivileges` is added.
+- Less and Stylus vendor autoprefix automaticly added with options `less.autoprefix` and `stylus.autoprefix`.
 
 Updates:
 
@@ -745,7 +746,7 @@ Features:
 
 - The `preRender` hook become the `changeVariation` hook.
 - The `render` hook become the `changeDom` hook.
- - The `params.data` of `render` become `params.dom` of `changeDom`.
+- The `params.data` of `render` become `params.dom` of `changeDom`.
 
 Bugfixes:
 
