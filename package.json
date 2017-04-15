@@ -1,137 +1,134 @@
 {
-  "name": "node-atlas",
-  "preferGlobal": true,
-  "version": "2.0.0-beta35",
-  "author": {
-    "name": "Bruno Lesieur",
-    "email": "bruno.lesieur@gmail.com"
-  },
-  "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
-  },
-  "description": "Progressive realtime web framework config-driven or API-driven for building easily serverless files, websites and webapps component-based and service-oriented.",
-  "private": false,
-  "contributors": [
-    {
-      "name": "Alban Allée",
-      "email": "alban.kahl@gmail.com"
-    },
-    {
-      "name": "Jérôme Macé",
-      "email": "jerome.mace@hybris.fr"
-    },
-    {
-      "name": "Pierre Ammeloot",
-      "email": "pierre@ammeloot.fr"
-    },
-    {
-      "name": "Tommy Pater",
-      "email": "syals@eringan.fr"
-    }
-  ],
-  "bin": {
-    "atlas": "./bin/node-atlas.js",
-    "node-atlas": "./bin/node-atlas.js",
-    "nodeatlas": "./bin/node-atlas.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NodeAtlas/node-atlas.git"
-  },
-  "homepage": "https://node-atlas.js.org/",
-  "keywords": [
-    "node",
-    "atlas",
-    "nodeatlas",
-    "progressive",
-    "realtime",
-    "web framework",
-    "web application",
-    "mvc2",
-    "isomorphism",
-    "website",
-    "webapp",
-    "api",
-    "rest",
-    "view",
-    "controller",
-    "model",
-    "mvc",
-    "i18n",
-    "internationalization",
-    "l10n",
-    "localization",
-    "templating",
-    "serverless",
-    "less",
-    "stylus",
-    "pug",
-    "bundle",
-    "template",
-    "server dom",
-    "url rewriting",
-    "route",
-    "cms",
-    "blog",
-    "express",
-    "socket.io",
-    "service-oriented",
-    "component-based",
-    "config-driven",
-    "api-driven",
-    "french"
-  ],
-  "license": "GPL-2.0",
-  "bugs": {
-    "url": "https://github.com/NodeAtlas/node-atlas/issues"
-  },
-  "devDependencies": {
-    "chai": "3.5.x",
-    "mocha": "3.2.x",
-    "request": "2.81.x"
-  },
-  "dependencies": {
-    "async": "2.3.x",
-    "body-parser": "1.17.x",
-    "cheerio": "0.22.x",
-    "clean-css": "4.0.x",
-    "commander": "2.9.x",
-    "compression": "1.6.x",
-    "cookie-parser": "1.4.x",
-    "copy-dir": "0.3.x",
-    "css-parse": "2.0.x",
-    "ejs": "2.5.x",
-    "express": "4.15.x",
-    "express-session": "1.15.x",
-    "extend": "3.0.x",
-    "imagemin": "5.2.x",
-    "imagemin-gifsicle": "5.1.x",
-    "imagemin-jpegtran": "5.0.x",
-    "imagemin-optipng": "5.2.x",
-    "imagemin-svgo": "5.2.x",
-    "less": "2.7.x",
-    "less-middleware": "2.2.x",
-    "mkpath": "1.0.x",
-    "open": "0.0.x",
-    "pug": "^2.0.0-beta6",
-    "socket.io": "1.7.x",
-    "stylus": "0.54.x",
-    "uglify-js": "2.8.x"
-  },
-  "files": [
-    "languages/*",
-    "lib/*",
-    "src/*",
-    "templates/*",
-    "test/test.js",
-    "bin/node-atlas.js",
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md",
-    "index.js"
-  ],
-  "engines": {
-    "node": ">=4.0.0"
-  },
-  "readmeFilename": "README.md"
+	"name": "node-atlas",
+	"preferGlobal": true,
+	"version": "2.0.0-beta36",
+	"author": {
+		"name": "Bruno Lesieur",
+		"email": "bruno.lesieur@gmail.com"
+	},
+	"scripts": {
+		"test": "./node_modules/.bin/mocha --reporter spec"
+	},
+	"description": "Progressive realtime web framework config-driven or API-driven for building easily serverless files, websites and webapps component-based and service-oriented.",
+	"private": false,
+	"contributors": [{
+		"name": "Alban Allée",
+		"email": "alban.kahl@gmail.com"
+	}, {
+		"name": "Jérôme Macé",
+		"email": "jerome.mace@hybris.fr"
+	}, {
+		"name": "Pierre Ammeloot",
+		"email": "pierre@ammeloot.fr"
+	}, {
+		"name": "Tommy Pater",
+		"email": "syals@eringan.fr"
+	}],
+	"bin": {
+		"atlas": "./bin/node-atlas.js",
+		"node-atlas": "./bin/node-atlas.js",
+		"nodeatlas": "./bin/node-atlas.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/NodeAtlas/node-atlas.git"
+	},
+	"homepage": "https://node-atlas.js.org/",
+	"keywords": [
+		"node",
+		"atlas",
+		"nodeatlas",
+		"progressive",
+		"realtime",
+		"web framework",
+		"web application",
+		"mvc2",
+		"isomorphism",
+		"website",
+		"webapp",
+		"api",
+		"rest",
+		"view",
+		"controller",
+		"model",
+		"mvc",
+		"i18n",
+		"internationalization",
+		"l10n",
+		"localization",
+		"templating",
+		"serverless",
+		"less",
+		"stylus",
+		"pug",
+		"bundle",
+		"template",
+		"server dom",
+		"url rewriting",
+		"route",
+		"cms",
+		"blog",
+		"express",
+		"socket.io",
+		"service-oriented",
+		"component-based",
+		"config-driven",
+		"api-driven",
+		"french"
+	],
+	"license": "GPL-2.0",
+	"bugs": {
+		"url": "https://github.com/NodeAtlas/node-atlas/issues"
+	},
+	"devDependencies": {
+		"chai": "3.5.x",
+		"mocha": "3.2.x",
+		"request": "2.81.x"
+	},
+	"dependencies": {
+		"async": "2.3.x",
+		"autoprefixer-stylus": "0.13.x",
+		"body-parser": "1.17.x",
+		"cheerio": "0.22.x",
+		"clean-css": "4.0.x",
+		"commander": "2.9.x",
+		"compression": "1.6.x",
+		"cookie-parser": "1.4.x",
+		"copy-dir": "0.3.x",
+		"css-parse": "2.0.x",
+		"ejs": "2.5.x",
+		"express": "4.15.x",
+		"express-session": "1.15.x",
+		"extend": "3.0.x",
+		"imagemin": "5.2.x",
+		"imagemin-gifsicle": "5.1.x",
+		"imagemin-jpegtran": "5.0.x",
+		"imagemin-optipng": "5.2.x",
+		"imagemin-svgo": "5.2.x",
+		"less": "2.7.x",
+		"less-middleware": "2.2.x",
+		"less-plugin-autoprefix": "1.5.x",
+		"mkpath": "1.0.x",
+		"open": "0.0.x",
+		"pug": "^2.0.0-beta6",
+		"socket.io": "1.7.x",
+		"stylus": "0.54.x",
+		"uglify-js": "2.8.x"
+	},
+	"files": [
+		"languages/*",
+		"lib/*",
+		"src/*",
+		"templates/*",
+		"test/test.js",
+		"bin/node-atlas.js",
+		"LICENSE",
+		"README.md",
+		"CHANGELOG.md",
+		"index.js"
+	],
+	"engines": {
+		"node": ">=4.0.0"
+	},
+	"readmeFilename": "README.md"
 }

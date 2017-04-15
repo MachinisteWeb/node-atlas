@@ -3,7 +3,7 @@
 		"title": "Bienvenue !",
 		"description": "Petit site de présentation de Vue + NodeAtlas"
 	},
-	"home": {	
+	"home": {
 		"title": "Vue + NodeAtlas<br>Isomorphisme + Rendu côté serveur",
 		"content": "<p>Vous pouvez naviguer sur les pages côté client avec Vue.<br/>Mais en regardant le code source de chaque page,<br>vous verrez que la page est initialement rendu côté serveur !</p>"
 	}

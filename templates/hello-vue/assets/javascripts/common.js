@@ -40,19 +40,19 @@ var lang = document.getElementsByTagName("html")[0].getAttribute("lang"),
 		mode: 'history',
 		base: '/',
 		routes: [{
-			path: routes["home_" + lang].url, 
+			path: routes["home_" + lang].url,
 			component: vmHome,
 			props: ['common']
-		}, { 
-			path: routes["projects_" + lang].url, 
+		}, {
+			path: routes["projects_" + lang].url,
 			component: vmProjects,
 			props: ['common']
-		}, { 
-			path: routes["contact_" + lang].url, 
+		}, {
+			path: routes["contact_" + lang].url,
 			component: vmContact,
 			props: ['common']
-		}, { 
-			path: '/*', 
+		}, {
+			path: '/*',
 			component: vmError,
 			props: ['common']
 		}]

@@ -264,7 +264,7 @@ my-website/
 │  └─ partials/              ⤆ All re-usable view.
 │     ├─ header.htm
 │     ├─ footer.htm
-│     ┊┉ 
+│     ┊┉
 │
 ├─ variations/               ⤆ All files for content filling with "en-gb" in default...
 │  ├─ common.json
