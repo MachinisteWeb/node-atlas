@@ -163,7 +163,9 @@ NA.prototype.run = init.run;
 
 /* Run script with CLI. */
 if (require.main === module) {
-	(new NA()).start();
+	/* Expose the NA object for isomorphism */
+	global.NA = new NA();
+	global.NA.start();
 }
 
 /* Run script with require as an API. */
