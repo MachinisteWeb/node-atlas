@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*------------------------------------*\
+    ABOUT
+\*------------------------------------*/
+/* jslint node: true */
+
+/**
+ * @fileOverview Progressive realtime web framework config-driven or API-driven for building easily serverless files, websites and webapps component-based and service-oriented.
+ * @author {@link https://www.lesieur.name/ Bruno Lesieur}
+ * @license {@link https://raw.githubusercontent.com/Haeresis/NodeAtlas/master/LICENSE GNU GENERAL PUBLIC LICENSE Version 2}
+ * @module node-atlas
+ * @requires {@link NA#modules.external:async}
+ * @requires {@link NA#modules.external:body-parser}
+ * @requires {@link NA#modules.external:cheerio}
+ * @requires {@link NA#modules.external:clean-css}
+ * @requires {@link NA#modules.external:commander}
+ * @requires {@link NA#modules.external:compression}
+ * @requires {@link NA#modules.external:cookie-parser}
+ * @requires {@link NA#modules.external:css-parse}
+ * @requires {@link NA#modules.external:ejs}
+ * @requires {@link NA#modules.external:express}
+ * @requires {@link NA#modules.external:express-session}
+ * @requires {@link NA#modules.external:extend}
+ * @requires {@link NA#modules.external:imagemin}
+ * @requires {@link NA#modules.external:less}
+ * @requires {@link NA#modules.external:less-middleware}
+ * @requires {@link NA#modules.external:mkpath}
+ * @requires {@link NA#modules.external:open}
+ * @requires {@link NA#modules.external:pug}
+ * @requires {@link NA#modules.external:socketio}
+ * @requires {@link NA#modules.external:stylus}
+ * @requires {@link NA#modules.external:copy-dir}
+ * @requires {@link NA#modules.external:uglify-js}
+ */
+
+
+
+
+
+/*------------------------------------*\
+    ALIAS
+\*------------------------------------*/
+
+var NA = require("./bin/node-atlas.js");
+
+/* Run script with CLI. */
+if (require.main === module) {
+	/* Expose the NA object for isomorphism */
+	global.NA = new NA();
+	global.NA.start();
+}
+
+/* Run script with require as an API. */
+module.exports = NA;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="NA_modules.external_async.html">async</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_cheerio.html">cheerio</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_commander.html">commander</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_ejs.html">ejs</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_less.html">less</a></li><li><a href="NA_modules.external_less-middleware.html">less-middleware</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_prefixLess.html">prefixLess</a></li><li><a href="NA_modules.external_prefixStylus.html">prefixStylus</a></li><li><a href="NA_modules.external_pug.html">pug</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li><li><a href="NA_modules.external_uglify-js.html">uglify-js</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_locals.html#.routeParameters">routeParameters</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_webconfig.less.html">less</a></li><li><a href="NA_webconfig.stylus.html">stylus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Apr 17 2017 18:12:14 GMT+0200 (Paris, Madrid (heure d’été))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
