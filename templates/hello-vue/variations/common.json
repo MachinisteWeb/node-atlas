@@ -2,6 +2,8 @@
 	"title": "Exemple de site NodeAtlas avec Vue",
 	"description": "Affichage d'un site avec Vue + VueRouteur + NodeAtlas — Isomorphisme + Rendu côté serveur",
 	"copyright": "Exemple réalisé avec <a href='https://fr.vuejs.org/' target='_blank'>Vue</a> et <a href='https://node-atlas.js.org/' target='_blank'>NodeAtlas</a>",
+	"session": "Session : ",
+	"phrase": "Change-moi dans tous les onglets ouverts !",
 	"language": {
 		"content": "International Version",
 		"href": "http://localhost:7777/",

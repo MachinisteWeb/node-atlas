@@ -1,4 +1,8 @@
 <div class="layout">
+	<div class="session">
+		<div v-html="me.sessionID && (common.session + me.sessionID.substring(0,8))"></div>
+		<input v-model="me.description" v-on:keyup="send" autofocus></input>
+	</div>
 	<nav class="menu">
 		<ul>
 			<li v-for="item in common.menu">
@@ -7,7 +11,7 @@
 		</ul>
 	</nav>
 	<transition name="fade-in-out">
-		<router-view v-bind:common="common"></router-view>
+		<router-view v-bind:common="common" v-bind:me="me"></router-view>
 	</transition>
 	<footer class="footer" v-html="common.copyright"></footer>
 </div>

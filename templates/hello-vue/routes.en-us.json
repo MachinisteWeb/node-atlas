@@ -15,7 +15,7 @@
 		"variation": "contact.json"
 	},
 	"error_en-us": {
-		"url": "/page-not-found/",
+		"url": "/*",
 		"view": "error",
 		"variation": "error.json",
 		"statusCode": 404

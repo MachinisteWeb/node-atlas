@@ -4,7 +4,9 @@ exports.changeDom = function (next, locals, request, response) {
 		Vue = require("vue"),
 		VueRouter = require("vue-router"),
 		renderers = require("vue-server-renderer"),
-		renderer = renderers.createRenderer(),
+		renderer = renderers.createRenderer({
+			template: locals.dom
+		}),
 		fs = NA.modules.fs,
 		path = NA.modules.path,
 		view = path.join(NA.serverPath, NA.webconfig.viewsRelativePath, locals.routeParameters.view + ".htm"),
@@ -17,15 +19,12 @@ exports.changeDom = function (next, locals, request, response) {
 	Vue.use(VueRouter);
 
 	fs.readFile(view, "utf-8",  function (error, template) {
-		var component = Vue.component('all', require(model)(specific, template));
+		var component = Vue.component(locals.routeParameters.view, require(model)(specific, template));
 		fs.readFile(appView, "utf-8", function (error, template) {
 			var common = locals.common,
 				webconfig = {
 					routes: NA.webconfig.routes
 				},
-				layoutSections = locals.dom.split('<div class="layout"></div>'),
-				preAppHTML = layoutSections[0],
-				postAppHTML = layoutSections[1],
 				router = new VueRouter({
 					routes: [{
 						path: locals.routeParameters.url,
@@ -37,15 +36,32 @@ exports.changeDom = function (next, locals, request, response) {
 
 			router.push(locals.routeParameters.url);
 
-			response.write(preAppHTML);
-
 			stream.on('data', function (chunk) {
 				response.write(chunk);
 			});
 
-	  		stream.on('end', function () {
-				response.end(postAppHTML);
-	  		});
+			stream.on('end', function () {
+				response.end();
+			});
+		});
+	});
+};
+
+exports.setSockets = function () {
+	var NA = this,
+		io = NA.io;
+
+	io.on('connection', function (socket) {
+		var session = socket.request.session,
+			sessionID = socket.request.sessionID;
+
+		session.touch().save();
+
+		socket.on('app--init', function () {
+			socket.emit('app--init', session, sessionID);
+		});
+		socket.on('app--change-description', function (description) {
+			socket.broadcast.emit('app--change-description', description);
 		});
 	});
 };
