@@ -11,7 +11,6 @@
 	"bundles": "bundles.json",
 	"statics": "statics.en-us.json",
 	"routes": "routes.en-us.json",
-	"pageNotFound": "error_en-us",
 	"_robots": "noindex, nofollow",
 	"_min": false
 }

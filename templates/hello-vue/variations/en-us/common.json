@@ -2,6 +2,8 @@
 	"title": "NodeAlas Website Example with Vue",
 	"description": "Website displaying with Vue + VueRouteur + NodeAtlas — Isomorphism + Server-side Rendering",
 	"copyright": "Example made with <a href='https://fr.vuejs.org/' target='_blank'>Vue</a> and <a href='https://node-atlas.js.org/' target='_blank'>NodeAtlas</a>",
+	"session": "Session: ",
+	"phrase": "Change me in all tabs opened!",
 	"language": {
 		"content": "Version française",
 		"href": "http://localhost:7776/",

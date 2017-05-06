@@ -7,7 +7,6 @@
 	"view": "layout.htm",
 	"statics": "statics.json",
 	"routes": "routes.json",
-	"pageNotFound": "error_fr-fr",
 	"_robots": "index, follow",
 	"_min": true
 }

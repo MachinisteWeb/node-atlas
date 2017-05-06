@@ -1,14 +1,13 @@
-/* jshint browser: true */
-/* global NA, Vue, VueRouter, require */
-
-var lang = document.getElementsByTagName("html")[0].getAttribute("lang"),
-	routes = require("routes.json!json"),
-	common = require("variations/common.json!json"),
-	model = require("views-models/app.js"),
-	template = require("views-models/app.htm!text"),
+/* jshint browser: true, esversion: 6 */
+/* global NA, System, Vue, VueRouter, require */
+var routes = [],
+	common = require('variations/common.json!json'),
+	model = require('views-models/app.js'),
+	template = require('views-models/app.htm!text'),
 	webconfig = {
-		routes: routes
+		routes: require('routes.json!json')
 	},
+	keys = Object.keys(webconfig.routes),
 	mixin = {
 		beforeRouteEnter: function (to, from, next) {
 			next(function (vm) {
@@ -16,54 +15,55 @@ var lang = document.getElementsByTagName("html")[0].getAttribute("lang"),
 			});
 		}
 	},
-	vmHome = Vue.component('home', function (resolve) {
-		var template = require("views-models/home.htm!text"),
-			specific = require("variations/home.json!json");
-		resolve(require('views-models/home.js')(specific, template, mixin));
-	}),
-	vmProjects = Vue.component('projects', function (resolve) {
-		var template = require("views-models/projects.htm!text"),
-			specific = require("variations/projects.json!json");
-		resolve(require('views-models/projects.js')(specific, template, mixin));
-	}),
-	vmContact = Vue.component('contact', function (resolve) {
-		var template = require("views-models/contact.htm!text"),
-			specific = require("variations/contact.json!json");
-		resolve(require('views-models/contact.js')(specific, template, mixin));
-	}),
-	vmError = Vue.component('error', function (resolve) {
-		var template = require("views-models/error.htm!text"),
-			specific = require("variations/error.json!json");
-		resolve(require('views-models/error.js')(specific, template, mixin));
-	}),
-	router = new VueRouter({
-		mode: 'history',
-		base: '/',
-		routes: [{
-			path: routes["home_" + lang].url,
-			component: vmHome,
-			props: ['common']
-		}, {
-			path: routes["projects_" + lang].url,
-			component: vmProjects,
-			props: ['common']
-		}, {
-			path: routes["contact_" + lang].url,
-			component: vmContact,
-			props: ['common']
-		}, {
-			path: '/*',
-			component: vmError,
-			props: ['common']
-		}]
-	}),
-	vm;
+	router, vm;
+
+keys.forEach(function (key) {
+	var route = {},
+		name = key.split('_')[0],
+		model, specific, template, options;
+
+	route.path = webconfig.routes[key].url;
+
+	route.component = function (resolve) {
+		Promise.all([
+			System.import('views-models/' + name + '.js'),
+			System.import('variations/' + name + '.json!json'),
+			System.import('views-models/' + name + '.htm!text')
+		]).then(function (files) {
+			model = files[0];
+			specific = files[1];
+			template = files[2];
+			options = {
+				dirty: false
+			};
+			resolve(model(specific, template, mixin, options));
+		});
+	};
+
+	route.props = ['common', 'me'];
+
+	routes.push(route);
+});
+
+router = new VueRouter({
+	mode: 'history',
+	base: '/',
+	routes: routes
+});
 
 vm = new Vue(model(common, template, router, webconfig));
 
-vm.$mount('.layout');
+router.onReady(function () {
+	vm.$mount('.layout');
+});
 
-NA.socket.emit("init-app");
-NA.socket.on("init-app", function (me) {
-	vm.me = me;
+Vue.set(vm.me, 'description', common.phrase);
+
+NA.socket.emit('app--init');
+NA.socket.on('app--init', function (session, sessionID) {
+	Vue.set(vm.me, 'session', session);
+	Vue.set(vm.me, 'sessionID', sessionID);
+});
+NA.socket.on('app--change-description', function (description) {
+	Vue.set(vm.me, 'description', description);
 });
