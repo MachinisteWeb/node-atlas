@@ -265,7 +265,7 @@ website.component = website.component || {};
         (new website.component.Navigation()).init();
         (new website.component.Content()).init(links, fragmentPath, urlRelativeSubPath);
 
-        website.chat();    
+        website.chat();
     };
 }(website));
 
