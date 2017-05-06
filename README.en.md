@@ -81,6 +81,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
  - [Fileset](#fileset)
  - [Minimum Requirements](#minimum-requirements)
  - [Run the site with NodeAtlas](#run-the-site-with-nodeatlas)
+ - [Hello World Skeleton](#hello-world-skeleton)
 - [View and Template Part](#view-and-template-part)
  - [More one page](#more-one-page)
  - [Manage Routes](#manage-routes)
@@ -101,6 +102,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
  - [Use Middlewares from Express](#use-middleware-from-express)
+ - [Create Isomorphic App](#create-isomorphic-app)
 - [More features](#more-features)
  - [Manage Routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a Page Not Found](#manage-a-page-not-found)
@@ -404,6 +406,29 @@ Lancez ensuite le fichier avec Node.js.
 
 ```bash
 $ node server.js
+```
+
+
+
+### Hello World Skeleton
+
+It's also possible to get an app already create with some features already implemented. We study them later but for now just use `--create` command to test that:
+
+```bash
+$ mkdir hello-world
+$ cd hello-world
+```
+
+and copy the example app:
+
+```bash
+$ node-atlas --create hello-world
+```
+
+Start!
+
+```bash
+$ node-atlas --browse
 ```
 
 
@@ -4389,6 +4414,47 @@ module.exports = function (request, response, next) {
 	next();
 };
 ```
+
+
+
+### Create Isomporphic App
+
+An isomorphic app ist an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an exemple of isomporphic app in the template dedicated to [Vue.js](https://vuejs.org/).
+
+For test this, just:
+
+create a test folder:
+
+```bash
+mkdir hello-vue
+cd hello-vue
+```
+
+then place it the `hello-vue` content
+
+```bash
+node-atlas --create hello-vue
+```
+
+then install dependencies
+
+```bash
+npm install
+```
+
+and finaly run the french version
+
+```bash
+node-atlas --browse
+```
+
+or the international version
+
+```bash
+node-atlas --browse --webconfig webconfig.en-us.json
+```
+
+You will find all you need about server-side code from `constrollers/common.js` and client-side code on https://ssr.vuejs.org/ and from `assets/javascripts/common.js` on https://vuejs.org/.
 
 
 

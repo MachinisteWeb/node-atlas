@@ -1691,7 +1691,13 @@ module.exports = function () {
 
     next();
 };
-</code></pre><div><div class="before">
+</code></pre><h3 id="create-isomporphic-app">Create Isomporphic App</h3><p>An isomorphic app ist an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an exemple of isomporphic app in the template dedicated to <a href="https://vuejs.org/">Vue.js</a>.</p><p>For test this, just:</p><p>create a test folder:</p><pre><code class="lang-bash">mkdir hello-vue
+cd hello-vue
+</code></pre><p>then place it the <code>hello-vue</code> content</p><pre><code class="lang-bash">node-atlas --create hello-vue
+</code></pre><p>then install dependencies</p><pre><code class="lang-bash">npm install
+</code></pre><p>and finaly run the french version</p><pre><code class="lang-bash">node-atlas --browse
+</code></pre><p>or the international version</p><pre><code class="lang-bash">node-atlas --browse --webconfig webconfig.en-us.json
+</code></pre><p>You will find all you need about server-side code from <code>constrollers/common.js</code> and client-side code on <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> and from <code>assets/javascripts/common.js</code> on <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
                             <a href="view-and-template-part.html">◄ View and Template Part</a>
                         </div><div class="after">
                             <a href="more-features.html">More Features ►</a>

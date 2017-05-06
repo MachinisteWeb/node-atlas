@@ -81,6 +81,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Ensemble de fichiers](#ensemble-de-fichiers)
  - [Configuration minimale](#configuration-minimale)
  - [Lancer le site avec NodeAtlas](#lancer-le-site-avec-nodeatlas)
+ - [Squelette de Hello World](#squelette-de-hello-world)
 - [Partie Vue et Template](#partie-vue-et-template)
  - [Plusieurs pages](#plusieurs-pages)
  - [Référencer ses routes](#référencer-ses-routes)
@@ -101,6 +102,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
  - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
  - [Utiliser des Middlewares depuis Express](#utiliser-des-middlewares-depuis-express)
+ - [Créer une application isomorphique](#créer-une-application-isomorphique)
 - [Pour aller plus loin](#pour-aller-plus-loin)
  - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
@@ -404,6 +406,29 @@ Lancez ensuite le fichier avec Node.js.
 
 ```bash
 $ node server.js
+```
+
+
+
+### Squelette de Hello World
+
+Il est également possible d'obtenir une application déjà prête avec plusieurs des fonctionnalités qui seront étudiées un peu plus loin avec la commande `--create`. Pour ce faire il faut créer un dossier de test :
+
+```bash
+$ mkdir hello-world
+$ cd hello-world
+```
+
+copier un squelette d'application exemple :
+
+```bash
+$ node-atlas --create hello-world
+```
+
+et démmarrer !
+
+```bash
+$ node-atlas --browse
 ```
 
 
@@ -4389,6 +4414,47 @@ module.exports = function (request, response, next) {
 	next();
 };
 ```
+
+
+
+### Créer une application isomorphique
+
+Une application isomorphique est une application dont le code JavaScript est en grande partie le même qu'il soit exécuté côté client ou exécuté côté serveur. NodeAtlas propose un exemple d'application isomorphique dans son template dédié à [Vue.js](https://fr.vuejs.org/).
+
+Pour tester cela il vous suffit :
+
+de créer un dossier de test
+
+```bash
+mkdir hello-vue
+cd hello-vue
+```
+
+d'y placer les fichier de `hello-vue`
+
+```bash
+node-atlas --create hello-vue
+```
+
+d'installer les dépendances
+
+```bash
+npm install
+```
+
+et de lancer le site en français
+
+```bash
+node-atlas --browse
+```
+
+ou en version internationale
+
+```bash
+node-atlas --browse --webconfig webconfig.en-us.json
+```
+
+Vous trouverrez tout ce qu'il faut pour appréhender la partie serveur du `constrollers/common.js` sur https://ssr.vuejs.org/ et sul la partie cliente du `assets/javascripts/common.js` sur https://vuejs.org/.
 
 
 

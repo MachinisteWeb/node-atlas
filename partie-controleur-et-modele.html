@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1494068149196">
+		<meta name="og:updated_time" content="1494077910145">
 
 		<meta name="robots" content="index, follow">
 
@@ -2003,7 +2003,13 @@ module.exports = function () {
 
     next();
 };
-</code></pre><div><div class="before">
+</code></pre><h3 id="creer-une-application-isomorphique">Créer une application isomorphique</h3><p>Une application isomorphique est une application dont le code JavaScript est en grande partie le même qu&#39;il soit exécuté côté client ou exécuté côté serveur. NodeAtlas propose un exemple d&#39;application isomorphique dans son template dédié à <a href="https://fr.vuejs.org/">Vue.js</a>.</p><p>Pour tester cela il vous suffit :</p><p>de créer un dossier de test</p><pre><code class="lang-bash">mkdir hello-vue
+cd hello-vue
+</code></pre><p>d&#39;y placer les fichier de <code>hello-vue</code></p><pre><code class="lang-bash">node-atlas --create hello-vue
+</code></pre><p>d&#39;installer les dépendances</p><pre><code class="lang-bash">npm install
+</code></pre><p>et de lancer le site en français</p><pre><code class="lang-bash">node-atlas --browse
+</code></pre><p>ou en version internationale</p><pre><code class="lang-bash">node-atlas --browse --webconfig webconfig.en-us.json
+</code></pre><p>Vous trouverrez tout ce qu&#39;il faut pour appréhender la partie serveur du <code>constrollers/common.js</code> sur <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> et sul la partie cliente du <code>assets/javascripts/common.js</code> sur <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
                             <a href="partie-vue-et-template.html">◄ Partie Vue et Template</a>
                         </div><div class="after">
                             <a href="pour-aller-plus-loin.html">Pour aller plus loin ►</a>

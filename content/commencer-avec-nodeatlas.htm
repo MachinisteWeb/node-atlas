@@ -35,6 +35,10 @@
 </code></pre>
 </blockquote><p>Vous aurez accès à votre « Hello World » à la page <em><a href="http://localhost/">http://localhost/</a></em> dans un navigateur (ou <code>http://localhost:8080/</code>).</p><h4 id="via-un-fichier-javascript">Via un fichier JavaScript</h4><p>Vous pouvez également utiliser NodeAtlas comme un module NPM.</p><p>Créer alors un fichier <code>server.js</code> au même niveau que le <code>webconfig.json</code>.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
 </code></pre><p>Lancez ensuite le fichier avec Node.js.</p><pre><code class="lang-bash">$ node server.js
+</code></pre><h3 id="squelette-de-hello-world">Squelette de Hello World</h3><p>Il est également possible d&#39;obtenir une application déjà prête avec plusieurs des fonctionnalités qui seront étudiées un peu plus loin avec la commande <code>--create</code>. Pour ce faire il faut créer un dossier de test :</p><pre><code class="lang-bash">$ mkdir hello-world
+$ cd hello-world
+</code></pre><p>copier un squelette d&#39;application exemple :</p><pre><code class="lang-bash">$ node-atlas --create hello-world
+</code></pre><p>et démmarrer !</p><pre><code class="lang-bash">$ node-atlas --browse
 </code></pre><div><div class="before">
                             <a href="installation.html">◄ Installation</a>
                         </div><div class="after">
