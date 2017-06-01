@@ -109,6 +109,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
  - [Inject routes dynamically](#inject-routes-dynamically)
  - [Manage redirects](#manage-redirects)
  - [Manage Headers](#manage-headers)
+ - [Dynamic Configuration](#dynamic-configuration)
  - [Run Website with HTTPs](#run-website-with-https)
  - [Minify CSS / JS](#minify-css--js)
  - [CSS generation with Less](#css-generation-with-less)
@@ -4260,6 +4261,7 @@ You can get the `NA#express` object ready to use middlewares with the `setConfig
 
 ```js
 exports.setConfigurations = function (next) {
+	var NA = this;
 
 	// Middleware create by you.
 	NA.express.use(function (request, response, next) {
@@ -4950,6 +4952,150 @@ It's also possible to modify all Headers values, this erase all shortcuts before
 		}
 	}
 }
+```
+
+
+
+### Dynamic Configuration ###
+
+In replacement of static `.json` config files, you can use dynamic `.js` config files. In this case, your `.js` file can provide in `module.exports` a valide JSON file.
+
+And it is possible to replace this six following files:
+
+*webconfig.json*
+
+```json
+{
+	"languageCode": "fr-fr",
+	"statics": "statics.fr-fr.json"
+	"routes": {
+		"/": "index.htm"
+	}
+}
+```
+
+*webconfig.prod.json*
+
+```json
+{
+	"cache": true,
+	"languageCode": "fr-fr",
+	"statics": "statics.fr-fr.json"
+	"routes": {
+		"/": "index.htm"
+	}
+}
+```
+
+*webconfig.en-us.json*
+
+```json
+{
+	"languageCode": "fr-fr",
+	"statics": "statics.fr-fr.json"
+	"routes": {
+		"/": "index.htm"
+	}
+}
+```
+
+*webconfig.en-us.prod.json*
+
+```json
+{
+	"cache": true,
+	"languageCode": "en-us",
+	"statics": "statics.en-us.json"
+	"routes": {
+		"/": "index.htm"
+	}
+}
+```
+
+*statics.fr-fr.json*
+
+```json
+{
+	"/variations/": "variations/fr-fr/",
+}
+```
+
+*statics.en-us.json*
+
+```json
+{
+	"/variations/": "variations/en-us/",
+}
+```
+
+by only this two following files:
+
+*webconfig.json*
+
+```json
+module.export = (function () {
+	var webconfig = {
+		"cache": false,
+		"languageCode": "fr-fr",
+		"statics": "statics.json"
+		"routes": {
+			"/": "index.htm"
+		}
+	};
+
+	if (process.env.NODE_ENV === 'production') {
+		webconfig["cache"] = true;
+	}
+
+	if (process.env.LANG) {
+		webconfig["languageCode"] = process.env.LANG;
+	}
+
+	return webconfig;
+}());
+```
+
+*statics.json*
+
+```json
+module.export = (function () {
+	var NA = this.NA,
+		languageCode = NA.webconfig.languageCode
+
+	return {
+		"/variations/": "variations/" + languageCode + "/",
+	};
+}());
+```
+
+with the following supposed set of environment variables on the four following environments:
+
+Local FR
+
+```bash
+NODE_ENV=DEVELOPMENT
+LANG=fr-fr
+```
+
+Local EN
+
+```bash
+NODE_ENV=DEVELOPMENT
+LANG=en-us
+```
+
+Prod FR
+
+```bash
+NODE_ENV=PRODUCTION
+LANG=fr-fr
+```
+
+Prod EN
+
+```bash
+NODE_ENV=PRODUCTION
+LANG=en-us
 ```
 
 

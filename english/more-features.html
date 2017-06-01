@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1494077914460">
+		<meta name="og:updated_time" content="1496325771599">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta40</h3>
+									<h3>v2.0.0-beta41</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
 								</div>
@@ -635,6 +635,78 @@ exports.setRoutes = function (next) {
         }
     }
 }
+</code></pre><h3 id="dynamic-configuration">Dynamic Configuration</h3><p>In replacement of static <code>.json</code> config files, you can use dynamic <code>.js</code> config files. In this case, your <code>.js</code> file can provide in <code>module.exports</code> a valide JSON file.</p><p>And it is possible to replace this six following files:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+    &quot;languageCode&quot;: &quot;fr-fr&quot;,
+    &quot;statics&quot;: &quot;statics.fr-fr.json&quot;
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><p><em>webconfig.prod.json</em></p><pre><code class="lang-json">{
+    &quot;cache&quot;: true,
+    &quot;languageCode&quot;: &quot;fr-fr&quot;,
+    &quot;statics&quot;: &quot;statics.fr-fr.json&quot;
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><p><em>webconfig.en-us.json</em></p><pre><code class="lang-json">{
+    &quot;languageCode&quot;: &quot;fr-fr&quot;,
+    &quot;statics&quot;: &quot;statics.fr-fr.json&quot;
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><p><em>webconfig.en-us.prod.json</em></p><pre><code class="lang-json">{
+    &quot;cache&quot;: true,
+    &quot;languageCode&quot;: &quot;en-us&quot;,
+    &quot;statics&quot;: &quot;statics.en-us.json&quot;
+    &quot;routes&quot;: {
+        &quot;/&quot;: &quot;index.htm&quot;
+    }
+}
+</code></pre><p><em>statics.fr-fr.json</em></p><pre><code class="lang-json">{
+    &quot;/variations/&quot;: &quot;variations/fr-fr/&quot;,
+}
+</code></pre><p><em>statics.en-us.json</em></p><pre><code class="lang-json">{
+    &quot;/variations/&quot;: &quot;variations/en-us/&quot;,
+}
+</code></pre><p>by only this two following files:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">module.export = (function () {
+    var webconfig = {
+        &quot;cache&quot;: false,
+        &quot;languageCode&quot;: &quot;fr-fr&quot;,
+        &quot;statics&quot;: &quot;statics.json&quot;
+        &quot;routes&quot;: {
+            &quot;/&quot;: &quot;index.htm&quot;
+        }
+    };
+
+    if (process.env.NODE_ENV === &#39;production&#39;) {
+        webconfig[&quot;cache&quot;] = true;
+    }
+
+    if (process.env.LANG) {
+        webconfig[&quot;languageCode&quot;] = process.env.LANG;
+    }
+
+    return webconfig;
+}());
+</code></pre><p><em>statics.json</em></p><pre><code class="lang-json">module.export = (function () {
+    var NA = this.NA,
+        languageCode = NA.webconfig.languageCode
+
+    return {
+        &quot;/variations/&quot;: &quot;variations/&quot; + languageCode + &quot;/&quot;,
+    };
+}());
+</code></pre><p>with the following supposed set of environment variables on the four following environments:</p><p>Local FR</p><pre><code class="lang-bash">NODE_ENV=DEVELOPMENT
+LANG=fr-fr
+</code></pre><p>Local EN</p><pre><code class="lang-bash">NODE_ENV=DEVELOPMENT
+LANG=en-us
+</code></pre><p>Prod FR</p><pre><code class="lang-bash">NODE_ENV=PRODUCTION
+LANG=fr-fr
+</code></pre><p>Prod EN</p><pre><code class="lang-bash">NODE_ENV=PRODUCTION
+LANG=en-us
 </code></pre><h3 id="run-website-with-https">Run Website with HTTPs</h3><p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol.</p><p>Just use the following configuration:</p><pre><code class="lang-json">{
     &quot;httpSecure&quot;: true,
     &quot;httpSecureKeyRelativePath&quot;: &quot;security/server.key&quot;,

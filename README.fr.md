@@ -109,6 +109,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Injecter des routes dynamiquement](#injecter-des-routes-dynamiquement)
  - [Gérer les redirections](#gérer-les-redirections)
  - [Gérer les Headers de page](#gérer-les-headers-de-page)
+ - [Configuration dynamique](#configuration-dynamique)
  - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
  - [Minifier les CSS / JS](#minifier-les-css--js)
  - [Générer les CSS avec Less](#générer-les-css-avec-less)
@@ -4260,6 +4261,7 @@ Vous pouvez obtenir l'objet `NA#express` près à accueillir des middlewares ici
 
 ```js
 exports.setConfigurations = function (next) {
+	var NA = this;
 
 	// Middleware fait main.
 	NA.express.use(function (request, response, next) {
@@ -4950,6 +4952,150 @@ Il est également possible de modifier complètement les Headers, ce qui écrase
 		}
 	}
 }
+```
+
+
+
+### Configuration dynamique ###
+
+Plutôt que d'utiliser plusieurs configurations statique `.json`, il est tout a fait possible d'utiliser des configurations dynamiques `.js`. Dans ce cas, ce que votre fichier `.js` devra retourner avec `module.exports` sera un objet JSON valide.
+
+Nous pouvons ainsi aisément remplacer les six fichiers suivants :
+
+*webconfig.json*
+
+```json
+{
+	"languageCode": "fr-fr",
+	"statics": "statics.fr-fr.json"
+	"routes": {
+		"/": "index.htm"
+	}
+}
+```
+
+*webconfig.prod.json*
+
+```json
+{
+	"cache": true,
+	"languageCode": "fr-fr",
+	"statics": "statics.fr-fr.json"
+	"routes": {
+		"/": "index.htm"
+	}
+}
+```
+
+*webconfig.en-us.json*
+
+```json
+{
+	"languageCode": "fr-fr",
+	"statics": "statics.fr-fr.json"
+	"routes": {
+		"/": "index.htm"
+	}
+}
+```
+
+*webconfig.en-us.prod.json*
+
+```json
+{
+	"cache": true,
+	"languageCode": "en-us",
+	"statics": "statics.en-us.json"
+	"routes": {
+		"/": "index.htm"
+	}
+}
+```
+
+*statics.fr-fr.json*
+
+```json
+{
+	"/variations/": "variations/fr-fr/",
+}
+```
+
+*statics.en-us.json*
+
+```json
+{
+	"/variations/": "variations/en-us/",
+}
+```
+
+par les deux fichiers suivants :
+
+*webconfig.json*
+
+```json
+module.export = (function () {
+	var webconfig = {
+		"cache": false,
+		"languageCode": "fr-fr",
+		"statics": "statics.json"
+		"routes": {
+			"/": "index.htm"
+		}
+	};
+
+	if (process.env.NODE_ENV === 'production') {
+		webconfig["cache"] = true;
+	}
+
+	if (process.env.LANG) {
+		webconfig["languageCode"] = process.env.LANG;
+	}
+
+	return webconfig;
+}());
+```
+
+*statics.json*
+
+```json
+module.export = (function () {
+	var NA = this.NA,
+		languageCode = NA.webconfig.languageCode
+
+	return {
+		"/variations/": "variations/" + languageCode + "/",
+	};
+}());
+```
+
+en supposant les variables d'environnements suivantes pour les quatre environnements suivants :
+
+Local FR
+
+```bash
+NODE_ENV=DEVELOPMENT
+LANG=fr-fr
+```
+
+Local EN
+
+```bash
+NODE_ENV=DEVELOPMENT
+LANG=en-us
+```
+
+Prod FR
+
+```bash
+NODE_ENV=PRODUCTION
+LANG=fr-fr
+```
+
+Prod EN
+
+```bash
+NODE_ENV=PRODUCTION
+LANG=en-us
 ```
 
 

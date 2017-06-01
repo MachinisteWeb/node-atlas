@@ -15,7 +15,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1494077914474">
+		<meta name="og:updated_time" content="1496325771578">
 
 		<meta name="robots" content="index, follow">
 
@@ -147,7 +147,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta40</h3>
+									<h3>v2.0.0-beta41</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
 								</div>
@@ -1907,6 +1907,7 @@ NA.express.use(session(optionSession));
 /* Manage `assets/` directory and access of file from domain root or a subpath. */
 NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));
 </code></pre><p>You can add middlewares with different ways.</p><h4 id="with-setconfigurations-">With <code>setConfigurations</code></h4><p>You can get the <code>NA#express</code> object ready to use middlewares with the <code>setConfigurations</code> hook. That will add the new mechanisms for all routes of your website.</p><pre><code class="lang-js">exports.setConfigurations = function (next) {
+    var NA = this;
 
     // Middleware create by you.
     NA.express.use(function (request, response, next) {
