@@ -3,6 +3,7 @@
 Features:
 
 - Gitter Chat for both fr (Aide) and en (Help) language: `https://gitter.im/NodeAtlas/`.
+- Configuration file with `.js` extension allowed.
 - `NA#locals.urlRootPath` is added (same as `NA#webconfig.urlRoot`).
 - `NA#locals.urlSubPath` is added (same as `NA#webconfig.urlRelativeSubPath`).
 - `NA#locals.urlFilePath` is added.

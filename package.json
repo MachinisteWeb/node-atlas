@@ -1,7 +1,7 @@
 {
 	"name": "node-atlas",
 	"preferGlobal": true,
-	"version": "2.0.0-beta40",
+	"version": "2.0.0-beta41",
 	"author": {
 		"name": "Bruno Lesieur",
 		"email": "bruno.lesieur@gmail.com"
@@ -82,15 +82,15 @@
 	},
 	"devDependencies": {
 		"chai": "3.5.x",
-		"mocha": "3.3.x",
+		"mocha": "3.4.x",
 		"request": "2.81.x"
 	},
 	"dependencies": {
 		"async": "2.4.x",
-		"autoprefixer-stylus": "0.13.x",
+		"autoprefixer-stylus": "0.14.x",
 		"body-parser": "1.17.x",
 		"cheerio": "0.22.x",
-		"clean-css": "4.0.x",
+		"clean-css": "4.1.x",
 		"commander": "2.9.x",
 		"compression": "1.6.x",
 		"cookie-parser": "1.4.x",
@@ -100,7 +100,7 @@
 		"express": "4.15.x",
 		"express-session": "1.15.x",
 		"extend": "3.0.x",
-		"imagemin": "5.2.x",
+		"imagemin": "5.3.x",
 		"imagemin-gifsicle": "5.1.x",
 		"imagemin-jpegtran": "5.0.x",
 		"imagemin-optipng": "5.2.x",
