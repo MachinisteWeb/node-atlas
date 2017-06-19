@@ -1595,6 +1595,7 @@ NA.express.use(session(optionSession));
 /* Manage `assets/` directory and access of file from domain root or a subpath. */
 NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));
 </code></pre><p>You can add middlewares with different ways.</p><h4 id="with-setconfigurations-">With <code>setConfigurations</code></h4><p>You can get the <code>NA#express</code> object ready to use middlewares with the <code>setConfigurations</code> hook. That will add the new mechanisms for all routes of your website.</p><pre><code class="lang-js">exports.setConfigurations = function (next) {
+    var NA = this;
 
     // Middleware create by you.
     NA.express.use(function (request, response, next) {

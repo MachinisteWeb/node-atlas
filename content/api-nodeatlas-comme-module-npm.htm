@@ -1,63 +1,63 @@
-<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module NPM</h2><p>Vous pouvez lancez NodeAtlas via du code JavaScript.</p><p>L&#39;intégralité des fonctions privés, modules et espaces de nom de NodeAtlas sont décrit dans <a href="https://node-atlas.js.org/doc/node-atlas/">la documentation de l&#39;API</a> (En). En ce qui concerne les <a href="partie-controleur-et-modele.html#cycle-de-vie-et-points-d-ancrage">Points d&#39;ancrage c&#39;est par ici</a> et pour les fonctions de démarrage du serveur c&#39;est ci-dessous :</p><h3 id="na-start">&lt;NA&gt;.start()</h3><p>Exécuté un simple lancement de NodeAtlas avec <code>start()</code>. Par défaut il cherchera le <code>webconfig.json</code> dans le dossier où le script est exécuté. Si aucun <code>webconfig.json</code> n&#39;est trouvé, un Simple Serveur Web sera lancé.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
+<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module NPM</h2><p>Vous pouvez lancez NodeAtlas via du code JavaScript.</p><p>L'intégralité des fonctions privés, modules et espaces de nom de NodeAtlas sont décrit dans <a href="https://node-atlas.js.org/doc/node-atlas/">la documentation de l'API</a> (En). En ce qui concerne les <a href="partie-controleur-et-modele.html#cycle-de-vie-et-points-d-ancrage">Points d'ancrage c'est par ici</a> et pour les fonctions de démarrage du serveur c'est ci-dessous :</p><h3 id="na-start"><NA>.start()</h3><p>Exécuté un simple lancement de NodeAtlas avec <code>start()</code>. Par défaut il cherchera le <code>webconfig.json</code> dans le dossier où le script est exécuté. Si aucun <code>webconfig.json</code> n'est trouvé, un Simple Serveur Web sera lancé.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require("node-atlas")().start();
 </code></pre><pre><code>$ node server.js
-</code></pre><h3 id="na-init-options">&lt;NA&gt;.init(options)</h3><p>Vous pouvez également configurer le lancement avec <code>init(options)</code> :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().init({
-    path: &quot;/path/to/your/website/directory/&quot;,
-    webconfig: &quot;webconfig.alternatif.json&quot;,
+</code></pre><h3 id="na-init-options"><NA>.init(options)</h3><p>Vous pouvez également configurer le lancement avec <code>init(options)</code> :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require("node-atlas")().init({
+    path: "/path/to/your/website/directory/",
+    webconfig: "webconfig.alternatif.json",
     browse: true,
-    httpHostname: &quot;192.168.1.1&quot;,
+    httpHostname: "192.168.1.1",
     httpPort: 7778,
     generate: true
 }).start();
 </code></pre><pre><code>$ node server.js
-</code></pre><p>L&#39;objet <code>options</code> est le suivant :</p><pre><code>{
-    path: &lt;string&gt;,
-    webconfig: &lt;string&gt;,
-    browse: &lt;boolean|string&gt;,
-    httpHostname: &lt;string&gt;,
-    httpPort: &lt;number&gt;,
-    generate: &lt;boolean&gt;,
-    cache: &lt;boolean&gt;,
-    lang: &lt;string&gt;,
-    create: &lt;string&gt;,
-    httpSecure: &lt;boolean|string&gt;
+</code></pre><p>L'objet <code>options</code> est le suivant :</p><pre><code>{
+    path: <string>,
+    webconfig: <string>,
+    browse: <boolean|string>,
+    httpHostname: <string>,
+    httpPort: <number>,
+    generate: <boolean>,
+    cache: <boolean>,
+    lang: <string>,
+    create: <string>,
+    httpSecure: <boolean|string>
 }
-</code></pre><p><em>Note : plus de détails pour chaque option dans <a href="cli-commandes-de-lancement.html">la partie CLI</a>.</em></p><h3 id="na-run-options">&lt;NA&gt;.run(options)</h3><p>Avec <code>run(options)</code> vous pouvez configurer et lancer NodeAtlas en une commande.</p><p>Vous pouvez par exemple lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><p><em>Note : plus de détails pour chaque option dans <a href="cli-commandes-de-lancement.html">la partie CLI</a>.</em></p><h3 id="na-run-options"><NA>.run(options)</h3><p>Avec <code>run(options)</code> vous pouvez configurer et lancer NodeAtlas en une commande.</p><p>Vous pouvez par exemple lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     websiteEn = new nodeAtlas(),
     websiteFr = new nodeAtlas();
 
 websiteEn.run({
-    &quot;browse&quot;: true,
-    &quot;webconfig&quot;: &quot;webconfig.english.json&quot;
+    "browse": true,
+    "webconfig": "webconfig.english.json"
 });
 websiteFr.run({
-    &quot;browse&quot;: true,
-    &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
+    "browse": true,
+    "webconfig": "webconfig.french.json"
 });
-</code></pre><h3 id="na-started-callback">&lt;NA&gt;.started(callback)</h3><p>Avec <code>started(callback)</code>, vous pouvez aussi exécuter d&#39;autres tâches après que le serveur web soit lancé :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().started(function() {
-    console.log(&quot;Server started!&quot;);
+</code></pre><h3 id="na-started-callback"><NA>.started(callback)</h3><p>Avec <code>started(callback)</code>, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit lancé :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().started(function() {
+    console.log("Server started!");
 }).run({
     browse: true
 });
-</code></pre><h3 id="na-stopped-callback">&lt;NA&gt;.stopped(callback)</h3><p>Avec <code>stopped(callback)</code>, vous pouvez aussi exécuter d&#39;autres tâches après que le serveur web soit stoppé :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().stopped(function() {
-    console.log(&quot;Server stopped!&quot;);
+</code></pre><h3 id="na-stopped-callback"><NA>.stopped(callback)</h3><p>Avec <code>stopped(callback)</code>, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit stoppé :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().stopped(function() {
+    console.log("Server stopped!");
 }).start();
-</code></pre><h3 id="na-generated-callback">&lt;NA&gt;.generated(callback)</h3><p>Avec <code>generated(callback)</code>, vous pouvez aussi exécuter d&#39;autres tâches après la génération de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
-    require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
-        console.log(&quot;Documentation generation...&quot;);
+</code></pre><h3 id="na-generated-callback"><NA>.generated(callback)</h3><p>Avec <code>generated(callback)</code>, vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().generated(function() {
+    require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
+        console.log("Documentation generation...");
         console.log(stdout);
-        console.log(&quot;Documentation generation done!&quot;);
+        console.log("Documentation generation done!");
     });
 }).run({
     generate: true
 });
-</code></pre><h3 id="na-created-callback">&lt;NA&gt;.created(callback)</h3><p>Avec <code>created(callback)</code>, vous pouvez aussi exécuter d&#39;autres tâches après avoir initialisé le répertoire courant avec un site template :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><h3 id="na-created-callback"><NA>.created(callback)</h3><p>Avec <code>created(callback)</code>, vous pouvez aussi exécuter d'autres tâches après avoir initialisé le répertoire courant avec un site template :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     website = nodeAtlas();
 
 website.init({
-    &quot;init&quot;: true
+    "init": true
 }).created(function() {
     website.run({
-        &quot;browse&quot;: true
+        "browse": true
     });
 }).start();
 </code></pre><div><div class="before">

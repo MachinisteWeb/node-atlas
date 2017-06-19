@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
-	<head>
+<!DOCTYPE html><html lang="en-us"><head>
 		<meta charset="utf-8">
 		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
 
@@ -15,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1496325771599">
+		<meta name="og:updated_time" content="1497876047291">
 
 		<meta name="robots" content="index, follow">
 
@@ -67,7 +65,7 @@
 							<li>
 								<div class="header--main--first">
 									<h2><strong>Simple</strong> <span>set-up</span></h2>
-									<p>You know <strong>HTML &amp; CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
+									<p>You know <strong>HTML & CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
 									<p class="small">Quickly create multilingual websites effortlessly with simple Routes, Views or Variations.</p>
 								</div>
 							</li>
@@ -147,7 +145,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta41</h3>
+									<h3>v2.0.0-beta42</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
 								</div>
@@ -221,7 +219,7 @@ website.init({
 						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 					</div>
 					<div class="navigation--home">
-						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
 					</div>
 					<div class="navigation--menu">
 						<div class="navigation--menu--toggle">
@@ -310,77 +308,77 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="api-nodeatlas-as-npm-module">API / NodeAtlas as NPM module</h2><p>You could run NodeAtlas via JavaScript code.</p><p>All private functions, modules and namespacese are explained here <a href="https://node-atlas.js.org/doc/node-atlas/">la documentation de l&#39;API</a>. For the <a href="controller-and-model-part.html#lifecycle-and-hooks">Hooks it&#39;s here</a> and for server start fonctions it&#39;s below :</p><h3 id="na-start">&lt;NA&gt;.start()</h3><p>Execute a simple NodeAtlas running with <code>start()</code>. By default, it use <code>webconfig.json</code> from directory where file is executed. If no <code>webconfig.json</code> is set, a Simple Web Server will be launched.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
+					<h2 id="api-nodeatlas-as-npm-module">API / NodeAtlas as NPM module</h2><p>You could run NodeAtlas via JavaScript code.</p><p>All private functions, modules and namespacese are explained here <a href="https://node-atlas.js.org/doc/node-atlas/">la documentation de l'API</a>. For the <a href="controller-and-model-part.html#lifecycle-and-hooks">Hooks it's here</a> and for server start fonctions it's below :</p><h3 id="na-start"><na>.start()</na></h3><p>Execute a simple NodeAtlas running with <code>start()</code>. By default, it use <code>webconfig.json</code> from directory where file is executed. If no <code>webconfig.json</code> is set, a Simple Web Server will be launched.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require("node-atlas")().start();
 </code></pre><pre><code>$ server server.js
 ``
 
 
 
-### &amp;lt;NA&gt;.init(options) ###
+### <NA>.init(options) ###
 
 You can also configure the launch with `init(options)`:
 
 *server.js*
 
 ```javascript
-require(&quot;node-atlas&quot;)().init({
-    path: &quot;/path/to/your/website/directory/&quot;,
-    webconfig: &quot;webconfig.alternatif.json&quot;,
+require("node-atlas")().init({
+    path: "/path/to/your/website/directory/",
+    webconfig: "webconfig.alternatif.json",
     browse: true,
-    httpHostname: &quot;192.168.1.1&quot;,
+    httpHostname: "192.168.1.1",
     httpPort: 7778,
     generate: true
 }).start();
 </code></pre><pre><code>$ node server.js
 </code></pre><p>The <code>options</code> object is the following:</p><pre><code>{
-    path: &lt;string&gt;,
-    webconfig: &lt;string&gt;,
-    browse: &lt;boolean|string&gt;,
-    httpHostname: &lt;string&gt;,
-    httpPort: &lt;number&gt;,
-    generate: &lt;boolean&gt;,
-    cache: &lt;boolean&gt;,
-    lang: &lt;string&gt;,
-    create: &lt;string&gt;,
-    httpSecure: &lt;boolean|string&gt;
+    path: <string>,
+    webconfig: <string>,
+    browse: <boolean|string>,
+    httpHostname: <string>,
+    httpPort: <number>,
+    generate: <boolean>,
+    cache: <boolean>,
+    lang: <string>,
+    create: <string>,
+    httpSecure: <boolean|string>
 }
-</code></pre><p><em>Note : more détails for each option in <a href="cli-running-commands.html">CLI part</a>.</em></p><h3 id="na-run-options">&lt;NA&gt;.run(options)</h3><p>With <code>run(options)</code> you could configure and lanch NodeAtlas with one command.</p><p>You can for example run multiple websites in same time. Each webconfig must listen a different port.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</boolean|string></string></string></boolean></boolean></number></string></boolean|string></string></string></code></pre><p><em>Note : more détails for each option in <a href="cli-running-commands.html">CLI part</a>.</em></p><h3 id="na-run-options"><na>.run(options)</na></h3><p>With <code>run(options)</code> you could configure and lanch NodeAtlas with one command.</p><p>You can for example run multiple websites in same time. Each webconfig must listen a different port.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     websiteEn = new nodeAtlas(),
     websiteFr = new nodeAtlas();
 
 websiteEn.run({
-    &quot;browse&quot;: true,
-    &quot;webconfig&quot;: &quot;webconfig.english.json&quot;
+    "browse": true,
+    "webconfig": "webconfig.english.json"
 });
 websiteFr.run({
-    &quot;browse&quot;: true,
-    &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
+    "browse": true,
+    "webconfig": "webconfig.french.json"
 });
-</code></pre><h3 id="na-started-callback">&lt;NA&gt;.started(callback)</h3><p>With <code>started(callback)</code>, you could also execute other tasks after server ran:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().started(function() {
-    console.log(&quot;Server started!&quot;);
+</code></pre><h3 id="na-started-callback"><na>.started(callback)</na></h3><p>With <code>started(callback)</code>, you could also execute other tasks after server ran:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().started(function() {
+    console.log("Server started!");
 }).run({
     browse: true
 });
-</code></pre><h3 id="na-stopped-callback">&lt;NA&gt;.stopped(callback)</h3><p>With <code>stopped(callback)</code>, you could also execute other tasks after server stopped:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().stopped(function() {
-    console.log(&quot;Server stopped!&quot;);
+</code></pre><h3 id="na-stopped-callback"><na>.stopped(callback)</na></h3><p>With <code>stopped(callback)</code>, you could also execute other tasks after server stopped:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().stopped(function() {
+    console.log("Server stopped!");
 }).start();
-</code></pre><h3 id="na-generated-callback">&lt;NA&gt;.generated(callback)</h3><p>With <code>generated(callback)</code>, you could also execute other tasks after assets generation:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
-    require(&#39;child_process&#39;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
-        console.log(&quot;Documentation generation...&quot;);
+</code></pre><h3 id="na-generated-callback"><na>.generated(callback)</na></h3><p>With <code>generated(callback)</code>, you could also execute other tasks after assets generation:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().generated(function() {
+    require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
+        console.log("Documentation generation...");
         console.log(stdout);
-        console.log(&quot;Documentation generation done !&quot;);
+        console.log("Documentation generation done !");
     });
 }).run({
     generate: true
 });
-</code></pre><h3 id="na-created-callback">&lt;NA&gt;.created(callback)</h3><p>With <code>created(callback)</code>, you could also execute other tasks after init the current directory with template website:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><h3 id="na-created-callback"><na>.created(callback)</na></h3><p>With <code>created(callback)</code>, you could also execute other tasks after init the current directory with template website:</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     website = nodeAtlas();
 
 website.init({
-    &quot;init&quot;: true
+    "init": true
 }).created(function() {
     website.run({
-        &quot;browse&quot;: true
+        "browse": true
     });
 }).start();
 </code></pre><div><div class="before">
@@ -396,5 +394,5 @@ website.init({
 		<script id="channel" data-channel="NodeAtlas/Help" data-label="Help Chat" src="javascripts/common.min.js"></script>
 		
 		<script src="https://buttons.github.io/buttons.js"></script>
-	</body>
-</html>
+	
+</body></html>

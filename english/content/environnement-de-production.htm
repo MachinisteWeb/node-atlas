@@ -1,7 +1,7 @@
-<h2 id="environnement-de-production">Environnement de Production</h2><p>C&#39;est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.</p><blockquote>
-<p>IMPORTANT : il est fortement recommandé d&#39;utiliser l&#39;option <code>&quot;cache&quot;: true</code> dans le webconfig de production afin de permettre au moteur d&#39;être optimisé ou mettre votre variable d&#39;environnement <code>NODE_ENV</code> à <code>production</code>.</p>
+<h2 id="environnement-de-production">Environnement de Production</h2><p>C'est bien de développer, mais il est temps de faire tourner vos réalisations sur des serveurs de production. Voici divers exemple.</p><blockquote>
+<p>IMPORTANT : il est fortement recommandé d'utiliser l'option <code>"cache": true</code> dans le webconfig de production afin de permettre au moteur d'être optimisé ou mettre votre variable d'environnement <code>NODE_ENV</code> à <code>production</code>.</p>
 </blockquote><hr><blockquote>
-<p>NOTE : il est possible que le proxy que vous utilisiez ne gère pas les websockets. Dans ce cas il faudra limiter le transport à <code>&quot;socketServerOptions&quot;: { transports: [&#39;polling&#39;] }</code> (par défaut en l&#39;absence de cette valeur les transports sont progressivement testé comme suit <code>{ transports: [&#39;polling&#39;, &#39;websocket&#39;] }</code>.</p>
+<p>NOTE : il est possible que le proxy que vous utilisiez ne gère pas les websockets. Dans ce cas il faudra limiter le transport à <code>"socketServerOptions": { transports: ['polling'] }</code> (par défaut en l'absence de cette valeur les transports sont progressivement testé comme suit <code>{ transports: ['polling', 'websocket'] }</code>.</p>
 </blockquote><h3 id="dans-un-environnement-windows-server-avec-iisnode">Dans un environnement Windows Server avec iisnode</h3><p>Dans un environnement Windows Server 2013 avec IIS8 il faut :</p><ol>
 <li>Installer <a href="http://nodejs.org/download/">l’exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="http://www.iis.net/downloads/microsoft/url-rewrite">le module IIS8 UrlRewrite</a> pour mapper les pages exécutées à une Url de sortie.</li>
@@ -33,32 +33,32 @@ site-hello-world/
 │  └─ index.htm
 ├─ index.js
 └─ webconfig.json
-</code></pre><p>Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p><pre><code class="lang-xml">&lt;configuration&gt;
-    &lt;system.webServer&gt;
-        &lt;handlers&gt;
-            &lt;add name=&quot;iisnode&quot; path=&quot;node-atlas.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
-        &lt;/handlers&gt;
-        &lt;rewrite&gt;
-            &lt;rules&gt;
-                &lt;rule name=&quot;LogFile&quot; patternSyntax=&quot;ECMAScript&quot; stopProcessing=&quot;true&quot;&gt;
-                     &lt;match url=&quot;^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$&quot;/&gt;
-                &lt;/rule&gt;
-                &lt;rule name=&quot;NodeInspector&quot; patternSyntax=&quot;ECMAScript&quot; stopProcessing=&quot;true&quot;&gt;
-                    &lt;match url=&quot;^node-atlas.js\/debug[\/]?&quot; /&gt;
-                &lt;/rule&gt;
-                &lt;rule name=&quot;StaticContent&quot;&gt;
-                     &lt;action type=&quot;Rewrite&quot; url=&quot;assets{REQUEST_URI}&quot;/&gt;
-                &lt;/rule&gt;
-                &lt;rule name=&quot;DynamicContent&quot;&gt;
-                     &lt;conditions&gt;
-                          &lt;add input=&quot;{REQUEST_FILENAME}&quot; matchType=&quot;IsFile&quot; negate=&quot;True&quot;/&gt;
-                     &lt;/conditions&gt;
-                     &lt;action type=&quot;Rewrite&quot; url=&quot;node-atlas.js&quot;/&gt;
-                &lt;/rule&gt;
-            &lt;/rules&gt;
-        &lt;/rewrite&gt;
-    &lt;/system.webServer&gt;
-&lt;/configuration&gt;
+</code></pre><p>Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p><pre><code class="lang-xml"><configuration>
+    <system.webServer>
+        <handlers>
+            <add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
+        </handlers>
+        <rewrite>
+            <rules>
+                <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
+                     <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
+                </rule>
+                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
+                    <match url="^node-atlas.js\/debug[\/]?" />
+                </rule>
+                <rule name="StaticContent">
+                     <action type="Rewrite" url="assets{REQUEST_URI}"/>
+                </rule>
+                <rule name="DynamicContent">
+                     <conditions>
+                          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="True"/>
+                     </conditions>
+                     <action type="Rewrite" url="node-atlas.js"/>
+                </rule>
+            </rules>
+        </rewrite>
+    </system.webServer>
+</configuration>
 </code></pre><p>pour au final obtenir :</p><pre><code>site-hello-world/
 ├─ node_modules/
 │  ┊┉
@@ -73,11 +73,11 @@ site-hello-world/
 ├─ index.js
 ├─ webconfig.json
 └─ web.config
-</code></pre><p>Il ne vous restera plus qu&#39;à cliquer sur « Browse <url-of-site> » dans votre panneau d&#39;action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n&#39;importe quelle autre application IIS8.</url-of-site></p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
-    &quot;urlPort&quot;: 80,
-    &quot;httpPort&quot;: 7777,
-    &quot;httpHostname&quot;: &quot;www.example.fr&quot;,
-    &quot;routes&quot;: {
+</code></pre><p>Il ne vous restera plus qu'à cliquer sur « Browse <url-of-site> » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.</url-of-site></p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
+    "urlPort": 80,
+    "httpPort": 7777,
+    "httpHostname": "www.example.fr",
+    "routes": {
         ...
     }
 }
@@ -85,14 +85,14 @@ site-hello-world/
 <li>Installer <a href="http://nodejs.org/download/">l’exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="https://github.com/nodejitsu/forever">le CLI tool forever</a> pour manager vos sites en continue (démarrage, arrêt, redémarrage, etc.).</li>
 <li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
-</ol><h4 id="quelques-commandes-forever">Quelques commandes forever</h4><p>Pour manager un nouveau site en continue il faut utiliser la commande :</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --path &lt;/path/to/your/website/directory/&gt;
+</ol><h4 id="quelques-commandes-forever">Quelques commandes forever</h4><p>Pour manager un nouveau site en continue il faut utiliser la commande :</p><pre><code>$ forever start </path/to/>node-atlas/ --path </path/to/your/website/directory/>
 </code></pre><p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code></p><pre><code>$ forever list
-</code></pre><p>puis utiliser la commande :</p><pre><code>$ forever stop &lt;uid&gt;
-</code></pre><p>ou <code>&lt;uid&gt;</code> est l&#39;<strong>uid</strong> du site qui tourne.</p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
-    &quot;urlPort&quot;: 80,
-    &quot;httpPort&quot;: 7777,
-    &quot;httpHostname&quot;: &quot;www.example.fr&quot;,
-    &quot;routes&quot;: {
+</code></pre><p>puis utiliser la commande :</p><pre><code>$ forever stop <uid>
+</code></pre><p>ou <code><uid></code> est l'<strong>uid</strong> du site qui tourne.</p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
+    "urlPort": 80,
+    "httpPort": 7777,
+    "httpHostname": "www.example.fr",
+    "routes": {
         ...
     }
 }
@@ -118,7 +118,7 @@ server {
             proxy_pass http://websocket;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection &quot;upgrade&quot;;
+            proxy_set_header Connection "upgrade";
     }
 
     location / {
@@ -140,30 +140,30 @@ server {
             root /var/www/nginx-default;
     }
 }
-</code></pre><p><code>Ip_backend</code> doit être remplacé par l&#39;IP de votre sous-réseaux privé. Cela peut être <code>127.0.0.1</code> si la node tourne sur le même serveur que Nginx.</p><p><code>websocket</code> peut être remplacé par n&#39;importe quel mot, il faudra alors aussi modifier le <code>proxy_pass</code>. Il doit être unique à chaque node.</p><h3 id="proxy">Proxy</h3><h4 id="bouncy">Bouncy</h4><p>Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d&#39;autres types de site) ensemble sur le même port (le 80).</p><p>Vous pouvez par exemple :</p><ul>
+</code></pre><p><code>Ip_backend</code> doit être remplacé par l'IP de votre sous-réseaux privé. Cela peut être <code>127.0.0.1</code> si la node tourne sur le même serveur que Nginx.</p><p><code>websocket</code> peut être remplacé par n'importe quel mot, il faudra alors aussi modifier le <code>proxy_pass</code>. Il doit être unique à chaque node.</p><h3 id="proxy">Proxy</h3><h4 id="bouncy">Bouncy</h4><p>Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).</p><p>Vous pouvez par exemple :</p><ul>
 <li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
 <li>et en plus lancer un server apache sur le port 81</li>
-</ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p><p>Voici un exemple de configuration avec Bouncy :</p><p><em>global-server.js</em></p><pre><code class="lang-javascript">var bouncy = require(&#39;bouncy&#39;);
+</ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p><p>Voici un exemple de configuration avec Bouncy :</p><p><em>global-server.js</em></p><pre><code class="lang-javascript">var bouncy = require('bouncy');
 
 var server = bouncy(function (request, response, bounce) {
-    if (request.headers.host === &#39;beep.example.com&#39;) {
+    if (request.headers.host === 'beep.example.com') {
         bounce(7777);
     }
-    else if (request.headers.host === &#39;blup.example.com&#39;) {
+    else if (request.headers.host === 'blup.example.com') {
         bounce(7776);
     }
-    else if (request.headers.host === &#39;boop.example.com&#39;) {
+    else if (request.headers.host === 'boop.example.com') {
         bounce(81);
     }
     else {
         response.statusCode = 404;
-        response.end(&#39;no such host&#39;);
+        response.end('no such host');
     }
 });
 
 server.listen(80);
-</code></pre><p>que vous pouvez lancer avec :</p><pre><code>$ forever start &lt;/path/to/&gt;global-server.js
-</code></pre><p><a href="https://github.com/substack/bouncy">Plus d&#39;informations sur Bouncy</a></p><div><div class="before">
+</code></pre><p>que vous pouvez lancer avec :</p><pre><code>$ forever start </path/to/>global-server.js
+</code></pre><p><a href="https://github.com/substack/bouncy">Plus d'informations sur Bouncy</a></p><div><div class="before">
                             <a href="environnement-de-developpement.html">◄ Environnement de Développement</a>
                         </div><div class="after">
                             <a href="plus-sur-nodeatlas.html">Plus sur NodeAtlas ►</a>
