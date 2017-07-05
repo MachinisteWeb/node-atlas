@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1497876047300">
+		<meta name="og:updated_time" content="1499215074843">
 
 		<meta name="robots" content="index, follow">
 
@@ -344,30 +344,30 @@ site-hello-world/
 ├─ index.js
 └─ webconfig.json
 </code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p><pre><code class="lang-xml"><configuration>
-    <system.webserver>
+    <system.webServer>
         <handlers>
-            <add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode">
-        </add></handlers>
+            <add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
+        </handlers>
         <rewrite>
             <rules>
-                <rule name="LogFile" patternsyntax="ECMAScript" stopprocessing="true">
-                     <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$">
-                </match></rule>
-                <rule name="NodeInspector" patternsyntax="ECMAScript" stopprocessing="true">
-                    <match url="^node-atlas.js\/debug[\/]?">
-                </match></rule>
+                <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
+                     <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
+                </rule>
+                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
+                    <match url="^node-atlas.js\/debug[\/]?" />
+                </rule>
                 <rule name="StaticContent">
-                     <action type="Rewrite" url="assets{REQUEST_URI}">
-                </action></rule>
+                     <action type="Rewrite" url="assets{REQUEST_URI}"/>
+                </rule>
                 <rule name="DynamicContent">
                      <conditions>
-                          <add input="{REQUEST_FILENAME}" matchtype="IsFile" negate="true">
-                     </add></conditions>
-                     <action type="Rewrite" url="node-atlas.js">
-                </action></rule>
+                          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true"/>
+                     </conditions>
+                     <action type="Rewrite" url="node-atlas.js"/>
+                </rule>
             </rules>
         </rewrite>
-    </system.webserver>
+    </system.webServer>
 </configuration>
 </code></pre><p>to obtain:</p><pre><code>site-hello-world/
 ├─ node_modules/
@@ -395,10 +395,10 @@ site-hello-world/
 <li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
 <li>Install <a href="https://github.com/nodejitsu/forever">the CLI tool forever</a> manager for your websites continuously (start, stop, restart, etc.).</li>
 <li>Running in addition of your websites a reverse-proxy running on port 80 for all applications.</li>
-</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start node-atlas/ --path 
+</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start </path/to/>node-atlas/ --path </path/to/your/website/directory/>
 </code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p><pre><code>$ forever list
 </code></pre><p>and then use the command:</p><pre><code>$ forever stop <uid>
-</uid></code></pre><p>or <code><uid></uid></code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
+</code></pre><p>or <code><uid></code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
     "urlPort": 80,
     "httpPort": 7777,
     "httpHostname": "www.example.com",
@@ -472,7 +472,7 @@ var server = bouncy(function (request, response, bounce) {
 });
 
 server.listen(80);
-</code></pre><p>and you can start with:</p><pre><code>$ forever start global-server.js
+</code></pre><p>and you can start with:</p><pre><code>$ forever start </path/to/>global-server.js
 </code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p><div><div class="before">
                             <a href="development-environment.html">◄ Development Environment</a>
                         </div><div class="after">

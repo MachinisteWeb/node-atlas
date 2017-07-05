@@ -31,7 +31,7 @@ exports.setRoutes = function (next) {
             return next();
         }
 
-        var dom = marked(content),
+        var dom = marked(content.replace(/</g, '&lt;')),
             $ = cheerio.load(dom, { decodeEntities: false }),
             allRoutes = [],
             menu,

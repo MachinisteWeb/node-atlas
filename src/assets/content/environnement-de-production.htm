@@ -33,32 +33,32 @@ site-hello-world/
 │  └─ index.htm
 ├─ index.js
 └─ webconfig.json
-</code></pre><p>Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p><pre><code class="lang-xml"><configuration>
-    <system.webServer>
-        <handlers>
-            <add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
-        </handlers>
-        <rewrite>
-            <rules>
-                <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
-                     <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
-                </rule>
-                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
-                    <match url="^node-atlas.js\/debug[\/]?" />
-                </rule>
-                <rule name="StaticContent">
-                     <action type="Rewrite" url="assets{REQUEST_URI}"/>
-                </rule>
-                <rule name="DynamicContent">
-                     <conditions>
-                          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="True"/>
-                     </conditions>
-                     <action type="Rewrite" url="node-atlas.js"/>
-                </rule>
-            </rules>
-        </rewrite>
-    </system.webServer>
-</configuration>
+</code></pre><p>Vous rajouterez à cet ensemble de fichiers, un fichier supplémentaire nommé <code>web.config</code> dont le contenu est le suivant :</p><pre><code class="lang-xml">&lt;configuration>
+    &lt;system.webServer>
+        &lt;handlers>
+            &lt;add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
+        &lt;/handlers>
+        &lt;rewrite>
+            &lt;rules>
+                &lt;rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
+                     &lt;match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
+                &lt;/rule>
+                &lt;rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
+                    &lt;match url="^node-atlas.js\/debug[\/]?" />
+                &lt;/rule>
+                &lt;rule name="StaticContent">
+                     &lt;action type="Rewrite" url="assets{REQUEST_URI}"/>
+                &lt;/rule>
+                &lt;rule name="DynamicContent">
+                     &lt;conditions>
+                          &lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="True"/>
+                     &lt;/conditions>
+                     &lt;action type="Rewrite" url="node-atlas.js"/>
+                &lt;/rule>
+            &lt;/rules>
+        &lt;/rewrite>
+    &lt;/system.webServer>
+&lt;/configuration>
 </code></pre><p>pour au final obtenir :</p><pre><code>site-hello-world/
 ├─ node_modules/
 │  ┊┉
@@ -73,7 +73,7 @@ site-hello-world/
 ├─ index.js
 ├─ webconfig.json
 └─ web.config
-</code></pre><p>Il ne vous restera plus qu'à cliquer sur « Browse <url-of-site> » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.</url-of-site></p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
+</code></pre><p>Il ne vous restera plus qu'à cliquer sur « Browse <url-of-site> » dans votre panneau d'action IIS8. Vous pouvez dès lors manager votre site (Démarrage / Arrêt / Recyclage de Pool) comme pour n'importe quelle autre application IIS8.</p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
     "urlPort": 80,
     "httpPort": 7777,
     "httpHostname": "www.example.fr",
@@ -85,10 +85,10 @@ site-hello-world/
 <li>Installer <a href="http://nodejs.org/download/">l’exécutable node.exe</a> capable d’exécuter du code JavaScript.</li>
 <li>Installer <a href="https://github.com/nodejitsu/forever">le CLI tool forever</a> pour manager vos sites en continue (démarrage, arrêt, redémarrage, etc.).</li>
 <li>Faire tourner en plus de vos sites un reverse-proxy pour que toutes vos applications tournent sur le port 80.</li>
-</ol><h4 id="quelques-commandes-forever">Quelques commandes forever</h4><p>Pour manager un nouveau site en continue il faut utiliser la commande :</p><pre><code>$ forever start </path/to/>node-atlas/ --path </path/to/your/website/directory/>
+</ol><h4 id="quelques-commandes-forever">Quelques commandes forever</h4><p>Pour manager un nouveau site en continue il faut utiliser la commande :</p><pre><code>$ forever start &lt;/path/to/>node-atlas/ --path &lt;/path/to/your/website/directory/>
 </code></pre><p>Pour le stopper, il faut repérer son <strong>uid</strong> avec la commande <code>forever list</code></p><pre><code>$ forever list
-</code></pre><p>puis utiliser la commande :</p><pre><code>$ forever stop <uid>
-</code></pre><p>ou <code><uid></code> est l'<strong>uid</strong> du site qui tourne.</p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
+</code></pre><p>puis utiliser la commande :</p><pre><code>$ forever stop &lt;uid>
+</code></pre><p>ou <code>&lt;uid></code> est l'<strong>uid</strong> du site qui tourne.</p><h4 id="webconfig-exemple">webconfig exemple</h4><p>Un webconfig exemple pour une production :</p><pre><code class="lang-json">{
     "urlPort": 80,
     "httpPort": 7777,
     "httpHostname": "www.example.fr",
@@ -162,7 +162,7 @@ var server = bouncy(function (request, response, bounce) {
 });
 
 server.listen(80);
-</code></pre><p>que vous pouvez lancer avec :</p><pre><code>$ forever start </path/to/>global-server.js
+</code></pre><p>que vous pouvez lancer avec :</p><pre><code>$ forever start &lt;/path/to/>global-server.js
 </code></pre><p><a href="https://github.com/substack/bouncy">Plus d'informations sur Bouncy</a></p><div><div class="before">
                             <a href="environnement-de-developpement.html">◄ Environnement de Développement</a>
                         </div><div class="after">

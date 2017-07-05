@@ -7462,7 +7462,7 @@ $ node-atlas --httpSecure security/server
 #### Utilisation ####
 
 ```bash
--l, --lang &gt;cultureCode-countryCode>
+-l, --lang <cultureCode-countryCode>
 ```
 
 #### Explication ####

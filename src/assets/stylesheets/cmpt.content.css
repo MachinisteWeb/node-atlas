@@ -24,11 +24,13 @@
 }
 .content .before {
   margin-top: 20px;
+  margin-bottom: 30px;
   float: left;
   font-weight: bold;
 }
 .content .after {
   margin-top: 20px;
+  margin-bottom: 30px;
   float: right;
   font-weight: bold;
 }

@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1497876047321">
+		<meta name="og:updated_time" content="1499215074797">
 
 		<meta name="robots" content="index, follow">
 
@@ -369,7 +369,7 @@ website.init({
       └─[Routes Init]
         ┊
         ∞
-</controller></controller></controller></controller></controller></controller></code></pre><p><em>Processing a request</em></p><pre><code>∞
+</code></pre><p><em>Processing a request</em></p><pre><code>∞
 ┊
 └─[Processing a request]
   ┊
@@ -386,7 +386,7 @@ website.init({
       └─[Send Response]
         ┊
         ∞
-</controller></controller></controller></controller></code></pre><h4 id="changevariations">changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
+</code></pre><h4 id="changevariations">changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next()</code> in first parameter.</li>
 <li>An object <code>locals</code> in second parameter with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific vatiations.</li>
@@ -423,16 +423,16 @@ website.init({
     "titlePage": "Welcome",
     "content": "<p>This is the Home Page.</p>"
 }
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    <!--?- include("partials/head.htm") ?-->
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    <?- include("partials/head.htm") ?>
 
-    <div class="title"><!--?- common.titleWebsite ?--></div>
+    <div class="title"><?- common.titleWebsite ?></div>
 
     <div>
-        <h1><!--?- specific.titlePage ?--></h1>
-        <!--?- specific.content ?-->
+        <h1><?- specific.titlePage ?></h1>
+        <?- specific.content ?>
     </div>
 
-    <!--?- include("partials/foot.htm") ?-->
+    <?- include("partials/foot.htm") ?>
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
 exports.changeVariations = function (next, locals, request, response) {
@@ -484,20 +484,20 @@ exports.changeVariations = function (next, locals, request, response) {
     // We do the next step.
     next();
 };
-</code></pre><p>en this produce the following output:</p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>en this produce the following output:</p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title>It's Home, no way.</title>
-    
-    
+    </head>
+    <body>
         <div class="title">It's Home, no way.</div>
         <div>
             <h1>Welcome Haeresis</h1>
             It's Home, no way.
         </div>
-    
-
+    </body>
+</html>
 </code></pre><p>If you delete the variation entry of specific page from webconfig:</p><pre><code class="lang-json">{
     "controller": "common.js",
     "variation": "common.json",
@@ -508,20 +508,20 @@ exports.changeVariations = function (next, locals, request, response) {
         }
     }
 }
-</code></pre><p>the output will be as following:</p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>the output will be as following:</p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title>Site Title</title>
-    
-    
+    </head>
+    <body>
         <div class="title">Site Title</div>
         <div>
             <h1>Welcome Haeresis</h1>
             This is a test
         </div>
-    
-
+    </body>
+</html>
 </code></pre><h4 id="changedom">changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next([$])</code> in first parameter which accept an optional first updated <code>$</code> parameter used to manipulate the Virtual DOM.</li>
@@ -555,20 +555,20 @@ exports.changeVariations = function (next, locals, request, response) {
     "titlePage": "Welcome",
     "content": "<p>This is Home Page.</p>"
 }
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title><?- common.titleWebsite ?></title>
-    
-    
-        <div class="title"><!--?- common.titleWebsite ?--></div>
+    </head>
+    <body>
+        <div class="title"><?- common.titleWebsite ?></div>
         <div>
-            <h1><!--?- specific.titlePage ?--></h1>
-            <!--?- specific.content ?-->
+            <h1><?- specific.titlePage ?></h1>
+            <?- specific.content ?>
         </div>
-    
-
+    </body>
+</html>
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
 // This code is executed for all HTTP request, for all pages.
 exports.changeDom = function (next, locals, request, response) {
@@ -581,7 +581,7 @@ exports.changeDom = function (next, locals, request, response) {
         // ...we create a div,
         $this.after(
             // ...we inject the content of h1 into the div,
-            $("</code><div><code class="lang-js">").html($this.html())
+            $("<div>").html($this.html())
         );
         // ...and we delete the h1.
         $this.remove();
@@ -590,7 +590,7 @@ exports.changeDom = function (next, locals, request, response) {
     // Return updates for reinject them into HTML string.
     next($);
 };
-</code><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
 // This code is executed only for the « / » page .
 exports.changeDom = function (next, locals, request, response) {
     var NA = this,
@@ -606,20 +606,20 @@ exports.changeDom = function (next, locals, request, response) {
     // We go to next step.
     next();
 };
-</code></pre><p>the output will be as following:</p><pre><code class="lang-html">
-
-    
+</code></pre><p>the output will be as following:</p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
         <meta charset="utf-8">
         <title>Site Title</title>
-    
-    
+    </head>
+    <body>
         <div class="title">Content Update</div>
         <div>
             <div>Welcome</div>
             <p>This is Home Page.</p>
         </div>
-    
-
+    </body>
+</html>
 </code></pre><h4 id="setsockets">setSockets</h4><p>In order to keep a real-time connection between your Client-side and Server-side between all pages opened on all browsers that run on all OS, you could define your Websockets here. <a href="controller-and-model-part.html#use-reliable-client-server-real-time-with-websockets">More details in Socket.IO part</a>.</p><p><code>setSockets()</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
@@ -643,13 +643,13 @@ exports.changeDom = function (next, locals, request, response) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title>Websocket Example</title>
-    
-    
+    </head>
+    <body>
         <div class="layout">
             <div class="content"></div>
             <div class="field">Write something : <input class="input" type="text"></div>
@@ -658,8 +658,8 @@ exports.changeDom = function (next, locals, request, response) {
         <script type="text/javascript" src="node-atlas/socket.io.js"></script>
         <script type="text/javascript" src="javascripts/test.js"></script>
         <script type="text/javascript" src="javascripts/index.js"></script>
-    
-
+    </body>
+</html>
 </code></pre><p><em>Note : If</em> <code>socketClientFile</code> <em>and</em> <code>socketServerOptions</code> <em>are not present in <code>webconfig.json</code>, default client file and server options for sockets for config sockets are</em> <code>/node-atlas/socket.io.js</code> <em>and</em> <code>{ transports: ['polling', 'websocket'] }</code>. <code>socketClientFile</code>. <em>They are useful only to change the name of file or the sockets transports alloweds. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = factory;
@@ -741,20 +741,20 @@ NA.socket.on("update-text", function (data) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title>Test Module</title>
-    
-    
+    </head>
+    <body>
         <div class="title">Test Module</div>
         <div>
             <h1>Test Module</h1>
-            <!--?- example ?-->
+            <?- example ?>
         </div>
-    
-
+    </body>
+</html>
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
 exports.setModules = function () {
@@ -776,20 +776,20 @@ exports.changeVariations = function (next, locals) {
     // We do next step.
     next();
 };
-</code></pre><p>this will produce the following output:</p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>this will produce the following output:</p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title>Test Module</title>
-    
-    
+    </head>
+    <body>
         <div class="title">Test Module</div>
         <div>
             <h1>Test Module</h1>
             <p>I am using <strong>markdown</strong>.</p>
         </div>
-    
-
+    </body>
+</html>
 </code></pre><h4 id="setconfigurations">setConfigurations</h4><p>To configure NodeAtlas web server others (<a href="http://expressjs.com/">ExpressJs</a>), you can use the common controller to set configurations before the server start.</p><p><code>setConfigurations(next)</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next()</code> in first parameter.</li>
@@ -808,7 +808,7 @@ exports.changeVariations = function (next, locals) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html"><!--?- content ?-->
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html"><?- content ?>
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
 // This code will be executed when NodeAtlas starting.
 exports.setConfigurations = function (next) {
@@ -954,28 +954,28 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>and with this views files:</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        <div class="title"><!--?- common.titleWebsite ?--></div>
+</code></pre><p>and with this views files:</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        <div class="title"><?- common.titleWebsite ?></div>
         <div>
-            <h1><!--?- specific.titlePage ?--></h1>
-            <!--?- specific.content ?-->
-            <div><!--?- new Date() ?--></div>
+            <h1><?- specific.titlePage ?></h1>
+            <?- specific.content ?>
+            <div><?- new Date() ?></div>
         </div>
         <button>Update</button>
-</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title><?- common.titleWebsite ?></title>
-    
-    
+    </head>
+    <body>
         <div class="layout">
-            <!--?- include('partials/index.htm') ?-->
+            <?- include('partials/index.htm') ?>
         </div>
         <script type="text/javascript" src="socket.io/socket.io.js"></script>
         <script type="text/javascript" src="node-atlas/socket.io.js"></script>
         <script type="text/javascript" src="javascripts/index.js"></script>
-    
-
+    </body>
+</html>
 </code></pre><p><em>Note : We parse here the home page <code>/</code>.</em></p><p>and the following variations files :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Socket.IO Example"
 }
@@ -1557,69 +1557,69 @@ module.exports = User;
         }
     };
 }));
-</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title><?- common.titleWebsite ?></title>
-    
-    
-        <div class="title"><!--?- common.titleWebsite ?--></div>
+    </head>
+    <body>
+        <div class="title"><?- common.titleWebsite ?></div>
         <div>
-            <h1><!--?- specific.titlePage ?--></h1>
+            <h1><?- specific.titlePage ?></h1>
             <div class="first">
-                <!--?- specific.content ?-->
+                <?- specific.content ?>
                 <ul>
-                    <li>Id: <strong><!--?- user.id() ?--></strong></li>
-                    <li>Lastname: <strong><!--?- user.lastname() ?--></strong></li>
-                    <li>Firstname: <strong><!--?- user.firstname() ?--></strong></li>
-                    <li>Email: <strong><!--?- user.email() ?--></strong></li>
-                    <li>Birthdate: <strong><!--?- user.birthdate() ?--></strong></li>
-                    <li>Gender: <strong><!--?- user.gender() ?--></strong></li>
-                    <li>Country: <strong><!--?- user.country() ?--></strong></li>
-                    <li>Town: <strong><!--?- user.town() ?--></strong></li>
-                    <li>Zipcode: <strong><!--?- user.zipcode() ?--></strong></li>
-                    <li>Address: <strong><!--?- user.address() ?--></strong></li>
+                    <li>Id: <strong><?- user.id() ?></strong></li>
+                    <li>Lastname: <strong><?- user.lastname() ?></strong></li>
+                    <li>Firstname: <strong><?- user.firstname() ?></strong></li>
+                    <li>Email: <strong><?- user.email() ?></strong></li>
+                    <li>Birthdate: <strong><?- user.birthdate() ?></strong></li>
+                    <li>Gender: <strong><?- user.gender() ?></strong></li>
+                    <li>Country: <strong><?- user.country() ?></strong></li>
+                    <li>Town: <strong><?- user.town() ?></strong></li>
+                    <li>Zipcode: <strong><?- user.zipcode() ?></strong></li>
+                    <li>Address: <strong><?- user.address() ?></strong></li>
                 </ul>
             </div>
             <div class="all">
-                <!--?- specific.contents ?-->
-                <!--? for (var i = 0; i < users.length; i++) { ?-->
+                <?- specific.contents ?>
+                <? for (var i = 0; i < users.length; i++) { ?>
                 <ul>
-                    <li>Id: <strong><!--?- users[i].id() ?--></strong></li>
-                    <li>Lastname: <strong><!--?- users[i].lastname() ?--></strong></li>
-                    <li>Firstname: <strong><!--?- users[i].firstname() ?--></strong></li>
-                    <li>Email: <strong><!--?- users[i].email() ?--></strong></li>
-                    <li>Birthdate: <strong><!--?- users[i].birthdate() ?--></strong></li>
-                    <li>Gender: <strong><!--?- users[i].gender() ?--></strong></li>
-                    <li>Country: <strong><!--?- users[i].country() ?--></strong></li>
-                    <li>Town: <strong><!--?- users[i].town() ?--></strong></li>
-                    <li>Zipcode: <strong><!--?- users[i].zipcode() ?--></strong></li>
-                    <li>Address: <strong><!--?- users[i].address() ?--></strong></li>
+                    <li>Id: <strong><?- users[i].id() ?></strong></li>
+                    <li>Lastname: <strong><?- users[i].lastname() ?></strong></li>
+                    <li>Firstname: <strong><?- users[i].firstname() ?></strong></li>
+                    <li>Email: <strong><?- users[i].email() ?></strong></li>
+                    <li>Birthdate: <strong><?- users[i].birthdate() ?></strong></li>
+                    <li>Gender: <strong><?- users[i].gender() ?></strong></li>
+                    <li>Country: <strong><?- users[i].country() ?></strong></li>
+                    <li>Town: <strong><?- users[i].town() ?></strong></li>
+                    <li>Zipcode: <strong><?- users[i].zipcode() ?></strong></li>
+                    <li>Address: <strong><?- users[i].address() ?></strong></li>
                 </ul>
-                <!--? } ?-->
+                <? } ?>
             </div>
             <div class="last">
-                <!--?- specific.contentInsert ?-->
-                <p>insertId: <!--?- insertId ?--></p>
-                <p>numberUpdate: <!--?- affectedRows ?--></p>
+                <?- specific.contentInsert ?>
+                <p>insertId: <?- insertId ?></p>
+                <p>numberUpdate: <?- affectedRows ?></p>
                 <ul>
-                    <li>Id: <strong><!--?- user2.id() ?--></strong></li>
-                    <li>Lastname: <strong><!--?- user2.lastname() ?--></strong></li>
-                    <li>Firstname: <strong><!--?- user2.firstname() ?--></strong></li>
-                    <li>Email: <strong><!--?- user2.email() ?--></strong></li>
-                    <li>Birthdate: <strong><!--?- user2.birthdate() ?--></strong></li>
-                    <li>Gender: <strong><!--?- user2.gender() ?--></strong></li>
-                    <li>Country: <strong><!--?- user2.country() ?--></strong></li>
-                    <li>Town: <strong><!--?- user2.town() ?--></strong></li>
-                    <li>Zipcode: <strong><!--?- user2.zipcode() ?--></strong></li>
-                    <li>Address: <strong><!--?- user2.address() ?--></strong></li>
+                    <li>Id: <strong><?- user2.id() ?></strong></li>
+                    <li>Lastname: <strong><?- user2.lastname() ?></strong></li>
+                    <li>Firstname: <strong><?- user2.firstname() ?></strong></li>
+                    <li>Email: <strong><?- user2.email() ?></strong></li>
+                    <li>Birthdate: <strong><?- user2.birthdate() ?></strong></li>
+                    <li>Gender: <strong><?- user2.gender() ?></strong></li>
+                    <li>Country: <strong><?- user2.country() ?></strong></li>
+                    <li>Town: <strong><?- user2.town() ?></strong></li>
+                    <li>Zipcode: <strong><?- user2.zipcode() ?></strong></li>
+                    <li>Address: <strong><?- user2.address() ?></strong></li>
                 </ul>
-                <p>numberDelete: <!--?- deletedRows ?--></p>
+                <p>numberDelete: <?- deletedRows ?></p>
             </div>
         </div>
-    
-
+    </body>
+</html>
 </code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Example MySql",
     "male": "Man",
@@ -1631,13 +1631,13 @@ module.exports = User;
     "contents": "<p>All entries details.</p>",
     "contentInsert": "<p>Added and Updated user details.</p>"
 }
-</code></pre><p>You will get the following output:</p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>You will get the following output:</p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title>MySql Exemple</title>
-    
-    
+    </head>
+    <body>
         <div class="title">MySql Exemple</div>
         <div>
             <h1>Table User</h1>
@@ -1702,8 +1702,8 @@ module.exports = User;
                 <p>numberDelete: 1</p>
             </div>
         </div>
-    
-
+    </body>
+</html>
 </code></pre><h3 id="use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> NPM module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mongoose
 </code></pre><h4 id="mongodb-database">MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p><pre><code>use demo
 </code></pre><p>and create a <code>user</code> collection:</p><pre><code>db.createCollection("user")
@@ -1752,32 +1752,32 @@ module.exports = User;
         "database": "demo"
     }
 }
-</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="<?- languageCode ?>">
+    <head>
+        <meta charset="utf-8" />
         <title><?- common.titleWebsite ?></title>
-    
-    
-        <div class="title"><!--?- common.titleWebsite ?--></div>
+    </head>
+    <body>
+        <div class="title"><?- common.titleWebsite ?></div>
         <div>
-            <h1><!--?- specific.titlePage ?--></h1>
-            <!--?- specific.content ?-->
+            <h1><?- specific.titlePage ?></h1>
+            <?- specific.content ?>
             <ul>
-                <li>Id: <strong><!--?- id ?--></strong></li>
-                <li>Lastname: <strong><!--?- lastname ?--></strong></li>
-                <li>Firstname: <strong><!--?- firstname ?--></strong></li>
-                <li>Email: <strong><!--?- email ?--></strong></li>
-                <li>Birthdate: <strong><!--?- birthdate ?--></strong></li>
-                <li>Gender: <strong><!--?- gender ?--></strong></li>
-                <li>Country: <strong><!--?- country ?--></strong></li>
-                <li>Town: <strong><!--?- town ?--></strong></li>
-                <li>Zipcode: <strong><!--?- zipcode ?--></strong></li>
-                <li>Address: <strong><!--?- address ?--></strong></li>
+                <li>Id: <strong><?- id ?></strong></li>
+                <li>Lastname: <strong><?- lastname ?></strong></li>
+                <li>Firstname: <strong><?- firstname ?></strong></li>
+                <li>Email: <strong><?- email ?></strong></li>
+                <li>Birthdate: <strong><?- birthdate ?></strong></li>
+                <li>Gender: <strong><?- gender ?></strong></li>
+                <li>Country: <strong><?- country ?></strong></li>
+                <li>Town: <strong><?- town ?></strong></li>
+                <li>Zipcode: <strong><?- zipcode ?></strong></li>
+                <li>Address: <strong><?- address ?></strong></li>
             </ul>
         </div>
-    
-
+    </body>
+</html>
 </code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Example MongoDB",
     "male": "Man",
@@ -1857,13 +1857,13 @@ if (typeof module !== 'undefined' && module.exports) {
         address: String
     }
 })));
-</code></pre><p>You will get the following output:</p><pre><code class="lang-html">
-
-    
-        <meta charset="utf-8">
+</code></pre><p>You will get the following output:</p><pre><code class="lang-html"><!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
         <title>MongoDB Example</title>
-    
-    
+    </head>
+    <body>
         <div class="title">MongoDB Example</div>
         <div>
             <h1>User Collection</h1>
@@ -1881,8 +1881,8 @@ if (typeof module !== 'undefined' && module.exports) {
                 <li>Address: <strong>42 unknown</strong></li>
             </ul>
         </div>
-    
-
+    </body>
+</html>
 </code></pre><h3 id="use-middlewares-from-express">Use Middlewares from Express</h3><p>NodeAtlas is construct on the top of <a href="http://expressjs.com/">Express.js</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this you are able to add Express Middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas's Express pre-configuration when the Webconfig is empty :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
 /* ... */
 NA.express.set("x-powered-by", false);
@@ -2014,7 +2014,7 @@ cd hello-vue
                             <a href="more-features.html">More Features ►</a>
                         </div></div>
 				</div>
-			</pre></div>
+			</div>
 		</div>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 		
@@ -2022,4 +2022,4 @@ cd hello-vue
 		
 		<script src="https://buttons.github.io/buttons.js"></script>
 	
-</div></body></html>
+</body></html>
