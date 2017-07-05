@@ -1,24 +1,24 @@
 {
-    "stylesheets": {
-        "stylesheets/common.min.css": [
-            "stylesheets/fonts.css",
-            "stylesheets/fontawesome.css",
-            "stylesheets/common.css",
-            "stylesheets/cmpt.popup.css",
-            "stylesheets/cmpt.header.css",
-            "stylesheets/cmpt.download.css",
-            "stylesheets/cmpt.navigation.css",
-            "stylesheets/cmpt.content.css"
-        ]
-    },
-    "javascripts": {
-        "javascripts/common.min.js": [
-            "javascripts/cmpt.header.js",
-            "javascripts/cmpt.popup.js",
-            "javascripts/cmpt.download.js",
-            "javascripts/cmpt.navigation.js",
-            "javascripts/cmpt.content.js",
-            "javascripts/common.js"
-        ]
-    }
+	"stylesheets": {
+		"stylesheets/common.min.css": [
+			"stylesheets/fonts.css",
+			"stylesheets/fontawesome.css",
+			"stylesheets/common.css",
+			"stylesheets/cmpt.popup.css",
+			"stylesheets/cmpt.header.css",
+			"stylesheets/cmpt.download.css",
+			"stylesheets/cmpt.navigation.css",
+			"stylesheets/cmpt.content.css"
+		]
+	},
+	"javascripts": {
+		"javascripts/common.min.js": [
+			"javascripts/cmpt.header.js",
+			"javascripts/cmpt.popup.js",
+			"javascripts/cmpt.download.js",
+			"javascripts/cmpt.navigation.js",
+			"javascripts/cmpt.content.js",
+			"javascripts/common.js"
+		]
+	}
 }

@@ -1,12 +1,12 @@
 {
 	"optimizations": "optimizations.json",
 	"bundles": "bundles.json",
-    "less": {
-    	"files": "less.json"
-    },
-    "stylus": { 
-    	"files": "stylus.json"
-    },
+	"less": {
+		"files": "less.json"
+	},
+	"stylus": {
+		"files": "stylus.json"
+	},
 	"index": true,
 	"output": true,
 	"assetsCopy": true,

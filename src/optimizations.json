@@ -1,16 +1,16 @@
 {
-    "images": {
-        "media/images/base.jpg": "media/images/min/",
-        "media/images/main-background.jpg": "media/images/min/",
-        "media/images/logo-node-atlas.png": "media/images/min/",
-        "media/images/logo.png": "media/images/min/",
-        "media/images/logo-big.png": "media/images/min/",
-        "media/images/tlas.png": "media/images/min/",
-        "media/images/ode.png": "media/images/min/",
-        "media/images/transparent.png": "media/images/min/",
-        "media/images/battles/node-atlas.png": "media/images/min/battles/",
-        "media/images/battles/nodejs.png": "media/images/min/battles/",
-        "media/images/battles/sailsjs.png": "media/images/min/battles/",
-        "media/images/battles/expressjs.png": "media/images/min/battles/"
-    }
+	"images": {
+		"media/images/base.jpg": "media/images/min/",
+		"media/images/main-background.jpg": "media/images/min/",
+		"media/images/logo-node-atlas.png": "media/images/min/",
+		"media/images/logo.png": "media/images/min/",
+		"media/images/logo-big.png": "media/images/min/",
+		"media/images/tlas.png": "media/images/min/",
+		"media/images/ode.png": "media/images/min/",
+		"media/images/transparent.png": "media/images/min/",
+		"media/images/battles/node-atlas.png": "media/images/min/battles/",
+		"media/images/battles/nodejs.png": "media/images/min/battles/",
+		"media/images/battles/sailsjs.png": "media/images/min/battles/",
+		"media/images/battles/expressjs.png": "media/images/min/battles/"
+	}
 }

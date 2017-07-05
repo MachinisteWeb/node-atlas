@@ -1,19 +1,19 @@
 <!DOCTYPE html><html lang="en-us"><head>
 		<meta charset="utf-8">
-		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
+		<title>NodeAtlas &#x2014;The Progressive Server-side JavaScript Framework&#x2014;</title>
 
 		<base href="">
 
 		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
 		<meta name="description" content="Create websites with server-side JavaScript easily!">
 
-		<meta name="og:title" content="NodeAtlas —The Progressive Server-side JavaScript Framework—">
+		<meta name="og:title" content="NodeAtlas &#x2014;The Progressive Server-side JavaScript Framework&#x2014;">
 		<meta name="og:description" content="Create websites with server-side JavaScript easily!">
 		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1499215074843">
+		<meta name="og:updated_time" content="1499218034842">
 
 		<meta name="robots" content="index, follow">
 
@@ -29,7 +29,7 @@
 		<!-- Inclusion du fichiers standar pendant le développement. -->
 		
 	</head>
-	<body data-content="content/english/" data-subpath="/english" style="background-image: url('media/images/min/main-background.jpg');">
+	<body data-content="content/english/" data-subpath="/english" style="background-image: url(&apos;media/images/min/main-background.jpg&apos;);">
 		<div class="layout">
 			<noscript class="no-js cmpt">
 				<div class="no-js--inner">
@@ -65,7 +65,7 @@
 							<li>
 								<div class="header--main--first">
 									<h2><strong>Simple</strong> <span>set-up</span></h2>
-									<p>You know <strong>HTML & CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
+									<p>You know <strong>HTML &amp; CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
 									<p class="small">Quickly create multilingual websites effortlessly with simple Routes, Views or Variations.</p>
 								</div>
 							</li>
@@ -123,13 +123,13 @@
 								</div>
 								<div class="download--api--step2">
 									<h3>Create a script</h3>
-									<pre><span>server.js</span>var NA = require("node-atlas"),
+									<pre><span>server.js</span>var NA = require(&quot;node-atlas&quot;),
     website = NA();
 website.init({
-    "create": "hello-world"
+    &quot;create&quot;: &quot;hello-world&quot;
 }).created(function () {
     website.run({
-        "browse": true
+        &quot;browse&quot;: true
     });
 }).start();</pre>
 								</div>
@@ -145,7 +145,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta42</h3>
+									<h3>v2.0.0-beta43</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
 								</div>
@@ -216,10 +216,10 @@ website.init({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
+						<a href="/../index.html" title="Version fran&#xE7;aise"><span class="fa fa-globe"></span>  Version fran&#xE7;aise</a>
 					</div>
 					<div class="navigation--home">
-						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
 					</div>
 					<div class="navigation--menu">
 						<div class="navigation--menu--toggle">
@@ -308,86 +308,86 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="production-environment">Production Environment</h2><p>It's a good thing to develop, but it's time to run your website or apps on online production server. See this examples.</p><blockquote>
-<p>IMPORTANT : you must use the <code>"cache": true</code> option in the production's webconfig to allows engine to be optimised or set your <code>NODE_ENV</code> environment variable to <code>production</code>.</p>
+					<h2 id="production-environment">Production Environment</h2><p>It&apos;s a good thing to develop, but it&apos;s time to run your website or apps on online production server. See this examples.</p><blockquote>
+<p>IMPORTANT : you must use the <code>&quot;cache&quot;: true</code> option in the production&apos;s webconfig to allows engine to be optimised or set your <code>NODE_ENV</code> environment variable to <code>production</code>.</p>
 </blockquote><hr><blockquote>
-<p>NOTE : it's possible your proxy on production not capable to use websockets. In this case, the transport should be limited like this <code>"socketServerOptions": { transports: ['polling'] }</code> (in default without this value, transports are tested progressively like this <code>{ transports: ['polling', 'websocket'] }</code>.</p>
+<p>NOTE : it&apos;s possible your proxy on production not capable to use websockets. In this case, the transport should be limited like this <code>&quot;socketServerOptions&quot;: { transports: [&apos;polling&apos;] }</code> (in default without this value, transports are tested progressively like this <code>{ transports: [&apos;polling&apos;, &apos;websocket&apos;] }</code>.</p>
 </blockquote><h3 id="in-a-windows-server-environment-with-iisnode">In a Windows Server environment with iisnode</h3><p>In a Windows Server 2013 environment with IIS8 the requirements are:</p><ol>
 <li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
 <li>Install <a href="http://www.iis.net/downloads/microsoft/url-rewrite">the IIS8 UrlRewrite module</a> to map pages executed to an output URL.</li>
 <li>Install <a href="https://github.com/tjanczuk/iisnode/downloads">the IIS8 issnode module</a> to read web.config and to manage the website (IIS Application Pool Management, start/stop website, etc...).</li>
 </ol><h4 id="create-application">Create application</h4><p>In IIS8, create a web site and create an Application.</p><p>The content of your application will be the site mixed with that of NodeAtlas. So that means this:</p><pre><code>node-atlas/
-├─ node_modules/
-│  ┊┉
-├─ languages/
-│  ┊┉
-│  └─ default.json
-┊┉
-└─ index.js
+&#x251C;&#x2500; node_modules/
+&#x2502;  &#x250A;&#x2509;
+&#x251C;&#x2500; languages/
+&#x2502;  &#x250A;&#x2509;
+&#x2502;  &#x2514;&#x2500; default.json
+&#x250A;&#x2509;
+&#x2514;&#x2500; index.js
 site-hello-world/
-├─ assets/
-│  ┊┉
-├─ views/
-│  └─ index.htm
-└─ webconfig.json
+&#x251C;&#x2500; assets/
+&#x2502;  &#x250A;&#x2509;
+&#x251C;&#x2500; views/
+&#x2502;  &#x2514;&#x2500; index.htm
+&#x2514;&#x2500; webconfig.json
 </code></pre><p>becomes this:</p><pre><code>site-hello-world/
-├─ node_modules/
-│  ┊┉
-├─ languages/
-│  ┊┉
-│  └─ default.json
-┊┉
-├─ assets/
-│  ┊┉
-├─ views/
-│  └─ index.htm
-├─ index.js
-└─ webconfig.json
-</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p><pre><code class="lang-xml"><configuration>
-    <system.webServer>
-        <handlers>
-            <add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" />
-        </handlers>
-        <rewrite>
-            <rules>
-                <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
-                     <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/>
-                </rule>
-                <rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
-                    <match url="^node-atlas.js\/debug[\/]?" />
-                </rule>
-                <rule name="StaticContent">
-                     <action type="Rewrite" url="assets{REQUEST_URI}"/>
-                </rule>
-                <rule name="DynamicContent">
-                     <conditions>
-                          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true"/>
-                     </conditions>
-                     <action type="Rewrite" url="node-atlas.js"/>
-                </rule>
-            </rules>
-        </rewrite>
-    </system.webServer>
-</configuration>
+&#x251C;&#x2500; node_modules/
+&#x2502;  &#x250A;&#x2509;
+&#x251C;&#x2500; languages/
+&#x2502;  &#x250A;&#x2509;
+&#x2502;  &#x2514;&#x2500; default.json
+&#x250A;&#x2509;
+&#x251C;&#x2500; assets/
+&#x2502;  &#x250A;&#x2509;
+&#x251C;&#x2500; views/
+&#x2502;  &#x2514;&#x2500; index.htm
+&#x251C;&#x2500; index.js
+&#x2514;&#x2500; webconfig.json
+</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p><pre><code class="lang-xml">&lt;configuration&gt;
+    &lt;system.webServer&gt;
+        &lt;handlers&gt;
+            &lt;add name=&quot;iisnode&quot; path=&quot;node-atlas.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
+        &lt;/handlers&gt;
+        &lt;rewrite&gt;
+            &lt;rules&gt;
+                &lt;rule name=&quot;LogFile&quot; patternSyntax=&quot;ECMAScript&quot; stopProcessing=&quot;true&quot;&gt;
+                     &lt;match url=&quot;^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$&quot;/&gt;
+                &lt;/rule&gt;
+                &lt;rule name=&quot;NodeInspector&quot; patternSyntax=&quot;ECMAScript&quot; stopProcessing=&quot;true&quot;&gt;
+                    &lt;match url=&quot;^node-atlas.js\/debug[\/]?&quot; /&gt;
+                &lt;/rule&gt;
+                &lt;rule name=&quot;StaticContent&quot;&gt;
+                     &lt;action type=&quot;Rewrite&quot; url=&quot;assets{REQUEST_URI}&quot;/&gt;
+                &lt;/rule&gt;
+                &lt;rule name=&quot;DynamicContent&quot;&gt;
+                     &lt;conditions&gt;
+                          &lt;add input=&quot;{REQUEST_FILENAME}&quot; matchType=&quot;IsFile&quot; negate=&quot;true&quot;/&gt;
+                     &lt;/conditions&gt;
+                     &lt;action type=&quot;Rewrite&quot; url=&quot;node-atlas.js&quot;/&gt;
+                &lt;/rule&gt;
+            &lt;/rules&gt;
+        &lt;/rewrite&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;
 </code></pre><p>to obtain:</p><pre><code>site-hello-world/
-├─ node_modules/
-│  ┊┉
-├─ languages/
-│  ┊┉
-│  └─ default.json
-┊┉
-├─ assets/
-│  ┊┉
-├─ views/
-│  └─ index.htm
-├─ index.js
-├─ webconfig.json
-└─ web.config
-</code></pre><p>It will just have to click on "Browse <url-of-site>" in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</url-of-site></p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
-    "urlPort": 80,
-    "httpPort": 7777,
-    "httpHostname": "www.example.com",
-    "routes": {
+&#x251C;&#x2500; node_modules/
+&#x2502;  &#x250A;&#x2509;
+&#x251C;&#x2500; languages/
+&#x2502;  &#x250A;&#x2509;
+&#x2502;  &#x2514;&#x2500; default.json
+&#x250A;&#x2509;
+&#x251C;&#x2500; assets/
+&#x2502;  &#x250A;&#x2509;
+&#x251C;&#x2500; views/
+&#x2502;  &#x2514;&#x2500; index.htm
+&#x251C;&#x2500; index.js
+&#x251C;&#x2500; webconfig.json
+&#x2514;&#x2500; web.config
+</code></pre><p>It will just have to click on &quot;Browse <url-of-site>&quot; in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</url-of-site></p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
+    &quot;urlPort&quot;: 80,
+    &quot;httpPort&quot;: 7777,
+    &quot;httpHostname&quot;: &quot;www.example.com&quot;,
+    &quot;routes&quot;: {
         ...
     }
 }
@@ -395,18 +395,18 @@ site-hello-world/
 <li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
 <li>Install <a href="https://github.com/nodejitsu/forever">the CLI tool forever</a> manager for your websites continuously (start, stop, restart, etc.).</li>
 <li>Running in addition of your websites a reverse-proxy running on port 80 for all applications.</li>
-</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start </path/to/>node-atlas/ --path </path/to/your/website/directory/>
+</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --path &lt;/path/to/your/website/directory/&gt;
 </code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p><pre><code>$ forever list
-</code></pre><p>and then use the command:</p><pre><code>$ forever stop <uid>
-</code></pre><p>or <code><uid></code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
-    "urlPort": 80,
-    "httpPort": 7777,
-    "httpHostname": "www.example.com",
-    "routes": {
+</code></pre><p>and then use the command:</p><pre><code>$ forever stop &lt;uid&gt;
+</code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
+    &quot;urlPort&quot;: 80,
+    &quot;httpPort&quot;: 7777,
+    &quot;httpHostname&quot;: &quot;www.example.com&quot;,
+    &quot;routes&quot;: {
         ...
     }
 }
-</code></pre><p>You will then use a reverse proxy to make your site accessible on port 80.</p><h4 id="in-a-unix-environment-with-nginx">In a Unix environment with Nginx</h4><p>This is an example of Nginx's configuration:</p><pre><code class="lang-javascript">## Server an.example.fr
+</code></pre><p>You will then use a reverse proxy to make your site accessible on port 80.</p><h4 id="in-a-unix-environment-with-nginx">In a Unix environment with Nginx</h4><p>This is an example of Nginx&apos;s configuration:</p><pre><code class="lang-javascript">## Server an.example.fr
 
 upstream websocket {
     server Ip_backend:7777;
@@ -428,7 +428,7 @@ server {
             proxy_pass http://websocket;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
+            proxy_set_header Connection &quot;upgrade&quot;;
     }
 
     location / {
@@ -453,31 +453,31 @@ server {
 </code></pre><p><code>Ip_backend</code> must be replaced by your private subnetwork IP. That can be <code>127.0.0.1</code> if node run in same server as Nginx.</p><p><code>websocket</code> should be replaced by any word, it will be also moddify the <code>proxy_pass</code>. It must be unique to each node.</p><h3 id="proxy">Proxy</h3><h4 id="bouncy">Bouncy</h4><p>Bouncy is an example of reverse-proxy that you can use to run various NodeAtlas websites (with other types of websites) together on the same port (80).</p><p>You can for example:</p><ul>
 <li>run 3 Node.js apps on ports 7777, 7778 and 7779 with forever,</li>
 <li>and besides launching a apache server on port 81</li>
-</ul><p>and make all your websites accessible behind domain names on port 80 with Bouncy example.</p><p>Here is a sample configuration with Bouncy:</p><p><em>global-server.js</em></p><pre><code class="lang-javascript">var bouncy = require('bouncy');
+</ul><p>and make all your websites accessible behind domain names on port 80 with Bouncy example.</p><p>Here is a sample configuration with Bouncy:</p><p><em>global-server.js</em></p><pre><code class="lang-javascript">var bouncy = require(&apos;bouncy&apos;);
 
 var server = bouncy(function (request, response, bounce) {
-    if (request.headers.host === 'beep.example.com') {
+    if (request.headers.host === &apos;beep.example.com&apos;) {
         bounce(7777);
     }
-    else if (request.headers.host === 'blup.example.com') {
+    else if (request.headers.host === &apos;blup.example.com&apos;) {
         bounce(7776);
     }
-    else if (request.headers.host === 'boop.example.com') {
+    else if (request.headers.host === &apos;boop.example.com&apos;) {
         bounce(81);
     }
     else {
         response.statusCode = 404;
-        response.end('no such host');
+        response.end(&apos;no such host&apos;);
     }
 });
 
 server.listen(80);
-</code></pre><p>and you can start with:</p><pre><code>$ forever start </path/to/>global-server.js
+</code></pre><p>and you can start with:</p><pre><code>$ forever start &lt;/path/to/&gt;global-server.js
 </code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p><div><div class="before">
-                            <a href="development-environment.html">◄ Development Environment</a>
-                        </div><div class="after">
-                            <a href="more-about-nodeatlas.html">More About NodeAtlas ►</a>
-                        </div></div>
+							<a href="development-environment.html">&#x25C4; Development Environment</a>
+						</div><div class="after">
+							<a href="more-about-nodeatlas.html">More About NodeAtlas &#x25BA;</a>
+						</div></div>
 				</div>
 			</div>
 		</div>

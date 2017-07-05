@@ -6,7 +6,7 @@ var nodeAtlas = require("../../node-atlas/"),
 versionFrench.started(function () {
 	versionEnglish.run({
 		"webconfig": "webconfig.en-us.json"
-	});	
+	});
 }).run({
 	"browse": true
 });
