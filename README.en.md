@@ -35,7 +35,7 @@ Starting with a single HTML page,
 - then create other pages,
 - then internationalize them,
 - then minify/obfuscate/optimized your sources,
-- then use preprocessor like [Stylus](http://stylus-lang.com/), [Less](http://lesscss.org/) or [PUG](https://pugjs.org/api/getting-started.html) easily,
+- then use preprocessor like [Stylus](http://stylus-lang.com/), [Less](http://lesscss.org/) or [Pug](https://pugjs.org/api/getting-started.html) easily,
 - then use files for drive back-end part with code with hooks and [Express.js](http://expressjs.com/),
 - then use [Socket.io](http://socket.io/) for server-side reactivity and real-time exchanges,
 - then connect you to [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
@@ -95,7 +95,8 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
  - [Share Directories](#share-directory)
  - [Generate HTML Templates](#generate-html-templates)
  - [EJS Template Engine](#ejs-template-engine)
- - [PUG Template Engine](#pug-template-engine)
+ - [Pug Template Engine](#pug-template-engine)
+ - [Vue Template Engine](#vue-template-engine)
 - [Controller and Model Part](#controller-and-model-part)
  - [Lifecycle and Hooks](#lifecycle-and-hooks)
  - [Use Reliable Client-Server Real-Time with Websockets](#use-reliable-client-server-real-time-with-websockets)
@@ -1979,9 +1980,9 @@ Learn all about the possibilities of the template engine consult [the documentat
 
 
 
-### PUG Template Engine ###
+### Pug Template Engine ###
 
-It's also possible to change EJS template to [PUG Template Engine](https://pugjs.org/) (new Jade template name) to generate pages with variations. This is possible for all pages like this:
+It's also possible to change EJS template to [Pug Template Engine](https://pugjs.org/) (new Jade template name) to generate pages with variations. This is possible for all pages like this:
 
 ```json
 {
@@ -2098,9 +2099,38 @@ div
 	| !{specific.content}
 ```
 
-Learn all about the possibilities of the template engine consult [the documentation PUG](https://pugjs.org/)
+Learn all about the possibilities of the template engine consult [the documentation Pug](https://pugjs.org/)
 
 *Note : If nothing is set,* `pug` *is set to* `false`.
+
+
+
+### Vue Template Engine ###
+
+[Vue](https://vuejs.org/) is a progresive MVVM framework like Angular or React which can be used as a server template engine for NodeAtlas. The main useful feature is the client-side hydrate this code from response of server and made reactivity and route with it !
+
+> Feel free to back to this section later because some controller mechanism are used and will be explained later in the next chapter.
+
+We propose tou us to set up an usage of [Vue](https://vuejs.org/) + [Vue Router](https://router.vuejs.org/en/) + [Vue Server Renderer](https://ssr.vuejs.org/en/) with the following command:
+
+```bash
+node-atlas --create hello-vue
+```
+
+then initialize project with the command
+
+```bash
+cd ./hello-vue/
+npm install
+```
+
+and then, run it with the command
+
+```bash
+node-atlas --browse
+```
+
+- [Check the sources and more usage possibilities on the GitHub repository](https://github.com/Haeresis/node-atlas-hello-vue)
 
 
 
@@ -3208,7 +3238,7 @@ Thanks to `NA.specific`, `NA.common` and `NA.view`, it's possible to generate a 
 
 If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `locals` is type of `undefined` an empty object will be created.
 
-Note : to allows `view` to use PUG template engine and not EJS, you must defined `locals.pug` to `true` before use `NA.common` and `NA.specific`.
+Note : to allows `view` to use Pug template engine and not EJS, you must defined `locals.pug` to `true` before use `NA.common` and `NA.specific`.
 
 
 
@@ -6964,13 +6994,13 @@ finaly, see what could be the content of `index.hbs`:
 </html>
 ```
 
-The goal of `engine`, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a `response` object to render view, it is not possible to use this feature with the `NA.view` function from NodeAtlas API. `NA.view` only support, EJS, PUG and NodeAtlas syntaxe.
+The goal of `engine`, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a `response` object to render view, it is not possible to use this feature with the `NA.view` function from NodeAtlas API. `NA.view` only support, EJS, Pug and NodeAtlas syntaxe.
 
 #### Differences between `engine`, `templateEngineDelimiter` and `pug` ####
 
-It's possible to render EJS and PUG view with the Express Template Engine. In this case, because `node-atlas` use already `ejs` and `pug` modules as dependencies, it is not mandatory to use a `controller` and a `npm` command to set them. You have just to set `engine: "ejs"` or `engine: "pug"`.
+It's possible to render EJS and Pug view with the Express Template Engine. In this case, because `node-atlas` use already `ejs` and `pug` modules as dependencies, it is not mandatory to use a `controller` and a `npm` command to set them. You have just to set `engine: "ejs"` or `engine: "pug"`.
 
-However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for PUG in the common `view` file with `#{routeParameters.view}`.
+However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for Pug in the common `view` file with `#{routeParameters.view}`.
 
 
 

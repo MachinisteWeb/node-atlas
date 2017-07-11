@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1499516935208">
+		<meta name="og:updated_time" content="1499776275747">
 
 		<meta name="robots" content="index, follow">
 
@@ -1230,7 +1230,7 @@ website.init({
     &lt;/div&gt;
 
     &lt;%- include(&quot;partials/foot&quot;) %&gt;
-</code></pre><p>Pour tout savoir sur les possibilit&#xE9;s du moteur de template consultez <a href="http://ejs.co/">la documentation EJS</a></p><p><em>Note : Si rien n&apos;est pr&#xE9;cis&#xE9;,</em> <code>templateEngineDelimiter</code> <em>vaut</em> <code>?</code>.</p><h3 id="moteur-de-template-pug">Moteur de Template PUG</h3><p>Il est possible d&apos;utiliser en lieu et place de EJS le <a href="https://pugjs.org/">moteur de template PUG</a> (anciennement Jade) pour g&#xE9;n&#xE9;rer les pages et manipuler les variations. Cela est possible pour l&apos;int&#xE9;gralit&#xE9; du site avec par exemple ce webconfig :</p><pre><code class="lang-json">{
+</code></pre><p>Pour tout savoir sur les possibilit&#xE9;s du moteur de template consultez <a href="http://ejs.co/">la documentation EJS</a></p><p><em>Note : Si rien n&apos;est pr&#xE9;cis&#xE9;,</em> <code>templateEngineDelimiter</code> <em>vaut</em> <code>?</code>.</p><h3 id="moteur-de-template-pug">Moteur de Template Pug</h3><p>Il est possible d&apos;utiliser en lieu et place de EJS le <a href="https://pugjs.org/">moteur de template Pug</a> (anciennement Jade) pour g&#xE9;n&#xE9;rer les pages et manipuler les variations. Cela est possible pour l&apos;int&#xE9;gralit&#xE9; du site avec par exemple ce webconfig :</p><pre><code class="lang-json">{
     &quot;pug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -1252,7 +1252,7 @@ website.init({
         }
     }
 }
-</code></pre><p>Il est &#xE9;galement possible pour un moteur complet en PUG de repasser une page sp&#xE9;cifique en EJS.</p><pre><code>{
+</code></pre><p>Il est &#xE9;galement possible pour un moteur complet en Pug de repasser une page sp&#xE9;cifique en EJS.</p><pre><code>{
     &quot;pug&quot;: true,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -1300,7 +1300,15 @@ html(lang=&quot;fr-fr&quot;)
 </code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
     h2 #{specific.titlePage}
     | !{specific.content}
-</code></pre><p>Pour tout savoir sur les possibilit&#xE9;s du moteur de template consultez <a href="https://pugjs.org/">la documentation PUG</a></p><p><em>Note : Si rien n&apos;est pr&#xE9;cis&#xE9;,</em> <code>pug</code> <em>vaut</em> <code>false</code>.</p><div><div class="before">
+</code></pre><p>Pour tout savoir sur les possibilit&#xE9;s du moteur de template consultez <a href="https://pugjs.org/">la documentation Pug</a></p><p><em>Note : Si rien n&apos;est pr&#xE9;cis&#xE9;,</em> <code>pug</code> <em>vaut</em> <code>false</code>.</p><h3 id="moteur-de-template-vue">Moteur de Template Vue</h3><p><a href="https://vuejs.org/">Vue</a> est un framework MVVM &#xE9;volutif comme Angular ou React qui est utilisable en tant que moteur de rendu c&#xF4;t&#xE9; serveur pour NodeAtlas. L&apos;avantage ici, c&apos;est que c&#xF4;t&#xE9; client il reprend la main en hydratant le code g&#xE9;n&#xE9;r&#xE9; depuis le serveur pour le rendre r&#xE9;actif c&#xF4;t&#xE9; client !</p><blockquote>
+<p>N&apos;h&#xE9;sitez pas &#xE0; reconsulter cette partie plus tard car elle utilise divers m&#xE9;canismes de contr&#xF4;leur que nous allons apprendre &#xE0; utiliser dans la prochaine partie.</p>
+</blockquote><p>Nous vous proposons de mettre en place l&apos;utilisation de <a href="https://fr.vuejs.org/">Vue</a> + <a href="https://router.vuejs.org/fr/">Vue Router</a> + <a href="https://ssr.vuejs.org/fr/">Vue Server Renderer</a> &#xE0; travers la commande suivante :</p><pre><code class="lang-bash">node-atlas --create hello-vue
+</code></pre><p>puis de l&apos;initialiser &#xE0; l&apos;aide de la commande</p><pre><code class="lang-bash">cd ./hello-vue/
+npm install
+</code></pre><p>et enfin de le d&#xE9;marrer avec la commande</p><pre><code class="lang-bash">node-atlas --browse
+</code></pre><ul>
+<li><a href="https://github.com/Haeresis/node-atlas-hello-vue">Retrouvez les sources et toutes les explications d&apos;utilisation sur le d&#xE9;p&#xF4;t GitHub d&#xE9;di&#xE9;</a></li>
+</ul><div><div class="before">
 							<a href="commencer-avec-nodeatlas.html">&#x25C4; Commencer avec NodeAtlas</a>
 						</div><div class="after">
 							<a href="partie-controleur-et-modele.html">Partie Contr&#xF4;leur et Mod&#xE8;le &#x25BA;</a>

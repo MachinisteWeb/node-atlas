@@ -35,7 +35,7 @@ Commencez avec une simple page HTML,
 - puis créez d'autres pages,
 - puis internationalisez les,
 - puis minifiez/offusquez/compressez vos sources,
-- puis utiliser des préprocesseurs comme [Stylus](http://stylus-lang.com/), [Less](http://lesscss.org/) ou/et [PUG](https://pugjs.org/api/getting-started.html) simplement,
+- puis utiliser des préprocesseurs comme [Stylus](http://stylus-lang.com/), [Less](http://lesscss.org/) ou/et [Pug](https://pugjs.org/api/getting-started.html) simplement,
 - puis prenez la main sur la logique serveur avec les points d'ancrage et [Express.js](http://expressjs.com/),
 - puis soyez temps réel et réactif côté serveur grâce à [Socket.io](http://socket.io/),
 - puis connectez vous à [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
@@ -95,7 +95,8 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Partager des dossiers](#partager-des-dossiers)
  - [Générer des maquettes HTML](#générer-des-maquettes-html)
  - [Moteur de Template EJS](#moteur-de-template-ejs)
- - [Moteur de Template PUG](#moteur-de-template-pug)
+ - [Moteur de Template Pug](#moteur-de-template-pug)
+ - [Moteur de Template Vue](#moteur-de-template-vue)
 - [Partie Contrôleur et Modèle](#partie-contrôleur-et-modèle)
  - [Cycle de vie et Points d'ancrage](#cycle-de-vie-et-points-dancrage)
  - [Échange Client-Serveur en temps réel avec Websockets](#échange-client-serveur-en-temps réel-avec-websockets)
@@ -1979,9 +1980,9 @@ Pour tout savoir sur les possibilités du moteur de template consultez [la docum
 
 
 
-### Moteur de Template PUG ###
+### Moteur de Template Pug ###
 
-Il est possible d'utiliser en lieu et place de EJS le [moteur de template PUG](https://pugjs.org/) (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
+Il est possible d'utiliser en lieu et place de EJS le [moteur de template Pug](https://pugjs.org/) (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
 
 ```json
 {
@@ -2013,7 +2014,7 @@ ou seulement pour une page précise :
 }
 ```
 
-Il est également possible pour un moteur complet en PUG de repasser une page spécifique en EJS.
+Il est également possible pour un moteur complet en Pug de repasser une page spécifique en EJS.
 
 ```
 {
@@ -2098,9 +2099,38 @@ div
 	| !{specific.content}
 ```
 
-Pour tout savoir sur les possibilités du moteur de template consultez [la documentation PUG](https://pugjs.org/)
+Pour tout savoir sur les possibilités du moteur de template consultez [la documentation Pug](https://pugjs.org/)
 
 *Note : Si rien n'est précisé,* `pug` *vaut* `false`.
+
+
+
+### Moteur de Template Vue ###
+
+[Vue](https://vuejs.org/) est un framework MVVM évolutif comme Angular ou React qui est utilisable en tant que moteur de rendu côté serveur pour NodeAtlas. L'avantage ici, c'est que côté client il reprend la main en hydratant le code généré depuis le serveur pour le rendre réactif côté client !
+
+> N'hésitez pas à reconsulter cette partie plus tard car elle utilise divers mécanismes de contrôleur que nous allons apprendre à utiliser dans la prochaine partie.
+
+Nous vous proposons de mettre en place l'utilisation de [Vue](https://fr.vuejs.org/) + [Vue Router](https://router.vuejs.org/fr/) + [Vue Server Renderer](https://ssr.vuejs.org/fr/) à travers la commande suivante :
+
+```bash
+node-atlas --create hello-vue
+```
+
+puis de l'initialiser à l'aide de la commande
+
+```bash
+cd ./hello-vue/
+npm install
+```
+
+et enfin de le démarrer avec la commande
+
+```bash
+node-atlas --browse
+```
+
+- [Retrouvez les sources et toutes les explications d'utilisation sur le dépôt GitHub dédié](https://github.com/Haeresis/node-atlas-hello-vue)
 
 
 
@@ -3208,7 +3238,7 @@ Grâce à `NA.specific`, `NA.common` et `NA.view`, il est possible de générer 
 
 Si `data.lang` dans notre exemple est de type `undefined`, alors les fichiers seront cherchés à la racine. Si `locals` est de type `undefined` alors un objet contenant uniquement le scope demandé sera renvoyé.
 
-Note : pour permettre à `view` d'utiliser le moteur PUG au lieu de celui d'EJS, il faut mettre la valeur `locals.pug` à `true` avant d'utiliser `NA.common` et `NA.specific`.
+Note : pour permettre à `view` d'utiliser le moteur Pug au lieu de celui d'EJS, il faut mettre la valeur `locals.pug` à `true` avant d'utiliser `NA.common` et `NA.specific`.
 
 
 
@@ -6964,13 +6994,13 @@ enfin voyons rapidement ce que le fichier `index.hbs` pourrait contenir :
 </html>
 ```
 
-Ce que fait `engine`, c'est abandonner le système de NodeAtlas et passer par celui d'Express. Comme Express a besoin d'un objet `response` pour rendre une vue, il est impossible d'utiliser ce mécanisme via l'utilisation de la fonction `NA.view` de l'API NodeAtlas, celle-ci ne supportant que le moteur NodeAtlas, EJS et PUG.
+Ce que fait `engine`, c'est abandonner le système de NodeAtlas et passer par celui d'Express. Comme Express a besoin d'un objet `response` pour rendre une vue, il est impossible d'utiliser ce mécanisme via l'utilisation de la fonction `NA.view` de l'API NodeAtlas, celle-ci ne supportant que le moteur NodeAtlas, EJS et Pug.
 
 #### Différence entre `engine`, `templateEngineDelimiter` et `pug` ####
 
-Il est tout a fait possible de passer par Express pour rendre EJS et PUG. Dans ce cas, puisque `node-atlas` embarque les modules `ejs` et `pug` en tant que dépendance, il n'est pas nécéssaire de passer par le `controller` commun et l'utilisation de `npm` pour les mettre en place. Il suffit juste d'utiliser `engine: "ejs"` ou `engine: "pug"`.
+Il est tout a fait possible de passer par Express pour rendre EJS et Pug. Dans ce cas, puisque `node-atlas` embarque les modules `ejs` et `pug` en tant que dépendance, il n'est pas nécéssaire de passer par le `controller` commun et l'utilisation de `npm` pour les mettre en place. Il suffit juste d'utiliser `engine: "ejs"` ou `engine: "pug"`.
 
-Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l'utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour PUG dans la `view` avec `#{routeParameters.view}`.
+Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l'utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour Pug dans la `view` avec `#{routeParameters.view}`.
 
 
 
