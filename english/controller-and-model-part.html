@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1500109729376">
+		<meta name="og:updated_time" content="1500112937558">
 
 		<meta name="robots" content="index, follow">
 
@@ -71,14 +71,14 @@
 								<div class="header--main--first">
 									<h2><strong>Simple</strong> <span>set-up</span></h2>
 									<p>You know <strong>HTML &amp; CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
-									<p class="small">Quickly create multilingual websites effortlessly with simple Routes, Views or Variations.</p>
+									<p class="small">Quickly create multilingual websites effortlessly with simple routes, views or variations.</p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--second">
 									<h2><strong>Scalable</strong> <span>website</span></h2>
 									<p>JavaScript client-side <strong>Expert</strong>?<br>Ready to embrace <strong>Node.js</strong>?</p>
-									<p class="small">Gradually improve your base as you need by using Controllers, Models or Modules.</p>
+									<p class="small">Gradually improve your base as you need by using controllers, models or modules.</p>
 								</div>
 							</li>
 							<li>
@@ -335,7 +335,7 @@ website.init({
 &#x250A;
 &#x251C;&#x2500;[Loading Init Vars]
 &#x250A;
-&#x251C;&#x2500;[Loading NPM Modules]
+&#x251C;&#x2500;[Loading npm Modules]
 &#x250A;
 &#x251C;&#x2500;[Setting CLI commands and language]
 &#x250A;
@@ -1041,7 +1041,7 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...and we set again button action.
     setServerRender();
 });
-</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on &#xAB; Update &#xBB;, the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.view</code>, it&apos;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>locals</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>view</code> to use Pug template engine and not EJS, you must defined <code>locals.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> NPM module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on &#xAB; Update &#xBB;, the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.view</code>, it&apos;s possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>locals</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>view</code> to use Pug template engine and not EJS, you must defined <code>locals.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
 </code></pre><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
 </code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user
@@ -1709,7 +1709,7 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> NPM module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mongoose
+</code></pre><h3 id="use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mongoose
 </code></pre><h4 id="mongodb-database">MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p><pre><code>use demo
 </code></pre><p>and create a <code>user</code> collection:</p><pre><code>db.createCollection(&quot;user&quot;)
 </code></pre><p>and fill it with this document:</p><pre><code>db.user.insert({
@@ -1888,7 +1888,7 @@ if (typeof module !== &apos;undefined&apos; &amp;&amp; module.exports) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="use-middlewares-from-express">Use Middlewares from Express</h3><p>NodeAtlas is construct on the top of <a href="http://expressjs.com/">Express.js</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this you are able to add Express Middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas&apos;s Express pre-configuration when the Webconfig is empty :</p><pre><code class="lang-js">NA.express.set(&quot;strict routing&quot;, true);
+</code></pre><h3 id="use-middlewares-from-express">Use Middlewares from Express</h3><p>NodeAtlas is construct on the top of <a href="http://expressjs.com/">Express.js</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this you are able to add Express middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas&apos;s Express pre-configuration when the Webconfig is empty :</p><pre><code class="lang-js">NA.express.set(&quot;strict routing&quot;, true);
 /* ... */
 NA.express.set(&quot;x-powered-by&quot;, false);
 /* ... */

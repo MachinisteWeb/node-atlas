@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1500109725802">
+		<meta name="og:updated_time" content="1500112934053">
 
 		<meta name="robots" content="index, follow">
 
@@ -71,14 +71,14 @@
 								<div class="header--main--first">
 									<h2><span>Mise en place</span> <strong>Simple</strong></h2>
 									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>D&#xE9;butant</strong> en JavaScript ?</p>
-									<p class="small">R&#xE9;alisez rapidement des sites vitrines multilingues sans effort avec l&apos;utilisation de Routes, Vues ou Variations.</p>
+									<p class="small">R&#xE9;alisez rapidement des sites vitrines multilingues sans effort avec l&apos;utilisation de routes, vues ou variations.</p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--second">
 									<h2><span>Site vivant et</span> <strong>&#xC9;volutif</strong></h2>
 									<p><strong>Expert</strong> en JavaScript client ?<br>Pr&#xEA;t &#xE0; embrasser <strong>Node.js</strong> ?</p>
-									<p class="small">Am&#xE9;liorer progressivement votre base &#xE0; mesure de vos besoins en utilisant des Contr&#xF4;leurs, Mod&#xE8;les ou Modules.</p>
+									<p class="small">Am&#xE9;liorer progressivement votre base &#xE0; mesure de vos besoins en utilisant des contr&#xF4;leurs, mod&#xE8;les ou modules.</p>
 								</div>
 							</li>
 							<li>
@@ -736,7 +736,7 @@ LANG=en-us
         }
     }
 }
-</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n&apos;oubliez pas qu&apos;en HTTPs ce n&apos;est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement g&#xE9;n&#xE9;rer des fichiers CSS et JS minifi&#xE9;s et offusqu&#xE9;s en cr&#xE9;ant des Bundles en r&#xE9;f&#xE9;ren&#xE7;ant les groupes de fichiers d&apos;entr&#xE9; par leur chemin d&apos;acc&#xE8;s et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La g&#xE9;n&#xE9;ration des fichiers se fait &#xE0; chaque d&#xE9;marrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu&apos;un Bundle existe dans le Webconfig.</p><h4 id="cr-er-des-bundles">Cr&#xE9;er des Bundles</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n&apos;oubliez pas qu&apos;en HTTPs ce n&apos;est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement g&#xE9;n&#xE9;rer des fichiers CSS et JS minifi&#xE9;s et offusqu&#xE9;s en cr&#xE9;ant des Bundles en r&#xE9;f&#xE9;ren&#xE7;ant les groupes de fichiers d&apos;entr&#xE9; par leur chemin d&apos;acc&#xE8;s et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La g&#xE9;n&#xE9;ration des fichiers se fait &#xE0; chaque d&#xE9;marrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu&apos;un Bundle existe dans le webconfig.</p><h4 id="cr-er-des-bundles">Cr&#xE9;er des Bundles</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;bundles&quot;: {
         &quot;javascripts&quot;: {
             &quot;javascripts/boot.min.js&quot;: [
@@ -1251,7 +1251,7 @@ LANG=en-us
         &quot;/&quot;: &quot;index.htm&quot;
     }
 }
-</code></pre><h3 id="optimiser-les-images">Optimiser les Images</h3><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en cr&#xE9;ant des Optimizations en r&#xE9;f&#xE9;ren&#xE7;ant les fichiers d&apos;entr&#xE9;s par leur chemin d&apos;acc&#xE8;s et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L&apos;optimisation des images se fait &#xE0; chaque d&#xE9;marrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des Optimizations existe dans le Webconfig.</p><h4 id="cr-er-des-optimizations">Cr&#xE9;er des Optimizations</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+</code></pre><h3 id="optimiser-les-images">Optimiser les Images</h3><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en cr&#xE9;ant des Optimizations en r&#xE9;f&#xE9;ren&#xE7;ant les fichiers d&apos;entr&#xE9;s par leur chemin d&apos;acc&#xE8;s et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L&apos;optimisation des images se fait &#xE0; chaque d&#xE9;marrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des Optimizations existe dans le webconfig.</p><h4 id="cr-er-des-optimizations">Cr&#xE9;er des Optimizations</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;optimizations&quot;: {
         &quot;images&quot;: {
             &quot;media/images/example.png&quot;: &quot;media/images/optimized/&quot;,
@@ -1636,7 +1636,7 @@ Host: localhost:1337
 Origin: http://localhost
 Authorization: Bearer CODE_DU_JETON
 ...
-</code></pre><p><strong>Autre demande Cross-Domain</strong></p><p>Toutes les ent&#xEA;tes pr&#xE9;vues pour faire fonctionner CORS sont accept&#xE9; via le m&#xE9;canisme d&apos;ajout d&apos;en-t&#xEA;te de NodeAtlas.</p><h3 id="changer-les-parametres-des-sessions">Changer les param&#xE8;tres des Sessions</h3><h4 id="cl-et-secret">Cl&#xE9; et Secret</h4><p>NodeAtlas g&#xE8;re lui-m&#xEA;me les sessions stock&#xE9;es sur le serveur avec comme param&#xE8;tres initiaux :</p><ul>
+</code></pre><p><strong>Autre demande Cross-Domain</strong></p><p>Toutes les ent&#xEA;tes pr&#xE9;vues pour faire fonctionner CORS sont accept&#xE9; via le m&#xE9;canisme d&apos;ajout d&apos;en-t&#xEA;te de NodeAtlas.</p><h3 id="changer-les-parametres-des-sessions">Changer les param&#xE8;tres des sessions</h3><h4 id="cl-et-secret">Cl&#xE9; et Secret</h4><p>NodeAtlas g&#xE8;re lui-m&#xEA;me les sessions stock&#xE9;es sur le serveur avec comme param&#xE8;tres initiaux :</p><ul>
 <li>Key : <code>nodeatlas.sid</code></li>
 <li>Secret : <code>1234567890b&#xE9;po</code></li>
 </ul><p>qui permettent &#xE0; un client de rester connect&#xE9; &#xE0; travers les pages &#xE0; un m&#xEA;me ensemble de variable personnelles c&#xF4;t&#xE9;s serveur.</p><p>Il est possible de modifier ses param&#xE8;tres par d&#xE9;faut (et m&#xEA;me obligatoire pour des sites en productions) avec les param&#xE8;tres de <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
@@ -1658,7 +1658,7 @@ Authorization: Bearer CODE_DU_JETON
         ...
     }
 }
-</code></pre><p>L&apos;int&#xE9;gralit&#xE9; de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="stockage-externe-des-sessions">Stockage externe des Sessions</h3><p>Par d&#xE9;faut, c&apos;est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs &#xE0; travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de red&#xE9;marrage de celle-ci.</p><p>Pour r&#xE9;soudre ce souci, il convient de prendre en charge l&apos;enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p><p>Pour cela il suffit d&apos;utiliser la fonction <code>setSessions</code> dans le fichier de <code>controller</code> commun.</p><h4 id="session-g-r-es-avec-redis">Session g&#xE9;r&#xE9;es avec Redis</h4><p>Impl&#xE9;menter le code suivant dans le <code>controller</code> commun pour stocker vos sessions dans Redis en local.</p><pre><code>exports.setModules = function () {
+</code></pre><p>L&apos;int&#xE9;gralit&#xE9; de la configuration possible se trouve sur la documentation du module <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="stockage-externe-des-sessions">Stockage externe des sessions</h3><p>Par d&#xE9;faut, c&apos;est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs &#xE0; travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de red&#xE9;marrage de celle-ci.</p><p>Pour r&#xE9;soudre ce souci, il convient de prendre en charge l&apos;enregistrement des sessions via une base No SQL tel que <code>Redis</code> ou <code>MongoBD</code>.</p><p>Pour cela il suffit d&apos;utiliser la fonction <code>setSessions</code> dans le fichier de <code>controller</code> commun.</p><h4 id="session-g-r-es-avec-redis">Session g&#xE9;r&#xE9;es avec Redis</h4><p>Impl&#xE9;menter le code suivant dans le <code>controller</code> commun pour stocker vos sessions dans Redis en local.</p><pre><code>exports.setModules = function () {
     var NA = this;
 
     NA.modules.RedisStore = require(&quot;connect-redis&quot;);
@@ -1903,7 +1903,7 @@ exports.setConfigurations = function (next) {
   &quot;query&quot;: &quot;fifi&quot;,
   &quot;body&quot;: &quot;loulou&quot;
 }
-</code></pre><h4 id="pas-de-routes">Pas de routes</h4><p>Pas un seul webconfig pr&#xE9;sent&#xE9; dans la documentation ne se passe du param&#xE8;tre <code>routes</code>. Pourtant il est facultatif au m&#xEA;me titre que tous les autres. Aussi avec le Webconfig suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</code></pre><h4 id="pas-de-routes">Pas de routes</h4><p>Pas un seul webconfig pr&#xE9;sent&#xE9; dans la documentation ne se passe du param&#xE8;tre <code>routes</code>. Pourtant il est facultatif au m&#xEA;me titre que tous les autres. Aussi avec le webconfig suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;controller&quot;: &quot;common.js&quot;
 }
 </code></pre><p>et le contr&#xF4;leur suivant :</p><p><em>controllers/common.js</em></p><pre><code class="lang-js">exports.setRoutes = function (next) {
@@ -1946,9 +1946,9 @@ exports.changeDom = function (next, locals) {
 <pre><code class="lang-js">process.env.NODE_ENV = &quot;production&quot;;
 </code></pre>
 </blockquote><div><div class="before">
-							<a href="partie-controleur-et-modele.html">&#x25C4; Partie Contr&#xF4;leur et Mod&#xE8;le</a>
+							<a href="partie-controleur-et-modele.html">&#x25C4; Partie Contr&#xF4;leur et mod&#xE8;le</a>
 						</div><div class="after">
-							<a href="anatomie-du-webconfig.html">Anatomie du Webconfig &#x25BA;</a>
+							<a href="anatomie-du-webconfig.html">Anatomie du webconfig &#x25BA;</a>
 						</div></div>
 				</div>
 			</div>

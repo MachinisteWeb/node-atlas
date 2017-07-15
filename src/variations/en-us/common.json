@@ -24,12 +24,12 @@
 		"first": {
 			"title": "<strong>Simple</strong> <span>set-up</span>",
 			"abstract": "You know <strong>HTML &amp; CSS</strong>?<br><strong>But not</strong> JavaScript?",
-			"description": "Quickly create multilingual websites effortlessly with simple Routes, Views or Variations."
+			"description": "Quickly create multilingual websites effortlessly with simple routes, views or variations."
 		},
 		"second": {
 			"title": "<strong>Scalable</strong> <span>website</span>",
 			"abstract": "JavaScript client-side <strong>Expert</strong>?<br>Ready to embrace <strong>Node.js</strong>?",
-			"description": "Gradually improve your base as you need by using Controllers, Models or Modules."
+			"description": "Gradually improve your base as you need by using controllers, models or modules."
 		},
 		"third": {
 			"title": "<strong>Agnostic</strong> <span>client side</span>",

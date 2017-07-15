@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1500109725755">
+		<meta name="og:updated_time" content="1500112933955">
 
 		<meta name="robots" content="index, follow">
 
@@ -71,14 +71,14 @@
 								<div class="header--main--first">
 									<h2><span>Mise en place</span> <strong>Simple</strong></h2>
 									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>D&#xE9;butant</strong> en JavaScript ?</p>
-									<p class="small">R&#xE9;alisez rapidement des sites vitrines multilingues sans effort avec l&apos;utilisation de Routes, Vues ou Variations.</p>
+									<p class="small">R&#xE9;alisez rapidement des sites vitrines multilingues sans effort avec l&apos;utilisation de routes, vues ou variations.</p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--second">
 									<h2><span>Site vivant et</span> <strong>&#xC9;volutif</strong></h2>
 									<p><strong>Expert</strong> en JavaScript client ?<br>Pr&#xEA;t &#xE0; embrasser <strong>Node.js</strong> ?</p>
-									<p class="small">Am&#xE9;liorer progressivement votre base &#xE0; mesure de vos besoins en utilisant des Contr&#xF4;leurs, Mod&#xE8;les ou Modules.</p>
+									<p class="small">Am&#xE9;liorer progressivement votre base &#xE0; mesure de vos besoins en utilisant des contr&#xF4;leurs, mod&#xE8;les ou modules.</p>
 								</div>
 							</li>
 							<li>
@@ -313,7 +313,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="partie-vue-et-template">Partie Vue et Template</h2><p>NodeAtlas fonctionne avec une configuration via l&apos;utilisation d&apos;un <code>webconfig.json</code> qui lui permet d&apos;&#xE9;tendre les possibilit&#xE9;s du site de mani&#xE8;re &#xE9;volutive tout au long de sa vie. Par exemple, pour cr&#xE9;er un site sans JavaScript c&#xF4;t&#xE9; serveur (pas de contr&#xF4;leur), il suffit de ne renseigner qu&apos;un param&#xE8;tre <code>view</code> pour chaque route.</p><p>Cependant, vous pourrez toujours utiliser du JavaScript dans les templates des vues gr&#xE2;ce &#xE0; l&apos;utilisation du moteur de template <a href="http://ejs.co/">EJS</a> avec lequel fonctionne NodeAtlas par d&#xE9;faut.</p><p>Voyons les possibilit&#xE9;s de nos sites par agr&#xE9;gat simple de fichiers de vue.</p><h3 id="plusieurs-pages">Plusieurs pages</h3><p>Ci-dessous un exemple de configuration.</p><pre><code class="lang-json">{
+					<h2 id="partie-vue-et-template">Partie vue et template</h2><p>NodeAtlas fonctionne avec une configuration via l&apos;utilisation d&apos;un <code>webconfig.json</code> qui lui permet d&apos;&#xE9;tendre les possibilit&#xE9;s du site de mani&#xE8;re &#xE9;volutive tout au long de sa vie. Par exemple, pour cr&#xE9;er un site sans JavaScript c&#xF4;t&#xE9; serveur (pas de contr&#xF4;leur), il suffit de ne renseigner qu&apos;un param&#xE8;tre <code>view</code> pour chaque route.</p><p>Cependant, vous pourrez toujours utiliser du JavaScript dans les templates des vues gr&#xE2;ce &#xE0; l&apos;utilisation du moteur de template <a href="http://ejs.co/">EJS</a> avec lequel fonctionne NodeAtlas par d&#xE9;faut.</p><p>Voyons les possibilit&#xE9;s de nos sites par agr&#xE9;gat simple de fichiers de vue.</p><h3 id="plusieurs-pages">Plusieurs pages</h3><p>Ci-dessous un exemple de configuration.</p><pre><code class="lang-json">{
     &quot;viewsRelativePath&quot;: &quot;views&quot;,
     &quot;routes&quot;: {
         &quot;/&quot;: {
@@ -823,7 +823,7 @@ website.init({
         &lt;div&gt;https://127.0.0.1:7777/sub/folder/index.html&lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>Note : Cette exemple ne fonctionnera que si vous avez des fichiers <code>server.crt</code> et <code>server.key</code> valide dans le dossier <code>security/</code>. Essayez le sans <code>&quot;httpSecure&quot;: &quot;security/server&quot;</code> et il fonctionnera avec des URLs sans <code>https</code>.</p><h3 id="creer-ses-propres-variables-de-webconfig">Cr&#xE9;er ses propres Variables de Webconfig</h3><p>Imaginons deux webconfigs dans lesquels nous allons cr&#xE9;er nos propres variables comme suit :</p><ol>
+</code></pre><p>Note : Cette exemple ne fonctionnera que si vous avez des fichiers <code>server.crt</code> et <code>server.key</code> valide dans le dossier <code>security/</code>. Essayez le sans <code>&quot;httpSecure&quot;: &quot;security/server&quot;</code> et il fonctionnera avec des URLs sans <code>https</code>.</p><h3 id="creer-ses-propres-variables-de-webconfig">Cr&#xE9;er ses propres variables de webconfig</h3><p>Imaginons deux webconfigs dans lesquels nous allons cr&#xE9;er nos propres variables comme suit :</p><ol>
 <li>&#xAB; webconfig.json &#xBB;</li>
 </ol><pre><code class="lang-json">{
     &quot;routes&quot;: {
@@ -1177,7 +1177,7 @@ website.init({
         }
     },
 }
-</code></pre><h3 id="moteur-de-template-ejs">Moteur de Template EJS</h3><p>Par d&#xE9;faut, NodeAtlas utilise d&#xE9;j&#xE0; le <a href="http://ejs.co/">moteur de template EJS</a>, c&apos;est ce qui vous permet d&apos;utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>.</p><p>Les balises <code>&lt;?</code> et <code>?&gt;</code> permettent d&apos;inclure du JavaScript au sein m&#xEA;me de vos templates. Il existe diff&#xE9;rentes variantes de la balise vous permettant d&apos;afficher le r&#xE9;sultat JavaScript dans votre template (comme vous le feriez avec un <code>document.write</code>). Les voici :</p><ul>
+</code></pre><h3 id="moteur-de-template-ejs">Moteur de template EJS</h3><p>Par d&#xE9;faut, NodeAtlas utilise d&#xE9;j&#xE0; le <a href="http://ejs.co/">moteur de template EJS</a>, c&apos;est ce qui vous permet d&apos;utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>.</p><p>Les balises <code>&lt;?</code> et <code>?&gt;</code> permettent d&apos;inclure du JavaScript au sein m&#xEA;me de vos templates. Il existe diff&#xE9;rentes variantes de la balise vous permettant d&apos;afficher le r&#xE9;sultat JavaScript dans votre template (comme vous le feriez avec un <code>document.write</code>). Les voici :</p><ul>
 <li><code>&lt;?</code> La balise &#xAB; Scriptlet &#xBB; par d&#xE9;faut, pour les structure de contr&#xF4;le, pas de sortie.</li>
 <li><code>&lt;?=</code> Affich&#xE9; le r&#xE9;sultat des expressions dans le template (&#xE9;chappement HTML)</li>
 <li><code>&lt;?-</code> Affich&#xE9; le r&#xE9;sultat des expressions dans le template tel quel</li>
@@ -1316,7 +1316,7 @@ npm install
 </ul><div><div class="before">
 							<a href="commencer-avec-nodeatlas.html">&#x25C4; Commencer avec NodeAtlas</a>
 						</div><div class="after">
-							<a href="partie-controleur-et-modele.html">Partie Contr&#xF4;leur et Mod&#xE8;le &#x25BA;</a>
+							<a href="partie-controleur-et-modele.html">Partie Contr&#xF4;leur et mod&#xE8;le &#x25BA;</a>
 						</div></div>
 				</div>
 			</div>

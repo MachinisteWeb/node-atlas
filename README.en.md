@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat for Help](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Help)
+[![Donate](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package npm](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat for Help](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Help)
 
 **Vous êtes français ? Le README [derrière ce lien](README.fr.md) vous sera peut-être plus agréable.**
 
@@ -10,13 +10,13 @@
 
 ## Overview ##
 
-NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run with [Node.js](https://nodejs.org/) verision. NodeAtlas allows you to:
+NodeAtlas is a server-side MVC(2) JavaScript framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run with [Node.js](https://nodejs.org/). NodeAtlas allows you to:
 
-- Create, maintain and document a set of assets HTML / CSS / JavaScript as user interfaces to provide solid guidelines for the realization of website or webapp (i.e. for brands).
+- Create, maintain and document a set of assets HTML / CSS / JavaScript user interfaces to provide solid guidelines for the realization of website or webapp (i.e. for brands).
 
-   > Exemple : [Pages, Componants and Web Interface](https://www.lesieur.name/doc-atlas/) or official NodeAtlas website.
+   > Exemple : [Pages, Componants and Web Interface Documentation](https://www.lesieur.name/doc-atlas/) or [the official NodeAtlas website](https://node-atlas.js.org/english/).
 
-- Create and maintain and run internationalized wesites without use a single JavaScript server file. That's it's perfect for beginners or for develop presentational website with high performance quickly.
+- Create, maintain and run internationalized wesites without use a single JavaScript server file. That's it's perfect for beginners and for develop brand website or single web app application with high performance quickly.
 
    > Exemple : [Simple Web Page](http://bruno.lesieur.name/)
 
@@ -28,7 +28,7 @@ NodeAtlas is a Server-side MVC(2) JavaScript Framework as an [npm module](https:
 
 ### Why NodeAtlas ###
 
-NodeAtlas is designed to create scalable websites and to allow Front-end and Back-end developers to embrace [Node.js](https://nodejs.org/en/).
+NodeAtlas is designed to create scalable websites and to allow front-end and back-end developers to embrace [Node.js](https://nodejs.org/en/) and offer an easy learning curve.
 
 Starting with a single HTML page,
 
@@ -47,19 +47,19 @@ Starting with a single HTML page,
 
 
 
-### And what about others JavaScript Frameworks? ###
+### And what about others JavaScript frameworks? ###
 
-In opposition to others client-side JavaScript Frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexale and W3C compliant that means each page are construct by HTTP response and after by AJAX or Websocket mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript Frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/) or [gulp](http://gulpjs.com/). So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side by default. It's your responsability to spread server-side mechanism to client-side.
+In opposition to others client-side JavaScript frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexale and W3C compliant, that means each page are construct by HTTP response and after by asynchronous (AJAX, Websocket...) mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/), [gulp](http://gulpjs.com/), etc. So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side by default. It's your responsability to spread server-side mechanism to client-side.
 
-To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API, [you could check this grid](#nodeatlas-vs-others).
+To comparate NodeAtlas with others JavaScript Server-side library / framework / API, [you could check this grid](#nodeatlas-vs-others).
 
 
 
 ### Examples of websites with NodeAtlas ###
 
-You'll find a list of repositories provided by NodeAtlas community to analyse and understand how NodeAtlas works:
+You'll find a list of GitHub repositories provided by NodeAtlas community to analyse and understand how NodeAtlas works:
 
-- [All examples provided by NodeAtlas Github Communauty](https://github.com/Haeresis/ResumeAtlas/).
+- [All examples provided by NodeAtlas GitHub Communauty](https://github.com/NodeAtlas/).
 
 
 
@@ -69,7 +69,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
 
 - [Overview](#overview)
  - [Why NodeAtlas](#why-nodeatlas)
- - [And what about others JavaScript Frameworks?](#and-what-about-others-javascript-frameworks)
+ - [And what about others JavaScript frameworks?](#and-what-about-others-javascript-frameworks)
  - [Examples of websites with NodeAtlas](#examples-of-websites-with-nodeatlas)
  - [Table of Contents](#table-of-contents)
  - [Documentation](#documentation)
@@ -83,7 +83,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
  - [Run the site with NodeAtlas](#run-the-site-with-nodeatlas)
  - [Hello World Skeleton](#hello-world-skeleton)
 - [View and Template Part](#view-and-template-part)
- - [More one page](#more-one-page)
+ - [More One Page](#more-one-page)
  - [Manage Routes](#manage-routes)
  - [Host images, fonts, CSS, JS, etc.](#host-images-fonts-css-js-etc)
  - [Manage Include of Partial Files](#manage-include-of-partial-files)
@@ -107,7 +107,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
 - [More features](#more-features)
  - [Manage Routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a Page Not Found](#manage-a-page-not-found)
- - [Inject routes dynamically](#inject-routes-dynamically)
+ - [Inject Routes Dynamically](#inject-routes-dynamically)
  - [Manage redirects](#manage-redirects)
  - [Manage Headers](#manage-headers)
  - [Dynamic Configuration](#dynamic-configuration)
@@ -141,7 +141,7 @@ You'll find a list of repositories provided by NodeAtlas community to analyse an
  - [--create](#--create)
  - [--httpSecure](#--httpsecure)
  - [--lang](#--lang)
-- [API / NodeAtlas as NPM module](#api--nodeatlas-as-npm-module)
+- [API / NodeAtlas as npm module](#api--nodeatlas-as-npm-module)
  - [&lt;NA>.start()](#nastart)
  - [&lt;NA>.init(options)](#nainitoptions)
  - [&lt;NA>.run(options)](#narunoptions)
@@ -210,13 +210,13 @@ Before install NodeAtlas, install [Node.js](https://nodejs.org/), we will see th
 
 There are several ways to install NodeAtlas:
 
-- **With NPM, into project directory** with the following command:
+- **With npm, into project directory** with the following command:
 
    > `npm install node-atlas`
 
    *This will install* NodeAtlas *in the « node_modules/node-atlas/ » directory of the execution of the command. Recommended for [use as a module](#api--nodeatlas-as-npm-module) in a project*
 
-- **With NPM, into global modules directory** with the following command:
+- **With npm, into global modules directory** with the following command:
 
    > `npm install -g node-atlas`
 
@@ -254,7 +254,7 @@ Using [chocolatey](http://chocolatey.org/) to install Node:
 cinst nodejs
 ```
 
-or for full install with NPM:
+or for full install with npm:
 
 ```bash
 cinst nodejs.install
@@ -394,7 +394,7 @@ You will have access to your "Hello World" to the page: *http://localhost/* in a
 
 #### Via a JavaScript file ####
 
-You can also use NodeAtlas as a NPM module.
+You can also use NodeAtlas as a npm module.
 
 So, create a `server.js` file into the same folder of `webconfig.json`.
 
@@ -445,7 +445,7 @@ It's still possible to use JavaScript inline into views with the capabilities of
 
 We will see all possibilities with couples of view files together.
 
-### More one page ###
+### More One Page ###
 
 Below is a sample configuration.
 
@@ -2182,7 +2182,7 @@ and this is the detail of all hooks while:
 ┊
 ├─[Loading Init Vars]
 ┊
-├─[Loading NPM Modules]
+├─[Loading npm Modules]
 ┊
 ├─[Setting CLI commands and language]
 ┊
@@ -3244,7 +3244,7 @@ Note : to allows `view` to use Pug template engine and not EJS, you must defined
 
 ### Use MySQL Database (SQL) ###
 
-We will see now how to use data from database. We will use the `mysql` NPM module. And first, [install a MySQL server](https://dev.mysql.com/downloads/installer/).
+We will see now how to use data from database. We will use the `mysql` npm module. And first, [install a MySQL server](https://dev.mysql.com/downloads/installer/).
 
 So, from your `webconfig.json` directory, use
 
@@ -3999,7 +3999,7 @@ You will get the following output:
 
 ### Use MongoDB Database (NoSQL) ###
 
-We will see now how to use data from nosql database. We will use the `mongoose` NPM module. And first, [install a MongoDB server](https://www.mongodb.com/).
+We will see now how to use data from nosql database. We will use the `mongoose` npm module. And first, [install a MongoDB server](https://www.mongodb.com/).
 
 So, from your `webconfig.json` directory, use
 
@@ -4255,7 +4255,7 @@ You will get the following output:
 
 ### Use Middlewares from Express ###
 
-NodeAtlas is construct on the top of [Express.js](http://expressjs.com/). You can access to the Express Object of a NodeAtlas instance using `NA#express`. With this you are able to add Express Middlewares in the same way you add it in standalone Express.
+NodeAtlas is construct on the top of [Express.js](http://expressjs.com/). You can access to the Express Object of a NodeAtlas instance using `NA#express`. With this you are able to add Express middlewares in the same way you add it in standalone Express.
 
 What we can say about the NodeAtlas's Express pre-configuration when the Webconfig is empty :
 
@@ -4768,7 +4768,7 @@ See below :
 
 
 
-### Inject routes dynamically ###
+### Inject Routes Dynamically ###
 
 `setRoutes` allows us to dynamically inject routes. However, the route injection add route at the end of `NA.webconfig.routes` because `NA.webconfig.routes` is an object. There are no possibility to ordonate routes, but this is a problem because routes path are resolved in order of injection.
 
@@ -7505,7 +7505,7 @@ $ node-atlas --lang fr-fr
 
 
 
-## API / NodeAtlas as NPM module ##
+## API / NodeAtlas as npm module ##
 
 You could run NodeAtlas via JavaScript code.
 
@@ -8172,7 +8172,7 @@ NodeAtlas is made of such a way that the instanciate object contains all the fun
 | Express       | HTTP Server Library                | HTTP routing, middleware                | Simple web apps                               | Yes               | No             | English               |
 | Hapi          | HTTP Server Framework              | Modularity, security                    | Web apps, APIs                                | Yes               | Free           | English               |
 | LoopBack      | API Framework                      | Enterprise connectivity                 | Web apps, APIs                                | Yes               | Free           | English               |
-| Meteor        | Full-stack JavaScript App Platform | Framework Front-end et Back-end         | Web apps                                      | No                | Meteor         | English               |
+| Meteor        | Full-stack JavaScript App Platform | Front-end and Back-end Framework        | Web apps                                      | No                | Meteor         | English               |
 | Next          | Renderer Server Framework          | React renderer ready to use             | Web apps                                      | Yes               | React          | English               |
 | Nuxt          | Renderer Server Framework          | Vue renderer ready to use               | Web apps                                      | Yes               | Vue            | English               |
 | Restify       | HTTP Library                       | Simplicity, REST routing                | Simple REST APIs                              | Yes               | No             | English               |

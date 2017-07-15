@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat pour de l'Aide](https://img.shields.io/badge/gitter-rejoindre%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Aide)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package npm](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat pour de l'Aide](https://img.shields.io/badge/gitter-rejoindre%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Aide)
 
 **For an international version of this README.md, [follow this link](README.en.md).**
 
@@ -10,17 +10,17 @@
 
 ## Avant-propos ##
 
-NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de [module NPM](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant avec [Node.js](https://nodejs.org/). Il vous permet de :
+NodeAtlas est un framework JavaScript MVC(2) côté serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant avec [Node.js](https://nodejs.org/). NodeAtlas vous permet de :
 
-- Créer, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour créer un ensemble de livrables clients cohérants afin de les fournirs en tant que guide de style pour la réalisation de divers sites ou applications web.
+- Créer, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour fournir un ensemble de livrables clients cohérants en tant que guide de style pour la réalisation de divers sites ou applications web.
 
-   > Exemple : [Pages, Composants et Documentation d'interface web](https://www.lesieur.name/doc-atlas/) ou le site officiel NodeAtlas.
+   > Exemple : [Documentation de pages, composants et d'interface web](https://www.lesieur.name/doc-atlas/) ou [le site officiel NodeAtlas](https://node-atlas.js.org/english/).
 
-- Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particulièrement taillé pour les débutants ou la réalisation de sites vitrines hautement performant et maintenable en des temps records.
+- Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particulièrement taillé pour la réalisation de sites vitrines ou d'applications web monopages hautement performante et maintenable en des temps records.
 
    > Exemple : [Simple page web](http://bruno.lesieur.name/)
 
-- Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'éco-système [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec des réponses HTTP passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.
+- Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'écosystème [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus clients temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec des réponses HTTP passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.
 
    > Exemple : [Blog](http://blog.lesieur.name/), [Portfolio](http://www.lesieur.name/) ou [API Distante](http://www.lesieur.name/api/)
 
@@ -28,7 +28,7 @@ NodeAtlas est un Framework JavaScript MVC(2) côté serveur sous forme de [modul
 
 ### Pourquoi NodeAtlas ? ###
 
-NodeAtlas est designé pour créer des sites évolutifs et pour permettre aux développeurs Front-end et Back-end d'embrasser [Node.js](https://nodejs.org/) avec une courbe de difficulté aisée.
+NodeAtlas est designé pour créer des sites évolutifs et pour permettre aux développeurs front-end et back-end d'embrasser [Node.js](https://nodejs.org/) en leur offrant une une courbe d'apprentissage aisée.
 
 Commencez avec une simple page HTML,
 
@@ -47,19 +47,19 @@ Commencez avec une simple page HTML,
 
 
 
-### Et les autres Frameworks JavaScript ? ###
+### Et les autres frameworks JavaScript ? ###
 
-Contrairement aux Frameworks JavaScript côté client comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des URLs par réponse HTTP. Les sites sont indexables et valides W3C : c'est-à-dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifiée par requête AJAX ou Websocket si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative aux nombreux Frameworks JavaScript côté client qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/) ou [jspm](http://jspm.io/) ou [gulp](http://gulpjs.com/). NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, JAVA ou encore C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur par défaut. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
+Contrairement aux frameworks JavaScript côté client comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des URLs par réponse HTTP. Les sites sont indexables et valides W3C : c'est-à-dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifiée par requête asynchrone (AJAX, Websocket...) si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative aux nombreux frameworks JavaScript côté client qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/), [jspm](http://jspm.io/), [gulp](http://gulpjs.com/), etc. NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, JAVA ou encore C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur par défaut. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
-Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur, [vous pouvez consulter cette grille](#nodeatlas-vs-les-autres).
+Pour un comparatif avec d'autre bibliothèque / framework / API JavaScript côté serveur, [vous pouvez consulter cette grille](#nodeatlas-vs-les-autres).
 
 
 
 ### Exemples de réalisations avec NodeAtlas ###
 
-Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré sur la communauté Github de NodeAtlas :
+Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré sur la communauté GitHub de NodeAtlas :
 
-- [Tous les exemples fournis par la communauté NodeAtlas sur Github](https://github.com/NodeAtlas/).
+- [Tous les exemples fournis par la communauté NodeAtlas sur GitHub](https://github.com/NodeAtlas/).
 
 
 
@@ -69,7 +69,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
 
 - [Avant-propos](#avant-propos)
  - [Pourquoi NodeAtlas ?](#pourquoi-nodeatlas-)
- - [Et les autres Frameworks JavaScript ?](#et-les-autres-frameworks-javascript-)
+ - [Et les autres frameworks JavaScript ?](#et-les-autres-frameworks-javascript-)
  - [Exemples de réalisations avec NodeAtlas](#exemples-de-réalisations-avec-nodeatlas)
  - [Table des matières](#table-des-matières)
  - [Documentation](#documentation)
@@ -82,7 +82,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Configuration minimale](#configuration-minimale)
  - [Lancer le site avec NodeAtlas](#lancer-le-site-avec-nodeatlas)
  - [Squelette de Hello World](#squelette-de-hello-world)
-- [Partie Vue et Template](#partie-vue-et-template)
+- [Partie vue et template](#partie-vue-et-template)
  - [Plusieurs pages](#plusieurs-pages)
  - [Référencer ses routes](#référencer-ses-routes)
  - [Héberger des images, polices, CSS, JS, etc.](#héberger-des-images-polices-css-js-etc)
@@ -90,20 +90,20 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Gérer des variations au sein d'une même vue](#gérer-des-variations-au-sein-dune-même-vue)
  - [Gérer l'internationalisation (i18n)](#gérer-linternationalisation-i18n)
  - [Gérer l'anatomie des URLs](#gérer-lanatomie-des-urls)
- - [Créer ses propres Variables de Webconfig](#créer-ses-propres-variables-de webconfig)
+ - [Créer ses propres variables de webconfig](#créer-ses-propres-variables-de webconfig)
  - [Utiliser une vue globale](#utiliser-une-vue-globale)
  - [Partager des dossiers](#partager-des-dossiers)
  - [Générer des maquettes HTML](#générer-des-maquettes-html)
- - [Moteur de Template EJS](#moteur-de-template-ejs)
- - [Moteur de Template Pug](#moteur-de-template-pug)
- - [Moteur de Template Vue](#moteur-de-template-vue)
-- [Partie Contrôleur et Modèle](#partie-contrôleur-et-modèle)
+ - [Moteur de template EJS](#moteur-de-template-ejs)
+ - [Moteur de template Pug](#moteur-de-template-pug)
+- [Partie Contrôleur et modèle](#partie-contrôleur-et-modèle)
  - [Cycle de vie et Points d'ancrage](#cycle-de-vie-et-points-dancrage)
- - [Échange Client-Serveur en temps réel avec Websockets](#échange-client-serveur-en-temps réel-avec-websockets)
+ - [Échange client-serveur en temps réel avec websockets](#échange-client-serveur-en-temps réel-avec-websockets)
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
  - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
- - [Utiliser des Middlewares depuis Express](#utiliser-des-middlewares-depuis-express)
+ - [Utiliser des middlewares depuis Express](#utiliser-des-middlewares-depuis-express)
  - [Créer une application isomorphique](#créer-une-application-isomorphique)
+ - [Moteur de template Vue](#moteur-de-template-vue)
 - [Pour aller plus loin](#pour-aller-plus-loin)
  - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
@@ -120,14 +120,14 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Autoriser / Interdire les demandes GET / POST](#autoriser--interdire-les-demandes-get--post)
  - [Autoriser / Interdire les demandes PUT / DELETE](#autoriser--interdire-les-demandes-put--delete)
  - [Gérér CORS et les demandes OPTIONS](#gerer-cors-et-les-demandes-options)
- - [Changer les paramètres des Sessions](#changer-les-paramètres-des-sessions)
- - [Stockage externe des Sessions](#stockage-externe-des-sessions)
+ - [Changer les paramètres des sessions](#changer-les-paramètres-des-sessions)
+ - [Stockage externe des sessions](#stockage-externe-des-sessions)
  - [Changer l'URL final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
  - [Générer les URLs dynamiquement](#générer-les-urls-dynamiquement)
  - [Moteur de template personnalisé](#moteur-de-template-personnalisé)
  - [Pas de vue](#pas-de-vue)
  - [Activer le cache](#activer-le-cache)
-- [Anatomie du Webconfig](#anatomie-du-webconfig)
+- [Anatomie du webconfig](#anatomie-du-webconfig)
 - [CLI / Commandes de lancement](#cli--commandes-de-lancement)
  - [--help](#--help)
  - [--version](#--version)
@@ -141,7 +141,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [--create](#--create)
  - [--httpSecure](#--httpsecure)
  - [--lang](#--lang)
-- [API / NodeAtlas comme module NPM](#api--nodeatlas-comme-module-npm)
+- [API / NodeAtlas comme module npm](#api--nodeatlas-comme-module-npm)
  - [&lt;NA>.start()](#nastart)
  - [&lt;NA>.init(options)](#nainitoptions)
  - [&lt;NA>.run(options)](#narunoptions)
@@ -151,8 +151,8 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [&lt;NA>.created(callback)](#nacreatedcallback)
 - [NodeAtlas comme simple serveur web](#nodeatlas-comme-simple-serveur-web)
 - [Environnement de Développement](#environnement-de-développement)
- - [Debug du Front-end](#debug-du-front-end)
- - [Debug du Back-end](#debug-du-back-end)
+ - [Debug du front-end](#debug-du-front-end)
+ - [Debug du back-end](#debug-du-back-end)
  - [Tests de Périphériques](#tests-de-périphériques)
  - [Auto-rechargement à chaud](#auto-rechargement-a-chaud)
 - [Environnement de Production](#environnement-de-production)
@@ -210,13 +210,13 @@ Avant de pouvoir installer NodeAtlas, assurez-vous d'avoir installé [Node.js](h
 
 Il y a plusieurs manières d'installer NodeAtlas :
 
-- **Avec NPM, dans le dossier du projet** avec la commande suivante :
+- **Avec npm, dans le dossier du projet** avec la commande suivante :
 
    > `npm install node-atlas`
 
    *Ceci installera* NodeAtlas *dans le dossier « node_modules/node-atlas/ » du dossier d'exécution de la commande. Recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans un projet.*
 
-- **Avec NPM, dans le dossier des modules globaux** avec la commande suivante :
+- **Avec npm, dans le dossier des modules globaux** avec la commande suivante :
 
    > `npm install -g node-atlas`
 
@@ -238,7 +238,7 @@ Il y a plusieurs manières d'installer NodeAtlas :
 
 ### Installation de Node.js ###
 
-NodeAtlas est développé sous la forme d'un [Node.js Module Package](https://www.npmjs.com/) ou NPM ce qui signifie qu'il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l'utilisation du même langage côté client et serveur.
+NodeAtlas est développé sous la forme d'un [Node.js Module Package](https://www.npmjs.com/) ou npm ce qui signifie qu'il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l'utilisation du même langage côté client et serveur.
 
 *Note: Python 2.6 ou 2.7 est requis pour les sources tarballs.*
 
@@ -254,7 +254,7 @@ En utilisant [chocolatey](http://chocolatey.org/) pour installer Node:
 cinst nodejs
 ```
 
-ou en l'installant avec NPM :
+ou en l'installant avec npm :
 
 ```bash
 cinst nodejs.install
@@ -394,7 +394,7 @@ Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans
 
 #### Via un fichier JavaScript ####
 
-Vous pouvez également utiliser NodeAtlas comme un module NPM.
+Vous pouvez également utiliser NodeAtlas comme un module npm.
 
 Créer alors un fichier `server.js` au même niveau que le `webconfig.json`.
 
@@ -437,7 +437,7 @@ $ node-atlas --browse
 
 
 
-## Partie Vue et Template ##
+## Partie vue et template ##
 
 NodeAtlas fonctionne avec une configuration via l'utilisation d'un `webconfig.json` qui lui permet d'étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de contrôleur), il suffit de ne renseigner qu'un paramètre `view` pour chaque route.
 
@@ -1300,7 +1300,7 @@ Note : Cette exemple ne fonctionnera que si vous avez des fichiers `server.crt` 
 
 
 
-### Créer ses propres Variables de Webconfig ###
+### Créer ses propres variables de webconfig ###
 
 Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
 
@@ -1871,7 +1871,7 @@ Les fichiers défini dans `statics` sont également copiable dans le dossier `se
 
 
 
-### Moteur de Template EJS ###
+### Moteur de template EJS ###
 
 Par défaut, NodeAtlas utilise déjà le [moteur de template EJS](http://ejs.co/), c'est ce qui vous permet d'utiliser du JavaScript dans les balises `<?` et `?>`.
 
@@ -2136,7 +2136,7 @@ node-atlas --browse
 
 
 
-## Partie Contrôleur et Modèle ##
+## Partie Contrôleur et modèle ##
 
 NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 
@@ -2147,7 +2147,7 @@ mais également ;
 
 - de vous connecter à des bases de données,
 - de maintenir des sessions,
-- de faire des échanges Websockets et
+- de faire des échanges websockets et
 - de faire bien plus encore !
 
 
@@ -2182,7 +2182,7 @@ et voici le détail des endroits ou vous pouvez intervenir pendant :
 ┊
 ├─[Chargement des variables d'initialisation]
 ┊
-├─[Chargement des modules NPM]
+├─[Chargement des modules npm]
 ┊
 ├─[Prise en compte des commandes et de la langue du CLI]
 ┊
@@ -2192,7 +2192,7 @@ et voici le détail des endroits ou vous pouvez intervenir pendant :
   ┊
   ├─[Chargement des variables globales]
   ┊
-  ├─[Prise en compte des instructions du Webconfig]
+  ├─[Prise en compte des instructions du webconfig]
   ┊
   └─[Chargement du contrôleur commun]
 	┊  _________________________________________
@@ -2587,7 +2587,7 @@ ce qui produit la sortie suivante :
 
 #### setSockets ####
 
-Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos Websockets ici [Plus de détail dans la partie Socket.IO](#échange-client-serveur-en-temps réel-avec-websockets).
+Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos websockets ici [Plus de détail dans la partie Socket.IO](#échange-client-serveur-en-temps réel-avec-websockets).
 
 `setSockets()` est une fonction a `exports` et fournissant :
 
@@ -2991,7 +2991,7 @@ exports.setModules = function () {
 	NA.modules.RedisStore = require('connect-redis');
 };
 
-// On intervient au niveau du serveur pendant la configuration des Sessions.
+// On intervient au niveau du serveur pendant la configuration des sessions.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setSessions = function (next) {
 	var NA = this,
@@ -3067,7 +3067,7 @@ exports.setRoutes = function (next) {
 
 
 
-### Échange Client-Serveur en temps réel avec Websockets ###
+### Échange client-serveur en temps réel avec websockets ###
 
 Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise [Socket.IO](http://socket.io/) dont vous trouverez plus de détail sur le site officiel.
 
@@ -3244,7 +3244,7 @@ Note : pour permettre à `view` d'utiliser le moteur Pug au lieu de celui d'EJS,
 
 ### Utiliser une base de données MySQL (SQL) ###
 
-Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser le module NPM `mysql`. Il va également nous falloir [installer un serveur MySQL](https://dev.mysql.com/downloads/installer/).
+Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser le module npm `mysql`. Il va également nous falloir [installer un serveur MySQL](https://dev.mysql.com/downloads/installer/).
 
 Donc, depuis le dossier du `webconfig.json`, utilisez :
 
@@ -3999,7 +3999,7 @@ Vous obtiendrez la sortie suivante :
 
 ### Utiliser une base de données MongoDB (NoSQL) ###
 
-Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module NPM `mongoose`. Il va également nous falloir [installer un serveur MongoDB](https://www.mongodb.com/).
+Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module npm `mongoose`. Il va également nous falloir [installer un serveur MongoDB](https://www.mongodb.com/).
 
 Donc, depuis le dossier du `webconfig.json`, utilisez :
 
@@ -4253,11 +4253,11 @@ Vous obtiendrez la sortie suivante :
 
 
 
-### Utiliser des Middlewares depuis Express ###
+### Utiliser des middlewares depuis Express ###
 
-NodeAtlas repose en partie sur le module NPM [Express.js](http://expressjs.com/). Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de `NA#express`. Cela vous permet d'ajouter des Middlewares Express de la même manière que vous l'auriez fait avec Express seul.
+NodeAtlas repose en partie sur le module npm [Express.js](http://expressjs.com/). Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de `NA#express`. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.
 
-En ce qui concerne la pré-configuration d'Express avec un Webconfig vide, elle est faites ainsi :
+En ce qui concerne la pré-configuration d'Express avec un webconfig vide, elle est faites ainsi :
 
 ```js
 NA.express.set("strict routing", true);
@@ -4486,7 +4486,7 @@ ou en version internationale
 node-atlas --browse --webconfig webconfig.en-us.json
 ```
 
-Vous trouverrez tout ce qu'il faut pour appréhender la partie serveur du `constrollers/common.js` sur https://ssr.vuejs.org/ et sul la partie cliente du `assets/javascripts/common.js` sur https://vuejs.org/.
+Vous trouverrez tout ce qu'il faut pour appréhender la partie serveur du `constrollers/common.js` sur https://ssr.vuejs.org/ et seul la partie cliente du `assets/javascripts/common.js` sur https://vuejs.org/.
 
 
 
@@ -5181,7 +5181,7 @@ Pour finir, il est également possible de seulement laisser la valeur de `httpSe
 
 ### Minifier les CSS / JS ###
 
-Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu qu'un Bundle existe dans le Webconfig.
+Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu qu'un Bundle existe dans le webconfig.
 
 #### Créer des Bundles ####
 
@@ -5964,7 +5964,7 @@ Par défaut, les `@import` utilisés par Stylus seront capable de fouiller dans 
 
 ### Optimiser les Images ###
 
-Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu que des Optimizations existe dans le Webconfig.
+Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu que des Optimizations existe dans le webconfig.
 
 #### Créer des Optimizations ####
 
@@ -6568,7 +6568,7 @@ Toutes les entêtes prévues pour faire fonctionner CORS sont accepté via le m�
 
 
 
-### Changer les paramètres des Sessions ###
+### Changer les paramètres des sessions ###
 
 #### Clé et Secret ####
 
@@ -6616,7 +6616,7 @@ L'intégralité de la configuration possible se trouve sur la documentation du m
 
 
 
-### Stockage externe des Sessions ###
+### Stockage externe des sessions ###
 
 Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.
 
@@ -7047,7 +7047,7 @@ Ainsi à l'adresse `http://localhost/riri/?query=fifi` demandé en POST avec le 
 
 #### Pas de routes ####
 
-Pas un seul webconfig présenté dans la documentation ne se passe du paramètre `routes`. Pourtant il est facultatif au même titre que tous les autres. Aussi avec le Webconfig suivant :
+Pas un seul webconfig présenté dans la documentation ne se passe du paramètre `routes`. Pourtant il est facultatif au même titre que tous les autres. Aussi avec le webconfig suivant :
 
 *webconfig.json*
 
@@ -7134,7 +7134,7 @@ process.env.NODE_ENV = "production";
 
 
 
-## Anatomie du Webconfig ##
+## Anatomie du webconfig ##
 
 Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.
 
@@ -7505,7 +7505,7 @@ $ node-atlas --lang fr-fr
 
 
 
-## API / NodeAtlas comme module NPM ##
+## API / NodeAtlas comme module npm ##
 
 Vous pouvez lancez NodeAtlas via du code JavaScript.
 
@@ -7710,15 +7710,15 @@ le serveur se lancera en mode « Simple Serveur Web » et les fichiers « http:/
 
 NodeAtlas utilise Node.js qui est développé sur le moteur V8. Le moteur V8 est également utilisé par les navigateurs Google Chrome et Chromium ce qui fait que NodeAtlas peut être complètement débuggué dans cet environnement.
 
-### Debug du Front-end ###
+### Debug du front-end ###
 
 Vous pouvez débugguer vos rendu HTML, vos règles CSS et votre code JavaScript front-end de la même manière que vous l'auriez fait avec un simple site HTML ou une autre technologie. Vous avez donc accès via F12 à la console JavaScript, aux éléments du DOM éditables, à l'éditeur de propriétés et animations CSS ainsi qu'au débuggeur de fichier JavaScript.
 
 La nouveauté avec NodeAtlas vient de l'éditeur de CSS. Là où il vous indiquait les fichiers CSS et lignes pour vos fichiers source en CSS, il vous indique pour un fichier CSS généré avec Stylus ou Less le fichier Stylus ou Less ainsi que sa ligne.
 
-### Debug du Back-end ###
+### Debug du back-end ###
 
-À partir de Node.js v6.6+, vous pouvez débugguer tout simplement votre code Back-end dans Google Chrome. Il suffit pour cela d'utiliser l'option `--inspect` de node.
+À partir de Node.js v6.6+, vous pouvez débugguer tout simplement votre code back-end dans Google Chrome. Il suffit pour cela d'utiliser l'option `--inspect` de node.
 
 Créez vous par exemple un fichier de lancement comme celui-ci :
 
@@ -8162,7 +8162,7 @@ $ forever start </path/to/>global-server.js
 
 ## Plus sur NodeAtlas ##
 
-NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode Back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.
+NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.
 
 ### NodeAtlas VS les autres ###
 
@@ -8172,9 +8172,9 @@ NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienn
 | Express       | Bibliothèque serveur HTTP        | Routage HTTP, middleware                | Apps web simple                               | Oui                 | Non            | Anglais               |
 | Hapi          | Framework serveur HTTP           | Modularité, securité                    | Apps web, APIs                                | Oui                 | Libre          | Anglais               |
 | LoopBack      | Framework d'API                  | Connectivité d'Entreprise               | Apps web, APIs                                | Oui                 | Libre          | Anglais               |
-| Meteor        | Platforme d'App                  | Framework Front-end et Back-end         | Apps web                                      | Non                 | Meteor         | Anglais               |
+| Meteor        | Platforme d'App                  | Framework front-end et back-end         | Apps web                                      | Non                 | Meteor         | Anglais               |
 | Next          | Framework serveur de rendu       | Rendu serveur React préconfiguré        | Apps web                                      | Oui                 | React          | Anglais               |
 | Nuxt          | Framework serveur de rendu       | Rendu serveur Vue préconfiguré          | Apps web                                      | Oui                 | Vue            | Anglais               |
 | Restify       | Bibliothèque HTTP REST           | Simplicité, Routage REST                | APIs REST                                     | Oui                 | Non            | Anglais               |
 | Sails         | Framework Web MVC                | Familier à Rails, MVC                   | Apps web, APIs                                | Oui                 | Libre          | Anglais               |
-| Total         | Framework Web MVC                | Familier à Django, Sans dépendances NPM | Apps web, APIs                                | Oui                 | jComponent     | Anglais
+| Total         | Framework Web MVC                | Familier à Django, Sans dépendances npm | Apps web, APIs                                | Oui                 | jComponent     | Anglais

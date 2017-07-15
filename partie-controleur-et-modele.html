@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1500109725822">
+		<meta name="og:updated_time" content="1500112934006">
 
 		<meta name="robots" content="index, follow">
 
@@ -71,14 +71,14 @@
 								<div class="header--main--first">
 									<h2><span>Mise en place</span> <strong>Simple</strong></h2>
 									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>D&#xE9;butant</strong> en JavaScript ?</p>
-									<p class="small">R&#xE9;alisez rapidement des sites vitrines multilingues sans effort avec l&apos;utilisation de Routes, Vues ou Variations.</p>
+									<p class="small">R&#xE9;alisez rapidement des sites vitrines multilingues sans effort avec l&apos;utilisation de routes, vues ou variations.</p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--second">
 									<h2><span>Site vivant et</span> <strong>&#xC9;volutif</strong></h2>
 									<p><strong>Expert</strong> en JavaScript client ?<br>Pr&#xEA;t &#xE0; embrasser <strong>Node.js</strong> ?</p>
-									<p class="small">Am&#xE9;liorer progressivement votre base &#xE0; mesure de vos besoins en utilisant des Contr&#xF4;leurs, Mod&#xE8;les ou Modules.</p>
+									<p class="small">Am&#xE9;liorer progressivement votre base &#xE0; mesure de vos besoins en utilisant des contr&#xF4;leurs, mod&#xE8;les ou modules.</p>
 								</div>
 							</li>
 							<li>
@@ -313,13 +313,13 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="partie-controleur-et-modele">Partie Contr&#xF4;leur et Mod&#xE8;le</h2><p>NodeAtlas ne se contente pas uniquement de faciliter la g&#xE9;n&#xE9;ration de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet &#xE9;galement d&apos;int&#xE9;ragir avec le contenu des fichiers variations ou avec le DOM g&#xE9;n&#xE9;r&#xE9; en fonction ;</p><ul>
+					<h2 id="partie-controleur-et-modele">Partie Contr&#xF4;leur et mod&#xE8;le</h2><p>NodeAtlas ne se contente pas uniquement de faciliter la g&#xE9;n&#xE9;ration de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet &#xE9;galement d&apos;int&#xE9;ragir avec le contenu des fichiers variations ou avec le DOM g&#xE9;n&#xE9;r&#xE9; en fonction ;</p><ul>
 <li>des param&#xE8;tres dans la partie query de l&apos;URL (GET),</li>
 <li>des param&#xE8;tres dans le body de la requ&#xEA;te (POST)</li>
 </ul><p>mais &#xE9;galement ;</p><ul>
 <li>de vous connecter &#xE0; des bases de donn&#xE9;es,</li>
 <li>de maintenir des sessions,</li>
-<li>de faire des &#xE9;changes Websockets et</li>
+<li>de faire des &#xE9;changes websockets et</li>
 <li>de faire bien plus encore !</li>
 </ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et Points d&apos;ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D&apos;abord, les ressources se chargent, le serveur d&#xE9;marre, les routes s&apos;initialisent et tout est op&#xE9;rationnel. Puis, &#xE0; chaque requ&#xEA;te HTTP entrante, une r&#xE9;ponse est g&#xE9;n&#xE9;r&#xE9;e. Vous pouvez intervenir gr&#xE2;ce &#xE0; diff&#xE9;rents points d&apos;ancrage pendant le d&#xE9;marrage, et pendant la cr&#xE9;ation d&apos;une page.</p><p>Voici &#xE0; quoi peut ressembler un <code>webconfig.json</code> permettant d&apos;atteindre tous les points d&apos;ancrage du cycle de vie d&apos;une page.</p><pre><code class="lang-json">{
     &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
@@ -335,7 +335,7 @@ website.init({
 &#x250A;
 &#x251C;&#x2500;[Chargement des variables d&apos;initialisation]
 &#x250A;
-&#x251C;&#x2500;[Chargement des modules NPM]
+&#x251C;&#x2500;[Chargement des modules npm]
 &#x250A;
 &#x251C;&#x2500;[Prise en compte des commandes et de la langue du CLI]
 &#x250A;
@@ -345,7 +345,7 @@ website.init({
   &#x250A;
   &#x251C;&#x2500;[Chargement des variables globales]
   &#x250A;
-  &#x251C;&#x2500;[Prise en compte des instructions du Webconfig]
+  &#x251C;&#x2500;[Prise en compte des instructions du webconfig]
   &#x250A;
   &#x2514;&#x2500;[Chargement du contr&#xF4;leur commun]
     &#x250A;  _________________________________________
@@ -625,7 +625,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="setsockets">setSockets</h4><p>Pour maintenir une connexion temps r&#xE9;el entre votre partie Cliente et Serveur &#xE0; travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir d&#xE9;finir vos Websockets ici <a href="partie-controleur-et-modele.html#echange-client-serveur-en-temps-reel-avec-websockets">Plus de d&#xE9;tail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><h4 id="setsockets">setSockets</h4><p>Pour maintenir une connexion temps r&#xE9;el entre votre partie Cliente et Serveur &#xE0; travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir d&#xE9;finir vos websockets ici <a href="partie-controleur-et-modele.html#echange-client-serveur-en-temps-reel-avec-websockets">Plus de d&#xE9;tail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L&apos;objet <code>NA</code> en tant que <code>this</code>.</li>
 </ul><p>Voici un exemple utilisant les deux points d&apos;entr&#xE9;e, d&apos;abord la commune &#xE0; plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     &quot;socketClientFile&quot;: &quot;/node-atlas/socket.io.js&quot;,
@@ -885,7 +885,7 @@ exports.setModules = function () {
     NA.modules.RedisStore = require(&apos;connect-redis&apos;);
 };
 
-// On intervient au niveau du serveur pendant la configuration des Sessions.
+// On intervient au niveau du serveur pendant la configuration des sessions.
 // Ce code sera ex&#xE9;cut&#xE9; au lancement de NodeAtlas.
 exports.setSessions = function (next) {
     var NA = this,
@@ -936,7 +936,7 @@ exports.setRoutes = function (next) {
     // On redonne la main &#xE0; NodeAtlas pour la suite.
     next();
 };
-</code></pre><h3 id="echange-client-serveur-en-temps-reel-avec-websockets">&#xC9;change Client-Serveur en temps r&#xE9;el avec Websockets</h3><p>Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de d&#xE9;tail sur le site officiel.</p><p>Gr&#xE2;ce &#xE0; cela, vous pourrez changer des informations en temps r&#xE9;el sur votre page, mais &#xE9;galement sur toutes les autres pages ouvertes &#xE0; travers tous les autres navigateurs.</p><p>Avec l&apos;ensemble de fichier suivant :</p><pre><code>&#x251C;&#x2500; assets/
+</code></pre><h3 id="echange-client-serveur-en-temps-reel-avec-websockets">&#xC9;change client-serveur en temps r&#xE9;el avec websockets</h3><p>Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de d&#xE9;tail sur le site officiel.</p><p>Gr&#xE2;ce &#xE0; cela, vous pourrez changer des informations en temps r&#xE9;el sur votre page, mais &#xE9;galement sur toutes les autres pages ouvertes &#xE0; travers tous les autres navigateurs.</p><p>Avec l&apos;ensemble de fichier suivant :</p><pre><code>&#x251C;&#x2500; assets/
 &#x2502;  &#x2514;&#x2500; javascripts/
 &#x2502;     &#x2514;&#x2500; index.js
 &#x251C;&#x2500; controllers/
@@ -1041,7 +1041,7 @@ NA.socket.on(&quot;server-render&quot;, function (data) {
     // ...et r&#xE9;-affectons l&apos;action au bouton du nouveau contenu.
     setServerRender();
 });
-</code></pre><p>Lancer votre projet et rendez-vous &#xE0; l&apos;adresse <code>http://localhost/</code> dans deux onglets diff&#xE9;rent, voir m&#xEA;me, dans deux navigateurs diff&#xE9;rent. Vous constaterez alors qu&apos;&#xE0; chaque clique sur &#xAB; Update &#xBB;, la page se remettra &#xE0; jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Gr&#xE2;ce &#xE0; <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de g&#xE9;n&#xE9;rer une nouvelle compilation d&apos;une vue et d&apos;une variation commune et sp&#xE9;cifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherch&#xE9;s &#xE0; la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demand&#xE9; sera renvoy&#xE9;.</p><p>Note : pour permettre &#xE0; <code>view</code> d&apos;utiliser le moteur Pug au lieu de celui d&apos;EJS, il faut mettre la valeur <code>locals.pug</code> &#xE0; <code>true</code> avant d&apos;utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de donn&#xE9;es MySQL (SQL)</h3><p>Nous allons voir &#xE0; pr&#xE9;sent comment utiliser des informations venant d&apos;une base de donn&#xE9;es. Pour cela nous allons utiliser le module NPM <code>mysql</code>. Il va &#xE9;galement nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
+</code></pre><p>Lancer votre projet et rendez-vous &#xE0; l&apos;adresse <code>http://localhost/</code> dans deux onglets diff&#xE9;rent, voir m&#xEA;me, dans deux navigateurs diff&#xE9;rent. Vous constaterez alors qu&apos;&#xE0; chaque clique sur &#xAB; Update &#xBB;, la page se remettra &#xE0; jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Gr&#xE2;ce &#xE0; <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de g&#xE9;n&#xE9;rer une nouvelle compilation d&apos;une vue et d&apos;une variation commune et sp&#xE9;cifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherch&#xE9;s &#xE0; la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demand&#xE9; sera renvoy&#xE9;.</p><p>Note : pour permettre &#xE0; <code>view</code> d&apos;utiliser le moteur Pug au lieu de celui d&apos;EJS, il faut mettre la valeur <code>locals.pug</code> &#xE0; <code>true</code> avant d&apos;utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de donn&#xE9;es MySQL (SQL)</h3><p>Nous allons voir &#xE0; pr&#xE9;sent comment utiliser des informations venant d&apos;une base de donn&#xE9;es. Pour cela nous allons utiliser le module npm <code>mysql</code>. Il va &#xE9;galement nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
 </code></pre><h4 id="base-de-donn-es-mysql">Base de donn&#xE9;es MySQL</h4><p>Tout d&apos;abord, nous allons alimenter la base de donn&#xE9;es avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>et la s&#xE9;lectionner :</p><pre><code class="lang-sql">USE demo
 </code></pre><p>puis cr&#xE9;er la table <code>user</code> :</p><pre><code class="lang-sql">CREATE TABLE user
@@ -1709,7 +1709,7 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="utiliser-une-base-de-donnees-mongodb-nosql">Utiliser une base de donn&#xE9;es MongoDB (NoSQL)</h3><p>Nous allons voir &#xE0; pr&#xE9;sent comment utiliser des informations venant d&apos;une base de donn&#xE9;es non sql. Pour cela nous allons utiliser le module NPM <code>mongoose</code>. Il va &#xE9;galement nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mongoose
+</code></pre><h3 id="utiliser-une-base-de-donnees-mongodb-nosql">Utiliser une base de donn&#xE9;es MongoDB (NoSQL)</h3><p>Nous allons voir &#xE0; pr&#xE9;sent comment utiliser des informations venant d&apos;une base de donn&#xE9;es non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va &#xE9;galement nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mongoose
 </code></pre><h4 id="base-de-donn-es-mongodb">Base de donn&#xE9;es MongoDB</h4><p>Tout d&apos;abord, nous allons alimenter la base de donn&#xE9;es avec la base <code>demo</code> et la s&#xE9;lectionner :</p><pre><code>use demo
 </code></pre><p>puis cr&#xE9;er la collection <code>user</code> :</p><pre><code>db.createCollection(&quot;user&quot;)
 </code></pre><p>et la remplir avec un document :</p><pre><code>db.user.insert({
@@ -1888,7 +1888,7 @@ if (typeof module !== &apos;undefined&apos; &amp;&amp; module.exports) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="utiliser-des-middlewares-depuis-express">Utiliser des Middlewares depuis Express</h3><p>NodeAtlas repose en partie sur le module NPM <a href="http://expressjs.com/">Express.js</a>. Vous pouvez acc&#xE9;der &#xE0; l&apos;objet Express d&apos;une instance NodeAtlas par l&apos;interm&#xE9;diaire de <code>NA#express</code>. Cela vous permet d&apos;ajouter des Middlewares Express de la m&#xEA;me mani&#xE8;re que vous l&apos;auriez fait avec Express seul.</p><p>En ce qui concerne la pr&#xE9;-configuration d&apos;Express avec un Webconfig vide, elle est faites ainsi :</p><pre><code class="lang-js">NA.express.set(&quot;strict routing&quot;, true);
+</code></pre><h3 id="utiliser-des-middlewares-depuis-express">Utiliser des middlewares depuis Express</h3><p>NodeAtlas repose en partie sur le module npm <a href="http://expressjs.com/">Express.js</a>. Vous pouvez acc&#xE9;der &#xE0; l&apos;objet Express d&apos;une instance NodeAtlas par l&apos;interm&#xE9;diaire de <code>NA#express</code>. Cela vous permet d&apos;ajouter des middlewares Express de la m&#xEA;me mani&#xE8;re que vous l&apos;auriez fait avec Express seul.</p><p>En ce qui concerne la pr&#xE9;-configuration d&apos;Express avec un webconfig vide, elle est faites ainsi :</p><pre><code class="lang-js">NA.express.set(&quot;strict routing&quot;, true);
 /* ... */
 NA.express.set(&quot;x-powered-by&quot;, false);
 /* ... */
@@ -2013,8 +2013,8 @@ cd hello-vue
 </code></pre><p>d&apos;installer les d&#xE9;pendances</p><pre><code class="lang-bash">npm install
 </code></pre><p>et de lancer le site en fran&#xE7;ais</p><pre><code class="lang-bash">node-atlas --browse
 </code></pre><p>ou en version internationale</p><pre><code class="lang-bash">node-atlas --browse --webconfig webconfig.en-us.json
-</code></pre><p>Vous trouverrez tout ce qu&apos;il faut pour appr&#xE9;hender la partie serveur du <code>constrollers/common.js</code> sur <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> et sul la partie cliente du <code>assets/javascripts/common.js</code> sur <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
-							<a href="partie-vue-et-template.html">&#x25C4; Partie Vue et Template</a>
+</code></pre><p>Vous trouverrez tout ce qu&apos;il faut pour appr&#xE9;hender la partie serveur du <code>constrollers/common.js</code> sur <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> et seul la partie cliente du <code>assets/javascripts/common.js</code> sur <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
+							<a href="partie-vue-et-template.html">&#x25C4; Partie vue et template</a>
 						</div><div class="after">
 							<a href="pour-aller-plus-loin.html">Pour aller plus loin &#x25BA;</a>
 						</div></div>
