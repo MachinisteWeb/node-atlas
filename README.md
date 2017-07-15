@@ -1,7 +1,5 @@
 # node-atlas #
 
-Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer facilement des maquettes, sites ou applications web temps réel orientés composants et services.
-
 **For an international version of this document, [follow this link](https://www.npmjs.com/package/node-atlas).**
 
 > *NodeAtlas* est un Framework Web MVC(2) côté serveur vous permettant de créer des sites évolutifs, conformes au W3C et bonnes pratiques SEO. Il permet de faire tourner des pages localisables et indexables ou de créer des maquettes HTML uniquement avec des vues. Cependant, en activant les contrôleurs, vous pourrez développer de puissantes applications web orientées données et composants ou orienté service avec des fonctionalités modernes et temps réel !
@@ -12,7 +10,7 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
 
 ## NodeAtlas c'est : ##
 
-- La porte d'entrée aux Développeurs Front-end dans le monde de [Node.js](https://nodejs.org/en/).
+- La porte d'entrée aux développeurs front-end dans le monde de [Node.js](https://nodejs.org/en/).
 - Du tout JavaScript ; pour les débutants venant des mondes PHP (Laravel) / Ruby (Rails) / Python (Django) / .NET / Java ou pour les experts JS.
 - De l'évolutivité avec :
    - des vues sans se préoccuper des contrôleurs,
@@ -31,7 +29,7 @@ Framework JavasSript Serveur Évolutif par configuration ou APIs pour créer fac
 
 
 
-## Site Officiel de NodeAtlas ##
+## Site officiel de NodeAtlas ##
 
 > **[Pour une documentation complète, vous pouvez vous rendre sur le Site Officiel de NodeAtlas](https://node-atlas.js.org/)** ([README.md mirroir ici](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.fr.md)).
 
@@ -67,7 +65,7 @@ node-atlas --create hello-vue
 
 
 
-## Utilisation ##
+## Explication d'utilisation ##
 
 ### Étape 1 - Installation ###
 
