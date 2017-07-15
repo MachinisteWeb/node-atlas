@@ -1,7 +1,5 @@
 
 
-
-
 **Vous êtes français ? Le document [derrière ce lien](https://github.com/NodeAtlas/node-atlas) vous sera peut-être plus agréable.**
 
 > *NodeAtlas* is a MVC(2) Server-side JavaScript Framework makes it easy to develop scalable website with SEO and W3C compliance. It is designed to running indexable and localizable simple webpages or create HTML mockups with only the view part activated. But activate controller part to build powerful data-oriented, component-oriented and/or service-based webapps with great realtime features and modern compliance!
@@ -67,7 +65,7 @@ node-atlas --create hello-vue
 
 
 
-## Usage ##
+## Usage explaination ##
 
 ### Step 1 - Install ###
 

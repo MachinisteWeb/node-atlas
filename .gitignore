@@ -19,3 +19,4 @@ node_modules
 /templates/hello-vue/assets/stylesheets/common.0.0.0.min.css
 /templates/hello-vue/assets/javascripts/common.0.0.0.min.js
 /templates/hello-vue/assets/javascripts/framework.0.0.0.min.js
+/templates/hello-vue/.gitignore
