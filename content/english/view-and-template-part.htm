@@ -920,7 +920,7 @@
     &lt;/div>
 
     &lt;%- include("partials/foot") %>
-</code></pre><p>Learn all about the possibilities of the template engine consult <a href="http://ejs.co/">the documentation EJS</a></p><p><em>Note : If nothing is set,</em> <code>templateEngineDelimiter</code> <em>is set to</em> <code>?</code>.</p><h3 id="pug-template-engine">PUG Template Engine</h3><p>It's also possible to change EJS template to <a href="https://pugjs.org/">PUG Template Engine</a> (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p><pre><code class="lang-json">{
+</code></pre><p>Learn all about the possibilities of the template engine consult <a href="http://ejs.co/">the documentation EJS</a></p><p><em>Note : If nothing is set,</em> <code>templateEngineDelimiter</code> <em>is set to</em> <code>?</code>.</p><h3 id="pug-template-engine">Pug Template Engine</h3><p>It's also possible to change EJS template to <a href="https://pugjs.org/">Pug Template Engine</a> (new Jade template name) to generate pages with variations. This is possible for all pages like this:</p><pre><code class="lang-json">{
     "pug": true,
     "routes": {
         "/": {
@@ -990,7 +990,15 @@ html(lang="fr-fr")
 </code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
     h2 #{specific.titlePage}
     | !{specific.content}
-</code></pre><p>Learn all about the possibilities of the template engine consult <a href="https://pugjs.org/">the documentation PUG</a></p><p><em>Note : If nothing is set,</em> <code>pug</code> <em>is set to</em> <code>false</code>.</p><div><div class="before">
+</code></pre><p>Learn all about the possibilities of the template engine consult <a href="https://pugjs.org/">the documentation Pug</a></p><p><em>Note : If nothing is set,</em> <code>pug</code> <em>is set to</em> <code>false</code>.</p><h3 id="vue-template-engine">Vue Template Engine</h3><p><a href="https://vuejs.org/">Vue</a> is a progresive MVVM framework like Angular or React which can be used as a server template engine for NodeAtlas. The main useful feature is the client-side hydrate this code from response of server and made reactivity and route with it !</p><blockquote>
+<p>Feel free to back to this section later because some controller mechanism are used and will be explained later in the next chapter.</p>
+</blockquote><p>We propose tou us to set up an usage of <a href="https://vuejs.org/">Vue</a> + <a href="https://router.vuejs.org/en/">Vue Router</a> + <a href="https://ssr.vuejs.org/en/">Vue Server Renderer</a> with the following command:</p><pre><code class="lang-bash">node-atlas --create hello-vue
+</code></pre><p>then initialize project with the command</p><pre><code class="lang-bash">cd ./hello-vue/
+npm install
+</code></pre><p>and then, run it with the command</p><pre><code class="lang-bash">node-atlas --browse
+</code></pre><ul>
+<li><a href="https://github.com/Haeresis/node-atlas-hello-vue">Check the sources and more usage possibilities on the GitHub repository</a></li>
+</ul><div><div class="before">
 							<a href="start-with-nodeatlas.html">◄ Start with NodeAtlas</a>
 						</div><div class="after">
 							<a href="controller-and-model-part.html">Controller and Model Part ►</a>

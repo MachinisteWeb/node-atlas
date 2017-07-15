@@ -1,18 +1,42 @@
 @import "variables"
 
+.language
+	position absolute
+	top 11px
+	left calc(100% - 200px)
+	@media (min-width 364px)
+		left 50%
+		-webkit-transform translateX(-50%)
+		-moz-transform translateX(-50%)
+		-ms-transform translateX(-50%)
+		-o-transform translateX(-50%)
+		transform translateX(-50%)
+	text-align left
+	z-index 5
+	width 200px
+	opacity 0
+	-webkit-transition opacity 1s ease
+	   -moz-transition opacity 1s ease
+	    -ms-transition opacity 1s ease
+	     -o-transition opacity 1s ease
+	        transition opacity 1s ease
+	&.is-loaded
+		opacity 1
+	&.is-scrolled
+		opacity 0
 .header
 	z-index 2
 	height 200px
 	position relative
 	&--information
-		-webkit-transition opacity 2s ease 
-		   -moz-transition opacity 2s ease 
-		    -ms-transition opacity 2s ease 
-		     -o-transition opacity 2s ease 
+		-webkit-transition opacity 2s ease
+		   -moz-transition opacity 2s ease
+		    -ms-transition opacity 2s ease
+		     -o-transition opacity 2s ease
 		        transition opacity 2s ease
 		&--package
 			display none
-			@media (min-width 560px)
+			@media (min-width 720px)
 				display inline-block
 		position absolute
 		top 20px
@@ -27,16 +51,22 @@
 				display none
 				@media (min-width 560px)
 					display inline-block
+		&--npm
+			float right
+			iframe
+				display none
+				@media (min-width 364px)
+					display inline-block
 		&.is-loaded
 			opacity 1
 	&--background
 		background -webkit-linear-gradient(top,  rgba(255,255,255, .8) 0%,rgba(255,255,255, .2) 87%,rgba(255,255,255, 0) 100%)
 		background    -moz-linear-gradient(top,  rgba(255,255,255, .8) 0%, rgba(255,255,255, .2) 87%, rgba(255,255,255, 0) 100%)
 		background         linear-gradient(to bottom,  rgba(255,255,255, .8) 0%,rgba(255,255,255, .2) 13%,rgba(255,255,255, 0) 100%)
-		-webkit-transition height 2s ease 
-		   -moz-transition height 2s ease 
-		    -ms-transition height 2s ease 
-		     -o-transition height 2s ease 
+		-webkit-transition height 2s ease
+		   -moz-transition height 2s ease
+		    -ms-transition height 2s ease
+		     -o-transition height 2s ease
 		        transition height 1s ease
 		position absolute
 		top 0

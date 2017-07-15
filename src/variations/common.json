@@ -24,7 +24,7 @@
 		"first": {
 			"title": "<span>Mise en place</span> <strong>Simple</strong>",
 			"abstract": "Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>Débutant</strong> en JavaScript ?",
-			"description": "Réalisez rapidement des sites vitrines multilingues sans effort avec de simple Routes, Vues ou Variations."
+			"description": "Réalisez rapidement des sites vitrines multilingues sans effort avec l'utilisation de Routes, Vues ou Variations."
 		},
 		"second": {
 			"title": "<span>Site vivant et</span> <strong>Évolutif</strong>",
@@ -34,7 +34,7 @@
 		"third": {
 			"title": "<span>Partie Cliente</span> <strong>Agnostique</strong>",
 			"abstract": "Déjà vos habitudes <strong>Front-end</strong> ?<br>Habitué(e) du <strong>Data Binding</strong> ?",
-			"description": "Du léger Vanilla JS au simple jQuery en passant par Vue, Angular ou React : utiliser vos outils clients favoris !"
+			"description": "Du léger Vanilla au simple jQuery en passant par Vue, Angular ou React : utiliser vos bibliothèques clientes favorites !"
 		}
 	},
 	"home": {

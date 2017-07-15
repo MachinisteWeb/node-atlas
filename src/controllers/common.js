@@ -58,6 +58,7 @@ exports.setRoutes = function (next) {
 				$titleFinal = $("<h2>");
 
 			$titleFinal.html($title.html());
+			$titleFinal.attr("id", "toc");
 			$title.after($titleFinal);
 
 			$toc.addClass("toc");
@@ -130,7 +131,7 @@ exports.setRoutes = function (next) {
 						</div>` : "",
 					bottom = "<div>" + divBefore + divAfter + "</div>";
 
-				if ($title.attr("id")) {
+				if ($title.attr("id") && $title.attr("id") !== "toc") {
 					fs.writeFile("assets/" + NA.webconfig._content + toSafeChar($title.attr("id")) + ".htm", $title + $content +  bottom, function () {
 							route["/" + toSafeChar($title.attr("id")) + ".html"] = {
 								"view": "content.htm",

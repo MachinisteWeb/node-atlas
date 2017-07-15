@@ -8,6 +8,7 @@ website.component.Header = function () {
 
     publics.loadAnimation = function () {
         var node = document.getElementsByClassName(publics.name + "--title--node")[0],
+            language = document.getElementsByClassName("language")[0],
             atlas = document.getElementsByClassName(publics.name + "--title--atlas")[0],
             back = document.getElementsByClassName(publics.name + "--title--trans")[0],
             first = document.getElementsByClassName(publics.name + "--main--first")[0],
@@ -20,6 +21,7 @@ website.component.Header = function () {
         atlas.classList.add("is-loaded");
         abstract.classList.add("is-loaded");
         setTimeout(function () {
+            language.classList.add("is-loaded");
             second.classList.add("is-loaded");
             setTimeout(function () {
                 first.classList.add("is-loaded");

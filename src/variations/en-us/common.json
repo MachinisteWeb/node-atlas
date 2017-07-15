@@ -34,7 +34,7 @@
 		"third": {
 			"title": "<strong>Agnostic</strong> <span>client side</span>",
 			"abstract": "Already your <strong>Front-end</strong> habits?<br>You use <strong>Data Binding</strong>?",
-			"description": "From light Vanilla JS to simple jQuery and going through Vue, Angular or React: use your favorite client tools!"
+			"description": "From Vanilla to jQuery and going through Vue, Angular or React: use your favorite tools!"
 		}
 	},
 	"home": {
