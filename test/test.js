@@ -1,7 +1,10 @@
 /*jshint node: true */
 var NA = require("../"),
 	expect = require("chai").expect,
-	na = new NA();
+	na = new NA(),
+	na2 = new NA(),
+	naFile = new NA(),
+	na2File = new NA();
 
 describe("Inheritance: NAP inherite from NA", function() {
 	var NAP = function () {
@@ -134,4 +137,50 @@ describe("All NodeAtlas property from NA instance and prototype chain", function
 			'run'
 		]);
 	});
+});
+
+na.started(function () {
+	na2.started(function () {
+		describe("Avoid instance pollution", function() {
+			it("webconfig port different", function() {
+				expect(na.webconfig.httpPort).to.not.equal(na2.webconfig.httpPort);
+			});
+			it("`/` is different", function() {
+				expect(na.webconfig.routes['/']).to.not.equal(na2.webconfig.routes['/']);
+			});
+			na.webconfig.routes['/test'] = 'test.htm';
+			it("`/test` do not exist", function() {
+				expect(na2.webconfig.routes['/test']).to.equal(undefined);
+			});
+		});
+	}).run({
+		"path": __dirname,
+		"webconfig": "webconfig2.json"
+	});
+}).run({
+	"path": __dirname,
+	"webconfig": "webconfig.json"
+});
+
+naFile.started(function () {
+	na2File.started(function () {
+		describe("Avoid route pollution", function() {
+			it("webconfig port different", function() {
+				expect(naFile.webconfig.httpPort).to.not.equal(na2File.webconfig.httpPort);
+			});
+			it("`/` is same", function() {
+				expect(naFile.webconfig.routes['/']).to.equal(na2File.webconfig.routes['/']);
+			});
+			naFile.webconfig.routes['/test'] = 'test.htm';
+			it("`/test` do not exist", function() {
+				expect(na2File.webconfig.routes['/test']).to.equal(undefined);
+			});
+		});
+	}).run({
+		"path": __dirname,
+		"webconfig": "webconfig-f2.json"
+	});
+}).run({
+	"path": __dirname,
+	"webconfig": "webconfig-f.json"
 });

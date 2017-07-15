@@ -1,13 +1,13 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta45",
+  "version": "2.0.0-beta47",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha"
   },
   "description": "Progressive realtime web framework config-driven or API-driven for building easily serverless files, websites and webapps component-based and service-oriented.",
   "private": false,

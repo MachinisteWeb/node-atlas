@@ -1,0 +1,6 @@
+{
+	"httpPort": 4002,
+	"routes": {
+		"/": "index2.html"
+	}
+}
