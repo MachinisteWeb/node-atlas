@@ -133,10 +133,10 @@ exports.setRoutes = function (next) {
 
 				if ($title.attr("id") && $title.attr("id") !== "toc") {
 					fs.writeFile("assets/" + NA.webconfig._content + toSafeChar($title.attr("id")) + ".htm", $title + $content +  bottom, function () {
-							route["/" + toSafeChar($title.attr("id")) + ".html"] = {
-								"view": "content.htm",
-								"controller": "content.js"
-							};
+						route["/" + toSafeChar($title.attr("id")) + ".html"] = {
+							"view": "content.htm",
+							"controller": "content.js"
+						};
 
 						nextRoute();
 					});
