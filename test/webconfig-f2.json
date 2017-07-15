@@ -1,0 +1,4 @@
+{
+	"httpPort": 5002,
+	"routes": "routes-f.json"
+}
