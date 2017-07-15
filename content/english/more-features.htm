@@ -188,7 +188,7 @@
         }
     }
 }
-</code></pre><h3 id="inject-routes-dynamically">Inject routes dynamically</h3><p><code>setRoutes</code> allows us to dynamically inject routes. However, the route injection add route at the end of <code>NA.webconfig.routes</code> because <code>NA.webconfig.routes</code> is an object. There are no possibility to ordonate routes, but this is a problem because routes path are resolved in order of injection.</p><p>We will resolved that with new way to set routes from <code>routes: { &lt;key>: { ... } }</code> to <code>routes: [{ "key": &lt;key>, ... }]</code>.</p><p>This is all files for example:</p><pre><code>├─ controllers/
+</code></pre><h3 id="inject-routes-dynamically">Inject Routes Dynamically</h3><p><code>setRoutes</code> allows us to dynamically inject routes. However, the route injection add route at the end of <code>NA.webconfig.routes</code> because <code>NA.webconfig.routes</code> is an object. There are no possibility to ordonate routes, but this is a problem because routes path are resolved in order of injection.</p><p>We will resolved that with new way to set routes from <code>routes: { &lt;key>: { ... } }</code> to <code>routes: [{ "key": &lt;key>, ... }]</code>.</p><p>This is all files for example:</p><pre><code>├─ controllers/
 │  └─ common.js
 ├─ views/
 │  ├─ index.htm
