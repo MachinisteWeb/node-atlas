@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta47",
+  "version": "2.0.0-beta49",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -87,7 +87,7 @@
   },
   "devDependencies": {
     "chai": "4.1.x",
-    "mocha": "3.4.x",
+    "mocha": "3.5.x",
     "request": "2.81.x"
   },
   "dependencies": {
@@ -118,7 +118,7 @@
     "pug": "^2.0.0-beta6",
     "socket.io": "2.0.x",
     "stylus": "0.54.x",
-    "uglify-es": "3.0.x"
+    "uglify-es": "3.1.x"
   },
   "files": [
     "languages/*",
