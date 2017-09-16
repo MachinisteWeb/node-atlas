@@ -2,9 +2,9 @@
 
 **For an international version of this document, [follow this link](https://www.npmjs.com/package/node-atlas).**
 
-> *NodeAtlas* est un Framework Web MVC(2) côté serveur vous permettant de créer des sites évolutifs, conformes au W3C et bonnes pratiques SEO. Il permet de faire tourner des pages localisables et indexables ou de créer des maquettes HTML uniquement avec des vues. Cependant, en activant les contrôleurs, vous pourrez développer de puissantes applications web orientées données et composants ou orienté service avec des fonctionalités modernes et temps réel !
+> *NodeAtlas* est un framework Web MVC(2) côté serveur vous permettant de créer des sites évolutifs, conformes au W3C et bonnes pratiques SEO. Il permet de faire tourner des pages localisables et indexables ou de créer des maquettes HTML uniquement avec des vues. Cependant, en activant les contrôleurs, vous pourrez développer de puissantes applications web orientées données et composants ou orientés service avec des fonctionalités modernes et temps réel !
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat pour de l'Aide](https://img.shields.io/badge/gitter-rejoindre%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Aide)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://api.travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package npm](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat pour de l'Aide](https://img.shields.io/badge/gitter-rejoindre%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Aide)
 
 
 
@@ -16,14 +16,14 @@
    - des vues sans se préoccuper des contrôleurs,
    - la prise en main progressive de contrôleurs et points d'ancrage,
    - de l'internationalisation (i18n) et de la localisations (l10n) rapide,
-   - la puissance d'Express.js (serveur web) et Socket.io (échange client-serveur temps réel) pré-configuré, simple et ajustable,
-   - les préprocesseurs EJS, PUG (JADE), Less et Stylus embarqués et prêt à l'emploi,
+   - la puissance d'Express (serveur web) et Socket.IO (échange client-serveur temps réel) pré-configuré, simple et ajustable,
+   - les préprocesseurs EJS, Pug, Less et Stylus embarqués et prêt à l'emploi,
    - des outils interne de génération HTML sans serveur ou d'empaquetage, minifications, offuscations, optimisations de CSS, JS et images,
    - des parties cliente/serveur adaptables pour de l'isomorphisme et du rendu côté serveur avec des outils de votre choix comme Vue ou React,
    - ou encore ; de la manipulation de DOM côté serveur, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
 - De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API REST,
-- Tous les modules NPM, middleware Express.js/Socket.io, des plugins utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud).
-- [Un guide pas à pas Français et International](https://node-atlas.js.org/), avec un support communautaire sur [Gitter](https://gitter.im/NodeAtlas) (Chat) [FR](https://gitter.im/NodeAtlas/Aide)/[EN](https://gitter.im/NodeAtlas/Help).
+- Tous les modules npm, middleware Express/Socket.IO, des plugins utilisables (sessions, bases de données SQL/NoSQL, répartition de charge, proxy, développement à chaud).
+- [Un guide pas à pas français et international](https://node-atlas.js.org/), avec un support communautaire sur [Gitter](https://gitter.im/NodeAtlas) (Chat) [FR](https://gitter.im/NodeAtlas/Aide)/[EN](https://gitter.im/NodeAtlas/Help).
 - Des passionnés de web et de JavaScript &lt;3 !
 - Et peut-être bientôt vous ?
 
@@ -31,7 +31,7 @@
 
 ## Site officiel de NodeAtlas ##
 
-> **[Pour une documentation complète, vous pouvez vous rendre sur le Site Officiel de NodeAtlas](https://node-atlas.js.org/)** ([README.md mirroir ici](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.fr.md)).
+> **[Pour une documentation complète, vous pouvez vous rendre sur le site officiel de NodeAtlas](https://node-atlas.js.org/)** ([README.md mirroir ici](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.fr.md)).
 
 - [README de la v1.x](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/v1.x/README.fr.md).
 
@@ -39,7 +39,7 @@
 
 ### Exemple de sites ##
 
-- [Tous les exemples fournis par la communauté NodeAtlas sur Github](https://github.com/NodeAtlas/).
+- [Tous les exemples fournis par la communauté NodeAtlas sur GitHub](https://github.com/NodeAtlas/).
 
 
 
@@ -51,13 +51,13 @@ Installer
 npm install -g node-atlas
 ```
 
-puis essayer un site standard NodeAtlas avec l'aide du README.md
+puis essayer un site standard NodeAtlas avec l'aide du `README.md`
 
 ```js
 node-atlas --create hello-world
 ```
 
-ou essayer un site Vue + NodeAtlas avec rendu côté serveur avec l'aide du README.md
+ou essayer un site Vue + NodeAtlas avec rendu côté serveur avec l'aide du `README.md`
 
 ```js
 node-atlas --create hello-vue
@@ -92,10 +92,10 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "post": false,                          /* Par défaut, empêcher les requêtes de page en POST. */
     "bundles": "bundles.json",              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
     "optimizations": "optimizations.json",  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
-    "htmlGenerationBeforeResponse": true,   /* Générer la page couramment affichée dans le dossier "serverless". */
-    "cssBundlingBeforeResponse": true,      /* Minifier les CSS dans des fichiers ".min" avant de renvoyer la page. */
-    "jsBundlingBeforeResponse": true,       /* Offusquer les JS dans des fichiers ".min" avant de renvoyer la page. */
-    "enableLess": true,                     /* Utiliser des fichiers Less avec des fichiers ".map" pour la partie développement. */
+    "htmlGenerationBeforeResponse": true,   /* Générer la page couramment affichée dans le dossier `serverless`. */
+    "cssBundlingBeforeResponse": true,      /* Minifier les CSS dans des fichiers `.min` avant de renvoyer la page. */
+    "jsBundlingBeforeResponse": true,       /* Offusquer les JS dans des fichiers `.min` avant de renvoyer la page. */
+    "enableLess": true,                     /* Utiliser des fichiers Less avec des fichiers `.map` pour la partie développement. */
     "routes": "route.json"                  /* Définir toutes les urls fournis par le site dans un fichier extérieur. */
 }
 ```
@@ -106,20 +106,20 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
 {
     "httpPort": 7777,                       /* Définir le vrai port HTTP pour l'application si le port 80 est déjà écouté. */
     "urlPort": 80,                          /* Définir le port d'accès pour l'application depuis le net (proxy). */
-    "httpSecure": "security/server",        /* Définir le répertoire où trouver les fichiers "server.key" et "server.crt" pour le HTTPs. */
+    "httpSecure": "security/server",        /* Définir le répertoire où trouver les fichiers `server.key` et `server.crt` pour le HTTPs. */
     "urlHostname": "www.my-website.com",    /* Définir le hostname pour l'application sur le net. */
-    "urlRelativeSubPath": "example",        /* Définir un sous dossier d'exécution pour l'url de l'application. Par exemple : "https://www.my-website.com/example/". */
+    "urlRelativeSubPath": "example",        /* Définir un sous dossier d'exécution pour l'URL de l'application. Par exemple : `https://www.my-website.com/example/`. */
     "languageCode": "en-gb",
     "pageNotFound": "/page-404/",
     "view": "common.htm",
     "variation": "common.json",
     "controller": "common.js",
     "post": false,
-    "routes": "route.json",
+    "routes": "route.json"
 }
 ```
 
-**routes.json** example:
+**routes.json** exemple :
 
 ```js
 {
@@ -134,7 +134,7 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
         "url": "/presentation/",
         "output": "presentation.html",
         "view": "default.htm",              /* Même vue utilisée avec... */
-        "variation": "presentation.json"    /* ...une variation différente pour générer du contenu de page différent (voir "error"). */
+        "variation": "presentation.json"    /* ...une variation différente pour générer du contenu de page différent (voir `error`). */
     },
     "members": {
         "url": "/members/",
@@ -143,14 +143,14 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
         "variation": "members.json",
         "controller": "members.js"
     },
-    "memberV2": {                           /* Une nouvelle version de rendu pour les pages "member". */
-        "url": "/members/:member/",         /* La partie ":member" représente le membre courrament demandé... */
+    "memberV2": {                           /* Une nouvelle version de rendu pour les pages `member`. */
+        "url": "/members/:member/",         /* La partie `:member` représente le membre courrament demandé... */
         "output": "members/bob.html",       /* ...et un faux utilisateur est utilisé pour un rendu statique dans le dossier des fichiers générés. */
         "view": "member.htm",
         "variation": "member.json",
         "controller": "member.js"
     },
-    "member": {                             /* La vieille version de des pages "memberV2"... */
+    "member": {                             /* La vieille version de des pages `memberV2`... */
         "url": "/members-profile/:member/", /* ...avec une vieille route... */
         "redirect": "/members/:member/",    /* ...conservée pour rediriger sur la nouvelle page... */
         "statusCode": 301                   /* ...de manière permanente. */
@@ -209,15 +209,15 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
         "post": true
     },
     "error-fr-fr": {
-        "url": "/francais/*",               /* Toutes les pages commençant par "/francais/" pour la page d'erreur française. */
+        "url": "/francais/*",               /* Toutes les pages commençant par `/francais/` pour la page d'erreur française. */
         "output": "francais/page-404.html",
-        "view": "default.htm",              /* Vue partagée par différentes routes (voir "presentation"). */
+        "view": "default.htm",              /* Vue partagée par différentes routes (voir `presentation`). */
         "variation": "page-404.json",
         "languageCode": "fr-fr",
         "statusCode": 404                   /* Un status 404 approprié pour les pages d'erreur. */
     },
     "error": {
-        "url": "/page-404/",                /* Page d'erreur par défaut défini avec "pageNotFound". */
+        "url": "/page-404/",                /* Page d'erreur par défaut défini avec `pageNotFound`. */
         "output": "page-404.html",
         "view": "default.htm",
         "variation": "page-404.json",
@@ -238,7 +238,7 @@ Structure de dossier *NodeAtlas* par défaut:
 
 ```
 my-website/
-├─ node_modules/             ⤆ Tous les modules node.js pour votre application.
+├─ node_modules/             ⤆ Tous les modules Node.js pour votre application.
 │  └─ node-atlas/
 │     ┊┉
 │
@@ -264,12 +264,12 @@ my-website/
 │     ├─ footer.htm
 │     ┊┉
 │
-├─ variations/               ⤆ Tous les fichiers pour le remplissage de contenu avec "en-gb" par défaut…
+├─ variations/               ⤆ Tous les fichiers pour le remplissage de contenu avec `en-gb` par défaut…
 │  ├─ common.json
 │  ├─ home.json
 │  ┊┉
 │  │
-│  └─ fr-fr/                 ⤆ …et également le "fr-fr".
+│  └─ fr-fr/                 ⤆ …et également le `fr-fr`.
 │     ├─ common.json
 │     ├─ home.json
 │     ┊┉
@@ -293,16 +293,16 @@ my-website/
 ├─ webconfig.prod.json       ⤆ Fichier utilisé pour faire tourner le site sur le net pour la production.
 ├─ routes.json               ⤆ Fichier utilisé par "webconfig.json" et "webconfig.prod.json" pour définir les routes.
 ┊┉
-├─ webconfig.prod.en-gb.json ⤆ Fichier exemple utilisé pour faire tourner uniquement les routes "en-gb" sur un port…
+├─ webconfig.prod.en-gb.json ⤆ Fichier exemple utilisé pour faire tourner uniquement les routes `en-gb` sur un port…
 ├─ routes.en-gb.json         ⤆ …avec le fichier de route anglais…
-├─ webconfig.prod.fr-fr.json ⤆ …et faire tourner les routes "fr-fr" sur un autre port…
+├─ webconfig.prod.fr-fr.json ⤆ …et faire tourner les routes `fr-fr` sur un autre port…
 ├─ routes.fr-fr.json         ⤆ …avec le fichier de route français.
 ┊┉
 ```
 
 ### Étape 4 - Lancement ! ###
 
-Lancer *NodeAtlas* depuis le dossier "my-website" dans votre environnement de développement :
+Lancer *NodeAtlas* depuis le dossier `my-website` dans votre environnement de développement :
 
 - avec un fichier `server.js`:
 
@@ -352,14 +352,14 @@ forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website
 
 
 
-## NodeAtlas vs les autres ##
+## NodeAtlas vs. les autres ##
 
 |               | Type                                              | Top Fonctions                           | Adapté pour                                        | Node Module Package | Extensions                                        | Sources de données                                                                                                 | Langue principale     |
 |---------------|---------------------------------------------------|-----------------------------------------|----------------------------------------------------|---------------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|-----------------------|
-| **NodeAtlas** | Framework Web **MVC(2)**                          | Simplicité, **Evolutivité**, Modularité | **Sites web**, Apps web, APIs REST, **Maquettage** | Oui                 | **Plugin Atlas**, Module NPM, Middleware Express  | **Builtin** : En-memoire, fichier (JSON), REST. Avec **module NPM externe** : NoSQL (MongoDB...), SQL (MySql...)** | **Français**          |
+| **NodeAtlas** | Framework Web **MVC(2)**                          | Simplicité, **Evolutivité**, Modularité | **Sites web**, Apps web, APIs REST, **Maquettage** | Oui                 | **Plugin Atlas**, Module npm, Middleware Express  | **Builtin** : En-memoire, fichier (JSON), REST. Avec **module npm externe** : NoSQL (MongoDB...), SQL (MySql...)** | **Français**          |
 | Express       | Librairie serveur HTTP                            | Routage HTTP, middleware                | Apps web simple                                    | Oui                 | Middleware Express                                |                                                                                                                    | Anglais               |
 | Hapi          | Framework serveur HTTP                            | Modularité, securité                    | Apps web, APIs                                     | Oui                 | Plugins Hapi                                      |                                                                                                                    | Anglais               |
 | Sails         | Framework Web MVC                                 | Familier à Rails, MVC                   | Apps web, APIs                                     | Oui                 |                                                   | En memoire, Fichier, PostgreSQL, MySQL, MongoDB                                                                    | Anglais               |
 | Restify       | Librairie HTTP REST                               | Simplicité, Routage REST                | APIs REST Simple                                   | Oui                 |                                                   |                                                                                                                    | Anglais               |
 | LoopBack      | Framework d'API                                   | Connectivité d'Entreprise               | Apps web, APIs                                     | Oui                 |                                                   | En mémoire/fichier, SQL NoSQL, ATG, Email, REST, SOAP                                                              | Anglais               |
-| Meteor        | Platforme d'app JavaScript côté client et serveur | Framework Front-end et Back-end         | Apps web                                           | Non                 | Package et repository Meteor, Module NPM          | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                        | Anglais               |
+| Meteor        | Platforme d'app JavaScript côté client et serveur | Framework Front-end et Back-end         | Apps web                                           | Non                 | Package et repository Meteor, Module npm          | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                        | Anglais               |

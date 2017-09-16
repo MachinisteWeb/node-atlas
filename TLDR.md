@@ -2,9 +2,9 @@
 
 **Vous êtes français ? Le document [derrière ce lien](https://github.com/NodeAtlas/node-atlas) vous sera peut-être plus agréable.**
 
-> *NodeAtlas* is a MVC(2) Server-side JavaScript Framework makes it easy to develop scalable website with SEO and W3C compliance. It is designed to running indexable and localizable simple webpages or create HTML mockups with only the view part activated. But activate controller part to build powerful data-oriented, component-oriented and/or service-based webapps with great realtime features and modern compliance!
+> *NodeAtlas* is an MVC(2) Server-side JavaScript Framework makes it easy to develop scalable websites with SEO and W3C compliance. It is designed to running indexable and localizable simple web pages or creates HTML mockups with only the view part activated. But you can activate controller part to build powerful data-oriented, component-oriented and/or service-based web apps with great real-time features and modern compliance!
 
-[![Donate](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package NPM](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas) [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat for Help](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Help)
+[![Donate](https://img.shields.io/badge/don-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/node-atlas.svg)](https://travis-ci.org/Haeresis/node-atlas/) [![Package npm](https://badge.fury.io/js/node-atlas.svg)](https://www.npmjs.com/package/node-atlas)** [![Node.js](https://img.shields.io/badge/nodejs-4.0%2C_last-brightgreen.svg)](https://nodejs.org/en/) [![Technical Debt Ratio](https://img.shields.io/badge/quality_code-A-brightgreen.svg)](http://docs.sonarqube.org/display/PLUG/JavaScript+Plugin) [![Dependency Status](https://gemnasium.com/Haeresis/node-atlas.svg)](https://gemnasium.com/Haeresis/node-atlas) [![Chat for Help](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/NodeAtlas/Help)
 
 
 
@@ -13,17 +13,17 @@
 - The starting point for Front-end Developers into Node.js ecosystem.
 - Pure JavaScript ; for beginners come from PHP (Laravel) / Ruby (Rails) / Python (Django) / .NET or Java or for JS experts.
 - A progressive system with:
-   - view-only system without care of controller,
+   - a view-only system without care of controller,
    - scalable control of controllers and hooks,
    - i18n (internationalization) and l10n (localizations) quickly.
-   - Express.js (web server) and Socket.io (client-serveur realtime connection) already configured together, easy to use and extendable,
-   - EJS, PUG (JADE), Less and Stylus preprocessors ready to use,
-   - internal tools for HTML Mockups Serverless or bundles, minifications, offuscation, optimizations of CSS, JS and images,
+   - Express.js (web server) and Socket.io (client-server real-time connection) already configured together, easy to use and extendable,
+   - EJS, Pug, Less and Stylus preprocessors ready to use,
+   - internal tools for HTML Mockups Serverless or bundles, minifications, obfuscations, optimizations of CSS, JS and images,
    - isomorphism and server-side rendering with tools of your choice like Vue or React,
-   - and more like DOM server manipulation, back-end code debbugable into browser, easy HTTPs to setup.
+   - and more like DOM server manipulation, back-end code debuggable into browsers, easy HTTPs to setup.
 - Combinaison of severals NodeAtlas instances for service-oriented architecture like usage as API REST,
-- All NPM modules, Express.js/Socket.io middleware, plugins usable (sessions, SQL/NoSQL databases, load balancing, proxy, hotreaload).
-- [A French and International Guide step by step](https://node-atlas.js.org/english/), with a communauty support on [Gitter](https://gitter.im/NodeAtlas) (Chat) [EN]https://gitter.im/NodeAtlas/Help)/[FR](https://gitter.im/NodeAtlas/Aide).
+- All npm modules, Express.js/Socket.io middleware, plugins usable (sessions, SQL/NoSQL databases, load balancing, proxy, hot-reload).
+- [A French and International Guide step by step](https://node-atlas.js.org/english/), with a community support on [Gitter](https://gitter.im/NodeAtlas) (Chat) [EN]https://gitter.im/NodeAtlas/Help)/[FR](https://gitter.im/NodeAtlas/Aide).
 - Web and JavaScript &lt;3 enthusiasts!
 - And maybe you soon?
 
@@ -51,13 +51,13 @@ Installer
 npm install -g node-atlas
 ```
 
-and try a standard NodeAtlas website with README.md help
+and try a standard NodeAtlas website with the `README.md` help
 
 ```js
 node-atlas --create hello-world
 ```
 
-or try a Vue + NodeAtlas + SSR website with README.md help
+or try a Vue + NodeAtlas + SSR website with the `README.md` help
 
 ```js
 node-atlas --create hello-vue
@@ -65,14 +65,14 @@ node-atlas --create hello-vue
 
 
 
-## Usage explaination ##
+## Usage Explaination ##
 
 ### Step 1 - Install ###
 
 Install *NodeAtlas* with one of two existing way:
 
- - `npm install node-atlas` prefered for an API usage.
- - `npm install -g node-atlas` prefered for a CLI usage.
+ - `npm install node-atlas` preferred for an API usage.
+ - `npm install -g node-atlas` preferred for a CLI usage.
 
 
 
@@ -92,10 +92,10 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "post": false,                          /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
     "optimizations": "optimizations.json",  /* Set images to optimize for the web with an external file. */
-    "htmlGenerationBeforeResponse": true,   /* Generate page currently displayed into "serverless" directory. */
-    "cssBundlingBeforeResponse": true,      /* Minify CSS into ".min" files before response pages. */
-    "jsBundlingBeforeResponse": true,       /* Obfuscate JS into ".min" files before response pages. */
-    "enableLess": true,                     /* Use Less files with ".map" for development phase. */
+    "htmlGenerationBeforeResponse": true,   /* Generate page currently displayed into `serverless` directory. */
+    "cssBundlingBeforeResponse": true,      /* Minify CSS into `.min` files before response pages. */
+    "jsBundlingBeforeResponse": true,       /* Obfuscate JS into `.min` files before response pages. */
+    "enableLess": true,                     /* Use Less files with `.map` for development phase. */
     "routes": "route.json"                  /* Set all urls provided by website with an external file. */
 }
 ```
@@ -106,7 +106,7 @@ Create a `webconfig.json` file and dependencies files for configured your websit
 {
     "httpPort": 7777,                       /* Set the real application HTTP port if port 80 is already listened. */
     "urlPort": 80,                          /* Set the frontal port for application on the world wide web (proxy). */
-    "httpSecure": "security/server",        /* Set the directory for find "server.key" and "server.crt" file for HTTPs. */
+    "httpSecure": "security/server",        /* Set the directory for find `server.key` and `server.crt` file for HTTPs. */
     "urlHostname": "www.my-website.com",    /* Set the hostname for the application on the world wide web. */
     "urlRelativeSubPath": "example",        /* Set a subdirectory for the application url. i.e.: "https://www.my-website.com/example/". */
     "languageCode": "en-gb",
@@ -143,14 +143,14 @@ Create a `webconfig.json` file and dependencies files for configured your websit
         "variation": "members.json",
         "controller": "members.js"
     },
-    "memberV2": {                           /* A new version of "member" render for pages. */
-        "url": "/members/:member/",         /* The ":member" part represent the current member requested... */
+    "memberV2": {                           /* A new version of `member` render for pages. */
+        "url": "/members/:member/",         /* The `:member` part represent the current member requested... */
         "output": "members/bob.html",       /* ...and a fake user is used for a static render into generated files. */
         "view": "member.htm",
         "variation": "member.json",
         "controller": "member.js"
     },
-    "member": {                             /* The old version of "memberV2" page... */
+    "member": {                             /* The old version of `memberV2` page... */
         "url": "/members-profile/:member/", /* ...with old route... */
         "redirect": "/members/:member/",    /* ...kept to redirect to the new page... */
         "statusCode": 301                   /* ...in permanent. */
@@ -209,15 +209,15 @@ Create a `webconfig.json` file and dependencies files for configured your websit
         "post": true
     },
     "error-fr-fr": {
-        "url": "/francais/*",               /* All pages begining with "/francais/" for french error page. */
+        "url": "/francais/*",               /* All pages begining with `/francais/` for french error page. */
         "output": "francais/page-404.html",
-        "view": "default.htm",              /* Shared view into different routes (see "presentation"). */
+        "view": "default.htm",              /* Shared view into different routes (see `presentation`). */
         "variation": "page-404.json",
         "languageCode": "fr-fr",
         "statusCode": 404                   /* An appropriate 404 status code for error pages. */
     },
     "error": {
-        "url": "/page-404/",                /* Default error page setted into "pageNotFound". */
+        "url": "/page-404/",                /* Default error page setted into `pageNotFound`. */
         "output": "page-404.html",
         "view": "default.htm",
         "variation": "page-404.json",
@@ -232,17 +232,17 @@ other files...
 
 ### Step 3 - Create ###
 
-Create files to develop your website !
+Create files to develop your website!
 
 *NodeAtlas* default file hierarchy:
 
 ```
 my-website/
-├─ node_modules/             ⤆ All node.js module for your application.
+├─ node_modules/             ⤆ All Node.js module for your application.
 │  └─ node-atlas/
 │     ┊┉
 │
-├─ assets/                   ⤆ All public files could be acceded in HTTP(s) without a specific route setted.
+├─ assets/                   ⤆ All public files could be accessed in HTTP(s) without a specific route set.
 │  ├─ javascripts/
 │  │  ┊┉
 │  │
@@ -264,17 +264,17 @@ my-website/
 │     ├─ footer.htm
 │     ┊┉
 │
-├─ variations/               ⤆ All files for content filling with "en-gb" in default...
+├─ variations/               ⤆ All files for content filling with `en-gb` in default...
 │  ├─ common.json
 │  ├─ home.json
 │  ┊┉
 │  │
-│  └─ fr-fr/                 ⤆ …and "fr-fr" too.
+│  └─ fr-fr/                 ⤆ …and `fr-fr` too.
 │     ├─ common.json
 │     ├─ home.json
 │     ┊┉
 │
-├─ controllers/              ⤆ The controller part for manipulate view, variation and models with database and url parameters.
+├─ controllers/              ⤆ The controller part for manipulating view, variation and model with database and url parameters.
 │  ├─ common.js
 │  ├─ home.js
 │  ┊┉
@@ -289,20 +289,20 @@ my-website/
 │  ┊┉
 │
 ├─ server.js                 ⤆ File used to run and configure NodeAtlas for API usage.
-├─ webconfig.json            ⤆ File used to run website on localhost for development.
-├─ webconfig.prod.json       ⤆ File used to run website on world wide web for production.
-├─ routes.json               ⤆ File used by "webconfig.json" and "webconfig.prod.json" to address route.
+├─ webconfig.json            ⤆ File used to run the website on localhost for development.
+├─ webconfig.prod.json       ⤆ File used to run the website on world wide web for production.
+├─ routes.json               ⤆ File used by `webconfig.json` and "webconfig.prod.json" to address route.
 ┊┉
-├─ webconfig.prod.en-gb.json ⤆ Example file used to run only "en-gb" part on a port…
+├─ webconfig.prod.en-gb.json ⤆ Example file used to run only `en-gb` part on a port…
 ├─ routes.en-gb.json         ⤆ …with english routes defined in this file…
-├─ webconfig.prod.fr-fr.json ⤆ …and run only "fr-fr" part on an other port…
+├─ webconfig.prod.fr-fr.json ⤆ …and run only `fr-fr` part on an other port…
 ├─ routes.fr-fr.json         ⤆ …with french routes defined in this file.
 ┊┉
 ```
 
-### Step 4 - Run ! ###
+### Step 4 - Run! ###
 
-Run *NodeAtlas* into the "my-website" folder in your development environment:
+Run *NodeAtlas* into the `my-website` folder in your development environment:
 
 - with your `server.js` file:
 
@@ -356,10 +356,10 @@ forever start /usr/local/lib/node_modules/node-atlas/ --path /var/www/my-website
 
 |               | Type                               | Top Features                            | Suitable For                                       | Pure Node runtime | Extensions                                        | Data sources                                                                                                | Main support language |
 |---------------|------------------------------------|-----------------------------------------|----------------------------------------------------|-------------------|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------|-----------------------|
-| **NodeAtlas** | Web **MVC(2)** framework           | Simplicity, **Evolutivity**, Modularity | **Web sites**, Web apps, REST APIs, **Templating** | Yes               | **Atlas plugin**, NPM module, Express middleware  | **Builtin**: In-memory /file (JSON), REST. With **external NPM module**: NoSQL (MongoDB...), SQL (MySql...) | **French**            |
+| **NodeAtlas** | Web **MVC(2)** framework           | Simplicity, **Evolutivity**, Modularity | **Websites**, Web apps, REST APIs, **Templating** | Yes               | **Atlas plugin**, npm module, Express middleware  | **Built-in**: In-memory /file (JSON), REST. With **external npm module**: NoSQL (MongoDB...), SQL (MySql...) | **French**            |
 | Express       | HTTP server library                | HTTP routing, middleware                | Simple web apps                                    | Yes               | Express middleware                                |                                                                                                             | English               |
 | Hapi          | HTTP server framework              | Modularity, security                    | Web apps, APIs                                     | Yes               | Hapi Plugins                                      |                                                                                                             | English               |
 | Sails         | Web MVC framework                  | Rails familiarity, MVC                  | Web apps, APIs                                     | Yes               |                                                   | In-memory, File, PostgreSQL, MySQL, MongoDB                                                                 | English               |
 | Restify       | REST HTTP library                  | Simplicity, REST routing                | Simple REST APIs                                   | Yes               |                                                   |                                                                                                             | English               |
 | LoopBack      | API framework                      | Enterprise connectivity                 | Web apps, APIs                                     | Yes               |                                                   | In-memory/file, SQL NoSQL, ATG, Email, REST, SOAP                                                           | English               |
-| Meteor        | Full-stack JavaScript app platform | Framework Front-end et Back-end         | Web apps                                           | No                | Meteor package and repository, NPM module         | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                 | English               |
+| Meteor        | Full-stack JavaScript app platform | Framework Front-end et Back-end         | Web apps                                           | No                | Meteor package and repository, npm module         | MongoDB, MySQL and PostgreSQL via 3rd-party Meteor packages                                                 | English               |
