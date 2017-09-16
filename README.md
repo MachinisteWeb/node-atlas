@@ -7,10 +7,10 @@
 ### Avant-propos ###
 
 Ce dépôt contient :
-- la documentation de l'API NodeAtlas. Elle est générée en executant la commande `node generate-doc-index.na` depuis la racine.
-- tous les fichiers nécéssaires à la génération du site officiel de NodeAtlas. Il est généré en exécutant la commande `node generate-website.na` depuis le dossier `src/`.
+- la documentation de l'API NodeAtlas. Elle est générée en executant la commande `node generate-doc-index.na` depuis la racine,
+- tous les fichiers nécéssaires à la génération du site officiel de NodeAtlas. Ils sont générés en exécutant la commande `node generate-website.na` depuis le dossier `src/`.
 
-Le site et la doc sont accessible sans Node.js ou autre executable une fois généré. N'importe quel serveur HTTP peut donc le faire tourner et en l'occurence, c'est Github qui s'en charge avec le sytème `gh-pages`.
+Le site et la documentation sont accessibles sans lancer d'instance Node.js ou autre executable une fois générés. N'importe quel serveur HTTP peut donc les faire tourner et en l'occurence, c'est GitHub qui s'en charge avec le sytème `gh-pages`.
 
 
 
@@ -48,16 +48,16 @@ $ node-atlas --httpPort 7777
 
 ### Modifier le site ###
 
-Pour modifier le site sur votre poste, il vous faudra ai préalable mettre au même niveau que le dossier contenant ce site, le projet `git clone https://github.com/NodeAtlas/node-atlas.git`. 
+Pour modifier le site sur votre poste, il vous faudra au préalable mettre, au même niveau que le dossier contenant ce site, le projet `git clone https://github.com/NodeAtlas/node-atlas.git`.
 
 ```
 <workspace>
 ├─ gh-pages/    <-- Ici ce trouve ce projet
 │  └─ src/
-└─ node-atlas/  <-- Ici cloner `git clone https://github.com/NodeAtlas/node-atlas.git`
+└─ node-atlas/  <-- Ici clonez `git clone https://github.com/NodeAtlas/node-atlas.git`
 ```
 
-Ensuite il vous suffit de vous placer dans le dossier `src/` 
+Ensuite il vous suffit de vous placer dans le dossier `src/`
 
 ```bash
 $ cd </path/to/gh-pages-directory>/src/
@@ -82,11 +82,11 @@ Les sites tourneront aux adresses :
 
 ### Overview ###
 
-This repository contains :
-- API documentation of NodeAtlas. To generate it, execute command `node generate-doc-index.na` from root.
+This repository contains:
+- API documentation of NodeAtlas. To generate it, execute command `node generate-doc-index.na` from root,
 - all required files to generate the NodeAtlas official website. To generate it, execute command `node generate-website.na` from `src/` folder.
 
-This website run without Node.js or other executable. Any HTTP server can run NodeAtlas, and in our case, it's Github that do the job with `gh-pages` system.
+This documentation and website run without Node.js instance or other executable. Any HTTP server can run it, and in our case, it's GitHub that do the job with `gh-pages` system.
 
 
 
@@ -108,7 +108,7 @@ The full website will run here:
 
 - *http://localhost/*
 
-__*Note :*__
+__*Note:*__
 
 *If you already have a web server on port 80, consider using:*
 
@@ -124,7 +124,7 @@ $ node-atlas --httpPort 7777
 
 ### Update the website ###
 
-To test the website on your OS, first put in same level of this project directory a folder with the `git clone https://github.com/NodeAtlas/node-atlas.git` project.
+To test the website on your OS, first put, in the same level of this project directory, a folder with the `git clone https://github.com/NodeAtlas/node-atlas.git` project.
 
 ```
 <workspace>

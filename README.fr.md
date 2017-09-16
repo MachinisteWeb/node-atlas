@@ -37,7 +37,7 @@ Commencez avec une simple page HTML,
 - puis minifiez/offusquez/compressez vos sources,
 - puis utiliser des préprocesseurs comme [Stylus](http://stylus-lang.com/), [Less](http://lesscss.org/) ou/et [Pug](https://pugjs.org/api/getting-started.html) simplement,
 - puis prenez la main sur la logique serveur avec les points d'ancrage et [Express.js](http://expressjs.com/),
-- puis soyez temps réel et réactif côté serveur grâce à [Socket.io](http://socket.io/),
+- puis soyez temps réel et réactif côté serveur grâce à [Socket.IO](http://socket.io/),
 - puis connectez vous à [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
 - puis soyez isomorphique et réactif côté client grâce à [Vue](https://fr.vuejs.org/) ou [React](https://facebook.github.io/react/),
 - puis soyez orienté composants et/ou services grâce à des projets comme [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas) et/ou [ApiAtlas](https://github.com/Haeresis/ApiAtlas),
@@ -96,7 +96,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Générer des maquettes HTML](#générer-des-maquettes-html)
  - [Moteur de template EJS](#moteur-de-template-ejs)
  - [Moteur de template Pug](#moteur-de-template-pug)
-- [Partie Contrôleur et modèle](#partie-contrôleur-et-modèle)
+- [Partie contrôleur et modèle](#partie-contrôleur-et-modèle)
  - [Cycle de vie et Points d'ancrage](#cycle-de-vie-et-points-dancrage)
  - [Échange client-serveur en temps réel avec websockets](#échange-client-serveur-en-temps réel-avec-websockets)
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
@@ -495,7 +495,7 @@ aux adresses :
 - *http://localhost/a-propos.html* (renvoi « Cannot GET about.html » car le contenu d'une route doit __obligatoirement__ commencer par un `/` pour être référencée),
 - *http://localhost/erreur.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404).
 
-*Note : Si* `viewsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des vues est bien* `views`. `viewsRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : si* `viewsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des vues est bien* `views`. `viewsRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 
 
@@ -657,7 +657,7 @@ et `routes.json`
 }
 ```
 
-*Note : Vous pouvez vous créer plusieurs fichiers de routes comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
+*Note: vous pouvez vous créer plusieurs fichiers de routes comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
 
 
 
@@ -699,7 +699,7 @@ vous aurez accès aux adresses :
 - *http://localhost/javascripts/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : Si* `assetsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier public est bien* `assets`. `assetsRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note: si* `assetsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier public est bien* `assets`. `assetsRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
 
 #### maxAge, Etag, etc. ####
 
@@ -795,7 +795,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : pour plus d'information sur la différence entre `<?`, `<?-`, `<?=`, etc. vous pouvez vous référez à la section [moteur de template](#moteur-de-template-ejs).*
+*Note: pour plus d'information sur la différence entre `<?`, `<?-`, `<?=`, etc. vous pouvez vous référez à la section [moteur de template](#moteur-de-template-ejs).*
 
 
 
@@ -917,7 +917,7 @@ vous aurez accès aux adresses :
 - *http://localhost/*
 - *http://localhost/liste-des-membres/*
 
-*Note : Si* `variationsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des variations est bien* `variations`. `variationsRelativePath` *est donc utile seulement pour changer le nom/chemin de répertoire.*
+*Note: si* `variationsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des variations est bien* `variations`. `variationsRelativePath` *est donc utile seulement pour changer le nom/chemin de répertoire.*
 
 
 
@@ -949,7 +949,7 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 }
 ```
 
-*Note : Dans cet exemple je n'utilise pas la propriété `variation` commune, car je n'utilise pas de* `common.json` *. J'ai arbitrairement décidé de renommer mon dossier* `variations` *en* `l10n` *(localisation)*.
+*Note: dans cet exemple, je n'utilise pas la propriété `variation` commune car je n'utilise pas de* `common.json` *. J'ai arbitrairement décidé de renommer mon dossier* `variations` *en* `l10n` *(localisation)*.
 
 avec les fichiers suivants :
 
@@ -1054,7 +1054,7 @@ vous aurez accès aux adresses :
 - *http://localhost/home/*
 - *http://localhost/accueil/*
 
-*Note : Par défaut c'est le* `languageCode` *racine qui conditionne la langue d'affichage du site. Il est aussi possible de changer la langue avec un* `languageCode` par page. *Il faut également savoir que dès que le site ou une page à un* `languageCode` *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* `languageCode`.
+*Note : par défaut c'est le* `languageCode` *racine qui conditionne la langue d'affichage du site. Il est aussi possible de changer la langue avec un* `languageCode` par page. *Il faut également savoir que dès que le site ou une page à un* `languageCode` *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* `languageCode`.
 
 
 #### Utiliser variations et localisations ensemble ####
@@ -1296,7 +1296,7 @@ Vous pourrez cette fois accéder à l'URL : *https://127.0.0.1:7777/sub/folder/i
 </html>
 ```
 
-Note : Cette exemple ne fonctionnera que si vous avez des fichiers `server.crt` et `server.key` valide dans le dossier `security/`. Essayez le sans `"httpSecure": "security/server"` et il fonctionnera avec des URLs sans `https`.
+Note : cette exemple ne fonctionnera que si vous avez des fichiers `server.crt` et `server.key` valide dans le dossier `security/`. Essayez le sans `"httpSecure": "security/server"` et il fonctionnera avec des URLs sans `https`.
 
 
 
@@ -1409,7 +1409,7 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 </html>
 ```
 
-*Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
+*Note : il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.*
 
 
 
@@ -1458,7 +1458,7 @@ et avec le webconfig suivant :
 }
 ```
 
-et ces deux fichiers de variations:
+et ces deux fichiers de variations :
 
 *common.json*
 
@@ -1531,7 +1531,7 @@ vous pourez générer avec ces vues :
 	</div>
 ```
 
-et obtenir les URLs suivantes :
+et obtenir les URL suivantes :
 
 */*
 
@@ -1852,7 +1852,7 @@ Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTM
 ┊┉
 ```
 
-*Note : Si* `serverlessRelativePath` *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* `serverless/`. `serverlessRelativePath` *est donc utile seulement pour changer le nom/chemin répertoire.*
+*Note : si* `serverlessRelativePath` *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* `serverless/`. `serverlessRelativePath` *est donc utile seulement pour changer le nom/chemin répertoire.*
 
 #### Générer les fichiers statics ####
 
@@ -1976,7 +1976,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 
 Pour tout savoir sur les possibilités du moteur de template consultez [la documentation EJS](http://ejs.co/)
 
-*Note : Si rien n'est précisé,* `templateEngineDelimiter` *vaut* `?`.
+*Note : si rien n'est précisé,* `templateEngineDelimiter` *vaut* `?`.
 
 
 
@@ -2101,7 +2101,7 @@ div
 
 Pour tout savoir sur les possibilités du moteur de template consultez [la documentation Pug](https://pugjs.org/)
 
-*Note : Si rien n'est précisé,* `pug` *vaut* `false`.
+*Note : si rien n'est précisé,* `pug` *vaut* `false`.
 
 
 
@@ -2136,7 +2136,7 @@ node-atlas --browse
 
 
 
-## Partie Contrôleur et modèle ##
+## Partie contrôleur et modèle ##
 
 NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
 

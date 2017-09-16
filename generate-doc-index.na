@@ -1,19 +1,19 @@
 var fs = require('fs'),
 	exec = require('child_process').exec,
 	path = require('path');
-	
+
 function rimraf(dir_path) {
-    if (fs.existsSync(dir_path)) {
-        fs.readdirSync(dir_path).forEach(function(entry) {
-            var entry_path = path.join(dir_path, entry);
-            if (fs.lstatSync(entry_path).isDirectory()) {
-                rimraf(entry_path);
-            } else {
-                fs.unlinkSync(entry_path);
-            }
-        });
-        fs.rmdirSync(dir_path);
-    }
+	if (fs.existsSync(dir_path)) {
+		fs.readdirSync(dir_path).forEach(function(entry) {
+			var entry_path = path.join(dir_path, entry);
+			if (fs.lstatSync(entry_path).isDirectory()) {
+				rimraf(entry_path);
+			} else {
+				fs.unlinkSync(entry_path);
+			}
+		});
+		fs.rmdirSync(dir_path);
+	}
 }
 
 try {
@@ -21,22 +21,22 @@ try {
 } catch (e) {}
 
 exec(__dirname + "/generate-doc.bat", function (err, stdout) {
-    console.log("Documentation generation progress...");
-    console.log(stdout);
-    console.log("Documentation generation done !");
+	console.log("Documentation generation progress...");
+	console.log(stdout);
+	console.log("Documentation generation done !");
 
 	fs.readdir(__dirname + "/doc/node-atlas/", function(err, items) {
-		
+
 
 		var outputStart = "<html><head></head><body><h1>NodeAtlas Docs API</h1><ul>",
 			output = "",
 			outputEnd = "</ul><body></body></html>";
-	 
-	    for (var i=0; i < items.length; i++) {
-	    	if (items[i] !== "index.htm") {
-	    		output += '<li><a href="./' + items[i] + '/">' + items[i] + "</a></li>";
-	    	}
-	    }
-	    fs.writeFileSync(__dirname + "/doc/node-atlas/index.htm", outputStart + output + outputEnd);
+
+		for (var i=0; i < items.length; i++) {
+			if (items[i] !== "index.htm") {
+				output += '<li><a href="./' + items[i] + '/">' + items[i] + "</a></li>";
+			}
+		}
+		fs.writeFileSync(__dirname + "/doc/node-atlas/index.htm", outputStart + output + outputEnd);
 	});
 });

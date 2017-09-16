@@ -34,7 +34,7 @@
 <li><em><a href="http://localhost/membre-sans-extension/">http://localhost/membre-sans-extension/</a></em> (ne répondra pas si demandée en GET),</li>
 <li><em><a href="http://localhost/a-propos.html">http://localhost/a-propos.html</a></em> (renvoi « Cannot GET about.html » car le contenu d'une route doit <strong>obligatoirement</strong> commencer par un <code>/</code> pour être référencée),</li>
 <li><em><a href="http://localhost/erreur.html">http://localhost/erreur.html</a></em> (renvoi du contenu plein texte (sans balise) avec une erreur 404).</li>
-</ul><p><em>Note : Si</em> <code>viewsRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des vues est bien</em> <code>views</code>. <code>viewsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h3 id="referencer-ses-routes">Référencer ses routes</h3><p>La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus</p><pre><code class="lang-json">{
+</ul><p><em>Note : si</em> <code>viewsRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des vues est bien</em> <code>views</code>. <code>viewsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h3 id="referencer-ses-routes">Référencer ses routes</h3><p>La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus</p><pre><code class="lang-json">{
     "viewsRelativePath": "views",
     "routes": {
         "/": "index.htm",
@@ -123,7 +123,7 @@
         "view": "index.htm"
     }
 }
-</code></pre><p><em>Note : Vous pouvez vous créer plusieurs fichiers de routes comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="heberger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichiers sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-json">{
+</code></pre><p><em>Note: vous pouvez vous créer plusieurs fichiers de routes comme <code>routes.en.json</code> et <code>routes.fr.json</code> et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.</em></p><h3 id="heberger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</h3><p>Vous pouvez également héberger tout un tas de fichiers sur votre site dans un dossier public. Par exemple avec cette configuration :</p><pre><code class="lang-json">{
     "assetsRelativePath": "assets",
     "routes": {
         "/": {
@@ -147,7 +147,7 @@
 <li><em><a href="http://localhost/stylesheets/common.css">http://localhost/stylesheets/common.css</a></em></li>
 <li><em><a href="http://localhost/javascripts/common.js">http://localhost/javascripts/common.js</a></em></li>
 <li><em><a href="http://localhost/media/images/logo.png">http://localhost/media/images/logo.png</a></em></li>
-</ul><p><em>Note : Si</em> <code>assetsRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier public est bien</em> <code>assets</code>. <code>assetsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de délivrer des en-tête HTTP personnalisées pour les ressources publiques (comme le <code>maxAge</code>, l'<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d'<a href="http://expressjs.com/fr/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l'inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code (pas d'inquiétude, nous verrons plus loin comment gérer un template unique composé des balises <code>head</code> et <code>body</code> avec fermeture dans le même fichier).</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</ul><p><em>Note: si</em> <code>assetsRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier public est bien</em> <code>assets</code>. <code>assetsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="maxage-etag-etc-">maxAge, Etag, etc.</h4><p>Il est possible de délivrer des en-tête HTTP personnalisées pour les ressources publiques (comme le <code>maxAge</code>, l'<code>Etag</code>, etc.) via la propriété <code>staticOptions</code> du webconfig. Pour connaître la totalité des possibilités, voir les options d'<a href="http://expressjs.com/fr/api.html">Express</a>.</p><h3 id="gerer-l-inclusion-de-fichiers-partiels">Gérer l'inclusion de fichiers partiels</h3><p>Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code (pas d'inquiétude, nous verrons plus loin comment gérer un template unique composé des balises <code>head</code> et <code>body</code> avec fermeture dans le même fichier).</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "routes": {
         "/": {
             "view": "index.htm"
@@ -199,7 +199,7 @@
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><p><em>Note : pour plus d'information sur la différence entre <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. vous pouvez vous référez à la section <a href="partie-vue-et-template.html#moteur-de-template-ejs">moteur de template</a>.</em></p><h3 id="gerer-des-variations-au-sein-d-une-meme-vue">Gérer des variations au sein d'une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
+</ul><p><em>Note: pour plus d'information sur la différence entre <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. vous pouvez vous référez à la section <a href="partie-vue-et-template.html#moteur-de-template-ejs">moteur de template</a>.</em></p><h3 id="gerer-des-variations-au-sein-d-une-meme-vue">Gérer des variations au sein d'une même vue</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
     "variation": "common.json",
     "variationsRelativePath": "variations",
     "routes": {
@@ -273,7 +273,7 @@
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/">http://localhost/liste-des-membres/</a></em></li>
-</ul><p><em>Note : Si</em> <code>variationsRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des variations est bien</em> <code>variations</code>. <code>variationsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l'internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes (et derrière des routes différentes) :</p><pre><code class="lang-json">{
+</ul><p><em>Note: si</em> <code>variationsRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des variations est bien</em> <code>variations</code>. <code>variationsRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin de répertoire.</em></p><h3 id="gerer-l-internationalisation-i18n">Gérer l'internationalisation (i18n)</h3><h4 id="toutes-les-langues-sur-le-m-me-site">Toutes les langues sur le même site</h4><p>Sur le même principe, les variations peuvent être utilisées pour créer la même page, mais dans des langues différentes (et derrière des routes différentes) :</p><pre><code class="lang-json">{
     "languageCode": "en-us",
     "variationsRelativePath": "l10n",
     "routes": {
@@ -292,7 +292,7 @@
         }
     }
 }
-</code></pre><p><em>Note : Dans cet exemple je n'utilise pas la propriété <code>variation</code> commune, car je n'utilise pas de</em> <code>common.json</code> <em>. J'ai arbitrairement décidé de renommer mon dossier</em> <code>variations</code> <em>en</em> <code>l10n</code> <em>(localisation)</em>.</p><p>avec les fichiers suivants :</p><pre><code>├─ l10n/
+</code></pre><p><em>Note: dans cet exemple, je n'utilise pas la propriété <code>variation</code> commune car je n'utilise pas de</em> <code>common.json</code> <em>. J'ai arbitrairement décidé de renommer mon dossier</em> <code>variations</code> <em>en</em> <code>l10n</code> <em>(localisation)</em>.</p><p>avec les fichiers suivants :</p><pre><code>├─ l10n/
 │  ├─ landing.json
 │  ├─ en-us
 │  │  └─ home.json
@@ -353,7 +353,7 @@
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/home/">http://localhost/home/</a></em></li>
 <li><em><a href="http://localhost/accueil/">http://localhost/accueil/</a></em></li>
-</ul><p><em>Note : Par défaut c'est le</em> <code>languageCode</code> <em>racine qui conditionne la langue d'affichage du site. Il est aussi possible de changer la langue avec un</em> <code>languageCode</code> par page. <em>Il faut également savoir que dès que le site ou une page à un</em> <code>languageCode</code> <em>dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du</em> <code>languageCode</code>.</p><h4 id="utiliser-variations-et-localisations-ensemble">Utiliser variations et localisations ensemble</h4><p>Vous avez peut-être constaté dans l'exemple précédent que le fichier <code>landing.json</code> n'était pas dans le dossier <code>en-us/</code> ou <code>fr-fr/</code>. Cela est tout à fait possible et signifie qu'il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.</p><p>Aussi, quand un <code>languageCode</code> est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y est pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans localisation).</p><p>Cela va vous permettre par exemple de gérer la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :</p><pre><code>┊┉
+</ul><p><em>Note : par défaut c'est le</em> <code>languageCode</code> <em>racine qui conditionne la langue d'affichage du site. Il est aussi possible de changer la langue avec un</em> <code>languageCode</code> par page. <em>Il faut également savoir que dès que le site ou une page à un</em> <code>languageCode</code> <em>dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du</em> <code>languageCode</code>.</p><h4 id="utiliser-variations-et-localisations-ensemble">Utiliser variations et localisations ensemble</h4><p>Vous avez peut-être constaté dans l'exemple précédent que le fichier <code>landing.json</code> n'était pas dans le dossier <code>en-us/</code> ou <code>fr-fr/</code>. Cela est tout à fait possible et signifie qu'il sera utilisé dans les langues qui ne le possèdent pas dans leur dossier.</p><p>Aussi, quand un <code>languageCode</code> est précisé, NodeAtlas part d'abord chercher la valeur dans le fichier du dossier correspondant. Si celle-ci n'y est pas, alors il part la chercher dans le dossier parent (celui utilisé en standard pour les variations sans localisation).</p><p>Cela va vous permettre par exemple de gérer la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :</p><pre><code>┊┉
 ├─ variations/
 │  ├─ common.json
 │  ├─ home.json
@@ -508,7 +508,7 @@
         &lt;div>https://127.0.0.1:7777/sub/folder/index.html&lt;/div>
     &lt;/body>
 &lt;/html>
-</code></pre><p>Note : Cette exemple ne fonctionnera que si vous avez des fichiers <code>server.crt</code> et <code>server.key</code> valide dans le dossier <code>security/</code>. Essayez le sans <code>"httpSecure": "security/server"</code> et il fonctionnera avec des URLs sans <code>https</code>.</p><h3 id="creer-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</h3><p>Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :</p><ol>
+</code></pre><p>Note : cette exemple ne fonctionnera que si vous avez des fichiers <code>server.crt</code> et <code>server.key</code> valide dans le dossier <code>security/</code>. Essayez le sans <code>"httpSecure": "security/server"</code> et il fonctionnera avec des URLs sans <code>https</code>.</p><h3 id="creer-ses-propres-variables-de-webconfig">Créer ses propres variables de webconfig</h3><p>Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :</p><ol>
 <li>« webconfig.json »</li>
 </ol><pre><code class="lang-json">{
     "routes": {
@@ -577,7 +577,7 @@
         &lt;script type="text/javascript" src="javascripts/common.min.js">&lt;/script>
     &lt;/body>
 &lt;/html>
-</code></pre><p><em>Note : Il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="utiliser-une-vue-globale">Utiliser une vue globale</h3><p>Plutôt que d'inclure une partie header et une partie footer en deux fichiers scindé dont les balises de l'un ne se ferme que dans les balises de l'autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.</p><p>avec cet ensemble de fichiers</p><pre><code>├─ assets/
+</code></pre><p><em>Note : il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="utiliser-une-vue-globale">Utiliser une vue globale</h3><p>Plutôt que d'inclure une partie header et une partie footer en deux fichiers scindé dont les balises de l'un ne se ferme que dans les balises de l'autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.</p><p>avec cet ensemble de fichiers</p><pre><code>├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  └─ index.css
@@ -606,7 +606,7 @@
         }
     }
 }
-</code></pre><p>et ces deux fichiers de variations:</p><p><em>common.json</em></p><pre><code class="lang-json">{
+</code></pre><p>et ces deux fichiers de variations :</p><p><em>common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Titre du site",
     "classCssCommon": "common",
     "classJsCommon": "common"
@@ -645,7 +645,7 @@
 </code></pre><p><em>views/about.htm</em></p><pre><code class="lang-html">    &lt;div>
         &lt;h1>NodeAtlas © Haeresis&lt;/h1>
     &lt;/div>
-</code></pre><p>et obtenir les URLs suivantes :</p><p><em>/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html>
+</code></pre><p>et obtenir les URL suivantes :</p><p><em>/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html>
 &lt;html lang="fr-fr">
     &lt;head>
         &lt;meta charset="utf-8">
@@ -854,7 +854,7 @@
 │  └─ en/
 │     └─ cv.html
 ┊┉
-</code></pre><p><em>Note : Si</em> <code>serverlessRelativePath</code> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <code>serverless/</code>. <code>serverlessRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p><h4 id="g-n-rer-les-fichiers-statics">Générer les fichiers statics</h4><p>Les fichiers défini dans <code>statics</code> sont également copiable dans le dossier <code>serverlessRelativePath</code> lors de l'appel à <code>--generate</code>. Pour permettre cela, vous pouvez utiliser pour chaque dossier statique le paramètre <code>output</code> mis à <code>true</code>.</p><pre><code>{
+</code></pre><p><em>Note : si</em> <code>serverlessRelativePath</code> <em>n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien</em> <code>serverless/</code>. <code>serverlessRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin répertoire.</em></p><h4 id="g-n-rer-les-fichiers-statics">Générer les fichiers statics</h4><p>Les fichiers défini dans <code>statics</code> sont également copiable dans le dossier <code>serverlessRelativePath</code> lors de l'appel à <code>--generate</code>. Pour permettre cela, vous pouvez utiliser pour chaque dossier statique le paramètre <code>output</code> mis à <code>true</code>.</p><pre><code>{
     "statics": {
         "/javascripts/models": {
             "path": "models",
@@ -920,7 +920,7 @@
     &lt;/div>
 
     &lt;%- include("partials/foot") %>
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="http://ejs.co/">la documentation EJS</a></p><p><em>Note : Si rien n'est précisé,</em> <code>templateEngineDelimiter</code> <em>vaut</em> <code>?</code>.</p><h3 id="moteur-de-template-pug">Moteur de Template Pug</h3><p>Il est possible d'utiliser en lieu et place de EJS le <a href="https://pugjs.org/">moteur de template Pug</a> (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :</p><pre><code class="lang-json">{
+</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="http://ejs.co/">la documentation EJS</a></p><p><em>Note : si rien n'est précisé,</em> <code>templateEngineDelimiter</code> <em>vaut</em> <code>?</code>.</p><h3 id="moteur-de-template-pug">Moteur de Template Pug</h3><p>Il est possible d'utiliser en lieu et place de EJS le <a href="https://pugjs.org/">moteur de template Pug</a> (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :</p><pre><code class="lang-json">{
     "pug": true,
     "routes": {
         "/": {
@@ -990,7 +990,7 @@ html(lang="fr-fr")
 </code></pre><p><em>views/index.pug</em></p><pre><code class="lang-html">div
     h2 #{specific.titlePage}
     | !{specific.content}
-</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="https://pugjs.org/">la documentation Pug</a></p><p><em>Note : Si rien n'est précisé,</em> <code>pug</code> <em>vaut</em> <code>false</code>.</p><h3 id="moteur-de-template-vue">Moteur de Template Vue</h3><p><a href="https://vuejs.org/">Vue</a> est un framework MVVM évolutif comme Angular ou React qui est utilisable en tant que moteur de rendu côté serveur pour NodeAtlas. L'avantage ici, c'est que côté client il reprend la main en hydratant le code généré depuis le serveur pour le rendre réactif côté client !</p><blockquote>
+</code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="https://pugjs.org/">la documentation Pug</a></p><p><em>Note : si rien n'est précisé,</em> <code>pug</code> <em>vaut</em> <code>false</code>.</p><h3 id="moteur-de-template-vue">Moteur de Template Vue</h3><p><a href="https://vuejs.org/">Vue</a> est un framework MVVM évolutif comme Angular ou React qui est utilisable en tant que moteur de rendu côté serveur pour NodeAtlas. L'avantage ici, c'est que côté client il reprend la main en hydratant le code généré depuis le serveur pour le rendre réactif côté client !</p><blockquote>
 <p>N'hésitez pas à reconsulter cette partie plus tard car elle utilise divers mécanismes de contrôleur que nous allons apprendre à utiliser dans la prochaine partie.</p>
 </blockquote><p>Nous vous proposons de mettre en place l'utilisation de <a href="https://fr.vuejs.org/">Vue</a> + <a href="https://router.vuejs.org/fr/">Vue Router</a> + <a href="https://ssr.vuejs.org/fr/">Vue Server Renderer</a> à travers la commande suivante :</p><pre><code class="lang-bash">node-atlas --create hello-vue
 </code></pre><p>puis de l'initialiser à l'aide de la commande</p><pre><code class="lang-bash">cd ./hello-vue/
@@ -1001,5 +1001,5 @@ npm install
 </ul><div><div class="before">
 							<a href="commencer-avec-nodeatlas.html">◄ Commencer avec NodeAtlas</a>
 						</div><div class="after">
-							<a href="partie-controleur-et-modele.html">Partie Contrôleur et modèle ►</a>
+							<a href="partie-controleur-et-modele.html">Partie contrôleur et modèle ►</a>
 						</div></div>

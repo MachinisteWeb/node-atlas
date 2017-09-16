@@ -10,17 +10,17 @@
 
 ## Overview ##
 
-NodeAtlas is a server-side MVC(2) JavaScript framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run with [Node.js](https://nodejs.org/). NodeAtlas allows you to:
+NodeAtlas is an MVC(2) JavaScript Server-Side Framework as an [npm module](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) and designed to run with [Node.js](https://nodejs.org/). NodeAtlas allows you to:
 
 - Create, maintain and document a set of assets HTML / CSS / JavaScript user interfaces to provide solid guidelines for the realization of website or webapp (i.e. for brands).
 
    > Exemple : [Pages, Componants and Web Interface Documentation](https://www.lesieur.name/doc-atlas/) or [the official NodeAtlas website](https://node-atlas.js.org/english/).
 
-- Create, maintain and run internationalized wesites without use a single JavaScript server file. That's it's perfect for beginners and for develop brand website or single web app application with high performance quickly.
+- Create, maintain and run internationalized websites without using a single JavaScript server file. That's it's perfect for beginners and for developing brand website or single web app application with high performance quickly.
 
    > Exemple : [Simple Web Page](http://bruno.lesieur.name/)
 
-- Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/) applications running of all sizes with server-based source code for high performance, indexability for SEO and W3C compliancy. Distant REST APIs are also easily to create.
+- Develop Node.js internationalized websites or scalable [Node.js](https://nodejs.org/) applications running of all sizes with server-based source code for high performance, indexability for SEO and W3C compliance. Distant REST APIs are also easy to create.
 
    > Exemple : [Blog](http://blog.lesieur.name/), [Portfolio](http://www.lesieur.name/) or [Distant API](http://www.lesieur.name/api/)
 
@@ -37,7 +37,7 @@ Starting with a single HTML page,
 - then minify/obfuscate/optimized your sources,
 - then use preprocessor like [Stylus](http://stylus-lang.com/), [Less](http://lesscss.org/) or [Pug](https://pugjs.org/api/getting-started.html) easily,
 - then use files for drive back-end part with code with hooks and [Express.js](http://expressjs.com/),
-- then use [Socket.io](http://socket.io/) for server-side reactivity and real-time exchanges,
+- then use [Socket.IO](http://socket.io/) for server-side reactivity and real-time exchanges,
 - then connect you to [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
 - then use [Vue](https://www.vuejs.org/) or [React](https://facebook.github.io/react/) for isomorphism and client-side reactivity,
 - then be component-based and/or service-oriented with projects like [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas) and/or [ApiAtlas](https://github.com/Haeresis/ApiAtlas),
@@ -49,7 +49,7 @@ Starting with a single HTML page,
 
 ### And what about others JavaScript frameworks? ###
 
-In opposition to others client-side JavaScript frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexale and W3C compliant, that means each page are construct by HTTP response and after by asynchronous (AJAX, Websocket...) mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/), [gulp](http://gulpjs.com/), etc. So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituant to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but to oposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side by default. It's your responsability to spread server-side mechanism to client-side.
+In opposition to others client-side JavaScript frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexable and W3C compliant, that means each page is constructed by HTTP response and after by asynchronous (AJAX, Websocket...) mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/), [gulp](http://gulpjs.com/), etc. So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituent to PHP, JAVA or C# server-side. In the same way as [Meteor.js](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but by an opposition of [Meteor.js](https://www.meteor.com/), the `NA` object is not provided client-side by default. It's your responsibility to spread server-side mechanism to client-side.
 
 To comparate NodeAtlas with others JavaScript Server-side library / framework / API, [you could check this grid](#nodeatlas-vs-others).
 
@@ -57,7 +57,7 @@ To comparate NodeAtlas with others JavaScript Server-side library / framework / 
 
 ### Examples of websites with NodeAtlas ###
 
-You'll find a list of GitHub repositories provided by NodeAtlas community to analyse and understand how NodeAtlas works:
+You'll find a list of GitHub repositories provided by NodeAtlas community to analyze and understand how NodeAtlas works:
 
 - [All examples provided by NodeAtlas GitHub Communauty](https://github.com/NodeAtlas/).
 
@@ -170,7 +170,7 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
 In addition to this README, you also have access to,
 - [tl;dr](https://www.npmjs.com/package/node-atlas),
 - [details of functions in the NA object](https://node-atlas.js.org/doc/node-atlas/) and you could
-- [discuss on chat and ask asistance for NodeAtlas](https://gitter.im/NodeAtlas/Help).
+- [discuss on chat and ask assistance for NodeAtlas](https://gitter.im/NodeAtlas/Help).
 
 
 
@@ -180,7 +180,7 @@ If you would like to contribute with:
 
  - Code enhancements and fixes,
  - French correct spelling mistake or
- - Decent english translation
+ - Decent English translation
 
 Please do the following:
 
@@ -190,9 +190,9 @@ Please do the following:
  4. Make a pull request.
  5. Be patient. ;-)
 
-Please note that modications should follow these coding guidelines:
+Please note that modifications should follow these coding guidelines:
 
-- [Pass Sonarqube JS with rank A](http://www.sonarqube.org/) : Bugs, Vulnerabilities and Debt Ratio.
+- [Pass Sonarqube JS with rank A](http://www.sonarqube.org/) : Bugs, Vulnerabilities, and Debt Ratio.
 
 Thank you for helping out!
 
@@ -238,7 +238,7 @@ There are several ways to install NodeAtlas:
 
 ### Install Node.js ###
 
-NodeAtlas is developed as a [Node.js Module Package](https://www.npmjs.com/) that means its require Node.js to work. Node.js allows us to quickly and efficiently run JavaScript code outside the browser, making it possible to use the same language on both the client-side and server-side.
+NodeAtlas is developed as a [Node.js Module Package](https://www.npmjs.com/) that means it require Node.js to work. Node.js allows us to quickly and efficiently run JavaScript code outside the browser, making it possible to use the same language on both the client-side and server-side.
 
 *Note: Python 2.6 or 2.7 is required to build from source tarballs.*
 
@@ -300,11 +300,11 @@ There is a naming conflict with the node package (Amateur Packet Radio Node Prog
 
 ## Start with NodeAtlas ##
 
-An NodeAtlas instance is configuration-driven with `webconfig.json`. All NodeAtlas website have it, that turn the engine fron « Simple Web Server » to « NodeAtlas Web Server ».
+An NodeAtlas instance is configuration-driven with `webconfig.json`. All NodeAtlas website has it, that turn the engine from « Simple Web Server » to « NodeAtlas Web Server ».
 
-NodeAtlas isn't a standard MVC hierarchy. One of is particularity is the capability of controller to render the view without any development from you.
+NodeAtlas isn't a standard MVC hierarchy. One of is particularity is the capability of the controller to render the view without any development from you.
 
-We will start with a how to set minimal files to perform a "Hello World!".
+We will start with a how-to set minimal files to perform a "Hello World!".
 
 ### Fileset ###
 
@@ -322,13 +322,13 @@ We will display to the HTTP address the content of the `views/index.htm` file:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-	</head>
-	<body>
-		<div>This is a Hello World!</div>
-	</body>
+   <head>
+      <meta charset="utf-8" />
+      <title>Hello world</title>
+   </head>
+   <body>
+      <div>This is a Hello World!</div>
+   </body>
 </html>
 ```
 
@@ -342,11 +342,11 @@ You can turn a simple page with minimal configuration "webconfig.json" below
 
 ```json
 {
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	}
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   }
 }
 ```
 
@@ -360,13 +360,13 @@ equivalent to
 
 
 
-### Run the site with NodeAtlas ###
+### Run the website with NodeAtlas ###
 
 #### With the `node-atlas` command line ####
 
 **If you have installed NodeAtlas with `npm install -g node-atlas`** you can use the `node-atlas` command. `node-atlas` is a alias for the command `node </path/to/globals/>node_modules/node-atlas/`.
 
-> *Note : you can also use the `atlas` command which is an alias of `node-atlas` for write it more simply.*
+> *Note: you can also use the `atlas` command which is an alias of `node-atlas` for writing it more simply.*
 
 Position yourself with the prompt console in the folder « hello-world/ » and run the following command.
 
@@ -374,7 +374,7 @@ Position yourself with the prompt console in the folder « hello-world/ » and r
 $ node-atlas
 ```
 
-> Note : If your port 80 is in use or if you don't have priviledge to access it, you can use the `--httpPort` options.
+> Note: if your port 80 is in use or if you don't have the privilege to access it, you can use the `--httpPort` options.
 
 >  ```bash
 $ node-atlas --httpPort 8080
@@ -394,7 +394,7 @@ You will have access to your "Hello World" to the page: *http://localhost/* in a
 
 #### Via a JavaScript file ####
 
-You can also use NodeAtlas as a npm module.
+You can also use NodeAtlas as an npm module.
 
 So, create a `server.js` file into the same folder of `webconfig.json`.
 
@@ -404,7 +404,7 @@ So, create a `server.js` file into the same folder of `webconfig.json`.
 require("node-atlas")().start();
 ```
 
-Lancez ensuite le fichier avec Node.js.
+Then run the file with Node.js.
 
 ```bash
 $ node server.js
@@ -439,9 +439,9 @@ $ node-atlas --browse
 
 ## View and Template Part ##
 
-NodeAtlas works with a configuration with usage of `webconfig.json` that allow its to scale and upgrade possibilities in a versatille way. For example, to create a website without JavaScript server-side (no controller), just add a `view` parameter to each route.
+NodeAtlas works with a configuration with the usage of `webconfig.json` that allows its to scale and upgrade possibilities in a versatile way. For example, to create a website without JavaScript server-side (no controller), just add a `view` parameter to each route.
 
-It's still possible to use JavaScript inline into views with the capabilities offer by template engine [EJS](http://ejs.co/) used by NodeAtlas by default.
+It's still possible to use JavaScript inline into views with the capabilities offered by template engine [EJS](http://ejs.co/) used by NodeAtlas by default.
 
 We will see all possibilities with couples of view files together.
 
@@ -451,28 +451,28 @@ Below is a sample configuration.
 
 ```json
 {
-	"viewsRelativePath": "views",
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		},
-		"/member.html": {
-			"view": "member.htm",
-			"post": false
-		},
-		"/member-without-extension/": {
-			"view": "member.htm",
-			"get": false
-		},
-		"about.html": {
-			"view": "about.htm"
-		},
-		"/error.html": {
-			"view": "error.htm",
-			"statusCode": 404,
-			"mimeType": "text/plain"
-		}
-	}
+   "viewsRelativePath": "views",
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      },
+      "/member.html": {
+         "view": "member.htm",
+         "post": false
+      },
+      "/member-without-extension/": {
+         "view": "member.htm",
+         "get": false
+      },
+      "about.html": {
+         "view": "about.htm"
+      },
+      "/error.html": {
+         "view": "error.htm",
+         "statusCode": 404,
+         "mimeType": "text/plain"
+      }
+   }
 }
 ```
 
@@ -489,13 +489,13 @@ To run this set of file:
 
 with the addresses:
 
-- *http://localhost/* (responds to the root),,
-- *http://localhost/member.html* (will not respond if is POST requested)
+- *http://localhost/* (responds to the root),
+- *http://localhost/member.html* (will not respond if is POST requested),
 - *http://localhost/member-without-extension/* (will not respond if is GET requested),
 - *http://localhost/about.html* (return « Cannot GET about.html » because route path  __must__ start by `/` to be referenced),
 - *http://localhost/error.html* (return of the plain-text content (without markup) with a 404).
 
-*Note : If* `viewsRelativePath` *is not present in `webconfig.json`, views folder is* `views`. `viewsRelativePath` *is useful only to change the name/path of directory.*
+*Note: if* `viewsRelativePath` *is not present in `webconfig.json`, views folder is* `views`. `viewsRelativePath` *is useful only to change the name/path of directory.*
 
 
 
@@ -505,24 +505,24 @@ The configuration below is equivalent to the configuration section just above
 
 ```json
 {
-	"viewsRelativePath": "views",
-	"routes": {
-		"/": "index.htm",
-		"/member.html": {
-			"view": "member.htm",
-			"post": false
-		},
-		"/member-without-extension/": {
-			"view": "member.htm",
-			"get": false
-		},
-		"about.html": "about.htm",
-		"/error.html": {
-			"view": "error.htm",
-			"statusCode": 404,
-			"mimeType": "text/plain"
-		}
-	}
+   "viewsRelativePath": "views",
+   "routes": {
+      "/": "index.htm",
+      "/member.html": {
+         "view": "member.htm",
+         "post": false
+      },
+      "/member-without-extension/": {
+         "view": "member.htm",
+         "get": false
+      },
+      "about.html": "about.htm",
+      "/error.html": {
+         "view": "error.htm",
+         "statusCode": 404,
+         "mimeType": "text/plain"
+      }
+   }
 }
 ```
 
@@ -536,41 +536,41 @@ is a shortcut for
 
 ```json
 "/": {
-	"view": "index.htm"
+   "view": "index.htm"
 }
 ```
 
-Obviously this shortcut is used only if `view` is the only parameter to declare in the route.
+Obviously, this shortcut is used only if `view` is the only parameter to declare in the route.
 
 #### Order routes ####
 
-It's also possible to place routes into an array, that allows you to ordonate routes for an advanced usage in controllers section.
+It's also possible to place routes into an array, that allows you to ordinate routes for an advanced usage in controllers section.
 
-In this case, the path become the `url` parameter.
+In this case, the path becomes the `url` parameter.
 
 ```json
 {
-	"viewsRelativePath": "views",
-	"routes": [{
-		"url": "/",
-		"view": "index.htm"
-	}, {
-		"url": "/member.html",
-		"view": "member.htm",
-		"post": false
-	}, {
-		"url": "/member-without-extension/",
-		"view": "member.htm",
-		"get": false
-	}, {
-		"url": "about.html",
-		"view": "about.htm"
-	}, {
-		"url": "/error.html",
-		"view": "error.htm",
-		"statusCode": 404,
-		"mimeType": "text/plain"
-	}]
+   "viewsRelativePath": "views",
+   "routes": [{
+      "url": "/",
+      "view": "index.htm"
+   }, {
+      "url": "/member.html",
+      "view": "member.htm",
+      "post": false
+   }, {
+      "url": "/member-without-extension/",
+      "view": "member.htm",
+      "get": false
+   }, {
+      "url": "about.html",
+      "view": "about.htm"
+   }, {
+      "url": "/error.html",
+      "view": "error.htm",
+      "statusCode": 404,
+      "mimeType": "text/plain"
+   }]
 }
 ```
 
@@ -593,12 +593,12 @@ with `webconfig.json`
 
 ```json
 {
-	"httpPort": 7777,
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	}
+   "httpPort": 7777,
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   }
 }
 ```
 
@@ -606,14 +606,14 @@ and with `webconfig.prod.json`
 
 ```json
 {
-	"httpPort": 7776,
-	"httpHostname": "blog.lesieur.name",
-	"urlPort": 80,
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	}
+   "httpPort": 7776,
+   "httpHostname": "blog.lesieur.name",
+   "urlPort": 80,
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   }
 }
 ```
 
@@ -631,8 +631,8 @@ with `webconfig.json`
 
 ```json
 {
-	"httpPort": 7777,
-	"routes": "routes.json"
+   "httpPort": 7777,
+   "routes": "routes.json"
 }
 ```
 
@@ -640,10 +640,10 @@ with `webconfig.prod.json`
 
 ```json
 {
-	"httpPort": 7776,
-	"httpHostname": "blog.lesieur.name",
-	"urlPort": 80,
-	"routes": "routes.json"
+   "httpPort": 7776,
+   "httpHostname": "blog.lesieur.name",
+   "urlPort": 80,
+   "routes": "routes.json"
 }
 ```
 
@@ -651,13 +651,13 @@ and `routes.json`
 
 ```json
 {
-	"/": {
-		"view": "index.htm"
-	}
+   "/": {
+      "view": "index.htm"
+   }
 }
 ```
 
-*Note : You can create multiple route file as `routes.en.json` and `routes.fr.json` and associate each of them in a set of webconfig parameterize to run a website in various languages.*
+*Note: you can create multiple route file as `routes.en.json` and `routes.fr.json` and associate each of them in a set of webconfig parameterize to run a website in various languages.*
 
 
 
@@ -667,12 +667,12 @@ You can also host any file on your site in a public folder. For example, with th
 
 ```json
 {
-	"assetsRelativePath": "assets",
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	}
+   "assetsRelativePath": "assets",
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   }
 }
 ```
 
@@ -699,30 +699,30 @@ you will have access to the addresses:
 - *http://localhost/javascripts/common.js*
 - *http://localhost/media/images/logo.png*
 
-*Note : If* `assetsRelativePath` *is not present in `webconfig.json`, default public folder is* `assets`. `assetsRelativePath` *is useful only to change the name/path of directory.*
+*Note: if* `assetsRelativePath` *is not present in `webconfig.json`, default public folder is* `assets`. `assetsRelativePath` *is useful only to change the name/path of directory.*
 
 #### maxAge, Etag, etc. ####
 
-It's possible to manage HTTP headers provided when public ressources are requested (like `maxAge`, `Etag`, etc.) via the `staticOptions` property in webconfig. For more informations, see the [Express](http://expressjs.com/en/api.html) documentation about static files.
+It's possible to manage HTTP headers provided when public resources are requested (like `maxAge`, `Etag`, etc.) via the `staticOptions` property in webconfig. For more information, see the [Express](http://expressjs.com/en/api.html) documentation about static files.
 
 
 
 ### Manage Include of Partial Files ###
 
-You can segment your HTML codes to not repeat the redundant code such "head" part and "foot" part or any other code fragment (don't worry, we will see later how to manage a mater page with `head` and `body` tags including opening and closing part inso same file).
+You can segment your HTML codes to not repeat the redundant code such "head" part and "foot" part or any other code fragment (don't worry, we will see later how to manage a mater page with `head` and `body` tags including opening and closing part into the same file).
 
 *webconfig.json*
 
 ```json
 {
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		},
-		"/list-of-members/": {
-			"view": "members.htm"
-		}
-	}
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      },
+      "/list-of-members/": {
+         "view": "members.htm"
+      }
+   }
 }
 ```
 
@@ -748,46 +748,46 @@ with the following files:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-		<link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" />
-	</head>
-	<body>
+   <head>
+      <meta charset="utf-8" />
+      <title>Hello world</title>
+      <link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" />
+   </head>
+   <body>
 ```
 
 *views/partials/foot.htm*
 
 ```html
-		<script async type="text/javascript" src="javascripts/common.js"></script>
-	</body>
+      <script async type="text/javascript" src="javascripts/common.js"></script>
+   </body>
 </html>
 ```
 
 *views/index.htm*
 
 ```html
-	<?- include("partials/head.htm") ?>
+   <?- include("partials/head.htm") ?>
 
-	<div>
-		<h1>Welcome</h1>
-		<p>This is the home page.</p>
-	</div>
+   <div>
+      <h1>Welcome</h1>
+      <p>This is the home page.</p>
+   </div>
 
-	<?- include("partials/foot.htm") ?>
+   <?- include("partials/foot.htm") ?>
 ```
 
 *views/members.htm*
 
 ```html
-	<?- include("partials/head.htm") ?>
+   <?- include("partials/head.htm") ?>
 
-	<div>
-		<h1>List of members</h1>
-		<p>It is the Members page.</p>
-	</div>
+   <div>
+      <h1>List of members</h1>
+      <p>It is the Members page.</p>
+   </div>
 
-	<?- include("partials/foot.htm") ?>
+   <?- include("partials/foot.htm") ?>
 ```
 
 you will have access to the addresses:
@@ -795,7 +795,7 @@ you will have access to the addresses:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-*Note : for more informations to the differences between `<?`, `<?-`, `<?=`, etc. you can refer to the section [emplate engine](#ejs-template-engine).*
+*Note: for more informations to the differences between `<?`, `<?-`, `<?=`, etc. you can refer to the section [emplate engine](#ejs-template-engine).*
 
 
 
@@ -805,18 +805,18 @@ It is possible with the same view and the same includes, generating pages with d
 
 ```json
 {
-	"variation": "common.json",
-	"variationsRelativePath": "variations",
-	"routes": {
-		"/": {
-			"view": "template.htm",
-			"variation": "index.json",
-		},
-		"/list-of-members/": {
-			"view": "template.htm",
-			"variation": "members.json",
-		}
-	}
+   "variation": "common.json",
+   "variationsRelativePath": "variations",
+   "routes": {
+      "/": {
+         "view": "template.htm",
+         "variation": "index.json",
+      },
+      "/list-of-members/": {
+         "view": "template.htm",
+         "variation": "members.json",
+      }
+   }
 }
 ```
 
@@ -848,9 +848,9 @@ with the following files:
 
 ```json
 {
-	"titleWebsite": "Website title",
-	"classCssCommon": "common",
-	"classJsCommon": "common"
+   "titleWebsite": "Website title",
+   "classCssCommon": "common",
+   "classJsCommon": "common"
 }
 ```
 
@@ -858,9 +858,9 @@ with the following files:
 
 ```json
 {
-	"titlePage": "Welcome",
-	"classPage": "index",
-	"content": "<p>This is the home page.</p>"
+   "titlePage": "Welcome",
+   "classPage": "index",
+   "content": "<p>This is the home page.</p>"
 }
 ```
 
@@ -868,9 +868,9 @@ with the following files:
 
 ```json
 {
-	"titlePage": "List of members",
-	"classPage": "members",
-	"content": "<p>It is the Members page.</p>"
+   "titlePage": "List of members",
+   "classPage": "members",
+   "content": "<p>It is the Members page.</p>"
 }
 ```
 
@@ -879,37 +879,37 @@ with the following files:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8" />
-		<title><?- specific.titlePage ?></title>
+   <head>
+      <meta charset="utf-8" />
+      <title><?- specific.titlePage ?></title>
 
-		<link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
-	</head>
-	<body class="<?= specific.classPage ?>">
+      <link type="text/css" rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css" media="all" />
+      <link type="text/css" rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css" media="all" />
+   </head>
+   <body class="<?= specific.classPage ?>">
 ```
 
 *views/partials/foot.htm*
 
 ```html
-		<script async type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
-	</body>
+      <script async type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
+   </body>
 </html>
 ```
 
 *views/template.htm*
 
 ```html
-	<?- include("partials/head.htm") ?>
+   <?- include("partials/head.htm") ?>
 
-	<div class="title"><?- common.titleWebsite ?></div>
+   <div class="title"><?- common.titleWebsite ?></div>
 
-	<div>
-		<h1><?- specific.titlePage ?></h1>
-		<?- specific.content ?>
-	</div>
+   <div>
+      <h1><?- specific.titlePage ?></h1>
+      <?- specific.content ?>
+   </div>
 
-	<?- include("partials/foot.htm") ?>
+   <?- include("partials/foot.htm") ?>
 ```
 
 you will have access to the addresses:
@@ -917,7 +917,7 @@ you will have access to the addresses:
 - *http://localhost/*
 - *http://localhost/list-of-members/*
 
-*Note : If* `variationsRelativePath` *is not present in `webconfig.json`, default variations folder is* `variations`. `variationsRelativePath` *is useful only to change the name/path of directory.*
+*Note: if* `variationsRelativePath` *is not present in `webconfig.json`, default variations folder is* `variations`. `variationsRelativePath` *is useful only to change the name/path of directory.*
 
 
 
@@ -929,27 +929,27 @@ On the same principle, the variations can be used to create the same page, but i
 
 ```json
 {
-	"languageCode": "en-us",
-	"variationsRelativePath": "l10n",
-	"routes": {
-		"/": {
-			"view": "landing.htm",
-			"variation": "landing.json"
-		},
-		"/home/": {
-			"view": "home.htm",
-			"variation": "home.json"
-		},
-		"/accueil/": {
-			"view": "home.htm",
-			"variation": "home.json",
-			"languageCode": "fr-fr"
-		}
-	}
+   "languageCode": "en-us",
+   "variationsRelativePath": "l10n",
+   "routes": {
+      "/": {
+         "view": "landing.htm",
+         "variation": "landing.json"
+      },
+      "/home/": {
+         "view": "home.htm",
+         "variation": "home.json"
+      },
+      "/accueil/": {
+         "view": "home.htm",
+         "variation": "home.json",
+         "languageCode": "fr-fr"
+      }
+   }
 }
 ```
 
-*Note : In this example I use the common `variation` property, because I don't use a* `common.js` *file. I also decided to rename my folder* `variations` *to* `l10n` *(localization)*.
+*Note: in this example, I use the common `variation` property because I don't use a* `common.js` *file. I also decided to rename my folder* `variations` *to* `l10n` *(localization)*.
 
 with the following files:
 
@@ -973,12 +973,12 @@ with the following files:
 
 ```json
 {
-	"titlePage": "Landing",
-	"classPage": "landing",
-	"selectLabel": [
-		"English",
-		"Français"
-	]
+   "titlePage": "Landing",
+   "classPage": "landing",
+   "selectLabel": [
+      "English",
+      "Français"
+   ]
 }
 ```
 
@@ -986,9 +986,9 @@ with the following files:
 
 ```json
 {
-	"titlePage": "Welcome",
-	"classPage": "home",
-	"content": "<p>This is a home page.</p>"
+   "titlePage": "Welcome",
+   "classPage": "home",
+   "content": "<p>This is a home page.</p>"
 }
 ```
 
@@ -996,9 +996,9 @@ with the following files:
 
 ```json
 {
-	"titlePage": "Bienvenue",
-	"classPage": "home",
-	"content": "<p>C'est la page d'accueil.</p>"
+   "titlePage": "Bienvenue",
+   "classPage": "home",
+   "content": "<p>C'est la page d'accueil.</p>"
 }
 ```
 
@@ -1007,45 +1007,45 @@ with the following files:
 ```html
 <!DOCTYPE html>
 <html lang="<?= languageCode ?>">
-	<head>
-		<meta charset="utf-8" />
-		<title><?= specific.titlePage ?></title>
-	</head>
-	<body class="<?= specific.classPage ?>">
+   <head>
+      <meta charset="utf-8" />
+      <title><?= specific.titlePage ?></title>
+   </head>
+   <body class="<?= specific.classPage ?>">
 ```
 
 *views/partials/foot.htm*
 
 ```html
-	</body>
+   </body>
 </html>
 ```
 
 *views/landing.htm*
 
 ```html
-	<?- include("partials/head.htm") ?>
+   <?- include("partials/head.htm") ?>
 
-	<select>
-		<? for (var i = 0; i < specific.selectLabel.length; i++) { ?>
-		<option><?= specific.selectLabel[i] ?></option>
-		<? } ?>
-	</select>
+   <select>
+      <? for (var i = 0; i < specific.selectLabel.length; i++) { ?>
+      <option><?= specific.selectLabel[i] ?></option>
+      <? } ?>
+   </select>
 
-	<?- include("partials/foot.htm") ?>
+   <?- include("partials/foot.htm") ?>
 ```
 
 *views/home.htm*
 
 ```html
-	<?- include("partials/head.htm") ?>
+   <?- include("partials/head.htm") ?>
 
-	<div>
-		<h1><?- specific.titlePage ?></h1>
-		<?- specific.content ?>
-	</div>
+   <div>
+      <h1><?- specific.titlePage ?></h1>
+      <?- specific.content ?>
+   </div>
 
-	<?- include("partials/foot.htm") ?>
+   <?- include("partials/foot.htm") ?>
 ```
 
 you will have access to the addresses:
@@ -1054,14 +1054,14 @@ you will have access to the addresses:
 - *http://localhost/home/*
 - *http://localhost/accueil/*
 
-*Note : By default is the* `languageCode` *root that determines the display language of the wesite. It's also possible to change the page language with a* `languageCode` for a page. *You should also know that once the site or page has a* `languageCode` *in the configuration, variations files must be placed in a subdirectory named with the* `languageCode`.
+*Note: by default is the* `languageCode` *root that determines the display language of the wesite. It's also possible to change the page language with a* `languageCode` for a page. *You should also know that once the site or page has a* `languageCode` *in the configuration, variations files must be placed in a subdirectory named with the* `languageCode`.
 
 
 #### Use both variations and localizations ####
 
 You may have noticed in the previous example that the `landing.json` file was not in the `en-us/` or `fr-fr/`. This is quite possible and means that will be used in languages that do not have it in their file.
 
-Also, when a `languageCode` is specified, NodeAtlas seek first hand the value in the corresponding folder file. If it was not there, so he went to fetch the parent folder (the one used as standard for variations without localization).
+Also, when a `languageCode` is specified, NodeAtlas seek first hand the value in the corresponding folder file. If it was not there, so he went to fetch the parent folder (the one used as a standard for variations without localization).
 
 This will allow you, for example, to manage master language directly in the variation folder. So with the following example:
 
@@ -1079,9 +1079,9 @@ This will allow you, for example, to manage master language directly in the vari
 you can
 
 - manage the version `en-us` directly to the root of `variations/` (as NodeAtlas find nothing in` en-us` then it uses the values of the root files) and
-- manage the `fr-fr` release in the` fr-fr/ `,
+- manage the `fr-fr` release in the `fr-fr/ `,
 
-thus, if a sentence has not yet translated into a file `fr-fr`, instead of returning an error, NodeAtlas return the root version or the version` en-us`.
+Thus, if a sentence has not yet translated into a file `fr-fr`, instead of returning an error, NodeAtlas return the root version or the version `en-us`.
 
 
 #### Each language has its configuration ####
@@ -1115,12 +1115,12 @@ you could have "webconfig.json" next:
 
 ```json
 {
-	"routes": {
-		"/": {
-			"view": "landing.htm",
-			"variation": "landing.json"
-		}
-	}
+   "routes": {
+      "/": {
+         "view": "landing.htm",
+         "variation": "landing.json"
+      }
+   }
 }
 ```
 
@@ -1128,19 +1128,19 @@ you could have "webconfig.json" next:
 
 ```json
 {
-	"httpPort": 81,
-	"urlRelativeSubPath": "english",
-	"languageCode": "en-us",
-	"routes": {
-		"/": {
-			"view": "home.htm",
-			"variation": "home.json"
-		},
-		"/members-list/": {
-			"view": "members.htm",
-			"variation": "members.json"
-		}
-	}
+   "httpPort": 81,
+   "urlRelativeSubPath": "english",
+   "languageCode": "en-us",
+   "routes": {
+      "/": {
+         "view": "home.htm",
+         "variation": "home.json"
+      },
+      "/members-list/": {
+         "view": "members.htm",
+         "variation": "members.json"
+      }
+   }
 }
 ```
 
@@ -1148,19 +1148,19 @@ you could have "webconfig.json" next:
 
 ```json
 {
-	"httpPort": 82,
-	"urlRelativeSubPath": "francais",
-	"languageCode": "fr-fr",
-	"routes": {
-		"/": {
-			"view": "home.htm",
-			"variation": "home.json"
-		},
-		"/list-of-members/": {
-			"view": "members.htm",
-			"variation": "members.json"
-		}
-	}
+   "httpPort": 82,
+   "urlRelativeSubPath": "francais",
+   "languageCode": "fr-fr",
+   "routes": {
+      "/": {
+         "view": "home.htm",
+         "variation": "home.json"
+      },
+      "/list-of-members/": {
+         "view": "members.htm",
+         "variation": "members.json"
+      }
+   }
 }
 ```
 
@@ -1192,11 +1192,11 @@ By default, if you use the following configuration:
 
 ```json
 {
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	}
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   }
 }
 ```
 
@@ -1207,36 +1207,36 @@ with the following view :
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8" />
-		<title>URLs</title>
-	</head>
-	<body>
-		<div><?- urlRootPath ?></div>
-		<div><?- urlSubPath ?></div>
-		<div><?- urlBasePath ?></div>
-		<div><?- urlFilePath ?></div>
-		<div><?- urlQueryPath ?></div>
-		<div><?- urlPath ?></div>
-	</body>
+   <head>
+      <meta charset="utf-8" />
+      <title>URLs</title>
+   </head>
+   <body>
+      <div><?- urlRootPath ?></div>
+      <div><?- urlSubPath ?></div>
+      <div><?- urlBasePath ?></div>
+      <div><?- urlFilePath ?></div>
+      <div><?- urlQueryPath ?></div>
+      <div><?- urlPath ?></div>
+   </body>
 </html>
 ```
 
-This is the same to using it:
+This is the same to use it:
 
 *webconfig.json*
 
 ```json
 {
-	"httpHostname": "localhost",
-	"httpPort": 80,
-	"httpSecure": false,
-	"urlRelativeSubPath": "",
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	}
+   "httpHostname": "localhost",
+   "httpPort": 80,
+   "httpSecure": false,
+   "urlRelativeSubPath": "",
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   }
 }
 ```
 
@@ -1245,18 +1245,18 @@ and you will be access to the URL: *http://localhost/* to see this content:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8" />
-		<title>URLs</title>
-	</head>
-	<body>
-		<div>http://localhost</div>
-		<div></div>
-		<div>http://localhost</div>
-		<div>/</div>
-		<div></div>
-		<div>http://localhost/</div>
-	</body>
+   <head>
+      <meta charset="utf-8" />
+      <title>URLs</title>
+   </head>
+   <body>
+      <div>http://localhost</div>
+      <div></div>
+      <div>http://localhost</div>
+      <div>/</div>
+      <div></div>
+      <div>http://localhost/</div>
+   </body>
 </html>
 ```
 
@@ -1264,15 +1264,15 @@ Then change the configuration to this:
 
 ```json
 {
-	"httpHostname": "127.0.0.1",
-	"httpPort": 7777,
-	"httpSecure": "security/server",
-	"urlRelativeSubPath": "sub/folder",
-	"routes": {
-		"/index.html": {
-			"view": "index.htm"
-		}
-	}
+   "httpHostname": "127.0.0.1",
+   "httpPort": 7777,
+   "httpSecure": "security/server",
+   "urlRelativeSubPath": "sub/folder",
+   "routes": {
+      "/index.html": {
+         "view": "index.htm"
+      }
+   }
 }
 ```
 
@@ -1281,22 +1281,22 @@ to access this time to : *https://127.0.0.1:7777/sub/folder/index.html?test=ok* 
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8" />
-		<title>URLs</title>
-	</head>
-	<body>
-		<div>https://127.0.0.1:7777</div>
-		<div>/sub/folder</div>
-		<div>https://127.0.0.1:7777/sub/folder</div>
-		<div>/index.html</div>
-		<div>?test=ok</div>
-		<div>https://127.0.0.1:7777/sub/folder/index.html</div>
-	</body>
+   <head>
+      <meta charset="utf-8" />
+      <title>URLs</title>
+   </head>
+   <body>
+      <div>https://127.0.0.1:7777</div>
+      <div>/sub/folder</div>
+      <div>https://127.0.0.1:7777/sub/folder</div>
+      <div>/index.html</div>
+      <div>?test=ok</div>
+      <div>https://127.0.0.1:7777/sub/folder/index.html</div>
+   </body>
 </html>
 ```
 
-Note : This example work only if you have `server.crt` and `server.key` files valide into `security/` folder. Try without `"httpSecure": "security/server"` to see it work without `https` in URLs.
+Note: this example work only if you have `server.crt` and `server.key` files valide into `security/` folder. Try without `"httpSecure": "security/server"` to see it work without `https` in URLs.
 
 
 
@@ -1308,12 +1308,12 @@ Imagine two webconfigs in which we create our own variables as follows:
 
 ```json
 {
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	},
-	"_minified": ""
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   },
+   "_minified": ""
 }
 ```
 
@@ -1321,12 +1321,12 @@ Imagine two webconfigs in which we create our own variables as follows:
 
 ```json
 {
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	},
-	"_minified": ".min"
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   },
+   "_minified": ".min"
 }
 ```
 
@@ -1351,19 +1351,19 @@ and "index.htm" containing:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-		<link rel="stylesheet" type="text/css" href="stylesheets/common<?= webconfig._minified ?>.css" />
-	</head>
-	<body>
-		<div>This is a test to get a file minify/unminify.</div>
-		<script type="text/javascript" src="javascripts/common<?= webconfig._minified ?>.js"></script>
-	</body>
+   <head>
+      <meta charset="utf-8" />
+      <title>Hello world</title>
+      <link rel="stylesheet" type="text/css" href="stylesheets/common<?= webconfig._minified ?>.css" />
+   </head>
+   <body>
+      <div>This is a test to get a file minify/unminify.</div>
+      <script type="text/javascript" src="javascripts/common<?= webconfig._minified ?>.js"></script>
+   </body>
 </html>
 ```
 
-To run (from the site folder) the the command:
+To run (from the site folder) the command:
 
 ```bash
 $ node-atlas
@@ -1374,15 +1374,15 @@ We will have to address "http://localhost/" the following output with non-minifi
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-		<link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
-	</head>
-	<body>
-		<div>This is a test to get a file minify/unminify.</div>
-		<script type="text/javascript" src="javascripts/common.js"></script>
-	</body>
+   <head>
+      <meta charset="utf-8" />
+      <title>Hello world</title>
+      <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+   </head>
+   <body>
+      <div>This is a test to get a file minify/unminify.</div>
+      <script type="text/javascript" src="javascripts/common.js"></script>
+   </body>
 </html>
 ```
 
@@ -1397,25 +1397,25 @@ We will have to address "http://localhost/" the following output with minified f
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello world</title>
-		<link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
-	</head>
-	<body>
-		<div>This is a test to get a file minify/unminify.</div>
-		<script type="text/javascript" src="javascripts/common.min.js"></script>
-	</body>
+   <head>
+      <meta charset="utf-8" />
+      <title>Hello world</title>
+      <link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" />
+   </head>
+   <body>
+      <div>This is a test to get a file minify/unminify.</div>
+      <script type="text/javascript" src="javascripts/common.min.js"></script>
+   </body>
 </html>
 ```
 
-*Note : It is better to prefix his personal variables with "_" to avoid conflicts with existing or future configuration variables.*
+*Note: it is better to prefix his personal variables with "_" to avoid conflicts with existing or future configuration variables.*
 
 
 
 ### Use a Global View ###
 
-Include a head part and foot part in two separate files create the following problem: tag from head file are only closed into foot file. Il you want put all global things in the same file you could use a a global view and indicate into where all view are injected. You can use all others mechanism of view in this layout.
+Include a head part and foot part in two separate files create the following problem: tag from the head file are only closed into foot file. If you want to put all global things in the same file you could use a global view and indicate into where all views are injected. You can use all other mechanisms of view in this layout.
 
 with this set of files
 
@@ -1444,17 +1444,17 @@ and with the following webconfig:
 
 ```json
 {
-	"view": "common.htm",
-	"variation": "common.json",
-	"routes": {
-		"/": {
-			"view": "index.htm",
-			"variation": "index.json"
-		},
-		"/about/": {
-			"view": "about.htm"
-		}
-	}
+   "view": "common.htm",
+   "variation": "common.json",
+   "routes": {
+      "/": {
+         "view": "index.htm",
+         "variation": "index.json"
+      },
+      "/about/": {
+         "view": "about.htm"
+      }
+   }
 }
 ```
 
@@ -1464,9 +1464,9 @@ and this two variation files:
 
 ```json
 {
-	"titleWebsite": "Website Title",
-	"classCssCommon": "common",
-	"classJsCommon": "common"
+   "titleWebsite": "Website Title",
+   "classCssCommon": "common",
+   "classJsCommon": "common"
 }
 ```
 
@@ -1474,9 +1474,9 @@ and this two variation files:
 
 ```json
 {
-	"titlePage": "Welcome",
-	"classPage": "index",
-	"content": "<p>This is the Homepage.</p>"
+   "titlePage": "Welcome",
+   "classPage": "index",
+   "content": "<p>This is the Homepage.</p>"
 }
 ```
 
@@ -1487,23 +1487,23 @@ you could create with this views:
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<title><?- specific.titlePage || "No title" ?></title>
-		<link rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css"  media="all">
-		<? if (specific.classPage) { ?>
-		<link rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css"  media="all">
-		<? } ?>
-	</head>
-	<body>
-		<!-- Include a file in standard way -->
-		<?- include("partials/header.htm") ?>
+   <head>
+      <meta charset="utf-8">
+      <title><?- specific.titlePage || "No title" ?></title>
+      <link rel="stylesheet" href="stylesheets/<?= common.classCssCommon ?>.css"  media="all">
+      <? if (specific.classPage) { ?>
+      <link rel="stylesheet" href="stylesheets/<?= specific.classPage ?>.css"  media="all">
+      <? } ?>
+   </head>
+   <body>
+      <!-- Include a file in standard way -->
+      <?- include("partials/header.htm") ?>
 
-		<!-- Include the current `view` file -->
-		<?- include(routeParameters.view) ?>
+      <!-- Include the current `view` file -->
+      <?- include(routeParameters.view) ?>
 
-		<script async="true" type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
-	</body>
+      <script async="true" type="text/javascript" src="javascripts/<?= common.classJsCommon ?>.js"></script>
+   </body>
 </html>
 ```
 
@@ -1511,7 +1511,7 @@ you could create with this views:
 
 ```html
 <header>
-	<h1><?= specific.titlePage ?></h1>
+   <h1><?= specific.titlePage ?></h1>
 </header>
 ```
 
@@ -1519,7 +1519,7 @@ you could create with this views:
 
 ```html
 <div>
-	<?- specific.content ?>
+   <?- specific.content ?>
 </div>
 ```
 
@@ -1527,32 +1527,32 @@ you could create with this views:
 
 ```html
 <div>
-	<h1>NodeAtlas © Haeresis</h1>
+   <h1>NodeAtlas © Haeresis</h1>
 </div>
 ```
 
-an display the following URLs:
+an display the following URL:
 
 */*
 
 ```html
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<title>Welcome</title>
-		<link rel="stylesheet" href="stylesheets/common.css"  media="all">
-		<link rel="stylesheet" href="stylesheets/index.css"  media="all">
-	</head>
-	<body>
-		<header>
-			<h1>Welcome</h1>
-		</header>
-		<div>
-			<p>This is the Homepage.</p>
-		</div>
-		<script async="true" type="text/javascript" src="javascripts/common.js"></script>
-	</body>
+   <head>
+      <meta charset="utf-8">
+      <title>Welcome</title>
+      <link rel="stylesheet" href="stylesheets/common.css"  media="all">
+      <link rel="stylesheet" href="stylesheets/index.css"  media="all">
+   </head>
+   <body>
+      <header>
+         <h1>Welcome</h1>
+      </header>
+      <div>
+         <p>This is the Homepage.</p>
+      </div>
+      <script async="true" type="text/javascript" src="javascripts/common.js"></script>
+   </body>
 </html>
 ```
 
@@ -1561,17 +1561,17 @@ an display the following URLs:
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8">
-		<title>Pas de titre</title>
-		<link rel="stylesheet" href="stylesheets/common.css"  media="all">
-	</head>
-	<body>
-		<div>
-			<h1>NodeAtlas © Haeresis</h1>
-		</div>
-		<script async="true" type="text/javascript" src="javascripts/common.js"></script>
-	</body>
+   <head>
+      <meta charset="utf-8">
+      <title>Pas de titre</title>
+      <link rel="stylesheet" href="stylesheets/common.css"  media="all">
+   </head>
+   <body>
+      <div>
+         <h1>NodeAtlas © Haeresis</h1>
+      </div>
+      <script async="true" type="text/javascript" src="javascripts/common.js"></script>
+   </body>
 </html>
 ```
 
@@ -1579,7 +1579,7 @@ an display the following URLs:
 
 ### Share directories ###
 
-It is possible to share more than only the `assetsRelativePath` public directory. You could for exemple share views or models with to the client-side. We call them statics files.
+It is possible to share more than only the `assetsRelativePath` public directory. You could for example share views or models with to the client-side. We call them statics files.
 
 We see the following example:
 
@@ -1597,12 +1597,12 @@ with this set of files
 
 ```json
 {
-	"statics": {
-		"/javascripts/models": "models"
-	},
-	"routes": {
-		"/": "index.htm"
-	}
+   "statics": {
+      "/javascripts/models": "models"
+   },
+   "routes": {
+      "/": "index.htm"
+   }
 }
 ```
 
@@ -1610,25 +1610,25 @@ with this set of files
 
 ```html
 <!DOCTYPE html>
-	<html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<title>Statics</title>
-	</head>
-	<body>
-		<div id="user"></div>
-		<script src="javascripts/models/user.js"></script>
-		<script>
-			var user = new User(),
-				mount = document.getElementById("user");
+   <html lang="en-us">
+   <head>
+      <meta charset="utf-8">
+      <title>Statics</title>
+   </head>
+   <body>
+      <div id="user"></div>
+      <script src="javascripts/models/user.js"></script>
+      <script>
+         var user = new User(),
+            mount = document.getElementById("user");
 
-			user
-				.firstname("Bruno")
-				.lastname("Lesieur");
+         user
+            .firstname("Bruno")
+            .lastname("Lesieur");
 
-			mount.innerHTML = user.firstname() + " " + user.lastname();
-		</script>
-	</body>
+         mount.innerHTML = user.firstname() + " " + user.lastname();
+      </script>
+   </body>
 </html>
 ```
 
@@ -1636,32 +1636,32 @@ with this set of files
 
 ```js
 (function (expose, factory) {
-	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = factory;
-	} else {
-		expose.User = factory;
-	}
+   if (typeof module !== 'undefined' && module.exports) {
+      module.exports = factory;
+   } else {
+      expose.User = factory;
+   }
 }(this, function User() {
-	var privates = {},
-		publics = this;
+   var privates = {},
+      publics = this;
 
-	publics.lastname = function (lastname) {
-		if (typeof lastname === 'undefined') {
-			return privates.lastname;
-		} else {
-			privates.lastname = lastname;
-			return publics;
-		}
-	};
+   publics.lastname = function (lastname) {
+      if (typeof lastname === 'undefined') {
+         return privates.lastname;
+      } else {
+         privates.lastname = lastname;
+         return publics;
+      }
+   };
 
-	publics.firstname = function (firstname) {
-		if (typeof firstname === 'undefined') {
-			return privates.firstname;
-		} else {
-			privates.firstname = firstname;
-			return publics;
-		}
-	};
+   publics.firstname = function (firstname) {
+      if (typeof firstname === 'undefined') {
+         return privates.firstname;
+      } else {
+         privates.firstname = firstname;
+         return publics;
+      }
+   };
 }));
 ```
 
@@ -1669,42 +1669,42 @@ We can access to the HTML files `http://localhost/` and JavaScript `http://local
 
 #### maxAge, Etag, etc. ####
 
-It's possible to manage informations provided by NodeAtlas when a static ressource is requested (like `maxAge`, `Etag`, etc.) via the `staticOptions`. In this case, the parameter is not a `string` anymore but an `Object` and the initial property become the `path` parameter. By default, `staticOptions` are the same as global webconfig (more informations at [Express](http://expressjs.com/en/api.html) documentation).
+It's possible to manage information provided by NodeAtlas when a static resource is requested (like `maxAge`, `Etag`, etc.) via the `staticOptions`. In this case, the parameter is not a `string` anymore but an `Object` and the initial property become the `path` parameter. By default, `staticOptions` are the same as global webconfig (more information at [Express](http://expressjs.com/en/api.html) documentation).
 
 ```json
 {
-	"statics": {
-		"/javascripts/models": {
-			"path": "models",
-			"staticOptions": {
-				"index": false
-			}
-		}
-	},
-	"routes": {
-		"/": "index.htm"
-	}
+   "statics": {
+      "/javascripts/models": {
+         "path": "models",
+         "staticOptions": {
+            "index": false
+         }
+      }
+   },
+   "routes": {
+      "/": "index.htm"
+   }
 }
 ```
 
 #### Order routes ####
 
-It's also possible to place routes into an array, that allows you to ordonate routes for an advanced usage in controllers section.
+It's also possible to place routes into an array, that allows you to ordinate routes for an advanced usage in controllers section.
 
-In this case, the path become the `virtual` parameter.
+In this case, the path becomes the `virtual` parameter.
 
 ```json
 {
-	"statics": [{
-		"virtual": "/javascripts/models",
-		"path": "models",
-		"staticOptions": {
-			"index": false
-		}
-	}],
-	"routes": {
-		"/": "index.htm"
-	}
+   "statics": [{
+      "virtual": "/javascripts/models",
+      "path": "models",
+      "staticOptions": {
+         "index": false
+      }
+   }],
+   "routes": {
+      "/": "index.htm"
+   }
 }
 ```
 
@@ -1714,30 +1714,30 @@ In this case, the path become the `virtual` parameter.
 
 #### Generate HTML Designs ####
 
-With the following configuration it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of page in your browser.
+With the following configuration, it is possible to generate HTML rendering assets of each page in a linked file. The file will be (re)created every display of the page in your browser.
 
 ```json
 {
-	"htmlGenerationBeforeResponse": true,
-	"assetsRelativePath": "../HTML/",
-	"serverlessRelativePath": "../HTML/",
-	"routes": {
-		"/": {
-			"view": "index.htm",
-			"output": "/index.html"
-		},
-		"/list-of-members/": {
-			"view": "members.htm",
-			"output": "/members/list.html"
-		},
-		"/list-of-members/?foo=bar": {
-			"view": "members.htm",
-			"output": false
-		},
-		"/no/output/parameter/": {
-			"view": "members.htm"
-		}
-	}
+   "htmlGenerationBeforeResponse": true,
+   "assetsRelativePath": "../HTML/",
+   "serverlessRelativePath": "../HTML/",
+   "routes": {
+      "/": {
+         "view": "index.htm",
+         "output": "/index.html"
+      },
+      "/list-of-members/": {
+         "view": "members.htm",
+         "output": "/members/list.html"
+      },
+      "/list-of-members/?foo=bar": {
+         "view": "members.htm",
+         "output": false
+      },
+      "/no/output/parameter/": {
+         "view": "members.htm"
+      }
+   }
 }
 ```
 
@@ -1780,17 +1780,17 @@ by going to the address:
 - *http://localhost/list-of-members/*
 - *http://localhost/no/output/parameter/*
 
-*Note : No output page are generated for "/list-of-members/?foo=bar" because `output` is set to `false`. Use this value to ignore a route generation.*
+*Note: no output page are generated for "/list-of-members/?foo=bar" because `output` is set to `false`. Use this value to ignore a route generation.*
 
-The generation starts when displaying the page if `htmlGenerationBeforeResponse` exist and if it is `true`.
+The generation starts when displaying the page if `htmlGenerationBeforeResponse` exists and if it is `true`.
 
 #### Generate website without server-side ####
 
-You can also manager a simple HTML website page with `--generate` command.
+You can also manage a simple HTML website page with `--generate` command.
 
-If `htmlGenerationBeforeResponse` is setted to `false` (or removed) the only way to generate all the pages of the website will be via the command `node-atlas --generate` will generate all pages into `serverlessRelativePath` only if global `output` is setted to `true`.
+If `htmlGenerationBeforeResponse` is set to `false` (or removed) the only way to generate all the pages of the website will be via the command `node-atlas --generate` will generate all pages into `serverlessRelativePath` only if global `output` is set to `true`.
 
-Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folder does not have the same path only if global `assetsCopy` is setted to `true`.
+Also with `--generate` , the entire ` assetsRelativePath` folder (public folder files) will be copied in the `serverlessRelativePath` if both folders does not have the same path only if global `assetsCopy` is set to `true`.
 
 It really allows you to get the stand-alone pages you want in output folder with all files which they call (CSS / JS / Images, etc.).
 
@@ -1798,22 +1798,22 @@ See this with the following configuration:
 
 ```json
 {
-	"output": true,
-	"assetsCopy": true,
-	"languageCode": "fr-fr",
-	"index": true,
-	"serverlessRelativePath": "serverless",
-	"routes": {
-		"/cv.html": {
-			"view": "index.htm",
-			"variation": "index.json"
-		},
-		"/en/cv.html": {
-			"view": "index.htm",
-			"variation": "index.json",
-			"languageCode": "en"
-		}
-	}
+   "output": true,
+   "assetsCopy": true,
+   "languageCode": "fr-fr",
+   "index": true,
+   "serverlessRelativePath": "serverless",
+   "routes": {
+      "/cv.html": {
+         "view": "index.htm",
+         "variation": "index.json"
+      },
+      "/en/cv.html": {
+         "view": "index.htm",
+         "variation": "index.json",
+         "languageCode": "en"
+      }
+   }
 }
 ```
 
@@ -1852,20 +1852,20 @@ It will do more than, once `--generate` was used, enjoy your HTML site in the fo
 ┊┉
 ```
 
-*Note : If* `serverlessRelativePath` *is not present in "webconfig.json", default folder for generated files is* `serverless/`. `serverlessRelativePath` *is useful only to change the name/path of directory.*
+*Note: if* `serverlessRelativePath` *is not present in "webconfig.json", default folder for generated files is* `serverless/`. `serverlessRelativePath` *is useful only to change the name/path of directory.*
 
 #### Generate Static Files ####
 
-Files defined into `statics` are also copyble into `serverlessRelativePath` when you use `--generate`. To allows this, you could use for each directory the parameter `output` setted to `true`.
+Files defined into `statics` are also copyable into `serverlessRelativePath` when you use `--generate`. To allow this, you could use for each directory the parameter `output` set to `true`.
 
 ```
 {
-	"statics": {
-		"/javascripts/models": {
-			"path": "models",
-			"output": true
-		}
-	},
+   "statics": {
+      "/javascripts/models": {
+         "path": "models",
+         "output": true
+      }
+   },
 }
 ```
 
@@ -1875,7 +1875,7 @@ Files defined into `statics` are also copyble into `serverlessRelativePath` when
 
 By default, NodeAtlas already use [EJS template engine](http://ejs.co/), it's that allows you to use JavaScript between `<?` and `?>` tags.
 
-Tags `<?` and `?>` allow you to include JavaScript into templates. There are many diffent tag format allow you to display JavaScript output into your template (in the same way you should with `document.write`). See below:
+Tags `<?` and `?>` allow you to include JavaScript into templates. There are many different tag format allow you to display JavaScript output into your template (in the same way you should with `document.write`). See below:
 
 - `<?` Opening 'scriptlet' tag by default for control-flow, no output provided.
 - `<?=` Outputs the value into the template (HTML escaped)
@@ -1889,12 +1889,12 @@ However, EJS works by default with `<%` and `%>`. You could set this values or s
 
 ```json
 {
-	"templateEngineDelimiter": "%",
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	}
+   "templateEngineDelimiter": "%",
+   "routes": {
+      "/": {
+         "view": "index.htm"
+      }
+   }
 }
 ```
 
@@ -1906,14 +1906,14 @@ See the example in files below:
 
 ```json
 {
-	"templateEngineDelimiter": true,
-	"variation": "common.json",
-	"routes": {
-		"/": {
-			"view": "index.ejs",
-			"variation": "index.json"
-		}
-	}
+   "templateEngineDelimiter": true,
+   "variation": "common.json",
+   "routes": {
+      "/": {
+         "view": "index.ejs",
+         "variation": "index.json"
+      }
+   }
 }
 ```
 
@@ -1921,9 +1921,9 @@ See the example in files below:
 
 ```json
 {
-	"titleWebsite": "Website Title",
-	"classCssCommon": "common",
-	"classJsCommon": "common"
+   "titleWebsite": "Website Title",
+   "classCssCommon": "common",
+   "classJsCommon": "common"
 }
 ```
 
@@ -1931,9 +1931,9 @@ See the example in files below:
 
 ```json
 {
-	"titlePage": "Welcome",
-	"classPage": "index",
-	"content": "<p>This is the Homepage.</p>"
+   "titlePage": "Welcome",
+   "classPage": "index",
+   "content": "<p>This is the Homepage.</p>"
 }
 ```
 
@@ -1942,41 +1942,41 @@ See the example in files below:
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
-	<head>
-		<meta charset="utf-8" />
-		<title><%- specific.titlePage %></title>
-		<link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
-	</head>
-	<body class="<%= specific.classPage %>">
+   <head>
+      <meta charset="utf-8" />
+      <title><%- specific.titlePage %></title>
+      <link type="text/css" rel="stylesheet" href="stylesheets/<%= common.classCssCommon %>.css" media="all" />
+      <link type="text/css" rel="stylesheet" href="stylesheets/<%= specific.classPage %>.css" media="all" />
+   </head>
+   <body class="<%= specific.classPage %>">
 ```
 
 *views/partials/foot.ejs*
 
 ```html
-		<script async type="text/javascript" src="javascripts/<%= common.classJsCommon %>.js"></script>
-	</body>
+      <script async type="text/javascript" src="javascripts/<%= common.classJsCommon %>.js"></script>
+   </body>
 </html>
 ```
 
 *views/index.ejs*
 
 ```html
-	<%- include("partials/head") %>
+   <%- include("partials/head") %>
 
-	<div class="title"><%- common.titleWebsite %></div>
+   <div class="title"><%- common.titleWebsite %></div>
 
-	<div>
-		<h1><%- specific.titlePage %></h1>
-		<%- specific.content %>
-	</div>
+   <div>
+      <h1><%- specific.titlePage %></h1>
+      <%- specific.content %>
+   </div>
 
-	<%- include("partials/foot") %>
+   <%- include("partials/foot") %>
 ```
 
 Learn all about the possibilities of the template engine consult [the documentation EJS](http://ejs.co/)
 
-*Note : If nothing is set,* `templateEngineDelimiter` *is set to* `?`.
+*Note: if nothing is set,* `templateEngineDelimiter` *is set to* `?`.
 
 
 
@@ -1986,15 +1986,15 @@ It's also possible to change EJS template to [Pug Template Engine](https://pugjs
 
 ```json
 {
-	"pug": true,
-	"routes": {
-		"/": {
-			"view": "index.pug"
-		},
-		"/contenu/": {
-			"view": "content.pug"
-		}
-	}
+   "pug": true,
+   "routes": {
+      "/": {
+         "view": "index.pug"
+      },
+      "/contenu/": {
+         "view": "content.pug"
+      }
+   }
 }
 ```
 
@@ -2002,15 +2002,15 @@ or just for one page like this:
 
 ```
 {
-	"routes": {
-		"/": {
-			"view": "index.pug"
-		},
-		"/contenu/": {
-			"pug": true,
-			"view": "content.pug"
-		}
-	}
+   "routes": {
+      "/": {
+         "view": "index.pug"
+      },
+      "/contenu/": {
+         "pug": true,
+         "view": "content.pug"
+      }
+   }
 }
 ```
 
@@ -2018,34 +2018,34 @@ It's also possible to reset EJS only for one page.
 
 ```
 {
-	"pug": true,
-	"routes": {
-		"/": {
-			"pug": false,
-			"view": "index.pug"
-		},
-		"/contenu/": {
-			"view": "content.pug"
-		}
-	}
+   "pug": true,
+   "routes": {
+      "/": {
+         "pug": false,
+         "view": "index.pug"
+      },
+      "/contenu/": {
+         "view": "content.pug"
+      }
+   }
 }
 ```
 
-We can see now an example with set of files below:
+We can see now an example with a set of files below:
 
 *webconfig.json*
 
 ```
 {
-	"pug": true,
-	"view": "common.pug",
-	"variation": "common.json",
-	"routes": {
-		"/": {
-			"view": "index.pug",
-			"variation": "index.json"
-		}
-	}
+   "pug": true,
+   "view": "common.pug",
+   "variation": "common.json",
+   "routes": {
+      "/": {
+         "view": "index.pug",
+         "variation": "index.json"
+      }
+   }
 }
 ```
 
@@ -2053,9 +2053,9 @@ We can see now an example with set of files below:
 
 ```json
 {
-	"titleWebsite": "Website Title",
-	"classCssCommon": "common",
-	"classJsCommon": "common"
+   "titleWebsite": "Website Title",
+   "classCssCommon": "common",
+   "classJsCommon": "common"
 }
 ```
 
@@ -2063,9 +2063,9 @@ We can see now an example with set of files below:
 
 ```json
 {
-	"titlePage": "Welcome",
-	"classPage": "index",
-	"content": "<p>This is the Homepage.</p>"
+   "titlePage": "Welcome",
+   "classPage": "index",
+   "content": "<p>This is the Homepage.</p>"
 }
 ```
 
@@ -2074,15 +2074,15 @@ We can see now an example with set of files below:
 ```html
 doctype html
 html(lang="fr-fr")
-	head
-		meta(charset="utf-8")
-		title #{specific.titlePage}
-		link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
-		link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
-	body(class=specific.classPage)
-		include partials/header
-		include #{routeParameters.view}
-		script(async, type="text/javascript", src="javascripts/" + common.classJsCommon + ".js")
+   head
+      meta(charset="utf-8")
+      title #{specific.titlePage}
+      link(type="text/css", rel="stylesheet", href="stylesheets/" + common.classCssCommon + ".css", media="all")
+      link(type="text/css", rel="stylesheet", href="stylesheets/" + specific.classPage + ".css", media="all")
+   body(class=specific.classPage)
+      include partials/header
+      include #{routeParameters.view}
+      script(async, type="text/javascript", src="javascripts/" + common.classJsCommon + ".js")
 ```
 
 *views/partials/header.pug*
@@ -2095,23 +2095,23 @@ h1 #{titleWebsite}
 
 ```html
 div
-	h2 #{specific.titlePage}
-	| !{specific.content}
+   h2 #{specific.titlePage}
+   | !{specific.content}
 ```
 
 Learn all about the possibilities of the template engine consult [the documentation Pug](https://pugjs.org/)
 
-*Note : If nothing is set,* `pug` *is set to* `false`.
+*Note: if nothing is set,* `pug` *is set to* `false`.
 
 
 
 ### Vue Template Engine ###
 
-[Vue](https://vuejs.org/) is a progresive MVVM framework like Angular or React which can be used as a server template engine for NodeAtlas. The main useful feature is the client-side hydrate this code from response of server and made reactivity and route with it !
+[Vue](https://vuejs.org/) is a progressive MVVM framework like Angular or React which can be used as a server template engine for NodeAtlas. The main useful feature is the client-side hydrate this code from the response of server and made reactivity and route with it!
 
-> Feel free to back to this section later because some controller mechanism are used and will be explained later in the next chapter.
+> Feel free to back to this section later because some controller mechanisms are used and will be explained later in the next chapter.
 
-We propose tou us to set up an usage of [Vue](https://vuejs.org/) + [Vue Router](https://router.vuejs.org/en/) + [Vue Server Renderer](https://ssr.vuejs.org/en/) with the following command:
+We propose us to set up an usage of [Vue](https://vuejs.org/) + [Vue Router](https://router.vuejs.org/en/) + [Vue Server Renderer](https://ssr.vuejs.org/en/) with the following command:
 
 ```bash
 node-atlas --create hello-vue
