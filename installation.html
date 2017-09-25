@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1505578890849">
+		<meta name="og:updated_time" content="1506356644750">
 
 		<meta name="robots" content="index, follow">
 
@@ -152,7 +152,7 @@ website.init({
 								<div class="download--version--step1">
 									<h3>v2.0.0-beta50</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Derni&#xE8;re version</a></p>
-									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
 								<div class="download--version--step2">
 									<h3>Cloner</h3>
@@ -192,13 +192,13 @@ website.init({
 								</div>
 								<div class="download--tuto--step3">
 									<div class="download--tuto--step3--first">
-										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> des sites web multilingues</a>
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
 									</div>
 									<div class="download--tuto--step3--second">
-										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> des maquettes HTML sans serveur</a>
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> par ex. des pages HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps r&#xE9;el</a>
+										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web r&#xE9;actives</a>
 									</div>
 								</div>
 							</div>
@@ -313,7 +313,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="installation">Installation</h2><p>Avant de pouvoir installer NodeAtlas, assurez-vous d&apos;avoir install&#xE9; <a href="https://nodejs.org/">Node.js</a>, vous pouvez voir cela dans la section : <a href="installation.html#installation-de-node-js">Installation de Node.js</a> plus bas.</p><h3 id="installation-de-nodeatlas">Installation de NodeAtlas</h3><p><em>Note: Si vous &#xEA;tes sous Linux, il faudra ajouter <code>sudo</code> en amont des commandes si vous n&apos;&#xEA;tes pas root.</em></p><p>Il y a plusieurs mani&#xE8;res d&apos;installer NodeAtlas :</p><ul>
+					<h2 id="installation">Installation</h2><p>Avant de pouvoir installer NodeAtlas, assurez-vous d&apos;avoir install&#xE9; <a href="https://nodejs.org/">Node.js</a>, vous pouvez voir cela dans la section : <a href="installation.html#installation-de-node-js">Installation de Node.js</a> plus bas.</p><h3 id="installation-de-nodeatlas">Installation de NodeAtlas</h3><p><em>Note : Si vous &#xEA;tes sous Linux, il faudra ajouter <code>sudo</code> en amont des commandes si vous n&apos;&#xEA;tes pas root.</em></p><p>Il y a plusieurs mani&#xE8;res d&apos;installer NodeAtlas :</p><ul>
 <li><p><strong>Avec npm, dans le dossier du projet</strong> avec la commande suivante :</p>
 <blockquote>
 <p><code>npm install node-atlas</code></p>
@@ -326,7 +326,10 @@ website.init({
 </blockquote>
 <p> <em>Ceci installera</em> NodeAtlas <em>dans le dossier &#xAB; node_modules/node-atlas/ &#xBB; global. Recommand&#xE9; pour un <a href="api-nodeatlas-comme-module-npm.html">usage sous forme de module</a> dans beaucoup de projet ou pour <a href="cli-commandes-de-lancement.html">un usage &#xE0; la ligne de commande</a>.</em></p>
 </li>
-<li><p><strong>Cloner le r&#xE9;pertoire</strong> depuis le d&#xE9;p&#xF4;t officiel <a href="https://github.com/NodeAtlas/node-atlas/">GitHub</a>.</p>
+<li><p><strong>Cloner le r&#xE9;pertoire</strong> depuis le d&#xE9;p&#xF4;t officiel <a href="https://github.com/NodeAtlas/node-atlas">GitHub</a>.</p>
+<blockquote>
+<p><code>git clone https://github.com/NodeAtlas/node-atlas.git</code></p>
+</blockquote>
 <p> <em>Ceci installera</em> NodeAtlas <em>dans le dossier de votre d&#xE9;p&#xF4;t local.</em></p>
 <p> <em>Utilisez <code>npm install</code> depuis le dossier <code>&lt;/path/to/&gt;node-atlas/</code> pour installer toutes les d&#xE9;pendences. Recommand&#xE9; pour participer au d&#xE9;veloppement.</em></p>
 </li>
@@ -334,20 +337,20 @@ website.init({
 <p> <em>Une fois t&#xE9;l&#xE9;charg&#xE9;, d&#xE9;zippez</em> NodeAtlas <em>dans le dossier &#xAB; node_modules/ &#xBB; qui vous conviendra.</em></p>
 <p> <em>Utilisez <code>npm install</code> depuis le dossier <code>&lt;/path/to/&gt;node-atlas/</code> pour installer toutes les d&#xE9;pendences.</em></p>
 </li>
-</ul><h3 id="installation-de-node-js">Installation de Node.js</h3><p>NodeAtlas est d&#xE9;velopp&#xE9; sous la forme d&apos;un <a href="https://www.npmjs.com/">Node.js Module Package</a> ou npm ce qui signifie qu&apos;il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l&apos;utilisation du m&#xEA;me langage c&#xF4;t&#xE9; client et serveur.</p><p><em>Note: Python 2.6 ou 2.7 est requis pour les sources tarballs.</em></p><h4 id="installer-sur-windows">Installer sur Windows</h4><p>En utilisant un installeur :</p><ul>
+</ul><h3 id="installation-de-node-js">Installation de Node.js</h3><p>NodeAtlas est d&#xE9;velopp&#xE9; sous la forme d&apos;un <a href="https://www.npmjs.com/">Node.js Module Package</a> ou npm ce qui signifie qu&apos;il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l&apos;utilisation du m&#xEA;me langage c&#xF4;t&#xE9; client et serveur.</p><p><em>Note : Python 2.6 ou 2.7 est requis pour les sources tarballs.</em></p><h4 id="installer-sur-windows">Installer sur Windows</h4><p>En utilisant un installeur :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Windows Installer</a>.</li>
-</ul><p>En utilisant <a href="http://chocolatey.org/">chocolatey</a> pour installer Node:</p><pre><code class="lang-bash">cinst nodejs
-</code></pre><p>ou en l&apos;installant avec npm :</p><pre><code class="lang-bash">cinst nodejs.install
+</ul><p>En utilisant <a href="http://chocolatey.org/">chocolatey</a> pour installer Node.js :</p><pre><code class="lang-bash">cinst nodejs
+</code></pre><p>ou en l&apos;installant avec <code>cinst</code> :</p><pre><code class="lang-bash">cinst nodejs.install
 </code></pre><h4 id="installer-sur-osx">Installer sur OSX</h4><p>En utilisant un installeur :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Macintosh Installer</a>.</li>
 </ul><p>En utilisant <a href="https://github.com/mxcl/homebrew">homebrew</a>:</p><pre><code class="lang-bash">brew install node
 </code></pre><p>En utilisant <a href="http://www.macports.org/">macports</a>:</p><pre><code class="lang-bash">port install nodejs
-</code></pre><h4 id="installer-sur-linux">Installer sur Linux</h4><p>Using a package:</p><ul>
+</code></pre><h4 id="installer-sur-linux">Installer sur Linux</h4><p>En utilisant un package :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Linux Binaries</a>.</li>
-</ul><p>Example install with apt-get:</p><pre><code class="lang-bash">sudo apt-get install python-software-properties python g++ make
+</ul><p>Exemple d&apos;installation avec <code>apt-get</code> :</p><pre><code class="lang-bash">sudo apt-get install python-software-properties python g++ make
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
-</code></pre><p>Il y a un conflit de nom entre le node de package (Amateur Packet Radio Node Program), et les binaires de nodejs on &#xE9;t&#xE9; renomm&#xE9; de node &#xE0; nodejs. Vous pouvez effectuer un symlink de /usr/bin/node &#xE0; /usr/bin/nodejs ou d&#xE9;sinstaller Amateur Packet Radio Node pour &#xE9;viter le conflit.</p><div><div class="before">
+</code></pre><p>Il y a un conflit de nom entre le <code>node</code> de package (Amateur Packet Radio Node Program), et les binaires de Node.js on &#xE9;t&#xE9; renomm&#xE9; de <code>node</code> &#xE0; <code>nodejs</code>. Vous pouvez effectuer un symlink de <code>/usr/bin/node</code> &#xE0; <code>/usr/bin/nodejs</code> ou d&#xE9;sinstaller Amateur Packet Radio Node pour &#xE9;viter le conflit.</p><div><div class="before">
 							<a href="avant-propos.html">&#x25C4; Avant-propos</a>
 						</div><div class="after">
 							<a href="commencer-avec-nodeatlas.html">Commencer avec NodeAtlas &#x25BA;</a>

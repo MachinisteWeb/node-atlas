@@ -131,7 +131,7 @@
 
     next();
 }
-</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all urls, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
+</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all URLs, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
 <li>Prepare a 404 page.</li>
 <li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
 </ol><p>See the example below:</p><pre><code class="lang-json">{
@@ -1386,12 +1386,12 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><h3 id="generate-urls-dynamically">Generate urls dynamically</h3><h4 id="relative-paths-in-absolute">Relative paths in absolute</h4><p>It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong><a href="http://localhost">http://localhost</a></strong> impossible to reach when the template is displayed to address <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (because the path should be <code>../media/images/example.jpg</code>).</p><p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the urls such as:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+</code></pre><h3 id="generate-urls-dynamically">Generate URLs dynamically</h3><h4 id="relative-paths-in-absolute">Relative paths in absolute</h4><p>It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong><a href="http://localhost">http://localhost</a></strong> impossible to reach when the template is displayed to address <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (because the path should be <code>../media/images/example.jpg</code>).</p><p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the URLs such as:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
 &lt;!-- ... -->
 &lt;img src="media/images/example.jpg" />
 &lt;!-- ... -->
 &lt;script type="text/javascript" src="javascripts/common.js">&lt;/script>
-</code></pre><p>in absolute urls with variable <code>urlBasePath</code> as below:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="&lt;?= urlBasePath ?>stylesheets/common.css" />
+</code></pre><p>in absolute URLs with variable <code>urlBasePath</code> as below:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="&lt;?= urlBasePath ?>stylesheets/common.css" />
 &lt;!-- ... -->
 &lt;img src="&lt;?= urlBasePath ?>media/images/example.jpg" />
 &lt;!-- ... -->
@@ -1460,7 +1460,7 @@ exports.setSessions = function (next) {
 &lt;a href="&lt;?= urlBasePath ?>&lt;?= webconfig.routes.contact.url.slice(1) ?>">Link to contact&lt;/a>
 &lt;!-- ... -->
 </code></pre>
-<p><em>Note : <code>.slice(1)</code> makes it easy to remove the dual <code>/</code> for standard url.</em></p>
+<p> <em>Note : <code>.slice(1)</code> makes it easy to remove the dual <code>/</code> for standard url.</em></p>
 </li>
 <li><p>or as follows</p>
 <pre><code class="lang-html">&lt;!-- ... -->
@@ -1468,7 +1468,7 @@ exports.setSessions = function (next) {
 &lt;a href="&lt;?= urlBasePath ?>.&lt;?= webconfig.routes.contact.url ?>">Link to contact&lt;/a>
 &lt;!-- ... -->
 </code></pre>
-<p><em>Note : This would, for example <code>http://localhost/./home.html</code>, which is a standard url.</em></p>
+<p> <em>Note : This would, for example <code>http://localhost/./home.html</code>, which is a standard url.</em></p>
 </li>
 <li><p>ou comme suit</p>
 <pre><code class="lang-html">&lt;!-- ... -->
@@ -1476,7 +1476,7 @@ exports.setSessions = function (next) {
 &lt;a href="&lt;?= urlBasePathSlice + webconfig.routes.contact.url ?>">Link to contact&lt;/a>
 &lt;!-- ... -->
 </code></pre>
-<p><em>Note : <code>urlBasePathSlice</code> return <code>http://localhost</code> in place of <code>http://localhost/</code> or <code>http://localhost:7777/sub/folder</code> in place of <code>http://localhost:7777/sub/folder/</code>.</em></p>
+<p> <em>Note : <code>urlBasePathSlice</code> return <code>http://localhost</code> in place of <code>http://localhost/</code> or <code>http://localhost:7777/sub/folder</code> in place of <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
 </ol><h4 id="utilisation-de-la-cl-pour-mapper-les-pages">Utilisation de la clé pour mapper les pages</h4><p>It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.</p><p>With the following webconfig :</p><pre><code class="lang-json">{
     "languageCode": "en-us",

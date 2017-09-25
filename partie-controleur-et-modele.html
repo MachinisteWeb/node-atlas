@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1505578891061">
+		<meta name="og:updated_time" content="1506356644801">
 
 		<meta name="robots" content="index, follow">
 
@@ -152,7 +152,7 @@ website.init({
 								<div class="download--version--step1">
 									<h3>v2.0.0-beta50</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Derni&#xE8;re version</a></p>
-									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
 								<div class="download--version--step2">
 									<h3>Cloner</h3>
@@ -192,13 +192,13 @@ website.init({
 								</div>
 								<div class="download--tuto--step3">
 									<div class="download--tuto--step3--first">
-										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> des sites web multilingues</a>
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
 									</div>
 									<div class="download--tuto--step3--second">
-										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> des maquettes HTML sans serveur</a>
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> par ex. des pages HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps r&#xE9;el</a>
+										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web r&#xE9;actives</a>
 									</div>
 								</div>
 							</div>
@@ -313,15 +313,15 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="partie-controleur-et-modele">Partie contr&#xF4;leur et mod&#xE8;le</h2><p>NodeAtlas ne se contente pas uniquement de faciliter la g&#xE9;n&#xE9;ration de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet &#xE9;galement d&apos;int&#xE9;ragir avec le contenu des fichiers variations ou avec le DOM g&#xE9;n&#xE9;r&#xE9; en fonction ;</p><ul>
+					<h2 id="partie-controleur-et-modele">Partie contr&#xF4;leur et mod&#xE8;le</h2><p>NodeAtlas ne se contente pas uniquement de faciliter la g&#xE9;n&#xE9;ration de page web en fonction de variables dans les fichiers de variation. NodeAtlas vous permet &#xE9;galement d&apos;int&#xE9;ragir avec le contenu des fichiers de variations ou avec le DOM g&#xE9;n&#xE9;r&#xE9; en fonction :</p><ul>
 <li>des param&#xE8;tres dans la partie query de l&apos;URL (GET),</li>
-<li>des param&#xE8;tres dans le body de la requ&#xEA;te (POST)</li>
-</ul><p>mais &#xE9;galement ;</p><ul>
+<li>des param&#xE8;tres dans le corps de la requ&#xEA;te (POST)</li>
+</ul><p>mais &#xE9;galement :</p><ul>
 <li>de vous connecter &#xE0; des bases de donn&#xE9;es,</li>
 <li>de maintenir des sessions,</li>
 <li>de faire des &#xE9;changes websockets et</li>
 <li>de faire bien plus encore !</li>
-</ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et Points d&apos;ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D&apos;abord, les ressources se chargent, le serveur d&#xE9;marre, les routes s&apos;initialisent et tout est op&#xE9;rationnel. Puis, &#xE0; chaque requ&#xEA;te HTTP entrante, une r&#xE9;ponse est g&#xE9;n&#xE9;r&#xE9;e. Vous pouvez intervenir gr&#xE2;ce &#xE0; diff&#xE9;rents points d&apos;ancrage pendant le d&#xE9;marrage, et pendant la cr&#xE9;ation d&apos;une page.</p><p>Voici &#xE0; quoi peut ressembler un <code>webconfig.json</code> permettant d&apos;atteindre tous les points d&apos;ancrage du cycle de vie d&apos;une page.</p><pre><code class="lang-json">{
+</ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et points d&apos;ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D&apos;abord, les ressources se chargent, le serveur d&#xE9;marre, les routes s&apos;initialisent et tout est op&#xE9;rationnel. Puis, &#xE0; chaque requ&#xEA;te HTTP entrante, une r&#xE9;ponse est g&#xE9;n&#xE9;r&#xE9;e. Vous pouvez intervenir gr&#xE2;ce &#xE0; diff&#xE9;rents points d&apos;ancrage pendant le d&#xE9;marrage, et pendant la cr&#xE9;ation d&apos;une page.</p><p>Voici &#xE0; quoi peut ressembler un <code>webconfig.json</code> permettant d&apos;atteindre tous les points d&apos;ancrage du cycle de vie d&apos;une page.</p><pre><code class="lang-json">{
     &quot;controllersRelativePath&quot;: &quot;controllers&quot;,
     &quot;controller&quot;: &quot;common.js&quot;,
     &quot;routes&quot;: {
@@ -822,7 +822,7 @@ exports.setConfigurations = function (next) {
 
     // Middleware utilis&#xE9; lors de chaque requ&#xEA;te.
     NA.express.use(function (request, response, next) {
-        response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM http://www.lesieur.name/&quot;);
+        response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM https://www.lesieur.name/&quot;);
         next();
     });
 
@@ -1914,7 +1914,7 @@ NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serv
 
     // Middleware fait main.
     NA.express.use(function (request, response, next) {
-        response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM http://www.lesieur.name/&quot;);
+        response.setHeader(&quot;X-Frame-Options&quot;, &quot;ALLOW-FROM https://www.lesieur.name/&quot;);
         next();
     });
 

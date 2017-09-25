@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1505578895262">
+		<meta name="og:updated_time" content="1506356649033">
 
 		<meta name="robots" content="index, follow">
 
@@ -152,7 +152,7 @@ website.init({
 								<div class="download--version--step1">
 									<h3>v2.0.0-beta50</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
-									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Stables Versions</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
 								</div>
 								<div class="download--version--step2">
 									<h3>Clone</h3>
@@ -192,13 +192,13 @@ website.init({
 								</div>
 								<div class="download--tuto--step3">
 									<div class="download--tuto--step3--first">
-										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Create</span> <i class="fa fa-html5" aria-hidden="true"></i> international websites (FR)</a>
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Create</span> <i class="fa fa-html5" aria-hidden="true"></i> e.g. International Websites (Fr)</a>
 									</div>
 									<div class="download--tuto--step3--second">
-										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Manage</span> <i class="fa fa-copy" aria-hidden="true"></i> Serverless HTML Assets (FR)</a>
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Manage</span> <i class="fa fa-copy" aria-hidden="true"></i> e.g. Serverless HTML Assets (Fr)</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/NodeAtlas"><span>Develop</span> <i class="fa fa-database" aria-hidden="true"></i> real-time web applications</a>
+										<a href="https://github.com/NodeAtlas"><span>Develop</span> <i class="fa fa-database" aria-hidden="true"></i> e.g. Real-time Web Applications</a>
 									</div>
 								</div>
 							</div>
@@ -325,7 +325,7 @@ website.init({
 </code></pre><h3 id="path">--path</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-p, --path &lt;path&gt;
 </code></pre><h4 id="about">About</h4><p>It is possible to launch NodeAtlas from another location where the website folder is placed. The <code>--path</code> command will be very useful.</p><pre><code class="lang-bash">$ node-atlas --path &lt;/path/to/your/website/directory&gt;/
 </code></pre><h3 id="webconfig">--webconfig</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-w, --webconfig &lt;webconfigName&gt;
-</code></pre><h4 id="about">About</h4><p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with urls changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p><pre><code>$ node-atlas --webconfig webconfig.alternatif.json
+</code></pre><h4 id="about">About</h4><p>By default, NodeAtlas will read your <code>webconfig.json</code> file. It is possible that in addition to the file you created another <code>webconfig.prod.json</code> file whose domain name is different. Or a <code>webconfig.fr-fr.json</code> with URLs changes for another language. Instead of renaming your files in <code>webconfig.json</code> before launching the site, simply enter your other configuration name. In the following example, this file will be <code>webconfig.alternatif.json</code>.</p><pre><code>$ node-atlas --webconfig webconfig.alternatif.json
 </code></pre><h3 id="httphostname">--httpHostname</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-H, --httpHostname &lt;httpHostname&gt;
 </code></pre><h4 id="about">About</h4><p>You will maybe want know your IP with <code>ipconfig</code> to change it in the url to access your website from others device connected to the current network so this command is for you.</p><pre><code>$ node-atlas --httpHostname 192.168.1.1
 </code></pre><h3 id="httpport">--httpPort</h3><h4 id="usage">Usage</h4><pre><code class="lang-bash">-P, --httpPort &lt;httpPort&gt;

@@ -12,23 +12,23 @@
 
 NodeAtlas est un framework JavaScript MVC(2) côté serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant avec [Node.js](https://nodejs.org/). NodeAtlas vous permet de :
 
-- Créer, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour fournir un ensemble de livrables clients cohérants en tant que guide de style pour la réalisation de divers sites ou applications web.
-
-   > Exemple : [Documentation de pages, composants et d'interface web](https://www.lesieur.name/doc-atlas/) ou [le site officiel NodeAtlas](https://node-atlas.js.org/english/).
-
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particulièrement taillé pour la réalisation de sites vitrines ou d'applications web monopages hautement performante et maintenable en des temps records.
 
-   > Exemple : [Simple page web](http://bruno.lesieur.name/)
+   > Exemple : [Simple page web](https://bruno.lesieur.name/)
+
+- Créer, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour fournir un ensemble de livrables clients cohérants en tant que guide de style pour la réalisation de divers sites ou applications web ou encore monter des sites sans partie serveur (par exemple pour GitHub Pages).
+
+   > Exemple : [Documentation de pages, composants et d'interface web](https://www.lesieur.name/doc-atlas/) ou [le site officiel NodeAtlas](https://node-atlas.js.org/).
 
 - Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'écosystème [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus clients temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec des réponses HTTP passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.
 
-   > Exemple : [Blog](http://blog.lesieur.name/), [Portfolio](http://www.lesieur.name/) ou [API Distante](http://www.lesieur.name/api/)
+   > Exemple : [Blog](https://blog.lesieur.name/), [Portfolio](https://www.lesieur.name/) ou [API Distante](https://www.lesieur.name/api/)
 
 
 
 ### Pourquoi NodeAtlas ? ###
 
-NodeAtlas est designé pour créer des sites évolutifs et pour permettre aux développeurs front-end et back-end d'embrasser [Node.js](https://nodejs.org/) en leur offrant une une courbe d'apprentissage aisée.
+NodeAtlas est conçu pour créer des sites évolutifs et pour permettre aux développeurs front-end et back-end d'embrasser [Node.js](https://nodejs.org/) en leur offrant une une courbe d'apprentissage aisée.
 
 Commencez avec une simple page HTML,
 
@@ -36,9 +36,9 @@ Commencez avec une simple page HTML,
 - puis internationalisez les,
 - puis minifiez/offusquez/compressez vos sources,
 - puis utiliser des préprocesseurs comme [Stylus](http://stylus-lang.com/), [Less](http://lesscss.org/) ou/et [Pug](https://pugjs.org/api/getting-started.html) simplement,
-- puis prenez la main sur la logique serveur avec les points d'ancrage et [Express.js](http://expressjs.com/),
-- puis soyez temps réel et réactif côté serveur grâce à [Socket.IO](http://socket.io/),
-- puis connectez vous à [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
+- puis prenez la main sur la logique serveur avec les points d'ancrage et [Express](http://expressjs.com/),
+- puis soyez temps réel et réactif côté serveur grâce à [Socket.IO](https://socket.io/),
+- puis connectez vous à [MySQL](https://www.mysql.com/fr/), [MongoDB](https://www.mongodb.com/), [ElasticSearch](https://www.elastic.co/fr/)...,
 - puis soyez isomorphique et réactif côté client grâce à [Vue](https://fr.vuejs.org/) ou [React](https://facebook.github.io/react/),
 - puis soyez orienté composants et/ou services grâce à des projets comme [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas) et/ou [ApiAtlas](https://github.com/Haeresis/ApiAtlas),
 - puis laissez votre client éditer son site avec [EditAtlas](https://github.com/Haeresis/EditAtlas),
@@ -49,7 +49,7 @@ Commencez avec une simple page HTML,
 
 ### Et les autres frameworks JavaScript ? ###
 
-Contrairement aux frameworks JavaScript côté client comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des URLs par réponse HTTP. Les sites sont indexables et valides W3C : c'est-à-dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifiée par requête asynchrone (AJAX, Websocket...) si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative aux nombreux frameworks JavaScript côté client qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/), [jspm](http://jspm.io/), [gulp](http://gulpjs.com/), etc. NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, JAVA ou encore C# côté serveur. À l'instar de [Meteor.js](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor.js](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur par défaut. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
+Contrairement aux frameworks JavaScript côté client comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des URL par réponse HTTP. Les sites sont indexables et valides W3C : c'est-à-dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifiée par requête asynchrone (AJAX, Websocket...) si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative aux nombreux frameworks JavaScript côté client qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/), [jspm](http://jspm.io/), [gulp](http://gulpjs.com/), etc. NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, Java ou encore C# côté serveur. À l'instar de [Meteor](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur par défaut. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
 Pour un comparatif avec d'autre bibliothèque / framework / API JavaScript côté serveur, [vous pouvez consulter cette grille](#nodeatlas-vs-les-autres).
 
@@ -59,7 +59,7 @@ Pour un comparatif avec d'autre bibliothèque / framework / API JavaScript côt�
 
 Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré sur la communauté GitHub de NodeAtlas :
 
-- [Tous les exemples fournis par la communauté NodeAtlas sur GitHub](https://github.com/NodeAtlas/).
+- [Tous les exemples fournis par la communauté NodeAtlas sur GitHub](https://github.com/NodeAtlas).
 
 
 
@@ -89,7 +89,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Gérer l'inclusion de fichiers partiels](#gérer-linclusion-de-fichiers-partiels)
  - [Gérer des variations au sein d'une même vue](#gérer-des-variations-au-sein-dune-même-vue)
  - [Gérer l'internationalisation (i18n)](#gérer-linternationalisation-i18n)
- - [Gérer l'anatomie des URLs](#gérer-lanatomie-des-urls)
+ - [Gérer l'anatomie des URL](#gérer-lanatomie-des-url)
  - [Créer ses propres variables de webconfig](#créer-ses-propres-variables-de webconfig)
  - [Utiliser une vue globale](#utiliser-une-vue-globale)
  - [Partager des dossiers](#partager-des-dossiers)
@@ -123,7 +123,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Changer les paramètres des sessions](#changer-les-paramètres-des-sessions)
  - [Stockage externe des sessions](#stockage-externe-des-sessions)
  - [Changer l'URL final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
- - [Générer les URLs dynamiquement](#générer-les-urls-dynamiquement)
+ - [Générer les URL dynamiquement](#générer-les-URL-dynamiquement)
  - [Moteur de template personnalisé](#moteur-de-template-personnalisé)
  - [Pas de vue](#pas-de-vue)
  - [Activer le cache](#activer-le-cache)
@@ -184,10 +184,10 @@ Si vous souhaitez contribuer avec :
 
 Merci de respecter ses étapes :
 
- 1. Forkez le repository NodeAtlas.
- 2. Travaillez sur une branch créé à partir de la branch master.
- 3. Commitez et pushez votre branch.
- 4. Faites une pull request.
+ 1. Répliquez le dépôt NodeAtlas.
+ 2. Travaillez sur une branch créée à partir de la branche master.
+ 3. Actez et poussez votre branche.
+ 4. Faites une proposition de fusion.
  5. Soyez patient. ;-)
 
 Tout en respectant les conventions suivantes :
@@ -206,7 +206,7 @@ Avant de pouvoir installer NodeAtlas, assurez-vous d'avoir installé [Node.js](h
 
 ### Installation de NodeAtlas ###
 
-*Note: Si vous êtes sous Linux, il faudra ajouter `sudo` en amont des commandes si vous n'êtes pas root.*
+*Note : Si vous êtes sous Linux, il faudra ajouter `sudo` en amont des commandes si vous n'êtes pas root.*
 
 Il y a plusieurs manières d'installer NodeAtlas :
 
@@ -222,7 +222,9 @@ Il y a plusieurs manières d'installer NodeAtlas :
 
    *Ceci installera* NodeAtlas *dans le dossier « node_modules/node-atlas/ » global. Recommandé pour un [usage sous forme de module](#api--nodeatlas-comme-module-npm) dans beaucoup de projet ou pour [un usage à la ligne de commande](#cli--commandes-de-lancement).*
 
-- **Cloner le répertoire** depuis le dépôt officiel [GitHub](https://github.com/NodeAtlas/node-atlas/).
+- **Cloner le répertoire** depuis le dépôt officiel [GitHub](https://github.com/NodeAtlas/node-atlas).
+
+   > `git clone https://github.com/NodeAtlas/node-atlas.git`
 
    *Ceci installera* NodeAtlas *dans le dossier de votre dépôt local.*
 
@@ -240,7 +242,7 @@ Il y a plusieurs manières d'installer NodeAtlas :
 
 NodeAtlas est développé sous la forme d'un [Node.js Module Package](https://www.npmjs.com/) ou npm ce qui signifie qu'il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l'utilisation du même langage côté client et serveur.
 
-*Note: Python 2.6 ou 2.7 est requis pour les sources tarballs.*
+*Note : Python 2.6 ou 2.7 est requis pour les sources tarballs.*
 
 #### Installer sur Windows ####
 
@@ -248,13 +250,13 @@ En utilisant un installeur :
 
 - [Download Windows Installer](https://nodejs.org/en/download/).
 
-En utilisant [chocolatey](http://chocolatey.org/) pour installer Node:
+En utilisant [chocolatey](http://chocolatey.org/) pour installer Node.js :
 
 ```bash
 cinst nodejs
 ```
 
-ou en l'installant avec npm :
+ou en l'installant avec `cinst` :
 
 ```bash
 cinst nodejs.install
@@ -280,11 +282,11 @@ port install nodejs
 
 #### Installer sur Linux ####
 
-Using a package:
+En utilisant un package :
 
 - [Download Linux Binaries](https://nodejs.org/en/download/).
 
-Example install with apt-get:
+Exemple d'installation avec `apt-get` :
 
 ```bash
 sudo apt-get install python-software-properties python g++ make
@@ -292,7 +294,7 @@ curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-Il y a un conflit de nom entre le node de package (Amateur Packet Radio Node Program), et les binaires de nodejs on été renommé de node à nodejs. Vous pouvez effectuer un symlink de /usr/bin/node à /usr/bin/nodejs ou désinstaller Amateur Packet Radio Node pour éviter le conflit.
+Il y a un conflit de nom entre le `node` de package (Amateur Packet Radio Node Program), et les binaires de Node.js on été renommé de `node` à `nodejs`. Vous pouvez effectuer un symlink de `/usr/bin/node` à `/usr/bin/nodejs` ou désinstaller Amateur Packet Radio Node pour éviter le conflit.
 
 
 
@@ -300,7 +302,7 @@ Il y a un conflit de nom entre le node de package (Amateur Packet Radio Node Pro
 
 ## Commencer avec NodeAtlas ##
 
-Une instance de site NodeAtlas est pilotée par le fichier `webconfig.json`. Tout site NodeAtlas en possède un, c'est ce qui force le moteur à passer de « Simple Serveur Web » à « Serveur Web NodeAtlas ».
+Une instance de site NodeAtlas est pilotée par le fichier `webconfig.json`. Tout site NodeAtlas en possède un, c'est ce qui force le moteur à passer de « Simple serveur web » à « Serveur web NodeAtlas ».
 
 NodeAtlas n'est pas une architecture MVC standard. L'une des particularités de NodeAtlas est que le contrôleur s'occupe lui-même de rendre la page sans développement de votre part. Aussi le minimum vital pour créer une page est de référencer un fichier de vue.
 
@@ -310,7 +312,7 @@ Nous allons voir pour commencer comment mettre en place l'ensemble de fichiers m
 
 Après avoir installé NodeAtlas, créez-vous un ensemble de fichiers représentant un site dans le dossier de votre choix. Nous allons dans cet exemple le faire dans un dossier `hello-world` :
 
-```
+```txt
 hello-world/
 ├─ views/
 │  └─ index.htm
@@ -336,7 +338,7 @@ Voyons ci-après le contenu du fichier `webconfig.json`.
 
 ### Configuration minimale ###
 
-Vous pouvez faire tourner une page simple avec la configuration minimale du « webconfig.json » ci-dessous
+Vous pouvez faire tourner une page simple avec la configuration minimale du `webconfig.json` ci-dessous :
 
 *webconfig.json*
 
@@ -368,7 +370,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du « w
 
 > *Note : vous pouvez également utiliser la commande `atlas` qui est un alias de `node-atlas` mais plus rapide à écrire.*
 
-Placez-vous avec votre invité de commande dans le dossier « hello-world/ » et exécutez la commande suivante.
+Placez-vous avec votre invité de commande dans le dossier `hello-world/` et exécutez la commande suivante.
 
 ```bash
 $ node-atlas
@@ -389,7 +391,7 @@ $ node-atlas --httpPort 8080
 }
 ```
 
-Vous aurez accès à votre « Hello World » à la page *http://localhost/* dans un navigateur (ou `http://localhost:8080/`).
+Vous aurez accès à votre « Hello World » à la page `http://localhost/` dans un navigateur (ou `http://localhost:8080/`).
 
 
 #### Via un fichier JavaScript ####
@@ -414,20 +416,13 @@ $ node server.js
 
 ### Squelette de Hello World
 
-Il est également possible d'obtenir une application déjà prête avec plusieurs des fonctionnalités qui seront étudiées un peu plus loin avec la commande `--create`. Pour ce faire il faut créer un dossier de test :
-
-```bash
-$ mkdir hello-world
-$ cd hello-world
-```
-
-copier un squelette d'application exemple :
+Il est également possible d'obtenir une application déjà prête avec plusieurs des fonctionnalités qui seront étudiées un peu plus loin avec la commande `--create`. Pour ce faire il faut créer un dossier de test et y copier un squelette d'application exemple :
 
 ```bash
 $ node-atlas --create hello-world
 ```
 
-et démmarrer !
+et démarrer !
 
 ```bash
 $ node-atlas --browse
@@ -478,7 +473,7 @@ Ci-dessous un exemple de configuration.
 
 Pour faire tourner cet ensemble de fichier :
 
-```
+```txt
 ├─ views/
 │  ├─ about.htm
 │  ├─ error.htm
@@ -489,13 +484,13 @@ Pour faire tourner cet ensemble de fichier :
 
 aux adresses :
 
-- *http://localhost/* (répond à la racine),
-- *http://localhost/membre.html* (ne répondra pas si demandée en POST),
-- *http://localhost/membre-sans-extension/* (ne répondra pas si demandée en GET),
-- *http://localhost/a-propos.html* (renvoi « Cannot GET about.html » car le contenu d'une route doit __obligatoirement__ commencer par un `/` pour être référencée),
-- *http://localhost/erreur.html* (renvoi du contenu plein texte (sans balise) avec une erreur 404).
+- `http://localhost/` (répond à la racine),
+- `http://localhost/membre.html` (ne répondra pas si demandée en POST),
+- `http://localhost/membre-sans-extension/` (ne répondra pas si demandée en GET),
+- `http://localhost/a-propos.html` (renvoi « Cannot GET about.html » car le contenu d'une route doit __obligatoirement__ commencer par un `/` pour être référencée),
+- `http://localhost/erreur.html` (renvoi du contenu plein texte (sans balise) avec une erreur 404).
 
-*Note : si* `viewsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des vues est bien* `views`. `viewsRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : si* `viewsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des vues est bien* `views`. `viewsRelativePath` *est donc utile seulement pour changer le nom / chemin du répertoire.*
 
 
 
@@ -582,7 +577,7 @@ Par exemple :
 
 L'ensemble de fichier suivant
 
-```
+```txt
 ├─ views/
 │  └─ index.htm
 ├─ webconfig.json
@@ -619,7 +614,7 @@ et avec `webconfig.prod.json`
 
 pourrait devenir l'ensemble de fichier suivant
 
-```
+```txt
 ├─ views/
 │  └─ index.htm
 ├─ routes.json
@@ -657,11 +652,11 @@ et `routes.json`
 }
 ```
 
-*Note: vous pouvez vous créer plusieurs fichiers de routes comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
+*Note : vous pouvez vous créer plusieurs fichiers de routes comme `routes.en.json` et `routes.fr.json` et associer chacun d'eux dans un ensemble de webconfig paramétrés pour faire tourner un site dans diverses langues.*
 
 
 
-### Héberger des images, polices, CSS, JS, etc. ###
+### Héberger des images, polices, styles, scripts, etc. ###
 
 Vous pouvez également héberger tout un tas de fichiers sur votre site dans un dossier public. Par exemple avec cette configuration :
 
@@ -678,7 +673,7 @@ Vous pouvez également héberger tout un tas de fichiers sur votre site dans un 
 
 et cet ensemble de fichiers :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -694,12 +689,12 @@ et cet ensemble de fichiers :
 
 vous aurez accès aux adresses :
 
-- *http://localhost/*
-- *http://localhost/stylesheets/common.css*
-- *http://localhost/javascripts/common.js*
-- *http://localhost/media/images/logo.png*
+- `http://localhost/`
+- `http://localhost/stylesheets/common.css`
+- `http://localhost/javascripts/common.js`
+- `http://localhost/media/images/logo.png`
 
-*Note: si* `assetsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier public est bien* `assets`. `assetsRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : si* `assetsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier public est bien* `assets`. `assetsRelativePath` *est donc utile seulement pour changer le nom / chemin du répertoire.*
 
 #### maxAge, Etag, etc. ####
 
@@ -728,7 +723,7 @@ Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant 
 
 avec les fichiers suivants :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -792,10 +787,10 @@ avec les fichiers suivants :
 
 vous aurez accès aux adresses :
 
-- *http://localhost/*
-- *http://localhost/liste-des-membres/*
+- `http://localhost/`
+- `http://localhost/liste-des-membres/`
 
-*Note: pour plus d'information sur la différence entre `<?`, `<?-`, `<?=`, etc. vous pouvez vous référez à la section [moteur de template](#moteur-de-template-ejs).*
+*Note : pour plus d'information sur la différence entre `<?`, `<?-`, `<?=`, etc. vous pouvez vous référez à la section [moteur de template](#moteur-de-template-ejs).*
 
 
 
@@ -914,10 +909,10 @@ avec les fichiers suivants :
 
 vous aurez accès aux adresses :
 
-- *http://localhost/*
-- *http://localhost/liste-des-membres/*
+- `http://localhost/`
+- `http://localhost/liste-des-membres/`
 
-*Note: si* `variationsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des variations est bien* `variations`. `variationsRelativePath` *est donc utile seulement pour changer le nom/chemin de répertoire.*
+*Note: si* `variationsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des variations est bien* `variations`. `variationsRelativePath` *est donc utile seulement pour changer le nom / chemin de répertoire.*
 
 
 
@@ -949,11 +944,11 @@ Sur le même principe, les variations peuvent être utilisées pour créer la m�
 }
 ```
 
-*Note: dans cet exemple, je n'utilise pas la propriété `variation` commune car je n'utilise pas de* `common.json` *. J'ai arbitrairement décidé de renommer mon dossier* `variations` *en* `l10n` *(localisation)*.
+*Note : dans cet exemple, je n'utilise pas la propriété `variation` commune car je n'utilise pas de* `common.json` *. J'ai arbitrairement décidé de renommer mon dossier* `variations` *en* `l10n` *(localisation)*.
 
 avec les fichiers suivants :
 
-```
+```txt
 ├─ l10n/
 │  ├─ landing.json
 │  ├─ en-us
@@ -1050,9 +1045,9 @@ avec les fichiers suivants :
 
 vous aurez accès aux adresses :
 
-- *http://localhost/*
-- *http://localhost/home/*
-- *http://localhost/accueil/*
+- `http://localhost/`
+- `http://localhost/home/`
+- `http://localhost/accueil/`
 
 *Note : par défaut c'est le* `languageCode` *racine qui conditionne la langue d'affichage du site. Il est aussi possible de changer la langue avec un* `languageCode` par page. *Il faut également savoir que dès que le site ou une page à un* `languageCode` *dans la configuration, ses fichiers de variations doivent être placées dans un sous répertoire portant le nom du* `languageCode`.
 
@@ -1065,7 +1060,7 @@ Aussi, quand un `languageCode` est précisé, NodeAtlas part d'abord chercher la
 
 Cela va vous permettre par exemple de gérer la langue maître directement dans le dossier de variation. Ainsi avec l'exemple suivant :
 
-```
+```txt
 ┊┉
 ├─ variations/
 │  ├─ common.json
@@ -1076,7 +1071,7 @@ Cela va vous permettre par exemple de gérer la langue maître directement dans 
 ┊┉
 ```
 
-vous pouvez
+vous pouvez :
 
 - gérer la version `en-us` directement à la racine de `variations/` (comme NodeAtlas ne trouve rien dans `en-us` il utilise alors les valeurs des fichiers racines) et
 - gérer la version `fr-fr` dans le dossier `fr-fr/`,
@@ -1086,9 +1081,9 @@ ainsi, si une phrase n'est pas encore traduite dans un fichier `fr-fr`, au lieu 
 
 #### À chaque langue sa configuration ####
 
-Vous pouvez également décider de faire tourner chaque langue dans un « webconfig.json » différent. Avec l'ensemble de fichier suivant :
+Vous pouvez également décider de faire tourner chaque langue dans un `webconfig.json` différent. Avec l'ensemble de fichier suivant :
 
-```
+```txt
 ├─ variations/
 │  ├─ landing.json
 │  ├─ en-us
@@ -1109,7 +1104,7 @@ Vous pouvez également décider de faire tourner chaque langue dans un « webcon
 └─ webconfig.fr-fr.json
 ```
 
-vous pourriez avoir les « webconfig.json » suivant :
+vous pourriez avoir les `webconfig.json` suivant :
 
 *webconfig.json*
 
@@ -1166,25 +1161,25 @@ vous pourriez avoir les « webconfig.json » suivant :
 
 et avoir accès aux adresses :
 
-- *http://localhost/*
-- *http://localhost:81/english/*
-- *http://localhost:81/english/*
-- *http://localhost:81/english/members-list/*
-- *http://localhost:82/francais/*
-- *http://localhost:82/francais/liste-des-membres/*
+- `http://localhost/`
+- `http://localhost:81/english/`
+- `http://localhost:81/english/`
+- `http://localhost:81/english/members-list/`
+- `http://localhost:82/francais/`
+- `http://localhost:82/francais/liste-des-membres/`
 
-Il est ensuite possible de faire du reverse proxy avec pour ramener l'ensemble des URLs sur le port 80 afin d'obtenir :
+Il est ensuite possible de faire du reverse proxy avec pour ramener l'ensemble des URL sur le port 80 afin d'obtenir :
 
-- *http://www.website.ext/*
-- *http://www.website.ext/english/*
-- *http://www.website.ext/english/*
-- *http://www.website.ext/english/members-list/*
-- *http://www.website.ext/francais/*
-- *http://www.website.ext/francais/liste-des-membres/*
+- `http://www.website.ext/`
+- `http://www.website.ext/english/`
+- `http://www.website.ext/english/`
+- `http://www.website.ext/english/members-list/`
+- `http://www.website.ext/francais/`
+- `http://www.website.ext/francais/liste-des-membres/`
 
 
 
-### Gérer l'anatomie des URLs ###
+### Gérer l'anatomie des URL ###
 
 Par défaut, si vous utilisez la configuration suivante :
 
@@ -1209,7 +1204,7 @@ avec la vue suivante :
 <html lang="fr-fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>URLs</title>
+		<title>URL</title>
 	</head>
 	<body>
 		<div><?- urlRootPath ?></div>
@@ -1240,14 +1235,14 @@ cela est identique à utiliser celle-ci :
 }
 ```
 
-Vous pourrez accéder à l'URL : *http://localhost/* et au contenu :
+Vous pourrez accéder à l'URL : `http://localhost/` et au contenu :
 
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>URLs</title>
+		<title>URL</title>
 	</head>
 	<body>
 		<div>http://localhost</div>
@@ -1276,14 +1271,14 @@ Changez alors la configuration en ceci :
 }
 ```
 
-Vous pourrez cette fois accéder à l'URL : *https://127.0.0.1:7777/sub/folder/index.html?test=ok* et au contenu :
+Vous pourrez cette fois accéder à l'URL : `https://127.0.0.1:7777/sub/folder/index.html?test=ok` et au contenu :
 
 ```html
 <!DOCTYPE html>
 <html lang="fr-fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>URLs</title>
+		<title>URL</title>
 	</head>
 	<body>
 		<div>https://127.0.0.1:7777</div>
@@ -1296,7 +1291,7 @@ Vous pourrez cette fois accéder à l'URL : *https://127.0.0.1:7777/sub/folder/i
 </html>
 ```
 
-Note : cette exemple ne fonctionnera que si vous avez des fichiers `server.crt` et `server.key` valide dans le dossier `security/`. Essayez le sans `"httpSecure": "security/server"` et il fonctionnera avec des URLs sans `https`.
+Note : cette exemple ne fonctionnera que si vous avez des fichiers `server.crt` et `server.key` valide dans le dossier `security/`. Essayez le sans `"httpSecure": "security/server"` et il fonctionnera avec des URL sans `https`.
 
 
 
@@ -1304,35 +1299,35 @@ Note : cette exemple ne fonctionnera que si vous avez des fichiers `server.crt` 
 
 Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
 
-1. « webconfig.json »
+1. *webconfig.json*
 
-```json
-{
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	},
-	"_minified": ""
-}
-```
+   ```json
+   {
+   	"routes": {
+   		"/": {
+   			"view": "index.htm"
+   		}
+   	},
+   	"_minified": ""
+   }
+   ```
 
-2. « webconfig.prod.json »
+2. *webconfig.prod.json*
 
-```json
-{
-	"routes": {
-		"/": {
-			"view": "index.htm"
-		}
-	},
-	"_minified": ".min"
-}
-```
+   ```json
+   {
+   	"routes": {
+   		"/": {
+   			"view": "index.htm"
+   		}
+   	},
+   	"_minified": ".min"
+   }
+   ```
 
-avec cet ensemble de fichiers
+avec cet ensemble de fichiers :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -1346,7 +1341,7 @@ avec cet ensemble de fichiers
 └─ webconfig.prod.json
 ```
 
-et « index.htm » contenant :
+et `index.htm` contenant :
 
 ```html
 <!DOCTYPE html>
@@ -1369,7 +1364,7 @@ En lançant (depuis le dossier du site) la commande :
 $ node-atlas
 ```
 
-Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers non minifiés :
+Nous aurons à l'adresse `http://localhost/` la sortie suivante avec les fichiers non minifiés :
 
 ```html
 <!DOCTYPE html>
@@ -1392,7 +1387,7 @@ Cependant en lançant la commande :
 $ node-atlas --webconfig webconfig.prod.json
 ```
 
-Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fichiers minifiés :
+Nous aurons à l'adresse `http://localhost/` la sortie suivante avec les fichiers minifiés :
 
 ```html
 <!DOCTYPE html>
@@ -1415,11 +1410,11 @@ Nous aurons à l'adresse « http://localhost/ » la sortie suivante avec les fic
 
 ### Utiliser une vue globale ###
 
-Plutôt que d'inclure une partie header et une partie footer en deux fichiers scindé dont les balises de l'un ne se ferme que dans les balises de l'autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.
+Plutôt que d'inclure une partie header et une partie footer en deux fichiers scindés dont les balises de l'un ne se ferme que dans les balises de l'autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.
 
 avec cet ensemble de fichiers
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -1510,9 +1505,11 @@ vous pourez générer avec ces vues :
 *views/partals/header.htm*
 
 ```html
+	<? if (specific.titlePage) { ?>
 	<header>
 		<h1><?= specific.titlePage ?></h1>
 	</header>
+	<? } ?>
 ```
 
 *views/index.htm*
@@ -1585,7 +1582,7 @@ Voyons l'exemple suivant :
 
 avec cet ensemble de fichiers
 
-```
+```txt
 ├─ models/
 │  └─ user.js
 ├─ views/
@@ -1743,7 +1740,7 @@ Avec la configuration suivante il est possible de générer des aperçu HTML du 
 
 et l'ensemble de fichiers suivant :
 
-```
+```txt
 ├─ HTML/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -1757,7 +1754,7 @@ et l'ensemble de fichiers suivant :
 
 on peut créer physiquement la sortie suivante :
 
-```
+```txt
 ├─ HTML/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -1776,11 +1773,11 @@ on peut créer physiquement la sortie suivante :
 
 en se rendant aux adresses :
 
-- *http://localhost/*
-- *http://localhost/liste-des-membres/*
-- *http://localhost/parametre/output/*
+- `http://localhost/`
+- `http://localhost/liste-des-membres/`
+- `http://localhost/parametre/output/`
 
-*Note : Il n'y a pas de génération pour « /liste-des-membres/?foo=bar » car `output` est à `false`. Utilisez cette valeur pour ignorer des routes à la génération.*
+*Note : Il n'y a pas de génération pour `/liste-des-membres/?foo=bar` car `output` est à `false`. Utilisez cette valeur pour ignorer des routes à la génération.*
 
 La génération s'enclenche quand on affiche la page uniquement parce que `htmlGenerationBeforeResponse` existe et est à `true`.
 
@@ -1819,7 +1816,7 @@ Voyons cela avec la configuration suivante :
 
 et l'ensemble de fichiers suivant :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -1835,7 +1832,7 @@ et l'ensemble de fichiers suivant :
 └─ webconfig.json
 ```
 
-Avec `node-atlas --browse`, à l'adresse *http://localhost/* s'affichera la liste des pages composants votre site (grâce à **index** à **true**).
+Avec `node-atlas --browse`, à l'adresse `http://localhost/` s'affichera la liste des pages composants votre site (grâce à `"index": true`).
 
 Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTML dans le dossier :
 
@@ -1852,11 +1849,11 @@ Il ne restera plus qu'à, une fois `--generate` utilisé, admirer votre site HTM
 ┊┉
 ```
 
-*Note : si* `serverlessRelativePath` *n'est pas présent dans « webconfig.js », par défaut le dossier des générations est bien* `serverless/`. `serverlessRelativePath` *est donc utile seulement pour changer le nom/chemin répertoire.*
+*Note : si* `serverlessRelativePath` *n'est pas présent dans `webconfig.js`, par défaut le dossier des générations est bien* `serverless/`. `serverlessRelativePath` *est donc utile seulement pour changer le nom / chemin répertoire.*
 
 #### Générer les fichiers statics ####
 
-Les fichiers défini dans `statics` sont également copiable dans le dossier `serverlessRelativePath` lors de l'appel à `--generate`. Pour permettre cela, vous pouvez utiliser pour chaque dossier statique le paramètre `output` mis à `true`.
+Les fichiers définis dans `statics` sont également copiable dans le dossier `serverlessRelativePath` lors de l'appel à `--generate`. Pour permettre cela, vous pouvez utiliser pour chaque dossier statique le paramètre `output` mis à `true`.
 
 ```
 {
@@ -1878,12 +1875,12 @@ Par défaut, NodeAtlas utilise déjà le [moteur de template EJS](http://ejs.co/
 Les balises `<?` et `?>` permettent d'inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise vous permettant d'afficher le résultat JavaScript dans votre template (comme vous le feriez avec un `document.write`). Les voici :
 
 - `<?` La balise « Scriptlet » par défaut, pour les structure de contrôle, pas de sortie.
-- `<?=` Affiché le résultat des expressions dans le template (échappement HTML)
-- `<?-` Affiché le résultat des expressions dans le template tel quel
-- `<?#` Balise commentaire, pas d'exécution, pas de sortie
+- `<?=` Affiché le résultat des expressions dans le template (échappement HTML).
+- `<?-` Affiché le résultat des expressions dans le template tel quel.
+- `<?#` Balise commentaire, pas d'exécution, pas de sortie.
 - `<?%` Affiche litéralement le contenu d'une `<?`
-- `?>` La balise de fermeture
-- `-?>` La balise Mode trim, exécute un trim sur les nouvelles lignes
+- `?>` La balise de fermeture.
+- `-?>` La balise Mode trim, exécute un trim sur les nouvelles lignes.
 
 Cependant, EJS fonctionne normalement avec les balises `<%` et `%>`. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.
 
@@ -1974,7 +1971,7 @@ Voyez l'exemple dans les fichiers ci-dessous :
 	<%- include("partials/foot") %>
 ```
 
-Pour tout savoir sur les possibilités du moteur de template consultez [la documentation EJS](http://ejs.co/)
+Pour tout savoir sur les possibilités du moteur de template consultez [la documentation EJS](http://ejs.co/).
 
 *Note : si rien n'est précisé,* `templateEngineDelimiter` *vaut* `?`.
 
@@ -2099,7 +2096,7 @@ div
 	| !{specific.content}
 ```
 
-Pour tout savoir sur les possibilités du moteur de template consultez [la documentation Pug](https://pugjs.org/)
+Pour tout savoir sur les possibilités du moteur de template consultez [la documentation Pug](https://pugjs.org/).
 
 *Note : si rien n'est précisé,* `pug` *vaut* `false`.
 
@@ -2130,7 +2127,7 @@ et enfin de le démarrer avec la commande
 node-atlas --browse
 ```
 
-- [Retrouvez les sources et toutes les explications d'utilisation sur le dépôt GitHub dédié](https://github.com/Haeresis/node-atlas-hello-vue)
+- [Retrouvez les sources et toutes les explications d'utilisation sur le dépôt GitHub dédié](https://github.com/Haeresis/node-atlas-hello-vue).
 
 
 
@@ -2138,12 +2135,12 @@ node-atlas --browse
 
 ## Partie contrôleur et modèle ##
 
-NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;
+NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variables dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers de variations ou avec le DOM généré en fonction :
 
 - des paramètres dans la partie query de l'URL (GET),
-- des paramètres dans le body de la requête (POST)
+- des paramètres dans le corps de la requête (POST)
 
-mais également ;
+mais également :
 
 - de vous connecter à des bases de données,
 - de maintenir des sessions,
@@ -2152,7 +2149,7 @@ mais également ;
 
 
 
-### Cycle de vie et Points d'ancrage ###
+### Cycle de vie et points d'ancrage ###
 
 Le cycle de vie de NodeAtlas est le suivant. D'abord, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.
 
@@ -2897,7 +2894,7 @@ exports.setConfigurations = function (next) {
 
 	// Middleware utilisé lors de chaque requête.
 	NA.express.use(function (request, response, next) {
-		response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+		response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
 		next();
 	});
 
@@ -4295,7 +4292,7 @@ exports.setConfigurations = function (next) {
 
 	// Middleware fait main.
 	NA.express.use(function (request, response, next) {
-		response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+		response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
 		next();
 	});
 
@@ -4498,7 +4495,7 @@ NodeAtlas offre également tout un système de fonctionnalités de développemen
 
 ### Gérer le routage (Url Rewriting) ###
 
-Bien que vous puissiez paramétrer des URLs statiques, vous pouvez également paramétrer une écoute d'URLs dynamiques !
+Bien que vous puissiez paramétrer des URL statiques, vous pouvez également paramétrer une écoute d'URL dynamiques !
 
 #### Paramètres ###
 
@@ -4689,7 +4686,7 @@ Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp J
 
 ### Gérer les pages inexistantes ###
 
-#### Écouter toutes les urls, même les adresses du dossier `assetsRelativePath` ####
+#### Écouter toutes les URL, même les adresses du dossier `assetsRelativePath` ####
 
 Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :
 
@@ -6697,13 +6694,13 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 
 
-### Générer les urls dynamiquement ###
+### Générer les URL dynamiquement ###
 
 #### Les chemins relatifs en absolue ####
 
 Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l'adresse `media/images/example.jpg` initialement accessible depuis un template affiché à **http://localhost** impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `../media/images/example.jpg`).
 
-Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :
+Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les URL relatives telles que :
 
 ```
 <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
@@ -6713,7 +6710,7 @@ Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qu
 <script type="text/javascript" src="javascripts/common.js"></script>
 ```
 
-en urls absolues avec la variable `urlBasePath` comme ci-dessous :
+en URL absolues avec la variable `urlBasePath` comme ci-dessous :
 
 ```
 <link rel="stylesheet" type="text/css" href="<?= urlBasePath ?>stylesheets/common.css" />
@@ -7371,7 +7368,7 @@ $ node-atlas --path </path/to/your/website/directory>/
 
 #### Explication ####
 
-Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des urls et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
+Par défaut, NodeAtlas va lire votre fichier `webconfig.json`. Il est possible qu'en plus de ce fichier vous ayez créé un autre fichier `webconfig.prod.json` dont le nom de domaine est différent. Ou encore un `webconfig.fr-fr.json` avec des URL et des variations dans une autre langue. Plutôt que de renommer vos fichiers en `webconfig.json` avant de lancer le site, précisez simplement votre autre nom de configuration. Dans l'exemple suivant, notre fichier sera `webconfig.alternatif.json`.
 
 ```
 $ node-atlas --webconfig webconfig.alternatif.json

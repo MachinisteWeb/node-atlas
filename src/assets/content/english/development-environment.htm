@@ -26,7 +26,7 @@ gulp.task('default', ['browser-sync']);
 gulp.task('browser-sync', ['nodemon'], function() {
 
     /* For this task, will listening
-       changing into front files */
+        changing into front files */
     browserSync.init(null, {
         proxy: "http://localhost:7777", // The httpPort from NodeAtlas config.
         files: ["views/**", "assets/**", "variations/**"], // All files you want listening from root.
@@ -36,10 +36,10 @@ gulp.task('browser-sync', ['nodemon'], function() {
 
 /* Dernière tâche `nodemon`. */
 gulp.task('nodemon', function (next) {
-   var started = false;
+    var started = false;
 
     /* For this task, will listening
-       changing into back files */
+        changing into back files */
     return nodemon({
         script: 'server.js', // The script will be start and watched.
         ext: 'js json', // This will be the back files will be listening.

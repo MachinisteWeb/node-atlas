@@ -78,7 +78,7 @@
 			"title": "Télécharger",
 			"step1": {
 				"last": "Dernière version",
-				"stable": "Versions stables"
+				"stable": "Anciennes versions"
 			},
 			"step2": {
 				"title": "Cloner",
@@ -107,17 +107,17 @@
 			},
 			"step1": {
 				"title": "Créer",
-				"description": "des sites web multilingues",
+				"description": "par ex. des sites web multilingues",
 				"href": "https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"
 			},
 			"step2": {
 				"title": "Maintenir",
-				"description": "des maquettes HTML sans serveur",
+				"description": "par ex. des pages HTML sans serveur",
 				"href": "https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"
 			},
 			"step3": {
 				"title": "Développer",
-				"description": "des applications web temps réel",
+				"description": "par ex. des applications web réactives",
 				"href": "https://github.com/NodeAtlas"
 			}
 		}

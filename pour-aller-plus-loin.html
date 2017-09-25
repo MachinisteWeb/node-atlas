@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1505578890999">
+		<meta name="og:updated_time" content="1506356644859">
 
 		<meta name="robots" content="index, follow">
 
@@ -152,7 +152,7 @@ website.init({
 								<div class="download--version--step1">
 									<h3>v2.0.0-beta50</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Derni&#xE8;re version</a></p>
-									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
 								<div class="download--version--step2">
 									<h3>Cloner</h3>
@@ -192,13 +192,13 @@ website.init({
 								</div>
 								<div class="download--tuto--step3">
 									<div class="download--tuto--step3--first">
-										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> des sites web multilingues</a>
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
 									</div>
 									<div class="download--tuto--step3--second">
-										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> des maquettes HTML sans serveur</a>
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> par ex. des pages HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps r&#xE9;el</a>
+										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web r&#xE9;actives</a>
 									</div>
 								</div>
 							</div>
@@ -313,7 +313,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre &#xE9;galement tout un syst&#xE8;me de fonctionnalit&#xE9;s de d&#xE9;veloppement et de packaging &#xE0; travers son syt&#xE8;me de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">G&#xE9;rer le routage (Url Rewriting)</h3><p>Bien que vous puissiez param&#xE9;trer des URLs statiques, vous pouvez &#xE9;galement param&#xE9;trer une &#xE9;coute d&apos;URLs dynamiques !</p><h4 id="param-tres">Param&#xE8;tres</h4><p>Il est possible de r&#xE9;cup&#xE9;rer des param&#xE8;tres de l&apos;URL pour afficher un contenu diff&#xE9;rent en fonctions de leurs contenus.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+					<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre &#xE9;galement tout un syst&#xE8;me de fonctionnalit&#xE9;s de d&#xE9;veloppement et de packaging &#xE0; travers son syt&#xE8;me de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">G&#xE9;rer le routage (Url Rewriting)</h3><p>Bien que vous puissiez param&#xE9;trer des URL statiques, vous pouvez &#xE9;galement param&#xE9;trer une &#xE9;coute d&apos;URL dynamiques !</p><h4 id="param-tres">Param&#xE8;tres</h4><p>Il est possible de r&#xE9;cup&#xE9;rer des param&#xE8;tres de l&apos;URL pour afficher un contenu diff&#xE9;rent en fonctions de leurs contenus.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/liste-des-membres/:member/:action/&quot;: {
             &quot;view&quot;: &quot;members.htm&quot;,
@@ -446,7 +446,7 @@ website.init({
 
     next();
 }
-</code></pre><p>Les r&#xE8;gles de cr&#xE9;ation d&apos;url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h3 id="gerer-les-pages-inexistantes">G&#xE9;rer les pages inexistantes</h3><h4 id="-couter-toutes-les-urls-m-me-les-adresses-du-dossier-assetsrelativepath-">&#xC9;couter toutes les urls, m&#xEA;me les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalis&#xE9;e quand une ressource n&apos;est pas trouv&#xE9;e il faut :</p><ol>
+</code></pre><p>Les r&#xE8;gles de cr&#xE9;ation d&apos;url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h3 id="gerer-les-pages-inexistantes">G&#xE9;rer les pages inexistantes</h3><h4 id="-couter-toutes-les-url-m-me-les-adresses-du-dossier-assetsrelativepath-">&#xC9;couter toutes les URL, m&#xEA;me les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalis&#xE9;e quand une ressource n&apos;est pas trouv&#xE9;e il faut :</p><ol>
 <li>Pr&#xE9;parer une page 404.</li>
 <li>Remplir le param&#xE8;tre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 pr&#xE9;par&#xE9;e.</li>
 </ol><p>Voyez l&apos;exemple ci-dessous :</p><pre><code class="lang-json">{
@@ -1701,12 +1701,12 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><h3 id="generer-les-urls-dynamiquement">G&#xE9;n&#xE9;rer les urls dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins cr&#xE9;&#xE9;s &#xE0; partir de votre url soient interpr&#xE9;t&#xE9;s comme des sous-dossiers qui n&apos;ont en r&#xE9;alit&#xE9; aucune existence r&#xE9;elle. Cela a pour cons&#xE9;quence de rendre l&apos;adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affich&#xE9; &#xE0; <strong><a href="http://localhost">http://localhost</a></strong> impossible &#xE0; r&#xE9;cup&#xE9;rer quand le template est affich&#xE9; &#xE0; <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu&apos;il faudrait alors que notre chemin soit plut&#xF4;t <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir &#xE0; se soucier de l&apos;acc&#xE8;s aux ressources peu importe l&apos;url qui est demand&#xE9;e, il suffit de transformer toutes les urls relatives telles que :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; /&gt;
+</code></pre><h3 id="generer-les-url-dynamiquement">G&#xE9;n&#xE9;rer les URL dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins cr&#xE9;&#xE9;s &#xE0; partir de votre url soient interpr&#xE9;t&#xE9;s comme des sous-dossiers qui n&apos;ont en r&#xE9;alit&#xE9; aucune existence r&#xE9;elle. Cela a pour cons&#xE9;quence de rendre l&apos;adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affich&#xE9; &#xE0; <strong><a href="http://localhost">http://localhost</a></strong> impossible &#xE0; r&#xE9;cup&#xE9;rer quand le template est affich&#xE9; &#xE0; <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu&apos;il faudrait alors que notre chemin soit plut&#xF4;t <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir &#xE0; se soucier de l&apos;acc&#xE8;s aux ressources peu importe l&apos;url qui est demand&#xE9;e, il suffit de transformer toutes les URL relatives telles que :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;stylesheets/common.css&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;img src=&quot;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/common.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>en urls absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&lt;?= urlBasePath ?&gt;stylesheets/common.css&quot; /&gt;
+</code></pre><p>en URL absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p><pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&lt;?= urlBasePath ?&gt;stylesheets/common.css&quot; /&gt;
 &lt;!-- ... --&gt;
 &lt;img src=&quot;&lt;?= urlBasePath ?&gt;media/images/example.jpg&quot; /&gt;
 &lt;!-- ... --&gt;

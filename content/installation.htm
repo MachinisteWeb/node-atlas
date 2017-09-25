@@ -1,4 +1,4 @@
-<h2 id="installation">Installation</h2><p>Avant de pouvoir installer NodeAtlas, assurez-vous d'avoir installé <a href="https://nodejs.org/">Node.js</a>, vous pouvez voir cela dans la section : <a href="installation.html#installation-de-node-js">Installation de Node.js</a> plus bas.</p><h3 id="installation-de-nodeatlas">Installation de NodeAtlas</h3><p><em>Note: Si vous êtes sous Linux, il faudra ajouter <code>sudo</code> en amont des commandes si vous n'êtes pas root.</em></p><p>Il y a plusieurs manières d'installer NodeAtlas :</p><ul>
+<h2 id="installation">Installation</h2><p>Avant de pouvoir installer NodeAtlas, assurez-vous d'avoir installé <a href="https://nodejs.org/">Node.js</a>, vous pouvez voir cela dans la section : <a href="installation.html#installation-de-node-js">Installation de Node.js</a> plus bas.</p><h3 id="installation-de-nodeatlas">Installation de NodeAtlas</h3><p><em>Note : Si vous êtes sous Linux, il faudra ajouter <code>sudo</code> en amont des commandes si vous n'êtes pas root.</em></p><p>Il y a plusieurs manières d'installer NodeAtlas :</p><ul>
 <li><p><strong>Avec npm, dans le dossier du projet</strong> avec la commande suivante :</p>
 <blockquote>
 <p><code>npm install node-atlas</code></p>
@@ -11,7 +11,10 @@
 </blockquote>
 <p> <em>Ceci installera</em> NodeAtlas <em>dans le dossier « node_modules/node-atlas/ » global. Recommandé pour un <a href="api-nodeatlas-comme-module-npm.html">usage sous forme de module</a> dans beaucoup de projet ou pour <a href="cli-commandes-de-lancement.html">un usage à la ligne de commande</a>.</em></p>
 </li>
-<li><p><strong>Cloner le répertoire</strong> depuis le dépôt officiel <a href="https://github.com/NodeAtlas/node-atlas/">GitHub</a>.</p>
+<li><p><strong>Cloner le répertoire</strong> depuis le dépôt officiel <a href="https://github.com/NodeAtlas/node-atlas">GitHub</a>.</p>
+<blockquote>
+<p><code>git clone https://github.com/NodeAtlas/node-atlas.git</code></p>
+</blockquote>
 <p> <em>Ceci installera</em> NodeAtlas <em>dans le dossier de votre dépôt local.</em></p>
 <p> <em>Utilisez <code>npm install</code> depuis le dossier <code>&lt;/path/to/>node-atlas/</code> pour installer toutes les dépendences. Recommandé pour participer au développement.</em></p>
 </li>
@@ -19,20 +22,20 @@
 <p> <em>Une fois téléchargé, dézippez</em> NodeAtlas <em>dans le dossier « node_modules/ » qui vous conviendra.</em></p>
 <p> <em>Utilisez <code>npm install</code> depuis le dossier <code>&lt;/path/to/>node-atlas/</code> pour installer toutes les dépendences.</em></p>
 </li>
-</ul><h3 id="installation-de-node-js">Installation de Node.js</h3><p>NodeAtlas est développé sous la forme d'un <a href="https://www.npmjs.com/">Node.js Module Package</a> ou npm ce qui signifie qu'il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l'utilisation du même langage côté client et serveur.</p><p><em>Note: Python 2.6 ou 2.7 est requis pour les sources tarballs.</em></p><h4 id="installer-sur-windows">Installer sur Windows</h4><p>En utilisant un installeur :</p><ul>
+</ul><h3 id="installation-de-node-js">Installation de Node.js</h3><p>NodeAtlas est développé sous la forme d'un <a href="https://www.npmjs.com/">Node.js Module Package</a> ou npm ce qui signifie qu'il a besoin de Node.js pour fonctionner. Node.js permet de rapidement et efficatement faire tourner du JavaScript en dehors du navigateur, rendant possible l'utilisation du même langage côté client et serveur.</p><p><em>Note : Python 2.6 ou 2.7 est requis pour les sources tarballs.</em></p><h4 id="installer-sur-windows">Installer sur Windows</h4><p>En utilisant un installeur :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Windows Installer</a>.</li>
-</ul><p>En utilisant <a href="http://chocolatey.org/">chocolatey</a> pour installer Node:</p><pre><code class="lang-bash">cinst nodejs
-</code></pre><p>ou en l'installant avec npm :</p><pre><code class="lang-bash">cinst nodejs.install
+</ul><p>En utilisant <a href="http://chocolatey.org/">chocolatey</a> pour installer Node.js :</p><pre><code class="lang-bash">cinst nodejs
+</code></pre><p>ou en l'installant avec <code>cinst</code> :</p><pre><code class="lang-bash">cinst nodejs.install
 </code></pre><h4 id="installer-sur-osx">Installer sur OSX</h4><p>En utilisant un installeur :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Macintosh Installer</a>.</li>
 </ul><p>En utilisant <a href="https://github.com/mxcl/homebrew">homebrew</a>:</p><pre><code class="lang-bash">brew install node
 </code></pre><p>En utilisant <a href="http://www.macports.org/">macports</a>:</p><pre><code class="lang-bash">port install nodejs
-</code></pre><h4 id="installer-sur-linux">Installer sur Linux</h4><p>Using a package:</p><ul>
+</code></pre><h4 id="installer-sur-linux">Installer sur Linux</h4><p>En utilisant un package :</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Linux Binaries</a>.</li>
-</ul><p>Example install with apt-get:</p><pre><code class="lang-bash">sudo apt-get install python-software-properties python g++ make
+</ul><p>Exemple d'installation avec <code>apt-get</code> :</p><pre><code class="lang-bash">sudo apt-get install python-software-properties python g++ make
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
-</code></pre><p>Il y a un conflit de nom entre le node de package (Amateur Packet Radio Node Program), et les binaires de nodejs on été renommé de node à nodejs. Vous pouvez effectuer un symlink de /usr/bin/node à /usr/bin/nodejs ou désinstaller Amateur Packet Radio Node pour éviter le conflit.</p><div><div class="before">
+</code></pre><p>Il y a un conflit de nom entre le <code>node</code> de package (Amateur Packet Radio Node Program), et les binaires de Node.js on été renommé de <code>node</code> à <code>nodejs</code>. Vous pouvez effectuer un symlink de <code>/usr/bin/node</code> à <code>/usr/bin/nodejs</code> ou désinstaller Amateur Packet Radio Node pour éviter le conflit.</p><div><div class="before">
 							<a href="avant-propos.html">◄ Avant-propos</a>
 						</div><div class="after">
 							<a href="commencer-avec-nodeatlas.html">Commencer avec NodeAtlas ►</a>

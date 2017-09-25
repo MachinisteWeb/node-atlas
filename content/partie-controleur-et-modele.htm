@@ -1,12 +1,12 @@
-<h2 id="partie-controleur-et-modele">Partie contrôleur et modèle</h2><p>NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variable dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers variations ou avec le DOM généré en fonction ;</p><ul>
+<h2 id="partie-controleur-et-modele">Partie contrôleur et modèle</h2><p>NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variables dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers de variations ou avec le DOM généré en fonction :</p><ul>
 <li>des paramètres dans la partie query de l'URL (GET),</li>
-<li>des paramètres dans le body de la requête (POST)</li>
-</ul><p>mais également ;</p><ul>
+<li>des paramètres dans le corps de la requête (POST)</li>
+</ul><p>mais également :</p><ul>
 <li>de vous connecter à des bases de données,</li>
 <li>de maintenir des sessions,</li>
 <li>de faire des échanges websockets et</li>
 <li>de faire bien plus encore !</li>
-</ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et Points d'ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D'abord, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d'atteindre tous les points d'ancrage du cycle de vie d'une page.</p><pre><code class="lang-json">{
+</ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et points d'ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D'abord, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d'atteindre tous les points d'ancrage du cycle de vie d'une page.</p><pre><code class="lang-json">{
     "controllersRelativePath": "controllers",
     "controller": "common.js",
     "routes": {
@@ -507,7 +507,7 @@ exports.setConfigurations = function (next) {
 
     // Middleware utilisé lors de chaque requête.
     NA.express.use(function (request, response, next) {
-        response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+        response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
         next();
     });
 
@@ -1599,7 +1599,7 @@ NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serv
 
     // Middleware fait main.
     NA.express.use(function (request, response, next) {
-        response.setHeader("X-Frame-Options", "ALLOW-FROM http://www.lesieur.name/");
+        response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
         next();
     });
 

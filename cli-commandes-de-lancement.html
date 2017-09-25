@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1505578891108">
+		<meta name="og:updated_time" content="1506356644844">
 
 		<meta name="robots" content="index, follow">
 
@@ -152,7 +152,7 @@ website.init({
 								<div class="download--version--step1">
 									<h3>v2.0.0-beta50</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Derni&#xE8;re version</a></p>
-									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
 								<div class="download--version--step2">
 									<h3>Cloner</h3>
@@ -192,13 +192,13 @@ website.init({
 								</div>
 								<div class="download--tuto--step3">
 									<div class="download--tuto--step3--first">
-										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> des sites web multilingues</a>
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
 									</div>
 									<div class="download--tuto--step3--second">
-										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> des maquettes HTML sans serveur</a>
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> par ex. des pages HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps r&#xE9;el</a>
+										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web r&#xE9;actives</a>
 									</div>
 								</div>
 							</div>
@@ -325,7 +325,7 @@ website.init({
 </code></pre><h3 id="path">--path</h3><h4 id="utilisation">Utilisation</h4><pre><code class="lang-bash">-p, --path &lt;path&gt;
 </code></pre><h4 id="explication">Explication</h4><p>Il est possible de lancer NodeAtlas depuis un autre endroit que le dossier o&#xF9; est h&#xE9;berg&#xE9; le site que vous souhaitez faire tourner. La commande <code>--path</code> vous sera alors tr&#xE8;s utile.</p><pre><code class="lang-bash">$ node-atlas --path &lt;/path/to/your/website/directory&gt;/
 </code></pre><h3 id="webconfig">--webconfig</h3><h4 id="utilisation">Utilisation</h4><pre><code class="lang-bash">-w, --webconfig &lt;webconfigName&gt;
-</code></pre><h4 id="explication">Explication</h4><p>Par d&#xE9;faut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu&apos;en plus de ce fichier vous ayez cr&#xE9;&#xE9; un autre fichier <code>webconfig.prod.json</code> dont le nom de domaine est diff&#xE9;rent. Ou encore un <code>webconfig.fr-fr.json</code> avec des urls et des variations dans une autre langue. Plut&#xF4;t que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, pr&#xE9;cisez simplement votre autre nom de configuration. Dans l&apos;exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p><pre><code>$ node-atlas --webconfig webconfig.alternatif.json
+</code></pre><h4 id="explication">Explication</h4><p>Par d&#xE9;faut, NodeAtlas va lire votre fichier <code>webconfig.json</code>. Il est possible qu&apos;en plus de ce fichier vous ayez cr&#xE9;&#xE9; un autre fichier <code>webconfig.prod.json</code> dont le nom de domaine est diff&#xE9;rent. Ou encore un <code>webconfig.fr-fr.json</code> avec des URL et des variations dans une autre langue. Plut&#xF4;t que de renommer vos fichiers en <code>webconfig.json</code> avant de lancer le site, pr&#xE9;cisez simplement votre autre nom de configuration. Dans l&apos;exemple suivant, notre fichier sera <code>webconfig.alternatif.json</code>.</p><pre><code>$ node-atlas --webconfig webconfig.alternatif.json
 </code></pre><h3 id="httphostname">--httpHostname</h3><h4 id="utilisation">Utilisation</h4><pre><code class="lang-bash">-H, --httpHostname &lt;httpHostname&gt;
 </code></pre><h4 id="explication">Explication</h4><p>Il est parfois utile de demander son adresse IP via un <code>ipconfig</code> pour le paramettrer dans l&apos;url afin de rendre son site enti&#xE8;rement disponible sur un p&#xE9;riph&#xE9;rique du r&#xE9;seau local (smartphone par exemple). Vous pourrez le faire avec cette commande.</p><pre><code>$ node-atlas --httpHostname 192.168.1.1
 </code></pre><h3 id="httpport">--httpPort</h3><h4 id="utilisation">Utilisation</h4><pre><code class="lang-bash">-P, --httpPort &lt;httpPort&gt;

@@ -1,4 +1,4 @@
-<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des URLs statiques, vous pouvez également paramétrer une écoute d'URLs dynamiques !</p><h4 id="param-tres">Paramètres</h4><p>Il est possible de récupérer des paramètres de l'URL pour afficher un contenu différent en fonctions de leurs contenus.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des URL statiques, vous pouvez également paramétrer une écoute d'URL dynamiques !</p><h4 id="param-tres">Paramètres</h4><p>Il est possible de récupérer des paramètres de l'URL pour afficher un contenu différent en fonctions de leurs contenus.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     "routes": {
         "/liste-des-membres/:member/:action/": {
             "view": "members.htm",
@@ -131,7 +131,7 @@
 
     next();
 }
-</code></pre><p>Les règles de création d'url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h3 id="gerer-les-pages-inexistantes">Gérer les pages inexistantes</h3><h4 id="-couter-toutes-les-urls-m-me-les-adresses-du-dossier-assetsrelativepath-">Écouter toutes les urls, même les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :</p><ol>
+</code></pre><p>Les règles de création d'url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h3 id="gerer-les-pages-inexistantes">Gérer les pages inexistantes</h3><h4 id="-couter-toutes-les-url-m-me-les-adresses-du-dossier-assetsrelativepath-">Écouter toutes les URL, même les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :</p><ol>
 <li>Préparer une page 404.</li>
 <li>Remplir le paramètre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 préparée.</li>
 </ol><p>Voyez l'exemple ci-dessous :</p><pre><code class="lang-json">{
@@ -1386,12 +1386,12 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><h3 id="generer-les-urls-dynamiquement">Générer les urls dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l'adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong><a href="http://localhost">http://localhost</a></strong> impossible à récupérer quand le template est affiché à <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu'il faudrait alors que notre chemin soit plutôt <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les urls relatives telles que :</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
+</code></pre><h3 id="generer-les-url-dynamiquement">Générer les URL dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l'adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong><a href="http://localhost">http://localhost</a></strong> impossible à récupérer quand le template est affiché à <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu'il faudrait alors que notre chemin soit plutôt <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les URL relatives telles que :</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
 &lt;!-- ... -->
 &lt;img src="media/images/example.jpg" />
 &lt;!-- ... -->
 &lt;script type="text/javascript" src="javascripts/common.js">&lt;/script>
-</code></pre><p>en urls absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="&lt;?= urlBasePath ?>stylesheets/common.css" />
+</code></pre><p>en URL absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="&lt;?= urlBasePath ?>stylesheets/common.css" />
 &lt;!-- ... -->
 &lt;img src="&lt;?= urlBasePath ?>media/images/example.jpg" />
 &lt;!-- ... -->

@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1505578890933">
+		<meta name="og:updated_time" content="1506356644655">
 
 		<meta name="robots" content="index, follow">
 
@@ -152,7 +152,7 @@ website.init({
 								<div class="download--version--step1">
 									<h3>v2.0.0-beta50</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Derni&#xE8;re version</a></p>
-									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Versions stables</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
 								<div class="download--version--step2">
 									<h3>Cloner</h3>
@@ -192,13 +192,13 @@ website.init({
 								</div>
 								<div class="download--tuto--step3">
 									<div class="download--tuto--step3--first">
-										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> des sites web multilingues</a>
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
 									</div>
 									<div class="download--tuto--step3--second">
-										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> des maquettes HTML sans serveur</a>
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> par ex. des pages HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> des applications web temps r&#xE9;el</a>
+										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web r&#xE9;actives</a>
 									</div>
 								</div>
 							</div>
@@ -313,7 +313,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="commencer-avec-nodeatlas">Commencer avec NodeAtlas</h2><p>Une instance de site NodeAtlas est pilot&#xE9;e par le fichier <code>webconfig.json</code>. Tout site NodeAtlas en poss&#xE8;de un, c&apos;est ce qui force le moteur &#xE0; passer de &#xAB; Simple Serveur Web &#xBB; &#xE0; &#xAB; Serveur Web NodeAtlas &#xBB;.</p><p>NodeAtlas n&apos;est pas une architecture MVC standard. L&apos;une des particularit&#xE9;s de NodeAtlas est que le contr&#xF4;leur s&apos;occupe lui-m&#xEA;me de rendre la page sans d&#xE9;veloppement de votre part. Aussi le minimum vital pour cr&#xE9;er une page est de r&#xE9;f&#xE9;rencer un fichier de vue.</p><p>Nous allons voir pour commencer comment mettre en place l&apos;ensemble de fichiers minimals afin de r&#xE9;aliser un &#xAB; Hello World ! &#xBB;.</p><h3 id="ensemble-de-fichiers">Ensemble de fichiers</h3><p>Apr&#xE8;s avoir install&#xE9; NodeAtlas, cr&#xE9;ez-vous un ensemble de fichiers repr&#xE9;sentant un site dans le dossier de votre choix. Nous allons dans cet exemple le faire dans un dossier <code>hello-world</code> :</p><pre><code>hello-world/
+					<h2 id="commencer-avec-nodeatlas">Commencer avec NodeAtlas</h2><p>Une instance de site NodeAtlas est pilot&#xE9;e par le fichier <code>webconfig.json</code>. Tout site NodeAtlas en poss&#xE8;de un, c&apos;est ce qui force le moteur &#xE0; passer de &#xAB; Simple serveur web &#xBB; &#xE0; &#xAB; Serveur web NodeAtlas &#xBB;.</p><p>NodeAtlas n&apos;est pas une architecture MVC standard. L&apos;une des particularit&#xE9;s de NodeAtlas est que le contr&#xF4;leur s&apos;occupe lui-m&#xEA;me de rendre la page sans d&#xE9;veloppement de votre part. Aussi le minimum vital pour cr&#xE9;er une page est de r&#xE9;f&#xE9;rencer un fichier de vue.</p><p>Nous allons voir pour commencer comment mettre en place l&apos;ensemble de fichiers minimals afin de r&#xE9;aliser un &#xAB; Hello World ! &#xBB;.</p><h3 id="ensemble-de-fichiers">Ensemble de fichiers</h3><p>Apr&#xE8;s avoir install&#xE9; NodeAtlas, cr&#xE9;ez-vous un ensemble de fichiers repr&#xE9;sentant un site dans le dossier de votre choix. Nous allons dans cet exemple le faire dans un dossier <code>hello-world</code> :</p><pre><code class="lang-txt">hello-world/
 &#x251C;&#x2500; views/
 &#x2502;  &#x2514;&#x2500; index.htm
 &#x2514;&#x2500; webconfig.json
@@ -327,7 +327,7 @@ website.init({
         &lt;div&gt;Ceci est un Hello World !&lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>Voyons ci-apr&#xE8;s le contenu du fichier <code>webconfig.json</code>.</p><h3 id="configuration-minimale">Configuration minimale</h3><p>Vous pouvez faire tourner une page simple avec la configuration minimale du &#xAB; webconfig.json &#xBB; ci-dessous</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</code></pre><p>Voyons ci-apr&#xE8;s le contenu du fichier <code>webconfig.json</code>.</p><h3 id="configuration-minimale">Configuration minimale</h3><p>Vous pouvez faire tourner une page simple avec la configuration minimale du <code>webconfig.json</code> ci-dessous :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     &quot;routes&quot;: {
         &quot;/&quot;: {
             &quot;view&quot;: &quot;index.htm&quot;
@@ -337,7 +337,7 @@ website.init({
 </code></pre><p>&#xE9;quivalente &#xE0;</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }
 </code></pre><h3 id="lancer-le-site-avec-nodeatlas">Lancer le site avec NodeAtlas</h3><h4 id="avec-la-commande-node-atlas-">Avec la commande <code>node-atlas</code></h4><p><strong>Si vous avez install&#xE9; NodeAtlas avec <code>npm install -g node-atlas</code></strong> vous pouvez utiliser la commande <code>node-atlas</code>. <code>node-atlas</code> est un raccourci de la commande <code>node &lt;/path/to/globals/&gt;node_modules/node-atlas/</code>.</p><blockquote>
 <p><em>Note : vous pouvez &#xE9;galement utiliser la commande <code>atlas</code> qui est un alias de <code>node-atlas</code> mais plus rapide &#xE0; &#xE9;crire.</em></p>
-</blockquote><p>Placez-vous avec votre invit&#xE9; de commande dans le dossier &#xAB; hello-world/ &#xBB; et ex&#xE9;cutez la commande suivante.</p><pre><code class="lang-bash">$ node-atlas
+</blockquote><p>Placez-vous avec votre invit&#xE9; de commande dans le dossier <code>hello-world/</code> et ex&#xE9;cutez la commande suivante.</p><pre><code class="lang-bash">$ node-atlas
 </code></pre><blockquote>
 <p>Note : Si votre port 80 est utilis&#xE9; ou que vous n&apos;avez pas acc&#xE8;s &#xE0; celui-ci, vous pouvez utiliser l&apos;option <code>--httpPort</code>.</p>
 <pre><code class="lang-bash">$ node-atlas --httpPort 8080
@@ -348,12 +348,10 @@ website.init({
    &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; }
 }
 </code></pre>
-</blockquote><p>Vous aurez acc&#xE8;s &#xE0; votre &#xAB; Hello World &#xBB; &#xE0; la page <em><a href="http://localhost/">http://localhost/</a></em> dans un navigateur (ou <code>http://localhost:8080/</code>).</p><h4 id="via-un-fichier-javascript">Via un fichier JavaScript</h4><p>Vous pouvez &#xE9;galement utiliser NodeAtlas comme un module npm.</p><p>Cr&#xE9;er alors un fichier <code>server.js</code> au m&#xEA;me niveau que le <code>webconfig.json</code>.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
+</blockquote><p>Vous aurez acc&#xE8;s &#xE0; votre &#xAB; Hello World &#xBB; &#xE0; la page <code>http://localhost/</code> dans un navigateur (ou <code>http://localhost:8080/</code>).</p><h4 id="via-un-fichier-javascript">Via un fichier JavaScript</h4><p>Vous pouvez &#xE9;galement utiliser NodeAtlas comme un module npm.</p><p>Cr&#xE9;er alors un fichier <code>server.js</code> au m&#xEA;me niveau que le <code>webconfig.json</code>.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
 </code></pre><p>Lancez ensuite le fichier avec Node.js.</p><pre><code class="lang-bash">$ node server.js
-</code></pre><h3 id="squelette-de-hello-world">Squelette de Hello World</h3><p>Il est &#xE9;galement possible d&apos;obtenir une application d&#xE9;j&#xE0; pr&#xEA;te avec plusieurs des fonctionnalit&#xE9;s qui seront &#xE9;tudi&#xE9;es un peu plus loin avec la commande <code>--create</code>. Pour ce faire il faut cr&#xE9;er un dossier de test :</p><pre><code class="lang-bash">$ mkdir hello-world
-$ cd hello-world
-</code></pre><p>copier un squelette d&apos;application exemple :</p><pre><code class="lang-bash">$ node-atlas --create hello-world
-</code></pre><p>et d&#xE9;mmarrer !</p><pre><code class="lang-bash">$ node-atlas --browse
+</code></pre><h3 id="squelette-de-hello-world">Squelette de Hello World</h3><p>Il est &#xE9;galement possible d&apos;obtenir une application d&#xE9;j&#xE0; pr&#xEA;te avec plusieurs des fonctionnalit&#xE9;s qui seront &#xE9;tudi&#xE9;es un peu plus loin avec la commande <code>--create</code>. Pour ce faire il faut cr&#xE9;er un dossier de test et y copier un squelette d&apos;application exemple :</p><pre><code class="lang-bash">$ node-atlas --create hello-world
+</code></pre><p>et d&#xE9;marrer !</p><pre><code class="lang-bash">$ node-atlas --browse
 </code></pre><div><div class="before">
 							<a href="installation.html">&#x25C4; Installation</a>
 						</div><div class="after">

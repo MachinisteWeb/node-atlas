@@ -78,7 +78,7 @@
 			"title": "Download",
 			"step1": {
 				"last": "Latest Version",
-				"stable": "Stables Versions"
+				"stable": "Old Versions"
 			},
 			"step2": {
 				"title": "Clone",
@@ -107,17 +107,17 @@
 			},
 			"step1": {
 				"title": "Create",
-				"description": "international websites (FR)",
+				"description": "e.g. International Websites (Fr)",
 				"href": "https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"
 			},
 			"step2": {
 				"title": "Manage",
-				"description": "Serverless HTML Assets (FR)",
+				"description": "e.g. Serverless HTML Assets (Fr)",
 				"href": "https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"
 			},
 			"step3": {
 				"title": "Develop",
-				"description": "real-time web applications",
+				"description": "e.g. Real-time Web Applications",
 				"href": "https://github.com/NodeAtlas"
 			}
 		}
