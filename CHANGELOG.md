@@ -97,15 +97,15 @@ Updates:
 - Language `templateNotSet` become `viewNotSet`.
 - Language `emulatedIndexPage` become `indexPage`.
 - EJS engine become ATLAS engine and `<% %>` become `<? ?>`.
-- `NA#httpServer` become `NA#express`. 
-- `NA#getSupport` become `NA#get`. 
-- `NA#postSupport` become `NA#post`. 
-- `NA#putSupport` become `NA#put`. 
-- `NA#deleteSupport` become `NA#delete`. 
-- `NA#locals.routeParameters.getSupport` become `NA#locals.routeParameters.get`. 
-- `NA#locals.routeParameters.postSupport` become `NA#locals.routeParameters.post`. 
-- `NA#locals.routeParameters.putSupport` become `NA#locals.routeParameters.put`. 
-- `NA#locals.routeParameters.deleteSupport` become `NA#locals.routeParameters.delete`. 
+- `NA#httpServer` become `NA#express`.
+- `NA#getSupport` become `NA#get`.
+- `NA#postSupport` become `NA#post`.
+- `NA#putSupport` become `NA#put`.
+- `NA#deleteSupport` become `NA#delete`.
+- `NA#locals.routeParameters.getSupport` become `NA#locals.routeParameters.get`.
+- `NA#locals.routeParameters.postSupport` become `NA#locals.routeParameters.post`.
+- `NA#locals.routeParameters.putSupport` become `NA#locals.routeParameters.put`.
+- `NA#locals.routeParameters.deleteSupport` become `NA#locals.routeParameters.delete`.
 - `NA#commonController` become `NA#controller`.
 - `NA#commonVariation` become `NA#variation`.
 - `NA#enableLess` become `NA#less`.
@@ -115,6 +115,7 @@ Updates:
 - `NA#stylus.stylus` become `NA#stylus.filse`.
 - `NA#less.files` become `NA#less.files`.
 - The `templates/hello-world` example is better.
+- `NA.modules.cheerio` replaced by `NA.modules.jsdom`.
 
 Removed:
 

@@ -10,7 +10,6 @@
  * @module node-atlas
  * @requires {@link NA#modules.external:async}
  * @requires {@link NA#modules.external:body-parser}
- * @requires {@link NA#modules.external:cheerio}
  * @requires {@link NA#modules.external:clean-css}
  * @requires {@link NA#modules.external:commander}
  * @requires {@link NA#modules.external:compression}
@@ -21,6 +20,7 @@
  * @requires {@link NA#modules.external:express-session}
  * @requires {@link NA#modules.external:extend}
  * @requires {@link NA#modules.external:imagemin}
+ * @requires {@link NA#modules.external:jsdom}
  * @requires {@link NA#modules.external:less}
  * @requires {@link NA#modules.external:less-middleware}
  * @requires {@link NA#modules.external:mkpath}
