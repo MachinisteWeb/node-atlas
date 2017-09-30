@@ -2522,23 +2522,25 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 // On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeDom = function (next, locals, request, response) {
-	var $ = locals.virtualDom(); // Transformer la chaîne HTML en DOM Virtuel.
+	// Transformer la chaîne HTML en DOM virtuel.
+	var dom = locals.virtualDom();
 
 	// Après tous les h1 de la sortie HTML « dom »,
-	$("h1").each(function () {
-		var $this = $(this);
+	Array.prototype.forEach.call(dom.window.document.getElementsByTagName("h1"), function (h1) {
 
 		// ...on créé une div,
-		$this.after(
-			// ... on injecte le contenu du h1 dans la div,
-			$("<div>").html($this.html())
-		);
+		var div = dom.window.document.createElement('div');
+
+		// ... on injecte le contenu du h1 dans la div,
+		div.innerHTML = h1.innerHTML;
+		h1.parentNode.insertBefore(div, h1.nextElementSibling);
+
 		// ...et supprime le h1.
-		$this.remove();
+		h1.parentNode.removeChild(h1);
 	});
 
 	// On retourne les modifications pour qu'elles redeviennet une chaîne HTML.
-	next($);
+	next(dom);
 };
 ```
 
@@ -2549,14 +2551,14 @@ exports.changeDom = function (next, locals, request, response) {
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeDom = function (next, locals, request, response) {
 	var NA = this,
-		cheerio = NA.modules.cheerio, // Récupération de jsdom pour parcourir le DOM avec jQuery.
-		$ = cheerio.load(locals.dom, { decodeEntities: false }); // On charge les données pour les manipuler comme un DOM.
+		jsdom = NA.modules.jsdom, // Récupération de jsdom pour parcourir le DOM virtuel.
+		dom = new jsdom.JSDOM(locals.dom); // On charge les données pour les manipuler comme un DOM.
 
-	// On modifie tous les contenu des noeuds avec la classe `.title`,
-	$(".title").text("Modification de Contenu");
+	// On modifie tous les contenu des noeuds avec la classe `.title`.
+	dom.window.document.getElementsByClassName("title")[0].textContent = "Modification de Contenu";
 
 	// On recrée une nouvelle sortie HTML avec nos modifications.
-	locals.dom = $.html();
+	locals.dom = dom.serialize();
 
 	// On passe à la suite.
 	next();

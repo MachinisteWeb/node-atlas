@@ -1,4 +1,5 @@
-/* jshint node: true */
+
+/* jshint node: true, esversion: 6 */
 exports.setModules = function () {
 	var NA = this;
 
@@ -14,7 +15,7 @@ exports.changeVariations = function (next, locals) {
 exports.setRoutes = function (next) {
 	var NA = this,
 		fs = NA.modules.fs,
-		cheerio = NA.modules.cheerio,
+		jsdom = NA.modules.jsdom,
 		async = NA.modules.async,
 		marked = NA.modules.marked,
 		route = NA.webconfig.routes;
@@ -22,6 +23,7 @@ exports.setRoutes = function (next) {
 	function toUrl(text) {
 		return text.toLowerCase().replace(/\&#39\;|'|\&lt\;|<|\&gt\;|>|\.| |\(|\)|\/|\!|\?|,|\&|\;|\[|\]|\%/g, "-").replace(/-+/g, "-").replace(/^-/g, "").replace(/-$/g, "");
 	}
+
 	function toSafeChar(text) {
 		return text.replace(/é|è|ê/g, "e").replace(/ô/g, "o").replace(/à/g, "a").replace(/û|ù/g, "u");
 	}
@@ -31,80 +33,76 @@ exports.setRoutes = function (next) {
 			return next();
 		}
 
-		var dom = marked(content.replace(/</g, '&lt;')),
-			$ = cheerio.load(dom, { decodeEntities: false }),
+		var dom = new jsdom.JSDOM(marked(content.replace(/</g, '&lt;'))),
 			allRoutes = [],
 			menu,
 			key = NA.webconfig._toc;
 
-		$("h2, h3").each(function () {
-			var $title = $(this);
-
-			$title.attr("id", toSafeChar(toUrl($title.text())));
-		});
-		$("table").each(function () {
-			var $table = $(this),
-				$container = $("<div>");
-
-			$container.addClass("table");
-			$table.after($container);
-			$container.html($table.clone());
-			$table.remove();
+		Array.prototype.forEach.call(dom.window.document.querySelectorAll('h2, h3'), function (title) {
+			title.setAttribute("id", toSafeChar(toUrl(title.textContent)));
 		});
 
-		$("h3[id=" + key + "]").each(function () {
-			var $title = $(this),
-				$toc = $title.next(),
-				$titleFinal = $("<h2>");
+		Array.prototype.forEach.call(dom.window.document.getElementsByTagName('table'), function (table) {
+			var container = dom.window.document.createElement('div');
 
-			$titleFinal.html($title.html());
-			$titleFinal.attr("id", "toc");
-			$title.after($titleFinal);
+			container.classList.add('table');
+			table.parentNode.insertBefore(container, table.nextElementSibling);
+			container.innerHTML = table.cloneNode(true);
+			table.parentNode.removeChild(table);
+		});
 
-			$toc.addClass("toc");
+		Array.prototype.forEach.call(dom.window.document.querySelectorAll('h3[id="' + key + '"]'), function (title) {
+			var toc = title.nextElementSibling,
+				finalTitle = dom.window.document.createElement('h2');
 
-			$toc.find("> li").each(function () {
-				var $sublink = $(this),
-					$subtitle = $sublink.find("> a"),
-					url = toSafeChar(toUrl($subtitle.text())) + ".html";
+			finalTitle.innerHTML = title.innerHTML;
+			finalTitle.setAttribute("id", "toc");
+			title.parentNode.insertBefore(finalTitle, toc);
 
-				$subtitle.attr("data-href", $subtitle.attr("href"));
-				$subtitle.attr("href", url);
+			toc.classList.add("toc");
 
-				$sublink.find("> ul > li").each(function () {
-					var $sublink = $(this),
-						$subtitle = $sublink.find("> a");
+			Array.prototype.forEach.call(toc.children, function (sublink) {
+				var subtitle = sublink.children[0],
+					url = toSafeChar(toUrl(subtitle.textContent)) + ".html";
 
-					$subtitle.attr("data-href", $subtitle.attr("href"));
-					$subtitle.attr("href", url + "#" + toSafeChar(toUrl($subtitle.text())));
+				subtitle.setAttribute("data-href", subtitle.getAttribute("href"));
+				subtitle.setAttribute("href", url);
 
-					if (toSafeChar(toUrl($subtitle.text())) === key) {
-						$sublink.remove();
+				Array.prototype.forEach.call(sublink.querySelectorAll('li'), function (sublink) {
+					var subtitle = sublink.children[0];
+
+					subtitle.setAttribute("data-href", subtitle.getAttribute("href"));
+					subtitle.setAttribute("href", url + "#" + toSafeChar(toUrl(subtitle.textContent)));
+
+					if (toSafeChar(toUrl(subtitle.textContent)) === key) {
+						sublink.parentNode.removeChild(sublink);
 					}
 				});
 			});
 
 			menu = function (next) {
-				fs.writeFile("assets/" + NA.webconfig._content + "index.htm", $titleFinal + $toc, function () {
-					var $base = $toc.clone();
-					$toc.remove();
-					$titleFinal.remove();
-					$title.remove();
+				fs.writeFile("assets/" + NA.webconfig._content + "index.htm", finalTitle.outerHTML + toc.outerHTML, function () {
+					var base = toc.cloneNode(true);
 
-					$("a").filter(function (index, element) {
-						return !$(element).is("[href^=http]");
-					}).each(function () {
-						var $needTransform = $(this);
-						$base.find("> li").each(function () {
-							var $subitem = $(this),
-								$link = $subitem.find("a");
-							if ($link.attr("data-href") === $needTransform.attr("href")) {
-								$needTransform.attr("href", $link.attr("href"));
+					toc.parentNode.removeChild(toc);
+					finalTitle.parentNode.removeChild(finalTitle);
+					title.parentNode.removeChild(title);
+
+					Array.prototype.filter.call(dom.window.document.getElementsByTagName('a'), function (element) {
+						return !element.matches("[href^=http]");
+					}).forEach(function (needTransform) {
+						Array.prototype.forEach.call(base.children, function (subitem) {
+							var link = subitem.children[0];
+
+							if (link.getAttribute("data-href") === needTransform.getAttribute("href")) {
+								needTransform.setAttribute("href", link.getAttribute("href"));
 							}
-							$subitem.find("> ul > li a").each(function () {
-								var $sublink = $(this);
-								if ($sublink.attr("data-href") === $needTransform.attr("href")) {
-									$needTransform.attr("href", $sublink.attr("href"));
+
+							Array.prototype.filter.call(subitem.getElementsByTagName("a"), function (sublink, index) {
+								return index !== 0;
+							}).forEach(function (sublink) {
+								if (sublink.getAttribute("data-href") === needTransform.getAttribute("href")) {
+									needTransform.setAttribute("href", sublink.getAttribute("href"));
 								}
 							});
 						});
@@ -113,27 +111,55 @@ exports.setRoutes = function (next) {
 					next();
 				});
 			};
-
 		});
 
-		$("h2").each(function () {
-			var $title = $(this);
+		function nextUntil(title, selector) {
+			var htmlElement = title,
+				nextUntil = [],
+				until = true;
+			while (htmlElement = htmlElement.nextElementSibling) {
+				(until && htmlElement && !htmlElement.matches(selector)) ? nextUntil.push(htmlElement) : until = false;
+			}
+			return nextUntil;
+		}
 
+		function prevUntil(title, selector) {
+			var htmlElement = title,
+				previousUntil = [],
+				until = true;
+			while (htmlElement = htmlElement.previousElementSibling) {
+				(until && htmlElement && !htmlElement.matches(selector)) ? previousUntil.push(htmlElement) : until = false;
+			}
+			return previousUntil;
+		}
+
+		Array.prototype.forEach.call(dom.window.document.getElementsByTagName('h2'), function (title) {
 			allRoutes.push(function (nextRoute) {
-				var $content = $title.nextUntil("h2"),
-					$after = $content.next("h2"),
-					$before = $title.prevUntil("h2").prev("h2"),
-					divBefore = ($before.html()) ? `<div class="before">
-							<a href="${$before.attr("id")}.html">◄ ${$before.html()}</a>
-						</div>` : "",
-					divAfter = ($after.html()) ? `<div class="after">
-							<a href="${$after.attr("id")}.html">${$after.html()} ►</a>
-						</div>` : "",
-					bottom = "<div>" + divBefore + divAfter + "</div>";
+				var contentAfter = nextUntil(title, "h2"),
+					contentBefore = prevUntil(title, "h2"),
+					after,
+					before,
+					divBefore,
+					divAfter,
+					bottom;
 
-				if ($title.attr("id") && $title.attr("id") !== "toc") {
-					fs.writeFile("assets/" + NA.webconfig._content + toSafeChar($title.attr("id")) + ".htm", $title + $content +  bottom, function () {
-						route["/" + toSafeChar($title.attr("id")) + ".html"] = {
+				if (contentAfter.length > 0) {
+					after = contentAfter[contentAfter.length - 1].nextElementSibling;
+					before = contentBefore[contentBefore.length - 1].previousElementSibling;
+					divBefore = (before) ? `<div class="before">
+							<a href="${before.getAttribute("id")}.html">◄ ${before.innerHTML}</a>
+						</div>` : "";
+					divAfter = (after) ? `<div class="after">
+							<a href="${after.getAttribute("id")}.html">${after.innerHTML} ►</a>
+						</div>` : "";
+					bottom = "<div>" + divBefore + divAfter + "</div>";
+				}
+
+				if (title.getAttribute("id") && title.getAttribute("id") !== "toc") {
+
+
+					fs.writeFile("assets/" + NA.webconfig._content + toSafeChar(title.getAttribute("id")) + ".htm", title.outerHTML + contentAfter.map(function (element) { return element.outerHTML; }).join('') + bottom, function () {
+						route["/" + toSafeChar(title.getAttribute("id")) + ".html"] = {
 							"view": "content.htm",
 							"controller": "content.js"
 						};

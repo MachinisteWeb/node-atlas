@@ -2522,23 +2522,25 @@ Do a request on `http://localhost/` will use the following files (and others):
 // This code is executed before DOM was sent to Client.
 // This code is executed for all HTTP request, for all pages.
 exports.changeDom = function (next, locals, request, response) {
-	var $ = locals.virtualDom(); // Transform HTML string into Virtual DOM.
+	// Transform HTML string into Virtual DOM.
+	var $ = locals.virtualDom();
 
 	// Just after eath h1 from HTML DOM...
-	$("h1").each(function () {
-		var $this = $(this);
+	Array.prototype.forEach.call(dom.window.document.getElementsByTagName("h1"), function (h1) {
 
 		// ...we create a div,
-		$this.after(
-			// ...we inject the content of h1 into the div,
-			$("<div>").html($this.html())
-		);
+		var div = dom.window.document.createElement('div');
+
+		// ...we inject the content of h1 into the div,
+		div.innerHTML = h1.innerHTML;
+		h1.parentNode.insertBefore(div, h1.nextElementSibling);
+
 		// ...and we delete the h1.
-		$this.remove();
+		h1.parentNode.removeChild(h1);
 	});
 
 	// Return updates for reinject them into HTML string.
-	next($);
+	next(dom);
 };
 ```
 
@@ -2549,14 +2551,14 @@ exports.changeDom = function (next, locals, request, response) {
 // This code is executed only for the « / » page .
 exports.changeDom = function (next, locals, request, response) {
 	var NA = this,
-		cheerio = NA.modules.cheerio, // jsdom for manipulate DOM with jQuery.
-		$ = cheerio.load(locals.dom, { decodeEntities: false }); // We load datas for manipulate it as a DOM.
+		jsdom = NA.modules.jsdom, // jsdom for manipulate DOM.
+		dom = new jsdom.JSDOM(locals.dom); // We load datas for manipulate it as a DOM.
 
 	// We update nodes contents with `.title` class.
-	$(".title").text("Content Update");
+	dom.window.document.getElementsByClassName("title")[0].textContent = "Modification de Contenu";
 
 	// We recreate a new HTML output with updates.
-	locals.dom = $.html();
+	locals.dom = dom.serialize();
 
 	// We go to next step.
 	next();

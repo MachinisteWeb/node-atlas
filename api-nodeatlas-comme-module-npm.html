@@ -1,19 +1,19 @@
 <!DOCTYPE html><html lang="fr-fr"><head>
 		<meta charset="utf-8">
-		<title>NodeAtlas &#x2014;Le Framework JavaScript Serveur &#xC9;volutif&#x2014;</title>
+		<title>NodeAtlas —Le Framework JavaScript Serveur Évolutif—</title>
 
 		<base href="">
 
 		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
-		<meta name="description" content="Cr&#xE9;ez simplement des sites web &#xE9;volutifs en Node.js.">
+		<meta name="description" content="Créez simplement des sites web évolutifs en Node.js.">
 
-		<meta name="og:title" content="NodeAtlas &#x2014;Le Framework JavaScript Serveur &#xC9;volutif&#x2014;">
-		<meta name="og:description" content="Cr&#xE9;ez simplement des sites web &#xE9;volutifs en Node.js.">
+		<meta name="og:title" content="NodeAtlas —Le Framework JavaScript Serveur Évolutif—">
+		<meta name="og:description" content="Créez simplement des sites web évolutifs en Node.js.">
 		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506356644833">
+		<meta name="og:updated_time" content="1506776768389">
 
 		<meta name="robots" content="index, follow">
 
@@ -29,7 +29,7 @@
 		<!-- Inclusion du fichiers standar pendant le développement. -->
 		
 	</head>
-	<body data-content="content/" data-subpath="" style="background-image: url(&apos;media/images/min/main-background.jpg&apos;);">
+	<body data-content="content/" data-subpath="" style="background-image: url('media/images/min/main-background.jpg');">
 		<div class="layout">
 			<noscript class="no-js cmpt">
 				<div class="no-js--inner">
@@ -63,29 +63,29 @@
 						</h1>
 					</div>
 					<div class="header--abstract">
-						<p>Le Framework JavaScript Serveur &#xC9;volutif</p>
+						<p>Le Framework JavaScript Serveur Évolutif</p>
 					</div>
 					<div class="header--main">
 						<ul>
 							<li>
 								<div class="header--main--first">
 									<h2><span>Mise en place</span> <strong>Simple</strong></h2>
-									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>D&#xE9;butant</strong> en JavaScript ?</p>
-									<p class="small">R&#xE9;alisez rapidement des sites vitrines multilingues sans effort avec l&apos;utilisation de routes, vues ou variations.</p>
+									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>Débutant</strong> en JavaScript ?</p>
+									<p class="small">Réalisez rapidement des sites vitrines multilingues sans effort avec l'utilisation de routes, vues ou variations.</p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--second">
-									<h2><span>Site vivant et</span> <strong>&#xC9;volutif</strong></h2>
-									<p><strong>Expert</strong> en JavaScript client ?<br>Pr&#xEA;t &#xE0; embrasser <strong>Node.js</strong> ?</p>
-									<p class="small">Am&#xE9;liorer progressivement votre base &#xE0; mesure de vos besoins en utilisant des contr&#xF4;leurs, mod&#xE8;les ou modules.</p>
+									<h2><span>Site vivant et</span> <strong>Évolutif</strong></h2>
+									<p><strong>Expert</strong> en JavaScript client ?<br>Prêt à embrasser <strong>Node.js</strong> ?</p>
+									<p class="small">Améliorer progressivement votre base à mesure de vos besoins en utilisant des contrôleurs, modèles ou modules.</p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--third">
 									<h2><span>Partie Cliente</span> <strong>Agnostique</strong></h2>
-									<p>D&#xE9;j&#xE0; vos habitudes <strong>Front-end</strong> ?<br>Habitu&#xE9;(e) du <strong>Data Binding</strong> ?</p>
-									<p class="small">Du l&#xE9;ger Vanilla au simple jQuery en passant par Vue, Angular ou React : utiliser vos biblioth&#xE8;ques clientes favorites !</p>
+									<p>Déjà vos habitudes <strong>Front-end</strong> ?<br>Habitué(e) du <strong>Data Binding</strong> ?</p>
+									<p class="small">Du léger Vanilla au simple jQuery en passant par Vue, Angular ou React : utiliser vos bibliothèques clientes favorites !</p>
 								</div>
 							</li>
 						</ul>
@@ -110,7 +110,7 @@
 									<pre>$ npm install -g node-atlas</pre>
 								</div>
 								<div class="download--cli--step2">
-									<h3>Cr&#xE9;er un site test</h3>
+									<h3>Créer un site test</h3>
 									<pre>$ node-atlas --create</pre>
 								</div>
 								<div class="download--cli--step3">
@@ -127,14 +127,14 @@
 									<pre>$ npm install node-atlas</pre>
 								</div>
 								<div class="download--api--step2">
-									<h3>Cr&#xE9;er un script</h3>
-									<pre><span>server.js</span>var NA = require(&quot;node-atlas&quot;),
+									<h3>Créer un script</h3>
+									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
 website.init({
-    &quot;create&quot;: &quot;hello-world&quot;
+    "create": "hello-world"
 }).created(function () {
     website.run({
-        &quot;browse&quot;: true
+        "browse": true
     });
 }).start();</pre>
 								</div>
@@ -147,11 +147,11 @@ website.init({
 					</div>
 					<div class="download--clone">
 						<div class="download--version">
-							<h2>T&#xE9;l&#xE9;charger</h2>
+							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta50</h3>
-									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Derni&#xE8;re version</a></p>
+									<h3>v2.0.0-beta51</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
 								<div class="download--version--step2">
@@ -185,29 +185,29 @@ website.init({
 							<h2>Tutoriaux</h2>
 							<div class="download--tuto--inner">
 								<div class="download--tuto--step1">
-									<a href="avant-propos.html#avant-propos"><span>D&#xE9;couvrir</span> <i class="fa fa-book" aria-hidden="true"></i> le guide complet pas &#xE0; pas</a>
+									<a href="avant-propos.html#avant-propos"><span>Découvrir</span> <i class="fa fa-book" aria-hidden="true"></i> le guide complet pas à pas</a>
 								</div>
 								<div class="download--tuto--step2">
 									<span>ou</span>
 								</div>
 								<div class="download--tuto--step3">
 									<div class="download--tuto--step3--first">
-										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Créer</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
 									</div>
 									<div class="download--tuto--step3--second">
 										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> par ex. des pages HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web r&#xE9;actives</a>
+										<a href="https://github.com/NodeAtlas"><span>Développer</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web réactives</a>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="download--about">
-							<h2>&#xC0; propos</h2>
+							<h2>À propos</h2>
 							<div class="download--about--inner">
 								<div class="download--about--step1">
-									NodeAtlas est un Framework JavaScript MVC(2) c&#xF4;t&#xE9; serveur vous permettant de cr&#xE9;er des sites &#xE9;volutifs, SEO-compliant et W3C-compliant. C&apos;est-&#xE0;-dire qu&apos;il permet de faire tourner des pages multilingues indexables ou de cr&#xE9;er des maquettes HTML et passant la validation W3C uniquement avec des vues avec modifications &#xE0; chaud mais &#xE9;galement de cr&#xE9;er de gros sites orient&#xE9;s composants et/ou orient&#xE9;s services en respectant les nouveaux standards !
+									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des vues avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !
 								</div>
 							</div>
 						</div>
@@ -224,7 +224,7 @@ website.init({
 						<a href="/english/index.html" title="International Version"><span class="fa fa-globe"></span>  International Version</a>
 					</div>
 					<div class="navigation--home">
-						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
 					</div>
 					<div class="navigation--menu">
 						<div class="navigation--menu--toggle">
@@ -238,7 +238,7 @@ website.init({
 								<ul>
 									
 									<li>
-										<a href="avant-propos.html" title="Pr&#xE9;sentation">Pr&#xE9;sentation</a> 
+										<a href="avant-propos.html" title="Présentation">Présentation</a> 
 										
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
@@ -248,7 +248,7 @@ website.init({
 											</li>
 											
 											<li>
-												<a href="commencer-avec-nodeatlas.html" title="D&#xE9;marrage rapide">D&#xE9;marrage rapide</a>
+												<a href="commencer-avec-nodeatlas.html" title="Démarrage rapide">Démarrage rapide</a>
 											</li>
 											
 										</ul>
@@ -261,7 +261,7 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="partie-controleur-et-modele.html" title="Contr&#xF4;leur et Mod&#xE8;le">Contr&#xF4;leur et Mod&#xE8;le</a> 
+										<a href="partie-controleur-et-modele.html" title="Contrôleur et Modèle">Contrôleur et Modèle</a> 
 										
 									</li>
 									
@@ -288,7 +288,7 @@ website.init({
 											</li>
 											
 											<li>
-												<a href="environnement-de-developpement.html" title="D&#xE9;veloppement">D&#xE9;veloppement</a>
+												<a href="environnement-de-developpement.html" title="Développement">Développement</a>
 											</li>
 											
 											<li>
@@ -313,79 +313,79 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module npm</h2><p>Vous pouvez lancez NodeAtlas via du code JavaScript.</p><p>L&apos;int&#xE9;gralit&#xE9; des fonctions priv&#xE9;s, modules et espaces de nom de NodeAtlas sont d&#xE9;crit dans <a href="https://node-atlas.js.org/doc/node-atlas/">la documentation de l&apos;API</a> (En). En ce qui concerne les <a href="partie-controleur-et-modele.html#cycle-de-vie-et-points-d-ancrage">Points d&apos;ancrage c&apos;est par ici</a> et pour les fonctions de d&#xE9;marrage du serveur c&apos;est ci-dessous :</p><h3 id="na-start"><na>.start()</na></h3><p>Ex&#xE9;cut&#xE9; un simple lancement de NodeAtlas avec <code>start()</code>. Par d&#xE9;faut il cherchera le <code>webconfig.json</code> dans le dossier o&#xF9; le script est ex&#xE9;cut&#xE9;. Si aucun <code>webconfig.json</code> n&apos;est trouv&#xE9;, un Simple Serveur Web sera lanc&#xE9;.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
+					<h2 id="api-nodeatlas-comme-module-npm">API / NodeAtlas comme module npm</h2><p>Vous pouvez lancez NodeAtlas via du code JavaScript.</p><p>L'intégralité des fonctions privés, modules et espaces de nom de NodeAtlas sont décrit dans <a href="https://node-atlas.js.org/doc/node-atlas/">la documentation de l'API</a> (En). En ce qui concerne les <a href="partie-controleur-et-modele.html#cycle-de-vie-et-points-d-ancrage">Points d'ancrage c'est par ici</a> et pour les fonctions de démarrage du serveur c'est ci-dessous :</p><h3 id="na-start">&lt;NA&gt;.start()</h3><p>Exécuté un simple lancement de NodeAtlas avec <code>start()</code>. Par défaut il cherchera le <code>webconfig.json</code> dans le dossier où le script est exécuté. Si aucun <code>webconfig.json</code> n'est trouvé, un Simple Serveur Web sera lancé.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require("node-atlas")().start();
 </code></pre><pre><code>$ node server.js
-</code></pre><h3 id="na-init-options"><na>.init(options)</na></h3><p>Vous pouvez &#xE9;galement configurer le lancement avec <code>init(options)</code> :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().init({
-    path: &quot;/path/to/your/website/directory/&quot;,
-    webconfig: &quot;webconfig.alternatif.json&quot;,
+</code></pre><h3 id="na-init-options">&lt;NA&gt;.init(options)</h3><p>Vous pouvez également configurer le lancement avec <code>init(options)</code> :</p><p><em>server.js</em></p><pre><code class="lang-javascript">require("node-atlas")().init({
+    path: "/path/to/your/website/directory/",
+    webconfig: "webconfig.alternatif.json",
     browse: true,
-    httpHostname: &quot;192.168.1.1&quot;,
+    httpHostname: "192.168.1.1",
     httpPort: 7778,
     generate: true
 }).start();
 </code></pre><pre><code>$ node server.js
-</code></pre><p>L&apos;objet <code>options</code> est le suivant :</p><pre><code>{
-    path: &lt;string&gt;,
-    webconfig: &lt;string&gt;,
-    browse: &lt;boolean|string&gt;,
-    httpHostname: &lt;string&gt;,
-    httpPort: &lt;number&gt;,
-    generate: &lt;boolean&gt;,
-    cache: &lt;boolean&gt;,
-    lang: &lt;string&gt;,
-    create: &lt;string&gt;,
-    httpSecure: &lt;boolean|string&gt;
+</code></pre><p>L'objet <code>options</code> est le suivant :</p><pre><code>{
+    path: &amp;lt;string&gt;,
+    webconfig: &amp;lt;string&gt;,
+    browse: &amp;lt;boolean|string&gt;,
+    httpHostname: &amp;lt;string&gt;,
+    httpPort: &amp;lt;number&gt;,
+    generate: &amp;lt;boolean&gt;,
+    cache: &amp;lt;boolean&gt;,
+    lang: &amp;lt;string&gt;,
+    create: &amp;lt;string&gt;,
+    httpSecure: &amp;lt;boolean|string&gt;
 }
-</code></pre><p><em>Note : plus de d&#xE9;tails pour chaque option dans <a href="cli-commandes-de-lancement.html">la partie CLI</a>.</em></p><h3 id="na-run-options"><na>.run(options)</na></h3><p>Avec <code>run(options)</code> vous pouvez configurer et lancer NodeAtlas en une commande.</p><p>Vous pouvez par exemple lancer plusieurs sites en une fois. Bien entendu, chaque webconfig &#xE9;coutera un port diff&#xE9;rent.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><p><em>Note : plus de détails pour chaque option dans <a href="cli-commandes-de-lancement.html">la partie CLI</a>.</em></p><h3 id="na-run-options">&lt;NA&gt;.run(options)</h3><p>Avec <code>run(options)</code> vous pouvez configurer et lancer NodeAtlas en une commande.</p><p>Vous pouvez par exemple lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     websiteEn = new nodeAtlas(),
     websiteFr = new nodeAtlas();
 
 websiteEn.run({
-    &quot;browse&quot;: true,
-    &quot;webconfig&quot;: &quot;webconfig.english.json&quot;
+    "browse": true,
+    "webconfig": "webconfig.english.json"
 });
 websiteFr.run({
-    &quot;browse&quot;: true,
-    &quot;webconfig&quot;: &quot;webconfig.french.json&quot;
+    "browse": true,
+    "webconfig": "webconfig.french.json"
 });
-</code></pre><h3 id="na-started-callback"><na>.started(callback)</na></h3><p>Avec <code>started(callback)</code>, vous pouvez aussi ex&#xE9;cuter d&apos;autres t&#xE2;ches apr&#xE8;s que le serveur web soit lanc&#xE9; :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().started(function() {
-    console.log(&quot;Server started!&quot;);
+</code></pre><h3 id="na-started-callback">&lt;NA&gt;.started(callback)</h3><p>Avec <code>started(callback)</code>, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit lancé :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().started(function() {
+    console.log("Server started!");
 }).run({
     browse: true
 });
-</code></pre><h3 id="na-stopped-callback"><na>.stopped(callback)</na></h3><p>Avec <code>stopped(callback)</code>, vous pouvez aussi ex&#xE9;cuter d&apos;autres t&#xE2;ches apr&#xE8;s que le serveur web soit stopp&#xE9; :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().stopped(function() {
-    console.log(&quot;Server stopped!&quot;);
+</code></pre><h3 id="na-stopped-callback">&lt;NA&gt;.stopped(callback)</h3><p>Avec <code>stopped(callback)</code>, vous pouvez aussi exécuter d'autres tâches après que le serveur web soit stoppé :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().stopped(function() {
+    console.log("Server stopped!");
 }).start();
-</code></pre><h3 id="na-generated-callback"><na>.generated(callback)</na></h3><p>Avec <code>generated(callback)</code>, vous pouvez aussi ex&#xE9;cuter d&apos;autres t&#xE2;ches apr&#xE8;s la g&#xE9;n&#xE9;ration de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().generated(function() {
-    require(&apos;child_process&apos;).exec(__dirname + &quot;/documentation.bat&quot;, function (err, stdout, stderr) {
-        console.log(&quot;Documentation generation...&quot;);
+</code></pre><h3 id="na-generated-callback">&lt;NA&gt;.generated(callback)</h3><p>Avec <code>generated(callback)</code>, vous pouvez aussi exécuter d'autres tâches après la génération de vos assets :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">require("node-atlas")().generated(function() {
+    require('child_process').exec(__dirname + "/documentation.bat", function (err, stdout, stderr) {
+        console.log("Documentation generation...");
         console.log(stdout);
-        console.log(&quot;Documentation generation done!&quot;);
+        console.log("Documentation generation done!");
     });
 }).run({
     generate: true
 });
-</code></pre><h3 id="na-created-callback"><na>.created(callback)</na></h3><p>Avec <code>created(callback)</code>, vous pouvez aussi ex&#xE9;cuter d&apos;autres t&#xE2;ches apr&#xE8;s avoir initialis&#xE9; le r&#xE9;pertoire courant avec un site template :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require(&quot;node-atlas&quot;),
+</code></pre><h3 id="na-created-callback">&lt;NA&gt;.created(callback)</h3><p>Avec <code>created(callback)</code>, vous pouvez aussi exécuter d'autres tâches après avoir initialisé le répertoire courant avec un site template :</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     website = nodeAtlas();
 
 website.init({
-    &quot;init&quot;: true
+    "init": true
 }).created(function() {
     website.run({
-        &quot;browse&quot;: true
+        "browse": true
     });
 }).start();
 </code></pre><div><div class="before">
-							<a href="cli-commandes-de-lancement.html">&#x25C4; CLI / Commandes de lancement</a>
+							<a href="cli-commandes-de-lancement.html">◄ CLI / Commandes de lancement</a>
 						</div><div class="after">
-							<a href="nodeatlas-comme-simple-serveur-web.html">NodeAtlas comme simple serveur web &#x25BA;</a>
+							<a href="nodeatlas-comme-simple-serveur-web.html">NodeAtlas comme simple serveur web ►</a>
 						</div></div>
 				</div>
 			</div>
 		</div>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 		
-		<script id="channel" data-channel="NodeAtlas/Aide" data-label="Chat d&apos;Aide" src="javascripts/common.min.js"></script>
+		<script id="channel" data-channel="NodeAtlas/Aide" data-label="Chat d'Aide" src="javascripts/common.min.js"></script>
 		
 		<script src="https://buttons.github.io/buttons.js"></script>
 	

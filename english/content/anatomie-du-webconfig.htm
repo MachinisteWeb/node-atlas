@@ -1,18 +1,18 @@
-<h2 id="anatomie-du-webconfig">Anatomie du webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig"><NA>.webconfig</h3><pre><code class="lang-js">Object{
+<h2 id="anatomie-du-webconfig">Anatomie du webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="lang-js">Object{
     "assetsCopy": Boolean,
-    "assetsRelativePath": String&lt;path-from-root>,
-    "bundles": (String&lt;filepath-from-root> | Object{
+    "assetsRelativePath": String&amp;lt;path-from-root&gt;,
+    "bundles": (String&amp;lt;filepath-from-root&gt; | Object{
         "javascripts": Object{
-        ... url: Array.String&lt;filepath-from-assets>
+        ... url: Array.String&amp;lt;filepath-from-assets&gt;
         },
         "stylesheets": Object{
-        ... url: Array.String&lt;filepath-from-assets>
+        ... url: Array.String&amp;lt;filepath-from-assets&gt;
         }
     }),
     "cache": Boolean,
     "charset": String,
-    "controller": String&lt;filepath-from-controllers>,
-    "controllersRelativePath": String&lt;path-from-root>,
+    "controller": String&amp;lt;filepath-from-controllers&gt;,
+    "controllersRelativePath": String&amp;lt;path-from-root&gt;,
     "delete": Boolean,
     "engine": String,
     "index": Boolean,
@@ -21,10 +21,10 @@
     "htmlGenerationBeforeResponse": Boolean,
     "httpHostname": String,
     "httpPort": Number,
-    "httpSecure": (String&lt;filepath-from-root> | Boolean),
-    "httpSecureKeyRelativePath": String&lt;filepath-from-root>,
-    "httpSecureCertificateRelativePath": String&lt;filepath-from-root>,
-    "injectCss": (String&lt;filepath-from-assets> | Array.String&lt;filepath-from-assets>),
+    "httpSecure": (String&amp;lt;filepath-from-root&gt; | Boolean),
+    "httpSecureKeyRelativePath": String&amp;lt;filepath-from-root&gt;,
+    "httpSecureCertificateRelativePath": String&amp;lt;filepath-from-root&gt;,
+    "injectCss": (String&amp;lt;filepath-from-assets&gt; | Array.String&amp;lt;filepath-from-assets&gt;),
     "imgOptimizationsBeforeResponse": Boolean,
     "imgOptimizationsEnable": Boolean,
     "jsBundlingBeforeResponse": Boolean,
@@ -33,17 +33,17 @@
     "less": (Boolean | Object{
         "autoprefix": Boolean,
         "compress": Boolean,
-        "files": (String&lt;filepath-from-root> | Array.String&lt;filepath-from-assets>),
-        "paths": Array.String&lt;path-from-assets>,
+        "files": (String&amp;lt;filepath-from-root&gt; | Array.String&amp;lt;filepath-from-assets&gt;),
+        "paths": Array.String&amp;lt;path-from-assets&gt;,
         "sourceMap": Boolean
     }),
-    "middlewares": (String&lt;filepath-from-middlewares> | Array.String&lt;filepath-from-middlewares>),
-    "middlewaresRelativePath": String&lt;path-from-root>,
+    "middlewares": (String&amp;lt;filepath-from-middlewares&gt; | Array.String&amp;lt;filepath-from-middlewares&gt;),
+    "middlewaresRelativePath": String&amp;lt;path-from-root&gt;,
     "mimeType": String,
-    "optimizations": (String&lt;filepath-from-root> | Object{
+    "optimizations": (String&amp;lt;filepath-from-root&gt; | Object{
         "gif": Object,
         "images": Object{
-        ... url: String&lt;filepath-from-assets>
+        ... url: String&amp;lt;filepath-from-assets&gt;
         },
         "jpg": Object,
         "png": Object,
@@ -54,62 +54,62 @@
     "post": Boolean,
     "pug": Boolean,
     "put": Boolean,
-    "routes": (String&lt;filepath-from-root> | Object{
-    ... "(String&lt;/url> | String&lt;key>)": String&lt;filepath-from-views> | NA&lt;routeParameter>)
-    } | Array.NA&lt;routeParameter>,
-    "serverlessRelativePath": String&lt;path-from-root>,
+    "routes": (String&amp;lt;filepath-from-root&gt; | Object{
+    ... "(String&amp;lt;/url&gt; | String&amp;lt;key&gt;)": String&amp;lt;filepath-from-views&gt; | NA&amp;lt;routeParameter&gt;)
+    } | Array.NA&amp;lt;routeParameter&gt;,
+    "serverlessRelativePath": String&amp;lt;path-from-root&gt;,
     "session": Object,
-    "staticOptions": Object&lt;from-express-statics-options>,
-    "statics": String&lt;filepath-from-root> | Object{
-    ... /virtual: (String&lt;path-from-root> | Object{
-            "path": String&lt;path-from-root>,
-            "staticOptions": Object&lt;from-express-statics-options>
+    "staticOptions": Object&amp;lt;from-express-statics-options&gt;,
+    "statics": String&amp;lt;filepath-from-root&gt; | Object{
+    ... /virtual: (String&amp;lt;path-from-root&gt; | Object{
+            "path": String&amp;lt;path-from-root&gt;,
+            "staticOptions": Object&amp;lt;from-express-statics-options&gt;
         })
     } | Array.Object{
-        "path": String&lt;path-from-root>,
-        "staticOptions": Object&lt;from-express-statics-options>,
-        "virtual": String&lt;urlpath-from-base>
+        "path": String&amp;lt;path-from-root&gt;,
+        "staticOptions": Object&amp;lt;from-express-statics-options&gt;,
+        "virtual": String&amp;lt;urlpath-from-base&gt;
     },
     "cssBundlingBeforeResponse": Boolean,
     "cssBundlingEnable": Boolean,
-    "socketClientFile": String&lt;urlpath-from-base>,
-    "socketServerOptions": Object&lt;from-socketio-server-options>,
+    "socketClientFile": String&amp;lt;urlpath-from-base&gt;,
+    "socketServerOptions": Object&amp;lt;from-socketio-server-options&gt;,
     "stylus": (Boolean | Object{
         "autoprefix": Boolean,
         "compress": Boolean,
-        "files": (String&lt;filepath-from-root> | Array.String&lt;filepath-from-assets>),
-        "paths": Array.String&lt;path-from-assets>,
+        "files": (String&amp;lt;filepath-from-root&gt; | Array.String&amp;lt;filepath-from-assets&gt;),
+        "paths": Array.String&amp;lt;path-from-assets&gt;,
         "sourceMap": Boolean,
     }),
     "templateEngineDelimiter": String,
     "urlHostname": String,
     "urlPort": Number,
-    "urlRelativeSubPath": String&lt;urlpath-from-root>,
-    "variation": String&lt;filepath-from-variations>,
-    "variationsRelativePath": String&lt;path-from-root>,,
-    "version": String&lt;xx.xx.xx>,
-    "view": String&lt;filepath-from-views>,
-    "viewsRelativePath": String&lt;path-from-root>
+    "urlRelativeSubPath": String&amp;lt;urlpath-from-root&gt;,
+    "variation": String&amp;lt;filepath-from-variations&gt;,
+    "variationsRelativePath": String&amp;lt;path-from-root&gt;,,
+    "version": String&amp;lt;xx.xx.xx&gt;,
+    "view": String&amp;lt;filepath-from-views&gt;,
+    "viewsRelativePath": String&amp;lt;path-from-root&gt;
 }
-</code></pre><h3 id="na-routeparameters"><NA>.routeParameters</h3><pre><code class="lang-js">Object{
+</code></pre><h3 id="na-routeparameters">&lt;NA&gt;.routeParameters</h3><pre><code class="lang-js">Object{
     "charset": String,
-    "controller": String&lt;filepath-from-controllers>,
+    "controller": String&amp;lt;filepath-from-controllers&gt;,
     "delete": Boolean,
     "get": Boolean,
     "headers": Object,
-    "injectCss": (String&lt;filepath-from-assets> | Array.String&lt;filepath-from-assets>),
+    "injectCss": (String&amp;lt;filepath-from-assets&gt; | Array.String&amp;lt;filepath-from-assets&gt;),
     "key": String,
-    "middlewares": (String&lt;filepath-from-middlewares> | Array.String&lt;filepath-from-middlewares>),
+    "middlewares": (String&amp;lt;filepath-from-middlewares&gt; | Array.String&amp;lt;filepath-from-middlewares&gt;),
     "mimeType": String,
     "options": Boolean,
-    "output": (String&lt;filepath-into-serverless> | Boolean&lt;false>),
+    "output": (String&amp;lt;filepath-into-serverless&gt; | Boolean&amp;lt;false&gt;),
     "post": Boolean,
     "put": Boolean,
-    "redirect": (String&lt;urlpath-from-base | url>),
+    "redirect": (String&amp;lt;urlpath-from-base | url&gt;),
     "statusCode": Number,
-    "url": String&lt;urlpath-from-base>,
-    "variation": String&lt;filepath-from-variations>,
-    "view": String&lt;filepath-from-views>
+    "url": String&amp;lt;urlpath-from-base&gt;,
+    "variation": String&amp;lt;filepath-from-variations&gt;,
+    "view": String&amp;lt;filepath-from-views&gt;
 }
 </code></pre><div><div class="before">
 							<a href="pour-aller-plus-loin.html">◄ Pour aller plus loin</a>

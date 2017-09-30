@@ -1,19 +1,19 @@
 <!DOCTYPE html><html lang="en-us"><head>
 		<meta charset="utf-8">
-		<title>NodeAtlas &#x2014;The Progressive Server-side JavaScript Framework&#x2014;</title>
+		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
 
 		<base href="">
 
 		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
 		<meta name="description" content="Create websites with server-side JavaScript easily!">
 
-		<meta name="og:title" content="NodeAtlas &#x2014;The Progressive Server-side JavaScript Framework&#x2014;">
+		<meta name="og:title" content="NodeAtlas —The Progressive Server-side JavaScript Framework—">
 		<meta name="og:description" content="Create websites with server-side JavaScript easily!">
 		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506356648963">
+		<meta name="og:updated_time" content="1506776772301">
 
 		<meta name="robots" content="index, follow">
 
@@ -29,7 +29,7 @@
 		<!-- Inclusion du fichiers standar pendant le développement. -->
 		
 	</head>
-	<body data-content="content/english/" data-subpath="/english" style="background-image: url(&apos;media/images/min/main-background.jpg&apos;);">
+	<body data-content="content/english/" data-subpath="/english" style="background-image: url('media/images/min/main-background.jpg');">
 		<div class="layout">
 			<noscript class="no-js cmpt">
 				<div class="no-js--inner">
@@ -39,7 +39,7 @@
 			<div class="background"></div>
 			<div class="language cmpt">
 				<div class="navigation--lang">
-					<a href="/../index.html" title="Version fran&#xE7;aise"><span class="fa fa-globe"></span>  Version fran&#xE7;aise</a>
+					<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 				</div>
 			</div>
 			<header class="header cmpt">
@@ -128,13 +128,13 @@
 								</div>
 								<div class="download--api--step2">
 									<h3>Create a script</h3>
-									<pre><span>server.js</span>var NA = require(&quot;node-atlas&quot;),
+									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
 website.init({
-    &quot;create&quot;: &quot;hello-world&quot;
+    "create": "hello-world"
 }).created(function () {
     website.run({
-        &quot;browse&quot;: true
+        "browse": true
     });
 }).start();</pre>
 								</div>
@@ -150,7 +150,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta50</h3>
+									<h3>v2.0.0-beta51</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
 								</div>
@@ -221,10 +221,10 @@ website.init({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="/../index.html" title="Version fran&#xE7;aise"><span class="fa fa-globe"></span>  Version fran&#xE7;aise</a>
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 					</div>
 					<div class="navigation--home">
-						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
 					</div>
 					<div class="navigation--menu">
 						<div class="navigation--menu--toggle">
@@ -342,8 +342,8 @@ website.init({
 <li><a href="view-and-template-part.html#manage-include-of-partial-files" data-href="#manage-include-of-partial-files">Manage Include of Partial Files</a></li>
 <li><a href="view-and-template-part.html#manage-variations-within-the-same-view" data-href="#manage-variations-within-the-same-view">Manage variations within the same view</a></li>
 <li><a href="view-and-template-part.html#manage-internationalization-i18n" data-href="#manage-internationalization-i18n">Manage Internationalization (i18n)</a></li>
-<li><a href="view-and-template-part.html#manage-the-urls-anatomy" data-href="#manage-the-URLs-anatomy">Manage the URLs&apos; anatomy</a></li>
-<li><a href="view-and-template-part.html#create-your-own-webconfig-s-variables" data-href="#create-your-own-webconfigs-variables">Create your own Webconfig&apos;s Variables</a></li>
+<li><a href="view-and-template-part.html#manage-the-urls-anatomy" data-href="#manage-the-URLs-anatomy">Manage the URLs' anatomy</a></li>
+<li><a href="view-and-template-part.html#create-your-own-webconfig-s-variables" data-href="#create-your-own-webconfigs-variables">Create your own Webconfig's Variables</a></li>
 <li><a href="view-and-template-part.html#use-a-global-view" data-href="#use-a-global-view">Use a Global View</a></li>
 <li><a href="view-and-template-part.html#share-directories" data-href="#share-directory">Share Directories</a></li>
 <li><a href="view-and-template-part.html#generate-html-templates" data-href="#generate-html-templates">Generate HTML Templates</a></li>
@@ -386,7 +386,7 @@ website.init({
 <li><a href="more-features.html#enable-cache" data-href="#enable-cache">Enable Cache</a></li>
 </ul>
 </li>
-<li><a href="webconfig-s-anatomy.html" data-href="#webconfigs-anatomy">Webconfig&apos;s Anatomy</a></li>
+<li><a href="webconfig-s-anatomy.html" data-href="#webconfigs-anatomy">Webconfig's Anatomy</a></li>
 <li><a href="cli-running-commands.html" data-href="#cli--running-commands">CLI / Running commands</a><ul>
 <li><a href="cli-running-commands.html#help" data-href="#--help">--help</a></li>
 <li><a href="cli-running-commands.html#version" data-href="#--version">--version</a></li>
@@ -403,13 +403,13 @@ website.init({
 </ul>
 </li>
 <li><a href="api-nodeatlas-as-npm-module.html" data-href="#api--nodeatlas-as-npm-module">API / NodeAtlas as npm module</a><ul>
-<li><a href="api-nodeatlas-as-npm-module.html#na-start" data-href="#nastart"><na>.start()</na></a></li>
-<li><a href="api-nodeatlas-as-npm-module.html#na-init-options" data-href="#nainitoptions"><na>.init(options)</na></a></li>
-<li><a href="api-nodeatlas-as-npm-module.html#na-run-options" data-href="#narunoptions"><na>.run(options)</na></a></li>
-<li><a href="api-nodeatlas-as-npm-module.html#na-started-callback" data-href="#nastartedcallback"><na>.started(callback)</na></a></li>
-<li><a href="api-nodeatlas-as-npm-module.html#na-stopped-callback" data-href="#nastoppedcallback"><na>.stopped(callback)</na></a></li>
-<li><a href="api-nodeatlas-as-npm-module.html#na-generated-callback" data-href="#nageneratedcallback"><na>.generated(callback)</na></a></li>
-<li><a href="api-nodeatlas-as-npm-module.html#na-created-callback" data-href="#nacreatedcallback"><na>.created(callback)</na></a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#na-start" data-href="#nastart">&lt;NA&gt;.start()</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#na-init-options" data-href="#nainitoptions">&lt;NA&gt;.init(options)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#na-run-options" data-href="#narunoptions">&lt;NA&gt;.run(options)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#na-started-callback" data-href="#nastartedcallback">&lt;NA&gt;.started(callback)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#na-stopped-callback" data-href="#nastoppedcallback">&lt;NA&gt;.stopped(callback)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#na-generated-callback" data-href="#nageneratedcallback">&lt;NA&gt;.generated(callback)</a></li>
+<li><a href="api-nodeatlas-as-npm-module.html#na-created-callback" data-href="#nacreatedcallback">&lt;NA&gt;.created(callback)</a></li>
 </ul>
 </li>
 <li><a href="nodeatlas-as-a-simple-web-server.html" data-href="#nodeatlas-as-a-simple-web-server">NodeAtlas as a simple web server</a></li>

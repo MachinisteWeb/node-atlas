@@ -1,19 +1,19 @@
 <!DOCTYPE html><html lang="fr-fr"><head>
 		<meta charset="utf-8">
-		<title>NodeAtlas &#x2014;Le Framework JavaScript Serveur &#xC9;volutif&#x2014;</title>
+		<title>NodeAtlas —Le Framework JavaScript Serveur Évolutif—</title>
 
 		<base href="">
 
 		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
-		<meta name="description" content="Cr&#xE9;ez simplement des sites web &#xE9;volutifs en Node.js.">
+		<meta name="description" content="Créez simplement des sites web évolutifs en Node.js.">
 
-		<meta name="og:title" content="NodeAtlas &#x2014;Le Framework JavaScript Serveur &#xC9;volutif&#x2014;">
-		<meta name="og:description" content="Cr&#xE9;ez simplement des sites web &#xE9;volutifs en Node.js.">
+		<meta name="og:title" content="NodeAtlas —Le Framework JavaScript Serveur Évolutif—">
+		<meta name="og:description" content="Créez simplement des sites web évolutifs en Node.js.">
 		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506356644710">
+		<meta name="og:updated_time" content="1506776767989">
 
 		<meta name="robots" content="index, follow">
 
@@ -29,7 +29,7 @@
 		<!-- Inclusion du fichiers standar pendant le développement. -->
 		
 	</head>
-	<body data-content="content/" data-subpath="" style="background-image: url(&apos;media/images/min/main-background.jpg&apos;);">
+	<body data-content="content/" data-subpath="" style="background-image: url('media/images/min/main-background.jpg');">
 		<div class="layout">
 			<noscript class="no-js cmpt">
 				<div class="no-js--inner">
@@ -63,29 +63,29 @@
 						</h1>
 					</div>
 					<div class="header--abstract">
-						<p>Le Framework JavaScript Serveur &#xC9;volutif</p>
+						<p>Le Framework JavaScript Serveur Évolutif</p>
 					</div>
 					<div class="header--main">
 						<ul>
 							<li>
 								<div class="header--main--first">
 									<h2><span>Mise en place</span> <strong>Simple</strong></h2>
-									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>D&#xE9;butant</strong> en JavaScript ?</p>
-									<p class="small">R&#xE9;alisez rapidement des sites vitrines multilingues sans effort avec l&apos;utilisation de routes, vues ou variations.</p>
+									<p>Au point avec <strong>HTML &amp; CSS</strong> ?<br><strong>Débutant</strong> en JavaScript ?</p>
+									<p class="small">Réalisez rapidement des sites vitrines multilingues sans effort avec l'utilisation de routes, vues ou variations.</p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--second">
-									<h2><span>Site vivant et</span> <strong>&#xC9;volutif</strong></h2>
-									<p><strong>Expert</strong> en JavaScript client ?<br>Pr&#xEA;t &#xE0; embrasser <strong>Node.js</strong> ?</p>
-									<p class="small">Am&#xE9;liorer progressivement votre base &#xE0; mesure de vos besoins en utilisant des contr&#xF4;leurs, mod&#xE8;les ou modules.</p>
+									<h2><span>Site vivant et</span> <strong>Évolutif</strong></h2>
+									<p><strong>Expert</strong> en JavaScript client ?<br>Prêt à embrasser <strong>Node.js</strong> ?</p>
+									<p class="small">Améliorer progressivement votre base à mesure de vos besoins en utilisant des contrôleurs, modèles ou modules.</p>
 								</div>
 							</li>
 							<li>
 								<div class="header--main--third">
 									<h2><span>Partie Cliente</span> <strong>Agnostique</strong></h2>
-									<p>D&#xE9;j&#xE0; vos habitudes <strong>Front-end</strong> ?<br>Habitu&#xE9;(e) du <strong>Data Binding</strong> ?</p>
-									<p class="small">Du l&#xE9;ger Vanilla au simple jQuery en passant par Vue, Angular ou React : utiliser vos biblioth&#xE8;ques clientes favorites !</p>
+									<p>Déjà vos habitudes <strong>Front-end</strong> ?<br>Habitué(e) du <strong>Data Binding</strong> ?</p>
+									<p class="small">Du léger Vanilla au simple jQuery en passant par Vue, Angular ou React : utiliser vos bibliothèques clientes favorites !</p>
 								</div>
 							</li>
 						</ul>
@@ -110,7 +110,7 @@
 									<pre>$ npm install -g node-atlas</pre>
 								</div>
 								<div class="download--cli--step2">
-									<h3>Cr&#xE9;er un site test</h3>
+									<h3>Créer un site test</h3>
 									<pre>$ node-atlas --create</pre>
 								</div>
 								<div class="download--cli--step3">
@@ -127,14 +127,14 @@
 									<pre>$ npm install node-atlas</pre>
 								</div>
 								<div class="download--api--step2">
-									<h3>Cr&#xE9;er un script</h3>
-									<pre><span>server.js</span>var NA = require(&quot;node-atlas&quot;),
+									<h3>Créer un script</h3>
+									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
 website.init({
-    &quot;create&quot;: &quot;hello-world&quot;
+    "create": "hello-world"
 }).created(function () {
     website.run({
-        &quot;browse&quot;: true
+        "browse": true
     });
 }).start();</pre>
 								</div>
@@ -147,11 +147,11 @@ website.init({
 					</div>
 					<div class="download--clone">
 						<div class="download--version">
-							<h2>T&#xE9;l&#xE9;charger</h2>
+							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta50</h3>
-									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Derni&#xE8;re version</a></p>
+									<h3>v2.0.0-beta51</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
 								<div class="download--version--step2">
@@ -185,29 +185,29 @@ website.init({
 							<h2>Tutoriaux</h2>
 							<div class="download--tuto--inner">
 								<div class="download--tuto--step1">
-									<a href="avant-propos.html#avant-propos"><span>D&#xE9;couvrir</span> <i class="fa fa-book" aria-hidden="true"></i> le guide complet pas &#xE0; pas</a>
+									<a href="avant-propos.html#avant-propos"><span>Découvrir</span> <i class="fa fa-book" aria-hidden="true"></i> le guide complet pas à pas</a>
 								</div>
 								<div class="download--tuto--step2">
 									<span>ou</span>
 								</div>
 								<div class="download--tuto--step3">
 									<div class="download--tuto--step3--first">
-										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Cr&#xE9;er</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Créer</span> <i class="fa fa-html5" aria-hidden="true"></i> par ex. des sites web multilingues</a>
 									</div>
 									<div class="download--tuto--step3--second">
 										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Maintenir</span> <i class="fa fa-copy" aria-hidden="true"></i> par ex. des pages HTML sans serveur</a>
 									</div>
 									<div class="download--tuto--step3--third">
-										<a href="https://github.com/NodeAtlas"><span>D&#xE9;velopper</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web r&#xE9;actives</a>
+										<a href="https://github.com/NodeAtlas"><span>Développer</span> <i class="fa fa-database" aria-hidden="true"></i> par ex. des applications web réactives</a>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="download--about">
-							<h2>&#xC0; propos</h2>
+							<h2>À propos</h2>
 							<div class="download--about--inner">
 								<div class="download--about--step1">
-									NodeAtlas est un Framework JavaScript MVC(2) c&#xF4;t&#xE9; serveur vous permettant de cr&#xE9;er des sites &#xE9;volutifs, SEO-compliant et W3C-compliant. C&apos;est-&#xE0;-dire qu&apos;il permet de faire tourner des pages multilingues indexables ou de cr&#xE9;er des maquettes HTML et passant la validation W3C uniquement avec des vues avec modifications &#xE0; chaud mais &#xE9;galement de cr&#xE9;er de gros sites orient&#xE9;s composants et/ou orient&#xE9;s services en respectant les nouveaux standards !
+									NodeAtlas est un Framework JavaScript MVC(2) côté serveur vous permettant de créer des sites évolutifs, SEO-compliant et W3C-compliant. C'est-à-dire qu'il permet de faire tourner des pages multilingues indexables ou de créer des maquettes HTML et passant la validation W3C uniquement avec des vues avec modifications à chaud mais également de créer de gros sites orientés composants et/ou orientés services en respectant les nouveaux standards !
 								</div>
 							</div>
 						</div>
@@ -224,7 +224,7 @@ website.init({
 						<a href="/english/index.html" title="International Version"><span class="fa fa-globe"></span>  International Version</a>
 					</div>
 					<div class="navigation--home">
-						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
 					</div>
 					<div class="navigation--menu">
 						<div class="navigation--menu--toggle">
@@ -238,7 +238,7 @@ website.init({
 								<ul>
 									
 									<li>
-										<a href="avant-propos.html" title="Pr&#xE9;sentation">Pr&#xE9;sentation</a> 
+										<a href="avant-propos.html" title="Présentation">Présentation</a> 
 										
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
@@ -248,7 +248,7 @@ website.init({
 											</li>
 											
 											<li>
-												<a href="commencer-avec-nodeatlas.html" title="D&#xE9;marrage rapide">D&#xE9;marrage rapide</a>
+												<a href="commencer-avec-nodeatlas.html" title="Démarrage rapide">Démarrage rapide</a>
 											</li>
 											
 										</ul>
@@ -261,7 +261,7 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="partie-controleur-et-modele.html" title="Contr&#xF4;leur et Mod&#xE8;le">Contr&#xF4;leur et Mod&#xE8;le</a> 
+										<a href="partie-controleur-et-modele.html" title="Contrôleur et Modèle">Contrôleur et Modèle</a> 
 										
 									</li>
 									
@@ -288,7 +288,7 @@ website.init({
 											</li>
 											
 											<li>
-												<a href="environnement-de-developpement.html" title="D&#xE9;veloppement">D&#xE9;veloppement</a>
+												<a href="environnement-de-developpement.html" title="Développement">Développement</a>
 											</li>
 											
 											<li>
@@ -313,62 +313,62 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="avant-propos">Avant-propos</h2><p>NodeAtlas est un framework JavaScript MVC(2) c&#xF4;t&#xE9; serveur sous forme de <a href="https://www.npmjs.com/package/node-atlas">module npm</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) et tournant avec <a href="https://nodejs.org/">Node.js</a>. NodeAtlas vous permet de :</p><ul>
-<li><p>Cr&#xE9;er, maintenir et faire tourner des sites internationalis&#xE9;s (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particuli&#xE8;rement taill&#xE9; pour la r&#xE9;alisation de sites vitrines ou d&apos;applications web monopages hautement performante et maintenable en des temps records.</p>
+					<h2 id="avant-propos">Avant-propos</h2><p>NodeAtlas est un framework JavaScript MVC(2) côté serveur sous forme de <a href="https://www.npmjs.com/package/node-atlas">module npm</a> (<a href="https://www.npmjs.com/package/node-atlas">node-atlas</a>) et tournant avec <a href="https://nodejs.org/">Node.js</a>. NodeAtlas vous permet de :</p><ul>
+<li><p>Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particulièrement taillé pour la réalisation de sites vitrines ou d'applications web monopages hautement performante et maintenable en des temps records.</p>
 <blockquote>
 <p>Exemple : <a href="https://bruno.lesieur.name/">Simple page web</a></p>
 </blockquote>
 </li>
-<li><p>Cr&#xE9;er, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour fournir un ensemble de livrables clients coh&#xE9;rants en tant que guide de style pour la r&#xE9;alisation de divers sites ou applications web ou encore monter des sites sans partie serveur (par exemple pour GitHub Pages).</p>
+<li><p>Créer, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour fournir un ensemble de livrables clients cohérants en tant que guide de style pour la réalisation de divers sites ou applications web ou encore monter des sites sans partie serveur (par exemple pour GitHub Pages).</p>
 <blockquote>
-<p>Exemple : <a href="https://www.lesieur.name/doc-atlas/">Documentation de pages, composants et d&apos;interface web</a> ou <a href="https://node-atlas.js.org/">le site officiel NodeAtlas</a>.</p>
+<p>Exemple : <a href="https://www.lesieur.name/doc-atlas/">Documentation de pages, composants et d'interface web</a> ou <a href="https://node-atlas.js.org/">le site officiel NodeAtlas</a>.</p>
 </blockquote>
 </li>
-<li><p>D&#xE9;velopper des sites, des applications ou des API distantes en <a href="https://nodejs.org/">Node.js</a> de mani&#xE8;re &#xE9;volutives et tournant c&#xF4;t&#xE9; serveur tout en vous permettant gr&#xE2;ce &#xE0; l&apos;&#xE9;cosyst&#xE8;me <a href="https://www.npmjs.com/">npm</a> et les built-in fonctions de cr&#xE9;er des contenus clients temps r&#xE9;el, de packager et optimiser vos sites pour de hautes performances, d&apos;&#xEA;tre orient&#xE9; composant avec des r&#xE9;ponses HTTP passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.</p>
+<li><p>Développer des sites, des applications ou des API distantes en <a href="https://nodejs.org/">Node.js</a> de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'écosystème <a href="https://www.npmjs.com/">npm</a> et les built-in fonctions de créer des contenus clients temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec des réponses HTTP passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.</p>
 <blockquote>
 <p>Exemple : <a href="https://blog.lesieur.name/">Blog</a>, <a href="https://www.lesieur.name/">Portfolio</a> ou <a href="https://www.lesieur.name/api/">API Distante</a></p>
 </blockquote>
 </li>
-</ul><h3 id="pourquoi-nodeatlas">Pourquoi NodeAtlas ?</h3><p>NodeAtlas est con&#xE7;u pour cr&#xE9;er des sites &#xE9;volutifs et pour permettre aux d&#xE9;veloppeurs front-end et back-end d&apos;embrasser <a href="https://nodejs.org/">Node.js</a> en leur offrant une une courbe d&apos;apprentissage ais&#xE9;e.</p><p>Commencez avec une simple page HTML,</p><ul>
-<li>puis cr&#xE9;ez d&apos;autres pages,</li>
+</ul><h3 id="pourquoi-nodeatlas">Pourquoi NodeAtlas ?</h3><p>NodeAtlas est conçu pour créer des sites évolutifs et pour permettre aux développeurs front-end et back-end d'embrasser <a href="https://nodejs.org/">Node.js</a> en leur offrant une une courbe d'apprentissage aisée.</p><p>Commencez avec une simple page HTML,</p><ul>
+<li>puis créez d'autres pages,</li>
 <li>puis internationalisez les,</li>
 <li>puis minifiez/offusquez/compressez vos sources,</li>
-<li>puis utiliser des pr&#xE9;processeurs comme <a href="http://stylus-lang.com/">Stylus</a>, <a href="http://lesscss.org/">Less</a> ou/et <a href="https://pugjs.org/api/getting-started.html">Pug</a> simplement,</li>
-<li>puis prenez la main sur la logique serveur avec les points d&apos;ancrage et <a href="http://expressjs.com/">Express</a>,</li>
-<li>puis soyez temps r&#xE9;el et r&#xE9;actif c&#xF4;t&#xE9; serveur gr&#xE2;ce &#xE0; <a href="https://socket.io/">Socket.IO</a>,</li>
-<li>puis connectez vous &#xE0; <a href="https://www.mysql.com/fr/">MySQL</a>, <a href="https://www.mongodb.com/">MongoDB</a>, <a href="https://www.elastic.co/fr/">ElasticSearch</a>...,</li>
-<li>puis soyez isomorphique et r&#xE9;actif c&#xF4;t&#xE9; client gr&#xE2;ce &#xE0; <a href="https://fr.vuejs.org/">Vue</a> ou <a href="https://facebook.github.io/react/">React</a>,</li>
-<li>puis soyez orient&#xE9; composants et/ou services gr&#xE2;ce &#xE0; des projets comme <a href="https://github.com/Haeresis/ComponentAtlas">ComponentAtlas</a> et/ou <a href="https://github.com/Haeresis/ApiAtlas">ApiAtlas</a>,</li>
-<li>puis laissez votre client &#xE9;diter son site avec <a href="https://github.com/Haeresis/EditAtlas">EditAtlas</a>,</li>
-<li>puis cr&#xE9;er des plugins,</li>
+<li>puis utiliser des préprocesseurs comme <a href="http://stylus-lang.com/">Stylus</a>, <a href="http://lesscss.org/">Less</a> ou/et <a href="https://pugjs.org/api/getting-started.html">Pug</a> simplement,</li>
+<li>puis prenez la main sur la logique serveur avec les points d'ancrage et <a href="http://expressjs.com/">Express</a>,</li>
+<li>puis soyez temps réel et réactif côté serveur grâce à <a href="https://socket.io/">Socket.IO</a>,</li>
+<li>puis connectez vous à <a href="https://www.mysql.com/fr/">MySQL</a>, <a href="https://www.mongodb.com/">MongoDB</a>, <a href="https://www.elastic.co/fr/">ElasticSearch</a>...,</li>
+<li>puis soyez isomorphique et réactif côté client grâce à <a href="https://fr.vuejs.org/">Vue</a> ou <a href="https://facebook.github.io/react/">React</a>,</li>
+<li>puis soyez orienté composants et/ou services grâce à des projets comme <a href="https://github.com/Haeresis/ComponentAtlas">ComponentAtlas</a> et/ou <a href="https://github.com/Haeresis/ApiAtlas">ApiAtlas</a>,</li>
+<li>puis laissez votre client éditer son site avec <a href="https://github.com/Haeresis/EditAtlas">EditAtlas</a>,</li>
+<li>puis créer des plugins,</li>
 <li>puis...</li>
-</ul><h3 id="et-les-autres-frameworks-javascript">Et les autres frameworks JavaScript ?</h3><p>Contrairement aux frameworks JavaScript c&#xF4;t&#xE9; client comme Vue, Angular ou React, NodeAtlas fonctionne c&#xF4;t&#xE9; serveur et d&#xE9;livre son contenu derri&#xE8;re des URL par r&#xE9;ponse HTTP. Les sites sont indexables et valides W3C : c&apos;est-&#xE0;-dire que le code utile est bien renvoy&#xE9; par la r&#xE9;ponse HTTP en premier lieu, et est ensuite modifi&#xE9;e par requ&#xEA;te asynchrone (AJAX, Websocket...) si vous le souhaitez. Cela signifie donc que NodeAtlas n&apos;est pas une alternative aux nombreux frameworks JavaScript c&#xF4;t&#xE9; client qui ne se servent que de <a href="https://nodejs.org/en/">Node.js</a> pour l&apos;utilisation de <a href="https://www.npmjs.com/">npm</a>, <a href="http://jspm.io/">jspm</a>, <a href="http://gulpjs.com/">gulp</a>, etc. NodeAtlas est plut&#xF4;t une alternative &#xE0; Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, Java ou encore C# c&#xF4;t&#xE9; serveur. &#xC0; l&apos;instar de <a href="https://www.meteor.com/">Meteor</a>, NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de <a href="http://gulpjs.com/">gulp</a> mais contrairement &#xE0; <a href="https://www.meteor.com/">Meteor</a> l&apos;objet <code>NA</code> n&apos;est disponible que c&#xF4;t&#xE9; serveur par d&#xE9;faut. Il vous est donc laiss&#xE9; le choix d&apos;&#xE9;tendre les m&#xE9;canismes NodeAtlas &#xE0; votre partie cliente ou d&apos;utiliser la structure de votre choix.</p><p>Pour un comparatif avec d&apos;autre biblioth&#xE8;que / framework / API JavaScript c&#xF4;t&#xE9; serveur, <a href="plus-sur-nodeatlas.html#nodeatlas-vs-les-autres">vous pouvez consulter cette grille</a>.</p><h3 id="exemples-de-realisations-avec-nodeatlas">Exemples de r&#xE9;alisations avec NodeAtlas</h3><p>Vous trouverez une liste de d&#xE9;p&#xF4;ts que vous pouvez d&#xE9;cortiquer &#xE0; votre gr&#xE9; sur la communaut&#xE9; GitHub de NodeAtlas :</p><ul>
-<li><a href="https://github.com/NodeAtlas">Tous les exemples fournis par la communaut&#xE9; NodeAtlas sur GitHub</a>.</li>
-</ul><h3 id="documentation">Documentation</h3><p>En compl&#xE9;ment de cette documentation, vous avez &#xE9;galement acc&#xE8;s aux,</p><ul>
+</ul><h3 id="et-les-autres-frameworks-javascript">Et les autres frameworks JavaScript ?</h3><p>Contrairement aux frameworks JavaScript côté client comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des URL par réponse HTTP. Les sites sont indexables et valides W3C : c'est-à-dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifiée par requête asynchrone (AJAX, Websocket...) si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative aux nombreux frameworks JavaScript côté client qui ne se servent que de <a href="https://nodejs.org/en/">Node.js</a> pour l'utilisation de <a href="https://www.npmjs.com/">npm</a>, <a href="http://jspm.io/">jspm</a>, <a href="http://gulpjs.com/">gulp</a>, etc. NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, Java ou encore C# côté serveur. À l'instar de <a href="https://www.meteor.com/">Meteor</a>, NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de <a href="http://gulpjs.com/">gulp</a> mais contrairement à <a href="https://www.meteor.com/">Meteor</a> l'objet <code>NA</code> n'est disponible que côté serveur par défaut. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.</p><p>Pour un comparatif avec d'autre bibliothèque / framework / API JavaScript côté serveur, <a href="plus-sur-nodeatlas.html#nodeatlas-vs-les-autres">vous pouvez consulter cette grille</a>.</p><h3 id="exemples-de-realisations-avec-nodeatlas">Exemples de réalisations avec NodeAtlas</h3><p>Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré sur la communauté GitHub de NodeAtlas :</p><ul>
+<li><a href="https://github.com/NodeAtlas">Tous les exemples fournis par la communauté NodeAtlas sur GitHub</a>.</li>
+</ul><h3 id="documentation">Documentation</h3><p>En complément de cette documentation, vous avez également accès aux,</p><ul>
 <li><a href="https://github.com/NodeAtlas/NodeAtlas#node-atlas">tl;dr</a>,</li>
-<li><a href="https://node-atlas.js.org/doc/node-atlas/">d&#xE9;tails des fonctions de l&apos;objet NA</a> (En) et vous pouvez aussi</li>
-<li><a href="https://gitter.im/NodeAtlas/Aide">discuter sur le chat ou demander de l&apos;aide pour NodeAtlas</a>.</li>
+<li><a href="https://node-atlas.js.org/doc/node-atlas/">détails des fonctions de l'objet NA</a> (En) et vous pouvez aussi</li>
+<li><a href="https://gitter.im/NodeAtlas/Aide">discuter sur le chat ou demander de l'aide pour NodeAtlas</a>.</li>
 </ul><h3 id="contribution">Contribution</h3><p>Si vous souhaitez contribuer avec :</p><ul>
-<li>De l&apos;am&#xE9;lioration ou de la correction de code,</li>
-<li>De la correction d&apos;orthographe pour la documentation fran&#xE7;aise ou</li>
-<li>De la traduction d&#xE9;cente pour la documentation anglaise</li>
-</ul><p>Merci de respecter ses &#xE9;tapes :</p><ol>
-<li>R&#xE9;pliquez le d&#xE9;p&#xF4;t NodeAtlas.</li>
-<li>Travaillez sur une branch cr&#xE9;&#xE9;e &#xE0; partir de la branche master.</li>
+<li>De l'amélioration ou de la correction de code,</li>
+<li>De la correction d'orthographe pour la documentation française ou</li>
+<li>De la traduction décente pour la documentation anglaise</li>
+</ul><p>Merci de respecter ses étapes :</p><ol>
+<li>Répliquez le dépôt NodeAtlas.</li>
+<li>Travaillez sur une branch créée à partir de la branche master.</li>
 <li>Actez et poussez votre branche.</li>
 <li>Faites une proposition de fusion.</li>
 <li>Soyez patient. ;-)</li>
 </ol><p>Tout en respectant les conventions suivantes :</p><ul>
-<li><a href="http://www.sonarqube.org/">Passez le test Sonarqube JS avec un rang A</a> : Bugs, Vulnerabilit&#xE9;s et Dette Technique.</li>
-</ul><p>Merci d&apos;avance pour votre aide !</p><div><div class="after">
-							<a href="installation.html">Installation &#x25BA;</a>
+<li><a href="http://www.sonarqube.org/">Passez le test Sonarqube JS avec un rang A</a> : Bugs, Vulnerabilités et Dette Technique.</li>
+</ul><p>Merci d'avance pour votre aide !</p><div><div class="after">
+							<a href="installation.html">Installation ►</a>
 						</div></div>
 				</div>
 			</div>
 		</div>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 		
-		<script id="channel" data-channel="NodeAtlas/Aide" data-label="Chat d&apos;Aide" src="javascripts/common.min.js"></script>
+		<script id="channel" data-channel="NodeAtlas/Aide" data-label="Chat d'Aide" src="javascripts/common.min.js"></script>
 		
 		<script src="https://buttons.github.io/buttons.js"></script>
 	

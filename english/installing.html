@@ -1,19 +1,19 @@
 <!DOCTYPE html><html lang="en-us"><head>
 		<meta charset="utf-8">
-		<title>NodeAtlas &#x2014;The Progressive Server-side JavaScript Framework&#x2014;</title>
+		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
 
 		<base href="">
 
 		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
 		<meta name="description" content="Create websites with server-side JavaScript easily!">
 
-		<meta name="og:title" content="NodeAtlas &#x2014;The Progressive Server-side JavaScript Framework&#x2014;">
+		<meta name="og:title" content="NodeAtlas —The Progressive Server-side JavaScript Framework—">
 		<meta name="og:description" content="Create websites with server-side JavaScript easily!">
 		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506356648997">
+		<meta name="og:updated_time" content="1506776772253">
 
 		<meta name="robots" content="index, follow">
 
@@ -29,7 +29,7 @@
 		<!-- Inclusion du fichiers standar pendant le développement. -->
 		
 	</head>
-	<body data-content="content/english/" data-subpath="/english" style="background-image: url(&apos;media/images/min/main-background.jpg&apos;);">
+	<body data-content="content/english/" data-subpath="/english" style="background-image: url('media/images/min/main-background.jpg');">
 		<div class="layout">
 			<noscript class="no-js cmpt">
 				<div class="no-js--inner">
@@ -39,7 +39,7 @@
 			<div class="background"></div>
 			<div class="language cmpt">
 				<div class="navigation--lang">
-					<a href="/../index.html" title="Version fran&#xE7;aise"><span class="fa fa-globe"></span>  Version fran&#xE7;aise</a>
+					<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 				</div>
 			</div>
 			<header class="header cmpt">
@@ -128,13 +128,13 @@
 								</div>
 								<div class="download--api--step2">
 									<h3>Create a script</h3>
-									<pre><span>server.js</span>var NA = require(&quot;node-atlas&quot;),
+									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
 website.init({
-    &quot;create&quot;: &quot;hello-world&quot;
+    "create": "hello-world"
 }).created(function () {
     website.run({
-        &quot;browse&quot;: true
+        "browse": true
     });
 }).start();</pre>
 								</div>
@@ -150,7 +150,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta50</h3>
+									<h3>v2.0.0-beta51</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
 								</div>
@@ -221,10 +221,10 @@ website.init({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="/../index.html" title="Version fran&#xE7;aise"><span class="fa fa-globe"></span>  Version fran&#xE7;aise</a>
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 					</div>
 					<div class="navigation--home">
-						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
 					</div>
 					<div class="navigation--menu">
 						<div class="navigation--menu--toggle">
@@ -313,29 +313,29 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="installing">Installing</h2><p>Before install NodeAtlas, install <a href="https://nodejs.org/">Node.js</a>, we will see this in the section : <a href="installing.html#install-node-js">Install Node.js</a> bellow.</p><h3 id="install-nodeatlas">Install NodeAtlas</h3><p><em>Note: With Linux, add <code>sudo</code> before all commands if you&apos;re not logged with root user.</em></p><p>There are several ways to install NodeAtlas:</p><ul>
+					<h2 id="installing">Installing</h2><p>Before install NodeAtlas, install <a href="https://nodejs.org/">Node.js</a>, we will see this in the section : <a href="installing.html#install-node-js">Install Node.js</a> bellow.</p><h3 id="install-nodeatlas">Install NodeAtlas</h3><p><em>Note: With Linux, add <code>sudo</code> before all commands if you're not logged with root user.</em></p><p>There are several ways to install NodeAtlas:</p><ul>
 <li><p><strong>With npm, into project directory</strong> with the following command:</p>
 <blockquote>
 <p><code>npm install node-atlas</code></p>
 </blockquote>
-<p>  <em>This will install</em> NodeAtlas <em>in the &#xAB; node_modules/node-atlas/ &#xBB; directory of the execution of the command. Recommended for <a href="api-nodeatlas-as-npm-module.html">use as a module</a> in a project</em></p>
+<p>  <em>This will install</em> NodeAtlas <em>in the « node_modules/node-atlas/ » directory of the execution of the command. Recommended for <a href="api-nodeatlas-as-npm-module.html">use as a module</a> in a project</em></p>
 </li>
 <li><p><strong>With npm, into global modules directory</strong> with the following command:</p>
 <blockquote>
 <p><code>npm install -g node-atlas</code></p>
 </blockquote>
-<p>  <em>This will install</em> NodeAtlas <em>in the global &#xAB; node_modules/node-atlas/ &#xBB;. Recommended for <a href="api-nodeatlas-as-npm-module.html">use as a module</a> in large amount of project or for <a href="cli-running-commands.html">a command line utilisation</a>.</em></p>
+<p>  <em>This will install</em> NodeAtlas <em>in the global « node_modules/node-atlas/ ». Recommended for <a href="api-nodeatlas-as-npm-module.html">use as a module</a> in large amount of project or for <a href="cli-running-commands.html">a command line utilisation</a>.</em></p>
 </li>
 <li><p><strong>Clone the directory</strong> from <a href="https://github.com/NodeAtlas/node-atlas">GitHub</a> official repository.</p>
 <blockquote>
 <p><code>git clone https://github.com/NodeAtlas/node-atlas.git</code></p>
 </blockquote>
 <p>  <em>This will install</em> NodeAtlas <em>in your local repository.</em></p>
-<p>  <em>Use <code>npm install</code> command from <code>&lt;/path/to/&gt;node-atlas/</code> directory to install all dependencies. Recommended for participating to project.</em></p>
+<p>  <em>Use <code>npm install</code> command from <code>&amp;lt;/path/to/&gt;node-atlas/</code> directory to install all dependencies. Recommended for participating to project.</em></p>
 </li>
 <li><p>Download NodeAtlas from the official repository <a href="https://node-atlas.js.org/">NodeAtlas</a>.</p>
-<p>  <em>Once downloaded, unzip</em> NodeAtlas <em>in the &#xAB; node_modules/ &#xBB; folder that will suit you.</em></p>
-<p>  <em>Use <code>npm install</code> command from <code>&lt;/path/to/&gt;node-atlas/</code> directory to install all dependencies.</em></p>
+<p>  <em>Once downloaded, unzip</em> NodeAtlas <em>in the « node_modules/ » folder that will suit you.</em></p>
+<p>  <em>Use <code>npm install</code> command from <code>&amp;lt;/path/to/&gt;node-atlas/</code> directory to install all dependencies.</em></p>
 </li>
 </ul><h3 id="install-node-js">Install Node.js</h3><p>NodeAtlas is developed as a <a href="https://www.npmjs.com/">Node.js Module Package</a> that means it require Node.js to work. Node.js allows us to quickly and efficiently run JavaScript code outside the browser, making it possible to use the same language on both the client-side and server-side.</p><p><em>Note: Python 2.6 or 2.7 is required to build from source tarballs.</em></p><h4 id="install-on-windows">Install on Windows</h4><p>Using a package:</p><ul>
 <li><a href="https://nodejs.org/en/download/">Download Windows Installer</a>.</li>
@@ -350,10 +350,10 @@ website.init({
 </ul><p>Example install with <code>apt-get</code>:</p><pre><code class="lang-bash">sudo apt-get install python-software-properties python g++ make
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
-</code></pre><p>There is a naming conflict with the <code>node</code> package (Amateur Packet Radio Node Program), and the Node.js binary has been renamed from <code>node</code> to <code>nodejs</code>. You&apos;ll need to symlink <code>/usr/bin/node</code> to <code>/usr/bin/nodejs</code> or you could uninstall the Amateur Packet Radio Node Program to avoid that conflict.</p><div><div class="before">
-							<a href="overview.html">&#x25C4; Overview</a>
+</code></pre><p>There is a naming conflict with the <code>node</code> package (Amateur Packet Radio Node Program), and the Node.js binary has been renamed from <code>node</code> to <code>nodejs</code>. You'll need to symlink <code>/usr/bin/node</code> to <code>/usr/bin/nodejs</code> or you could uninstall the Amateur Packet Radio Node Program to avoid that conflict.</p><div><div class="before">
+							<a href="overview.html">◄ Overview</a>
 						</div><div class="after">
-							<a href="start-with-nodeatlas.html">Start with NodeAtlas &#x25BA;</a>
+							<a href="start-with-nodeatlas.html">Start with NodeAtlas ►</a>
 						</div></div>
 				</div>
 			</div>

@@ -1,19 +1,19 @@
 <!DOCTYPE html><html lang="en-us"><head>
 		<meta charset="utf-8">
-		<title>NodeAtlas &#x2014;The Progressive Server-side JavaScript Framework&#x2014;</title>
+		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
 
 		<base href="">
 
 		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
 		<meta name="description" content="Create websites with server-side JavaScript easily!">
 
-		<meta name="og:title" content="NodeAtlas &#x2014;The Progressive Server-side JavaScript Framework&#x2014;">
+		<meta name="og:title" content="NodeAtlas —The Progressive Server-side JavaScript Framework—">
 		<meta name="og:description" content="Create websites with server-side JavaScript easily!">
 		<meta name="og:url" content="https://node-atlas.js.org">
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506356649004">
+		<meta name="og:updated_time" content="1506776772402">
 
 		<meta name="robots" content="index, follow">
 
@@ -29,7 +29,7 @@
 		<!-- Inclusion du fichiers standar pendant le développement. -->
 		
 	</head>
-	<body data-content="content/english/" data-subpath="/english" style="background-image: url(&apos;media/images/min/main-background.jpg&apos;);">
+	<body data-content="content/english/" data-subpath="/english" style="background-image: url('media/images/min/main-background.jpg');">
 		<div class="layout">
 			<noscript class="no-js cmpt">
 				<div class="no-js--inner">
@@ -39,7 +39,7 @@
 			<div class="background"></div>
 			<div class="language cmpt">
 				<div class="navigation--lang">
-					<a href="/../index.html" title="Version fran&#xE7;aise"><span class="fa fa-globe"></span>  Version fran&#xE7;aise</a>
+					<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 				</div>
 			</div>
 			<header class="header cmpt">
@@ -128,13 +128,13 @@
 								</div>
 								<div class="download--api--step2">
 									<h3>Create a script</h3>
-									<pre><span>server.js</span>var NA = require(&quot;node-atlas&quot;),
+									<pre><span>server.js</span>var NA = require("node-atlas"),
     website = NA();
 website.init({
-    &quot;create&quot;: &quot;hello-world&quot;
+    "create": "hello-world"
 }).created(function () {
     website.run({
-        &quot;browse&quot;: true
+        "browse": true
     });
 }).start();</pre>
 								</div>
@@ -150,7 +150,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.0-beta50</h3>
+									<h3>v2.0.0-beta51</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
 								</div>
@@ -221,10 +221,10 @@ website.init({
 				</div>
 				<div class="navigation--inner">
 					<div class="navigation--lang">
-						<a href="/../index.html" title="Version fran&#xE7;aise"><span class="fa fa-globe"></span>  Version fran&#xE7;aise</a>
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
 					</div>
 					<div class="navigation--home">
-						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide &lt;span&gt;NodeAtlas&lt;/span&gt;">Guide <span>NodeAtlas</span></a>
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
 					</div>
 					<div class="navigation--menu">
 						<div class="navigation--menu--toggle">
@@ -313,49 +313,49 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="start-with-nodeatlas">Start with NodeAtlas</h2><p>An NodeAtlas instance is configuration-driven with <code>webconfig.json</code>. All NodeAtlas website has it, that turn the engine from &#xAB; Simple Web Server &#xBB; to &#xAB; NodeAtlas Web Server &#xBB;.</p><p>NodeAtlas isn&apos;t a standard MVC hierarchy. One of is particularity is the capability of the controller to render the view without any development from you.</p><p>We will start with a how-to set minimal files to perform a &quot;Hello World!&quot;.</p><h3 id="fileset">Fileset</h3><p>After installing NodeAtlas, you can create a set of files representing a site in the folder of your choice. In the example below, we will use <code>hello-world</code> directory:</p><pre><code class="lang-txt">hello-world/
-&#x251C;&#x2500; views/
-&#x2502;  &#x2514;&#x2500; index.htm
-&#x2514;&#x2500; webconfig.json
-</code></pre><p>We will display to the HTTP address the content of the <code>views/index.htm</code> file:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en-us&quot;&gt;
-    &lt;head&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;title&gt;Hello world&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;div&gt;This is a Hello World!&lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
+					<h2 id="start-with-nodeatlas">Start with NodeAtlas</h2><p>An NodeAtlas instance is configuration-driven with <code>webconfig.json</code>. All NodeAtlas website has it, that turn the engine from « Simple Web Server » to « NodeAtlas Web Server ».</p><p>NodeAtlas isn't a standard MVC hierarchy. One of is particularity is the capability of the controller to render the view without any development from you.</p><p>We will start with a how-to set minimal files to perform a "Hello World!".</p><h3 id="fileset">Fileset</h3><p>After installing NodeAtlas, you can create a set of files representing a site in the folder of your choice. In the example below, we will use <code>hello-world</code> directory:</p><pre><code class="lang-txt">hello-world/
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>We will display to the HTTP address the content of the <code>views/index.htm</code> file:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;Hello world&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div&gt;This is a Hello World!&amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
 </code></pre><p>See just below following, the content of <code>webconfig.json</code> file.</p><h3 id="minimum-requirements">Minimum Requirements</h3><p>You can turn a simple page with minimal configuration <code>webconfig.json</code> below :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
-    &quot;routes&quot;: {
-        &quot;/&quot;: {
-            &quot;view&quot;: &quot;index.htm&quot;
+    "routes": {
+        "/": {
+            "view": "index.htm"
         }
     }
 }
-</code></pre><p>equivalent to</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{ &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; } }
-</code></pre><h3 id="run-the-website-with-nodeatlas">Run the website with NodeAtlas</h3><h4 id="with-the-node-atlas-command-line">With the <code>node-atlas</code> command line</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can use the <code>node-atlas</code> command. <code>node-atlas</code> is a alias for the command <code>node &lt;/path/to/globals/&gt;node_modules/node-atlas/</code>.</p><blockquote>
+</code></pre><p>equivalent to</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{ "routes": { "/": "index.htm" } }
+</code></pre><h3 id="run-the-website-with-nodeatlas">Run the website with NodeAtlas</h3><h4 id="with-the-node-atlas-command-line">With the <code>node-atlas</code> command line</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can use the <code>node-atlas</code> command. <code>node-atlas</code> is a alias for the command <code>node &amp;lt;/path/to/globals/&gt;node_modules/node-atlas/</code>.</p><blockquote>
 <p><em>Note: you can also use the <code>atlas</code> command which is an alias of <code>node-atlas</code> for writing it more simply.</em></p>
 </blockquote><p>Position yourself with the prompt console in the folder <code>hello-world/</code> and run the following command.</p><pre><code class="lang-bash">$ node-atlas
 </code></pre><blockquote>
-<p>Note: if your port 80 is in use or if you don&apos;t have the privilege to access it, you can use the <code>--httpPort</code> options.</p>
+<p>Note: if your port 80 is in use or if you don't have the privilege to access it, you can use the <code>--httpPort</code> options.</p>
 <pre><code class="lang-bash">$ node-atlas --httpPort 8080
 </code></pre>
 <p>or use the webconfig option <code>httpPort</code></p>
 <pre><code class="lang-json">{
-    &quot;httpPort&quot;: 8080,
-    &quot;routes&quot;: { &quot;/&quot;: &quot;index.htm&quot; }
+    "httpPort": 8080,
+    "routes": { "/": "index.htm" }
 }
 </code></pre>
-</blockquote><p>You will have access to your &quot;Hello World&quot; to the page: <code>http://localhost/</code> in a browser (or <code>http://localhost:8080/</code>).</p><h4 id="via-a-javascript-file">Via a JavaScript file</h4><p>You can also use NodeAtlas as an npm module.</p><p>So, create a <code>server.js</code> file into the same folder of <code>webconfig.json</code>.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require(&quot;node-atlas&quot;)().start();
+</blockquote><p>You will have access to your "Hello World" to the page: <code>http://localhost/</code> in a browser (or <code>http://localhost:8080/</code>).</p><h4 id="via-a-javascript-file">Via a JavaScript file</h4><p>You can also use NodeAtlas as an npm module.</p><p>So, create a <code>server.js</code> file into the same folder of <code>webconfig.json</code>.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require("node-atlas")().start();
 </code></pre><p>Then run the file with Node.js.</p><pre><code class="lang-bash">$ node server.js
-</code></pre><h3 id="hello-world-skeleton">Hello World Skeleton</h3><p>It&apos;s also possible to get an app already create with some features already implemented. We study them later but for now just use <code>--create</code> command to test that and copy a skeleton app:</p><pre><code class="lang-bash">$ node-atlas --create hello-world
+</code></pre><h3 id="hello-world-skeleton">Hello World Skeleton</h3><p>It's also possible to get an app already create with some features already implemented. We study them later but for now just use <code>--create</code> command to test that and copy a skeleton app:</p><pre><code class="lang-bash">$ node-atlas --create hello-world
 </code></pre><p>and Start!</p><pre><code class="lang-bash">$ node-atlas --browse
 </code></pre><div><div class="before">
-							<a href="installing.html">&#x25C4; Installing</a>
+							<a href="installing.html">◄ Installing</a>
 						</div><div class="after">
-							<a href="view-and-template-part.html">View and Template Part &#x25BA;</a>
+							<a href="view-and-template-part.html">View and Template Part ►</a>
 						</div></div>
 				</div>
 			</div>
