@@ -33,7 +33,7 @@ exports.setRoutes = function (next) {
 			return next();
 		}
 
-		var dom = new jsdom.JSDOM(marked(content.replace(/</g, '&lt;'))),
+		var dom = new jsdom.JSDOM(marked(content)),
 			allRoutes = [],
 			menu,
 			key = NA.webconfig._toc;

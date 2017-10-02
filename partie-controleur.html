@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506955918407">
+		<meta name="og:updated_time" content="1506971734498">
 
 		<meta name="robots" content="index, follow">
 
@@ -351,15 +351,16 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="partie-controleur">Partie contrôleur</h2><p>NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variables dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers de variations ou avec le DOM généré en fonction :</p><ul>
+					<h2 id="partie-controleur">Partie contrôleur</h2><p>NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variables dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers de variations ou avec le DOM généré à partir de ceux-ci en fonction :</p><ul>
 <li>des paramètres dans la partie query de l'URL (GET),</li>
 <li>des paramètres dans le corps de la requête (POST)</li>
-</ul><p>mais également :</p><ul>
-<li>de vous connecter à des bases de données,</li>
-<li>de maintenir des sessions,</li>
-<li>de faire des échanges websockets et</li>
+</ul><p>mais également, couplé à des fonctionnalités natives de Node.js ou de npm, en fonction :</p><ul>
+<li>d'informations dans des fichiers,</li>
+<li>d'informations dans des bases de données,</li>
+<li>d'informations dans des sessions utilisateurs actives,</li>
+<li>d'informations fournit par échanges WebSockets et</li>
 <li>de faire bien plus encore !</li>
-</ul><h3 id="cycle-de-vie-et-points-d-ancrage">Cycle de vie et points d'ancrage</h3><p>Le cycle de vie de NodeAtlas est le suivant. D'abord, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d'atteindre tous les points d'ancrage du cycle de vie d'une page.</p><pre><code class="lang-json">{
+</ul><h3 id="cycle-de-vie">Cycle de vie</h3><p>Le cycle de vie de NodeAtlas est le suivant. D'abord, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d'atteindre tous les points d'ancrage du cycle de vie d'une page.</p><pre><code class="lang-json">{
     "controllersRelativePath": "controllers",
     "controller": "common.js",
     "routes": {
@@ -369,7 +370,7 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : Si</em> <code>controllersRelativePath</code> <em>n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir pendant :</p><p><em>Le lancement du serveur</em></p><pre><code>┌─[Chargement des modules Node.js]
+</code></pre><p><em>Note : si</em> <code>controllersRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des contrôleurs est bien</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir pendant :</p><h4 id="le-lancement-du-serveur">Le lancement du serveur</h4><pre><code>┌─[Chargement des modules Node.js]
 ┊
 ├─[Chargement des variables d'initialisation]
 ┊
@@ -387,56 +388,56 @@ website.init({
   ┊
   └─[Chargement du contrôleur commun]
     ┊  _________________________________________
-    ├─{Point d'ancrage : &amp;lt;controller&gt;.setModules}
+    ├─{Point d'ancrage : &lt;controller&gt;.setModules}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Initialisation du serveur]
     ┊  __________________________________________
-    ├─{Point d'ancrage : &amp;lt;controller&gt;.setSessions}
+    ├─{Point d'ancrage : &lt;controller&gt;.setSessions}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ├─[Initialisation des sessions]
     ┊
     ├─[Initialisation des sockets]
     ┊ ┊  _________________________________________
-    ┊ ├─{Point d'ancrage : &amp;lt;controller&gt;.setSockets}_______
-    ┊ └─{Point d'ancrage : routes[&amp;lt;controller&gt;].setSockets}
+    ┊ ├─{Point d'ancrage : &lt;controller&gt;.setSockets}_______
+    ┊ └─{Point d'ancrage : routes[&lt;controller&gt;].setSockets}
     ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     ┊  ________________________________________________
-    ├─{Point d'ancrage : &amp;lt;controller&gt;.setConfigurations}
+    ├─{Point d'ancrage : &lt;controller&gt;.setConfigurations}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Démarrage du serveur]
       ┊
       ├─[Initialisation du moteur de template]
       ┊  ________________________________________
-      ├─{Point d'ancrage : &amp;lt;controller&gt;.setRoutes}
+      ├─{Point d'ancrage : &lt;controller&gt;.setRoutes}
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Initialisation des routes]
         ┊
         ∞
-</code></pre><p><em>Le traitement des requêtes de chaque route</em></p><pre><code>∞
+</code></pre><h4 id="le-traitement-des-requ-tes-de-chaque-route">Le traitement des requêtes de chaque route</h4><pre><code>∞
 ┊
 └─[Traitement d'une requête]
   ┊
   └─[Chargement du contrôleur spécifique]
     ┊  _______________________________________________
-    ├─{Point d'ancrage : &amp;lt;controller&gt;.changeVariations}_______
-    ├─{Point d'ancrage : routes[&amp;lt;controller&gt;].changeVariations}
+    ├─{Point d'ancrage : &lt;controller&gt;.changeVariations}_______
+    ├─{Point d'ancrage : routes[&lt;controller&gt;].changeVariations}
     ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
     └─[Compilation du moteur de template]
       ┊  ________________________________________
-      ├─{Point d'ancrage : &amp;lt;controller&gt;.changeDom}_______
-      ├─{Point d'ancrage : routes[&amp;lt;controller&gt;].changeDom}
+      ├─{Point d'ancrage : &lt;controller&gt;.changeDom}_______
+      ├─{Point d'ancrage : routes[&lt;controller&gt;].changeDom}
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Envoi de la réponse]
         ┊
         ∞
-</code></pre><h4 id="changevariations">changeVariations</h4><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeVariations(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><h3 id="point-d-ancrage-changevariations">Point d'ancrage changeVariations</h3><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeVariations(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
-<li>En premier paramètre la fonction de retour <code>next()</code>.</li>
-<li>En deuxième paramètre l'objet <code>locals</code> contenant entre autre la variation <code>locals.common</code> pour accéder aux variations communes et la variation <code>locals.specific</code> pour accéder aux variations spécifiques.</li>
-<li>En troisième paramètre l'objet <code>request</code> qui va être faites.</li>
-<li>En quatrième paramètre l'objet <code>response</code> faites pour cette page.</li>
+<li>En premier argument la fonction de rappel <code>next()</code>.</li>
+<li>En deuxième argument l'objet <code>locals</code> contenant entre autre la variation <code>locals.common</code> pour accéder aux variations communes et la variation <code>locals.specific</code> pour accéder aux variations spécifiques.</li>
+<li>En troisième argument l'objet <code>request</code> faites pour cette page.</li>
+<li>En quatrième argument l'objet <code>response</code> faites pour cette page.</li>
 </ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
-    "urlRelativeSubPath": "example",
+    "urlRelativeSubPath": "exemple",
     "controller": "common.js",
     "variation": "common.json",
     "routes": {
@@ -459,39 +460,39 @@ website.init({
 │  │  └─ foot.htm
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/example/?title=Haeresis</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+</code></pre><p>En demandant la page <code>http://localhost/exemple/?title=Haeresis</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Titre du site"
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Bienvenue",
-    "content": "&amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
 }
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &amp;lt;?- include("partials/head.htm") ?&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include("partials/head.htm") ?&gt;
 
-    &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
+    &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
-    &amp;lt;div&gt;
-        &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
-        &amp;lt;?- specific.content ?&gt;
-    &amp;lt;/div&gt;
+    &lt;div&gt;
+        &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+        &lt;?- specific.content ?&gt;
+    &lt;/div&gt;
 
-    &amp;lt;?- include("partials/foot.htm") ?&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le système de template.
-// Ce code sera exécuté pour toute request HTTP, toute page confondue.
+    &lt;?- include("partials/foot.htm") ?&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le moteur de template.
+// Ce code sera exécuté pour toute requête HTTP, toutes pages confondues.
 exports.changeVariations = function (next, locals, request, response) {
 
-    // Ici on modifie les variables de locals.
+    // Ici on modifie les variables de `locals`.
 
-    console.log(locals.common.titleWebsite); // "Titre du site"
-    console.log(locals.specific.titlePage); // "Bienvenue"
-    console.log(locals.specific.content); // "C'est la page d'accueil."
+    console.log(locals.common.titleWebsite); // `"Titre du site"`
+    console.log(locals.specific.titlePage); // `"Bienvenue"`
+    console.log(locals.specific.content); // `"C'est la page d'accueil."`
 
     console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
-    console.log("urlSubPath", locals.urlSubPath); // "/example"
-    console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
-    console.log("urlFilePath", locals.urlFilePath); // "/"
-    console.log("urlQueryPath", locals.urlQueryPath); // "?title=Haeresis"
-    console.log("urlPath", locals.urlPath); // "http://localhost/example/?title=Haeresis"
+    console.log("urlSubPath", locals.urlSubPath); // `"/exemple"`
+    console.log("urlBasePath", locals.urlBasePath); // `"http://localhost/exemple"`
+    console.log("urlFilePath", locals.urlFilePath); // `"/"`
+    console.log("urlQueryPath", locals.urlQueryPath); // `"?title=Haeresis"`
+    console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=Haeresis"`
 
     if (request.query["title"]) {
         locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
@@ -500,47 +501,47 @@ exports.changeVariations = function (next, locals, request, response) {
         locals.specific.content = request.body.example;
     }
 
-    console.log(locals.common.titleWebsite); // "Titre du site"
-    console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
-    console.log(locals.specific.content); // "Ceci est un test"
-
-    // On passe à la suite modifications.
-    next();
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le système de template.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
-exports.changeVariations = function (next, locals, request, response) {
-
-    // Ici on modifie les variables de locals.
-
-    console.log(locals.common.titleWebsite); // "Titre du site"
-    console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
-    console.log(locals.specific.content); // "Ceci est un test"
-
-    locals.common.titleWebsite = "C'est l'accueil, c'est tout.";
-    locals.specific.content = "C'est l'accueil, c'est tout.";
-
-    console.log(locals.common.titleWebsite); // "C'est l'accueil, c'est tout."
-    console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
-    console.log(locals.specific.content); // "C'est l'accueil, c'est tout."
+    console.log(locals.common.titleWebsite); // `"Titre du site"`
+    console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+    console.log(locals.specific.content); // `"Ceci est un test"`
 
     // On passe à la suite.
     next();
 };
-</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;C'est l'accueil, c'est tout.&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;C'est l'accueil, c'est tout.&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;Bienvenue Haeresis&amp;lt;/h1&gt;
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le moteur de template.
+// Ce code sera exécuté uniquement lors de la demande de la page `/`.
+exports.changeVariations = function (next, locals, request, response) {
+
+    // Ici on modifie les variables de `locals`.
+
+    console.log(locals.common.titleWebsite); // `"Titre du site"`
+    console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+    console.log(locals.specific.content); // `"Ceci est un test"`
+
+    locals.common.titleWebsite = `"C'est l'accueil, c'est tout."`;
+    locals.specific.content = `"C'est l'accueil, c'est tout."`;
+
+    console.log(locals.common.titleWebsite); // `"C'est l'accueil, c'est tout."`
+    console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+    console.log(locals.specific.content); // `"C'est l'accueil, c'est tout."`
+
+    // On passe à la suite.
+    next();
+};
+</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;C'est l'accueil, c'est tout.&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;C'est l'accueil, c'est tout.&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Bienvenue Haeresis&lt;/h1&gt;
             C'est l'accueil, c'est tout.
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>Si vous décidez de désabonner la variation spécifique avec le webconfig suivant :</p><pre><code class="lang-json">{
     "controller": "common.js",
     "variation": "common.json",
@@ -551,21 +552,21 @@ exports.changeVariations = function (next, locals, request, response) {
         }
     }
 }
-</code></pre><p>alors la sortie sera :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Titre du site&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;Titre du site&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;Bienvenue Haeresis&amp;lt;/h1&gt;
+</code></pre><p>alors la sortie sera :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Titre du site&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;Titre du site&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Bienvenue Haeresis&lt;/h1&gt;
             Ceci est un test
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
-</code></pre><h4 id="changedom">changeDom</h4><p>Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeDom(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="point-d-ancrage-changedom">Point d'ancrage <code>changeDom</code></h3><p>Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeDom(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next([$])</code> acceptant optionellement en premier paramètre la function <code>$</code> utilisée pour manipuler le DOM Virtuel.</li>
 <li>En deuxième paramètre l'objet <code>locals</code> contenant entre autre la string <code>locals.dom</code> contenant la réponse ou la function <code>locals.virtualDom()</code> générant un Dom Virtuel.</li>
@@ -596,22 +597,22 @@ exports.changeVariations = function (next, locals, request, response) {
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Bienvenue",
-    "content": "&amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
 }
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
-            &amp;lt;?- specific.content ?&gt;
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au Client.
 // Ce code sera exécuté uniquement lors de la demande de la page « / ».
 exports.changeDom = function (next, locals, request, response) {
@@ -651,20 +652,20 @@ exports.changeDom = function (next, locals, request, response) {
     // On passe à la suite.
     next();
 };
-</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8"&gt;
-        &amp;lt;title&gt;Titre du site&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;Modification de Contenu&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;div&gt;Bienvenue&amp;lt;/div&gt;
-            &amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Titre du site&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;Modification de Contenu&lt;/div&gt;
+        &lt;div&gt;
+            &lt;div&gt;Bienvenue&lt;/div&gt;
+            &lt;p&gt;C'est la page d'accueil.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><h4 id="setsockets">setSockets</h4><p>Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos websockets ici <a href="partie-controleur.html#echange-client-serveur-en-temps-reel-avec-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 </ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
@@ -688,23 +689,23 @@ exports.changeDom = function (next, locals, request, response) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Exemple Websocket&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="layout"&gt;
-            &amp;lt;div class="content"&gt;&amp;lt;/div&gt;
-            &amp;lt;div class="field"&gt;Tape du texte : &amp;lt;input class="input" type="text"&gt;&amp;lt;/div&gt;
-        &amp;lt;/div&gt;
-        &amp;lt;script type="text/javascript" src="socket.io/socket.io.js"&gt;&amp;lt;/script&gt;
-        &amp;lt;script type="text/javascript" src="node-atlas/socket.io.js"&gt;&amp;lt;/script&gt;
-        &amp;lt;script type="text/javascript" src="javascripts/test.js"&gt;&amp;lt;/script&gt;
-        &amp;lt;script type="text/javascript" src="javascripts/index.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Exemple Websocket&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="layout"&gt;
+            &lt;div class="content"&gt;&lt;/div&gt;
+            &lt;div class="field"&gt;Tape du texte : &lt;input class="input" type="text"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script type="text/javascript" src="socket.io/socket.io.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="node-atlas/socket.io.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="javascripts/test.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>Note : Si</em> <code>socketClientFile</code> <em>et</em> <code>socketServerOptions</code> <em>ne sont pas présent dans <code>webconfig.json</code>, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien</em> <code>/node-atlas/socket.io.js</code> <em>et</em> <code>{ transports: ['polling', 'websocket'] }</code>. <em>Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
     if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         module.exports = factory;
@@ -786,20 +787,20 @@ NA.socket.on("update-text", function (data) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Test Module&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;Test Module&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;Test Module&amp;lt;/h1&gt;
-            &amp;lt;?- example ?&gt;
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Test Module&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;Test Module&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Test Module&lt;/h1&gt;
+            &lt;?- example ?&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
@@ -821,20 +822,20 @@ exports.changeVariations = function (next, locals) {
     // On passe à la suite.
     next();
 };
-</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Test Module&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;Test Module&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;Test Module&amp;lt;/h1&gt;
-            &amp;lt;p&gt;I am using &amp;lt;strong&gt;markdown&amp;lt;/strong&gt;.&amp;lt;/p&gt;
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Test Module&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;Test Module&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Test Module&lt;/h1&gt;
+            &lt;p&gt;I am using &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><h4 id="setconfigurations">setConfigurations</h4><p>Pour configurer le serveur web de NodeAtlas (<a href="http://expressjs.com/">ExpressJs</a>) vous pouvez utiliser le contrôleur commun pour tout le site afin faire vos modifications avant le démarrage du serveur.</p><p><code>setConfigurations(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next()</code>.</li>
@@ -853,7 +854,7 @@ exports.changeVariations = function (next, locals) {
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;?- content ?&gt;
+</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;?- content ?&gt;
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setConfigurations = function (next) {
@@ -999,34 +1000,34 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>et contenant les fichiers de template suivant :</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
-            &amp;lt;?- specific.content ?&gt;
-            &amp;lt;div&gt;&amp;lt;?- new Date() ?&gt;&amp;lt;/div&gt;
-        &amp;lt;/div&gt;
-        &amp;lt;button&gt;Update&amp;lt;/button&gt;
-</code></pre><p><em>Note : Chaque clique sur <code>button</code> raffraichira le contenu de <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="layout"&gt;
-            &amp;lt;?- include('partials/index.htm') ?&gt;
-        &amp;lt;/div&gt;
-        &amp;lt;script type="text/javascript" src="socket.io/socket.io.js"&gt;&amp;lt;/script&gt;
-        &amp;lt;script type="text/javascript" src="node-atlas/socket.io.js"&gt;&amp;lt;/script&gt;
-        &amp;lt;script type="text/javascript" src="javascripts/index.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>et contenant les fichiers de template suivant :</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
+            &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;button&gt;Update&lt;/button&gt;
+</code></pre><p><em>Note : Chaque clique sur <code>button</code> raffraichira le contenu de <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="layout"&gt;
+            &lt;?- include('partials/index.htm') ?&gt;
+        &lt;/div&gt;
+        &lt;script type="text/javascript" src="socket.io/socket.io.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="node-atlas/socket.io.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>Note : On construit ici la page d'accueil <code>/</code>.</em></p><p>ainsi que les fichiers de variations suivant :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Exemple Socket.IO"
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Date",
-    "content": "&amp;lt;p&gt;La date actuelle est :&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;La date actuelle est :&lt;/p&gt;"
 }
 </code></pre><p>Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// Intégralité des actions Websocket possible avec `setSockets`.
 exports.setSockets = function () {
@@ -1316,7 +1317,7 @@ function User(connection) {
                 publics.address(rows[0].address);
             }
 
-            for (var i = 0; i &amp;lt; rows.length; i++) {
+            for (var i = 0; i &lt; rows.length; i++) {
                 user = new User();
                 user.id(rows[i].id);
                 user.lastname(rows[i].lastname);
@@ -1602,69 +1603,69 @@ module.exports = User;
         }
     };
 }));
-</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
-            &amp;lt;div class="first"&gt;
-                &amp;lt;?- specific.content ?&gt;
-                &amp;lt;ul&gt;
-                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;&amp;lt;?- user.id() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;&amp;lt;?- user.lastname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;&amp;lt;?- user.firstname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;&amp;lt;?- user.email() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;&amp;lt;?- user.birthdate() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;&amp;lt;?- user.gender() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;&amp;lt;?- user.country() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;&amp;lt;?- user.town() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;&amp;lt;?- user.zipcode() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;&amp;lt;?- user.address() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;/ul&gt;
-            &amp;lt;/div&gt;
-            &amp;lt;div class="all"&gt;
-                &amp;lt;?- specific.contents ?&gt;
-                &amp;lt;? for (var i = 0; i &amp;lt; users.length; i++) { ?&gt;
-                &amp;lt;ul&gt;
-                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;&amp;lt;?- users[i].id() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;&amp;lt;?- users[i].lastname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;&amp;lt;?- users[i].firstname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;&amp;lt;?- users[i].email() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;&amp;lt;?- users[i].birthdate() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;&amp;lt;?- users[i].gender() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;&amp;lt;?- users[i].country() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;&amp;lt;?- users[i].town() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;&amp;lt;?- users[i].zipcode() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;&amp;lt;?- users[i].address() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;/ul&gt;
-                &amp;lt;? } ?&gt;
-            &amp;lt;/div&gt;
-            &amp;lt;div class="last"&gt;
-                &amp;lt;?- specific.contentInsert ?&gt;
-                &amp;lt;p&gt;insertId: &amp;lt;?- insertId ?&gt;&amp;lt;/p&gt;
-                &amp;lt;p&gt;numberUpdate: &amp;lt;?- affectedRows ?&gt;&amp;lt;/p&gt;
-                &amp;lt;ul&gt;
-                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;&amp;lt;?- user2.id() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;&amp;lt;?- user2.lastname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;&amp;lt;?- user2.firstname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;&amp;lt;?- user2.email() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;&amp;lt;?- user2.birthdate() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;&amp;lt;?- user2.gender() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;&amp;lt;?- user2.country() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;&amp;lt;?- user2.town() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;&amp;lt;?- user2.zipcode() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;&amp;lt;?- user2.address() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;/ul&gt;
-                &amp;lt;p&gt;numberDelete: &amp;lt;?- deletedRows ?&gt;&amp;lt;/p&gt;
-            &amp;lt;/div&gt;
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;div class="first"&gt;
+                &lt;?- specific.content ?&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- user.id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- user.lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- user.firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- user.email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- user.birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- user.gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- user.country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- user.town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- user.zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- user.address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class="all"&gt;
+                &lt;?- specific.contents ?&gt;
+                &lt;? for (var i = 0; i &lt; users.length; i++) { ?&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- users[i].id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- users[i].lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- users[i].firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- users[i].email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- users[i].birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- users[i].gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- users[i].country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- users[i].town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- users[i].zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- users[i].address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;? } ?&gt;
+            &lt;/div&gt;
+            &lt;div class="last"&gt;
+                &lt;?- specific.contentInsert ?&gt;
+                &lt;p&gt;insertId: &lt;?- insertId ?&gt;&lt;/p&gt;
+                &lt;p&gt;numberUpdate: &lt;?- affectedRows ?&gt;&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- user2.id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- user2.lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- user2.firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- user2.email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- user2.birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- user2.gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- user2.country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- user2.town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- user2.zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- user2.address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;numberDelete: &lt;?- deletedRows ?&gt;&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Exemple MySql",
     "male": "Homme",
@@ -1672,83 +1673,83 @@ module.exports = User;
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Table User",
-    "content": "&amp;lt;p&gt;Détail de la première entrée.&amp;lt;/p&gt;",
-    "contents": "&amp;lt;p&gt;Détail de toutes les entrées.&amp;lt;/p&gt;",
-    "contentInsert": "&amp;lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;Détail de la première entrée.&lt;/p&gt;",
+    "contents": "&lt;p&gt;Détail de toutes les entrées.&lt;/p&gt;",
+    "contentInsert": "&lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&lt;/p&gt;"
 }
-</code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;MySql Exemple&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;MySql Exemple&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;Table User&amp;lt;/h1&gt;
-            &amp;lt;div class="first"&gt;
-                &amp;lt;p&gt;Détail de la première entrée.&amp;lt;/p&gt;
-                &amp;lt;ul&gt;
-                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;1&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Elric&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;Edward&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;edward.elric@fma.br&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;true&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;Amestris&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;Resembool&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;0&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;The Elric's house&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;/ul&gt;
-            &amp;lt;/div&gt;
-            &amp;lt;div class="all"&gt;
-                &amp;lt;p&gt;Détail de toutes les entrées.&amp;lt;/p&gt;
-                &amp;lt;ul&gt;
-                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;1&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Elric&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;Edward&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;edward.elric@fma.br&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;true&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;Amestris&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;Resembool&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;0&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;The Elric's house&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;/ul&gt;
-                &amp;lt;ul&gt;
-                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;2&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Elric&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;Alphonse&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;alphonse.elric@fma.br&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;true&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;Amestris&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;Resembool&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;0&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;The Elric's house&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;/ul&gt;
-            &amp;lt;/div&gt;
-            &amp;lt;div class="last"&gt;
-                &amp;lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&amp;lt;/p&gt;
-                &amp;lt;p&gt;insertId: 3&amp;lt;/p&gt;
-                &amp;lt;p&gt;numberUpdate: 1&amp;lt;/p&gt;
-                &amp;lt;ul&gt;
-                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;3&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Rockbell&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;Winry&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;winry.rockbell@fma.br&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;2008-01-01&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;false&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;Amestris&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;Resembool&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;99999&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;The Rockbell's house&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;/ul&gt;
-                &amp;lt;p&gt;numberDelete: 1&amp;lt;/p&gt;
-            &amp;lt;/div&gt;
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;MySql Exemple&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;MySql Exemple&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Table User&lt;/h1&gt;
+            &lt;div class="first"&gt;
+                &lt;p&gt;Détail de la première entrée.&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;Edward&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;edward.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class="all"&gt;
+                &lt;p&gt;Détail de toutes les entrées.&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;Edward&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;edward.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;2&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;Alphonse&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;alphonse.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class="last"&gt;
+                &lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&lt;/p&gt;
+                &lt;p&gt;insertId: 3&lt;/p&gt;
+                &lt;p&gt;numberUpdate: 1&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Id: &lt;strong&gt;3&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Lastname: &lt;strong&gt;Rockbell&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Firstname: &lt;strong&gt;Winry&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;strong&gt;winry.rockbell@fma.br&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Birthdate: &lt;strong&gt;2008-01-01&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Gender: &lt;strong&gt;false&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Zipcode: &lt;strong&gt;99999&lt;/strong&gt;&lt;/li&gt;
+                    &lt;li&gt;Address: &lt;strong&gt;The Rockbell's house&lt;/strong&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;numberDelete: 1&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><h3 id="utiliser-une-base-de-donnees-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mongoose
 </code></pre><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d'abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
 </code></pre><p>puis créer la collection <code>user</code> :</p><pre><code>db.createCollection("user")
@@ -1797,32 +1798,32 @@ module.exports = User;
         "database": "demo"
     }
 }
-</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="&amp;lt;?- languageCode ?&gt;"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
-            &amp;lt;?- specific.content ?&gt;
-            &amp;lt;ul&gt;
-                &amp;lt;li&gt;Id: &amp;lt;strong&gt;&amp;lt;?- id ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;&amp;lt;?- lastname ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;&amp;lt;?- firstname ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Email: &amp;lt;strong&gt;&amp;lt;?- email ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;&amp;lt;?- birthdate ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Gender: &amp;lt;strong&gt;&amp;lt;?- gender ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Country: &amp;lt;strong&gt;&amp;lt;?- country ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Town: &amp;lt;strong&gt;&amp;lt;?- town ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;&amp;lt;?- zipcode ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Address: &amp;lt;strong&gt;&amp;lt;?- address ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
-            &amp;lt;/ul&gt;
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="&lt;?- languageCode ?&gt;"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+            &lt;?- specific.content ?&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Id: &lt;strong&gt;&lt;?- id ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- lastname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- firstname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Email: &lt;strong&gt;&lt;?- email ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- birthdate ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Gender: &lt;strong&gt;&lt;?- gender ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Country: &lt;strong&gt;&lt;?- country ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Town: &lt;strong&gt;&lt;?- town ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- zipcode ?&gt;&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Address: &lt;strong&gt;&lt;?- address ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "MongoDB Exemple",
     "male": "Homme",
@@ -1830,7 +1831,7 @@ module.exports = User;
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Collection User",
-    "content": "&amp;lt;p&gt;Détail du document `{ \"identity.firstname\": \"John\" }`.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;Détail du document `{ \"identity.firstname\": \"John\" }`.&lt;/p&gt;"
 }
 </code></pre><p>Enfin nous allons nous connecter à la base de données avec le contrôleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-js">exports.setModules = function () {
     var NA = this,
@@ -1902,32 +1903,32 @@ if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         address: String
     }
 })));
-</code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Exemple MongoDB&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div class="title"&gt;Exemple MongoDB&amp;lt;/div&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;Collection User&amp;lt;/h1&gt;
-            &amp;lt;p&gt;Détail de l'entrée `{ "identity.firstname": "John" }`.&amp;lt;/p&gt;
-            &amp;lt;ul&gt;
-                &amp;lt;li&gt;Id: &amp;lt;strong&gt;5804d4d530788ee2e52ea1c7&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Doe&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;John&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Email: &amp;lt;strong&gt;john.doe@unknown.com&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Gender: &amp;lt;strong&gt;Homme&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Country: &amp;lt;strong&gt;Unknown&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Town: &amp;lt;strong&gt;Unknown&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;00000&amp;lt;/strong&gt;&amp;lt;/li&gt;
-                &amp;lt;li&gt;Address: &amp;lt;strong&gt;42 unknown&amp;lt;/strong&gt;&amp;lt;/li&gt;
-            &amp;lt;/ul&gt;
-        &amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Exemple MongoDB&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="title"&gt;Exemple MongoDB&lt;/div&gt;
+        &lt;div&gt;
+            &lt;h1&gt;Collection User&lt;/h1&gt;
+            &lt;p&gt;Détail de l'entrée `{ "identity.firstname": "John" }`.&lt;/p&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Id: &lt;strong&gt;5804d4d530788ee2e52ea1c7&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Lastname: &lt;strong&gt;Doe&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Firstname: &lt;strong&gt;John&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Email: &lt;strong&gt;john.doe@unknown.com&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Birthdate: &lt;strong&gt;Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Gender: &lt;strong&gt;Homme&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Country: &lt;strong&gt;Unknown&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Town: &lt;strong&gt;Unknown&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Zipcode: &lt;strong&gt;00000&lt;/strong&gt;&lt;/li&gt;
+                &lt;li&gt;Address: &lt;strong&gt;42 unknown&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><h3 id="utiliser-des-middlewares-depuis-express">Utiliser des middlewares depuis Express</h3><p>NodeAtlas repose en partie sur le module npm <a href="http://expressjs.com/">Express.js</a>. Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de <code>NA#express</code>. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.</p><p>En ce qui concerne la pré-configuration d'Express avec un webconfig vide, elle est faites ainsi :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
 /* ... */
 NA.express.set("x-powered-by", false);

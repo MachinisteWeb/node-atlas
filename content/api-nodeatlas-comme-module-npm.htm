@@ -10,16 +10,16 @@
 }).start();
 </code></pre><pre><code>$ node server.js
 </code></pre><p>L'objet <code>options</code> est le suivant :</p><pre><code>{
-    path: &amp;lt;string&gt;,
-    webconfig: &amp;lt;string&gt;,
-    browse: &amp;lt;boolean|string&gt;,
-    httpHostname: &amp;lt;string&gt;,
-    httpPort: &amp;lt;number&gt;,
-    generate: &amp;lt;boolean&gt;,
-    cache: &amp;lt;boolean&gt;,
-    lang: &amp;lt;string&gt;,
-    create: &amp;lt;string&gt;,
-    httpSecure: &amp;lt;boolean|string&gt;
+    path: &lt;string&gt;,
+    webconfig: &lt;string&gt;,
+    browse: &lt;boolean|string&gt;,
+    httpHostname: &lt;string&gt;,
+    httpPort: &lt;number&gt;,
+    generate: &lt;boolean&gt;,
+    cache: &lt;boolean&gt;,
+    lang: &lt;string&gt;,
+    create: &lt;string&gt;,
+    httpSecure: &lt;boolean|string&gt;
 }
 </code></pre><p><em>Note : plus de détails pour chaque option dans <a href="cli-commandes-de-lancement.html">la partie CLI</a>.</em></p><h3 id="na-run-options">&lt;NA&gt;.run(options)</h3><p>Avec <code>run(options)</code> vous pouvez configurer et lancer NodeAtlas en une commande.</p><p>Vous pouvez par exemple lancer plusieurs sites en une fois. Bien entendu, chaque webconfig écoutera un port différent.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     websiteEn = new nodeAtlas(),

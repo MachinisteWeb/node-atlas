@@ -2139,25 +2139,26 @@ node-atlas --browse
 
 ## Controller Part ##
 
-NodeAtlas is useful for more than simply generate template web page easily based on your variations files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with:
+NodeAtlas is useful for more than simply generate template web page easily based on your variations files. NodeAtlas allow you to dynamically interact with variations var and with the DOM with usage of:
 
-- parameters in query part of URL (GET),
+- parameters in the query part of URL (GET),
 - parameters in request body (POST),
 
-but also provide:
+but also, using natives features from Node.js or npm, interact usage of:
 
-- connections with database,
-- management of sessions,
-- Websockets request/response and
-- and more !
+- data from files,
+- data from databases,
+- data from  active user sessions,
+- data provide from WebSockets exchanges,
+- and more!
 
 
 
-### Lifecycle and Hooks ###
+### Lifecycle ###
 
-NodeAtlas lyfecycle works as following. First, ressources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generate. You could use hooks whire server start and while response is construct.
+NodeAtlas lifecycle works as following. First, resources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generated. You could use hooks while server start and while the response is constructed.
 
-This is a `webconfig.json` allows you to manipulate each hook of life cycle of a page.
+This is a `webconfig.json` allows you to manipulate each hook of lifecycle of a page.
 
 ```json
 {
@@ -2172,11 +2173,11 @@ This is a `webconfig.json` allows you to manipulate each hook of life cycle of a
 }
 ```
 
-*Note : If* `controllersRelativePath` *is not present in "webconfig.json", default controller folder is* `controllers`. `controllersRelativePath` *is useful only to change the name/path of directory.*
+*Note: if* `controllersRelativePath` *is not present in `webconfig.json`, default controller folder is* `controllers`. `controllersRelativePath` *is useful only to change the name/path of directory.*
 
-and this is the detail of all hooks while:
+and this is all hooks you can use while:
 
-*Starting the server*
+#### Starting the server ####
 
 ```
 ┌─[Loading Node.js Modules]
@@ -2185,15 +2186,15 @@ and this is the detail of all hooks while:
 ┊
 ├─[Loading npm Modules]
 ┊
-├─[Setting CLI commands and language]
+├─[Setting CLI Commands and Language]
 ┊
-├─[Setting API options]
+├─[Setting API Options]
 ┊
-└─[Loading CLI language]
+└─[Loading CLI Language]
   ┊
   ├─[Loading Global Vars]
   ┊
-  ├─[Setting Webconfig instructions]
+  ├─[Setting Webconfig Instructions]
   ┊
   └─[Loading Common Controller]
 	┊  ______________________________
@@ -2224,7 +2225,7 @@ and this is the detail of all hooks while:
 		∞
 ```
 
-*Processing a request*
+#### Processing a request ####
 
 ```
 ∞
@@ -2246,17 +2247,19 @@ and this is the detail of all hooks while:
 		∞
 ```
 
-#### changeVariations ####
 
-In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.
 
-`changeVariations(next, locals, request, response)` is a function to `exports` and provide :
+### changeVariations Hook ###
+
+In order to intercept variations, you could use the common controller for all the website page and/or also a specific controller per page.
+
+`changeVariations(next, locals, request, response)` is a function to `exports` and provide:
 
 - `NA` object as `this`.
-- A callback function `next()` in first parameter.
-- An object `locals` in second parameter with the `locals.common` for common variations and the `locals.specific` for specific vatiations.
-- The `request` object in third parameter for this page.
-- The `response` object in fourth parameter for this page.
+- A callback function `next()` in first argument.
+- An object `locals` in second argument with the `locals.common` for common variations and the `locals.specific` for specific vatiations.
+- The `request` object in third argument for this page.
+- The `response` object in fourth argument for this page.
 
 This is an example using the two hooks, the common in first and after the specific:
 
@@ -2333,18 +2336,18 @@ Do a POST request on `http://localhost/example/?title=Haeresis` with `example=Th
 // This code is executed for all HTTP request, for all pages.
 exports.changeVariations = function (next, locals, request, response) {
 
-	// Here we update locals variable.
+	// Here we update `locals` variable.
 
-	console.log(locals.common.titleWebsite); // "Site Title"
-	console.log(locals.specific.titlePage); // "Welcome"
-	console.log(locals.specific.content); // "This is the Home Page."
+	console.log(locals.common.titleWebsite); // `"Site Title"`
+	console.log(locals.specific.titlePage); // `"Welcome"`
+	console.log(locals.specific.content); // `"This is the Home Page."`
 
-	console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
-	console.log("urlSubPath", locals.urlSubPath); // "/example"
-	console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
-	console.log("urlFilePath", locals.urlFilePath); // "/"
-	console.log("urlQueryPath", locals.urlQueryPath); // "?title=Haeresis"
-	console.log("urlPath", locals.urlPath); // "http://localhost/example/?title=Haeresis"
+	console.log("urlRootPath", locals.urlRootPath); // `"http://localhost"`
+	console.log("urlSubPath", locals.urlSubPath); // `"/example"`
+	console.log("urlBasePath", locals.urlBasePath); // `"http://localhost/example"`
+	console.log("urlFilePath", locals.urlFilePath); // `"/"`
+	console.log("urlQueryPath", locals.urlQueryPath); // `"?title=Haeresis"`
+	console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=Haeresis"`
 
 	if (request.query["title"]) {
 		locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
@@ -2353,11 +2356,11 @@ exports.changeVariations = function (next, locals, request, response) {
 		locals.specific.content = request.body.example;
 	}
 
-	console.log(locals.common.titleWebsite); // "Site Title"
+	console.log(locals.common.titleWebsite); // `"Site Title"`
 	console.log(locals.specific.titlePage); // "Welcome Haeresis"
-	console.log(locals.specific.content); // "This is a test"
+	console.log(locals.specific.content); // `"This is a test"`
 
-	// We do the next step.
+	// We continue with next steps.
 	next();
 };
 ```
@@ -2366,28 +2369,28 @@ exports.changeVariations = function (next, locals, request, response) {
 
 ```js
 // This code is executed before variation are injected into template engine.
-// This code is executed only for the « / » page.
+// This code is executed only for the `/` page.
 exports.changeVariations = function (next, locals, request, response) {
 
-	// Here we update locals variable.
+	// Here we update `locals` variable.
 
-	console.log(locals.common.titleWebsite); // "Site Title"
-	console.log(locals.specific.titlePage); // "Welcome Haeresis"
-	console.log(locals.specific.content); // "This is a test"
+	console.log(locals.common.titleWebsite); // `"Site Title"`
+	console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+	console.log(locals.specific.content); // `"This is a test"`
 
-	locals.common.titleWebsite = "It's Home, no way.";
-	locals.specific.content = "It's Home, no way.";
+	locals.common.titleWebsite = `"It's Home, no way."`;
+	locals.specific.content = `"It's Home, no way."`;
 
-	console.log(locals.common.titleWebsite); // "It's Home, no way."
-	console.log(locals.specific.titlePage); // "Welcome Haeresis"
-	console.log(locals.specific.content); // "It's Home, no way."
+	console.log(locals.common.titleWebsite); // `"It's Home, no way."`
+	console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+	console.log(locals.specific.content); // `"It's Home, no way."`
 
-	// We do the next step.
+	// We continue with next steps.
 	next();
 };
 ```
 
-en this produce the following output:
+this produce the following output:
 
 ```html
 <!DOCTYPE html>
@@ -2421,7 +2424,7 @@ If you delete the variation entry of specific page from webconfig:
 }
 ```
 
-the output will be as following:
+the output will be the following:
 
 ```html
 <!DOCTYPE html>
@@ -2440,7 +2443,7 @@ the output will be as following:
 </html>
 ```
 
-#### changeDom ####
+### `changeDom` Hook ###
 
 In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.
 

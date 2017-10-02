@@ -1,12 +1,13 @@
-<h2 id="controller-part">Controller Part</h2><p>NodeAtlas is useful for more than simply generate template web page easily based on your variations files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with:</p><ul>
-<li>parameters in query part of URL (GET),</li>
+<h2 id="controller-part">Controller Part</h2><p>NodeAtlas is useful for more than simply generate template web page easily based on your variations files. NodeAtlas allow you to dynamically interact with variations var and with the DOM with usage of:</p><ul>
+<li>parameters in the query part of URL (GET),</li>
 <li>parameters in request body (POST),</li>
-</ul><p>but also provide:</p><ul>
-<li>connections with database,</li>
-<li>management of sessions,</li>
-<li>Websockets request/response and</li>
-<li>and more !</li>
-</ul><h3 id="lifecycle-and-hooks">Lifecycle and Hooks</h3><p>NodeAtlas lyfecycle works as following. First, ressources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generate. You could use hooks whire server start and while response is construct.</p><p>This is a <code>webconfig.json</code> allows you to manipulate each hook of life cycle of a page.</p><pre><code class="lang-json">{
+</ul><p>but also, using natives features from Node.js or npm, interact usage of:</p><ul>
+<li>data from files,</li>
+<li>data from databases,</li>
+<li>data from  active user sessions,</li>
+<li>data provide from WebSockets exchanges,</li>
+<li>and more!</li>
+</ul><h3 id="lifecycle">Lifecycle</h3><p>NodeAtlas lifecycle works as following. First, resources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generated. You could use hooks while server start and while the response is constructed.</p><p>This is a <code>webconfig.json</code> allows you to manipulate each hook of lifecycle of a page.</p><pre><code class="lang-json">{
     "controllersRelativePath": "controllers",
     "controller": "common.js",
     "routes": {
@@ -16,21 +17,21 @@
         }
     }
 }
-</code></pre><p><em>Note : If</em> <code>controllersRelativePath</code> <em>is not present in "webconfig.json", default controller folder is</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks while:</p><p><em>Starting the server</em></p><pre><code>┌─[Loading Node.js Modules]
+</code></pre><p><em>Note: if</em> <code>controllersRelativePath</code> <em>is not present in <code>webconfig.json</code>, default controller folder is</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><p>and this is all hooks you can use while:</p><h4 id="starting-the-server">Starting the server</h4><pre><code>┌─[Loading Node.js Modules]
 ┊
 ├─[Loading Init Vars]
 ┊
 ├─[Loading npm Modules]
 ┊
-├─[Setting CLI commands and language]
+├─[Setting CLI Commands and Language]
 ┊
-├─[Setting API options]
+├─[Setting API Options]
 ┊
-└─[Loading CLI language]
+└─[Loading CLI Language]
   ┊
   ├─[Loading Global Vars]
   ┊
-  ├─[Setting Webconfig instructions]
+  ├─[Setting Webconfig Instructions]
   ┊
   └─[Loading Common Controller]
     ┊  ______________________________
@@ -59,7 +60,7 @@
       └─[Routes Init]
         ┊
         ∞
-</code></pre><p><em>Processing a request</em></p><pre><code>∞
+</code></pre><h4 id="processing-a-request">Processing a request</h4><pre><code>∞
 ┊
 └─[Processing a request]
   ┊
@@ -76,12 +77,12 @@
       └─[Send Response]
         ┊
         ∞
-</code></pre><h4 id="changevariations">changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
+</code></pre><h3 id="changevariations-hook">changeVariations Hook</h3><p>In order to intercept variations, you could use the common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide:</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
-<li>A callback function <code>next()</code> in first parameter.</li>
-<li>An object <code>locals</code> in second parameter with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific vatiations.</li>
-<li>The <code>request</code> object in third parameter for this page.</li>
-<li>The <code>response</code> object in fourth parameter for this page.</li>
+<li>A callback function <code>next()</code> in first argument.</li>
+<li>An object <code>locals</code> in second argument with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific vatiations.</li>
+<li>The <code>request</code> object in third argument for this page.</li>
+<li>The <code>response</code> object in fourth argument for this page.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     "urlRelativeSubPath": "example",
     "controller": "common.js",
@@ -127,18 +128,18 @@
 // This code is executed for all HTTP request, for all pages.
 exports.changeVariations = function (next, locals, request, response) {
 
-    // Here we update locals variable.
+    // Here we update `locals` variable.
 
-    console.log(locals.common.titleWebsite); // "Site Title"
-    console.log(locals.specific.titlePage); // "Welcome"
-    console.log(locals.specific.content); // "This is the Home Page."
+    console.log(locals.common.titleWebsite); // `"Site Title"`
+    console.log(locals.specific.titlePage); // `"Welcome"`
+    console.log(locals.specific.content); // `"This is the Home Page."`
 
-    console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
-    console.log("urlSubPath", locals.urlSubPath); // "/example"
-    console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
-    console.log("urlFilePath", locals.urlFilePath); // "/"
-    console.log("urlQueryPath", locals.urlQueryPath); // "?title=Haeresis"
-    console.log("urlPath", locals.urlPath); // "http://localhost/example/?title=Haeresis"
+    console.log("urlRootPath", locals.urlRootPath); // `"http://localhost"`
+    console.log("urlSubPath", locals.urlSubPath); // `"/example"`
+    console.log("urlBasePath", locals.urlBasePath); // `"http://localhost/example"`
+    console.log("urlFilePath", locals.urlFilePath); // `"/"`
+    console.log("urlQueryPath", locals.urlQueryPath); // `"?title=Haeresis"`
+    console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=Haeresis"`
 
     if (request.query["title"]) {
         locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
@@ -147,34 +148,34 @@ exports.changeVariations = function (next, locals, request, response) {
         locals.specific.content = request.body.example;
     }
 
-    console.log(locals.common.titleWebsite); // "Site Title"
+    console.log(locals.common.titleWebsite); // `"Site Title"`
     console.log(locals.specific.titlePage); // "Welcome Haeresis"
-    console.log(locals.specific.content); // "This is a test"
+    console.log(locals.specific.content); // `"This is a test"`
 
-    // We do the next step.
+    // We continue with next steps.
     next();
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
-// This code is executed only for the « / » page.
+// This code is executed only for the `/` page.
 exports.changeVariations = function (next, locals, request, response) {
 
-    // Here we update locals variable.
+    // Here we update `locals` variable.
 
-    console.log(locals.common.titleWebsite); // "Site Title"
-    console.log(locals.specific.titlePage); // "Welcome Haeresis"
-    console.log(locals.specific.content); // "This is a test"
+    console.log(locals.common.titleWebsite); // `"Site Title"`
+    console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+    console.log(locals.specific.content); // `"This is a test"`
 
-    locals.common.titleWebsite = "It's Home, no way.";
-    locals.specific.content = "It's Home, no way.";
+    locals.common.titleWebsite = `"It's Home, no way."`;
+    locals.specific.content = `"It's Home, no way."`;
 
-    console.log(locals.common.titleWebsite); // "It's Home, no way."
-    console.log(locals.specific.titlePage); // "Welcome Haeresis"
-    console.log(locals.specific.content); // "It's Home, no way."
+    console.log(locals.common.titleWebsite); // `"It's Home, no way."`
+    console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+    console.log(locals.specific.content); // `"It's Home, no way."`
 
-    // We do the next step.
+    // We continue with next steps.
     next();
 };
-</code></pre><p>en this produce the following output:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+</code></pre><p>this produce the following output:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
 &amp;lt;html lang="en-us"&gt;
     &amp;lt;head&gt;
         &amp;lt;meta charset="utf-8" /&gt;
@@ -198,7 +199,7 @@ exports.changeVariations = function (next, locals, request, response) {
         }
     }
 }
-</code></pre><p>the output will be as following:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+</code></pre><p>the output will be the following:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
 &amp;lt;html lang="en-us"&gt;
     &amp;lt;head&gt;
         &amp;lt;meta charset="utf-8" /&gt;
@@ -212,7 +213,7 @@ exports.changeVariations = function (next, locals, request, response) {
         &amp;lt;/div&gt;
     &amp;lt;/body&gt;
 &amp;lt;/html&gt;
-</code></pre><h4 id="changedom">changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
+</code></pre><h3 id="changedom-hook"><code>changeDom</code> Hook</h3><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next([$])</code> in first parameter which accept an optional first updated <code>$</code> parameter used to manipulate the Virtual DOM.</li>
 <li>An object <code>locals</code> in second parameter with the <code>locals.dom</code> string that contains the response or the <code>locals.virtualDom()</code> function creating the Virtual DOM.</li>

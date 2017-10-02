@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506955922107">
+		<meta name="og:updated_time" content="1506971739764">
 
 		<meta name="robots" content="index, follow">
 
@@ -355,16 +355,16 @@ website.init({
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>We will display to the HTTP address the content of the <code>views/index.htm</code> file:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="en-us"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Hello world&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div&gt;This is a Hello World!&amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>We will display to the HTTP address the content of the <code>views/index.htm</code> file:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en-us"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Hello world&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;This is a Hello World!&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>See just below following, the content of <code>webconfig.json</code> file.</p><h3 id="minimum-requirements">Minimum Requirements</h3><p>You can turn a simple page with minimal configuration <code>webconfig.json</code> below :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "routes": {
         "/": {
@@ -373,7 +373,7 @@ website.init({
     }
 }
 </code></pre><p>equivalent to</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{ "routes": { "/": "index.htm" } }
-</code></pre><h3 id="run-the-website">Run the Website</h3><h4 id="with-the-node-atlas-command-line">With the <code>node-atlas</code> command line</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can use the <code>node-atlas</code> command. <code>node-atlas</code> is a alias for the command <code>node &amp;lt;/path/to/globals/&gt;node_modules/node-atlas/</code>.</p><blockquote>
+</code></pre><h3 id="run-the-website">Run the Website</h3><h4 id="with-the-node-atlas-command-line">With the <code>node-atlas</code> command line</h4><p><strong>If you have installed NodeAtlas with <code>npm install -g node-atlas</code></strong> you can use the <code>node-atlas</code> command. <code>node-atlas</code> is a alias for the command <code>node &lt;/path/to/globals/&gt;node_modules/node-atlas/</code>.</p><blockquote>
 <p><em>Note: you can also use the <code>atlas</code> command which is an alias of <code>node-atlas</code> for writing it more simply.</em></p>
 </blockquote><p>Position yourself with the prompt console in the folder <code>hello-world/</code> and run the following command.</p><pre><code class="lang-bash">$ node-atlas
 </code></pre><blockquote>

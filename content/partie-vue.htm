@@ -169,37 +169,37 @@
 │  ├─ index.htm
 │  └─ members.htm
 └─ webconfig.json
-</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Hello world&amp;lt;/title&gt;
-        &amp;lt;link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" /&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &amp;lt;script async type="text/javascript" src="javascripts/common.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &amp;lt;?- include("partials/head.htm") ?&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Hello world&lt;/title&gt;
+        &lt;link type="text/css" rel="stylesheet" href="stylesheets/common.css" media="all" /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type="text/javascript" src="javascripts/common.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include("partials/head.htm") ?&gt;
 
-    &amp;lt;div&gt;
-        &amp;lt;h1&gt;Bienvenue&amp;lt;/h1&gt;
-        &amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;
-    &amp;lt;/div&gt;
+    &lt;div&gt;
+        &lt;h1&gt;Bienvenue&lt;/h1&gt;
+        &lt;p&gt;C'est la page d'accueil.&lt;/p&gt;
+    &lt;/div&gt;
 
-    &amp;lt;?- include("partials/foot.htm") ?&gt;
-</code></pre><p><em>views/members.htm</em></p><pre><code class="lang-html">    &amp;lt;?- include("partials/head.htm") ?&gt;
+    &lt;?- include("partials/foot.htm") ?&gt;
+</code></pre><p><em>views/members.htm</em></p><pre><code class="lang-html">    &lt;?- include("partials/head.htm") ?&gt;
 
-    &amp;lt;div&gt;
-        &amp;lt;h1&gt;Liste des members&amp;lt;/h1&gt;
-        &amp;lt;p&gt;C'est la page des membres.&amp;lt;/p&gt;
-    &amp;lt;/div&gt;
+    &lt;div&gt;
+        &lt;h1&gt;Liste des members&lt;/h1&gt;
+        &lt;p&gt;C'est la page des membres.&lt;/p&gt;
+    &lt;/div&gt;
 
-    &amp;lt;?- include("partials/foot.htm") ?&gt;
+    &lt;?- include("partials/foot.htm") ?&gt;
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><code>http://localhost/</code></li>
 <li><code>http://localhost/liste-des-membres/</code></li>
-</ul><p><em>Note : pour plus d'information sur la différence entre <code>&amp;lt;?</code>, <code>&amp;lt;?-</code>, <code>&amp;lt;?=</code>, etc. vous pouvez vous référez à la section <a href="#moteur-de-template-ejs">moteur de template</a>.</em></p><h3 id="variations">Variations</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
+</ul><p><em>Note : pour plus d'information sur la différence entre <code>&lt;?</code>, <code>&lt;?-</code>, <code>&lt;?=</code>, etc. vous pouvez vous référez à la section <a href="#moteur-de-template-ejs">moteur de template</a>.</em></p><h3 id="variations">Variations</h3><p>Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :</p><pre><code class="lang-json">{
     "variation": "common.json",
     "variationsRelativePath": "variations",
     "routes": {
@@ -240,36 +240,36 @@
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Bienvenue",
     "classPage": "index",
-    "content": "&amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
 }
 </code></pre><p><em>variations/members.json</em></p><pre><code class="lang-json">{
     "titlePage": "Liste des membres",
     "classPage": "members",
-    "content": "&amp;lt;p&gt;C'est la page des membres.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;C'est la page des membres.&lt;/p&gt;"
 }
-</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/title&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;&lt;?- specific.titlePage ?&gt;&lt;/title&gt;
 
-        &amp;lt;link type="text/css" rel="stylesheet" href="stylesheets/&amp;lt;?= common.classCssCommon ?&gt;.css" media="all" /&gt;
-        &amp;lt;link type="text/css" rel="stylesheet" href="stylesheets/&amp;lt;?= specific.classPage ?&gt;.css" media="all" /&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body class="&amp;lt;?= specific.classPage ?&gt;"&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &amp;lt;script async type="text/javascript" src="javascripts/&amp;lt;?= common.classJsCommon ?&gt;.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
-</code></pre><p><em>views/template.htm</em></p><pre><code class="lang-html">    &amp;lt;?- include("partials/head.htm") ?&gt;
+        &lt;link type="text/css" rel="stylesheet" href="stylesheets/&lt;?= common.classCssCommon ?&gt;.css" media="all" /&gt;
+        &lt;link type="text/css" rel="stylesheet" href="stylesheets/&lt;?= specific.classPage ?&gt;.css" media="all" /&gt;
+    &lt;/head&gt;
+    &lt;body class="&lt;?= specific.classPage ?&gt;"&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">        &lt;script async type="text/javascript" src="javascripts/&lt;?= common.classJsCommon ?&gt;.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>views/template.htm</em></p><pre><code class="lang-html">    &lt;?- include("partials/head.htm") ?&gt;
 
-    &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
+    &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
-    &amp;lt;div&gt;
-        &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
-        &amp;lt;?- specific.content ?&gt;
-    &amp;lt;/div&gt;
+    &lt;div&gt;
+        &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+        &lt;?- specific.content ?&gt;
+    &lt;/div&gt;
 
-    &amp;lt;?- include("partials/foot.htm") ?&gt;
+    &lt;?- include("partials/foot.htm") ?&gt;
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><code>http://localhost/</code></li>
 <li><code>http://localhost/liste-des-membres/</code></li>
@@ -316,39 +316,39 @@
 </code></pre><p><em>l10n/en-us/home.json</em></p><pre><code class="lang-json">{
     "titlePage": "Welcome",
     "classPage": "home",
-    "content": "&amp;lt;p&gt;This is a home page.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;This is a home page.&lt;/p&gt;"
 }
 </code></pre><p><em>l10n/fr-fr/home.json</em></p><pre><code class="lang-json">{
     "titlePage": "Bienvenue",
     "classPage": "home",
-    "content": "&amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
 }
-</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="&amp;lt;?= languageCode ?&gt;"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;&amp;lt;?= specific.titlePage ?&gt;&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body class="&amp;lt;?= specific.classPage ?&gt;"&gt;
-</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
-</code></pre><p><em>views/landing.htm</em></p><pre><code class="lang-html">    &amp;lt;?- include("partials/head.htm") ?&gt;
+</code></pre><p><em>views/partials/head.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="&lt;?= languageCode ?&gt;"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;&lt;?= specific.titlePage ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body class="&lt;?= specific.classPage ?&gt;"&gt;
+</code></pre><p><em>views/partials/foot.htm</em></p><pre><code class="lang-html">    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>views/landing.htm</em></p><pre><code class="lang-html">    &lt;?- include("partials/head.htm") ?&gt;
 
-    &amp;lt;select&gt;
-        &amp;lt;? for (var i = 0; i &amp;lt; specific.selectLabel.length; i++) { ?&gt;
-        &amp;lt;option&gt;&amp;lt;?= specific.selectLabel[i] ?&gt;&amp;lt;/option&gt;
-        &amp;lt;? } ?&gt;
-    &amp;lt;/select&gt;
+    &lt;select&gt;
+        &lt;? for (var i = 0; i &lt; specific.selectLabel.length; i++) { ?&gt;
+        &lt;option&gt;&lt;?= specific.selectLabel[i] ?&gt;&lt;/option&gt;
+        &lt;? } ?&gt;
+    &lt;/select&gt;
 
-    &amp;lt;?- include("partials/foot.htm") ?&gt;
-</code></pre><p><em>views/home.htm</em></p><pre><code class="lang-html">    &amp;lt;?- include("partials/head.htm") ?&gt;
+    &lt;?- include("partials/foot.htm") ?&gt;
+</code></pre><p><em>views/home.htm</em></p><pre><code class="lang-html">    &lt;?- include("partials/head.htm") ?&gt;
 
-    &amp;lt;div&gt;
-        &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
-        &amp;lt;?- specific.content ?&gt;
-    &amp;lt;/div&gt;
+    &lt;div&gt;
+        &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+        &lt;?- specific.content ?&gt;
+    &lt;/div&gt;
 
-    &amp;lt;?- include("partials/foot.htm") ?&gt;
+    &lt;?- include("partials/foot.htm") ?&gt;
 </code></pre><p>vous aurez accès aux adresses :</p><ul>
 <li><code>http://localhost/</code></li>
 <li><code>http://localhost/home/</code></li>
@@ -441,21 +441,21 @@
         }
     }
 }
-</code></pre><p>avec la vue suivante :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;URL&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div&gt;&amp;lt;?- urlRootPath ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;&amp;lt;?- urlSubPath ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;&amp;lt;?- urlBasePath ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;&amp;lt;?- urlFilePath ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;&amp;lt;?- urlQueryPath ?&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;&amp;lt;?- urlPath ?&gt;&amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>avec la vue suivante :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;URL&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;&lt;?- urlRootPath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlSubPath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlBasePath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlFilePath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlQueryPath ?&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;?- urlPath ?&gt;&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>cela est identique à utiliser celle-ci :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "httpHostname": "localhost",
     "httpPort": 80,
@@ -467,21 +467,21 @@
         }
     }
 }
-</code></pre><p>Vous pourrez accéder à l'URL : <code>http://localhost/</code> et au contenu :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;URL&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div&gt;http://localhost&amp;lt;/div&gt;
-        &amp;lt;div&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;http://localhost&amp;lt;/div&gt;
-        &amp;lt;div&gt;/&amp;lt;/div&gt;
-        &amp;lt;div&gt;&amp;lt;/div&gt;
-        &amp;lt;div&gt;http://localhost/&amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>Vous pourrez accéder à l'URL : <code>http://localhost/</code> et au contenu :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;URL&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;http://localhost&lt;/div&gt;
+        &lt;div&gt;&lt;/div&gt;
+        &lt;div&gt;http://localhost&lt;/div&gt;
+        &lt;div&gt;/&lt;/div&gt;
+        &lt;div&gt;&lt;/div&gt;
+        &lt;div&gt;http://localhost/&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>Changez alors la configuration en ceci :</p><pre><code class="lang-json">{
     "httpHostname": "127.0.0.1",
     "httpPort": 7777,
@@ -493,21 +493,21 @@
         }
     }
 }
-</code></pre><p>Vous pourrez cette fois accéder à l'URL : <code>https://127.0.0.1:7777/sub/folder/index.html?test=ok</code> et au contenu :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;URL&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div&gt;https://127.0.0.1:7777&amp;lt;/div&gt;
-        &amp;lt;div&gt;/sub/folder&amp;lt;/div&gt;
-        &amp;lt;div&gt;https://127.0.0.1:7777/sub/folder&amp;lt;/div&gt;
-        &amp;lt;div&gt;/index.html&amp;lt;/div&gt;
-        &amp;lt;div&gt;?test=ok&amp;lt;/div&gt;
-        &amp;lt;div&gt;https://127.0.0.1:7777/sub/folder/index.html&amp;lt;/div&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>Vous pourrez cette fois accéder à l'URL : <code>https://127.0.0.1:7777/sub/folder/index.html?test=ok</code> et au contenu :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;URL&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;https://127.0.0.1:7777&lt;/div&gt;
+        &lt;div&gt;/sub/folder&lt;/div&gt;
+        &lt;div&gt;https://127.0.0.1:7777/sub/folder&lt;/div&gt;
+        &lt;div&gt;/index.html&lt;/div&gt;
+        &lt;div&gt;?test=ok&lt;/div&gt;
+        &lt;div&gt;https://127.0.0.1:7777/sub/folder/index.html&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>Note : cette exemple ne fonctionnera que si vous avez des fichiers <code>server.crt</code> et <code>server.key</code> valide dans le dossier <code>security/</code>. Essayez le sans <code>"httpSecure": "security/server"</code> et il fonctionnera avec des URL sans <code>https</code>.</p><h3 id="variables-de-webconfig">Variables de webconfig</h3><p>Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :</p><ol>
 <li><p><em>webconfig.json</em></p>
 <pre><code class="lang-json">{
@@ -542,44 +542,44 @@
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
-</code></pre><p>et <code>index.htm</code> contenant :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Hello world&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" type="text/css" href="stylesheets/common&amp;lt;?= webconfig._minified ?&gt;.css" /&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&amp;lt;/div&gt;
-        &amp;lt;script type="text/javascript" src="javascripts/common&amp;lt;?= webconfig._minified ?&gt;.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>et <code>index.htm</code> contenant :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Hello world&lt;/title&gt;
+        &lt;link rel="stylesheet" type="text/css" href="stylesheets/common&lt;?= webconfig._minified ?&gt;.css" /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div&gt;
+        &lt;script type="text/javascript" src="javascripts/common&lt;?= webconfig._minified ?&gt;.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>En lançant (depuis le dossier du site) la commande :</p><pre><code class="lang-bash">$ node-atlas
-</code></pre><p>Nous aurons à l'adresse <code>http://localhost/</code> la sortie suivante avec les fichiers non minifiés :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Hello world&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&amp;lt;/div&gt;
-        &amp;lt;script type="text/javascript" src="javascripts/common.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>Nous aurons à l'adresse <code>http://localhost/</code> la sortie suivante avec les fichiers non minifiés :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Hello world&lt;/title&gt;
+        &lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div&gt;
+        &lt;script type="text/javascript" src="javascripts/common.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>Cependant en lançant la commande :</p><pre><code class="lang-bash">$ node-atlas --webconfig webconfig.prod.json
-</code></pre><p>Nous aurons à l'adresse <code>http://localhost/</code> la sortie suivante avec les fichiers minifiés :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;Hello world&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" /&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&amp;lt;/div&gt;
-        &amp;lt;script type="text/javascript" src="javascripts/common.min.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>Nous aurons à l'adresse <code>http://localhost/</code> la sortie suivante avec les fichiers minifiés :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Hello world&lt;/title&gt;
+        &lt;link rel="stylesheet" type="text/css" href="stylesheets/common.min.css" /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;Ceci est un test de récupération de ressources minifiées/non-minifiées.&lt;/div&gt;
+        &lt;script type="text/javascript" src="javascripts/common.min.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>Note : il vaut mieux préfixer ses variables personnelles avec « _ » pour éviter des conflits avec des variables de configuration existantes ou futures.</em></p><h3 id="mise-en-page">Mise en page</h3><p>Plutôt que d'inclure une partie header et une partie footer en deux fichiers scindés dont les balises de l'un ne se ferme que dans les balises de l'autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.</p><p>avec cet ensemble de fichiers</p><pre><code class="lang-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -617,71 +617,71 @@
 </code></pre><p><em>index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Bienvenue",
     "classPage": "index",
-    "content": "&amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
 }
-</code></pre><p>vous pourez générer avec ces vues :</p><p><em>views/common.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8"&gt;
-        &amp;lt;title&gt;&amp;lt;?- specific.titlePage || "Pas de titre" ?&gt;&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/&amp;lt;?= common.classCssCommon ?&gt;.css"  media="all"&gt;
-        &amp;lt;? if (specific.classPage) { ?&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/&amp;lt;?= specific.classPage ?&gt;.css"  media="all"&gt;
-        &amp;lt;? } ?&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;!-- Inclure un fichier normalement --&gt;
-        &amp;lt;?- include("partials/header.htm") ?&gt;
+</code></pre><p>vous pourez générer avec ces vues :</p><p><em>views/common.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;&lt;?- specific.titlePage || "Pas de titre" ?&gt;&lt;/title&gt;
+        &lt;link rel="stylesheet" href="stylesheets/&lt;?= common.classCssCommon ?&gt;.css"  media="all"&gt;
+        &lt;? if (specific.classPage) { ?&gt;
+        &lt;link rel="stylesheet" href="stylesheets/&lt;?= specific.classPage ?&gt;.css"  media="all"&gt;
+        &lt;? } ?&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;!-- Inclure un fichier normalement --&gt;
+        &lt;?- include("partials/header.htm") ?&gt;
 
-        &amp;lt;!-- Inclure le fichier vu de `view` --&gt;
-        &amp;lt;?- include(routeParameters.view) ?&gt;
+        &lt;!-- Inclure le fichier vu de `view` --&gt;
+        &lt;?- include(routeParameters.view) ?&gt;
 
-        &amp;lt;script async="true" type="text/javascript" src="javascripts/&amp;lt;?= common.classJsCommon ?&gt;.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
-</code></pre><p><em>views/partals/header.htm</em></p><pre><code class="lang-html">    &amp;lt;? if (specific.titlePage) { ?&gt;
-    &amp;lt;header&gt;
-        &amp;lt;h1&gt;&amp;lt;?= specific.titlePage ?&gt;&amp;lt;/h1&gt;
-    &amp;lt;/header&gt;
-    &amp;lt;? } ?&gt;
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &amp;lt;div&gt;
-        &amp;lt;?- specific.content ?&gt;
-    &amp;lt;/div&gt;
-</code></pre><p><em>views/about.htm</em></p><pre><code class="lang-html">    &amp;lt;div&gt;
-        &amp;lt;h1&gt;NodeAtlas © Haeresis&amp;lt;/h1&gt;
-    &amp;lt;/div&gt;
-</code></pre><p>et obtenir les URL suivantes :</p><p><em>/</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8"&gt;
-        &amp;lt;title&gt;Bienvenue&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/common.css"  media="all"&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/index.css"  media="all"&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;header&gt;
-            &amp;lt;h1&gt;Bienvenue&amp;lt;/h1&gt;
-        &amp;lt;/header&gt;
-        &amp;lt;div&gt;
-            &amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;
-        &amp;lt;/div&gt;
-        &amp;lt;script async="true" type="text/javascript" src="javascripts/common.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
-</code></pre><p><em>/about/</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8"&gt;
-        &amp;lt;title&gt;Pas de titre&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/common.css"  media="all"&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;NodeAtlas © Haeresis&amp;lt;/h1&gt;
-        &amp;lt;/div&gt;
-        &amp;lt;script async="true" type="text/javascript" src="javascripts/common.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+        &lt;script async="true" type="text/javascript" src="javascripts/&lt;?= common.classJsCommon ?&gt;.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>views/partals/header.htm</em></p><pre><code class="lang-html">    &lt;? if (specific.titlePage) { ?&gt;
+    &lt;header&gt;
+        &lt;h1&gt;&lt;?= specific.titlePage ?&gt;&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;? } ?&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;div&gt;
+        &lt;?- specific.content ?&gt;
+    &lt;/div&gt;
+</code></pre><p><em>views/about.htm</em></p><pre><code class="lang-html">    &lt;div&gt;
+        &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
+    &lt;/div&gt;
+</code></pre><p>et obtenir les URL suivantes :</p><p><em>/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Bienvenue&lt;/title&gt;
+        &lt;link rel="stylesheet" href="stylesheets/common.css"  media="all"&gt;
+        &lt;link rel="stylesheet" href="stylesheets/index.css"  media="all"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;h1&gt;Bienvenue&lt;/h1&gt;
+        &lt;/header&gt;
+        &lt;div&gt;
+            &lt;p&gt;C'est la page d'accueil.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;script async="true" type="text/javascript" src="javascripts/common.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>/about/</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Pas de titre&lt;/title&gt;
+        &lt;link rel="stylesheet" href="stylesheets/common.css"  media="all"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;h1&gt;NodeAtlas © Haeresis&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;script async="true" type="text/javascript" src="javascripts/common.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><h3 id="fichiers-partages">Fichiers partagés</h3><p>Il est possible de partager plus de contenu que ce qu'il y a dans le dossier hébergé par <code>assetsRelativePath</code>. Il est tout à fait possible de partager des vues ou des modèles avec la partie cliente par exemple. On appel les fichiers de ses dossiers des fichiers statiques.</p><p>Voyons l'exemple suivant :</p><p>avec cet ensemble de fichiers</p><pre><code class="lang-txt">├─ models/
 │  └─ user.js
 ├─ views/
@@ -695,16 +695,16 @@
         "/": "index.htm"
     }
 }
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-    &amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8"&gt;
-        &amp;lt;title&gt;Statics&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;div id="user"&gt;&amp;lt;/div&gt;
-        &amp;lt;script src="javascripts/models/user.js"&gt;&amp;lt;/script&gt;
-        &amp;lt;script&gt;
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+    &lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Statics&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="user"&gt;&lt;/div&gt;
+        &lt;script src="javascripts/models/user.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
             var user = new User(),
                 mount = document.getElementById("user");
 
@@ -713,9 +713,9 @@
                 .lastname("Lesieur");
 
             mount.innerHTML = user.firstname() + " " + user.lastname();
-        &amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>models/user.js</em></p><pre><code class="lang-js">(function (expose, factory) {
     if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         module.exports = factory;
@@ -867,15 +867,15 @@
         }
     },
 }
-</code></pre><h3 id="moteurs-de-template">Moteurs de template</h3><p>Par défaut, NodeAtlas utilise déjà le <a href="http://ejs.co/">moteur de template EJS</a>, c'est ce qui vous permet d'utiliser du JavaScript dans les balises <code>&amp;lt;?</code> et <code>?&gt;</code>.</p><p>Les balises <code>&amp;lt;?</code> et <code>?&gt;</code> permettent d'inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise vous permettant d'afficher le résultat JavaScript dans votre template (comme vous le feriez avec un <code>document.write</code>). Les voici :</p><ul>
-<li><code>&amp;lt;?</code> La balise « Scriptlet » par défaut, pour les structure de contrôle, pas de sortie.</li>
-<li><code>&amp;lt;?=</code> Affiché le résultat des expressions dans le template (échappement HTML).</li>
-<li><code>&amp;lt;?-</code> Affiché le résultat des expressions dans le template tel quel.</li>
-<li><code>&amp;lt;?#</code> Balise commentaire, pas d'exécution, pas de sortie.</li>
-<li><code>&amp;lt;?%</code> Affiche litéralement le contenu d'une <code>&amp;lt;?</code></li>
+</code></pre><h3 id="moteurs-de-template">Moteurs de template</h3><p>Par défaut, NodeAtlas utilise déjà le <a href="http://ejs.co/">moteur de template EJS</a>, c'est ce qui vous permet d'utiliser du JavaScript dans les balises <code>&lt;?</code> et <code>?&gt;</code>.</p><p>Les balises <code>&lt;?</code> et <code>?&gt;</code> permettent d'inclure du JavaScript au sein même de vos templates. Il existe différentes variantes de la balise vous permettant d'afficher le résultat JavaScript dans votre template (comme vous le feriez avec un <code>document.write</code>). Les voici :</p><ul>
+<li><code>&lt;?</code> La balise « Scriptlet » par défaut, pour les structure de contrôle, pas de sortie.</li>
+<li><code>&lt;?=</code> Affiché le résultat des expressions dans le template (échappement HTML).</li>
+<li><code>&lt;?-</code> Affiché le résultat des expressions dans le template tel quel.</li>
+<li><code>&lt;?#</code> Balise commentaire, pas d'exécution, pas de sortie.</li>
+<li><code>&lt;?%</code> Affiche litéralement le contenu d'une <code>&lt;?</code></li>
 <li><code>?&gt;</code> La balise de fermeture.</li>
 <li><code>-?&gt;</code> La balise Mode trim, exécute un trim sur les nouvelles lignes.</li>
-</ul><h4 id="ejs">EJS</h4><p>Cependant, EJS fonctionne normalement avec les balises <code>&amp;lt;%</code> et <code>%&gt;</code>. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.</p><pre><code class="lang-json">{
+</ul><h4 id="ejs">EJS</h4><p>Cependant, EJS fonctionne normalement avec les balises <code>&lt;%</code> et <code>%&gt;</code>. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.</p><pre><code class="lang-json">{
     "templateEngineDelimiter": "%",
     "routes": {
         "/": {
@@ -883,7 +883,7 @@
         }
     }
 }
-</code></pre><p>Par exemple, pour inclure une partie de fichier on utilise l'instruction <code>&amp;lt;?- include("partials/head.htm") ?&gt;</code>. Il serait possible de le faire avec <code>&amp;lt;%- include("partials/head") %&gt;</code> avec la configuration ci-dessous :</p><p>Voyez l'exemple dans les fichiers ci-dessous :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</code></pre><p>Par exemple, pour inclure une partie de fichier on utilise l'instruction <code>&lt;?- include("partials/head.htm") ?&gt;</code>. Il serait possible de le faire avec <code>&lt;%- include("partials/head") %&gt;</code> avec la configuration ci-dessous :</p><p>Voyez l'exemple dans les fichiers ci-dessous :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "templateEngineDelimiter": "%",
     "variation": "common.json",
     "routes": {
@@ -901,30 +901,30 @@
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Bienvenue",
     "classPage": "index",
-    "content": "&amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
 }
-</code></pre><p><em>views/partials/head.ejs</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8" /&gt;
-        &amp;lt;title&gt;&amp;lt;%- specific.titlePage %&gt;&amp;lt;/title&gt;
-        &amp;lt;link type="text/css" rel="stylesheet" href="stylesheets/&amp;lt;%= common.classCssCommon %&gt;.css" media="all" /&gt;
-        &amp;lt;link type="text/css" rel="stylesheet" href="stylesheets/&amp;lt;%= specific.classPage %&gt;.css" media="all" /&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body class="&amp;lt;%= specific.classPage %&gt;"&gt;
-</code></pre><p><em>views/partials/foot.ejs</em></p><pre><code class="lang-html">        &amp;lt;script async type="text/javascript" src="javascripts/&amp;lt;%= common.classJsCommon %&gt;.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
-</code></pre><p><em>views/index.ejs</em></p><pre><code class="lang-html">    &amp;lt;%- include("partials/head") %&gt;
+</code></pre><p><em>views/partials/head.ejs</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;&lt;%- specific.titlePage %&gt;&lt;/title&gt;
+        &lt;link type="text/css" rel="stylesheet" href="stylesheets/&lt;%= common.classCssCommon %&gt;.css" media="all" /&gt;
+        &lt;link type="text/css" rel="stylesheet" href="stylesheets/&lt;%= specific.classPage %&gt;.css" media="all" /&gt;
+    &lt;/head&gt;
+    &lt;body class="&lt;%= specific.classPage %&gt;"&gt;
+</code></pre><p><em>views/partials/foot.ejs</em></p><pre><code class="lang-html">        &lt;script async type="text/javascript" src="javascripts/&lt;%= common.classJsCommon %&gt;.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>views/index.ejs</em></p><pre><code class="lang-html">    &lt;%- include("partials/head") %&gt;
 
-    &amp;lt;div class="title"&gt;&amp;lt;%- common.titleWebsite %&gt;&amp;lt;/div&gt;
+    &lt;div class="title"&gt;&lt;%- common.titleWebsite %&gt;&lt;/div&gt;
 
-    &amp;lt;div&gt;
-        &amp;lt;h1&gt;&amp;lt;%- specific.titlePage %&gt;&amp;lt;/h1&gt;
-        &amp;lt;%- specific.content %&gt;
-    &amp;lt;/div&gt;
+    &lt;div&gt;
+        &lt;h1&gt;&lt;%- specific.titlePage %&gt;&lt;/h1&gt;
+        &lt;%- specific.content %&gt;
+    &lt;/div&gt;
 
-    &amp;lt;%- include("partials/foot") %&gt;
+    &lt;%- include("partials/foot") %&gt;
 </code></pre><p>Pour tout savoir sur les possibilités du moteur de template consultez <a href="http://ejs.co/">la documentation EJS</a>.</p><p><em>Note : si rien n'est précisé,</em> <code>templateEngineDelimiter</code> <em>vaut</em> <code>?</code>.</p><h4 id="pug">Pug</h4><p>Il est possible d'utiliser en lieu et place de EJS le <a href="https://pugjs.org/">moteur de template Pug</a> (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :</p><pre><code class="lang-json">{
     "pug": true,
     "routes": {
@@ -978,7 +978,7 @@
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Bienvenue",
     "classPage": "index",
-    "content": "&amp;lt;p&gt;C'est la page d'accueil.&amp;lt;/p&gt;"
+    "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
 }
 </code></pre><p><em>views/common.pug</em></p><pre><code class="lang-html">doctype html
 html(lang="fr-fr")

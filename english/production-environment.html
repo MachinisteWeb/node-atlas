@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506955922489">
+		<meta name="og:updated_time" content="1506971740309">
 
 		<meta name="robots" content="index, follow">
 
@@ -386,32 +386,32 @@ site-hello-world/
 │  └─ index.htm
 ├─ index.js
 └─ webconfig.json
-</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p><pre><code class="lang-xml">&amp;lt;configuration&gt;
-    &amp;lt;system.webServer&gt;
-        &amp;lt;handlers&gt;
-            &amp;lt;add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" /&gt;
-        &amp;lt;/handlers&gt;
-        &amp;lt;rewrite&gt;
-            &amp;lt;rules&gt;
-                &amp;lt;rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true"&gt;
-                     &amp;lt;match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/&gt;
-                &amp;lt;/rule&gt;
-                &amp;lt;rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true"&gt;
-                    &amp;lt;match url="^node-atlas.js\/debug[\/]?" /&gt;
-                &amp;lt;/rule&gt;
-                &amp;lt;rule name="StaticContent"&gt;
-                     &amp;lt;action type="Rewrite" url="assets{REQUEST_URI}"/&gt;
-                &amp;lt;/rule&gt;
-                &amp;lt;rule name="DynamicContent"&gt;
-                     &amp;lt;conditions&gt;
-                          &amp;lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true"/&gt;
-                     &amp;lt;/conditions&gt;
-                     &amp;lt;action type="Rewrite" url="node-atlas.js"/&gt;
-                &amp;lt;/rule&gt;
-            &amp;lt;/rules&gt;
-        &amp;lt;/rewrite&gt;
-    &amp;lt;/system.webServer&gt;
-&amp;lt;/configuration&gt;
+</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p><pre><code class="lang-xml">&lt;configuration&gt;
+    &lt;system.webServer&gt;
+        &lt;handlers&gt;
+            &lt;add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" /&gt;
+        &lt;/handlers&gt;
+        &lt;rewrite&gt;
+            &lt;rules&gt;
+                &lt;rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true"&gt;
+                     &lt;match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$"/&gt;
+                &lt;/rule&gt;
+                &lt;rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true"&gt;
+                    &lt;match url="^node-atlas.js\/debug[\/]?" /&gt;
+                &lt;/rule&gt;
+                &lt;rule name="StaticContent"&gt;
+                     &lt;action type="Rewrite" url="assets{REQUEST_URI}"/&gt;
+                &lt;/rule&gt;
+                &lt;rule name="DynamicContent"&gt;
+                     &lt;conditions&gt;
+                          &lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true"/&gt;
+                     &lt;/conditions&gt;
+                     &lt;action type="Rewrite" url="node-atlas.js"/&gt;
+                &lt;/rule&gt;
+            &lt;/rules&gt;
+        &lt;/rewrite&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;
 </code></pre><p>to obtain:</p><pre><code>site-hello-world/
 ├─ node_modules/
 │  ┊┉
@@ -426,7 +426,7 @@ site-hello-world/
 ├─ index.js
 ├─ webconfig.json
 └─ web.config
-</code></pre><p>It will just have to click on "Browse &lt;url-of-Site&gt;" in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
+</code></pre><p>It will just have to click on "Browse <url-of-site>" in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</url-of-site></p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
     "urlPort": 80,
     "httpPort": 7777,
     "httpHostname": "www.example.com",
@@ -438,10 +438,10 @@ site-hello-world/
 <li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
 <li>Install <a href="https://github.com/nodejitsu/forever">the CLI tool forever</a> manager for your websites continuously (start, stop, restart, etc.).</li>
 <li>Running in addition of your websites a reverse-proxy running on port 80 for all applications.</li>
-</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start &amp;lt;/path/to/&gt;node-atlas/ --path &amp;lt;/path/to/your/website/directory/&gt;
+</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --path &lt;/path/to/your/website/directory/&gt;
 </code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p><pre><code>$ forever list
-</code></pre><p>and then use the command:</p><pre><code>$ forever stop &amp;lt;uid&gt;
-</code></pre><p>or <code>&amp;lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
+</code></pre><p>and then use the command:</p><pre><code>$ forever stop &lt;uid&gt;
+</code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
     "urlPort": 80,
     "httpPort": 7777,
     "httpHostname": "www.example.com",
@@ -515,7 +515,7 @@ var server = bouncy(function (request, response, bounce) {
 });
 
 server.listen(80);
-</code></pre><p>and you can start with:</p><pre><code>$ forever start &amp;lt;/path/to/&gt;global-server.js
+</code></pre><p>and you can start with:</p><pre><code>$ forever start &lt;/path/to/&gt;global-server.js
 </code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p><div><div class="before">
 							<a href="development-environment.html">◄ Development Environment</a>
 						</div><div class="after">

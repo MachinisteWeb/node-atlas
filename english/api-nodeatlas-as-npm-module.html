@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506955922335">
+		<meta name="og:updated_time" content="1506971740048">
 
 		<meta name="robots" content="index, follow">
 
@@ -374,16 +374,16 @@ require("node-atlas")().init({
 }).start();
 </code></pre><pre><code>$ node server.js
 </code></pre><p>The <code>options</code> object is the following:</p><pre><code>{
-    path: &amp;lt;string&gt;,
-    webconfig: &amp;lt;string&gt;,
-    browse: &amp;lt;boolean|string&gt;,
-    httpHostname: &amp;lt;string&gt;,
-    httpPort: &amp;lt;number&gt;,
-    generate: &amp;lt;boolean&gt;,
-    cache: &amp;lt;boolean&gt;,
-    lang: &amp;lt;string&gt;,
-    create: &amp;lt;string&gt;,
-    httpSecure: &amp;lt;boolean|string&gt;
+    path: &lt;string&gt;,
+    webconfig: &lt;string&gt;,
+    browse: &lt;boolean|string&gt;,
+    httpHostname: &lt;string&gt;,
+    httpPort: &lt;number&gt;,
+    generate: &lt;boolean&gt;,
+    cache: &lt;boolean&gt;,
+    lang: &lt;string&gt;,
+    create: &lt;string&gt;,
+    httpSecure: &lt;boolean|string&gt;
 }
 </code></pre><p><em>Note : more détails for each option in <a href="cli-running-commands.html">CLI part</a>.</em></p><h3 id="na-run-options">&lt;NA&gt;.run(options)</h3><p>With <code>run(options)</code> you could configure and lanch NodeAtlas with one command.</p><p>You can for example run multiple websites in same time. Each webconfig must listen a different port.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     websiteEn = new nodeAtlas(),

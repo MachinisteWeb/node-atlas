@@ -82,19 +82,19 @@
 <li><em><a href="http://localhost/liste-des-membres/node-atlas/show/">http://localhost/liste-des-membres/node-atlas/show/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/?example=test">http://localhost/liste-des-membres/?example=test</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/etc?example=test">http://localhost/liste-des-membres/etc?example=test</a></em> (en POST avec <code>test=This+is+a+test</code>)</li>
-</ul><p>et récupérer les valeurs de <code>:member</code>, <code>:action</code>, <code>example</code> et <code>test</code> dans une vue.</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-  &amp;lt;head&gt;
-    &amp;lt;meta charset="utf-8"&gt;
-    &amp;lt;title&gt;URL Rewriting Test&amp;lt;/title&gt;
-  &amp;lt;/head&gt;
-  &amp;lt;body&gt;
-    Member: &amp;lt;strong&gt;&amp;lt;?- params.member ?&gt;&amp;lt;/strong&gt;&amp;lt;br&gt;
-    Action: &amp;lt;strong&gt;&amp;lt;?- params.action ?&gt;&amp;lt;/strong&gt;&amp;lt;br&gt;
-    Example: &amp;lt;strong&gt;&amp;lt;?- query.example ?&gt;&amp;lt;/strong&gt;&amp;lt;br&gt;
-    Test: &amp;lt;strong&gt;&amp;lt;?- body.test ?&gt;&amp;lt;/strong&gt;
-  &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</ul><p>et récupérer les valeurs de <code>:member</code>, <code>:action</code>, <code>example</code> et <code>test</code> dans une vue.</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;URL Rewriting Test&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Member: &lt;strong&gt;&lt;?- params.member ?&gt;&lt;/strong&gt;&lt;br&gt;
+    Action: &lt;strong&gt;&lt;?- params.action ?&gt;&lt;/strong&gt;&lt;br&gt;
+    Example: &lt;strong&gt;&lt;?- query.example ?&gt;&lt;/strong&gt;&lt;br&gt;
+    Test: &lt;strong&gt;&lt;?- body.test ?&gt;&lt;/strong&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>vous ne pourrez pas accéder à :</p><ul>
 <li><em><a href="http://localhost/liste-des-membres/etc/lolol">http://localhost/liste-des-membres/etc/lolol</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/`toto_16`/afficher/">http://localhost/liste-des-membres/`toto_16`/afficher/</a></em></li>
@@ -188,14 +188,14 @@
         }
     }
 }
-</code></pre><h3 id="injecter-des-routes-dynamiquement">Injecter des routes dynamiquement</h3><p>Nous avons pu voir qu'avec <code>setRoutes</code> il était possible d'injecter dynamiquement des routes. Cependant, l'injection de route ne se fait qu'à la fin car <code>NA.webconfig.routes</code> est un objet. Il n'y a donc pas de moyen d'ordonner les routes, ce qui est génant car les routes sont résolu dans l'ordre dans lesquels elles ont été injectées.</p><p>Nous allons résoudre ça en changeant la manière de créer les routes de <code>routes: { &amp;lt;key&gt;: { ... } }</code> à <code>routes: [{ "key": &amp;lt;key&gt;, ... }]</code>.</p><p>Voici l'ensemble de fichier suivant :</p><pre><code>├─ controllers/
+</code></pre><h3 id="injecter-des-routes-dynamiquement">Injecter des routes dynamiquement</h3><p>Nous avons pu voir qu'avec <code>setRoutes</code> il était possible d'injecter dynamiquement des routes. Cependant, l'injection de route ne se fait qu'à la fin car <code>NA.webconfig.routes</code> est un objet. Il n'y a donc pas de moyen d'ordonner les routes, ce qui est génant car les routes sont résolu dans l'ordre dans lesquels elles ont été injectées.</p><p>Nous allons résoudre ça en changeant la manière de créer les routes de <code>routes: { &lt;key&gt;: { ... } }</code> à <code>routes: [{ "key": &lt;key&gt;, ... }]</code>.</p><p>Voici l'ensemble de fichier suivant :</p><pre><code>├─ controllers/
 │  └─ common.js
 ├─ views/
 │  ├─ index.htm
 │  ├─ content.htm
 │  └─ error.htm
 └─ webconfig.json
-</code></pre><p>Avec le <code>webconfig.json</code> initialement comme ceci avec <code>routes: &amp;lt;Object&gt;</code> :</p><pre><code class="lang-json">{
+</code></pre><p>Avec le <code>webconfig.json</code> initialement comme ceci avec <code>routes: &lt;Object&gt;</code> :</p><pre><code class="lang-json">{
     "controller": "common.js",
     "routes": {
         "/doc/index.html": {
@@ -207,7 +207,7 @@
         }
     }
 }
-</code></pre><p>se transformant en cela avec <code>routes: &amp;lt;Array&gt;</code> :</p><pre><code class="lang-json">{
+</code></pre><p>se transformant en cela avec <code>routes: &lt;Array&gt;</code> :</p><pre><code class="lang-json">{
     "controller": "common.js",
     "routes": [{
         "url": "/doc/index.html
@@ -748,15 +748,15 @@ LANG=en-us
         ]
     }
 }
-</code></pre><p>vous obtiendrez les fichiers <code>assets/javascripts/boot.1.0.0.min.js</code> et <code>assets/javascripts/common.1.0.0.min.css</code>.</p><p>que vous pourrez appeler ainsi :</p><p><em>views/*.htm</em></p><pre><code class="lang-htm">&amp;lt;!-- ... --&gt;
+</code></pre><p>vous obtiendrez les fichiers <code>assets/javascripts/boot.1.0.0.min.js</code> et <code>assets/javascripts/common.1.0.0.min.css</code>.</p><p>que vous pourrez appeler ainsi :</p><p><em>views/*.htm</em></p><pre><code class="lang-htm">&lt;!-- ... --&gt;
 
-&amp;lt;link rel="stylesheet" href="stylesheets/common.&amp;lt;?= webconfig.version ?&gt;.min.css"&gt;
+&lt;link rel="stylesheet" href="stylesheets/common.&lt;?= webconfig.version ?&gt;.min.css"&gt;
 
-&amp;lt;!-- ... --&gt;
+&lt;!-- ... --&gt;
 
-&amp;lt;script src="javascripts/boot.&amp;lt;?= webconfig.version ?&gt;.min.js"&gt;&amp;lt;/script&gt;
+&lt;script src="javascripts/boot.&lt;?= webconfig.version ?&gt;.min.js"&gt;&lt;/script&gt;
 
-&amp;lt;!-- ... --&gt;
+&lt;!-- ... --&gt;
 </code></pre><h4 id="bundles-avec-sockets">Bundles avec Sockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.socketClientFile</code> même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.</p><p>Dans l'exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.</p><pre><code class="lang-json">{
     "bundles": {
         "javascripts": {
@@ -785,17 +785,17 @@ LANG=en-us
         "/": "index.htm"
     }
 }
-</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="en"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="UTF-8"&gt;
-        &amp;lt;title&gt;Less Test&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;p&gt;This line is red.&amp;lt;/p&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Less Test&lt;/title&gt;
+        &lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;This line is red.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
     color: #f00;
 }
@@ -867,17 +867,17 @@ LANG=en-us
         "/": "index.htm"
     }
 }
-</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="en"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="UTF-8"&gt;
-        &amp;lt;title&gt;Stylus Test&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;p&gt;This line is red.&amp;lt;/p&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Stylus Test&lt;/title&gt;
+        &lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;This line is red.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
     color: #f00
 </code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix">Source Map, Minification et Autoprefix</h4><p>Par défaut, dans l'exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier <code>.styl</code> a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>stylus.sourceMap</code> à <code>false</code> :</p><pre><code class="lang-json">    "stylus": {
@@ -1145,34 +1145,34 @@ LANG=en-us
 </code></pre><p>dont les contenus sont :</p><p><em>stylesheets/common.css</em></p><pre><code class="lang-css">body {
     color: #f00;
 }
-</code></pre><p><em>views/email.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="en"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="UTF-8"&gt;
-        &amp;lt;title&gt;Email&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body&gt;
-        &amp;lt;p&gt;This is a template email.&amp;lt;/p&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p><em>views/email.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Email&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;This is a template email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>vous obtiendrez en sortie avec la commande <code>node-atlas --generate</code> l'ensemble de fichier suivant :</p><pre><code>├─ serverless/
-│  └─ bienvenue.html    &amp;lt;= template email prêt à l'envoi !
+│  └─ bienvenue.html    &lt;= template email prêt à l'envoi !
 ├─ assets/
 │  └─ stylesheets/
 │     └─ email.css
 ├─ views/
 │  └─ email.htm
 └─ webconfig.json
-</code></pre><p>avec comme contenu pour <code>serverless/bienvenue.html</code></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="en"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="UTF-8"&gt;
-        &amp;lt;title&gt;Email&amp;lt;/title&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body style="color: #f00;"&gt;
-        &amp;lt;p&gt;This is a template email.&amp;lt;/p&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+</code></pre><p>avec comme contenu pour <code>serverless/bienvenue.html</code></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Email&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body style="color: #f00;"&gt;
+        &lt;p&gt;This is a template email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.</p><blockquote>
 <p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node "../../../" --generate</code>. Le résultat est dans <code>serverless</code>.</p>
 </blockquote><h4 id="injection-globale">Injection globale</h4><p>Il existe également la même propriété globale impactant toutes les pages.</p><pre><code class="lang-json">{
@@ -1188,7 +1188,7 @@ LANG=en-us
         }
     }
 }
-</code></pre><p>ainsi les deux pages <code>bienvenue</code> et <code>au-revoir</code> contiendront chacune <code>&amp;lt;body style="color: #f00;"&gt;</code>.</p><h4 id="injection-multiple">Injection multiple</h4><p>Il est possible :</p><ul>
+</code></pre><p>ainsi les deux pages <code>bienvenue</code> et <code>au-revoir</code> contiendront chacune <code>&lt;body style="color: #f00;"&gt;</code>.</p><h4 id="injection-multiple">Injection multiple</h4><p>Il est possible :</p><ul>
 <li>De préciser des feuilles spécifique et commune en même temps.</li>
 <li>De préciser plus d'une feuille à la fois.</li>
 </ul><pre><code class="lang-json">{
@@ -1386,16 +1386,16 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><h3 id="generer-les-url-dynamiquement">Générer les URL dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l'adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong><a href="http://localhost">http://localhost</a></strong> impossible à récupérer quand le template est affiché à <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu'il faudrait alors que notre chemin soit plutôt <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les URL relatives telles que :</p><pre><code>&amp;lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
-&amp;lt;!-- ... --&gt;
-&amp;lt;img src="media/images/example.jpg" /&gt;
-&amp;lt;!-- ... --&gt;
-&amp;lt;script type="text/javascript" src="javascripts/common.js"&gt;&amp;lt;/script&gt;
-</code></pre><p>en URL absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p><pre><code>&amp;lt;link rel="stylesheet" type="text/css" href="&amp;lt;?= urlBasePath ?&gt;stylesheets/common.css" /&gt;
-&amp;lt;!-- ... --&gt;
-&amp;lt;img src="&amp;lt;?= urlBasePath ?&gt;media/images/example.jpg" /&gt;
-&amp;lt;!-- ... --&gt;
-&amp;lt;script type="text/javascript" src="&amp;lt;?= urlBasePath ?&gt;javascripts/common.js"&gt;&amp;lt;/script&gt;
+</code></pre><h3 id="generer-les-url-dynamiquement">Générer les URL dynamiquement</h3><h4 id="les-chemins-relatifs-en-absolue">Les chemins relatifs en absolue</h4><p>Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l'adresse <code>media/images/example.jpg</code> initialement accessible depuis un template affiché à <strong><a href="http://localhost">http://localhost</a></strong> impossible à récupérer quand le template est affiché à <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (puisqu'il faudrait alors que notre chemin soit plutôt <code>../media/images/example.jpg</code>).</p><p>Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les URL relatives telles que :</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
+&lt;!-- ... --&gt;
+&lt;img src="media/images/example.jpg" /&gt;
+&lt;!-- ... --&gt;
+&lt;script type="text/javascript" src="javascripts/common.js"&gt;&lt;/script&gt;
+</code></pre><p>en URL absolues avec la variable <code>urlBasePath</code> comme ci-dessous :</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="&lt;?= urlBasePath ?&gt;stylesheets/common.css" /&gt;
+&lt;!-- ... --&gt;
+&lt;img src="&lt;?= urlBasePath ?&gt;media/images/example.jpg" /&gt;
+&lt;!-- ... --&gt;
+&lt;script type="text/javascript" src="&lt;?= urlBasePath ?&gt;javascripts/common.js"&gt;&lt;/script&gt;
 </code></pre><p>À noter que dans le cas de la configuration suivante :</p><pre><code class="lang-json">{
     "routes": {
         "/": {
@@ -1422,10 +1422,10 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><p>ainsi que la view <code>index.htm</code> correspondante</p><pre><code class="lang-html">&amp;lt;!-- ... --&gt;
-&amp;lt;a href="http://localhost/index.html"&gt;Lien vers l'accueil&amp;lt;/a&gt;
-&amp;lt;a href="http://localhost/contact.html"&gt;Lien pour nous contacter&amp;lt;/a&gt;
-&amp;lt;!-- ... --&gt;
+</code></pre><p>ainsi que la view <code>index.htm</code> correspondante</p><pre><code class="lang-html">&lt;!-- ... --&gt;
+&lt;a href="http://localhost/index.html"&gt;Lien vers l'accueil&lt;/a&gt;
+&lt;a href="http://localhost/contact.html"&gt;Lien pour nous contacter&lt;/a&gt;
+&lt;!-- ... --&gt;
 </code></pre><p>je serais obligé de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :</p><pre><code class="lang-json">{
     "httpPort": 7777,
     "routes": {
@@ -1437,10 +1437,10 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><p>me contraindrait à modifier le template précédent comme suit :</p><pre><code class="lang-html">&amp;lt;!-- ... --&gt;
-&amp;lt;a href="http://localhost:7777/home.html"&gt;Lien vers l'accueil&amp;lt;/a&gt;
-&amp;lt;a href="http://localhost:7777/contact-us.html"&gt;Lien pour nous contacter&amp;lt;/a&gt;
-&amp;lt;!-- ... --&gt;
+</code></pre><p>me contraindrait à modifier le template précédent comme suit :</p><pre><code class="lang-html">&lt;!-- ... --&gt;
+&lt;a href="http://localhost:7777/home.html"&gt;Lien vers l'accueil&lt;/a&gt;
+&lt;a href="http://localhost:7777/contact-us.html"&gt;Lien pour nous contacter&lt;/a&gt;
+&lt;!-- ... --&gt;
 </code></pre><p>Il est possible de solutionner ce problème en donnant une clé à un chemin précis et en déportant son chemin dans la propriété <code>url</code>.</p><p>Avec le webconfig suivant :</p><pre><code class="lang-json">{
     "routes": {
         "index": {
@@ -1455,26 +1455,26 @@ exports.setSessions = function (next) {
 }
 </code></pre><p>je peux à présent écrire le lien dans le template de manière dynamique :</p><ol>
 <li><p>comme suit</p>
-<pre><code class="lang-html">&amp;lt;!-- ... --&gt;
-&amp;lt;a href="&amp;lt;?= urlBasePath ?&gt;&amp;lt;?= webconfig.routes.home.url.slice(1) ?&gt;"&gt;Lien vers l'accueil&amp;lt;/a&gt;
-&amp;lt;a href="&amp;lt;?= urlBasePath ?&gt;&amp;lt;?= webconfig.routes.contact.url.slice(1) ?&gt;"&gt;Lien pour nous contacter&amp;lt;/a&gt;
-&amp;lt;!-- ... --&gt;
+<pre><code class="lang-html">&lt;!-- ... --&gt;
+&lt;a href="&lt;?= urlBasePath ?&gt;&lt;?= webconfig.routes.home.url.slice(1) ?&gt;"&gt;Lien vers l'accueil&lt;/a&gt;
+&lt;a href="&lt;?= urlBasePath ?&gt;&lt;?= webconfig.routes.contact.url.slice(1) ?&gt;"&gt;Lien pour nous contacter&lt;/a&gt;
+&lt;!-- ... --&gt;
 </code></pre>
 <p><em>Note : <code>.slice(1)</code> permet de supprimer facilement le double <code>/</code> pour une url fonctionnelle.</em></p>
 </li>
 <li><p>ou comme suit</p>
-<pre><code class="lang-html">&amp;lt;!-- ... --&gt;
-&amp;lt;a href="&amp;lt;?= urlBasePath ?&gt;.&amp;lt;?= webconfig.routes.home.url ?&gt;"&gt;Lien vers l'accueil&amp;lt;/a&gt;
-&amp;lt;a href="&amp;lt;?= urlBasePath ?&gt;.&amp;lt;?= webconfig.routes.contact.url ?&gt;"&gt;Lien pour nous contacter&amp;lt;/a&gt;
-&amp;lt;!-- ... --&gt;
+<pre><code class="lang-html">&lt;!-- ... --&gt;
+&lt;a href="&lt;?= urlBasePath ?&gt;.&lt;?= webconfig.routes.home.url ?&gt;"&gt;Lien vers l'accueil&lt;/a&gt;
+&lt;a href="&lt;?= urlBasePath ?&gt;.&lt;?= webconfig.routes.contact.url ?&gt;"&gt;Lien pour nous contacter&lt;/a&gt;
+&lt;!-- ... --&gt;
 </code></pre>
 <p><em>Note : Cela donnerait par exemple <code>http://localhost/./home.html</code>, ce qui est une url fonctionnelle.</em></p>
 </li>
 <li><p>ou comme suit</p>
-<pre><code class="lang-html">&amp;lt;!-- ... --&gt;
-&amp;lt;a href="&amp;lt;?= urlBasePathSlice + webconfig.routes.home.url ?&gt;"&gt;Lien vers l'accueil&amp;lt;/a&gt;
-&amp;lt;a href="&amp;lt;?= urlBasePathSlice + webconfig.routes.contact.url ?&gt;"&gt;Lien pour nous contacter&amp;lt;/a&gt;
-&amp;lt;!-- ... --&gt;
+<pre><code class="lang-html">&lt;!-- ... --&gt;
+&lt;a href="&lt;?= urlBasePathSlice + webconfig.routes.home.url ?&gt;"&gt;Lien vers l'accueil&lt;/a&gt;
+&lt;a href="&lt;?= urlBasePathSlice + webconfig.routes.contact.url ?&gt;"&gt;Lien pour nous contacter&lt;/a&gt;
+&lt;!-- ... --&gt;
 </code></pre>
 <p><em>Note : <code>urlBasePathSlice</code> renvoyant <code>http://localhost</code> au lieu de <code>http://localhost/</code> ou encore <code>http://localhost:7777/sub/folder</code> au lieu de <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
@@ -1519,11 +1519,11 @@ exports.setSessions = function (next) {
         "code": "fr-fr"
     }]
 }
-</code></pre><p>on peut alors créer un lien entre chaque page multilingue comme ceci :</p><pre><code class="lang-html">&amp;lt;ul&gt;
-    &amp;lt;? for (var i = 0; i &amp;lt; common.language.length; i++) { ?&gt;
-    &amp;lt;li&gt;&amp;lt;a href="&amp;lt;?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?&gt;"&gt;&amp;lt;?- common.language[i].name ?&gt;&amp;lt;/a&gt;&amp;lt;/li&gt;
-    &amp;lt;? } ?&gt;
-&amp;lt;/ul&gt;
+</code></pre><p>on peut alors créer un lien entre chaque page multilingue comme ceci :</p><pre><code class="lang-html">&lt;ul&gt;
+    &lt;? for (var i = 0; i &lt; common.language.length; i++) { ?&gt;
+    &lt;li&gt;&lt;a href="&lt;?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?&gt;"&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;? } ?&gt;
+&lt;/ul&gt;
 </code></pre><h3 id="moteur-de-template-personnalise">Moteur de template personnalisé</h3><p>Il est possible de laisser l'implémentation de <a href="http://expressjs.com/fr/guide/using-template-engines.html">Express prendre la main sur le moteur de rendu des vues</a>. Pour cela il faut utiliser le paramètre <code>engine</code>. Un exemple en utilisant le moteur Handlebars :</p><p>Tout d'abord, ajouter le middleware Express Handlebars à vos modules :</p><pre><code>npm install express-handlebars
 </code></pre><p>puis utiliser <code>engine</code> avec la valeur arbitraire <code>hbs</code></p><pre><code>{
     "engine": "hbs",
@@ -1550,22 +1550,22 @@ exports.setConfigurations = function (next) {
 
     next();
 };
-</code></pre><p>enfin voyons rapidement ce que le fichier <code>index.hbs</code> pourrait contenir :</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang="fr-fr"&gt;
-    &amp;lt;head&gt;
-        &amp;lt;meta charset="utf-8"&gt;
-        &amp;lt;title&gt;{{specific.titlePage}}&amp;lt;/title&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/{{common.classCssCommon}}.css" media="all"&gt;
-        &amp;lt;link rel="stylesheet" href="stylesheets/{{specific.classPage}}.css" media="all"&gt;
-    &amp;lt;/head&gt;
-    &amp;lt;body class="{{specific.classPage}}"&gt;
-        &amp;lt;div&gt;
-            &amp;lt;h1&gt;{{specific.titlePage}}&amp;lt;/h1&gt;
+</code></pre><p>enfin voyons rapidement ce que le fichier <code>index.hbs</code> pourrait contenir :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;{{specific.titlePage}}&lt;/title&gt;
+        &lt;link rel="stylesheet" href="stylesheets/{{common.classCssCommon}}.css" media="all"&gt;
+        &lt;link rel="stylesheet" href="stylesheets/{{specific.classPage}}.css" media="all"&gt;
+    &lt;/head&gt;
+    &lt;body class="{{specific.classPage}}"&gt;
+        &lt;div&gt;
+            &lt;h1&gt;{{specific.titlePage}}&lt;/h1&gt;
             {{{specific.content}}}
-        &amp;lt;/div&gt;
-        &amp;lt;script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"&gt;&amp;lt;/script&gt;
-    &amp;lt;/body&gt;
-&amp;lt;/html&gt;
+        &lt;/div&gt;
+        &lt;script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre><p>Ce que fait <code>engine</code>, c'est abandonner le système de NodeAtlas et passer par celui d'Express. Comme Express a besoin d'un objet <code>response</code> pour rendre une vue, il est impossible d'utiliser ce mécanisme via l'utilisation de la fonction <code>NA.view</code> de l'API NodeAtlas, celle-ci ne supportant que le moteur NodeAtlas, EJS et Pug.</p><h4 id="diff-rence-entre-engine-templateenginedelimiter-et-pug-">Différence entre <code>engine</code>, <code>templateEngineDelimiter</code> et <code>pug</code></h4><p>Il est tout a fait possible de passer par Express pour rendre EJS et Pug. Dans ce cas, puisque <code>node-atlas</code> embarque les modules <code>ejs</code> et <code>pug</code> en tant que dépendance, il n'est pas nécéssaire de passer par le <code>controller</code> commun et l'utilisation de <code>npm</code> pour les mettre en place. Il suffit juste d'utiliser <code>engine: "ejs"</code> ou <code>engine: "pug"</code>.</p><p>Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l'utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour Pug dans la <code>view</code> avec <code>#{routeParameters.view}</code>.</p><h3 id="pas-de-vue">Pas de vue</h3><p>Il est possible de ne pas utiliser de vue et de seulement faire appel au contrôleur. Dans ce cas le point d'ancrage <code>changeVariations</code> est inutile. Il va falloir alimenter vous même <code>locals.dom</code> dans le point d'ancrage <code>changeDom</code>.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "routes": {
         "/(:member/)?": {

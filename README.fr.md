@@ -2139,21 +2139,22 @@ node-atlas --browse
 
 ## Partie contrôleur ##
 
-NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variables dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers de variations ou avec le DOM généré en fonction :
+NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variables dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers de variations ou avec le DOM généré à partir de ceux-ci en fonction :
 
 - des paramètres dans la partie query de l'URL (GET),
 - des paramètres dans le corps de la requête (POST)
 
-mais également :
+mais également, couplé à des fonctionnalités natives de Node.js ou de npm, en fonction :
 
-- de vous connecter à des bases de données,
-- de maintenir des sessions,
-- de faire des échanges websockets et
+- d'informations dans des fichiers,
+- d'informations dans des bases de données,
+- d'informations dans des sessions utilisateurs actives,
+- d'informations fournit par échanges WebSockets et
 - de faire bien plus encore !
 
 
 
-### Cycle de vie et points d'ancrage ###
+### Cycle de vie ###
 
 Le cycle de vie de NodeAtlas est le suivant. D'abord, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.
 
@@ -2172,11 +2173,11 @@ Voici à quoi peut ressembler un `webconfig.json` permettant d'atteindre tous le
 }
 ```
 
-*Note : Si* `controllersRelativePath` *n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien* `controllers`. `controllersRelativePath` *est donc utile seulement pour changer le nom/chemin du répertoire.*
+*Note : si* `controllersRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des contrôleurs est bien* `controllers`. `controllersRelativePath` *est donc utile seulement pour changer le nom / chemin du répertoire.*
 
 et voici le détail des endroits ou vous pouvez intervenir pendant :
 
-*Le lancement du serveur*
+#### Le lancement du serveur ####
 
 ```
 ┌─[Chargement des modules Node.js]
@@ -2224,7 +2225,7 @@ et voici le détail des endroits ou vous pouvez intervenir pendant :
 		∞
 ```
 
-*Le traitement des requêtes de chaque route*
+#### Le traitement des requêtes de chaque route ####
 
 ```
 ∞
@@ -2246,23 +2247,25 @@ et voici le détail des endroits ou vous pouvez intervenir pendant :
 		∞
 ```
 
-#### changeVariations ####
+
+
+### Point d'ancrage changeVariations ###
 
 Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.
 
 `changeVariations(next, locals, request, response)` est une fonction a `exports` et fournissant :
 
 - L'objet `NA` en tant que `this`.
-- En premier paramètre la fonction de retour `next()`.
-- En deuxième paramètre l'objet `locals` contenant entre autre la variation `locals.common` pour accéder aux variations communes et la variation `locals.specific` pour accéder aux variations spécifiques.
-- En troisième paramètre l'objet `request` qui va être faites.
-- En quatrième paramètre l'objet `response` faites pour cette page.
+- En premier argument la fonction de rappel `next()`.
+- En deuxième argument l'objet `locals` contenant entre autre la variation `locals.common` pour accéder aux variations communes et la variation `locals.specific` pour accéder aux variations spécifiques.
+- En troisième argument l'objet `request` faites pour cette page.
+- En quatrième argument l'objet `response` faites pour cette page.
 
 Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
 ```json
 {
-	"urlRelativeSubPath": "example",
+	"urlRelativeSubPath": "exemple",
 	"controller": "common.js",
 	"variation": "common.json",
 	"routes": {
@@ -2292,7 +2295,7 @@ avec cet ensemble de fichier :
 └─ webconfig.json
 ```
 
-En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une variable `example=Ceci+est+un+test` dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :
+En demandant la page `http://localhost/exemple/?title=Haeresis` en POST avec une variable `example=Ceci+est+un+test` dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :
 
 *variations/common.json*
 
@@ -2329,22 +2332,22 @@ En demandant la page `http://localhost/example/?title=Haeresis` en POST avec une
 *controllers/common.js*
 
 ```js
-// On intervient avant que les variables soient injectées dans le système de template.
-// Ce code sera exécuté pour toute request HTTP, toute page confondue.
+// On intervient avant que les variables soient injectées dans le moteur de template.
+// Ce code sera exécuté pour toute requête HTTP, toutes pages confondues.
 exports.changeVariations = function (next, locals, request, response) {
 
-	// Ici on modifie les variables de locals.
+	// Ici on modifie les variables de `locals`.
 
-	console.log(locals.common.titleWebsite); // "Titre du site"
-	console.log(locals.specific.titlePage); // "Bienvenue"
-	console.log(locals.specific.content); // "C'est la page d'accueil."
+	console.log(locals.common.titleWebsite); // `"Titre du site"`
+	console.log(locals.specific.titlePage); // `"Bienvenue"`
+	console.log(locals.specific.content); // `"C'est la page d'accueil."`
 
 	console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
-	console.log("urlSubPath", locals.urlSubPath); // "/example"
-	console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
-	console.log("urlFilePath", locals.urlFilePath); // "/"
-	console.log("urlQueryPath", locals.urlQueryPath); // "?title=Haeresis"
-	console.log("urlPath", locals.urlPath); // "http://localhost/example/?title=Haeresis"
+	console.log("urlSubPath", locals.urlSubPath); // `"/exemple"`
+	console.log("urlBasePath", locals.urlBasePath); // `"http://localhost/exemple"`
+	console.log("urlFilePath", locals.urlFilePath); // `"/"`
+	console.log("urlQueryPath", locals.urlQueryPath); // `"?title=Haeresis"`
+	console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=Haeresis"`
 
 	if (request.query["title"]) {
 		locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
@@ -2353,11 +2356,11 @@ exports.changeVariations = function (next, locals, request, response) {
 		locals.specific.content = request.body.example;
 	}
 
-	console.log(locals.common.titleWebsite); // "Titre du site"
-	console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
-	console.log(locals.specific.content); // "Ceci est un test"
+	console.log(locals.common.titleWebsite); // `"Titre du site"`
+	console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+	console.log(locals.specific.content); // `"Ceci est un test"`
 
-	// On passe à la suite modifications.
+	// On passe à la suite.
 	next();
 };
 ```
@@ -2365,22 +2368,22 @@ exports.changeVariations = function (next, locals, request, response) {
 *controllers/index.js*
 
 ```js
-// On intervient avant que les variables soient injectées dans le système de template.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+// On intervient avant que les variables soient injectées dans le moteur de template.
+// Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeVariations = function (next, locals, request, response) {
 
-	// Ici on modifie les variables de locals.
+	// Ici on modifie les variables de `locals`.
 
-	console.log(locals.common.titleWebsite); // "Titre du site"
-	console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
-	console.log(locals.specific.content); // "Ceci est un test"
+	console.log(locals.common.titleWebsite); // `"Titre du site"`
+	console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+	console.log(locals.specific.content); // `"Ceci est un test"`
 
-	locals.common.titleWebsite = "C'est l'accueil, c'est tout.";
-	locals.specific.content = "C'est l'accueil, c'est tout.";
+	locals.common.titleWebsite = `"C'est l'accueil, c'est tout."`;
+	locals.specific.content = `"C'est l'accueil, c'est tout."`;
 
-	console.log(locals.common.titleWebsite); // "C'est l'accueil, c'est tout."
-	console.log(locals.specific.titlePage); // "Bienvenue Haeresis"
-	console.log(locals.specific.content); // "C'est l'accueil, c'est tout."
+	console.log(locals.common.titleWebsite); // `"C'est l'accueil, c'est tout."`
+	console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+	console.log(locals.specific.content); // `"C'est l'accueil, c'est tout."`
 
 	// On passe à la suite.
 	next();
@@ -2440,7 +2443,7 @@ alors la sortie sera :
 </html>
 ```
 
-#### changeDom ####
+### Point d'ancrage `changeDom` ###
 
 Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.
 
