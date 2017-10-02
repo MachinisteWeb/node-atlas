@@ -22,8 +22,8 @@
 								<ul>
 									<? for (var i = 0; i < common.menu.length; i++) { ?>
 									<li>
+										<a href="<?= common.menu[i].url ?>" title="<?= common.menu[i].title ?>"><?- common.menu[i].title ?></a>
 										<? if (common.menu[i].menu) { ?>
-										<span><?- common.menu[i].title ?></span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
 											<? for (var j = 0; j < common.menu[i].menu.length; j++) { ?>
@@ -32,8 +32,6 @@
 											</li>
 											<? } ?>
 										</ul>
-										<? } else { ?>
-										<a href="<?= common.menu[i].url ?>" title="<?= common.menu[i].title ?>"><?- common.menu[i].title ?></a>
 										<? } ?>
 									</li>
 									<? } ?>

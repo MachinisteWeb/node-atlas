@@ -124,6 +124,7 @@
 	},
 	"menu": [{
 		"title": "Guide",
+		"url": "index.html",
 		"menu": [{
 			"title": "Overview",
 			"url": "overview.html"
@@ -145,6 +146,7 @@
 		}]
 	}, {
 		"title": "Documentation",
+		"url": "index.html",
 		"menu": [{
 			"title": "Webconfig",
 			"url": "webconfig-s-anatomy.html"
@@ -157,6 +159,7 @@
 		}]
 	}, {
 		"title": "Environment",
+		"url": "index.html",
 		"menu": [{
 			"title": "Simple Server",
 			"url": "nodeatlas-as-a-simple-web-server.html"
@@ -169,6 +172,7 @@
 		}]
 	}, {
 		"title": "Community",
+		"url": "https://gitter.im/NodeAtlas/Help",
 		"menu": [{
 			"title": "Gitter Chat",
 			"url": "https://gitter.im/NodeAtlas/Help"
