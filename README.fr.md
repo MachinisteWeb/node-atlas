@@ -47,7 +47,7 @@ Commencez avec une simple page HTML,
 
 
 
-### Et les autres frameworks JavaScript ? ###
+### D'autres frameworks ? ###
 
 Contrairement aux frameworks JavaScript côté client comme Vue, Angular ou React, NodeAtlas fonctionne côté serveur et délivre son contenu derrière des URL par réponse HTTP. Les sites sont indexables et valides W3C : c'est-à-dire que le code utile est bien renvoyé par la réponse HTTP en premier lieu, et est ensuite modifiée par requête asynchrone (AJAX, Websocket...) si vous le souhaitez. Cela signifie donc que NodeAtlas n'est pas une alternative aux nombreux frameworks JavaScript côté client qui ne se servent que de [Node.js](https://nodejs.org/en/) pour l'utilisation de [npm](https://www.npmjs.com/), [jspm](http://jspm.io/), [gulp](http://gulpjs.com/), etc. NodeAtlas est plutôt une alternative à Sails ou Meteor. Il forme un socle au dessus de Node.js et remplace bien votre code PHP, Java ou encore C# côté serveur. À l'instar de [Meteor](https://www.meteor.com/), NodeAtlas vous fournit un cadre de travail et une structure initiale (que vous pouvez modifier) et des outils vous permettant de vous passer de [gulp](http://gulpjs.com/) mais contrairement à [Meteor](https://www.meteor.com/) l'objet `NA` n'est disponible que côté serveur par défaut. Il vous est donc laissé le choix d'étendre les mécanismes NodeAtlas à votre partie cliente ou d'utiliser la structure de votre choix.
 
@@ -55,7 +55,7 @@ Pour un comparatif avec d'autre bibliothèque / framework / API JavaScript côt�
 
 
 
-### Exemples de réalisations avec NodeAtlas ###
+### Exemples de réalisations ###
 
 Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré sur la communauté GitHub de NodeAtlas :
 
