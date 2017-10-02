@@ -47,7 +47,7 @@ Starting with a single HTML page,
 
 
 
-### And what about others JavaScript frameworks? ###
+### Others Frameworks? ###
 
 In opposition to others client-side JavaScript frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexable and W3C compliant, that means each page is constructed by HTTP response and after by asynchronous (AJAX, Websocket...) mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript frameworks that only use [Node.js](https://nodejs.org/en/) for use after [npm](https://www.npmjs.com/), [jspm](http://jspm.io/), [gulp](http://gulpjs.com/), etc. So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituent to PHP, Java or C# server-side. In the same way as [Meteor](https://www.meteor.com/), NodeAtlas allow you to set your working environment and you have not need of [gulp](http://gulpjs.com/) but by an opposition of [Meteor](https://www.meteor.com/), the `NA` object is not provided client-side by default. It's your responsibility to spread server-side mechanism to client-side.
 
@@ -55,7 +55,7 @@ To comparate NodeAtlas with others JavaScript Server-side library / framework / 
 
 
 
-### Examples of websites with NodeAtlas ###
+### Examples of creation ###
 
 You'll find a list of GitHub repositories provided by NodeAtlas community to analyze and understand how NodeAtlas works:
 
@@ -69,42 +69,39 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
 
 - [Overview](#overview)
  - [Why NodeAtlas](#why-nodeatlas)
- - [And what about others JavaScript frameworks?](#and-what-about-others-javascript-frameworks)
- - [Examples of websites with NodeAtlas](#examples-of-websites-with-nodeatlas)
+ - [Others Frameworks?](#others-frameworks)
+ - [Examples of creation](#examples-of-websites)
  - [Table of Contents](#table-of-contents)
  - [Documentation](#documentation)
  - [Contributing](#contributing)
-- [Installing](#installing)
+- [Installation](#installation)
  - [Install NodeAtlas](#install-nodeatlas)
  - [Install Node.js](#install-nodejs)
-- [Start with NodeAtlas](#start-with-nodeatlas)
+- [Get Started](#get-started)
  - [Fileset](#fileset)
  - [Minimum Requirements](#minimum-requirements)
- - [Run the site with NodeAtlas](#run-the-site-with-nodeatlas)
+ - [Run the Website](#run-the-website)
  - [Hello World Skeleton](#hello-world-skeleton)
-- [View and Template Part](#view-and-template-part)
- - [More One Page](#more-one-page)
- - [Manage Routes](#manage-routes)
- - [Host images, fonts, CSS, JS, etc.](#host-images-fonts-css-js-etc)
- - [Manage Include of Partial Files](#manage-include-of-partial-files)
- - [Manage variations within the same view](#manage-variations-within-the-same-view)
- - [Manage Internationalization (i18n)](#manage-internationalization-i18n)
- - [Manage the URLs' anatomy](#manage-the-URLs-anatomy)
- - [Create your own Webconfig's Variables](#create-your-own-webconfigs-variables)
- - [Use a Global View](#use-a-global-view)
- - [Share Directories](#share-directory)
- - [Generate HTML Templates](#generate-html-templates)
- - [EJS Template Engine](#ejs-template-engine)
- - [Pug Template Engine](#pug-template-engine)
- - [Vue Template Engine](#vue-template-engine)
-- [Controller and Model Part](#controller-and-model-part)
+- [View Part](#view-part)
+ - [Routing](#routing)
+ - [Assets](#assets)
+ - [Partial Files](#partial-files)
+ - [Variations](#variations)
+ - [Internationalization (i18n)](#internationalization-i18n)
+ - [URL Values](#url-values)
+ - [Webconfig Variables](#webconfig-variables)
+ - [Global Layout](#global-layout)
+ - [Public Files](#public-files)
+ - [Static Generate Files](#static-generate-files)
+ - [Template Engines](#template-engines)
+- [Controller Part](#controller-part)
  - [Lifecycle and Hooks](#lifecycle-and-hooks)
  - [Use Reliable Client-Server Real-Time with Websockets](#use-reliable-client-server-real-time-with-websockets)
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
  - [Use Middlewares from Express](#use-middleware-from-express)
  - [Create Isomorphic App](#create-isomorphic-app)
-- [More features](#more-features)
+- [Advanced Part](#advanced-part)
  - [Manage Routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a Page Not Found](#manage-a-page-not-found)
  - [Inject Routes Dynamically](#inject-routes-dynamically)
@@ -200,7 +197,7 @@ Thank you for helping out!
 
 
 
-## Installing ##
+## Installation ##
 
 Before install NodeAtlas, install [Node.js](https://nodejs.org/), we will see this in the section : [Install Node.js](#install-nodejs) bellow.
 
@@ -300,7 +297,7 @@ There is a naming conflict with the `node` package (Amateur Packet Radio Node Pr
 
 
 
-## Start with NodeAtlas ##
+## Get Started ##
 
 An NodeAtlas instance is configuration-driven with `webconfig.json`. All NodeAtlas website has it, that turn the engine from « Simple Web Server » to « NodeAtlas Web Server ».
 
@@ -362,7 +359,7 @@ equivalent to
 
 
 
-### Run the website with NodeAtlas ###
+### Run the Website ###
 
 #### With the `node-atlas` command line ####
 
@@ -432,7 +429,7 @@ $ node-atlas --browse
 
 
 
-## View and Template Part ##
+## View Part ##
 
 NodeAtlas works with a configuration with the usage of `webconfig.json` that allows its to scale and upgrade possibilities in a versatile way. For example, to create a website without JavaScript server-side (no controller), just add a `view` parameter to each route.
 
@@ -440,9 +437,15 @@ It's still possible to use JavaScript inline into views with the capabilities of
 
 We will see all possibilities with couples of view files together.
 
-### More One Page ###
 
-Below is a sample configuration.
+
+### Routing ###
+
+To display the content of a file behind an URL, we will register to the `webconfig.json` some files. The accès address to this files are called routes, and the content of this routes is called a page.
+
+#### More One Page ####
+
+Below is a sample configuration of `webconfig.json` for many pages.
 
 ```json
 {
@@ -492,9 +495,7 @@ with the addresses:
 
 *Note: if* `viewsRelativePath` *is not present in `webconfig.json`, views folder is* `views`. `viewsRelativePath` *is useful only to change the name/path of directory.*
 
-
-
-### Manage Routes ###
+#### Route Shortcut ####
 
 The configuration below is equivalent to the configuration section just above
 
@@ -571,7 +572,7 @@ In this case, the path becomes the `url` parameter.
 
 #### Routing in a shared file ####
 
-In order to not rewrite a long route list in `webconfig.json` file to your development environment and` webconfig.prod.json` to your production environment, you can group route in a file of your choice. By convention, the name is `routes.json` file.
+In order to not rewrite a long route list in `webconfig.json` file to your development environment and `webconfig.prod.json` to your production environment, you can group route in a file of your choice. By convention, the name is `routes.json` file.
 
 For example:
 
@@ -656,9 +657,9 @@ and `routes.json`
 
 
 
-### Deliver images, fonts, styles, scripts, etc. ###
+### Assets ###
 
-You can also host any file on your site in a public folder. For example, with this configuration:
+You can host any file on your site in a public folder like images, fonts, styles, scripts, etc.. For example, with this configuration:
 
 ```json
 {
@@ -702,7 +703,7 @@ It's possible to manage HTTP headers provided when public resources are requeste
 
 
 
-### Manage Include of Partial Files ###
+### Partial Files ###
 
 You can segment your HTML codes to not repeat the redundant code such "head" part and "foot" part or any other code fragment (don't worry, we will see later how to manage a mater page with `head` and `body` tags including opening and closing part into the same file).
 
@@ -794,7 +795,7 @@ you will have access to the addresses:
 
 
 
-### Manage variations within the same view ###
+### Variations ###
 
 It is possible with the same view and the same includes, generating pages with different contents (useful in generation HTML assets mode). Activate the variations with the following configuration:
 
@@ -916,7 +917,7 @@ you will have access to the addresses:
 
 
 
-### Manage Internationalization (i18n) ###
+### Internationalization (i18n) ###
 
 #### All languages on the same site ####
 
@@ -1179,7 +1180,7 @@ It is then possible to reverse proxy with to bring all URLs on port 80 to obtain
 
 
 
-### Manage the URLs' anatomy ###
+### URL Values ###
 
 By default, if you use the following configuration:
 
@@ -1295,7 +1296,7 @@ Note: this example work only if you have `server.crt` and `server.key` files val
 
 
 
-### Create your own Webconfig's Variables ###
+### Webconfig Variables ###
 
 Imagine two webconfigs in which we create our own variables as follows:
 
@@ -1408,7 +1409,7 @@ We will have to address `http://localhost/` the following output with minified f
 
 
 
-### Use a Global View ###
+### Global Layout ###
 
 Include a head part and foot part in two separate files create the following problem: tag from the head file are only closed into foot file. If you want to put all global things in the same file you could use a global view and indicate into where all views are injected. You can use all other mechanisms of view in this layout.
 
@@ -1574,7 +1575,7 @@ an display the following URL:
 
 
 
-### Share directories ###
+### Public files ###
 
 It is possible to share more than only the `assetsRelativePath` public directory. You could for example share views or models with to the client-side. We call them statics files.
 
@@ -1707,7 +1708,7 @@ In this case, the path becomes the `virtual` parameter.
 
 
 
-### Generate HTML Templates ###
+### Static Generate Templates ###
 
 #### Generate HTML Designs ####
 
@@ -1868,7 +1869,7 @@ Files defined into `statics` are also copyable into `serverlessRelativePath` whe
 
 
 
-### EJS Template Engine ###
+### Template Engines ###
 
 By default, NodeAtlas already use [EJS template engine](http://ejs.co/), it's that allows you to use JavaScript between `<?` and `?>` tags.
 
@@ -1881,6 +1882,9 @@ Tags `<?` and `?>` allow you to include JavaScript into templates. There are man
 - `<?%` Outputs a literal `<?`.
 - `?>` Plain ending tag.
 - `-?>` Trim-mode ('newline slurp') tag, trims following newline.
+
+
+### EJS ###
 
 However, EJS works by default with `<%` and `%>`. You could set this values or set others values if you want.
 
@@ -1977,7 +1981,7 @@ Learn all about the possibilities of the template engine consult [the documentat
 
 
 
-### Pug Template Engine ###
+#### Pug ####
 
 It's also possible to change EJS template to [Pug Template Engine](https://pugjs.org/) (new Jade template name) to generate pages with variations. This is possible for all pages like this:
 
@@ -2102,7 +2106,7 @@ Learn all about the possibilities of the template engine consult [the documentat
 
 
 
-### Vue Template Engine ###
+#### Vue ####
 
 [Vue](https://vuejs.org/) is a progressive MVVM framework like Angular or React which can be used as a server template engine for NodeAtlas. The main useful feature is the client-side hydrate this code from the response of server and made reactivity and route with it!
 
@@ -2133,7 +2137,7 @@ node-atlas --browse
 
 
 
-## Controller and Model Part ##
+## Controller Part ##
 
 NodeAtlas is useful for more than simply generate template web page easily based on your variations files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with:
 
@@ -4448,7 +4452,7 @@ module.exports = function (request, response, next) {
 
 
 
-### Create Isomporphic App
+### Create Isomorphic App ###
 
 An isomorphic app ist an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an exemple of isomporphic app in the template dedicated to [Vue.js](https://vuejs.org/).
 
@@ -4491,7 +4495,7 @@ You will find all you need about server-side code from `constrollers/common.js` 
 
 
 
-## More Features ##
+## Advanced Part ##
 
 NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.
 
@@ -5480,7 +5484,7 @@ and `bundles.json`
 
 #### Disable Bundles ####
 
-It is also possible to not execute the minification when run a website with NodeAtlas with `"cssBundlingEnable": false` et `"jsBundlingEnable": false`` for each type of Bundle.
+It is also possible to not execute the minification when run a website with NodeAtlas with `"cssBundlingEnable": false` et `"jsBundlingEnable": false` for each type of Bundle.
 
 ```json
 {
@@ -5524,7 +5528,7 @@ It is also possible to not execute the minification when run a website with Node
 
 #### Re-generate Bundles before each Page Response ####
 
-For test your page with minified files, you can ask it to be regenerated before each page response with `"cssBundlingBeforeResponse": false` et `"jsBundlingBeforeResponse": false`` for each type of Bundle.
+For test your page with minified files, you can ask it to be regenerated before each page response with `"cssBundlingBeforeResponse": false` et `"jsBundlingBeforeResponse": false` for each type of Bundle.
 
 ```json
 {
@@ -6225,7 +6229,7 @@ It is also possible to not execute the optimization when run a website with Node
 
 #### Re-generate Optimizations before each Page Response ####
 
-You can ask files to be regenerated before each page response with `"cssBundlingBeforeResponse": false` et `"jsBundlingBeforeResponse": false`` for each type of Bundle.
+You can ask files to be regenerated before each page response with `"cssBundlingBeforeResponse": false` et `"jsBundlingBeforeResponse": false` for each type of Bundle.
 
 ```json
 {
@@ -6294,7 +6298,7 @@ body {
 }
 ```
 
-*views/email.htm**
+*views/email.htm*
 
 ```html
 <!DOCTYPE html>

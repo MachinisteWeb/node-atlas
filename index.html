@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506777367700">
+		<meta name="og:updated_time" content="1506952104665">
 
 		<meta name="robots" content="index, follow">
 
@@ -238,17 +238,33 @@ website.init({
 								<ul>
 									
 									<li>
-										<a href="avant-propos.html" title="Présentation">Présentation</a> 
 										
+										<span>Guide</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
+											
+											<li>
+												<a href="avant-propos.html" title="Avant-propos">Avant-propos</a>
+											</li>
 											
 											<li>
 												<a href="installation.html" title="Installation">Installation</a>
 											</li>
 											
 											<li>
-												<a href="commencer-avec-nodeatlas.html" title="Démarrage rapide">Démarrage rapide</a>
+												<a href="introduction.html" title="Hello World !">Hello World !</a>
+											</li>
+											
+											<li>
+												<a href="partie-vue.html" title="Partie vue">Partie vue</a>
+											</li>
+											
+											<li>
+												<a href="partie-controleur.html" title="Partie contrôleur">Partie contrôleur</a>
+											</li>
+											
+											<li>
+												<a href="partie-avancee.html" title="Partie avancée">Partie avancée</a>
 											</li>
 											
 										</ul>
@@ -256,18 +272,8 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="partie-vue-et-template.html" title="Vue et Template">Vue et Template</a> 
 										
-									</li>
-									
-									<li>
-										<a href="partie-controleur-et-modele.html" title="Contrôleur et Modèle">Contrôleur et Modèle</a> 
-										
-									</li>
-									
-									<li>
-										<a href="pour-aller-plus-loin.html" title="Route et Plus">Route et Plus</a> 
-										
+										<span>Documentation</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
 											
@@ -282,6 +288,16 @@ website.init({
 											<li>
 												<a href="cli-commandes-de-lancement.html" title="CLI">CLI</a>
 											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Environnement</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
 											
 											<li>
 												<a href="nodeatlas-comme-simple-serveur-web.html" title="Simple Serveur">Simple Serveur</a>
@@ -300,7 +316,30 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="plus-sur-nodeatlas.html" title="Et les autres ?">Et les autres ?</a> 
+										
+										<span>Communauté</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="https://gitter.im/NodeAtlas/Aide" title="Discussions Gitter">Discussions Gitter</a>
+											</li>
+											
+											<li>
+												<a href="https://github.com/NodeAtlas" title="Dépôt GitHub">Dépôt GitHub</a>
+											</li>
+											
+											<li>
+												<a href="plus-sur-nodeatlas.html" title="Alternatives">Alternatives</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<a href="plus-sur-nodeatlas.html" title="Et les autres ?">Et les autres ?</a>
 										
 									</li>
 									
@@ -316,8 +355,8 @@ website.init({
 					<h2 id="toc">Table des matières</h2><ul class="toc">
 <li><a href="avant-propos.html" data-href="#avant-propos">Avant-propos</a><ul>
 <li><a href="avant-propos.html#pourquoi-nodeatlas" data-href="#pourquoi-nodeatlas-">Pourquoi NodeAtlas ?</a></li>
-<li><a href="avant-propos.html#et-les-autres-frameworks-javascript" data-href="#et-les-autres-frameworks-javascript-">Et les autres frameworks JavaScript ?</a></li>
-<li><a href="avant-propos.html#exemples-de-realisations-avec-nodeatlas" data-href="#exemples-de-réalisations-avec-nodeatlas">Exemples de réalisations avec NodeAtlas</a></li>
+<li><a href="avant-propos.html#d-autres-frameworks" data-href="#d-autres-frameworks-">D'autres frameworks ?</a></li>
+<li><a href="avant-propos.html#exemples-de-realisations" data-href="#exemples-de-réalisations">Exemples de réalisations</a></li>
 
 <li><a href="avant-propos.html#documentation" data-href="#documentation">Documentation</a></li>
 <li><a href="avant-propos.html#contribution" data-href="#contribution">Contribution</a></li>
@@ -328,62 +367,60 @@ website.init({
 <li><a href="installation.html#installation-de-node-js" data-href="#installation-de-nodejs">Installation de Node.js</a></li>
 </ul>
 </li>
-<li><a href="commencer-avec-nodeatlas.html" data-href="#commencer-avec-nodeatlas">Commencer avec NodeAtlas</a><ul>
-<li><a href="commencer-avec-nodeatlas.html#ensemble-de-fichiers" data-href="#ensemble-de-fichiers">Ensemble de fichiers</a></li>
-<li><a href="commencer-avec-nodeatlas.html#configuration-minimale" data-href="#configuration-minimale">Configuration minimale</a></li>
-<li><a href="commencer-avec-nodeatlas.html#lancer-le-site-avec-nodeatlas" data-href="#lancer-le-site-avec-nodeatlas">Lancer le site avec NodeAtlas</a></li>
-<li><a href="commencer-avec-nodeatlas.html#squelette-de-hello-world" data-href="#squelette-de-hello-world">Squelette de Hello World</a></li>
+<li><a href="introduction.html" data-href="#introduction">Introduction</a><ul>
+<li><a href="introduction.html#ensemble-de-fichiers" data-href="#ensemble-de-fichiers">Ensemble de fichiers</a></li>
+<li><a href="introduction.html#configuration-minimale" data-href="#configuration-minimale">Configuration minimale</a></li>
+<li><a href="introduction.html#lancer-le-site" data-href="#lancer-le-site">Lancer le site</a></li>
+<li><a href="introduction.html#squelette-de-hello-world" data-href="#squelette-de-hello-world">Squelette de Hello World</a></li>
 </ul>
 </li>
-<li><a href="partie-vue-et-template.html" data-href="#partie-vue-et-template">Partie vue et template</a><ul>
-<li><a href="partie-vue-et-template.html#plusieurs-pages" data-href="#plusieurs-pages">Plusieurs pages</a></li>
-<li><a href="partie-vue-et-template.html#referencer-ses-routes" data-href="#référencer-ses-routes">Référencer ses routes</a></li>
-<li><a href="partie-vue-et-template.html#heberger-des-images-polices-css-js-etc" data-href="#héberger-des-images-polices-css-js-etc">Héberger des images, polices, CSS, JS, etc.</a></li>
-<li><a href="partie-vue-et-template.html#gerer-l-inclusion-de-fichiers-partiels" data-href="#gérer-linclusion-de-fichiers-partiels">Gérer l'inclusion de fichiers partiels</a></li>
-<li><a href="partie-vue-et-template.html#gerer-des-variations-au-sein-d-une-meme-vue" data-href="#gérer-des-variations-au-sein-dune-même-vue">Gérer des variations au sein d'une même vue</a></li>
-<li><a href="partie-vue-et-template.html#gerer-l-internationalisation-i18n" data-href="#gérer-linternationalisation-i18n">Gérer l'internationalisation (i18n)</a></li>
-<li><a href="partie-vue-et-template.html#gerer-l-anatomie-des-url" data-href="#gérer-lanatomie-des-url">Gérer l'anatomie des URL</a></li>
-<li><a href="partie-vue-et-template.html#creer-ses-propres-variables-de-webconfig" data-href="#créer-ses-propres-variables-de webconfig">Créer ses propres variables de webconfig</a></li>
-<li><a href="partie-vue-et-template.html#utiliser-une-vue-globale" data-href="#utiliser-une-vue-globale">Utiliser une vue globale</a></li>
-<li><a href="partie-vue-et-template.html#partager-des-dossiers" data-href="#partager-des-dossiers">Partager des dossiers</a></li>
-<li><a href="partie-vue-et-template.html#generer-des-maquettes-html" data-href="#générer-des-maquettes-html">Générer des maquettes HTML</a></li>
-<li><a href="partie-vue-et-template.html#moteur-de-template-ejs" data-href="#moteur-de-template-ejs">Moteur de template EJS</a></li>
-<li><a href="partie-vue-et-template.html#moteur-de-template-pug" data-href="#moteur-de-template-pug">Moteur de template Pug</a></li>
+<li><a href="partie-vue.html" data-href="#partie-vue">Partie vue</a><ul>
+<li><a href="partie-vue.html#routage" data-href="#routage">Routage</a></li>
+<li><a href="partie-vue.html#ressources" data-href="#ressources">Ressources</a></li>
+<li><a href="partie-vue.html#composition" data-href="#composition">Composition</a></li>
+<li><a href="partie-vue.html#variations" data-href="#variations">Variations</a></li>
+<li><a href="partie-vue.html#internationalisation-i18n" data-href="#internationalisation-i18n">Internationalisation (i18n)</a></li>
+<li><a href="partie-vue.html#valeurs-d-url" data-href="#valeur-d-url">Valeurs d'URL</a></li>
+<li><a href="partie-vue.html#variables-de-webconfig" data-href="#variables-de-webconfig">Variables de webconfig</a></li>
+<li><a href="partie-vue.html#mise-en-page-globale" data-href="#mise-en-page-globale">Mise en page globale</a></li>
+<li><a href="partie-vue.html#fichier-publics" data-href="#fichier-publics">Fichier publics</a></li>
+<li><a href="partie-vue.html#maquettes-statiques-generees" data-href="#maquettes-statiques-generees">Maquettes statiques générées</a></li>
+<li><a href="partie-vue.html#moteurs-de-template" data-href="#moteurs-de-template">Moteurs de template</a></li>
 </ul>
 </li>
-<li><a href="partie-controleur-et-modele.html" data-href="#partie-contrôleur-et-modèle">Partie contrôleur et modèle</a><ul>
-<li><a href="partie-controleur-et-modele.html#cycle-de-vie-et-points-d-ancrage" data-href="#cycle-de-vie-et-points-dancrage">Cycle de vie et Points d'ancrage</a></li>
-<li><a href="partie-controleur-et-modele.html#echange-client-serveur-en-temps-reel-avec-websockets" data-href="#échange-client-serveur-en-temps réel-avec-websockets">Échange client-serveur en temps réel avec websockets</a></li>
-<li><a href="partie-controleur-et-modele.html#utiliser-une-base-de-donnees-mysql-sql" data-href="#utiliser-une-base-de-données-mysql-sql">Utiliser une base de données MySQL (SQL)</a></li>
-<li><a href="partie-controleur-et-modele.html#utiliser-une-base-de-donnees-mongodb-nosql" data-href="#utiliser-une-base-de-données-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</a></li>
-<li><a href="partie-controleur-et-modele.html#utiliser-des-middlewares-depuis-express" data-href="#utiliser-des-middlewares-depuis-express">Utiliser des middlewares depuis Express</a></li>
-<li><a href="partie-controleur-et-modele.html#creer-une-application-isomorphique" data-href="#créer-une-application-isomorphique">Créer une application isomorphique</a></li>
-<li><a href="partie-controleur-et-modele.html#moteur-de-template-vue" data-href="#moteur-de-template-vue">Moteur de template Vue</a></li>
+<li><a href="partie-controleur.html" data-href="#partie-controleur">Partie contrôleur</a><ul>
+<li><a href="partie-controleur.html#cycle-de-vie-et-points-d-ancrage" data-href="#cycle-de-vie-et-points-dancrage">Cycle de vie et Points d'ancrage</a></li>
+<li><a href="partie-controleur.html#echange-client-serveur-en-temps-reel-avec-websockets" data-href="#échange-client-serveur-en-temps réel-avec-websockets">Échange client-serveur en temps réel avec websockets</a></li>
+<li><a href="partie-controleur.html#utiliser-une-base-de-donnees-mysql-sql" data-href="#utiliser-une-base-de-données-mysql-sql">Utiliser une base de données MySQL (SQL)</a></li>
+<li><a href="partie-controleur.html#utiliser-une-base-de-donnees-mongodb-nosql" data-href="#utiliser-une-base-de-données-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</a></li>
+<li><a href="partie-controleur.html#utiliser-des-middlewares-depuis-express" data-href="#utiliser-des-middlewares-depuis-express">Utiliser des middlewares depuis Express</a></li>
+<li><a href="partie-controleur.html#creer-une-application-isomorphique" data-href="#créer-une-application-isomorphique">Créer une application isomorphique</a></li>
+<li><a href="partie-controleur.html#moteur-de-template-vue" data-href="#moteur-de-template-vue">Moteur de template Vue</a></li>
 </ul>
 </li>
-<li><a href="pour-aller-plus-loin.html" data-href="#pour-aller-plus-loin">Pour aller plus loin</a><ul>
-<li><a href="pour-aller-plus-loin.html#gerer-le-routage-url-rewriting" data-href="#gérer-le-routage-url-rewriting">Gérer le routage (URL Rewriting)</a></li>
-<li><a href="pour-aller-plus-loin.html#gerer-les-pages-inexistantes" data-href="#gérer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
-<li><a href="pour-aller-plus-loin.html#injecter-des-routes-dynamiquement" data-href="#injecter-des-routes-dynamiquement">Injecter des routes dynamiquement</a></li>
-<li><a href="pour-aller-plus-loin.html#gerer-les-redirections" data-href="#gérer-les-redirections">Gérer les redirections</a></li>
-<li><a href="pour-aller-plus-loin.html#gerer-les-headers-de-page" data-href="#gérer-les-headers-de-page">Gérer les Headers de page</a></li>
-<li><a href="pour-aller-plus-loin.html#configuration-dynamique" data-href="#configuration-dynamique">Configuration dynamique</a></li>
-<li><a href="pour-aller-plus-loin.html#faire-tourner-le-site-en-https" data-href="#faire-tourner-le-site-en-https">Faire tourner le site en HTTPs</a></li>
-<li><a href="pour-aller-plus-loin.html#minifier-les-css-js" data-href="#minifier-les-css--js">Minifier les CSS / JS</a></li>
-<li><a href="pour-aller-plus-loin.html#generer-les-css-avec-less" data-href="#générer-les-css-avec-less">Générer les CSS avec Less</a></li>
-<li><a href="pour-aller-plus-loin.html#generer-les-css-avec-stylus" data-href="#générer-les-css-avec-stylus">Générer les CSS avec Stylus</a></li>
-<li><a href="pour-aller-plus-loin.html#optimiser-les-images" data-href="#optimiser-les-images">Optimiser les Images</a></li>
-<li><a href="pour-aller-plus-loin.html#injecter-du-css-inline-pour-maintenir-des-assets-email" data-href="#injecter-du-css-inline-pour-maintenir-des-assets-email">Injecter du CSS inline pour maintenir des assets Email</a></li>
-<li><a href="pour-aller-plus-loin.html#autoriser-interdire-les-demandes-get-post" data-href="#autoriser--interdire-les-demandes-get--post">Autoriser / Interdire les demandes GET / POST</a></li>
-<li><a href="pour-aller-plus-loin.html#autoriser-interdire-les-demandes-put-delete" data-href="#autoriser--interdire-les-demandes-put--delete">Autoriser / Interdire les demandes PUT / DELETE</a></li>
-<li><a href="pour-aller-plus-loin.html#gerer-cors-et-les-demandes-options" data-href="#gerer-cors-et-les-demandes-options">Gérér CORS et les demandes OPTIONS</a></li>
-<li><a href="pour-aller-plus-loin.html#changer-les-parametres-des-sessions" data-href="#changer-les-paramètres-des-sessions">Changer les paramètres des sessions</a></li>
-<li><a href="pour-aller-plus-loin.html#stockage-externe-des-sessions" data-href="#stockage-externe-des-sessions">Stockage externe des sessions</a></li>
-<li><a href="pour-aller-plus-loin.html#changer-l-url-final-des-hostname-et-port-d-ecoute" data-href="#changer-lurl-final-des-hostname-et-port-découte">Changer l'URL final des hostname et port d'écoute</a></li>
-<li><a href="pour-aller-plus-loin.html#generer-les-url-dynamiquement" data-href="#générer-les-URL-dynamiquement">Générer les URL dynamiquement</a></li>
-<li><a href="pour-aller-plus-loin.html#moteur-de-template-personnalise" data-href="#moteur-de-template-personnalisé">Moteur de template personnalisé</a></li>
-<li><a href="pour-aller-plus-loin.html#pas-de-vue" data-href="#pas-de-vue">Pas de vue</a></li>
-<li><a href="pour-aller-plus-loin.html#activer-le-cache" data-href="#activer-le-cache">Activer le cache</a></li>
+<li><a href="partie-avancee.html" data-href="#partie-avancee">Partie avancée</a><ul>
+<li><a href="partie-avancee.html#gerer-le-routage-url-rewriting" data-href="#gérer-le-routage-url-rewriting">Gérer le routage (URL Rewriting)</a></li>
+<li><a href="partie-avancee.html#gerer-les-pages-inexistantes" data-href="#gérer-les-pages-inexistantes">Gérer les pages inexistantes</a></li>
+<li><a href="partie-avancee.html#injecter-des-routes-dynamiquement" data-href="#injecter-des-routes-dynamiquement">Injecter des routes dynamiquement</a></li>
+<li><a href="partie-avancee.html#gerer-les-redirections" data-href="#gérer-les-redirections">Gérer les redirections</a></li>
+<li><a href="partie-avancee.html#gerer-les-headers-de-page" data-href="#gérer-les-headers-de-page">Gérer les Headers de page</a></li>
+<li><a href="partie-avancee.html#configuration-dynamique" data-href="#configuration-dynamique">Configuration dynamique</a></li>
+<li><a href="partie-avancee.html#faire-tourner-le-site-en-https" data-href="#faire-tourner-le-site-en-https">Faire tourner le site en HTTPs</a></li>
+<li><a href="partie-avancee.html#minifier-les-css-js" data-href="#minifier-les-css--js">Minifier les CSS / JS</a></li>
+<li><a href="partie-avancee.html#generer-les-css-avec-less" data-href="#générer-les-css-avec-less">Générer les CSS avec Less</a></li>
+<li><a href="partie-avancee.html#generer-les-css-avec-stylus" data-href="#générer-les-css-avec-stylus">Générer les CSS avec Stylus</a></li>
+<li><a href="partie-avancee.html#optimiser-les-images" data-href="#optimiser-les-images">Optimiser les Images</a></li>
+<li><a href="partie-avancee.html#injecter-du-css-inline-pour-maintenir-des-assets-email" data-href="#injecter-du-css-inline-pour-maintenir-des-assets-email">Injecter du CSS inline pour maintenir des assets Email</a></li>
+<li><a href="partie-avancee.html#autoriser-interdire-les-demandes-get-post" data-href="#autoriser--interdire-les-demandes-get--post">Autoriser / Interdire les demandes GET / POST</a></li>
+<li><a href="partie-avancee.html#autoriser-interdire-les-demandes-put-delete" data-href="#autoriser--interdire-les-demandes-put--delete">Autoriser / Interdire les demandes PUT / DELETE</a></li>
+<li><a href="partie-avancee.html#gerer-cors-et-les-demandes-options" data-href="#gerer-cors-et-les-demandes-options">Gérér CORS et les demandes OPTIONS</a></li>
+<li><a href="partie-avancee.html#changer-les-parametres-des-sessions" data-href="#changer-les-paramètres-des-sessions">Changer les paramètres des sessions</a></li>
+<li><a href="partie-avancee.html#stockage-externe-des-sessions" data-href="#stockage-externe-des-sessions">Stockage externe des sessions</a></li>
+<li><a href="partie-avancee.html#changer-l-url-final-des-hostname-et-port-d-ecoute" data-href="#changer-lurl-final-des-hostname-et-port-découte">Changer l'URL final des hostname et port d'écoute</a></li>
+<li><a href="partie-avancee.html#generer-les-url-dynamiquement" data-href="#générer-les-URL-dynamiquement">Générer les URL dynamiquement</a></li>
+<li><a href="partie-avancee.html#moteur-de-template-personnalise" data-href="#moteur-de-template-personnalisé">Moteur de template personnalisé</a></li>
+<li><a href="partie-avancee.html#pas-de-vue" data-href="#pas-de-vue">Pas de vue</a></li>
+<li><a href="partie-avancee.html#activer-le-cache" data-href="#activer-le-cache">Activer le cache</a></li>
 </ul>
 </li>
 <li><a href="anatomie-du-webconfig.html" data-href="#anatomie-du-webconfig">Anatomie du webconfig</a></li>

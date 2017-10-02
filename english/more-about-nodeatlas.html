@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506777372178">
+		<meta name="og:updated_time" content="1506952109007">
 
 		<meta name="robots" content="index, follow">
 
@@ -238,17 +238,33 @@ website.init({
 								<ul>
 									
 									<li>
-										<a href="overview.html" title="Overview">Overview</a> 
 										
+										<span>Guide</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
+											
+											<li>
+												<a href="overview.html" title="Overview">Overview</a>
+											</li>
 											
 											<li>
 												<a href="installation.html" title="Installation">Installation</a>
 											</li>
 											
 											<li>
-												<a href="start-with-nodeatlas.html" title="Get Started">Get Started</a>
+												<a href="get-started.html" title="Hello World!">Hello World!</a>
+											</li>
+											
+											<li>
+												<a href="view-part.html" title="View Part">View Part</a>
+											</li>
+											
+											<li>
+												<a href="controller-part.html" title="Controller Part">Controller Part</a>
+											</li>
+											
+											<li>
+												<a href="advanced-part.html" title="Advanced Part">Advanced Part</a>
 											</li>
 											
 										</ul>
@@ -256,23 +272,13 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="view-and-template-part.html" title="View and Template">View and Template</a> 
 										
-									</li>
-									
-									<li>
-										<a href="controller-and-model-part.html" title="Controller and Model">Controller and Model</a> 
-										
-									</li>
-									
-									<li>
-										<a href="more-features.html" title="Route and More">Route and More</a> 
-										
+										<span>Documentation</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
 											
 											<li>
-												<a href="webconfigs-anatomy.html" title="Webconfig">Webconfig</a>
+												<a href="webconfig-s-anatomy.html" title="Webconfig">Webconfig</a>
 											</li>
 											
 											<li>
@@ -282,6 +288,16 @@ website.init({
 											<li>
 												<a href="cli-running-commands.html" title="CLI">CLI</a>
 											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Environment</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
 											
 											<li>
 												<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
@@ -300,7 +316,30 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="more-about-nodeatlas.html" title="And others?">And others?</a> 
+										
+										<span>Community</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="https://gitter.im/NodeAtlas/Help" title="Gitter Chat">Gitter Chat</a>
+											</li>
+											
+											<li>
+												<a href="https://github.com/NodeAtlas" title="GitHub Repository">GitHub Repository</a>
+											</li>
+											
+											<li>
+												<a href="more-about-nodeatlas.html" title="Alternatives">Alternatives</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
 										
 									</li>
 									
@@ -313,7 +352,111 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="more-about-nodeatlas">More About NodeAtlas</h2><p>NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.</p><h3 id="nodeatlas-vs-others">NodeAtlas VS Others</h3><div class="table">[object HTMLTableElement]</div><div><div class="before">
+					<h2 id="more-about-nodeatlas">More About NodeAtlas</h2><p>NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.</p><h3 id="nodeatlas-vs-others">NodeAtlas VS Others</h3><div class="table"><table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Top Features</th>
+<th>Suitable For</th>
+<th>Pure Node runtime</th>
+<th>Front-end part</th>
+<th>Main support language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NodeAtlas</strong></td>
+<td><strong>MVC(2)</strong> Web Framework</td>
+<td>Simplicity, <strong>Evolutivity</strong>, Modularity</td>
+<td><strong>Web sites/apps</strong>, REST APIs, <strong>Templating</strong></td>
+<td>Yes</td>
+<td>Free</td>
+<td><strong>French</strong></td>
+</tr>
+<tr>
+<td>Express</td>
+<td>HTTP Server Library</td>
+<td>HTTP routing, middleware</td>
+<td>Simple web apps</td>
+<td>Yes</td>
+<td>No</td>
+<td>English</td>
+</tr>
+<tr>
+<td>Hapi</td>
+<td>HTTP Server Framework</td>
+<td>Modularity, security</td>
+<td>Web apps, APIs</td>
+<td>Yes</td>
+<td>Free</td>
+<td>English</td>
+</tr>
+<tr>
+<td>LoopBack</td>
+<td>API Framework</td>
+<td>Enterprise connectivity</td>
+<td>Web apps, APIs</td>
+<td>Yes</td>
+<td>Free</td>
+<td>English</td>
+</tr>
+<tr>
+<td>Meteor</td>
+<td>Full-stack JavaScript App Platform</td>
+<td>Front-end and Back-end Framework</td>
+<td>Web apps</td>
+<td>No</td>
+<td>Meteor</td>
+<td>English</td>
+</tr>
+<tr>
+<td>Next</td>
+<td>Renderer Server Framework</td>
+<td>React renderer ready to use</td>
+<td>Web apps</td>
+<td>Yes</td>
+<td>React</td>
+<td>English</td>
+</tr>
+<tr>
+<td>Nuxt</td>
+<td>Renderer Server Framework</td>
+<td>Vue renderer ready to use</td>
+<td>Web apps</td>
+<td>Yes</td>
+<td>Vue</td>
+<td>English</td>
+</tr>
+<tr>
+<td>Restify</td>
+<td>HTTP Library</td>
+<td>Simplicity, REST routing</td>
+<td>Simple REST APIs</td>
+<td>Yes</td>
+<td>No</td>
+<td>English</td>
+</tr>
+<tr>
+<td>Sails</td>
+<td>MVC Web Framework</td>
+<td>Rails familiarity</td>
+<td>Web apps, APIs</td>
+<td>Yes</td>
+<td>Free</td>
+<td>English</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>MVC Web Framework</td>
+<td>Django familiarity</td>
+<td>Web apps, APIs</td>
+<td>Yes</td>
+<td>jComponent</td>
+<td>English</td>
+</tr>
+</tbody>
+</table></div><div><div class="before">
 							<a href="production-environment.html">◄ Production Environment</a>
 						</div></div>
 				</div>

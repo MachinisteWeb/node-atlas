@@ -123,24 +123,28 @@
 		}
 	},
 	"menu": [{
-		"title": "Présentation",
-		"url": "avant-propos.html",
+		"title": "Guide",
 		"menu": [{
+			"title": "Avant-propos",
+			"url": "avant-propos.html"
+		}, {
 			"title": "Installation",
 			"url": "installation.html"
 		}, {
-			"title": "Démarrage rapide",
-			"url": "commencer-avec-nodeatlas.html"
+			"title": "Hello World !",
+			"url": "introduction.html"
+		}, {
+			"title": "Partie vue",
+			"url": "partie-vue.html"
+		}, {
+			"title": "Partie contrôleur",
+			"url": "partie-controleur.html"
+		}, {
+			"title": "Partie avancée",
+			"url": "partie-avancee.html"
 		}]
 	}, {
-		"title": "Vue et Template",
-		"url": "partie-vue-et-template.html"
-	}, {
-		"title": "Contrôleur et Modèle",
-		"url": "partie-controleur-et-modele.html"
-	}, {
-		"title": "Route et Plus",
-		"url": "pour-aller-plus-loin.html",
+		"title": "Documentation",
 		"menu": [{
 			"title": "Webconfig",
 			"url": "anatomie-du-webconfig.html"
@@ -150,7 +154,10 @@
 		}, {
 			"title": "CLI",
 			"url": "cli-commandes-de-lancement.html"
-		}, {
+		}]
+	}, {
+		"title": "Environnement",
+		"menu": [{
 			"title": "Simple Serveur",
 			"url": "nodeatlas-comme-simple-serveur-web.html"
 		}, {
@@ -159,6 +166,18 @@
 		}, {
 			"title": "Production",
 			"url": "environnement-de-production.html"
+		}]
+	}, {
+		"title": "Communauté",
+		"menu": [{
+			"title": "Discussions Gitter",
+			"url": "https://gitter.im/NodeAtlas/Aide"
+		}, {
+			"title": "Dépôt GitHub",
+			"url": "https://github.com/NodeAtlas"
+		}, {
+			"title": "Alternatives",
+			"url": "plus-sur-nodeatlas.html"
 		}]
 	}, {
 		"title": "Et les autres ?",

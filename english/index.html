@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506777371790">
+		<meta name="og:updated_time" content="1506952108645">
 
 		<meta name="robots" content="index, follow">
 
@@ -238,17 +238,33 @@ website.init({
 								<ul>
 									
 									<li>
-										<a href="overview.html" title="Overview">Overview</a> 
 										
+										<span>Guide</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
+											
+											<li>
+												<a href="overview.html" title="Overview">Overview</a>
+											</li>
 											
 											<li>
 												<a href="installation.html" title="Installation">Installation</a>
 											</li>
 											
 											<li>
-												<a href="start-with-nodeatlas.html" title="Get Started">Get Started</a>
+												<a href="get-started.html" title="Hello World!">Hello World!</a>
+											</li>
+											
+											<li>
+												<a href="view-part.html" title="View Part">View Part</a>
+											</li>
+											
+											<li>
+												<a href="controller-part.html" title="Controller Part">Controller Part</a>
+											</li>
+											
+											<li>
+												<a href="advanced-part.html" title="Advanced Part">Advanced Part</a>
 											</li>
 											
 										</ul>
@@ -256,23 +272,13 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="view-and-template-part.html" title="View and Template">View and Template</a> 
 										
-									</li>
-									
-									<li>
-										<a href="controller-and-model-part.html" title="Controller and Model">Controller and Model</a> 
-										
-									</li>
-									
-									<li>
-										<a href="more-features.html" title="Route and More">Route and More</a> 
-										
+										<span>Documentation</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
 											
 											<li>
-												<a href="webconfigs-anatomy.html" title="Webconfig">Webconfig</a>
+												<a href="webconfig-s-anatomy.html" title="Webconfig">Webconfig</a>
 											</li>
 											
 											<li>
@@ -282,6 +288,16 @@ website.init({
 											<li>
 												<a href="cli-running-commands.html" title="CLI">CLI</a>
 											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Environment</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
 											
 											<li>
 												<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
@@ -300,7 +316,30 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="more-about-nodeatlas.html" title="And others?">And others?</a> 
+										
+										<span>Community</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="https://gitter.im/NodeAtlas/Help" title="Gitter Chat">Gitter Chat</a>
+											</li>
+											
+											<li>
+												<a href="https://github.com/NodeAtlas" title="GitHub Repository">GitHub Repository</a>
+											</li>
+											
+											<li>
+												<a href="more-about-nodeatlas.html" title="Alternatives">Alternatives</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
 										
 									</li>
 									
@@ -316,74 +355,71 @@ website.init({
 					<h2 id="toc">Table of Contents</h2><ul class="toc">
 <li><a href="overview.html" data-href="#overview">Overview</a><ul>
 <li><a href="overview.html#why-nodeatlas" data-href="#why-nodeatlas">Why NodeAtlas</a></li>
-<li><a href="overview.html#and-what-about-others-javascript-frameworks" data-href="#and-what-about-others-javascript-frameworks">And what about others JavaScript frameworks?</a></li>
-<li><a href="overview.html#examples-of-websites-with-nodeatlas" data-href="#examples-of-websites-with-nodeatlas">Examples of websites with NodeAtlas</a></li>
+<li><a href="overview.html#others-frameworks" data-href="#others-frameworks">Others Frameworks?</a></li>
+<li><a href="overview.html#examples-of-creation" data-href="#examples-of-websites">Examples of creation</a></li>
 
 <li><a href="overview.html#documentation" data-href="#documentation">Documentation</a></li>
 <li><a href="overview.html#contributing" data-href="#contributing">Contributing</a></li>
 </ul>
 </li>
-<li><a href="installing.html" data-href="#installing">Installing</a><ul>
-<li><a href="installing.html#install-nodeatlas" data-href="#install-nodeatlas">Install NodeAtlas</a></li>
-<li><a href="installing.html#install-node-js" data-href="#install-nodejs">Install Node.js</a></li>
+<li><a href="installation.html" data-href="#installation">Installation</a><ul>
+<li><a href="installation.html#install-nodeatlas" data-href="#install-nodeatlas">Install NodeAtlas</a></li>
+<li><a href="installation.html#install-node-js" data-href="#install-nodejs">Install Node.js</a></li>
 </ul>
 </li>
-<li><a href="start-with-nodeatlas.html" data-href="#start-with-nodeatlas">Start with NodeAtlas</a><ul>
-<li><a href="start-with-nodeatlas.html#fileset" data-href="#fileset">Fileset</a></li>
-<li><a href="start-with-nodeatlas.html#minimum-requirements" data-href="#minimum-requirements">Minimum Requirements</a></li>
-<li><a href="start-with-nodeatlas.html#run-the-site-with-nodeatlas" data-href="#run-the-site-with-nodeatlas">Run the site with NodeAtlas</a></li>
-<li><a href="start-with-nodeatlas.html#hello-world-skeleton" data-href="#hello-world-skeleton">Hello World Skeleton</a></li>
+<li><a href="get-started.html" data-href="#get-started">Get Started</a><ul>
+<li><a href="get-started.html#fileset" data-href="#fileset">Fileset</a></li>
+<li><a href="get-started.html#minimum-requirements" data-href="#minimum-requirements">Minimum Requirements</a></li>
+<li><a href="get-started.html#run-the-website" data-href="#run-the-website">Run the Website</a></li>
+<li><a href="get-started.html#hello-world-skeleton" data-href="#hello-world-skeleton">Hello World Skeleton</a></li>
 </ul>
 </li>
-<li><a href="view-and-template-part.html" data-href="#view-and-template-part">View and Template Part</a><ul>
-<li><a href="view-and-template-part.html#more-one-page" data-href="#more-one-page">More One Page</a></li>
-<li><a href="view-and-template-part.html#manage-routes" data-href="#manage-routes">Manage Routes</a></li>
-<li><a href="view-and-template-part.html#host-images-fonts-css-js-etc" data-href="#host-images-fonts-css-js-etc">Host images, fonts, CSS, JS, etc.</a></li>
-<li><a href="view-and-template-part.html#manage-include-of-partial-files" data-href="#manage-include-of-partial-files">Manage Include of Partial Files</a></li>
-<li><a href="view-and-template-part.html#manage-variations-within-the-same-view" data-href="#manage-variations-within-the-same-view">Manage variations within the same view</a></li>
-<li><a href="view-and-template-part.html#manage-internationalization-i18n" data-href="#manage-internationalization-i18n">Manage Internationalization (i18n)</a></li>
-<li><a href="view-and-template-part.html#manage-the-urls-anatomy" data-href="#manage-the-URLs-anatomy">Manage the URLs' anatomy</a></li>
-<li><a href="view-and-template-part.html#create-your-own-webconfig-s-variables" data-href="#create-your-own-webconfigs-variables">Create your own Webconfig's Variables</a></li>
-<li><a href="view-and-template-part.html#use-a-global-view" data-href="#use-a-global-view">Use a Global View</a></li>
-<li><a href="view-and-template-part.html#share-directories" data-href="#share-directory">Share Directories</a></li>
-<li><a href="view-and-template-part.html#generate-html-templates" data-href="#generate-html-templates">Generate HTML Templates</a></li>
-<li><a href="view-and-template-part.html#ejs-template-engine" data-href="#ejs-template-engine">EJS Template Engine</a></li>
-<li><a href="view-and-template-part.html#pug-template-engine" data-href="#pug-template-engine">Pug Template Engine</a></li>
-<li><a href="view-and-template-part.html#vue-template-engine" data-href="#vue-template-engine">Vue Template Engine</a></li>
+<li><a href="view-part.html" data-href="#view-part">View Part</a><ul>
+<li><a href="view-part.html#routing" data-href="#routing">Routing</a></li>
+<li><a href="view-part.html#assets" data-href="#assets">Assets</a></li>
+<li><a href="view-part.html#partial-files" data-href="#partial-files">Partial Files</a></li>
+<li><a href="view-part.html#variations" data-href="#variations">Variations</a></li>
+<li><a href="view-part.html#internationalization-i18n" data-href="#internationalization-i18n">Internationalization (i18n)</a></li>
+<li><a href="view-part.html#url-values" data-href="#url-values">URL Values</a></li>
+<li><a href="view-part.html#webconfig-variables" data-href="#webconfig-variables">Webconfig Variables</a></li>
+<li><a href="view-part.html#global-layout" data-href="#global-layout">Global Layout</a></li>
+<li><a href="view-part.html#public-files" data-href="#public-files">Public Files</a></li>
+<li><a href="view-part.html#static-generate-files" data-href="#static-generate-files">Static Generate Files</a></li>
+<li><a href="view-part.html#template-engines" data-href="#template-engines">Template Engines</a></li>
 </ul>
 </li>
-<li><a href="controller-and-model-part.html" data-href="#controller-and-model-part">Controller and Model Part</a><ul>
-<li><a href="controller-and-model-part.html#lifecycle-and-hooks" data-href="#lifecycle-and-hooks">Lifecycle and Hooks</a></li>
-<li><a href="controller-and-model-part.html#use-reliable-client-server-real-time-with-websockets" data-href="#use-reliable-client-server-real-time-with-websockets">Use Reliable Client-Server Real-Time with Websockets</a></li>
-<li><a href="controller-and-model-part.html#use-mysql-database-sql" data-href="#use-mysql-database-sql">Use MySQL Database (SQL)</a></li>
-<li><a href="controller-and-model-part.html#use-mongodb-database-nosql" data-href="#use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</a></li>
-<li><a href="controller-and-model-part.html#use-middlewares-from-express" data-href="#use-middleware-from-express">Use Middlewares from Express</a></li>
-<li><a href="controller-and-model-part.html#create-isomorphic-app" data-href="#create-isomorphic-app">Create Isomorphic App</a></li>
+<li><a href="controller-part.html" data-href="#controller-part">Controller Part</a><ul>
+<li><a href="controller-part.html#lifecycle-and-hooks" data-href="#lifecycle-and-hooks">Lifecycle and Hooks</a></li>
+<li><a href="controller-part.html#use-reliable-client-server-real-time-with-websockets" data-href="#use-reliable-client-server-real-time-with-websockets">Use Reliable Client-Server Real-Time with Websockets</a></li>
+<li><a href="controller-part.html#use-mysql-database-sql" data-href="#use-mysql-database-sql">Use MySQL Database (SQL)</a></li>
+<li><a href="controller-part.html#use-mongodb-database-nosql" data-href="#use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</a></li>
+<li><a href="controller-part.html#use-middlewares-from-express" data-href="#use-middleware-from-express">Use Middlewares from Express</a></li>
+<li><a href="controller-part.html#create-isomorphic-app" data-href="#create-isomorphic-app">Create Isomorphic App</a></li>
 </ul>
 </li>
-<li><a href="more-features.html" data-href="#more-features">More features</a><ul>
-<li><a href="more-features.html#manage-routing-url-rewriting" data-href="#manage-routing-url-rewriting">Manage Routing (URL Rewriting)</a></li>
-<li><a href="more-features.html#manage-a-page-not-found" data-href="#manage-a-page-not-found">Manage a Page Not Found</a></li>
-<li><a href="more-features.html#inject-routes-dynamically" data-href="#inject-routes-dynamically">Inject Routes Dynamically</a></li>
-<li><a href="more-features.html#manage-redirects" data-href="#manage-redirects">Manage redirects</a></li>
-<li><a href="more-features.html#manage-headers" data-href="#manage-headers">Manage Headers</a></li>
-<li><a href="more-features.html#dynamic-configuration" data-href="#dynamic-configuration">Dynamic Configuration</a></li>
-<li><a href="more-features.html#run-website-with-https" data-href="#run-website-with-https">Run Website with HTTPs</a></li>
-<li><a href="more-features.html#minify-css-js" data-href="#minify-css--js">Minify CSS / JS</a></li>
-<li><a href="more-features.html#css-generation-with-less" data-href="#css-generation-with-less">CSS generation with Less</a></li>
-<li><a href="more-features.html#css-generation-with-stylus" data-href="#css-generation-with-stylus">CSS generation with Stylus</a></li>
-<li><a href="more-features.html#optimize-images-files" data-href="#optimize-images-files">Optimize Images files</a></li>
-<li><a href="more-features.html#css-inline-injection-for-manage-email-assets" data-href="#css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</a></li>
-<li><a href="more-features.html#allow-disallow-get-post-requests" data-href="#allow--disallow-get--post-requests">Allow / Disallow GET / POST requests</a></li>
-<li><a href="more-features.html#allow-disallow-put-delete-requests" data-href="#allow--disallow-put--delete-requests">Allow / Disallow PUT / DELETE requests</a></li>
-<li><a href="more-features.html#manage-cors-and-options-requests" data-href="#manage-cors-and-options-requests">Manage CORS and OPTIONS requests</a></li>
-<li><a href="more-features.html#change-settings-of-sessions" data-href="#change-settings-of-sessions">Change settings of Sessions</a></li>
-<li><a href="more-features.html#external-storage-sessions" data-href="#external-storage-sessions">External Storage Sessions</a></li>
-<li><a href="more-features.html#change-the-url-hostname-and-listening-port" data-href="#change-the-url-hostname-and-listening-port">Change the URL hostname and listening port</a></li>
-<li><a href="more-features.html#generate-urls-dynamically" data-href="#generate-URLs-dynamically">Generate URLs dynamically</a></li>
-<li><a href="more-features.html#custom-template-engine" data-href="#custom-template-engine">Custom Template Engine</a></li>
-<li><a href="more-features.html#no-view" data-href="#no-view">No view</a></li>
-<li><a href="more-features.html#enable-cache" data-href="#enable-cache">Enable Cache</a></li>
+<li><a href="advanced-part.html" data-href="#advanced-part">Advanced Part</a><ul>
+<li><a href="advanced-part.html#manage-routing-url-rewriting" data-href="#manage-routing-url-rewriting">Manage Routing (URL Rewriting)</a></li>
+<li><a href="advanced-part.html#manage-a-page-not-found" data-href="#manage-a-page-not-found">Manage a Page Not Found</a></li>
+<li><a href="advanced-part.html#inject-routes-dynamically" data-href="#inject-routes-dynamically">Inject Routes Dynamically</a></li>
+<li><a href="advanced-part.html#manage-redirects" data-href="#manage-redirects">Manage redirects</a></li>
+<li><a href="advanced-part.html#manage-headers" data-href="#manage-headers">Manage Headers</a></li>
+<li><a href="advanced-part.html#dynamic-configuration" data-href="#dynamic-configuration">Dynamic Configuration</a></li>
+<li><a href="advanced-part.html#run-website-with-https" data-href="#run-website-with-https">Run Website with HTTPs</a></li>
+<li><a href="advanced-part.html#minify-css-js" data-href="#minify-css--js">Minify CSS / JS</a></li>
+<li><a href="advanced-part.html#css-generation-with-less" data-href="#css-generation-with-less">CSS generation with Less</a></li>
+<li><a href="advanced-part.html#css-generation-with-stylus" data-href="#css-generation-with-stylus">CSS generation with Stylus</a></li>
+<li><a href="advanced-part.html#optimize-images-files" data-href="#optimize-images-files">Optimize Images files</a></li>
+<li><a href="advanced-part.html#css-inline-injection-for-manage-email-assets" data-href="#css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</a></li>
+<li><a href="advanced-part.html#allow-disallow-get-post-requests" data-href="#allow--disallow-get--post-requests">Allow / Disallow GET / POST requests</a></li>
+<li><a href="advanced-part.html#allow-disallow-put-delete-requests" data-href="#allow--disallow-put--delete-requests">Allow / Disallow PUT / DELETE requests</a></li>
+<li><a href="advanced-part.html#manage-cors-and-options-requests" data-href="#manage-cors-and-options-requests">Manage CORS and OPTIONS requests</a></li>
+<li><a href="advanced-part.html#change-settings-of-sessions" data-href="#change-settings-of-sessions">Change settings of Sessions</a></li>
+<li><a href="advanced-part.html#external-storage-sessions" data-href="#external-storage-sessions">External Storage Sessions</a></li>
+<li><a href="advanced-part.html#change-the-url-hostname-and-listening-port" data-href="#change-the-url-hostname-and-listening-port">Change the URL hostname and listening port</a></li>
+<li><a href="advanced-part.html#generate-urls-dynamically" data-href="#generate-URLs-dynamically">Generate URLs dynamically</a></li>
+<li><a href="advanced-part.html#custom-template-engine" data-href="#custom-template-engine">Custom Template Engine</a></li>
+<li><a href="advanced-part.html#no-view" data-href="#no-view">No view</a></li>
+<li><a href="advanced-part.html#enable-cache" data-href="#enable-cache">Enable Cache</a></li>
 </ul>
 </li>
 <li><a href="webconfig-s-anatomy.html" data-href="#webconfigs-anatomy">Webconfig's Anatomy</a></li>

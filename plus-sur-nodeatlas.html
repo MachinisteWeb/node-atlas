@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506777368230">
+		<meta name="og:updated_time" content="1506952104910">
 
 		<meta name="robots" content="index, follow">
 
@@ -238,17 +238,33 @@ website.init({
 								<ul>
 									
 									<li>
-										<a href="avant-propos.html" title="Présentation">Présentation</a> 
 										
+										<span>Guide</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
+											
+											<li>
+												<a href="avant-propos.html" title="Avant-propos">Avant-propos</a>
+											</li>
 											
 											<li>
 												<a href="installation.html" title="Installation">Installation</a>
 											</li>
 											
 											<li>
-												<a href="commencer-avec-nodeatlas.html" title="Démarrage rapide">Démarrage rapide</a>
+												<a href="introduction.html" title="Hello World !">Hello World !</a>
+											</li>
+											
+											<li>
+												<a href="partie-vue.html" title="Partie vue">Partie vue</a>
+											</li>
+											
+											<li>
+												<a href="partie-controleur.html" title="Partie contrôleur">Partie contrôleur</a>
+											</li>
+											
+											<li>
+												<a href="partie-avancee.html" title="Partie avancée">Partie avancée</a>
 											</li>
 											
 										</ul>
@@ -256,18 +272,8 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="partie-vue-et-template.html" title="Vue et Template">Vue et Template</a> 
 										
-									</li>
-									
-									<li>
-										<a href="partie-controleur-et-modele.html" title="Contrôleur et Modèle">Contrôleur et Modèle</a> 
-										
-									</li>
-									
-									<li>
-										<a href="pour-aller-plus-loin.html" title="Route et Plus">Route et Plus</a> 
-										
+										<span>Documentation</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
 											
@@ -282,6 +288,16 @@ website.init({
 											<li>
 												<a href="cli-commandes-de-lancement.html" title="CLI">CLI</a>
 											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Environnement</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
 											
 											<li>
 												<a href="nodeatlas-comme-simple-serveur-web.html" title="Simple Serveur">Simple Serveur</a>
@@ -300,7 +316,30 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="plus-sur-nodeatlas.html" title="Et les autres ?">Et les autres ?</a> 
+										
+										<span>Communauté</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="https://gitter.im/NodeAtlas/Aide" title="Discussions Gitter">Discussions Gitter</a>
+											</li>
+											
+											<li>
+												<a href="https://github.com/NodeAtlas" title="Dépôt GitHub">Dépôt GitHub</a>
+											</li>
+											
+											<li>
+												<a href="plus-sur-nodeatlas.html" title="Alternatives">Alternatives</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<a href="plus-sur-nodeatlas.html" title="Et les autres ?">Et les autres ?</a>
 										
 									</li>
 									
@@ -313,7 +352,111 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="plus-sur-nodeatlas">Plus sur NodeAtlas</h2><p>NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.</p><h3 id="nodeatlas-vs-les-autres">NodeAtlas VS les autres</h3><div class="table">[object HTMLTableElement]</div><div><div class="before">
+					<h2 id="plus-sur-nodeatlas">Plus sur NodeAtlas</h2><p>NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.</p><h3 id="nodeatlas-vs-les-autres">NodeAtlas VS les autres</h3><div class="table"><table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Fonctions principales</th>
+<th>Adapté pour</th>
+<th>Node Module Package</th>
+<th>Liaison client</th>
+<th>Langue principale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NodeAtlas</strong></td>
+<td>Framework serveur web <strong>MVC(2)</strong></td>
+<td>Simplicité, <strong>Evolutivité</strong>, Modularité</td>
+<td><strong>Sites/Apps web</strong>, APIs REST, <strong>Maquettage</strong></td>
+<td>Oui</td>
+<td>Libre</td>
+<td><strong>Français</strong></td>
+</tr>
+<tr>
+<td>Express</td>
+<td>Bibliothèque serveur HTTP</td>
+<td>Routage HTTP, middleware</td>
+<td>Apps web simple</td>
+<td>Oui</td>
+<td>Non</td>
+<td>Anglais</td>
+</tr>
+<tr>
+<td>Hapi</td>
+<td>Framework serveur HTTP</td>
+<td>Modularité, securité</td>
+<td>Apps web, APIs</td>
+<td>Oui</td>
+<td>Libre</td>
+<td>Anglais</td>
+</tr>
+<tr>
+<td>LoopBack</td>
+<td>Framework d'API</td>
+<td>Connectivité d'Entreprise</td>
+<td>Apps web, APIs</td>
+<td>Oui</td>
+<td>Libre</td>
+<td>Anglais</td>
+</tr>
+<tr>
+<td>Meteor</td>
+<td>Platforme d'App</td>
+<td>Framework front-end et back-end</td>
+<td>Apps web</td>
+<td>Non</td>
+<td>Meteor</td>
+<td>Anglais</td>
+</tr>
+<tr>
+<td>Next</td>
+<td>Framework serveur de rendu</td>
+<td>Rendu serveur React préconfiguré</td>
+<td>Apps web</td>
+<td>Oui</td>
+<td>React</td>
+<td>Anglais</td>
+</tr>
+<tr>
+<td>Nuxt</td>
+<td>Framework serveur de rendu</td>
+<td>Rendu serveur Vue préconfiguré</td>
+<td>Apps web</td>
+<td>Oui</td>
+<td>Vue</td>
+<td>Anglais</td>
+</tr>
+<tr>
+<td>Restify</td>
+<td>Bibliothèque HTTP REST</td>
+<td>Simplicité, Routage REST</td>
+<td>APIs REST</td>
+<td>Oui</td>
+<td>Non</td>
+<td>Anglais</td>
+</tr>
+<tr>
+<td>Sails</td>
+<td>Framework Web MVC</td>
+<td>Familier à Rails, MVC</td>
+<td>Apps web, APIs</td>
+<td>Oui</td>
+<td>Libre</td>
+<td>Anglais</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>Framework Web MVC</td>
+<td>Familier à Django, Sans dépendances npm</td>
+<td>Apps web, APIs</td>
+<td>Oui</td>
+<td>jComponent</td>
+<td>Anglais</td>
+</tr>
+</tbody>
+</table></div><div><div class="before">
 							<a href="environnement-de-production.html">◄ Environnement de Production</a>
 						</div></div>
 				</div>

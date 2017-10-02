@@ -12,15 +12,22 @@
   margin-right: 4px;
 }
 .navigation--menu a,
+.navigation--menu span,
 .navigation .fa-chevron-up,
 .navigation .fa-chevron-down {
-  cursor: pointer;
+  cursor: default;
   font-weight: bold;
   color: #6dbd4d;
 }
-.navigation--menu a:hover,
-.navigation .fa-chevron-up:hover,
-.navigation .fa-chevron-down:hover {
+@media (max-width: 819px) {
+  .navigation--menu span {
+    color: #3e863d;
+  }
+}
+.navigation--menu a {
+  cursor: pointer;
+}
+.navigation--menu a:hover {
   color: #c00;
 }
 .navigation.is-scrolled,
@@ -287,19 +294,20 @@
   display: none;
   position: absolute;
   top: 100%;
-  width: 200%;
   left: 0;
   z-index: 3;
   padding-bottom: 8px;
-}
-.navigation--menu ul ul.is-opened {
-  display: block;
-  background-color: #fff;
 }
 .navigation--menu ul ul li {
   display: list-item;
   padding-top: 8px;
   list-style-type: circle;
+}
+@media (min-width: 820px) {
+  .navigation--menu ul li:hover ul {
+    display: block;
+    background-color: #fff;
+  }
 }
 .navigation--menu li {
   position: relative;
@@ -308,6 +316,7 @@
   display: inline-block;
   margin-left: 20px;
   margin-right: 20px;
+  white-space: nowrap;
 }
 @media (max-width: 819px) {
   .navigation--menu.is-front .navigation--menu--list {

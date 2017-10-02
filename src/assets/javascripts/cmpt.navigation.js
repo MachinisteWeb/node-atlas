@@ -18,7 +18,7 @@ website.component.Navigation = function () {
 		}, 2000);
 	};
 
-	publics.openSubMenu = function () {
+	/*publics.openSubMenu = function () {
 		var chevrons = document.querySelectorAll("." + publics.name + "--menu .fa"),
 			links = document.querySelectorAll("." + publics.name + "--menu a");
 
@@ -46,7 +46,7 @@ website.component.Navigation = function () {
 				chevron.nextElementSibling.classList.toggle("is-opened");
 			});
 		});
-	};
+	};*/
 
 	publics.toggleMenu = function () {
 		var toggle = document.getElementsByClassName(publics.name + "--menu--toggle")[0],
@@ -100,7 +100,7 @@ website.component.Navigation = function () {
 
 	publics.init = function () {
 		publics.loadAnimation();
-		publics.openSubMenu();
+		//publics.openSubMenu();
 		publics.toggleMenu();
 		publics.goTo();
 	};

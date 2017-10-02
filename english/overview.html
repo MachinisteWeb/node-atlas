@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1506777371833">
+		<meta name="og:updated_time" content="1506952108668">
 
 		<meta name="robots" content="index, follow">
 
@@ -238,17 +238,33 @@ website.init({
 								<ul>
 									
 									<li>
-										<a href="overview.html" title="Overview">Overview</a> 
 										
+										<span>Guide</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
+											
+											<li>
+												<a href="overview.html" title="Overview">Overview</a>
+											</li>
 											
 											<li>
 												<a href="installation.html" title="Installation">Installation</a>
 											</li>
 											
 											<li>
-												<a href="start-with-nodeatlas.html" title="Get Started">Get Started</a>
+												<a href="get-started.html" title="Hello World!">Hello World!</a>
+											</li>
+											
+											<li>
+												<a href="view-part.html" title="View Part">View Part</a>
+											</li>
+											
+											<li>
+												<a href="controller-part.html" title="Controller Part">Controller Part</a>
+											</li>
+											
+											<li>
+												<a href="advanced-part.html" title="Advanced Part">Advanced Part</a>
 											</li>
 											
 										</ul>
@@ -256,23 +272,13 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="view-and-template-part.html" title="View and Template">View and Template</a> 
 										
-									</li>
-									
-									<li>
-										<a href="controller-and-model-part.html" title="Controller and Model">Controller and Model</a> 
-										
-									</li>
-									
-									<li>
-										<a href="more-features.html" title="Route and More">Route and More</a> 
-										
+										<span>Documentation</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
 											
 											<li>
-												<a href="webconfigs-anatomy.html" title="Webconfig">Webconfig</a>
+												<a href="webconfig-s-anatomy.html" title="Webconfig">Webconfig</a>
 											</li>
 											
 											<li>
@@ -282,6 +288,16 @@ website.init({
 											<li>
 												<a href="cli-running-commands.html" title="CLI">CLI</a>
 											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Environment</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
 											
 											<li>
 												<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
@@ -300,7 +316,30 @@ website.init({
 									</li>
 									
 									<li>
-										<a href="more-about-nodeatlas.html" title="And others?">And others?</a> 
+										
+										<span>Community</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="https://gitter.im/NodeAtlas/Help" title="Gitter Chat">Gitter Chat</a>
+											</li>
+											
+											<li>
+												<a href="https://github.com/NodeAtlas" title="GitHub Repository">GitHub Repository</a>
+											</li>
+											
+											<li>
+												<a href="more-about-nodeatlas.html" title="Alternatives">Alternatives</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
 										
 									</li>
 									
@@ -342,7 +381,7 @@ website.init({
 <li>then let your customer edit website itself with <a href="https://github.com/Haeresis/EditAtlas">EditAtlas</a></li>
 <li>then create plugins,</li>
 <li>then...</li>
-</ul><h3 id="and-what-about-others-javascript-frameworks">And what about others JavaScript frameworks?</h3><p>In opposition to others client-side JavaScript frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexable and W3C compliant, that means each page is constructed by HTTP response and after by asynchronous (AJAX, Websocket...) mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript frameworks that only use <a href="https://nodejs.org/en/">Node.js</a> for use after <a href="https://www.npmjs.com/">npm</a>, <a href="http://jspm.io/">jspm</a>, <a href="http://gulpjs.com/">gulp</a>, etc. So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituent to PHP, Java or C# server-side. In the same way as <a href="https://www.meteor.com/">Meteor</a>, NodeAtlas allow you to set your working environment and you have not need of <a href="http://gulpjs.com/">gulp</a> but by an opposition of <a href="https://www.meteor.com/">Meteor</a>, the <code>NA</code> object is not provided client-side by default. It's your responsibility to spread server-side mechanism to client-side.</p><p>To comparate NodeAtlas with others JavaScript Server-side library / framework / API, <a href="more-about-nodeatlas.html#nodeatlas-vs-others">you could check this grid</a>.</p><h3 id="examples-of-websites-with-nodeatlas">Examples of websites with NodeAtlas</h3><p>You'll find a list of GitHub repositories provided by NodeAtlas community to analyze and understand how NodeAtlas works:</p><ul>
+</ul><h3 id="others-frameworks">Others Frameworks?</h3><p>In opposition to others client-side JavaScript frameworks like Vue, Angular or React, NodeAtlas run server-side and provide some real URLs by HTTP response. Websites are indexable and W3C compliant, that means each page is constructed by HTTP response and after by asynchronous (AJAX, Websocket...) mechanisms. So, NodeAtlas is not an alternative to others client-side JavaScript frameworks that only use <a href="https://nodejs.org/en/">Node.js</a> for use after <a href="https://www.npmjs.com/">npm</a>, <a href="http://jspm.io/">jspm</a>, <a href="http://gulpjs.com/">gulp</a>, etc. So, NodeAtlas is same as Sails or Meteor. And that means NodeAtlas is a substituent to PHP, Java or C# server-side. In the same way as <a href="https://www.meteor.com/">Meteor</a>, NodeAtlas allow you to set your working environment and you have not need of <a href="http://gulpjs.com/">gulp</a> but by an opposition of <a href="https://www.meteor.com/">Meteor</a>, the <code>NA</code> object is not provided client-side by default. It's your responsibility to spread server-side mechanism to client-side.</p><p>To comparate NodeAtlas with others JavaScript Server-side library / framework / API, <a href="more-about-nodeatlas.html#nodeatlas-vs-others">you could check this grid</a>.</p><h3 id="examples-of-creation">Examples of creation</h3><p>You'll find a list of GitHub repositories provided by NodeAtlas community to analyze and understand how NodeAtlas works:</p><ul>
 <li><a href="https://github.com/NodeAtlas">All examples provided by NodeAtlas GitHub Communauty</a>.</li>
 </ul><h3 id="documentation">Documentation</h3><p>In addition to this documentation, you also have access to,</p><ul>
 <li><a href="https://www.npmjs.com/package/node-atlas">tl;dr</a>,</li>
@@ -361,7 +400,7 @@ website.init({
 </ol><p>Please note that modifications should follow these coding guidelines:</p><ul>
 <li><a href="http://www.sonarqube.org/">Pass Sonarqube JS with rank A</a> : Bugs, Vulnerabilities, and Debt Ratio.</li>
 </ul><p>Thank you for helping out!</p><div><div class="after">
-							<a href="installing.html">Installing ►</a>
+							<a href="installation.html">Installation ►</a>
 						</div></div>
 				</div>
 			</div>

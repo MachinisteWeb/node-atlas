@@ -1,0 +1,2001 @@
+<!DOCTYPE html><html lang="en-us"><head>
+		<meta charset="utf-8">
+		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
+
+		<base href="">
+
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+		<meta name="description" content="Create websites with server-side JavaScript easily!">
+
+		<meta name="og:title" content="NodeAtlas —The Progressive Server-side JavaScript Framework—">
+		<meta name="og:description" content="Create websites with server-side JavaScript easily!">
+		<meta name="og:url" content="https://node-atlas.js.org">
+		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
+		<meta name="og:locale" content="en-us">
+		<meta name="og:type" content="website">
+		<meta name="og:updated_time" content="1506952108793">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/english/" data-subpath="/english" style="background-image: url('media/images/min/main-background.jpg');">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>No JavaScript enabled.</p>
+				</div>
+			</noscript>
+			<div class="background"></div>
+			<div class="language cmpt">
+				<div class="navigation--lang">
+					<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
+				</div>
+			</div>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--information">
+						<div class="header--information--github">
+							<a class="header--information--donate" href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg" alt="Faites un don" data-canonical-src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg"></a>
+							<a class="header--information--follow github-button" href="https://github.com/Haeresis" data-count-href="/Haeresis/followers" data-count-api="/users/Haeresis#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @Haeresis on GitHub">Follow</a>
+						</div>
+						<div class="header--information--npm">
+							<a class="header--information--package" href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM" data-canonical-src="https://badge.fury.io/js/node-atlas.svg"></a>
+							<a class="header--information--star github-button" href="https://github.com/NodeAtlas/node-atlas" data-icon="octicon-star" data-count-href="/NodeAtlas/node-atlas/stargazers" data-count-api="/repos/NodeAtlas/node-atlas#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star NodeAtlas/node-atlas on GitHub">Star</a>
+						</div>
+					</div>
+					<div class="header--background"></div>
+					<div class="header--title">
+						<h1>
+							<img class="header--title--node" src="media/images/min/ode.png" alt="Node">
+							<img class="header--title--atlas" src="media/images/min/tlas.png" alt="Atlas">
+							<img class="header--title--trans" src="media/images/min/transparent.png" alt="NodeAtlas">
+						</h1>
+					</div>
+					<div class="header--abstract">
+						<p>The Progressive Server-side JavaScript Framework</p>
+					</div>
+					<div class="header--main">
+						<ul>
+							<li>
+								<div class="header--main--first">
+									<h2><strong>Simple</strong> <span>set-up</span></h2>
+									<p>You know <strong>HTML &amp; CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
+									<p class="small">Quickly create multilingual websites effortlessly with simple routes, views or variations.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--second">
+									<h2><strong>Scalable</strong> <span>website</span></h2>
+									<p>JavaScript client-side <strong>Expert</strong>?<br>Ready to embrace <strong>Node.js</strong>?</p>
+									<p class="small">Gradually improve your base as you need by using controllers, models or modules.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--third">
+									<h2><strong>Agnostic</strong> <span>client side</span></h2>
+									<p>Already your <strong>Front-end</strong> habits?<br>You use <strong>Data Binding</strong>?</p>
+									<p class="small">From Vanilla to jQuery and going through Vue, Angular or React: use your favorite tools!</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+<div class="popup cmpt">
+	<aside class="popup--inner">
+		<div class="popup--versus"><del class="close">Close</del><span class="fa fa-bolt" aria-hidden="true"></span><ins class="versus">Versus</ins></div>
+		<div class="popup--nodeatlas"></div>
+		<div class="popup--challenger"></div>
+	</aside>
+</div>
+			<aside class="download cmpt">
+				<div class="download--inner">
+					<div class="download--install">
+						<div class="download--cli is-active">
+							<h2>CLI Usage</h2>
+							<div class="download--cli--inner">
+								<div class="download--cli--step1">
+									<h3>Install NodeAtlas</h3>
+									<pre>$ npm install -g node-atlas</pre>
+								</div>
+								<div class="download--cli--step2">
+									<h3>Create test website</h3>
+									<pre>$ node-atlas --create</pre>
+								</div>
+								<div class="download--cli--step3">
+									<h3>Run website</h3>
+									<pre>$ node-atlas --browse</pre>
+								</div>
+							</div>
+						</div>
+						<div class="download--api">
+							<h2>API Usage</h2>
+							<div class="download--api--inner">
+								<div class="download--api--step1">
+									<h3>Install NodeAtlas</h3>
+									<pre>$ npm install node-atlas</pre>
+								</div>
+								<div class="download--api--step2">
+									<h3>Create a script</h3>
+									<pre><span>server.js</span>var NA = require("node-atlas"),
+    website = NA();
+website.init({
+    "create": "hello-world"
+}).created(function () {
+    website.run({
+        "browse": true
+    });
+}).start();</pre>
+								</div>
+								<div class="download--api--step3">
+									<h3>Run website</h3>
+									<pre>$ node server.js</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--clone">
+						<div class="download--version">
+							<h2>Download</h2>
+							<div class="download--version--inner">
+								<div class="download--version--step1">
+									<h3>v2.0.0-beta52</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
+								</div>
+								<div class="download--version--step2">
+									<h3>Clone</h3>
+									<p><input type="text" name="clone" data-instruction="Copy to clipboard: Ctrl+C, Enter" class="download--clone--text" value="https://github.com/NodeAtlas/node-atlas.git"><button><span class="fa fa-clipboard" aria-hidden="true"></span></button></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--battle">
+						<div class="download--slide">
+							<h2>Versus Battles</h2>
+							<div class="download--slide--inner">
+								<div class="download--slide--step1">
+									<img src="media/images/battles/node-atlas.png" alt="NodeAtlas API">
+								</div>
+								<div class="download--slide--step2">
+									VS
+								</div>
+								<div class="download--slide--step3">
+									<img src="media/images/battles/expressjs.png" alt="Challenger">
+								</div>
+								<div class="download--slide--step4">
+									<span class="fa fa-refresh" aria-hidden="true">
+								</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="download--info">
+						<div class="download--tuto is-active">
+							<h2>Tutorials</h2>
+							<div class="download--tuto--inner">
+								<div class="download--tuto--step1">
+									<a href="overview.html#overview"><span>Learn</span> <i class="fa fa-book" aria-hidden="true"></i> from step by step guide</a>
+								</div>
+								<div class="download--tuto--step2">
+									<span>or</span>
+								</div>
+								<div class="download--tuto--step3">
+									<div class="download--tuto--step3--first">
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Create</span> <i class="fa fa-html5" aria-hidden="true"></i> e.g. International Websites (Fr)</a>
+									</div>
+									<div class="download--tuto--step3--second">
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Manage</span> <i class="fa fa-copy" aria-hidden="true"></i> e.g. Serverless HTML Assets (Fr)</a>
+									</div>
+									<div class="download--tuto--step3--third">
+										<a href="https://github.com/NodeAtlas"><span>Develop</span> <i class="fa fa-database" aria-hidden="true"></i> e.g. Real-time Web Applications</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="download--about">
+							<h2>Overview</h2>
+							<div class="download--about--inner">
+								<div class="download--about--step1">
+									NodeAtlas is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy component-based and/or service-oriented websites in order to create great things with standards compliance!
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<nav class="navigation cmpt">
+				<div class="navigation--outer">
+					<div class="navigation--start"><button class="button">Get Started</button></div>
+					<div class="navigation--documentation"><button class="button">Documentation</button></div>
+				</div>
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
+					</div>
+					<div class="navigation--home">
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
+					</div>
+					<div class="navigation--menu">
+						<div class="navigation--menu--toggle">
+							<span class="top"></span>
+							<span class="middle"></span>
+							<span class="bottom"></span>
+						</div>
+						<div class="navigation--menu--list">
+							<div class="navigation--menu--list--inner">
+								<h2>Menu</h2>
+								<ul>
+									
+									<li>
+										
+										<span>Guide</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="overview.html" title="Overview">Overview</a>
+											</li>
+											
+											<li>
+												<a href="installation.html" title="Installation">Installation</a>
+											</li>
+											
+											<li>
+												<a href="get-started.html" title="Hello World!">Hello World!</a>
+											</li>
+											
+											<li>
+												<a href="view-part.html" title="View Part">View Part</a>
+											</li>
+											
+											<li>
+												<a href="controller-part.html" title="Controller Part">Controller Part</a>
+											</li>
+											
+											<li>
+												<a href="advanced-part.html" title="Advanced Part">Advanced Part</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Documentation</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="webconfig-s-anatomy.html" title="Webconfig">Webconfig</a>
+											</li>
+											
+											<li>
+												<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
+											</li>
+											
+											<li>
+												<a href="cli-running-commands.html" title="CLI">CLI</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Environment</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
+											</li>
+											
+											<li>
+												<a href="development-environment.html" title="Development">Development</a>
+											</li>
+											
+											<li>
+												<a href="production-environment.html" title="Production">Production</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Community</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="https://gitter.im/NodeAtlas/Help" title="Gitter Chat">Gitter Chat</a>
+											</li>
+											
+											<li>
+												<a href="https://github.com/NodeAtlas" title="GitHub Repository">GitHub Repository</a>
+											</li>
+											
+											<li>
+												<a href="more-about-nodeatlas.html" title="Alternatives">Alternatives</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
+										
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
+				<div class="content--inner">
+					<h2 id="advanced-part">Advanced Part</h2><p>NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.</p><h3 id="manage-routing-url-rewriting">Manage Routing (URL Rewriting)</h3><p>Although you can configure static URLs, you can also set of dynamic URLs!</p><h4 id="parameters">Parameters</h4><p>It is possible to get some parameters from URL to display a different content depending of slugs.</p><p>With the following configuration:</p><pre><code class="lang-json">{
+    "routes": {
+        "/list-of-members/:member/:action/": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members/:member/:action": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members/:member/": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members/:member": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members/": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/list-of-members": {
+            "view": "members.htm",
+            "controller": "members.js"
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>you can access to:</p><ul>
+<li><em><a href="http://localhost/">http://localhost/</a></em></li>
+<li><em><a href="http://localhost/list-of-members">http://localhost/list-of-members</a></em></li>
+<li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/toto/">http://localhost/list-of-members/toto/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/bob-eponge99">http://localhost/list-of-members/bob-eponge99</a></em></li>
+<li><em><a href="http://localhost/list-of-members/node-atlas/show/">http://localhost/list-of-members/node-atlas/show/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/etc/lolol">http://localhost/list-of-members/etc/lolol</a></em></li>
+<li><em><a href="http://localhost/list-of-members/?query=test">http://localhost/list-of-members/?query=test</a></em></li>
+<li><em><a href="http://localhost/list-of-members/etc?query=test">http://localhost/list-of-members/etc?query=test</a></em> (in POST with <code>test=This+is+a+test</code>)</li>
+</ul><p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in <code>changeVariations</code> (common and specific).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals, request, response) {
+
+    console.log("param request:", request.params.member);
+    // $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+    console.log("param locals:", locals.params.member);
+    // $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+
+    console.log("param request", request.params.action);
+    // $ undefined, 'show' or 'lolol'.
+    console.log("param locals", locals.params.action);
+    // $ undefined, 'show' or 'lolol'.
+
+    console.log("query request", request.query.example);
+    // $ undefined or 'test'
+    console.log("query locals", locals.query.example);
+    // $ undefined or 'test'
+
+    console.log("body request", request.body.test);
+    // $ undefined or 'This is a test'.
+    console.log("body locals", locals.body.test);
+    // $ undefined or 'This is a test'.
+
+    next();
+};
+</code></pre><h3 id="advanced-parameters">Advanced Parameters</h3><p>We can see which we use a same config for three routes in previous example. You could also use regular expressions to define that is variable into your URL or define what are the valide parameters in you URL. This system is less complexe than real RegExp because a lot of char does not exist in url so, for exemple this char <code>/</code> not needed to be escape.</p><p>With the following configuration:</p><pre><code class="lang-json">{
+    "routes": {
+        "/list-of-members/?(:member([-a-zA-Z0-9]+)/?(:action(show|edit)/?)?)?": {
+            "view": "members.htm"
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>you can access to:</p><ul>
+<li><em><a href="http://localhost/">http://localhost/</a></em></li>
+<li><em><a href="http://localhost/list-of-members">http://localhost/list-of-members</a></em></li>
+<li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/toto/">http://localhost/list-of-members/toto/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/bob-eponge99">http://localhost/list-of-members/bob-eponge99</a></em></li>
+<li><em><a href="http://localhost/list-of-members/node-atlas/show/">http://localhost/list-of-members/node-atlas/show/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/?example=test">http://localhost/list-of-members/?example=test</a></em></li>
+<li><em><a href="http://localhost/list-of-members/etc?example=test">http://localhost/list-of-members/etc?example=test</a></em> (in POST with <code>test=This+is+a+test</code>)</li>
+</ul><p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in a view.</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+  &amp;lt;head&gt;
+    &amp;lt;meta charset="utf-8"&gt;
+    &amp;lt;title&gt;URL Rewriting Test&amp;lt;/title&gt;
+  &amp;lt;/head&gt;
+  &amp;lt;body&gt;
+    Member: &amp;lt;strong&gt;&amp;lt;?- params.member ?&gt;&amp;lt;/strong&gt;&amp;lt;br&gt;
+    Action: &amp;lt;strong&gt;&amp;lt;?- params.action ?&gt;&amp;lt;/strong&gt;&amp;lt;br&gt;
+    Example: &amp;lt;strong&gt;&amp;lt;?- query.example ?&gt;&amp;lt;/strong&gt;&amp;lt;br&gt;
+    Test: &amp;lt;strong&gt;&amp;lt;?- body.test ?&gt;&amp;lt;/strong&gt;
+  &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p>you cannot access to:</p><ul>
+<li><em><a href="http://localhost/list-of-members/etc/lolol">http://localhost/list-of-members/etc/lolol</a></em></li>
+<li><em><a href="http://localhost/liste-des-membres/`toto_16`/show/">http://localhost/liste-des-membres/`toto_16`/show/</a></em></li>
+<li><em><a href="http://localhost/liste-des-membres/toto/`supprimer`/">http://localhost/liste-des-membres/toto/`supprimer`/</a></em></li>
+</ul><h4 id="regular-expressions">Regular Expressions</h4><p>You can also enable regular expressions to a specific path with <code>regExp</code>. If it is <code>true</code>, the previous profile no longer works and you pass in Regular Expression mode. If <code>regExp</code> is a string, it acts as a flag (g, i, m or y).</p><p>See the following configuration:</p><pre><code class="lang-js">{
+    "routes": {
+        "/list-of-members/([-a-z0-9]+)/?": {
+            "view": "members.htm",
+            "regExp": "i"
+        },
+        "/list-of-members/?": {
+            "view": "members.htm",
+            "regExp": true
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>you can access:</p><ul>
+<li><em><a href="http://localhost/">http://localhost/</a></em></li>
+<li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em> <em>(ou <em><a href="https://localhost/list-of-members">https://localhost/list-of-members</a></em>)</em></li>
+<li><em><a href="http://localhost/list-of-members/toto/">http://localhost/list-of-members/toto/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/toto">https://localhost/list-of-members/toto</a></em>)</em></li>
+<li><em><a href="http://localhost/list-of-members/bob-eponge99/">http://localhost/list-of-members/bob-eponge99/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/bob-eponge99">https://localhost/list-of-members/bob-eponge99</a></em>)</em></li>
+<li><em><a href="http://localhost/list-of-members/node-atlas/">http://localhost/list-of-members/node-atlas/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/node-atlas">https://localhost/list-of-members/node-atlas</a></em>)</em></li>
+<li><em><a href="http://localhost/list-of-members/etc/">http://localhost/list-of-members/etc/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/etc">https://localhost/list-of-members/etc</a></em>)</em></li>
+</ul><p>and retrieve the <code>([-a-z0-9] +) value in the</code> <code>changeVariations</code> (common and specific).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+
+    if (locals.params &amp;&amp; locals.params[0]) { locals.params.member = locals.params[0]; }
+    // locals.params[1] for second match, etc...
+
+    console.log(locals.params.member);
+    // $ 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
+
+    next();
+}
+</code></pre><p>The rules for creating dynamic url with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="manage-a-page-not-found">Manage a Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all URLs, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
+<li>Prepare a 404 page.</li>
+<li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
+</ol><p>See the example below:</p><pre><code class="lang-json">{
+    "pageNotFound": "/not-found-page/",
+    "routes": {
+        "/list-of-members/": {
+            "view": "members.htm"
+        },
+        "/": {
+            "view": "index.htm"
+        },
+        "/not-found-page/": {
+            "view": "error.htm",
+            "statusCode": 404
+        }
+    }
+}
+</code></pre><p>you can access to:</p><ul>
+<li><em><a href="http://localhost/this-page-do-not-exist.html">http://localhost/this-page-do-not-exist.html</a></em></li>
+<li><em><a href="http://localhost/this/page/either/">http://localhost/this/page/either/</a></em></li>
+<li><em><a href="http://localhost/etc">http://localhost/etc</a></em></li>
+</ul><h4 id="localized-error-page">Localized Error Page</h4><p>For this, just create a new route with <code>*</code> at the end with the languageCode.</p><p>See below :</p><pre><code class="lang-json">{
+    "pageNotFound": "/not-found-page/",
+    "languageCode": "en-gb",
+    "routes": {
+        "/list-of-members/": {
+            "view": "members.htm",
+            "variation": "members.json"
+        },
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        },
+        "/not-found-page/": {
+            "view": "error.htm",
+            "variation": "error.json",
+            "statusCode": 404
+        },
+        "/francais/liste-des-membres/": {
+            "view": "members.htm",
+            "languageCode": "fr-fr",
+            "variation": "members.json"
+        },
+        "/francais/": {
+            "view": "index.htm",
+            "languageCode": "fr-fr",
+            "variation": "index.json"
+        },
+        "/francais/*": {
+            "view": "error.htm",
+            "languageCode": "fr-fr",
+            "variation": "error.json",
+            "statusCode": 404
+        }
+    }
+}
+</code></pre><h3 id="inject-routes-dynamically">Inject Routes Dynamically</h3><p><code>setRoutes</code> allows us to dynamically inject routes. However, the route injection add route at the end of <code>NA.webconfig.routes</code> because <code>NA.webconfig.routes</code> is an object. There are no possibility to ordonate routes, but this is a problem because routes path are resolved in order of injection.</p><p>We will resolved that with new way to set routes from <code>routes: { &amp;lt;key&gt;: { ... } }</code> to <code>routes: [{ "key": &amp;lt;key&gt;, ... }]</code>.</p><p>This is all files for example:</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ views/
+│  ├─ index.htm
+│  ├─ content.htm
+│  └─ error.htm
+└─ webconfig.json
+</code></pre><p>With the <code>webconfig.json</code> originaly like this <code>routes: &amp;lt;Object&gt;</code> :</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "routes": {
+        "/doc/index.html": {
+            "view": "index.htm"
+        },
+        "/doc/*": {
+            "view": "error.htm",
+            "statusCode": 404
+        }
+    }
+}
+</code></pre><p>and transformed like this <code>routes: &amp;lt;Array&gt;</code> :</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "routes": [{
+        "url": "/doc/index.html
+        "view": "index.htm"
+    }, {
+        "url": "/doc/*",
+        "view": "error.htm",
+        "statusCode": 404
+    }]
+}
+</code></pre><p>With the "common.js" file, it's now possible to inject routes at the position we want. We will see an example with first position.</p><pre><code class="lang-js">// This code is executing while route are added.
+// This code will be executed when NodeAtlas starting.
+exports.setRoutes = function (next) {
+
+    // We use instance of NodeAtlas.
+    var NA = this,
+
+        // And we keep routes from NodeAtlas webconfig...
+        route = NA.webconfig.routes;
+
+    // ...to add "/content.html" route in first place.
+    route.unshift({
+        "url": "/doc/content.html",
+        "view": "content.htm"
+    });
+
+    // We update modification here.
+    next();
+};
+</code></pre><p>In this way, address <code>http://localhost/doc/content.html</code> will return the <code>content.htm</code> view and not the <code>error.htm</code> view with 404.</p><h3 id="manage-redirects">Manage redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to a url you must use the <code>redirect</code> parameter.</p><p><em>Note : if you don't set <code>statusCode</code>, no redirect will be executed. The <code>statusCode</code> is mandatory for redirection.</em></p><h4 id="static">Static</h4><p>See the example below:</p><pre><code class="lang-json">{
+    "routes": {
+        "/list-of-members/": {
+            "view": "members.htm"
+        },
+        "/list-of-members": {
+            "redirect": "/list-of-members/",
+            "statusCode": 301
+        },
+        "/go-to-node-atlas/": {
+            "redirect": "https://node-atlas.js.org/",
+            "statusCode": 302
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>You will be redirected:</p><ul>
+<li>to <code>http://localhost/list-of-members/</code> when you access <code>http://localhost/list-of-members</code> with a header <em>permanent redirect</em>.</li>
+<li>to <code>https://node-atlas.js.org/</code> when you access <code>http://localhost/go-to-node-atlas/</code> with a header <em>temporary redirect</em>.</li>
+</ul><h4 id="dynamic">Dynamic</h4><p>See the example below:</p><pre><code class="lang-json">{
+    "routes": {
+        "/list-of-members/:member/": {
+            "view": "members.htm"
+        },
+        "/list-of-members/:member": {
+            "redirect": "/list-of-members/:member/",
+            "statusCode": 301
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><h4 id="with-regular-expressions">With regular expressions</h4><p>See the example below:</p><pre><code class="lang-js">{
+    "routes": {
+        "/membres/([-a-z0-9]+)/": {
+            "view": "members.htm",
+            "regExp": true
+        },
+        "/list-of-members/([-a-z0-9]+)/": {
+            "redirect": "/membres/$0/",
+            "statusCode": 301,
+            "regExp": true
+        },
+        "/list-of-members/": {
+            "view": "members.htm"
+        },
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><p>For the second <em>match</em> use $1, the third $2, etc.</p><h3 id="manage-headers">Manage Headers</h3><p>By défault, sent Headers by NodeAtlas are followings: <code>Content-Type:text/html; charset=utf-8</code> with a 200 <code>statusCode</code>.</p><p>It's possible to modify this values for a specific route (for local API for example).</p><pre><code class="lang-json">{
+    "mimeType": "application/json",
+    "charset": "utf-16",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "mimeType": "text/html"
+        },
+        "/api/articles": {
+            "view": "display-json.htm",
+            "controller": "blog/list-of-articles.js",
+            "charset": "utf-8",
+            "statusCode": 203
+        }
+    }
+}
+</code></pre><p>It's also possible to modify all Headers values, this erase all shortcuts before (except the <code>statusCode</code>). Set a value to false remove this header previously setted.</p><pre><code class="lang-json">{
+    "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
+    },
+    "routes": {
+        "/api/articles": {
+            "view": "display-json.htm",
+            "controller": "blog/list-of-articles.js",
+            "statusCode": 203,
+            "headers": {
+                "Access-Control-Allow-Origin": false
+            }
+        }
+    }
+}
+</code></pre><h3 id="dynamic-configuration">Dynamic Configuration</h3><p>In replacement of static <code>.json</code> config files, you can use dynamic <code>.js</code> config files. In this case, your <code>.js</code> file can provide in <code>module.exports</code> a valide JSON file.</p><p>And it is possible to replace this six following files:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+    "languageCode": "fr-fr",
+    "statics": "statics.fr-fr.json"
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p><em>webconfig.prod.json</em></p><pre><code class="lang-json">{
+    "cache": true,
+    "languageCode": "fr-fr",
+    "statics": "statics.fr-fr.json"
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p><em>webconfig.en-us.json</em></p><pre><code class="lang-json">{
+    "languageCode": "fr-fr",
+    "statics": "statics.fr-fr.json"
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p><em>webconfig.en-us.prod.json</em></p><pre><code class="lang-json">{
+    "cache": true,
+    "languageCode": "en-us",
+    "statics": "statics.en-us.json"
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p><em>statics.fr-fr.json</em></p><pre><code class="lang-json">{
+    "/variations/": "variations/fr-fr/",
+}
+</code></pre><p><em>statics.en-us.json</em></p><pre><code class="lang-json">{
+    "/variations/": "variations/en-us/",
+}
+</code></pre><p>by only this two following files:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">module.export = (function () {
+    var webconfig = {
+        "cache": false,
+        "languageCode": "fr-fr",
+        "statics": "statics.json"
+        "routes": {
+            "/": "index.htm"
+        }
+    };
+
+    if (process.env.NODE_ENV === 'production') {
+        webconfig["cache"] = true;
+    }
+
+    if (process.env.LANG) {
+        webconfig["languageCode"] = process.env.LANG;
+    }
+
+    return webconfig;
+}());
+</code></pre><p><em>statics.json</em></p><pre><code class="lang-json">module.export = (function () {
+    var NA = this.NA,
+        languageCode = NA.webconfig.languageCode
+
+    return {
+        "/variations/": "variations/" + languageCode + "/",
+    };
+}());
+</code></pre><p>with the following supposed set of environment variables on the four following environments:</p><p>Local FR</p><pre><code class="lang-bash">NODE_ENV=DEVELOPMENT
+LANG=fr-fr
+</code></pre><p>Local EN</p><pre><code class="lang-bash">NODE_ENV=DEVELOPMENT
+LANG=en-us
+</code></pre><p>Prod FR</p><pre><code class="lang-bash">NODE_ENV=PRODUCTION
+LANG=fr-fr
+</code></pre><p>Prod EN</p><pre><code class="lang-bash">NODE_ENV=PRODUCTION
+LANG=en-us
+</code></pre><h3 id="run-website-with-https">Run Website with HTTPs</h3><p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol.</p><p>Just use the following configuration:</p><pre><code class="lang-json">{
+    "httpSecure": true,
+    "httpSecureKeyRelativePath": "security/server.key",
+    "httpSecureCertificateRelativePath": "security/server.crt",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>Alternatively , if your two Key and Certificate files have the same name, use this configuration:</p><pre><code class="lang-json">{
+    "httpSecure": "security/server",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> for get a "https" like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. But the server will not running in HTTPs and you will validate certificate by your own other way (with a server proxy for example).</p><pre><code class="lang-json">{
+    "httpSecure": true,
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : in production, if you use a proxy for redirect request/response, don't forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="minify-css-js">Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p><h4 id="creating-bundles">Creating Bundles</h4><p>With the following configuration:</p><pre><code class="lang-json">{
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and the following set of file:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascripts/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>you will get the following new files:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  ├─ common-min1160.css
+│  │  └─ common.min.css     ⤆ new file
+│  └─ javascripts/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     ├─ common.js
+│     ├─ boot.min.js        ⤆ new file
+│     ├─ framework.min.js   ⤆ new file
+│     └─ common.min.js      ⤆ new file
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><h4 id="bundles-in-a-shared-file">Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascripts/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ views/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>could be the following set of file</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascripts/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ views/
+│  └─ index.htm
+├─ bundles.json              ⤆ new file
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "bundles": "bundles.json",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "bundles": "bundles.json",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and <code>bundles.json</code></p><pre><code class="lang-json">{
+    "javascripts": {
+        "javascripts/boot.min.js": [
+            "javascripts/modernizr.js",
+            "javascripts/yepnot.js",
+            "javascripts/html5Shiv.js"
+        ],
+        "javascripts/framework.min.js": [
+            "javascripts/jquery.js",
+            "javascripts/jquery-ui.js",
+            "javascripts/prettify.js",
+            "javascripts/prettify/run_prettify.js"
+        ],
+        "javascripts/common.min.js": [
+            "javascripts/components/extended-format-date.js",
+            "javascripts/common.js"
+        ]
+    },
+    "stylesheets": {
+        "stylesheets/common.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/common-min780.css",
+            "stylesheets/common-min1160.css"
+        ]
+    }
+}
+</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-bundles">Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>"cssBundlingEnable": false</code> et <code>"jsBundlingEnable": false</code> for each type of Bundle.</p><pre><code class="lang-json">{
+    "cssBundlingEnable": false,
+    "jsBundlingEnable": false,
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : if your bundle is in shared file, you could desactivated it also without the <code>"bundles": "bundles.json"</code>. Just remove it.</em></p><h4 id="re-generate-bundles-before-each-page-response">Re-generate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>"cssBundlingBeforeResponse": false</code> et <code>"jsBundlingBeforeResponse": false</code> for each type of Bundle.</p><pre><code class="lang-json">{
+    "cssBundlingBeforeResponse": false,
+    "jsBundlingBeforeResponse": false,
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p><h4 id="version-into-generate-file-names">Version into generate file names</h4><p>In order to force the browser to force reload new version of files in cache, it's an interesting feature to be capable to change the name file for each version. And the <code>{version}</code> pattern will be replaced by the version number of your website (<code>0.0.0</code> by default).</p><p>So, if you have a <code>package.json</code> or a <code>webconfig.json</code> valid file with a version number into the <code>version</code> property, this number will replace the <code>{version}</code> pattern. With the following webconfig:</p><p><em>webconfig</em></p><pre><code class="lang-js">{
+    "version": "1.0.0",
+    "bundles": "bundles.json"
+    "routes": "routes.json"
+}
+</code></pre><p>and the following bundles:</p><p><em>bundles.json</em></p><pre><code class="lang-json">{
+    "javascripts": {
+        "javascripts/boot.{version}.min.js": [
+            "javascripts/modernizr.js",
+            "javascripts/yepnot.js",
+            "javascripts/html5Shiv.js"
+        ]
+    },
+    "stylesheets": {
+        "stylesheets/common.{version}.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/common-min780.css",
+            "stylesheets/common-min1160.css"
+        ]
+    }
+}
+</code></pre><p>you will get files <code>assets/javascripts/boot.1.0.0.min.js</code> and <code>assets/javascripts/common.1.0.0.min.css</code>.</p><p>And you will be able to request them as following:</p><p><em>views/*.htm</em></p><pre><code class="lang-htm">&amp;lt;!-- ... --&gt;
+
+&amp;lt;link rel="stylesheet" href="stylesheets/common.&amp;lt;?= webconfig.version ?&gt;.min.css"&gt;
+
+&amp;lt;!-- ... --&gt;
+
+&amp;lt;script src="javascripts/boot.&amp;lt;?= webconfig.version ?&gt;.min.js"&gt;&amp;lt;/script&gt;
+
+&amp;lt;!-- ... --&gt;
+</code></pre><h4 id="bundles-with-sockets">Bundles with Sockets</h4><p>It's possible to minify file defined in <code>NA.webconfig.socketClientFile</code> even if it's not a real prysical file. Just add it into bundles of your choice.</p><p>In the following example, virtual <code>/node-atlas/socket.io.js</code> file will be added to bundles with the correct client/server sockets configuration.</p><pre><code class="lang-json">{
+    "bundles": {
+        "javascripts": {
+            "javascripts/common.min.js": [
+                "javascripts/socket.io.js",
+                "node-atlas/socket.io.js",
+                "javascripts/common.js"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><h3 id="css-generation-with-less">CSS generation with Less</h3><p>You can use the preprocessor Less to create your CSS. The operation is as follows: whenever a CSS request is made, if a Less equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p><p>With the following structure:</p><pre><code>├─ assets/
+│  └─ stylesheets
+│     └─ common.less
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>and the following webconfig:</p><pre><code class="lang-json">{
+    "less": true,
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>and the following content in:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="UTF-8"&gt;
+        &amp;lt;title&gt;Less Test&amp;lt;/title&gt;
+        &amp;lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;p&gt;This line is red.&amp;lt;/p&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
+    color: #f00;
+}
+</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.less</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>less.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    "less": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p>You can also generate CSS files already minify with:</p><pre><code class="lang-json">    "less": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p>Finally, you can also automaticly add vendor prefix like <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> for generated file without care about it in your sources files!</p><pre><code class="lang-json">    "less": {
+        "autoprefix": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><h4 id="compile-less-files-with-generate-">Compile Less files with <code>--generate</code></h4><p>Because of Less are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Less before minify CSS with <code>less.files</code>.</p><p>With the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "less": {
+        "files": [
+            "stylesheets/common.less",
+            "stylesheets/component-1.less",
+            "stylesheets/component-2.less",
+            "stylesheets/component-3.less"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>or with the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "less": {
+        "files": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>with <code>less.json</code> containing :</p><pre><code class="lang-js">[
+    "stylesheets/common.less",
+    "stylesheets/component-1.less",
+    "stylesheets/component-2.less",
+    "stylesheets/component-3.less"
+]
+</code></pre><p>The <code>@import</code> used by Less will be capable to walk into subdirectories : <code>styles</code>, <code>stylesheets</code> or <code>css</code>. It's possible to change that with :</p><pre><code class="lang-json">{
+    "less": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "files": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><h3 id="css-generation-with-stylus">CSS generation with Stylus</h3><p>You can use the preprocessor Stylus to create your CSS. The operation is as follows: whenever a CSS request is made, if a Stylus equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p><p>With the following structure:</p><pre><code>├─ assets/
+│  └─ stylesheets
+│     └─ common.styl
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>and the following webconfig:</p><pre><code class="lang-json">{
+    "stylus": true,
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>and the following content in:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="UTF-8"&gt;
+        &amp;lt;title&gt;Stylus Test&amp;lt;/title&gt;
+        &amp;lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;p&gt;This line is red.&amp;lt;/p&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
+    color: #f00
+</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.styl</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>stylus.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    "stylus": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p>You can also generate CSS files already minify with:</p><pre><code class="lang-json">    "stylus": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p>Finally, you can also automaticly add vendor prefix like <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> for generated file without care about it in your sources files!</p><pre><code class="lang-json">    "stylus": {
+        "autoprefix": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p><em>Note:</em> More options on <a href="https://www.npmjs.com/package/stylus">stylus documentation for module</a>.</p><h4 id="compile-stylus-files-with-generate-">Compile Stylus files with <code>--generate</code></h4><p>Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with <code>stylus.files</code>.</p><p>With the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "stylus": {
+        "files": [
+            "stylesheets/common.styl",
+            "stylesheets/component-1.styl",
+            "stylesheets/component-2.styl",
+            "stylesheets/component-3.styl"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>or with the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "stylus": {
+        "files": "stylus.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>with <code>stylus.json</code> containing :</p><pre><code class="lang-js">[
+    "stylesheets/common.styl",
+    "stylesheets/component-1.styl",
+    "stylesheets/component-2.styl",
+    "stylesheets/component-3.styl"
+]
+</code></pre><p>The <code>@import</code> used by Stylus will be capable to walk into subdirectories : <code>styles</code>, <code>stylesheets</code> or <code>css</code>. It's possible to change that with :</p><pre><code class="lang-json">{
+    "stylus": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "stylus": "stylus.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><h3 id="optimize-images-files">Optimize Images files</h3><p>You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course you can do as much as you want. The optimization files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if an Optimization exists in the Webconfig.</p><h4 id="creating-optimizations">Creating Optimizations</h4><p>With the following configuration:</p><pre><code class="lang-json">{
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and the following set of file:</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>you will get the following new files:</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        ├─ example.svg
+│        └─ optimized/       ⤆ new folder
+│           ├─ example.png   ⤆ new file
+│           ├─ example.jpg   ⤆ new file
+│           ├─ example.gif   ⤆ new file
+│           └─ example.svg   ⤆ new file
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><h4 id="create-optimizations-by-group-of-file">Create Optimizations by group of file</h4><p>For example, not define file one by one, but in group:</p><pre><code class="lang-json">{
+    "optimizations": {
+        "images": {
+            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><h4 id="add-more-options-to-optimizations">Add more options to Optimizations</h4><p>It is possible to redefine default options used for optimizations via this 4 objects:</p><pre><code class="lang-json">{
+    "optimizations": {
+        "jpg": { "progressive": false },
+        "gif": { "interlaced": false },
+        "png": { "optimizationLevel": 1 },
+        "svg": { "multipass": false },
+        "images": {
+            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>To know all options it is here:</p><ul>
+<li><a href="https://www.npmjs.com/package/imagemin-jpegtran">Jpeg Options</a></li>
+<li><a href="https://www.npmjs.com/package/imagemin-gifsicle">Gif Options</a></li>
+<li><a href="https://www.npmjs.com/package/imagemin-optipng">Png Options</a></li>
+<li><a href="https://www.npmjs.com/package/imagemin-svgo">Svg Options</a></li>
+</ul><h4 id="optimizations-in-a-shared-file">Optimizations in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ views/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>could be the following set of file</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ views/
+│  └─ index.htm
+├─ bundles.json
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "optimizations": "optimizations.json",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "optimizations": "optimizations.json",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and <code>optimizations.json</code></p><pre><code class="lang-json">{
+    "images": {
+        "media/images/example.png": "media/images/optimized/",
+        "media/images/example.jpg": "media/images/optimized/",
+        "media/images/example.gif": "media/images/optimized/",
+        "media/images/example.svg": "media/images/optimized/"
+    }
+}
+</code></pre><p><em>Note : it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-optimizations">Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>"imgOptimizationsEnable": false</code>.</p><pre><code class="lang-json">{
+    "imgOptimizationsEnable": false,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : if your optimizations is in shared file, you could desactivated it also without the <code>"optimizations": "optimizations.json"</code>. Just remove it.</em></p><h4 id="re-generate-optimizations-before-each-page-response">Re-generate Optimizations before each Page Response</h4><p>You can ask files to be regenerated before each page response with <code>"cssBundlingBeforeResponse": false</code> et <code>"jsBundlingBeforeResponse": false</code> for each type of Bundle.</p><pre><code class="lang-json">{
+    "imgOptimizationsBeforeResponse": false,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p><h3 id="css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</h3><p>When you create templates for sending email newsletters, or even simple message, you can not attach stylesheet. The only way is to write the CSS instructions in the template within the <code>style</code> markup attribute.</p><h4 id="specific-injection">Specific Injection</h4><p>With <code>injectCss</code>, simply design your template as usual via a stylesheet and NodeAtlas inject each rendering styles in the attribute <code>style</code>. It will do more than generate templates.</p><p>With for example the following configuration:</p><pre><code class="lang-json">{
+    "routes": {
+        "/": {
+            "view": "email.htm",
+            "output": "welcome.html",
+            "injectCss": "stylesheets/email.css"
+        }
+    }
+}
+</code></pre><p>and the following set of files:</p><pre><code>├─ serverless/
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ views/
+│  └─ email.htm
+└─ webconfig.json
+</code></pre><p>whose contents are :</p><p><em>stylesheets/common.css</em></p><pre><code class="lang-css">body {
+    color: #f00;
+}
+</code></pre><p><em>views/email.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="UTF-8"&gt;
+        &amp;lt;title&gt;Email&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;p&gt;This is a template email.&amp;lt;/p&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p>output will be, with the command <code>node-atlas --generate</code>, all following file:</p><pre><code>├─ serverless/
+│  └─ bienvenue.html    &amp;lt;= template email generate !
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ views/
+│  └─ email.htm
+└─ webconfig.json
+</code></pre><p>with as content for <code>serverless/welcome.html</code></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="UTF-8"&gt;
+        &amp;lt;title&gt;Email&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body style="color: #f00;"&gt;
+        &amp;lt;p&gt;This is a template email.&amp;lt;/p&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p>This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.</p><blockquote>
+<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../" --generate</code>. Result are into <code>serverless</code>.</p>
+</blockquote><h4 id="global-injection">Global Injection</h4><p>It is possible to use <code>injectCss</code> as global mechanism for all pages.</p><pre><code class="lang-json">{
+    "injectCss": "stylesheets/email.css",
+    "routes": {
+        "/welcome/": {
+            "view": "email-a.htm",
+            "output": "welcome.html"
+        },
+        "/good-bye/": {
+            "view": "email-b.htm",
+            "output": "good-bye.html"
+        }
+    }
+}
+</code></pre><p>ainsi les deux pages <code>welcome</code> et <code>good-bye</code> contiendront chacune <code>&amp;lt;body style="color: #f00;"&gt;</code>.</p><h4 id="multiple-injection">Multiple Injection</h4><p>It's possible to :</p><ul>
+<li>Attach global and specific files in same time.</li>
+<li>Attach more one CSS file by <code>injectCss</code> property.</li>
+</ul><pre><code class="lang-json">{
+    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
+    "routes": {
+        "/welcome/": {
+            "view": "email-a.htm",
+            "output": "welcome.html",
+            "injectCss": "/stylesheets/welcome.css"
+        },
+        "/good-bye/": {
+            "view": "email-b.htm",
+            "output": "good-bye.html",
+            "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
+        }
+    }
+}
+</code></pre><blockquote>
+<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../" --generate --webconfig webconfig.multiple.json</code>. Result are into <code>serverless</code>.</p>
+</blockquote><h3 id="allow-disallow-get-post-requests">Allow / Disallow GET / POST requests</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p><pre><code class="lang-json">{
+    "get": true,
+    "post": false,
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        },
+        "/list-of-members/": {
+            "view": "members.htm"
+        },
+        "/write-comment/": {
+            "view": "write-com.htm"
+        },
+        "/save-comment/": {
+            "view": "save-com.htm",
+            "get": false,
+            "post": true
+        }
+    }
+}
+</code></pre><p><em>Note : If nothing is set,</em> <code>get</code> <em>and</em> <code>post</code> <em>are set to</em> <code>true</code> <em>in  global webconfig and by route.</em></p><h3 id="allow-disallow-put-delete-requests">Allow / Disallow PUT / DELETE requests</h3><p>Fonctionnant exactement de la même manière que <code>get</code> et <code>post</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>put</code> et <code>delete</code>.</p><pre><code class="lang-json">{
+    "get": false,
+    "post": false,
+    "put": true,
+    "routes": {
+        "/read-all-entry/": {
+            "view": "display-json.htm",
+            "variation": "all-entry.json",
+            "get": true,
+            "put": false
+        },
+        "/read-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "get": true,
+            "put": false
+        },
+        "/create-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "post": true,
+            "put": false
+        },
+        "/update-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json"
+        },
+        "/delete-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "delete": true,
+            "put": false
+        }
+    }
+}
+</code></pre><p>With the configuration below, only one HTTP action is possible by route, this is a great way to create APIs REST easily with NodeAtlas.</p><h3 id="manage-cors-and-options-requests">Manage CORS and OPTIONS requests</h3><p>By default preflighted requests are not enable. You will need its, for example, to do CORS requests. Prefilghted requests are send with OPTIONS HTTP method.</p><p>To activate OPTIONS for a route, use the <code>options</code> property on a route of the webconfig. To activate OPTIONS on all routes, use in this case the property <code>options</code> in the webconfig in global.</p><pre><code class="lang-json">{
+    "options": true,
+    "routes": {
+        "/read-all-entry/": {
+            "view": "display-json.htm",
+            "variation": "all-entry.json",
+            "options": false
+        },
+        "/create-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "post": true
+        },
+        "/delete-entry/:id/": {
+            "view": "display-json.htm",
+            "variation": "entry.json",
+            "delete": true
+        }
+    }
+}
+</code></pre><p><strong>Cross-Domain Request</strong></p><p>If you want authorize a ressource on the NodeAtlas server requested by domain <code>www.domain-a.com</code> for a single page, you could do like this:</p><pre><code class="lang-json">{
+    "routes": {
+    "/api/random-quote": {
+          "controller": "get-quote.js",
+        "headers": {
+          "Access-Control-Allow-Origin": "http://www.domain-a.com"
+        }
+      }
+  }
+}
+</code></pre><p>With that, you will be able to accept for example a request from <code>Origin</code>, <code>http://www.domain-a.com</code> which is a value in <code>Access-Control-Allow-Origin</code>:</p><pre><code class="lang-bash">GET /api/random-quote HTTP/1.1
+Host: www.domain-a.com
+...
+Origin: http://www.domain-a.com
+...
+</code></pre><p><strong>Cross-Domain Request with Token</strong></p><p>If you want authorize ressources from NodeAtlas server to the request from anywhere for the <code>/api/random-quote</code> page and the page <code>/api/protected/random-quote</code> that claims an authentification token, you could do that like this:</p><pre><code class="lang-json">{
+  "mimeType": "application/json",
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Authorization"
+  },
+  "routes": {
+    "/api/random-quote": {
+      "controller": "get-quote.js"
+    },
+    "/api/protected/random-quote": {
+      "controller": "get-quote.js",
+      "middlewares": "is-authenticated.js",
+      "options": true
+    }
+  }
+}
+</code></pre><p>NodeAtlas will parse a token from external domain if this token is sended by <code>Authorization</code> headers in the request. For allows NodeAtlas to accept this request, define it into <code>Access-Control-Allow-Headers</code> with the accepted value <code>Authorization</code>. Send a token need a preflight request so it's required to set <code>options</code> to <code>true</code> to authorize HTTP Request with OPTIONS method.</p><p>Now, you will be able to accet for example the following request which send an authentification token to our server for the <code>/api/protected/random-quote</code> ressource:</p><pre><code class="lang-bash">GET /api/protected/random-quote HTTP/1.1
+Host: localhost:1337
+...
+Origin: http://localhost
+Authorization: Bearer CODE_DU_JETON
+...
+</code></pre><p><strong>Other Cross-Domain requests</strong></p><p>All headers for CORS features are accepted by the headers adding mechanism of NodeAtlas.</p><h3 id="change-settings-of-sessions">Change settings of Sessions</h3><h4 id="key-and-secret">Key and Secret</h4><p>NodeAtlas itself manages sessions stored on the server as initial settings:</p><ul>
+<li>Key : <code>nodeatlas.sid</code></li>
+<li>Secret : <code>1234567890bépo</code></li>
+</ul><p>that allow customers to stay connected through the pages to a single set of personal server side variable.</p><p>It is possible to change the default settings (and even compulsory for productions sites) with the parameters of <code>webconfig.json</code> following:</p><pre><code class="lang-json">{
+    sessionKey: "personal key",
+    sessionSecret: "personal secret"
+}
+</code></pre><p>NodeAtlas also employs a memory storage object (MemoryStore) stoques that the information in the RAM of the server.</p><h4 id="other-parameters">Other Parameters</h4><p>It is possible to change all the parameters of the sessions (except MemoryStore) using the configuration of next <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "session": {
+        "key": "personal key",
+        "secret": "personal secret",
+        "cookie": {
+            "path": '/',
+            "httpOnly": true,
+            "secure": false,
+            "maxAge": null
+        },
+        ...,
+        ...,
+        ...
+    }
+}
+</code></pre><p>The entirety of the possible configuration is located on the module documentation <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="external-storage-sessions">External Storage Sessions</h3><p>By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.</p><p>To address this concern, it should support the recording sessions via a base No SQL such as <code>Redis</code> or <code>MongoBD</code>.</p><p>You just have to use the <code>setSessions</code> function in common <code>controller</code> file.</p><h4 id="session-managed-with-redis">Session managed with Redis</h4><p>Implement the following code in the common <code>controller</code> file to store your sessions in a local Redis.</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this;
+
+    NA.modules.RedisStore = require("connect-redis");
+};
+
+exports.setSessions = function (next) {
+    var NA = this,
+        session = NA.modules.session,
+        RedisStore = NA.modules.RedisStore(session);
+
+    NA.sessionStore = new RedisStore();
+
+    next();
+};
+</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a> page.</p><h4 id="session-managed-with-mongodb">Session managed with MongoDB</h4><p>Implement the following code in <code>controllers/common.js</code> to store sessions in the database <code>sessions</code> of a local MongoDB.</p><pre><code>exports.setModules = function () {
+    var NA = this;
+
+    NA.modules.MongoStore = require("connect-mongo");
+};
+
+exports.setSessions = function (next) {
+    var NA = this,
+        session = NA.modules.session,
+        MongoStore = NA.modules.MongoStore(session);
+
+    NA.sessionStore = new MongoStore({
+        db: "sessions"
+    });
+
+    next();
+};
+</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p><h3 id="change-the-url-hostname-and-listening-port">Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <code>urlHostname</code> and <code>urlPort</code>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:</p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "httpHostname": "127.0.0.1",
+    "urlPort": 80,
+    "urlHostname": "localhost",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><h3 id="generate-urls-dynamically">Generate URLs dynamically</h3><h4 id="relative-paths-in-absolute">Relative paths in absolute</h4><p>It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong><a href="http://localhost">http://localhost</a></strong> impossible to reach when the template is displayed to address <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (because the path should be <code>../media/images/example.jpg</code>).</p><p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the URLs such as:</p><pre><code>&amp;lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
+&amp;lt;!-- ... --&gt;
+&amp;lt;img src="media/images/example.jpg" /&gt;
+&amp;lt;!-- ... --&gt;
+&amp;lt;script type="text/javascript" src="javascripts/common.js"&gt;&amp;lt;/script&gt;
+</code></pre><p>in absolute URLs with variable <code>urlBasePath</code> as below:</p><pre><code>&amp;lt;link rel="stylesheet" type="text/css" href="&amp;lt;?= urlBasePath ?&gt;stylesheets/common.css" /&gt;
+&amp;lt;!-- ... --&gt;
+&amp;lt;img src="&amp;lt;?= urlBasePath ?&gt;media/images/example.jpg" /&gt;
+&amp;lt;!-- ... --&gt;
+&amp;lt;script type="text/javascript" src="&amp;lt;?= urlBasePath ?&gt;javascripts/common.js"&gt;&amp;lt;/script&gt;
+</code></pre><p>Note that in the case of the following configuration:</p><pre><code class="lang-json">{
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><code>urlBasePath</code> return <code>http://localhost/</code> while in this configuration:</p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "urlRelativeSubPath": "sub/folder",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><code>urlBasePath</code> return <code>http://localhost:7777/sub/folder/</code>.</p><h4 id="the-paths-of-templates">The paths of templates</h4><p>Using the following webconfig:</p><pre><code class="lang-json">{
+    "routes": {
+        "/index.html": {
+            "view": "index.htm"
+        },
+        "/contact.html": {
+            "view": "contact.htm"
+        }
+    }
+}
+</code></pre><p>and the corresponding template</p><pre><code class="lang-html">&amp;lt;!-- ... --&gt;
+&amp;lt;a href="http://localhost/index.html"&gt;Link to home&amp;lt;/a&gt;
+&amp;lt;a href="http://localhost/contact.html"&gt;Link to contact&amp;lt;/a&gt;
+&amp;lt;!-- ... --&gt;
+</code></pre><p>I'd have to change my link in the template if I change the listening port or if I change the path of the url. The following configuration changes:</p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "routes": {
+        "/home.html": {
+            "view": "index.htm"
+        },
+        "/contact-us.html": {
+            "view": "contact.htm"
+        }
+    }
+}
+</code></pre><p>force me to modify the previous template like that:</p><pre><code class="lang-html">&amp;lt;!-- ... --&gt;
+&amp;lt;a href="http://localhost:7777/home.html"&gt;Link to home&amp;lt;/a&gt;
+&amp;lt;a href="http://localhost:7777/contact-us.html"&gt;Link to contact&amp;lt;/a&gt;
+&amp;lt;!-- ... --&gt;
+</code></pre><p>You can solve this problem by giving a key to a specific path and deporting are way in the <code>url</code> property.</p><p>With the followinh webconfig:</p><pre><code class="lang-json">{
+    "routes": {
+        "index": {
+            "url": "/index.html",
+            "view": "index.htm"
+        },
+        "contact": {
+            "url": "/contact.html",
+            "view": "contact.htm"
+        }
+    }
+}
+</code></pre><p>I can now write the link in the dynamic template:</p><ol>
+<li><p>as follows</p>
+<pre><code class="lang-html">&amp;lt;!-- ... --&gt;
+&amp;lt;a href="&amp;lt;?= urlBasePath ?&gt;&amp;lt;?= webconfig.routes.home.url.slice(1) ?&gt;"&gt;Link to home&amp;lt;/a&gt;
+&amp;lt;a href="&amp;lt;?= urlBasePath ?&gt;&amp;lt;?= webconfig.routes.contact.url.slice(1) ?&gt;"&gt;Link to contact&amp;lt;/a&gt;
+&amp;lt;!-- ... --&gt;
+</code></pre>
+<p> <em>Note : <code>.slice(1)</code> makes it easy to remove the dual <code>/</code> for standard url.</em></p>
+</li>
+<li><p>or as follows</p>
+<pre><code class="lang-html">&amp;lt;!-- ... --&gt;
+&amp;lt;a href="&amp;lt;?= urlBasePath ?&gt;.&amp;lt;?= webconfig.routes.home.url ?&gt;"&gt;Link to home&amp;lt;/a&gt;
+&amp;lt;a href="&amp;lt;?= urlBasePath ?&gt;.&amp;lt;?= webconfig.routes.contact.url ?&gt;"&gt;Link to contact&amp;lt;/a&gt;
+&amp;lt;!-- ... --&gt;
+</code></pre>
+<p> <em>Note : This would, for example <code>http://localhost/./home.html</code>, which is a standard url.</em></p>
+</li>
+<li><p>ou comme suit</p>
+<pre><code class="lang-html">&amp;lt;!-- ... --&gt;
+&amp;lt;a href="&amp;lt;?= urlBasePathSlice + webconfig.routes.home.url ?&gt;"&gt;Link to home&amp;lt;/a&gt;
+&amp;lt;a href="&amp;lt;?= urlBasePathSlice + webconfig.routes.contact.url ?&gt;"&gt;Link to contact&amp;lt;/a&gt;
+&amp;lt;!-- ... --&gt;
+</code></pre>
+<p> <em>Note : <code>urlBasePathSlice</code> return <code>http://localhost</code> in place of <code>http://localhost/</code> or <code>http://localhost:7777/sub/folder</code> in place of <code>http://localhost:7777/sub/folder/</code>.</em></p>
+</li>
+</ol><h4 id="utilisation-de-la-cl-pour-mapper-les-pages">Utilisation de la clé pour mapper les pages</h4><p>It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.</p><p>With the following webconfig :</p><pre><code class="lang-json">{
+    "languageCode": "en-us",
+    "routes": {
+        "index_en-us": {
+            "url": "/",
+            "view": "/index.htm"
+        },
+        "index_fr-fr": {
+            "url": "/francais/",
+            "view": "index.htm",
+            "languageCode": "fr-fr"
+        },
+        "cv_en-us": {
+            "url": "/resume/",
+            "view": "cv.htm"
+        },
+        "cv_fr-fr": {
+            "url": "/francais/cv/",
+            "view": "index.htm",
+            "languageCode": "fr-fr"
+        }
+    }
+}
+</code></pre><p>and the common variation following :</p><pre><code class="lang-json">{
+    "language": [{
+        "name": "English",
+        "code": "en-us"
+    }, {
+        "name": "French",
+        "code": "fr-fr"
+    }]
+}
+</code></pre><p>in fr :</p><pre><code class="lang-json">{
+    "language": [{
+        "name": "Anglais",
+        "code": "en-us"
+    }, {
+        "name": "Français",
+        "code": "fr-fr"
+    }]
+}
+</code></pre><p>we could create link between each page as following :</p><pre><code class="lang-html">&amp;lt;ul&gt;
+    &amp;lt;? for (var i = 0; i &amp;lt; common.language.length; i++) { ?&gt;
+    &amp;lt;li&gt;&amp;lt;a href="&amp;lt;?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?&gt;"&gt;&amp;lt;?- common.language[i].name ?&gt;&amp;lt;/a&gt;&amp;lt;/li&gt;
+    &amp;lt;? } ?&gt;
+&amp;lt;/ul&gt;
+</code></pre><h3 id="custom-template-engine">Custom Template Engine</h3><p>It is possible to let the <a href="http://expressjs.com/en/guide/using-template-engines.html">Express Template Engine implementation</a> to bypass the NodeAtlas Template Engine implementation  for view render. To do this, use the <code>engine</code> parameter. See an example with the Handlebars engine:</p><p>First, add the Express Handlebars middleware amongs your modules:</p><pre><code>npm install express-handlebars
+</code></pre><p>then, use <code>engine</code> with the arbtrary <code>hbs</code> value</p><pre><code>{
+    "engine": "hbs",
+    "controller": "common.js",
+    "variation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.hbs",
+            "variation": "index.json"
+        }
+    }
+}
+</code></pre><p>and explain to Express from NodeAtlas how to render views:</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this;
+
+    NA.modules.exphbs = require("express-handlebars");
+};
+
+exports.setConfigurations = function (next) {
+  var NA = this,
+    exphbs = NA.modules.exphbs;
+
+    NA.express.engine("hbs", exphbs());
+
+    next();
+};
+</code></pre><p>finaly, see what could be the content of <code>index.hbs</code>:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8"&gt;
+        &amp;lt;title&gt;{{specific.titlePage}}&amp;lt;/title&gt;
+        &amp;lt;link rel="stylesheet" href="stylesheets/{{common.classCssCommon}}.css" media="all"&gt;
+        &amp;lt;link rel="stylesheet" href="stylesheets/{{specific.classPage}}.css" media="all"&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body class="{{specific.classPage}}"&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;{{specific.titlePage}}&amp;lt;/h1&gt;
+            {{{specific.content}}}
+        &amp;lt;/div&gt;
+        &amp;lt;script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"&gt;&amp;lt;/script&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p>The goal of <code>engine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, Pug and NodeAtlas syntaxe.</p><h4 id="differences-between-engine-templateenginedelimiter-and-pug-">Differences between <code>engine</code>, <code>templateEngineDelimiter</code> and <code>pug</code></h4><p>It's possible to render EJS and Pug view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>controller</code> and a <code>npm</code> command to set them. You have just to set <code>engine: "ejs"</code> or <code>engine: "pug"</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for Pug in the common <code>view</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="no-view">No view</h3><p>It is possible to not using a view and only use a controler. In this case, the <code>changeVariations</code> hook is unused. You will fill the <code>locals.dom</code> value yourself with the <code>changeDom</code> hook.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+    "routes": {
+        "/(:member/)?": {
+            "controller": "index.js",
+            "mimeType": "application/json"
+        }
+    }
+}
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">exports.changeDom = function (next, locals) {
+    locals.dom = `{
+  "params": ${locals.params.member},
+  "query": ${locals.query.member},
+  "body": ${locals.body.member}
+}`;
+
+    next();
+};
+</code></pre><p>So to the <code>http://localhost/huey/?query=dewey</code> URL requested in POST with <code>member=louie</code> body you will have the ouput:</p><pre><code class="lang-json">{
+  "params": "huey",
+  "query": "dewey",
+  "body": "louie"
+}
+</code></pre><h4 id="no-routes">No routes</h4><p>No webconfig example not use the <code>routes</code> parameter. But it is also optional than others. For example, with the following webconfig:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+    "controller": "common.js"
+}
+</code></pre><p>and the following controller:</p><p><em>controllers/common.js</em></p><pre><code class="lang-js">exports.setRoutes = function (next) {
+    var NA = this,
+        route = NA.webconfig.routes = {};
+
+    route["/"] = {
+        "mimeType": "text/plain"
+    };
+
+    next();
+};
+
+exports.changeDom = function (next, locals) {
+
+    locals.dom = "Hello World";
+
+    next();
+};
+</code></pre><p>It is possible to have at the address <code>http://localhost/</code> a simple « Hello World » message.</p><h3 id="enable-cache">Enable Cache</h3><p>It's a good thing to not serve file with no modification in production. You could set the websconfig's <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
+    cache: true,
+    route: {
+      "/": "index.htm"
+    }
+}
+</code></pre><p>You can also start <code>node-atlas</code> with <code>--cache</code> option :</p><blockquote>
+<pre><code class="lang-bash">node-atlas --cache
+</code></pre>
+</blockquote><p>or set your environment variable <code>NODE_ENV</code> to <code>production</code> :</p><blockquote>
+<p>if you are in Unix/MacOS</p>
+<pre><code class="lang-bash">export NODE_ENV=production
+</code></pre>
+<p>or if you are in windows</p>
+<pre><code class="lang-bash">SET NODE_ENV=production
+</code></pre>
+<p>or you can run NodeAtlas like this:</p>
+<pre><code class="lang-bash">NODE_ENV=production node-atlas
+</code></pre>
+<p>or you can also set it in your JavaScript file:</p>
+<pre><code class="lang-js">process.env.NODE_ENV = "production";
+</code></pre>
+</blockquote><div><div class="before">
+							<a href="controller-part.html">◄ Controller Part</a>
+						</div><div class="after">
+							<a href="webconfig-s-anatomy.html">Webconfig's Anatomy ►</a>
+						</div></div>
+				</div>
+			</div>
+		</div>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+		
+		<script id="channel" data-channel="NodeAtlas/Help" data-label="Help Chat" src="javascripts/common.min.js"></script>
+		
+		<script src="https://buttons.github.io/buttons.js"></script>
+	
+</body></html>

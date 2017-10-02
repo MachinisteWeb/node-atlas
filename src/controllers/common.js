@@ -47,7 +47,7 @@ exports.setRoutes = function (next) {
 
 			container.classList.add('table');
 			table.parentNode.insertBefore(container, table.nextElementSibling);
-			container.innerHTML = table.cloneNode(true);
+			container.appendChild(table.cloneNode(true));
 			table.parentNode.removeChild(table);
 		});
 

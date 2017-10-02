@@ -69,34 +69,32 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
 
 - [Avant-propos](#avant-propos)
  - [Pourquoi NodeAtlas ?](#pourquoi-nodeatlas-)
- - [Et les autres frameworks JavaScript ?](#et-les-autres-frameworks-javascript-)
- - [Exemples de réalisations avec NodeAtlas](#exemples-de-réalisations-avec-nodeatlas)
+ - [D'autres frameworks ?](#d-autres-frameworks-)
+ - [Exemples de réalisations](#exemples-de-réalisations)
  - [Table des matières](#table-des-matières)
  - [Documentation](#documentation)
  - [Contribution](#contribution)
 - [Installation](#installation)
  - [Installation de NodeAtlas](#installation-de-nodeatlas)
  - [Installation de Node.js](#installation-de-nodejs)
-- [Commencer avec NodeAtlas](#commencer-avec-nodeatlas)
+- [Introduction](#introduction)
  - [Ensemble de fichiers](#ensemble-de-fichiers)
  - [Configuration minimale](#configuration-minimale)
- - [Lancer le site avec NodeAtlas](#lancer-le-site-avec-nodeatlas)
+ - [Lancer le site](#lancer-le-site)
  - [Squelette de Hello World](#squelette-de-hello-world)
-- [Partie vue et template](#partie-vue-et-template)
- - [Plusieurs pages](#plusieurs-pages)
- - [Référencer ses routes](#référencer-ses-routes)
- - [Héberger des images, polices, CSS, JS, etc.](#héberger-des-images-polices-css-js-etc)
- - [Gérer l'inclusion de fichiers partiels](#gérer-linclusion-de-fichiers-partiels)
- - [Gérer des variations au sein d'une même vue](#gérer-des-variations-au-sein-dune-même-vue)
- - [Gérer l'internationalisation (i18n)](#gérer-linternationalisation-i18n)
- - [Gérer l'anatomie des URL](#gérer-lanatomie-des-url)
- - [Créer ses propres variables de webconfig](#créer-ses-propres-variables-de webconfig)
- - [Utiliser une vue globale](#utiliser-une-vue-globale)
- - [Partager des dossiers](#partager-des-dossiers)
- - [Générer des maquettes HTML](#générer-des-maquettes-html)
- - [Moteur de template EJS](#moteur-de-template-ejs)
- - [Moteur de template Pug](#moteur-de-template-pug)
-- [Partie contrôleur et modèle](#partie-contrôleur-et-modèle)
+- [Partie vue](#partie-vue)
+ - [Routage](#routage)
+ - [Ressources](#ressources)
+ - [Composition](#composition)
+ - [Variations](#variations)
+ - [Internationalisation (i18n)](#internationalisation-i18n)
+ - [Valeurs d'URL](#valeur-d-url)
+ - [Variables de webconfig](#variables-de-webconfig)
+ - [Mise en page globale](#mise-en-page-globale)
+ - [Fichier publics](#fichier-publics)
+ - [Maquettes statiques générées](#maquettes-statiques-generees)
+ - [Moteurs de template](#moteurs-de-template)
+- [Partie contrôleur](#partie-controleur)
  - [Cycle de vie et Points d'ancrage](#cycle-de-vie-et-points-dancrage)
  - [Échange client-serveur en temps réel avec websockets](#échange-client-serveur-en-temps réel-avec-websockets)
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
@@ -104,7 +102,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Utiliser des middlewares depuis Express](#utiliser-des-middlewares-depuis-express)
  - [Créer une application isomorphique](#créer-une-application-isomorphique)
  - [Moteur de template Vue](#moteur-de-template-vue)
-- [Pour aller plus loin](#pour-aller-plus-loin)
+- [Partie avancée](#partie-avancee)
  - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
  - [Injecter des routes dynamiquement](#injecter-des-routes-dynamiquement)
@@ -300,7 +298,7 @@ Il y a un conflit de nom entre le `node` de package (Amateur Packet Radio Node P
 
 
 
-## Commencer avec NodeAtlas ##
+## Introduction ##
 
 Une instance de site NodeAtlas est pilotée par le fichier `webconfig.json`. Tout site NodeAtlas en possède un, c'est ce qui force le moteur à passer de « Simple serveur web » à « Serveur web NodeAtlas ».
 
@@ -362,7 +360,7 @@ Vous pouvez faire tourner une page simple avec la configuration minimale du `web
 
 
 
-### Lancer le site avec NodeAtlas ###
+### Lancer le site ###
 
 #### Avec la commande `node-atlas` ####
 
@@ -432,7 +430,7 @@ $ node-atlas --browse
 
 
 
-## Partie vue et template ##
+## Partie vue ##
 
 NodeAtlas fonctionne avec une configuration via l'utilisation d'un `webconfig.json` qui lui permet d'étendre les possibilités du site de manière évolutive tout au long de sa vie. Par exemple, pour créer un site sans JavaScript côté serveur (pas de contrôleur), il suffit de ne renseigner qu'un paramètre `view` pour chaque route.
 
@@ -440,9 +438,15 @@ Cependant, vous pourrez toujours utiliser du JavaScript dans les templates des v
 
 Voyons les possibilités de nos sites par agrégat simple de fichiers de vue.
 
-### Plusieurs pages ###
 
-Ci-dessous un exemple de configuration.
+
+### Routage ###
+
+Pour afficher le contenu d'un fichier derrière une URL, nous allons abonner au `webconfig.json` un certain nombre de fichier. Les adresses d'accès de ses fichiers sont appelés des routes et le contenu à ces routes est appelé une page.
+
+#### Plusieurs pages ####
+
+Ci-dessous un exemple de configuration du `webconfig.json` pour plusieurs pages.
 
 ```json
 {
@@ -492,9 +496,7 @@ aux adresses :
 
 *Note : si* `viewsRelativePath` *n'est pas présent dans `webconfig.json`, par défaut le dossier des vues est bien* `views`. `viewsRelativePath` *est donc utile seulement pour changer le nom / chemin du répertoire.*
 
-
-
-### Référencer ses routes ###
+#### Raccourci de route ####
 
 La configuration ci-dessous est équivalente à la configuration de la section juste au-dessus
 
@@ -656,9 +658,9 @@ et `routes.json`
 
 
 
-### Héberger des images, polices, styles, scripts, etc. ###
+### Ressources ###
 
-Vous pouvez également héberger tout un tas de fichiers sur votre site dans un dossier public. Par exemple avec cette configuration :
+Vous pouvez héberger tout un tas de fichiers sur votre site dans un dossier public comme des images, polices, styles, scripts, etc. Par exemple avec cette configuration :
 
 ```json
 {
@@ -702,7 +704,7 @@ Il est possible de délivrer des en-tête HTTP personnalisées pour les ressourc
 
 
 
-### Gérer l'inclusion de fichiers partiels ###
+### Composition ###
 
 Vous pouvez segmenter vos codes HTML afin de ne pas répéter le code redondant comme par exemple les parties « head » et « foot » ou tout autre fragment de code (pas d'inquiétude, nous verrons plus loin comment gérer un template unique composé des balises `head` et `body` avec fermeture dans le même fichier).
 
@@ -794,7 +796,7 @@ vous aurez accès aux adresses :
 
 
 
-### Gérer des variations au sein d'une même vue ###
+### Variations ###
 
 Il est possible avec la même vue et les mêmes inclusions de générer des pages aux contenus différents (utile en mode génération de maquettes HTML). Activer les variations avec la configuration suivante :
 
@@ -916,7 +918,7 @@ vous aurez accès aux adresses :
 
 
 
-### Gérer l'internationalisation (i18n) ###
+### Internationalisation (i18n) ###
 
 #### Toutes les langues sur le même site ####
 
@@ -1179,7 +1181,7 @@ Il est ensuite possible de faire du reverse proxy avec pour ramener l'ensemble d
 
 
 
-### Gérer l'anatomie des URL ###
+### Valeurs d'URL ###
 
 Par défaut, si vous utilisez la configuration suivante :
 
@@ -1295,7 +1297,7 @@ Note : cette exemple ne fonctionnera que si vous avez des fichiers `server.crt` 
 
 
 
-### Créer ses propres variables de webconfig ###
+### Variables de webconfig ###
 
 Imaginons deux webconfigs dans lesquels nous allons créer nos propres variables comme suit :
 
@@ -1408,7 +1410,7 @@ Nous aurons à l'adresse `http://localhost/` la sortie suivante avec les fichier
 
 
 
-### Utiliser une vue globale ###
+### Mise en page ###
 
 Plutôt que d'inclure une partie header et une partie footer en deux fichiers scindés dont les balises de l'un ne se ferme que dans les balises de l'autre : vous pouvez également les rassembler dans un seul fichier dans lequel vous indiquerez à quelle endroit les vues doivent se placer. Vous pourrez dans ce layout utiliser toutes les variations et tous les systèmes déjà vu.
 
@@ -1574,7 +1576,7 @@ et obtenir les URL suivantes :
 
 
 
-### Partager des dossiers ###
+### Fichiers partagés ###
 
 Il est possible de partager plus de contenu que ce qu'il y a dans le dossier hébergé par `assetsRelativePath`. Il est tout à fait possible de partager des vues ou des modèles avec la partie cliente par exemple. On appel les fichiers de ses dossiers des fichiers statiques.
 
@@ -1707,7 +1709,7 @@ Dans ce cas le chemin devient le paramètre `virtual`.
 
 
 
-### Générer des maquettes HTML ###
+### Maquettes statiques générées ###
 
 #### Générer des designs HTML ####
 
@@ -1868,7 +1870,7 @@ Les fichiers définis dans `statics` sont également copiable dans le dossier `s
 
 
 
-### Moteur de template EJS ###
+### Moteurs de template ###
 
 Par défaut, NodeAtlas utilise déjà le [moteur de template EJS](http://ejs.co/), c'est ce qui vous permet d'utiliser du JavaScript dans les balises `<?` et `?>`.
 
@@ -1881,6 +1883,8 @@ Les balises `<?` et `?>` permettent d'inclure du JavaScript au sein même de vos
 - `<?%` Affiche litéralement le contenu d'une `<?`
 - `?>` La balise de fermeture.
 - `-?>` La balise Mode trim, exécute un trim sur les nouvelles lignes.
+
+#### EJS ####
 
 Cependant, EJS fonctionne normalement avec les balises `<%` et `%>`. Vous pouvez remettre ces valeurs ou même utiliser celles que vous souhaitez.
 
@@ -1977,7 +1981,7 @@ Pour tout savoir sur les possibilités du moteur de template consultez [la docum
 
 
 
-### Moteur de Template Pug ###
+#### Pug ####
 
 Il est possible d'utiliser en lieu et place de EJS le [moteur de template Pug](https://pugjs.org/) (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
 
@@ -2102,7 +2106,7 @@ Pour tout savoir sur les possibilités du moteur de template consultez [la docum
 
 
 
-### Moteur de Template Vue ###
+#### Vue ####
 
 [Vue](https://vuejs.org/) est un framework MVVM évolutif comme Angular ou React qui est utilisable en tant que moteur de rendu côté serveur pour NodeAtlas. L'avantage ici, c'est que côté client il reprend la main en hydratant le code généré depuis le serveur pour le rendre réactif côté client !
 
@@ -2133,7 +2137,7 @@ node-atlas --browse
 
 
 
-## Partie contrôleur et modèle ##
+## Partie contrôleur ##
 
 NodeAtlas ne se contente pas uniquement de faciliter la génération de page web en fonction de variables dans les fichiers de variation. NodeAtlas vous permet également d'intéragir avec le contenu des fichiers de variations ou avec le DOM généré en fonction :
 
@@ -4448,7 +4452,7 @@ module.exports = function (request, response, next) {
 
 
 
-### Créer une application isomorphique
+### Créer une application isomorphique ###
 
 Une application isomorphique est une application dont le code JavaScript est en grande partie le même qu'il soit exécuté côté client ou exécuté côté serveur. NodeAtlas propose un exemple d'application isomorphique dans son template dédié à [Vue.js](https://fr.vuejs.org/).
 
@@ -4491,7 +4495,7 @@ Vous trouverrez tout ce qu'il faut pour appréhender la partie serveur du `const
 
 
 
-## Pour aller plus loin ##
+## Partie avancée ##
 
 NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.
 
@@ -6294,7 +6298,7 @@ body {
 }
 ```
 
-*views/email.htm**
+*views/email.htm*
 
 ```html
 <!DOCTYPE html>

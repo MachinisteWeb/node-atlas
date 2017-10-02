@@ -1,0 +1,2071 @@
+<!DOCTYPE html><html lang="en-us"><head>
+		<meta charset="utf-8">
+		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
+
+		<base href="">
+
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+		<meta name="description" content="Create websites with server-side JavaScript easily!">
+
+		<meta name="og:title" content="NodeAtlas —The Progressive Server-side JavaScript Framework—">
+		<meta name="og:description" content="Create websites with server-side JavaScript easily!">
+		<meta name="og:url" content="https://node-atlas.js.org">
+		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
+		<meta name="og:locale" content="en-us">
+		<meta name="og:type" content="website">
+		<meta name="og:updated_time" content="1506952108947">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/english/" data-subpath="/english" style="background-image: url('media/images/min/main-background.jpg');">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>No JavaScript enabled.</p>
+				</div>
+			</noscript>
+			<div class="background"></div>
+			<div class="language cmpt">
+				<div class="navigation--lang">
+					<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
+				</div>
+			</div>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--information">
+						<div class="header--information--github">
+							<a class="header--information--donate" href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg" alt="Faites un don" data-canonical-src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg"></a>
+							<a class="header--information--follow github-button" href="https://github.com/Haeresis" data-count-href="/Haeresis/followers" data-count-api="/users/Haeresis#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @Haeresis on GitHub">Follow</a>
+						</div>
+						<div class="header--information--npm">
+							<a class="header--information--package" href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM" data-canonical-src="https://badge.fury.io/js/node-atlas.svg"></a>
+							<a class="header--information--star github-button" href="https://github.com/NodeAtlas/node-atlas" data-icon="octicon-star" data-count-href="/NodeAtlas/node-atlas/stargazers" data-count-api="/repos/NodeAtlas/node-atlas#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star NodeAtlas/node-atlas on GitHub">Star</a>
+						</div>
+					</div>
+					<div class="header--background"></div>
+					<div class="header--title">
+						<h1>
+							<img class="header--title--node" src="media/images/min/ode.png" alt="Node">
+							<img class="header--title--atlas" src="media/images/min/tlas.png" alt="Atlas">
+							<img class="header--title--trans" src="media/images/min/transparent.png" alt="NodeAtlas">
+						</h1>
+					</div>
+					<div class="header--abstract">
+						<p>The Progressive Server-side JavaScript Framework</p>
+					</div>
+					<div class="header--main">
+						<ul>
+							<li>
+								<div class="header--main--first">
+									<h2><strong>Simple</strong> <span>set-up</span></h2>
+									<p>You know <strong>HTML &amp; CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
+									<p class="small">Quickly create multilingual websites effortlessly with simple routes, views or variations.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--second">
+									<h2><strong>Scalable</strong> <span>website</span></h2>
+									<p>JavaScript client-side <strong>Expert</strong>?<br>Ready to embrace <strong>Node.js</strong>?</p>
+									<p class="small">Gradually improve your base as you need by using controllers, models or modules.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--third">
+									<h2><strong>Agnostic</strong> <span>client side</span></h2>
+									<p>Already your <strong>Front-end</strong> habits?<br>You use <strong>Data Binding</strong>?</p>
+									<p class="small">From Vanilla to jQuery and going through Vue, Angular or React: use your favorite tools!</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+<div class="popup cmpt">
+	<aside class="popup--inner">
+		<div class="popup--versus"><del class="close">Close</del><span class="fa fa-bolt" aria-hidden="true"></span><ins class="versus">Versus</ins></div>
+		<div class="popup--nodeatlas"></div>
+		<div class="popup--challenger"></div>
+	</aside>
+</div>
+			<aside class="download cmpt">
+				<div class="download--inner">
+					<div class="download--install">
+						<div class="download--cli is-active">
+							<h2>CLI Usage</h2>
+							<div class="download--cli--inner">
+								<div class="download--cli--step1">
+									<h3>Install NodeAtlas</h3>
+									<pre>$ npm install -g node-atlas</pre>
+								</div>
+								<div class="download--cli--step2">
+									<h3>Create test website</h3>
+									<pre>$ node-atlas --create</pre>
+								</div>
+								<div class="download--cli--step3">
+									<h3>Run website</h3>
+									<pre>$ node-atlas --browse</pre>
+								</div>
+							</div>
+						</div>
+						<div class="download--api">
+							<h2>API Usage</h2>
+							<div class="download--api--inner">
+								<div class="download--api--step1">
+									<h3>Install NodeAtlas</h3>
+									<pre>$ npm install node-atlas</pre>
+								</div>
+								<div class="download--api--step2">
+									<h3>Create a script</h3>
+									<pre><span>server.js</span>var NA = require("node-atlas"),
+    website = NA();
+website.init({
+    "create": "hello-world"
+}).created(function () {
+    website.run({
+        "browse": true
+    });
+}).start();</pre>
+								</div>
+								<div class="download--api--step3">
+									<h3>Run website</h3>
+									<pre>$ node server.js</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--clone">
+						<div class="download--version">
+							<h2>Download</h2>
+							<div class="download--version--inner">
+								<div class="download--version--step1">
+									<h3>v2.0.0-beta52</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
+								</div>
+								<div class="download--version--step2">
+									<h3>Clone</h3>
+									<p><input type="text" name="clone" data-instruction="Copy to clipboard: Ctrl+C, Enter" class="download--clone--text" value="https://github.com/NodeAtlas/node-atlas.git"><button><span class="fa fa-clipboard" aria-hidden="true"></span></button></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--battle">
+						<div class="download--slide">
+							<h2>Versus Battles</h2>
+							<div class="download--slide--inner">
+								<div class="download--slide--step1">
+									<img src="media/images/battles/node-atlas.png" alt="NodeAtlas API">
+								</div>
+								<div class="download--slide--step2">
+									VS
+								</div>
+								<div class="download--slide--step3">
+									<img src="media/images/battles/expressjs.png" alt="Challenger">
+								</div>
+								<div class="download--slide--step4">
+									<span class="fa fa-refresh" aria-hidden="true">
+								</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="download--info">
+						<div class="download--tuto is-active">
+							<h2>Tutorials</h2>
+							<div class="download--tuto--inner">
+								<div class="download--tuto--step1">
+									<a href="overview.html#overview"><span>Learn</span> <i class="fa fa-book" aria-hidden="true"></i> from step by step guide</a>
+								</div>
+								<div class="download--tuto--step2">
+									<span>or</span>
+								</div>
+								<div class="download--tuto--step3">
+									<div class="download--tuto--step3--first">
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Create</span> <i class="fa fa-html5" aria-hidden="true"></i> e.g. International Websites (Fr)</a>
+									</div>
+									<div class="download--tuto--step3--second">
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Manage</span> <i class="fa fa-copy" aria-hidden="true"></i> e.g. Serverless HTML Assets (Fr)</a>
+									</div>
+									<div class="download--tuto--step3--third">
+										<a href="https://github.com/NodeAtlas"><span>Develop</span> <i class="fa fa-database" aria-hidden="true"></i> e.g. Real-time Web Applications</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="download--about">
+							<h2>Overview</h2>
+							<div class="download--about--inner">
+								<div class="download--about--step1">
+									NodeAtlas is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy component-based and/or service-oriented websites in order to create great things with standards compliance!
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<nav class="navigation cmpt">
+				<div class="navigation--outer">
+					<div class="navigation--start"><button class="button">Get Started</button></div>
+					<div class="navigation--documentation"><button class="button">Documentation</button></div>
+				</div>
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
+					</div>
+					<div class="navigation--home">
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
+					</div>
+					<div class="navigation--menu">
+						<div class="navigation--menu--toggle">
+							<span class="top"></span>
+							<span class="middle"></span>
+							<span class="bottom"></span>
+						</div>
+						<div class="navigation--menu--list">
+							<div class="navigation--menu--list--inner">
+								<h2>Menu</h2>
+								<ul>
+									
+									<li>
+										
+										<span>Guide</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="overview.html" title="Overview">Overview</a>
+											</li>
+											
+											<li>
+												<a href="installation.html" title="Installation">Installation</a>
+											</li>
+											
+											<li>
+												<a href="get-started.html" title="Hello World!">Hello World!</a>
+											</li>
+											
+											<li>
+												<a href="view-part.html" title="View Part">View Part</a>
+											</li>
+											
+											<li>
+												<a href="controller-part.html" title="Controller Part">Controller Part</a>
+											</li>
+											
+											<li>
+												<a href="advanced-part.html" title="Advanced Part">Advanced Part</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Documentation</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="webconfig-s-anatomy.html" title="Webconfig">Webconfig</a>
+											</li>
+											
+											<li>
+												<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
+											</li>
+											
+											<li>
+												<a href="cli-running-commands.html" title="CLI">CLI</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Environment</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
+											</li>
+											
+											<li>
+												<a href="development-environment.html" title="Development">Development</a>
+											</li>
+											
+											<li>
+												<a href="production-environment.html" title="Production">Production</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<span>Community</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="https://gitter.im/NodeAtlas/Help" title="Gitter Chat">Gitter Chat</a>
+											</li>
+											
+											<li>
+												<a href="https://github.com/NodeAtlas" title="GitHub Repository">GitHub Repository</a>
+											</li>
+											
+											<li>
+												<a href="more-about-nodeatlas.html" title="Alternatives">Alternatives</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										
+										<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
+										
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
+				<div class="content--inner">
+					<h2 id="controller-part">Controller Part</h2><p>NodeAtlas is useful for more than simply generate template web page easily based on your variations files. NodeAtlas allow you to dynamicly interact with variations var and with the DOM with:</p><ul>
+<li>parameters in query part of URL (GET),</li>
+<li>parameters in request body (POST),</li>
+</ul><p>but also provide:</p><ul>
+<li>connections with database,</li>
+<li>management of sessions,</li>
+<li>Websockets request/response and</li>
+<li>and more !</li>
+</ul><h3 id="lifecycle-and-hooks">Lifecycle and Hooks</h3><p>NodeAtlas lyfecycle works as following. First, ressources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generate. You could use hooks whire server start and while response is construct.</p><p>This is a <code>webconfig.json</code> allows you to manipulate each hook of life cycle of a page.</p><pre><code class="lang-json">{
+    "controllersRelativePath": "controllers",
+    "controller": "common.js",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "controller": "index.json"
+        }
+    }
+}
+</code></pre><p><em>Note : If</em> <code>controllersRelativePath</code> <em>is not present in "webconfig.json", default controller folder is</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><p>and this is the detail of all hooks while:</p><p><em>Starting the server</em></p><pre><code>┌─[Loading Node.js Modules]
+┊
+├─[Loading Init Vars]
+┊
+├─[Loading npm Modules]
+┊
+├─[Setting CLI commands and language]
+┊
+├─[Setting API options]
+┊
+└─[Loading CLI language]
+  ┊
+  ├─[Loading Global Vars]
+  ┊
+  ├─[Setting Webconfig instructions]
+  ┊
+  └─[Loading Common Controller]
+    ┊  ______________________________
+    ├─{Hook : &amp;lt;controller&gt;.setModules}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ├─[Server Init]
+    ┊  _______________________________
+    ├─{Hook : &amp;lt;controller&gt;.setSessions}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ├─[Sessions Init]
+    ┊
+    ├─[Sockets Init]
+    ┊ ┊  ______________________________
+    ┊ ├─{Hook : &amp;lt;controller&gt;.setSockets}_______
+    ┊ └─{Hook : routes[&amp;lt;controller&gt;].setSockets}
+    ┊    ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    ┊  _____________________________________
+    ├─{Hook : &amp;lt;controller&gt;.setConfigurations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    └─[Starting the server]
+      ┊
+      ├─[Template Engine Init]
+      ┊  _____________________________
+      ├─{Hook : &amp;lt;controller&gt;.setRoutes}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      └─[Routes Init]
+        ┊
+        ∞
+</code></pre><p><em>Processing a request</em></p><pre><code>∞
+┊
+└─[Processing a request]
+  ┊
+  └─[Loading Specific Controller]
+    ┊  ____________________________________
+    ├─{Hook : &amp;lt;controller&gt;.changeVariations}_______
+    ├─{Hook : routes[&amp;lt;controller&gt;].changeVariations}
+    ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+    └─[Template Engine Compilation]
+      ┊  _____________________________
+      ├─{Hook : &amp;lt;controller&gt;.changeDom}_______
+      ├─{Hook : routes[&amp;lt;controller&gt;].changeDom}
+      ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+      └─[Send Response]
+        ┊
+        ∞
+</code></pre><h4 id="changevariations">changeVariations</h4><p>In order to intercept variations, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+<li>An object <code>locals</code> in second parameter with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific vatiations.</li>
+<li>The <code>request</code> object in third parameter for this page.</li>
+<li>The <code>response</code> object in fourth parameter for this page.</li>
+</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+    "urlRelativeSubPath": "example",
+    "controller": "common.js",
+    "variation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
+</code></pre><p>with this files :</p><pre><code>├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  ├─ partials/
+│  │  ├─ head.htm
+│  │  └─ foot.htm
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    "titleWebsite": "Site Title"
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    "titlePage": "Welcome",
+    "content": "&amp;lt;p&gt;This is the Home Page.&amp;lt;/p&gt;"
+}
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &amp;lt;?- include("partials/head.htm") ?&gt;
+
+    &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
+
+    &amp;lt;div&gt;
+        &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
+        &amp;lt;?- specific.content ?&gt;
+    &amp;lt;/div&gt;
+
+    &amp;lt;?- include("partials/foot.htm") ?&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+// This code is executed for all HTTP request, for all pages.
+exports.changeVariations = function (next, locals, request, response) {
+
+    // Here we update locals variable.
+
+    console.log(locals.common.titleWebsite); // "Site Title"
+    console.log(locals.specific.titlePage); // "Welcome"
+    console.log(locals.specific.content); // "This is the Home Page."
+
+    console.log("urlRootPath", locals.urlRootPath); // "http://localhost"
+    console.log("urlSubPath", locals.urlSubPath); // "/example"
+    console.log("urlBasePath", locals.urlBasePath); // "http://localhost/example"
+    console.log("urlFilePath", locals.urlFilePath); // "/"
+    console.log("urlQueryPath", locals.urlQueryPath); // "?title=Haeresis"
+    console.log("urlPath", locals.urlPath); // "http://localhost/example/?title=Haeresis"
+
+    if (request.query["title"]) {
+        locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
+    }
+    if (request.body["example"]) {
+        locals.specific.content = request.body.example;
+    }
+
+    console.log(locals.common.titleWebsite); // "Site Title"
+    console.log(locals.specific.titlePage); // "Welcome Haeresis"
+    console.log(locals.specific.content); // "This is a test"
+
+    // We do the next step.
+    next();
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+// This code is executed only for the « / » page.
+exports.changeVariations = function (next, locals, request, response) {
+
+    // Here we update locals variable.
+
+    console.log(locals.common.titleWebsite); // "Site Title"
+    console.log(locals.specific.titlePage); // "Welcome Haeresis"
+    console.log(locals.specific.content); // "This is a test"
+
+    locals.common.titleWebsite = "It's Home, no way.";
+    locals.specific.content = "It's Home, no way.";
+
+    console.log(locals.common.titleWebsite); // "It's Home, no way."
+    console.log(locals.specific.titlePage); // "Welcome Haeresis"
+    console.log(locals.specific.content); // "It's Home, no way."
+
+    // We do the next step.
+    next();
+};
+</code></pre><p>en this produce the following output:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;It's Home, no way.&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;It's Home, no way.&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;Welcome Haeresis&amp;lt;/h1&gt;
+            It's Home, no way.
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p>If you delete the variation entry of specific page from webconfig:</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "variation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json"
+        }
+    }
+}
+</code></pre><p>the output will be as following:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;Site Title&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;Site Title&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;Welcome Haeresis&amp;lt;/h1&gt;
+            This is a test
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><h4 id="changedom">changeDom</h4><p>In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next([$])</code> in first parameter which accept an optional first updated <code>$</code> parameter used to manipulate the Virtual DOM.</li>
+<li>An object <code>locals</code> in second parameter with the <code>locals.dom</code> string that contains the response or the <code>locals.virtualDom()</code> function creating the Virtual DOM.</li>
+<li>The <code>request</code> object in third parameter for this page.</li>
+<li>The <code>response</code> object in fourth parameter for this page.</li>
+</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "variation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
+</code></pre><p>with this files :</p><pre><code>├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others):</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    "titleWebsite": "Site Title"
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    "titlePage": "Welcome",
+    "content": "&amp;lt;p&gt;This is Home Page.&amp;lt;/p&gt;"
+}
+</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
+            &amp;lt;?- specific.content ?&gt;
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
+// This code is executed for all HTTP request, for all pages.
+exports.changeDom = function (next, locals, request, response) {
+    // Transform HTML string into Virtual DOM.
+    var $ = locals.virtualDom();
+
+    // Just after eath h1 from HTML DOM...
+    Array.prototype.forEach.call(dom.window.document.getElementsByTagName("h1"), function (h1) {
+
+        // ...we create a div,
+        var div = dom.window.document.createElement('div');
+
+        // ...we inject the content of h1 into the div,
+        div.innerHTML = h1.innerHTML;
+        h1.parentNode.insertBefore(div, h1.nextElementSibling);
+
+        // ...and we delete the h1.
+        h1.parentNode.removeChild(h1);
+    });
+
+    // Return updates for reinject them into HTML string.
+    next(dom);
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to Client.
+// This code is executed only for the « / » page .
+exports.changeDom = function (next, locals, request, response) {
+    var NA = this,
+        jsdom = NA.modules.jsdom, // jsdom for manipulate DOM.
+        dom = new jsdom.JSDOM(locals.dom); // We load datas for manipulate it as a DOM.
+
+    // We update nodes contents with `.title` class.
+    dom.window.document.getElementsByClassName("title")[0].textContent = "Modification de Contenu";
+
+    // We recreate a new HTML output with updates.
+    locals.dom = dom.serialize();
+
+    // We go to next step.
+    next();
+};
+</code></pre><p>the output will be as following:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8"&gt;
+        &amp;lt;title&gt;Site Title&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;Content Update&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;div&gt;Welcome&amp;lt;/div&gt;
+            &amp;lt;p&gt;This is Home Page.&amp;lt;/p&gt;
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><h4 id="setsockets">setSockets</h4><p>In order to keep a real-time connection between your Client-side and Server-side between all pages opened on all browsers that run on all OS, you could define your Websockets here. <a href="controller-part.html#use-reliable-client-server-real-time-with-websockets">More details in Socket.IO part</a>.</p><p><code>setSockets()</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+    "socketClientFile": "/node-atlas/socket.io.js",
+    "socketServerOptions": { transports: ['polling', 'websocket'] },
+    "controller": "common.js",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "controller": "index.js"
+        }
+    }
+}
+</code></pre><p>with this files:</p><pre><code>├─ assets/
+│  └─ javascripts/
+│     └─ index.js
+├─ controllers/
+│  ├─ common.js
+│  ├─ index.js
+│  └─ test.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;Websocket Example&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="layout"&gt;
+            &amp;lt;div class="content"&gt;&amp;lt;/div&gt;
+            &amp;lt;div class="field"&gt;Write something : &amp;lt;input class="input" type="text"&gt;&amp;lt;/div&gt;
+        &amp;lt;/div&gt;
+        &amp;lt;script type="text/javascript" src="socket.io/socket.io.js"&gt;&amp;lt;/script&gt;
+        &amp;lt;script type="text/javascript" src="node-atlas/socket.io.js"&gt;&amp;lt;/script&gt;
+        &amp;lt;script type="text/javascript" src="javascripts/test.js"&gt;&amp;lt;/script&gt;
+        &amp;lt;script type="text/javascript" src="javascripts/index.js"&gt;&amp;lt;/script&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p><em>Note : If</em> <code>socketClientFile</code> <em>and</em> <code>socketServerOptions</code> <em>are not present in <code>webconfig.json</code>, default client file and server options for sockets for config sockets are</em> <code>/node-atlas/socket.io.js</code> <em>and</em> <code>{ transports: ['polling', 'websocket'] }</code>. <code>socketClientFile</code>. <em>They are useful only to change the name of file or the sockets transports alloweds. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
+    if (typeof module !== 'undefined' &amp;&amp; module.exports) {
+        module.exports = factory;
+    } else {
+        expose.Test = factory;
+    }
+}(this, function () {
+    if (NA.isClient) {
+        console.log("Client");
+    } else {
+        console.log("Server");
+    }
+}));
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+// This code is executed for all Websocket from Client.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    io.on('connection', function (socket) {
+        console.log("A tab is opened.");
+        socket.on('disconnect', function () {
+            console.log("A tab is closed.");
+        });
+    });
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed for each Websocket request/response on server.
+// This code is executed for all Websocket from Client.
+exports.setSockets = function () {
+    var NA = this,
+        path = NA.modules.path,
+        io = NA.io;
+
+    require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // display `Server`
+
+    // Wait for a valid connection between client and servere.
+    io.sockets.on("connection", function (socket) {
+
+        // A page says the text has changed.
+        socket.on("update-text", function (data) {
+
+            // We say to all others page the page has changed.
+            io.sockets.emit("update-text", data);
+        });
+    });
+};
+</code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName("content")[0],
+    input = document.getElementsByClassName("input")[0];
+
+Test(); // display `Client`
+
+// We say to others we just change text.
+input.addEventListener("keyup", function () {
+    content.innerHTML = input.value;
+    NA.socket.emit("update-text", {
+        text: input.value
+    });
+});
+
+// Others says they changed the text.
+NA.socket.on("update-text", function (data) {
+    content.innerHTML = data.text;
+    input.value = data.text;
+});
+</code></pre><p>You will see, opening different browsers and tabs. All is update in all tabs. Each tab open display the connection message and each tab closed display the deconnection message on the server console.</p><p><em>Note : You can change the <code>node-atlas/socket.io.js</code> file by a file provided by you in order to change <code>optionsSocket</code> variable. You can also change <code>NA.optionsSocket</code> in a front-side file, before inserting of <code>node-atlas/socket.io.js</code> with a custom option objet.</em></p><h4 id="setmodules">setModules</h4><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setModules()</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+</ul><p>This is an exemple using an external module of NodeAtlas:</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "controller": "index.js"
+        }
+    }
+}
+</code></pre><p>with this set of files:</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;Test Module&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;Test Module&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;Test Module&amp;lt;/h1&gt;
+            &amp;lt;?- example ?&gt;
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing during the modules loading phase.
+// This code will be executed when NodeAtlas starting.
+exports.setModules = function () {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this;
+
+    // Associate each modules to allow us to use them anywhare.
+    NA.modules.marked = require('marked');
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+// This code is executed only for the « / » page .
+exports.changeVariations = function (next, locals) {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this,
+        marked = NA.modules.marked;
+
+    variations.example = marked("I am using __markdown__.");
+
+    // We do next step.
+    next();
+};
+</code></pre><p>this will produce the following output:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;Test Module&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;Test Module&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;Test Module&amp;lt;/h1&gt;
+            &amp;lt;p&gt;I am using &amp;lt;strong&gt;markdown&amp;lt;/strong&gt;.&amp;lt;/p&gt;
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><h4 id="setconfigurations">setConfigurations</h4><p>To configure NodeAtlas web server others (<a href="http://expressjs.com/">ExpressJs</a>), you can use the common controller to set configurations before the server start.</p><p><code>setConfigurations(next)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+</ul><p>This is an exemple using a middleware for <a href="http://expressjs.com/">ExpressJs</a>:</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "controller": "index.js"
+        }
+    }
+}
+</code></pre><p>with this set of files:</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;?- content ?&gt;
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
+// This code will be executed when NodeAtlas starting.
+exports.setConfigurations = function (next) {
+    // Use the « NodeAtlas » instance from engine.
+    var NA = this;
+
+    // Middleware utilisé lors de chaque requête.
+    NA.express.use(function (request, response, next) {
+        response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
+        next();
+    });
+
+    // We update modification here.
+    next();
+};
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
+// This code is executed only for the « / » page .
+exports.changeVariations = function (next, locals) {
+
+    // We prepare file for JSON displaying.
+    locals.routeParameters.headers = {
+        "Content-Type": "application/json; charset=utf-8"
+    };
+    locals.content = JSON.stringify(locals, null, "    ");
+
+    // We do the next step.
+    next();
+};
+</code></pre><p>this will produce the following output:</p><pre><code class="lang-html">{
+    "urlRootPath": "http://localhost",
+    "urlSubPath": "",
+    "urlBasePath": "http://localhost",
+    "urlFilePath": "/",
+    "urlQueryPath": "",
+    "urlPath": "http://localhost/",
+    "params": {},
+    "query": {},
+    "body": {},
+    "routeParameters": { /* ... */ },
+    "route": "/",
+    "webconfig": { /* ... */ }
+}
+</code></pre><h4 id="setsessions">setSessions</h4><p>To configure client-server Sessions of NodeAtlas, you can use the common controller to set sessions before the server start. this is an example with <a href="http://redis.io/">Redis</a> sessions.</p><p><code>setSessions(next)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+</ul><p>This is all files for example:</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ views/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
+</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>And "common.js" file containing e.g.:</p><pre><code class="lang-js">// This code is executing during the modules loading phase.
+// This code will be executed when NodeAtlas starting.
+exports.setModules = function () {
+    // Find instance of « NodeAtlas » engine.
+    var NA = this;
+
+    // Associations of each module to access it anywhere.
+    NA.modules.RedisStore = require('connect-redis');
+};
+
+// This code is executing while configuration of session.
+// This code will be executed when NodeAtlas starting.
+exports.setSessions = function (next) {
+    var NA = this,
+        session = NA.modules.session,
+        RedisStore = NA.modules.RedisStore(session);
+
+    // We replace the default session.
+    NA.sessionStore = new RedisStore();
+
+    // We update modification here.
+    next();
+};
+</code></pre><h4 id="setroutes">setRoutes</h4><p>To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setRoutes(next)</code> is a function to <code>exports</code> and provide :</p><ul>
+<li><code>NA</code> object as <code>this</code>.</li>
+<li>A callback function <code>next()</code> in first parameter.</li>
+</ul><p>This is all files for example:</p><pre><code>├─ controllers/
+│  └─ common.js
+├─ views/
+│  ├─ content.htm
+│  └─ index.htm
+├─ variations/
+│  └─ common.json
+└─ webconfig.json
+</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "variation": "common.json",
+    "routes": {
+        "/index.html": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>And "common.js" file containing e.g.:</p><pre><code class="lang-js">// This code is executing while route are added.
+// This code will be executed when NodeAtlas starting.
+exports.setRoutes = function (next) {
+
+    // We use instance of NodeAtlas.
+    var NA = this,
+
+        // And we keep routes from NodeAtlas webconfig...
+        route = NA.webconfig.routes;
+
+    // ...to add "/content.html" route amongs others routes.
+    route["/content.html"] = {
+        "view": "content.htm"
+    };
+
+    // We update modification here.
+    next();
+};
+</code></pre><h3 id="use-reliable-client-server-real-time-with-websockets">Use Reliable Client-Server Real-Time with Websockets</h3><p>To keep a link between Client-side and Server-side part of website, NodeAtlas use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p><p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p><p>With this following files:</p><pre><code>├─ assets/
+│  └─ javascripts/
+│     └─ index.js
+├─ controllers/
+│  └─ index.js
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+├─ views/
+│  ├─ partials/
+│  │  └─ index.htm
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>With this <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "variation": "common.json",
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    }
+}
+</code></pre><p>and with this views files:</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
+            &amp;lt;?- specific.content ?&gt;
+            &amp;lt;div&gt;&amp;lt;?- new Date() ?&gt;&amp;lt;/div&gt;
+        &amp;lt;/div&gt;
+        &amp;lt;button&gt;Update&amp;lt;/button&gt;
+</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="layout"&gt;
+            &amp;lt;?- include('partials/index.htm') ?&gt;
+        &amp;lt;/div&gt;
+        &amp;lt;script type="text/javascript" src="socket.io/socket.io.js"&gt;&amp;lt;/script&gt;
+        &amp;lt;script type="text/javascript" src="node-atlas/socket.io.js"&gt;&amp;lt;/script&gt;
+        &amp;lt;script type="text/javascript" src="javascripts/index.js"&gt;&amp;lt;/script&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p><em>Note : We parse here the home page <code>/</code>.</em></p><p>and the following variations files :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    "titleWebsite": "Socket.IO Example"
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    "titlePage": "Date",
+    "content": "&amp;lt;p&gt;Current date is:&amp;lt;/p&gt;"
+}
+</code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side.</p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// All Websocket action possible with `setSockets`.
+exports.setSockets = function () {
+    var NA = this,
+        io = NA.io;
+
+    // Once we have a valid connection between the client and our server...
+    io.sockets.on('connection', function (socket) {
+
+        // ...stay tuned on the "create-item-button" demand...
+        socket.on("server-render", function (data) {
+            var sessionID = socket.request.sessionID,
+                session = socket.request.session,
+                locals = {};
+
+            // Specific variations in the good language.
+            locals = NA.specific("index.json", data.lang, locals);
+
+            // Common variations in the good language.
+            locals = NA.common(data.lang, locals);
+
+            // HTML part from `viewsRelativePath` directory and render with variations.
+            result = NA.view("partials/index.htm", locals);
+
+            // And responds to all customers with a set of data in data.
+            io.sockets.emit("server-render", data);
+        });
+    });
+};
+</code></pre><p>And for client-side, we use the following files:</p><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var html = document.getElementsByTagName("html")[0],
+    layout = document.getElementsByClassName("layout")[0];
+
+// We associate on the button the action to contact server.
+function setServerRender() {
+    var button = document.getElementsByTagName("button")[0];
+    button.addEventListener("click", function () {
+        NA.socket.emit("server-render", {
+            lang: html.getAttribute("lang")
+        });
+    });
+}
+
+// We set action on button.
+setServerRender();
+
+// When server response come back...
+NA.socket.on("server-render", function (data) {
+
+    // ...we update data content...
+    layout.innerHTML = data.render;
+
+    // ...and we set again button action.
+    setServerRender();
+});
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.view</code>, it's possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>locals</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>view</code> to use Pug template engine and not EJS, you must defined <code>locals.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
+</code></pre><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
+</code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
+</code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    lastname VARCHAR(100),
+    firstname VARCHAR(100),
+    email VARCHAR(255),
+    birthdate DATE,
+    gender TINYINT(1),
+    country VARCHAR(255),
+    town VARCHAR(255),
+    zipcode VARCHAR(5),
+    address VARCHAR(255)
+);
+</code></pre><p>and fill it with this set of data:</p><pre><code class="lang-sql">INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    "Elric",
+    "Edward",
+    "edward.elric@fma.br",
+    "2006/01/01",
+    true,
+    "Amestris",
+    "Resembool",
+    00000,
+    "The Elric's house"
+);
+INSERT INTO user (
+    lastname,
+    firstname,
+    email,
+    birthdate,
+    gender,
+    country,
+    town,
+    zipcode,
+    address
+) VALUES (
+    "Elric",
+    "Alphonse",
+    "alphonse.elric@fma.br",
+    "2008/01/01",
+    true,
+    "Amestris",
+    "Resembool",
+    00000,
+    "The Elric's house"
+);
+</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>See now what files we will created to present our example:</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  ├─ objects/
+│  │  └─ user.js
+│  └─ connectors/
+│     └─ user.js
+├─ views/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
+</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contain all informations for database connection:</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "variation": "common.json",
+    "statics": {
+        "/models": "models/objects"
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    },
+    "_mysqlConfig": {
+        "host": "localhost",
+        "user": "root",
+        "password": "root",
+        "database": "demo"
+    }
+}
+</code></pre><p>Then, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this;
+
+    // Import of `mysql` module.
+    NA.modules.mysql = require('mysql');
+
+    // Create a model collection...
+    NA.models = {};
+    // ...and use the User model with MySQL connection capability.
+    NA.models.User = require('../models/connectors/user.js');
+};
+
+exports.setConfigurations = function (next) {
+    var NA = this,
+        path = NA.modules.path,
+        mysql = NA.modules.mysql;
+
+    // Create a connection pool to MySQL.
+    NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
+
+    next();
+};
+</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+    var NA = this,
+        user = new NA.models.User(),
+        user2 = new NA.models.User(),
+        user3 = new NA.models.User(),
+        user4 = new NA.models.User();
+
+    NA.mySql.getConnection(function(err, connection) {
+        if (err) {
+            throw err;
+        }
+
+        // Read example.
+        user
+        .setConnection(connection)
+        .lastname("Elric")
+        .read(function (allUsers) {
+            locals.user = user;
+            locals.users = allUsers;
+
+            // Create Example.
+            user2
+            .setConnection(connection)
+            .firstname("Winry")
+            .lastname("Rockbell")
+            .email("winry.rockbell@fma.br")
+            .gender(true)
+            .create(function (infos) {
+                locals.insertId = infos.insertId;
+                locals.user2 = user2;
+
+                // Update Example.
+                user3
+                .gender(false)
+                .birthdate("2008-01-01")
+                .country("Amestris")
+                .town("Resembool")
+                .zipcode("99999")
+                .address("The Rockbell's house");
+
+                user2.update(user3, function (infos) {
+                    locals.affectedRows = infos.affectedRows;
+                    locals.user2 = user2;
+
+                    // Delete Example.
+                    user4
+                    .setConnection(connection)
+                    .gender(false)
+                    .delete(function (infos) {
+                        locals.deletedRows = infos.affectedRows;
+                        next();
+                    });
+                });
+            });
+        });
+    });
+};
+</code></pre><p>with the <code>user</code> model via connect file to database <code>models/connectors/user.js</code>:</p><pre><code class="lang-js">var user = require('../objects/user.js');
+
+function User(connection) {
+    var privates = {},
+        publics = this;
+
+    user.call(publics);
+
+    privates.connection = connection;
+
+    publics.setConnection = function (connection) {
+        privates.connection = connection;
+        return publics;
+    };
+
+    publics.read = function (callback) {
+        var select = `SELECT
+                    id,
+                    lastname,
+                    firstname,
+                    email,
+                    birthdate,
+                    gender,
+                    country,
+                    town,
+                    zipcode,
+                    address
+                FROM user`,
+            where = "";
+
+        if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
+        if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
+        if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
+        if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
+        if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
+        if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
+        if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
+        if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
+        if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
+
+        where = where.replace("&amp;&amp;", "WHERE");
+
+        privates.connection.query(select + where, function (err, rows) {
+            var users = [],
+                user;
+
+            if (err) {
+                throw err;
+            }
+
+            if (rows[0]) {
+                publics.id(rows[0].id);
+                publics.lastname(rows[0].lastname);
+                publics.firstname(rows[0].firstname);
+                publics.email(rows[0].email);
+                publics.birthdate(rows[0].birthdate);
+                publics.gender((rows[0].gender) ? true : false);
+                publics.country(rows[0].country);
+                publics.town(rows[0].town);
+                publics.zipcode(rows[0].zipcode);
+                publics.address(rows[0].address);
+            }
+
+            for (var i = 0; i &amp;lt; rows.length; i++) {
+                user = new User();
+                user.id(rows[i].id);
+                user.lastname(rows[i].lastname);
+                user.firstname(rows[i].firstname);
+                user.email(rows[i].email);
+                user.birthdate(rows[i].birthdate);
+                user.gender((rows[i].gender) ? true : false);
+                user.country(rows[i].country);
+                user.town(rows[i].town);
+                user.zipcode(rows[i].zipcode);
+                user.address(rows[i].address);
+                users.push(user);
+            }
+
+            if (callback) {
+                callback(users);
+            }
+        });
+
+        return publics;
+    };
+
+    publics.create = function (callback) {
+        var insert = "INSERT INTO user (",
+            values = ") VALUES (";
+
+        if (publics.id()) {
+            insert += "`id`, ";
+            values += publics.id() + ', ';
+        }
+        if (publics.lastname()) {
+            insert += "`lastname`, ";
+            values += '"' + publics.lastname() + '", ';
+        }
+        if (publics.firstname()) {
+            insert += "`firstname`, ";
+            values += '"' + publics.firstname() + '", ';
+        }
+        if (publics.email()) {
+            insert += "`email`, ";
+            values += '"' + publics.email() + '", ';
+        }
+        if (publics.birthdate()) {
+            insert += "`birthdate`, ";
+            values += '"' + publics.birthdate() + '", ';
+        }
+        if (typeof publics.gender() === "boolean") {
+            insert += "`gender`, ";
+            values += (publics.gender() ? 1 : 0) + ', ';
+        }
+        if (publics.country()) {
+            insert += "`country`, ";
+            values += '"' + publics.country() + '", ';
+        }
+        if (publics.town()) {
+            insert += "`town`, ";
+            values += '"' + publics.town() + '", ';
+        }
+        if (publics.zipcode()) {
+            insert += "`zipcode`, ";
+            values += '"' + publics.zipcode() + '", ';
+        }
+        if (publics.address()) {
+            insert += "`address`, ";
+            values += '"' + publics.address() + '", ';
+        }
+
+        insert = insert.replace(/, $/g, "");
+        values = values.replace(/, $/g, ")");
+
+        privates.connection.query(insert + values, function (err, infos) {
+            if (err) {
+                throw err;
+            }
+
+            publics.id(infos.insertId);
+
+            if (callback) {
+                callback(infos);
+            }
+        });
+
+        return publics;
+    };
+
+    publics.update = function (user, callback) {
+        var update = "UPDATE user SET",
+            where = "";
+
+        if (user.id()) { update += '`id` = ' + user.id() + ', '; }
+        if (user.lastname()) { update += '`lastname` = "' + user.lastname() + '", '; }
+        if (user.firstname()) { update += '`firstname` = "' + user.firstname() + '", '; }
+        if (user.email()) { update += '`email` = "' + user.email() + '", '; }
+        if (user.birthdate()) { update += '`birthdate` = "' + user.birthdate() + '", '; }
+        if (typeof user.gender() === "boolean") { update += '`gender` = ' + (user.gender() ? 1 : 0) + ', '; }
+        if (user.country()) { update += '`country` = "' + user.country() + '", '; }
+        if (user.town()) { update += '`town` = "' + user.town() + '", '; }
+        if (user.zipcode()) { update += '`zipcode` = "' + user.zipcode() + '", '; }
+        if (user.address()) { update += '`address` = "' + user.address() + '", '; }
+
+        update = update.replace(/, $/g, "");
+
+        if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
+        if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
+        if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
+        if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
+        if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
+        if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
+        if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
+        if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
+        if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
+
+        where = where.replace("&amp;&amp;", "WHERE");
+
+        privates.connection.query(update + where, function (err, infos) {
+            if (err) {
+                throw err;
+            }
+
+            if (user.id()) { publics.id(user.id()); }
+            if (user.lastname()) { publics.lastname(user.lastname()); }
+            if (user.firstname()) { publics.firstname(user.firstname()); }
+            if (user.email()) { publics.email(user.email()); }
+            if (user.birthdate()) { publics.birthdate(user.birthdate()); }
+            if (typeof publics.gender() === "boolean") { publics.gender(user.gender()); }
+            if (user.country()) { publics.country(user.country()); }
+            if (user.town()) { publics.town(user.town()); }
+            if (user.zipcode()) { publics.zipcode(user.zipcode()); }
+            if (user.address()) { publics.address(user.address()); }
+
+            if (callback) {
+                callback(infos);
+            }
+        });
+
+        return publics;
+    };
+
+    publics.delete = function (callback) {
+        var del = "DELETE FROM user",
+            where = "";
+
+        if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
+        if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
+        if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
+        if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
+        if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
+        if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
+        if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
+        if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
+        if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
+        if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
+
+        where = where.replace("&amp;&amp;", "WHERE");
+
+        privates.connection.query(del + where, function (err, infos) {
+            if (err) {
+                throw err;
+            }
+
+            if (publics.id()) { publics.id(undefined); }
+            if (publics.lastname()) { publics.lastname(undefined); }
+            if (publics.firstname()) { publics.firstname(undefined); }
+            if (publics.email()) { publics.email(undefined); }
+            if (publics.birthdate()) { publics.birthdate(undefined); }
+            if (typeof publics.gender() === "boolean") { publics.gender(undefined); }
+            if (publics.country()) { publics.country(undefined); }
+            if (publics.town()) { publics.town(undefined); }
+            if (publics.zipcode()) { publics.zipcode(undefined); }
+            if (publics.address()) { publics.address(undefined); }
+
+            if (callback) {
+                callback(infos);
+            }
+        });
+
+        return publics;
+    };
+}
+
+User.prototype = Object.create(user.prototype);
+User.prototype.constructor = User;
+
+module.exports = User;
+</code></pre><p>based on <code>user</code> classe shared between client-side and server-side <code>models/objects/user.js</code>:</p><pre><code class="lang-js">(function (expose, factory) {
+    if (typeof module !== 'undefined' &amp;&amp; module.exports) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, function User() {
+    var privates = {},
+        publics = this;
+
+    publics.id = function (id) {
+        if (typeof id === 'undefined') {
+            return privates.id;
+        } else {
+            privates.id = id;
+            return publics;
+        }
+    };
+
+    publics.lastname = function (lastname) {
+        if (typeof lastname === 'undefined') {
+            return privates.lastname;
+        } else {
+            privates.lastname = lastname;
+            return publics;
+        }
+    };
+
+    publics.firstname = function (firstname) {
+        if (typeof firstname === 'undefined') {
+            return privates.firstname;
+        } else {
+            privates.firstname = firstname;
+            return publics;
+        }
+    };
+
+    publics.email = function (email) {
+        if (typeof email === 'undefined') {
+            return privates.email;
+        } else {
+            privates.email = email;
+            return publics;
+        }
+    };
+
+    publics.birthdate = function (birthdate) {
+        if (typeof birthdate === 'undefined') {
+            return privates.birthdate;
+        } else {
+            privates.birthdate = birthdate;
+            return publics;
+        }
+    };
+
+    publics.gender = function (gender) {
+        if (typeof gender === 'undefined') {
+            return privates.gender;
+        } else {
+            privates.gender = gender;
+            return publics;
+        }
+    };
+
+    publics.country = function (country) {
+        if (typeof country === 'undefined') {
+            return privates.country;
+        } else {
+            privates.country = country;
+            return publics;
+        }
+    };
+
+    publics.town = function (town) {
+        if (typeof town === 'undefined') {
+            return privates.town;
+        } else {
+            privates.town = town;
+            return publics;
+        }
+    };
+
+    publics.zipcode = function (zipcode) {
+        if (typeof zipcode === 'undefined') {
+            return privates.zipcode;
+        } else {
+            privates.zipcode = zipcode;
+            return publics;
+        }
+    };
+
+    publics.address = function (address) {
+        if (typeof address === 'undefined') {
+            return privates.address;
+        } else {
+            privates.address = address;
+            return publics;
+        }
+    };
+}));
+</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
+            &amp;lt;div class="first"&gt;
+                &amp;lt;?- specific.content ?&gt;
+                &amp;lt;ul&gt;
+                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;&amp;lt;?- user.id() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;&amp;lt;?- user.lastname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;&amp;lt;?- user.firstname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;&amp;lt;?- user.email() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;&amp;lt;?- user.birthdate() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;&amp;lt;?- user.gender() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;&amp;lt;?- user.country() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;&amp;lt;?- user.town() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;&amp;lt;?- user.zipcode() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;&amp;lt;?- user.address() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;/ul&gt;
+            &amp;lt;/div&gt;
+            &amp;lt;div class="all"&gt;
+                &amp;lt;?- specific.contents ?&gt;
+                &amp;lt;? for (var i = 0; i &amp;lt; users.length; i++) { ?&gt;
+                &amp;lt;ul&gt;
+                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;&amp;lt;?- users[i].id() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;&amp;lt;?- users[i].lastname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;&amp;lt;?- users[i].firstname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;&amp;lt;?- users[i].email() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;&amp;lt;?- users[i].birthdate() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;&amp;lt;?- users[i].gender() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;&amp;lt;?- users[i].country() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;&amp;lt;?- users[i].town() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;&amp;lt;?- users[i].zipcode() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;&amp;lt;?- users[i].address() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;/ul&gt;
+                &amp;lt;? } ?&gt;
+            &amp;lt;/div&gt;
+            &amp;lt;div class="last"&gt;
+                &amp;lt;?- specific.contentInsert ?&gt;
+                &amp;lt;p&gt;insertId: &amp;lt;?- insertId ?&gt;&amp;lt;/p&gt;
+                &amp;lt;p&gt;numberUpdate: &amp;lt;?- affectedRows ?&gt;&amp;lt;/p&gt;
+                &amp;lt;ul&gt;
+                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;&amp;lt;?- user2.id() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;&amp;lt;?- user2.lastname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;&amp;lt;?- user2.firstname() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;&amp;lt;?- user2.email() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;&amp;lt;?- user2.birthdate() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;&amp;lt;?- user2.gender() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;&amp;lt;?- user2.country() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;&amp;lt;?- user2.town() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;&amp;lt;?- user2.zipcode() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;&amp;lt;?- user2.address() ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;/ul&gt;
+                &amp;lt;p&gt;numberDelete: &amp;lt;?- deletedRows ?&gt;&amp;lt;/p&gt;
+            &amp;lt;/div&gt;
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    "titleWebsite": "Example MySql",
+    "male": "Man",
+    "female": "Woman"
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    "titlePage": "User Table",
+    "content": "&amp;lt;p&gt;First entry details.&amp;lt;/p&gt;",
+    "contents": "&amp;lt;p&gt;All entries details.&amp;lt;/p&gt;",
+    "contentInsert": "&amp;lt;p&gt;Added and Updated user details.&amp;lt;/p&gt;"
+}
+</code></pre><p>You will get the following output:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;MySql Exemple&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;MySql Exemple&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;Table User&amp;lt;/h1&gt;
+            &amp;lt;div class="first"&gt;
+                &amp;lt;p&gt;Détail de la première entrée.&amp;lt;/p&gt;
+                &amp;lt;ul&gt;
+                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;1&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Elric&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;Edward&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;edward.elric@fma.br&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;true&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;Amestris&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;Resembool&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;0&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;The Elric's house&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;/ul&gt;
+            &amp;lt;/div&gt;
+            &amp;lt;div class="all"&gt;
+                &amp;lt;p&gt;Détail de toutes les entrées.&amp;lt;/p&gt;
+                &amp;lt;ul&gt;
+                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;1&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Elric&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;Edward&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;edward.elric@fma.br&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;true&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;Amestris&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;Resembool&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;0&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;The Elric's house&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;/ul&gt;
+                &amp;lt;ul&gt;
+                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;2&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Elric&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;Alphonse&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;alphonse.elric@fma.br&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;true&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;Amestris&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;Resembool&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;0&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;The Elric's house&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;/ul&gt;
+            &amp;lt;/div&gt;
+            &amp;lt;div class="last"&gt;
+                &amp;lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&amp;lt;/p&gt;
+                &amp;lt;p&gt;insertId: 3&amp;lt;/p&gt;
+                &amp;lt;p&gt;numberUpdate: 1&amp;lt;/p&gt;
+                &amp;lt;ul&gt;
+                    &amp;lt;li&gt;Id: &amp;lt;strong&gt;3&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Rockbell&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;Winry&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Email: &amp;lt;strong&gt;winry.rockbell@fma.br&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;2008-01-01&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Gender: &amp;lt;strong&gt;false&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Country: &amp;lt;strong&gt;Amestris&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Town: &amp;lt;strong&gt;Resembool&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;99999&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                    &amp;lt;li&gt;Address: &amp;lt;strong&gt;The Rockbell's house&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;/ul&gt;
+                &amp;lt;p&gt;numberDelete: 1&amp;lt;/p&gt;
+            &amp;lt;/div&gt;
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><h3 id="use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mongoose
+</code></pre><h4 id="mongodb-database">MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p><pre><code>use demo
+</code></pre><p>and create a <code>user</code> collection:</p><pre><code>db.createCollection("user")
+</code></pre><p>and fill it with this document:</p><pre><code>db.user.insert({
+    email: "john.doe@unknown.com",
+    identity: {
+        lastname: "Doe",
+        firstname: "John",
+        gender: true,
+        birthdate : new Date("1970/01/01")
+    },
+    location: {
+        country: "Unknown",
+        town: "Unknown",
+        zipcode: "00000",
+        address: "42 unknown"
+    }
+})
+</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>With the following data set:</p><pre><code>├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  └─ user.js
+├─ views/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
+</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p><pre><code class="lang-json">{
+    "controller": "common.js",
+    "variation": "common.json",
+    "statics": {
+        "/models": "models"
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm",
+            "variation": "index.json",
+            "controller": "index.js"
+        }
+    },
+    "_mongodbConfig": {
+        "host": "localhost",
+        "port": "27017",
+        "database": "demo"
+    }
+}
+</code></pre><p>With following files to display page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="&amp;lt;?- languageCode ?&gt;"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;&amp;lt;?- common.titleWebsite ?&gt;&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;&amp;lt;?- specific.titlePage ?&gt;&amp;lt;/h1&gt;
+            &amp;lt;?- specific.content ?&gt;
+            &amp;lt;ul&gt;
+                &amp;lt;li&gt;Id: &amp;lt;strong&gt;&amp;lt;?- id ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;&amp;lt;?- lastname ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;&amp;lt;?- firstname ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Email: &amp;lt;strong&gt;&amp;lt;?- email ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;&amp;lt;?- birthdate ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Gender: &amp;lt;strong&gt;&amp;lt;?- gender ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Country: &amp;lt;strong&gt;&amp;lt;?- country ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Town: &amp;lt;strong&gt;&amp;lt;?- town ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;&amp;lt;?- zipcode ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Address: &amp;lt;strong&gt;&amp;lt;?- address ?&gt;&amp;lt;/strong&gt;&amp;lt;/li&gt;
+            &amp;lt;/ul&gt;
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+    "titleWebsite": "Example MongoDB",
+    "male": "Man",
+    "female": "Woman"
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+    "titlePage": "User Collection",
+    "content": "&amp;lt;p&gt;Document `{ \"identity.firstname\": \"John\" }` details.&amp;lt;/p&gt;"
+}
+</code></pre><p>And last, we will be connect to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.setModules = function () {
+    var NA = this,
+        path = NA.modules.path;
+
+    NA.modules.mongoose = require('mongoose');
+    NA.models = {};
+    NA.models.User = require('../models/user.js');
+};
+
+exports.setConfigurations = function (next) {
+    var NA = this,
+        mongoose = NA.modules.mongoose,
+        config = NA.webconfig._mongodbConfig;
+
+    mongoose.Promise = global.Promise;
+    mongoose.model("user", NA.models.User, "user");
+    mongoose.connect("mongodb://" + config.host + ":" + config.port + "/" + config.database, function (error) {
+        next();
+    });
+};
+</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+    var NA = this,
+        mongoose = NA.modules.mongoose,
+        User = mongoose.model('user');
+
+    User
+    .findOne({ "identity.firstname": "Bruno" })
+    .exec(function (err, user) {
+
+        locals.id = user._id;
+        locals.lastname = user.identity.lastname;
+        locals.firstname = user.identity.firstname;
+        locals.birthdate = user.identity.birthdate;
+        locals.email = user.email;
+        locals.gender = (user.identity.gender) ? locals.common.male : locals.common.female;
+        locals.country = user.location.country;
+        locals.town = user.location.town;
+        locals.zipcode = user.location.zipcode;
+        locals.address = user.location.address;
+
+        next();
+    });
+};
+</code></pre><p>based on <code>user</code> classe shared between client-side and server-side part <code>models/user.js</code>:</p><pre><code class="lang-js">var mongoose;
+if (typeof module !== 'undefined' &amp;&amp; module.exports) {
+     mongoose = require('mongoose');
+}
+
+(function (expose, factory) {
+    if (mongoose) {
+        module.exports = factory;
+    } else {
+        expose.User = factory;
+    }
+}(this, new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    email: { type : String, match: /^\S+@\S+$/ },
+    identity: {
+        lastname: String,
+        firstname: String,
+        gender: Boolean,
+        birthdate : { type : Date, default : Date.now }
+    },
+    location: {
+        country: String,
+        town: String,
+        zipcode: String,
+        address: String
+    }
+})));
+</code></pre><p>You will get the following output:</p><pre><code class="lang-html">&amp;lt;!DOCTYPE html&gt;
+&amp;lt;html lang="en-us"&gt;
+    &amp;lt;head&gt;
+        &amp;lt;meta charset="utf-8" /&gt;
+        &amp;lt;title&gt;MongoDB Example&amp;lt;/title&gt;
+    &amp;lt;/head&gt;
+    &amp;lt;body&gt;
+        &amp;lt;div class="title"&gt;MongoDB Example&amp;lt;/div&gt;
+        &amp;lt;div&gt;
+            &amp;lt;h1&gt;User Collection&amp;lt;/h1&gt;
+            &amp;lt;p&gt;Collection `{ "identity.firstname": "Bruno" }` details.&amp;lt;/p&gt;
+            &amp;lt;ul&gt;
+                &amp;lt;li&gt;Id: &amp;lt;strong&gt;5804d4d530788ee2e52ea1c7&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Lastname: &amp;lt;strong&gt;Doe&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Firstname: &amp;lt;strong&gt;John&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Email: &amp;lt;strong&gt;john.doe@unknown.com&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Birthdate: &amp;lt;strong&gt;Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Gender: &amp;lt;strong&gt;Homme&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Country: &amp;lt;strong&gt;Unknown&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Town: &amp;lt;strong&gt;Unknown&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Zipcode: &amp;lt;strong&gt;00000&amp;lt;/strong&gt;&amp;lt;/li&gt;
+                &amp;lt;li&gt;Address: &amp;lt;strong&gt;42 unknown&amp;lt;/strong&gt;&amp;lt;/li&gt;
+            &amp;lt;/ul&gt;
+        &amp;lt;/div&gt;
+    &amp;lt;/body&gt;
+&amp;lt;/html&gt;
+</code></pre><h3 id="use-middlewares-from-express">Use Middlewares from Express</h3><p>NodeAtlas is construct on the top of <a href="http://expressjs.com/">Express.js</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this you are able to add Express middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas's Express pre-configuration when the Webconfig is empty :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
+/* ... */
+NA.express.set("x-powered-by", false);
+/* ... */
+/* Activate gzip, deflate and co. */
+NA.express.use(compress());
+/* ... */
+/* Parsing "x-www-form-urlencoded" encryption type. */
+NA.express.use(bodyParser.urlencoded({ extended: true }));
+/* ... */
+/* Parsing "application/json" encryption type. */
+NA.express.use(bodyParser.json());
+/* ... */
+/* Parsing cookies. */
+NA.express.use(cookieParser());
+/* ... */
+/* Manage session cookies. */
+NA.express.use(session(optionSession));
+/* ... */
+/* Manage `assets/` directory and access of file from domain root or a subpath. */
+NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));
+</code></pre><p>You can add middlewares with different ways.</p><h4 id="with-setconfigurations-">With <code>setConfigurations</code></h4><p>You can get the <code>NA#express</code> object ready to use middlewares with the <code>setConfigurations</code> hook. That will add the new mechanisms for all routes of your website.</p><pre><code class="lang-js">exports.setConfigurations = function (next) {
+    var NA = this;
+
+    // Middleware create by you.
+    NA.express.use(function (request, response, next) {
+        response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
+        next();
+    });
+
+    // Middleware adding severals security headers.
+    NA.express.use(require("helmet")());
+
+    next();
+};
+</code></pre><h4 id="with-the-middlewares-parameter-from-routes">With the <code>middlewares</code> parameter from Routes</h4><p>It's also possible to deliver middlewares Il est également possible de délivrer ses middlewares only for one route. In this case, you could use the <code>middlewares</code> parameter like this :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+    "middlewaresRelativePath": "middlewares",
+    "routes": {
+        "/upload-file": {
+            "view": "upload.htm",
+            "controller": "upload.js",
+            "middlewares": "upload.js"
+        }
+    }
+    "_jwt": {
+        secret: "AUTH_CLIENT_SECRET",
+        audience: "AUTH_CLIENT_ID"
+    }
+}
+</code></pre><p>and use the following file to authorize the "multipart/data-form" encryption data type by POST only if you are authenticated by a JSON token :</p><p><strong>middlewares/upload.js</strong></p><pre><code class="lang-js">var multer  = require("multer"),
+    jwt = require("express-jwt");
+
+module.exports = function () {
+    var NA = this,
+        path = NA.modules.path,
+        upload = multer({ dest: path.join(NA.serverPath, "uploads") });
+
+    return [
+        jwt({
+            secret: NA.webconfig._jwt.secret,
+            audience: NA.webconfig._jwt.audience
+        }),
+        upload.single("avatar"),
+    ];
+};
+</code></pre><p><em>Note : If</em> <code>middlewaresRelativePath</code> <em>is not present in "webconfig.json", default controller folder is</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="with-the-middlewares-parameter-in-global">With the <code>middlewares</code> parameter in Global</h4><p>It's also possible to use the same way for all routes. So, the webconfig will be use like that :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+    "middlewares": "is-authenticated.js"
+    "routes": {
+        "/upload-file": {
+            "view": "upload.htm",
+            "controller": "upload.js"
+        }
+    }
+    "_jwt": {
+        secret: "AUTH_CLIENT_SECRET",
+        audience: "AUTH_CLIENT_ID"
+    }
+}
+</code></pre><p>With the file :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require("express-jwt");
+
+module.exports = function () {
+    var NA = this;
+
+    return [
+        jwt({
+            secret: NA.webconfig._jwt.secret,
+            audience: NA.webconfig._jwt.audience
+        })
+    ];
+};
+</code></pre><h4 id="array-of-middlewares-">Array of <code>middlewares</code></h4><p>You could also provide an array with a file list of Express middlewares both in local route or global:</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+    "routes": {
+        "/upload-file": {
+            "view": "upload.htm",
+            "controller": "upload.js",
+            "middlewares": ["is-authenticated.js", "redirect.js"]
+        }
+    }
+    "_jwt": {
+        secret: "AUTH_CLIENT_SECRET",
+        audience: "AUTH_CLIENT_ID"
+    }
+}
+</code></pre><p>With the NA usage:</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require("express-jwt");
+
+module.exports = function () {
+    var NA = this;
+
+    return [jwt({
+        secret: NA.webconfig._jwt.secret,
+        audience: NA.webconfig._jwt.audience
+    })];
+};
+</code></pre><p>or not:</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="lang-js">module.exports = function (request, response, next) {
+
+    response.redirect('https://go.to.visitor.page/');
+
+    next();
+};
+</code></pre><h3 id="create-isomorphic-app">Create Isomorphic App</h3><p>An isomorphic app ist an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an exemple of isomporphic app in the template dedicated to <a href="https://vuejs.org/">Vue.js</a>.</p><p>For test this, just:</p><p>create a test folder:</p><pre><code class="lang-bash">mkdir hello-vue
+cd hello-vue
+</code></pre><p>then place it the <code>hello-vue</code> content</p><pre><code class="lang-bash">node-atlas --create hello-vue
+</code></pre><p>then install dependencies</p><pre><code class="lang-bash">npm install
+</code></pre><p>and finaly run the french version</p><pre><code class="lang-bash">node-atlas --browse
+</code></pre><p>or the international version</p><pre><code class="lang-bash">node-atlas --browse --webconfig webconfig.en-us.json
+</code></pre><p>You will find all you need about server-side code from <code>constrollers/common.js</code> and client-side code on <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> and from <code>assets/javascripts/common.js</code> on <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
+							<a href="view-part.html">◄ View Part</a>
+						</div><div class="after">
+							<a href="advanced-part.html">Advanced Part ►</a>
+						</div></div>
+				</div>
+			</div>
+		</div>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+		
+		<script id="channel" data-channel="NodeAtlas/Help" data-label="Help Chat" src="javascripts/common.min.js"></script>
+		
+		<script src="https://buttons.github.io/buttons.js"></script>
+	
+</body></html>

@@ -162,8 +162,6 @@
 .content h3 {
   position: relative;
   cursor: pointer;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
 }
 .content h2:hover::before,
 .content h3:hover::before {
@@ -184,4 +182,9 @@
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
   font-size: 0.5em;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.content h2hover::before {
+  top: calc(50% + 10px);
 }
