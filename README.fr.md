@@ -104,10 +104,10 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Point d'ancrage `setSessions`](#point-d-ancrage-setsessions)
  - [Point d'ancrage `setRoutes`](#point-d-ancrage-setroutes)
  - [Échanges WebSockets](#echanges-websockets)
- - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
- - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
- - [Utiliser des middlewares depuis Express](#utiliser-des-middlewares-depuis-express)
- - [Créer une application isomorphique](#créer-une-application-isomorphique)
+ - [Base de données SQL](#base-de-données-sql)
+ - [Base de données NoSQL](#base-de-données-nosql)
+ - [Middlewares Express](#middlewares-express)
+ - [Application isomorphique](#application-isomorphique)
 - [Partie avancée](#partie-avancee)
  - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
@@ -3087,7 +3087,7 @@ exports.setRoutes = function (next) {
 
 ### Échanges WebSockets ###
 
-Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise [Socket.IO](http://socket.io/) dont vous trouverez plus de détail sur le site officiel.
+Afin de conserver une liaison ouverte entre la partie cliente et la partie serveur de vos applications, NodeAtlas utilise [Socket.IO](http://socket.io/) dont vous trouverez plus de détail sur le site officiel.
 
 Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.
 
@@ -3135,10 +3135,10 @@ et contenant les fichiers de template suivant :
 			<?- specific.content ?>
 			<div><?- new Date() ?></div>
 		</div>
-		<button>Update</button>
+		<button>Mettre à jour</button>
 ```
 
-*Note : Chaque clique sur `button` raffraichira le contenu de `views/partials/index.htm`.*
+*Note : chaque clique sur `button` raffraichira le contenu de `views/partials/index.htm`.*
 
 *views/index.htm*
 
@@ -3160,7 +3160,7 @@ et contenant les fichiers de template suivant :
 </html>
 ```
 
-*Note : On construit ici la page d'accueil `/`.*
+*Note : on construit ici la page d'accueil `/`.*
 
 ainsi que les fichiers de variations suivant :
 
@@ -3181,14 +3181,14 @@ ainsi que les fichiers de variations suivant :
 }
 ```
 
-Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.
+Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté serveur puis côté client.
 
 Côté serveur, nous utiliserons le contrôleur commun suivant :
 
 *controllers/index.js*
 
 ```js
-// Intégralité des actions Websocket possible avec `setSockets`.
+// Intégralité des actions WebSocket possibles avec `setSockets`.
 exports.setSockets = function () {
 	var NA = this,
 		io = NA.io;
@@ -3196,7 +3196,7 @@ exports.setSockets = function () {
 	// Dès qu'on a un lien valide entre le client et notre serveur...
 	io.sockets.on("connection", function (socket) {
 
-		// ...rester à l'écoute de la demande « create-article-button »...
+		// ...rester à l'écoute de la demande `server-render`...
 		socket.on("server-render", function (data) {
 			var sessionID = socket.request.sessionID,
 				session = socket.request.session,
@@ -3250,7 +3250,7 @@ NA.socket.on("server-render", function (data) {
 });
 ```
 
-Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.
+Lancer votre projet et rendez-vous à l'adresse `http://localhost/` dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Mettre à jour », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.
 
 Grâce à `NA.specific`, `NA.common` et `NA.view`, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.
 
@@ -3260,9 +3260,9 @@ Note : pour permettre à `view` d'utiliser le moteur Pug au lieu de celui d'EJS,
 
 
 
-### Utiliser une base de données MySQL (SQL) ###
+### Base de données SQL ###
 
-Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser le module npm `mysql`. Il va également nous falloir [installer un serveur MySQL](https://dev.mysql.com/downloads/installer/).
+Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser une base MySQL comme exemple. Le module npm `mysql` va donc nous être utile. Il va également nous falloir [installer un serveur MySQL](https://dev.mysql.com/downloads/installer/).
 
 Donc, depuis le dossier du `webconfig.json`, utilisez :
 
@@ -4015,7 +4015,7 @@ Vous obtiendrez la sortie suivante :
 
 
 
-### Utiliser une base de données MongoDB (NoSQL) ###
+### Base de données NoSQL ###
 
 Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module npm `mongoose`. Il va également nous falloir [installer un serveur MongoDB](https://www.mongodb.com/).
 
@@ -4271,7 +4271,7 @@ Vous obtiendrez la sortie suivante :
 
 
 
-### Utiliser des middlewares depuis Express ###
+### Middlewares Express ###
 
 NodeAtlas repose en partie sur le module npm [Express.js](http://expressjs.com/). Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de `NA#express`. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.
 
@@ -4467,7 +4467,7 @@ module.exports = function (request, response, next) {
 
 
 
-### Créer une application isomorphique ###
+### Application isomorphique ###
 
 Une application isomorphique est une application dont le code JavaScript est en grande partie le même qu'il soit exécuté côté client ou exécuté côté serveur. NodeAtlas propose un exemple d'application isomorphique dans son template dédié à [Vue.js](https://fr.vuejs.org/).
 

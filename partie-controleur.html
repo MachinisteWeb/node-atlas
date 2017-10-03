@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1507044986714">
+		<meta name="og:updated_time" content="1507049451150">
 
 		<meta name="robots" content="index, follow">
 
@@ -977,7 +977,7 @@ exports.setRoutes = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next();
 };
-</code></pre><h3 id="echanges-websockets">Échanges WebSockets</h3><p>Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l'ensemble de fichier suivant :</p><pre><code>├─ assets/
+</code></pre><h3 id="echanges-websockets">Échanges WebSockets</h3><p>Afin de conserver une liaison ouverte entre la partie cliente et la partie serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l'ensemble de fichier suivant :</p><pre><code>├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
@@ -1006,8 +1006,8 @@ exports.setRoutes = function (next) {
             &lt;?- specific.content ?&gt;
             &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
         &lt;/div&gt;
-        &lt;button&gt;Update&lt;/button&gt;
-</code></pre><p><em>Note : Chaque clique sur <code>button</code> raffraichira le contenu de <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+        &lt;button&gt;Mettre à jour&lt;/button&gt;
+</code></pre><p><em>Note : chaque clique sur <code>button</code> raffraichira le contenu de <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -1022,14 +1022,14 @@ exports.setRoutes = function (next) {
         &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : On construit ici la page d'accueil <code>/</code>.</em></p><p>ainsi que les fichiers de variations suivant :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+</code></pre><p><em>Note : on construit ici la page d'accueil <code>/</code>.</em></p><p>ainsi que les fichiers de variations suivant :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Exemple Socket.IO"
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Date",
     "content": "&lt;p&gt;La date actuelle est :&lt;/p&gt;"
 }
-</code></pre><p>Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté Serveur puis côté Client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// Intégralité des actions Websocket possible avec `setSockets`.
+</code></pre><p>Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté serveur puis côté client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// Intégralité des actions WebSocket possibles avec `setSockets`.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -1037,7 +1037,7 @@ exports.setSockets = function () {
     // Dès qu'on a un lien valide entre le client et notre serveur...
     io.sockets.on("connection", function (socket) {
 
-        // ...rester à l'écoute de la demande « create-article-button »...
+        // ...rester à l'écoute de la demande `server-render`...
         socket.on("server-render", function (data) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session,
@@ -1082,7 +1082,7 @@ NA.socket.on("server-render", function (data) {
     // ...et ré-affectons l'action au bouton du nouveau contenu.
     setServerRender();
 });
-</code></pre><p>Lancer votre projet et rendez-vous à l'adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Update », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>view</code> d'utiliser le moteur Pug au lieu de celui d'EJS, il faut mettre la valeur <code>locals.pug</code> à <code>true</code> avant d'utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="utiliser-une-base-de-donnees-mysql-sql">Utiliser une base de données MySQL (SQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser le module npm <code>mysql</code>. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
+</code></pre><p>Lancer votre projet et rendez-vous à l'adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Mettre à jour », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>view</code> d'utiliser le moteur Pug au lieu de celui d'EJS, il faut mettre la valeur <code>locals.pug</code> à <code>true</code> avant d'utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="base-de-donnees-sql">Base de données SQL</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser une base MySQL comme exemple. Le module npm <code>mysql</code> va donc nous être utile. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
 </code></pre><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d'abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>et la sélectionner :</p><pre><code class="lang-sql">USE demo
 </code></pre><p>puis créer la table <code>user</code> :</p><pre><code class="lang-sql">CREATE TABLE user
@@ -1750,7 +1750,7 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="utiliser-une-base-de-donnees-mongodb-nosql">Utiliser une base de données MongoDB (NoSQL)</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mongoose
+</code></pre><h3 id="base-de-donnees-nosql">Base de données NoSQL</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mongoose
 </code></pre><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d'abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
 </code></pre><p>puis créer la collection <code>user</code> :</p><pre><code>db.createCollection("user")
 </code></pre><p>et la remplir avec un document :</p><pre><code>db.user.insert({
@@ -1929,7 +1929,7 @@ if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="utiliser-des-middlewares-depuis-express">Utiliser des middlewares depuis Express</h3><p>NodeAtlas repose en partie sur le module npm <a href="http://expressjs.com/">Express.js</a>. Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de <code>NA#express</code>. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.</p><p>En ce qui concerne la pré-configuration d'Express avec un webconfig vide, elle est faites ainsi :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
+</code></pre><h3 id="middlewares-express">Middlewares Express</h3><p>NodeAtlas repose en partie sur le module npm <a href="http://expressjs.com/">Express.js</a>. Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de <code>NA#express</code>. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.</p><p>En ce qui concerne la pré-configuration d'Express avec un webconfig vide, elle est faites ainsi :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
 /* ... */
 NA.express.set("x-powered-by", false);
 /* ... */
@@ -2048,7 +2048,7 @@ module.exports = function () {
 
     next();
 };
-</code></pre><h3 id="creer-une-application-isomorphique">Créer une application isomorphique</h3><p>Une application isomorphique est une application dont le code JavaScript est en grande partie le même qu'il soit exécuté côté client ou exécuté côté serveur. NodeAtlas propose un exemple d'application isomorphique dans son template dédié à <a href="https://fr.vuejs.org/">Vue.js</a>.</p><p>Pour tester cela il vous suffit :</p><p>de créer un dossier de test</p><pre><code class="lang-bash">mkdir hello-vue
+</code></pre><h3 id="application-isomorphique">Application isomorphique</h3><p>Une application isomorphique est une application dont le code JavaScript est en grande partie le même qu'il soit exécuté côté client ou exécuté côté serveur. NodeAtlas propose un exemple d'application isomorphique dans son template dédié à <a href="https://fr.vuejs.org/">Vue.js</a>.</p><p>Pour tester cela il vous suffit :</p><p>de créer un dossier de test</p><pre><code class="lang-bash">mkdir hello-vue
 cd hello-vue
 </code></pre><p>d'y placer les fichier de <code>hello-vue</code></p><pre><code class="lang-bash">node-atlas --create hello-vue
 </code></pre><p>d'installer les dépendances</p><pre><code class="lang-bash">npm install

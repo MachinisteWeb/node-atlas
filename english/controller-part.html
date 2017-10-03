@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1507044990948">
+		<meta name="og:updated_time" content="1507049455027">
 
 		<meta name="robots" content="index, follow">
 
@@ -977,7 +977,7 @@ exports.setRoutes = function (next) {
     // We do next steps.
     next();
 };
-</code></pre><h3 id="websockets-exchanges">Websockets Exchanges</h3><p>To keep a link between Client-side and Server-side part of website, NodeAtlas use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p><p>Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.</p><p>With this following files:</p><pre><code>├─ assets/
+</code></pre><h3 id="websockets-exchanges">Websockets Exchanges</h3><p>To keep a link between client-side and server-side part of the website, NodeAtlas use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p><p>Thanks to this, you could change in real-time data on your page, but also change data from another tabs or browsers.</p><p>With this following files:</p><pre><code>├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
@@ -1007,7 +1007,7 @@ exports.setRoutes = function (next) {
             &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;button&gt;Update&lt;/button&gt;
-</code></pre><p><em>Note : Each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</code></pre><p><em>Note: each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -1022,14 +1022,14 @@ exports.setRoutes = function (next) {
         &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : We parse here the home page <code>/</code>.</em></p><p>and the following variations files :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+</code></pre><p><em>Note: we parse here the home page <code>/</code>.</em></p><p>and the following variations files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
     "titleWebsite": "Socket.IO Example"
 }
 </code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
     "titlePage": "Date",
     "content": "&lt;p&gt;Current date is:&lt;/p&gt;"
 }
-</code></pre><p>All work fine here, but see what we will do with controller part on Server-side and on Client-side.</p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// All Websocket action possible with `setSockets`.
+</code></pre><p>All work fine here, but see what we will do with controller part on server-side and on client-side.</p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// All WebSocket action possible with `setSockets`.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -1037,7 +1037,7 @@ exports.setSockets = function () {
     // Once we have a valid connection between the client and our server...
     io.sockets.on('connection', function (socket) {
 
-        // ...stay tuned on the "create-item-button" demand...
+        // ...stay tuned on the `server-render` request...
         socket.on("server-render", function (data) {
             var sessionID = socket.request.sessionID,
                 session = socket.request.session,
@@ -1082,7 +1082,7 @@ NA.socket.on("server-render", function (data) {
     // ...and we set again button action.
     setServerRender();
 });
-</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.view</code>, it's possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is type of <code>undefined</code>, files will be search in rood directory. If <code>locals</code> is type of <code>undefined</code> an empty object will be created.</p><p>Note : to allows <code>view</code> to use Pug template engine and not EJS, you must defined <code>locals.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="use-mysql-database-sql">Use MySQL Database (SQL)</h3><p>We will see now how to use data from database. We will use the <code>mysql</code> npm module. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mysql
+</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browsers. You will see when you click on "Update", the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.view</code>, it's possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is the type of <code>undefined</code>, files will be searched in the root directory. If <code>locals</code> is the type of <code>undefined</code> an empty object will be created.</p><p>Note: to allows <code>view</code> to use Pug template engine and not EJS, you must define <code>locals.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="sql-database">SQL Database</h3><p>We will see now how to use data from database. We will use MySQL for this example. The <code>mysql</code> npm module will be useful. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use:</p><pre><code class="lang-bash">npm install mysql
 </code></pre><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
 </code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
 </code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user
@@ -1750,7 +1750,7 @@ module.exports = User;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="use-mongodb-database-nosql">Use MongoDB Database (NoSQL)</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mongoose
+</code></pre><h3 id="nosql-database">NoSQL Database</h3><p>We will see now how to use data from nosql database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use</p><pre><code class="lang-bash">npm install mongoose
 </code></pre><h4 id="mongodb-database">MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p><pre><code>use demo
 </code></pre><p>and create a <code>user</code> collection:</p><pre><code>db.createCollection("user")
 </code></pre><p>and fill it with this document:</p><pre><code>db.user.insert({
@@ -1929,7 +1929,7 @@ if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="use-middlewares-from-express">Use Middlewares from Express</h3><p>NodeAtlas is construct on the top of <a href="http://expressjs.com/">Express.js</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this you are able to add Express middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas's Express pre-configuration when the Webconfig is empty :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
+</code></pre><h3 id="express-middlewares">Express Middlewares</h3><p>NodeAtlas is construct on the top of <a href="http://expressjs.com/">Express.js</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this you are able to add Express middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas's Express pre-configuration when the Webconfig is empty :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
 /* ... */
 NA.express.set("x-powered-by", false);
 /* ... */
@@ -2048,7 +2048,7 @@ module.exports = function () {
 
     next();
 };
-</code></pre><h3 id="create-isomorphic-app">Create Isomorphic App</h3><p>An isomorphic app ist an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an exemple of isomporphic app in the template dedicated to <a href="https://vuejs.org/">Vue.js</a>.</p><p>For test this, just:</p><p>create a test folder:</p><pre><code class="lang-bash">mkdir hello-vue
+</code></pre><h3 id="isomorphic-app">Isomorphic App</h3><p>An isomorphic app ist an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an exemple of isomporphic app in the template dedicated to <a href="https://vuejs.org/">Vue.js</a>.</p><p>For test this, just:</p><p>create a test folder:</p><pre><code class="lang-bash">mkdir hello-vue
 cd hello-vue
 </code></pre><p>then place it the <code>hello-vue</code> content</p><pre><code class="lang-bash">node-atlas --create hello-vue
 </code></pre><p>then install dependencies</p><pre><code class="lang-bash">npm install

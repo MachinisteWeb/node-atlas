@@ -104,10 +104,10 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
  - [`setSessions Hook](#setsessions-hook)
  - [`setRoutes` Hook](#setroutes-hook)
  - [Websockets Exchanges](#websockets-exchanges)
- - [Use MySQL Database (SQL)](#use-mysql-database-sql)
- - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
- - [Use Middlewares from Express](#use-middleware-from-express)
- - [Create Isomorphic App](#create-isomorphic-app)
+ - [SQL Database](#sql-database)
+ - [NoSQL Database](#nosql-database)
+ - [Express Middlewares](#express-middleware)
+ - [Isomorphic App](#isomorphic-app)
 - [Advanced Part](#advanced-part)
  - [Manage Routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a Page Not Found](#manage-a-page-not-found)
@@ -3087,9 +3087,9 @@ exports.setRoutes = function (next) {
 
 ### Websockets Exchanges ###
 
-To keep a link between Client-side and Server-side part of website, NodeAtlas use [Socket.IO](http://socket.io/) (more details on official website).
+To keep a link between client-side and server-side part of the website, NodeAtlas use [Socket.IO](http://socket.io/) (more details on official website).
 
-Thanks to this, you could change in real time data on your page, but also change data from another tabs or browsers.
+Thanks to this, you could change in real-time data on your page, but also change data from another tabs or browsers.
 
 With this following files:
 
@@ -3138,7 +3138,7 @@ and with this views files:
 		<button>Update</button>
 ```
 
-*Note : Each click on `button` will update content from `views/partials/index.htm`.*
+*Note: each click on `button` will update content from `views/partials/index.htm`.*
 
 *views/index.htm*
 
@@ -3160,9 +3160,9 @@ and with this views files:
 </html>
 ```
 
-*Note : We parse here the home page `/`.*
+*Note: we parse here the home page `/`.*
 
-and the following variations files :
+and the following variations files:
 
 *variations/common.json*
 
@@ -3181,14 +3181,14 @@ and the following variations files :
 }
 ```
 
-All work fine here, but see what we will do with controller part on Server-side and on Client-side.
+All work fine here, but see what we will do with controller part on server-side and on client-side.
 
 On server, we will use the following controller file:
 
 *controllers/index.js*
 
 ```js
-// All Websocket action possible with `setSockets`.
+// All WebSocket action possible with `setSockets`.
 exports.setSockets = function () {
 	var NA = this,
 		io = NA.io;
@@ -3196,7 +3196,7 @@ exports.setSockets = function () {
 	// Once we have a valid connection between the client and our server...
 	io.sockets.on('connection', function (socket) {
 
-		// ...stay tuned on the "create-item-button" demand...
+		// ...stay tuned on the `server-render` request...
 		socket.on("server-render", function (data) {
 			var sessionID = socket.request.sessionID,
 				session = socket.request.session,
@@ -3250,21 +3250,21 @@ NA.socket.on("server-render", function (data) {
 });
 ```
 
-Run your project and go on `http://localhost/` across multiple tab and/or multiple browser. You will see when you click on « Update », the page (current date) will be updated on all tabs open.
+Run your project and go on `http://localhost/` across multiple tab and/or multiple browsers. You will see when you click on "Update", the page (current date) will be updated on all tabs open.
 
 Thanks to `NA.specific`, `NA.common` and `NA.view`, it's possible to generate a new view and variation compilation.
 
-If `data.lang` in this example is type of `undefined`, files will be search in rood directory. If `locals` is type of `undefined` an empty object will be created.
+If `data.lang` in this example is the type of `undefined`, files will be searched in the root directory. If `locals` is the type of `undefined` an empty object will be created.
 
-Note : to allows `view` to use Pug template engine and not EJS, you must defined `locals.pug` to `true` before use `NA.common` and `NA.specific`.
+Note: to allows `view` to use Pug template engine and not EJS, you must define `locals.pug` to `true` before use `NA.common` and `NA.specific`.
 
 
 
-### Use MySQL Database (SQL) ###
+### SQL Database ###
 
-We will see now how to use data from database. We will use the `mysql` npm module. And first, [install a MySQL server](https://dev.mysql.com/downloads/installer/).
+We will see now how to use data from database. We will use MySQL for this example. The `mysql` npm module will be useful. And first, [install a MySQL server](https://dev.mysql.com/downloads/installer/).
 
-So, from your `webconfig.json` directory, use
+So, from your `webconfig.json` directory, use:
 
 ```bash
 npm install mysql
@@ -4015,7 +4015,7 @@ You will get the following output:
 
 
 
-### Use MongoDB Database (NoSQL) ###
+### NoSQL Database ###
 
 We will see now how to use data from nosql database. We will use the `mongoose` npm module. And first, [install a MongoDB server](https://www.mongodb.com/).
 
@@ -4271,7 +4271,7 @@ You will get the following output:
 
 
 
-### Use Middlewares from Express ###
+### Express Middlewares ###
 
 NodeAtlas is construct on the top of [Express.js](http://expressjs.com/). You can access to the Express Object of a NodeAtlas instance using `NA#express`. With this you are able to add Express middlewares in the same way you add it in standalone Express.
 
@@ -4467,7 +4467,7 @@ module.exports = function (request, response, next) {
 
 
 
-### Create Isomorphic App ###
+### Isomorphic App ###
 
 An isomorphic app ist an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an exemple of isomporphic app in the template dedicated to [Vue.js](https://vuejs.org/).
 
