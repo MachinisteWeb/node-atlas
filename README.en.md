@@ -95,8 +95,15 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
  - [Static Generate Files](#static-generate-files)
  - [Template Engines](#template-engines)
 - [Controller Part](#controller-part)
- - [Lifecycle and Hooks](#lifecycle-and-hooks)
- - [Use Reliable Client-Server Real-Time with Websockets](#use-reliable-client-server-real-time-with-websockets)
+ - [Lifecycle](#lifecycle)
+ - [`changeVariations` Hook](#changevariations-hook)
+ - [`changeDom` Hook](#changedom-hook)
+ - [`setSockets Hook](#setsockets-hook)
+ - [`setModules Hook](#setmodules-hook)
+ - [`setConfigurations Hook](#setconfigurations-hook)
+ - [`setSessions Hook](#setsessions-hook)
+ - [`setRoutes` Hook](#setroutes-hook)
+ - [Websockets Exchanges](#websockets-exchanges)
  - [Use MySQL Database (SQL)](#use-mysql-database-sql)
  - [Use MongoDB Database (NoSQL)](#use-mongodb-database-nosql)
  - [Use Middlewares from Express](#use-middleware-from-express)
@@ -1883,8 +1890,7 @@ Tags `<?` and `?>` allow you to include JavaScript into templates. There are man
 - `?>` Plain ending tag.
 - `-?>` Trim-mode ('newline slurp') tag, trims following newline.
 
-
-### EJS ###
+#### EJS ####
 
 However, EJS works by default with `<%` and `%>`. You could set this values or set others values if you want.
 
@@ -1978,8 +1984,6 @@ See the example in files below:
 Learn all about the possibilities of the template engine consult [the documentation EJS](http://ejs.co/).
 
 *Note: if nothing is set,* `templateEngineDelimiter` *is set to* `?`.
-
-
 
 #### Pug ####
 
@@ -2104,9 +2108,7 @@ Learn all about the possibilities of the template engine consult [the documentat
 
 *Note: if nothing is set,* `pug` *is set to* `false`.
 
-
-
-#### Vue ####
+#### Vue.js ####
 
 [Vue](https://vuejs.org/) is a progressive MVVM framework like Angular or React which can be used as a server template engine for NodeAtlas. The main useful feature is the client-side hydrate this code from the response of server and made reactivity and route with it!
 
@@ -2249,17 +2251,17 @@ and this is all hooks you can use while:
 
 
 
-### changeVariations Hook ###
+### `changeVariations` Hook ###
 
 In order to intercept variations, you could use the common controller for all the website page and/or also a specific controller per page.
 
 `changeVariations(next, locals, request, response)` is a function to `exports` and provide:
 
 - `NA` object as `this`.
-- A callback function `next()` in first argument.
-- An object `locals` in second argument with the `locals.common` for common variations and the `locals.specific` for specific vatiations.
-- The `request` object in third argument for this page.
-- The `response` object in fourth argument for this page.
+- A callback function `next()` in the first argument.
+- An object `locals` in the second argument with the `locals.common` for common variations and the `locals.specific` for specific variations.
+- The `request` object in the third argument for this page.
+- The `response` object in the fourth argument for this page.
 
 This is an example using the two hooks, the common in first and after the specific:
 
@@ -2443,19 +2445,21 @@ the output will be the following:
 </html>
 ```
 
+
+
 ### `changeDom` Hook ###
 
-In order to intercept DOM before it was sent, you could use common controller for all the website page and/or also a specific controller per page.
+In order to intercept DOM before it was sent, you could use the common controller for all the website page and/or also a specific controller per page.
 
 `changeDom(next, locals, request, response)` is a function to `exports` and provide :
 
 - `NA` object as `this`.
-- A callback function `next([$])` in first parameter which accept an optional first updated `$` parameter used to manipulate the Virtual DOM.
-- An object `locals` in second parameter with the `locals.dom` string that contains the response or the `locals.virtualDom()` function creating the Virtual DOM.
-- The `request` object in third parameter for this page.
-- The `response` object in fourth parameter for this page.
+- A callback function `next([dom])` in the first argument which accepts an optional first updated `dom` argument used to manipulate the Virtual DOM.
+- An object `locals` in the second argument with the `locals.dom` string that contains the response or the `locals.virtualDom()` function creating a usable Virtual DOM.
+- The `request` object in the third argument for this page.
+- The `response` object in the fourth argument for this page.
 
-This is an example using the two hooks, the common in first and after the specific:
+This is an example using the two hooks, the common for all pages in first and after the specific:
 
 ```json
 {
@@ -2471,7 +2475,7 @@ This is an example using the two hooks, the common in first and after the specif
 }
 ```
 
-with this files :
+with this files:
 
 ```
 ├─ variations/
@@ -2526,19 +2530,19 @@ Do a request on `http://localhost/` will use the following files (and others):
 *controllers/common.js*
 
 ```js
-// This code is executed before DOM was sent to Client.
+// This code is executed before DOM was sent to client.
 // This code is executed for all HTTP request, for all pages.
 exports.changeDom = function (next, locals, request, response) {
 	// Transform HTML string into Virtual DOM.
 	var $ = locals.virtualDom();
 
-	// Just after eath h1 from HTML DOM...
+	// Just after eath h1 from HTML of `dom`...
 	Array.prototype.forEach.call(dom.window.document.getElementsByTagName("h1"), function (h1) {
 
 		// ...we create a div,
 		var div = dom.window.document.createElement('div');
 
-		// ...we inject the content of h1 into the div,
+		// ...we inject the content of h1 into the div...
 		div.innerHTML = h1.innerHTML;
 		h1.parentNode.insertBefore(div, h1.nextElementSibling);
 
@@ -2554,15 +2558,15 @@ exports.changeDom = function (next, locals, request, response) {
 *controllers/index.js*
 
 ```js
-// This code is executed before DOM was sent to Client.
+// This code is executed before DOM was sent to client.
 // This code is executed only for the « / » page .
 exports.changeDom = function (next, locals, request, response) {
 	var NA = this,
-		jsdom = NA.modules.jsdom, // jsdom for manipulate DOM.
+		jsdom = NA.modules.jsdom, // `jsdom` for manipulate Virtual DOM.
 		dom = new jsdom.JSDOM(locals.dom); // We load datas for manipulate it as a DOM.
 
-	// We update nodes contents with `.title` class.
-	dom.window.document.getElementsByClassName("title")[0].textContent = "Modification de Contenu";
+	// We update node content with `.title` class.
+	dom.window.document.getElementsByClassName("title")[0].textContent = "Content Update";
 
 	// We recreate a new HTML output with updates.
 	locals.dom = dom.serialize();
@@ -2591,11 +2595,13 @@ the output will be as following:
 </html>
 ```
 
-#### setSockets ####
 
-In order to keep a real-time connection between your Client-side and Server-side between all pages opened on all browsers that run on all OS, you could define your Websockets here. [More details in Socket.IO part](#use-reliable-client-server-real-time-with-websockets).
 
-`setSockets()` is a function to `exports` and provide :
+### `setSockets` Hook ###
+
+In order to keep a real-time connection between your client-side and server-side across all pages opened on all browsers that run on all OS, you could define your WebSockets here. [More details in Socket.IO part](#websockets-exchanges).
+
+`setSockets()` is a function to `exports` and providing:
 
 - `NA` object as `this`.
 
@@ -2654,7 +2660,7 @@ Do a request on `http://localhost/` will use the following files (and others fil
 </html>
 ```
 
-*Note : If* `socketClientFile` *and* `socketServerOptions` *are not present in `webconfig.json`, default client file and server options for sockets for config sockets are* `/node-atlas/socket.io.js` *and* `{ transports: ['polling', 'websocket'] }`. `socketClientFile`. *They are useful only to change the name of file or the sockets transports alloweds. If you set `socketClientFile` to `false`, the client file will be not adding on accessible routes.*
+*Note: if* `socketClientFile` *and* `socketServerOptions` *are not present in `webconfig.json`, default client file and server options for sockets for config sockets are* `/node-atlas/socket.io.js` *and* `{ transports: ['polling', 'websocket'] }`. `socketClientFile`. *They are useful only to change the name of file or the sockets transports alloweds. If you set `socketClientFile` to `false`, the client file will be not adding on accessible routes.*
 
 *assets/javascripts/test.js*
 
@@ -2677,8 +2683,8 @@ Do a request on `http://localhost/` will use the following files (and others fil
 *controllers/common.js*
 
 ```js
-// This code is executed for each Websocket request/response on server.
-// This code is executed for all Websocket from Client.
+// This code is executed for each WebSocket request/response on server.
+// This code is executed for all WebSocket from Client.
 exports.setSockets = function () {
 	var NA = this,
 		io = NA.io;
@@ -2695,8 +2701,8 @@ exports.setSockets = function () {
 *controllers/index.js*
 
 ```js
-// This code is executed for each Websocket request/response on server.
-// This code is executed for all Websocket from Client.
+// This code is executed for each WebSocket request/response on server.
+// This code is executed for all WebSocket from client.
 exports.setSockets = function () {
 	var NA = this,
 		path = NA.modules.path,
@@ -2740,21 +2746,21 @@ NA.socket.on("update-text", function (data) {
 });
 ```
 
-You will see, opening different browsers and tabs. All is update in all tabs. Each tab open display the connection message and each tab closed display the deconnection message on the server console.
+You will see, opening different browsers and tabs. All is updated in all tabs. Each tab open display the connection message and each tab closed display the disconnection message on the server console.
 
-*Note : You can change the `node-atlas/socket.io.js` file by a file provided by you in order to change `optionsSocket` variable. You can also change `NA.optionsSocket` in a front-side file, before inserting of `node-atlas/socket.io.js` with a custom option objet.*
+*Note: you can change the `node-atlas/socket.io.js` file by a file provided by you in order to change `optionsSocket` variable. You can also change `NA.optionsSocket` in a front-side file, before inserting of `node-atlas/socket.io.js` with a custom option object.*
 
 
 
-#### setModules ####
+### `setModules` Hook ###
 
 To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.
 
-`setModules()` is a function to `exports` and provide :
+`setModules()` is a function to `exports` and providing:
 
 - `NA` object as `this`.
 
-This is an exemple using an external module of NodeAtlas:
+This is an example using an external module of NodeAtlas:
 
 ```json
 {
@@ -2788,12 +2794,12 @@ Do a request on `http://localhost/` will use the following files (and others fil
 <html lang="en-us">
 	<head>
 		<meta charset="utf-8" />
-		<title>Test Module</title>
+		<title>Module Test</title>
 	</head>
 	<body>
-		<div class="title">Test Module</div>
+		<div class="title">Module Test</div>
 		<div>
-			<h1>Test Module</h1>
+			<h1>Module Test</h1>
 			<?- example ?>
 		</div>
 	</body>
@@ -2806,7 +2812,7 @@ Do a request on `http://localhost/` will use the following files (and others fil
 // This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
 exports.setModules = function () {
-	// Use the « NodeAtlas » instance from engine.
+	// Use the NodeAtlas instance from engine.
 	var NA = this;
 
 	// Associate each modules to allow us to use them anywhare.
@@ -2818,9 +2824,9 @@ exports.setModules = function () {
 
 ```js
 // This code is executed before variation are injected into template engine.
-// This code is executed only for the « / » page .
+// This code is executed only for the `/` page .
 exports.changeVariations = function (next, locals) {
-	// Use the « NodeAtlas » instance from engine.
+	// Use the NodeAtlas instance from engine.
 	var NA = this,
 		marked = NA.modules.marked;
 
@@ -2838,28 +2844,30 @@ this will produce the following output:
 <html lang="en-us">
 	<head>
 		<meta charset="utf-8" />
-		<title>Test Module</title>
+		<title>Module Test</title>
 	</head>
 	<body>
-		<div class="title">Test Module</div>
+		<div class="title">Module Test</div>
 		<div>
-			<h1>Test Module</h1>
+			<h1>Module Test</h1>
 			<p>I am using <strong>markdown</strong>.</p>
 		</div>
 	</body>
 </html>
 ```
 
-#### setConfigurations ####
 
-To configure NodeAtlas web server others ([ExpressJs](http://expressjs.com/)), you can use the common controller to set configurations before the server start.
 
-`setConfigurations(next)` is a function to `exports` and provide :
+### `setConfigurations` Hook ###
+
+To configure NodeAtlas web server others ([Express](http://expressjs.com/)), you can use the common controller to set configurations before the server start.
+
+`setConfigurations(next)` is a function to `exports` and providing:
 
 - `NA` object as `this`.
-- A callback function `next()` in first parameter.
+- A callback function `next()` in first argument.
 
-This is an exemple using a middleware for [ExpressJs](http://expressjs.com/):
+This is an example using a middleware for [Express](http://expressjs.com/):
 
 ```json
 {
@@ -2898,16 +2906,16 @@ Do a request on `http://localhost/` will use the following files (and others fil
 // This code is executing before starting of the web server.
 // This code will be executed when NodeAtlas starting.
 exports.setConfigurations = function (next) {
-	// Use the « NodeAtlas » instance from engine.
+	// Use the NodeAtlas instance from engine.
 	var NA = this;
 
-	// Middleware utilisé lors de chaque requête.
+	// Middleware used for each request.
 	NA.express.use(function (request, response, next) {
 		response.setHeader("X-Frame-Options", "ALLOW-FROM https://www.lesieur.name/");
 		next();
 	});
 
-	// We update modification here.
+	// We do next steps.
 	next();
 };
 ```
@@ -2916,7 +2924,7 @@ exports.setConfigurations = function (next) {
 
 ```js
 // This code is executing before starting of the web server.
-// This code is executed only for the « / » page .
+// This code is executed only for the `/` page .
 exports.changeVariations = function (next, locals) {
 
 	// We prepare file for JSON displaying.
@@ -2949,11 +2957,13 @@ this will produce the following output:
 }
 ```
 
-#### setSessions ####
+
+
+### `setSessions` Hook ###
 
 To configure client-server Sessions of NodeAtlas, you can use the common controller to set sessions before the server start. this is an example with [Redis](http://redis.io/) sessions.
 
-`setSessions(next)` is a function to `exports` and provide :
+`setSessions(next)` is a function to `exports` and providing:
 
 - `NA` object as `this`.
 - A callback function `next()` in first parameter.
@@ -2984,13 +2994,13 @@ With the `webconfig.json`:
 }
 ```
 
-And "common.js" file containing e.g.:
+And `common.js` file containing e.g.:
 
 ```js
 // This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
 exports.setModules = function () {
-	// Find instance of « NodeAtlas » engine.
+	// Find instance of NodeAtlas engine.
 	var NA = this;
 
 	// Associations of each module to access it anywhere.
@@ -3007,19 +3017,21 @@ exports.setSessions = function (next) {
 	// We replace the default session.
 	NA.sessionStore = new RedisStore();
 
-	// We update modification here.
+	// We do next steps.
 	next();
 };
 ```
 
-#### setRoutes ####
+
+
+### `setRoutes` Hook ###
 
 To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.
 
-`setRoutes(next)` is a function to `exports` and provide :
+`setRoutes(next)` is a function to `exports` and providing:
 
 - `NA` object as `this`.
-- A callback function `next()` in first parameter.
+- A callback function `next()` in first argument.
 
 This is all files for example:
 
@@ -3048,7 +3060,7 @@ With the `webconfig.json`:
 }
 ```
 
-And "common.js" file containing e.g.:
+And `common.js` file containing e.g.:
 
 ```js
 // This code is executing while route are added.
@@ -3066,14 +3078,14 @@ exports.setRoutes = function (next) {
 		"view": "content.htm"
 	};
 
-	// We update modification here.
+	// We do next steps.
 	next();
 };
 ```
 
 
 
-### Use Reliable Client-Server Real-Time with Websockets ###
+### Websockets Exchanges ###
 
 To keep a link between Client-side and Server-side part of website, NodeAtlas use [Socket.IO](http://socket.io/) (more details on official website).
 

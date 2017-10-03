@@ -1,4 +1,4 @@
-<h2 id="api-nodeatlas-as-npm-module">API / NodeAtlas as npm module</h2><p>You could run NodeAtlas via JavaScript code.</p><p>All private functions, modules and namespacese are explained here <a href="https://node-atlas.js.org/doc/node-atlas/">la documentation de l'API</a>. For the <a href="controller-part.html#lifecycle-and-hooks">Hooks it's here</a> and for server start fonctions it's below :</p><h3 id="na-start">&lt;NA&gt;.start()</h3><p>Execute a simple NodeAtlas running with <code>start()</code>. By default, it use <code>webconfig.json</code> from directory where file is executed. If no <code>webconfig.json</code> is set, a Simple Web Server will be launched.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require("node-atlas")().start();
+<h2 id="api-nodeatlas-as-npm-module">API / NodeAtlas as npm module</h2><p>You could run NodeAtlas via JavaScript code.</p><p>All private functions, modules and namespacese are explained here <a href="https://node-atlas.js.org/doc/node-atlas/">la documentation de l'API</a>. For the <a href="#lifecycle-and-hooks">Hooks it's here</a> and for server start fonctions it's below :</p><h3 id="na-start">&lt;NA&gt;.start()</h3><p>Execute a simple NodeAtlas running with <code>start()</code>. By default, it use <code>webconfig.json</code> from directory where file is executed. If no <code>webconfig.json</code> is set, a Simple Web Server will be launched.</p><p><em>server.js</em></p><pre><code class="lang-javascript">require("node-atlas")().start();
 </code></pre><pre><code>$ server server.js
 ``
 
@@ -21,16 +21,16 @@ require("node-atlas")().init({
 }).start();
 </code></pre><pre><code>$ node server.js
 </code></pre><p>The <code>options</code> object is the following:</p><pre><code>{
-    path: &amp;lt;string&gt;,
-    webconfig: &amp;lt;string&gt;,
-    browse: &amp;lt;boolean|string&gt;,
-    httpHostname: &amp;lt;string&gt;,
-    httpPort: &amp;lt;number&gt;,
-    generate: &amp;lt;boolean&gt;,
-    cache: &amp;lt;boolean&gt;,
-    lang: &amp;lt;string&gt;,
-    create: &amp;lt;string&gt;,
-    httpSecure: &amp;lt;boolean|string&gt;
+    path: &lt;string&gt;,
+    webconfig: &lt;string&gt;,
+    browse: &lt;boolean|string&gt;,
+    httpHostname: &lt;string&gt;,
+    httpPort: &lt;number&gt;,
+    generate: &lt;boolean&gt;,
+    cache: &lt;boolean&gt;,
+    lang: &lt;string&gt;,
+    create: &lt;string&gt;,
+    httpSecure: &lt;boolean|string&gt;
 }
 </code></pre><p><em>Note : more détails for each option in <a href="cli-running-commands.html">CLI part</a>.</em></p><h3 id="na-run-options">&lt;NA&gt;.run(options)</h3><p>With <code>run(options)</code> you could configure and lanch NodeAtlas with one command.</p><p>You can for example run multiple websites in same time. Each webconfig must listen a different port.</p><p><em>servers.js</em></p><pre><code class="lang-javascript">var nodeAtlas = require("node-atlas"),
     websiteEn = new nodeAtlas(),

@@ -95,13 +95,19 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Maquettes statiques générées](#maquettes-statiques-generees)
  - [Moteurs de template](#moteurs-de-template)
 - [Partie contrôleur](#partie-controleur)
- - [Cycle de vie et Points d'ancrage](#cycle-de-vie-et-points-dancrage)
- - [Échange client-serveur en temps réel avec websockets](#échange-client-serveur-en-temps réel-avec-websockets)
+ - [Cycle de vie](#cycle-de-vie)
+ - [Point d'ancrage `changeVariations`](#point-d-ancrage-changevariations)
+ - [Point d'ancrage `changeDom`](#point-d-ancrage-changedom)
+ - [Point d'ancrage `setSockets`](#point-d-ancrage-setsockets)
+ - [Point d'ancrage `setModules`](#point-d-ancrage-setmodules)
+ - [Point d'ancrage `setConfigurations`](#point-d-ancrage-setconfigurations)
+ - [Point d'ancrage `setSessions`](#point-d-ancrage-setsessions)
+ - [Point d'ancrage `setRoutes`](#point-d-ancrage-setroutes)
+ - [Échanges WebSockets](#echanges-websockets)
  - [Utiliser une base de données MySQL (SQL)](#utiliser-une-base-de-données-mysql-sql)
  - [Utiliser une base de données MongoDB (NoSQL)](#utiliser-une-base-de-données-mongodb-nosql)
  - [Utiliser des middlewares depuis Express](#utiliser-des-middlewares-depuis-express)
  - [Créer une application isomorphique](#créer-une-application-isomorphique)
- - [Moteur de template Vue](#moteur-de-template-vue)
 - [Partie avancée](#partie-avancee)
  - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
@@ -1979,8 +1985,6 @@ Pour tout savoir sur les possibilités du moteur de template consultez [la docum
 
 *Note : si rien n'est précisé,* `templateEngineDelimiter` *vaut* `?`.
 
-
-
 #### Pug ####
 
 Il est possible d'utiliser en lieu et place de EJS le [moteur de template Pug](https://pugjs.org/) (anciennement Jade) pour générer les pages et manipuler les variations. Cela est possible pour l'intégralité du site avec par exemple ce webconfig :
@@ -2104,9 +2108,7 @@ Pour tout savoir sur les possibilités du moteur de template consultez [la docum
 
 *Note : si rien n'est précisé,* `pug` *vaut* `false`.
 
-
-
-#### Vue ####
+#### Vue.js ####
 
 [Vue](https://vuejs.org/) est un framework MVVM évolutif comme Angular ou React qui est utilisable en tant que moteur de rendu côté serveur pour NodeAtlas. L'avantage ici, c'est que côté client il reprend la main en hydratant le code généré depuis le serveur pour le rendre réactif côté client !
 
@@ -2249,17 +2251,17 @@ et voici le détail des endroits ou vous pouvez intervenir pendant :
 
 
 
-### Point d'ancrage changeVariations ###
+### Point d'ancrage `changeVariations` ###
 
-Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.
+Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et / ou également le contrôleur par page.
 
 `changeVariations(next, locals, request, response)` est une fonction a `exports` et fournissant :
 
 - L'objet `NA` en tant que `this`.
 - En premier argument la fonction de rappel `next()`.
 - En deuxième argument l'objet `locals` contenant entre autre la variation `locals.common` pour accéder aux variations communes et la variation `locals.specific` pour accéder aux variations spécifiques.
-- En troisième argument l'objet `request` faites pour cette page.
-- En quatrième argument l'objet `response` faites pour cette page.
+- En troisième argument l'objet `request` pour cette page.
+- En quatrième argument l'objet `response` pour cette page.
 
 Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
@@ -2443,17 +2445,19 @@ alors la sortie sera :
 </html>
 ```
 
+
+
 ### Point d'ancrage `changeDom` ###
 
-Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.
+Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et / ou également le contrôleur par page.
 
 `changeDom(next, locals, request, response)` est une fonction a `exports` et fournissant :
 
 - L'objet `NA` en tant que `this`.
-- En premier paramètre la fonction de retour `next([$])` acceptant optionellement en premier paramètre la function `$` utilisée pour manipuler le DOM Virtuel.
-- En deuxième paramètre l'objet `locals` contenant entre autre la string `locals.dom` contenant la réponse ou la function `locals.virtualDom()` générant un Dom Virtuel.
-- En troisième paramètre l'objet `request` qui va être faites.
-- En quatrième paramètre l'objet `response` faites pour cette page.
+- En premier argument la fonction de retour `next([dom])` acceptant optionellement en premier argument un objet' `dom` utilisée pour manipuler le DOM virtuel.
+- En deuxième argument l'objet `locals` contenant entre autre la chaine de caractères `locals.dom` contenant la réponse ou la fonction `locals.virtualDom()` générant un Dom virtuel manipulable.
+- En troisième argument l'objet `request` pour cette page.
+- En quatrième argument l'objet `response` pour cette page.
 
 Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
 
@@ -2526,19 +2530,19 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 *controllers/common.js*
 
 ```js
-// On intervient avant que le DOM ne soit renvoyé au Client.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+// On intervient avant que le DOM ne soit renvoyé au client.
+// Ce code sera exécuté pour toute requête HTTP, toutes pages confondues.
 exports.changeDom = function (next, locals, request, response) {
 	// Transformer la chaîne HTML en DOM virtuel.
 	var dom = locals.virtualDom();
 
-	// Après tous les h1 de la sortie HTML « dom »,
+	// Après tous les h1 de la sortie HTML de `dom`...
 	Array.prototype.forEach.call(dom.window.document.getElementsByTagName("h1"), function (h1) {
 
-		// ...on créé une div,
+		// ...on crée une div,
 		var div = dom.window.document.createElement('div');
 
-		// ... on injecte le contenu du h1 dans la div,
+		// ... on injecte le contenu du h1 dans la div...
 		div.innerHTML = h1.innerHTML;
 		h1.parentNode.insertBefore(div, h1.nextElementSibling);
 
@@ -2546,7 +2550,7 @@ exports.changeDom = function (next, locals, request, response) {
 		h1.parentNode.removeChild(h1);
 	});
 
-	// On retourne les modifications pour qu'elles redeviennet une chaîne HTML.
+	// On retourne les modifications pour qu'elles redeviennent une chaîne de caractères HTML.
 	next(dom);
 };
 ```
@@ -2554,14 +2558,14 @@ exports.changeDom = function (next, locals, request, response) {
 *controllers/index.js*
 
 ```js
-// On intervient avant que le DOM ne soit renvoyé au Client.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+// On intervient avant que le DOM ne soit renvoyé au client.
+// Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeDom = function (next, locals, request, response) {
 	var NA = this,
-		jsdom = NA.modules.jsdom, // Récupération de jsdom pour parcourir le DOM virtuel.
+		jsdom = NA.modules.jsdom, // Récupération de `jsdom` pour parcourir le DOM virtuel.
 		dom = new jsdom.JSDOM(locals.dom); // On charge les données pour les manipuler comme un DOM.
 
-	// On modifie tous les contenu des noeuds avec la classe `.title`.
+	// On modifie le contenu du nœud avec la classe `.title`.
 	dom.window.document.getElementsByClassName("title")[0].textContent = "Modification de Contenu";
 
 	// On recrée une nouvelle sortie HTML avec nos modifications.
@@ -2591,15 +2595,17 @@ ce qui produit la sortie suivante :
 </html>
 ```
 
-#### setSockets ####
 
-Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos websockets ici [Plus de détail dans la partie Socket.IO](#échange-client-serveur-en-temps réel-avec-websockets).
+
+### Point d'ancrage `setSockets` ###
+
+Pour maintenir une connexion temps réel entre votre partie cliente et serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos WebSockets ici [Plus de détail dans la partie Socket.IO](#echanges-websockets).
 
 `setSockets()` est une fonction a `exports` et fournissant :
 
 - L'objet `NA` en tant que `this`.
 
-Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :
+Voici un exemple utilisant les deux points d'entrée, d'abord le commun à plusieurs pages, puis celui pour chaque page :
 
 ```json
 {
@@ -2654,7 +2660,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 </html>
 ```
 
-*Note : Si* `socketClientFile` *et* `socketServerOptions` *ne sont pas présent dans `webconfig.json`, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien* `/node-atlas/socket.io.js` *et* `{ transports: ['polling', 'websocket'] }`. *Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez `socketClientFile` à `false`, le fichier client ne sera pas accessible.*
+*Note : si* `socketClientFile` *et* `socketServerOptions` *ne sont pas présent dans `webconfig.json`, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien* `/node-atlas/socket.io.js` *et* `{ transports: ['polling', 'websocket'] }`. *Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez `socketClientFile` à `false`, le fichier client ne sera pas accessible.*
 
 *assets/javascripts/test.js*
 
@@ -2678,7 +2684,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 
 ```js
 // On référence les actions de réponse et d'envoi globaux côté serveur.
-// Ce code sera exécuté pour toute entrée Websocket entrante.
+// Ce code sera exécuté pour toute entrée WebSocket entrante.
 exports.setSockets = function () {
 	var NA = this,
 		io = NA.io;
@@ -2696,13 +2702,13 @@ exports.setSockets = function () {
 
 ```js
 // On référence les actions de réponse et d'envoi globaux côté serveur.
-// Ce code sera exécuté pour toute entrée Websocket entrante.
+// Ce code sera exécuté pour toute entrée WebSocket entrante.
 exports.setSockets = function () {
 	var NA = this,
 		path = NA.modules.path,
 		io = NA.io;
 
-	require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // display `Serveur`
+	require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // affiche `Serveur`
 
 	// Attendre un lien valide entre client et serveur
 	io.sockets.on("connection", function (socket) {
@@ -2723,7 +2729,7 @@ exports.setSockets = function () {
 var content = document.getElementsByClassName("content")[0],
 	input = document.getElementsByClassName("input")[0];
 
-Test(); // display `Client`
+Test(); // affiche `Client`
 
 // On alerte les autres de nos modifications.
 input.addEventListener("keyup", function () {
@@ -2740,13 +2746,13 @@ NA.socket.on("update-text", function (data) {
 });
 ```
 
-Vous pourrez, en ouvrant divers navigateurs, et divers onglet, constaté que tout est bien mis à jour chez tout le monde. Chaque nouvel ongle ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.
+Vous pourrez, en ouvrant divers navigateurs, et divers onglets, constater que tout est bien mis à jour chez tout le monde. Chaque nouvel onglet ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.
 
-*Note : Vous pouvez changer le fichier `node-atlas/socket.io.js` par un fichier fournis par vous-même pour changer la variable `optionsSocket`. Vous pouvez aussi changer la valeur de `NA.optionsSocket` côté client (avant l'insertion de `node-atlas/socket.io.js`) avec un objet d'options personnalisées.*
+*Note : vous pouvez changer le fichier `node-atlas/socket.io.js` par un fichier fournis par vous-même pour changer la variable `optionsSocket`. Vous pouvez aussi changer la valeur de `NA.optionsSocket` côté client (avant l'insertion de `node-atlas/socket.io.js`) avec un objet d'options personnalisées.*
 
 
 
-#### setModules ####
+### Point d'ancrage `setModules` ###
 
 Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.
 
@@ -2788,12 +2794,12 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 <html lang="fr-fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>Test Module</title>
+		<title>Test d'un module</title>
 	</head>
 	<body>
-		<div class="title">Test Module</div>
+		<div class="title">Test d'un module</div>
 		<div>
-			<h1>Test Module</h1>
+			<h1>Test d'un module</h1>
 			<?- example ?>
 		</div>
 	</body>
@@ -2806,7 +2812,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 // On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
-	// Récupérer l'instance « NodeAtlas » du moteur.
+	// Récupérer l'instance NodeAtlas du moteur.
 	var NA = this;
 
 	// Associations de chaque module pour y avoir accès partout.
@@ -2818,9 +2824,9 @@ exports.setModules = function () {
 
 ```js
 // On intervient avant que les variables soient injectées dans le système de template.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+// Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeVariations = function (next, locals) {
-	// Utiliser « NodeAtlas » depuis le moteur.
+	// Utiliser l'instance NodeAtlas depuis le moteur.
 	var NA = this,
 		marked = NA.modules.marked;
 
@@ -2838,28 +2844,30 @@ ce qui produit la sortie suivante :
 <html lang="fr-fr">
 	<head>
 		<meta charset="utf-8" />
-		<title>Test Module</title>
+		<title>Test d'un module</title>
 	</head>
 	<body>
-		<div class="title">Test Module</div>
+		<div class="title">Test d'un module</div>
 		<div>
-			<h1>Test Module</h1>
-			<p>I am using <strong>markdown</strong>.</p>
+			<h1>Test d'un module</h1>
+			<p>J'utilise <strong>markdown</strong>.</p>
 		</div>
 	</body>
 </html>
 ```
 
-#### setConfigurations ####
 
-Pour configurer le serveur web de NodeAtlas ([ExpressJs](http://expressjs.com/)) vous pouvez utiliser le contrôleur commun pour tout le site afin faire vos modifications avant le démarrage du serveur.
+
+### Point d'ancrage `setConfigurations` ###
+
+Pour configurer le serveur web de NodeAtlas ([Express](http://expressjs.com/)) vous pouvez utiliser le contrôleur commun pour tout le site afin de faire vos modifications avant le démarrage du serveur.
 
 `setConfigurations(next)` est une fonction a `exports` et fournissant :
 
 - L'objet `NA` en tant que `this`.
-- En premier paramètre la fonction de retour `next()`.
+- En premier argument la fonction de rappel `next()`.
 
-Voici un exemple utilisant un middleware pour [ExpressJs](http://expressjs.com/) :
+Voici un exemple utilisant un middleware pour [Express](http://expressjs.com/) :
 
 ```json
 {
@@ -2898,7 +2906,7 @@ En demandant la page `http://localhost/` les fichiers suivants (entre autre) ser
 // On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setConfigurations = function (next) {
-	// Récupérer l'instance « NodeAtlas » du moteur.
+	// Récupérer l'instance NodeAtlas du moteur.
 	var NA = this;
 
 	// Middleware utilisé lors de chaque requête.
@@ -2907,7 +2915,7 @@ exports.setConfigurations = function (next) {
 		next();
 	});
 
-	// On ré-injecte les modifications.
+	// On passe à la suite.
 	next();
 };
 ```
@@ -2916,7 +2924,7 @@ exports.setConfigurations = function (next) {
 
 ```js
 // On intervient avant que les variables soient injectées dans le moteur de template.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+// Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeVariations = function (next, locals) {
 
 	// On prépare le fichier pour un affichage JSON.
@@ -2949,9 +2957,11 @@ ce qui produit la sortie suivante :
 }
 ```
 
-#### setSessions ####
 
-Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de management de Session avec [Redis](http://redis.io/).
+
+### Point d'ancrage `setSessions` ###
+
+Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de gestion de session avec [Redis](http://redis.io/).
 
 `setSessions(next)` est une fonction a `exports` et fournissant :
 
@@ -2984,13 +2994,13 @@ Avec le `webconfig.json` :
 }
 ```
 
-et avec le fichier « common.js » contenant par exemple :
+Et avec le fichier `common.js` contenant par exemple :
 
 ```js
 // On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
-	// Récupérer l'instance « NodeAtlas » du moteur.
+	// Récupérer l'instance NodeAtlas du moteur.
 	var NA = this;
 
 	// Associations de chaque module pour y avoir accès partout.
@@ -3012,14 +3022,16 @@ exports.setSessions = function (next) {
 };
 ```
 
-#### setRoutes ####
+
+
+### Point d'ancrage `setRoutes` ###
 
 Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.
 
 `setRoutes(next)` est une fonction a `exports` et fournissant :
 
 - L'objet `NA` en tant que `this`.
-- En premier paramètre la fonction de retour `next()`.
+- En premier argument la fonction de rappel `next()`.
 
 Voici l'ensemble de fichier suivant :
 
@@ -3048,7 +3060,7 @@ Avec le `webconfig.json` :
 }
 ```
 
-et avec le fichier « common.js » contenant par exemple :
+et avec le fichier `common.js` contenant par exemple :
 
 ```json
 // On intervient au niveau des routes pendant qu'elles sont ajoutées.
@@ -3073,7 +3085,7 @@ exports.setRoutes = function (next) {
 
 
 
-### Échange client-serveur en temps réel avec websockets ###
+### Échanges WebSockets ###
 
 Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise [Socket.IO](http://socket.io/) dont vous trouverez plus de détail sur le site officiel.
 

@@ -77,12 +77,12 @@
       └─[Envoi de la réponse]
         ┊
         ∞
-</code></pre><h3 id="point-d-ancrage-changevariations">Point d'ancrage changeVariations</h3><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeVariations(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><h3 id="point-d-ancrage-changevariations">Point d'ancrage <code>changeVariations</code></h3><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et / ou également le contrôleur par page.</p><p><code>changeVariations(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier argument la fonction de rappel <code>next()</code>.</li>
 <li>En deuxième argument l'objet <code>locals</code> contenant entre autre la variation <code>locals.common</code> pour accéder aux variations communes et la variation <code>locals.specific</code> pour accéder aux variations spécifiques.</li>
-<li>En troisième argument l'objet <code>request</code> faites pour cette page.</li>
-<li>En quatrième argument l'objet <code>response</code> faites pour cette page.</li>
+<li>En troisième argument l'objet <code>request</code> pour cette page.</li>
+<li>En quatrième argument l'objet <code>response</code> pour cette page.</li>
 </ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     "urlRelativeSubPath": "exemple",
     "controller": "common.js",
@@ -213,12 +213,12 @@ exports.changeVariations = function (next, locals, request, response) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id="point-d-ancrage-changedom">Point d'ancrage <code>changeDom</code></h3><p>Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et/ou également le contrôleur par page.</p><p><code>changeDom(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><h3 id="point-d-ancrage-changedom">Point d'ancrage <code>changeDom</code></h3><p>Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et / ou également le contrôleur par page.</p><p><code>changeDom(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
-<li>En premier paramètre la fonction de retour <code>next([$])</code> acceptant optionellement en premier paramètre la function <code>$</code> utilisée pour manipuler le DOM Virtuel.</li>
-<li>En deuxième paramètre l'objet <code>locals</code> contenant entre autre la string <code>locals.dom</code> contenant la réponse ou la function <code>locals.virtualDom()</code> générant un Dom Virtuel.</li>
-<li>En troisième paramètre l'objet <code>request</code> qui va être faites.</li>
-<li>En quatrième paramètre l'objet <code>response</code> faites pour cette page.</li>
+<li>En premier argument la fonction de retour <code>next([dom])</code> acceptant optionellement en premier argument un objet' <code>dom</code> utilisée pour manipuler le DOM virtuel.</li>
+<li>En deuxième argument l'objet <code>locals</code> contenant entre autre la chaine de caractères <code>locals.dom</code> contenant la réponse ou la fonction <code>locals.virtualDom()</code> générant un Dom virtuel manipulable.</li>
+<li>En troisième argument l'objet <code>request</code> pour cette page.</li>
+<li>En quatrième argument l'objet <code>response</code> pour cette page.</li>
 </ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
     "controller": "common.js",
     "variation": "common.json",
@@ -260,19 +260,19 @@ exports.changeVariations = function (next, locals, request, response) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au Client.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au client.
+// Ce code sera exécuté pour toute requête HTTP, toutes pages confondues.
 exports.changeDom = function (next, locals, request, response) {
     // Transformer la chaîne HTML en DOM virtuel.
     var dom = locals.virtualDom();
 
-    // Après tous les h1 de la sortie HTML « dom »,
+    // Après tous les h1 de la sortie HTML de `dom`...
     Array.prototype.forEach.call(dom.window.document.getElementsByTagName("h1"), function (h1) {
 
-        // ...on créé une div,
+        // ...on crée une div,
         var div = dom.window.document.createElement('div');
 
-        // ... on injecte le contenu du h1 dans la div,
+        // ... on injecte le contenu du h1 dans la div...
         div.innerHTML = h1.innerHTML;
         h1.parentNode.insertBefore(div, h1.nextElementSibling);
 
@@ -280,17 +280,17 @@ exports.changeDom = function (next, locals, request, response) {
         h1.parentNode.removeChild(h1);
     });
 
-    // On retourne les modifications pour qu'elles redeviennet une chaîne HTML.
+    // On retourne les modifications pour qu'elles redeviennent une chaîne de caractères HTML.
     next(dom);
 };
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au Client.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au client.
+// Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeDom = function (next, locals, request, response) {
     var NA = this,
-        jsdom = NA.modules.jsdom, // Récupération de jsdom pour parcourir le DOM virtuel.
+        jsdom = NA.modules.jsdom, // Récupération de `jsdom` pour parcourir le DOM virtuel.
         dom = new jsdom.JSDOM(locals.dom); // On charge les données pour les manipuler comme un DOM.
 
-    // On modifie tous les contenu des noeuds avec la classe `.title`.
+    // On modifie le contenu du nœud avec la classe `.title`.
     dom.window.document.getElementsByClassName("title")[0].textContent = "Modification de Contenu";
 
     // On recrée une nouvelle sortie HTML avec nos modifications.
@@ -313,9 +313,9 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="setsockets">setSockets</h4><p>Pour maintenir une connexion temps réel entre votre partie Cliente et Serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos websockets ici <a href="partie-controleur.html#echange-client-serveur-en-temps-reel-avec-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><h3 id="point-d-ancrage-setsockets">Point d'ancrage <code>setSockets</code></h3><p>Pour maintenir une connexion temps réel entre votre partie cliente et serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos WebSockets ici <a href="partie-controleur.html#echanges-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
-</ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
+</ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord le commun à plusieurs pages, puis celui pour chaque page :</p><pre><code class="lang-json">{
     "socketClientFile": "/node-atlas/socket.io.js",
     "socketServerOptions": { transports: ['polling', 'websocket'] },
     "controller": "common.js",
@@ -353,7 +353,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><em>Note : Si</em> <code>socketClientFile</code> <em>et</em> <code>socketServerOptions</code> <em>ne sont pas présent dans <code>webconfig.json</code>, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien</em> <code>/node-atlas/socket.io.js</code> <em>et</em> <code>{ transports: ['polling', 'websocket'] }</code>. <em>Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
+</code></pre><p><em>Note : si</em> <code>socketClientFile</code> <em>et</em> <code>socketServerOptions</code> <em>ne sont pas présent dans <code>webconfig.json</code>, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien</em> <code>/node-atlas/socket.io.js</code> <em>et</em> <code>{ transports: ['polling', 'websocket'] }</code>. <em>Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
     if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         module.exports = factory;
     } else {
@@ -367,7 +367,7 @@ exports.changeDom = function (next, locals, request, response) {
     }
 }));
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d'envoi globaux côté serveur.
-// Ce code sera exécuté pour toute entrée Websocket entrante.
+// Ce code sera exécuté pour toute entrée WebSocket entrante.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -380,13 +380,13 @@ exports.setSockets = function () {
     });
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d'envoi globaux côté serveur.
-// Ce code sera exécuté pour toute entrée Websocket entrante.
+// Ce code sera exécuté pour toute entrée WebSocket entrante.
 exports.setSockets = function () {
     var NA = this,
         path = NA.modules.path,
         io = NA.io;
 
-    require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // display `Serveur`
+    require(path.join(NA.serverPath, NA.webconfig.assetsRelativePath, "javascripts/test.js"))(); // affiche `Serveur`
 
     // Attendre un lien valide entre client et serveur
     io.sockets.on("connection", function (socket) {
@@ -402,7 +402,7 @@ exports.setSockets = function () {
 </code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName("content")[0],
     input = document.getElementsByClassName("input")[0];
 
-Test(); // display `Client`
+Test(); // affiche `Client`
 
 // On alerte les autres de nos modifications.
 input.addEventListener("keyup", function () {
@@ -417,7 +417,7 @@ NA.socket.on("update-text", function (data) {
     content.innerHTML = data.text;
     input.value = data.text;
 });
-</code></pre><p>Vous pourrez, en ouvrant divers navigateurs, et divers onglet, constaté que tout est bien mis à jour chez tout le monde. Chaque nouvel ongle ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.</p><p><em>Note : Vous pouvez changer le fichier <code>node-atlas/socket.io.js</code> par un fichier fournis par vous-même pour changer la variable <code>optionsSocket</code>. Vous pouvez aussi changer la valeur de <code>NA.optionsSocket</code> côté client (avant l'insertion de <code>node-atlas/socket.io.js</code>) avec un objet d'options personnalisées.</em></p><h4 id="setmodules">setModules</h4><p>Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setModules()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><p>Vous pourrez, en ouvrant divers navigateurs, et divers onglets, constater que tout est bien mis à jour chez tout le monde. Chaque nouvel onglet ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.</p><p><em>Note : vous pouvez changer le fichier <code>node-atlas/socket.io.js</code> par un fichier fournis par vous-même pour changer la variable <code>optionsSocket</code>. Vous pouvez aussi changer la valeur de <code>NA.optionsSocket</code> côté client (avant l'insertion de <code>node-atlas/socket.io.js</code>) avec un objet d'options personnalisées.</em></p><h3 id="point-d-ancrage-setmodules">Point d'ancrage <code>setModules</code></h3><p>Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setModules()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 </ul><p>Voici un exemple utilisant un module externe à NodeAtlas :</p><pre><code class="lang-json">{
     "controller": "common.js",
@@ -438,12 +438,12 @@ NA.socket.on("update-text", function (data) {
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
-        &lt;title&gt;Test Module&lt;/title&gt;
+        &lt;title&gt;Test d'un module&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div class="title"&gt;Test Module&lt;/div&gt;
+        &lt;div class="title"&gt;Test d'un module&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;Test Module&lt;/h1&gt;
+            &lt;h1&gt;Test d'un module&lt;/h1&gt;
             &lt;?- example ?&gt;
         &lt;/div&gt;
     &lt;/body&gt;
@@ -451,16 +451,16 @@ NA.socket.on("update-text", function (data) {
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
-    // Récupérer l'instance « NodeAtlas » du moteur.
+    // Récupérer l'instance NodeAtlas du moteur.
     var NA = this;
 
     // Associations de chaque module pour y avoir accès partout.
     NA.modules.marked = require('marked');
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le système de template.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+// Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeVariations = function (next, locals) {
-    // Utiliser « NodeAtlas » depuis le moteur.
+    // Utiliser l'instance NodeAtlas depuis le moteur.
     var NA = this,
         marked = NA.modules.marked;
 
@@ -473,20 +473,20 @@ exports.changeVariations = function (next, locals) {
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
-        &lt;title&gt;Test Module&lt;/title&gt;
+        &lt;title&gt;Test d'un module&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div class="title"&gt;Test Module&lt;/div&gt;
+        &lt;div class="title"&gt;Test d'un module&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;Test Module&lt;/h1&gt;
-            &lt;p&gt;I am using &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;
+            &lt;h1&gt;Test d'un module&lt;/h1&gt;
+            &lt;p&gt;J'utilise &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;
         &lt;/div&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h4 id="setconfigurations">setConfigurations</h4><p>Pour configurer le serveur web de NodeAtlas (<a href="http://expressjs.com/">ExpressJs</a>) vous pouvez utiliser le contrôleur commun pour tout le site afin faire vos modifications avant le démarrage du serveur.</p><p><code>setConfigurations(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><h3 id="point-d-ancrage-setconfigurations">Point d'ancrage <code>setConfigurations</code></h3><p>Pour configurer le serveur web de NodeAtlas (<a href="http://expressjs.com/">Express</a>) vous pouvez utiliser le contrôleur commun pour tout le site afin de faire vos modifications avant le démarrage du serveur.</p><p><code>setConfigurations(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
-<li>En premier paramètre la fonction de retour <code>next()</code>.</li>
-</ul><p>Voici un exemple utilisant un middleware pour <a href="http://expressjs.com/">ExpressJs</a> :</p><pre><code class="lang-json">{
+<li>En premier argument la fonction de rappel <code>next()</code>.</li>
+</ul><p>Voici un exemple utilisant un middleware pour <a href="http://expressjs.com/">Express</a> :</p><pre><code class="lang-json">{
     "controller": "common.js",
     "routes": {
         "/": {
@@ -505,7 +505,7 @@ exports.changeVariations = function (next, locals) {
 </code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setConfigurations = function (next) {
-    // Récupérer l'instance « NodeAtlas » du moteur.
+    // Récupérer l'instance NodeAtlas du moteur.
     var NA = this;
 
     // Middleware utilisé lors de chaque requête.
@@ -514,11 +514,11 @@ exports.setConfigurations = function (next) {
         next();
     });
 
-    // On ré-injecte les modifications.
+    // On passe à la suite.
     next();
 };
 </code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le moteur de template.
-// Ce code sera exécuté uniquement lors de la demande de la page « / ».
+// Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeVariations = function (next, locals) {
 
     // On prépare le fichier pour un affichage JSON.
@@ -544,7 +544,7 @@ exports.changeVariations = function (next, locals) {
     "route": "/",
     "webconfig": { /* ... */ }
 }
-</code></pre><h4 id="setsessions">setSessions</h4><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de management de Session avec <a href="http://redis.io/">Redis</a>.</p><p><code>setSessions(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><h3 id="point-d-ancrage-setsessions">Point d'ancrage <code>setSessions</code></h3><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de gestion de session avec <a href="http://redis.io/">Redis</a>.</p><p><code>setSessions(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next()</code>.</li>
 </ul><p>Voici l'ensemble de fichier suivant :</p><pre><code>├─ controllers/
@@ -563,10 +563,10 @@ exports.changeVariations = function (next, locals) {
         }
     }
 }
-</code></pre><p>et avec le fichier « common.js » contenant par exemple :</p><pre><code class="lang-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
+</code></pre><p>Et avec le fichier <code>common.js</code> contenant par exemple :</p><pre><code class="lang-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
-    // Récupérer l'instance « NodeAtlas » du moteur.
+    // Récupérer l'instance NodeAtlas du moteur.
     var NA = this;
 
     // Associations de chaque module pour y avoir accès partout.
@@ -586,9 +586,9 @@ exports.setSessions = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next();
 };
-</code></pre><h4 id="setroutes">setRoutes</h4><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setRoutes(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+</code></pre><h3 id="point-d-ancrage-setroutes">Point d'ancrage <code>setRoutes</code></h3><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setRoutes(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
-<li>En premier paramètre la fonction de retour <code>next()</code>.</li>
+<li>En premier argument la fonction de rappel <code>next()</code>.</li>
 </ul><p>Voici l'ensemble de fichier suivant :</p><pre><code>├─ controllers/
 │  └─ common.js
 ├─ views/
@@ -606,7 +606,7 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><p>et avec le fichier « common.js » contenant par exemple :</p><pre><code class="lang-json">// On intervient au niveau des routes pendant qu'elles sont ajoutées.
+</code></pre><p>et avec le fichier <code>common.js</code> contenant par exemple :</p><pre><code class="lang-json">// On intervient au niveau des routes pendant qu'elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setRoutes = function (next) {
 
@@ -624,7 +624,7 @@ exports.setRoutes = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next();
 };
-</code></pre><h3 id="echange-client-serveur-en-temps-reel-avec-websockets">Échange client-serveur en temps réel avec websockets</h3><p>Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l'ensemble de fichier suivant :</p><pre><code>├─ assets/
+</code></pre><h3 id="echanges-websockets">Échanges WebSockets</h3><p>Afin de conserver une liaison ouverte entre la partie Cliente et la partie Serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l'ensemble de fichier suivant :</p><pre><code>├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
