@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1507049450975">
+		<meta name="og:updated_time" content="1507221084190">
 
 		<meta name="robots" content="index, follow">
 
@@ -261,6 +261,10 @@ website.init({
 											
 											<li>
 												<a href="partie-controleur.html" title="Partie contrôleur">Partie contrôleur</a>
+											</li>
+											
+											<li>
+												<a href="partie-outils.html" title="Partie outils">Partie outils</a>
 											</li>
 											
 											<li>
@@ -774,794 +778,7 @@ LANG=en-us
         }
     }
 }
-</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n'oubliez pas qu'en HTTPs ce n'est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu'un Bundle existe dans le webconfig.</p><h4 id="cr-er-des-bundles">Créer des Bundles</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>et l'ensemble de fichier suivant :</p><pre><code>├─ assets/
-│  ├─ stylesheets/
-│  │  ├─ common.css
-│  │  ├─ common-min780.css
-│  │  └─ common-min1160.css
-│  └─ javascripts/
-│     ├─ modernizr.js
-│     ├─ yepnot.js
-│     ├─ html5Shiv.js
-│     ├─ jquery.js
-│     ├─ jquery-ui.js
-│     ├─ prettify.js
-│     ├─ prettify/
-│     │  └─ run_prettify.js
-│     ├─ components/
-│     │  └─ extended-format-date.js
-│     └─ common.js
-├─ views/
-│  └─ index.htm
-└─ webconfig.json
-</code></pre><p>vous obtiendrez les nouveaux fichiers suivant :</p><pre><code>├─ assets/
-│  ├─ stylesheets/
-│  │  ├─ common.css
-│  │  ├─ common-min780.css
-│  │  ├─ common-min1160.css
-│  │  └─ common.min.css     ⤆ nouveau fichier
-│  └─ javascripts/
-│     ├─ modernizr.js
-│     ├─ yepnot.js
-│     ├─ html5Shiv.js
-│     ├─ jquery.js
-│     ├─ jquery-ui.js
-│     ├─ prettify.js
-│     ├─ prettify/
-│     │  └─ run_prettify.js
-│     ├─ components/
-│     │  └─ extended-format-date.js
-│     ├─ common.js
-│     ├─ boot.min.js        ⤆ nouveau fichier
-│     ├─ framework.min.js   ⤆ nouveau fichier
-│     └─ common.min.js      ⤆ nouveau fichier
-├─ views/
-│  └─ index.htm
-└─ webconfig.json
-</code></pre><h4 id="bundles-dans-un-fichier-partag-">Bundles dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de configuration de Bundles dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>.</p><p>Par exemple :</p><p>L'ensemble de fichier suivant</p><pre><code>├─ assets/
-│  ├─ stylesheets/
-│  │  ├─ common.css
-│  │  ├─ common-min780.css
-│  │  └─ common-min1160.css
-│  └─ javascripts/
-│     ├─ modernizr.js
-│     ├─ yepnot.js
-│     ├─ html5Shiv.js
-│     ├─ jquery.js
-│     ├─ jquery-ui.js
-│     ├─ prettify.js
-│     ├─ prettify/
-│     │  └─ run_prettify.js
-│     ├─ components/
-│     │  └─ extended-format-date.js
-│     └─ common.js
-├─ views/
-│  └─ index.htm
-├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>avec <code>webconfig.json</code></p><pre><code class="lang-json">{
-    "httpPort": 7777,
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>et avec <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>pourrait devenir l'ensemble de fichier suivant</p><pre><code>├─ assets/
-│  ├─ stylesheets/
-│  │  ├─ common.css
-│  │  ├─ common-min780.css
-│  │  └─ common-min1160.css
-│  └─ javascripts/
-│     ├─ modernizr.js
-│     ├─ yepnot.js
-│     ├─ html5Shiv.js
-│     ├─ jquery.js
-│     ├─ jquery-ui.js
-│     ├─ prettify.js
-│     ├─ prettify/
-│     │  └─ run_prettify.js
-│     ├─ components/
-│     │  └─ extended-format-date.js
-│     └─ common.js
-├─ views/
-│  └─ index.htm
-├─ bundles.json              ⤆ nouveau fichier
-├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>avec <code>webconfig.json</code></p><pre><code class="lang-json">{
-    "httpPort": 7777,
-    "bundles": "bundles.json",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>avec <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "bundles": "bundles.json",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>et <code>bundles.json</code></p><pre><code class="lang-json">{
-    "javascripts": {
-        "javascripts/boot.min.js": [
-            "javascripts/modernizr.js",
-            "javascripts/yepnot.js",
-            "javascripts/html5Shiv.js"
-        ],
-        "javascripts/framework.min.js": [
-            "javascripts/jquery.js",
-            "javascripts/jquery-ui.js",
-            "javascripts/prettify.js",
-            "javascripts/prettify/run_prettify.js"
-        ],
-        "javascripts/common.min.js": [
-            "javascripts/components/extended-format-date.js",
-            "javascripts/common.js"
-        ]
-    },
-    "stylesheets": {
-        "stylesheets/common.min.css": [
-            "stylesheets/common.css",
-            "stylesheets/common-min780.css",
-            "stylesheets/common-min1160.css"
-        ]
-    }
-}
-</code></pre><p><em>Note : il est possible de désactiver les Bundles en ne les incluant pas dans le <code>webconfig</code> en question.</em></p><h4 id="d-sactiver-des-bundles">Désactiver des Bundles</h4><p>Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés <code>"cssBundlingEnable": false</code> et <code>"jsBundlingEnable": false</code> pour chaque type de Bundle.</p><pre><code class="lang-json">{
-    "cssBundlingEnable": false,
-    "jsBundlingEnable": false,
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p><em>Note : si vos bundles sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne <code>"bundles": "bundles.json"</code>.</em></p><h4 id="r-g-n-rer-les-bundles-avant-chaque-rendu-de-page">Ré-générer les Bundles avant chaque rendu de page</h4><p>De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés <code>"cssBundlingBeforeResponse": true</code> et <code>"jsBundlingBeforeResponse": true</code> pour chaque type de Bundle.</p><pre><code class="lang-json">{
-    "cssBundlingBeforeResponse": false,
-    "jsBundlingBeforeResponse": false,
-    "bundles": {
-        "javascripts": {
-            "javascripts/boot.min.js": [
-                "javascripts/modernizr.js",
-                "javascripts/yepnot.js",
-                "javascripts/html5Shiv.js"
-            ],
-            "javascripts/framework.min.js": [
-                "javascripts/jquery.js",
-                "javascripts/jquery-ui.js",
-                "javascripts/prettify.js",
-                "javascripts/prettify/run_prettify.js"
-            ],
-            "javascripts/common.min.js": [
-                "javascripts/components/extended-format-date.js",
-                "javascripts/common.js"
-            ]
-        },
-        "stylesheets": {
-            "stylesheets/common.min.css": [
-                "stylesheets/common.css",
-                "stylesheets/common-min780.css",
-                "stylesheets/common-min1160.css"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p><em>Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h4 id="version-dans-noms-de-fichiers-g-n-r-s">Version dans noms de fichiers générés</h4><p>Afin de forcer le navigateur à charger de nouveau vos fichiers en cache il est intéressant de changer leur nom pour chaque version. Ainsi avec l'occurence <code>{version}</code> sera remplacé par le numéro de version de votre site actuel (par défaut <code>0.0.0</code>).</p><p>Ainsi, si vous avez un fichier <code>package.json</code> ou un <code>webconfig.json</code> valide avec un numéro de version indiqué sous la propriété version, ce numéro remplacera la valeur <code>{version}</code>. Ainsi avec le webconfig suivant :</p><p><em>webconfig</em></p><pre><code class="lang-js">{
-    "version": "1.0.0",
-    "bundles": "bundles.json"
-    "routes": "routes.json"
-}
-</code></pre><p>et les bundles suivants :</p><p><em>bundles.json</em></p><pre><code class="lang-json">{
-    "javascripts": {
-        "javascripts/boot.{version}.min.js": [
-            "javascripts/modernizr.js",
-            "javascripts/yepnot.js",
-            "javascripts/html5Shiv.js"
-        ]
-    },
-    "stylesheets": {
-        "stylesheets/common.{version}.min.css": [
-            "stylesheets/common.css",
-            "stylesheets/common-min780.css",
-            "stylesheets/common-min1160.css"
-        ]
-    }
-}
-</code></pre><p>vous obtiendrez les fichiers <code>assets/javascripts/boot.1.0.0.min.js</code> et <code>assets/javascripts/common.1.0.0.min.css</code>.</p><p>que vous pourrez appeler ainsi :</p><p><em>views/*.htm</em></p><pre><code class="lang-htm">&lt;!-- ... --&gt;
-
-&lt;link rel="stylesheet" href="stylesheets/common.&lt;?= webconfig.version ?&gt;.min.css"&gt;
-
-&lt;!-- ... --&gt;
-
-&lt;script src="javascripts/boot.&lt;?= webconfig.version ?&gt;.min.js"&gt;&lt;/script&gt;
-
-&lt;!-- ... --&gt;
-</code></pre><h4 id="bundles-avec-sockets">Bundles avec Sockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.socketClientFile</code> même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.</p><p>Dans l'exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.</p><pre><code class="lang-json">{
-    "bundles": {
-        "javascripts": {
-            "javascripts/common.min.js": [
-                "javascripts/socket.io.js",
-                "node-atlas/socket.io.js",
-                "javascripts/common.js"
-            ]
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><h3 id="generer-les-css-avec-less">Générer les CSS avec Less</h3><p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l'opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
-│  └─ stylesheets
-│     └─ common.less
-├─ views/
-│  └─ index.htm
-└─ webconfig.json
-</code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-json">{
-    "less": true,
-    "routes": {
-        "/": "index.htm"
-    }
-}
-</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-    &lt;head&gt;
-        &lt;meta charset="UTF-8"&gt;
-        &lt;title&gt;Less Test&lt;/title&gt;
-        &lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;p&gt;This line is red.&lt;/p&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
-    color: #f00;
-}
-</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix">Source Map, Minification et Autoprefix</h4><p>Par défaut, dans l'exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier <code>.less</code> a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>less.sourceMap</code> à <code>false</code> :</p><pre><code class="lang-json">    "less": {
-        "sourceMap": false
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code class="lang-json">    "less": {
-        "compress": true
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-</code></pre><p>Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur comme <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> lors de la génération sans vous en préoccuper dans vos sources !</p><pre><code class="lang-json">    "less": {
-        "autoprefix": true
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-</code></pre><h4 id="compiler-les-less-avec-generate-">Compiler les Less avec <code>--generate</code></h4><p>Comme les Less sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>less.files</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
-    "less": {
-        "files": [
-            "stylesheets/common.less",
-            "stylesheets/component-1.less",
-            "stylesheets/component-2.less",
-            "stylesheets/component-3.less"
-        ]
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-}
-</code></pre><p>ou suivante :</p><pre><code class="lang-json">{
-    "less": {
-        "files": "less.json"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-}
-</code></pre><p>avec <code>less.json</code> qui contient :</p><pre><code class="lang-json">[
-    "stylesheets/common.less",
-    "stylesheets/component-1.less",
-    "stylesheets/component-2.less",
-    "stylesheets/component-3.less"
-]
-</code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
-    "less": {
-        "paths": [
-            "subdirectory/styles-files",
-        ],
-        "files": "less.json"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-}
-</code></pre><h3 id="generer-les-css-avec-stylus">Générer les CSS avec Stylus</h3><p>Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère le CSS. Une fois l'opération effectuée, on renvoi le CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
-│  └─ stylesheets
-│     └─ common.styl
-├─ views/
-│  └─ index.htm
-└─ webconfig.json
-</code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-json">{
-    "stylus": true,
-    "routes": {
-        "/": "index.htm"
-    }
-}
-</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-    &lt;head&gt;
-        &lt;meta charset="UTF-8"&gt;
-        &lt;title&gt;Stylus Test&lt;/title&gt;
-        &lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;p&gt;This line is red.&lt;/p&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
-    color: #f00
-</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'url <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix">Source Map, Minification et Autoprefix</h4><p>Par défaut, dans l'exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier <code>.styl</code> a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.</p><p>Cela se désactive avec <code>stylus.sourceMap</code> à <code>false</code> :</p><pre><code class="lang-json">    "stylus": {
-        "sourceMap": false
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code class="lang-json">    "stylus": {
-        "compress": true
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-</code></pre><p>Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur comme <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> lors de la génération sans vous en préoccuper dans vos sources !</p><pre><code class="lang-json">    "stylus": {
-        "autoprefix": true
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-</code></pre><p><em>Note:</em> Plus d'options sur <a href="https://www.npmjs.com/package/stylus">la documentation du module stylus</a>.</p><h4 id="compiler-les-stylus-avec-generate-">Compiler les Stylus avec <code>--generate</code></h4><p>Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>stylus.files</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
-    "stylus": {
-        "files": [
-            "stylesheets/common.styl",
-            "stylesheets/component-1.styl",
-            "stylesheets/component-2.styl",
-            "stylesheets/component-3.styl"
-        ]
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-}
-</code></pre><p>ou suivante :</p><pre><code class="lang-json">{
-    "stylus": {
-        "files": "stylus.json"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-}
-</code></pre><p>avec <code>stylus.json</code> qui contient :</p><pre><code class="lang-json">[
-    "stylesheets/common.styl",
-    "stylesheets/component-1.styl",
-    "stylesheets/component-2.styl",
-    "stylesheets/component-3.styl"
-]
-</code></pre><p>Par défaut, les <code>@import</code> utilisés par Stylus seront capable de fouiller dans les sous dossier : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
-    "stylus": {
-        "paths": [
-            "subdirectory/styles-files",
-        ],
-        "files": "stylus.json"
-    },
-    "routes": {
-        "/": "index.htm"
-    }
-}
-</code></pre><h3 id="optimiser-les-images">Optimiser les Images</h3><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des Optimizations existe dans le webconfig.</p><h4 id="cr-er-des-optimizations">Créer des Optimizations</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>et l'ensemble de fichier suivant :</p><pre><code>├─ assets/
-│  └─ media/
-│     └─ images/
-│        ├─ example.png
-│        ├─ example.jpg
-│        ├─ example.gif
-│        └─ example.svg
-├─ views/
-│  └─ index.htm
-└─ webconfig.json
-</code></pre><p>vous obtiendrez les nouveaux fichiers suivant :</p><pre><code>├─ assets/
-│  └─ media/
-│     └─ images/
-│        ├─ example.png
-│        ├─ example.jpg
-│        ├─ example.gif
-│        ├─ example.svg
-│        └─ optimized/       ⤆ nouveau dossier
-│           ├─ example.png   ⤆ nouveau fichier
-│           ├─ example.jpg   ⤆ nouveau fichier
-│           ├─ example.gif   ⤆ nouveau fichier
-│           └─ example.svg   ⤆ nouveau fichier
-├─ views/
-│  └─ index.htm
-└─ webconfig.json
-</code></pre><h4 id="cr-er-des-optimizations-par-groupes-de-fichier">Créer des Optimizations par groupes de fichier</h4><p>Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indiquer en groupe :</p><pre><code class="lang-json">{
-    "optimizations": {
-        "images": {
-            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><h4 id="ajouter-des-options-aux-optimizations">Ajouter des options aux Optimizations</h4><p>Il est possible de redéfinir les options par défaut pour l'optimisation via ses 4 objets :</p><pre><code class="lang-json">{
-    "optimizations": {
-        "jpg": { "progressive": false },
-        "gif": { "interlaced": false },
-        "png": { "optimizationLevel": 1 },
-        "svg": { "multipass": false },
-        "images": {
-            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>Pour connaître toutes les options c'est par ici :</p><ul>
-<li><a href="https://www.npmjs.com/package/imagemin-jpegtran">Options Jpeg</a></li>
-<li><a href="https://www.npmjs.com/package/imagemin-gifsicle">Options Gif</a></li>
-<li><a href="https://www.npmjs.com/package/imagemin-optipng">Options Png</a></li>
-<li><a href="https://www.npmjs.com/package/imagemin-svgo">Options Svg</a></li>
-</ul><h4 id="optimizations-dans-un-fichier-partag-">Optimizations dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de configuration d'Optimizations dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>optimizations.json</code>.</p><p>Par exemple :</p><p>L'ensemble de fichier suivant</p><pre><code>├─ assets/
-│  └─ media/
-│     └─ images/
-│        ├─ example.png
-│        ├─ example.jpg
-│        ├─ example.gif
-│        └─ example.svg
-├─ views/
-│  └─ index.htm
-├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>avec <code>webconfig.json</code></p><pre><code class="lang-json">{
-    "httpPort": 7777,
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>et avec <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>pourrait devenir l'ensemble de fichier suivant</p><pre><code>├─ assets/
-│  └─ media/
-│     └─ images/
-│        ├─ example.png
-│        ├─ example.jpg
-│        ├─ example.gif
-│        └─ example.svg
-├─ views/
-│  └─ index.htm
-├─ bundles.json
-├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>avec <code>webconfig.json</code></p><pre><code class="lang-json">{
-    "httpPort": 7777,
-    "optimizations": "optimizations.json",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>avec <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
-    "httpPort": 7776,
-    "httpHostname": "blog.lesieur.name",
-    "urlPort": 80,
-    "optimizations": "optimizations.json",
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p>et <code>optimizations.json</code></p><pre><code class="lang-json">{
-    "images": {
-        "media/images/example.png": "media/images/optimized/",
-        "media/images/example.jpg": "media/images/optimized/",
-        "media/images/example.gif": "media/images/optimized/",
-        "media/images/example.svg": "media/images/optimized/"
-    }
-}
-</code></pre><p><em>Note : il est possible de désactiver les Optimizations en ne les incluant pas dans le <code>webconfig</code> en question.</em></p><h4 id="d-sactiver-des-optimizations">Désactiver des Optimizations</h4><p>Il est également possible de ne pas exécuter l'optimisation au démarrage d'un site web avec NodeAtlas avec les propriétés <code>"imgOptimizationsEnable": false</code>.</p><pre><code class="lang-json">{
-    "imgOptimizationsEnable": false,
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p><em>Note : si vos optimizations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne <code>"optimizations": "optimizations.json"</code>.</em></p><h4 id="r-g-n-rer-les-optimizations-avant-chaque-rendu-de-page">Ré-générer les Optimizations avant chaque rendu de page</h4><p>Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés <code>"imgOptimizationsBeforeResponse": true</code>.</p><pre><code class="lang-json">{
-    "imgOptimizationsBeforeResponse": false,
-    "optimizations": {
-        "images": {
-            "media/images/example.png": "media/images/optimized/",
-            "media/images/example.jpg": "media/images/optimized/",
-            "media/images/example.gif": "media/images/optimized/",
-            "media/images/example.svg": "media/images/optimized/"
-        }
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm"
-        }
-    }
-}
-</code></pre><p><em>Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h3 id="injecter-du-css-inline-pour-maintenir-des-assets-email">Injecter du CSS inline pour maintenir des assets Email</h3><p>Quand on créer des templates pour envoyer des Newsletters par email, ou même de simple message, on ne peut pas attacher de feuille de style. Le seul moyen à notre disposition est d'écrire les instructions CSS dans le template à l'intérieur de l'attribut <code>style</code> brisant ainsi la séparation du font et de la forme.</p><h4 id="injection-sp-cifique">Injection spécifique</h4><p>Avec <code>injectCss</code>, il vous suffit d'habiller votre template comme à votre habitude via une feuille de style et NodeAtlas injectera à chaque rendu les styles dans l'attribut <code>style</code>. Il ne vous restera plus qu'à générer vos templates.</p><p>Avec par exemple la configuration suivante :</p><pre><code class="lang-json">{
-    "routes": {
-        "/": {
-            "view": "email.htm",
-            "output": "bienvenue.html",
-            "injectCss": "stylesheets/email.css"
-        }
-    }
-}
-</code></pre><p>et l'ensemble de fichiers suivant :</p><pre><code>├─ serverless/
-├─ assets/
-│  └─ stylesheets/
-│     └─ email.css
-├─ views/
-│  └─ email.htm
-└─ webconfig.json
-</code></pre><p>dont les contenus sont :</p><p><em>stylesheets/common.css</em></p><pre><code class="lang-css">body {
-    color: #f00;
-}
-</code></pre><p><em>views/email.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-    &lt;head&gt;
-        &lt;meta charset="UTF-8"&gt;
-        &lt;title&gt;Email&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;p&gt;This is a template email.&lt;/p&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>vous obtiendrez en sortie avec la commande <code>node-atlas --generate</code> l'ensemble de fichier suivant :</p><pre><code>├─ serverless/
-│  └─ bienvenue.html    &lt;= template email prêt à l'envoi !
-├─ assets/
-│  └─ stylesheets/
-│     └─ email.css
-├─ views/
-│  └─ email.htm
-└─ webconfig.json
-</code></pre><p>avec comme contenu pour <code>serverless/bienvenue.html</code></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-    &lt;head&gt;
-        &lt;meta charset="UTF-8"&gt;
-        &lt;title&gt;Email&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body style="color: #f00;"&gt;
-        &lt;p&gt;This is a template email.&lt;/p&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.</p><blockquote>
-<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node "../../../" --generate</code>. Le résultat est dans <code>serverless</code>.</p>
-</blockquote><h4 id="injection-globale">Injection globale</h4><p>Il existe également la même propriété globale impactant toutes les pages.</p><pre><code class="lang-json">{
-    "injectCss": "stylesheets/email.css",
-    "routes": {
-        "/bienvenue/": {
-            "view": "email-a.htm",
-            "generate": "bienvenue.html"
-        },
-        "/au-revoir/": {
-            "view": "email-b.htm",
-            "generate": "au-revoir.html"
-        }
-    }
-}
-</code></pre><p>ainsi les deux pages <code>bienvenue</code> et <code>au-revoir</code> contiendront chacune <code>&lt;body style="color: #f00;"&gt;</code>.</p><h4 id="injection-multiple">Injection multiple</h4><p>Il est possible :</p><ul>
-<li>De préciser des feuilles spécifique et commune en même temps.</li>
-<li>De préciser plus d'une feuille à la fois.</li>
-</ul><pre><code class="lang-json">{
-    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
-    "routes": {
-        "/bienvenue/": {
-            "view": "email-a.htm",
-            "generate": "bienvenue.html",
-            "injectCss": "/stylesheets/welcome.css"
-        },
-        "/au-revoir/": {
-            "view": "email-b.htm",
-            "generate": "au-revoir.html",
-            "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
-        }
-    }
-}
-</code></pre><blockquote>
-<p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node "../../../" --generate --webconfig webconfig.multiple.json</code>. Le résultat est dans <code>serverless</code>.</p>
-</blockquote><h3 id="autoriser-interdire-les-demandes-get-post">Autoriser / Interdire les demandes GET / POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n'oubliez pas qu'en HTTPs ce n'est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="autoriser-interdire-les-demandes-get-post">Autoriser / Interdire les demandes GET / POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p><pre><code class="lang-json">{
     "get": true,
     "post": false,
     "routes": {
@@ -1983,8 +1200,861 @@ exports.changeDom = function (next, locals) {
 <p>ou vous pouvez la définir dans votre fichier JavaScript :</p>
 <pre><code class="lang-js">process.env.NODE_ENV = "production";
 </code></pre>
-</blockquote><div><div class="before">
-							<a href="partie-controleur.html">◄ Partie contrôleur</a>
+</blockquote><h3 id="base-de-donnees-sql">Base de données SQL</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser une base MySQL comme exemple. Le module npm <code>mysql</code> va donc nous être utile. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
+</code></pre><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d'abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
+</code></pre><p>et la sélectionner :</p><pre><code class="lang-sql">USE demo
+</code></pre><p>puis créer la table <code>user</code> :</p><pre><code class="lang-sql">CREATE TABLE user
+(
+   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   lastname VARCHAR(100),
+   firstname VARCHAR(100),
+   email VARCHAR(255),
+   birthdate DATE,
+   gender TINYINT(1),
+   country VARCHAR(255),
+   town VARCHAR(255),
+   zipcode VARCHAR(5),
+   address VARCHAR(255)
+);
+</code></pre><p>et la remplir avec un jeu de données :</p><pre><code class="lang-sql">INSERT INTO user (
+   lastname,
+   firstname,
+   email,
+   birthdate,
+   gender,
+   country,
+   town,
+   zipcode,
+   address
+) VALUES (
+   "Elric",
+   "Edward",
+   "edward.elric@fma.br",
+   "2006/01/01",
+   true,
+   "Amestris",
+   "Resembool",
+   00000,
+   "The Elric's house"
+);
+INSERT INTO user (
+   lastname,
+   firstname,
+   email,
+   birthdate,
+   gender,
+   country,
+   town,
+   zipcode,
+   address
+) VALUES (
+   "Elric",
+   "Alphonse",
+   "alphonse.elric@fma.br",
+   "2008/01/01",
+   true,
+   "Amestris",
+   "Resembool",
+   00000,
+   "The Elric's house"
+);
+</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Voyons à présent l'architecture de site que nous allons arbitrairement créer pour présenter notre exemple :</p><pre><code class="lang-txt">├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  ├─ objects/
+│  │  └─ user.js
+│  └─ connectors/
+│     └─ user.js
+├─ views/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
+</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code class="lang-json">{
+   "controller": "common.js",
+   "variation": "common.json",
+   "statics": {
+      "/models": "models/objects"
+   },
+   "routes": {
+      "/": {
+         "view": "index.htm",
+         "variation": "index.json",
+         "controller": "index.js"
+      }
+   },
+   "_mysqlConfig": {
+      "host": "localhost",
+      "user": "root",
+      "password": "root",
+      "database": "demo"
+   }
+}
+</code></pre><p>Nous allons ensuite nous connecter à la base de données avec le contrôleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-json">exports.setModules = function () {
+   var NA = this;
+
+   // Import du module `mysql`.
+   NA.modules.mysql = require('mysql');
+
+   // Création de la collection de modèle...
+   NA.models = {};
+   // ...et récupération du modèle User avec accès à Mysql.
+   NA.models.User = require('../models/connectors/user.js');
+};
+
+exports.setConfigurations = function (next) {
+   var NA = this,
+      path = NA.modules.path,
+      mysql = NA.modules.mysql;
+
+   // Créer un pool de connexion à MySQL.
+   NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
+
+   next();
+};
+</code></pre><p>Et afficher les résultats via le contrôleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+   var NA = this,
+      user = new NA.models.User(),
+      user2 = new NA.models.User(),
+      user3 = new NA.models.User(),
+      user4 = new NA.models.User();
+
+   NA.mySql.getConnection(function(err, connection) {
+      if (err) {
+         throw err;
+      }
+
+      // Exemple de lecture.
+      user
+      .setConnection(connection)
+      .lastname("Elric")
+      .read(function (allUsers) {
+         locals.user = user;
+         locals.users = allUsers;
+
+         // Exemple de création.
+         user2
+         .setConnection(connection)
+         .firstname("Winry")
+         .lastname("Rockbell")
+         .email("winry.rockbell@fma.br")
+         .gender(true)
+         .create(function (infos) {
+            locals.insertId = infos.insertId;
+            locals.user2 = user2;
+
+            // Exemple de modification.
+            user3
+            .gender(false)
+            .birthdate("2008-01-01")
+            .country("Amestris")
+            .town("Resembool")
+            .zipcode("99999")
+            .address("The Rockbell's house");
+
+            user2.update(user3, function (infos) {
+               locals.affectedRows = infos.affectedRows;
+               locals.user2 = user2;
+
+               // Exemple de suppression.
+               user4
+               .setConnection(connection)
+               .gender(false)
+               .delete(function (infos) {
+                  locals.deletedRows = infos.affectedRows;
+                  next();
+               });
+            });
+         });
+      });
+   });
+};
+</code></pre><p>en utilisant le modèle <code>user</code> via le fichier de connexion à la base de données <code>models/connectors/user.js</code> :</p><pre><code class="lang-json">var user = require('../objects/user.js');
+
+function User(connection) {
+   var privates = {},
+      publics = this;
+
+   user.call(publics);
+
+   privates.connection = connection;
+
+   publics.setConnection = function (connection) {
+      privates.connection = connection;
+      return publics;
+   };
+
+   publics.read = function (callback) {
+      var select = `SELECT
+               id,
+               lastname,
+               firstname,
+               email,
+               birthdate,
+               gender,
+               country,
+               town,
+               zipcode,
+               address
+            FROM user`,
+         where = "";
+
+      if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
+      if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
+      if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
+      if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
+      if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
+      if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
+      if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
+      if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
+      if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
+      if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
+
+      where = where.replace("&amp;&amp;", "WHERE");
+
+      privates.connection.query(select + where, function (err, rows) {
+         var users = [],
+            user;
+
+         if (err) {
+            throw err;
+         }
+
+         if (rows[0]) {
+            publics.id(rows[0].id);
+            publics.lastname(rows[0].lastname);
+            publics.firstname(rows[0].firstname);
+            publics.email(rows[0].email);
+            publics.birthdate(rows[0].birthdate);
+            publics.gender((rows[0].gender) ? true : false);
+            publics.country(rows[0].country);
+            publics.town(rows[0].town);
+            publics.zipcode(rows[0].zipcode);
+            publics.address(rows[0].address);
+         }
+
+         for (var i = 0; i &lt; rows.length; i++) {
+            user = new User();
+            user.id(rows[i].id);
+            user.lastname(rows[i].lastname);
+            user.firstname(rows[i].firstname);
+            user.email(rows[i].email);
+            user.birthdate(rows[i].birthdate);
+            user.gender((rows[i].gender) ? true : false);
+            user.country(rows[i].country);
+            user.town(rows[i].town);
+            user.zipcode(rows[i].zipcode);
+            user.address(rows[i].address);
+            users.push(user);
+         }
+
+         if (callback) {
+            callback(users);
+         }
+      });
+
+      return publics;
+   };
+
+   publics.create = function (callback) {
+      var insert = "INSERT INTO user (",
+         values = ") VALUES (";
+
+      if (publics.id()) {
+         insert += "`id`, ";
+         values += publics.id() + ', ';
+      }
+      if (publics.lastname()) {
+         insert += "`lastname`, ";
+         values += '"' + publics.lastname() + '", ';
+      }
+      if (publics.firstname()) {
+         insert += "`firstname`, ";
+         values += '"' + publics.firstname() + '", ';
+      }
+      if (publics.email()) {
+         insert += "`email`, ";
+         values += '"' + publics.email() + '", ';
+      }
+      if (publics.birthdate()) {
+         insert += "`birthdate`, ";
+         values += '"' + publics.birthdate() + '", ';
+      }
+      if (typeof publics.gender() === "boolean") {
+         insert += "`gender`, ";
+         values += (publics.gender() ? 1 : 0) + ', ';
+      }
+      if (publics.country()) {
+         insert += "`country`, ";
+         values += '"' + publics.country() + '", ';
+      }
+      if (publics.town()) {
+         insert += "`town`, ";
+         values += '"' + publics.town() + '", ';
+      }
+      if (publics.zipcode()) {
+         insert += "`zipcode`, ";
+         values += '"' + publics.zipcode() + '", ';
+      }
+      if (publics.address()) {
+         insert += "`address`, ";
+         values += '"' + publics.address() + '", ';
+      }
+
+      insert = insert.replace(/, $/g, "");
+      values = values.replace(/, $/g, ")");
+
+      privates.connection.query(insert + values, function (err, infos) {
+         if (err) {
+            throw err;
+         }
+
+         publics.id(infos.insertId);
+
+         if (callback) {
+            callback(infos);
+         }
+      });
+
+      return publics;
+   };
+
+   publics.update = function (user, callback) {
+      var update = "UPDATE user SET",
+         where = "";
+
+      if (user.id()) { update += '`id` = ' + user.id() + ', '; }
+      if (user.lastname()) { update += '`lastname` = "' + user.lastname() + '", '; }
+      if (user.firstname()) { update += '`firstname` = "' + user.firstname() + '", '; }
+      if (user.email()) { update += '`email` = "' + user.email() + '", '; }
+      if (user.birthdate()) { update += '`birthdate` = "' + user.birthdate() + '", '; }
+      if (typeof user.gender() === "boolean") { update += '`gender` = ' + (user.gender() ? 1 : 0) + ', '; }
+      if (user.country()) { update += '`country` = "' + user.country() + '", '; }
+      if (user.town()) { update += '`town` = "' + user.town() + '", '; }
+      if (user.zipcode()) { update += '`zipcode` = "' + user.zipcode() + '", '; }
+      if (user.address()) { update += '`address` = "' + user.address() + '", '; }
+
+      update = update.replace(/, $/g, "");
+
+      if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
+      if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
+      if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
+      if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
+      if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
+      if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
+      if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
+      if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
+      if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
+      if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
+
+      where = where.replace("&amp;&amp;", "WHERE");
+
+      privates.connection.query(update + where, function (err, infos) {
+         if (err) {
+            throw err;
+         }
+
+         if (user.id()) { publics.id(user.id()); }
+         if (user.lastname()) { publics.lastname(user.lastname()); }
+         if (user.firstname()) { publics.firstname(user.firstname()); }
+         if (user.email()) { publics.email(user.email()); }
+         if (user.birthdate()) { publics.birthdate(user.birthdate()); }
+         if (typeof publics.gender() === "boolean") { publics.gender(user.gender()); }
+         if (user.country()) { publics.country(user.country()); }
+         if (user.town()) { publics.town(user.town()); }
+         if (user.zipcode()) { publics.zipcode(user.zipcode()); }
+         if (user.address()) { publics.address(user.address()); }
+
+         if (callback) {
+            callback(infos);
+         }
+      });
+
+      return publics;
+   };
+
+   publics.delete = function (callback) {
+      var del = "DELETE FROM user",
+         where = "";
+
+      if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
+      if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
+      if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
+      if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
+      if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
+      if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
+      if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
+      if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
+      if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
+      if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
+
+      where = where.replace("&amp;&amp;", "WHERE");
+
+      privates.connection.query(del + where, function (err, infos) {
+         if (err) {
+            throw err;
+         }
+
+         if (publics.id()) { publics.id(undefined); }
+         if (publics.lastname()) { publics.lastname(undefined); }
+         if (publics.firstname()) { publics.firstname(undefined); }
+         if (publics.email()) { publics.email(undefined); }
+         if (publics.birthdate()) { publics.birthdate(undefined); }
+         if (typeof publics.gender() === "boolean") { publics.gender(undefined); }
+         if (publics.country()) { publics.country(undefined); }
+         if (publics.town()) { publics.town(undefined); }
+         if (publics.zipcode()) { publics.zipcode(undefined); }
+         if (publics.address()) { publics.address(undefined); }
+
+         if (callback) {
+            callback(infos);
+         }
+      });
+
+      return publics;
+   };
+}
+
+User.prototype = Object.create(user.prototype);
+User.prototype.constructor = User;
+
+module.exports = User;
+</code></pre><p>basé sur une classe <code>user</code> partagée entre la partie cliente et serveur <code>models/objects/user.js</code> :</p><pre><code class="lang-js">(function (expose, factory) {
+   if (typeof module !== 'undefined' &amp;&amp; module.exports) {
+      module.exports = factory;
+   } else {
+      expose.User = factory;
+   }
+}(this, function User() {
+   var privates = {},
+      publics = this;
+
+   publics.id = function (id) {
+      if (typeof id === 'undefined') {
+         return privates.id;
+      } else {
+         privates.id = id;
+         return publics;
+      }
+   };
+
+   publics.lastname = function (lastname) {
+      if (typeof lastname === 'undefined') {
+         return privates.lastname;
+      } else {
+         privates.lastname = lastname;
+         return publics;
+      }
+   };
+
+   publics.firstname = function (firstname) {
+      if (typeof firstname === 'undefined') {
+         return privates.firstname;
+      } else {
+         privates.firstname = firstname;
+         return publics;
+      }
+   };
+
+   publics.email = function (email) {
+      if (typeof email === 'undefined') {
+         return privates.email;
+      } else {
+         privates.email = email;
+         return publics;
+      }
+   };
+
+   publics.birthdate = function (birthdate) {
+      if (typeof birthdate === 'undefined') {
+         return privates.birthdate;
+      } else {
+         privates.birthdate = birthdate;
+         return publics;
+      }
+   };
+
+   publics.gender = function (gender) {
+      if (typeof gender === 'undefined') {
+         return privates.gender;
+      } else {
+         privates.gender = gender;
+         return publics;
+      }
+   };
+
+   publics.country = function (country) {
+      if (typeof country === 'undefined') {
+         return privates.country;
+      } else {
+         privates.country = country;
+         return publics;
+      }
+   };
+
+   publics.town = function (town) {
+      if (typeof town === 'undefined') {
+         return privates.town;
+      } else {
+         privates.town = town;
+         return publics;
+      }
+   };
+
+   publics.zipcode = function (zipcode) {
+      if (typeof zipcode === 'undefined') {
+         return privates.zipcode;
+      } else {
+         privates.zipcode = zipcode;
+         return publics;
+      }
+   };
+
+   publics.address = function (address) {
+      if (typeof address === 'undefined') {
+         return privates.address;
+      } else {
+         privates.address = address;
+         return publics;
+      }
+   };
+}));
+</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+   &lt;head&gt;
+      &lt;meta charset="utf-8" /&gt;
+      &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+      &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+      &lt;div&gt;
+         &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+         &lt;div class="first"&gt;
+            &lt;?- specific.content ?&gt;
+            &lt;ul&gt;
+               &lt;li&gt;Id: &lt;strong&gt;&lt;?- user.id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- user.lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- user.firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Email: &lt;strong&gt;&lt;?- user.email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- user.birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Gender: &lt;strong&gt;&lt;?- user.gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Country: &lt;strong&gt;&lt;?- user.country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Town: &lt;strong&gt;&lt;?- user.town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- user.zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Address: &lt;strong&gt;&lt;?- user.address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+         &lt;/div&gt;
+         &lt;div class="all"&gt;
+            &lt;?- specific.contents ?&gt;
+            &lt;? for (var i = 0; i &lt; users.length; i++) { ?&gt;
+            &lt;ul&gt;
+               &lt;li&gt;Id: &lt;strong&gt;&lt;?- users[i].id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- users[i].lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- users[i].firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Email: &lt;strong&gt;&lt;?- users[i].email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- users[i].birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Gender: &lt;strong&gt;&lt;?- users[i].gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Country: &lt;strong&gt;&lt;?- users[i].country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Town: &lt;strong&gt;&lt;?- users[i].town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- users[i].zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Address: &lt;strong&gt;&lt;?- users[i].address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;? } ?&gt;
+         &lt;/div&gt;
+         &lt;div class="last"&gt;
+            &lt;?- specific.contentInsert ?&gt;
+            &lt;p&gt;insertId: &lt;?- insertId ?&gt;&lt;/p&gt;
+            &lt;p&gt;numberUpdate: &lt;?- affectedRows ?&gt;&lt;/p&gt;
+            &lt;ul&gt;
+               &lt;li&gt;Id: &lt;strong&gt;&lt;?- user2.id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- user2.lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- user2.firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Email: &lt;strong&gt;&lt;?- user2.email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- user2.birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Gender: &lt;strong&gt;&lt;?- user2.gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Country: &lt;strong&gt;&lt;?- user2.country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Town: &lt;strong&gt;&lt;?- user2.town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- user2.zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Address: &lt;strong&gt;&lt;?- user2.address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;numberDelete: &lt;?- deletedRows ?&gt;&lt;/p&gt;
+         &lt;/div&gt;
+      &lt;/div&gt;
+   &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+   "titleWebsite": "Exemple MySql",
+   "male": "Homme",
+   "female": "Femme"
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+   "titlePage": "Table User",
+   "content": "&lt;p&gt;Détail de la première entrée.&lt;/p&gt;",
+   "contents": "&lt;p&gt;Détail de toutes les entrées.&lt;/p&gt;",
+   "contentInsert": "&lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&lt;/p&gt;"
+}
+</code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+   &lt;head&gt;
+      &lt;meta charset="utf-8" /&gt;
+      &lt;title&gt;MySql Exemple&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+      &lt;div class="title"&gt;MySql Exemple&lt;/div&gt;
+      &lt;div&gt;
+         &lt;h1&gt;Table User&lt;/h1&gt;
+         &lt;div class="first"&gt;
+            &lt;p&gt;Détail de la première entrée.&lt;/p&gt;
+            &lt;ul&gt;
+               &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Firstname: &lt;strong&gt;Edward&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Email: &lt;strong&gt;edward.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Birthdate: &lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+         &lt;/div&gt;
+         &lt;div class="all"&gt;
+            &lt;p&gt;Détail de toutes les entrées.&lt;/p&gt;
+            &lt;ul&gt;
+               &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Firstname: &lt;strong&gt;Edward&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Email: &lt;strong&gt;edward.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Birthdate: &lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;ul&gt;
+               &lt;li&gt;Id: &lt;strong&gt;2&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Firstname: &lt;strong&gt;Alphonse&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Email: &lt;strong&gt;alphonse.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Birthdate: &lt;strong&gt;Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+         &lt;/div&gt;
+         &lt;div class="last"&gt;
+            &lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&lt;/p&gt;
+            &lt;p&gt;insertId: 3&lt;/p&gt;
+            &lt;p&gt;numberUpdate: 1&lt;/p&gt;
+            &lt;ul&gt;
+               &lt;li&gt;Id: &lt;strong&gt;3&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Lastname: &lt;strong&gt;Rockbell&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Firstname: &lt;strong&gt;Winry&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Email: &lt;strong&gt;winry.rockbell@fma.br&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Birthdate: &lt;strong&gt;2008-01-01&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Gender: &lt;strong&gt;false&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Zipcode: &lt;strong&gt;99999&lt;/strong&gt;&lt;/li&gt;
+               &lt;li&gt;Address: &lt;strong&gt;The Rockbell's house&lt;/strong&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;numberDelete: 1&lt;/p&gt;
+         &lt;/div&gt;
+      &lt;/div&gt;
+   &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="base-de-donnees-nosql">Base de données NoSQL</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mongoose
+</code></pre><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d'abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code class="lang-bash">use demo
+</code></pre><p>puis créer la collection <code>user</code> :</p><pre><code class="lang-js">db.createCollection("user")
+</code></pre><p>et la remplir avec un document :</p><pre><code class="lang-js">db.user.insert({
+   email: "john.doe@unknown.com",
+   identity: {
+      lastname: "Doe",
+      firstname: "John",
+      gender: true,
+      birthdate : new Date("1970/01/01")
+   },
+   location: {
+      country: "Unknown",
+      town: "Unknown",
+      zipcode: "00000",
+      address: "42 unknown"
+   }
+})
+</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Avec le jeu de fichier suivant :</p><pre><code class="lang-txt">├─ controllers/
+│  ├─ common.js
+│  └─ index.js
+├─ models/
+│  └─ user.js
+├─ views/
+│  └─ index.htm
+├─ variations/
+│  ├─ common.json
+│  └─ index.json
+└─ webconfig.json
+</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code class="lang-json">{
+   "controller": "common.js",
+   "variation": "common.json",
+   "statics": {
+      "/models": "models"
+   },
+   "routes": {
+      "/": {
+         "view": "index.htm",
+         "variation": "index.json",
+         "controller": "index.js"
+      }
+   },
+   "_mongodbConfig": {
+      "host": "localhost",
+      "port": "27017",
+      "database": "demo"
+   }
+}
+</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="&lt;?- languageCode ?&gt;"&gt;
+   &lt;head&gt;
+      &lt;meta charset="utf-8" /&gt;
+      &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+      &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+      &lt;div&gt;
+         &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
+         &lt;?- specific.content ?&gt;
+         &lt;ul&gt;
+            &lt;li&gt;Id: &lt;strong&gt;&lt;?- id ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- lastname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- firstname ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Email: &lt;strong&gt;&lt;?- email ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- birthdate ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Gender: &lt;strong&gt;&lt;?- gender ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Country: &lt;strong&gt;&lt;?- country ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Town: &lt;strong&gt;&lt;?- town ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- zipcode ?&gt;&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Address: &lt;strong&gt;&lt;?- address ?&gt;&lt;/strong&gt;&lt;/li&gt;
+         &lt;/ul&gt;
+      &lt;/div&gt;
+   &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+   "titleWebsite": "MongoDB Exemple",
+   "male": "Homme",
+   "female": "Femme"
+}
+</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+   "titlePage": "Collection User",
+   "content": "&lt;p&gt;Détail du document `{ \"identity.firstname\": \"John\" }`.&lt;/p&gt;"
+}
+</code></pre><p>Enfin nous allons nous connecter à la base de données avec le contrôleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-js">exports.setModules = function () {
+   var NA = this,
+      path = NA.modules.path;
+
+   NA.modules.mongoose = require('mongoose');
+   NA.models = {};
+   NA.models.User = require('../models/user.js');
+};
+
+exports.setConfigurations = function (next) {
+   var NA = this,
+      mongoose = NA.modules.mongoose,
+      config = NA.webconfig._mongodbConfig;
+
+   mongoose.Promise = global.Promise;
+   mongoose.model("user", NA.models.User, "user");
+   mongoose.connect("mongodb://" + config.host + ":" + config.port + "/" + config.database, function (error) {
+      next();
+   });
+};
+</code></pre><p>Et afficher les résultats via le contrôleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+   var NA = this,
+      mongoose = NA.modules.mongoose,
+      User = mongoose.model('user');
+
+   User
+   .findOne({ "identity.firstname": "John" })
+   .exec(function (err, user) {
+
+      locals.id = user._id;
+      locals.lastname = user.identity.lastname;
+      locals.firstname = user.identity.firstname;
+      locals.birthdate = user.identity.birthdate;
+      locals.email = user.email;
+      locals.gender = (user.identity.gender) ? locals.common.male : locals.common.female;
+      locals.country = user.location.country;
+      locals.town = user.location.town;
+      locals.zipcode = user.location.zipcode;
+      locals.address = user.location.address;
+
+      next();
+   });
+};
+</code></pre><p>en utilisant sur une classe <code>user</code> partagée entre la partie cliente et la partie serveur <code>models/user.js</code> :</p><pre><code class="lang-js">var mongoose;
+if (typeof module !== 'undefined' &amp;&amp; module.exports) {
+    mongoose = require('mongoose');
+}
+
+(function (expose, factory) {
+   if (mongoose) {
+      module.exports = factory;
+   } else {
+      expose.User = factory;
+   }
+}(this, new mongoose.Schema({
+   _id: mongoose.Schema.Types.ObjectId,
+   email: { type : String, match: /^\S+@\S+$/ },
+   identity: {
+      lastname: String,
+      firstname: String,
+      gender: Boolean,
+      birthdate : { type : Date, default : Date.now }
+   },
+   location: {
+      country: String,
+      town: String,
+      zipcode: String,
+      address: String
+   }
+})));
+</code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr-fr"&gt;
+   &lt;head&gt;
+      &lt;meta charset="utf-8" /&gt;
+      &lt;title&gt;Exemple MongoDB&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+      &lt;div class="title"&gt;Exemple MongoDB&lt;/div&gt;
+      &lt;div&gt;
+         &lt;h1&gt;Collection User&lt;/h1&gt;
+         &lt;p&gt;Détail de l'entrée `{ "identity.firstname": "John" }`.&lt;/p&gt;
+         &lt;ul&gt;
+            &lt;li&gt;Id: &lt;strong&gt;5804d4d530788ee2e52ea1c7&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Lastname: &lt;strong&gt;Doe&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Firstname: &lt;strong&gt;John&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Email: &lt;strong&gt;john.doe@unknown.com&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Birthdate: &lt;strong&gt;Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Gender: &lt;strong&gt;Homme&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Country: &lt;strong&gt;Unknown&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Town: &lt;strong&gt;Unknown&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Zipcode: &lt;strong&gt;00000&lt;/strong&gt;&lt;/li&gt;
+            &lt;li&gt;Address: &lt;strong&gt;42 unknown&lt;/strong&gt;&lt;/li&gt;
+         &lt;/ul&gt;
+      &lt;/div&gt;
+   &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="application-isomorphique">Application isomorphique</h3><p>Une application isomorphique est une application dont le code JavaScript est en grande partie le même qu'il soit exécuté côté client ou exécuté côté serveur. NodeAtlas propose un exemple d'application isomorphique dans son template dédié à <a href="https://fr.vuejs.org/">Vue.js</a>.</p><p>Pour tester cela il vous suffit :</p><p>de créer un dossier de test</p><pre><code class="lang-bash">mkdir hello-vue
+cd hello-vue
+</code></pre><p>d'y placer les fichier de <code>hello-vue</code></p><pre><code class="lang-bash">node-atlas --create hello-vue
+</code></pre><p>d'installer les dépendances</p><pre><code class="lang-bash">npm install
+</code></pre><p>et de lancer le site en français</p><pre><code class="lang-bash">node-atlas --browse
+</code></pre><p>ou en version internationale</p><pre><code class="lang-bash">node-atlas --browse --webconfig webconfig.en-us.json
+</code></pre><p>Vous trouverrez tout ce qu'il faut pour appréhender la partie serveur du <code>constrollers/common.js</code> sur <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> et seul la partie cliente du <code>assets/javascripts/common.js</code> sur <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
+							<a href="partie-outils.html">◄ Partie outils</a>
 						</div><div class="after">
 							<a href="anatomie-du-webconfig.html">Anatomie du webconfig ►</a>
 						</div></div>

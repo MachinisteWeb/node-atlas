@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1507049451150">
+		<meta name="og:updated_time" content="1507221083837">
 
 		<meta name="robots" content="index, follow">
 
@@ -264,6 +264,10 @@ website.init({
 											</li>
 											
 											<li>
+												<a href="partie-outils.html" title="Partie outils">Partie outils</a>
+											</li>
+											
+											<li>
 												<a href="partie-avancee.html" title="Partie avancée">Partie avancée</a>
 											</li>
 											
@@ -370,7 +374,7 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : si</em> <code>controllersRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des contrôleurs est bien</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir pendant :</p><h4 id="le-lancement-du-serveur">Le lancement du serveur</h4><pre><code>┌─[Chargement des modules Node.js]
+</code></pre><p><em>Note : si</em> <code>controllersRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des contrôleurs est bien</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir pendant :</p><h4 id="le-lancement-du-serveur">Le lancement du serveur</h4><pre><code class="lang-txt">┌─[Chargement des modules Node.js]
 ┊
 ├─[Chargement des variables d'initialisation]
 ┊
@@ -413,7 +417,7 @@ website.init({
       └─[Initialisation des routes]
         ┊
         ∞
-</code></pre><h4 id="le-traitement-des-requ-tes-de-chaque-route">Le traitement des requêtes de chaque route</h4><pre><code>∞
+</code></pre><h4 id="le-traitement-des-requ-tes-de-chaque-route">Le traitement des requêtes de chaque route</h4><pre><code class="lang-txt">∞
 ┊
 └─[Traitement d'une requête]
   ┊
@@ -448,7 +452,7 @@ website.init({
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ variations/
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ controllers/
@@ -583,7 +587,7 @@ exports.changeVariations = function (next, locals, request, response) {
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ variations/
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ controllers/
@@ -679,7 +683,7 @@ exports.changeDom = function (next, locals, request, response) {
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ assets/
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
@@ -781,7 +785,7 @@ NA.socket.on("update-text", function (data) {
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ controllers/
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ views/
@@ -848,7 +852,7 @@ exports.changeVariations = function (next, locals) {
         }
     }
 }
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code>├─ controllers/
+</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ views/
@@ -900,7 +904,7 @@ exports.changeVariations = function (next, locals) {
 </code></pre><h3 id="point-d-ancrage-setsessions">Point d'ancrage <code>setSessions</code></h3><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de gestion de session avec <a href="http://redis.io/">Redis</a>.</p><p><code>setSessions(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next()</code>.</li>
-</ul><p>Voici l'ensemble de fichier suivant :</p><pre><code>├─ controllers/
+</ul><p>Voici l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ controllers/
 │  └─ common.js
 ├─ views/
 │  └─ index.htm
@@ -942,7 +946,7 @@ exports.setSessions = function (next) {
 </code></pre><h3 id="point-d-ancrage-setroutes">Point d'ancrage <code>setRoutes</code></h3><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setRoutes(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier argument la fonction de rappel <code>next()</code>.</li>
-</ul><p>Voici l'ensemble de fichier suivant :</p><pre><code>├─ controllers/
+</ul><p>Voici l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ controllers/
 │  └─ common.js
 ├─ views/
 │  ├─ content.htm
@@ -977,7 +981,7 @@ exports.setRoutes = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next();
 };
-</code></pre><h3 id="echanges-websockets">Échanges WebSockets</h3><p>Afin de conserver une liaison ouverte entre la partie cliente et la partie serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l'ensemble de fichier suivant :</p><pre><code>├─ assets/
+</code></pre><h3 id="echanges-websockets">Échanges WebSockets</h3><p>Afin de conserver une liaison ouverte entre la partie cliente et la partie serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
@@ -1082,854 +1086,7 @@ NA.socket.on("server-render", function (data) {
     // ...et ré-affectons l'action au bouton du nouveau contenu.
     setServerRender();
 });
-</code></pre><p>Lancer votre projet et rendez-vous à l'adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Mettre à jour », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>view</code> d'utiliser le moteur Pug au lieu de celui d'EJS, il faut mettre la valeur <code>locals.pug</code> à <code>true</code> avant d'utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="base-de-donnees-sql">Base de données SQL</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données. Pour cela nous allons utiliser une base MySQL comme exemple. Le module npm <code>mysql</code> va donc nous être utile. Il va également nous falloir <a href="https://dev.mysql.com/downloads/installer/">installer un serveur MySQL</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mysql
-</code></pre><h4 id="base-de-donn-es-mysql">Base de données MySQL</h4><p>Tout d'abord, nous allons alimenter la base de données avec la base <code>demo</code> :</p><pre><code class="lang-sql">CREATE DATABASE demo;
-</code></pre><p>et la sélectionner :</p><pre><code class="lang-sql">USE demo
-</code></pre><p>puis créer la table <code>user</code> :</p><pre><code class="lang-sql">CREATE TABLE user
-(
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    lastname VARCHAR(100),
-    firstname VARCHAR(100),
-    email VARCHAR(255),
-    birthdate DATE,
-    gender TINYINT(1),
-    country VARCHAR(255),
-    town VARCHAR(255),
-    zipcode VARCHAR(5),
-    address VARCHAR(255)
-);
-</code></pre><p>et la remplir avec un jeu de données :</p><pre><code class="lang-sql">INSERT INTO user (
-    lastname,
-    firstname,
-    email,
-    birthdate,
-    gender,
-    country,
-    town,
-    zipcode,
-    address
-) VALUES (
-    "Elric",
-    "Edward",
-    "edward.elric@fma.br",
-    "2006/01/01",
-    true,
-    "Amestris",
-    "Resembool",
-    00000,
-    "The Elric's house"
-);
-INSERT INTO user (
-    lastname,
-    firstname,
-    email,
-    birthdate,
-    gender,
-    country,
-    town,
-    zipcode,
-    address
-) VALUES (
-    "Elric",
-    "Alphonse",
-    "alphonse.elric@fma.br",
-    "2008/01/01",
-    true,
-    "Amestris",
-    "Resembool",
-    00000,
-    "The Elric's house"
-);
-</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Voyons à présent l'architecture de site que nous allons arbitrairement créer pour présenter notre exemple :</p><pre><code>├─ controllers/
-│  ├─ common.js
-│  └─ index.js
-├─ models/
-│  ├─ objects/
-│  │  └─ user.js
-│  └─ connectors/
-│     └─ user.js
-├─ views/
-│  └─ index.htm
-├─ variations/
-│  ├─ common.json
-│  └─ index.json
-└─ webconfig.json
-</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mysqlConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code class="lang-json">{
-    "controller": "common.js",
-    "variation": "common.json",
-    "statics": {
-        "/models": "models/objects"
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "controller": "index.js"
-        }
-    },
-    "_mysqlConfig": {
-        "host": "localhost",
-        "user": "root",
-        "password": "root",
-        "database": "demo"
-    }
-}
-</code></pre><p>Nous allons ensuite nous connecter à la base de données avec le contrôleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-json">exports.setModules = function () {
-    var NA = this;
-
-    // Import du module `mysql`.
-    NA.modules.mysql = require('mysql');
-
-    // Création de la collection de modèle...
-    NA.models = {};
-    // ...et récupération du modèle User avec accès à Mysql.
-    NA.models.User = require('../models/connectors/user.js');
-};
-
-exports.setConfigurations = function (next) {
-    var NA = this,
-        path = NA.modules.path,
-        mysql = NA.modules.mysql;
-
-    // Créer un pool de connexion à MySQL.
-    NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
-
-    next();
-};
-</code></pre><p>Et afficher les résultats via le contrôleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-json">exports.changeVariations = function (next, locals) {
-    var NA = this,
-        user = new NA.models.User(),
-        user2 = new NA.models.User(),
-        user3 = new NA.models.User(),
-        user4 = new NA.models.User();
-
-    NA.mySql.getConnection(function(err, connection) {
-        if (err) {
-            throw err;
-        }
-
-        // Exemple de lecture.
-        user
-        .setConnection(connection)
-        .lastname("Elric")
-        .read(function (allUsers) {
-            locals.user = user;
-            locals.users = allUsers;
-
-            // Exemple de création.
-            user2
-            .setConnection(connection)
-            .firstname("Winry")
-            .lastname("Rockbell")
-            .email("winry.rockbell@fma.br")
-            .gender(true)
-            .create(function (infos) {
-                locals.insertId = infos.insertId;
-                locals.user2 = user2;
-
-                // Exemple de modification.
-                user3
-                .gender(false)
-                .birthdate("2008-01-01")
-                .country("Amestris")
-                .town("Resembool")
-                .zipcode("99999")
-                .address("The Rockbell's house");
-
-                user2.update(user3, function (infos) {
-                    locals.affectedRows = infos.affectedRows;
-                    locals.user2 = user2;
-
-                    // Exemple de suppression.
-                    user4
-                    .setConnection(connection)
-                    .gender(false)
-                    .delete(function (infos) {
-                        locals.deletedRows = infos.affectedRows;
-                        next();
-                    });
-                });
-            });
-        });
-    });
-};
-</code></pre><p>en utilisant le modèle <code>user</code> via le fichier de connexion à la base de données <code>models/connectors/user.js</code> :</p><pre><code class="lang-json">var user = require('../objects/user.js');
-
-function User(connection) {
-    var privates = {},
-        publics = this;
-
-    user.call(publics);
-
-    privates.connection = connection;
-
-    publics.setConnection = function (connection) {
-        privates.connection = connection;
-        return publics;
-    };
-
-    publics.read = function (callback) {
-        var select = `SELECT
-                    id,
-                    lastname,
-                    firstname,
-                    email,
-                    birthdate,
-                    gender,
-                    country,
-                    town,
-                    zipcode,
-                    address
-                FROM user`,
-            where = "";
-
-        if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
-        if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
-        if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
-        if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
-        if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
-        if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
-        if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
-        if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
-        if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
-        if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
-
-        where = where.replace("&amp;&amp;", "WHERE");
-
-        privates.connection.query(select + where, function (err, rows) {
-            var users = [],
-                user;
-
-            if (err) {
-                throw err;
-            }
-
-            if (rows[0]) {
-                publics.id(rows[0].id);
-                publics.lastname(rows[0].lastname);
-                publics.firstname(rows[0].firstname);
-                publics.email(rows[0].email);
-                publics.birthdate(rows[0].birthdate);
-                publics.gender((rows[0].gender) ? true : false);
-                publics.country(rows[0].country);
-                publics.town(rows[0].town);
-                publics.zipcode(rows[0].zipcode);
-                publics.address(rows[0].address);
-            }
-
-            for (var i = 0; i &lt; rows.length; i++) {
-                user = new User();
-                user.id(rows[i].id);
-                user.lastname(rows[i].lastname);
-                user.firstname(rows[i].firstname);
-                user.email(rows[i].email);
-                user.birthdate(rows[i].birthdate);
-                user.gender((rows[i].gender) ? true : false);
-                user.country(rows[i].country);
-                user.town(rows[i].town);
-                user.zipcode(rows[i].zipcode);
-                user.address(rows[i].address);
-                users.push(user);
-            }
-
-            if (callback) {
-                callback(users);
-            }
-        });
-
-        return publics;
-    };
-
-    publics.create = function (callback) {
-        var insert = "INSERT INTO user (",
-            values = ") VALUES (";
-
-        if (publics.id()) {
-            insert += "`id`, ";
-            values += publics.id() + ', ';
-        }
-        if (publics.lastname()) {
-            insert += "`lastname`, ";
-            values += '"' + publics.lastname() + '", ';
-        }
-        if (publics.firstname()) {
-            insert += "`firstname`, ";
-            values += '"' + publics.firstname() + '", ';
-        }
-        if (publics.email()) {
-            insert += "`email`, ";
-            values += '"' + publics.email() + '", ';
-        }
-        if (publics.birthdate()) {
-            insert += "`birthdate`, ";
-            values += '"' + publics.birthdate() + '", ';
-        }
-        if (typeof publics.gender() === "boolean") {
-            insert += "`gender`, ";
-            values += (publics.gender() ? 1 : 0) + ', ';
-        }
-        if (publics.country()) {
-            insert += "`country`, ";
-            values += '"' + publics.country() + '", ';
-        }
-        if (publics.town()) {
-            insert += "`town`, ";
-            values += '"' + publics.town() + '", ';
-        }
-        if (publics.zipcode()) {
-            insert += "`zipcode`, ";
-            values += '"' + publics.zipcode() + '", ';
-        }
-        if (publics.address()) {
-            insert += "`address`, ";
-            values += '"' + publics.address() + '", ';
-        }
-
-        insert = insert.replace(/, $/g, "");
-        values = values.replace(/, $/g, ")");
-
-        privates.connection.query(insert + values, function (err, infos) {
-            if (err) {
-                throw err;
-            }
-
-            publics.id(infos.insertId);
-
-            if (callback) {
-                callback(infos);
-            }
-        });
-
-        return publics;
-    };
-
-    publics.update = function (user, callback) {
-        var update = "UPDATE user SET",
-            where = "";
-
-        if (user.id()) { update += '`id` = ' + user.id() + ', '; }
-        if (user.lastname()) { update += '`lastname` = "' + user.lastname() + '", '; }
-        if (user.firstname()) { update += '`firstname` = "' + user.firstname() + '", '; }
-        if (user.email()) { update += '`email` = "' + user.email() + '", '; }
-        if (user.birthdate()) { update += '`birthdate` = "' + user.birthdate() + '", '; }
-        if (typeof user.gender() === "boolean") { update += '`gender` = ' + (user.gender() ? 1 : 0) + ', '; }
-        if (user.country()) { update += '`country` = "' + user.country() + '", '; }
-        if (user.town()) { update += '`town` = "' + user.town() + '", '; }
-        if (user.zipcode()) { update += '`zipcode` = "' + user.zipcode() + '", '; }
-        if (user.address()) { update += '`address` = "' + user.address() + '", '; }
-
-        update = update.replace(/, $/g, "");
-
-        if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
-        if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
-        if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
-        if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
-        if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
-        if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
-        if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
-        if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
-        if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
-        if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
-
-        where = where.replace("&amp;&amp;", "WHERE");
-
-        privates.connection.query(update + where, function (err, infos) {
-            if (err) {
-                throw err;
-            }
-
-            if (user.id()) { publics.id(user.id()); }
-            if (user.lastname()) { publics.lastname(user.lastname()); }
-            if (user.firstname()) { publics.firstname(user.firstname()); }
-            if (user.email()) { publics.email(user.email()); }
-            if (user.birthdate()) { publics.birthdate(user.birthdate()); }
-            if (typeof publics.gender() === "boolean") { publics.gender(user.gender()); }
-            if (user.country()) { publics.country(user.country()); }
-            if (user.town()) { publics.town(user.town()); }
-            if (user.zipcode()) { publics.zipcode(user.zipcode()); }
-            if (user.address()) { publics.address(user.address()); }
-
-            if (callback) {
-                callback(infos);
-            }
-        });
-
-        return publics;
-    };
-
-    publics.delete = function (callback) {
-        var del = "DELETE FROM user",
-            where = "";
-
-        if (publics.id()) { where += ' &amp;&amp; `id` = ' + publics.id(); }
-        if (publics.lastname()) { where += ' &amp;&amp; `lastname` = "' + publics.lastname() + '"'; }
-        if (publics.firstname()) { where += ' &amp;&amp; `firstname` = "' + publics.firstname() + '"'; }
-        if (publics.email()) { where += ' &amp;&amp; `email` = "' + publics.email() + '"'; }
-        if (publics.birthdate()) { where += ' &amp;&amp; `birthdate` = "' + publics.birthdate() + '"'; }
-        if (typeof publics.gender() === "boolean") { where += ' &amp;&amp; `gender` = ' + (publics.gender() ? 1 : 0); }
-        if (publics.country()) { where += ' &amp;&amp; `country` = "' + publics.country() + '"'; }
-        if (publics.town()) { where += ' &amp;&amp; `town` = "' + publics.town() + '"'; }
-        if (publics.zipcode()) { where += ' &amp;&amp; `zipcode` = "' + publics.zipcode() + '"'; }
-        if (publics.address()) { where += ' &amp;&amp; `address` = "' + publics.address() + '"'; }
-
-        where = where.replace("&amp;&amp;", "WHERE");
-
-        privates.connection.query(del + where, function (err, infos) {
-            if (err) {
-                throw err;
-            }
-
-            if (publics.id()) { publics.id(undefined); }
-            if (publics.lastname()) { publics.lastname(undefined); }
-            if (publics.firstname()) { publics.firstname(undefined); }
-            if (publics.email()) { publics.email(undefined); }
-            if (publics.birthdate()) { publics.birthdate(undefined); }
-            if (typeof publics.gender() === "boolean") { publics.gender(undefined); }
-            if (publics.country()) { publics.country(undefined); }
-            if (publics.town()) { publics.town(undefined); }
-            if (publics.zipcode()) { publics.zipcode(undefined); }
-            if (publics.address()) { publics.address(undefined); }
-
-            if (callback) {
-                callback(infos);
-            }
-        });
-
-        return publics;
-    };
-}
-
-User.prototype = Object.create(user.prototype);
-User.prototype.constructor = User;
-
-module.exports = User;
-</code></pre><p>basé sur une classe <code>user</code> partagée entre la partie cliente et serveur <code>models/objects/user.js</code> :</p><pre><code class="lang-js">(function (expose, factory) {
-    if (typeof module !== 'undefined' &amp;&amp; module.exports) {
-        module.exports = factory;
-    } else {
-        expose.User = factory;
-    }
-}(this, function User() {
-    var privates = {},
-        publics = this;
-
-    publics.id = function (id) {
-        if (typeof id === 'undefined') {
-            return privates.id;
-        } else {
-            privates.id = id;
-            return publics;
-        }
-    };
-
-    publics.lastname = function (lastname) {
-        if (typeof lastname === 'undefined') {
-            return privates.lastname;
-        } else {
-            privates.lastname = lastname;
-            return publics;
-        }
-    };
-
-    publics.firstname = function (firstname) {
-        if (typeof firstname === 'undefined') {
-            return privates.firstname;
-        } else {
-            privates.firstname = firstname;
-            return publics;
-        }
-    };
-
-    publics.email = function (email) {
-        if (typeof email === 'undefined') {
-            return privates.email;
-        } else {
-            privates.email = email;
-            return publics;
-        }
-    };
-
-    publics.birthdate = function (birthdate) {
-        if (typeof birthdate === 'undefined') {
-            return privates.birthdate;
-        } else {
-            privates.birthdate = birthdate;
-            return publics;
-        }
-    };
-
-    publics.gender = function (gender) {
-        if (typeof gender === 'undefined') {
-            return privates.gender;
-        } else {
-            privates.gender = gender;
-            return publics;
-        }
-    };
-
-    publics.country = function (country) {
-        if (typeof country === 'undefined') {
-            return privates.country;
-        } else {
-            privates.country = country;
-            return publics;
-        }
-    };
-
-    publics.town = function (town) {
-        if (typeof town === 'undefined') {
-            return privates.town;
-        } else {
-            privates.town = town;
-            return publics;
-        }
-    };
-
-    publics.zipcode = function (zipcode) {
-        if (typeof zipcode === 'undefined') {
-            return privates.zipcode;
-        } else {
-            privates.zipcode = zipcode;
-            return publics;
-        }
-    };
-
-    publics.address = function (address) {
-        if (typeof address === 'undefined') {
-            return privates.address;
-        } else {
-            privates.address = address;
-            return publics;
-        }
-    };
-}));
-</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="fr-fr"&gt;
-    &lt;head&gt;
-        &lt;meta charset="utf-8" /&gt;
-        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
-        &lt;div&gt;
-            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
-            &lt;div class="first"&gt;
-                &lt;?- specific.content ?&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- user.id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- user.lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- user.firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- user.email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- user.birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- user.gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- user.country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- user.town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- user.zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- user.address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-            &lt;/div&gt;
-            &lt;div class="all"&gt;
-                &lt;?- specific.contents ?&gt;
-                &lt;? for (var i = 0; i &lt; users.length; i++) { ?&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- users[i].id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- users[i].lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- users[i].firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- users[i].email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- users[i].birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- users[i].gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- users[i].country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- users[i].town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- users[i].zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- users[i].address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;? } ?&gt;
-            &lt;/div&gt;
-            &lt;div class="last"&gt;
-                &lt;?- specific.contentInsert ?&gt;
-                &lt;p&gt;insertId: &lt;?- insertId ?&gt;&lt;/p&gt;
-                &lt;p&gt;numberUpdate: &lt;?- affectedRows ?&gt;&lt;/p&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Id: &lt;strong&gt;&lt;?- user2.id() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- user2.lastname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- user2.firstname() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;strong&gt;&lt;?- user2.email() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- user2.birthdate() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Gender: &lt;strong&gt;&lt;?- user2.gender() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Country: &lt;strong&gt;&lt;?- user2.country() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Town: &lt;strong&gt;&lt;?- user2.town() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- user2.zipcode() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Address: &lt;strong&gt;&lt;?- user2.address() ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;numberDelete: &lt;?- deletedRows ?&gt;&lt;/p&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
-    "titleWebsite": "Exemple MySql",
-    "male": "Homme",
-    "female": "Femme"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
-    "titlePage": "Table User",
-    "content": "&lt;p&gt;Détail de la première entrée.&lt;/p&gt;",
-    "contents": "&lt;p&gt;Détail de toutes les entrées.&lt;/p&gt;",
-    "contentInsert": "&lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&lt;/p&gt;"
-}
-</code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="fr-fr"&gt;
-    &lt;head&gt;
-        &lt;meta charset="utf-8" /&gt;
-        &lt;title&gt;MySql Exemple&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;div class="title"&gt;MySql Exemple&lt;/div&gt;
-        &lt;div&gt;
-            &lt;h1&gt;Table User&lt;/h1&gt;
-            &lt;div class="first"&gt;
-                &lt;p&gt;Détail de la première entrée.&lt;/p&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Firstname: &lt;strong&gt;Edward&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;strong&gt;edward.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Birthdate: &lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-            &lt;/div&gt;
-            &lt;div class="all"&gt;
-                &lt;p&gt;Détail de toutes les entrées.&lt;/p&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Id: &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Firstname: &lt;strong&gt;Edward&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;strong&gt;edward.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Birthdate: &lt;strong&gt;Sun Jan 01 2006 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Id: &lt;strong&gt;2&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Lastname: &lt;strong&gt;Elric&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Firstname: &lt;strong&gt;Alphonse&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;strong&gt;alphonse.elric@fma.br&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Birthdate: &lt;strong&gt;Tue Jan 01 2008 00:00:00 GMT+0100 (Paris, Madrid)&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Gender: &lt;strong&gt;true&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Zipcode: &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Address: &lt;strong&gt;The Elric's house&lt;/strong&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-            &lt;/div&gt;
-            &lt;div class="last"&gt;
-                &lt;p&gt;Détail de l'utilisateur ajouté puis modifié.&lt;/p&gt;
-                &lt;p&gt;insertId: 3&lt;/p&gt;
-                &lt;p&gt;numberUpdate: 1&lt;/p&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Id: &lt;strong&gt;3&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Lastname: &lt;strong&gt;Rockbell&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Firstname: &lt;strong&gt;Winry&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;strong&gt;winry.rockbell@fma.br&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Birthdate: &lt;strong&gt;2008-01-01&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Gender: &lt;strong&gt;false&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Country: &lt;strong&gt;Amestris&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Town: &lt;strong&gt;Resembool&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Zipcode: &lt;strong&gt;99999&lt;/strong&gt;&lt;/li&gt;
-                    &lt;li&gt;Address: &lt;strong&gt;The Rockbell's house&lt;/strong&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;numberDelete: 1&lt;/p&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="base-de-donnees-nosql">Base de données NoSQL</h3><p>Nous allons voir à présent comment utiliser des informations venant d'une base de données non sql. Pour cela nous allons utiliser le module npm <code>mongoose</code>. Il va également nous falloir <a href="https://www.mongodb.com/">installer un serveur MongoDB</a>.</p><p>Donc, depuis le dossier du <code>webconfig.json</code>, utilisez :</p><pre><code class="lang-bash">npm install mongoose
-</code></pre><h4 id="base-de-donn-es-mongodb">Base de données MongoDB</h4><p>Tout d'abord, nous allons alimenter la base de données avec la base <code>demo</code> et la sélectionner :</p><pre><code>use demo
-</code></pre><p>puis créer la collection <code>user</code> :</p><pre><code>db.createCollection("user")
-</code></pre><p>et la remplir avec un document :</p><pre><code>db.user.insert({
-    email: "john.doe@unknown.com",
-    identity: {
-        lastname: "Doe",
-        firstname: "John",
-        gender: true,
-        birthdate : new Date("1970/01/01")
-    },
-    location: {
-        country: "Unknown",
-        town: "Unknown",
-        zipcode: "00000",
-        address: "42 unknown"
-    }
-})
-</code></pre><h4 id="fichiers-nodeatlas">Fichiers NodeAtlas</h4><p>Avec le jeu de fichier suivant :</p><pre><code>├─ controllers/
-│  ├─ common.js
-│  └─ index.js
-├─ models/
-│  └─ user.js
-├─ views/
-│  └─ index.htm
-├─ variations/
-│  ├─ common.json
-│  └─ index.json
-└─ webconfig.json
-</code></pre><p>Nous allons utiliser le <code>webconfig.json</code> suivant avec une variable custom <code>_mongodbConfig</code> qui contiendra toutes les informations pour se connecter à la base de données :</p><pre><code class="lang-json">{
-    "controller": "common.js",
-    "variation": "common.json",
-    "statics": {
-        "/models": "models"
-    },
-    "routes": {
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json",
-            "controller": "index.js"
-        }
-    },
-    "_mongodbConfig": {
-        "host": "localhost",
-        "port": "27017",
-        "database": "demo"
-    }
-}
-</code></pre><p>Avec les fichiers suivant pour afficher la page :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="&lt;?- languageCode ?&gt;"&gt;
-    &lt;head&gt;
-        &lt;meta charset="utf-8" /&gt;
-        &lt;title&gt;&lt;?- common.titleWebsite ?&gt;&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
-        &lt;div&gt;
-            &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
-            &lt;?- specific.content ?&gt;
-            &lt;ul&gt;
-                &lt;li&gt;Id: &lt;strong&gt;&lt;?- id ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Lastname: &lt;strong&gt;&lt;?- lastname ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Firstname: &lt;strong&gt;&lt;?- firstname ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Email: &lt;strong&gt;&lt;?- email ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Birthdate: &lt;strong&gt;&lt;?- birthdate ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Gender: &lt;strong&gt;&lt;?- gender ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Country: &lt;strong&gt;&lt;?- country ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Town: &lt;strong&gt;&lt;?- town ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Zipcode: &lt;strong&gt;&lt;?- zipcode ?&gt;&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Address: &lt;strong&gt;&lt;?- address ?&gt;&lt;/strong&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
-    "titleWebsite": "MongoDB Exemple",
-    "male": "Homme",
-    "female": "Femme"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
-    "titlePage": "Collection User",
-    "content": "&lt;p&gt;Détail du document `{ \"identity.firstname\": \"John\" }`.&lt;/p&gt;"
-}
-</code></pre><p>Enfin nous allons nous connecter à la base de données avec le contrôleur globale <code>controllers/common.js</code> :</p><pre><code class="lang-js">exports.setModules = function () {
-    var NA = this,
-        path = NA.modules.path;
-
-    NA.modules.mongoose = require('mongoose');
-    NA.models = {};
-    NA.models.User = require('../models/user.js');
-};
-
-exports.setConfigurations = function (next) {
-    var NA = this,
-        mongoose = NA.modules.mongoose,
-        config = NA.webconfig._mongodbConfig;
-
-    mongoose.Promise = global.Promise;
-    mongoose.model("user", NA.models.User, "user");
-    mongoose.connect("mongodb://" + config.host + ":" + config.port + "/" + config.database, function (error) {
-        next();
-    });
-};
-</code></pre><p>Et afficher les résultats via le contrôleur spécifique <code>controllers/index.js</code> :</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
-    var NA = this,
-        mongoose = NA.modules.mongoose,
-        User = mongoose.model('user');
-
-    User
-    .findOne({ "identity.firstname": "John" })
-    .exec(function (err, user) {
-
-        locals.id = user._id;
-        locals.lastname = user.identity.lastname;
-        locals.firstname = user.identity.firstname;
-        locals.birthdate = user.identity.birthdate;
-        locals.email = user.email;
-        locals.gender = (user.identity.gender) ? locals.common.male : locals.common.female;
-        locals.country = user.location.country;
-        locals.town = user.location.town;
-        locals.zipcode = user.location.zipcode;
-        locals.address = user.location.address;
-
-        next();
-    });
-};
-</code></pre><p>en utilisant sur une classe <code>user</code> partagée entre la partie cliente et la partie serveur <code>models/user.js</code> :</p><pre><code class="lang-js">var mongoose;
-if (typeof module !== 'undefined' &amp;&amp; module.exports) {
-     mongoose = require('mongoose');
-}
-
-(function (expose, factory) {
-    if (mongoose) {
-        module.exports = factory;
-    } else {
-        expose.User = factory;
-    }
-}(this, new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
-    email: { type : String, match: /^\S+@\S+$/ },
-    identity: {
-        lastname: String,
-        firstname: String,
-        gender: Boolean,
-        birthdate : { type : Date, default : Date.now }
-    },
-    location: {
-        country: String,
-        town: String,
-        zipcode: String,
-        address: String
-    }
-})));
-</code></pre><p>Vous obtiendrez la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="fr-fr"&gt;
-    &lt;head&gt;
-        &lt;meta charset="utf-8" /&gt;
-        &lt;title&gt;Exemple MongoDB&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;div class="title"&gt;Exemple MongoDB&lt;/div&gt;
-        &lt;div&gt;
-            &lt;h1&gt;Collection User&lt;/h1&gt;
-            &lt;p&gt;Détail de l'entrée `{ "identity.firstname": "John" }`.&lt;/p&gt;
-            &lt;ul&gt;
-                &lt;li&gt;Id: &lt;strong&gt;5804d4d530788ee2e52ea1c7&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Lastname: &lt;strong&gt;Doe&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Firstname: &lt;strong&gt;John&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Email: &lt;strong&gt;john.doe@unknown.com&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Birthdate: &lt;strong&gt;Mon Jan 01 1970 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Gender: &lt;strong&gt;Homme&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Country: &lt;strong&gt;Unknown&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Town: &lt;strong&gt;Unknown&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Zipcode: &lt;strong&gt;00000&lt;/strong&gt;&lt;/li&gt;
-                &lt;li&gt;Address: &lt;strong&gt;42 unknown&lt;/strong&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="middlewares-express">Middlewares Express</h3><p>NodeAtlas repose en partie sur le module npm <a href="http://expressjs.com/">Express.js</a>. Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de <code>NA#express</code>. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.</p><p>En ce qui concerne la pré-configuration d'Express avec un webconfig vide, elle est faites ainsi :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
+</code></pre><p>Lancer votre projet et rendez-vous à l'adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Mettre à jour », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>view</code> d'utiliser le moteur Pug au lieu de celui d'EJS, il faut mettre la valeur <code>locals.pug</code> à <code>true</code> avant d'utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="middlewares">Middlewares</h3><p>NodeAtlas repose en partie sur le module npm <a href="http://expressjs.com/">Express</a>. Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de <code>NA#express</code>. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.</p><p>En ce qui concerne la préconfiguration d'Express avec un webconfig vide, elle est faites ainsi :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
 /* ... */
 NA.express.set("x-powered-by", false);
 /* ... */
@@ -1978,7 +1135,7 @@ NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serv
         audience: "AUTH_CLIENT_ID"
     }
 }
-</code></pre><p>et utiliser le fichier suivant pour autoriser l'envoi de donnée POST encrypté en "multipart/data-form" uniquement si vous êtes authentifié par un token JSON :</p><p><strong>middlewares/upload.js</strong></p><pre><code class="lang-js">var multer  = require("multer"),
+</code></pre><p>et utiliser le fichier suivant pour autoriser l'envoi de donnée POST encrypté en <code>"multipart/data-form"</code> uniquement si vous êtes authentifié par un token JSON :</p><p><strong>middlewares/upload.js</strong></p><pre><code class="lang-js">var multer  = require("multer"),
     jwt = require("express-jwt");
 
 module.exports = function () {
@@ -1994,7 +1151,7 @@ module.exports = function () {
         upload.single("avatar"),
     ];
 };
-</code></pre><p><em>Note : Si</em> <code>middlewaresRelativePath</code> <em>n'est pas présent dans « webconfig.json », par défaut le dossier des contrôleurs est bien</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>est donc utile seulement pour changer le nom/chemin du répertoire.</em></p><h4 id="avec-le-param-tre-middlewares-en-global">Avec le paramètre <code>middlewares</code> en Global</h4><p>Il est également possible d'utiliser ce système pour toutes les routes, ainsi le webconfig se présenterait plutôt ainsi :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+</code></pre><p><em>Note : si</em> <code>middlewaresRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des contrôleurs est bien</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin du répertoire.</em></p><h4 id="avec-le-param-tre-middlewares-en-global">Avec le paramètre <code>middlewares</code> en Global</h4><p>Il est également possible d'utiliser ce système pour toutes les routes, ainsi le webconfig se présenterait plutôt ainsi :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
     "middlewares": "is-authenticated.js"
     "routes": {
         "/upload-file": {
@@ -2032,7 +1189,7 @@ module.exports = function () {
         audience: "AUTH_CLIENT_ID"
     }
 }
-</code></pre><p>Avec l'utilisation de l'objet NA :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require("express-jwt");
+</code></pre><p>Avec l'utilisation de l'objet <code>NA</code> :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require("express-jwt");
 
 module.exports = function () {
     var NA = this;
@@ -2048,16 +1205,10 @@ module.exports = function () {
 
     next();
 };
-</code></pre><h3 id="application-isomorphique">Application isomorphique</h3><p>Une application isomorphique est une application dont le code JavaScript est en grande partie le même qu'il soit exécuté côté client ou exécuté côté serveur. NodeAtlas propose un exemple d'application isomorphique dans son template dédié à <a href="https://fr.vuejs.org/">Vue.js</a>.</p><p>Pour tester cela il vous suffit :</p><p>de créer un dossier de test</p><pre><code class="lang-bash">mkdir hello-vue
-cd hello-vue
-</code></pre><p>d'y placer les fichier de <code>hello-vue</code></p><pre><code class="lang-bash">node-atlas --create hello-vue
-</code></pre><p>d'installer les dépendances</p><pre><code class="lang-bash">npm install
-</code></pre><p>et de lancer le site en français</p><pre><code class="lang-bash">node-atlas --browse
-</code></pre><p>ou en version internationale</p><pre><code class="lang-bash">node-atlas --browse --webconfig webconfig.en-us.json
-</code></pre><p>Vous trouverrez tout ce qu'il faut pour appréhender la partie serveur du <code>constrollers/common.js</code> sur <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> et seul la partie cliente du <code>assets/javascripts/common.js</code> sur <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
+</code></pre><div><div class="before">
 							<a href="partie-vue.html">◄ Partie vue</a>
 						</div><div class="after">
-							<a href="partie-avancee.html">Partie avancée ►</a>
+							<a href="partie-outils.html">Partie outils ►</a>
 						</div></div>
 				</div>
 			</div>

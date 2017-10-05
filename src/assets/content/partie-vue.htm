@@ -849,7 +849,7 @@
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>Avec <code>node-atlas --browse</code>, à l'adresse <code>http://localhost/</code> s'affichera la liste des pages composants votre site (grâce à <code>"index": true</code>).</p><p>Il ne restera plus qu'à, une fois <code>--generate</code> utilisé, admirer votre site HTML dans le dossier :</p><pre><code>┊┉
+</code></pre><p>Avec <code>node-atlas --browse</code>, à l'adresse <code>http://localhost/</code> s'affichera la liste des pages composants votre site (grâce à <code>"index": true</code>).</p><p>Il ne restera plus qu'à, une fois <code>--generate</code> utilisé, admirer votre site HTML dans le dossier :</p><pre><code class="lang-txt">┊┉
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -859,7 +859,7 @@
 │  └─ en/
 │     └─ cv.html
 ┊┉
-</code></pre><p><em>Note : si</em> <code>serverlessRelativePath</code> <em>n'est pas présent dans <code>webconfig.js</code>, par défaut le dossier des générations est bien</em> <code>serverless/</code>. <code>serverlessRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin répertoire.</em></p><h4 id="g-n-rer-les-fichiers-statics">Générer les fichiers statics</h4><p>Les fichiers définis dans <code>statics</code> sont également copiable dans le dossier <code>serverlessRelativePath</code> lors de l'appel à <code>--generate</code>. Pour permettre cela, vous pouvez utiliser pour chaque dossier statique le paramètre <code>output</code> mis à <code>true</code>.</p><pre><code>{
+</code></pre><p><em>Note : si</em> <code>serverlessRelativePath</code> <em>n'est pas présent dans <code>webconfig.js</code>, par défaut le dossier des générations est bien</em> <code>serverless/</code>. <code>serverlessRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin répertoire.</em></p><h4 id="g-n-rer-les-fichiers-statics">Générer les fichiers statics</h4><p>Les fichiers définis dans <code>statics</code> sont également copiable dans le dossier <code>serverlessRelativePath</code> lors de l'appel à <code>--generate</code>. Pour permettre cela, vous pouvez utiliser pour chaque dossier statique le paramètre <code>output</code> mis à <code>true</code>.</p><pre><code class="lang-json">{
     "statics": {
         "/javascripts/models": {
             "path": "models",
@@ -936,7 +936,7 @@
         }
     }
 }
-</code></pre><p>ou seulement pour une page précise :</p><pre><code>{
+</code></pre><p>ou seulement pour une page précise :</p><pre><code class="lang-json">{
     "routes": {
         "/": {
             "view": "index.pug"
@@ -947,7 +947,7 @@
         }
     }
 }
-</code></pre><p>Il est également possible pour un moteur complet en Pug de repasser une page spécifique en EJS.</p><pre><code>{
+</code></pre><p>Il est également possible pour un moteur complet en Pug de repasser une page spécifique en EJS.</p><pre><code class="lang-json">{
     "pug": true,
     "routes": {
         "/": {
@@ -959,7 +959,7 @@
         }
     }
 }
-</code></pre><p>Voyons ce que cela donnerait avec l'exemple suivant :</p><p><em>webconfig.json</em></p><pre><code>{
+</code></pre><p>Voyons ce que cela donnerait avec l'exemple suivant :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "pug": true,
     "view": "common.pug",
     "variation": "common.json",

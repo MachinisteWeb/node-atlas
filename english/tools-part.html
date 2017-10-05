@@ -1,0 +1,1159 @@
+<!DOCTYPE html><html lang="en-us"><head>
+		<meta charset="utf-8">
+		<title>NodeAtlas —The Progressive Server-side JavaScript Framework—</title>
+
+		<base href="">
+
+		<meta name="geo.placename" content="Annecy, Haute-Savoie, France">
+		<meta name="description" content="Create websites with server-side JavaScript easily!">
+
+		<meta name="og:title" content="NodeAtlas —The Progressive Server-side JavaScript Framework—">
+		<meta name="og:description" content="Create websites with server-side JavaScript easily!">
+		<meta name="og:url" content="https://node-atlas.js.org">
+		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
+		<meta name="og:locale" content="en-us">
+		<meta name="og:type" content="website">
+		<meta name="og:updated_time" content="1507221091759">
+
+		<meta name="robots" content="index, follow">
+
+		<!--[if IE]><meta name="viewport" content="width=device-width, user-scalable=no" /><![endif]-->
+		<!--[if !IE]><!--><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><!--<![endif]-->
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+
+		<!-- Inclusion du fichiers minifié après génération. -->
+		
+		<link rel="stylesheet" href="stylesheets/common.min.css">
+
+		<!-- Inclusion du fichiers standar pendant le développement. -->
+		
+	</head>
+	<body data-content="content/english/" data-subpath="/english" style="background-image: url('media/images/min/main-background.jpg');">
+		<div class="layout">
+			<noscript class="no-js cmpt">
+				<div class="no-js--inner">
+					<p>No JavaScript enabled.</p>
+				</div>
+			</noscript>
+			<div class="background"></div>
+			<div class="language cmpt">
+				<div class="navigation--lang">
+					<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
+				</div>
+			</div>
+			<header class="header cmpt">
+				<div class="header--inner">
+					<div class="header--information">
+						<div class="header--information--github">
+							<a class="header--information--donate" href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg" alt="Faites un don" data-canonical-src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg"></a>
+							<a class="header--information--follow github-button" href="https://github.com/Haeresis" data-count-href="/Haeresis/followers" data-count-api="/users/Haeresis#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @Haeresis on GitHub">Follow</a>
+						</div>
+						<div class="header--information--npm">
+							<a class="header--information--package" href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM" data-canonical-src="https://badge.fury.io/js/node-atlas.svg"></a>
+							<a class="header--information--star github-button" href="https://github.com/NodeAtlas/node-atlas" data-icon="octicon-star" data-count-href="/NodeAtlas/node-atlas/stargazers" data-count-api="/repos/NodeAtlas/node-atlas#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star NodeAtlas/node-atlas on GitHub">Star</a>
+						</div>
+					</div>
+					<div class="header--background"></div>
+					<div class="header--title">
+						<h1>
+							<img class="header--title--node" src="media/images/min/ode.png" alt="Node">
+							<img class="header--title--atlas" src="media/images/min/tlas.png" alt="Atlas">
+							<img class="header--title--trans" src="media/images/min/transparent.png" alt="NodeAtlas">
+						</h1>
+					</div>
+					<div class="header--abstract">
+						<p>The Progressive Server-side JavaScript Framework</p>
+					</div>
+					<div class="header--main">
+						<ul>
+							<li>
+								<div class="header--main--first">
+									<h2><strong>Simple</strong> <span>set-up</span></h2>
+									<p>You know <strong>HTML &amp; CSS</strong>?<br><strong>But not</strong> JavaScript?</p>
+									<p class="small">Quickly create multilingual websites effortlessly with simple routes, views or variations.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--second">
+									<h2><strong>Scalable</strong> <span>website</span></h2>
+									<p>JavaScript client-side <strong>Expert</strong>?<br>Ready to embrace <strong>Node.js</strong>?</p>
+									<p class="small">Gradually improve your base as you need by using controllers, models or modules.</p>
+								</div>
+							</li>
+							<li>
+								<div class="header--main--third">
+									<h2><strong>Agnostic</strong> <span>client side</span></h2>
+									<p>Already your <strong>Front-end</strong> habits?<br>You use <strong>Data Binding</strong>?</p>
+									<p class="small">From Vanilla to jQuery and going through Vue, Angular or React: use your favorite tools!</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+<div class="popup cmpt">
+	<aside class="popup--inner">
+		<div class="popup--versus"><del class="close">Close</del><span class="fa fa-bolt" aria-hidden="true"></span><ins class="versus">Versus</ins></div>
+		<div class="popup--nodeatlas"></div>
+		<div class="popup--challenger"></div>
+	</aside>
+</div>
+			<aside class="download cmpt">
+				<div class="download--inner">
+					<div class="download--install">
+						<div class="download--cli is-active">
+							<h2>CLI Usage</h2>
+							<div class="download--cli--inner">
+								<div class="download--cli--step1">
+									<h3>Install NodeAtlas</h3>
+									<pre>$ npm install -g node-atlas</pre>
+								</div>
+								<div class="download--cli--step2">
+									<h3>Create test website</h3>
+									<pre>$ node-atlas --create</pre>
+								</div>
+								<div class="download--cli--step3">
+									<h3>Run website</h3>
+									<pre>$ node-atlas --browse</pre>
+								</div>
+							</div>
+						</div>
+						<div class="download--api">
+							<h2>API Usage</h2>
+							<div class="download--api--inner">
+								<div class="download--api--step1">
+									<h3>Install NodeAtlas</h3>
+									<pre>$ npm install node-atlas</pre>
+								</div>
+								<div class="download--api--step2">
+									<h3>Create a script</h3>
+									<pre><span>server.js</span>var NA = require("node-atlas"),
+    website = NA();
+website.init({
+    "create": "hello-world"
+}).created(function () {
+    website.run({
+        "browse": true
+    });
+}).start();</pre>
+								</div>
+								<div class="download--api--step3">
+									<h3>Run website</h3>
+									<pre>$ node server.js</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--clone">
+						<div class="download--version">
+							<h2>Download</h2>
+							<div class="download--version--inner">
+								<div class="download--version--step1">
+									<h3>v2.0.0-beta52</h3>
+									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
+									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
+								</div>
+								<div class="download--version--step2">
+									<h3>Clone</h3>
+									<p><input type="text" name="clone" data-instruction="Copy to clipboard: Ctrl+C, Enter" class="download--clone--text" value="https://github.com/NodeAtlas/node-atlas.git"><button><span class="fa fa-clipboard" aria-hidden="true"></span></button></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="download--battle">
+						<div class="download--slide">
+							<h2>Versus Battles</h2>
+							<div class="download--slide--inner">
+								<div class="download--slide--step1">
+									<img src="media/images/battles/node-atlas.png" alt="NodeAtlas API">
+								</div>
+								<div class="download--slide--step2">
+									VS
+								</div>
+								<div class="download--slide--step3">
+									<img src="media/images/battles/expressjs.png" alt="Challenger">
+								</div>
+								<div class="download--slide--step4">
+									<span class="fa fa-refresh" aria-hidden="true">
+								</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="download--info">
+						<div class="download--tuto is-active">
+							<h2>Tutorials</h2>
+							<div class="download--tuto--inner">
+								<div class="download--tuto--step1">
+									<a href="overview.html#overview"><span>Learn</span> <i class="fa fa-book" aria-hidden="true"></i> from step by step guide</a>
+								</div>
+								<div class="download--tuto--step2">
+									<span>or</span>
+								</div>
+								<div class="download--tuto--step3">
+									<div class="download--tuto--step3--first">
+										<a href="https://blog.lesieur.name/des-sites-web-nodejs-pour-les-debutants-en-javascript-avec-nodeatlas/"><span>Create</span> <i class="fa fa-html5" aria-hidden="true"></i> e.g. International Websites (Fr)</a>
+									</div>
+									<div class="download--tuto--step3--second">
+										<a href="https://blog.lesieur.name/creer-et-maintenir-des-maquettes-html-avec-node-atlas/"><span>Manage</span> <i class="fa fa-copy" aria-hidden="true"></i> e.g. Serverless HTML Assets (Fr)</a>
+									</div>
+									<div class="download--tuto--step3--third">
+										<a href="https://github.com/NodeAtlas"><span>Develop</span> <i class="fa fa-database" aria-hidden="true"></i> e.g. Real-time Web Applications</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="download--about">
+							<h2>Overview</h2>
+							<div class="download--about--inner">
+								<div class="download--about--step1">
+									NodeAtlas is a MVC(2) JavaScript Framework allows you to create Scalable website with SEO and W3C compliance. This means it makes running indexable multilingual simple webpages and create HTML mockups with only the View part activated and real time modification OR create heavy component-based and/or service-oriented websites in order to create great things with standards compliance!
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<nav class="navigation cmpt">
+				<div class="navigation--outer">
+					<div class="navigation--start"><button class="button">Get Started</button></div>
+					<div class="navigation--documentation"><button class="button">Documentation</button></div>
+				</div>
+				<div class="navigation--inner">
+					<div class="navigation--lang">
+						<a href="/../index.html" title="Version française"><span class="fa fa-globe"></span>  Version française</a>
+					</div>
+					<div class="navigation--home">
+						<img class="navigation--home--logo" src="media/images/logo.png" alt="Guide <span>NodeAtlas</span>" width="80px"> <a class="navigation--home--back" href="index.html" title="Guide <span>NodeAtlas</span>">Guide <span>NodeAtlas</span></a>
+					</div>
+					<div class="navigation--menu">
+						<div class="navigation--menu--toggle">
+							<span class="top"></span>
+							<span class="middle"></span>
+							<span class="bottom"></span>
+						</div>
+						<div class="navigation--menu--list">
+							<div class="navigation--menu--list--inner">
+								<h2>Menu</h2>
+								<ul>
+									
+									<li>
+										<a href="index.html" title="Guide">Guide</a>
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="overview.html" title="Overview">Overview</a>
+											</li>
+											
+											<li>
+												<a href="installation.html" title="Installation">Installation</a>
+											</li>
+											
+											<li>
+												<a href="get-started.html" title="Hello World!">Hello World!</a>
+											</li>
+											
+											<li>
+												<a href="view-part.html" title="View Part">View Part</a>
+											</li>
+											
+											<li>
+												<a href="controller-part.html" title="Controller Part">Controller Part</a>
+											</li>
+											
+											<li>
+												<a href="tools-part.html" title="Tools Part">Tools Part</a>
+											</li>
+											
+											<li>
+												<a href="advanced-part.html" title="Advanced Part">Advanced Part</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="index.html" title="Documentation">Documentation</a>
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="webconfig-s-anatomy.html" title="Webconfig">Webconfig</a>
+											</li>
+											
+											<li>
+												<a href="api-nodeatlas-as-npm-module.html" title="API">API</a>
+											</li>
+											
+											<li>
+												<a href="cli-running-commands.html" title="CLI">CLI</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="index.html" title="Environment">Environment</a>
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="nodeatlas-as-a-simple-web-server.html" title="Simple Server">Simple Server</a>
+											</li>
+											
+											<li>
+												<a href="development-environment.html" title="Development">Development</a>
+											</li>
+											
+											<li>
+												<a href="production-environment.html" title="Production">Production</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="https://gitter.im/NodeAtlas/Help" title="Community">Community</a>
+										
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											
+											<li>
+												<a href="https://gitter.im/NodeAtlas/Help" title="Gitter Chat">Gitter Chat</a>
+											</li>
+											
+											<li>
+												<a href="https://github.com/NodeAtlas" title="GitHub Repository">GitHub Repository</a>
+											</li>
+											
+											<li>
+												<a href="more-about-nodeatlas.html" title="Alternatives">Alternatives</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+									<li>
+										<a href="more-about-nodeatlas.html" title="And others?">And others?</a>
+										
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div class="content cmpt">
+				<div class="content--outer" data-name="Menu"></div>
+				<div class="content--inner">
+					<h2 id="tools-part">Tools Part</h2><h3 id="minify-css-js">Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p><h4 id="creating-bundles">Creating Bundles</h4><p>With the following configuration:</p><pre><code class="lang-json">{
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and the following set of file:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascripts/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>you will get the following new files:</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  ├─ common-min1160.css
+│  │  └─ common.min.css     ⤆ new file
+│  └─ javascripts/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     ├─ common.js
+│     ├─ boot.min.js        ⤆ new file
+│     ├─ framework.min.js   ⤆ new file
+│     └─ common.min.js      ⤆ new file
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><h4 id="bundles-in-a-shared-file">Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascripts/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ views/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>could be the following set of file</p><pre><code>├─ assets/
+│  ├─ stylesheets/
+│  │  ├─ common.css
+│  │  ├─ common-min780.css
+│  │  └─ common-min1160.css
+│  └─ javascripts/
+│     ├─ modernizr.js
+│     ├─ yepnot.js
+│     ├─ html5Shiv.js
+│     ├─ jquery.js
+│     ├─ jquery-ui.js
+│     ├─ prettify.js
+│     ├─ prettify/
+│     │  └─ run_prettify.js
+│     ├─ components/
+│     │  └─ extended-format-date.js
+│     └─ common.js
+├─ views/
+│  └─ index.htm
+├─ bundles.json              ⤆ new file
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "bundles": "bundles.json",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "bundles": "bundles.json",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and <code>bundles.json</code></p><pre><code class="lang-json">{
+    "javascripts": {
+        "javascripts/boot.min.js": [
+            "javascripts/modernizr.js",
+            "javascripts/yepnot.js",
+            "javascripts/html5Shiv.js"
+        ],
+        "javascripts/framework.min.js": [
+            "javascripts/jquery.js",
+            "javascripts/jquery-ui.js",
+            "javascripts/prettify.js",
+            "javascripts/prettify/run_prettify.js"
+        ],
+        "javascripts/common.min.js": [
+            "javascripts/components/extended-format-date.js",
+            "javascripts/common.js"
+        ]
+    },
+    "stylesheets": {
+        "stylesheets/common.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/common-min780.css",
+            "stylesheets/common-min1160.css"
+        ]
+    }
+}
+</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-bundles">Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>"cssBundlingEnable": false</code> et <code>"jsBundlingEnable": false</code> for each type of Bundle.</p><pre><code class="lang-json">{
+    "cssBundlingEnable": false,
+    "jsBundlingEnable": false,
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : if your bundle is in shared file, you could desactivated it also without the <code>"bundles": "bundles.json"</code>. Just remove it.</em></p><h4 id="re-generate-bundles-before-each-page-response">Re-generate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>"cssBundlingBeforeResponse": false</code> et <code>"jsBundlingBeforeResponse": false</code> for each type of Bundle.</p><pre><code class="lang-json">{
+    "cssBundlingBeforeResponse": false,
+    "jsBundlingBeforeResponse": false,
+    "bundles": {
+        "javascripts": {
+            "javascripts/boot.min.js": [
+                "javascripts/modernizr.js",
+                "javascripts/yepnot.js",
+                "javascripts/html5Shiv.js"
+            ],
+            "javascripts/framework.min.js": [
+                "javascripts/jquery.js",
+                "javascripts/jquery-ui.js",
+                "javascripts/prettify.js",
+                "javascripts/prettify/run_prettify.js"
+            ],
+            "javascripts/common.min.js": [
+                "javascripts/components/extended-format-date.js",
+                "javascripts/common.js"
+            ]
+        },
+        "stylesheets": {
+            "stylesheets/common.min.css": [
+                "stylesheets/common.css",
+                "stylesheets/common-min780.css",
+                "stylesheets/common-min1160.css"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p><h4 id="version-into-generate-file-names">Version into generate file names</h4><p>In order to force the browser to force reload new version of files in cache, it's an interesting feature to be capable to change the name file for each version. And the <code>{version}</code> pattern will be replaced by the version number of your website (<code>0.0.0</code> by default).</p><p>So, if you have a <code>package.json</code> or a <code>webconfig.json</code> valid file with a version number into the <code>version</code> property, this number will replace the <code>{version}</code> pattern. With the following webconfig:</p><p><em>webconfig</em></p><pre><code class="lang-js">{
+    "version": "1.0.0",
+    "bundles": "bundles.json"
+    "routes": "routes.json"
+}
+</code></pre><p>and the following bundles:</p><p><em>bundles.json</em></p><pre><code class="lang-json">{
+    "javascripts": {
+        "javascripts/boot.{version}.min.js": [
+            "javascripts/modernizr.js",
+            "javascripts/yepnot.js",
+            "javascripts/html5Shiv.js"
+        ]
+    },
+    "stylesheets": {
+        "stylesheets/common.{version}.min.css": [
+            "stylesheets/common.css",
+            "stylesheets/common-min780.css",
+            "stylesheets/common-min1160.css"
+        ]
+    }
+}
+</code></pre><p>you will get files <code>assets/javascripts/boot.1.0.0.min.js</code> and <code>assets/javascripts/common.1.0.0.min.css</code>.</p><p>And you will be able to request them as following:</p><p><em>views/*.htm</em></p><pre><code class="lang-htm">&lt;!-- ... --&gt;
+
+&lt;link rel="stylesheet" href="stylesheets/common.&lt;?= webconfig.version ?&gt;.min.css"&gt;
+
+&lt;!-- ... --&gt;
+
+&lt;script src="javascripts/boot.&lt;?= webconfig.version ?&gt;.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- ... --&gt;
+</code></pre><h4 id="bundles-with-sockets">Bundles with Sockets</h4><p>It's possible to minify file defined in <code>NA.webconfig.socketClientFile</code> even if it's not a real prysical file. Just add it into bundles of your choice.</p><p>In the following example, virtual <code>/node-atlas/socket.io.js</code> file will be added to bundles with the correct client/server sockets configuration.</p><pre><code class="lang-json">{
+    "bundles": {
+        "javascripts": {
+            "javascripts/common.min.js": [
+                "javascripts/socket.io.js",
+                "node-atlas/socket.io.js",
+                "javascripts/common.js"
+            ]
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><h3 id="css-generation-with-less">CSS generation with Less</h3><p>You can use the preprocessor Less to create your CSS. The operation is as follows: whenever a CSS request is made, if a Less equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p><p>With the following structure:</p><pre><code>├─ assets/
+│  └─ stylesheets
+│     └─ common.less
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>and the following webconfig:</p><pre><code class="lang-json">{
+    "less": true,
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>and the following content in:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Less Test&lt;/title&gt;
+        &lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;This line is red.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
+    color: #f00;
+}
+</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.less</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>less.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    "less": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p>You can also generate CSS files already minify with:</p><pre><code class="lang-json">    "less": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p>Finally, you can also automaticly add vendor prefix like <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> for generated file without care about it in your sources files!</p><pre><code class="lang-json">    "less": {
+        "autoprefix": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><h4 id="compile-less-files-with-generate-">Compile Less files with <code>--generate</code></h4><p>Because of Less are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Less before minify CSS with <code>less.files</code>.</p><p>With the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "less": {
+        "files": [
+            "stylesheets/common.less",
+            "stylesheets/component-1.less",
+            "stylesheets/component-2.less",
+            "stylesheets/component-3.less"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>or with the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "less": {
+        "files": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>with <code>less.json</code> containing :</p><pre><code class="lang-js">[
+    "stylesheets/common.less",
+    "stylesheets/component-1.less",
+    "stylesheets/component-2.less",
+    "stylesheets/component-3.less"
+]
+</code></pre><p>The <code>@import</code> used by Less will be capable to walk into subdirectories : <code>styles</code>, <code>stylesheets</code> or <code>css</code>. It's possible to change that with :</p><pre><code class="lang-json">{
+    "less": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "files": "less.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><h3 id="css-generation-with-stylus">CSS generation with Stylus</h3><p>You can use the preprocessor Stylus to create your CSS. The operation is as follows: whenever a CSS request is made, if a Stylus equivalent exists it is read and it generates the CSS. Once done, the new CSS is responded.</p><p>With the following structure:</p><pre><code>├─ assets/
+│  └─ stylesheets
+│     └─ common.styl
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>and the following webconfig:</p><pre><code class="lang-json">{
+    "stylus": true,
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>and the following content in:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Stylus Test&lt;/title&gt;
+        &lt;link rel="stylesheet" href="stylesheets/common.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;This line is red.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
+    color: #f00
+</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.styl</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>stylus.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    "stylus": {
+        "sourceMap": false
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p>You can also generate CSS files already minify with:</p><pre><code class="lang-json">    "stylus": {
+        "compress": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p>Finally, you can also automaticly add vendor prefix like <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> for generated file without care about it in your sources files!</p><pre><code class="lang-json">    "stylus": {
+        "autoprefix": true
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+</code></pre><p><em>Note:</em> More options on <a href="https://www.npmjs.com/package/stylus">stylus documentation for module</a>.</p><h4 id="compile-stylus-files-with-generate-">Compile Stylus files with <code>--generate</code></h4><p>Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with <code>stylus.files</code>.</p><p>With the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "stylus": {
+        "files": [
+            "stylesheets/common.styl",
+            "stylesheets/component-1.styl",
+            "stylesheets/component-2.styl",
+            "stylesheets/component-3.styl"
+        ]
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>or with the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+    "stylus": {
+        "files": "stylus.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><p>with <code>stylus.json</code> containing :</p><pre><code class="lang-js">[
+    "stylesheets/common.styl",
+    "stylesheets/component-1.styl",
+    "stylesheets/component-2.styl",
+    "stylesheets/component-3.styl"
+]
+</code></pre><p>The <code>@import</code> used by Stylus will be capable to walk into subdirectories : <code>styles</code>, <code>stylesheets</code> or <code>css</code>. It's possible to change that with :</p><pre><code class="lang-json">{
+    "stylus": {
+        "paths": [
+            "subdirectory/styles-files",
+        ],
+        "stylus": "stylus.json"
+    },
+    "routes": {
+        "/": "index.htm"
+    }
+}
+</code></pre><h3 id="optimize-images-files">Optimize Images files</h3><p>You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course you can do as much as you want. The optimization files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if an Optimization exists in the Webconfig.</p><h4 id="creating-optimizations">Creating Optimizations</h4><p>With the following configuration:</p><pre><code class="lang-json">{
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and the following set of file:</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><p>you will get the following new files:</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        ├─ example.svg
+│        └─ optimized/       ⤆ new folder
+│           ├─ example.png   ⤆ new file
+│           ├─ example.jpg   ⤆ new file
+│           ├─ example.gif   ⤆ new file
+│           └─ example.svg   ⤆ new file
+├─ views/
+│  └─ index.htm
+└─ webconfig.json
+</code></pre><h4 id="create-optimizations-by-group-of-file">Create Optimizations by group of file</h4><p>For example, not define file one by one, but in group:</p><pre><code class="lang-json">{
+    "optimizations": {
+        "images": {
+            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><h4 id="add-more-options-to-optimizations">Add more options to Optimizations</h4><p>It is possible to redefine default options used for optimizations via this 4 objects:</p><pre><code class="lang-json">{
+    "optimizations": {
+        "jpg": { "progressive": false },
+        "gif": { "interlaced": false },
+        "png": { "optimizationLevel": 1 },
+        "svg": { "multipass": false },
+        "images": {
+            "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>To know all options it is here:</p><ul>
+<li><a href="https://www.npmjs.com/package/imagemin-jpegtran">Jpeg Options</a></li>
+<li><a href="https://www.npmjs.com/package/imagemin-gifsicle">Gif Options</a></li>
+<li><a href="https://www.npmjs.com/package/imagemin-optipng">Png Options</a></li>
+<li><a href="https://www.npmjs.com/package/imagemin-svgo">Svg Options</a></li>
+</ul><h4 id="optimizations-in-a-shared-file">Optimizations in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ views/
+│  └─ index.htm
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>could be the following set of file</p><pre><code>├─ assets/
+│  └─ media/
+│     └─ images/
+│        ├─ example.png
+│        ├─ example.jpg
+│        ├─ example.gif
+│        └─ example.svg
+├─ views/
+│  └─ index.htm
+├─ bundles.json
+├─ webconfig.json
+└─ webconfig.prod.json
+</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7777,
+    "optimizations": "optimizations.json",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+    "httpPort": 7776,
+    "httpHostname": "blog.lesieur.name",
+    "urlPort": 80,
+    "optimizations": "optimizations.json",
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p>and <code>optimizations.json</code></p><pre><code class="lang-json">{
+    "images": {
+        "media/images/example.png": "media/images/optimized/",
+        "media/images/example.jpg": "media/images/optimized/",
+        "media/images/example.gif": "media/images/optimized/",
+        "media/images/example.svg": "media/images/optimized/"
+    }
+}
+</code></pre><p><em>Note : it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-optimizations">Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>"imgOptimizationsEnable": false</code>.</p><pre><code class="lang-json">{
+    "imgOptimizationsEnable": false,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : if your optimizations is in shared file, you could desactivated it also without the <code>"optimizations": "optimizations.json"</code>. Just remove it.</em></p><h4 id="re-generate-optimizations-before-each-page-response">Re-generate Optimizations before each Page Response</h4><p>You can ask files to be regenerated before each page response with <code>"cssBundlingBeforeResponse": false</code> et <code>"jsBundlingBeforeResponse": false</code> for each type of Bundle.</p><pre><code class="lang-json">{
+    "imgOptimizationsBeforeResponse": false,
+    "optimizations": {
+        "images": {
+            "media/images/example.png": "media/images/optimized/",
+            "media/images/example.jpg": "media/images/optimized/",
+            "media/images/example.gif": "media/images/optimized/",
+            "media/images/example.svg": "media/images/optimized/"
+        }
+    },
+    "routes": {
+        "/": {
+            "view": "index.htm"
+        }
+    }
+}
+</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p><h3 id="css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</h3><p>When you create templates for sending email newsletters, or even simple message, you can not attach stylesheet. The only way is to write the CSS instructions in the template within the <code>style</code> markup attribute.</p><h4 id="specific-injection">Specific Injection</h4><p>With <code>injectCss</code>, simply design your template as usual via a stylesheet and NodeAtlas inject each rendering styles in the attribute <code>style</code>. It will do more than generate templates.</p><p>With for example the following configuration:</p><pre><code class="lang-json">{
+    "routes": {
+        "/": {
+            "view": "email.htm",
+            "output": "welcome.html",
+            "injectCss": "stylesheets/email.css"
+        }
+    }
+}
+</code></pre><p>and the following set of files:</p><pre><code>├─ serverless/
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ views/
+│  └─ email.htm
+└─ webconfig.json
+</code></pre><p>whose contents are :</p><p><em>stylesheets/common.css</em></p><pre><code class="lang-css">body {
+    color: #f00;
+}
+</code></pre><p><em>views/email.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Email&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;This is a template email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>output will be, with the command <code>node-atlas --generate</code>, all following file:</p><pre><code>├─ serverless/
+│  └─ bienvenue.html    &lt;= template email generate !
+├─ assets/
+│  └─ stylesheets/
+│     └─ email.css
+├─ views/
+│  └─ email.htm
+└─ webconfig.json
+</code></pre><p>with as content for <code>serverless/welcome.html</code></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Email&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body style="color: #f00;"&gt;
+        &lt;p&gt;This is a template email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.</p><blockquote>
+<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../" --generate</code>. Result are into <code>serverless</code>.</p>
+</blockquote><h4 id="global-injection">Global Injection</h4><p>It is possible to use <code>injectCss</code> as global mechanism for all pages.</p><pre><code class="lang-json">{
+    "injectCss": "stylesheets/email.css",
+    "routes": {
+        "/welcome/": {
+            "view": "email-a.htm",
+            "output": "welcome.html"
+        },
+        "/good-bye/": {
+            "view": "email-b.htm",
+            "output": "good-bye.html"
+        }
+    }
+}
+</code></pre><p>ainsi les deux pages <code>welcome</code> et <code>good-bye</code> contiendront chacune <code>&lt;body style="color: #f00;"&gt;</code>.</p><h4 id="multiple-injection">Multiple Injection</h4><p>It's possible to :</p><ul>
+<li>Attach global and specific files in same time.</li>
+<li>Attach more one CSS file by <code>injectCss</code> property.</li>
+</ul><pre><code class="lang-json">{
+    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
+    "routes": {
+        "/welcome/": {
+            "view": "email-a.htm",
+            "output": "welcome.html",
+            "injectCss": "/stylesheets/welcome.css"
+        },
+        "/good-bye/": {
+            "view": "email-b.htm",
+            "output": "good-bye.html",
+            "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
+        }
+    }
+}
+</code></pre><blockquote>
+<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../" --generate --webconfig webconfig.multiple.json</code>. Result are into <code>serverless</code>.</p>
+</blockquote><div><div class="before">
+							<a href="controller-part.html">◄ Controller Part</a>
+						</div><div class="after">
+							<a href="advanced-part.html">Advanced Part ►</a>
+						</div></div>
+				</div>
+			</div>
+		</div>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+		
+		<script id="channel" data-channel="NodeAtlas/Help" data-label="Help Chat" src="javascripts/common.min.js"></script>
+		
+		<script src="https://buttons.github.io/buttons.js"></script>
+	
+</body></html>

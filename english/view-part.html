@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1507049454846">
+		<meta name="og:updated_time" content="1507221091609">
 
 		<meta name="robots" content="index, follow">
 
@@ -261,6 +261,10 @@ website.init({
 											
 											<li>
 												<a href="controller-part.html" title="Controller Part">Controller Part</a>
+											</li>
+											
+											<li>
+												<a href="tools-part.html" title="Tools Part">Tools Part</a>
 											</li>
 											
 											<li>
@@ -1202,7 +1206,7 @@ website.init({
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>With <code>node-atlas --browse</code>, to address <code>http://localhost/</code> will show a list of pages your site components (with <code>"index": true</code>)</p><p>It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code>┊┉
+</code></pre><p>With <code>node-atlas --browse</code>, to address <code>http://localhost/</code> will show a list of pages your site components (with <code>"index": true</code>)</p><p>It will do more than, once <code>--generate</code> was used, enjoy your HTML site in the folder:</p><pre><code class="lang-txt">┊┉
 ├─ serverless/
 │  ├─ stylesheets/
 │  │  └─ common.css
@@ -1212,7 +1216,7 @@ website.init({
 │  └─ en/
 │     └─ cv.html
 ┊┉
-</code></pre><p><em>Note: if</em> <code>serverlessRelativePath</code> <em>is not present in <code>webconfig.json</code>, default folder for generated files is</em> <code>serverless/</code>. <code>serverlessRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="generate-static-files">Generate Static Files</h4><p>Files defined into <code>statics</code> are also copyable into <code>serverlessRelativePath</code> when you use <code>--generate</code>. To allow this, you could use for each directory the parameter <code>output</code> set to <code>true</code>.</p><pre><code>{
+</code></pre><p><em>Note: if</em> <code>serverlessRelativePath</code> <em>is not present in <code>webconfig.json</code>, default folder for generated files is</em> <code>serverless/</code>. <code>serverlessRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="generate-static-files">Generate Static Files</h4><p>Files defined into <code>statics</code> are also copyable into <code>serverlessRelativePath</code> when you use <code>--generate</code>. To allow this, you could use for each directory the parameter <code>output</code> set to <code>true</code>.</p><pre><code class="lang-json">{
     "statics": {
         "/javascripts/models": {
             "path": "models",
@@ -1289,7 +1293,7 @@ website.init({
         }
     }
 }
-</code></pre><p>or just for one page like this:</p><pre><code>{
+</code></pre><p>or just for one page like this:</p><pre><code class="lang-json">{
     "routes": {
         "/": {
             "view": "index.pug"
@@ -1300,7 +1304,7 @@ website.init({
         }
     }
 }
-</code></pre><p>It's also possible to reset EJS only for one page.</p><pre><code>{
+</code></pre><p>It's also possible to reset EJS only for one page.</p><pre><code class="lang-json">{
     "pug": true,
     "routes": {
         "/": {
@@ -1312,7 +1316,7 @@ website.init({
         }
     }
 }
-</code></pre><p>We can see now an example with a set of files below:</p><p><em>webconfig.json</em></p><pre><code>{
+</code></pre><p>We can see now an example with a set of files below:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "pug": true,
     "view": "common.pug",
     "variation": "common.json",
