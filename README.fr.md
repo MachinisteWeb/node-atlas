@@ -109,8 +109,8 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Minifier les CSS / JS](#minifier-les-css--js)
  - [Générer les CSS avec Less](#générer-les-css-avec-less)
  - [Générer les CSS avec Stylus](#générer-les-css-avec-stylus)
- - [Optimiser les Images](#optimiser-les-images)
- - [Injecter du CSS inline pour maintenir des assets Email](#injecter-du-css-inline-pour-maintenir-des-assets-email)
+ - [Optimiser les images](#optimiser-les-images)
+ - [Injection de CSS sur les balises](#injection-de-css-sur-les-balises)
 - [Partie avancée](#partie-avancee)
  - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
  - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
@@ -3307,7 +3307,7 @@ exports.setConfigurations = function (next) {
 		next();
 	});
 
-	// Middleware ajoutant diverse entête http de sécurisation.
+	// Middleware ajoutant diverse entête HTTP de sécurisation.
 	NA.express.use(require("helmet")());
 
 	next();
@@ -3442,7 +3442,7 @@ module.exports = function () {
 };
 ```
 
-où sans :
+ou sans :
 
 **middlewares/redirect.js**
 
@@ -3463,9 +3463,9 @@ module.exports = function (request, response, next) {
 
 ### Minifier les CSS / JS ###
 
-Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des Bundles en référençant les groupes de fichiers d'entré par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu qu'un Bundle existe dans le webconfig.
+Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des paquetages en référençant les groupes de fichiers d'entrée par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu qu'un paquetage existe dans le webconfig.
 
-#### Créer des Bundles ####
+#### Créer des paquetages ####
 
 Avec la configuration suivante :
 
@@ -3507,7 +3507,7 @@ Avec la configuration suivante :
 
 et l'ensemble de fichier suivant :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -3530,9 +3530,9 @@ et l'ensemble de fichier suivant :
 └─ webconfig.json
 ```
 
-vous obtiendrez les nouveaux fichiers suivant :
+vous obtiendrez les nouveaux fichiers suivants :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -3559,15 +3559,15 @@ vous obtiendrez les nouveaux fichiers suivant :
 └─ webconfig.json
 ```
 
-#### Bundles dans un fichier partagé ####
+#### Paquetage dans un fichier partagé ####
 
-Afin de ne pas réécrire une longue liste de configuration de Bundles dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`.
+Afin de ne pas réécrire une longue liste de configuration de paquetage dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `bundles.json`.
 
-Par exemple :
+Par exemple,
 
-L'ensemble de fichier suivant
+L'ensemble de fichier suivant :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -3591,7 +3591,7 @@ L'ensemble de fichier suivant
 └─ webconfig.prod.json
 ```
 
-avec `webconfig.json`
+avec `webconfig.json` :
 
 ```json
 {
@@ -3630,7 +3630,7 @@ avec `webconfig.json`
 }
 ```
 
-et avec `webconfig.prod.json`
+et avec `webconfig.prod.json`:
 
 ```json
 {
@@ -3671,9 +3671,9 @@ et avec `webconfig.prod.json`
 }
 ```
 
-pourrait devenir l'ensemble de fichier suivant
+pourrait devenir l'ensemble de fichier suivant :
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -3698,7 +3698,7 @@ pourrait devenir l'ensemble de fichier suivant
 └─ webconfig.prod.json
 ```
 
-avec `webconfig.json`
+avec `webconfig.json` :
 
 ```json
 {
@@ -3712,7 +3712,7 @@ avec `webconfig.json`
 }
 ```
 
-avec `webconfig.prod.json`
+avec `webconfig.prod.json` :
 
 ```json
 {
@@ -3728,7 +3728,7 @@ avec `webconfig.prod.json`
 }
 ```
 
-et `bundles.json`
+et `bundles.json` :
 
 ```json
 {
@@ -3759,11 +3759,11 @@ et `bundles.json`
 }
 ```
 
-*Note : il est possible de désactiver les Bundles en ne les incluant pas dans le `webconfig` en question.*
+*Note : il est possible de désactiver les Bundles en ne les incluant pas dans le webconfig en question.*
 
-#### Désactiver des Bundles ####
+#### Désactiver des paquetages ####
 
-Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés `"cssBundlingEnable": false` et `"jsBundlingEnable": false` pour chaque type de Bundle.
+Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés `"cssBundlingEnable": false` et `"jsBundlingEnable": false` pour chaque type de paquetage.
 
 ```json
 {
@@ -3803,11 +3803,11 @@ Il est également possible de ne pas exécuter la minification au démarrage d'u
 }
 ```
 
-*Note : si vos bundles sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirand la ligne `"bundles": "bundles.json"`.*
+*Note : si vos paquetages sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne `"bundles": "bundles.json"`.*
 
-#### Ré-générer les Bundles avant chaque rendu de page ####
+#### Régénérer les paquetages avant chaque rendu de page ####
 
-De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés `"cssBundlingBeforeResponse": true` et `"jsBundlingBeforeResponse": true` pour chaque type de Bundle.
+De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés `"cssBundlingBeforeResponse": true` et `"jsBundlingBeforeResponse": true` pour chaque type de paquetage.
 
 ```json
 {
@@ -3849,9 +3849,9 @@ De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez
 
 *Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.*
 
-#### Version dans noms de fichiers générés ####
+#### La version dans les noms de fichiers générés ####
 
-Afin de forcer le navigateur à charger de nouveau vos fichiers en cache il est intéressant de changer leur nom pour chaque version. Ainsi avec l'occurence `{version}` sera remplacé par le numéro de version de votre site actuel (par défaut `0.0.0`).
+Afin de forcer le navigateur à charger de nouveau vos fichiers en cache il est intéressant de changer leur nom pour chaque version. Ainsi l'occurence `{version}`, sera remplacée par le numéro de version de votre site actuel (par défaut `0.0.0`).
 
 Ainsi, si vous avez un fichier `package.json` ou un `webconfig.json` valide avec un numéro de version indiqué sous la propriété version, ce numéro remplacera la valeur `{version}`. Ainsi avec le webconfig suivant :
 
@@ -3906,11 +3906,11 @@ _views/*.htm_
 <!-- ... -->
 ```
 
-#### Bundles avec Sockets ####
+#### Paquetages avec WebSockets ####
 
-Il est possible de minifier le fichier défini par `NA.webconfig.socketClientFile` même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les bundles souhaité.
+Il est possible de minifier le fichier défini par `NA.webconfig.socketClientFile` même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les paquetages souhaités.
 
-Dans l'exemple suivant, le fichier virtuel `node-atlas/socket.io.js` sera ajouté aux sources avec la bonne configuration pour faire le lien client/serveur.
+Dans l'exemple suivant, le fichier virtuel `node-atlas/socket.io.js` sera ajouté aux sources avec la bonne configuration pour faire le lien client / serveur.
 
 ```json
 {
@@ -3935,7 +3935,7 @@ Dans l'exemple suivant, le fichier virtuel `node-atlas/socket.io.js` sera ajout�
 
 ### Générer les CSS avec Less ###
 
-Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère le CSS. Une fois l'opération effectuée, on renvoi le CSS demandée.
+Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère la CSS. Une fois l'opération effectuée, on renvoi la CSS demandée.
 
 Avec la structure suivante :
 
@@ -3948,7 +3948,7 @@ Avec la structure suivante :
 └─ webconfig.json
 ```
 
-ainsi que le webconfig suivante :
+ainsi que le webconfig suivant :
 
 ```json
 {
@@ -3968,11 +3968,11 @@ et le contenu suivant dans :
 <html lang="en">
    <head>
       <meta charset="UTF-8">
-      <title>Less Test</title>
+      <title>Test Less</title>
       <link rel="stylesheet" href="stylesheets/common.css">
    </head>
    <body>
-      <p>This line is red.</p>
+      <p>Cette ligne est rouge.</p>
    </body>
 </html>
 ```
@@ -3985,11 +3985,11 @@ p {
 }
 ```
 
-vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `http://localhost/` ou `http://localhost/stylesheets/common.css`.
+vous génèrerez le fichier `assets/stylesheets/common.css` en appelant l'URL `http://localhost/` ou `http://localhost/stylesheets/common.css`.
 
-#### Source Map, Minification et Autoprefix ####
+#### Source Map, minification et autoprefix ####
 
-Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.less` a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.less` a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débogueur.
 
 Cela se désactive avec `less.sourceMap` à `false` :
 
@@ -4026,7 +4026,7 @@ Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur co
 
 #### Compiler les Less avec `--generate` ####
 
-Comme les Less sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `less.files`.
+Comme les Less sont compilés à la volé, quand le fichier est demandé en HTTP(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans la CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `less.files`.
 
 Avec le `webconfig.json` suivant :
 
@@ -4046,7 +4046,7 @@ Avec le `webconfig.json` suivant :
 }
 ```
 
-ou suivante :
+ou avec le `webconfig.json` suivant :
 
 ```json
 {
@@ -4070,7 +4070,7 @@ avec `less.json` qui contient :
 ]
 ```
 
-Par défaut, les `@import` utilisés par Less seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
+Par défaut, les `@import` utilisés par Less seront capables de fouiller dans les sous-dossiers : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
 
 ```json
 {
@@ -4090,7 +4090,7 @@ Par défaut, les `@import` utilisés par Less seront capable de fouiller dans le
 
 ### Générer les CSS avec Stylus ###
 
-Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère le CSS. Une fois l'opération effectuée, on renvoi le CSS demandée.
+Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère la CSS. Une fois l'opération effectuée, on renvoi la CSS demandée.
 
 Avec la structure suivante :
 
@@ -4123,11 +4123,11 @@ et le contenu suivant dans :
 <html lang="en">
    <head>
       <meta charset="UTF-8">
-      <title>Stylus Test</title>
+      <title>Test Stylus</title>
       <link rel="stylesheet" href="stylesheets/common.css">
    </head>
    <body>
-      <p>This line is red.</p>
+      <p>Cette ligne est rouge.</p>
    </body>
 </html>
 ```
@@ -4139,11 +4139,11 @@ p
    color: #f00
 ```
 
-vous générerez le fichier `assets/stylesheets/common.css` en appelant l'url `http://localhost/` ou `http://localhost/stylesheets/common.css`.
+vous générerez le fichier `assets/stylesheets/common.css` en appelant l'URL `http://localhost/` ou `http://localhost/stylesheets/common.css`.
 
-#### Source Map, Minification et Autoprefix ####
+#### Source Map, minification et autoprefix ####
 
-Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.styl` a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débuggeur.
+Par défaut, dans l'exemple ci-dessus un fichier `common.css.map` sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier `.styl` a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débogueur.
 
 Cela se désactive avec `stylus.sourceMap` à `false` :
 
@@ -4178,11 +4178,11 @@ Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur co
    }
 ```
 
-*Note:* Plus d'options sur [la documentation du module stylus](https://www.npmjs.com/package/stylus).
+*Note:* Plus d'options sur [la documentation du module Stylus](https://www.npmjs.com/package/stylus).
 
 #### Compiler les Stylus avec `--generate` ####
 
-Comme les Stylus sont compilés a la volé, quand le fichier est demandé en http(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans le CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `stylus.files`.
+Comme les Stylus sont compilés à la volé, quand le fichier est demandé en HTTP(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans la CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à `stylus.files`.
 
 Avec le `webconfig.json` suivant :
 
@@ -4226,7 +4226,7 @@ avec `stylus.json` qui contient :
 ]
 ```
 
-Par défaut, les `@import` utilisés par Stylus seront capable de fouiller dans les sous dossier : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
+Par défaut, les `@import` utilisés par Stylus seront capables de fouiller dans les sous-dossiers : `styles`, `stylesheets` ou `css`. Il est possible de changer cela avec :
 
 ```json
 {
@@ -4244,11 +4244,11 @@ Par défaut, les `@import` utilisés par Stylus seront capable de fouiller dans 
 
 
 
-### Optimiser les Images ###
+### Optimiser les images ###
 
-Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu que des Optimizations existe dans le webconfig.
+Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu que des optimisations existe dans le webconfig.
 
-#### Créer des Optimizations ####
+#### Créer des optimisations ####
 
 Avec la configuration suivante :
 
@@ -4272,7 +4272,7 @@ Avec la configuration suivante :
 
 et l'ensemble de fichier suivant :
 
-```
+```txt
 ├─ assets/
 │  └─ media/
 │     └─ images/
@@ -4285,7 +4285,7 @@ et l'ensemble de fichier suivant :
 └─ webconfig.json
 ```
 
-vous obtiendrez les nouveaux fichiers suivant :
+vous obtiendrez les nouveaux fichiers suivants :
 
 ```
 ├─ assets/
@@ -4305,7 +4305,7 @@ vous obtiendrez les nouveaux fichiers suivant :
 └─ webconfig.json
 ```
 
-#### Créer des Optimizations par groupes de fichier ####
+#### Créer des optimisations par groupes de fichier ####
 
 Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indiquer en groupe :
 
@@ -4324,7 +4324,7 @@ Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indi
 }
 ```
 
-#### Ajouter des options aux Optimizations ####
+#### Ajouter des options aux optimisations ####
 
 Il est possible de redéfinir les options par défaut pour l'optimisation via ses 4 objets :
 
@@ -4348,20 +4348,21 @@ Il est possible de redéfinir les options par défaut pour l'optimisation via se
 ```
 
 Pour connaître toutes les options c'est par ici :
+
 - [Options Jpeg](https://www.npmjs.com/package/imagemin-jpegtran)
 - [Options Gif](https://www.npmjs.com/package/imagemin-gifsicle)
 - [Options Png](https://www.npmjs.com/package/imagemin-optipng)
 - [Options Svg](https://www.npmjs.com/package/imagemin-svgo)
 
-#### Optimizations dans un fichier partagé ####
+#### Optimisations dans un fichier partagé ####
 
-Afin de ne pas réécrire une longue liste de configuration d'Optimizations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`.
+Afin de ne pas réécrire une longue liste de configuration d'optimisations dans un fichier `webconfig.json` à destination de votre environnement de développement et `webconfig.prod.json` à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier `optimizations.json`.
 
-Par exemple :
+Par exemple,
 
-L'ensemble de fichier suivant
+L'ensemble de fichier suivant :
 
-```
+```txt
 ├─ assets/
 │  └─ media/
 │     └─ images/
@@ -4396,7 +4397,7 @@ avec `webconfig.json`
 }
 ```
 
-et avec `webconfig.prod.json`
+et avec `webconfig.prod.json` :
 
 ```json
 {
@@ -4419,9 +4420,9 @@ et avec `webconfig.prod.json`
 }
 ```
 
-pourrait devenir l'ensemble de fichier suivant
+pourrait devenir l'ensemble de fichier suivant :
 
-```
+```txt
 ├─ assets/
 │  └─ media/
 │     └─ images/
@@ -4436,7 +4437,7 @@ pourrait devenir l'ensemble de fichier suivant
 └─ webconfig.prod.json
 ```
 
-avec `webconfig.json`
+avec `webconfig.json` :
 
 ```json
 {
@@ -4450,7 +4451,7 @@ avec `webconfig.json`
 }
 ```
 
-avec `webconfig.prod.json`
+avec `webconfig.prod.json` :
 
 ```json
 {
@@ -4466,7 +4467,7 @@ avec `webconfig.prod.json`
 }
 ```
 
-et `optimizations.json`
+et `optimizations.json` :
 
 ```json
 {
@@ -4479,9 +4480,9 @@ et `optimizations.json`
 }
 ```
 
-*Note : il est possible de désactiver les Optimizations en ne les incluant pas dans le `webconfig` en question.*
+*Note : il est possible de désactiver les optimisations en ne les incluant pas dans le `webconfig` en question.*
 
-#### Désactiver des Optimizations ####
+#### Désactiver des optimisations ####
 
 Il est également possible de ne pas exécuter l'optimisation au démarrage d'un site web avec NodeAtlas avec les propriétés `"imgOptimizationsEnable": false`.
 
@@ -4504,9 +4505,9 @@ Il est également possible de ne pas exécuter l'optimisation au démarrage d'un
 }
 ```
 
-*Note : si vos optimizations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne `"optimizations": "optimizations.json"`.*
+*Note : si vos optimisations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne `"optimizations": "optimizations.json"`.*
 
-#### Ré-générer les Optimizations avant chaque rendu de page ####
+#### Ré-générer les optimizations avant chaque rendu de page ####
 
 Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés `"imgOptimizationsBeforeResponse": true`.
 
@@ -4533,9 +4534,9 @@ Vous pouvez demander à ce que les fichiers soient régénérés avant chaque af
 
 
 
-### Injecter du CSS inline pour maintenir des assets Email ###
+### Injection de CSS sur les balises ###
 
-Quand on créer des templates pour envoyer des Newsletters par email, ou même de simple message, on ne peut pas attacher de feuille de style. Le seul moyen à notre disposition est d'écrire les instructions CSS dans le template à l'intérieur de l'attribut `style` brisant ainsi la séparation du font et de la forme.
+Quand on crée des templates pour envoyer des lettres d'informations par email, ou même de simple message, on ne peut pas attacher de feuille de style. Le seul moyen à notre disposition est d'écrire les instructions CSS dans le template à l'intérieur de l'attribut `style` brisant ainsi la séparation du font et de la forme.
 
 #### Injection spécifique ####
 
@@ -4557,7 +4558,7 @@ Avec par exemple la configuration suivante :
 
 et l'ensemble de fichiers suivant :
 
-```
+```txt
 ├─ serverless/
 ├─ assets/
 │  └─ stylesheets/
@@ -4581,13 +4582,13 @@ body {
 
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr-fr">
    <head>
-      <meta charset="UTF-8">
+      <meta charset="utf-8">
       <title>Email</title>
    </head>
    <body>
-      <p>This is a template email.</p>
+      <p>Ceci est un exemple de template email.</p>
    </body>
 </html>
 ```
@@ -4622,8 +4623,6 @@ avec comme contenu pour `serverless/bienvenue.html`
 
 Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.
 
-> Test : Depuis `./tests/examples/css-injection` lancez `node "../../../" --generate`. Le résultat est dans `serverless`.
-
 #### Injection globale ####
 
 Il existe également la même propriété globale impactant toutes les pages.
@@ -4649,8 +4648,9 @@ ainsi les deux pages `bienvenue` et `au-revoir` contiendront chacune `<body styl
 #### Injection multiple ####
 
 Il est possible :
-- De préciser des feuilles spécifique et commune en même temps.
-- De préciser plus d'une feuille à la fois.
+
+- de préciser des feuilles spécifiques et communes en même temps.
+- de préciser plus d'une feuille à la fois.
 
 ```json
 {
@@ -7735,7 +7735,7 @@ NodeAtlas utilise Node.js qui est développé sur le moteur V8. Le moteur V8 est
 
 ### Debug du front-end ###
 
-Vous pouvez débugguer vos rendu HTML, vos règles CSS et votre code JavaScript front-end de la même manière que vous l'auriez fait avec un simple site HTML ou une autre technologie. Vous avez donc accès via F12 à la console JavaScript, aux éléments du DOM éditables, à l'éditeur de propriétés et animations CSS ainsi qu'au débuggeur de fichier JavaScript.
+Vous pouvez débugguer vos rendu HTML, vos règles CSS et votre code JavaScript front-end de la même manière que vous l'auriez fait avec un simple site HTML ou une autre technologie. Vous avez donc accès via F12 à la console JavaScript, aux éléments du DOM éditables, à l'éditeur de propriétés et animations CSS ainsi qu'au débogueur de fichier JavaScript.
 
 La nouveauté avec NodeAtlas vient de l'éditeur de CSS. Là où il vous indiquait les fichiers CSS et lignes pour vos fichiers source en CSS, il vous indique pour un fichier CSS généré avec Stylus ou Less le fichier Stylus ou Less ainsi que sa ligne.
 

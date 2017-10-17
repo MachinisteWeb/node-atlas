@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1507221091759">
+		<meta name="og:updated_time" content="1508251633929">
 
 		<meta name="robots" content="index, follow">
 
@@ -355,7 +355,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="tools-part">Tools Part</h2><h3 id="minify-css-js">Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a Bundle exists in the Webconfig.</p><h4 id="creating-bundles">Creating Bundles</h4><p>With the following configuration:</p><pre><code class="lang-json">{
+					<h2 id="tools-part">Tools Part</h2><h3 id="minify-css-js">Minify CSS / JS</h3><p>You can automatically generate CSS and JS files minified and obfuscated by creating bundles by referencing the file by input and output path. Of course you can do as much as you want. The generation files is executed every time you start NodeAtlas either as a server or via the <code>--generate</code> command if a bundle exists in the webconfig.</p><h4 id="creating-bundles">Creating Bundles</h4><p>With the following configuration:</p><pre><code class="lang-json">{
     "bundles": {
         "javascripts": {
             "javascripts/boot.min.js": [
@@ -388,7 +388,7 @@ website.init({
         }
     }
 }
-</code></pre><p>and the following set of file:</p><pre><code>├─ assets/
+</code></pre><p>and the following set of file:</p><pre><code class="lang-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
@@ -408,7 +408,7 @@ website.init({
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><p>you will get the following new files:</p><pre><code>├─ assets/
+</code></pre><p>you will get the following new files:</p><pre><code class="lang-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
@@ -432,7 +432,7 @@ website.init({
 ├─ views/
 │  └─ index.htm
 └─ webconfig.json
-</code></pre><h4 id="bundles-in-a-shared-file">Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ assets/
+</code></pre><h4 id="bundles-in-a-shared-file">Bundles in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment an <code>webconfig.prod.json</code> to your production environment, you can group routes in a file of your choice. By convention, the name is <code>bundles.json</code> file.</p><p>For example,</p><p>The following set of file:</p><pre><code class="lang-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
@@ -453,7 +453,7 @@ website.init({
 │  └─ index.htm
 ├─ webconfig.json
 └─ webconfig.prod.json
-</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+</code></pre><p>with <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     "httpPort": 7777,
     "bundles": {
         "javascripts": {
@@ -487,7 +487,7 @@ website.init({
         }
     }
 }
-</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+</code></pre><p>and with <code>webconfig.prod.json</code>:</p><pre><code class="lang-json">{
     "httpPort": 7776,
     "httpHostname": "blog.lesieur.name",
     "urlPort": 80,
@@ -523,7 +523,7 @@ website.init({
         }
     }
 }
-</code></pre><p>could be the following set of file</p><pre><code>├─ assets/
+</code></pre><p>could be the following set of file:</p><pre><code class="lang-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
@@ -545,7 +545,7 @@ website.init({
 ├─ bundles.json              ⤆ new file
 ├─ webconfig.json
 └─ webconfig.prod.json
-</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+</code></pre><p>with <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     "httpPort": 7777,
     "bundles": "bundles.json",
     "routes": {
@@ -554,7 +554,7 @@ website.init({
         }
     }
 }
-</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+</code></pre><p>with <code>webconfig.prod.json</code>:</p><pre><code class="lang-json">{
     "httpPort": 7776,
     "httpHostname": "blog.lesieur.name",
     "urlPort": 80,
@@ -565,7 +565,7 @@ website.init({
         }
     }
 }
-</code></pre><p>and <code>bundles.json</code></p><pre><code class="lang-json">{
+</code></pre><p>and <code>bundles.json</code>:</p><pre><code class="lang-json">{
     "javascripts": {
         "javascripts/boot.min.js": [
             "javascripts/modernizr.js",
@@ -591,7 +591,7 @@ website.init({
         ]
     }
 }
-</code></pre><p><em>Note : it is possible to disable Bundles by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-bundles">Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>"cssBundlingEnable": false</code> et <code>"jsBundlingEnable": false</code> for each type of Bundle.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : it is possible to disable bundles by not including them in the webconfig.</em></p><h4 id="disable-bundles">Disable Bundles</h4><p>It is also possible to not execute the minification when run a website with NodeAtlas with <code>"cssBundlingEnable": false</code> et <code>"jsBundlingEnable": false</code> for each type of bundle.</p><pre><code class="lang-json">{
     "cssBundlingEnable": false,
     "jsBundlingEnable": false,
     "bundles": {
@@ -626,7 +626,7 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : if your bundle is in shared file, you could desactivated it also without the <code>"bundles": "bundles.json"</code>. Just remove it.</em></p><h4 id="re-generate-bundles-before-each-page-response">Re-generate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>"cssBundlingBeforeResponse": false</code> et <code>"jsBundlingBeforeResponse": false</code> for each type of Bundle.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : if your bundle is in shared file, you could desactivated it also without the <code>"bundles": "bundles.json"</code>. Just remove it.</em></p><h4 id="regenerate-bundles-before-each-page-response">Regenerate Bundles before each Page Response</h4><p>For test your page with minified files, you can ask it to be regenerated before each page response with <code>"cssBundlingBeforeResponse": false</code> et <code>"jsBundlingBeforeResponse": false</code> for each type of bundle.</p><pre><code class="lang-json">{
     "cssBundlingBeforeResponse": false,
     "jsBundlingBeforeResponse": false,
     "bundles": {
@@ -661,7 +661,7 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p><h4 id="version-into-generate-file-names">Version into generate file names</h4><p>In order to force the browser to force reload new version of files in cache, it's an interesting feature to be capable to change the name file for each version. And the <code>{version}</code> pattern will be replaced by the version number of your website (<code>0.0.0</code> by default).</p><p>So, if you have a <code>package.json</code> or a <code>webconfig.json</code> valid file with a version number into the <code>version</code> property, this number will replace the <code>{version}</code> pattern. With the following webconfig:</p><p><em>webconfig</em></p><pre><code class="lang-js">{
+</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p><h4 id="version-into-generate-file-names">Version into generate file names</h4><p>In order to force the browser to force reload new versions of files in the cache, it's an interesting feature to be capable to change the name file for each version. And the <code>{version}</code> pattern will be replaced by the version number of your website (<code>0.0.0</code> by default).</p><p>So, if you have a <code>package.json</code> or a <code>webconfig.json</code> valid file with a version number into the <code>version</code> property, this number will replace the <code>{version}</code> pattern. With the following webconfig:</p><p><em>webconfig</em></p><pre><code class="lang-js">{
     "version": "1.0.0",
     "bundles": "bundles.json"
     "routes": "routes.json"
@@ -691,7 +691,7 @@ website.init({
 &lt;script src="javascripts/boot.&lt;?= webconfig.version ?&gt;.min.js"&gt;&lt;/script&gt;
 
 &lt;!-- ... --&gt;
-</code></pre><h4 id="bundles-with-sockets">Bundles with Sockets</h4><p>It's possible to minify file defined in <code>NA.webconfig.socketClientFile</code> even if it's not a real prysical file. Just add it into bundles of your choice.</p><p>In the following example, virtual <code>/node-atlas/socket.io.js</code> file will be added to bundles with the correct client/server sockets configuration.</p><pre><code class="lang-json">{
+</code></pre><h4 id="bundles-with-websockets">Bundles with WebSockets</h4><p>It's possible to minify file defined in <code>NA.webconfig.socketClientFile</code> even if it's not a real physical file. Just add it into bundles of your choice.</p><p>In the following example, virtual <code>/node-atlas/socket.io.js</code> file will be added to bundles with the correct client/server sockets configuration.</p><pre><code class="lang-json">{
     "bundles": {
         "javascripts": {
             "javascripts/common.min.js": [
@@ -733,7 +733,7 @@ website.init({
 </code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
     color: #f00;
 }
-</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.less</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>less.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    "less": {
+</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the URL <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in the <code>.less</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>less.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    "less": {
         "sourceMap": false
     },
     "routes": {
@@ -751,7 +751,7 @@ website.init({
     "routes": {
         "/": "index.htm"
     }
-</code></pre><h4 id="compile-less-files-with-generate-">Compile Less files with <code>--generate</code></h4><p>Because of Less are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Less before minify CSS with <code>less.files</code>.</p><p>With the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+</code></pre><h4 id="compile-less-files-with-generate-">Compile Less files with <code>--generate</code></h4><p>Because of Less files are compilated on the fly, when a file is requested in HTTP(S), modification needed the running website for generating CSS output. Then you can use CSS. It's possible to skip running step and directly compilated Less before minifying CSS with <code>less.files</code>.</p><p>With the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     "less": {
         "files": [
             "stylesheets/common.less",
@@ -772,13 +772,13 @@ website.init({
         "/": "index.htm"
     }
 }
-</code></pre><p>with <code>less.json</code> containing :</p><pre><code class="lang-js">[
+</code></pre><p>with <code>less.json</code> containing:</p><pre><code class="lang-js">[
     "stylesheets/common.less",
     "stylesheets/component-1.less",
     "stylesheets/component-2.less",
     "stylesheets/component-3.less"
 ]
-</code></pre><p>The <code>@import</code> used by Less will be capable to walk into subdirectories : <code>styles</code>, <code>stylesheets</code> or <code>css</code>. It's possible to change that with :</p><pre><code class="lang-json">{
+</code></pre><p>The <code>@import</code> used by Less will be capable to walk into subdirectories: <code>styles</code>, <code>stylesheets</code> or <code>css</code>. It's possible to change that with :</p><pre><code class="lang-json">{
     "less": {
         "paths": [
             "subdirectory/styles-files",
@@ -814,7 +814,7 @@ website.init({
 &lt;/html&gt;
 </code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
     color: #f00
-</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the url <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.styl</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>stylus.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    "stylus": {
+</code></pre><p>you will build the <code>assets/stylesheets/common.css</code> by calling the URL <code>http://localhost/</code> or <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-and-autoprefix">Source Map, Minification and Autoprefix</h4><p>By default, in the above example, a <code>common.css.map</code> file will be generated. This allows your browser to indicated you that line in <code>.styl</code>  file has generated the CSS property of the item you have selected in your debugger.</p><p>Disable this with <code>stylus.sourceMap</code> to <code>false</code>:</p><pre><code class="lang-json">    "stylus": {
         "sourceMap": false
     },
     "routes": {
@@ -832,7 +832,7 @@ website.init({
     "routes": {
         "/": "index.htm"
     }
-</code></pre><p><em>Note:</em> More options on <a href="https://www.npmjs.com/package/stylus">stylus documentation for module</a>.</p><h4 id="compile-stylus-files-with-generate-">Compile Stylus files with <code>--generate</code></h4><p>Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with <code>stylus.files</code>.</p><p>With the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+</code></pre><p><em>Note:</em> More options on <a href="https://www.npmjs.com/package/stylus">Stylus documentation for module</a>.</p><h4 id="compile-stylus-files-with-generate-">Compile Stylus files with <code>--generate</code></h4><p>Because of Stylus are compilated on the fly, when a file is requested in HTTP(S), modification needed running websites for generating CSS output. Then you can use CSS. It's possible to skip running step and directly compilated Stylus before minifying CSS with <code>stylus.files</code>.</p><p>With the following <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     "stylus": {
         "files": [
             "stylesheets/common.styl",
@@ -870,7 +870,7 @@ website.init({
         "/": "index.htm"
     }
 }
-</code></pre><h3 id="optimize-images-files">Optimize Images files</h3><p>You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course you can do as much as you want. The optimization files is execute every time you start NodeAtlas either as a server or via the <code>--generate</code> command if an Optimization exists in the Webconfig.</p><h4 id="creating-optimizations">Creating Optimizations</h4><p>With the following configuration:</p><pre><code class="lang-json">{
+</code></pre><h3 id="optimize-images-files">Optimize Images Files</h3><p>You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course, you can do as much as you want. The optimization files is executed every time you start NodeAtlas either as a server or via the <code>--generate</code> command if an Optimization exists in the webconfig.</p><h4 id="creating-optimizations">Creating Optimizations</h4><p>With the following configuration:</p><pre><code class="lang-json">{
     "optimizations": {
         "images": {
             "media/images/example.png": "media/images/optimized/",
@@ -885,7 +885,7 @@ website.init({
         }
     }
 }
-</code></pre><p>and the following set of file:</p><pre><code>├─ assets/
+</code></pre><p>and the following set of file:</p><pre><code class="lang-txt">├─ assets/
 │  └─ media/
 │     └─ images/
 │        ├─ example.png
@@ -922,7 +922,7 @@ website.init({
         }
     }
 }
-</code></pre><h4 id="add-more-options-to-optimizations">Add more options to Optimizations</h4><p>It is possible to redefine default options used for optimizations via this 4 objects:</p><pre><code class="lang-json">{
+</code></pre><h4 id="add-more-options-to-optimizations">Add more options to optimizations</h4><p>It is possible to redefine default options used for optimizations via this 4 objects:</p><pre><code class="lang-json">{
     "optimizations": {
         "jpg": { "progressive": false },
         "gif": { "interlaced": false },
@@ -943,7 +943,7 @@ website.init({
 <li><a href="https://www.npmjs.com/package/imagemin-gifsicle">Gif Options</a></li>
 <li><a href="https://www.npmjs.com/package/imagemin-optipng">Png Options</a></li>
 <li><a href="https://www.npmjs.com/package/imagemin-svgo">Svg Options</a></li>
-</ul><h4 id="optimizations-in-a-shared-file">Optimizations in a shared file</h4><p>In order to not re-write a long Bundles configuration list in <code>webconfig.json</code> file to your development environment and<code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p><p>For example:</p><p>The following set of file</p><pre><code>├─ assets/
+</ul><h4 id="optimizations-in-a-shared-file">Optimizations in a shared file</h4><p>In order to not re-write a long bundle configuration list in <code>webconfig.json</code> file to your development environment and <code>webconfig.prod.json</code> to your production environment, you can group files in a file of your choice. By convention, the name is <code>optimizations.json</code> file.</p><p>For example,</p><p>The following set of file:</p><pre><code class="lang-txt">├─ assets/
 │  └─ media/
 │     └─ images/
 │        ├─ example.png
@@ -970,7 +970,7 @@ website.init({
         }
     }
 }
-</code></pre><p>and with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+</code></pre><p>and with <code>webconfig.prod.json</code>:</p><pre><code class="lang-json">{
     "httpPort": 7776,
     "httpHostname": "blog.lesieur.name",
     "urlPort": 80,
@@ -988,7 +988,7 @@ website.init({
         }
     }
 }
-</code></pre><p>could be the following set of file</p><pre><code>├─ assets/
+</code></pre><p>could be the following set of file:</p><pre><code class="lang-txt">├─ assets/
 │  └─ media/
 │     └─ images/
 │        ├─ example.png
@@ -1000,7 +1000,7 @@ website.init({
 ├─ bundles.json
 ├─ webconfig.json
 └─ webconfig.prod.json
-</code></pre><p>with <code>webconfig.json</code></p><pre><code class="lang-json">{
+</code></pre><p>with <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     "httpPort": 7777,
     "optimizations": "optimizations.json",
     "routes": {
@@ -1009,7 +1009,7 @@ website.init({
         }
     }
 }
-</code></pre><p>with <code>webconfig.prod.json</code></p><pre><code class="lang-json">{
+</code></pre><p>with <code>webconfig.prod.json</code>:</p><pre><code class="lang-json">{
     "httpPort": 7776,
     "httpHostname": "blog.lesieur.name",
     "urlPort": 80,
@@ -1020,7 +1020,7 @@ website.init({
         }
     }
 }
-</code></pre><p>and <code>optimizations.json</code></p><pre><code class="lang-json">{
+</code></pre><p>and <code>optimizations.json</code>:</p><pre><code class="lang-json">{
     "images": {
         "media/images/example.png": "media/images/optimized/",
         "media/images/example.jpg": "media/images/optimized/",
@@ -1028,7 +1028,7 @@ website.init({
         "media/images/example.svg": "media/images/optimized/"
     }
 }
-</code></pre><p><em>Note : it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-optimizations">Disable Optimizations</h4><p>It is also possible to not execute the optimization when run a website with NodeAtlas with <code>"imgOptimizationsEnable": false</code>.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note: it is possible to disable Optimizations by not including them in the <code>webconfig</code>.</em></p><h4 id="disable-optimizations">Disable Optimizations</h4><p>It is also possible to not execute the optimization when running a website with NodeAtlas with <code>"imgOptimizationsEnable": false</code>.</p><pre><code class="lang-json">{
     "imgOptimizationsEnable": false,
     "optimizations": {
         "images": {
@@ -1060,7 +1060,7 @@ website.init({
         }
     }
 }
-</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p><h3 id="css-inline-injection-for-manage-email-assets">CSS Inline Injection for Manage Email Assets</h3><p>When you create templates for sending email newsletters, or even simple message, you can not attach stylesheet. The only way is to write the CSS instructions in the template within the <code>style</code> markup attribute.</p><h4 id="specific-injection">Specific Injection</h4><p>With <code>injectCss</code>, simply design your template as usual via a stylesheet and NodeAtlas inject each rendering styles in the attribute <code>style</code>. It will do more than generate templates.</p><p>With for example the following configuration:</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : this is not recommanded for production environment because it's slowed responses pages.</em></p><h3 id="css-inline-injection">CSS Inline Injection</h3><p>When you create templates for sending email newsletters or even simple message, you can not attach stylesheet. The only way is to write the CSS instructions in the template within the <code>style</code> markup attribute.</p><h4 id="specific-injection">Specific Injection</h4><p>With <code>injectCss</code>, simply design your template as usual via a stylesheet and NodeAtlas inject each rendering styles in the attribute <code>style</code>. It will do more than generate templates.</p><p>With for example the following configuration:</p><pre><code class="lang-json">{
     "routes": {
         "/": {
             "view": "email.htm",
@@ -1069,7 +1069,7 @@ website.init({
         }
     }
 }
-</code></pre><p>and the following set of files:</p><pre><code>├─ serverless/
+</code></pre><p>and the following set of files:</p><pre><code class="lang-txt">├─ serverless/
 ├─ assets/
 │  └─ stylesheets/
 │     └─ email.css
@@ -1082,7 +1082,7 @@ website.init({
 </code></pre><p><em>views/email.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
     &lt;head&gt;
-        &lt;meta charset="UTF-8"&gt;
+        &lt;meta charset="utf-8"&gt;
         &lt;title&gt;Email&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
@@ -1107,9 +1107,7 @@ website.init({
         &lt;p&gt;This is a template email.&lt;/p&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.</p><blockquote>
-<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../" --generate</code>. Result are into <code>serverless</code>.</p>
-</blockquote><h4 id="global-injection">Global Injection</h4><p>It is possible to use <code>injectCss</code> as global mechanism for all pages.</p><pre><code class="lang-json">{
+</code></pre><p>This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.</p><h4 id="global-injection">Global Injection</h4><p>It is possible to use <code>injectCss</code> as global mechanism for all pages.</p><pre><code class="lang-json">{
     "injectCss": "stylesheets/email.css",
     "routes": {
         "/welcome/": {
@@ -1122,9 +1120,9 @@ website.init({
         }
     }
 }
-</code></pre><p>ainsi les deux pages <code>welcome</code> et <code>good-bye</code> contiendront chacune <code>&lt;body style="color: #f00;"&gt;</code>.</p><h4 id="multiple-injection">Multiple Injection</h4><p>It's possible to :</p><ul>
-<li>Attach global and specific files in same time.</li>
-<li>Attach more one CSS file by <code>injectCss</code> property.</li>
+</code></pre><p>also the two pages <code>welcome</code> and <code>good-bye</code> will contain each <code>&lt;body style="color: #f00;"&gt;</code>.</p><h4 id="multiple-injection">Multiple Injection</h4><p>It's possible:</p><ul>
+<li>to attach global and specific files in same time,</li>
+<li>to attach more one CSS file by <code>injectCss</code> property.</li>
 </ul><pre><code class="lang-json">{
     "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
     "routes": {
@@ -1140,9 +1138,7 @@ website.init({
         }
     }
 }
-</code></pre><blockquote>
-<p>Test : From <code>./tests/examples/css-injection</code> run <code>node "../../../" --generate --webconfig webconfig.multiple.json</code>. Result are into <code>serverless</code>.</p>
-</blockquote><div><div class="before">
+</code></pre><div><div class="before">
 							<a href="controller-part.html">◄ Controller Part</a>
 						</div><div class="after">
 							<a href="advanced-part.html">Advanced Part ►</a>

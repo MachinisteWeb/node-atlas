@@ -759,7 +759,7 @@ NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serv
         next();
     });
 
-    // Middleware ajoutant diverse entête http de sécurisation.
+    // Middleware ajoutant diverse entête HTTP de sécurisation.
     NA.express.use(require("helmet")());
 
     next();
@@ -842,7 +842,7 @@ module.exports = function () {
         audience: NA.webconfig._jwt.audience
     })];
 };
-</code></pre><p>où sans :</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="lang-js">module.exports = function (request, response, next) {
+</code></pre><p>ou sans :</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="lang-js">module.exports = function (request, response, next) {
 
     response.redirect('https://go.to.visitor.page/');
 

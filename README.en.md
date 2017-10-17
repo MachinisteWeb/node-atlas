@@ -109,8 +109,8 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
  - [Minify CSS / JS](#minify-css--js)
  - [CSS generation with Less](#css-generation-with-less)
  - [CSS generation with Stylus](#css-generation-with-stylus)
- - [Optimize Images files](#optimize-images-files)
- - [CSS Inline Injection for Manage Email Assets](#css-inline-injection-for-manage-email-assets)
+ - [Optimize Images Files](#optimize-images-files)
+ - [CSS Inline Injection](#css-inline-injection)
 - [Advanced Part](#advanced-part)
  - [Manage Routing (URL Rewriting)](#manage-routing-url-rewriting)
  - [Manage a Page Not Found](#manage-a-page-not-found)
@@ -3463,7 +3463,7 @@ module.exports = function (request, response, next) {
 
 ### Minify CSS / JS ###
 
-You can automatically generate CSS and JS files minified and obfuscated by creating Bundles by referencing the file by input and output path. Of course you can do as much as you want. The gereration files is execute every time you start NodeAtlas either as a server or via the `--generate` command if a Bundle exists in the Webconfig.
+You can automatically generate CSS and JS files minified and obfuscated by creating bundles by referencing the file by input and output path. Of course you can do as much as you want. The generation files is executed every time you start NodeAtlas either as a server or via the `--generate` command if a bundle exists in the webconfig.
 
 #### Creating Bundles ####
 
@@ -3507,7 +3507,7 @@ With the following configuration:
 
 and the following set of file:
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -3532,7 +3532,7 @@ and the following set of file:
 
 you will get the following new files:
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -3561,13 +3561,13 @@ you will get the following new files:
 
 #### Bundles in a shared file ####
 
-In order to not re-write a long Bundles configuration list in `webconfig.json` file to your development environment and` webconfig.prod.json` to your production environment, you can group routes in a file of your choice. By convention, the name is `bundles.json` file.
+In order to not re-write a long Bundles configuration list in `webconfig.json` file to your development environment an `webconfig.prod.json` to your production environment, you can group routes in a file of your choice. By convention, the name is `bundles.json` file.
 
-For example:
+For example,
 
-The following set of file
+The following set of file:
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -3591,7 +3591,7 @@ The following set of file
 └─ webconfig.prod.json
 ```
 
-with `webconfig.json`
+with `webconfig.json`:
 
 ```json
 {
@@ -3630,7 +3630,7 @@ with `webconfig.json`
 }
 ```
 
-and with `webconfig.prod.json`
+and with `webconfig.prod.json`:
 
 ```json
 {
@@ -3671,9 +3671,9 @@ and with `webconfig.prod.json`
 }
 ```
 
-could be the following set of file
+could be the following set of file:
 
-```
+```txt
 ├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
@@ -3698,7 +3698,7 @@ could be the following set of file
 └─ webconfig.prod.json
 ```
 
-with `webconfig.json`
+with `webconfig.json`:
 
 ```json
 {
@@ -3712,7 +3712,7 @@ with `webconfig.json`
 }
 ```
 
-with `webconfig.prod.json`
+with `webconfig.prod.json`:
 
 ```json
 {
@@ -3728,7 +3728,7 @@ with `webconfig.prod.json`
 }
 ```
 
-and `bundles.json`
+and `bundles.json`:
 
 ```json
 {
@@ -3759,11 +3759,11 @@ and `bundles.json`
 }
 ```
 
-*Note : it is possible to disable Bundles by not including them in the `webconfig`.*
+*Note : it is possible to disable bundles by not including them in the webconfig.*
 
 #### Disable Bundles ####
 
-It is also possible to not execute the minification when run a website with NodeAtlas with `"cssBundlingEnable": false` et `"jsBundlingEnable": false` for each type of Bundle.
+It is also possible to not execute the minification when run a website with NodeAtlas with `"cssBundlingEnable": false` et `"jsBundlingEnable": false` for each type of bundle.
 
 ```json
 {
@@ -3805,9 +3805,9 @@ It is also possible to not execute the minification when run a website with Node
 
 *Note : if your bundle is in shared file, you could desactivated it also without the `"bundles": "bundles.json"`. Just remove it.*
 
-#### Re-generate Bundles before each Page Response ####
+#### Regenerate Bundles before each Page Response ####
 
-For test your page with minified files, you can ask it to be regenerated before each page response with `"cssBundlingBeforeResponse": false` et `"jsBundlingBeforeResponse": false` for each type of Bundle.
+For test your page with minified files, you can ask it to be regenerated before each page response with `"cssBundlingBeforeResponse": false` et `"jsBundlingBeforeResponse": false` for each type of bundle.
 
 ```json
 {
@@ -3851,7 +3851,7 @@ For test your page with minified files, you can ask it to be regenerated before 
 
 #### Version into generate file names ####
 
-In order to force the browser to force reload new version of files in cache, it's an interesting feature to be capable to change the name file for each version. And the `{version}` pattern will be replaced by the version number of your website (`0.0.0` by default).
+In order to force the browser to force reload new versions of files in the cache, it's an interesting feature to be capable to change the name file for each version. And the `{version}` pattern will be replaced by the version number of your website (`0.0.0` by default).
 
 So, if you have a `package.json` or a `webconfig.json` valid file with a version number into the `version` property, this number will replace the `{version}` pattern. With the following webconfig:
 
@@ -3906,9 +3906,9 @@ _views/*.htm_
 <!-- ... -->
 ```
 
-#### Bundles with Sockets ####
+#### Bundles with WebSockets ####
 
-It's possible to minify file defined in `NA.webconfig.socketClientFile` even if it's not a real prysical file. Just add it into bundles of your choice.
+It's possible to minify file defined in `NA.webconfig.socketClientFile` even if it's not a real physical file. Just add it into bundles of your choice.
 
 In the following example, virtual `/node-atlas/socket.io.js` file will be added to bundles with the correct client/server sockets configuration.
 
@@ -3985,11 +3985,11 @@ p {
 }
 ```
 
-you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
+you will build the `assets/stylesheets/common.css` by calling the URL `http://localhost/` or `http://localhost/stylesheets/common.css`.
 
 #### Source Map, Minification and Autoprefix ####
 
-By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in `.less`  file has generated the CSS property of the item you have selected in your debugger.
+By default, in the above example, a `common.css.map` file will be generated. This allows your browser to indicated you that line in the `.less`  file has generated the CSS property of the item you have selected in your debugger.
 
 Disable this with `less.sourceMap` to `false`:
 
@@ -4026,7 +4026,7 @@ Finally, you can also automaticly add vendor prefix like `--webkit`, `--moz`, `-
 
 #### Compile Less files with `--generate` ####
 
-Because of Less are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Less before minify CSS with `less.files`.
+Because of Less files are compilated on the fly, when a file is requested in HTTP(S), modification needed the running website for generating CSS output. Then you can use CSS. It's possible to skip running step and directly compilated Less before minifying CSS with `less.files`.
 
 With the following `webconfig.json`:
 
@@ -4059,7 +4059,7 @@ or with the following `webconfig.json`:
 }
 ```
 
-with `less.json` containing :
+with `less.json` containing:
 
 ```js
 [
@@ -4070,7 +4070,7 @@ with `less.json` containing :
 ]
 ```
 
-The `@import` used by Less will be capable to walk into subdirectories : `styles`, `stylesheets` or `css`. It's possible to change that with :
+The `@import` used by Less will be capable to walk into subdirectories: `styles`, `stylesheets` or `css`. It's possible to change that with :
 
 ```json
 {
@@ -4139,7 +4139,7 @@ p
 	color: #f00
 ```
 
-you will build the `assets/stylesheets/common.css` by calling the url `http://localhost/` or `http://localhost/stylesheets/common.css`.
+you will build the `assets/stylesheets/common.css` by calling the URL `http://localhost/` or `http://localhost/stylesheets/common.css`.
 
 #### Source Map, Minification and Autoprefix ####
 
@@ -4178,11 +4178,11 @@ Finally, you can also automaticly add vendor prefix like `--webkit`, `--moz`, `-
 	}
 ```
 
-*Note:* More options on [stylus documentation for module](https://www.npmjs.com/package/stylus).
+*Note:* More options on [Stylus documentation for module](https://www.npmjs.com/package/stylus).
 
 #### Compile Stylus files with `--generate` ####
 
-Because of Stylus are compilated on the fly, when a file is requested in http(s), modification needed running website for generate CSS output. Then you can use CSS. It's possible to skip running step and directly complated Stylus before minify CSS with `stylus.files`.
+Because of Stylus are compilated on the fly, when a file is requested in HTTP(S), modification needed running websites for generating CSS output. Then you can use CSS. It's possible to skip running step and directly compilated Stylus before minifying CSS with `stylus.files`.
 
 With the following `webconfig.json`:
 
@@ -4244,9 +4244,9 @@ The `@import` used by Stylus will be capable to walk into subdirectories : `styl
 
 
 
-### Optimize Images files ###
+### Optimize Images Files ###
 
-You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course you can do as much as you want. The optimization files is execute every time you start NodeAtlas either as a server or via the `--generate` command if an Optimization exists in the Webconfig.
+You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course, you can do as much as you want. The optimization files is executed every time you start NodeAtlas either as a server or via the `--generate` command if an Optimization exists in the webconfig.
 
 #### Creating Optimizations ####
 
@@ -4272,7 +4272,7 @@ With the following configuration:
 
 and the following set of file:
 
-```
+```txt
 ├─ assets/
 │  └─ media/
 │     └─ images/
@@ -4324,7 +4324,7 @@ For example, not define file one by one, but in group:
 }
 ```
 
-#### Add more options to Optimizations ####
+#### Add more options to optimizations ####
 
 It is possible to redefine default options used for optimizations via this 4 objects:
 
@@ -4348,6 +4348,7 @@ It is possible to redefine default options used for optimizations via this 4 obj
 ```
 
 To know all options it is here:
+
 - [Jpeg Options](https://www.npmjs.com/package/imagemin-jpegtran)
 - [Gif Options](https://www.npmjs.com/package/imagemin-gifsicle)
 - [Png Options](https://www.npmjs.com/package/imagemin-optipng)
@@ -4355,13 +4356,13 @@ To know all options it is here:
 
 #### Optimizations in a shared file ####
 
-In order to not re-write a long Bundles configuration list in `webconfig.json` file to your development environment and` webconfig.prod.json` to your production environment, you can group files in a file of your choice. By convention, the name is `optimizations.json` file.
+In order to not re-write a long bundle configuration list in `webconfig.json` file to your development environment and `webconfig.prod.json` to your production environment, you can group files in a file of your choice. By convention, the name is `optimizations.json` file.
 
-For example:
+For example,
 
-The following set of file
+The following set of file:
 
-```
+```txt
 ├─ assets/
 │  └─ media/
 │     └─ images/
@@ -4396,7 +4397,7 @@ with `webconfig.json`
 }
 ```
 
-and with `webconfig.prod.json`
+and with `webconfig.prod.json`:
 
 ```json
 {
@@ -4419,9 +4420,9 @@ and with `webconfig.prod.json`
 }
 ```
 
-could be the following set of file
+could be the following set of file:
 
-```
+```txt
 ├─ assets/
 │  └─ media/
 │     └─ images/
@@ -4436,7 +4437,7 @@ could be the following set of file
 └─ webconfig.prod.json
 ```
 
-with `webconfig.json`
+with `webconfig.json`:
 
 ```json
 {
@@ -4450,7 +4451,7 @@ with `webconfig.json`
 }
 ```
 
-with `webconfig.prod.json`
+with `webconfig.prod.json`:
 
 ```json
 {
@@ -4466,7 +4467,7 @@ with `webconfig.prod.json`
 }
 ```
 
-and `optimizations.json`
+and `optimizations.json`:
 
 ```json
 {
@@ -4479,11 +4480,11 @@ and `optimizations.json`
 }
 ```
 
-*Note : it is possible to disable Optimizations by not including them in the `webconfig`.*
+*Note: it is possible to disable Optimizations by not including them in the `webconfig`.*
 
 #### Disable Optimizations ####
 
-It is also possible to not execute the optimization when run a website with NodeAtlas with `"imgOptimizationsEnable": false`.
+It is also possible to not execute the optimization when running a website with NodeAtlas with `"imgOptimizationsEnable": false`.
 
 ```json
 {
@@ -4533,9 +4534,9 @@ You can ask files to be regenerated before each page response with `"cssBundling
 
 
 
-### CSS Inline Injection for Manage Email Assets ###
+### CSS Inline Injection ###
 
-When you create templates for sending email newsletters, or even simple message, you can not attach stylesheet. The only way is to write the CSS instructions in the template within the `style` markup attribute.
+When you create templates for sending email newsletters or even simple message, you can not attach stylesheet. The only way is to write the CSS instructions in the template within the `style` markup attribute.
 
 #### Specific Injection ####
 
@@ -4557,7 +4558,7 @@ With for example the following configuration:
 
 and the following set of files:
 
-```
+```txt
 ├─ serverless/
 ├─ assets/
 │  └─ stylesheets/
@@ -4583,7 +4584,7 @@ body {
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="utf-8">
 		<title>Email</title>
 	</head>
 	<body>
@@ -4622,8 +4623,6 @@ with as content for `serverless/welcome.html`
 
 This mechanism also works if you do not intend to generate anything but a site that is running. Convenient to change your live models before generating.
 
-> Test : From `./tests/examples/css-injection` run `node "../../../" --generate`. Result are into `serverless`.
-
 #### Global Injection ####
 
 It is possible to use `injectCss` as global mechanism for all pages.
@@ -4644,13 +4643,14 @@ It is possible to use `injectCss` as global mechanism for all pages.
 }
 ```
 
-ainsi les deux pages `welcome` et `good-bye` contiendront chacune `<body style="color: #f00;">`.
+also the two pages `welcome` and `good-bye` will contain each `<body style="color: #f00;">`.
 
 #### Multiple Injection ####
 
-It's possible to :
-- Attach global and specific files in same time.
-- Attach more one CSS file by `injectCss` property.
+It's possible:
+
+- to attach global and specific files in same time,
+- to attach more one CSS file by `injectCss` property.
 
 ```json
 {
@@ -4669,8 +4669,6 @@ It's possible to :
 	}
 }
 ```
-
-> Test : From `./tests/examples/css-injection` run `node "../../../" --generate --webconfig webconfig.multiple.json`. Result are into `serverless`.
 
 
 
@@ -7159,7 +7157,7 @@ You will find all you need about server-side code from `constrollers/common.js` 
 
 ## Webconfig's Anatomy ##
 
-The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE http request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.
+The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE HTTP request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.
 
 ### &lt;NA>.webconfig ###
 
