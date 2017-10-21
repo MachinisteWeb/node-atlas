@@ -5,7 +5,7 @@
 		"portAlreadyListened": "NodeAtlas is stopped because port %port% is already listening by other application.",
 		"portRequiresPrivileges": "NodeAtlas is stopped because port %port% requires elevated privileges."
 	},
-	"closing": "NodeAtlas website is stopped.",
+	"closing": "NodeAtlas website is stopped from port %httpPort%.",
 	"uncaughtException": "NodeAtlas is closed because of an uncaught exception. More details below:",
 	"ifFileExist": "No file « %path% » found.",
 	"notFound": {

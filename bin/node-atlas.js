@@ -149,7 +149,8 @@ NA.prototype.generated = init.generated;
 NA.prototype.started = init.started;
 NA.prototype.created = init.created;
 NA.prototype.stopped = init.stopped;
-NA.prototype.stop = init.stop;
+NA.prototype.exit = init.exit;
+NA.prototype.close = init.close;
 NA.prototype.start = init.start;
 NA.prototype.run = init.run;
 
