@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta53",
+  "version": "2.0.0-beta54",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -87,7 +87,7 @@
   },
   "devDependencies": {
     "chai": "4.1.x",
-    "mocha": "3.5.x",
+    "mocha": "4.0.x",
     "request": "2.83.x"
   },
   "dependencies": {
@@ -109,7 +109,7 @@
     "imagemin-jpegtran": "5.0.x",
     "imagemin-optipng": "5.2.x",
     "imagemin-svgo": "5.2.x",
-    "jsdom": "11.2.x",
+    "jsdom": "11.3.x",
     "less": "2.7.x",
     "less-middleware": "2.2.x",
     "less-plugin-autoprefix": "1.5.x",
