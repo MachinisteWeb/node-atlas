@@ -2,7 +2,6 @@
 /* global NA */
 module.exports = function (common, template, router, webconfig) {
 	return {
-		template: template,
 		router: router,
 		data: {
 			me: {},
@@ -13,6 +12,7 @@ module.exports = function (common, template, router, webconfig) {
 			send: function () {
 				NA.socket.emit('app--change-description', this.me.description);
 			}
-		}
+		},
+		template: template
 	};
 };

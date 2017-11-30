@@ -3,7 +3,10 @@
 		<h1>{{ specific.title }}</h1>
 		<div v-html="specific.content"></div>
 		<ul>
-			<li v-for="address in specific.addresses" v-html="address"></li>
+			<li
+				v-for="address in specific.addresses"
+				v-html="address">
+			</li>
 		</ul>
 		<p><em>{{ me.description }}</em></p>
 	</div>
