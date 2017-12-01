@@ -1,4 +1,61 @@
-<h2 id="partie-avancee">Partie avancée</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="gerer-le-routage-url-rewriting">Gérer le routage (Url Rewriting)</h3><p>Bien que vous puissiez paramétrer des URL statiques, vous pouvez également paramétrer une écoute d'URL dynamiques !</p><h4 id="param-tres">Paramètres</h4><p>Il est possible de récupérer des paramètres de l'URL pour afficher un contenu différent en fonctions de leurs contenus.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+<h2 id="partie-avancee">Partie avancée</h2><p>NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.</p><h3 id="page-404">Page 404</h3><h4 id="-couter-toutes-les-url-m-me-les-adresses-du-dossier-assetsrelativepath-">Écouter toutes les URL, même les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :</p><ol>
+<li>Préparer une page 404.</li>
+<li>Remplir le paramètre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 préparée.</li>
+</ol><p>Voyez l'exemple ci-dessous :</p><pre><code class="lang-json">{
+   "pageNotFound": "/pages-inexistantes/",
+   "routes": {
+      "/liste-des-membres/": {
+         "view": "members.htm"
+      },
+      "/": {
+         "view": "index.htm"
+      },
+      "/pages-inexistantes/": {
+         "view": "error.htm",
+         "statusCode": 404
+      }
+   }
+}
+</code></pre><p>vous pourrez accéder à :</p><ul>
+<li><em><a href="http://localhost/cette-page-n-existe-pas.html">http://localhost/cette-page-n-existe-pas.html</a></em></li>
+<li><em><a href="http://localhost/elle/non/plus/">http://localhost/elle/non/plus/</a></em></li>
+<li><em><a href="http://localhost/etc">http://localhost/etc</a></em></li>
+</ul><h4 id="page-d-erreur-localis-e">Page d'erreur localisée</h4><p>Il vous suffit de créer une nouvelle route finissant par <code>*</code> dans la langue souhaitée.</p><p>Voyez l'exemple ci-dessous :</p><pre><code class="lang-json">{
+   "pageNotFound": "/pages-inexistantes/",
+   "languageCode": "fr-fr",
+   "routes": {
+      "/liste-des-membres/": {
+         "view": "members.htm",
+         "variation": "members.json"
+      },
+      "/": {
+         "view": "index.htm",
+         "variation": "index.json"
+      },
+      "/pages-inexistantes/": {
+         "view": "error.htm",
+         "variation": "error.json",
+         "statusCode": 404
+      },
+      "/english/list-of-members/": {
+         "view": "members.htm",
+         "languageCode": "en-gb",
+         "variation": "members.json"
+      },
+      "/english/": {
+         "view": "index.htm",
+         "languageCode": "en-gb",
+         "variation": "index.json"
+      },
+      "/english/*": {
+         "view": "error.htm",
+         "languageCode": "en-gb",
+         "variation": "error.json",
+         "statusCode": 404
+      }
+   }
+}
+</code></pre><h3 id="routage-dynamique">Routage dynamique</h3><p>Bien que vous puissiez paramétrer des URL statiques, vous pouvez également paramétrer une écoute d'URL dynamiques !</p><h4 id="param-tres">Paramètres</h4><p>Il est possible de récupérer des paramètres de l'URL pour afficher un contenu différent en fonctions de ces paramètres.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     "routes": {
         "/liste-des-membres/:member/:action/": {
             "view": "members.htm",
@@ -39,7 +96,7 @@
 <li><em><a href="http://localhost/liste-des-membres/etc/lolol">http://localhost/liste-des-membres/etc/lolol</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/?example=test">http://localhost/liste-des-membres/?example=test</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/etc?example=test">http://localhost/liste-des-membres/etc?example=test</a></em> (en POST avec <code>test=This+is+a+test</code>)</li>
-</ul><p>et récupérer les valeurs de <code>:member</code>, <code>:action</code>, <code>example</code> et <code>test</code> dans le <code>changeVariations</code> (common et specific).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals, request, response) {
+</ul><p>et récupérer les valeurs de <code>:member</code>, <code>:action</code>, <code>example</code> et <code>test</code> dans le <code>changeVariations</code> (commun et specifique).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals, request, response) {
 
     console.log("param request:", request.params.member);
     // $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
@@ -63,7 +120,7 @@
 
     next();
 };
-</code></pre><h3 id="parametres-avances">Paramètres avancés</h3><p>Nous voyons que nous utilisons une configuration identique pour trois routes dans l'exemple précédent. Vous pouvez également vous aider d'expressions régulières pour définir ce qui peut varier pour accéder à votre URL ou préciser quels sont les paramètres valides dans l'URL. Ce sytème est simplifié étant donné que beaucoup de caractère ne se trouve pas dans l'url. Il n'est donc pas nécéssaire par exemple d'échaper les <code>/</code> par exemple.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+</code></pre><h4 id="param-tres-avanc-s">Paramètres avancés</h4><p>Nous voyons que nous utilisons une configuration identique pour trois routes dans l'exemple précédent. Vous pouvez également vous aider d'expressions régulières pour définir ce qui peut varier pour accéder à votre URL ou préciser quels sont les paramètres valides dans l'URL. Ce sytème est simplifié étant donné que beaucoup de caractères ne se trouvent pas dans l'URL. Il n'est donc pas nécéssaire par exemple d'échaper les <code>/</code> par exemple.</p><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
     "routes": {
         "/liste-des-membres/?(:member([-a-zA-Z0-9]+)/?(:action(afficher|editer)/?)?)?": {
             "view": "members.htm"
@@ -99,7 +156,7 @@
 <li><em><a href="http://localhost/liste-des-membres/etc/lolol">http://localhost/liste-des-membres/etc/lolol</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/`toto_16`/afficher/">http://localhost/liste-des-membres/`toto_16`/afficher/</a></em></li>
 <li><em><a href="http://localhost/liste-des-membres/toto/`supprimer`/">http://localhost/liste-des-membres/toto/`supprimer`/</a></em></li>
-</ul><h4 id="expressions-r-guli-res">Expressions Régulières</h4><p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si <code>regExp</code> est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).</p><p>Voyez la configuration suivante :</p><pre><code class="lang-js">{
+</ul><h4 id="expressions-r-guli-res">Expressions régulières</h4><p>Vous pouvez également activer les expressions régulières pour un chemin précis avec <code>regExp</code>. Si celui-ci vaut <code>true</code>, le précédent mode ne fonctionne plus et vous passez en mode expression régulière. Si <code>regExp</code> est une chaine de caractères, celle-ci fait office de flag (g, i, m ou y).</p><p>Voyez la configuration suivante :</p><pre><code class="lang-js">{
     "routes": {
         "/liste-des-membres/([-a-z0-9]+)/?": {
             "view": "members.htm",
@@ -121,7 +178,7 @@
 <li><em><a href="http://localhost/liste-des-membres/bob-eponge99/">http://localhost/liste-des-membres/bob-eponge99/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/bob-eponge99">https://localhost/liste-des-membres/bob-eponge99</a></em>)</em></li>
 <li><em><a href="http://localhost/liste-des-membres/node-atlas/">http://localhost/liste-des-membres/node-atlas/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/node-atlas">https://localhost/liste-des-membres/node-atlas</a></em>)</em></li>
 <li><em><a href="http://localhost/liste-des-membres/etc/">http://localhost/liste-des-membres/etc/</a></em> <em>(ou <em><a href="https://localhost/liste-des-membres/etc">https://localhost/liste-des-membres/etc</a></em>)</em></li>
-</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariations</code> (common et specific).</p><pre><code class="lang-js">exports.changeVariation = function (next, locals) {
+</ul><p>et récupérer les valeurs de <code>([-a-z0-9]+)</code> dans le <code>changeVariations</code> (commun et spécifique).</p><pre><code class="lang-js">exports.changeVariation = function (next, locals) {
 
     if (locals.params &amp;&amp; locals.params[0]) { locals.params.member = locals.params[0]; }
     // locals.params[1] pour le deuxième match, etc...
@@ -131,64 +188,7 @@
 
     next();
 }
-</code></pre><p>Les règles de création d'url dynamique avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h3 id="gerer-les-pages-inexistantes">Gérer les pages inexistantes</h3><h4 id="-couter-toutes-les-url-m-me-les-adresses-du-dossier-assetsrelativepath-">Écouter toutes les URL, même les adresses du dossier <code>assetsRelativePath</code></h4><p>Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :</p><ol>
-<li>Préparer une page 404.</li>
-<li>Remplir le paramètre <code>pageNotFound</code> avec comme <code>value</code> la <code>key</code> de la page 404 préparée.</li>
-</ol><p>Voyez l'exemple ci-dessous :</p><pre><code class="lang-json">{
-    "pageNotFound": "/pages-inexistantes/",
-    "routes": {
-        "/liste-des-membres/": {
-            "view": "members.htm"
-        },
-        "/": {
-            "view": "index.htm"
-        },
-        "/pages-inexistantes/": {
-            "view": "error.htm",
-            "statusCode": 404
-        }
-    }
-}
-</code></pre><p>vous pourrez accéder à :</p><ul>
-<li><em><a href="http://localhost/cette-page-n-existe-pas.html">http://localhost/cette-page-n-existe-pas.html</a></em></li>
-<li><em><a href="http://localhost/elle/non/plus/">http://localhost/elle/non/plus/</a></em></li>
-<li><em><a href="http://localhost/etc">http://localhost/etc</a></em></li>
-</ul><h4 id="page-d-erreur-localis-e">Page d'erreur localisée</h4><p>Il vous suffit de créer une nouvelle route finissant par <code>*</code> dans la langue souhaitée.</p><p>Voyez l'exemple ci-dessous :</p><pre><code class="lang-json">{
-    "pageNotFound": "/pages-inexistantes/",
-    "languageCode": "fr-fr",
-    "routes": {
-        "/liste-des-membres/": {
-            "view": "members.htm",
-            "variation": "members.json"
-        },
-        "/": {
-            "view": "index.htm",
-            "variation": "index.json"
-        },
-        "/pages-inexistantes/": {
-            "view": "error.htm",
-            "variation": "error.json",
-            "statusCode": 404
-        },
-        "/english/list-of-members/": {
-            "view": "members.htm",
-            "languageCode": "en-gb",
-            "variation": "members.json"
-        },
-        "/english/": {
-            "view": "index.htm",
-            "languageCode": "en-gb",
-            "variation": "index.json"
-        },
-        "/english/*": {
-            "view": "error.htm",
-            "languageCode": "en-gb",
-            "variation": "error.json",
-            "statusCode": 404
-        }
-    }
-}
-</code></pre><h3 id="injecter-des-routes-dynamiquement">Injecter des routes dynamiquement</h3><p>Nous avons pu voir qu'avec <code>setRoutes</code> il était possible d'injecter dynamiquement des routes. Cependant, l'injection de route ne se fait qu'à la fin car <code>NA.webconfig.routes</code> est un objet. Il n'y a donc pas de moyen d'ordonner les routes, ce qui est génant car les routes sont résolu dans l'ordre dans lesquels elles ont été injectées.</p><p>Nous allons résoudre ça en changeant la manière de créer les routes de <code>routes: { &lt;key&gt;: { ... } }</code> à <code>routes: [{ "key": &lt;key&gt;, ... }]</code>.</p><p>Voici l'ensemble de fichier suivant :</p><pre><code>├─ controllers/
+</code></pre><p>Les règles de création d'URL dynamiques avec <code>regExp</code> sont celles des <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExp JavaScript</a>.</p><h3 id="routage-programmatique">Routage programmatique</h3><p>Nous avons pu voir qu'avec <code>setRoutes</code> il était possible d'injecter dynamiquement des routes. Cependant, l'injection de route ne se fait qu'à la fin car <code>NA.webconfig.routes</code> est un objet. Il n'y a donc pas de moyen d'ordonner les routes, ce qui est génant car les routes sont résolue dans l'ordre dans lesquels elles ont été injectées.</p><p>Nous allons résoudre ça en changeant la manière de créer les routes de <code>routes: { &lt;key&gt;: { ... } }</code> à <code>routes: [{ "key": &lt;key&gt;, ... }]</code>.</p><p>Voici l'ensemble de fichier suivant :</p><pre><code>├─ controllers/
 │  └─ common.js
 ├─ views/
 │  ├─ index.htm
@@ -218,7 +218,7 @@
         "statusCode": 404
     }]
 }
-</code></pre><p>Avec le fichier « common.js » nous pouvons maintenant injecter les routes à des positions précise. Nous allons les ajoutés au début.</p><pre><code class="lang-json">// On intervient au niveau des routes pendant qu'elles sont ajoutées.
+</code></pre><p>Avec le fichier <code>common.js</code> nous pouvons maintenant injecter les routes à des positions précises. Nous allons les ajouter au début.</p><pre><code class="lang-json">// On intervient au niveau des routes pendant qu'elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setRoutes = function (next) {
 
@@ -228,7 +228,7 @@ exports.setRoutes = function (next) {
         // Et nous récupérons les routes en provenance du webconfig...
         route = NA.webconfig.routes;
 
-    // ...pour ajouter la route "/content.html" au débuts de nos routes.
+    // ...pour ajouter la route `/content.html` au débuts de nos routes.
     route.unshift({
         "url": "/doc/content.html",
         "view": "content.htm"
@@ -237,7 +237,7 @@ exports.setRoutes = function (next) {
     // On redonne la main à NodeAtlas pour la suite.
     next();
 };
-</code></pre><p>De cette manière l'adresse <code>http://localhost/doc/content.html</code> renverra la vue <code>content.htm</code> et non la vue <code>error.htm</code> en 404.</p><h3 id="gerer-les-redirections">Gérer les redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p><p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p><h4 id="en-statique">En statique</h4><p>Voyez l'exemple ci-dessous :</p><pre><code class="lang-json">{
+</code></pre><p>De cette manière l'adresse <code>http://localhost/doc/content.html</code> renverra la vue <code>content.htm</code> et non la vue <code>error.htm</code> en 404.</p><h3 id="redirections">Redirections</h3><p>Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre <code>redirect</code>.</p><p><em>Note : si vous ne précisez pas un <code>statusCode</code>, la redirection ne se fera pas. Le <code>statusCode</code> est obligatoire.</em></p><h4 id="en-statique">En statique</h4><p>Voyez l'exemple ci-dessous :</p><pre><code class="lang-json">{
     "routes": {
         "/liste-des-membres/": {
             "view": "members.htm"
@@ -291,7 +291,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p><p>Pour le second <em>match</em> utilisez $1, pour le troisième $2, etc.</p><h3 id="gerer-les-headers-de-page">Gérer les Headers de page</h3><p>Par défaut, les Headers envoyé par NodeAtlas sont les suivants : <code>Content-Type:text/html; charset=utf-8</code> avec un <code>statusCode</code> à 200.</p><p>Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.</p><pre><code class="lang-json">{
+</code></pre><p>Vous serez redirigé sur <code>http://localhost/membres/haeresis/</code> quand vous accéderez à <code>http://localhost/liste-des-membres/haeresis/</code> avec une entête <em>redirection permanente</em>.</p><p>Pour le second <em>match</em> utilisez $1, pour le troisième $2, etc.</p><h3 id="entetes-http">Entêtes HTTP</h3><p>Par défaut, les entêtes HTTP envoyées par NodeAtlas sont les suivantes : <code>Content-Type:text/html; charset=utf-8</code> avec un <code>statusCode</code> à 200.</p><p>Il est tout à fait possible de modifier ces valeurs pour une entrée de route (pour des APIs local au site).</p><pre><code class="lang-json">{
     "mimeType": "application/json",
     "charset": "utf-16",
     "routes": {
@@ -307,7 +307,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><p>Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l'exception du <code>statusCode</code> donc). Mettre une valeur à <code>false</code> retire le Headers précédemment mis en place.</p><pre><code class="lang-json">{
+</code></pre><p>Il est également possible de modifier complètement les entêtes, ce qui écrase toutes les autres valeurs de headers (à l'exception du <code>statusCode</code> donc). Mettre une valeur à <code>false</code> retire le Headers précédemment mis en place.</p><pre><code class="lang-json">{
     "headers": {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*"
@@ -323,7 +323,7 @@ exports.setRoutes = function (next) {
         }
     }
 }
-</code></pre><h3 id="configuration-dynamique">Configuration dynamique</h3><p>Plutôt que d'utiliser plusieurs configurations statique <code>.json</code>, il est tout a fait possible d'utiliser des configurations dynamiques <code>.js</code>. Dans ce cas, ce que votre fichier <code>.js</code> devra retourner avec <code>module.exports</code> sera un objet JSON valide.</p><p>Nous pouvons ainsi aisément remplacer les six fichiers suivants :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</code></pre><h3 id="configuration-dynamique">Configuration dynamique</h3><p>Plutôt que d'utiliser plusieurs configurations statiques <code>.json</code>, il est tout a fait possible d'utiliser des configurations dynamiques <code>.js</code>. Dans ce cas, ce que votre fichier <code>.js</code> devra retourner avec <code>module.exports</code> sera un objet JSON valide.</p><p>Nous pouvons ainsi aisément remplacer les six fichiers suivants :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "languageCode": "fr-fr",
     "statics": "statics.fr-fr.json"
     "routes": {
@@ -359,7 +359,7 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>statics.en-us.json</em></p><pre><code class="lang-json">{
     "/variations/": "variations/en-us/",
 }
-</code></pre><p>par les deux fichiers suivants :</p><p><em>webconfig.json</em></p><pre><code class="lang-json">module.export = (function () {
+</code></pre><p>par les deux fichiers suivants :</p><p><em>webconfig.js</em></p><pre><code class="lang-json">module.export = (function () {
     var webconfig = {
         "cache": false,
         "languageCode": "fr-fr",
@@ -379,7 +379,7 @@ exports.setRoutes = function (next) {
 
     return webconfig;
 }());
-</code></pre><p><em>statics.json</em></p><pre><code class="lang-json">module.export = (function () {
+</code></pre><p><em>statics.js</em></p><pre><code class="lang-json">module.export = (function () {
     var NA = this.NA,
         languageCode = NA.webconfig.languageCode
 
@@ -395,7 +395,7 @@ LANG=en-us
 LANG=fr-fr
 </code></pre><p>Prod EN</p><pre><code class="lang-bash">NODE_ENV=PRODUCTION
 LANG=en-us
-</code></pre><h3 id="faire-tourner-le-site-en-https">Faire tourner le site en HTTPs</h3><p>Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier <code>security</code> dans lequel vous allez placer vos fichiers <code>server.key</code> et <code>server.crt</code> afin d'alimenter le protocol.</p><p>Il ne vous reste plus qu'à utiliser la configuration suivante :</p><pre><code class="lang-json">{
+</code></pre><h3 id="https">HTTPs</h3><p>Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier <code>security</code> dans lequel vous allez placer vos fichiers <code>server.key</code> et <code>server.crt</code> afin d'alimenter le protocol.</p><p>Il ne vous reste plus qu'à utiliser la configuration suivante :</p><pre><code class="lang-json">{
     "httpSecure": true,
     "httpSecureKeyRelativePath": "security/server.key",
     "httpSecureCertificateRelativePath": "security/server.crt",
@@ -405,7 +405,7 @@ LANG=en-us
         }
     }
 }
-</code></pre><p>Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration :</p><pre><code class="lang-json">{
+</code></pre><p>Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers <code>.key</code> et <code>.crt</code> portent le même nom, utiliser cette configuration :</p><pre><code class="lang-json">{
     "httpSecure": "security/server",
     "routes": {
         "/": {
@@ -421,7 +421,7 @@ LANG=en-us
         }
     }
 }
-</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n'oubliez pas qu'en HTTPs ce n'est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="autoriser-interdire-les-demandes-get-post">Autoriser / Interdire les demandes GET / POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : en production, si vous redirigez un proxy vers votre instance de NodeAtlas, n'oubliez pas qu'en HTTPs ce n'est pas <code>urlPort: 80</code> mais <code>urlPort: 443</code></em></p><h3 id="get-post">GET / POST</h3><p>Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).</p><pre><code class="lang-json">{
     "get": true,
     "post": false,
     "routes": {
@@ -441,7 +441,7 @@ LANG=en-us
         }
     }
 }
-</code></pre><p><em>Note : Si rien n'est précisé,</em> <code>get</code> <em>et</em> <code>post</code> <em>sont à</em> <code>true</code> <em>au niveau global et par page.</em></p><h3 id="autoriser-interdire-les-demandes-put-delete">Autoriser / Interdire les demandes PUT / DELETE</h3><p>Fonctionnant exactement de la même manière que <code>get</code> et <code>post</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>put</code> et <code>delete</code>.</p><pre><code class="lang-json">{
+</code></pre><p><em>Note : si rien n'est précisé,</em> <code>get</code> <em>et</em> <code>post</code> <em>sont à</em> <code>true</code> <em>au niveau global et par page.</em></p><h3 id="put-delete">PUT / DELETE</h3><p>Fonctionnant exactement de la même manière que <code>get</code> et <code>post</code>, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec <code>put</code> et <code>delete</code>.</p><pre><code class="lang-json">{
     "get": false,
     "post": false,
     "put": true,
@@ -476,7 +476,7 @@ LANG=en-us
         }
     }
 }
-</code></pre><p>Avec la configuration ci-dessus, seulement une action HTTP n'est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.</p><h3 id="gerer-cors-et-les-demandes-options">Gérér CORS et les demandes OPTIONS</h3><p>Par défaut, les requêtes pré-vérifiées ("preflighted requests") ne sont pas activées. Vous allez en avoir besoin pour, par exemple, effectuer des requêtes Cross-Domain ou CORS. Les requêtes pré-vérifiées se font avec la méthode HTTP OPTIONS.</p><p>Pour activer OPTIONS sur une route, utilisez la propriété <code>options</code> sur une route dans le webconfig. Pour activer OPTIONS sur toutes les routes, utilisez alors la propriété options du webconfig sur la configuration global.</p><pre><code class="lang-json">{
+</code></pre><p>Avec la configuration ci-dessus, seulement une action HTTP n'est possible par entrée, cela permet de faire des APIs REST facilement avec NodeAtlas.</p><h3 id="cors-et-options">CORS et OPTIONS</h3><p>Par défaut, les requêtes pré-vérifiées ("preflighted requests") ne sont pas activées. Vous allez en avoir besoin pour, par exemple, effectuer des requêtes Cross-Domain ou CORS. Les requêtes pré-vérifiées se font avec la méthode HTTP OPTIONS.</p><p>Pour activer OPTIONS sur une route, utilisez la propriété <code>options</code> sur une route dans le webconfig. Pour activer OPTIONS sur toutes les routes, utilisez alors la propriété options du webconfig sur la configuration global.</p><pre><code class="lang-json">{
     "options": true,
     "routes": {
         "/read-all-entry/": {
@@ -496,7 +496,7 @@ LANG=en-us
         }
     }
 }
-</code></pre><p><strong>Demande Cross-Domain</strong></p><p>Si vous souhaitez authoriser une ressource du serveur NodeAtlas au requête en provenance de <code>www.domain-a.com</code> pour une page précise, vous pouvez le faire ainsi :</p><pre><code class="lang-json">{
+</code></pre><h4 id="demande-cross-domain">Demande cross-domain</h4><p>Si vous souhaitez authoriser une ressource du serveur NodeAtlas au requête en provenance de <code>www.domain-a.com</code> pour une page précise, vous pouvez le faire ainsi :</p><pre><code class="lang-json">{
     "routes": {
         "/api/random-quote": {
             "controller": "get-quote.js",
@@ -511,7 +511,7 @@ Host: www.domain-a.com
 ...
 Origin: http://www.domain-a.com
 ...
-</code></pre><p><strong>Demande Cross-Domain avec jeton</strong></p><p>Si vous souhaitez authoriser des ressources du serveur NodeAtlas aux requêtes en provenance de n'importe quel domaine externe pour la page <code>/api/random-quote</code> et une page qui attend un jeton d'authentification pour la page <code>/api/protected/random-quote</code>, vous pouvez le faire ainsi :</p><pre><code class="lang-json">{
+</code></pre><p><strong>Demande cross-domain avec jeton</strong></p><p>Si vous souhaitez authoriser des ressources du serveur NodeAtlas aux requêtes en provenance de n'importe quel domaine externe pour la page <code>/api/random-quote</code> et une page qui attend un jeton d'authentification pour la page <code>/api/protected/random-quote</code>, vous pouvez le faire ainsi :</p><pre><code class="lang-json">{
     "mimeType": "application/json",
     "headers": {
         "Access-Control-Allow-Origin": "*",
@@ -528,13 +528,13 @@ Origin: http://www.domain-a.com
         }
     }
 }
-</code></pre><p>Faire lire un jeton à NodeAtlas depuis un domaine externe nécessite de lui passer l'en-tête HTML <code>Authorization</code>. Pour que celle-ci soit accepté par NodeAtlas il faut le définir avec <code>Access-Control-Allow-Headers</code> acceptant <code>Authorization</code>. L'envoi d'un jeton nécessitant une requête pré-vérifiée, il faut également mettre <code>options</code> à <code>true</code> pour autoriser les requêtes HTTP avec la méthode OPTIONS.</p><p>Ainsi vous pourrez par exemple accepter la requête suivante qui passe un jeton d'authentification à notre serveur pour la ressource <code>/api/protected/random-quote</code> :</p><pre><code class="lang-bash">GET /api/protected/random-quote HTTP/1.1
+</code></pre><p>Faire lire un jeton à NodeAtlas depuis un domaine externe nécessite de lui passer l'en-tête HTML <code>Authorization</code>. Pour que celle-ci soit acceptée par NodeAtlas il faut le définir avec <code>Access-Control-Allow-Headers</code> acceptant <code>Authorization</code>. L'envoi d'un jeton nécessitant une requête pré-vérifiée, il faut également mettre <code>options</code> à <code>true</code> pour autoriser les requêtes HTTP avec la méthode OPTIONS.</p><p>Ainsi vous pourrez par exemple accepter la requête suivante qui passe un jeton d'authentification à notre serveur pour la ressource <code>/api/protected/random-quote</code> :</p><pre><code class="lang-bash">GET /api/protected/random-quote HTTP/1.1
 Host: localhost:1337
 ...
 Origin: http://localhost
 Authorization: Bearer CODE_DU_JETON
 ...
-</code></pre><p><strong>Autre demande Cross-Domain</strong></p><p>Toutes les entêtes prévues pour faire fonctionner CORS sont accepté via le mécanisme d'ajout d'en-tête de NodeAtlas.</p><h3 id="changer-les-parametres-des-sessions">Changer les paramètres des sessions</h3><h4 id="cl-et-secret">Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p><ul>
+</code></pre><p><strong>Autre demande cross-domain</strong></p><p>Toutes les entêtes prévues pour faire fonctionner CORS sont acceptées via le mécanisme d'ajout d'en-tête de NodeAtlas.</p><h3 id="changer-les-parametres-des-sessions">Changer les paramètres des sessions</h3><h4 id="cl-et-secret">Clé et Secret</h4><p>NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :</p><ul>
 <li>Key : <code>nodeatlas.sid</code></li>
 <li>Secret : <code>1234567890bépo</code></li>
 </ul><p>qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.</p><p>Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{

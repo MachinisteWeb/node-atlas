@@ -112,16 +112,16 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
  - [Optimize Images Files](#optimize-images-files)
  - [CSS Inline Injection](#css-inline-injection)
 - [Advanced Part](#advanced-part)
- - [Manage Routing (URL Rewriting)](#manage-routing-url-rewriting)
- - [Manage a Page Not Found](#manage-a-page-not-found)
- - [Inject Routes Dynamically](#inject-routes-dynamically)
- - [Manage redirects](#manage-redirects)
- - [Manage Headers](#manage-headers)
+ - [Page Not Found](#page-not-found)
+ - [Dynamic Routing](#dynamic-routing)
+ - [Programmatic Routing](#programmatic-routing)
+ - [Redirects](#redirects)
+ - [HTTP Headers](#http-headers)
  - [Dynamic Configuration](#dynamic-configuration)
- - [Run Website with HTTPs](#run-website-with-https)
- - [Allow / Disallow GET / POST requests](#allow--disallow-get--post-requests)
- - [Allow / Disallow PUT / DELETE requests](#allow--disallow-put--delete-requests)
- - [Manage CORS and OPTIONS requests](#manage-cors-and-options-requests)
+ - [HTTPs](#https)
+ - [GET / POST](#get--post)
+ - [PUT / DELETE](#put--delete)
+ - [CORS and OPTIONS](#cors-and-options)
  - [Change settings of Sessions](#change-settings-of-sessions)
  - [External Storage Sessions](#external-storage-sessions)
  - [Change the URL hostname and listening port](#change-the-url-hostname-and-listening-port)
@@ -4676,13 +4676,97 @@ It's possible:
 
 ## Advanced Part ##
 
-NodeAtlas offers also a large set of features for development or packaging with the configuration sytem. We will see that.
+NodeAtlas offers also a large set of features for development or packaging with the configuration system. We will see that.
 
-### Manage Routing (URL Rewriting) ###
+
+
+
+### Page Not Found ###
+
+#### Listen all URLs, and also file provide by `assetsRelativePath` ####
+
+To display a custom page when a resource is not found you must:
+
+1. Prepare a 404 page.
+2. Fill the parameter with `pageNotFound` with the following `value` : `key` of the prepared 404 page.
+
+See the example below:
+
+```json
+{
+	"pageNotFound": "/not-found-page/",
+	"routes": {
+		"/list-of-members/": {
+			"view": "members.htm"
+		},
+		"/": {
+			"view": "index.htm"
+		},
+		"/not-found-page/": {
+			"view": "error.htm",
+			"statusCode": 404
+		}
+	}
+}
+```
+
+you can access to:
+
+- *http://localhost/this-page-do-not-exist.html*
+- *http://localhost/this/page/either/*
+- *http://localhost/etc*
+
+#### Localized Error Page ####
+
+For this, just create a new route with `*` at the end in language you want.
+
+See below :
+
+```json
+{
+	"pageNotFound": "/not-found-page/",
+	"languageCode": "en-gb",
+	"routes": {
+		"/list-of-members/": {
+			"view": "members.htm",
+			"variation": "members.json"
+		},
+		"/": {
+			"view": "index.htm",
+			"variation": "index.json"
+		},
+		"/not-found-page/": {
+			"view": "error.htm",
+			"variation": "error.json",
+			"statusCode": 404
+		},
+		"/francais/liste-des-membres/": {
+			"view": "members.htm",
+			"languageCode": "fr-fr",
+			"variation": "members.json"
+		},
+		"/francais/": {
+			"view": "index.htm",
+			"languageCode": "fr-fr",
+			"variation": "index.json"
+		},
+		"/francais/*": {
+			"view": "error.htm",
+			"languageCode": "fr-fr",
+			"variation": "error.json",
+			"statusCode": 404
+		}
+	}
+}
+```
+
+
+
+### Dynamic Routing ###
 
 Although you can configure static URLs, you can also set of dynamic URLs!
 
-#### Parameters ###
+#### Parameters ####
 
 It is possible to get some parameters from URL to display a different content depending of slugs.
 
@@ -4763,9 +4847,9 @@ exports.changeVariations = function (next, locals, request, response) {
 };
 ```
 
-### Advanced Parameters ###
+#### Advanced Parameters ####
 
-We can see which we use a same config for three routes in previous example. You could also use regular expressions to define that is variable into your URL or define what are the valide parameters in you URL. This system is less complexe than real RegExp because a lot of char does not exist in url so, for exemple this char `/` not needed to be escape.
+We can see which we use the same config for three routes in the previous example. You could also use regular expressions to define that is variable into your URL or define what are the valid parameters in your URL. This system is less complex than real RegExp because a lot of char does not exist in URL so, for example, this char `/` do not need to be escaped.
 
 With the following configuration:
 
@@ -4817,7 +4901,7 @@ you cannot access to:
 - *http://localhost/liste-des-membres/`toto_16`/show/*
 - *http://localhost/liste-des-membres/toto/`supprimer`/*
 
-#### Regular Expressions ###
+#### Regular Expressions ####
 
 You can also enable regular expressions to a specific path with `regExp`. If it is `true`, the previous profile no longer works and you pass in Regular Expression mode. If `regExp` is a string, it acts as a flag (g, i, m or y).
 
@@ -4865,94 +4949,13 @@ exports.changeVariations = function (next, locals) {
 }
 ```
 
-The rules for creating dynamic url with `regExp` are those of [RegExpJavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp).
+The rules for creating dynamic URL with `regExp` are those of [RegExpJavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp).
 
 
 
-### Manage a Page Not Found ###
+### Programmatic Routing ###
 
-#### Listen all URLs, and also file provide by `assetsRelativePath` ####
-
-To display a custom page when a resource is not found you must:
-
-1. Prepare a 404 page.
-2. Fill the parameter with `pageNotFound` with the following `value` : `key` of the prepared 404 page.
-
-See the example below:
-
-```json
-{
-	"pageNotFound": "/not-found-page/",
-	"routes": {
-		"/list-of-members/": {
-			"view": "members.htm"
-		},
-		"/": {
-			"view": "index.htm"
-		},
-		"/not-found-page/": {
-			"view": "error.htm",
-			"statusCode": 404
-		}
-	}
-}
-```
-
-you can access to:
-
-- *http://localhost/this-page-do-not-exist.html*
-- *http://localhost/this/page/either/*
-- *http://localhost/etc*
-
-#### Localized Error Page ####
-
-For this, just create a new route with `*` at the end with the languageCode.
-
-See below :
-
-```json
-{
-	"pageNotFound": "/not-found-page/",
-	"languageCode": "en-gb",
-	"routes": {
-		"/list-of-members/": {
-			"view": "members.htm",
-			"variation": "members.json"
-		},
-		"/": {
-			"view": "index.htm",
-			"variation": "index.json"
-		},
-		"/not-found-page/": {
-			"view": "error.htm",
-			"variation": "error.json",
-			"statusCode": 404
-		},
-		"/francais/liste-des-membres/": {
-			"view": "members.htm",
-			"languageCode": "fr-fr",
-			"variation": "members.json"
-		},
-		"/francais/": {
-			"view": "index.htm",
-			"languageCode": "fr-fr",
-			"variation": "index.json"
-		},
-		"/francais/*": {
-			"view": "error.htm",
-			"languageCode": "fr-fr",
-			"variation": "error.json",
-			"statusCode": 404
-		}
-	}
-}
-```
-
-
-
-### Inject Routes Dynamically ###
-
-`setRoutes` allows us to dynamically inject routes. However, the route injection add route at the end of `NA.webconfig.routes` because `NA.webconfig.routes` is an object. There are no possibility to ordonate routes, but this is a problem because routes path are resolved in order of injection.
+`setRoutes` allows us to dynamically inject routes. However, the route injection add a route at the end of `NA.webconfig.routes` because `NA.webconfig.routes` is an object. There are no possibility to order routes, but this is a problem because routes path are resolved in order of injection.
 
 We will resolved that with new way to set routes from `routes: { <key>: { ... } }` to `routes: [{ "key": <key>, ... }]`.
 
@@ -4968,7 +4971,7 @@ This is all files for example:
 └─ webconfig.json
 ```
 
-With the `webconfig.json` originaly like this `routes: <Object>` :
+With the `webconfig.json` originaly like this `routes: <Object>`:
 
 ```json
 {
@@ -4985,7 +4988,7 @@ With the `webconfig.json` originaly like this `routes: <Object>` :
 }
 ```
 
-and transformed like this `routes: <Array>` :
+and transformed like this `routes: <Array>`:
 
 ```json
 {
@@ -5001,7 +5004,7 @@ and transformed like this `routes: <Array>` :
 }
 ```
 
-With the "common.js" file, it's now possible to inject routes at the position we want. We will see an example with first position.
+With the `common.js` file, it's now possible to inject routes at the position we want. We will see an example at the first position.
 
 ```js
 // This code is executing while route are added.
@@ -5014,7 +5017,7 @@ exports.setRoutes = function (next) {
 		// And we keep routes from NodeAtlas webconfig...
 		route = NA.webconfig.routes;
 
-	// ...to add "/content.html" route in first place.
+	// ...to add `/content.html` route in first place.
 	route.unshift({
 		"url": "/doc/content.html",
 		"view": "content.htm"
@@ -5029,11 +5032,11 @@ In this way, address `http://localhost/doc/content.html` will return the `conten
 
 
 
-### Manage redirects ###
+### Redirects ###
 
-To go to a different address (redirect 301 or 302) when you get to a url you must use the `redirect` parameter.
+To go to a different address (redirect 301 or 302) when you get to an URL you must use the `redirect` parameter.
 
-*Note : if you don't set `statusCode`, no redirect will be executed. The `statusCode` is mandatory for redirection.*
+*Note: if you don't set `statusCode`, no redirect will be executed. The `statusCode` is mandatory for redirection.*
 
 #### Static ####
 
@@ -5120,9 +5123,9 @@ For the second *match* use $1, the third $2, etc.
 
 
 
-### Manage Headers ###
+### HTTP Headers ###
 
-By défault, sent Headers by NodeAtlas are followings: `Content-Type:text/html; charset=utf-8` with a 200 `statusCode`.
+By défault, sent headers by NodeAtlas are followings: `Content-Type:text/html; charset=utf-8` with a 200 `statusCode`.
 
 It's possible to modify this values for a specific route (for local API for example).
 
@@ -5145,7 +5148,7 @@ It's possible to modify this values for a specific route (for local API for exam
 }
 ```
 
-It's also possible to modify all Headers values, this erase all shortcuts before (except the `statusCode`). Set a value to false remove this header previously setted.
+It's also possible to modify all headers values, this erase all shortcuts before (except the `statusCode`). Set a value to false remove this header previously setted.
 
 ```json
 {
@@ -5242,7 +5245,7 @@ And it is possible to replace this six following files:
 
 by only this two following files:
 
-*webconfig.json*
+*webconfig.js*
 
 ```json
 module.export = (function () {
@@ -5267,7 +5270,7 @@ module.export = (function () {
 }());
 ```
 
-*statics.json*
+*statics.js*
 
 ```json
 module.export = (function () {
@@ -5312,7 +5315,7 @@ LANG=en-us
 
 
 
-### Run Website with HTTPs ###
+### HTTPs ###
 
 It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a `security` folder in which to place your `server.key` and `server.crt` file to supply the protocol.
 
@@ -5331,7 +5334,7 @@ Just use the following configuration:
 }
 ```
 
-Alternatively , if your two Key and Certificate files have the same name, use this configuration:
+Alternatively , if your two `.key` and `.crt` files have the same name, use this configuration:
 
 ```json
 {
@@ -5344,7 +5347,7 @@ Alternatively , if your two Key and Certificate files have the same name, use th
 }
 ```
 
-This is also possible to just set the `httpSecure` value to `true` for get a "https" like `urlBasePath` or `urlBase` in your paths variables. But the server will not running in HTTPs and you will validate certificate by your own other way (with a server proxy for example).
+This is also possible to just set the `httpSecure` value to `true` to get a "https" like `urlBasePath` or `urlBase` in your paths variables. But the server will not run in HTTPs and you will validate certificate by your own way (with a server proxy for example).
 
 ```json
 {
@@ -5357,11 +5360,11 @@ This is also possible to just set the `httpSecure` value to `true` for get a "ht
 }
 ```
 
-*Note : in production, if you use a proxy for redirect request/response, don't forget use `urlPort: 443` instead of `urlPort: 80` for HTTPs.*
+*Note: in production, if you use a proxy for redirect request/response, don't forget use `urlPort: 443` instead of `urlPort: 80` for HTTPs.*
 
 
 
-### Allow / Disallow GET / POST requests ###
+### GET / POST ###
 
 You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).
 
@@ -5388,13 +5391,13 @@ You can also manager how the server will respond to requests GET/POST to a given
 }
 ```
 
-*Note : If nothing is set,* `get` *and* `post` *are set to* `true` *in  global webconfig and by route.*
+*Note: if nothing is set,* `get` *and* `post` *are set to* `true` *in  global webconfig and by route.*
 
 
 
-### Allow / Disallow PUT / DELETE requests ###
+### PUT / DELETE ###
 
-Fonctionnant exactement de la même manière que `get` et `post`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `put` et `delete`.
+They work in the same way as `get` and `post`. This two HTTP actions PUT and DELETE are by default not activated. To active it use `put` and `delete`.
 
 ```json
 {
@@ -5438,7 +5441,7 @@ With the configuration below, only one HTTP action is possible by route, this is
 
 
 
-### Manage CORS and OPTIONS requests ###
+### CORS and OPTIONS ###
 
 By default preflighted requests are not enable. You will need its, for example, to do CORS requests. Prefilghted requests are send with OPTIONS HTTP method.
 
@@ -5467,20 +5470,20 @@ To activate OPTIONS for a route, use the `options` property on a route of the we
 }
 ```
 
-**Cross-Domain Request**
+#### Cross-Domain Request ####
 
 If you want authorize a ressource on the NodeAtlas server requested by domain `www.domain-a.com` for a single page, you could do like this:
 
 ```json
 {
 	"routes": {
-	"/api/random-quote": {
-		  "controller": "get-quote.js",
-		"headers": {
-		  "Access-Control-Allow-Origin": "http://www.domain-a.com"
+		"/api/random-quote": {
+			"controller": "get-quote.js",
+			"headers": {
+				"Access-Control-Allow-Origin": "http://www.domain-a.com"
+			}
 		}
-	  }
-  }
+	}
 }
 ```
 
@@ -5496,31 +5499,32 @@ Origin: http://www.domain-a.com
 
 **Cross-Domain Request with Token**
 
-If you want authorize ressources from NodeAtlas server to the request from anywhere for the `/api/random-quote` page and the page `/api/protected/random-quote` that claims an authentification token, you could do that like this:
+If you want authorize resources from NodeAtlas server to the request from anywhere for the `/api/random-quote` page and the page `/api/protected/random-quote` that claims an authentification token, you could do that like this:
 
 ```json
 {
-  "mimeType": "application/json",
-  "headers": {
-	"Access-Control-Allow-Origin": "*",
-	"Access-Control-Allow-Headers": "Authorization"
-  },
-  "routes": {
-	"/api/random-quote": {
-	  "controller": "get-quote.js"
+	"mimeType": "application/json",
+	"headers": {
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Headers": "Authorization"
 	},
-	"/api/protected/random-quote": {
-	  "controller": "get-quote.js",
-	  "middlewares": "is-authenticated.js",
-	  "options": true
+	"routes": {
+		"/api/random-quote": {
+			"controller": "get-quote.js"
+		},
+		"/api/protected/random-quote": {
+			"controller": "get-quote.js",
+			"middlewares": "is-authenticated.js",
+			"options": true
+		}
 	}
-  }
 }
 ```
 
-NodeAtlas will parse a token from external domain if this token is sended by `Authorization` headers in the request. For allows NodeAtlas to accept this request, define it into `Access-Control-Allow-Headers` with the accepted value `Authorization`. Send a token need a preflight request so it's required to set `options` to `true` to authorize HTTP Request with OPTIONS method.
 
-Now, you will be able to accet for example the following request which send an authentification token to our server for the `/api/protected/random-quote` ressource:
+NodeAtlas will parse a token from the external domain if this token is sent by `Authorization` headers in the request. For allows NodeAtlas to accept this request, define it into `Access-Control-Allow-Headers` with the accepted value `Authorization`. Send a token need a preflight request so it's required to set `options` to `true` to authorize HTTP Request with OPTIONS method.
+
+Now, you will be able to accept for example the following request which sends an authentification token to our server for the `/api/protected/random-quote` resource:
 
 ```bash
 GET /api/protected/random-quote HTTP/1.1

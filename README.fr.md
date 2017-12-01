@@ -112,16 +112,16 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Optimiser les images](#optimiser-les-images)
  - [Injection de CSS sur les balises](#injection-de-css-sur-les-balises)
 - [Partie avancée](#partie-avancee)
- - [Gérer le routage (URL Rewriting)](#gérer-le-routage-url-rewriting)
- - [Gérer les pages inexistantes](#gérer-les-pages-inexistantes)
- - [Injecter des routes dynamiquement](#injecter-des-routes-dynamiquement)
- - [Gérer les redirections](#gérer-les-redirections)
- - [Gérer les Headers de page](#gérer-les-headers-de-page)
+ - [Page 404](#page-404)
+ - [Routage dynamique](#routage-dynamique)
+ - [Routage programmatique](#routage-programmatique)
+ - [Redirections](#redirections)
+ - [Entêtes HTTP](#entêtes-http)
  - [Configuration dynamique](#configuration-dynamique)
- - [Faire tourner le site en HTTPs](#faire-tourner-le-site-en-https)
- - [Autoriser / Interdire les demandes GET / POST](#autoriser--interdire-les-demandes-get--post)
- - [Autoriser / Interdire les demandes PUT / DELETE](#autoriser--interdire-les-demandes-put--delete)
- - [Gérér CORS et les demandes OPTIONS](#gerer-cors-et-les-demandes-options)
+ - [HTTPs](#https)
+ - [GET / POST](#get--post)
+ - [PUT / DELETE](#put--delete)
+ - [CORS et OPTIONS](#cors-et-options)
  - [Changer les paramètres des sessions](#changer-les-paramètres-des-sessions)
  - [Stockage externe des sessions](#stockage-externe-des-sessions)
  - [Changer l'URL final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
@@ -4680,13 +4680,95 @@ Il est possible :
 
 NodeAtlas offre également tout un système de fonctionnalités de développement et de packaging à travers son sytème de configuration. Voyons cela.
 
-### Gérer le routage (Url Rewriting) ###
+
+### Page 404 ###
+
+#### Écouter toutes les URL, même les adresses du dossier `assetsRelativePath` ####
+
+Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :
+
+1. Préparer une page 404.
+2. Remplir le paramètre `pageNotFound` avec comme `value` la `key` de la page 404 préparée.
+
+Voyez l'exemple ci-dessous :
+
+```json
+{
+   "pageNotFound": "/pages-inexistantes/",
+   "routes": {
+      "/liste-des-membres/": {
+         "view": "members.htm"
+      },
+      "/": {
+         "view": "index.htm"
+      },
+      "/pages-inexistantes/": {
+         "view": "error.htm",
+         "statusCode": 404
+      }
+   }
+}
+```
+
+vous pourrez accéder à :
+
+- *http://localhost/cette-page-n-existe-pas.html*
+- *http://localhost/elle/non/plus/*
+- *http://localhost/etc*
+
+#### Page d'erreur localisée ####
+
+Il vous suffit de créer une nouvelle route finissant par `*` dans la langue souhaitée.
+
+Voyez l'exemple ci-dessous :
+
+```json
+{
+   "pageNotFound": "/pages-inexistantes/",
+   "languageCode": "fr-fr",
+   "routes": {
+      "/liste-des-membres/": {
+         "view": "members.htm",
+         "variation": "members.json"
+      },
+      "/": {
+         "view": "index.htm",
+         "variation": "index.json"
+      },
+      "/pages-inexistantes/": {
+         "view": "error.htm",
+         "variation": "error.json",
+         "statusCode": 404
+      },
+      "/english/list-of-members/": {
+         "view": "members.htm",
+         "languageCode": "en-gb",
+         "variation": "members.json"
+      },
+      "/english/": {
+         "view": "index.htm",
+         "languageCode": "en-gb",
+         "variation": "index.json"
+      },
+      "/english/*": {
+         "view": "error.htm",
+         "languageCode": "en-gb",
+         "variation": "error.json",
+         "statusCode": 404
+      }
+   }
+}
+```
+
+
+
+### Routage dynamique ###
 
 Bien que vous puissiez paramétrer des URL statiques, vous pouvez également paramétrer une écoute d'URL dynamiques !
 
-#### Paramètres ###
+#### Paramètres ####
 
-Il est possible de récupérer des paramètres de l'URL pour afficher un contenu différent en fonctions de leurs contenus.
+Il est possible de récupérer des paramètres de l'URL pour afficher un contenu différent en fonctions de ces paramètres.
 
 Avec la configuration suivante :
 
@@ -4736,7 +4818,7 @@ vous pourrez accéder à :
 - *http://localhost/liste-des-membres/?example=test*
 - *http://localhost/liste-des-membres/etc?example=test* (en POST avec `test=This+is+a+test`)
 
-et récupérer les valeurs de `:member`, `:action`, `example` et `test` dans le `changeVariations` (common et specific).
+et récupérer les valeurs de `:member`, `:action`, `example` et `test` dans le `changeVariations` (commun et specifique).
 
 ```js
 exports.changeVariations = function (next, locals, request, response) {
@@ -4765,9 +4847,9 @@ exports.changeVariations = function (next, locals, request, response) {
 };
 ```
 
-### Paramètres avancés ###
+#### Paramètres avancés ####
 
-Nous voyons que nous utilisons une configuration identique pour trois routes dans l'exemple précédent. Vous pouvez également vous aider d'expressions régulières pour définir ce qui peut varier pour accéder à votre URL ou préciser quels sont les paramètres valides dans l'URL. Ce sytème est simplifié étant donné que beaucoup de caractère ne se trouve pas dans l'url. Il n'est donc pas nécéssaire par exemple d'échaper les `/` par exemple.
+Nous voyons que nous utilisons une configuration identique pour trois routes dans l'exemple précédent. Vous pouvez également vous aider d'expressions régulières pour définir ce qui peut varier pour accéder à votre URL ou préciser quels sont les paramètres valides dans l'URL. Ce sytème est simplifié étant donné que beaucoup de caractères ne se trouvent pas dans l'URL. Il n'est donc pas nécéssaire par exemple d'échaper les `/` par exemple.
 
 Avec la configuration suivante :
 
@@ -4819,9 +4901,9 @@ vous ne pourrez pas accéder à :
 - *http://localhost/liste-des-membres/`toto_16`/afficher/*
 - *http://localhost/liste-des-membres/toto/`supprimer`/*
 
-#### Expressions Régulières ###
+#### Expressions régulières ####
 
-Vous pouvez également activer les expressions régulières pour un chemin précis avec `regExp`. Si celui-ci vaut `true`, le précédent mode ne fonctionne plus et vous passez en mode Expression Régulière. Si `regExp` est une chaine de caractère, celle-ci fait office de flag (g, i, m ou y).
+Vous pouvez également activer les expressions régulières pour un chemin précis avec `regExp`. Si celui-ci vaut `true`, le précédent mode ne fonctionne plus et vous passez en mode expression régulière. Si `regExp` est une chaine de caractères, celle-ci fait office de flag (g, i, m ou y).
 
 Voyez la configuration suivante :
 
@@ -4852,7 +4934,7 @@ vous pourrez accéder à :
 - *http://localhost/liste-des-membres/node-atlas/* _(ou *https://localhost/liste-des-membres/node-atlas*)_
 - *http://localhost/liste-des-membres/etc/* _(ou *https://localhost/liste-des-membres/etc*)_
 
-et récupérer les valeurs de `([-a-z0-9]+)` dans le `changeVariations` (common et specific).
+et récupérer les valeurs de `([-a-z0-9]+)` dans le `changeVariations` (commun et spécifique).
 
 ```js
 exports.changeVariation = function (next, locals) {
@@ -4867,94 +4949,13 @@ exports.changeVariation = function (next, locals) {
 }
 ```
 
-Les règles de création d'url dynamique avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp).
+Les règles de création d'URL dynamiques avec `regExp` sont celles des [RegExp JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp).
 
 
 
-### Gérer les pages inexistantes ###
+### Routage programmatique ###
 
-#### Écouter toutes les URL, même les adresses du dossier `assetsRelativePath` ####
-
-Pour afficher une page personnalisée quand une ressource n'est pas trouvée il faut :
-
-1. Préparer une page 404.
-2. Remplir le paramètre `pageNotFound` avec comme `value` la `key` de la page 404 préparée.
-
-Voyez l'exemple ci-dessous :
-
-```json
-{
-	"pageNotFound": "/pages-inexistantes/",
-	"routes": {
-		"/liste-des-membres/": {
-			"view": "members.htm"
-		},
-		"/": {
-			"view": "index.htm"
-		},
-		"/pages-inexistantes/": {
-			"view": "error.htm",
-			"statusCode": 404
-		}
-	}
-}
-```
-
-vous pourrez accéder à :
-
-- *http://localhost/cette-page-n-existe-pas.html*
-- *http://localhost/elle/non/plus/*
-- *http://localhost/etc*
-
-#### Page d'erreur localisée ####
-
-Il vous suffit de créer une nouvelle route finissant par `*` dans la langue souhaitée.
-
-Voyez l'exemple ci-dessous :
-
-```json
-{
-	"pageNotFound": "/pages-inexistantes/",
-	"languageCode": "fr-fr",
-	"routes": {
-		"/liste-des-membres/": {
-			"view": "members.htm",
-			"variation": "members.json"
-		},
-		"/": {
-			"view": "index.htm",
-			"variation": "index.json"
-		},
-		"/pages-inexistantes/": {
-			"view": "error.htm",
-			"variation": "error.json",
-			"statusCode": 404
-		},
-		"/english/list-of-members/": {
-			"view": "members.htm",
-			"languageCode": "en-gb",
-			"variation": "members.json"
-		},
-		"/english/": {
-			"view": "index.htm",
-			"languageCode": "en-gb",
-			"variation": "index.json"
-		},
-		"/english/*": {
-			"view": "error.htm",
-			"languageCode": "en-gb",
-			"variation": "error.json",
-			"statusCode": 404
-		}
-	}
-}
-```
-
-
-
-### Injecter des routes dynamiquement ###
-
-Nous avons pu voir qu'avec `setRoutes` il était possible d'injecter dynamiquement des routes. Cependant, l'injection de route ne se fait qu'à la fin car `NA.webconfig.routes` est un objet. Il n'y a donc pas de moyen d'ordonner les routes, ce qui est génant car les routes sont résolu dans l'ordre dans lesquels elles ont été injectées.
+Nous avons pu voir qu'avec `setRoutes` il était possible d'injecter dynamiquement des routes. Cependant, l'injection de route ne se fait qu'à la fin car `NA.webconfig.routes` est un objet. Il n'y a donc pas de moyen d'ordonner les routes, ce qui est génant car les routes sont résolue dans l'ordre dans lesquels elles ont été injectées.
 
 Nous allons résoudre ça en changeant la manière de créer les routes de `routes: { <key>: { ... } }` à `routes: [{ "key": <key>, ... }]`.
 
@@ -5003,7 +5004,7 @@ se transformant en cela avec `routes: <Array>` :
 }
 ```
 
-Avec le fichier « common.js » nous pouvons maintenant injecter les routes à des positions précise. Nous allons les ajoutés au début.
+Avec le fichier `common.js` nous pouvons maintenant injecter les routes à des positions précises. Nous allons les ajouter au début.
 
 ```json
 // On intervient au niveau des routes pendant qu'elles sont ajoutées.
@@ -5016,7 +5017,7 @@ exports.setRoutes = function (next) {
 		// Et nous récupérons les routes en provenance du webconfig...
 		route = NA.webconfig.routes;
 
-	// ...pour ajouter la route "/content.html" au débuts de nos routes.
+	// ...pour ajouter la route `/content.html` au débuts de nos routes.
 	route.unshift({
 		"url": "/doc/content.html",
 		"view": "content.htm"
@@ -5031,7 +5032,7 @@ De cette manière l'adresse `http://localhost/doc/content.html` renverra la vue 
 
 
 
-### Gérer les redirections ###
+### Redirections ###
 
 Pour aller à une autre adresse (redirection 301 ou 302) quand vous arrivez à une url il faut utiliser le paramètre `redirect`.
 
@@ -5122,11 +5123,11 @@ Pour le second *match* utilisez $1, pour le troisième $2, etc.
 
 
 
-### Gérer les Headers de page ###
+### Entêtes HTTP ###
 
-Par défaut, les Headers envoyé par NodeAtlas sont les suivants : `Content-Type:text/html; charset=utf-8` avec un `statusCode` à 200.
+Par défaut, les entêtes HTTP envoyées par NodeAtlas sont les suivantes : `Content-Type:text/html; charset=utf-8` avec un `statusCode` à 200.
 
-Il est tout à fait possible de modifier ses valeurs pour une entrée de route pour des APIs local au site.
+Il est tout à fait possible de modifier ces valeurs pour une entrée de route (pour des APIs local au site).
 
 ```json
 {
@@ -5147,7 +5148,7 @@ Il est tout à fait possible de modifier ses valeurs pour une entrée de route p
 }
 ```
 
-Il est également possible de modifier complètement les Headers, ce qui écrase toutes les autres valeurs de headers (à l'exception du `statusCode` donc). Mettre une valeur à `false` retire le Headers précédemment mis en place.
+Il est également possible de modifier complètement les entêtes, ce qui écrase toutes les autres valeurs de headers (à l'exception du `statusCode` donc). Mettre une valeur à `false` retire le Headers précédemment mis en place.
 
 ```json
 {
@@ -5172,7 +5173,7 @@ Il est également possible de modifier complètement les Headers, ce qui écrase
 
 ### Configuration dynamique ###
 
-Plutôt que d'utiliser plusieurs configurations statique `.json`, il est tout a fait possible d'utiliser des configurations dynamiques `.js`. Dans ce cas, ce que votre fichier `.js` devra retourner avec `module.exports` sera un objet JSON valide.
+Plutôt que d'utiliser plusieurs configurations statiques `.json`, il est tout a fait possible d'utiliser des configurations dynamiques `.js`. Dans ce cas, ce que votre fichier `.js` devra retourner avec `module.exports` sera un objet JSON valide.
 
 Nous pouvons ainsi aisément remplacer les six fichiers suivants :
 
@@ -5244,7 +5245,7 @@ Nous pouvons ainsi aisément remplacer les six fichiers suivants :
 
 par les deux fichiers suivants :
 
-*webconfig.json*
+*webconfig.js*
 
 ```json
 module.export = (function () {
@@ -5269,7 +5270,7 @@ module.export = (function () {
 }());
 ```
 
-*statics.json*
+*statics.js*
 
 ```json
 module.export = (function () {
@@ -5314,7 +5315,7 @@ LANG=en-us
 
 
 
-### Faire tourner le site en HTTPs ###
+### HTTPs ###
 
 Il est très simple de faire tourner une instance de NodeAtlas avec le protocol HTTPs. Pour cela il suffit de créer, par exemple un dossier `security` dans lequel vous allez placer vos fichiers `server.key` et `server.crt` afin d'alimenter le protocol.
 
@@ -5333,7 +5334,7 @@ Il ne vous reste plus qu'à utiliser la configuration suivante :
 }
 ```
 
-Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers Key et Certificate portent le même nom, utiliser cette configuration :
+Vous pouvez également, si —comme c'est le cas ici— vos deux fichiers `.key` et `.crt` portent le même nom, utiliser cette configuration :
 
 ```json
 {
@@ -5363,7 +5364,7 @@ Pour finir, il est également possible de seulement laisser la valeur de `httpSe
 
 
 
-### Autoriser / Interdire les demandes GET / POST ###
+### GET / POST ###
 
 Vous pouvez également manager la manière dont le serveur va répondre aux demandes GET/POST pour une page donnée. Par exemple, nous allons autoriser l'accès aux pages uniquement en GET pour tout le site et autoriser un POST pour une page seulement (et même lui interdire le GET).
 
@@ -5390,11 +5391,11 @@ Vous pouvez également manager la manière dont le serveur va répondre aux dema
 }
 ```
 
-*Note : Si rien n'est précisé,* `get` *et* `post` *sont à* `true` *au niveau global et par page.*
+*Note : si rien n'est précisé,* `get` *et* `post` *sont à* `true` *au niveau global et par page.*
 
 
 
-### Autoriser / Interdire les demandes PUT / DELETE ###
+### PUT / DELETE ###
 
 Fonctionnant exactement de la même manière que `get` et `post`, les deux actions HTTP PUT et DELETE qui part défaut ne sont pas activé peuvent être activé avec `put` et `delete`.
 
@@ -5440,7 +5441,7 @@ Avec la configuration ci-dessus, seulement une action HTTP n'est possible par en
 
 
 
-### Gérér CORS et les demandes OPTIONS ###
+### CORS et OPTIONS ###
 
 Par défaut, les requêtes pré-vérifiées ("preflighted requests") ne sont pas activées. Vous allez en avoir besoin pour, par exemple, effectuer des requêtes Cross-Domain ou CORS. Les requêtes pré-vérifiées se font avec la méthode HTTP OPTIONS.
 
@@ -5469,7 +5470,7 @@ Pour activer OPTIONS sur une route, utilisez la propriété `options` sur une ro
 }
 ```
 
-**Demande Cross-Domain**
+#### Demande cross-domain ####
 
 Si vous souhaitez authoriser une ressource du serveur NodeAtlas au requête en provenance de `www.domain-a.com` pour une page précise, vous pouvez le faire ainsi :
 
@@ -5496,7 +5497,7 @@ Origin: http://www.domain-a.com
 ...
 ```
 
-**Demande Cross-Domain avec jeton**
+**Demande cross-domain avec jeton**
 
 Si vous souhaitez authoriser des ressources du serveur NodeAtlas aux requêtes en provenance de n'importe quel domaine externe pour la page `/api/random-quote` et une page qui attend un jeton d'authentification pour la page `/api/protected/random-quote`, vous pouvez le faire ainsi :
 
@@ -5520,7 +5521,7 @@ Si vous souhaitez authoriser des ressources du serveur NodeAtlas aux requêtes e
 }
 ```
 
-Faire lire un jeton à NodeAtlas depuis un domaine externe nécessite de lui passer l'en-tête HTML `Authorization`. Pour que celle-ci soit accepté par NodeAtlas il faut le définir avec `Access-Control-Allow-Headers` acceptant `Authorization`. L'envoi d'un jeton nécessitant une requête pré-vérifiée, il faut également mettre `options` à `true` pour autoriser les requêtes HTTP avec la méthode OPTIONS.
+Faire lire un jeton à NodeAtlas depuis un domaine externe nécessite de lui passer l'en-tête HTML `Authorization`. Pour que celle-ci soit acceptée par NodeAtlas il faut le définir avec `Access-Control-Allow-Headers` acceptant `Authorization`. L'envoi d'un jeton nécessitant une requête pré-vérifiée, il faut également mettre `options` à `true` pour autoriser les requêtes HTTP avec la méthode OPTIONS.
 
 Ainsi vous pourrez par exemple accepter la requête suivante qui passe un jeton d'authentification à notre serveur pour la ressource `/api/protected/random-quote` :
 
@@ -5533,9 +5534,9 @@ Authorization: Bearer CODE_DU_JETON
 ...
 ```
 
-**Autre demande Cross-Domain**
+**Autre demande cross-domain**
 
-Toutes les entêtes prévues pour faire fonctionner CORS sont accepté via le mécanisme d'ajout d'en-tête de NodeAtlas.
+Toutes les entêtes prévues pour faire fonctionner CORS sont acceptées via le mécanisme d'ajout d'en-tête de NodeAtlas.
 
 
 
