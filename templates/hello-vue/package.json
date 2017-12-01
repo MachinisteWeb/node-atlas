@@ -1,10 +1,10 @@
 {
 	"dependencies": {
-		"socket.io": "1.7.x",
+		"socket.io": "2.0.x",
 		"systemjs": "0.20.x",
 		"traceur": "0.0.x",
-		"vue": "2.3.x",
+		"vue": "2.5.x",
 		"vue-router": "2.5.x",
-		"vue-server-renderer": "2.3.x"
+		"vue-server-renderer": "2.5.x"
 	}
 }
