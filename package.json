@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta56",
+  "version": "2.0.0-beta57",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -91,11 +91,11 @@
     "request": "2.83.x"
   },
   "dependencies": {
-    "async": "2.5.x",
+    "async": "2.6.x",
     "autoprefixer-stylus": "0.14.x",
     "body-parser": "1.18.x",
     "clean-css": "4.1.x",
-    "commander": "2.11.x",
+    "commander": "2.12.x",
     "compression": "1.7.x",
     "cookie-parser": "1.4.x",
     "copy-dir": "0.3.x",
@@ -108,9 +108,9 @@
     "imagemin-gifsicle": "5.2.x",
     "imagemin-jpegtran": "5.0.x",
     "imagemin-optipng": "5.2.x",
-    "imagemin-svgo": "5.2.x",
-    "jsdom": "11.3.x",
-    "less": "^3.0.0-alpha.3",
+    "imagemin-svgo": "6.0.x",
+    "jsdom": "11.5.x",
+    "less": "2.7.x",
     "less-middleware": "2.2.x",
     "less-plugin-autoprefix": "1.5.x",
     "mkpath": "1.0.x",
@@ -118,7 +118,7 @@
     "pug": "^2.0.0-beta6",
     "socket.io": "2.0.x",
     "stylus": "0.54.x",
-    "uglify-es": "3.1.x"
+    "uglify-es": "3.2.x"
   },
   "files": [
     "languages/*",
