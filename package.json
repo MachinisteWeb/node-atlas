@@ -116,9 +116,9 @@
     "mkpath": "^1.0.0",
     "open": "^0.0.5",
     "pug": "^2.0.0-rc.4",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.0.4",
     "stylus": "^0.54.5",
-    "uglify-es": "^3.2.0"
+    "uglify-es": "^3.2.4"
   },
   "files": [
     "languages/*",
