@@ -166,7 +166,7 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
  - [In a Unix environment with Nginx](#in-a-unix-environment-with-nginx)
  - [Proxy](#proxy)
 - [More About NodeAtlas](#more-about-nodeatlas)
- - [NodeAtlas VS Others](#nodeatlas-vs-others)
+ - [NodeAtlas vs. Others](#nodeatlas-vs-others)
 
 
 
@@ -8189,7 +8189,7 @@ $ forever start </path/to/>global-server.js
 
 NodeAtlas is made of such a way that the instanciate object contains all the functions allowing it to function. NodeAtlas delivers itself it's object into controllers via the methods used in the Back-end mode with Node.js for you to occasionally change his behavior.
 
-### NodeAtlas VS Others ###
+### NodeAtlas vs. Others ###
 
 |               | Type                               | Top Features                            | Suitable For                                  | Pure Node runtime | Front-end part | Main support language |
 |---------------|------------------------------------|-----------------------------------------|-----------------------------------------------|-------------------|----------------|-----------------------|

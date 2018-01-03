@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: bin/node-atlas.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: bin/node-atlas.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>#!/usr/bin/env node
+
+/*------------------------------------*\
+	SUMMARY
+\*------------------------------------*/
+/* jslint node: true */
+
+/*
+ * ABOUT..........................Informations about NodeAtlas.
+ * ALIAS..........................Come from index.js into this file.
+ * SUMMARY........................It's me !
+ * NODE ATLAS FUNCTION............Creation of Main Function.
+ *   CONFIGURATION................Global configuration variables, command tool and webconfig.
+ *   GLOBAL FUNCTIONS.............Neutral functions used more once.
+ *   NODE MODULES.................Functions used to load Node Modules.
+ *   WEB SERVER...................Functions used to run pages on http(s) protocol and use middlewares.
+ *   ROUTES.......................Functions used to add route to the server.
+ *   FRONT-END PART...............Functions used for manage Front-end part.
+ *   TOOLS........................Functions used for manage Back-end part.
+ *   ASSETS GENERATION............Functions used for create HTML assets.
+ *   INIT.........................Run all JavaScript.
+ * RUN............................Starting program.
+ */
+
+
+
+
+
+/*------------------------------------*\
+	NODE ATLAS FUNCTION
+\*------------------------------------*/
+
+var configuration = require("../lib/configuration"),
+	modules = require("../lib/modules"),
+	globals = require("../lib/globals"),
+	server = require("../lib/server"),
+	routes = require("../lib/routes"),
+	response = require("../lib/response"),
+	tools = require("../lib/tools"),
+	generation = require("../lib/generation"),
+	init = require("../lib/init"),
+
+/**
+ * Creates a new instance of NodeAtlas Website.
+ * @class NA
+ */
+NA = function () {
+
+	/* Shortcut for use NA without `new` keyword. */
+	if (!(this instanceof NA)) {
+		return new NA();
+	}
+
+	/* INIT */
+	this.configuration = init.configuration;
+	this.afterGeneration = init.afterGeneration;
+	this.afterClosing = init.afterClosing;
+	this.afterRunning = init.afterRunning;
+	this.afterNewProject = init.afterNewProject;
+};
+
+/* CONFIGURATION */
+NA.prototype.initCliConfiguration = configuration.initCliConfiguration;
+NA.prototype.initRequiredVars = configuration.initRequiredVars;
+NA.prototype.initRequiredNpmModulesVars = configuration.initRequiredNpmModulesVars;
+NA.prototype.initWebsite = configuration.initWebsite;
+NA.prototype.initServerModules = configuration.initServerModules;
+NA.prototype.createWebconfig = configuration.createWebconfig;
+
+/* NODE MODULES */
+NA.prototype.initNodeModules = modules.initNodeModules;
+NA.prototype.initNpmModules = modules.initNpmModules;
+
+/* GLOBAL FUNCTIONS */
+NA.prototype.openConfiguration = globals.openConfiguration;
+NA.prototype.log = globals.log;
+NA.prototype.openController = globals.openController;
+NA.prototype.openView = globals.openView;
+NA.prototype.openVariation = globals.openVariation;
+NA.prototype.extend = globals.extend;
+NA.prototype.clone = globals.clone;
+NA.prototype.forEach = globals.forEach;
+NA.prototype.ifFileExist = globals.ifFileExist;
+NA.prototype.common = globals.common;
+NA.prototype.specific = globals.specific;
+NA.prototype.view = globals.view;
+
+/* WEB SERVER */
+NA.prototype.simpleWebServer = server.simpleWebServer;
+NA.prototype.nodeAtlasWebServer = server.nodeAtlasWebServer;
+NA.prototype.initMiddlewares = server.initMiddlewares;
+NA.prototype.initLessProcess = server.initLessProcess;
+NA.prototype.initStylusProcess = server.initStylusProcess;
+NA.prototype.initSessions = server.initSessions;
+NA.prototype.initSockets = server.initSockets;
+NA.prototype.initConfigurations = server.initConfigurations;
+NA.prototype.initServer = server.initServer;
+
+/* ROUTES */
+NA.prototype.initStatics = routes.initStatics;
+NA.prototype.initRoutes = routes.initRoutes;
+NA.prototype.indexPage = routes.indexPage;
+
+NA.prototype.sendResponse = routes.sendResponse;
+NA.prototype.redirect = routes.redirect;
+NA.prototype.executeRequest = routes.executeRequest;
+NA.prototype.request = routes.request;
+NA.prototype.requestRegex = routes.requestRegex;
+NA.prototype.pageNotFound = routes.pageNotFound;
+
+/* RESPONSE */
+NA.prototype.prepareResponse = response.prepareResponse;
+NA.prototype.prepareHeaders = response.prepareHeaders;
+
+NA.prototype.prepareRenderLanguage = response.prepareRenderLanguage;
+NA.prototype.prepareRenderPath = response.prepareRenderPath;
+NA.prototype.prepareRenderVariation = response.prepareRenderVariation;
+NA.prototype.changeVariationsCommon = response.changeVariationsCommon;
+NA.prototype.changeVariationsSpecific = response.changeVariationsSpecific;
+NA.prototype.changeDomCommon = response.changeDomCommon;
+NA.prototype.changeDomSpecific = response.changeDomSpecific;
+NA.prototype.intoBrowserAndFiles = response.intoBrowserAndFiles;
+NA.prototype.renderTemplate = response.renderTemplate;
+
+/* TOOLS */
+NA.prototype.cssAlreadyParse = tools.cssAlreadyParse;
+NA.prototype.injectCssAuth = tools.injectCssAuth;
+NA.prototype.prepareCssInjection = tools.prepareCssInjection;
+NA.prototype.injectCss = tools.injectCss;
+NA.prototype.lessCompilation = tools.lessCompilation;
+NA.prototype.stylusCompilation = tools.stylusCompilation;
+NA.prototype.cssCompilation = tools.cssCompilation;
+NA.prototype.cssMinification = tools.cssMinification;
+NA.prototype.imgOptimization = tools.imgOptimization;
+NA.prototype.jsObfuscation = tools.jsObfuscation;
+
+/* ASSETS GENERATION */
+NA.prototype.createTemplateProject = generation.createTemplateProject;
+NA.prototype.initOutputs = generation.initOutputs;
+NA.prototype.publicsGeneration = generation.publicsGeneration;
+NA.prototype.staticsGeneration = generation.staticsGeneration;
+NA.prototype.generateAssets = generation.generateAssets;
+NA.prototype.saveRender = generation.saveRender;
+
+/* INIT */
+NA.prototype.changeLanguage = init.changeLanguage;
+NA.prototype.init = init.init;
+NA.prototype.generated = init.generated;
+NA.prototype.started = init.started;
+NA.prototype.created = init.created;
+NA.prototype.stopped = init.stopped;
+NA.prototype.exit = init.exit;
+NA.prototype.close = init.close;
+NA.prototype.start = init.start;
+NA.prototype.run = init.run;
+
+
+
+
+
+/*------------------------------------*\
+	RUN
+\*------------------------------------*/
+
+/* Run script with CLI. */
+if (require.main === module) {
+	/* Expose the NA object for isomorphism */
+	global.NA = new NA();
+	global.NA.start();
+}
+
+/* Run script with require as an API. */
+module.exports = NA;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-node-atlas.html">node-atlas</a></li></ul><h3>Externals</h3><ul><li><a href="external-async.html">async</a></li><li><a href="external-commander.html">commander</a></li><li><a href="external-ejs.html">ejs</a></li><li><a href="external-jsdom.html">jsdom</a></li><li><a href="external-less.html">less</a></li><li><a href="external-less-middleware.html">less-middleware</a></li><li><a href="external-prefixLess.html">prefixLess</a></li><li><a href="external-pug.html">pug</a></li><li><a href="external-uglify-es.html">uglify-es</a></li><li><a href="NA_modules.external_body-parser.html">body-parser</a></li><li><a href="NA_modules.external_clean-css.html">clean-css</a></li><li><a href="NA_modules.external_compression.html">compression</a></li><li><a href="NA_modules.external_cookie-parser.html">cookie-parser</a></li><li><a href="NA_modules.external_copy-dir.html">copy-dir</a></li><li><a href="NA_modules.external_css-parse.html">css-parse</a></li><li><a href="NA_modules.external_express.html">express</a></li><li><a href="NA_modules.external_express-session.html">express-session</a></li><li><a href="NA_modules.external_extend.html">extend</a></li><li><a href="NA_modules.external_imagemin.html">imagemin</a></li><li><a href="NA_modules.external_mkpath.html">mkpath</a></li><li><a href="NA_modules.external_open.html">open</a></li><li><a href="NA_modules.external_prefixStylus.html">prefixStylus</a></li><li><a href="NA_modules.external_socketio.html">socketio</a></li><li><a href="NA_modules.external_stylus.html">stylus</a></li></ul><h3>Classes</h3><ul><li><a href="NA.html">NA</a></li></ul><h3>Namespaces</h3><ul><li><a href="less.html">less</a></li><li><a href="NA_controllers%255B%255D.html">controllers[]</a></li><li><a href="NA_locals.html">locals</a></li><li><a href="NA_modules.html">modules</a></li><li><a href="NA_webconfig.html">webconfig</a></li><li><a href="NA_locals.html">routeParameters</a></li><li><a href="stylus.html">stylus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jan 03 2018 10:24:50 GMT+0100 (Paris, Madrid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

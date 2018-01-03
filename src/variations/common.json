@@ -177,7 +177,7 @@
 		"title": "Communauté",
 		"url": "https://gitter.im/NodeAtlas/Aide",
 		"menu": [{
-			"title": "Discussions Gitter",
+			"title": "Chat Gitter",
 			"url": "https://gitter.im/NodeAtlas/Aide"
 		}, {
 			"title": "Dépôt GitHub",
@@ -186,8 +186,5 @@
 			"title": "Alternatives",
 			"url": "plus-sur-nodeatlas.html"
 		}]
-	}, {
-		"title": "Et les autres ?",
-		"url": "plus-sur-nodeatlas.html"
 	}]
 }

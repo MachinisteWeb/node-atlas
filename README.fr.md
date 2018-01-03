@@ -166,7 +166,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [Dans un environnement Unix avec Nginx](#dans-un-environnement-unix-avec-nginx)
  - [Proxy](#proxy)
 - [Plus sur NodeAtlas](#plus-sur-nodeatlas)
- - [NodeAtlas VS les autres](#nodeatlas-vs-les-autres)
+ - [NodeAtlas vs. les autres](#nodeatlas-vs-les-autres)
 
 
 
@@ -8188,7 +8188,7 @@ $ forever start </path/to/>global-server.js
 
 NodeAtlas est fait de tel sorte que n'importe laquelle de ses instances contienne l'intégralité des fonctions lui permettant de fonctionner. NodeAtlas délivre lui-même son objet dans les controllers via les méthodes utilisées en mode back-end avec Node.js pour vous permettre de changer ponctuellement son comportement.
 
-### NodeAtlas VS les autres ###
+### NodeAtlas vs. les autres ###
 
 |               | Type                             | Fonctions principales                   | Adapté pour                                   | Node Module Package | Liaison client | Langue principale     |
 |---------------|----------------------------------|-----------------------------------------|-----------------------------------------------|---------------------|----------------|-----------------------|

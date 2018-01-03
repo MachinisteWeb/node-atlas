@@ -120,7 +120,7 @@
 
     next();
 };
-</code></pre><h3 id="advanced-parameters">Advanced Parameters</h3><p>We can see which we use the same config for three routes in the previous example. You could also use regular expressions to define that is variable into your URL or define what are the valid parameters in your URL. This system is less complex than real RegExp because a lot of char does not exist in URL so, for example, this char <code>/</code> do not need to be escaped.</p><p>With the following configuration:</p><pre><code class="lang-json">{
+</code></pre><h4 id="advanced-parameters">Advanced Parameters</h4><p>We can see which we use the same config for three routes in the previous example. You could also use regular expressions to define that is variable into your URL or define what are the valid parameters in your URL. This system is less complex than real RegExp because a lot of char does not exist in URL so, for example, this char <code>/</code> do not need to be escaped.</p><p>With the following configuration:</p><pre><code class="lang-json">{
     "routes": {
         "/list-of-members/?(:member([-a-zA-Z0-9]+)/?(:action(show|edit)/?)?)?": {
             "view": "members.htm"
