@@ -1,13 +1,13 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta59",
+  "version": "2.0.0-beta60",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "description": "Progressive realtime web framework config-driven or API-driven for building easily serverless files, websites and webapps component-based and service-oriented.",
   "private": false,
@@ -87,7 +87,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^4.1.0",
+    "mocha": "^5.0.0",
     "request": "^2.83.0"
   },
   "dependencies": {
@@ -95,7 +95,7 @@
     "autoprefixer-stylus": "^0.14.0",
     "body-parser": "^1.18.2",
     "clean-css": "^4.1.9",
-    "commander": "^2.12.2",
+    "commander": "^2.13.0",
     "compression": "^1.7.1",
     "cookie-parser": "^1.4.3",
     "copy-dir": "^0.3.0",
@@ -116,9 +116,9 @@
     "mkpath": "^1.0.0",
     "open": "^0.0.5",
     "pug": "^2.0.0-rc.4",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.0.4",
     "stylus": "^0.54.5",
-    "uglify-es": "^3.2.0"
+    "uglify-es": "^3.3.7"
   },
   "files": [
     "languages/*",
