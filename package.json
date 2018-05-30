@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.0-beta60",
+  "version": "2.0.0-beta62",
   "author": {
     "name": "Bruno Lesieur",
     "email": "bruno.lesieur@gmail.com"
@@ -111,10 +111,10 @@
     "imagemin-svgo": "6.0.x",
     "jsdom": "11.6.x",
     "less": "3.0.x",
-    "less-middleware": "2.2.x",
+    "less-middleware": "3.0.x",
     "less-plugin-autoprefix": "1.5.x",
     "mkpath": "1.0.x",
-    "open": "0.0.x",
+    "opn": "5.3.x",
     "pug": "2.0.x",
     "socket.io": "2.0.x",
     "stylus": "0.54.x",
