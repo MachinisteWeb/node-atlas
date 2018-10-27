@@ -25,8 +25,8 @@
     "httpSecureKeyRelativePath": String&lt;filepath-from-root&gt;,
     "httpSecureCertificateRelativePath": String&lt;filepath-from-root&gt;,
     "injectCss": (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
-    "imgOptimizationsBeforeResponse": Boolean,
-    "imgOptimizationsEnable": Boolean,
+    "imgOptimizationsBeforeResponse[removedFromV2.0.2]": Boolean,
+    "imgOptimizationsEnable[removedFromV2.0.2]": Boolean,
     "jsBundlingBeforeResponse": Boolean,
     "jsBundlingEnable": Boolean,
     "languageCode": String,
@@ -40,7 +40,7 @@
     "middlewares": (String&lt;filepath-from-middlewares&gt; | Array.String&lt;filepath-from-middlewares&gt;),
     "middlewaresRelativePath": String&lt;path-from-root&gt;,
     "mimeType": String,
-    "optimizations": (String&lt;filepath-from-root&gt; | Object{
+    "optimizations[removedFromV2.0.2]": (String&lt;filepath-from-root&gt; | Object{
         "gif": Object,
         "images": Object{
         ... url: String&lt;filepath-from-assets&gt;

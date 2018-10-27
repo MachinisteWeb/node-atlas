@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1540633099552">
+		<meta name="og:updated_time" content="1540646037019">
 
 		<meta name="robots" content="index, follow">
 
@@ -669,7 +669,7 @@ exports.changeDom = function (next, locals, request, response) {
 <li><code>NA</code> object as <code>this</code>.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     "socketClientFile": "/node-atlas/socket.io.js",
-    "socketServerOptions": { transports: ['polling', 'websocket'] },
+    "socketServerOptions": { "transports": ["polling", "websocket"] },
     "controller": "common.js",
     "routes": {
         "/": {

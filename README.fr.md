@@ -14,7 +14,7 @@ NodeAtlas est un framework JavaScript MVC(2) côté serveur sous forme de [modul
 
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particulièrement taillé pour la réalisation de sites vitrines ou d'applications web monopages hautement performante et maintenable en des temps records.
 
-   > Exemple : [Simple page web](https://bruno.lesieur.name/)
+   > Exemple : [Simple page web](https://bruno.lesieur.name/) ou [Monopage navigable](http://www.impaakt.com/).
 
 - Créer, maintenir et documenter des interfaces utilisateurs HTML / CSS / JavaScript pour fournir un ensemble de livrables clients cohérants en tant que guide de style pour la réalisation de divers sites ou applications web ou encore monter des sites sans partie serveur (par exemple pour GitHub Pages).
 
@@ -22,7 +22,7 @@ NodeAtlas est un framework JavaScript MVC(2) côté serveur sous forme de [modul
 
 - Développer des sites, des applications ou des API distantes en [Node.js](https://nodejs.org/) de manière évolutives et tournant côté serveur tout en vous permettant grâce à l'écosystème [npm](https://www.npmjs.com/) et les built-in fonctions de créer des contenus clients temps réel, de packager et optimiser vos sites pour de hautes performances, d'être orienté composant avec des réponses HTTP passant la validation W3C et parfaitement indexable par les moteurs de recherche pour le SEO.
 
-   > Exemple : [Blog](https://blog.lesieur.name/), [Portfolio](https://www.lesieur.name/) ou [API Distante](https://www.lesieur.name/api/)
+   > Exemple : [Blog](https://blog.lesieur.name/), [Portfolio](https://www.lesieur.name/), [Site](https://www.coup-critique.com/) ou [API Distante](https://www.lesieur.name/api/).
 
 
 
@@ -122,13 +122,13 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
  - [GET / POST](#get--post)
  - [PUT / DELETE](#put--delete)
  - [CORS et OPTIONS](#cors-et-options)
- - [Changer les paramètres des sessions](#changer-les-paramètres-des-sessions)
- - [Stockage externe des sessions](#stockage-externe-des-sessions)
- - [Changer l'URL final des hostname et port d'écoute](#changer-lurl-final-des-hostname-et-port-découte)
- - [Générer les URL dynamiquement](#générer-les-URL-dynamiquement)
+ - [Paramètres de sessions](#paramètres-de-sessions)
+ - [Stockage de sessions](#stockage-de-sessions)
+ - [URL d'écoute](#url-découte)
+ - [URL dynamiques](#url-dynamiques)
  - [Moteur de template personnalisé](#moteur-de-template-personnalisé)
  - [Pas de vue](#pas-de-vue)
- - [Activer le cache](#activer-le-cache)
+ - [Cache](#cache)
  - [Base de données SQL](#base-de-données-sql)
  - [Base de données NoSQL](#base-de-données-nosql)
  - [Application isomorphique](#application-isomorphique)
@@ -163,7 +163,7 @@ Vous trouverez une liste de dépôts que vous pouvez décortiquer à votre gré 
 - [Environnement de Production](#environnement-de-production)
  - [Dans un environnement Windows Server avec iisnode](#dans-un-environnement-windows-server-avec-iisnode)
  - [Dans un environnement Unix avec forever](#dans-un-environnement-unix-avec-forever)
- - [Dans un environnement Unix avec Nginx](#dans-un-environnement-unix-avec-nginx)
+ - [Dans un environnement Unix avec NGINX](#dans-un-environnement-unix-avec-nginx)
  - [Proxy](#proxy)
 - [Plus sur NodeAtlas](#plus-sur-nodeatlas)
  - [NodeAtlas vs. les autres](#nodeatlas-vs-les-autres)
@@ -2611,7 +2611,7 @@ Voici un exemple utilisant les deux points d'entrée, d'abord le commun à plusi
 ```json
 {
 	"socketClientFile": "/node-atlas/socket.io.js",
-	"socketServerOptions": { transports: ['polling', 'websocket'] },
+	"socketServerOptions": { "transports": ["polling", "websocket"] },
 	"controller": "common.js",
 	"routes": {
 		"/": {
@@ -3063,7 +3063,7 @@ Avec le `webconfig.json` :
 
 et avec le fichier `common.js` contenant par exemple :
 
-```json
+```js
 // On intervient au niveau des routes pendant qu'elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setRoutes = function (next) {
@@ -4996,7 +4996,7 @@ se transformant en cela avec `routes: <Array>` :
 {
 	"controller": "common.js",
 	"routes": [{
-		"url": "/doc/index.html
+		"url": "/doc/index.html",
 		"view": "index.htm"
 	}, {
 		"url": "/doc/*",
@@ -5008,7 +5008,7 @@ se transformant en cela avec `routes: <Array>` :
 
 Avec le fichier `common.js` nous pouvons maintenant injecter les routes à des positions précises. Nous allons les ajouter au début.
 
-```json
+```js
 // On intervient au niveau des routes pendant qu'elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setRoutes = function (next) {
@@ -5184,7 +5184,7 @@ Nous pouvons ainsi aisément remplacer les six fichiers suivants :
 ```json
 {
 	"languageCode": "fr-fr",
-	"statics": "statics.fr-fr.json"
+	"statics": "statics.fr-fr.json",
 	"routes": {
 		"/": "index.htm"
 	}
@@ -5197,7 +5197,7 @@ Nous pouvons ainsi aisément remplacer les six fichiers suivants :
 {
 	"cache": true,
 	"languageCode": "fr-fr",
-	"statics": "statics.fr-fr.json"
+	"statics": "statics.fr-fr.json",
 	"routes": {
 		"/": "index.htm"
 	}
@@ -5209,7 +5209,7 @@ Nous pouvons ainsi aisément remplacer les six fichiers suivants :
 ```json
 {
 	"languageCode": "fr-fr",
-	"statics": "statics.fr-fr.json"
+	"statics": "statics.fr-fr.json",
 	"routes": {
 		"/": "index.htm"
 	}
@@ -5222,7 +5222,7 @@ Nous pouvons ainsi aisément remplacer les six fichiers suivants :
 {
 	"cache": true,
 	"languageCode": "en-us",
-	"statics": "statics.en-us.json"
+	"statics": "statics.en-us.json",
 	"routes": {
 		"/": "index.htm"
 	}
@@ -5249,7 +5249,7 @@ par les deux fichiers suivants :
 
 *webconfig.js*
 
-```json
+```js
 module.export = (function () {
 	var webconfig = {
 		"cache": false,
@@ -5274,7 +5274,7 @@ module.export = (function () {
 
 *statics.js*
 
-```json
+```js
 module.export = (function () {
 	var NA = this.NA,
 		languageCode = NA.webconfig.languageCode
@@ -5542,23 +5542,23 @@ Toutes les entêtes prévues pour faire fonctionner CORS sont acceptées via le 
 
 
 
-### Changer les paramètres des sessions ###
+### Paramètres de sessions ###
 
-#### Clé et Secret ####
+#### Clé et secret ####
 
 NodeAtlas gère lui-même les sessions stockées sur le serveur avec comme paramètres initiaux :
 
 - Key : `nodeatlas.sid`
 - Secret : `1234567890bépo`
 
-qui permettent à un client de rester connecté à travers les pages à un même ensemble de variable personnelles côtés serveur.
+qui permettent à un client de rester connecté à travers les pages à un même ensemble de variables personnelles côtés serveur.
 
-Il est possible de modifier ses paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de `webconfig.json` suivant :
+Il est possible de modifier ces paramètres par défaut (et même obligatoire pour des sites en productions) avec les paramètres de `webconfig.json` suivant :
 
 ```json
 {
-	sessionKey: "clé personnelle",
-	sessionSecret: "secret personnel"
+	"sessionKey": "clé personnelle",
+	"sessionSecret": "secret personnel"
 }
 ```
 
@@ -5574,7 +5574,7 @@ Il est possible de changer l'intégralité des paramètres des sessions (sauf le
 		"key": "clé personnelle",
 		"secret": "secret personnel",
 		"cookie": {
-			"path": '/',
+			"path": "/",
 			"httpOnly": true,
 			"secure": false,
 			"maxAge": null
@@ -5590,7 +5590,7 @@ L'intégralité de la configuration possible se trouve sur la documentation du m
 
 
 
-### Stockage externe des sessions ###
+### Stockage de sessions ###
 
 Par défaut, c'est NodeAtlas qui stocke les sessions serveurs dans la RAM du serveur par application. Cela ne permet pas de partager des sessions utilisateurs à travers plusieurs applications NodeAtlas (ou autre) et efface toutes les sessions en cours pour une application en cas de redémarrage de celle-ci.
 
@@ -5600,7 +5600,7 @@ Pour cela il suffit d'utiliser la fonction `setSessions` dans le fichier de `con
 
 #### Session gérées avec Redis ####
 
-Implémenter le code suivant dans le `controller` commun pour stocker vos sessions dans Redis en local.
+Implémentez le code suivant dans le `controller` commun pour stocker vos sessions dans Redis en local.
 
 ```
 exports.setModules = function () {
@@ -5625,7 +5625,7 @@ Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-re
 
 #### Session gérées avec MongoDB ####
 
-Implémenter le code suivant dans `controllers/common.js` pour stocker vos sessions dans la database `sessions` d'une MongoDB locale.
+Implémentez le code suivant dans `controllers/common.js` pour stocker vos sessions dans la database `sessions` d'une MongoDB locale.
 
 ```
 exports.setModules = function () {
@@ -5647,13 +5647,13 @@ exports.setSessions = function (next) {
 };
 ```
 
-Plus d'informations sur [connect-redis](https://www.npmjs.org/package/connect-mongo).
+Plus d'informations sur [connect-mongo](https://www.npmjs.org/package/connect-mongo).
 
 
 
-### Changer l'url final des hostname et port d'écoute ###
+### URL d'écoute ###
 
-Il est possible de générer une url de visite différente des paramètres d'écoutes demandés avec `urlHostname` et `urlPort`. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
+Il est possible de générer une URL de visite différente des paramètres d'écoutes demandés avec `urlHostname` et `urlPort`. Par exemple on écoute la boucle local sur le port 80 car un script fait du Reverse Proxy depuis le port 7777 sur le 80 avec le module « http-proxy » comme ci-dessous :
 
 ```json
 {
@@ -5671,13 +5671,13 @@ Il est possible de générer une url de visite différente des paramètres d'éc
 
 
 
-### Générer les URL dynamiquement ###
+### URL dynamiques ###
 
 #### Les chemins relatifs en absolue ####
 
-Il est possible que les chemins créés à partir de votre url soient interprétés comme des sous-dossiers qui n'ont en réalité aucune existence réelle. Cela a pour conséquence de rendre l'adresse `media/images/example.jpg` initialement accessible depuis un template affiché à **http://localhost** impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `../media/images/example.jpg`).
+Il est possible que les chemins créés à partir de votre URL soient interprétés comme des sous-dossiers qui n'ont en réalité aucunes existences réelles. Cela a pour conséquence de rendre l'adresse `media/images/example.jpg` initialement accessible depuis un template affiché à **http://localhost** impossible à récupérer quand le template est affiché à **http://localhost/sub-directory/** (puisqu'il faudrait alors que notre chemin soit plutôt `../media/images/example.jpg`).
 
-Pour ne plus avoir à se soucier de l'accès aux ressources peu importe l'url qui est demandée, il suffit de transformer toutes les URL relatives telles que :
+Pour ne plus avoir à se soucier de l'accès aux ressources, peu importe l'URL qui est demandée, il suffit de transformer toutes les URL relatives telles que :
 
 ```
 <link rel="stylesheet" type="text/css" href="stylesheets/common.css" />
@@ -5751,7 +5751,7 @@ ainsi que la view `index.htm` correspondante
 <!-- ... -->
 ```
 
-je serais obligé de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'url. Le changement de configuration suivant :
+je serais obligé de changer mon lien dans le template si je change le port d'écoute ou si je change le chemin de l'URL. Le changement de configuration suivant :
 
 ```json
 {
@@ -5806,7 +5806,7 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 <!-- ... -->
 ```
 
-   *Note : `.slice(1)` permet de supprimer facilement le double `/` pour une url fonctionnelle.*
+   *Note : `.slice(1)` permet de supprimer facilement le double `/` pour une URL fonctionnelle.*
 
 2. ou comme suit
 
@@ -5817,7 +5817,7 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 <!-- ... -->
 ```
 
-   *Note : Cela donnerait par exemple `http://localhost/./home.html`, ce qui est une url fonctionnelle.*
+   *Note : Cela donnerait par exemple `http://localhost/./home.html`, ce qui est une URL fonctionnelle.*
 
 3. ou comme suit
 
@@ -5832,7 +5832,7 @@ je peux à présent écrire le lien dans le template de manière dynamique :
 
 #### Utilisation de la clé pour mapper les pages ####
 
-Il est parfois utile de connaître la clé utilisé pour la page courante afin de trouver une équivalence dans une autre langue par exemple.
+Il est parfois utile de connaître la clé utilisée pour la page courante afin de trouver une équivalence dans une autre langue par exemple.
 
 Avec le webconfig suivant :
 
@@ -5876,7 +5876,7 @@ et les fichiers de variation commun suivant en fr :
 }
 ```
 
-et en en :
+en `en` :
 
 ```json
 {
@@ -5974,7 +5974,7 @@ Ce que fait `engine`, c'est abandonner le système de NodeAtlas et passer par ce
 
 Il est tout a fait possible de passer par Express pour rendre EJS et Pug. Dans ce cas, puisque `node-atlas` embarque les modules `ejs` et `pug` en tant que dépendance, il n'est pas nécéssaire de passer par le `controller` commun et l'utilisation de `npm` pour les mettre en place. Il suffit juste d'utiliser `engine: "ejs"` ou `engine: "pug"`.
 
-Cependant, faire cela retire les bénéfices apporter par NodeAtlas pour l'utilisation de ces deux moteurs comme par exemple le support des inclusions dynamique pour Pug dans la `view` avec `#{routeParameters.view}`.
+Cependant, faire cela retire les bénéfices apportés par NodeAtlas pour l'utilisation de ces deux moteurs comme par exemple le support des inclusions dynamiques pour Pug dans la `view` avec `#{routeParameters.view}`.
 
 
 
@@ -6059,15 +6059,15 @@ Il est tout à fait possible d'obtenir à l'adresse `http://localhost/` le simpl
 
 
 
-### Activer le cache ###
+### Cache ###
 
 C'est une bonne chose de ne pas reservir des fichiers qui n'ont pas bougé pour la production. Vous pouvez mettre à `true` la valeur du webconfig `cache` pour ça:
 
 ```json
 {
-	cache: true,
-	route: {
-	  "/": "index.htm"
+	"cache": true,
+	"route": {
+		"/": "index.htm"
 	}
 }
 ```
@@ -6080,13 +6080,13 @@ node-atlas --cache
 
 ou mettre votre variable d'environnement `NODE_ENV` à `production` :
 
-> si vous êtes sous Unix/MacOS
+> si vous êtes sous Unix / MacOS
 
 > ```bash
 export NODE_ENV=production
 ```
 
-> ou si vous êtes sur windows
+> ou si vous êtes sur Windows
 
 > ```bash
 SET NODE_ENV=production
@@ -6243,7 +6243,7 @@ Nous allons utiliser le `webconfig.json` suivant avec une variable custom `_mysq
 
 Nous allons ensuite nous connecter à la base de données avec le contrôleur globale `controllers/common.js` :
 
-```json
+```js
 exports.setModules = function () {
    var NA = this;
 
@@ -6332,7 +6332,7 @@ exports.changeVariations = function (next, locals) {
 
 en utilisant le modèle `user` via le fichier de connexion à la base de données `models/connectors/user.js` :
 
-```json
+```js
 var user = require('../objects/user.js');
 
 function User(connection) {
@@ -7162,7 +7162,7 @@ Vous trouverrez tout ce qu'il faut pour appréhender la partie serveur du `const
 
 ## Anatomie du webconfig ##
 
-Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.
+Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous souhaitez ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT / DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.
 
 ### &lt;NA>.webconfig ###
 
@@ -7194,8 +7194,8 @@ Object{
 	"httpSecureKeyRelativePath": String<filepath-from-root>,
 	"httpSecureCertificateRelativePath": String<filepath-from-root>,
 	"injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-	"imgOptimizationsBeforeResponse": Boolean,
-	"imgOptimizationsEnable": Boolean,
+	"imgOptimizationsBeforeResponse[removedFromV2.0.2]": Boolean,
+	"imgOptimizationsEnable[removedFromV2.0.2]": Boolean,
 	"jsBundlingBeforeResponse": Boolean,
 	"jsBundlingEnable": Boolean,
 	"languageCode": String,
@@ -7209,7 +7209,7 @@ Object{
 	"middlewares": (String<filepath-from-middlewares> | Array.String<filepath-from-middlewares>),
 	"middlewaresRelativePath": String<path-from-root>,
 	"mimeType": String,
-	"optimizations": (String<filepath-from-root> | Object{
+	"optimizations[removedFromV2.0.2]": (String<filepath-from-root> | Object{
 		"gif": Object,
 		"images": Object{
 		... url: String<filepath-from-assets>
@@ -7295,7 +7295,7 @@ Object{
 
 La façon la plus simple de lancer NodeAtlas est de se positionner dans le répertoire hébergeant votre site et de lancer la commande `node-atlas`. Cependant il existe des options de lancement pour faire bien plus que lancer le site.
 
-Chacune des commandes qui vont suivre peut être couplée avec les autres de cette manière :
+Chacune des commandes qui vont suivre peuvent être couplées avec les autres de cette manière :
 
 ```bash
 $ node-atlas --lang fr-fr --httpSecure security/server --browse hello-world
@@ -7535,7 +7535,7 @@ $ node-atlas --lang fr-fr
 
 Vous pouvez lancez NodeAtlas via du code JavaScript.
 
-L'intégralité des fonctions privés, modules et espaces de nom de NodeAtlas sont décrit dans [la documentation de l'API](https://node-atlas.js.org/doc/node-atlas/) (En). En ce qui concerne les [Points d'ancrage c'est par ici](#cycle-de-vie-et-points-dancrage) et pour les fonctions de démarrage du serveur c'est ci-dessous :
+L'intégralité des fonctions privées, modules et espaces de nom de NodeAtlas sont décrit dans [la documentation de l'API](https://node-atlas.js.org/doc/node-atlas/) (En). En ce qui concerne les [Points d'ancrage c'est par ici](#cycle-de-vie) et pour les fonctions de démarrage du serveur c'est ci-dessous :
 
 
 
@@ -8078,9 +8078,9 @@ Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessib
 
 
 
-#### Dans un environnement Unix avec Nginx ####
+#### Dans un environnement Unix avec NGINX ####
 
-Voici un exemple de configuration pour Nginx :
+Voici un exemple de configuration pour NGINX :
 
 ```javascript
 ## Server an.example.fr
@@ -8129,7 +8129,7 @@ server {
 }
 ```
 
-`Ip_backend` doit être remplacé par l'IP de votre sous-réseaux privé. Cela peut être `127.0.0.1` si la node tourne sur le même serveur que Nginx.
+`Ip_backend` doit être remplacé par l'IP de votre sous-réseaux privé. Cela peut être `127.0.0.1` si la node tourne sur le même serveur que NGINX.
 
 `websocket` peut être remplacé par n'importe quel mot, il faudra alors aussi modifier le `proxy_pass`. Il doit être unique à chaque node.
 

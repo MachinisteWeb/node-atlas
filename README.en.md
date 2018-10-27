@@ -14,7 +14,7 @@ NodeAtlas is an MVC(2) JavaScript Server-Side Framework as an [npm module](https
 
 - Create, maintain and run internationalized websites without using a single JavaScript server file. That's it's perfect for beginners and for developing brand website or single web app with high performance quickly.
 
-	> Exemple : [Simple Web Page](https://bruno.lesieur.name/)
+	> Exemple : [Simple Web Page](https://bruno.lesieur.name/) or [Scrollable OnePage](http://www.impaakt.com/).
 
 - Create, maintain and document a set of assets HTML / CSS / JavaScript user interfaces to provide solid guidelines for the realization of website or webapp (i.e. for brands) on create serverless website (i.e. for GitHub Pages).
 
@@ -22,7 +22,7 @@ NodeAtlas is an MVC(2) JavaScript Server-Side Framework as an [npm module](https
 
 - Develop Node.js internationalized websites, scalable [Node.js](https://nodejs.org/) applications or distant APIs running of all sizes with server-based source code for high performance, indexability for SEO and W3C compliance. Distant REST APIs are also easy to create.
 
-	> Exemple : [Blog](https://blog.lesieur.name/), [Portfolio](https://www.lesieur.name/) or [Distant API](https://www.lesieur.name/api/)
+	> Exemple : [Blog](https://blog.lesieur.name/), [Portfolio](https://www.lesieur.name/), [Website](https://www.coup-critique.com/) or [Distant API](https://www.lesieur.name/api/).
 
 
 
@@ -122,13 +122,13 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
  - [GET / POST](#get--post)
  - [PUT / DELETE](#put--delete)
  - [CORS and OPTIONS](#cors-and-options)
- - [Change settings of Sessions](#change-settings-of-sessions)
- - [External Storage Sessions](#external-storage-sessions)
- - [Change the URL hostname and listening port](#change-the-url-hostname-and-listening-port)
- - [Generate URLs dynamically](#generate-URLs-dynamically)
+ - [Settings of Sessions](#settings-of-sessions)
+ - [Storage Sessions](#storage-sessions)
+ - [Listening URL](#listening-url)
+ - [Dynamic URLs](#dynamic-urls)
  - [Custom Template Engine](#custom-template-engine)
  - [No view](#no-view)
- - [Enable Cache](#enable-cache)
+ - [Cache](#cache)
  - [SQL Database](#sql-database)
  - [NoSQL Database](#nosql-database)
  - [Isomorphic App](#isomorphic-app)
@@ -163,7 +163,7 @@ You'll find a list of GitHub repositories provided by NodeAtlas community to ana
 - [Production Environment](#production-environment)
  - [In a Windows Server environment with iisnode](#in-a-windows-server-environment-with-iisnode)
  - [In a Unix environment with forever](#in-a-unix-environment-with-forever)
- - [In a Unix environment with Nginx](#in-a-unix-environment-with-nginx)
+ - [In a Unix environment with NGINX](#in-a-unix-environment-with-nginx)
  - [Proxy](#proxy)
 - [More About NodeAtlas](#more-about-nodeatlas)
  - [NodeAtlas vs. Others](#nodeatlas-vs-others)
@@ -2611,7 +2611,7 @@ This is an example using the two hooks, the common in first and after the specif
 ```json
 {
 	"socketClientFile": "/node-atlas/socket.io.js",
-	"socketServerOptions": { transports: ['polling', 'websocket'] },
+	"socketServerOptions": { "transports": ["polling", "websocket"] },
 	"controller": "common.js",
 	"routes": {
 		"/": {
@@ -4996,7 +4996,7 @@ and transformed like this `routes: <Array>`:
 {
 	"controller": "common.js",
 	"routes": [{
-		"url": "/doc/index.html
+		"url": "/doc/index.html",
 		"view": "index.htm"
 	}, {
 		"url": "/doc/*",
@@ -5197,7 +5197,7 @@ And it is possible to replace this six following files:
 {
 	"cache": true,
 	"languageCode": "fr-fr",
-	"statics": "statics.fr-fr.json"
+	"statics": "statics.fr-fr.json",
 	"routes": {
 		"/": "index.htm"
 	}
@@ -5209,7 +5209,7 @@ And it is possible to replace this six following files:
 ```json
 {
 	"languageCode": "fr-fr",
-	"statics": "statics.fr-fr.json"
+	"statics": "statics.fr-fr.json",
 	"routes": {
 		"/": "index.htm"
 	}
@@ -5222,7 +5222,7 @@ And it is possible to replace this six following files:
 {
 	"cache": true,
 	"languageCode": "en-us",
-	"statics": "statics.en-us.json"
+	"statics": "statics.en-us.json",
 	"routes": {
 		"/": "index.htm"
 	}
@@ -5249,7 +5249,7 @@ by only this two following files:
 
 *webconfig.js*
 
-```json
+```js
 module.export = (function () {
 	var webconfig = {
 		"cache": false,
@@ -5274,7 +5274,7 @@ module.export = (function () {
 
 *statics.js*
 
-```json
+```js
 module.export = (function () {
 	var NA = this.NA,
 		languageCode = NA.webconfig.languageCode
@@ -5523,7 +5523,6 @@ If you want authorize resources from NodeAtlas server to the request from anywhe
 }
 ```
 
-
 NodeAtlas will parse a token from the external domain if this token is sent by `Authorization` headers in the request. For allows NodeAtlas to accept this request, define it into `Access-Control-Allow-Headers` with the accepted value `Authorization`. Send a token need a preflight request so it's required to set `options` to `true` to authorize HTTP Request with OPTIONS method.
 
 Now, you will be able to accept for example the following request which sends an authentification token to our server for the `/api/protected/random-quote` resource:
@@ -5543,7 +5542,7 @@ All headers for CORS features are accepted by the headers adding mechanism of No
 
 
 
-### Change settings of Sessions ###
+### Settings of Sessions ###
 
 #### Key and Secret ####
 
@@ -5552,18 +5551,18 @@ NodeAtlas itself manages sessions stored on the server as initial settings:
 - Key : `nodeatlas.sid`
 - Secret : `1234567890bépo`
 
-that allow customers to stay connected through the pages to a single set of personal server side variable.
+that allows customers to stay connected through the pages to a single set of personal server-side variable.
 
 It is possible to change the default settings (and even compulsory for productions sites) with the parameters of `webconfig.json` following:
 
 ```json
 {
-	sessionKey: "personal key",
-	sessionSecret: "personal secret"
+	"sessionKey": "personal key",
+	"sessionSecret": "personal secret"
 }
 ```
 
-NodeAtlas also employs a memory storage object (MemoryStore) stoques that the information in the RAM of the server.
+NodeAtlas also employs a memory storage object (MemoryStore) to stock the information in the RAM of the server.
 
 #### Other Parameters ####
 
@@ -5575,7 +5574,7 @@ It is possible to change all the parameters of the sessions (except MemoryStore)
 		"key": "personal key",
 		"secret": "personal secret",
 		"cookie": {
-			"path": '/',
+			"path": "/",
 			"httpOnly": true,
 			"secure": false,
 			"maxAge": null
@@ -5591,7 +5590,7 @@ The entirety of the possible configuration is located on the module documentatio
 
 
 
-### External Storage Sessions ###
+### Storage Sessions ###
 
 By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.
 
@@ -5648,13 +5647,13 @@ exports.setSessions = function (next) {
 };
 ```
 
-More information to [connect-redis](https://www.npmjs.org/package/connect-mongo) page.
+More information to [connect-mongo](https://www.npmjs.org/package/connect-mongo) page.
 
 
 
-### Change the url hostname and listening port ###
+### Listening URL ###
 
-It is possible to generate a different url listening other port with `urlHostname` and `urlPort`. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:
+It is possible to generate a different URL listening other port with `urlHostname` and `urlPort`. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:
 
 ```json
 {
@@ -5672,11 +5671,11 @@ It is possible to generate a different url listening other port with `urlHostnam
 
 
 
-### Generate URLs dynamically ###
+### Dynamic URLs ###
 
 #### Relative paths in absolute ####
 
-It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address `media/images/example.jpg` initially accessible from template displayed to address **http://localhost** impossible to reach when the template is displayed to address **http://localhost/sub-directory/** (because the path should be `../media/images/example.jpg`).
+It is possible that the paths created from your URL to be interpreted as subfolders that have actually no real existence. This has the effect the address `media/images/example.jpg` initially accessible from template displayed to address **http://localhost** impossible to reach when the template is displayed to address **http://localhost/sub-directory/** (because the path should be `../media/images/example.jpg`).
 
 To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the URLs such as:
 
@@ -5752,7 +5751,7 @@ and the corresponding template
 <!-- ... -->
 ```
 
-I'd have to change my link in the template if I change the listening port or if I change the path of the url. The following configuration changes:
+I'd have to change my link in the template if I change the listening port or if I change the path of the URL. The following configuration changes:
 
 ```json
 {
@@ -5807,7 +5806,7 @@ I can now write the link in the dynamic template:
 <!-- ... -->
 ```
 
-	*Note : `.slice(1)` makes it easy to remove the dual `/` for standard url.*
+	*Note: `.slice(1)` makes it easy to remove the dual `/` for standard URL.*
 
 2. or as follows
 
@@ -5818,7 +5817,7 @@ I can now write the link in the dynamic template:
 <!-- ... -->
 ```
 
-	*Note : This would, for example `http://localhost/./home.html`, which is a standard url.*
+	*Note: This would, for example `http://localhost/./home.html`, which is a standard URL.*
 
 3. ou comme suit
 
@@ -5835,7 +5834,7 @@ I can now write the link in the dynamic template:
 
 It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.
 
-With the following webconfig :
+With the following webconfig:
 
 ```json
 {
@@ -5863,7 +5862,7 @@ With the following webconfig :
 }
 ```
 
-and the common variation following :
+and the common variation following:
 
 ```json
 {
@@ -5877,7 +5876,7 @@ and the common variation following :
 }
 ```
 
-in fr :
+in `fr` :
 
 ```json
 {
@@ -5891,7 +5890,7 @@ in fr :
 }
 ```
 
-we could create link between each page as following :
+we could create link between each page as following:
 
 ```html
 <ul>
@@ -5905,7 +5904,7 @@ we could create link between each page as following :
 
 ### Custom Template Engine ###
 
-It is possible to let the [Express Template Engine implementation](http://expressjs.com/en/guide/using-template-engines.html) to bypass the NodeAtlas Template Engine implementation  for view render. To do this, use the `engine` parameter. See an example with the Handlebars engine:
+It is possible to let the [Express Template Engine implementation](http://expressjs.com/en/guide/using-template-engines.html) to bypass the NodeAtlas Template Engine implementation for view render. To do this, use the `engine` parameter. See an example with the Handlebars engine:
 
 First, add the Express Handlebars middleware amongs your modules:
 
@@ -5969,7 +5968,7 @@ finaly, see what could be the content of `index.hbs`:
 </html>
 ```
 
-The goal of `engine`, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a `response` object to render view, it is not possible to use this feature with the `NA.view` function from NodeAtlas API. `NA.view` only support, EJS, Pug and NodeAtlas syntaxe.
+The goal of `engine`, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a `response` object to render view, it is not possible to use this feature with the `NA.view` function from NodeAtlas API. `NA.view` only support, EJS, Pug and NodeAtlas syntaxes.
 
 #### Differences between `engine`, `templateEngineDelimiter` and `pug` ####
 
@@ -5981,7 +5980,7 @@ However, do this remove all additional feature added by NodeAtlas for this engin
 
 ### No view ###
 
-It is possible to not using a view and only use a controler. In this case, the `changeVariations` hook is unused. You will fill the `locals.dom` value yourself with the `changeDom` hook.
+It is possible to not using a view and only use a controller. In this case, the `changeVariations` hook is unused. You will fill the `locals.dom` value yourself with the `changeDom` hook.
 
 *webconfig.json*
 
@@ -6056,19 +6055,19 @@ exports.changeDom = function (next, locals) {
 };
 ```
 
-It is possible to have at the address `http://localhost/` a simple « Hello World » message.
+It is possible to have at the address `http://localhost/` a simple "Hello World" message.
 
 
 
-### Enable Cache ###
+### Cache ###
 
 It's a good thing to not serve file with no modification in production. You could set the websconfig's `cache` option to `true` for this:
 
 ```json
 {
-	cache: true,
-	route: {
-	  "/": "index.htm"
+	"cache": true,
+	"route": {
+		"/": "index.htm"
 	}
 }
 ```
@@ -6081,13 +6080,13 @@ node-atlas --cache
 
 or set your environment variable `NODE_ENV` to `production` :
 
-> if you are in Unix/MacOS
+> if you are in Unix / MacOS
 
 > ```bash
 export NODE_ENV=production
 ```
 
-> or if you are in windows
+> or if you are in Windows
 
 > ```bash
 SET NODE_ENV=production
@@ -7163,7 +7162,7 @@ You will find all you need about server-side code from `constrollers/common.js` 
 
 ## Webconfig's Anatomy ##
 
-The webconfig is that alow you to drive how NodeAtlas will work. If you want use views, or controllers, or if you need some variations, if you want to enable PUT/DELETE HTTP request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complet list of parameters of a webconfig. Each are optional depends on your needs.
+The webconfig is that allows you to drive how NodeAtlas will work. If you want to use views or controllers, or if you need some variations if you want to enable PUT / DELETE HTTP request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complete list of parameters of a webconfig. Each is optional depends on your needs.
 
 ### &lt;NA>.webconfig ###
 
@@ -7536,7 +7535,7 @@ $ node-atlas --lang fr-fr
 
 You could run NodeAtlas via JavaScript code.
 
-All private functions, modules and namespacese are explained here [la documentation de l'API](https://node-atlas.js.org/doc/node-atlas/). For the [Hooks it's here](#lifecycle-and-hooks) and for server start fonctions it's below :
+All private functions, modules and namespacese are explained here [la documentation de l'API](https://node-atlas.js.org/doc/node-atlas/). For the [Hooks it's here](#lifecycle) and for server start fonctions it's below :
 
 
 
@@ -8079,9 +8078,9 @@ You will then use a reverse proxy to make your site accessible on port 80.
 
 
 
-#### In a Unix environment with Nginx ####
+#### In a Unix environment with NGINX ####
 
-This is an example of Nginx's configuration:
+This is an example of NGINX's configuration:
 
 ```javascript
 ## Server an.example.fr
@@ -8130,7 +8129,7 @@ server {
 }
 ```
 
-`Ip_backend` must be replaced by your private subnetwork IP. That can be `127.0.0.1` if node run in same server as Nginx.
+`Ip_backend` must be replaced by your private subnetwork IP. That can be `127.0.0.1` if node run in same server as NGINX.
 
 `websocket` should be replaced by any word, it will be also moddify the `proxy_pass`. It must be unique to each node.
 

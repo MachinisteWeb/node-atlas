@@ -1,4 +1,4 @@
-<h2 id="anatomie-du-webconfig">Anatomie du webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous ne souhaiter ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT/DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="lang-js">Object{
+<h2 id="anatomie-du-webconfig">Anatomie du webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous souhaitez ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT / DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="lang-js">Object{
     "assetsCopy": Boolean,
     "assetsRelativePath": String&lt;path-from-root&gt;,
     "bundles": (String&lt;filepath-from-root&gt; | Object{
@@ -25,8 +25,8 @@
     "httpSecureKeyRelativePath": String&lt;filepath-from-root&gt;,
     "httpSecureCertificateRelativePath": String&lt;filepath-from-root&gt;,
     "injectCss": (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
-    "imgOptimizationsBeforeResponse": Boolean,
-    "imgOptimizationsEnable": Boolean,
+    "imgOptimizationsBeforeResponse[removedFromV2.0.2]": Boolean,
+    "imgOptimizationsEnable[removedFromV2.0.2]": Boolean,
     "jsBundlingBeforeResponse": Boolean,
     "jsBundlingEnable": Boolean,
     "languageCode": String,
@@ -40,7 +40,7 @@
     "middlewares": (String&lt;filepath-from-middlewares&gt; | Array.String&lt;filepath-from-middlewares&gt;),
     "middlewaresRelativePath": String&lt;path-from-root&gt;,
     "mimeType": String,
-    "optimizations": (String&lt;filepath-from-root&gt; | Object{
+    "optimizations[removedFromV2.0.2]": (String&lt;filepath-from-root&gt; | Object{
         "gif": Object,
         "images": Object{
         ... url: String&lt;filepath-from-assets&gt;

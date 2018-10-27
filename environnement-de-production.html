@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1540633097384">
+		<meta name="og:updated_time" content="1540646034927">
 
 		<meta name="robots" content="index, follow">
 
@@ -448,7 +448,7 @@ site-hello-world/
         ...
     }
 }
-</code></pre><p>Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessible sur le port 80.</p><h4 id="dans-un-environnement-unix-avec-nginx">Dans un environnement Unix avec Nginx</h4><p>Voici un exemple de configuration pour Nginx :</p><pre><code class="lang-javascript">## Server an.example.fr
+</code></pre><p>Il vous faudra ensuite utiliser un reverse-proxy pour rendre votre site accessible sur le port 80.</p><h4 id="dans-un-environnement-unix-avec-nginx">Dans un environnement Unix avec NGINX</h4><p>Voici un exemple de configuration pour NGINX :</p><pre><code class="lang-javascript">## Server an.example.fr
 
 upstream websocket {
     server Ip_backend:7777;
@@ -492,7 +492,7 @@ server {
             root /var/www/nginx-default;
     }
 }
-</code></pre><p><code>Ip_backend</code> doit être remplacé par l'IP de votre sous-réseaux privé. Cela peut être <code>127.0.0.1</code> si la node tourne sur le même serveur que Nginx.</p><p><code>websocket</code> peut être remplacé par n'importe quel mot, il faudra alors aussi modifier le <code>proxy_pass</code>. Il doit être unique à chaque node.</p><h3 id="proxy">Proxy</h3><h4 id="bouncy">Bouncy</h4><p>Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).</p><p>Vous pouvez par exemple :</p><ul>
+</code></pre><p><code>Ip_backend</code> doit être remplacé par l'IP de votre sous-réseaux privé. Cela peut être <code>127.0.0.1</code> si la node tourne sur le même serveur que NGINX.</p><p><code>websocket</code> peut être remplacé par n'importe quel mot, il faudra alors aussi modifier le <code>proxy_pass</code>. Il doit être unique à chaque node.</p><h3 id="proxy">Proxy</h3><h4 id="bouncy">Bouncy</h4><p>Bouncy est un exemple de reverse-proxy que vous pouvez utiliser pour faire tourner divers sites NodeAtlas (avec d'autres types de site) ensemble sur le même port (le 80).</p><p>Vous pouvez par exemple :</p><ul>
 <li>lancer 3 applications Node.js sur les ports 7777, 7778 et 7779 avec forever,</li>
 <li>et en plus lancer un server apache sur le port 81</li>
 </ul><p>et rendre tous vos sites accessibles derrière des noms de domaines sur le port 80 avec Bouncy par exemple.</p><p>Voici un exemple de configuration avec Bouncy :</p><p><em>global-server.js</em></p><pre><code class="lang-javascript">var bouncy = require('bouncy');

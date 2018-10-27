@@ -317,7 +317,7 @@ exports.changeDom = function (next, locals, request, response) {
 <li><code>NA</code> object as <code>this</code>.</li>
 </ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
     "socketClientFile": "/node-atlas/socket.io.js",
-    "socketServerOptions": { transports: ['polling', 'websocket'] },
+    "socketServerOptions": { "transports": ["polling", "websocket"] },
     "controller": "common.js",
     "routes": {
         "/": {
