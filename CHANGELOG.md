@@ -1,3 +1,22 @@
+## 2.0.2 ##
+
+Removed:
+
+- `NA#imgOptimization` removed.
+- `NA#webconfig.optimizations` removed.
+- `NA#webconfig.imgOptimizationsBeforeResponse` removed.
+- `NA#webconfig.imgOptimizationsEnable` removed.
+
+
+
+## 2.0.1 ##
+
+Enhancement:
+
+- Capability to now just set "2.0.x" to use NodeAtlas.
+
+
+
 ## 2.0.0-beta ##
 
 Features:

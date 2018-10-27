@@ -18,7 +18,7 @@
    - i18n (internationalization) and l10n (localizations) quickly.
    - Express.js (web server) and Socket.io (client-server real-time connection) already configured together, easy to use and extendable,
    - EJS, Pug, Less and Stylus preprocessors ready to use,
-   - internal tools for HTML Mockups Serverless or bundles, minifications, obfuscations, optimizations of CSS, JS and images,
+   - internal tools for HTML Mockups Serverless or bundles, minifications, obfuscations, optimizations of CSS and JS,
    - isomorphism and server-side rendering with tools of your choice like Vue or React,
    - and more like DOM server manipulation, back-end code debuggable into browsers, easy HTTPs to setup.
 - Combinaison of severals NodeAtlas instances for service-oriented architecture like usage as API REST,
@@ -91,7 +91,6 @@ Create a `webconfig.json` file and dependencies files for configured your websit
     "controller": "common.js",              /* Assign the common controller file for all pages called. */
     "post": false,                          /* By default, avoid POST request on pages. */
     "bundles": "bundles.json",              /* Set CSS and JS files bundled together and minifies with an external file. */
-    "optimizations": "optimizations.json",  /* Set images to optimize for the web with an external file. */
     "htmlGenerationBeforeResponse": true,   /* Generate page currently displayed into `serverless` directory. */
     "cssBundlingBeforeResponse": true,      /* Minify CSS into `.min` files before response pages. */
     "jsBundlingBeforeResponse": true,       /* Obfuscate JS into `.min` files before response pages. */
