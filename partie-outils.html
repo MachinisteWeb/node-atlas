@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1540627550120">
+		<meta name="og:updated_time" content="1540633097024">
 
 		<meta name="robots" content="index, follow">
 
@@ -150,7 +150,7 @@ website.init({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.1</h3>
+									<h3>v2.0.2</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
@@ -865,7 +865,9 @@ website.init({
       "/": "index.htm"
    }
 }
-</code></pre><h3 id="optimiser-les-images">Optimiser les images</h3><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des optimisations existe dans le webconfig.</p><h4 id="cr-er-des-optimisations">Créer des optimisations</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+</code></pre><h3 id="optimiser-les-images-supprime-de-la-v2-0-2+">Optimiser les images (Supprimé de la v2.0.2+)</h3><blockquote>
+<p>Cette fonctionnalité n'existe plus dans la v2.0.2. La v2.0.1 est identique a cette version avec cette fonctionnalité en plus. Les versions suivantes n'incluront plus ces dépendances souffrant de vulnérabilités et n'étant plus correctement maintenues. Vous pouvez vous tourner vers d'autres outils qui ferront cela beaucoup mieux.</p>
+</blockquote><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des optimisations existe dans le webconfig.</p><h4 id="cr-er-des-optimisations">Créer des optimisations</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
    "optimizations": {
       "images": {
          "media/images/example.png": "media/images/optimized/",

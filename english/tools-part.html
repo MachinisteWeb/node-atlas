@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1540627555529">
+		<meta name="og:updated_time" content="1540633099628">
 
 		<meta name="robots" content="index, follow">
 
@@ -150,7 +150,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.1</h3>
+									<h3>v2.0.2</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
 								</div>
@@ -865,7 +865,9 @@ website.init({
         "/": "index.htm"
     }
 }
-</code></pre><h3 id="optimize-images-files">Optimize Images Files</h3><p>You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course, you can do as much as you want. The optimization files is executed every time you start NodeAtlas either as a server or via the <code>--generate</code> command if an Optimization exists in the webconfig.</p><h4 id="creating-optimizations">Creating Optimizations</h4><p>With the following configuration:</p><pre><code class="lang-json">{
+</code></pre><h3 id="optimize-images-files-removed-from-v2-0-2+">Optimize Images Files (Removed from v2.0.2+)</h3><blockquote>
+<p>This feature does not exist anymore from v2.0.2. The v2.0.1 is the same as this one but with this additional feature. The next versions will not include this dependencies that suffer of vulnerabilities and badly maintained. You can chose others tools to do greatly the job.</p>
+</blockquote><p>You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course, you can do as much as you want. The optimization files is executed every time you start NodeAtlas either as a server or via the <code>--generate</code> command if an Optimization exists in the webconfig.</p><h4 id="creating-optimizations">Creating Optimizations</h4><p>With the following configuration:</p><pre><code class="lang-json">{
     "optimizations": {
         "images": {
             "media/images/example.png": "media/images/optimized/",

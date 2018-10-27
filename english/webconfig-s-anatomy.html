@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1540627555146">
+		<meta name="og:updated_time" content="1540633099373">
 
 		<meta name="robots" content="index, follow">
 
@@ -150,7 +150,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.1</h3>
+									<h3>v2.0.2</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
 								</div>
@@ -377,8 +377,8 @@ website.init({
     "httpSecureKeyRelativePath": String&lt;filepath-from-root&gt;,
     "httpSecureCertificateRelativePath": String&lt;filepath-from-root&gt;,
     "injectCss": (String&lt;filepath-from-assets&gt; | Array.String&lt;filepath-from-assets&gt;),
-    "imgOptimizationsBeforeResponse": Boolean,
-    "imgOptimizationsEnable": Boolean,
+    "imgOptimizationsBeforeResponse[removedFromV2.0.2]": Boolean,
+    "imgOptimizationsEnable[removedFromV2.0.2]": Boolean,
     "jsBundlingBeforeResponse": Boolean,
     "jsBundlingEnable": Boolean,
     "languageCode": String,
@@ -392,7 +392,7 @@ website.init({
     "middlewares": (String&lt;filepath-from-middlewares&gt; | Array.String&lt;filepath-from-middlewares&gt;),
     "middlewaresRelativePath": String&lt;path-from-root&gt;,
     "mimeType": String,
-    "optimizations": (String&lt;filepath-from-root&gt; | Object{
+    "optimizations[removedFromV2.0.2]": (String&lt;filepath-from-root&gt; | Object{
         "gif": Object,
         "images": Object{
         ... url: String&lt;filepath-from-assets&gt;

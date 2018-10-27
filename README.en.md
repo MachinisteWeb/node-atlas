@@ -4244,7 +4244,9 @@ The `@import` used by Stylus will be capable to walk into subdirectories : `styl
 
 
 
-### Optimize Images Files ###
+### Optimize Images Files (Removed from v2.0.2+) ###
+
+> This feature does not exist anymore from v2.0.2. The v2.0.1 is the same as this one but with this additional feature. The next versions will not include this dependencies that suffer of vulnerabilities and badly maintained. You can chose others tools to do greatly the job.
 
 You can automatically generate optimized images files by creating Optimizations by referencing the file by input and output path. Of course, you can do as much as you want. The optimization files is executed every time you start NodeAtlas either as a server or via the `--generate` command if an Optimization exists in the webconfig.
 
@@ -7193,8 +7195,8 @@ Object{
 	"httpSecureKeyRelativePath": String<filepath-from-root>,
 	"httpSecureCertificateRelativePath": String<filepath-from-root>,
 	"injectCss": (String<filepath-from-assets> | Array.String<filepath-from-assets>),
-	"imgOptimizationsBeforeResponse": Boolean,
-	"imgOptimizationsEnable": Boolean,
+	"imgOptimizationsBeforeResponse[removedFromV2.0.2]": Boolean,
+	"imgOptimizationsEnable[removedFromV2.0.2]": Boolean,
 	"jsBundlingBeforeResponse": Boolean,
 	"jsBundlingEnable": Boolean,
 	"languageCode": String,
@@ -7208,7 +7210,7 @@ Object{
 	"middlewares": (String<filepath-from-middlewares> | Array.String<filepath-from-middlewares>),
 	"middlewaresRelativePath": String<path-from-root>,
 	"mimeType": String,
-	"optimizations": (String<filepath-from-root> | Object{
+	"optimizations[removedFromV2.0.2]": (String<filepath-from-root> | Object{
 		"gif": Object,
 		"images": Object{
 		... url: String<filepath-from-assets>

@@ -4244,7 +4244,9 @@ Par défaut, les `@import` utilisés par Stylus seront capables de fouiller dans
 
 
 
-### Optimiser les images ###
+### Optimiser les images (Supprimé de la v2.0.2+) ###
+
+> Cette fonctionnalité n'existe plus dans la v2.0.2. La v2.0.1 est identique a cette version avec cette fonctionnalité en plus. Les versions suivantes n'incluront plus ces dépendances souffrant de vulnérabilités et n'étant plus correctement maintenues. Vous pouvez vous tourner vers d'autres outils qui ferront cela beaucoup mieux.
 
 Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande `--generate` pour peu que des optimisations existe dans le webconfig.
 

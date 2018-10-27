@@ -1,5 +1,4 @@
 {
-	"optimizations": "optimizations.json",
 	"bundles": "bundles.json",
 	"less": {
 		"files": "less.json"
