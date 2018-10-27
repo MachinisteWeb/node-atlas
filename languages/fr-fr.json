@@ -22,7 +22,6 @@
 	"lessGenerate": "Less : Le fichier « %pathName% » a été compilé !",
 	"stylusGenerate": "Stylus : Le fichier « %pathName% » a été compilé !",
 	"cssGenerate": "CSS : Le fichier minifié « %pathName% » a été généré !",
-	"imgGenerate": "IMG : Le fichier optimisé « %pathName% » a été généré !",
 	"jsGenerate": "JS : Le fichier offusqué « %pathName% » a été généré !",
 	"assetsCopy": "Assets : Tout le contenu de `assetsRelativePath` a été copié dans le dossier `serverlessRelativePath`.",
 	"staticsCopy": "Statics : Tout le contenu de « %source% » a été copié dans le dossier « %dest% ».",

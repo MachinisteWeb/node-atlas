@@ -131,7 +131,6 @@ NA.prototype.lessCompilation = tools.lessCompilation;
 NA.prototype.stylusCompilation = tools.stylusCompilation;
 NA.prototype.cssCompilation = tools.cssCompilation;
 NA.prototype.cssMinification = tools.cssMinification;
-NA.prototype.imgOptimization = tools.imgOptimization;
 NA.prototype.jsObfuscation = tools.jsObfuscation;
 
 /* ASSETS GENERATION */
