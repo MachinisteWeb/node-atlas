@@ -18,7 +18,7 @@
    - de l'internationalisation (i18n) et de la localisations (l10n) rapide,
    - la puissance d'Express (serveur web) et Socket.IO (échange client-serveur temps réel) pré-configuré, simple et ajustable,
    - les préprocesseurs EJS, Pug, Less et Stylus embarqués et prêt à l'emploi,
-   - des outils interne de génération HTML sans serveur ou d'empaquetage, minifications, offuscations, optimisations de CSS, JS et images,
+   - des outils interne de génération HTML sans serveur ou d'empaquetage, minifications, offuscations, optimisations de CSS et JS,
    - des parties cliente/serveur adaptables pour de l'isomorphisme et du rendu côté serveur avec des outils de votre choix comme Vue ou React,
    - ou encore ; de la manipulation de DOM côté serveur, du debug serveur dans le navigateur, de l'HTTPs facile à mettre en place.
 - De la combinaison d'instance NodeAtlas pour des architectures basés sur le service comme l'utilisation sous forme d'API REST,
@@ -91,7 +91,6 @@ Créer un fichier `webconfig.json` et ses fichiers de dépendances pour configur
     "controller": "common.js",              /* Assigner les fonctions du contrôleur appelé sur toutes les pages. */
     "post": false,                          /* Par défaut, empêcher les requêtes de page en POST. */
     "bundles": "bundles.json",              /* Définir les fichiers CSS et JS concaténés ensemble et minifiés dans un fichier exterieur. */
-    "optimizations": "optimizations.json",  /* Définir les images à optimiser pour le web dans un fichier extérieur. */
     "htmlGenerationBeforeResponse": true,   /* Générer la page couramment affichée dans le dossier `serverless`. */
     "cssBundlingBeforeResponse": true,      /* Minifier les CSS dans des fichiers `.min` avant de renvoyer la page. */
     "jsBundlingBeforeResponse": true,       /* Offusquer les JS dans des fichiers `.min` avant de renvoyer la page. */
