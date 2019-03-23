@@ -1,3 +1,12 @@
+## 2.0.3 ##
+
+Security fix:
+
+- Solve lodash low vulnerability
+- Solve node.extend low vulnerability
+
+
+
 ## 2.0.2 ##
 
 Removed:
