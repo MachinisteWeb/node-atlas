@@ -210,7 +210,7 @@
 </code></pre><p>and transformed like this <code>routes: &lt;Array&gt;</code>:</p><pre><code class="lang-json">{
     "controller": "common.js",
     "routes": [{
-        "url": "/doc/index.html
+        "url": "/doc/index.html",
         "view": "index.htm"
     }, {
         "url": "/doc/*",
@@ -333,14 +333,14 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>webconfig.prod.json</em></p><pre><code class="lang-json">{
     "cache": true,
     "languageCode": "fr-fr",
-    "statics": "statics.fr-fr.json"
+    "statics": "statics.fr-fr.json",
     "routes": {
         "/": "index.htm"
     }
 }
 </code></pre><p><em>webconfig.en-us.json</em></p><pre><code class="lang-json">{
     "languageCode": "fr-fr",
-    "statics": "statics.fr-fr.json"
+    "statics": "statics.fr-fr.json",
     "routes": {
         "/": "index.htm"
     }
@@ -348,7 +348,7 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>webconfig.en-us.prod.json</em></p><pre><code class="lang-json">{
     "cache": true,
     "languageCode": "en-us",
-    "statics": "statics.en-us.json"
+    "statics": "statics.en-us.json",
     "routes": {
         "/": "index.htm"
     }
@@ -359,7 +359,7 @@ exports.setRoutes = function (next) {
 </code></pre><p><em>statics.en-us.json</em></p><pre><code class="lang-json">{
     "/variations/": "variations/en-us/",
 }
-</code></pre><p>by only this two following files:</p><p><em>webconfig.js</em></p><pre><code class="lang-json">module.export = (function () {
+</code></pre><p>by only this two following files:</p><p><em>webconfig.js</em></p><pre><code class="lang-js">module.export = (function () {
     var webconfig = {
         "cache": false,
         "languageCode": "fr-fr",
@@ -379,7 +379,7 @@ exports.setRoutes = function (next) {
 
     return webconfig;
 }());
-</code></pre><p><em>statics.js</em></p><pre><code class="lang-json">module.export = (function () {
+</code></pre><p><em>statics.js</em></p><pre><code class="lang-js">module.export = (function () {
     var NA = this.NA,
         languageCode = NA.webconfig.languageCode
 
@@ -534,19 +534,19 @@ Host: localhost:1337
 Origin: http://localhost
 Authorization: Bearer CODE_DU_JETON
 ...
-</code></pre><p><strong>Other Cross-Domain requests</strong></p><p>All headers for CORS features are accepted by the headers adding mechanism of NodeAtlas.</p><h3 id="change-settings-of-sessions">Change settings of Sessions</h3><h4 id="key-and-secret">Key and Secret</h4><p>NodeAtlas itself manages sessions stored on the server as initial settings:</p><ul>
+</code></pre><p><strong>Other Cross-Domain requests</strong></p><p>All headers for CORS features are accepted by the headers adding mechanism of NodeAtlas.</p><h3 id="settings-of-sessions">Settings of Sessions</h3><h4 id="key-and-secret">Key and Secret</h4><p>NodeAtlas itself manages sessions stored on the server as initial settings:</p><ul>
 <li>Key : <code>nodeatlas.sid</code></li>
 <li>Secret : <code>1234567890bépo</code></li>
-</ul><p>that allow customers to stay connected through the pages to a single set of personal server side variable.</p><p>It is possible to change the default settings (and even compulsory for productions sites) with the parameters of <code>webconfig.json</code> following:</p><pre><code class="lang-json">{
-    sessionKey: "personal key",
-    sessionSecret: "personal secret"
+</ul><p>that allows customers to stay connected through the pages to a single set of personal server-side variable.</p><p>It is possible to change the default settings (and even compulsory for productions sites) with the parameters of <code>webconfig.json</code> following:</p><pre><code class="lang-json">{
+    "sessionKey": "personal key",
+    "sessionSecret": "personal secret"
 }
-</code></pre><p>NodeAtlas also employs a memory storage object (MemoryStore) stoques that the information in the RAM of the server.</p><h4 id="other-parameters">Other Parameters</h4><p>It is possible to change all the parameters of the sessions (except MemoryStore) using the configuration of next <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+</code></pre><p>NodeAtlas also employs a memory storage object (MemoryStore) to stock the information in the RAM of the server.</p><h4 id="other-parameters">Other Parameters</h4><p>It is possible to change all the parameters of the sessions (except MemoryStore) using the configuration of next <code>webconfig.json</code>:</p><pre><code class="lang-json">{
     "session": {
         "key": "personal key",
         "secret": "personal secret",
         "cookie": {
-            "path": '/',
+            "path": "/",
             "httpOnly": true,
             "secure": false,
             "maxAge": null
@@ -556,7 +556,7 @@ Authorization: Bearer CODE_DU_JETON
         ...
     }
 }
-</code></pre><p>The entirety of the possible configuration is located on the module documentation <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="external-storage-sessions">External Storage Sessions</h3><p>By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.</p><p>To address this concern, it should support the recording sessions via a base No SQL such as <code>Redis</code> or <code>MongoBD</code>.</p><p>You just have to use the <code>setSessions</code> function in common <code>controller</code> file.</p><h4 id="session-managed-with-redis">Session managed with Redis</h4><p>Implement the following code in the common <code>controller</code> file to store your sessions in a local Redis.</p><pre><code class="lang-js">exports.setModules = function () {
+</code></pre><p>The entirety of the possible configuration is located on the module documentation <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="storage-sessions">Storage Sessions</h3><p>By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.</p><p>To address this concern, it should support the recording sessions via a base No SQL such as <code>Redis</code> or <code>MongoBD</code>.</p><p>You just have to use the <code>setSessions</code> function in common <code>controller</code> file.</p><h4 id="session-managed-with-redis">Session managed with Redis</h4><p>Implement the following code in the common <code>controller</code> file to store your sessions in a local Redis.</p><pre><code class="lang-js">exports.setModules = function () {
     var NA = this;
 
     NA.modules.RedisStore = require("connect-redis");
@@ -588,7 +588,7 @@ exports.setSessions = function (next) {
 
     next();
 };
-</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-redis</a> page.</p><h3 id="change-the-url-hostname-and-listening-port">Change the url hostname and listening port</h3><p>It is possible to generate a different url listening other port with <code>urlHostname</code> and <code>urlPort</code>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:</p><pre><code class="lang-json">{
+</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-mongo</a> page.</p><h3 id="listening-url">Listening URL</h3><p>It is possible to generate a different URL listening other port with <code>urlHostname</code> and <code>urlPort</code>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:</p><pre><code class="lang-json">{
     "httpPort": 7777,
     "httpHostname": "127.0.0.1",
     "urlPort": 80,
@@ -599,7 +599,7 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><h3 id="generate-urls-dynamically">Generate URLs dynamically</h3><h4 id="relative-paths-in-absolute">Relative paths in absolute</h4><p>It is possible that the paths created from your url to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong><a href="http://localhost">http://localhost</a></strong> impossible to reach when the template is displayed to address <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (because the path should be <code>../media/images/example.jpg</code>).</p><p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the URLs such as:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
+</code></pre><h3 id="dynamic-urls">Dynamic URLs</h3><h4 id="relative-paths-in-absolute">Relative paths in absolute</h4><p>It is possible that the paths created from your URL to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong><a href="http://localhost">http://localhost</a></strong> impossible to reach when the template is displayed to address <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (because the path should be <code>../media/images/example.jpg</code>).</p><p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the URLs such as:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
 &lt;!-- ... --&gt;
 &lt;img src="media/images/example.jpg" /&gt;
 &lt;!-- ... --&gt;
@@ -639,7 +639,7 @@ exports.setSessions = function (next) {
 &lt;a href="http://localhost/index.html"&gt;Link to home&lt;/a&gt;
 &lt;a href="http://localhost/contact.html"&gt;Link to contact&lt;/a&gt;
 &lt;!-- ... --&gt;
-</code></pre><p>I'd have to change my link in the template if I change the listening port or if I change the path of the url. The following configuration changes:</p><pre><code class="lang-json">{
+</code></pre><p>I'd have to change my link in the template if I change the listening port or if I change the path of the URL. The following configuration changes:</p><pre><code class="lang-json">{
     "httpPort": 7777,
     "routes": {
         "/home.html": {
@@ -673,7 +673,7 @@ exports.setSessions = function (next) {
 &lt;a href="&lt;?= urlBasePath ?&gt;&lt;?= webconfig.routes.contact.url.slice(1) ?&gt;"&gt;Link to contact&lt;/a&gt;
 &lt;!-- ... --&gt;
 </code></pre>
-<p> <em>Note : <code>.slice(1)</code> makes it easy to remove the dual <code>/</code> for standard url.</em></p>
+<p> <em>Note: <code>.slice(1)</code> makes it easy to remove the dual <code>/</code> for standard URL.</em></p>
 </li>
 <li><p>or as follows</p>
 <pre><code class="lang-html">&lt;!-- ... --&gt;
@@ -681,7 +681,7 @@ exports.setSessions = function (next) {
 &lt;a href="&lt;?= urlBasePath ?&gt;.&lt;?= webconfig.routes.contact.url ?&gt;"&gt;Link to contact&lt;/a&gt;
 &lt;!-- ... --&gt;
 </code></pre>
-<p> <em>Note : This would, for example <code>http://localhost/./home.html</code>, which is a standard url.</em></p>
+<p> <em>Note: This would, for example <code>http://localhost/./home.html</code>, which is a standard URL.</em></p>
 </li>
 <li><p>ou comme suit</p>
 <pre><code class="lang-html">&lt;!-- ... --&gt;
@@ -691,7 +691,7 @@ exports.setSessions = function (next) {
 </code></pre>
 <p> <em>Note : <code>urlBasePathSlice</code> return <code>http://localhost</code> in place of <code>http://localhost/</code> or <code>http://localhost:7777/sub/folder</code> in place of <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
-</ol><h4 id="utilisation-de-la-cl-pour-mapper-les-pages">Utilisation de la clé pour mapper les pages</h4><p>It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.</p><p>With the following webconfig :</p><pre><code class="lang-json">{
+</ol><h4 id="utilisation-de-la-cl-pour-mapper-les-pages">Utilisation de la clé pour mapper les pages</h4><p>It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.</p><p>With the following webconfig:</p><pre><code class="lang-json">{
     "languageCode": "en-us",
     "routes": {
         "index_en-us": {
@@ -714,7 +714,7 @@ exports.setSessions = function (next) {
         }
     }
 }
-</code></pre><p>and the common variation following :</p><pre><code class="lang-json">{
+</code></pre><p>and the common variation following:</p><pre><code class="lang-json">{
     "language": [{
         "name": "English",
         "code": "en-us"
@@ -723,7 +723,7 @@ exports.setSessions = function (next) {
         "code": "fr-fr"
     }]
 }
-</code></pre><p>in fr :</p><pre><code class="lang-json">{
+</code></pre><p>in <code>fr</code> :</p><pre><code class="lang-json">{
     "language": [{
         "name": "Anglais",
         "code": "en-us"
@@ -732,12 +732,12 @@ exports.setSessions = function (next) {
         "code": "fr-fr"
     }]
 }
-</code></pre><p>we could create link between each page as following :</p><pre><code class="lang-html">&lt;ul&gt;
+</code></pre><p>we could create link between each page as following:</p><pre><code class="lang-html">&lt;ul&gt;
     &lt;? for (var i = 0; i &lt; common.language.length; i++) { ?&gt;
     &lt;li&gt;&lt;a href="&lt;?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?&gt;"&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
 &lt;/ul&gt;
-</code></pre><h3 id="custom-template-engine">Custom Template Engine</h3><p>It is possible to let the <a href="http://expressjs.com/en/guide/using-template-engines.html">Express Template Engine implementation</a> to bypass the NodeAtlas Template Engine implementation  for view render. To do this, use the <code>engine</code> parameter. See an example with the Handlebars engine:</p><p>First, add the Express Handlebars middleware amongs your modules:</p><pre><code>npm install express-handlebars
+</code></pre><h3 id="custom-template-engine">Custom Template Engine</h3><p>It is possible to let the <a href="http://expressjs.com/en/guide/using-template-engines.html">Express Template Engine implementation</a> to bypass the NodeAtlas Template Engine implementation for view render. To do this, use the <code>engine</code> parameter. See an example with the Handlebars engine:</p><p>First, add the Express Handlebars middleware amongs your modules:</p><pre><code>npm install express-handlebars
 </code></pre><p>then, use <code>engine</code> with the arbtrary <code>hbs</code> value</p><pre><code>{
     "engine": "hbs",
     "controller": "common.js",
@@ -779,7 +779,7 @@ exports.setConfigurations = function (next) {
         &lt;script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>The goal of <code>engine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, Pug and NodeAtlas syntaxe.</p><h4 id="differences-between-engine-templateenginedelimiter-and-pug-">Differences between <code>engine</code>, <code>templateEngineDelimiter</code> and <code>pug</code></h4><p>It's possible to render EJS and Pug view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>controller</code> and a <code>npm</code> command to set them. You have just to set <code>engine: "ejs"</code> or <code>engine: "pug"</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for Pug in the common <code>view</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="no-view">No view</h3><p>It is possible to not using a view and only use a controler. In this case, the <code>changeVariations</code> hook is unused. You will fill the <code>locals.dom</code> value yourself with the <code>changeDom</code> hook.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+</code></pre><p>The goal of <code>engine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, Pug and NodeAtlas syntaxes.</p><h4 id="differences-between-engine-templateenginedelimiter-and-pug-">Differences between <code>engine</code>, <code>templateEngineDelimiter</code> and <code>pug</code></h4><p>It's possible to render EJS and Pug view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>controller</code> and a <code>npm</code> command to set them. You have just to set <code>engine: "ejs"</code> or <code>engine: "pug"</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for Pug in the common <code>view</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="no-view">No view</h3><p>It is possible to not using a view and only use a controller. In this case, the <code>changeVariations</code> hook is unused. You will fill the <code>locals.dom</code> value yourself with the <code>changeDom</code> hook.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
     "routes": {
         "/(:member/)?": {
             "controller": "index.js",
@@ -821,20 +821,20 @@ exports.changeDom = function (next, locals) {
 
     next();
 };
-</code></pre><p>It is possible to have at the address <code>http://localhost/</code> a simple « Hello World » message.</p><h3 id="enable-cache">Enable Cache</h3><p>It's a good thing to not serve file with no modification in production. You could set the websconfig's <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
-    cache: true,
-    route: {
-      "/": "index.htm"
+</code></pre><p>It is possible to have at the address <code>http://localhost/</code> a simple "Hello World" message.</p><h3 id="cache">Cache</h3><p>It's a good thing to not serve file with no modification in production. You could set the websconfig's <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
+    "cache": true,
+    "route": {
+        "/": "index.htm"
     }
 }
 </code></pre><p>You can also start <code>node-atlas</code> with <code>--cache</code> option :</p><blockquote>
 <pre><code class="lang-bash">node-atlas --cache
 </code></pre>
 </blockquote><p>or set your environment variable <code>NODE_ENV</code> to <code>production</code> :</p><blockquote>
-<p>if you are in Unix/MacOS</p>
+<p>if you are in Unix / MacOS</p>
 <pre><code class="lang-bash">export NODE_ENV=production
 </code></pre>
-<p>or if you are in windows</p>
+<p>or if you are in Windows</p>
 <pre><code class="lang-bash">SET NODE_ENV=production
 </code></pre>
 <p>or you can run NodeAtlas like this:</p>
