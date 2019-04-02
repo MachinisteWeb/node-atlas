@@ -1,3 +1,11 @@
+## 2.0.4 ##
+
+Avoid error:
+
+- Avoid the `TypeError [ERR_INVALID_CALLBACK]: Callback must be a function` error.
+
+
+
 ## 2.0.3 ##
 
 Security fix:
