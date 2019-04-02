@@ -1,4 +1,4 @@
-<h2 id="anatomie-du-webconfig">Anatomie du webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous souhaitez ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT / DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="lang-js">Object{
+<h2 id="anatomie-du-webconfig">Anatomie du webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous souhaitez ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT / DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="language-js">Object{
     "assetsCopy": Boolean,
     "assetsRelativePath": String&lt;path-from-root&gt;,
     "bundles": (String&lt;filepath-from-root&gt; | Object{
@@ -90,8 +90,7 @@
     "version": String&lt;xx.xx.xx&gt;,
     "view": String&lt;filepath-from-views&gt;,
     "viewsRelativePath": String&lt;path-from-root&gt;
-}
-</code></pre><h3 id="na-routeparameters">&lt;NA&gt;.routeParameters</h3><pre><code class="lang-js">Object{
+}</code></pre><h3 id="na-routeparameters">&lt;NA&gt;.routeParameters</h3><pre><code class="language-js">Object{
     "charset": String,
     "controller": String&lt;filepath-from-controllers&gt;,
     "delete": Boolean,
@@ -110,8 +109,7 @@
     "url": String&lt;urlpath-from-base&gt;,
     "variation": String&lt;filepath-from-variations&gt;,
     "view": String&lt;filepath-from-views&gt;
-}
-</code></pre><div><div class="before">
+}</code></pre><div><div class="before">
 							<a href="partie-avancee.html">◄ Partie avancée</a>
 						</div><div class="after">
 							<a href="cli-commandes-de-lancement.html">CLI / Commandes de lancement ►</a>

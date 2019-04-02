@@ -19,8 +19,7 @@ site-hello-world/
 │  ┊┉
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>becomes this:</p><pre><code>site-hello-world/
+└─ webconfig.json</code></pre><p>becomes this:</p><pre><code>site-hello-world/
 ├─ node_modules/
 │  ┊┉
 ├─ languages/
@@ -32,8 +31,7 @@ site-hello-world/
 ├─ views/
 │  └─ index.htm
 ├─ index.js
-└─ webconfig.json
-</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p><pre><code class="lang-xml">&lt;configuration&gt;
+└─ webconfig.json</code></pre><p>You will add to this set of files, additional file named <code>web.config</code> whose content is:</p><pre><code class="language-xml">&lt;configuration&gt;
     &lt;system.webServer&gt;
         &lt;handlers&gt;
             &lt;add name="iisnode" path="node-atlas.js" verb="*" modules="iisnode" /&gt;
@@ -58,8 +56,7 @@ site-hello-world/
             &lt;/rules&gt;
         &lt;/rewrite&gt;
     &lt;/system.webServer&gt;
-&lt;/configuration&gt;
-</code></pre><p>to obtain:</p><pre><code>site-hello-world/
+&lt;/configuration&gt;</code></pre><p>to obtain:</p><pre><code>site-hello-world/
 ├─ node_modules/
 │  ┊┉
 ├─ languages/
@@ -72,23 +69,18 @@ site-hello-world/
 │  └─ index.htm
 ├─ index.js
 ├─ webconfig.json
-└─ web.config
-</code></pre><p>It will just have to click on "Browse <url-of-site>" in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</url-of-site></p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
+└─ web.config</code></pre><p>It will just have to click on "Browse <url-of-site>" in your IIS8 action panel. You can now manage your website (start / stop / Pool Recycling) like any other IIS8 application.</url-of-site></p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="language-json">{
     "urlPort": 80,
     "httpPort": 7777,
     "httpHostname": "www.example.com",
     "routes": {
         ...
     }
-}
-</code></pre><h3 id="in-a-unix-environment-with-forever">In a Unix environment with forever</h3><p>This requires:</p><ol>
+}</code></pre><h3 id="in-a-unix-environment-with-forever">In a Unix environment with forever</h3><p>This requires:</p><ol>
 <li>Install <a href="http://nodejs.org/download/">the node.exe executable</a> able to run JavaScript code.</li>
 <li>Install <a href="https://github.com/nodejitsu/forever">the CLI tool forever</a> manager for your websites continuously (start, stop, restart, etc.).</li>
 <li>Running in addition of your websites a reverse-proxy running on port 80 for all applications.</li>
-</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --path &lt;/path/to/your/website/directory/&gt;
-</code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p><pre><code>$ forever list
-</code></pre><p>and then use the command:</p><pre><code>$ forever stop &lt;uid&gt;
-</code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="lang-json">{
+</ol><h4 id="some-forever-commands">Some forever commands</h4><p>To manage a new website in continues to be used the command:</p><pre><code>$ forever start &lt;/path/to/&gt;node-atlas/ --path &lt;/path/to/your/website/directory/&gt;</code></pre><p>To stop it, localise the <strong>uid</strong> with the <code>list</code> forever command</p><pre><code>$ forever list</code></pre><p>and then use the command:</p><pre><code>$ forever stop &lt;uid&gt;</code></pre><p>or <code>&lt;uid&gt;</code> is the <strong>uid</strong> of running website.</p><h4 id="webconfig-example-1">webconfig example</h4><p>An example for a production webconfig:</p><pre><code class="language-json">{
     "urlPort": 80,
     "httpPort": 7777,
     "httpHostname": "www.example.com",
@@ -96,7 +88,7 @@ site-hello-world/
         ...
     }
 }
-</code></pre><p>You will then use a reverse proxy to make your site accessible on port 80.</p><h4 id="in-a-unix-environment-with-nginx">In a Unix environment with NGINX</h4><p>This is an example of NGINX's configuration:</p><pre><code class="lang-javascript">## Server an.example.fr
+</code></pre><p>You will then use a reverse proxy to make your site accessible on port 80.</p><h4 id="in-a-unix-environment-with-nginx">In a Unix environment with NGINX</h4><p>This is an example of NGINX's configuration:</p><pre><code class="language-javascript">## Server an.example.fr
 
 upstream websocket {
     server Ip_backend:7777;
@@ -139,11 +131,10 @@ server {
     location = /error.html {
             root /var/www/nginx-default;
     }
-}
-</code></pre><p><code>Ip_backend</code> must be replaced by your private subnetwork IP. That can be <code>127.0.0.1</code> if node run in same server as NGINX.</p><p><code>websocket</code> should be replaced by any word, it will be also moddify the <code>proxy_pass</code>. It must be unique to each node.</p><h3 id="proxy">Proxy</h3><h4 id="bouncy">Bouncy</h4><p>Bouncy is an example of reverse-proxy that you can use to run various NodeAtlas websites (with other types of websites) together on the same port (80).</p><p>You can for example:</p><ul>
+}</code></pre><p><code>Ip_backend</code> must be replaced by your private subnetwork IP. That can be <code>127.0.0.1</code> if node run in same server as NGINX.</p><p><code>websocket</code> should be replaced by any word, it will be also moddify the <code>proxy_pass</code>. It must be unique to each node.</p><h3 id="proxy">Proxy</h3><h4 id="bouncy">Bouncy</h4><p>Bouncy is an example of reverse-proxy that you can use to run various NodeAtlas websites (with other types of websites) together on the same port (80).</p><p>You can for example:</p><ul>
 <li>run 3 Node.js apps on ports 7777, 7778 and 7779 with forever,</li>
 <li>and besides launching a apache server on port 81</li>
-</ul><p>and make all your websites accessible behind domain names on port 80 with Bouncy example.</p><p>Here is a sample configuration with Bouncy:</p><p><em>global-server.js</em></p><pre><code class="lang-javascript">var bouncy = require('bouncy');
+</ul><p>and make all your websites accessible behind domain names on port 80 with Bouncy example.</p><p>Here is a sample configuration with Bouncy:</p><p><em>global-server.js</em></p><pre><code class="language-javascript">var bouncy = require('bouncy');
 
 var server = bouncy(function (request, response, bounce) {
     if (request.headers.host === 'beep.example.com') {
@@ -161,9 +152,7 @@ var server = bouncy(function (request, response, bounce) {
     }
 });
 
-server.listen(80);
-</code></pre><p>and you can start with:</p><pre><code>$ forever start &lt;/path/to/&gt;global-server.js
-</code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p><div><div class="before">
+server.listen(80);</code></pre><p>and you can start with:</p><pre><code>$ forever start &lt;/path/to/&gt;global-server.js</code></pre><p><a href="https://github.com/substack/bouncy">More information about Bouncy</a></p><div><div class="before">
 							<a href="development-environment.html">◄ Development Environment</a>
 						</div><div class="after">
 							<a href="more-about-nodeatlas.html">More About NodeAtlas ►</a>

@@ -1,4 +1,4 @@
-<h2 id="webconfig-s-anatomy">Webconfig's Anatomy</h2><p>The webconfig is that allows you to drive how NodeAtlas will work. If you want to use views or controllers, or if you need some variations if you want to enable PUT / DELETE HTTP request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complete list of parameters of a webconfig. Each is optional depends on your needs.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="lang-js">Object{
+<h2 id="webconfig-s-anatomy">Webconfig's Anatomy</h2><p>The webconfig is that allows you to drive how NodeAtlas will work. If you want to use views or controllers, or if you need some variations if you want to enable PUT / DELETE HTTP request, etc. Without webconfig, NodeAtlas run in Simple Web Server. This is the complete list of parameters of a webconfig. Each is optional depends on your needs.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="language-js">Object{
     "assetsCopy": Boolean,
     "assetsRelativePath": String&lt;path-from-root&gt;,
     "bundles": (String&lt;filepath-from-root&gt; | Object{
@@ -90,8 +90,7 @@
     "version": String&lt;xx.xx.xx&gt;,
     "view": String&lt;filepath-from-views&gt;,
     "viewsRelativePath": String&lt;path-from-root&gt;
-}
-</code></pre><h3 id="na-routeparameters">&lt;NA&gt;.routeParameters</h3><pre><code class="lang-js">Object{
+}</code></pre><h3 id="na-routeparameters">&lt;NA&gt;.routeParameters</h3><pre><code class="language-js">Object{
     "charset": String,
     "controller": String&lt;filepath-from-controllers&gt;,
     "delete": Boolean,
@@ -110,8 +109,7 @@
     "url": String&lt;urlpath-from-base&gt;,
     "variation": String&lt;filepath-from-variations&gt;,
     "view": String&lt;filepath-from-views&gt;
-}
-</code></pre><div><div class="before">
+}</code></pre><div><div class="before">
 							<a href="advanced-part.html">◄ Advanced Part</a>
 						</div><div class="after">
 							<a href="cli-running-commands.html">CLI / Running commands ►</a>

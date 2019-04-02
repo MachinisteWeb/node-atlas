@@ -1,4 +1,4 @@
-<h2 id="partie-outils">Partie outils</h2><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des paquetages en référençant les groupes de fichiers d'entrée par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu'un paquetage existe dans le webconfig.</p><h4 id="cr-er-des-paquetages">Créer des paquetages</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+<h2 id="partie-outils">Partie outils</h2><h3 id="minifier-les-css-js">Minifier les CSS / JS</h3><p>Vous pouvez automatiquement générer des fichiers CSS et JS minifiés et offusqués en créant des paquetages en référençant les groupes de fichiers d'entrée par leur chemin d'accès et le chemin du fichier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. La génération des fichiers se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu qu'un paquetage existe dans le webconfig.</p><h4 id="créer-des-paquetages">Créer des paquetages</h4><p>Avec la configuration suivante :</p><pre><code class="language-json">{
    "bundles": {
       "javascripts": {
          "javascripts/boot.min.js": [
@@ -30,8 +30,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>et l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ assets/
+}</code></pre><p>et l'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
@@ -50,8 +49,7 @@
 │     └─ common.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>vous obtiendrez les nouveaux fichiers suivants :</p><pre><code class="lang-txt">├─ assets/
+└─ webconfig.json</code></pre><p>vous obtiendrez les nouveaux fichiers suivants :</p><pre><code class="language-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
@@ -74,8 +72,7 @@
 │     └─ common.min.js      ⤆ nouveau fichier
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><h4 id="paquetage-dans-un-fichier-partag-">Paquetage dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de configuration de paquetage dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>.</p><p>Par exemple,</p><p>L'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ assets/
+└─ webconfig.json</code></pre><h4 id="paquetage-dans-un-fichier-partagé">Paquetage dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de configuration de paquetage dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>bundles.json</code>.</p><p>Par exemple,</p><p>L'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
@@ -95,8 +92,7 @@
 ├─ views/
 │  └─ index.htm
 ├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>avec <code>webconfig.json</code> :</p><pre><code class="lang-json">{
+└─ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code> :</p><pre><code class="language-json">{
    "httpPort": 7777,
    "bundles": {
       "javascripts": {
@@ -129,8 +125,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>et avec <code>webconfig.prod.json</code>:</p><pre><code class="lang-json">{
+}</code></pre><p>et avec <code>webconfig.prod.json</code>:</p><pre><code class="language-json">{
    "httpPort": 7776,
    "httpHostname": "blog.lesieur.name",
    "urlPort": 80,
@@ -165,8 +160,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>pourrait devenir l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ assets/
+}</code></pre><p>pourrait devenir l'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ assets/
 │  ├─ stylesheets/
 │  │  ├─ common.css
 │  │  ├─ common-min780.css
@@ -187,8 +181,7 @@
 │  └─ index.htm
 ├─ bundles.json              ⤆ nouveau fichier
 ├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>avec <code>webconfig.json</code> :</p><pre><code class="lang-json">{
+└─ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code> :</p><pre><code class="language-json">{
    "httpPort": 7777,
    "bundles": "bundles.json",
    "routes": {
@@ -196,8 +189,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>avec <code>webconfig.prod.json</code> :</p><pre><code class="lang-json">{
+}</code></pre><p>avec <code>webconfig.prod.json</code> :</p><pre><code class="language-json">{
    "httpPort": 7776,
    "httpHostname": "blog.lesieur.name",
    "urlPort": 80,
@@ -207,8 +199,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>et <code>bundles.json</code> :</p><pre><code class="lang-json">{
+}</code></pre><p>et <code>bundles.json</code> :</p><pre><code class="language-json">{
    "javascripts": {
       "javascripts/boot.min.js": [
          "javascripts/modernizr.js",
@@ -233,8 +224,7 @@
          "stylesheets/common-min1160.css"
       ]
    }
-}
-</code></pre><p><em>Note : il est possible de désactiver les Bundles en ne les incluant pas dans le webconfig en question.</em></p><h4 id="d-sactiver-des-paquetages">Désactiver des paquetages</h4><p>Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés <code>"cssBundlingEnable": false</code> et <code>"jsBundlingEnable": false</code> pour chaque type de paquetage.</p><pre><code class="lang-json">{
+}</code></pre><p><em>Note : il est possible de désactiver les Bundles en ne les incluant pas dans le webconfig en question.</em></p><h4 id="désactiver-des-paquetages">Désactiver des paquetages</h4><p>Il est également possible de ne pas exécuter la minification au démarrage d'un site web avec NodeAtlas avec les propriétés <code>"cssBundlingEnable": false</code> et <code>"jsBundlingEnable": false</code> pour chaque type de paquetage.</p><pre><code class="language-json">{
    "cssBundlingEnable": false,
    "jsBundlingEnable": false,
    "bundles": {
@@ -268,8 +258,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p><em>Note : si vos paquetages sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne <code>"bundles": "bundles.json"</code>.</em></p><h4 id="r-g-n-rer-les-paquetages-avant-chaque-rendu-de-page">Régénérer les paquetages avant chaque rendu de page</h4><p>De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés <code>"cssBundlingBeforeResponse": true</code> et <code>"jsBundlingBeforeResponse": true</code> pour chaque type de paquetage.</p><pre><code class="lang-json">{
+}</code></pre><p><em>Note : si vos paquetages sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne <code>"bundles": "bundles.json"</code>.</em></p><h4 id="régénérer-les-paquetages-avant-chaque-rendu-de-page">Régénérer les paquetages avant chaque rendu de page</h4><p>De manière à toujours tester vos page avec les fichiers minifiés, vous pouvez demander à ce qu'ils soient régénérés avant chaque affichage de page avec les propriétés <code>"cssBundlingBeforeResponse": true</code> et <code>"jsBundlingBeforeResponse": true</code> pour chaque type de paquetage.</p><pre><code class="language-json">{
    "cssBundlingBeforeResponse": false,
    "jsBundlingBeforeResponse": false,
    "bundles": {
@@ -303,13 +292,11 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p><em>Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h4 id="la-version-dans-les-noms-de-fichiers-g-n-r-s">La version dans les noms de fichiers générés</h4><p>Afin de forcer le navigateur à charger de nouveau vos fichiers en cache il est intéressant de changer leur nom pour chaque version. Ainsi l'occurence <code>{version}</code>, sera remplacée par le numéro de version de votre site actuel (par défaut <code>0.0.0</code>).</p><p>Ainsi, si vous avez un fichier <code>package.json</code> ou un <code>webconfig.json</code> valide avec un numéro de version indiqué sous la propriété version, ce numéro remplacera la valeur <code>{version}</code>. Ainsi avec le webconfig suivant :</p><p><em>webconfig</em></p><pre><code class="lang-js">{
+}</code></pre><p><em>Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h4 id="la-version-dans-les-noms-de-fichiers-générés">La version dans les noms de fichiers générés</h4><p>Afin de forcer le navigateur à charger de nouveau vos fichiers en cache il est intéressant de changer leur nom pour chaque version. Ainsi l'occurence <code>{version}</code>, sera remplacée par le numéro de version de votre site actuel (par défaut <code>0.0.0</code>).</p><p>Ainsi, si vous avez un fichier <code>package.json</code> ou un <code>webconfig.json</code> valide avec un numéro de version indiqué sous la propriété version, ce numéro remplacera la valeur <code>{version}</code>. Ainsi avec le webconfig suivant :</p><p><em>webconfig</em></p><pre><code class="language-js">{
    "version": "1.0.0",
    "bundles": "bundles.json"
    "routes": "routes.json"
-}
-</code></pre><p>et les bundles suivants :</p><p><em>bundles.json</em></p><pre><code class="lang-json">{
+}</code></pre><p>et les bundles suivants :</p><p><em>bundles.json</em></p><pre><code class="language-json">{
    "javascripts": {
       "javascripts/boot.{version}.min.js": [
          "javascripts/modernizr.js",
@@ -324,8 +311,7 @@
          "stylesheets/common-min1160.css"
       ]
    }
-}
-</code></pre><p>vous obtiendrez les fichiers <code>assets/javascripts/boot.1.0.0.min.js</code> et <code>assets/javascripts/common.1.0.0.min.css</code>.</p><p>que vous pourrez appeler ainsi :</p><p><em>views/*.htm</em></p><pre><code class="lang-htm">&lt;!-- ... --&gt;
+}</code></pre><p>vous obtiendrez les fichiers <code>assets/javascripts/boot.1.0.0.min.js</code> et <code>assets/javascripts/common.1.0.0.min.css</code>.</p><p>que vous pourrez appeler ainsi :</p><p><em>views/*.htm</em></p><pre><code class="language-htm">&lt;!-- ... --&gt;
 
 &lt;link rel="stylesheet" href="stylesheets/common.&lt;?= webconfig.version ?&gt;.min.css"&gt;
 
@@ -333,8 +319,7 @@
 
 &lt;script src="javascripts/boot.&lt;?= webconfig.version ?&gt;.min.js"&gt;&lt;/script&gt;
 
-&lt;!-- ... --&gt;
-</code></pre><h4 id="paquetages-avec-websockets">Paquetages avec WebSockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.socketClientFile</code> même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les paquetages souhaités.</p><p>Dans l'exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client / serveur.</p><pre><code class="lang-json">{
+&lt;!-- ... --&gt;</code></pre><h4 id="paquetages-avec-websockets">Paquetages avec WebSockets</h4><p>Il est possible de minifier le fichier défini par <code>NA.webconfig.socketClientFile</code> même si celui-ci n'existe pas physiquement. Il suffit pour cela de le glisser dans les paquetages souhaités.</p><p>Dans l'exemple suivant, le fichier virtuel <code>node-atlas/socket.io.js</code> sera ajouté aux sources avec la bonne configuration pour faire le lien client / serveur.</p><pre><code class="language-json">{
    "bundles": {
       "javascripts": {
          "javascripts/common.min.js": [
@@ -349,20 +334,17 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><h3 id="generer-les-css-avec-less">Générer les CSS avec Less</h3><p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère la CSS. Une fois l'opération effectuée, on renvoi la CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
+}</code></pre><h3 id="generer-les-css-avec-less">Générer les CSS avec Less</h3><p>Vous pouvez utiliser le préprocesseur Less pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Less existe il est lu et celui-ci génère la CSS. Une fois l'opération effectuée, on renvoi la CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
 │  └─ stylesheets
 │     └─ common.less
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>ainsi que le webconfig suivant :</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>ainsi que le webconfig suivant :</p><pre><code class="language-json">{
    "less": true,
    "routes": {
       "/": "index.htm"
    }
-}
-</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
    &lt;head&gt;
       &lt;meta charset="UTF-8"&gt;
@@ -372,29 +354,24 @@
    &lt;body&gt;
       &lt;p&gt;Cette ligne est rouge.&lt;/p&gt;
    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="lang-css">p {
+&lt;/html&gt;</code></pre><p><em>assets/stylesheets/common.less</em></p><pre><code class="language-css">p {
    color: #f00;
-}
-</code></pre><p>vous génèrerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'URL <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix">Source Map, minification et autoprefix</h4><p>Par défaut, dans l'exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier <code>.less</code> a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débogueur.</p><p>Cela se désactive avec <code>less.sourceMap</code> à <code>false</code> :</p><pre><code class="lang-json">   "less": {
+}</code></pre><p>vous génèrerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'URL <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix">Source Map, minification et autoprefix</h4><p>Par défaut, dans l'exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier <code>.less</code> a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débogueur.</p><p>Cela se désactive avec <code>less.sourceMap</code> à <code>false</code> :</p><pre><code class="language-json">   "less": {
       "sourceMap": false
    },
    "routes": {
       "/": "index.htm"
-   }
-</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code class="lang-json">   "less": {
+   }</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code class="language-json">   "less": {
       "compress": true
    },
    "routes": {
       "/": "index.htm"
-   }
-</code></pre><p>Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur comme <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> lors de la génération sans vous en préoccuper dans vos sources !</p><pre><code class="lang-json">   "less": {
+   }</code></pre><p>Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur comme <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> lors de la génération sans vous en préoccuper dans vos sources !</p><pre><code class="language-json">   "less": {
       "autoprefix": true
    },
    "routes": {
       "/": "index.htm"
-   }
-</code></pre><h4 id="compiler-les-less-avec-generate-">Compiler les Less avec <code>--generate</code></h4><p>Comme les Less sont compilés à la volé, quand le fichier est demandé en HTTP(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans la CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>less.files</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
+   }</code></pre><h4 id="compiler-les-less-avec---generate">Compiler les Less avec <code>--generate</code></h4><p>Comme les Less sont compilés à la volé, quand le fichier est demandé en HTTP(s), toutes modifications dans le Less demandera de faire tourner le site pour la répercuter dans la CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>less.files</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="language-json">{
    "less": {
       "files": [
          "stylesheets/common.less",
@@ -406,22 +383,19 @@
    "routes": {
       "/": "index.htm"
    }
-}
-</code></pre><p>ou avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
+}</code></pre><p>ou avec le <code>webconfig.json</code> suivant :</p><pre><code class="language-json">{
    "less": {
       "files": "less.json"
    },
    "routes": {
       "/": "index.htm"
    }
-}
-</code></pre><p>avec <code>less.json</code> qui contient :</p><pre><code class="lang-json">[
+}</code></pre><p>avec <code>less.json</code> qui contient :</p><pre><code class="language-json">[
    "stylesheets/common.less",
    "stylesheets/component-1.less",
    "stylesheets/component-2.less",
    "stylesheets/component-3.less"
-]
-</code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capables de fouiller dans les sous-dossiers : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
+]</code></pre><p>Par défaut, les <code>@import</code> utilisés par Less seront capables de fouiller dans les sous-dossiers : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="language-json">{
    "less": {
       "paths": [
          "subdirectory/styles-files",
@@ -431,20 +405,17 @@
    "routes": {
       "/": "index.htm"
    }
-}
-</code></pre><h3 id="generer-les-css-avec-stylus">Générer les CSS avec Stylus</h3><p>Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère la CSS. Une fois l'opération effectuée, on renvoi la CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
+}</code></pre><h3 id="generer-les-css-avec-stylus">Générer les CSS avec Stylus</h3><p>Vous pouvez utiliser le préprocesseur Stylus pour créer vos CSS. Le fonctionnement est le suivant : à chaque fois qu'une requête CSS est effectuée, si un équivalent Stylus existe il est lu et celui-ci génère la CSS. Une fois l'opération effectuée, on renvoi la CSS demandée.</p><p>Avec la structure suivante :</p><pre><code>├─ assets/
 │  └─ stylesheets
 │     └─ common.styl
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>ainsi que le webconfig suivante :</p><pre><code class="language-json">{
    "stylus": true,
    "routes": {
       "/": "index.htm"
    }
-}
-</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p>et le contenu suivant dans :</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
    &lt;head&gt;
       &lt;meta charset="UTF-8"&gt;
@@ -454,28 +425,23 @@
    &lt;body&gt;
       &lt;p&gt;Cette ligne est rouge.&lt;/p&gt;
    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="lang-css">p
-   color: #f00
-</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'URL <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix">Source Map, minification et autoprefix</h4><p>Par défaut, dans l'exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier <code>.styl</code> a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débogueur.</p><p>Cela se désactive avec <code>stylus.sourceMap</code> à <code>false</code> :</p><pre><code class="lang-json">   "stylus": {
+&lt;/html&gt;</code></pre><p><em>assets/stylesheets/common.styl</em></p><pre><code class="language-css">p
+   color: #f00</code></pre><p>vous générerez le fichier <code>assets/stylesheets/common.css</code> en appelant l'URL <code>http://localhost/</code> ou <code>http://localhost/stylesheets/common.css</code>.</p><h4 id="source-map-minification-et-autoprefix-1">Source Map, minification et autoprefix</h4><p>Par défaut, dans l'exemple ci-dessus un fichier <code>common.css.map</code> sera généré. Celui-ci permet à votre navigateur de vous indiquer qu'elle ligne du fichier <code>.styl</code> a générée la propriété CSS de l'élément que vous avez sélectionné dans votre débogueur.</p><p>Cela se désactive avec <code>stylus.sourceMap</code> à <code>false</code> :</p><pre><code class="language-json">   "stylus": {
       "sourceMap": false
    },
    "routes": {
       "/": "index.htm"
-   }
-</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code class="lang-json">   "stylus": {
+   }</code></pre><p>Vous pouvez également générer des fichiers CSS déjà minifiés avec :</p><pre><code class="language-json">   "stylus": {
       "compress": true
    },
    "routes": {
       "/": "index.htm"
-   }
-</code></pre><p>Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur comme <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> lors de la génération sans vous en préoccuper dans vos sources !</p><pre><code class="lang-json">   "stylus": {
+   }</code></pre><p>Pour finir, vous pouvez également ajouter automatiquement les prefix vendeur comme <code>--webkit</code>, <code>--moz</code>, <code>--ms</code>, <code>--o</code> lors de la génération sans vous en préoccuper dans vos sources !</p><pre><code class="language-json">   "stylus": {
       "autoprefix": true
    },
    "routes": {
       "/": "index.htm"
-   }
-</code></pre><p><em>Note:</em> Plus d'options sur <a href="https://www.npmjs.com/package/stylus">la documentation du module Stylus</a>.</p><h4 id="compiler-les-stylus-avec-generate-">Compiler les Stylus avec <code>--generate</code></h4><p>Comme les Stylus sont compilés à la volé, quand le fichier est demandé en HTTP(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans la CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>stylus.files</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
+   }</code></pre><p><em>Note:</em> Plus d'options sur <a href="https://www.npmjs.com/package/stylus">la documentation du module Stylus</a>.</p><h4 id="compiler-les-stylus-avec---generate">Compiler les Stylus avec <code>--generate</code></h4><p>Comme les Stylus sont compilés à la volé, quand le fichier est demandé en HTTP(s), toutes modifications dans le Stylus demandera de faire tourner le site pour la répercuter dans la CSS. Ensuite seulement vous pourrez minifier vos CSS. Il est possible d'automatiser cette tâche pour ne pas avoir à démarrer le site grâce à <code>stylus.files</code>.</p><p>Avec le <code>webconfig.json</code> suivant :</p><pre><code class="language-json">{
    "stylus": {
       "files": [
          "stylesheets/common.styl",
@@ -487,22 +453,19 @@
    "routes": {
       "/": "index.htm"
    }
-}
-</code></pre><p>ou suivante :</p><pre><code class="lang-json">{
+}</code></pre><p>ou suivante :</p><pre><code class="language-json">{
    "stylus": {
       "files": "stylus.json"
    },
    "routes": {
       "/": "index.htm"
    }
-}
-</code></pre><p>avec <code>stylus.json</code> qui contient :</p><pre><code class="lang-json">[
+}</code></pre><p>avec <code>stylus.json</code> qui contient :</p><pre><code class="language-json">[
    "stylesheets/common.styl",
    "stylesheets/component-1.styl",
    "stylesheets/component-2.styl",
    "stylesheets/component-3.styl"
-]
-</code></pre><p>Par défaut, les <code>@import</code> utilisés par Stylus seront capables de fouiller dans les sous-dossiers : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="lang-json">{
+]</code></pre><p>Par défaut, les <code>@import</code> utilisés par Stylus seront capables de fouiller dans les sous-dossiers : <code>styles</code>, <code>stylesheets</code> ou <code>css</code>. Il est possible de changer cela avec :</p><pre><code class="language-json">{
    "stylus": {
       "paths": [
          "subdirectory/styles-files",
@@ -512,10 +475,9 @@
    "routes": {
       "/": "index.htm"
    }
-}
-</code></pre><h3 id="optimiser-les-images-supprime-de-la-v2-0-2+">Optimiser les images (Supprimé de la v2.0.2+)</h3><blockquote>
+}</code></pre><h3 id="optimiser-les-images-supprime-de-la-v2-0-2+">Optimiser les images (Supprimé de la v2.0.2+)</h3><blockquote>
 <p>Cette fonctionnalité n'existe plus dans la v2.0.2. La v2.0.1 est identique a cette version avec cette fonctionnalité en plus. Les versions suivantes n'incluront plus ces dépendances souffrant de vulnérabilités et n'étant plus correctement maintenues. Vous pouvez vous tourner vers d'autres outils qui ferront cela beaucoup mieux.</p>
-</blockquote><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des optimisations existe dans le webconfig.</p><h4 id="cr-er-des-optimisations">Créer des optimisations</h4><p>Avec la configuration suivante :</p><pre><code class="lang-json">{
+</blockquote><p>Vous pouvez automatiquement optimiser les images que vous allez utiliser dans votre site pour en limiter le poids de chargement en créant des Optimizations en référençant les fichiers d'entrés par leur chemin d'accès et le chemin du dossier de sortie. Vous pouvez bien entendu en faire autant que vous le souhaitez. L'optimisation des images se fait à chaque démarrage de NodeAtlas que ce soit en tant que serveur ou via la commande <code>--generate</code> pour peu que des optimisations existe dans le webconfig.</p><h4 id="créer-des-optimisations">Créer des optimisations</h4><p>Avec la configuration suivante :</p><pre><code class="language-json">{
    "optimizations": {
       "images": {
          "media/images/example.png": "media/images/optimized/",
@@ -529,8 +491,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>et l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ assets/
+}</code></pre><p>et l'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ assets/
 │  └─ media/
 │     └─ images/
 │        ├─ example.png
@@ -539,8 +500,7 @@
 │        └─ example.svg
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>vous obtiendrez les nouveaux fichiers suivants :</p><pre><code>├─ assets/
+└─ webconfig.json</code></pre><p>vous obtiendrez les nouveaux fichiers suivants :</p><pre><code>├─ assets/
 │  └─ media/
 │     └─ images/
 │        ├─ example.png
@@ -554,8 +514,7 @@
 │           └─ example.svg   ⤆ nouveau fichier
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><h4 id="cr-er-des-optimisations-par-groupes-de-fichier">Créer des optimisations par groupes de fichier</h4><p>Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indiquer en groupe :</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><h4 id="créer-des-optimisations-par-groupes-de-fichier">Créer des optimisations par groupes de fichier</h4><p>Vous pouvez par exemple, plutôt que d'indiquer les fichiers un par un, les indiquer en groupe :</p><pre><code class="language-json">{
    "optimizations": {
       "images": {
          "media/images/*.{gif,jpg,png,svg}": "media/images/optimized/"
@@ -566,8 +525,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><h4 id="ajouter-des-options-aux-optimisations">Ajouter des options aux optimisations</h4><p>Il est possible de redéfinir les options par défaut pour l'optimisation via ses 4 objets :</p><pre><code class="lang-json">{
+}</code></pre><h4 id="ajouter-des-options-aux-optimisations">Ajouter des options aux optimisations</h4><p>Il est possible de redéfinir les options par défaut pour l'optimisation via ses 4 objets :</p><pre><code class="language-json">{
    "optimizations": {
       "jpg": { "progressive": false },
       "gif": { "interlaced": false },
@@ -582,13 +540,12 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>Pour connaître toutes les options c'est par ici :</p><ul>
+}</code></pre><p>Pour connaître toutes les options c'est par ici :</p><ul>
 <li><a href="https://www.npmjs.com/package/imagemin-jpegtran">Options Jpeg</a></li>
 <li><a href="https://www.npmjs.com/package/imagemin-gifsicle">Options Gif</a></li>
 <li><a href="https://www.npmjs.com/package/imagemin-optipng">Options Png</a></li>
 <li><a href="https://www.npmjs.com/package/imagemin-svgo">Options Svg</a></li>
-</ul><h4 id="optimisations-dans-un-fichier-partag-">Optimisations dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de configuration d'optimisations dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>optimizations.json</code>.</p><p>Par exemple,</p><p>L'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ assets/
+</ul><h4 id="optimisations-dans-un-fichier-partagé">Optimisations dans un fichier partagé</h4><p>Afin de ne pas réécrire une longue liste de configuration d'optimisations dans un fichier <code>webconfig.json</code> à destination de votre environnement de développement et <code>webconfig.prod.json</code> à destination de votre environnement de production, vous pouvez mutualiser la déclaration des fichiers dans un fichier de votre choix. Par convention, c'est le fichier <code>optimizations.json</code>.</p><p>Par exemple,</p><p>L'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ assets/
 │  └─ media/
 │     └─ images/
 │        ├─ example.png
@@ -598,8 +555,7 @@
 ├─ views/
 │  └─ index.htm
 ├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>avec <code>webconfig.json</code></p><pre><code class="lang-json">{
+└─ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code></p><pre><code class="language-json">{
    "httpPort": 7777,
    "optimizations": {
       "images": {
@@ -614,8 +570,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>et avec <code>webconfig.prod.json</code> :</p><pre><code class="lang-json">{
+}</code></pre><p>et avec <code>webconfig.prod.json</code> :</p><pre><code class="language-json">{
    "httpPort": 7776,
    "httpHostname": "blog.lesieur.name",
    "urlPort": 80,
@@ -632,8 +587,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>pourrait devenir l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ assets/
+}</code></pre><p>pourrait devenir l'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ assets/
 │  └─ media/
 │     └─ images/
 │        ├─ example.png
@@ -644,8 +598,7 @@
 │  └─ index.htm
 ├─ bundles.json
 ├─ webconfig.json
-└─ webconfig.prod.json
-</code></pre><p>avec <code>webconfig.json</code> :</p><pre><code class="lang-json">{
+└─ webconfig.prod.json</code></pre><p>avec <code>webconfig.json</code> :</p><pre><code class="language-json">{
    "httpPort": 7777,
    "optimizations": "optimizations.json",
    "routes": {
@@ -653,8 +606,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>avec <code>webconfig.prod.json</code> :</p><pre><code class="lang-json">{
+}</code></pre><p>avec <code>webconfig.prod.json</code> :</p><pre><code class="language-json">{
    "httpPort": 7776,
    "httpHostname": "blog.lesieur.name",
    "urlPort": 80,
@@ -664,16 +616,14 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p>et <code>optimizations.json</code> :</p><pre><code class="lang-json">{
+}</code></pre><p>et <code>optimizations.json</code> :</p><pre><code class="language-json">{
    "images": {
       "media/images/example.png": "media/images/optimized/",
       "media/images/example.jpg": "media/images/optimized/",
       "media/images/example.gif": "media/images/optimized/",
       "media/images/example.svg": "media/images/optimized/"
    }
-}
-</code></pre><p><em>Note : il est possible de désactiver les optimisations en ne les incluant pas dans le <code>webconfig</code> en question.</em></p><h4 id="d-sactiver-des-optimisations">Désactiver des optimisations</h4><p>Il est également possible de ne pas exécuter l'optimisation au démarrage d'un site web avec NodeAtlas avec les propriétés <code>"imgOptimizationsEnable": false</code>.</p><pre><code class="lang-json">{
+}</code></pre><p><em>Note : il est possible de désactiver les optimisations en ne les incluant pas dans le <code>webconfig</code> en question.</em></p><h4 id="désactiver-des-optimisations">Désactiver des optimisations</h4><p>Il est également possible de ne pas exécuter l'optimisation au démarrage d'un site web avec NodeAtlas avec les propriétés <code>"imgOptimizationsEnable": false</code>.</p><pre><code class="language-json">{
    "imgOptimizationsEnable": false,
    "optimizations": {
       "images": {
@@ -688,8 +638,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p><em>Note : si vos optimisations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne <code>"optimizations": "optimizations.json"</code>.</em></p><h4 id="r-g-n-rer-les-optimizations-avant-chaque-rendu-de-page">Ré-générer les optimizations avant chaque rendu de page</h4><p>Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés <code>"imgOptimizationsBeforeResponse": true</code>.</p><pre><code class="lang-json">{
+}</code></pre><p><em>Note : si vos optimisations sont dans un fichier partagé, vous pouvez également les désactiver simplement en retirant la ligne <code>"optimizations": "optimizations.json"</code>.</em></p><h4 id="ré-générer-les-optimizations-avant-chaque-rendu-de-page">Ré-générer les optimizations avant chaque rendu de page</h4><p>Vous pouvez demander à ce que les fichiers soient régénérés avant chaque affichage de page avec les propriétés <code>"imgOptimizationsBeforeResponse": true</code>.</p><pre><code class="language-json">{
    "imgOptimizationsBeforeResponse": false,
    "optimizations": {
       "images": {
@@ -704,8 +653,7 @@
          "view": "index.htm"
       }
    }
-}
-</code></pre><p><em>Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h3 id="injection-de-css-sur-les-balises">Injection de CSS sur les balises</h3><p>Quand on crée des templates pour envoyer des lettres d'informations par email, ou même de simple message, on ne peut pas attacher de feuille de style. Le seul moyen à notre disposition est d'écrire les instructions CSS dans le template à l'intérieur de l'attribut <code>style</code> brisant ainsi la séparation du font et de la forme.</p><h4 id="injection-sp-cifique">Injection spécifique</h4><p>Avec <code>injectCss</code>, il vous suffit d'habiller votre template comme à votre habitude via une feuille de style et NodeAtlas injectera à chaque rendu les styles dans l'attribut <code>style</code>. Il ne vous restera plus qu'à générer vos templates.</p><p>Avec par exemple la configuration suivante :</p><pre><code class="lang-json">{
+}</code></pre><p><em>Note : ceci n'est pas conseillé en production car cela ralenti les réponses des pages.</em></p><h3 id="injection-de-css-sur-les-balises">Injection de CSS sur les balises</h3><p>Quand on crée des templates pour envoyer des lettres d'informations par email, ou même de simple message, on ne peut pas attacher de feuille de style. Le seul moyen à notre disposition est d'écrire les instructions CSS dans le template à l'intérieur de l'attribut <code>style</code> brisant ainsi la séparation du font et de la forme.</p><h4 id="injection-spécifique">Injection spécifique</h4><p>Avec <code>injectCss</code>, il vous suffit d'habiller votre template comme à votre habitude via une feuille de style et NodeAtlas injectera à chaque rendu les styles dans l'attribut <code>style</code>. Il ne vous restera plus qu'à générer vos templates.</p><p>Avec par exemple la configuration suivante :</p><pre><code class="language-json">{
    "routes": {
       "/": {
          "view": "email.htm",
@@ -713,18 +661,15 @@
          "injectCss": "stylesheets/email.css"
       }
    }
-}
-</code></pre><p>et l'ensemble de fichiers suivant :</p><pre><code class="lang-txt">├─ serverless/
+}</code></pre><p>et l'ensemble de fichiers suivant :</p><pre><code class="language-txt">├─ serverless/
 ├─ assets/
 │  └─ stylesheets/
 │     └─ email.css
 ├─ views/
 │  └─ email.htm
-└─ webconfig.json
-</code></pre><p>dont les contenus sont :</p><p><em>stylesheets/common.css</em></p><pre><code class="lang-css">body {
+└─ webconfig.json</code></pre><p>dont les contenus sont :</p><p><em>stylesheets/common.css</em></p><pre><code class="language-css">body {
    color: #f00;
-}
-</code></pre><p><em>views/email.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p><em>views/email.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
    &lt;head&gt;
       &lt;meta charset="utf-8"&gt;
@@ -733,16 +678,14 @@
    &lt;body&gt;
       &lt;p&gt;Ceci est un exemple de template email.&lt;/p&gt;
    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>vous obtiendrez en sortie avec la commande <code>node-atlas --generate</code> l'ensemble de fichier suivant :</p><pre><code>├─ serverless/
+&lt;/html&gt;</code></pre><p>vous obtiendrez en sortie avec la commande <code>node-atlas --generate</code> l'ensemble de fichier suivant :</p><pre><code>├─ serverless/
 │  └─ bienvenue.html    &lt;= template email prêt à l'envoi !
 ├─ assets/
 │  └─ stylesheets/
 │     └─ email.css
 ├─ views/
 │  └─ email.htm
-└─ webconfig.json
-</code></pre><p>avec comme contenu pour <code>serverless/bienvenue.html</code></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+└─ webconfig.json</code></pre><p>avec comme contenu pour <code>serverless/bienvenue.html</code></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
    &lt;head&gt;
       &lt;meta charset="UTF-8"&gt;
@@ -751,8 +694,7 @@
    &lt;body style="color: #f00;"&gt;
       &lt;p&gt;This is a template email.&lt;/p&gt;
    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.</p><h4 id="injection-globale">Injection globale</h4><p>Il existe également la même propriété globale impactant toutes les pages.</p><pre><code class="lang-json">{
+&lt;/html&gt;</code></pre><p>Ce mécanisme marche également si vous n'avez pas l'intention de générer quoi que ce soit mais sur un site qui tourne. Pratique pour modifier vos maquettes en live avant de les générer.</p><h4 id="injection-globale">Injection globale</h4><p>Il existe également la même propriété globale impactant toutes les pages.</p><pre><code class="language-json">{
    "injectCss": "stylesheets/email.css",
    "routes": {
       "/bienvenue/": {
@@ -764,11 +706,10 @@
          "generate": "au-revoir.html"
       }
    }
-}
-</code></pre><p>ainsi les deux pages <code>bienvenue</code> et <code>au-revoir</code> contiendront chacune <code>&lt;body style="color: #f00;"&gt;</code>.</p><h4 id="injection-multiple">Injection multiple</h4><p>Il est possible :</p><ul>
+}</code></pre><p>ainsi les deux pages <code>bienvenue</code> et <code>au-revoir</code> contiendront chacune <code>&lt;body style="color: #f00;"&gt;</code>.</p><h4 id="injection-multiple">Injection multiple</h4><p>Il est possible :</p><ul>
 <li>de préciser des feuilles spécifiques et communes en même temps.</li>
 <li>de préciser plus d'une feuille à la fois.</li>
-</ul><pre><code class="lang-json">{
+</ul><pre><code class="language-json">{
    "injectCss": ["stylesheets/reset.css", "stylesheets/email.css"],
    "routes": {
       "/bienvenue/": {
@@ -782,8 +723,7 @@
          "injectCss": ["stylesheets/good-bye.css", "/stylesheets/others.css"]
       }
    }
-}
-</code></pre><blockquote>
+}</code></pre><blockquote>
 <p>Test : Depuis <code>./tests/examples/css-injection</code> lancez <code>node "../../../" --generate --webconfig webconfig.multiple.json</code>. Le résultat est dans <code>serverless</code>.</p>
 </blockquote><div><div class="before">
 							<a href="partie-controleur.html">◄ Partie contrôleur</a>

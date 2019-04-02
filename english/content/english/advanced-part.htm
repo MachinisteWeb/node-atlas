@@ -1,7 +1,7 @@
-<h2 id="advanced-part">Advanced Part</h2><p>NodeAtlas offers also a large set of features for development or packaging with the configuration system. We will see that.</p><h3 id="page-not-found">Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath-">Listen all URLs, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
+<h2 id="advanced-part">Advanced Part</h2><p>NodeAtlas offers also a large set of features for development or packaging with the configuration system. We will see that.</p><h3 id="page-not-found">Page Not Found</h3><h4 id="listen-all-urls-and-also-file-provide-by-assetsrelativepath">Listen all URLs, and also file provide by <code>assetsRelativePath</code></h4><p>To display a custom page when a resource is not found you must:</p><ol>
 <li>Prepare a 404 page.</li>
 <li>Fill the parameter with <code>pageNotFound</code> with the following <code>value</code> : <code>key</code> of the prepared 404 page.</li>
-</ol><p>See the example below:</p><pre><code class="lang-json">{
+</ol><p>See the example below:</p><pre><code class="language-json">{
     "pageNotFound": "/not-found-page/",
     "routes": {
         "/list-of-members/": {
@@ -15,12 +15,11 @@
             "statusCode": 404
         }
     }
-}
-</code></pre><p>you can access to:</p><ul>
+}</code></pre><p>you can access to:</p><ul>
 <li><em><a href="http://localhost/this-page-do-not-exist.html">http://localhost/this-page-do-not-exist.html</a></em></li>
 <li><em><a href="http://localhost/this/page/either/">http://localhost/this/page/either/</a></em></li>
 <li><em><a href="http://localhost/etc">http://localhost/etc</a></em></li>
-</ul><h4 id="localized-error-page">Localized Error Page</h4><p>For this, just create a new route with <code>*</code> at the end in language you want.</p><p>See below :</p><pre><code class="lang-json">{
+</ul><h4 id="localized-error-page">Localized Error Page</h4><p>For this, just create a new route with <code>*</code> at the end in language you want.</p><p>See below :</p><pre><code class="language-json">{
     "pageNotFound": "/not-found-page/",
     "languageCode": "en-gb",
     "routes": {
@@ -54,8 +53,7 @@
             "statusCode": 404
         }
     }
-}
-</code></pre><h3 id="dynamic-routing">Dynamic Routing</h3><p>Although you can configure static URLs, you can also set of dynamic URLs!</p><h4 id="parameters">Parameters</h4><p>It is possible to get some parameters from URL to display a different content depending of slugs.</p><p>With the following configuration:</p><pre><code class="lang-json">{
+}</code></pre><h3 id="dynamic-routing">Dynamic Routing</h3><p>Although you can configure static URLs, you can also set of dynamic URLs!</p><h4 id="parameters">Parameters</h4><p>It is possible to get some parameters from URL to display a different content depending of slugs.</p><p>With the following configuration:</p><pre><code class="language-json">{
     "routes": {
         "/list-of-members/:member/:action/": {
             "view": "members.htm",
@@ -85,8 +83,7 @@
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>you can access to:</p><ul>
+}</code></pre><p>you can access to:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members">http://localhost/list-of-members</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
@@ -96,7 +93,7 @@
 <li><em><a href="http://localhost/list-of-members/etc/lolol">http://localhost/list-of-members/etc/lolol</a></em></li>
 <li><em><a href="http://localhost/list-of-members/?query=test">http://localhost/list-of-members/?query=test</a></em></li>
 <li><em><a href="http://localhost/list-of-members/etc?query=test">http://localhost/list-of-members/etc?query=test</a></em> (in POST with <code>test=This+is+a+test</code>)</li>
-</ul><p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in <code>changeVariations</code> (common and specific).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals, request, response) {
+</ul><p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in <code>changeVariations</code> (common and specific).</p><pre><code class="language-js">exports.changeVariations = function (next, locals, request, response) {
 
     console.log("param request:", request.params.member);
     // $ undefined, 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
@@ -119,8 +116,7 @@
     // $ undefined or 'This is a test'.
 
     next();
-};
-</code></pre><h4 id="advanced-parameters">Advanced Parameters</h4><p>We can see which we use the same config for three routes in the previous example. You could also use regular expressions to define that is variable into your URL or define what are the valid parameters in your URL. This system is less complex than real RegExp because a lot of char does not exist in URL so, for example, this char <code>/</code> do not need to be escaped.</p><p>With the following configuration:</p><pre><code class="lang-json">{
+};</code></pre><h4 id="advanced-parameters">Advanced Parameters</h4><p>We can see which we use the same config for three routes in the previous example. You could also use regular expressions to define that is variable into your URL or define what are the valid parameters in your URL. This system is less complex than real RegExp because a lot of char does not exist in URL so, for example, this char <code>/</code> do not need to be escaped.</p><p>With the following configuration:</p><pre><code class="language-json">{
     "routes": {
         "/list-of-members/?(:member([-a-zA-Z0-9]+)/?(:action(show|edit)/?)?)?": {
             "view": "members.htm"
@@ -129,8 +125,7 @@
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>you can access to:</p><ul>
+}</code></pre><p>you can access to:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members">http://localhost/list-of-members</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em></li>
@@ -139,7 +134,7 @@
 <li><em><a href="http://localhost/list-of-members/node-atlas/show/">http://localhost/list-of-members/node-atlas/show/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/?example=test">http://localhost/list-of-members/?example=test</a></em></li>
 <li><em><a href="http://localhost/list-of-members/etc?example=test">http://localhost/list-of-members/etc?example=test</a></em> (in POST with <code>test=This+is+a+test</code>)</li>
-</ul><p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in a view.</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+</ul><p>and retrieve the <code>:member</code>, <code>:action</code>, <code>query</code> and <code>test</code> value in a view.</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
@@ -151,12 +146,11 @@
     Example: &lt;strong&gt;&lt;?- query.example ?&gt;&lt;/strong&gt;&lt;br&gt;
     Test: &lt;strong&gt;&lt;?- body.test ?&gt;&lt;/strong&gt;
   &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>you cannot access to:</p><ul>
+&lt;/html&gt;</code></pre><p>you cannot access to:</p><ul>
 <li><em><a href="http://localhost/list-of-members/etc/lolol">http://localhost/list-of-members/etc/lolol</a></em></li>
-<li><em><a href="http://localhost/liste-des-membres/`toto_16`/show/">http://localhost/liste-des-membres/`toto_16`/show/</a></em></li>
-<li><em><a href="http://localhost/liste-des-membres/toto/`supprimer`/">http://localhost/liste-des-membres/toto/`supprimer`/</a></em></li>
-</ul><h4 id="regular-expressions">Regular Expressions</h4><p>You can also enable regular expressions to a specific path with <code>regExp</code>. If it is <code>true</code>, the previous profile no longer works and you pass in Regular Expression mode. If <code>regExp</code> is a string, it acts as a flag (g, i, m or y).</p><p>See the following configuration:</p><pre><code class="lang-js">{
+<li><em><a href="http://localhost/liste-des-membres/%60toto_16%60/show/">http://localhost/liste-des-membres/`toto_16`/show/</a></em></li>
+<li><em><a href="http://localhost/liste-des-membres/toto/%60supprimer%60/">http://localhost/liste-des-membres/toto/`supprimer`/</a></em></li>
+</ul><h4 id="regular-expressions">Regular Expressions</h4><p>You can also enable regular expressions to a specific path with <code>regExp</code>. If it is <code>true</code>, the previous profile no longer works and you pass in Regular Expression mode. If <code>regExp</code> is a string, it acts as a flag (g, i, m or y).</p><p>See the following configuration:</p><pre><code class="language-js">{
     "routes": {
         "/list-of-members/([-a-z0-9]+)/?": {
             "view": "members.htm",
@@ -170,15 +164,14 @@
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>you can access:</p><ul>
+}</code></pre><p>you can access:</p><ul>
 <li><em><a href="http://localhost/">http://localhost/</a></em></li>
 <li><em><a href="http://localhost/list-of-members/">http://localhost/list-of-members/</a></em> <em>(ou <em><a href="https://localhost/list-of-members">https://localhost/list-of-members</a></em>)</em></li>
 <li><em><a href="http://localhost/list-of-members/toto/">http://localhost/list-of-members/toto/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/toto">https://localhost/list-of-members/toto</a></em>)</em></li>
 <li><em><a href="http://localhost/list-of-members/bob-eponge99/">http://localhost/list-of-members/bob-eponge99/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/bob-eponge99">https://localhost/list-of-members/bob-eponge99</a></em>)</em></li>
 <li><em><a href="http://localhost/list-of-members/node-atlas/">http://localhost/list-of-members/node-atlas/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/node-atlas">https://localhost/list-of-members/node-atlas</a></em>)</em></li>
 <li><em><a href="http://localhost/list-of-members/etc/">http://localhost/list-of-members/etc/</a></em> <em>(ou <em><a href="https://localhost/list-of-members/etc">https://localhost/list-of-members/etc</a></em>)</em></li>
-</ul><p>and retrieve the <code>([-a-z0-9] +) value in the</code> <code>changeVariations</code> (common and specific).</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+</ul><p>and retrieve the <code>([-a-z0-9] +) value in the</code> <code>changeVariations</code> (common and specific).</p><pre><code class="language-js">exports.changeVariations = function (next, locals) {
 
     if (locals.params &amp;&amp; locals.params[0]) { locals.params.member = locals.params[0]; }
     // locals.params[1] for second match, etc...
@@ -187,15 +180,13 @@
     // $ 'toto', 'bob-eponge99', 'node-atlas' or 'etc'.
 
     next();
-}
-</code></pre><p>The rules for creating dynamic URL with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="programmatic-routing">Programmatic Routing</h3><p><code>setRoutes</code> allows us to dynamically inject routes. However, the route injection add a route at the end of <code>NA.webconfig.routes</code> because <code>NA.webconfig.routes</code> is an object. There are no possibility to order routes, but this is a problem because routes path are resolved in order of injection.</p><p>We will resolved that with new way to set routes from <code>routes: { &lt;key&gt;: { ... } }</code> to <code>routes: [{ "key": &lt;key&gt;, ... }]</code>.</p><p>This is all files for example:</p><pre><code>├─ controllers/
+}</code></pre><p>The rules for creating dynamic URL with <code>regExp</code> are those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScripts/Reference/Global_Objects/RegExp">RegExpJavaScript</a>.</p><h3 id="programmatic-routing">Programmatic Routing</h3><p><code>setRoutes</code> allows us to dynamically inject routes. However, the route injection add a route at the end of <code>NA.webconfig.routes</code> because <code>NA.webconfig.routes</code> is an object. There are no possibility to order routes, but this is a problem because routes path are resolved in order of injection.</p><p>We will resolved that with new way to set routes from <code>routes: { &lt;key&gt;: { ... } }</code> to <code>routes: [{ "key": &lt;key&gt;, ... }]</code>.</p><p>This is all files for example:</p><pre><code>├─ controllers/
 │  └─ common.js
 ├─ views/
 │  ├─ index.htm
 │  ├─ content.htm
 │  └─ error.htm
-└─ webconfig.json
-</code></pre><p>With the <code>webconfig.json</code> originaly like this <code>routes: &lt;Object&gt;</code>:</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>With the <code>webconfig.json</code> originaly like this <code>routes: &lt;Object&gt;</code>:</p><pre><code class="language-json">{
     "controller": "common.js",
     "routes": {
         "/doc/index.html": {
@@ -206,8 +197,7 @@
             "statusCode": 404
         }
     }
-}
-</code></pre><p>and transformed like this <code>routes: &lt;Array&gt;</code>:</p><pre><code class="lang-json">{
+}</code></pre><p>and transformed like this <code>routes: &lt;Array&gt;</code>:</p><pre><code class="language-json">{
     "controller": "common.js",
     "routes": [{
         "url": "/doc/index.html",
@@ -217,8 +207,7 @@
         "view": "error.htm",
         "statusCode": 404
     }]
-}
-</code></pre><p>With the <code>common.js</code> file, it's now possible to inject routes at the position we want. We will see an example at the first position.</p><pre><code class="lang-js">// This code is executing while route are added.
+}</code></pre><p>With the <code>common.js</code> file, it's now possible to inject routes at the position we want. We will see an example at the first position.</p><pre><code class="language-js">// This code is executing while route are added.
 // This code will be executed when NodeAtlas starting.
 exports.setRoutes = function (next) {
 
@@ -236,8 +225,7 @@ exports.setRoutes = function (next) {
 
     // We update modification here.
     next();
-};
-</code></pre><p>In this way, address <code>http://localhost/doc/content.html</code> will return the <code>content.htm</code> view and not the <code>error.htm</code> view with 404.</p><h3 id="redirects">Redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to an URL you must use the <code>redirect</code> parameter.</p><p><em>Note: if you don't set <code>statusCode</code>, no redirect will be executed. The <code>statusCode</code> is mandatory for redirection.</em></p><h4 id="static">Static</h4><p>See the example below:</p><pre><code class="lang-json">{
+};</code></pre><p>In this way, address <code>http://localhost/doc/content.html</code> will return the <code>content.htm</code> view and not the <code>error.htm</code> view with 404.</p><h3 id="redirects">Redirects</h3><p>To go to a different address (redirect 301 or 302) when you get to an URL you must use the <code>redirect</code> parameter.</p><p><em>Note: if you don't set <code>statusCode</code>, no redirect will be executed. The <code>statusCode</code> is mandatory for redirection.</em></p><h4 id="static">Static</h4><p>See the example below:</p><pre><code class="language-json">{
     "routes": {
         "/list-of-members/": {
             "view": "members.htm"
@@ -254,11 +242,10 @@ exports.setRoutes = function (next) {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>You will be redirected:</p><ul>
+}</code></pre><p>You will be redirected:</p><ul>
 <li>to <code>http://localhost/list-of-members/</code> when you access <code>http://localhost/list-of-members</code> with a header <em>permanent redirect</em>.</li>
 <li>to <code>https://node-atlas.js.org/</code> when you access <code>http://localhost/go-to-node-atlas/</code> with a header <em>temporary redirect</em>.</li>
-</ul><h4 id="dynamic">Dynamic</h4><p>See the example below:</p><pre><code class="lang-json">{
+</ul><h4 id="dynamic">Dynamic</h4><p>See the example below:</p><pre><code class="language-json">{
     "routes": {
         "/list-of-members/:member/": {
             "view": "members.htm"
@@ -271,8 +258,7 @@ exports.setRoutes = function (next) {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><h4 id="with-regular-expressions">With regular expressions</h4><p>See the example below:</p><pre><code class="lang-js">{
+}</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><h4 id="with-regular-expressions">With regular expressions</h4><p>See the example below:</p><pre><code class="language-js">{
     "routes": {
         "/membres/([-a-z0-9]+)/": {
             "view": "members.htm",
@@ -290,8 +276,7 @@ exports.setRoutes = function (next) {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><p>For the second <em>match</em> use $1, the third $2, etc.</p><h3 id="http-headers">HTTP Headers</h3><p>By défault, sent headers by NodeAtlas are followings: <code>Content-Type:text/html; charset=utf-8</code> with a 200 <code>statusCode</code>.</p><p>It's possible to modify this values for a specific route (for local API for example).</p><pre><code class="lang-json">{
+}</code></pre><p>You will be redirected to <code>http://localhost/list-of-members/haeresis/</code> when you access to <code>http://localhost/list-of-members/haeresis</code> with a header <em>permanent redirect</em>.</p><p>For the second <em>match</em> use $1, the third $2, etc.</p><h3 id="http-headers">HTTP Headers</h3><p>By défault, sent headers by NodeAtlas are followings: <code>Content-Type:text/html; charset=utf-8</code> with a 200 <code>statusCode</code>.</p><p>It's possible to modify this values for a specific route (for local API for example).</p><pre><code class="language-json">{
     "mimeType": "application/json",
     "charset": "utf-16",
     "routes": {
@@ -306,8 +291,7 @@ exports.setRoutes = function (next) {
             "statusCode": 203
         }
     }
-}
-</code></pre><p>It's also possible to modify all headers values, this erase all shortcuts before (except the <code>statusCode</code>). Set a value to false remove this header previously setted.</p><pre><code class="lang-json">{
+}</code></pre><p>It's also possible to modify all headers values, this erase all shortcuts before (except the <code>statusCode</code>). Set a value to false remove this header previously setted.</p><pre><code class="language-json">{
     "headers": {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*"
@@ -322,44 +306,37 @@ exports.setRoutes = function (next) {
             }
         }
     }
-}
-</code></pre><h3 id="dynamic-configuration">Dynamic Configuration</h3><p>In replacement of static <code>.json</code> config files, you can use dynamic <code>.js</code> config files. In this case, your <code>.js</code> file can provide in <code>module.exports</code> a valide JSON file.</p><p>And it is possible to replace this six following files:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+}</code></pre><h3 id="dynamic-configuration">Dynamic Configuration</h3><p>In replacement of static <code>.json</code> config files, you can use dynamic <code>.js</code> config files. In this case, your <code>.js</code> file can provide in <code>module.exports</code> a valide JSON file.</p><p>And it is possible to replace this six following files:</p><p><em>webconfig.json</em></p><pre><code class="language-json">{
     "languageCode": "fr-fr",
     "statics": "statics.fr-fr.json"
     "routes": {
         "/": "index.htm"
     }
-}
-</code></pre><p><em>webconfig.prod.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>webconfig.prod.json</em></p><pre><code class="language-json">{
     "cache": true,
     "languageCode": "fr-fr",
     "statics": "statics.fr-fr.json",
     "routes": {
         "/": "index.htm"
     }
-}
-</code></pre><p><em>webconfig.en-us.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>webconfig.en-us.json</em></p><pre><code class="language-json">{
     "languageCode": "fr-fr",
     "statics": "statics.fr-fr.json",
     "routes": {
         "/": "index.htm"
     }
-}
-</code></pre><p><em>webconfig.en-us.prod.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>webconfig.en-us.prod.json</em></p><pre><code class="language-json">{
     "cache": true,
     "languageCode": "en-us",
     "statics": "statics.en-us.json",
     "routes": {
         "/": "index.htm"
     }
-}
-</code></pre><p><em>statics.fr-fr.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>statics.fr-fr.json</em></p><pre><code class="language-json">{
     "/variations/": "variations/fr-fr/",
-}
-</code></pre><p><em>statics.en-us.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>statics.en-us.json</em></p><pre><code class="language-json">{
     "/variations/": "variations/en-us/",
-}
-</code></pre><p>by only this two following files:</p><p><em>webconfig.js</em></p><pre><code class="lang-js">module.export = (function () {
+}</code></pre><p>by only this two following files:</p><p><em>webconfig.js</em></p><pre><code class="language-js">module.export = (function () {
     var webconfig = {
         "cache": false,
         "languageCode": "fr-fr",
@@ -378,24 +355,18 @@ exports.setRoutes = function (next) {
     }
 
     return webconfig;
-}());
-</code></pre><p><em>statics.js</em></p><pre><code class="lang-js">module.export = (function () {
+}());</code></pre><p><em>statics.js</em></p><pre><code class="language-js">module.export = (function () {
     var NA = this.NA,
         languageCode = NA.webconfig.languageCode
 
     return {
         "/variations/": "variations/" + languageCode + "/",
     };
-}());
-</code></pre><p>with the following supposed set of environment variables on the four following environments:</p><p>Local FR</p><pre><code class="lang-bash">NODE_ENV=DEVELOPMENT
-LANG=fr-fr
-</code></pre><p>Local EN</p><pre><code class="lang-bash">NODE_ENV=DEVELOPMENT
-LANG=en-us
-</code></pre><p>Prod FR</p><pre><code class="lang-bash">NODE_ENV=PRODUCTION
-LANG=fr-fr
-</code></pre><p>Prod EN</p><pre><code class="lang-bash">NODE_ENV=PRODUCTION
-LANG=en-us
-</code></pre><h3 id="https">HTTPs</h3><p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol.</p><p>Just use the following configuration:</p><pre><code class="lang-json">{
+}());</code></pre><p>with the following supposed set of environment variables on the four following environments:</p><p>Local FR</p><pre><code class="language-bash">NODE_ENV=DEVELOPMENT
+LANG=fr-fr</code></pre><p>Local EN</p><pre><code class="language-bash">NODE_ENV=DEVELOPMENT
+LANG=en-us</code></pre><p>Prod FR</p><pre><code class="language-bash">NODE_ENV=PRODUCTION
+LANG=fr-fr</code></pre><p>Prod EN</p><pre><code class="language-bash">NODE_ENV=PRODUCTION
+LANG=en-us</code></pre><h3 id="https">HTTPs</h3><p>It is very simple to run an instance of NodeAtlas with HTTPs protocol. You just have to create such a <code>security</code> folder in which to place your <code>server.key</code> and <code>server.crt</code> file to supply the protocol.</p><p>Just use the following configuration:</p><pre><code class="language-json">{
     "httpSecure": true,
     "httpSecureKeyRelativePath": "security/server.key",
     "httpSecureCertificateRelativePath": "security/server.crt",
@@ -404,24 +375,21 @@ LANG=en-us
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>Alternatively , if your two <code>.key</code> and <code>.crt</code> files have the same name, use this configuration:</p><pre><code class="lang-json">{
+}</code></pre><p>Alternatively , if your two <code>.key</code> and <code>.crt</code> files have the same name, use this configuration:</p><pre><code class="language-json">{
     "httpSecure": "security/server",
     "routes": {
         "/": {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> to get a "https" like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. But the server will not run in HTTPs and you will validate certificate by your own way (with a server proxy for example).</p><pre><code class="lang-json">{
+}</code></pre><p>This is also possible to just set the <code>httpSecure</code> value to <code>true</code> to get a "https" like <code>urlBasePath</code> or <code>urlBase</code> in your paths variables. But the server will not run in HTTPs and you will validate certificate by your own way (with a server proxy for example).</p><pre><code class="language-json">{
     "httpSecure": true,
     "routes": {
         "/": {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p><em>Note: in production, if you use a proxy for redirect request/response, don't forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="get-post">GET / POST</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p><pre><code class="lang-json">{
+}</code></pre><p><em>Note: in production, if you use a proxy for redirect request/response, don't forget use <code>urlPort: 443</code> instead of <code>urlPort: 80</code> for HTTPs.</em></p><h3 id="get-post">GET / POST</h3><p>You can also manager how the server will respond to requests GET/POST to a given page. For example, we will allow access to pages only GET for the whole site and allow a POST to one page only (and prohibited him GET).</p><pre><code class="language-json">{
     "get": true,
     "post": false,
     "routes": {
@@ -440,8 +408,7 @@ LANG=en-us
             "post": true
         }
     }
-}
-</code></pre><p><em>Note: if nothing is set,</em> <code>get</code> <em>and</em> <code>post</code> <em>are set to</em> <code>true</code> <em>in  global webconfig and by route.</em></p><h3 id="put-delete">PUT / DELETE</h3><p>They work in the same way as <code>get</code> and <code>post</code>. This two HTTP actions PUT and DELETE are by default not activated. To active it use <code>put</code> and <code>delete</code>.</p><pre><code class="lang-json">{
+}</code></pre><p><em>Note: if nothing is set,</em> <code>get</code> <em>and</em> <code>post</code> <em>are set to</em> <code>true</code> <em>in  global webconfig and by route.</em></p><h3 id="put-delete">PUT / DELETE</h3><p>They work in the same way as <code>get</code> and <code>post</code>. This two HTTP actions PUT and DELETE are by default not activated. To active it use <code>put</code> and <code>delete</code>.</p><pre><code class="language-json">{
     "get": false,
     "post": false,
     "put": true,
@@ -475,8 +442,7 @@ LANG=en-us
             "put": false
         }
     }
-}
-</code></pre><p>With the configuration below, only one HTTP action is possible by route, this is a great way to create APIs REST easily with NodeAtlas.</p><h3 id="cors-and-options">CORS and OPTIONS</h3><p>By default preflighted requests are not enable. You will need its, for example, to do CORS requests. Prefilghted requests are send with OPTIONS HTTP method.</p><p>To activate OPTIONS for a route, use the <code>options</code> property on a route of the webconfig. To activate OPTIONS on all routes, use in this case the property <code>options</code> in the webconfig in global.</p><pre><code class="lang-json">{
+}</code></pre><p>With the configuration below, only one HTTP action is possible by route, this is a great way to create APIs REST easily with NodeAtlas.</p><h3 id="cors-and-options">CORS and OPTIONS</h3><p>By default preflighted requests are not enable. You will need its, for example, to do CORS requests. Prefilghted requests are send with OPTIONS HTTP method.</p><p>To activate OPTIONS for a route, use the <code>options</code> property on a route of the webconfig. To activate OPTIONS on all routes, use in this case the property <code>options</code> in the webconfig in global.</p><pre><code class="language-json">{
     "options": true,
     "routes": {
         "/read-all-entry/": {
@@ -495,8 +461,7 @@ LANG=en-us
             "delete": true
         }
     }
-}
-</code></pre><h4 id="cross-domain-request">Cross-Domain Request</h4><p>If you want authorize a ressource on the NodeAtlas server requested by domain <code>www.domain-a.com</code> for a single page, you could do like this:</p><pre><code class="lang-json">{
+}</code></pre><h4 id="cross-domain-request">Cross-Domain Request</h4><p>If you want authorize a ressource on the NodeAtlas server requested by domain <code>www.domain-a.com</code> for a single page, you could do like this:</p><pre><code class="language-json">{
     "routes": {
         "/api/random-quote": {
             "controller": "get-quote.js",
@@ -505,13 +470,11 @@ LANG=en-us
             }
         }
     }
-}
-</code></pre><p>With that, you will be able to accept for example a request from <code>Origin</code>, <code>http://www.domain-a.com</code> which is a value in <code>Access-Control-Allow-Origin</code>:</p><pre><code class="lang-bash">GET /api/random-quote HTTP/1.1
+}</code></pre><p>With that, you will be able to accept for example a request from <code>Origin</code>, <code>http://www.domain-a.com</code> which is a value in <code>Access-Control-Allow-Origin</code>:</p><pre><code class="language-bash">GET /api/random-quote HTTP/1.1
 Host: www.domain-a.com
 ...
 Origin: http://www.domain-a.com
-...
-</code></pre><p><strong>Cross-Domain Request with Token</strong></p><p>If you want authorize resources from NodeAtlas server to the request from anywhere for the <code>/api/random-quote</code> page and the page <code>/api/protected/random-quote</code> that claims an authentification token, you could do that like this:</p><pre><code class="lang-json">{
+...</code></pre><p><strong>Cross-Domain Request with Token</strong></p><p>If you want authorize resources from NodeAtlas server to the request from anywhere for the <code>/api/random-quote</code> page and the page <code>/api/protected/random-quote</code> that claims an authentification token, you could do that like this:</p><pre><code class="language-json">{
     "mimeType": "application/json",
     "headers": {
         "Access-Control-Allow-Origin": "*",
@@ -527,21 +490,18 @@ Origin: http://www.domain-a.com
             "options": true
         }
     }
-}
-</code></pre><p>NodeAtlas will parse a token from the external domain if this token is sent by <code>Authorization</code> headers in the request. For allows NodeAtlas to accept this request, define it into <code>Access-Control-Allow-Headers</code> with the accepted value <code>Authorization</code>. Send a token need a preflight request so it's required to set <code>options</code> to <code>true</code> to authorize HTTP Request with OPTIONS method.</p><p>Now, you will be able to accept for example the following request which sends an authentification token to our server for the <code>/api/protected/random-quote</code> resource:</p><pre><code class="lang-bash">GET /api/protected/random-quote HTTP/1.1
+}</code></pre><p>NodeAtlas will parse a token from the external domain if this token is sent by <code>Authorization</code> headers in the request. For allows NodeAtlas to accept this request, define it into <code>Access-Control-Allow-Headers</code> with the accepted value <code>Authorization</code>. Send a token need a preflight request so it's required to set <code>options</code> to <code>true</code> to authorize HTTP Request with OPTIONS method.</p><p>Now, you will be able to accept for example the following request which sends an authentification token to our server for the <code>/api/protected/random-quote</code> resource:</p><pre><code class="language-bash">GET /api/protected/random-quote HTTP/1.1
 Host: localhost:1337
 ...
 Origin: http://localhost
 Authorization: Bearer CODE_DU_JETON
-...
-</code></pre><p><strong>Other Cross-Domain requests</strong></p><p>All headers for CORS features are accepted by the headers adding mechanism of NodeAtlas.</p><h3 id="settings-of-sessions">Settings of Sessions</h3><h4 id="key-and-secret">Key and Secret</h4><p>NodeAtlas itself manages sessions stored on the server as initial settings:</p><ul>
+...</code></pre><p><strong>Other Cross-Domain requests</strong></p><p>All headers for CORS features are accepted by the headers adding mechanism of NodeAtlas.</p><h3 id="settings-of-sessions">Settings of Sessions</h3><h4 id="key-and-secret">Key and Secret</h4><p>NodeAtlas itself manages sessions stored on the server as initial settings:</p><ul>
 <li>Key : <code>nodeatlas.sid</code></li>
 <li>Secret : <code>1234567890bépo</code></li>
-</ul><p>that allows customers to stay connected through the pages to a single set of personal server-side variable.</p><p>It is possible to change the default settings (and even compulsory for productions sites) with the parameters of <code>webconfig.json</code> following:</p><pre><code class="lang-json">{
+</ul><p>that allows customers to stay connected through the pages to a single set of personal server-side variable.</p><p>It is possible to change the default settings (and even compulsory for productions sites) with the parameters of <code>webconfig.json</code> following:</p><pre><code class="language-json">{
     "sessionKey": "personal key",
     "sessionSecret": "personal secret"
-}
-</code></pre><p>NodeAtlas also employs a memory storage object (MemoryStore) to stock the information in the RAM of the server.</p><h4 id="other-parameters">Other Parameters</h4><p>It is possible to change all the parameters of the sessions (except MemoryStore) using the configuration of next <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+}</code></pre><p>NodeAtlas also employs a memory storage object (MemoryStore) to stock the information in the RAM of the server.</p><h4 id="other-parameters">Other Parameters</h4><p>It is possible to change all the parameters of the sessions (except MemoryStore) using the configuration of next <code>webconfig.json</code>:</p><pre><code class="language-json">{
     "session": {
         "key": "personal key",
         "secret": "personal secret",
@@ -555,8 +515,7 @@ Authorization: Bearer CODE_DU_JETON
         ...,
         ...
     }
-}
-</code></pre><p>The entirety of the possible configuration is located on the module documentation <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="storage-sessions">Storage Sessions</h3><p>By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.</p><p>To address this concern, it should support the recording sessions via a base No SQL such as <code>Redis</code> or <code>MongoBD</code>.</p><p>You just have to use the <code>setSessions</code> function in common <code>controller</code> file.</p><h4 id="session-managed-with-redis">Session managed with Redis</h4><p>Implement the following code in the common <code>controller</code> file to store your sessions in a local Redis.</p><pre><code class="lang-js">exports.setModules = function () {
+}</code></pre><p>The entirety of the possible configuration is located on the module documentation <a href="https://github.com/expressjs/session">express-session</a>.</p><h3 id="storage-sessions">Storage Sessions</h3><p>By default, this is NodeAtlas server that stores sessions in the RAM of the server application. This does not allow users to share sessions across multiple applications NodeAtlas (or other) and erases all current sessions for an application if you restart it.</p><p>To address this concern, it should support the recording sessions via a base No SQL such as <code>Redis</code> or <code>MongoBD</code>.</p><p>You just have to use the <code>setSessions</code> function in common <code>controller</code> file.</p><h4 id="session-managed-with-redis">Session managed with Redis</h4><p>Implement the following code in the common <code>controller</code> file to store your sessions in a local Redis.</p><pre><code class="language-js">exports.setModules = function () {
     var NA = this;
 
     NA.modules.RedisStore = require("connect-redis");
@@ -570,8 +529,7 @@ exports.setSessions = function (next) {
     NA.sessionStore = new RedisStore();
 
     next();
-};
-</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a> page.</p><h4 id="session-managed-with-mongodb">Session managed with MongoDB</h4><p>Implement the following code in <code>controllers/common.js</code> to store sessions in the database <code>sessions</code> of a local MongoDB.</p><pre><code>exports.setModules = function () {
+};</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-redis">connect-redis</a> page.</p><h4 id="session-managed-with-mongodb">Session managed with MongoDB</h4><p>Implement the following code in <code>controllers/common.js</code> to store sessions in the database <code>sessions</code> of a local MongoDB.</p><pre><code>exports.setModules = function () {
     var NA = this;
 
     NA.modules.MongoStore = require("connect-mongo");
@@ -587,8 +545,7 @@ exports.setSessions = function (next) {
     });
 
     next();
-};
-</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-mongo</a> page.</p><h3 id="listening-url">Listening URL</h3><p>It is possible to generate a different URL listening other port with <code>urlHostname</code> and <code>urlPort</code>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:</p><pre><code class="lang-json">{
+};</code></pre><p>More information to <a href="https://www.npmjs.org/package/connect-mongo">connect-mongo</a> page.</p><h3 id="listening-url">Listening URL</h3><p>It is possible to generate a different URL listening other port with <code>urlHostname</code> and <code>urlPort</code>. For example, the local loop listens on port 80 for a script makes the Reverse Proxy from the port 7777 on the 80 with the "http-proxy" module as below:</p><pre><code class="language-json">{
     "httpPort": 7777,
     "httpHostname": "127.0.0.1",
     "urlPort": 80,
@@ -598,25 +555,21 @@ exports.setSessions = function (next) {
             "view": "index.htm"
         }
     }
-}
-</code></pre><h3 id="dynamic-urls">Dynamic URLs</h3><h4 id="relative-paths-in-absolute">Relative paths in absolute</h4><p>It is possible that the paths created from your URL to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong><a href="http://localhost">http://localhost</a></strong> impossible to reach when the template is displayed to address <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (because the path should be <code>../media/images/example.jpg</code>).</p><p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the URLs such as:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
+}</code></pre><h3 id="dynamic-urls">Dynamic URLs</h3><h4 id="relative-paths-in-absolute">Relative paths in absolute</h4><p>It is possible that the paths created from your URL to be interpreted as subfolders that have actually no real existence. This has the effect the address <code>media/images/example.jpg</code> initially accessible from template displayed to address <strong><a href="http://localhost">http://localhost</a></strong> impossible to reach when the template is displayed to address <strong><a href="http://localhost/sub-directory/">http://localhost/sub-directory/</a></strong> (because the path should be <code>../media/images/example.jpg</code>).</p><p>To no longer have to worry about access to resources regardless of the URL that is requested, simply turn on all the URLs such as:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="stylesheets/common.css" /&gt;
 &lt;!-- ... --&gt;
 &lt;img src="media/images/example.jpg" /&gt;
 &lt;!-- ... --&gt;
-&lt;script type="text/javascript" src="javascripts/common.js"&gt;&lt;/script&gt;
-</code></pre><p>in absolute URLs with variable <code>urlBasePath</code> as below:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="&lt;?= urlBasePath ?&gt;stylesheets/common.css" /&gt;
+&lt;script type="text/javascript" src="javascripts/common.js"&gt;&lt;/script&gt;</code></pre><p>in absolute URLs with variable <code>urlBasePath</code> as below:</p><pre><code>&lt;link rel="stylesheet" type="text/css" href="&lt;?= urlBasePath ?&gt;stylesheets/common.css" /&gt;
 &lt;!-- ... --&gt;
 &lt;img src="&lt;?= urlBasePath ?&gt;media/images/example.jpg" /&gt;
 &lt;!-- ... --&gt;
-&lt;script type="text/javascript" src="&lt;?= urlBasePath ?&gt;javascripts/common.js"&gt;&lt;/script&gt;
-</code></pre><p>Note that in the case of the following configuration:</p><pre><code class="lang-json">{
+&lt;script type="text/javascript" src="&lt;?= urlBasePath ?&gt;javascripts/common.js"&gt;&lt;/script&gt;</code></pre><p>Note that in the case of the following configuration:</p><pre><code class="language-json">{
     "routes": {
         "/": {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p><code>urlBasePath</code> return <code>http://localhost/</code> while in this configuration:</p><pre><code class="lang-json">{
+}</code></pre><p><code>urlBasePath</code> return <code>http://localhost/</code> while in this configuration:</p><pre><code class="language-json">{
     "httpPort": 7777,
     "urlRelativeSubPath": "sub/folder",
     "routes": {
@@ -624,8 +577,7 @@ exports.setSessions = function (next) {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p><code>urlBasePath</code> return <code>http://localhost:7777/sub/folder/</code>.</p><h4 id="the-paths-of-templates">The paths of templates</h4><p>Using the following webconfig:</p><pre><code class="lang-json">{
+}</code></pre><p><code>urlBasePath</code> return <code>http://localhost:7777/sub/folder/</code>.</p><h4 id="the-paths-of-templates">The paths of templates</h4><p>Using the following webconfig:</p><pre><code class="language-json">{
     "routes": {
         "/index.html": {
             "view": "index.htm"
@@ -634,12 +586,10 @@ exports.setSessions = function (next) {
             "view": "contact.htm"
         }
     }
-}
-</code></pre><p>and the corresponding template</p><pre><code class="lang-html">&lt;!-- ... --&gt;
+}</code></pre><p>and the corresponding template</p><pre><code class="language-html">&lt;!-- ... --&gt;
 &lt;a href="http://localhost/index.html"&gt;Link to home&lt;/a&gt;
 &lt;a href="http://localhost/contact.html"&gt;Link to contact&lt;/a&gt;
-&lt;!-- ... --&gt;
-</code></pre><p>I'd have to change my link in the template if I change the listening port or if I change the path of the URL. The following configuration changes:</p><pre><code class="lang-json">{
+&lt;!-- ... --&gt;</code></pre><p>I'd have to change my link in the template if I change the listening port or if I change the path of the URL. The following configuration changes:</p><pre><code class="language-json">{
     "httpPort": 7777,
     "routes": {
         "/home.html": {
@@ -649,12 +599,10 @@ exports.setSessions = function (next) {
             "view": "contact.htm"
         }
     }
-}
-</code></pre><p>force me to modify the previous template like that:</p><pre><code class="lang-html">&lt;!-- ... --&gt;
+}</code></pre><p>force me to modify the previous template like that:</p><pre><code class="language-html">&lt;!-- ... --&gt;
 &lt;a href="http://localhost:7777/home.html"&gt;Link to home&lt;/a&gt;
 &lt;a href="http://localhost:7777/contact-us.html"&gt;Link to contact&lt;/a&gt;
-&lt;!-- ... --&gt;
-</code></pre><p>You can solve this problem by giving a key to a specific path and deporting are way in the <code>url</code> property.</p><p>With the followinh webconfig:</p><pre><code class="lang-json">{
+&lt;!-- ... --&gt;</code></pre><p>You can solve this problem by giving a key to a specific path and deporting are way in the <code>url</code> property.</p><p>With the followinh webconfig:</p><pre><code class="language-json">{
     "routes": {
         "index": {
             "url": "/index.html",
@@ -665,33 +613,29 @@ exports.setSessions = function (next) {
             "view": "contact.htm"
         }
     }
-}
-</code></pre><p>I can now write the link in the dynamic template:</p><ol>
+}</code></pre><p>I can now write the link in the dynamic template:</p><ol>
 <li><p>as follows</p>
-<pre><code class="lang-html">&lt;!-- ... --&gt;
+<pre><code class="language-html">&lt;!-- ... --&gt;
 &lt;a href="&lt;?= urlBasePath ?&gt;&lt;?= webconfig.routes.home.url.slice(1) ?&gt;"&gt;Link to home&lt;/a&gt;
 &lt;a href="&lt;?= urlBasePath ?&gt;&lt;?= webconfig.routes.contact.url.slice(1) ?&gt;"&gt;Link to contact&lt;/a&gt;
-&lt;!-- ... --&gt;
-</code></pre>
+&lt;!-- ... --&gt;</code></pre>
 <p> <em>Note: <code>.slice(1)</code> makes it easy to remove the dual <code>/</code> for standard URL.</em></p>
 </li>
 <li><p>or as follows</p>
-<pre><code class="lang-html">&lt;!-- ... --&gt;
+<pre><code class="language-html">&lt;!-- ... --&gt;
 &lt;a href="&lt;?= urlBasePath ?&gt;.&lt;?= webconfig.routes.home.url ?&gt;"&gt;Link to home&lt;/a&gt;
 &lt;a href="&lt;?= urlBasePath ?&gt;.&lt;?= webconfig.routes.contact.url ?&gt;"&gt;Link to contact&lt;/a&gt;
-&lt;!-- ... --&gt;
-</code></pre>
+&lt;!-- ... --&gt;</code></pre>
 <p> <em>Note: This would, for example <code>http://localhost/./home.html</code>, which is a standard URL.</em></p>
 </li>
 <li><p>ou comme suit</p>
-<pre><code class="lang-html">&lt;!-- ... --&gt;
+<pre><code class="language-html">&lt;!-- ... --&gt;
 &lt;a href="&lt;?= urlBasePathSlice + webconfig.routes.home.url ?&gt;"&gt;Link to home&lt;/a&gt;
 &lt;a href="&lt;?= urlBasePathSlice + webconfig.routes.contact.url ?&gt;"&gt;Link to contact&lt;/a&gt;
-&lt;!-- ... --&gt;
-</code></pre>
+&lt;!-- ... --&gt;</code></pre>
 <p> <em>Note : <code>urlBasePathSlice</code> return <code>http://localhost</code> in place of <code>http://localhost/</code> or <code>http://localhost:7777/sub/folder</code> in place of <code>http://localhost:7777/sub/folder/</code>.</em></p>
 </li>
-</ol><h4 id="utilisation-de-la-cl-pour-mapper-les-pages">Utilisation de la clé pour mapper les pages</h4><p>It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.</p><p>With the following webconfig:</p><pre><code class="lang-json">{
+</ol><h4 id="utilisation-de-la-clé-pour-mapper-les-pages">Utilisation de la clé pour mapper les pages</h4><p>It's maybe useful to know the key used for the current page displayed for find the equivalent page in an other language.</p><p>With the following webconfig:</p><pre><code class="language-json">{
     "languageCode": "en-us",
     "routes": {
         "index_en-us": {
@@ -713,8 +657,7 @@ exports.setSessions = function (next) {
             "languageCode": "fr-fr"
         }
     }
-}
-</code></pre><p>and the common variation following:</p><pre><code class="lang-json">{
+}</code></pre><p>and the common variation following:</p><pre><code class="language-json">{
     "language": [{
         "name": "English",
         "code": "en-us"
@@ -722,8 +665,7 @@ exports.setSessions = function (next) {
         "name": "French",
         "code": "fr-fr"
     }]
-}
-</code></pre><p>in <code>fr</code> :</p><pre><code class="lang-json">{
+}</code></pre><p>in <code>fr</code> :</p><pre><code class="language-json">{
     "language": [{
         "name": "Anglais",
         "code": "en-us"
@@ -731,14 +673,11 @@ exports.setSessions = function (next) {
         "name": "Français",
         "code": "fr-fr"
     }]
-}
-</code></pre><p>we could create link between each page as following:</p><pre><code class="lang-html">&lt;ul&gt;
+}</code></pre><p>we could create link between each page as following:</p><pre><code class="language-html">&lt;ul&gt;
     &lt;? for (var i = 0; i &lt; common.language.length; i++) { ?&gt;
     &lt;li&gt;&lt;a href="&lt;?= urlBasePath + webconfig.routes[routeKey.split('_')[0] + '_' + common.language[i].code].url ?&gt;"&gt;&lt;?- common.language[i].name ?&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;? } ?&gt;
-&lt;/ul&gt;
-</code></pre><h3 id="custom-template-engine">Custom Template Engine</h3><p>It is possible to let the <a href="http://expressjs.com/en/guide/using-template-engines.html">Express Template Engine implementation</a> to bypass the NodeAtlas Template Engine implementation for view render. To do this, use the <code>engine</code> parameter. See an example with the Handlebars engine:</p><p>First, add the Express Handlebars middleware amongs your modules:</p><pre><code>npm install express-handlebars
-</code></pre><p>then, use <code>engine</code> with the arbtrary <code>hbs</code> value</p><pre><code>{
+&lt;/ul&gt;</code></pre><h3 id="custom-template-engine">Custom Template Engine</h3><p>It is possible to let the <a href="http://expressjs.com/en/guide/using-template-engines.html">Express Template Engine implementation</a> to bypass the NodeAtlas Template Engine implementation for view render. To do this, use the <code>engine</code> parameter. See an example with the Handlebars engine:</p><p>First, add the Express Handlebars middleware amongs your modules:</p><pre><code>npm install express-handlebars</code></pre><p>then, use <code>engine</code> with the arbtrary <code>hbs</code> value</p><pre><code>{
     "engine": "hbs",
     "controller": "common.js",
     "variation": "common.json",
@@ -748,8 +687,7 @@ exports.setSessions = function (next) {
             "variation": "index.json"
         }
     }
-}
-</code></pre><p>and explain to Express from NodeAtlas how to render views:</p><pre><code class="lang-js">exports.setModules = function () {
+}</code></pre><p>and explain to Express from NodeAtlas how to render views:</p><pre><code class="language-js">exports.setModules = function () {
     var NA = this;
 
     NA.modules.exphbs = require("express-handlebars");
@@ -762,8 +700,7 @@ exports.setConfigurations = function (next) {
     NA.express.engine("hbs", exphbs());
 
     next();
-};
-</code></pre><p>finaly, see what could be the content of <code>index.hbs</code>:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+};</code></pre><p>finaly, see what could be the content of <code>index.hbs</code>:</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
@@ -778,16 +715,14 @@ exports.setConfigurations = function (next) {
         &lt;/div&gt;
         &lt;script async="true" type="text/javascript" src="javascripts/{{common.classJsCommon}}.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>The goal of <code>engine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, Pug and NodeAtlas syntaxes.</p><h4 id="differences-between-engine-templateenginedelimiter-and-pug-">Differences between <code>engine</code>, <code>templateEngineDelimiter</code> and <code>pug</code></h4><p>It's possible to render EJS and Pug view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>controller</code> and a <code>npm</code> command to set them. You have just to set <code>engine: "ejs"</code> or <code>engine: "pug"</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for Pug in the common <code>view</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="no-view">No view</h3><p>It is possible to not using a view and only use a controller. In this case, the <code>changeVariations</code> hook is unused. You will fill the <code>locals.dom</code> value yourself with the <code>changeDom</code> hook.</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+&lt;/html&gt;</code></pre><p>The goal of <code>engine</code>, it is to not use the NodeAtlas Template Engine but use it from Express. Because Express need a <code>response</code> object to render view, it is not possible to use this feature with the <code>NA.view</code> function from NodeAtlas API. <code>NA.view</code> only support, EJS, Pug and NodeAtlas syntaxes.</p><h4 id="differences-between-engine-templateenginedelimiter-and-pug">Differences between <code>engine</code>, <code>templateEngineDelimiter</code> and <code>pug</code></h4><p>It's possible to render EJS and Pug view with the Express Template Engine. In this case, because <code>node-atlas</code> use already <code>ejs</code> and <code>pug</code> modules as dependencies, it is not mandatory to use a <code>controller</code> and a <code>npm</code> command to set them. You have just to set <code>engine: "ejs"</code> or <code>engine: "pug"</code>.</p><p>However, do this remove all additional feature added by NodeAtlas for this engines like for example the dynamic include of view for Pug in the common <code>view</code> file with <code>#{routeParameters.view}</code>.</p><h3 id="no-view">No view</h3><p>It is possible to not using a view and only use a controller. In this case, the <code>changeVariations</code> hook is unused. You will fill the <code>locals.dom</code> value yourself with the <code>changeDom</code> hook.</p><p><em>webconfig.json</em></p><pre><code class="language-json">{
     "routes": {
         "/(:member/)?": {
             "controller": "index.js",
             "mimeType": "application/json"
         }
     }
-}
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">exports.changeDom = function (next, locals) {
+}</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">exports.changeDom = function (next, locals) {
     locals.dom = `{
   "params": ${locals.params.member},
   "query": ${locals.query.member},
@@ -795,16 +730,13 @@ exports.setConfigurations = function (next) {
 }`;
 
     next();
-};
-</code></pre><p>So to the <code>http://localhost/huey/?query=dewey</code> URL requested in POST with <code>member=louie</code> body you will have the ouput:</p><pre><code class="lang-json">{
+};</code></pre><p>So to the <code>http://localhost/huey/?query=dewey</code> URL requested in POST with <code>member=louie</code> body you will have the ouput:</p><pre><code class="language-json">{
   "params": "huey",
   "query": "dewey",
   "body": "louie"
-}
-</code></pre><h4 id="no-routes">No routes</h4><p>No webconfig example not use the <code>routes</code> parameter. But it is also optional than others. For example, with the following webconfig:</p><p><em>webconfig.json</em></p><pre><code class="lang-json">{
+}</code></pre><h4 id="no-routes">No routes</h4><p>No webconfig example not use the <code>routes</code> parameter. But it is also optional than others. For example, with the following webconfig:</p><p><em>webconfig.json</em></p><pre><code class="language-json">{
     "controller": "common.js"
-}
-</code></pre><p>and the following controller:</p><p><em>controllers/common.js</em></p><pre><code class="lang-js">exports.setRoutes = function (next) {
+}</code></pre><p>and the following controller:</p><p><em>controllers/common.js</em></p><pre><code class="language-js">exports.setRoutes = function (next) {
     var NA = this,
         route = NA.webconfig.routes = {};
 
@@ -820,33 +752,30 @@ exports.changeDom = function (next, locals) {
     locals.dom = "Hello World";
 
     next();
-};
-</code></pre><p>It is possible to have at the address <code>http://localhost/</code> a simple "Hello World" message.</p><h3 id="cache">Cache</h3><p>It's a good thing to not serve file with no modification in production. You could set the websconfig's <code>cache</code> option to <code>true</code> for this:</p><pre><code class="lang-json">{
+};</code></pre><p>It is possible to have at the address <code>http://localhost/</code> a simple "Hello World" message.</p><h3 id="cache">Cache</h3><p>It's a good thing to not serve file with no modification in production. You could set the websconfig's <code>cache</code> option to <code>true</code> for this:</p><pre><code class="language-json">{
     "cache": true,
     "route": {
         "/": "index.htm"
     }
-}
-</code></pre><p>You can also start <code>node-atlas</code> with <code>--cache</code> option :</p><blockquote>
-<pre><code class="lang-bash">node-atlas --cache
-</code></pre>
+}</code></pre><p>You can also start <code>node-atlas</code> with <code>--cache</code> option :</p><blockquote>
+<pre><code class="language-bash">node-atlas --cache</code></pre>
 </blockquote><p>or set your environment variable <code>NODE_ENV</code> to <code>production</code> :</p><blockquote>
 <p>if you are in Unix / MacOS</p>
-<pre><code class="lang-bash">export NODE_ENV=production
-</code></pre>
+</blockquote><blockquote>
+<pre><code class="language-bash">export NODE_ENV=production</code></pre>
+</blockquote><blockquote>
 <p>or if you are in Windows</p>
-<pre><code class="lang-bash">SET NODE_ENV=production
-</code></pre>
+</blockquote><blockquote>
+<pre><code class="language-bash">SET NODE_ENV=production</code></pre>
+</blockquote><blockquote>
 <p>or you can run NodeAtlas like this:</p>
-<pre><code class="lang-bash">NODE_ENV=production node-atlas
-</code></pre>
+</blockquote><blockquote>
+<pre><code class="language-bash">NODE_ENV=production node-atlas</code></pre>
+</blockquote><blockquote>
 <p>or you can also set it in your JavaScript file:</p>
-<pre><code class="lang-js">process.env.NODE_ENV = "production";
-</code></pre>
-</blockquote><h3 id="sql-database">SQL Database</h3><p>We will see now how to use data from the database. We will use MySQL for this example. The <code>mysql</code> npm module will be useful. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use:</p><pre><code class="lang-bash">npm install mysql
-</code></pre><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="lang-sql">CREATE DATABASE demo;
-</code></pre><p>and select it:</p><pre><code class="lang-sql">USE demo
-</code></pre><p>and create a <code>user</code> table:</p><pre><code class="lang-sql">CREATE TABLE user
+</blockquote><blockquote>
+<pre><code class="language-js">process.env.NODE_ENV = "production";</code></pre>
+</blockquote><h3 id="sql-database">SQL Database</h3><p>We will see now how to use data from the database. We will use MySQL for this example. The <code>mysql</code> npm module will be useful. And first, <a href="https://dev.mysql.com/downloads/installer/">install a MySQL server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use:</p><pre><code class="language-bash">npm install mysql</code></pre><h4 id="mysql-database">MySQL Database</h4><p>First, we will create a database <code>demo</code> on the server:</p><pre><code class="language-sql">CREATE DATABASE demo;</code></pre><p>and select it:</p><pre><code class="language-sql">USE demo</code></pre><p>and create a <code>user</code> table:</p><pre><code class="language-sql">CREATE TABLE user
 (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     lastname VARCHAR(100),
@@ -858,8 +787,7 @@ exports.changeDom = function (next, locals) {
     town VARCHAR(255),
     zipcode VARCHAR(5),
     address VARCHAR(255)
-);
-</code></pre><p>and fill it with this set of data:</p><pre><code class="lang-sql">INSERT INTO user (
+);</code></pre><p>and fill it with this set of data:</p><pre><code class="language-sql">INSERT INTO user (
     lastname,
     firstname,
     email,
@@ -900,8 +828,7 @@ INSERT INTO user (
     "Resembool",
     00000,
     "The Elric's house"
-);
-</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>See now what files we will create to present our example:</p><pre><code class="lang-txt">├─ controllers/
+);</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>See now what files we will create to present our example:</p><pre><code class="language-txt">├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ models/
@@ -914,8 +841,7 @@ INSERT INTO user (
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
-└─ webconfig.json
-</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contains all information for database connection:</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mysqlConfig</code> variable which contains all information for database connection:</p><pre><code class="language-json">{
     "controller": "common.js",
     "variation": "common.json",
     "statics": {
@@ -934,8 +860,7 @@ INSERT INTO user (
         "password": "root",
         "database": "demo"
     }
-}
-</code></pre><p>Then, we will be connected to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.setModules = function () {
+}</code></pre><p>Then, we will be connected to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="language-js">exports.setModules = function () {
     var NA = this;
 
     // Import of `mysql` module.
@@ -956,8 +881,7 @@ exports.setConfigurations = function (next) {
     NA.mySql = mysql.createPool(NA.webconfig._mysqlConfig);
 
     next();
-};
-</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+};</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="language-js">exports.changeVariations = function (next, locals) {
     var NA = this,
         user = new NA.models.User(),
         user2 = new NA.models.User(),
@@ -1013,8 +937,7 @@ exports.setConfigurations = function (next) {
             });
         });
     });
-};
-</code></pre><p>with the <code>user</code> model via connecting file to database <code>models/connectors/user.js</code>:</p><pre><code class="lang-js">var user = require('../objects/user.js');
+};</code></pre><p>with the <code>user</code> model via connecting file to database <code>models/connectors/user.js</code>:</p><pre><code class="language-js">var user = require('../objects/user.js');
 
 function User(connection) {
     var privates = {},
@@ -1263,8 +1186,7 @@ function User(connection) {
 User.prototype = Object.create(user.prototype);
 User.prototype.constructor = User;
 
-module.exports = User;
-</code></pre><p>based on <code>user</code> class shared between client-side and server-side <code>models/objects/user.js</code>:</p><pre><code class="lang-js">(function (expose, factory) {
+module.exports = User;</code></pre><p>based on <code>user</code> class shared between client-side and server-side <code>models/objects/user.js</code>:</p><pre><code class="language-js">(function (expose, factory) {
     if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         module.exports = factory;
     } else {
@@ -1363,8 +1285,7 @@ module.exports = User;
             return publics;
         }
     };
-}));
-</code></pre><p>With following files to display the page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}));</code></pre><p>With following files to display the page:</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -1426,19 +1347,16 @@ module.exports = User;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+&lt;/html&gt;</code></pre><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Example MySql",
     "male": "Man",
     "female": "Woman"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "User Table",
     "content": "&lt;p&gt;First entry details.&lt;/p&gt;",
     "contents": "&lt;p&gt;All entries details.&lt;/p&gt;",
     "contentInsert": "&lt;p&gt;Added and Updated user details.&lt;/p&gt;"
-}
-</code></pre><p>You will get the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p>You will get the following output:</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -1510,11 +1428,7 @@ module.exports = User;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="nosql-database">NoSQL Database</h3><p>We will see now how to use data from NoSQL database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use:</p><pre><code class="lang-bash">npm install mongoose
-</code></pre><h4 id="mongodb-database">MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p><pre><code class="lang-bash">use demo
-</code></pre><p>and create a <code>user</code> collection:</p><pre><code class="lang-js">db.createCollection("user")
-</code></pre><p>and fill it with this document:</p><pre><code class="lang-js">db.user.insert({
+&lt;/html&gt;</code></pre><h3 id="nosql-database">NoSQL Database</h3><p>We will see now how to use data from NoSQL database. We will use the <code>mongoose</code> npm module. And first, <a href="https://www.mongodb.com/">install a MongoDB server</a>.</p><p>So, from your <code>webconfig.json</code> directory, use:</p><pre><code class="language-bash">npm install mongoose</code></pre><h4 id="mongodb-database">MongoDB Database</h4><p>First, we will create a database <code>demo</code> on the server and select it:</p><pre><code class="language-bash">use demo</code></pre><p>and create a <code>user</code> collection:</p><pre><code class="language-js">db.createCollection("user")</code></pre><p>and fill it with this document:</p><pre><code class="language-js">db.user.insert({
     email: "john.doe@unknown.com",
     identity: {
         lastname: "Doe",
@@ -1528,8 +1442,7 @@ module.exports = User;
         zipcode: "00000",
         address: "42 unknown"
     }
-})
-</code></pre><h4 id="nodeatlas-files">NodeAtlas Files</h4><p>With the following data set:</p><pre><code class="lang-txt">├─ controllers/
+})</code></pre><h4 id="nodeatlas-files-1">NodeAtlas Files</h4><p>With the following data set:</p><pre><code class="language-txt">├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ models/
@@ -1539,8 +1452,7 @@ module.exports = User;
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
-└─ webconfig.json
-</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>We will use the following <code>webconfig.json</code> with the custom <code>_mongodbConfig</code> variable which contain all informations for database connection:</p><pre><code class="language-json">{
     "controller": "common.js",
     "variation": "common.json",
     "statics": {
@@ -1558,8 +1470,7 @@ module.exports = User;
         "port": "27017",
         "database": "demo"
     }
-}
-</code></pre><p>With following files to display the page:</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p>With following files to display the page:</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="&lt;?- languageCode ?&gt;"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -1584,17 +1495,14 @@ module.exports = User;
             &lt;/ul&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+&lt;/html&gt;</code></pre><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Example MongoDB",
     "male": "Man",
     "female": "Woman"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "User Collection",
     "content": "&lt;p&gt;Document `{ \"identity.firstname\": \"John\" }` details.&lt;/p&gt;"
-}
-</code></pre><p>And last, we will be connected to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="lang-js">exports.setModules = function () {
+}</code></pre><p>And last, we will be connected to the database with the common controller <code>controllers/common.js</code>:</p><pre><code class="language-js">exports.setModules = function () {
     var NA = this,
         path = NA.modules.path;
 
@@ -1613,8 +1521,7 @@ exports.setConfigurations = function (next) {
     mongoose.connect("mongodb://" + config.host + ":" + config.port + "/" + config.database, function (error) {
         next();
     });
-};
-</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="lang-js">exports.changeVariations = function (next, locals) {
+};</code></pre><p>And display result via specific controller <code>controllers/index.js</code>:</p><pre><code class="language-js">exports.changeVariations = function (next, locals) {
     var NA = this,
         mongoose = NA.modules.mongoose,
         User = mongoose.model('user');
@@ -1636,8 +1543,7 @@ exports.setConfigurations = function (next) {
 
         next();
     });
-};
-</code></pre><p>based on <code>user</code> classe shared between client-side and server-side part <code>models/user.js</code>:</p><pre><code class="lang-js">var mongoose;
+};</code></pre><p>based on <code>user</code> classe shared between client-side and server-side part <code>models/user.js</code>:</p><pre><code class="language-js">var mongoose;
 if (typeof module !== 'undefined' &amp;&amp; module.exports) {
      mongoose = require('mongoose');
 }
@@ -1663,8 +1569,7 @@ if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         zipcode: String,
         address: String
     }
-})));
-</code></pre><p>You will get the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+})));</code></pre><p>You will get the following output:</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -1689,14 +1594,8 @@ if (typeof module !== 'undefined' &amp;&amp; module.exports) {
             &lt;/ul&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="isomorphic-app">Isomorphic App</h3><p>An isomorphic app is an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an example of an isomorphic app in the template dedicated to <a href="https://vuejs.org/">Vue.js</a>.</p><p>For test this, just:</p><p>create a test folder:</p><pre><code class="lang-bash">mkdir hello-vue
-cd hello-vue
-</code></pre><p>then place it the <code>hello-vue</code> content</p><pre><code class="lang-bash">node-atlas --create hello-vue
-</code></pre><p>then install dependencies</p><pre><code class="lang-bash">npm install
-</code></pre><p>and finaly run the french version</p><pre><code class="lang-bash">node-atlas --browse
-</code></pre><p>or the international version</p><pre><code class="lang-bash">node-atlas --browse --webconfig webconfig.en-us.json
-</code></pre><p>You will find all you need about server-side code from <code>constrollers/common.js</code> and client-side code on <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> and from <code>assets/javascripts/common.js</code> on <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
+&lt;/html&gt;</code></pre><h3 id="isomorphic-app">Isomorphic App</h3><p>An isomorphic app is an app which JavaScript source code is for a big part the same as client-side executed code and as server-side executed code. NodeAtlas provide an example of an isomorphic app in the template dedicated to <a href="https://vuejs.org/">Vue.js</a>.</p><p>For test this, just:</p><p>create a test folder:</p><pre><code class="language-bash">mkdir hello-vue
+cd hello-vue</code></pre><p>then place it the <code>hello-vue</code> content</p><pre><code class="language-bash">node-atlas --create hello-vue</code></pre><p>then install dependencies</p><pre><code class="language-bash">npm install</code></pre><p>and finaly run the french version</p><pre><code class="language-bash">node-atlas --browse</code></pre><p>or the international version</p><pre><code class="language-bash">node-atlas --browse --webconfig webconfig.en-us.json</code></pre><p>You will find all you need about server-side code from <code>constrollers/common.js</code> and client-side code on <a href="https://ssr.vuejs.org/">https://ssr.vuejs.org/</a> and from <code>assets/javascripts/common.js</code> on <a href="https://vuejs.org/">https://vuejs.org/</a>.</p><div><div class="before">
 							<a href="tools-part.html">◄ Tools Part</a>
 						</div><div class="after">
 							<a href="webconfig-s-anatomy.html">Webconfig's Anatomy ►</a>
