@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1553333061761">
+		<meta name="og:updated_time" content="1556716323120">
 
 		<meta name="robots" content="index, follow">
 
@@ -150,7 +150,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.4</h3>
+									<h3>v2.0.5</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
 								</div>
@@ -359,7 +359,7 @@ website.init({
 <li>data from  active user sessions,</li>
 <li>data provide from WebSockets exchanges,</li>
 <li>and more!</li>
-</ul><h3 id="lifecycle">Lifecycle</h3><p>NodeAtlas lifecycle works as following. First, resources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generated. You could use hooks while server start and while the response is constructed.</p><p>This is a <code>webconfig.json</code> allows you to manipulate each hook of lifecycle of a page.</p><pre><code class="lang-json">{
+</ul><h3 id="lifecycle">Lifecycle</h3><p>NodeAtlas lifecycle works as following. First, resources are loaded, the server start, routes are added and all is up. Then, for each HTTP request, a response is generated. You could use hooks while server start and while the response is constructed.</p><p>This is a <code>webconfig.json</code> allows you to manipulate each hook of lifecycle of a page.</p><pre><code class="language-json">{
     "controllersRelativePath": "controllers",
     "controller": "common.js",
     "routes": {
@@ -368,8 +368,7 @@ website.init({
             "controller": "index.json"
         }
     }
-}
-</code></pre><p><em>Note: if</em> <code>controllersRelativePath</code> <em>is not present in <code>webconfig.json</code>, default controller folder is</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><p>and this is all hooks you can use while:</p><h4 id="starting-the-server">Starting the server</h4><pre><code class="lang-txt">┌─[Loading Node.js Modules]
+}</code></pre><p><em>Note: if</em> <code>controllersRelativePath</code> <em>is not present in <code>webconfig.json</code>, default controller folder is</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><p>and this is all hooks you can use while:</p><h4 id="starting-the-server">Starting the server</h4><pre><code class="language-txt">┌─[Loading Node.js Modules]
 ┊
 ├─[Loading Init Vars]
 ┊
@@ -411,8 +410,7 @@ website.init({
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Routes Init]
         ┊
-        ∞
-</code></pre><h4 id="processing-a-request">Processing a request</h4><pre><code class="lang-txt">∞
+        ∞</code></pre><h4 id="processing-a-request">Processing a request</h4><pre><code class="language-txt">∞
 ┊
 └─[Processing a request]
   ┊
@@ -428,14 +426,13 @@ website.init({
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Send Response]
         ┊
-        ∞
-</code></pre><h3 id="changevariations-hook"><code>changeVariations</code> Hook</h3><p>In order to intercept variations, you could use the common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide:</p><ul>
+        ∞</code></pre><h3 id="changevariations-hook"><code>changeVariations</code> Hook</h3><p>In order to intercept variations, you could use the common controller for all the website page and/or also a specific controller per page.</p><p><code>changeVariations(next, locals, request, response)</code> is a function to <code>exports</code> and provide:</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next()</code> in the first argument.</li>
 <li>An object <code>locals</code> in the second argument with the <code>locals.common</code> for common variations and the <code>locals.specific</code> for specific variations.</li>
 <li>The <code>request</code> object in the third argument for this page.</li>
 <li>The <code>response</code> object in the fourth argument for this page.</li>
-</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="language-json">{
     "urlRelativeSubPath": "example",
     "controller": "common.js",
     "variation": "common.json",
@@ -446,8 +443,7 @@ website.init({
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>with this files :</p><pre><code class="lang-txt">├─ variations/
+}</code></pre><p>with this files :</p><pre><code class="language-txt">├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ controllers/
@@ -458,15 +454,12 @@ website.init({
 │  │  ├─ head.htm
 │  │  └─ foot.htm
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Site Title"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Welcome",
     "content": "&lt;p&gt;This is the Home Page.&lt;/p&gt;"
-}
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include("partials/head.htm") ?&gt;
+}</code></pre><p><em>views/index.htm</em></p><pre><code class="language-html">    &lt;?- include("partials/head.htm") ?&gt;
 
     &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
@@ -475,8 +468,7 @@ website.init({
         &lt;?- specific.content ?&gt;
     &lt;/div&gt;
 
-    &lt;?- include("partials/foot.htm") ?&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+    &lt;?- include("partials/foot.htm") ?&gt;</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// This code is executed before variation are injected into template engine.
 // This code is executed for all HTTP request, for all pages.
 exports.changeVariations = function (next, locals, request, response) {
 
@@ -506,8 +498,7 @@ exports.changeVariations = function (next, locals, request, response) {
 
     // We continue with next steps.
     next();
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// This code is executed before variation are injected into template engine.
 // This code is executed only for the `/` page.
 exports.changeVariations = function (next, locals, request, response) {
 
@@ -526,8 +517,7 @@ exports.changeVariations = function (next, locals, request, response) {
 
     // We continue with next steps.
     next();
-};
-</code></pre><p>this produce the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+};</code></pre><p>this produce the following output:</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -540,8 +530,7 @@ exports.changeVariations = function (next, locals, request, response) {
             It's Home, no way.
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>If you delete the variation entry of specific page from webconfig:</p><pre><code class="lang-json">{
+&lt;/html&gt;</code></pre><p>If you delete the variation entry of specific page from webconfig:</p><pre><code class="language-json">{
     "controller": "common.js",
     "variation": "common.json",
     "routes": {
@@ -550,8 +539,7 @@ exports.changeVariations = function (next, locals, request, response) {
             "variation": "index.json"
         }
     }
-}
-</code></pre><p>the output will be the following:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p>the output will be the following:</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -564,14 +552,13 @@ exports.changeVariations = function (next, locals, request, response) {
             This is a test
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="changedom-hook"><code>changeDom</code> Hook</h3><p>In order to intercept DOM before it was sent, you could use the common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
+&lt;/html&gt;</code></pre><h3 id="changedom-hook"><code>changeDom</code> Hook</h3><p>In order to intercept DOM before it was sent, you could use the common controller for all the website page and/or also a specific controller per page.</p><p><code>changeDom(next, locals, request, response)</code> is a function to <code>exports</code> and provide :</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next([dom])</code> in the first argument which accepts an optional first updated <code>dom</code> argument used to manipulate the Virtual DOM.</li>
 <li>An object <code>locals</code> in the second argument with the <code>locals.dom</code> string that contains the response or the <code>locals.virtualDom()</code> function creating a usable Virtual DOM.</li>
 <li>The <code>request</code> object in the third argument for this page.</li>
 <li>The <code>response</code> object in the fourth argument for this page.</li>
-</ul><p>This is an example using the two hooks, the common for all pages in first and after the specific:</p><pre><code class="lang-json">{
+</ul><p>This is an example using the two hooks, the common for all pages in first and after the specific:</p><pre><code class="language-json">{
     "controller": "common.js",
     "variation": "common.json",
     "routes": {
@@ -581,8 +568,7 @@ exports.changeVariations = function (next, locals, request, response) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>with this files:</p><pre><code class="lang-txt">├─ variations/
+}</code></pre><p>with this files:</p><pre><code class="language-txt">├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ controllers/
@@ -590,15 +576,12 @@ exports.changeVariations = function (next, locals, request, response) {
 │  └─ index.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others):</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others):</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Site Title"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Welcome",
     "content": "&lt;p&gt;This is Home Page.&lt;/p&gt;"
-}
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -611,8 +594,7 @@ exports.changeVariations = function (next, locals, request, response) {
             &lt;?- specific.content ?&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to client.
+&lt;/html&gt;</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// This code is executed before DOM was sent to client.
 // This code is executed for all HTTP request, for all pages.
 exports.changeDom = function (next, locals, request, response) {
     // Transform HTML string into Virtual DOM.
@@ -634,8 +616,7 @@ exports.changeDom = function (next, locals, request, response) {
 
     // Return updates for reinject them into HTML string.
     next(dom);
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before DOM was sent to client.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// This code is executed before DOM was sent to client.
 // This code is executed only for the « / » page .
 exports.changeDom = function (next, locals, request, response) {
     var NA = this,
@@ -650,8 +631,7 @@ exports.changeDom = function (next, locals, request, response) {
 
     // We go to next step.
     next();
-};
-</code></pre><p>the output will be as following:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+};</code></pre><p>the output will be as following:</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
@@ -664,10 +644,9 @@ exports.changeDom = function (next, locals, request, response) {
             &lt;p&gt;This is Home Page.&lt;/p&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="setsockets-hook"><code>setSockets</code> Hook</h3><p>In order to keep a real-time connection between your client-side and server-side across all pages opened on all browsers that run on all OS, you could define your WebSockets here. <a href="controller-part.html#websockets-exchanges">More details in Socket.IO part</a>.</p><p><code>setSockets()</code> is a function to <code>exports</code> and providing:</p><ul>
+&lt;/html&gt;</code></pre><h3 id="setsockets-hook"><code>setSockets</code> Hook</h3><p>In order to keep a real-time connection between your client-side and server-side across all pages opened on all browsers that run on all OS, you could define your WebSockets here. <a href="controller-part.html#websockets-exchanges">More details in Socket.IO part</a>.</p><p><code>setSockets()</code> is a function to <code>exports</code> and providing:</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
-</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="lang-json">{
+</ul><p>This is an example using the two hooks, the common in first and after the specific:</p><pre><code class="language-json">{
     "socketClientFile": "/node-atlas/socket.io.js",
     "socketServerOptions": { "transports": ["polling", "websocket"] },
     "controller": "common.js",
@@ -677,8 +656,7 @@ exports.changeDom = function (next, locals, request, response) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>with this files:</p><pre><code class="lang-txt">├─ assets/
+}</code></pre><p>with this files:</p><pre><code class="language-txt">├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
@@ -687,8 +665,7 @@ exports.changeDom = function (next, locals, request, response) {
 │  └─ test.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+└─ webconfig.json</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -704,8 +681,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type="text/javascript" src="javascripts/test.js"&gt;&lt;/script&gt;
         &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>Note: if</em> <code>socketClientFile</code> <em>and</em> <code>socketServerOptions</code> <em>are not present in <code>webconfig.json</code>, default client file and server options for sockets for config sockets are</em> <code>/node-atlas/socket.io.js</code> <em>and</em> <code>{ transports: ['polling', 'websocket'] }</code>. <code>socketClientFile</code>. <em>They are useful only to change the name of file or the sockets transports alloweds. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
+&lt;/html&gt;</code></pre><p><em>Note: if</em> <code>socketClientFile</code> <em>and</em> <code>socketServerOptions</code> <em>are not present in <code>webconfig.json</code>, default client file and server options for sockets for config sockets are</em> <code>/node-atlas/socket.io.js</code> <em>and</em> <code>{ transports: ['polling', 'websocket'] }</code>. <code>socketClientFile</code>. <em>They are useful only to change the name of file or the sockets transports alloweds. If you set <code>socketClientFile</code> to <code>false</code>, the client file will be not adding on accessible routes.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="language-js">(function (expose, factory) {
     if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         module.exports = factory;
     } else {
@@ -717,8 +693,7 @@ exports.changeDom = function (next, locals, request, response) {
     } else {
         console.log("Server");
     }
-}));
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executed for each WebSocket request/response on server.
+}));</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// This code is executed for each WebSocket request/response on server.
 // This code is executed for all WebSocket from Client.
 exports.setSockets = function () {
     var NA = this,
@@ -730,8 +705,7 @@ exports.setSockets = function () {
             console.log("A tab is closed.");
         });
     });
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed for each WebSocket request/response on server.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// This code is executed for each WebSocket request/response on server.
 // This code is executed for all WebSocket from client.
 exports.setSockets = function () {
     var NA = this,
@@ -750,8 +724,7 @@ exports.setSockets = function () {
             io.sockets.emit("update-text", data);
         });
     });
-};
-</code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName("content")[0],
+};</code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="language-js">var content = document.getElementsByClassName("content")[0],
     input = document.getElementsByClassName("input")[0];
 
 Test(); // display `Client`
@@ -768,10 +741,9 @@ input.addEventListener("keyup", function () {
 NA.socket.on("update-text", function (data) {
     content.innerHTML = data.text;
     input.value = data.text;
-});
-</code></pre><p>You will see, opening different browsers and tabs. All is updated in all tabs. Each tab open display the connection message and each tab closed display the disconnection message on the server console.</p><p><em>Note: you can change the <code>node-atlas/socket.io.js</code> file by a file provided by you in order to change <code>optionsSocket</code> variable. You can also change <code>NA.optionsSocket</code> in a front-side file, before inserting of <code>node-atlas/socket.io.js</code> with a custom option object.</em></p><h3 id="setmodules-hook"><code>setModules</code> Hook</h3><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setModules()</code> is a function to <code>exports</code> and providing:</p><ul>
+});</code></pre><p>You will see, opening different browsers and tabs. All is updated in all tabs. Each tab open display the connection message and each tab closed display the disconnection message on the server console.</p><p><em>Note: you can change the <code>node-atlas/socket.io.js</code> file by a file provided by you in order to change <code>optionsSocket</code> variable. You can also change <code>NA.optionsSocket</code> in a front-side file, before inserting of <code>node-atlas/socket.io.js</code> with a custom option object.</em></p><h3 id="setmodules-hook"><code>setModules</code> Hook</h3><p>To load others modules which not include into NodeAtlas, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setModules()</code> is a function to <code>exports</code> and providing:</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
-</ul><p>This is an example using an external module of NodeAtlas:</p><pre><code class="lang-json">{
+</ul><p>This is an example using an external module of NodeAtlas:</p><pre><code class="language-json">{
     "controller": "common.js",
     "routes": {
         "/": {
@@ -779,14 +751,12 @@ NA.socket.on("update-text", function (data) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>with this set of files:</p><pre><code class="lang-txt">├─ controllers/
+}</code></pre><p>with this set of files:</p><pre><code class="language-txt">├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+└─ webconfig.json</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -799,8 +769,7 @@ NA.socket.on("update-text", function (data) {
             &lt;?- example ?&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing during the modules loading phase.
+&lt;/html&gt;</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
 exports.setModules = function () {
     // Use the NodeAtlas instance from engine.
@@ -808,8 +777,7 @@ exports.setModules = function () {
 
     // Associate each modules to allow us to use them anywhare.
     NA.modules.marked = require('marked');
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executed before variation are injected into template engine.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// This code is executed before variation are injected into template engine.
 // This code is executed only for the `/` page .
 exports.changeVariations = function (next, locals) {
     // Use the NodeAtlas instance from engine.
@@ -820,8 +788,7 @@ exports.changeVariations = function (next, locals) {
 
     // We do next step.
     next();
-};
-</code></pre><p>this will produce the following output:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+};</code></pre><p>this will produce the following output:</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -834,11 +801,10 @@ exports.changeVariations = function (next, locals) {
             &lt;p&gt;I am using &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="setconfigurations-hook"><code>setConfigurations</code> Hook</h3><p>To configure NodeAtlas web server others (<a href="http://expressjs.com/">Express</a>), you can use the common controller to set configurations before the server start.</p><p><code>setConfigurations(next)</code> is a function to <code>exports</code> and providing:</p><ul>
+&lt;/html&gt;</code></pre><h3 id="setconfigurations-hook"><code>setConfigurations</code> Hook</h3><p>To configure NodeAtlas web server others (<a href="http://expressjs.com/">Express</a>), you can use the common controller to set configurations before the server start.</p><p><code>setConfigurations(next)</code> is a function to <code>exports</code> and providing:</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next()</code> in first argument.</li>
-</ul><p>This is an example using a middleware for <a href="http://expressjs.com/">Express</a>:</p><pre><code class="lang-json">{
+</ul><p>This is an example using a middleware for <a href="http://expressjs.com/">Express</a>:</p><pre><code class="language-json">{
     "controller": "common.js",
     "routes": {
         "/": {
@@ -846,15 +812,12 @@ exports.changeVariations = function (next, locals) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>with this set of files:</p><pre><code class="lang-txt">├─ controllers/
+}</code></pre><p>with this set of files:</p><pre><code class="language-txt">├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;?- content ?&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
+└─ webconfig.json</code></pre><p>Do a request on <code>http://localhost/</code> will use the following files (and others files):</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;?- content ?&gt;</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// This code is executing before starting of the web server.
 // This code will be executed when NodeAtlas starting.
 exports.setConfigurations = function (next) {
     // Use the NodeAtlas instance from engine.
@@ -868,8 +831,7 @@ exports.setConfigurations = function (next) {
 
     // We do next steps.
     next();
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// This code is executing before starting of the web server.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// This code is executing before starting of the web server.
 // This code is executed only for the `/` page .
 exports.changeVariations = function (next, locals) {
 
@@ -881,8 +843,7 @@ exports.changeVariations = function (next, locals) {
 
     // We do the next step.
     next();
-};
-</code></pre><p>this will produce the following output:</p><pre><code class="lang-html">{
+};</code></pre><p>this will produce the following output:</p><pre><code class="language-html">{
     "urlRootPath": "http://localhost",
     "urlSubPath": "",
     "urlBasePath": "http://localhost",
@@ -895,27 +856,24 @@ exports.changeVariations = function (next, locals) {
     "routeParameters": { /* ... */ },
     "route": "/",
     "webconfig": { /* ... */ }
-}
-</code></pre><h3 id="setsessions-hook"><code>setSessions</code> Hook</h3><p>To configure client-server Sessions of NodeAtlas, you can use the common controller to set sessions before the server start. this is an example with <a href="http://redis.io/">Redis</a> sessions.</p><p><code>setSessions(next)</code> is a function to <code>exports</code> and providing:</p><ul>
+}</code></pre><h3 id="setsessions-hook"><code>setSessions</code> Hook</h3><p>To configure client-server Sessions of NodeAtlas, you can use the common controller to set sessions before the server start. this is an example with <a href="http://redis.io/">Redis</a> sessions.</p><p><code>setSessions(next)</code> is a function to <code>exports</code> and providing:</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next()</code> in first parameter.</li>
-</ul><p>This is all files for example:</p><pre><code class="lang-txt">├─ controllers/
+</ul><p>This is all files for example:</p><pre><code class="language-txt">├─ controllers/
 │  └─ common.js
 ├─ views/
 │  └─ index.htm
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
-└─ webconfig.json
-</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="language-json">{
     "controller": "common.js",
     "routes": {
         "/": {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>And <code>common.js</code> file containing e.g.:</p><pre><code class="lang-js">// This code is executing during the modules loading phase.
+}</code></pre><p>And <code>common.js</code> file containing e.g.:</p><pre><code class="language-js">// This code is executing during the modules loading phase.
 // This code will be executed when NodeAtlas starting.
 exports.setModules = function () {
     // Find instance of NodeAtlas engine.
@@ -937,19 +895,17 @@ exports.setSessions = function (next) {
 
     // We do next steps.
     next();
-};
-</code></pre><h3 id="setroutes-hook"><code>setRoutes</code> Hook</h3><p>To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setRoutes(next)</code> is a function to <code>exports</code> and providing:</p><ul>
+};</code></pre><h3 id="setroutes-hook"><code>setRoutes</code> Hook</h3><p>To configure routes of NodeAtlas by programmation, you can use the common controller for all the website in order to load it once and use modules anywhere in all controllers.</p><p><code>setRoutes(next)</code> is a function to <code>exports</code> and providing:</p><ul>
 <li><code>NA</code> object as <code>this</code>.</li>
 <li>A callback function <code>next()</code> in first argument.</li>
-</ul><p>This is all files for example:</p><pre><code class="lang-txt">├─ controllers/
+</ul><p>This is all files for example:</p><pre><code class="language-txt">├─ controllers/
 │  └─ common.js
 ├─ views/
 │  ├─ content.htm
 │  └─ index.htm
 ├─ variations/
 │  └─ common.json
-└─ webconfig.json
-</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>With the <code>webconfig.json</code>:</p><pre><code class="language-json">{
     "controller": "common.js",
     "variation": "common.json",
     "routes": {
@@ -957,8 +913,7 @@ exports.setSessions = function (next) {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>And <code>common.js</code> file containing e.g.:</p><pre><code class="lang-js">// This code is executing while route are added.
+}</code></pre><p>And <code>common.js</code> file containing e.g.:</p><pre><code class="language-js">// This code is executing while route are added.
 // This code will be executed when NodeAtlas starting.
 exports.setRoutes = function (next) {
 
@@ -975,8 +930,7 @@ exports.setRoutes = function (next) {
 
     // We do next steps.
     next();
-};
-</code></pre><h3 id="websockets-exchanges">Websockets Exchanges</h3><p>To keep a link between client-side and server-side part of the website, NodeAtlas use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p><p>Thanks to this, you could change in real-time data on your page, but also change data from another tabs or browsers.</p><p>With this following files:</p><pre><code class="lang-txt">├─ assets/
+};</code></pre><h3 id="websockets-exchanges">Websockets Exchanges</h3><p>To keep a link between client-side and server-side part of the website, NodeAtlas use <a href="http://socket.io/">Socket.IO</a> (more details on official website).</p><p>Thanks to this, you could change in real-time data on your page, but also change data from another tabs or browsers.</p><p>With this following files:</p><pre><code class="language-txt">├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
@@ -988,8 +942,7 @@ exports.setRoutes = function (next) {
 │  ├─ partials/
 │  │  └─ index.htm
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>With this <code>webconfig.json</code>:</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>With this <code>webconfig.json</code>:</p><pre><code class="language-json">{
     "variation": "common.json",
     "routes": {
         "/": {
@@ -998,15 +951,13 @@ exports.setRoutes = function (next) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>and with this views files:</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+}</code></pre><p>and with this views files:</p><p><em>views/partials/index.htm</em></p><pre><code class="language-html">        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
         &lt;div&gt;
             &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
             &lt;?- specific.content ?&gt;
             &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
         &lt;/div&gt;
-        &lt;button&gt;Update&lt;/button&gt;
-</code></pre><p><em>Note: each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+        &lt;button&gt;Update&lt;/button&gt;</code></pre><p><em>Note: each click on <code>button</code> will update content from <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -1020,15 +971,12 @@ exports.setRoutes = function (next) {
         &lt;script type="text/javascript" src="node-atlas/socket.io.js"&gt;&lt;/script&gt;
         &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>Note: we parse here the home page <code>/</code>.</em></p><p>and the following variations files:</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+&lt;/html&gt;</code></pre><p><em>Note: we parse here the home page <code>/</code>.</em></p><p>and the following variations files:</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Socket.IO Example"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Date",
     "content": "&lt;p&gt;Current date is:&lt;/p&gt;"
-}
-</code></pre><p>All work fine here, but see what we will do with controller part on server-side and on client-side.</p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// All WebSocket action possible with `setSockets`.
+}</code></pre><p>All work fine here, but see what we will do with controller part on server-side and on client-side.</p><p>On server, we will use the following controller file:</p><p><em>controllers/index.js</em></p><pre><code class="language-js">// All WebSocket action possible with `setSockets`.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -1055,8 +1003,7 @@ exports.setSockets = function () {
             io.sockets.emit("server-render", data);
         });
     });
-};
-</code></pre><p>And for client-side, we use the following files:</p><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var html = document.getElementsByTagName("html")[0],
+};</code></pre><p>And for client-side, we use the following files:</p><p><em>assets/javascripts/index.js</em></p><pre><code class="language-js">var html = document.getElementsByTagName("html")[0],
     layout = document.getElementsByClassName("layout")[0];
 
 // We associate on the button the action to contact server.
@@ -1080,8 +1027,7 @@ NA.socket.on("server-render", function (data) {
 
     // ...and we set again button action.
     setServerRender();
-});
-</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browsers. You will see when you click on "Update", the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.view</code>, it's possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is the type of <code>undefined</code>, files will be searched in the root directory. If <code>locals</code> is the type of <code>undefined</code> an empty object will be created.</p><p>Note: to allows <code>view</code> to use Pug template engine and not EJS, you must define <code>locals.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="middlewares">Middlewares</h3><p>NodeAtlas is constructed on the top of <a href="http://expressjs.com/">Express</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this, you are able to add Express middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas's Express pre-configuration when the webconfig is empty:</p><pre><code class="lang-js">NA.express.set("strict routing", true);
+});</code></pre><p>Run your project and go on <code>http://localhost/</code> across multiple tab and/or multiple browsers. You will see when you click on "Update", the page (current date) will be updated on all tabs open.</p><p>Thanks to <code>NA.specific</code>, <code>NA.common</code> and <code>NA.view</code>, it's possible to generate a new view and variation compilation.</p><p>If <code>data.lang</code> in this example is the type of <code>undefined</code>, files will be searched in the root directory. If <code>locals</code> is the type of <code>undefined</code> an empty object will be created.</p><p>Note: to allows <code>view</code> to use Pug template engine and not EJS, you must define <code>locals.pug</code> to <code>true</code> before use <code>NA.common</code> and <code>NA.specific</code>.</p><h3 id="middlewares">Middlewares</h3><p>NodeAtlas is constructed on the top of <a href="http://expressjs.com/">Express</a>. You can access to the Express Object of a NodeAtlas instance using <code>NA#express</code>. With this, you are able to add Express middlewares in the same way you add it in standalone Express.</p><p>What we can say about the NodeAtlas's Express pre-configuration when the webconfig is empty:</p><pre><code class="language-js">NA.express.set("strict routing", true);
 /* ... */
 NA.express.set("x-powered-by", false);
 /* ... */
@@ -1101,8 +1047,7 @@ NA.express.use(cookieParser());
 NA.express.use(session(optionSession));
 /* ... */
 /* Manage `assets/` directory and access of file from domain root or a subpath. */
-NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));
-</code></pre><p>You can add middlewares with different ways.</p><h4 id="with-setconfigurations-">With <code>setConfigurations</code></h4><p>You can get the <code>NA#express</code> object ready to use middlewares with the <code>setConfigurations</code> hook. That will add the new mechanisms for all routes of your website.</p><pre><code class="lang-js">exports.setConfigurations = function (next) {
+NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));</code></pre><p>You can add middlewares with different ways.</p><h4 id="with-setconfigurations">With <code>setConfigurations</code></h4><p>You can get the <code>NA#express</code> object ready to use middlewares with the <code>setConfigurations</code> hook. That will add the new mechanisms for all routes of your website.</p><pre><code class="language-js">exports.setConfigurations = function (next) {
     var NA = this;
 
     // Middleware create by you.
@@ -1115,8 +1060,7 @@ NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serv
     NA.express.use(require("helmet")());
 
     next();
-};
-</code></pre><h4 id="with-the-middlewares-parameter-from-routes">With the <code>middlewares</code> parameter from Routes</h4><p>It's also possible to deliver middlewares only for one route. In this case, you could use the <code>middlewares</code> parameter like this :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+};</code></pre><h4 id="with-the-middlewares-parameter-from-routes">With the <code>middlewares</code> parameter from Routes</h4><p>It's also possible to deliver middlewares only for one route. In this case, you could use the <code>middlewares</code> parameter like this :</p><p><strong>webconfig.json</strong></p><pre><code class="language-js">{
     "middlewaresRelativePath": "middlewares",
     "routes": {
         "/upload-file": {
@@ -1129,8 +1073,7 @@ NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serv
         secret: "AUTH_CLIENT_SECRET",
         audience: "AUTH_CLIENT_ID"
     }
-}
-</code></pre><p>and use the following file to authorize the <code>"multipart/data-form"</code> encryption data type by POST only if you are authenticated by a JSON token:</p><p><strong>middlewares/upload.js</strong></p><pre><code class="lang-js">var multer  = require("multer"),
+}</code></pre><p>and use the following file to authorize the <code>"multipart/data-form"</code> encryption data type by POST only if you are authenticated by a JSON token:</p><p><strong>middlewares/upload.js</strong></p><pre><code class="language-js">var multer  = require("multer"),
     jwt = require("express-jwt");
 
 module.exports = function () {
@@ -1145,8 +1088,7 @@ module.exports = function () {
         }),
         upload.single("avatar"),
     ];
-};
-</code></pre><p><em>Note: if</em> <code>middlewaresRelativePath</code> <em>is not present in <code>webconfig.json</code>, default controller folder is</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="with-the-middlewares-parameter-in-global">With the <code>middlewares</code> parameter in Global</h4><p>It's also possible to use the same way for all routes. So, the webconfig will be used like that:</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+};</code></pre><p><em>Note: if</em> <code>middlewaresRelativePath</code> <em>is not present in <code>webconfig.json</code>, default controller folder is</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>is useful only to change the name/path of directory.</em></p><h4 id="with-the-middlewares-parameter-in-global">With the <code>middlewares</code> parameter in Global</h4><p>It's also possible to use the same way for all routes. So, the webconfig will be used like that:</p><p><strong>webconfig.json</strong></p><pre><code class="language-js">{
     "middlewares": "is-authenticated.js"
     "routes": {
         "/upload-file": {
@@ -1158,8 +1100,7 @@ module.exports = function () {
         secret: "AUTH_CLIENT_SECRET",
         audience: "AUTH_CLIENT_ID"
     }
-}
-</code></pre><p>With the file:</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require("express-jwt");
+}</code></pre><p>With the file:</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="language-js">var jwt = require("express-jwt");
 
 module.exports = function () {
     var NA = this;
@@ -1170,8 +1111,7 @@ module.exports = function () {
             audience: NA.webconfig._jwt.audience
         })
     ];
-};
-</code></pre><h4 id="array-of-middlewares-">Array of <code>middlewares</code></h4><p>You could also provide an array with a file list of Express middlewares both in local route or global:</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+};</code></pre><h4 id="array-of-middlewares">Array of <code>middlewares</code></h4><p>You could also provide an array with a file list of Express middlewares both in local route or global:</p><p><strong>webconfig.json</strong></p><pre><code class="language-js">{
     "routes": {
         "/upload-file": {
             "view": "upload.htm",
@@ -1183,8 +1123,7 @@ module.exports = function () {
         secret: "AUTH_CLIENT_SECRET",
         audience: "AUTH_CLIENT_ID"
     }
-}
-</code></pre><p>With the <code>NA</code> usage:</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require("express-jwt");
+}</code></pre><p>With the <code>NA</code> usage:</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="language-js">var jwt = require("express-jwt");
 
 module.exports = function () {
     var NA = this;
@@ -1193,14 +1132,12 @@ module.exports = function () {
         secret: NA.webconfig._jwt.secret,
         audience: NA.webconfig._jwt.audience
     })];
-};
-</code></pre><p>or not:</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="lang-js">module.exports = function (request, response, next) {
+};</code></pre><p>or not:</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="language-js">module.exports = function (request, response, next) {
 
     response.redirect('https://go.to.visitor.page/');
 
     next();
-};
-</code></pre><div><div class="before">
+};</code></pre><div><div class="before">
 							<a href="view-part.html">◄ View Part</a>
 						</div><div class="after">
 							<a href="tools-part.html">Tools Part ►</a>

@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1553333058931">
+		<meta name="og:updated_time" content="1556716320151">
 
 		<meta name="robots" content="index, follow">
 
@@ -150,7 +150,7 @@ website.init({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.4</h3>
+									<h3>v2.0.5</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
@@ -353,10 +353,7 @@ website.init({
 					<h2 id="nodeatlas-comme-simple-serveur-web">NodeAtlas comme simple serveur web</h2><p>Si NodeAtlas ne trouve pas le « webconfig.json » ou le <code>--webconfig</code> que vous lui aurez indiqué, il se lancera en mode « Simple Serveur Web » ou « Public ».</p><p><strong>Ce mode est pratique pour tester très rapidement que NodeAtlas est correctement installé ou pour créer des petits exemples HTML qui ont besoin d'un serveur web pour fonctionner (retours AJAX, iframe embarquée, etc.).</strong></p><p>Pour bien comprendre ce que cela signifie : s'il existe un quelconque fichier dans le répertoire d'où NodeAtlas a été lancé, il sera renvoyé par requête HTTP si on le réclame via son chemin d'accès.</p><p>Par exemple, en lançant NodeAtlas dans le répertoire <code>site-hello-world</code></p><pre><code>site-hello-world/
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>en exécutant la commande</p><pre><code>$ node-atlas
-</code></pre><p>ou même la commande</p><pre><code>$ node-atlas --webconfig webconfig.not-exist.json
-</code></pre><p>le serveur se lancera en mode « Simple Serveur Web » et les fichiers « <a href="http://localhost/webconfig.json">http://localhost/webconfig.json</a> » ou « <a href="http://localhost/views/webconfig.htm">http://localhost/views/webconfig.htm</a> » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.</p><p><em>Note : la commande <code>--generate</code> ne fonctionne pas avec ce mode.</em></p><div><div class="before">
+└─ webconfig.json</code></pre><p>en exécutant la commande</p><pre><code>$ node-atlas</code></pre><p>ou même la commande</p><pre><code>$ node-atlas --webconfig webconfig.not-exist.json</code></pre><p>le serveur se lancera en mode « Simple Serveur Web » et les fichiers « <a href="http://localhost/webconfig.json">http://localhost/webconfig.json</a> » ou « <a href="http://localhost/views/webconfig.htm">http://localhost/views/webconfig.htm</a> » seront accessible tel que le navigateur pourrait les renvoyer en tant que simple serveur web.</p><p><em>Note : la commande <code>--generate</code> ne fonctionne pas avec ce mode.</em></p><div><div class="before">
 							<a href="api-nodeatlas-comme-module-npm.html">◄ API / NodeAtlas comme module npm</a>
 						</div><div class="after">
 							<a href="environnement-de-developpement.html">Environnement de Développement ►</a>

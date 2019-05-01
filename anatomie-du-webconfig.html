@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1553333058149">
+		<meta name="og:updated_time" content="1556716320121">
 
 		<meta name="robots" content="index, follow">
 
@@ -150,7 +150,7 @@ website.init({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.4</h3>
+									<h3>v2.0.5</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
@@ -350,7 +350,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="anatomie-du-webconfig">Anatomie du webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous souhaitez ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT / DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="lang-js">Object{
+					<h2 id="anatomie-du-webconfig">Anatomie du webconfig</h2><p>Le webconfig est ce qui permet de piloter NodeAtlas et décider si vous souhaitez ne vous servir que de vue, que de contrôleur, si vous avez besoin de variation, si vous avez besoin d'activer les requêtes PUT / DELETE, etc. Sans lui, NodeAtlas se lance en tant que Simple Serveur Web. Voici la liste complète des paramètres d'un webconfig sachant qu'ils sont tous facultatifs en fonction de vos besoins.</p><h3 id="na-webconfig">&lt;NA&gt;.webconfig</h3><pre><code class="language-js">Object{
     "assetsCopy": Boolean,
     "assetsRelativePath": String&lt;path-from-root&gt;,
     "bundles": (String&lt;filepath-from-root&gt; | Object{
@@ -442,8 +442,7 @@ website.init({
     "version": String&lt;xx.xx.xx&gt;,
     "view": String&lt;filepath-from-views&gt;,
     "viewsRelativePath": String&lt;path-from-root&gt;
-}
-</code></pre><h3 id="na-routeparameters">&lt;NA&gt;.routeParameters</h3><pre><code class="lang-js">Object{
+}</code></pre><h3 id="na-routeparameters">&lt;NA&gt;.routeParameters</h3><pre><code class="language-js">Object{
     "charset": String,
     "controller": String&lt;filepath-from-controllers&gt;,
     "delete": Boolean,
@@ -462,8 +461,7 @@ website.init({
     "url": String&lt;urlpath-from-base&gt;,
     "variation": String&lt;filepath-from-variations&gt;,
     "view": String&lt;filepath-from-views&gt;
-}
-</code></pre><div><div class="before">
+}</code></pre><div><div class="before">
 							<a href="partie-avancee.html">◄ Partie avancée</a>
 						</div><div class="after">
 							<a href="cli-commandes-de-lancement.html">CLI / Commandes de lancement ►</a>

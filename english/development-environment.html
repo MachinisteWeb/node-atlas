@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="en-us">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1553333061729">
+		<meta name="og:updated_time" content="1556716322952">
 
 		<meta name="robots" content="index, follow">
 
@@ -150,7 +150,7 @@ website.init({
 							<h2>Download</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.4</h3>
+									<h3>v2.0.5</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Latest Version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Old Versions</a></p>
 								</div>
@@ -350,10 +350,7 @@ website.init({
 			<div class="content cmpt">
 				<div class="content--outer" data-name="Menu"></div>
 				<div class="content--inner">
-					<h2 id="development-environment">Development Environment</h2><p>NodeAtlas use Node.js which is developed on V8 Engine. The V8 Engine is also used by Google Chrome and Chromium which do NodeAtlas could be debug with this environment.</p><h3 id="front-end-debug">Front-end Debug</h3><p>You could debug your HTML render, your CSS files and your JavaScript front-end code in the same way that you'll do that with a simple HTML website or another technology. You have acces with F12 to the JavaScript console, to DOM editable elements, to the CSS property and animation editor and also to the JavaScript file débug system.</p><p>The new thing introduce with NodeAtlas is into the CSS editor. Instead of show you name and line of CSS file for rules of an element, if this CSS file was generated from a Stylus or Less, it's the Stylus or Less name and line that you'll see in the editor.</p><h3 id="back-end-debug">Back-end Debug</h3><p>From Node.js v6.6+, you could debug your Back-end code with Google Chrome. You have just to do that to use the <code>--inspect</code> option of node.</p><p>Create for example a starting point file like this :</p><pre><code class="lang-javascript">require("node-start")().start()
-</code></pre><p>and run the following command :</p><pre><code>node --inspect server.js
-</code></pre><p>The engine will communicate you the url of a page to display in Chrome. Go to this page to see all messages from console into the <code>console</code> tab, to debug your code with all Back-end files used in <code>source</code> and tests the perfs with <code>profile</code>.</p><h3 id="devices-tests">Devices Tests</h3><p>For test your app or website during the development phase on your mobile and pad you must connect your development machine and all devices on the same local network.</p><p>For example, connect all your devices on the same Wifi network. Then, find on this network the ip address of your development machine. On Windows, this could be done with the <code>ipconfig</code> for example.</p><p>When you obtain your ip, just set the hostname and the listening port for your NodeAtlas development instance:</p><pre><code>node-atlas --httpPort 7777 --httpHostname 192.168.1.24 --browse
-</code></pre><p>And that will open the website here : <code>http://192.168.1.24:7777/</code>.</p><p>You just now reach the url from your other devices to test the render of your app or website.</p><h3 id="hot-reloading">Hot Reloading</h3><p>You can use the <a href="https://browsersync.io/">browserSync</a> npm module and the <a href="https://nodemon.io/">Nodemon</a> npm module to reload files from your browser automaticly when it changes in your develpoment environment. You need npm module <code>gulp</code>, <code>browserSync</code> and <code>gulp-nodemon</code> to do hot reloading.</p><h4 id="dependencies-install">Dependencies Install</h4><p>The most simple it to add into  <code>package.json</code> file the following lines:</p><p><em>package.json</em></p><pre><code class="lang-json">{
+					<h2 id="development-environment">Development Environment</h2><p>NodeAtlas use Node.js which is developed on V8 Engine. The V8 Engine is also used by Google Chrome and Chromium which do NodeAtlas could be debug with this environment.</p><h3 id="front-end-debug">Front-end Debug</h3><p>You could debug your HTML render, your CSS files and your JavaScript front-end code in the same way that you'll do that with a simple HTML website or another technology. You have acces with F12 to the JavaScript console, to DOM editable elements, to the CSS property and animation editor and also to the JavaScript file débug system.</p><p>The new thing introduce with NodeAtlas is into the CSS editor. Instead of show you name and line of CSS file for rules of an element, if this CSS file was generated from a Stylus or Less, it's the Stylus or Less name and line that you'll see in the editor.</p><h3 id="back-end-debug">Back-end Debug</h3><p>From Node.js v6.6+, you could debug your Back-end code with Google Chrome. You have just to do that to use the <code>--inspect</code> option of node.</p><p>Create for example a starting point file like this :</p><pre><code class="language-javascript">require("node-start")().start()</code></pre><p>and run the following command :</p><pre><code>node --inspect server.js</code></pre><p>The engine will communicate you the url of a page to display in Chrome. Go to this page to see all messages from console into the <code>console</code> tab, to debug your code with all Back-end files used in <code>source</code> and tests the perfs with <code>profile</code>.</p><h3 id="devices-tests">Devices Tests</h3><p>For test your app or website during the development phase on your mobile and pad you must connect your development machine and all devices on the same local network.</p><p>For example, connect all your devices on the same Wifi network. Then, find on this network the ip address of your development machine. On Windows, this could be done with the <code>ipconfig</code> for example.</p><p>When you obtain your ip, just set the hostname and the listening port for your NodeAtlas development instance:</p><pre><code>node-atlas --httpPort 7777 --httpHostname 192.168.1.24 --browse</code></pre><p>And that will open the website here : <code>http://192.168.1.24:7777/</code>.</p><p>You just now reach the url from your other devices to test the render of your app or website.</p><h3 id="hot-reloading">Hot Reloading</h3><p>You can use the <a href="https://browsersync.io/">browserSync</a> npm module and the <a href="https://nodemon.io/">Nodemon</a> npm module to reload files from your browser automaticly when it changes in your develpoment environment. You need npm module <code>gulp</code>, <code>browserSync</code> and <code>gulp-nodemon</code> to do hot reloading.</p><h4 id="dependencies-install">Dependencies Install</h4><p>The most simple it to add into  <code>package.json</code> file the following lines:</p><p><em>package.json</em></p><pre><code class="language-json">{
   /* ... */
   "devDependencies": {
     "browser-sync": "2.18.x",
@@ -361,10 +358,7 @@ website.init({
     "gulp-nodemon": "2.2.x"
   },
   /* ... */
-}
-</code></pre><p>and run the following command:</p><pre><code class="lang-bash">npm install
-</code></pre><h4 id="create-configuration">Create configuration</h4><p>Create a <code>server.js</code> file (if you do not already have one) and place into the following code (for example):</p><p><em>server.js</em></p><pre><code class="lang-js">require("node-atlas")().start();
-</code></pre><p>Create also a <code>gulpfile.js</code> file in which you will add the following line code:</p><pre><code class="lang-js">/* jshint node: true */
+}</code></pre><p>and run the following command:</p><pre><code class="language-bash">npm install</code></pre><h4 id="create-configuration">Create configuration</h4><p>Create a <code>server.js</code> file (if you do not already have one) and place into the following code (for example):</p><p><em>server.js</em></p><pre><code class="language-js">require("node-atlas")().start();</code></pre><p>Create also a <code>gulpfile.js</code> file in which you will add the following line code:</p><pre><code class="language-js">/* jshint node: true */
 
 /* Load modules */
 var gulp = require('gulp'),
@@ -410,9 +404,7 @@ gulp.task('nodemon', function (next) {
             started = true;
         }
     });
-});
-</code></pre><h4 id="starting">Starting</h4><p>Now, all you need to do is run the following command:</p><pre><code class="lang-bash">gulp
-</code></pre><p>or create an npm command into <code>package.json</code> by adding this lines:</p><pre><code class="lang-json">{
+});</code></pre><h4 id="starting">Starting</h4><p>Now, all you need to do is run the following command:</p><pre><code class="language-bash">gulp</code></pre><p>or create an npm command into <code>package.json</code> by adding this lines:</p><pre><code class="language-json">{
   /* ... */
   "scripts": {
     /* ... */
@@ -420,9 +412,7 @@ gulp.task('nodemon', function (next) {
     /* ... */
   },
   /* ... */
-}
-</code></pre><p>and run the following command</p><pre><code class="lang-bash">npm run watch
-</code></pre><div><div class="before">
+}</code></pre><p>and run the following command</p><pre><code class="language-bash">npm run watch</code></pre><div><div class="before">
 							<a href="nodeatlas-as-a-simple-web-server.html">◄ NodeAtlas as a simple web server</a>
 						</div><div class="after">
 							<a href="production-environment.html">Production Environment ►</a>

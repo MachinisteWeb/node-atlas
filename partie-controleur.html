@@ -13,7 +13,7 @@
 		<meta name="og:image" content="https://node-atlas.js.org/media/images/min/logo-big.png">
 		<meta name="og:locale" content="fr-fr">
 		<meta name="og:type" content="website">
-		<meta name="og:updated_time" content="1553333058350">
+		<meta name="og:updated_time" content="1556716320977">
 
 		<meta name="robots" content="index, follow">
 
@@ -150,7 +150,7 @@ website.init({
 							<h2>Télécharger</h2>
 							<div class="download--version--inner">
 								<div class="download--version--step1">
-									<h3>v2.0.4</h3>
+									<h3>v2.0.5</h3>
 									<p class="download--clone--last"><a class="button" href="https://github.com/NodeAtlas/node-atlas/archive/master.zip" target="_blank">Dernière version</a></p>
 									<p class="aside"><a href="https://github.com/NodeAtlas/node-atlas/releases">Anciennes versions</a></p>
 								</div>
@@ -359,7 +359,7 @@ website.init({
 <li>d'informations dans des sessions utilisateurs actives,</li>
 <li>d'informations fournit par échanges WebSockets et</li>
 <li>de faire bien plus encore !</li>
-</ul><h3 id="cycle-de-vie">Cycle de vie</h3><p>Le cycle de vie de NodeAtlas est le suivant. D'abord, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d'atteindre tous les points d'ancrage du cycle de vie d'une page.</p><pre><code class="lang-json">{
+</ul><h3 id="cycle-de-vie">Cycle de vie</h3><p>Le cycle de vie de NodeAtlas est le suivant. D'abord, les ressources se chargent, le serveur démarre, les routes s'initialisent et tout est opérationnel. Puis, à chaque requête HTTP entrante, une réponse est générée. Vous pouvez intervenir grâce à différents points d'ancrage pendant le démarrage, et pendant la création d'une page.</p><p>Voici à quoi peut ressembler un <code>webconfig.json</code> permettant d'atteindre tous les points d'ancrage du cycle de vie d'une page.</p><pre><code class="language-json">{
     "controllersRelativePath": "controllers",
     "controller": "common.js",
     "routes": {
@@ -368,8 +368,7 @@ website.init({
             "controller": "index.json"
         }
     }
-}
-</code></pre><p><em>Note : si</em> <code>controllersRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des contrôleurs est bien</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir pendant :</p><h4 id="le-lancement-du-serveur">Le lancement du serveur</h4><pre><code class="lang-txt">┌─[Chargement des modules Node.js]
+}</code></pre><p><em>Note : si</em> <code>controllersRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des contrôleurs est bien</em> <code>controllers</code>. <code>controllersRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin du répertoire.</em></p><p>et voici le détail des endroits ou vous pouvez intervenir pendant :</p><h4 id="le-lancement-du-serveur">Le lancement du serveur</h4><pre><code class="language-txt">┌─[Chargement des modules Node.js]
 ┊
 ├─[Chargement des variables d'initialisation]
 ┊
@@ -411,8 +410,7 @@ website.init({
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Initialisation des routes]
         ┊
-        ∞
-</code></pre><h4 id="le-traitement-des-requ-tes-de-chaque-route">Le traitement des requêtes de chaque route</h4><pre><code class="lang-txt">∞
+        ∞</code></pre><h4 id="le-traitement-des-requêtes-de-chaque-route">Le traitement des requêtes de chaque route</h4><pre><code class="language-txt">∞
 ┊
 └─[Traitement d'une requête]
   ┊
@@ -428,14 +426,13 @@ website.init({
       ┊  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
       └─[Envoi de la réponse]
         ┊
-        ∞
-</code></pre><h3 id="point-d-ancrage-changevariations">Point d'ancrage <code>changeVariations</code></h3><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et / ou également le contrôleur par page.</p><p><code>changeVariations(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+        ∞</code></pre><h3 id="point-d-ancrage-changevariations">Point d'ancrage <code>changeVariations</code></h3><p>Pour intercepter les variations, vous pouvez soit utiliser le contrôleur commun pour tout le site et / ou également le contrôleur par page.</p><p><code>changeVariations(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier argument la fonction de rappel <code>next()</code>.</li>
 <li>En deuxième argument l'objet <code>locals</code> contenant entre autre la variation <code>locals.common</code> pour accéder aux variations communes et la variation <code>locals.specific</code> pour accéder aux variations spécifiques.</li>
 <li>En troisième argument l'objet <code>request</code> pour cette page.</li>
 <li>En quatrième argument l'objet <code>response</code> pour cette page.</li>
-</ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
+</ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="language-json">{
     "urlRelativeSubPath": "exemple",
     "controller": "common.js",
     "variation": "common.json",
@@ -446,8 +443,7 @@ website.init({
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ variations/
+}</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="language-txt">├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ controllers/
@@ -458,15 +454,12 @@ website.init({
 │  │  ├─ head.htm
 │  │  └─ foot.htm
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/exemple/?title=Haeresis</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>En demandant la page <code>http://localhost/exemple/?title=Haeresis</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Titre du site"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Bienvenue",
     "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
-}
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">    &lt;?- include("partials/head.htm") ?&gt;
+}</code></pre><p><em>views/index.htm</em></p><pre><code class="language-html">    &lt;?- include("partials/head.htm") ?&gt;
 
     &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
 
@@ -475,8 +468,7 @@ website.init({
         &lt;?- specific.content ?&gt;
     &lt;/div&gt;
 
-    &lt;?- include("partials/foot.htm") ?&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le moteur de template.
+    &lt;?- include("partials/foot.htm") ?&gt;</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté pour toute requête HTTP, toutes pages confondues.
 exports.changeVariations = function (next, locals, request, response) {
 
@@ -506,8 +498,7 @@ exports.changeVariations = function (next, locals, request, response) {
 
     // On passe à la suite.
     next();
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le moteur de template.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeVariations = function (next, locals, request, response) {
 
@@ -526,8 +517,7 @@ exports.changeVariations = function (next, locals, request, response) {
 
     // On passe à la suite.
     next();
-};
-</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+};</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -540,8 +530,7 @@ exports.changeVariations = function (next, locals, request, response) {
             C'est l'accueil, c'est tout.
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>Si vous décidez de désabonner la variation spécifique avec le webconfig suivant :</p><pre><code class="lang-json">{
+&lt;/html&gt;</code></pre><p>Si vous décidez de désabonner la variation spécifique avec le webconfig suivant :</p><pre><code class="language-json">{
     "controller": "common.js",
     "variation": "common.json",
     "routes": {
@@ -550,8 +539,7 @@ exports.changeVariations = function (next, locals, request, response) {
             "variation": "index.json"
         }
     }
-}
-</code></pre><p>alors la sortie sera :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p>alors la sortie sera :</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -564,14 +552,13 @@ exports.changeVariations = function (next, locals, request, response) {
             Ceci est un test
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="point-d-ancrage-changedom">Point d'ancrage <code>changeDom</code></h3><p>Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et / ou également le contrôleur par page.</p><p><code>changeDom(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+&lt;/html&gt;</code></pre><h3 id="point-d-ancrage-changedom">Point d'ancrage <code>changeDom</code></h3><p>Pour intercepter le DOM avant qu'il ne soit renvoyé, vous pouvez soit utiliser le contrôleur commun pour tout le site et / ou également le contrôleur par page.</p><p><code>changeDom(next, locals, request, response)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier argument la fonction de retour <code>next([dom])</code> acceptant optionellement en premier argument un objet' <code>dom</code> utilisée pour manipuler le DOM virtuel.</li>
 <li>En deuxième argument l'objet <code>locals</code> contenant entre autre la chaine de caractères <code>locals.dom</code> contenant la réponse ou la fonction <code>locals.virtualDom()</code> générant un Dom virtuel manipulable.</li>
 <li>En troisième argument l'objet <code>request</code> pour cette page.</li>
 <li>En quatrième argument l'objet <code>response</code> pour cette page.</li>
-</ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="lang-json">{
+</ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord la commune à plusieurs pages, puis celle de chaque page :</p><pre><code class="language-json">{
     "controller": "common.js",
     "variation": "common.json",
     "routes": {
@@ -581,8 +568,7 @@ exports.changeVariations = function (next, locals, request, response) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ variations/
+}</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="language-txt">├─ variations/
 │  ├─ common.json
 │  └─ index.json
 ├─ controllers/
@@ -590,15 +576,12 @@ exports.changeVariations = function (next, locals, request, response) {
 │  └─ index.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Titre du site"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Bienvenue",
     "content": "&lt;p&gt;C'est la page d'accueil.&lt;/p&gt;"
-}
-</code></pre><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+}</code></pre><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -611,8 +594,7 @@ exports.changeVariations = function (next, locals, request, response) {
             &lt;?- specific.content ?&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au client.
+&lt;/html&gt;</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// On intervient avant que le DOM ne soit renvoyé au client.
 // Ce code sera exécuté pour toute requête HTTP, toutes pages confondues.
 exports.changeDom = function (next, locals, request, response) {
     // Transformer la chaîne HTML en DOM virtuel.
@@ -634,8 +616,7 @@ exports.changeDom = function (next, locals, request, response) {
 
     // On retourne les modifications pour qu'elles redeviennent une chaîne de caractères HTML.
     next(dom);
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que le DOM ne soit renvoyé au client.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// On intervient avant que le DOM ne soit renvoyé au client.
 // Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeDom = function (next, locals, request, response) {
     var NA = this,
@@ -650,8 +631,7 @@ exports.changeDom = function (next, locals, request, response) {
 
     // On passe à la suite.
     next();
-};
-</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+};</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
@@ -664,10 +644,9 @@ exports.changeDom = function (next, locals, request, response) {
             &lt;p&gt;C'est la page d'accueil.&lt;/p&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="point-d-ancrage-setsockets">Point d'ancrage <code>setSockets</code></h3><p>Pour maintenir une connexion temps réel entre votre partie cliente et serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos WebSockets ici <a href="partie-controleur.html#echanges-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+&lt;/html&gt;</code></pre><h3 id="point-d-ancrage-setsockets">Point d'ancrage <code>setSockets</code></h3><p>Pour maintenir une connexion temps réel entre votre partie cliente et serveur à travers toutes les pages ouvertes sur tous les navigateurs de tous les ordinateurs sur le web, vous aller pouvoir définir vos WebSockets ici <a href="partie-controleur.html#echanges-websockets">Plus de détail dans la partie Socket.IO</a>.</p><p><code>setSockets()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
-</ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord le commun à plusieurs pages, puis celui pour chaque page :</p><pre><code class="lang-json">{
+</ul><p>Voici un exemple utilisant les deux points d'entrée, d'abord le commun à plusieurs pages, puis celui pour chaque page :</p><pre><code class="language-json">{
     "socketClientFile": "/node-atlas/socket.io.js",
     "socketServerOptions": { "transports": ["polling", "websocket"] },
     "controller": "common.js",
@@ -677,8 +656,7 @@ exports.changeDom = function (next, locals, request, response) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ assets/
+}</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="language-txt">├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
@@ -687,8 +665,7 @@ exports.changeDom = function (next, locals, request, response) {
 │  └─ test.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+└─ webconfig.json</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -704,8 +681,7 @@ exports.changeDom = function (next, locals, request, response) {
         &lt;script type="text/javascript" src="javascripts/test.js"&gt;&lt;/script&gt;
         &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>Note : si</em> <code>socketClientFile</code> <em>et</em> <code>socketServerOptions</code> <em>ne sont pas présent dans <code>webconfig.json</code>, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien</em> <code>/node-atlas/socket.io.js</code> <em>et</em> <code>{ transports: ['polling', 'websocket'] }</code>. <em>Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="lang-js">(function (expose, factory) {
+&lt;/html&gt;</code></pre><p><em>Note : si</em> <code>socketClientFile</code> <em>et</em> <code>socketServerOptions</code> <em>ne sont pas présent dans <code>webconfig.json</code>, par défaut le fichier client et les options serveurs pour configurer les sockets sont bien</em> <code>/node-atlas/socket.io.js</code> <em>et</em> <code>{ transports: ['polling', 'websocket'] }</code>. <em>Il sont donc utiles seulement pour changer le chemin du fichier ou les transports des sockets permis. Si vous mettez <code>socketClientFile</code> à <code>false</code>, le fichier client ne sera pas accessible.</em></p><p><em>assets/javascripts/test.js</em></p><pre><code class="language-js">(function (expose, factory) {
     if (typeof module !== 'undefined' &amp;&amp; module.exports) {
         module.exports = factory;
     } else {
@@ -717,8 +693,7 @@ exports.changeDom = function (next, locals, request, response) {
     } else {
         console.log("Serveur");
     }
-}));
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d'envoi globaux côté serveur.
+}));</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// On référence les actions de réponse et d'envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée WebSocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -730,8 +705,7 @@ exports.setSockets = function () {
             console.log("Un onglet est fermé.");
         });
     });
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On référence les actions de réponse et d'envoi globaux côté serveur.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// On référence les actions de réponse et d'envoi globaux côté serveur.
 // Ce code sera exécuté pour toute entrée WebSocket entrante.
 exports.setSockets = function () {
     var NA = this,
@@ -750,8 +724,7 @@ exports.setSockets = function () {
             io.sockets.emit("update-text", data);
         });
     });
-};
-</code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var content = document.getElementsByClassName("content")[0],
+};</code></pre><p><em>assets/javascripts/index.js</em></p><pre><code class="language-js">var content = document.getElementsByClassName("content")[0],
     input = document.getElementsByClassName("input")[0];
 
 Test(); // affiche `Client`
@@ -768,10 +741,9 @@ input.addEventListener("keyup", function () {
 NA.socket.on("update-text", function (data) {
     content.innerHTML = data.text;
     input.value = data.text;
-});
-</code></pre><p>Vous pourrez, en ouvrant divers navigateurs, et divers onglets, constater que tout est bien mis à jour chez tout le monde. Chaque nouvel onglet ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.</p><p><em>Note : vous pouvez changer le fichier <code>node-atlas/socket.io.js</code> par un fichier fournis par vous-même pour changer la variable <code>optionsSocket</code>. Vous pouvez aussi changer la valeur de <code>NA.optionsSocket</code> côté client (avant l'insertion de <code>node-atlas/socket.io.js</code>) avec un objet d'options personnalisées.</em></p><h3 id="point-d-ancrage-setmodules">Point d'ancrage <code>setModules</code></h3><p>Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setModules()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+});</code></pre><p>Vous pourrez, en ouvrant divers navigateurs, et divers onglets, constater que tout est bien mis à jour chez tout le monde. Chaque nouvel onglet ouvert affiche sur le serveur le message de connexion, et chaque onglet fermé, le message de deconnexion sur la console serveur.</p><p><em>Note : vous pouvez changer le fichier <code>node-atlas/socket.io.js</code> par un fichier fournis par vous-même pour changer la variable <code>optionsSocket</code>. Vous pouvez aussi changer la valeur de <code>NA.optionsSocket</code> côté client (avant l'insertion de <code>node-atlas/socket.io.js</code>) avec un objet d'options personnalisées.</em></p><h3 id="point-d-ancrage-setmodules">Point d'ancrage <code>setModules</code></h3><p>Pour charger d'autres modules qui ne sont pas fournis avec NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setModules()</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
-</ul><p>Voici un exemple utilisant un module externe à NodeAtlas :</p><pre><code class="lang-json">{
+</ul><p>Voici un exemple utilisant un module externe à NodeAtlas :</p><pre><code class="language-json">{
     "controller": "common.js",
     "routes": {
         "/": {
@@ -779,14 +751,12 @@ NA.socket.on("update-text", function (data) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ controllers/
+}</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="language-txt">├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+└─ webconfig.json</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -799,8 +769,7 @@ NA.socket.on("update-text", function (data) {
             &lt;?- example ?&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
+&lt;/html&gt;</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
     // Récupérer l'instance NodeAtlas du moteur.
@@ -808,8 +777,7 @@ exports.setModules = function () {
 
     // Associations de chaque module pour y avoir accès partout.
     NA.modules.marked = require('marked');
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le système de template.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// On intervient avant que les variables soient injectées dans le système de template.
 // Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeVariations = function (next, locals) {
     // Utiliser l'instance NodeAtlas depuis le moteur.
@@ -820,8 +788,7 @@ exports.changeVariations = function (next, locals) {
 
     // On passe à la suite.
     next();
-};
-</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+};</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -834,11 +801,10 @@ exports.changeVariations = function (next, locals) {
             &lt;p&gt;J'utilise &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;
         &lt;/div&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="point-d-ancrage-setconfigurations">Point d'ancrage <code>setConfigurations</code></h3><p>Pour configurer le serveur web de NodeAtlas (<a href="http://expressjs.com/">Express</a>) vous pouvez utiliser le contrôleur commun pour tout le site afin de faire vos modifications avant le démarrage du serveur.</p><p><code>setConfigurations(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+&lt;/html&gt;</code></pre><h3 id="point-d-ancrage-setconfigurations">Point d'ancrage <code>setConfigurations</code></h3><p>Pour configurer le serveur web de NodeAtlas (<a href="http://expressjs.com/">Express</a>) vous pouvez utiliser le contrôleur commun pour tout le site afin de faire vos modifications avant le démarrage du serveur.</p><p><code>setConfigurations(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier argument la fonction de rappel <code>next()</code>.</li>
-</ul><p>Voici un exemple utilisant un middleware pour <a href="http://expressjs.com/">Express</a> :</p><pre><code class="lang-json">{
+</ul><p>Voici un exemple utilisant un middleware pour <a href="http://expressjs.com/">Express</a> :</p><pre><code class="language-json">{
     "controller": "common.js",
     "routes": {
         "/": {
@@ -846,15 +812,12 @@ exports.changeVariations = function (next, locals) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="lang-txt">├─ controllers/
+}</code></pre><p>avec cet ensemble de fichier :</p><pre><code class="language-txt">├─ controllers/
 │  ├─ common.js
 │  └─ index.js
 ├─ views/
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;?- content ?&gt;
-</code></pre><p><em>controllers/common.js</em></p><pre><code class="lang-js">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
+└─ webconfig.json</code></pre><p>En demandant la page <code>http://localhost/</code> les fichiers suivants (entre autre) seront utilisés :</p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;?- content ?&gt;</code></pre><p><em>controllers/common.js</em></p><pre><code class="language-js">// On intervient au niveau du serveur avant que celui-ci ne soit démarré.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setConfigurations = function (next) {
     // Récupérer l'instance NodeAtlas du moteur.
@@ -868,8 +831,7 @@ exports.setConfigurations = function (next) {
 
     // On passe à la suite.
     next();
-};
-</code></pre><p><em>controllers/index.js</em></p><pre><code class="lang-js">// On intervient avant que les variables soient injectées dans le moteur de template.
+};</code></pre><p><em>controllers/index.js</em></p><pre><code class="language-js">// On intervient avant que les variables soient injectées dans le moteur de template.
 // Ce code sera exécuté uniquement lors de la demande de la page `/`.
 exports.changeVariations = function (next, locals) {
 
@@ -881,8 +843,7 @@ exports.changeVariations = function (next, locals) {
 
     // On passe à la suite.
     next();
-};
-</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="lang-html">{
+};</code></pre><p>ce qui produit la sortie suivante :</p><pre><code class="language-html">{
     "urlRootPath": "http://localhost",
     "urlSubPath": "",
     "urlBasePath": "http://localhost",
@@ -895,27 +856,24 @@ exports.changeVariations = function (next, locals) {
     "routeParameters": { /* ... */ },
     "route": "/",
     "webconfig": { /* ... */ }
-}
-</code></pre><h3 id="point-d-ancrage-setsessions">Point d'ancrage <code>setSessions</code></h3><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de gestion de session avec <a href="http://redis.io/">Redis</a>.</p><p><code>setSessions(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+}</code></pre><h3 id="point-d-ancrage-setsessions">Point d'ancrage <code>setSessions</code></h3><p>Pour configurer les sessions client-serveur de NodeAtlas vous pouvez utiliser le contrôleur commun pour tout le site afin de définir vos sessions avant le démarrage du serveur. Voici un exemple de gestion de session avec <a href="http://redis.io/">Redis</a>.</p><p><code>setSessions(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier paramètre la fonction de retour <code>next()</code>.</li>
-</ul><p>Voici l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ controllers/
+</ul><p>Voici l'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ controllers/
 │  └─ common.js
 ├─ views/
 │  └─ index.htm
 ├─ variations/
 │  ├─ common.json
 │  └─ index.json
-└─ webconfig.json
-</code></pre><p>Avec le <code>webconfig.json</code> :</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>Avec le <code>webconfig.json</code> :</p><pre><code class="language-json">{
     "controller": "common.js",
     "routes": {
         "/": {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>Et avec le fichier <code>common.js</code> contenant par exemple :</p><pre><code class="lang-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
+}</code></pre><p>Et avec le fichier <code>common.js</code> contenant par exemple :</p><pre><code class="language-js">// On intervient avant que la phase de chargement des modules ne soit achevée.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setModules = function () {
     // Récupérer l'instance NodeAtlas du moteur.
@@ -937,19 +895,17 @@ exports.setSessions = function (next) {
 
     // On redonne la main à NodeAtlas pour la suite.
     next();
-};
-</code></pre><h3 id="point-d-ancrage-setroutes">Point d'ancrage <code>setRoutes</code></h3><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setRoutes(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
+};</code></pre><h3 id="point-d-ancrage-setroutes">Point d'ancrage <code>setRoutes</code></h3><p>Pour configurer les routes de NodeAtlas dynamiquement vous pouvez utiliser le contrôleur commun pour tout le site afin de les charger une seule fois et de les rendres disponible dans tous vos contrôleurs.</p><p><code>setRoutes(next)</code> est une fonction a <code>exports</code> et fournissant :</p><ul>
 <li>L'objet <code>NA</code> en tant que <code>this</code>.</li>
 <li>En premier argument la fonction de rappel <code>next()</code>.</li>
-</ul><p>Voici l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ controllers/
+</ul><p>Voici l'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ controllers/
 │  └─ common.js
 ├─ views/
 │  ├─ content.htm
 │  └─ index.htm
 ├─ variations/
 │  └─ common.json
-└─ webconfig.json
-</code></pre><p>Avec le <code>webconfig.json</code> :</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>Avec le <code>webconfig.json</code> :</p><pre><code class="language-json">{
     "controller": "common.js",
     "variation": "common.json",
     "routes": {
@@ -957,8 +913,7 @@ exports.setSessions = function (next) {
             "view": "index.htm"
         }
     }
-}
-</code></pre><p>et avec le fichier <code>common.js</code> contenant par exemple :</p><pre><code class="lang-js">// On intervient au niveau des routes pendant qu'elles sont ajoutées.
+}</code></pre><p>et avec le fichier <code>common.js</code> contenant par exemple :</p><pre><code class="language-js">// On intervient au niveau des routes pendant qu'elles sont ajoutées.
 // Ce code sera exécuté au lancement de NodeAtlas.
 exports.setRoutes = function (next) {
 
@@ -975,8 +930,7 @@ exports.setRoutes = function (next) {
 
     // On redonne la main à NodeAtlas pour la suite.
     next();
-};
-</code></pre><h3 id="echanges-websockets">Échanges WebSockets</h3><p>Afin de conserver une liaison ouverte entre la partie cliente et la partie serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l'ensemble de fichier suivant :</p><pre><code class="lang-txt">├─ assets/
+};</code></pre><h3 id="echanges-websockets">Échanges WebSockets</h3><p>Afin de conserver une liaison ouverte entre la partie cliente et la partie serveur de vos applications, NodeAtlas utilise <a href="http://socket.io/">Socket.IO</a> dont vous trouverez plus de détail sur le site officiel.</p><p>Grâce à cela, vous pourrez changer des informations en temps réel sur votre page, mais également sur toutes les autres pages ouvertes à travers tous les autres navigateurs.</p><p>Avec l'ensemble de fichier suivant :</p><pre><code class="language-txt">├─ assets/
 │  └─ javascripts/
 │     └─ index.js
 ├─ controllers/
@@ -988,8 +942,7 @@ exports.setRoutes = function (next) {
 │  ├─ partials/
 │  │  └─ index.htm
 │  └─ index.htm
-└─ webconfig.json
-</code></pre><p>Contenant le <code>webconfig.json</code> suivant :</p><pre><code class="lang-json">{
+└─ webconfig.json</code></pre><p>Contenant le <code>webconfig.json</code> suivant :</p><pre><code class="language-json">{
     "variation": "common.json",
     "routes": {
         "/": {
@@ -998,15 +951,13 @@ exports.setRoutes = function (next) {
             "controller": "index.js"
         }
     }
-}
-</code></pre><p>et contenant les fichiers de template suivant :</p><p><em>views/partials/index.htm</em></p><pre><code class="lang-html">        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
+}</code></pre><p>et contenant les fichiers de template suivant :</p><p><em>views/partials/index.htm</em></p><pre><code class="language-html">        &lt;div class="title"&gt;&lt;?- common.titleWebsite ?&gt;&lt;/div&gt;
         &lt;div&gt;
             &lt;h1&gt;&lt;?- specific.titlePage ?&gt;&lt;/h1&gt;
             &lt;?- specific.content ?&gt;
             &lt;div&gt;&lt;?- new Date() ?&gt;&lt;/div&gt;
         &lt;/div&gt;
-        &lt;button&gt;Mettre à jour&lt;/button&gt;
-</code></pre><p><em>Note : chaque clique sur <code>button</code> raffraichira le contenu de <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+        &lt;button&gt;Mettre à jour&lt;/button&gt;</code></pre><p><em>Note : chaque clique sur <code>button</code> raffraichira le contenu de <code>views/partials/index.htm</code>.</em></p><p><em>views/index.htm</em></p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr-fr"&gt;
     &lt;head&gt;
         &lt;meta charset="utf-8" /&gt;
@@ -1020,15 +971,12 @@ exports.setRoutes = function (next) {
         &lt;script type="text/javascript" src="node-atlas/socket.io.js"&gt;&lt;/script&gt;
         &lt;script type="text/javascript" src="javascripts/index.js"&gt;&lt;/script&gt;
     &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><em>Note : on construit ici la page d'accueil <code>/</code>.</em></p><p>ainsi que les fichiers de variations suivant :</p><p><em>variations/common.json</em></p><pre><code class="lang-json">{
+&lt;/html&gt;</code></pre><p><em>Note : on construit ici la page d'accueil <code>/</code>.</em></p><p>ainsi que les fichiers de variations suivant :</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Exemple Socket.IO"
-}
-</code></pre><p><em>variations/index.json</em></p><pre><code class="lang-json">{
+}</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Date",
     "content": "&lt;p&gt;La date actuelle est :&lt;/p&gt;"
-}
-</code></pre><p>Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté serveur puis côté client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><em>controllers/index.js</em></p><pre><code class="lang-js">// Intégralité des actions WebSocket possibles avec `setSockets`.
+}</code></pre><p>Jusque là, rien d'inhabituel et tout fonctionnerait sans partie contrôleur. Mais nous allons mettre en place la communication via Socket.IO côté serveur puis côté client.</p><p>Côté serveur, nous utiliserons le contrôleur commun suivant :</p><p><em>controllers/index.js</em></p><pre><code class="language-js">// Intégralité des actions WebSocket possibles avec `setSockets`.
 exports.setSockets = function () {
     var NA = this,
         io = NA.io;
@@ -1055,8 +1003,7 @@ exports.setSockets = function () {
             io.sockets.emit("server-render", data);
         });
     });
-};
-</code></pre><p>Quand au côté client, nous utiliserons les fichiers suivant :</p><p><em>assets/javascripts/index.js</em></p><pre><code class="lang-js">var html = document.getElementsByTagName("html")[0],
+};</code></pre><p>Quand au côté client, nous utiliserons les fichiers suivant :</p><p><em>assets/javascripts/index.js</em></p><pre><code class="language-js">var html = document.getElementsByTagName("html")[0],
     layout = document.getElementsByClassName("layout")[0];
 
 // On associe sur le bouton l'action de communiquer avec le serveur en cliquant dessus.
@@ -1080,8 +1027,7 @@ NA.socket.on("server-render", function (data) {
 
     // ...et ré-affectons l'action au bouton du nouveau contenu.
     setServerRender();
-});
-</code></pre><p>Lancer votre projet et rendez-vous à l'adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Mettre à jour », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>view</code> d'utiliser le moteur Pug au lieu de celui d'EJS, il faut mettre la valeur <code>locals.pug</code> à <code>true</code> avant d'utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="middlewares">Middlewares</h3><p>NodeAtlas repose en partie sur le module npm <a href="http://expressjs.com/">Express</a>. Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de <code>NA#express</code>. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.</p><p>En ce qui concerne la préconfiguration d'Express avec un webconfig vide, elle est faites ainsi :</p><pre><code class="lang-js">NA.express.set("strict routing", true);
+});</code></pre><p>Lancer votre projet et rendez-vous à l'adresse <code>http://localhost/</code> dans deux onglets différent, voir même, dans deux navigateurs différent. Vous constaterez alors qu'à chaque clique sur « Mettre à jour », la page se remettra à jour (comme le montre la date courante) sur tous les onglets ouvert.</p><p>Grâce à <code>NA.specific</code>, <code>NA.common</code> et <code>NA.view</code>, il est possible de générer une nouvelle compilation d'une vue et d'une variation commune et spécifique.</p><p>Si <code>data.lang</code> dans notre exemple est de type <code>undefined</code>, alors les fichiers seront cherchés à la racine. Si <code>locals</code> est de type <code>undefined</code> alors un objet contenant uniquement le scope demandé sera renvoyé.</p><p>Note : pour permettre à <code>view</code> d'utiliser le moteur Pug au lieu de celui d'EJS, il faut mettre la valeur <code>locals.pug</code> à <code>true</code> avant d'utiliser <code>NA.common</code> et <code>NA.specific</code>.</p><h3 id="middlewares">Middlewares</h3><p>NodeAtlas repose en partie sur le module npm <a href="http://expressjs.com/">Express</a>. Vous pouvez accéder à l'objet Express d'une instance NodeAtlas par l'intermédiaire de <code>NA#express</code>. Cela vous permet d'ajouter des middlewares Express de la même manière que vous l'auriez fait avec Express seul.</p><p>En ce qui concerne la préconfiguration d'Express avec un webconfig vide, elle est faites ainsi :</p><pre><code class="language-js">NA.express.set("strict routing", true);
 /* ... */
 NA.express.set("x-powered-by", false);
 /* ... */
@@ -1101,8 +1047,7 @@ NA.express.use(cookieParser());
 NA.express.use(session(optionSession));
 /* ... */
 /* Gére de dossier `assets/` et son accès depuis le domain root ou un sous-dossier. */
-NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));
-</code></pre><p>Vous pouvez vous même ajouter des middlewares de plusieurs manière.</p><h4 id="avec-setconfigurations-">Avec <code>setConfigurations</code></h4><p>Vous pouvez obtenir l'objet <code>NA#express</code> près à accueillir des middlewares ici dans le point d'ancrage <code>setConfigurations</code>. Cela ajoutera les mécanismes à toutes les routes de votre site.</p><pre><code class="lang-js">exports.setConfigurations = function (next) {
+NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serverPath, NA.webconfig.assetsRelativePath), staticOptions));</code></pre><p>Vous pouvez vous même ajouter des middlewares de plusieurs manière.</p><h4 id="avec-setconfigurations">Avec <code>setConfigurations</code></h4><p>Vous pouvez obtenir l'objet <code>NA#express</code> près à accueillir des middlewares ici dans le point d'ancrage <code>setConfigurations</code>. Cela ajoutera les mécanismes à toutes les routes de votre site.</p><pre><code class="language-js">exports.setConfigurations = function (next) {
     var NA = this;
 
     // Middleware fait main.
@@ -1115,8 +1060,7 @@ NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serv
     NA.express.use(require("helmet")());
 
     next();
-};
-</code></pre><h4 id="avec-le-param-tre-middlewares-des-routes">Avec le paramètre <code>middlewares</code> des Routes</h4><p>Il est également possible de délivrer ses middlewares uniquement pour une seule route. Dans ce cas vous pouvez utilisez le paramètre <code>middlewares</code> comme suit :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+};</code></pre><h4 id="avec-le-paramètre-middlewares-des-routes">Avec le paramètre <code>middlewares</code> des Routes</h4><p>Il est également possible de délivrer ses middlewares uniquement pour une seule route. Dans ce cas vous pouvez utilisez le paramètre <code>middlewares</code> comme suit :</p><p><strong>webconfig.json</strong></p><pre><code class="language-js">{
     "middlewaresRelativePath": "middlewares",
     "routes": {
         "/upload-file": {
@@ -1129,8 +1073,7 @@ NA.express.use(NA.webconfig.urlRelativeSubPath, express.static(path.join(NA.serv
         secret: "AUTH_CLIENT_SECRET",
         audience: "AUTH_CLIENT_ID"
     }
-}
-</code></pre><p>et utiliser le fichier suivant pour autoriser l'envoi de donnée POST encrypté en <code>"multipart/data-form"</code> uniquement si vous êtes authentifié par un token JSON :</p><p><strong>middlewares/upload.js</strong></p><pre><code class="lang-js">var multer  = require("multer"),
+}</code></pre><p>et utiliser le fichier suivant pour autoriser l'envoi de donnée POST encrypté en <code>"multipart/data-form"</code> uniquement si vous êtes authentifié par un token JSON :</p><p><strong>middlewares/upload.js</strong></p><pre><code class="language-js">var multer  = require("multer"),
     jwt = require("express-jwt");
 
 module.exports = function () {
@@ -1145,8 +1088,7 @@ module.exports = function () {
         }),
         upload.single("avatar"),
     ];
-};
-</code></pre><p><em>Note : si</em> <code>middlewaresRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des contrôleurs est bien</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin du répertoire.</em></p><h4 id="avec-le-param-tre-middlewares-en-global">Avec le paramètre <code>middlewares</code> en Global</h4><p>Il est également possible d'utiliser ce système pour toutes les routes, ainsi le webconfig se présenterait plutôt ainsi :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+};</code></pre><p><em>Note : si</em> <code>middlewaresRelativePath</code> <em>n'est pas présent dans <code>webconfig.json</code>, par défaut le dossier des contrôleurs est bien</em> <code>middlewares</code>. <code>middlewaresRelativePath</code> <em>est donc utile seulement pour changer le nom / chemin du répertoire.</em></p><h4 id="avec-le-paramètre-middlewares-en-global">Avec le paramètre <code>middlewares</code> en Global</h4><p>Il est également possible d'utiliser ce système pour toutes les routes, ainsi le webconfig se présenterait plutôt ainsi :</p><p><strong>webconfig.json</strong></p><pre><code class="language-js">{
     "middlewares": "is-authenticated.js"
     "routes": {
         "/upload-file": {
@@ -1158,8 +1100,7 @@ module.exports = function () {
         secret: "AUTH_CLIENT_SECRET",
         audience: "AUTH_CLIENT_ID"
     }
-}
-</code></pre><p>Avec le fichier :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require("express-jwt");
+}</code></pre><p>Avec le fichier :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="language-js">var jwt = require("express-jwt");
 
 module.exports = function () {
     var NA = this;
@@ -1170,8 +1111,7 @@ module.exports = function () {
             audience: NA.webconfig._jwt.audience
         })
     ];
-};
-</code></pre><h4 id="tableau-de-middlewares-">Tableau de <code>middlewares</code></h4><p>Vous pouvez également fournir un tableau vers une liste de fichier de middleware Express que ce soit pour chaque route ou en global :</p><p><strong>webconfig.json</strong></p><pre><code class="lang-js">{
+};</code></pre><h4 id="tableau-de-middlewares">Tableau de <code>middlewares</code></h4><p>Vous pouvez également fournir un tableau vers une liste de fichier de middleware Express que ce soit pour chaque route ou en global :</p><p><strong>webconfig.json</strong></p><pre><code class="language-js">{
     "routes": {
         "/upload-file": {
             "view": "upload.htm",
@@ -1183,8 +1123,7 @@ module.exports = function () {
         secret: "AUTH_CLIENT_SECRET",
         audience: "AUTH_CLIENT_ID"
     }
-}
-</code></pre><p>Avec l'utilisation de l'objet <code>NA</code> :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="lang-js">var jwt = require("express-jwt");
+}</code></pre><p>Avec l'utilisation de l'objet <code>NA</code> :</p><p><strong>middlewares/is-authenticated.js</strong></p><pre><code class="language-js">var jwt = require("express-jwt");
 
 module.exports = function () {
     var NA = this;
@@ -1193,14 +1132,12 @@ module.exports = function () {
         secret: NA.webconfig._jwt.secret,
         audience: NA.webconfig._jwt.audience
     })];
-};
-</code></pre><p>ou sans :</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="lang-js">module.exports = function (request, response, next) {
+};</code></pre><p>ou sans :</p><p><strong>middlewares/redirect.js</strong></p><pre><code class="language-js">module.exports = function (request, response, next) {
 
     response.redirect('https://go.to.visitor.page/');
 
     next();
-};
-</code></pre><div><div class="before">
+};</code></pre><div><div class="before">
 							<a href="partie-vue.html">◄ Partie vue</a>
 						</div><div class="after">
 							<a href="partie-outils.html">Partie outils ►</a>
