@@ -10,7 +10,7 @@
 
 ## Avant-propos ##
 
-NodeAtlas est un framework JavaScript MVC(2) côté serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) ([node-atlas](https://www.npmjs.com/package/node-atlas)) et tournant avec [Node.js](https://nodejs.org/). NodeAtlas vous permet de :
+NodeAtlas est un framework JavaScript MVC(2) côté serveur sous forme de [module npm](https://www.npmjs.com/package/node-atlas) (le module [node-atlas](https://www.npmjs.com/package/node-atlas) sur npm) et tournant avec [Node.js](https://nodejs.org/). NodeAtlas vous permet de :
 
 - Créer, maintenir et faire tourner des sites internationalisés (et localisables) sans mettre en place le moindre fichier serveur JavaScript. Particulièrement taillé pour la réalisation de sites vitrines ou d'applications web monopages hautement performante et maintenable en des temps records.
 
