@@ -1,3 +1,11 @@
+## 2.0.6 ##
+
+Fix:
+
+- Restore capability to generate HTML files.
+
+
+
 ## 2.0.5 ##
 
 Avoid error:
