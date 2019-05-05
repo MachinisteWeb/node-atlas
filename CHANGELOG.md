@@ -1,3 +1,11 @@
+## 2.0.7 ##
+
+Enhancement:
+
+- Less working with Node v10.
+
+
+
 ## 2.0.6 ##
 
 Fix:
