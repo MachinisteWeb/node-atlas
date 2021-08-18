@@ -1,3 +1,11 @@
+## 2.0.8 ##
+
+Enhancement:
+
+- Fix critical issue.
+
+
+
 ## 2.0.7 ##
 
 Enhancement:

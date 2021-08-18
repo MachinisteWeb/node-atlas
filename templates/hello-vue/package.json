@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"socket.io": "2.0.x",
+		"socket.io": "2.4.x",
 		"systemjs": "0.20.x",
 		"traceur": "0.0.x",
 		"vue": "2.5.x",

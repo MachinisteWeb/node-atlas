@@ -1,9 +1,9 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "2.0.7",
+  "version": "2.0.8",
   "author": {
-    "name": "Bruno Lesieur",
+    "name": "Bruno J. S. Lesieur",
     "email": "bruno.lesieur@gmail.com"
   },
   "scripts": {
@@ -87,7 +87,7 @@
   },
   "devDependencies": {
     "chai": "4.2.x",
-    "mocha": "5.2.x",
+    "mocha": "9.0.x",
     "request": "2.88.x"
   },
   "dependencies": {
@@ -110,8 +110,8 @@
     "less-plugin-autoprefix": "2.0.x",
     "mkpath": "1.0.x",
     "opn": "5.4.x",
-    "pug": "2.0.x",
-    "socket.io": "2.1.x",
+    "pug": "3.0.x",
+    "socket.io": "2.4.x",
     "stylus": "0.54.x",
     "uglify-es": "3.3.x"
   },
