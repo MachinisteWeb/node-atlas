@@ -40,8 +40,8 @@ Starting with a single HTML page,
 - then use [Socket.IO](https://socket.io/) for server-side reactivity and real-time exchanges,
 - then connect you to [MySQL](https://www.mysql.com/), [MongoDB](https://www.mongodb.com/), [ElasticSearch](https://www.elastic.co/)...,
 - then use [Vue](https://vuejs.org/) or [React](https://facebook.github.io/react/) for isomorphism and client-side reactivity,
-- then be component-based and/or service-oriented with projects like [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas) and/or [ApiAtlas](https://github.com/Haeresis/ApiAtlas),
-- then let your customer edit website itself with [EditAtlas](https://github.com/Haeresis/EditAtlas)
+- then be component-based and/or service-oriented with projects like [ComponentAtlas](https://github.com/MachinisteWeb/ComponentAtlas) and/or [ApiAtlas](https://github.com/MachinisteWeb/ApiAtlas),
+- then let your customer edit website itself with [EditAtlas](https://github.com/MachinisteWeb/EditAtlas)
 - then create plugins,
 - then...
 
@@ -1533,7 +1533,7 @@ you could create with this views:
 
 ```html
 <div>
-	<h1>NodeAtlas © Haeresis</h1>
+	<h1>NodeAtlas © MachinisteWeb</h1>
 </div>
 ```
 
@@ -1574,7 +1574,7 @@ an display the following URL:
 	</head>
 	<body>
 		<div>
-			<h1>NodeAtlas © Haeresis</h1>
+			<h1>NodeAtlas © MachinisteWeb</h1>
 		</div>
 		<script async="true" type="text/javascript" src="javascripts/common.js"></script>
 	</body>
@@ -2134,7 +2134,7 @@ and then, run it with the command
 node-atlas --browse
 ```
 
-- [Check the sources and more usage possibilities on the GitHub repository](https://github.com/Haeresis/node-atlas-hello-vue).
+- [Check the sources and more usage possibilities on the GitHub repository](https://github.com/MachinisteWeb/node-atlas-hello-vue).
 
 
 
@@ -2298,7 +2298,7 @@ with this files :
 └─ webconfig.json
 ```
 
-Do a POST request on `http://localhost/example/?title=Haeresis` with `example=This+is+a+test` variable in body will use the following files:
+Do a POST request on `http://localhost/example/?title=MachinisteWeb` with `example=This+is+a+test` variable in body will use the following files:
 
 *variations/common.json*
 
@@ -2349,8 +2349,8 @@ exports.changeVariations = function (next, locals, request, response) {
 	console.log("urlSubPath", locals.urlSubPath); // `"/example"`
 	console.log("urlBasePath", locals.urlBasePath); // `"http://localhost/example"`
 	console.log("urlFilePath", locals.urlFilePath); // `"/"`
-	console.log("urlQueryPath", locals.urlQueryPath); // `"?title=Haeresis"`
-	console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=Haeresis"`
+	console.log("urlQueryPath", locals.urlQueryPath); // `"?title=MachinisteWeb"`
+	console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=MachinisteWeb"`
 
 	if (request.query["title"]) {
 		locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
@@ -2360,7 +2360,7 @@ exports.changeVariations = function (next, locals, request, response) {
 	}
 
 	console.log(locals.common.titleWebsite); // `"Site Title"`
-	console.log(locals.specific.titlePage); // "Welcome Haeresis"
+	console.log(locals.specific.titlePage); // "Welcome MachinisteWeb"
 	console.log(locals.specific.content); // `"This is a test"`
 
 	// We continue with next steps.
@@ -2378,14 +2378,14 @@ exports.changeVariations = function (next, locals, request, response) {
 	// Here we update `locals` variable.
 
 	console.log(locals.common.titleWebsite); // `"Site Title"`
-	console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+	console.log(locals.specific.titlePage); // `"Welcome MachinisteWeb"`
 	console.log(locals.specific.content); // `"This is a test"`
 
 	locals.common.titleWebsite = `"It's Home, no way."`;
 	locals.specific.content = `"It's Home, no way."`;
 
 	console.log(locals.common.titleWebsite); // `"It's Home, no way."`
-	console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+	console.log(locals.specific.titlePage); // `"Welcome MachinisteWeb"`
 	console.log(locals.specific.content); // `"It's Home, no way."`
 
 	// We continue with next steps.
@@ -2405,7 +2405,7 @@ this produce the following output:
 	<body>
 		<div class="title">It's Home, no way.</div>
 		<div>
-			<h1>Welcome Haeresis</h1>
+			<h1>Welcome MachinisteWeb</h1>
 			It's Home, no way.
 		</div>
 	</body>
@@ -2439,7 +2439,7 @@ the output will be the following:
 	<body>
 		<div class="title">Site Title</div>
 		<div>
-			<h1>Welcome Haeresis</h1>
+			<h1>Welcome MachinisteWeb</h1>
 			This is a test
 		</div>
 	</body>
@@ -5091,7 +5091,7 @@ See the example below:
 }
 ```
 
-You will be redirected to `http://localhost/list-of-members/haeresis/` when you access to `http://localhost/list-of-members/haeresis` with a header _permanent redirect_.
+You will be redirected to `http://localhost/list-of-members/machinisteweb/` when you access to `http://localhost/list-of-members/machinisteweb` with a header _permanent redirect_.
 
 #### With regular expressions ####
 
@@ -5119,7 +5119,7 @@ See the example below:
 }
 ```
 
-You will be redirected to `http://localhost/list-of-members/haeresis/` when you access to `http://localhost/list-of-members/haeresis` with a header _permanent redirect_.
+You will be redirected to `http://localhost/list-of-members/machinisteweb/` when you access to `http://localhost/list-of-members/machinisteweb` with a header _permanent redirect_.
 
 For the second *match* use $1, the third $2, etc.
 

@@ -47,7 +47,7 @@
 					<div class="header--information">
 						<div class="header--information--github">
 							<a class="header--information--donate" href="https://www.paypal.me/BrunoLesieur/5"><img src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg" alt="Faites un don" data-canonical-src="https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg"></a>
-							<a class="header--information--follow github-button" href="https://github.com/Haeresis" data-count-href="/Haeresis/followers" data-count-api="/users/Haeresis#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @Haeresis on GitHub">Follow</a>
+							<a class="header--information--follow github-button" href="https://github.com/MachinisteWeb" data-count-href="/MachinisteWeb/followers" data-count-api="/users/MachinisteWeb#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @MachinisteWeb on GitHub">Follow</a>
 						</div>
 						<div class="header--information--npm">
 							<a class="header--information--package" href="https://www.npmjs.com/package/node-atlas"><img src="https://badge.fury.io/js/node-atlas.svg" alt="Package NPM" data-canonical-src="https://badge.fury.io/js/node-atlas.svg"></a>
@@ -454,7 +454,7 @@ website.init({
 │  │  ├─ head.htm
 │  │  └─ foot.htm
 │  └─ index.htm
-└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
+└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/example/?title=MachinisteWeb</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Site Title"
 }</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Welcome",
@@ -482,8 +482,8 @@ exports.changeVariations = function (next, locals, request, response) {
     console.log("urlSubPath", locals.urlSubPath); // `"/example"`
     console.log("urlBasePath", locals.urlBasePath); // `"http://localhost/example"`
     console.log("urlFilePath", locals.urlFilePath); // `"/"`
-    console.log("urlQueryPath", locals.urlQueryPath); // `"?title=Haeresis"`
-    console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=Haeresis"`
+    console.log("urlQueryPath", locals.urlQueryPath); // `"?title=MachinisteWeb"`
+    console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=MachinisteWeb"`
 
     if (request.query["title"]) {
         locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
@@ -493,7 +493,7 @@ exports.changeVariations = function (next, locals, request, response) {
     }
 
     console.log(locals.common.titleWebsite); // `"Site Title"`
-    console.log(locals.specific.titlePage); // "Welcome Haeresis"
+    console.log(locals.specific.titlePage); // "Welcome MachinisteWeb"
     console.log(locals.specific.content); // `"This is a test"`
 
     // We continue with next steps.
@@ -505,14 +505,14 @@ exports.changeVariations = function (next, locals, request, response) {
     // Here we update `locals` variable.
 
     console.log(locals.common.titleWebsite); // `"Site Title"`
-    console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+    console.log(locals.specific.titlePage); // `"Welcome MachinisteWeb"`
     console.log(locals.specific.content); // `"This is a test"`
 
     locals.common.titleWebsite = `"It's Home, no way."`;
     locals.specific.content = `"It's Home, no way."`;
 
     console.log(locals.common.titleWebsite); // `"It's Home, no way."`
-    console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+    console.log(locals.specific.titlePage); // `"Welcome MachinisteWeb"`
     console.log(locals.specific.content); // `"It's Home, no way."`
 
     // We continue with next steps.
@@ -526,7 +526,7 @@ exports.changeVariations = function (next, locals, request, response) {
     &lt;body&gt;
         &lt;div class="title"&gt;It's Home, no way.&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;Welcome Haeresis&lt;/h1&gt;
+            &lt;h1&gt;Welcome MachinisteWeb&lt;/h1&gt;
             It's Home, no way.
         &lt;/div&gt;
     &lt;/body&gt;
@@ -548,7 +548,7 @@ exports.changeVariations = function (next, locals, request, response) {
     &lt;body&gt;
         &lt;div class="title"&gt;Site Title&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;Welcome Haeresis&lt;/h1&gt;
+            &lt;h1&gt;Welcome MachinisteWeb&lt;/h1&gt;
             This is a test
         &lt;/div&gt;
     &lt;/body&gt;

@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.8](https://img.shields.io/badge/version-1.8-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas)
+[![Donate](https://img.shields.io/badge/donate-%3C3-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.8](https://img.shields.io/badge/version-1.8-brightgreen.svg)](https://github.com/MachinisteWeb/NodeAtlas)
 
 **Vous êtes français ? Le README [derrière ce lien](README.fr.md) vous sera peut-être plus agréable.**
 
@@ -39,8 +39,8 @@ Starting with a single HTML page,
 - then use files for drive back-end part with code,
 - then connect you to [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
 - then use [Socket.io](http://socket.io/) for real time,
-- then be component-based with [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas)
-- then let your customer edit website itself with [EditAtlas](https://github.com/Haeresis/EditAtlas)
+- then be component-based with [ComponentAtlas](https://github.com/MachinisteWeb/ComponentAtlas)
+- then let your customer edit website itself with [EditAtlas](https://github.com/MachinisteWeb/EditAtlas)
 - then create plugins,
 - then...
 
@@ -58,16 +58,16 @@ To comparate NodeAtlas with others JavaScript Server-side Library/Framework/API,
 
 This is a list of repository you could analyse to understand NodeAtlas:
 
-- [Generation and HTML template maintenance](https://github.com/Haeresis/ResumeAtlas/).
-- [UI Test and UI Documentation](https://github.com/Haeresis/TestCaseAtlas/).
-- [HTML website maintenance (no Back-end)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
-- [Node.js website with Websocket and PopState](https://github.com/Haeresis/BookAtlas/).
-- [Node.js website with MongoDB database and Redis](https://github.com/Haeresis/BlogAtlas/).
-- [Node.js example of content filling in real time without Back-office](https://github.com/Haeresis/EditAtlas/).
-- [Simple web server for a file](https://github.com/Haeresis/SimpleAtlas/).
-- [API REST example](https://github.com/Haeresis/ApiAtlas/).
-- [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/Haeresis/LessAtlas/).
-- [Plugin to boost standard capabilities](https://github.com/Haeresis/ComponentAtlas/).
+- [Generation and HTML template maintenance](https://github.com/MachinisteWeb/ResumeAtlas/).
+- [UI Test and UI Documentation](https://github.com/MachinisteWeb/TestCaseAtlas/).
+- [HTML website maintenance (no Back-end)](https://github.com/MachinisteWeb/NodeAtlas/tree/gh-pages/).
+- [Node.js website with Websocket and PopState](https://github.com/MachinisteWeb/BookAtlas/).
+- [Node.js website with MongoDB database and Redis](https://github.com/MachinisteWeb/BlogAtlas/).
+- [Node.js example of content filling in real time without Back-office](https://github.com/MachinisteWeb/EditAtlas/).
+- [Simple web server for a file](https://github.com/MachinisteWeb/SimpleAtlas/).
+- [API REST example](https://github.com/MachinisteWeb/ApiAtlas/).
+- [CSS-driven usage with Less preprocessor with CSS Framework](https://github.com/MachinisteWeb/LessAtlas/).
+- [Plugin to boost standard capabilities](https://github.com/MachinisteWeb/ComponentAtlas/).
 
 
 
@@ -205,13 +205,13 @@ There are several ways to install NodeAtlas:
 
    *This will install* **NodeAtlas** *in the global `node_modules/node-atlas`.*
 
-- Clone the directory from [GitHub](https://github.com/Haeresis/NodeAtlas/) (recommended for participating to project).
+- Clone the directory from [GitHub](https://github.com/MachinisteWeb/NodeAtlas/) (recommended for participating to project).
 
    *This will install* **NodeAtlas** *in cloning home folder.*
 
    **Start at least once NodeAtlas the with the command line `\> node </path/to/>node-atlas/`, to install the _node_modules_.**
 
-- Download NodeAtlas from the official repository [NodeAtlas](https://haeresis.github.com/NodeAtlas).
+- Download NodeAtlas from the official repository [NodeAtlas](https://node-atlas.js.org/).
 
    *Once downloaded, unzip* **NodeAtlas** *in the folder that will suit you.*
 
@@ -1444,7 +1444,7 @@ with this files :
 └─ webconfig.json
 ```
 
-Do a POST request on `http://localhost/?title=Haeresis` with `example=This+is+a+test` variable in body will use the following files:
+Do a POST request on `http://localhost/?title=MachinisteWeb` with `example=This+is+a+test` variable in body will use the following files:
 
 *variations/common.json*
 
@@ -1502,7 +1502,7 @@ exports.changeVariation = function (params, next) {
     }
     
     console.log(variation.common.titleWebsite); // "Site Title"
-    console.log(variation.specific.titlePage); // "Welcome Haeresis"
+    console.log(variation.specific.titlePage); // "Welcome MachinisteWeb"
     console.log(variation.specific.content); // "This is a test"
 
     // We update modification here.
@@ -1523,14 +1523,14 @@ exports.changeVariation = function (params, next) {
     // Here we update variations variable.
 
     console.log(variation.common.titleWebsite); // "Site Title"
-    console.log(variation.specific.titlePage); // "Welcome Haeresis"
+    console.log(variation.specific.titlePage); // "Welcome MachinisteWeb"
     console.log(variation.specific.content); // "This is a test"
 
     variation.common.titleWebsite = "It's Home, no way.";
     variation.specific.content = "It's Home, no way.";
 
     console.log(variation.common.titleWebsite); // "It's Home, no way."
-    console.log(variation.specific.titlePage); // "Welcome Haeresis"
+    console.log(variation.specific.titlePage); // "Welcome MachinisteWeb"
     console.log(variation.specific.content); // "It's Home, no way."
 
     // We update modification here.
@@ -1550,7 +1550,7 @@ en this produce the following output :
     <body>
         <div class="title">It's Home, no way.</div>
         <div>
-            <h1>Welcome Haeresis</h1>
+            <h1>Welcome MachinisteWeb</h1>
             It's Home, no way.
         </div>
     </body>
@@ -1584,7 +1584,7 @@ the output will be as following:
     <body>
         <div class="title">Site Title</div>
         <div>
-            <h1>Welcome Haeresis</h1>
+            <h1>Welcome MachinisteWeb</h1>
             This is a test
         </div>
     </body>
@@ -3377,7 +3377,7 @@ See the example below:
 }
 ```
 
-You will be redirected to `http://localhost/list-of-members/haeresis/` when you access to `http://localhost/list-of-members/haeresis` with a header _permanent redirect_.
+You will be redirected to `http://localhost/list-of-members/machinisteweb/` when you access to `http://localhost/list-of-members/machinisteweb` with a header _permanent redirect_.
 
 #### With regular expressions ####
 
@@ -3405,7 +3405,7 @@ See the example below:
 }
 ```
 
-You will be redirected to `http://localhost/list-of-members/haeresis/` when you access to `http://localhost/list-of-members/haeresis` with a header _permanent redirect_.
+You will be redirected to `http://localhost/list-of-members/machinisteweb/` when you access to `http://localhost/list-of-members/machinisteweb` with a header _permanent redirect_.
 
 For the second *match* use $1, the third $2, etc.
 

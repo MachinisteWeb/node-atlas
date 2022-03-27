@@ -1,6 +1,6 @@
 # node-atlas #
 
-[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.8](https://img.shields.io/badge/version-1.8-brightgreen.svg)](https://github.com/Haeresis/NodeAtlas)
+[![Faites un don](https://img.shields.io/badge/don-%E2%9D%A4-ddddff.svg)](https://www.paypal.me/BrunoLesieur/5) [![Travis CI](https://travis-ci.org/Haeresis/NodeAtlas.svg)](https://travis-ci.org/Haeresis/NodeAtlas/) [![Version 1.8](https://img.shields.io/badge/version-1.8-brightgreen.svg)](https://github.com/MachinisteWeb/NodeAtlas)
 
 **For an international version of this README.md, [follow this link](README.en.md).**
 
@@ -39,8 +39,8 @@ Commencez avec une simple page HTML,
 - puis prenez la main sur la logique serveur,
 - puis connectez vous à [MySQL](https://www.mysql.fr/), [MongoDB](https://www.mongodb.org/), [ElasticSearch](https://www.elastic.co/)...,
 - puis rendez tout ça temps réel avec [Socket.io](http://socket.io/),
-- puis soyez orienté composant avec [ComponentAtlas](https://github.com/Haeresis/ComponentAtlas),
-- puis laissez votre client éditer son site avec [EditAtlas](https://github.com/Haeresis/EditAtlas),
+- puis soyez orienté composant avec [ComponentAtlas](https://github.com/MachinisteWeb/ComponentAtlas),
+- puis laissez votre client éditer son site avec [EditAtlas](https://github.com/MachinisteWeb/EditAtlas),
 - puis créer des plugins,
 - puis...
 
@@ -58,16 +58,16 @@ Pour un comparatif avec d'autre Librarie/Framework/API JavaScript côté serveur
 
 Voici une liste de repository que vous pouvez décortiquer à votre gré :
 
-- [Génération et maintenance de maquette HTML](https://github.com/Haeresis/ResumeAtlas/).
-- [Test et Documentation d'Interface Ulilisateur](https://github.com/Haeresis/TestCaseAtlas/).
-- [Maintenance de site HTML (sans Back-end)](https://github.com/Haeresis/NodeAtlas/tree/gh-pages/).
-- [Site Node.js avec Websocket et PopState](https://github.com/Haeresis/BookAtlas/).
-- [Site Node.js avec base MongoDB et Redis](https://github.com/Haeresis/BlogAtlas/).
-- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/Haeresis/EditAtlas/).
-- [Simple Serveur Web pour un dossier](https://github.com/Haeresis/SimpleAtlas/).
-- [Exemple d'API REST](https://github.com/Haeresis/ApiAtlas/).
-- [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/Haeresis/LessAtlas/).
-- [Création d'extensions pour booster les capacités natives](https://github.com/Haeresis/ComponentAtlas/).
+- [Génération et maintenance de maquette HTML](https://github.com/MachinisteWeb/ResumeAtlas/).
+- [Test et Documentation d'Interface Ulilisateur](https://github.com/MachinisteWeb/TestCaseAtlas/).
+- [Maintenance de site HTML (sans Back-end)](https://github.com/MachinisteWeb/NodeAtlas/tree/gh-pages/).
+- [Site Node.js avec Websocket et PopState](https://github.com/MachinisteWeb/BookAtlas/).
+- [Site Node.js avec base MongoDB et Redis](https://github.com/MachinisteWeb/BlogAtlas/).
+- [Exemple Node.js de modification de contenu live sans Back-office](https://github.com/MachinisteWeb/EditAtlas/).
+- [Simple Serveur Web pour un dossier](https://github.com/MachinisteWeb/SimpleAtlas/).
+- [Exemple d'API REST](https://github.com/MachinisteWeb/ApiAtlas/).
+- [Utilisation du préprocesseur Less en temps réel côté serveur](https://github.com/MachinisteWeb/LessAtlas/).
+- [Création d'extensions pour booster les capacités natives](https://github.com/MachinisteWeb/ComponentAtlas/).
 
 
 
@@ -155,7 +155,7 @@ Voici une liste de repository que vous pouvez décortiquer à votre gré :
 ### Documentation ###
 
 En complément de cette documentation, vous avez également accès aux,
-- [tl;dr](https://github.com/Haeresis/NodeAtlas#node-atlas),
+- [tl;dr](https://github.com/MachinisteWeb/NodeAtlas#node-atlas),
 - [détails des fonctions de l'objet NA](https://node-atlas.js.org/v1.x/doc/index.html) (En) et vous pouvez aussi
 - [discuter sur le chat ou demander de l'aide pour NodeAtlas](https://gitter.im/NodeAtlas/Aide).
 
@@ -205,13 +205,13 @@ Il y a plusieurs manières d'installer NodeAtlas :
 
    *Ceci installera* **NodeAtlas** *dans le dossier `node_modules/node-atlas` global.*
 
-- Cloner le répertoire depuis [GitHub](https://github.com/Haeresis/NodeAtlas/) (recommandé pour participer au développement).
+- Cloner le répertoire depuis [GitHub](https://github.com/MachinisteWeb/NodeAtlas/) (recommandé pour participer au développement).
 
    *Ceci installera* **NodeAtlas** *dans le dossier d'accueil du clonage.*
 
    **Lancez au moins une fois NodeAtlas à la ligne de commande `\> node </path/to/>node-atlas/`, pour installer les _node_modules_.**
 
-- Télécharger NodeAtlas depuis le site dépôt [NodeAtlas](https://github.com/Haeresis/NodeAtlas).
+- Télécharger NodeAtlas depuis le site dépôt [NodeAtlas](https://github.com/MachinisteWeb/NodeAtlas).
 
    *Une fois téléchargé, dézippez* **NodeAtlas** *dans le dossier qui vous conviendra.*
 
@@ -1444,7 +1444,7 @@ avec cet ensemble de fichier :
 └─ webconfig.json
 ```
 
-En demandant la page `http://localhost/?title=Haeresis` en POST avec une variable `example=Ceci+est+un+test` dans le corp de requête, les fichiers suivants (entre autre) seront utilisés :
+En demandant la page `http://localhost/?title=MachinisteWeb` en POST avec une variable `example=Ceci+est+un+test` dans le corp de requête, les fichiers suivants (entre autre) seront utilisés :
 
 *variations/common.json*
 
@@ -1502,7 +1502,7 @@ exports.changeVariation = function (params, next) {
     }
     
     console.log(variation.common.titleWebsite); // "Titre du site"
-    console.log(variation.specific.titlePage); // "Bienvenue Haeresis"
+    console.log(variation.specific.titlePage); // "Bienvenue MachinisteWeb"
     console.log(variation.specific.content); // "Ceci est un test"
 
     // On ré-injecte les modifications.
@@ -1523,14 +1523,14 @@ exports.changeVariation = function (params, next) {
     // Ici on modifie les variables de variations.
 
     console.log(variation.common.titleWebsite); // "Titre du site"
-    console.log(variation.specific.titlePage); // "Bienvenue Haeresis"
+    console.log(variation.specific.titlePage); // "Bienvenue MachinisteWeb"
     console.log(variation.specific.content); // "Ceci est un test"
 
     variation.common.titleWebsite = "C'est l'accueil, c'est tout.";
     variation.specific.content = "C'est l'accueil, c'est tout.";
 
     console.log(variation.common.titleWebsite); // "C'est l'accueil, c'est tout."
-    console.log(variation.specific.titlePage); // "Bienvenue Haeresis"
+    console.log(variation.specific.titlePage); // "Bienvenue MachinisteWeb"
     console.log(variation.specific.content); // "C'est l'accueil, c'est tout."
 
     // On ré-injecte les modifications.
@@ -1550,7 +1550,7 @@ ce qui produit la sortie suivante :
     <body>
         <div class="title">C'est l'accueil, c'est tout.</div>
         <div>
-            <h1>Bienvenue Haeresis</h1>
+            <h1>Bienvenue MachinisteWeb</h1>
             C'est l'accueil, c'est tout.
         </div>
     </body>
@@ -1584,7 +1584,7 @@ alors la sortie sera :
     <body>
         <div class="title">Titre du site</div>
         <div>
-            <h1>Bienvenue Haeresis</h1>
+            <h1>Bienvenue MachinisteWeb</h1>
             Ceci est un test
         </div>
     </body>
@@ -3377,7 +3377,7 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serez redirigé sur `http://localhost/liste-des-membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis` avec une entête _redirection permanente_.
+Vous serez redirigé sur `http://localhost/liste-des-membres/machinisteweb/` quand vous accéderez à `http://localhost/liste-des-membres/machinisteweb` avec une entête _redirection permanente_.
 
 #### Avec expressions régulières ####
 
@@ -3405,7 +3405,7 @@ Voyez l'exemple ci-dessous :
 }
 ```
 
-Vous serez redirigé sur `http://localhost/membres/haeresis/` quand vous accéderez à `http://localhost/liste-des-membres/haeresis/` avec une entête _redirection permanente_.
+Vous serez redirigé sur `http://localhost/membres/machinisteweb/` quand vous accéderez à `http://localhost/liste-des-membres/machinisteweb/` avec une entête _redirection permanente_.
 
 Pour le second *match* utilisez $1, pour le troisième $2, etc.
 

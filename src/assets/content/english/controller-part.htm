@@ -102,7 +102,7 @@
 │  │  ├─ head.htm
 │  │  └─ foot.htm
 │  └─ index.htm
-└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/example/?title=Haeresis</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
+└─ webconfig.json</code></pre><p>Do a POST request on <code>http://localhost/example/?title=MachinisteWeb</code> with <code>example=This+is+a+test</code> variable in body will use the following files:</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Site Title"
 }</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Welcome",
@@ -130,8 +130,8 @@ exports.changeVariations = function (next, locals, request, response) {
     console.log("urlSubPath", locals.urlSubPath); // `"/example"`
     console.log("urlBasePath", locals.urlBasePath); // `"http://localhost/example"`
     console.log("urlFilePath", locals.urlFilePath); // `"/"`
-    console.log("urlQueryPath", locals.urlQueryPath); // `"?title=Haeresis"`
-    console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=Haeresis"`
+    console.log("urlQueryPath", locals.urlQueryPath); // `"?title=MachinisteWeb"`
+    console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=MachinisteWeb"`
 
     if (request.query["title"]) {
         locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
@@ -141,7 +141,7 @@ exports.changeVariations = function (next, locals, request, response) {
     }
 
     console.log(locals.common.titleWebsite); // `"Site Title"`
-    console.log(locals.specific.titlePage); // "Welcome Haeresis"
+    console.log(locals.specific.titlePage); // "Welcome MachinisteWeb"
     console.log(locals.specific.content); // `"This is a test"`
 
     // We continue with next steps.
@@ -153,14 +153,14 @@ exports.changeVariations = function (next, locals, request, response) {
     // Here we update `locals` variable.
 
     console.log(locals.common.titleWebsite); // `"Site Title"`
-    console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+    console.log(locals.specific.titlePage); // `"Welcome MachinisteWeb"`
     console.log(locals.specific.content); // `"This is a test"`
 
     locals.common.titleWebsite = `"It's Home, no way."`;
     locals.specific.content = `"It's Home, no way."`;
 
     console.log(locals.common.titleWebsite); // `"It's Home, no way."`
-    console.log(locals.specific.titlePage); // `"Welcome Haeresis"`
+    console.log(locals.specific.titlePage); // `"Welcome MachinisteWeb"`
     console.log(locals.specific.content); // `"It's Home, no way."`
 
     // We continue with next steps.
@@ -174,7 +174,7 @@ exports.changeVariations = function (next, locals, request, response) {
     &lt;body&gt;
         &lt;div class="title"&gt;It's Home, no way.&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;Welcome Haeresis&lt;/h1&gt;
+            &lt;h1&gt;Welcome MachinisteWeb&lt;/h1&gt;
             It's Home, no way.
         &lt;/div&gt;
     &lt;/body&gt;
@@ -196,7 +196,7 @@ exports.changeVariations = function (next, locals, request, response) {
     &lt;body&gt;
         &lt;div class="title"&gt;Site Title&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;Welcome Haeresis&lt;/h1&gt;
+            &lt;h1&gt;Welcome MachinisteWeb&lt;/h1&gt;
             This is a test
         &lt;/div&gt;
     &lt;/body&gt;

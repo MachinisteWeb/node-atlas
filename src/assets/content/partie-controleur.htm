@@ -102,7 +102,7 @@
 │  │  ├─ head.htm
 │  │  └─ foot.htm
 │  └─ index.htm
-└─ webconfig.json</code></pre><p>En demandant la page <code>http://localhost/exemple/?title=Haeresis</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
+└─ webconfig.json</code></pre><p>En demandant la page <code>http://localhost/exemple/?title=MachinisteWeb</code> en POST avec une variable <code>example=Ceci+est+un+test</code> dans le corps de requête, les fichiers suivants (entre autre) seront utilisés :</p><p><em>variations/common.json</em></p><pre><code class="language-json">{
     "titleWebsite": "Titre du site"
 }</code></pre><p><em>variations/index.json</em></p><pre><code class="language-json">{
     "titlePage": "Bienvenue",
@@ -130,8 +130,8 @@ exports.changeVariations = function (next, locals, request, response) {
     console.log("urlSubPath", locals.urlSubPath); // `"/exemple"`
     console.log("urlBasePath", locals.urlBasePath); // `"http://localhost/exemple"`
     console.log("urlFilePath", locals.urlFilePath); // `"/"`
-    console.log("urlQueryPath", locals.urlQueryPath); // `"?title=Haeresis"`
-    console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=Haeresis"`
+    console.log("urlQueryPath", locals.urlQueryPath); // `"?title=MachinisteWeb"`
+    console.log("urlPath", locals.urlPath); // `"http://localhost/example/?title=MachinisteWeb"`
 
     if (request.query["title"]) {
         locals.specific.titlePage = locals.specific.titlePage + " " + request.query.title;
@@ -141,7 +141,7 @@ exports.changeVariations = function (next, locals, request, response) {
     }
 
     console.log(locals.common.titleWebsite); // `"Titre du site"`
-    console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+    console.log(locals.specific.titlePage); // `"Bienvenue MachinisteWeb"`
     console.log(locals.specific.content); // `"Ceci est un test"`
 
     // On passe à la suite.
@@ -153,14 +153,14 @@ exports.changeVariations = function (next, locals, request, response) {
     // Ici on modifie les variables de `locals`.
 
     console.log(locals.common.titleWebsite); // `"Titre du site"`
-    console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+    console.log(locals.specific.titlePage); // `"Bienvenue MachinisteWeb"`
     console.log(locals.specific.content); // `"Ceci est un test"`
 
     locals.common.titleWebsite = `"C'est l'accueil, c'est tout."`;
     locals.specific.content = `"C'est l'accueil, c'est tout."`;
 
     console.log(locals.common.titleWebsite); // `"C'est l'accueil, c'est tout."`
-    console.log(locals.specific.titlePage); // `"Bienvenue Haeresis"`
+    console.log(locals.specific.titlePage); // `"Bienvenue MachinisteWeb"`
     console.log(locals.specific.content); // `"C'est l'accueil, c'est tout."`
 
     // On passe à la suite.
@@ -174,7 +174,7 @@ exports.changeVariations = function (next, locals, request, response) {
     &lt;body&gt;
         &lt;div class="title"&gt;C'est l'accueil, c'est tout.&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;Bienvenue Haeresis&lt;/h1&gt;
+            &lt;h1&gt;Bienvenue MachinisteWeb&lt;/h1&gt;
             C'est l'accueil, c'est tout.
         &lt;/div&gt;
     &lt;/body&gt;
@@ -196,7 +196,7 @@ exports.changeVariations = function (next, locals, request, response) {
     &lt;body&gt;
         &lt;div class="title"&gt;Titre du site&lt;/div&gt;
         &lt;div&gt;
-            &lt;h1&gt;Bienvenue Haeresis&lt;/h1&gt;
+            &lt;h1&gt;Bienvenue MachinisteWeb&lt;/h1&gt;
             Ceci est un test
         &lt;/div&gt;
     &lt;/body&gt;

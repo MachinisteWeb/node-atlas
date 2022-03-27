@@ -260,8 +260,8 @@ exports.prepareRenderPath = function (locals, request, response, next) {
 	 * @alias urlQueryPath
 	 * @type {string}
 	 * @memberOf NA#locals
-	 * @example ?title=Haeresis&amp;description=ok
-	 * ?title=Haeresis
+	 * @example ?title=MachinisteWeb&amp;description=ok
+	 * ?title=MachinisteWeb
 	 */
 	locals.urlQueryPath = query &amp;&amp; query[1] ? "?" + query[1] : "";
 
@@ -271,8 +271,8 @@ exports.prepareRenderPath = function (locals, request, response, next) {
 	 * @alias urlPath
 	 * @type {string}
 	 * @memberOf NA#locals
-	 * @example http://localhost:7777/subpath/example.html?title=Haeresis&amp;description=ok
-	 * https://www.example.here/example/this/?title=Haeresis
+	 * @example http://localhost:7777/subpath/example.html?title=MachinisteWeb&amp;description=ok
+	 * https://www.example.here/example/this/?title=MachinisteWeb
 	 */
 	locals.urlPath = locals.urlBasePath + locals.route + locals.urlQueryPath;
 	if (request) {
