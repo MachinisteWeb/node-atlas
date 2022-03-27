@@ -31,9 +31,9 @@
 
 ## Site officiel de NodeAtlas ##
 
-> **[Pour une documentation complète, vous pouvez vous rendre sur le site officiel de NodeAtlas](https://node-atlas.js.org/)** ([README.md mirroir ici](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/README.fr.md)).
+> **[Pour une documentation complète, vous pouvez vous rendre sur le site officiel de NodeAtlas](https://node-atlas.js.org/)** ([README.md mirroir ici](https://github.com/MachinisteWeb/NodeAtlas/blob/gh-pages/README.fr.md)).
 
-- [README de la v1.x](https://github.com/Haeresis/NodeAtlas/blob/gh-pages/v1.x/README.fr.md).
+- [README de la v1.x](https://github.com/MachinisteWeb/NodeAtlas/blob/gh-pages/v1.x/README.fr.md).
 
 - [v1.x -> v2.x see CHANGELOG](https://github.com/NodeAtlas/node-atlas/blob/master/CHANGELOG.md).
 
