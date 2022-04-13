@@ -91,7 +91,7 @@
     "request": "2.88.x"
   },
   "dependencies": {
-    "async": "2.6.x",
+    "async": "3.2.x",
     "autoprefixer-stylus": "0.14.x",
     "body-parser": "1.18.x",
     "clean-css": "4.2.x",
