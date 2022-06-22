@@ -104,7 +104,7 @@
     "express": "4.16.x",
     "express-session": "1.15.x",
     "extend": "3.0.x",
-    "jsdom": "12.2.x",
+    "jsdom": "16.5.x",
     "less": "3.8.x",
     "less-middleware": "3.0.x",
     "less-plugin-autoprefix": "2.0.x",
