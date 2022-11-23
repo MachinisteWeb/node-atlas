@@ -111,7 +111,7 @@
     "mkpath": "1.0.x",
     "opn": "5.4.x",
     "pug": "3.0.x",
-    "socket.io": "2.4.x",
+    "socket.io": "2.5.x",
     "stylus": "0.54.x",
     "uglify-es": "3.3.x"
   },
