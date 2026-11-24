@@ -1,7 +1,7 @@
 {
   "name": "node-atlas",
   "preferGlobal": true,
-  "version": "3.0.0-beta.2",
+  "version": "3.0.0-beta.3",
   "author": {
     "name": "Bruno J. S. Lesieur",
     "email": "bruno.lesieur@gmail.com"

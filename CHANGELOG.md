@@ -1,3 +1,15 @@
+## 3.0.0-beta.3 ##
+
+Security:
+
+- `templates/hello-vue` depends on Socket.IO 4.8. The client copied into the site is `socket.io/client-dist`, and the minified build still prepends that file to `javascripts/framework.{version}.min.js`. `NA.socket`, `io.connect` and the template events stay the same. The remaining audit finding in that template is Vue 2.6, a low ReDoS in `parseHTML`. The patched release is Vue 3, which would replace the template.
+- A Socket.IO 4 connection no longer stops the process. Express-session now receives a response object when Socket.IO does not attach one to the handshake. The session cookie name stays `nodeatlas.sid`.
+
+Tests:
+
+- `test/test.js` no longer calls `process.exit(0)`, so the process exits with mocha's code.
+- The TestAtlas examples `all-preprocessor`, `back-set-modules`, `back-set-routes` and `back-set-sessions` already fail on 2.0.8 because they expect local modules that are not part of NodeAtlas (`express-handlebars`, `marked`, `connect-redis`). That is outside this release.
+
 ## 3.0.0-beta.2 ##
 
 Security:

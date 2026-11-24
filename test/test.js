@@ -206,6 +206,4 @@ Promise.all([new Promise(function (resolve) {
 		"path": __dirname,
 		"webconfig": "webconfig-f.json"
 	});
-})]).then(function () {
-	process.exit(0);
-});
+})]);

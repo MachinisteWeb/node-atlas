@@ -1,7 +1,7 @@
 {
 	"javascripts": {
 		"javascripts/framework.{version}.min.js": [
-			"../node_modules/socket.io-client/dist/socket.io.min.js",
+			"../node_modules/socket.io/client-dist/socket.io.min.js",
 			"node-atlas/socket.io.js",
 			"../node_modules/systemjs/dist/system.js",
 			"../node_modules/vue/dist/vue.min.js",
