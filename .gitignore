@@ -13,6 +13,7 @@ results
 
 npm-debug.log
 node_modules
+.baseline/
 /.sonar
 /templates/hello-world/assets/stylesheets/common.css
 /templates/hello-vue/assets/stylesheets/common.css

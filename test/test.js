@@ -124,7 +124,6 @@ Promise.all([new Promise(function (resolve) {
 				'stylusCompilation',
 				'cssCompilation',
 				'cssMinification',
-				'imgOptimization',
 				'jsObfuscation',
 				'createTemplateProject',
 				'initOutputs',

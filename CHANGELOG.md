@@ -1,3 +1,12 @@
+## 3.0.0-beta.2 ##
+
+Security:
+
+- Replace the dependency tree that `npm audit` reported as critical, high or moderate on 2.0.8.
+- Express stays on 4.22. Socket.IO moves to 4.8 because every Socket.IO 2 client still depends on `parseuri` < 2, which has no compatible patched release. The client file served by NodeAtlas (`/socket.io/socket.io.js`) is the matching 4.x client. A page that loads Socket.IO 2 itself must load Socket.IO 4 instead. `io.connect` and `NA.io` stay in place.
+- EJS 3 still accepts the 2.0 include form `<? include partials/file.htm ?>`.
+- Node.js `^20.19.0`, `^22.13.0` or `>=24` is required.
+
 ## 2.0.8 ##
 
 Enhancement:
